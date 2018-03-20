@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d42c5f57_b7cb59c6",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-03-20T18:01:42Z",
+      "side": 1,
+      "message": "2018 here and in other files",
+      "revId": "56f0c6c56eafd474a4d77dba6d5bda049da52879",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5c634c_3b24f56a",
+        "filename": "build/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-03-20T18:01:42Z",
+      "side": 1,
+      "message": "Do we need to define any defaults for non-Linux?",
+      "revId": "56f0c6c56eafd474a4d77dba6d5bda049da52879",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6948ea89_60625c89",
+        "filename": "build/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-03-20T18:01:42Z",
+      "side": 1,
+      "message": "Do we need to define -fvisibility\u003dhidden in the compiler flags so that the visibility macro has an effect (see https://gcc.gnu.org/wiki/Visibility)?",
+      "revId": "56f0c6c56eafd474a4d77dba6d5bda049da52879",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3534af16_423751c2",
+        "filename": "build/toolchain/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-03-20T18:01:42Z",
+      "side": 1,
+      "message": "How does GN choose whether to use gcc or g++ for a given .cc?",
+      "revId": "56f0c6c56eafd474a4d77dba6d5bda049da52879",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5fac748_de744029",
+        "filename": "hello_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-03-20T18:01:42Z",
+      "side": 1,
+      "message": "The #ifndef guards in Chromium normally follow the file path, so this would just be\n#ifndef HELLO_SHARED_H",
+      "revId": "56f0c6c56eafd474a4d77dba6d5bda049da52879",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e9cc06a_510c3fe8",
+        "filename": "hello_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-03-20T18:01:42Z",
+      "side": 1,
+      "message": "I think these declarations are general-purpose and not specific to this module: they are linker directives to control visibility of symbols.\n\nCan they be put into e.g. base/export.h?",
+      "revId": "56f0c6c56eafd474a4d77dba6d5bda049da52879",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "973421d0_490146ea",
+        "filename": "hello_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-03-20T18:01:42Z",
+      "side": 1,
+      "message": "OPENSCREEN_EXPORT for more general re-use?",
+      "revId": "56f0c6c56eafd474a4d77dba6d5bda049da52879",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae85bcdf_05d2a564",
+        "filename": "hello_shared.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-03-20T18:01:42Z",
+      "side": 1,
+      "message": "What does it mean to \"export private\"?\n\nReviewing https://gcc.gnu.org/wiki/Visibility, if the intention is to keep a symbol private to the .so, then you would want\n\nOPENSCREEN_PRIVATE __attribute((visibility(\"hidden\")))\n\nto explicitly mark a given symbol as hidden.",
+      "revId": "56f0c6c56eafd474a4d77dba6d5bda049da52879",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
