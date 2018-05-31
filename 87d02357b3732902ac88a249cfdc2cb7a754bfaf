@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b51b78a6_a0fb560e",
+        "filename": "platform/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T23:56:55Z",
+      "side": 1,
+      "message": "Usually I think of a platform implementation something like \"posix\" (for BSD and *NIX), \"win32\", maybe \"darwin\" for Mac OS X.\n\nI think we\u0027re already assuming STL at the API layer because the logging API uses std::ostringstream?",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ecef6e0_257ddeef",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T23:56:55Z",
+      "side": 1,
+      "message": "Do we expect callers to invoke these directly, or only through the LOG_ macros?\nIf the latter, then these (and the enum) can go in an anonymous namespace.\n\nI don\u0027t feel strongly either way.  It seems fine to expose them in case modules want to define custom logging APIs/macros.",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5a23f9f_57ad943f",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T23:56:55Z",
+      "side": 1,
+      "message": "Where are you thinking that the log message go once it\u0027s serialized into stream_?\n\nOne option would be for the embedder API to provide a factory function for a writer object, so this module could get the appropriate output stream for these messages.   \n\nSomething like,\n\nclass LogWriter {\n  public:\n   SetLogLevel(LogLevel level);\n   SetOutputStream(std::basic_ostream out);\n   Write(LogLevel level, std::ostringstream\u0026 message);\n  private:\n   std::basic_ostream out_;\n}",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3daeb1a1_e71b7c2e",
+        "filename": "platform/stl/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T23:56:55Z",
+      "side": 1,
+      "message": "Maybe this belongs in the api/ layer?  Not sure it\u0027s platform-dependent.",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6f7f4da_e72e6551",
+        "filename": "platform/stl/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T23:56:55Z",
+      "side": 1,
+      "message": "Ah, I see, so this is the default implementation of the logging platform API, that logs to stdout.  And if an implementation wanted to direct logging elsewhere, it could write its own implementation?",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
