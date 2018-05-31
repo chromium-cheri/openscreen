@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49b8195d_76500d4a",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "Inline increment i here?",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75db53dd_47978667",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "Check for i \u003c\u003d 3 here, otherwise, risk overflowing address-\u003ebytes",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8841d24e_527e0222",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "I think x can be combined with value by declaring it outside the loop as non-const.\n\nuint16_t next_octet \u003d 0;\nfor (auto c : s) {\n...\nbytes[i] \u003d static_cast\u003cuint8_t\u003e(next_octet);\nnext_octet \u003d 0;\n...\nnext_octet \u003d next_octet * 10 + (c - \u00270\u0027)\n}\n\nWDYT?",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd5e6ad_81364e19",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "Parse() for IPv6?  Seems more complicated, so maybe we should leave it as a TODO until we need it.\n\nhttps://en.wikipedia.org/wiki/IPv6_address#Recommended_representation_as_text",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f090b4_f5a147b3",
+        "filename": "base/ip_address.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "This should be straightforward given you have implemented Parse()?",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b01db1d6_a8071fc7",
+        "filename": "base/ip_address.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "Similar comment here",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af39f388_eb5a961a",
+        "filename": "base/ip_address_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "Nit #1: These can be TEST() instead of TEST_F().\nNit #2: Suggest naming them TEST(IPV4AddressTest, Parse), etc.",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7123464_e60011fa",
+        "filename": "base/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "Can you include a link to the documentation for this library?\nCan you check that the license permits partial re-use like this?",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd5091c6_7239b8e7",
+        "filename": "base/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "What is a dynamic_extent?",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a10429e5_d9f15234",
+        "filename": "base/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "Can you provide an example of when you would use an extent conversion?",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc7e964e_0717161e",
+        "filename": "base/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "Should this return a const pointer to the data?",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b7cf6a2_78fdb746",
+        "filename": "base/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-05-31T22:48:35Z",
+      "side": 1,
+      "message": "This compares that the lhs and the rhs represent identical spans - which is different from comparing the contents of the spans, which is what e.g. StringPiece does.",
+      "revId": "5c6495aab63de093321c72cc9786c0d71cc850d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
