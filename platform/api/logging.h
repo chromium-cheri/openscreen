@@ -1,0 +1,93 @@
+// Copyright 2018 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef PLATFORM_API_LOGGING_H_
+#define PLATFORM_API_LOGGING_H_
+
+#include <sstream>
+
+namespace openscreen {
+namespace platform {
+
+enum class LogLevel {
+  kDebug = 0,
+  kInfo,
+  kWarning,
+  kError,
+};
+
+void LogWithLevel(LogLevel level, const char* file, int line, const char* msg);
+void LogWithLevelVerbose(int level,
+                         const char* file,
+                         int line,
+                         const char* msg);
+
+// The stream-based logging macros below are adapted from Chromium's
+// base/logging.h.
+class LogMessage {
+ public:
+  LogMessage(LogLevel level, const char* file, int line);
+  ~LogMessage();
+
+  std::ostream& stream() { return stream_; }
+
+ private:
+  const LogLevel level_;
+  const char* const file_;
+  const int line_;
+  std::ostringstream stream_;
+};
+
+class LogMessageVerbose {
+ public:
+  LogMessageVerbose(int level, const char* file, int line);
+  ~LogMessageVerbose();
+
+  std::ostream& stream() { return stream_; }
+
+ private:
+  const int level_;
+  const char* const file_;
+  const int line_;
+  std::ostringstream stream_;
+};
+
+#define LOG_DEBUG                                                              \
+  ::openscreen::platform::LogMessage(::openscreen::platform::LogLevel::kDebug, \
+                                     __FILE__, __LINE__)                       \
+      .stream()
+#define LOG_INFO                                                              \
+  ::openscreen::platform::LogMessage(::openscreen::platform::LogLevel::kInfo, \
+                                     __FILE__, __LINE__)                      \
+      .stream()
+#define LOG_WARN                                                      \
+  ::openscreen::platform::LogMessage(                                 \
+      ::openscreen::platform::LogLevel::kWarning, __FILE__, __LINE__) \
+      .stream()
+#define LOG_ERROR                                                              \
+  ::openscreen::platform::LogMessage(::openscreen::platform::LogLevel::kError, \
+                                     __FILE__, __LINE__)                       \
+      .stream()
+#define LOG_VERBOSE(l) \
+  ::openscreen::platform::LogWithLevelVerbose(l, __FILE__, __LINE__)
+
+namespace detail {
+
+class Voidify {
+ public:
+  Voidify() = default;
+  void operator&(std::ostream&) {}
+};
+
+}  // namespace detail
+
+#define LAZY_STREAM(stream, condition) \
+  !(condition) ? (void)0 : ::openscreen::platform::detail::Voidify() & (stream)
+#define LOG_IF(level, condition) LAZY_STREAM(LOG_##level, (condition))
+#define VLOG_IF(level, condition) LAZY_STREAM(LOG_VERBOSE(level), (condition))
+
+}  // namespace platform
+}  // namespace openscreen
+
+#endif
