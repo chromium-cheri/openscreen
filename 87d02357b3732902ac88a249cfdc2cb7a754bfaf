@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8b5ae736_d0f52117",
+        "filename": "platform/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-06-01T17:27:38Z",
+      "side": 1,
+      "message": "Yeah, I know this is a little strange.  I\u0027m not sure what else to call it as it\u0027s part of our default implementation but actually isn\u0027t platform specific (i.e. only uses STL).  I didn\u0027t want to just put it in api/ though, because it should clearly be replaceable by any other platform implementation.",
+      "parentUuid": "b51b78a6_a0fb560e",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0ecef6e0_257ddeef",
         "filename": "platform/api/logging.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-31T23:56:55Z",
       "side": 1,
       "message": "Do we expect callers to invoke these directly, or only through the LOG_ macros?\nIf the latter, then these (and the enum) can go in an anonymous namespace.\n\nI don\u0027t feel strongly either way.  It seems fine to expose them in case modules want to define custom logging APIs/macros.",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef16e692_4c47f1b7",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-06-01T17:27:38Z",
+      "side": 1,
+      "message": "I was expecting use through the macros.  I\u0027m not sure it makes sense to put them in an anonymous namespace in a header file.  In that case they would still be visible to users of the API, though maybe implied as private.  I don\u0027t feel strongly either, but it seems strange to me.",
+      "parentUuid": "0ecef6e0_257ddeef",
       "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "136fd8f1_60a9c14d",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-06-01T17:27:38Z",
+      "side": 1,
+      "message": "On destruction (the end of the statement when used with the LOG_* macros), its contents get passed to the platform API LogWithLevel().  If you saw that and are asking/suggesting something else, then I don\u0027t understand.",
+      "parentUuid": "d5a23f9f_57ad943f",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3daeb1a1_e71b7c2e",
         "filename": "platform/stl/logging.cc",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "db5188f5_cfedb564",
+        "filename": "platform/stl/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-06-01T17:27:38Z",
+      "side": 1,
+      "message": "I could go either way.  Another implementation may not want all caps, for example.  I\u0027ll move it to api/ for now though.",
+      "parentUuid": "3daeb1a1_e71b7c2e",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6f7f4da_e72e6551",
         "filename": "platform/stl/logging.cc",
         "patchSetId": 1
@@ -84,6 +156,24 @@
       "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1d82004_d6e30bf3",
+        "filename": "platform/stl/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-06-01T17:27:38Z",
+      "side": 1,
+      "message": "Yes.  So in Chromium we could, for example, forward this to the base/logging.h API.",
+      "parentUuid": "d6f7f4da_e72e6551",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
