@@ -11,11 +11,24 @@ source_set("api") {
     "network_service_manager.cc",
     "screen_connection_client.h",
     "screen_connection_server.h",
+    "screen_info.cc",
+    "screen_info.h",
     "screen_listener.h",
     "screen_listener.cc",
   ]
 
   deps = [
     "//base",
+  ]
+}
+
+source_set("api_unittests") {
+  testonly = true
+
+  sources = [ "screen_info_unittest.cc" ]
+
+  deps = [
+    ":api",
+    "//third_party/googletest:gtest",
   ]
 }

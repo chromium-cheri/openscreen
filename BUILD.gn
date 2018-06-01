@@ -16,7 +16,9 @@ group("gn_all") {
 executable("unittests") {
   testonly = true
   deps = [
+    "//api:api_unittests",
     "//base:base_unittests",
+    "//embedder:embedder_unittests",
     "//sample:hello_unittests",
     "//third_party/googletest:gtest_main",
   ]

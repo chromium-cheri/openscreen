@@ -6,23 +6,49 @@
 
 namespace openscreen {
 
-ScreenListenerErrorInfo::ScreenListenerErrorInfo() : error(ScreenListenerError::kNone) {}
-
-ScreenListenerErrorInfo::ScreenListenerErrorInfo(ScreenListenerError error, const std::string& message) :
-  error(error), message(message) {}
-
+ScreenListenerErrorInfo::ScreenListenerErrorInfo() = default;
+ScreenListenerErrorInfo::ScreenListenerErrorInfo(ScreenListenerError error,
+                                                 const std::string& message)
+    : error(error), message(message) {}
+ScreenListenerErrorInfo::ScreenListenerErrorInfo(
+    const ScreenListenerErrorInfo& other) = default;
+ScreenListenerErrorInfo::ScreenListenerErrorInfo(
+    ScreenListenerErrorInfo&& other) = default;
 ScreenListenerErrorInfo::~ScreenListenerErrorInfo() = default;
 
-ScreenListenerMetrics::ScreenListenerMetrics() = default;
+ScreenListenerErrorInfo& ScreenListenerErrorInfo::operator=(
+    const ScreenListenerErrorInfo& other) = default;
+ScreenListenerErrorInfo& ScreenListenerErrorInfo::operator=(
+    ScreenListenerErrorInfo&& other) = default;
 
+ScreenListenerMetrics::ScreenListenerMetrics() = default;
 ScreenListenerMetrics::~ScreenListenerMetrics() = default;
 
-ScreenInfo::ScreenInfo(const std::string& screen_id) : screen_id(screen_id) {}
-
-ScreenInfo::~ScreenInfo() = default;
-
+ScreenListener::ScreenListener() = default;
 ScreenListener::~ScreenListener() = default;
 
-ScreenListener::ScreenListener()  = default;
+std::ostream& operator<<(std::ostream& os, ScreenListenerState state) {
+  switch (state) {
+    case ScreenListenerState::kStopped:
+      os << "STOPPED";
+      break;
+    case ScreenListenerState::kStarting:
+      os << "STARTING";
+      break;
+    case ScreenListenerState::kRunning:
+      os << "RUNNING";
+      break;
+    case ScreenListenerState::kStopping:
+      os << "STOPPING";
+      break;
+    case ScreenListenerState::kSearching:
+      os << "SEARCHING";
+      break;
+    case ScreenListenerState::kSuspended:
+      os << "SUSPENDED";
+      break;
+  }
+  return os;
+}
 
 }  // namespace openscreen
