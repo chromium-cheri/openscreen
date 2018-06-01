@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "264e4cee_a6a14ebb",
+        "filename": "build/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-06-01T03:30:29Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "61930f0f_7a3bde47",
+      "revId": "d2d7c6f8c6fdca802cbffaaeea08351c450ee38a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb09bd63_580d232e",
         "filename": "build/BUILDCONFIG.gn",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-31T22:06:12Z",
       "side": 1,
       "message": "Can you add a comment on how to find the config differences between is_debug \u003d true and normal builds?",
+      "revId": "d2d7c6f8c6fdca802cbffaaeea08351c450ee38a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf8afa16_d83e99a6",
+        "filename": "build/BUILDCONFIG.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-06-01T03:30:29Z",
+      "side": 1,
+      "message": "Unfortunately I don\u0027t know of anything better than `git grep`.  Do you know of anything in gn that lets you do that?",
+      "parentUuid": "fb09bd63_580d232e",
       "revId": "d2d7c6f8c6fdca802cbffaaeea08351c450ee38a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "d2d7c6f8c6fdca802cbffaaeea08351c450ee38a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8e1717_81fd95ff",
+        "filename": "build/config/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-06-01T03:30:29Z",
+      "side": 1,
+      "message": "Whether there needs to be a separate config for \"-O2\" is definitely debatable, but symbol_visibility_* actually needs to be separate for an annoying reason.  For third-party libraries (e.g. mDNSResponder), they might not mark they\u0027re public functions with an export/visibility attribute, so we may (and do for mDNSResponder) need to remove that flag.  However, it looks like it needs to be set as a top-level config in order to be removed by another target later (i.e. if it\u0027s a sub-config, gn complains that it\u0027s \"not present\" when trying to remove it later).  Similarly, `gn desc out/Default \u003ctarget\u003e configs` won\u0027t list \"//build/config:optimize\", \"//build/config:no_optimize\", or \"//build/config:default_optimization\", only \"//build:compiler_defaults\".\n\nIn any case, I\u0027ll move the flags directly into \":default_optimization\" to simplify things for now.",
+      "parentUuid": "de472d69_2576853f",
+      "revId": "d2d7c6f8c6fdca802cbffaaeea08351c450ee38a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
