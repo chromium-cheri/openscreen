@@ -2,23 +2,31 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-source_set("base") {
+source_set("impl") {
   sources = [
-    "ip_address.cc",
-    "ip_address.h",
-    "make_unique.h",
-  ]
-}
-
-source_set("base_unittests") {
-  testonly = true
-
-  sources = [
-    "ip_address_unittest.cc",
+    "screen_list.cc",
+    "screen_list.h",
+    "screen_listener_impl.cc",
+    "screen_listener_impl.h",
   ]
 
   deps = [
-    ":base",
+    "../public:api",
+    "//base",
+    "//platform",
+  ]
+}
+
+source_set("unittests") {
+  testonly = true
+
+  sources = [
+    "screen_list_unittest.cc",
+    "screen_listener_impl_unittest.cc",
+  ]
+
+  deps = [
+    ":impl",
     "//third_party/googletest:gmock",
     "//third_party/googletest:gtest",
   ]
