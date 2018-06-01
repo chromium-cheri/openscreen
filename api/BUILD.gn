@@ -3,19 +3,16 @@
 # found in the LICENSE file.
 
 source_set("api") {
-  sources = [
-    "mdns_screen_listener.h",
-    "mdns_screen_listener.cc",
-    "mdns_screen_publisher.h",
-    "network_service_manager.h",
-    "network_service_manager.cc",
-    "screen_connection_client.h",
-    "screen_connection_server.h",
-    "screen_listener.h",
-    "screen_listener.cc",
-  ]
-
   deps = [
-    "//base",
+    "impl",
+    "public:api",
+  ]
+}
+
+source_set("api_unittests") {
+  testonly = true
+  deps = [
+    "impl:unittests",
+    "public:api_unittests",
   ]
 }
