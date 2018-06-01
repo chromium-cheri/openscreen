@@ -2,10 +2,14 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-source_set("platform") {
-  deps = [ "base" ]
+source_set("linux") {
+  sources = [
+    "error.cc",
+    "event_waiter.cc",
+    "network_interface.cc",
+    "socket.cc",
+    "socket.h",
+  ]
 
-  if (target_os == "linux") {
-    deps += [ "linux" ]
-  }
+  deps = [ "../api" ]
 }
