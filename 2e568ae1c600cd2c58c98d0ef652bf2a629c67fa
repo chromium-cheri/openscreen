@@ -19,6 +19,108 @@
     },
     {
       "key": {
+        "uuid": "f08444af_7af59ea9",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T23:45:40Z",
+      "side": 1,
+      "message": "Would the following be the same way of expressing this logic?\n\nchar previous_char \u003d 0;\n...\nif (c \u003d\u003d \u0027:\u0027 \u0026\u0026 previous_char \u003d\u003d \u0027:) {\n}\n\nprevious_char \u003d c;",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd8af0f_d3dabbfb",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T23:45:40Z",
+      "side": 1,
+      "message": "I find it a little hard to follow setting some of the zero values here, and some at the end of the loop.  Can all the zero values be filled in at the end (see code suggestion below)?",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12d3f72f_5e4bc6d1",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T23:45:40Z",
+      "side": 1,
+      "message": "I have a slight preference to use if {} else {} instead of continue inside the loop as it makes it easier to use the indentation and brackets to see which code is executed for which case.",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f30d2041_c32a4bbd",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T23:45:40Z",
+      "side": 1,
+      "message": "Is there an overflow check for |i| inside the loop?",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2e334c6_e37981c8",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T23:45:40Z",
+      "side": 1,
+      "message": "It\u0027s unclear from a web search whether the intermediate result is guaranteed to be promoted to 32-bits here.\n\nISTM you could do the same overflow check by testing (next_value \u0026\u0026 0xf000), then you don\u0027t need candidate.",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "822ac9d7_afb2d706",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T23:45:40Z",
+      "side": 1,
+      "message": "I wonder if 108-119 could be done with a single for loop that scans values[] from high to low and fills in the missing zeroes based on |i| and |double_colon_index|:\n\nSomething like:\n\nfor (int j \u003d 15; j \u003e\u003d 0; j--) {\n  if (i \u003d\u003d double_colon_index) {\n    while (j \u003e\u003d double_colon_index) address-\u003ebytes[j--] \u003d 0;\n  } else {\n    address-\u003ebytes[j] \u003d values[i--];\n  }\n}\n\nMight be an off by one in there depending on double_colon_index, check my math :-)",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "31eefd30_98632d3c",
         "filename": "base/ip_address.h",
         "patchSetId": 3
