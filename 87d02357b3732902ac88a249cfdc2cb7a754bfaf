@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ba829ec3_8c4a6ef8",
+        "filename": "platform/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T20:21:43Z",
+      "side": 1,
+      "message": "I think I suggested a base/ layer for implementation code that isn\u0027t platform specific.  We can split things up later though, instead of trying to figure everything out up front.",
+      "parentUuid": "8b5ae736_d0f52117",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0ecef6e0_257ddeef",
         "filename": "platform/api/logging.h",
         "patchSetId": 1
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "727b11cd_cae45e06",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T20:21:43Z",
+      "side": 1,
+      "message": "This seems fine.  We might want to think about controlling visibility for parts of the platform API in the future.",
+      "parentUuid": "ef16e692_4c47f1b7",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5a23f9f_57ad943f",
         "filename": "platform/api/logging.h",
         "patchSetId": 1
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "On destruction (the end of the statement when used with the LOG_* macros), its contents get passed to the platform API LogWithLevel().  If you saw that and are asking/suggesting something else, then I don\u0027t understand.",
       "parentUuid": "d5a23f9f_57ad943f",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a3ada47_995c3f45",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T20:21:43Z",
+      "side": 1,
+      "message": "I didn\u0027t see the dtor implementation yet when I wrote that comment.  Thanks",
+      "parentUuid": "136fd8f1_60a9c14d",
       "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -142,6 +196,24 @@
     },
     {
       "key": {
+        "uuid": "64086f5f_d5cc3da2",
+        "filename": "platform/stl/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T20:21:43Z",
+      "side": 1,
+      "message": "Or maybe there\u0027s a base/ for code that is shared between the api/ layer and the implementations.",
+      "parentUuid": "db5188f5_cfedb564",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6f7f4da_e72e6551",
         "filename": "platform/stl/logging.cc",
         "patchSetId": 1
@@ -171,6 +243,24 @@
       "side": 1,
       "message": "Yes.  So in Chromium we could, for example, forward this to the base/logging.h API.",
       "parentUuid": "d6f7f4da_e72e6551",
+      "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26fc0394_dfa697e6",
+        "filename": "platform/stl/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T20:21:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d1d82004_d6e30bf3",
       "revId": "87d02357b3732902ac88a249cfdc2cb7a754bfaf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
