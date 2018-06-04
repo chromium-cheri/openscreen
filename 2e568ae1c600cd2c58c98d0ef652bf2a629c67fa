@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d35c54d3_4fee1a72",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T19:20:21Z",
+      "side": 1,
+      "message": "Should we assign 0 to bytes[0] even if the address has a leading period?\n\ne.g. .1.2.3",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31eefd30_98632d3c",
+        "filename": "base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T19:20:21Z",
+      "side": 1,
+      "message": "Can you add documentation for this method?",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00848df4_21e3506c",
+        "filename": "base/ip_address_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T19:20:21Z",
+      "side": 1,
+      "message": "Please add test cases for leading/trailing periods (single and multiple)",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b508419_cd097c2e",
+        "filename": "base/ip_address_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-04T19:20:21Z",
+      "side": 1,
+      "message": "The Parse() tests could be combined into a single test case to save a few lines, e.g.\n\nEXPECT_FALSE(Parse(\"192.x3.0.1\", \u0026address)) \u003c\u003c \"Cannot parse address with non-digit\";",
+      "revId": "2e568ae1c600cd2c58c98d0ef652bf2a629c67fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
