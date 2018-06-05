@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d18ae9f_c3ee7c0d",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-05T21:28:13Z",
+      "side": 1,
+      "message": "Suggest:\n\n} else if (i \u003e\u003d 15 || num_previous_colons \u003e 2) {\n return false;\n} else {\n...",
+      "revId": "012258b716f591e51f4777030b82403eb55bebbe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b04a9a23_7c00a927",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-05T21:28:13Z",
+      "side": 1,
+      "message": "if (i \u003e\u003d 15) to be paranoid?",
+      "revId": "012258b716f591e51f4777030b82403eb55bebbe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075c06b7_3c7b608c",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-05T21:28:13Z",
+      "side": 1,
+      "message": "Check both cases here?  E.g.\n\nif (!((i \u003d\u003d 15 \u0026\u0026 double_colon_index \u003d\u003d -1) ||\n      (i \u003c 14 \u0026\u0026 double_colon_index !\u003d -1)))",
+      "revId": "012258b716f591e51f4777030b82403eb55bebbe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eae765c_ebfa5299",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-05T21:28:13Z",
+      "side": 1,
+      "message": "Or remove the postincrement from the last assignment.",
+      "revId": "012258b716f591e51f4777030b82403eb55bebbe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "802ab1d6_7478b5d5",
+        "filename": "base/ip_address_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-05T21:28:13Z",
+      "side": 1,
+      "message": "Super nit: these statements can be inlined into the ASSERT_TRUEs.  This will have the bonus of putting the input string in the failure message.",
+      "revId": "012258b716f591e51f4777030b82403eb55bebbe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dac3aca_96320bff",
+        "filename": "base/ip_address_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-05T21:28:13Z",
+      "side": 1,
+      "message": "Can you add test cases for the null address and localhost?",
+      "revId": "012258b716f591e51f4777030b82403eb55bebbe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9b31ffc_ac7e2d7c",
+        "filename": "base/ip_address_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-05T21:28:13Z",
+      "side": 1,
+      "message": "Typo in Failures",
+      "revId": "012258b716f591e51f4777030b82403eb55bebbe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c946efde_2bc39198",
+        "filename": "base/ip_address_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-05T21:28:13Z",
+      "side": 1,
+      "message": "Can you add test cases for leading, trailing, and inline triple colons?\nCan you add a test case for multiple double colons?",
+      "revId": "012258b716f591e51f4777030b82403eb55bebbe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
