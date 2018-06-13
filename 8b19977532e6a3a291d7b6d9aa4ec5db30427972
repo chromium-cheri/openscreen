@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be30bba1_f98c5f08",
+        "filename": "platform/api/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "Most platforms also have an error number from the last library/system call.\nOn *NIX and darwin it\u0027s held in a global variable, e.g.http://man7.org/linux/man-pages/man3/errno.3.html\n\nWin32 might have a slightly different convention.\n\nIt might be useful to expose this from the platform as well - although you could also suggest that the string returned here include the errno.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be94c88d_1736b077",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "The Chromium network service doesn\u0027t directly expose the readable status of the socket it\u0027s wrapping.  It\u0027s implemented as a pull model.  It\u0027s possible we could emulate this with polling through ReceiveMore().\n\nhttps://cs.chromium.org/chromium/src/services/network/public/mojom/udp_socket.mojom\n\nWhat are your thoughts about implementing this platform API on Chromium?  Or will we be using higher level services in Chromium and not require platform sockets?\n\nWe should probably talk through the platform design a bit.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9093f2cd_3116fbaf",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "I don\u0027t think we should have separate APIs for IPv4 and IPv6 sockets.  The distinction matters when you are binding the socket to an address, but it shouldn\u0027t matter for event handling.  Can there be a generic UdpSocketPtr that holds either address type?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "102c9449_1f2316d3",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "Can you document what these fields mean?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7cf9402_6caea801",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "Can you document this?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce5ea4a4_4fdbbc54",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "I\u0027m not sure this data structure design matches the underlying model.\n\nA single physical interface can map onto at least one IPv4 network and possibly multiple IPv6 networks.  So maybe it should be:\n\nInterfaceInfo {\n  \u003cinterface data\u003e\n  IPv4Addresses;\n  IPv6Addresses;\n}\n\nSee for comparison, the Open Network Configuration spec that is used by chrome.networkingPrivate to provide a common data model across platforms.\n\nhttps://chromium.googlesource.com/chromium/src.git/+/master/components/onc/docs/onc_spec.md#Network-Configuration\n\nI don\u0027t think we need to replicate all (!) of that, but keeping the same general organization might be a good approach.  WDYT?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b53b9ef6_890590a2",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "nit: IPv4_addresses and IPv6_addresses for consistency",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "665b7964_9aa57b08",
+        "filename": "platform/api/time.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "Maybe we could just have using TimeDelta \u003d uint64_t, until we need for specific operations not defined on uint64_t.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9369f5c5_1e170929",
+        "filename": "platform/api/time.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "Do we need both Milliseconds and Microseconds?  We could end up with Seconds, too.\n\nFor simplicity, would a single TimeDelta type, representing a time span in microseconds, suffice?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "067d3f51_a39324e5",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "Where is this defined?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06221e29_0a9f1cad",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "Can we avoid a copy here?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "817b671d_234e4296",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "Add a TODO?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4553929e_b4e1a7cf",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "What does this entail?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3e367e_773f57ed",
+        "filename": "platform/base/event_loop.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "I\u0027m not entirely sure I follow the design here. A socket is bound to an IPv4 address or an IPv6 address, not both at once.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b876b3b_a65c74c7",
+        "filename": "platform/base/event_loop.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-13T00:30:04Z",
+      "side": 1,
+      "message": "If a layer above wants to support IPv4 and IPv6 sockets, does it need to call both of these functions?  Or are these implementation details of the network event loop?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
