@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "15f0d7e9_8977ee03",
+        "filename": "platform/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I wonder if this could be posix/ (since Linux implements POSIX, mostly).  There are some minor differences and we probably not worth maintaining separate POSIX and Linux implementations.\n\nIf there are any relevant differences in the socket APIs, I would just stick with Linux here.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be30bba1_f98c5f08",
         "filename": "platform/api/error.h",
         "patchSetId": 1
@@ -13,6 +30,23 @@
       "writtenOn": "2018-06-13T00:30:04Z",
       "side": 1,
       "message": "Most platforms also have an error number from the last library/system call.\nOn *NIX and darwin it\u0027s held in a global variable, e.g.http://man7.org/linux/man-pages/man3/errno.3.html\n\nWin32 might have a slightly different convention.\n\nIt might be useful to expose this from the platform as well - although you could also suggest that the string returned here include the errno.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "736448e9_185f1463",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Can you document more fully when this event struct is created/sent?  Will it have exactly one of the event types below or possibly a mix of all three?\n\nI assume that this is a struct that is populated by the platform implementation and sent through the EventWaiter API.  Can you document its lifetime?",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -155,6 +189,23 @@
     },
     {
       "key": {
+        "uuid": "7440b30d_88e3eb6e",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "It seems like we should make this the maximum size of a UDP datagram, which is 64k.\n(There are references to IPv6 \"jumbograms\" that can exceed this size, but it\u0027s unclear if they are actually used in practice).",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "067d3f51_a39324e5",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 1
@@ -169,6 +220,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c129de2_7780b532",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "067d3f51_a39324e5",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +275,41 @@
     },
     {
       "key": {
+        "uuid": "4ee6031a_bcbe912c",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "or NOTREACHED()?",
+      "parentUuid": "817b671d_234e4296",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df27fe9_e7d40992",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "See later comment about not needing to pass multiple waiters.  Does that apply here?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4553929e_b4e1a7cf",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 1
@@ -217,6 +321,41 @@
       "writtenOn": "2018-06-13T00:30:04Z",
       "side": 1,
       "message": "What does this entail?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9efda291_ac3df9ab",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I\u0027ll assume this means that the timeout passed with no events occurring on the file descriptors in |waiter|.",
+      "parentUuid": "4553929e_b4e1a7cf",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c177828e_62313ea9",
+        "filename": "platform/base/event_loop.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I think this should be the maximum datagram size (64k) and a length field used to indicate how many bytes were read by the last recvfrom()/recvmsg().  I don\u0027t think a dynamically sized vector  is necessary here.",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -240,6 +379,24 @@
     },
     {
       "key": {
+        "uuid": "a98f8110_25699f84",
+        "filename": "platform/base/event_loop.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I see that this can be used to collect data from a waiter that has both v4 and v6 sockets.",
+      "parentUuid": "4a3e367e_773f57ed",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b876b3b_a65c74c7",
         "filename": "platform/base/event_loop.h",
         "patchSetId": 1
@@ -251,6 +408,466 @@
       "writtenOn": "2018-06-13T00:30:04Z",
       "side": 1,
       "message": "If a layer above wants to support IPv4 and IPv6 sockets, does it need to call both of these functions?  Or are these implementation details of the network event loop?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8908773d_b1b6e4f4",
+        "filename": "platform/base/event_loop.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I see these are used inside the event loop to fetch data after the waiter has been triggered.",
+      "parentUuid": "4b876b3b_a65c74c7",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "402997fb_206a14ae",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Does this need to be defined in plaform/linux?  Its contents don\u0027t seem to be Linux-specific.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54d10868_5e566419",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I wonder if we should have a DCHECK/CHECK distinction in the OSP library.  It seems like only Chromium has the ability to enforce additional assertions in some builds but not others.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e62a1e57_abed06c2",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "If either waiter or socket are nullptr, the following code will crash immediately, so these don\u0027t add a ton of value.  Generally I don\u0027t add DCHECKs on pointers where the value is immediately used.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6e31ef2_c0326ef5",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I would slightly prefer a for loop here because:\n1. It should be fewer lines of code\n2. If there is a nullptr, the crash will point to the line number more precisely.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "650c2f8e_2f82b04c",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "This could maybe be simplified with some template metaprogramming, since this code looks identical to the IPv4 case except for the field access. But, I don\u0027t think it\u0027s worth it at this juncture.  I would need to review some template programming techniques before forming a full opinion on this.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58a18f6_0d377dfc",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Is this not necessary to implement for Linux or do you intend to implement it later?\nIf so, maybe add a TODO() with an issue filed in our issue tracker.\nSame comment applies to the other unimplemented functions below.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e41d5aa_cdb977bc",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Consider defining a NOTREACHED() macro.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc89ad1f_f87f79b4",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Do we need to pass in multiple waiters at once?  Is there a use case for having multiple waiters for the same socket?  If we just need a set of file decriptors, maybe the API could be simpler:\n\nint WaitForEvents(EventWaiterPtr waiter, Milliseconds timeout, SocketMap readable_map)\n\nWhere SocketMap is a std::map of int (fd) to UdpSocket*Ptr",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c3b24d_56e71a88",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "See comment above about DCHECK immediately before use.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "680559b5_29ffb08d",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "nit: std::max",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcfeb68d_f0a6a11b",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "See above",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3baaaa83_c55f53b1",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Do we really want to pass a non-zero timeout to select()?  Won\u0027t that block the calling thread?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0892e169_5c6c92ad",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Do we care about monitoring writability for send(), so we don\u0027t overflow the socket\u0027s send buffer?\n\nI found this page helpful for understanding POSIX I/O APIs:\nhttps://notes.shichao.io/unp/ch6/",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "541f8a22_470c0154",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Should we just return rv, so that the caller can decide whether to retry later?  Or is the idea that the caller will always run in a loop?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99430dc0_31703555",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Would it be okay to put the network interface API and implementation into a different patch to review separately?  I will need some additional time to study this code.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a4fe079_e20db8a8",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I don\u0027t think we want blocking sockets, as that would require a dedicated thread per socket.\nCan we assume nonblocking sockets throughout?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "238095f5_2614f0c8",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "I would name this CloseUdpSocket(), with a comment that it also deletes |socket|, as the caller is not expected to close() the socket before passing it in.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8ee154e_043e7bd3",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "return bind() !\u003d -1",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b14e23d_52ec6306",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "See above",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ef43c9_36e7a935",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "How do you know that |socket| is bound on an interface corresponding to |ifindex|?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37a1e15a_9e7859fd",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Can you sanity check ifindex?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9916e7ba_40f54b04",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Please use a more descriptive name than \u0027mr\u0027 here and below.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c9000e6_ea314e30",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Please document what this value means.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60730601_fac5d964",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Please use a descriptive name for this and/or document what the value represents.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "100301ae_5ebb6fc5",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "Is there any system header that defines this value?  I poked around man pages and it wasn\u0027t clear at all how one allocates this buffer with the correct size and alignment.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8483b315_f24c8570",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-06-20T05:24:03Z",
+      "side": 1,
+      "message": "The use of recvmsg seems unnecessary because you are just using the cmsg to get the source address, which should be available in recvfrom(2)?",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
