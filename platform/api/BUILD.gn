@@ -4,7 +4,15 @@
 
 source_set("api") {
   sources = [
+    "error.h",
+    "event_waiter.cc",
+    "event_waiter.h",
     "logging.cc",
     "logging.h",
+    "network_interface.h",
+    "socket.h.",
+    "time.h",
   ]
+
+  public_deps = [ "//base" ]
 }

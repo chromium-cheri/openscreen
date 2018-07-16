@@ -3,7 +3,12 @@
 # found in the LICENSE file.
 
 source_set("base") {
-  sources = [ "logging.cc" ]
+  sources = [
+    "event_loop.cc",
+    "event_loop.h",
+    "logging.cc",
+    "time.cc",
+  ]
 
   deps = [ "../api" ]
 }
