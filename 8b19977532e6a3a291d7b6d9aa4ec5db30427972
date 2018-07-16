@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3574cab3_02a7a3a4",
+        "filename": "platform/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "I moved the things I believe to be posix-compliant to posix/, but left socket.cc and network_interface.cc (to be reviewed later) in linux/ as I think those are still linux-specific.",
+      "parentUuid": "15f0d7e9_8977ee03",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be30bba1_f98c5f08",
         "filename": "platform/api/error.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6dd84e6_78729972",
+        "filename": "platform/api/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done.  Win32 has a similar convention so this is fine.",
+      "parentUuid": "be30bba1_f98c5f08",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f776d069_8f6df120",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "736448e9_185f1463",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be94c88d_1736b077",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "6610a2b9_a1b3ef4a",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "My understanding from our discussions is that this API will still work in Chromium and we\u0027ll still use udp_socket.mojom.  My plan is to queue reads from OnReceived (which will happen on the Mojo task runner) and simply check the queue in WaitForEvents() (like a userspace select()).",
+      "parentUuid": "be94c88d_1736b077",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9093f2cd_3116fbaf",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 1
@@ -81,6 +153,24 @@
       "writtenOn": "2018-06-13T00:30:04Z",
       "side": 1,
       "message": "I don\u0027t think we should have separate APIs for IPv4 and IPv6 sockets.  The distinction matters when you are binding the socket to an address, but it shouldn\u0027t matter for event handling.  Can there be a generic UdpSocketPtr that holds either address type?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "079a5d7d_afa13c1d",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "We discussed in person but to reiterate here, send and receive also depend on the type since we get the source address and original destination address.  However, since Chromium and other libraries don\u0027t maintain this distinction, I\u0027m not opposed to merging them into one UdpSocketPtr.  I\u0027m not sure where we landed on this in-person though.  Do you still agree with using a single type?",
+      "parentUuid": "9093f2cd_3116fbaf",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "fd77eb02_5413df10",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "102c9449_1f2316d3",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7cf9402_6caea801",
         "filename": "platform/api/network_interface.h",
         "patchSetId": 1
@@ -118,6 +226,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73822fd2_a0dfa987",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7cf9402_6caea801",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "a73dbc38_903c5ce0",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce5ea4a4_4fdbbc54",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b53b9ef6_890590a2",
         "filename": "platform/api/network_interface.h",
         "patchSetId": 1
@@ -152,6 +296,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "755dc8dc_a6a4ed00",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b53b9ef6_890590a2",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "ceeef7bf_3d781c99",
+        "filename": "platform/api/time.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "I\u0027m mostly concerned about making seconds vs. milliseconds vs. microseconds readable/clear so I\u0027d rather not just use uint64_t.  Defined TimeDelta per the .h comment.",
+      "parentUuid": "665b7964_9aa57b08",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9369f5c5_1e170929",
         "filename": "platform/api/time.h",
         "patchSetId": 1
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "0abebcb8_449b54e3",
+        "filename": "platform/api/time.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "TimeDelta works fine.  Done.",
+      "parentUuid": "9369f5c5_1e170929",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7440b30d_88e3eb6e",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 1
@@ -203,6 +401,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3df9d46_843a9d7b",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7440b30d_88e3eb6e",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -258,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "ad1f608d_36f639f9",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06221e29_0a9f1cad",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "817b671d_234e4296",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 1
@@ -293,6 +527,24 @@
     },
     {
       "key": {
+        "uuid": "260bba0a_139c3ed0",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ee6031a_bcbe912c",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7df27fe9_e7d40992",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 1
@@ -307,6 +559,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13379c7f_58281c46",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7df27fe9_e7d40992",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -345,6 +615,24 @@
     },
     {
       "key": {
+        "uuid": "dc9a9884_0599c362",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Added comments to WaitForEvents on return value in addition to the return value change.",
+      "parentUuid": "9efda291_ac3df9ab",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c177828e_62313ea9",
         "filename": "platform/base/event_loop.h",
         "patchSetId": 1
@@ -359,6 +647,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ecbe274_8a68f2b4",
+        "filename": "platform/base/event_loop.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "It does hurt move operations (and therefore its use in std::vector) but done.",
+      "parentUuid": "c177828e_62313ea9",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -449,6 +755,24 @@
     },
     {
       "key": {
+        "uuid": "59f0a0d5_7f65d9ba",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "It depends on the definition of UdpSocket*Private, which can at least be moved to posix/, even if socket.cc isn\u0027t.",
+      "parentUuid": "402997fb_206a14ae",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54d10868_5e566419",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -460,6 +784,24 @@
       "writtenOn": "2018-06-20T05:24:03Z",
       "side": 1,
       "message": "I wonder if we should have a DCHECK/CHECK distinction in the OSP library.  It seems like only Chromium has the ability to enforce additional assertions in some builds but not others.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc6b084_710d0cf2",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you mean by \"only Chromium\" but I don\u0027t really care either way.",
+      "parentUuid": "54d10868_5e566419",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -483,6 +825,24 @@
     },
     {
       "key": {
+        "uuid": "2f1ec1a6_682c2910",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e62a1e57_abed06c2",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6e31ef2_c0326ef5",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -497,6 +857,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e78642a_28cfb2f8",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6e31ef2_c0326ef5",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -517,6 +895,24 @@
     },
     {
       "key": {
+        "uuid": "623845ae_77f3cde4",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Not metaprogramming, but simplified.",
+      "parentUuid": "650c2f8e_2f82b04c",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a58a18f6_0d377dfc",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -531,6 +927,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d6ff78_6b2d326a",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a58a18f6_0d377dfc",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -551,6 +965,24 @@
     },
     {
       "key": {
+        "uuid": "9034f7c3_804edd04",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Added an UNIMPLEMENTED() macro and TODOs here.",
+      "parentUuid": "3e41d5aa_cdb977bc",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc89ad1f_f87f79b4",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -565,6 +997,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb80bd75_8656de94",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "I originally changed from 1-\u003emany because I imagined e.g. quic and mdns each using their own EventWaiterPtr for their sockets.  However, since there\u0027s only one OSP event loop anyway, I guess we might as well force them to use the same EventWaiterPtr and simplify this.",
+      "parentUuid": "cc89ad1f_f87f79b4",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -585,6 +1035,24 @@
     },
     {
       "key": {
+        "uuid": "2bce6854_cedf525d",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c3b24d_56e71a88",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "680559b5_29ffb08d",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -599,6 +1067,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1623186e_5ee392d1",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "680559b5_29ffb08d",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -619,6 +1105,24 @@
     },
     {
       "key": {
+        "uuid": "0d1e6a24_cdf5ae50",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcfeb68d_f0a6a11b",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3baaaa83_c55f53b1",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -630,6 +1134,24 @@
       "writtenOn": "2018-06-20T05:24:03Z",
       "side": 1,
       "message": "Do we really want to pass a non-zero timeout to select()?  Won\u0027t that block the calling thread?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf9afbb_0f94fece",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "The caller is free to call with a |timeout| of 0, but yes we could just remove |timeout| and always pass 0.  I don\u0027t feel strongly either way.",
+      "parentUuid": "3baaaa83_c55f53b1",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -653,6 +1175,24 @@
     },
     {
       "key": {
+        "uuid": "f9c2ce19_2e2dee7f",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "That\u0027s a good point.  Done.",
+      "parentUuid": "0892e169_5c6c92ad",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "541f8a22_470c0154",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -667,6 +1207,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91ae5b57_c9382a01",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "I don\u0027t know if we can do anything meaningful with a select() error, but I\u0027m also not opposed to returning more information than bool.  Done.",
+      "parentUuid": "541f8a22_470c0154",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -687,6 +1245,24 @@
     },
     {
       "key": {
+        "uuid": "8fd43433_1a85ade4",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99430dc0_31703555",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a4fe079_e20db8a8",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -704,6 +1280,24 @@
     },
     {
       "key": {
+        "uuid": "88f7d053_653d6ab2",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a4fe079_e20db8a8",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "238095f5_2614f0c8",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -715,6 +1309,24 @@
       "writtenOn": "2018-06-20T05:24:03Z",
       "side": 1,
       "message": "I would name this CloseUdpSocket(), with a comment that it also deletes |socket|, as the caller is not expected to close() the socket before passing it in.",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1565f95_102b9747",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Why might callers be confused about close()ing a socket first?  |socket| is an opaque type to callers.\n\nnit: I\u0027d prefer to also rename Create* to Open* if we rename this to CloseUdpSocket.",
+      "parentUuid": "238095f5_2614f0c8",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -738,6 +1350,24 @@
     },
     {
       "key": {
+        "uuid": "15f99c1c_35f5669b",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8ee154e_043e7bd3",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b14e23d_52ec6306",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -755,6 +1385,24 @@
     },
     {
       "key": {
+        "uuid": "368ac0db_5adbb7ec",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b14e23d_52ec6306",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6ef43c9_36e7a935",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -766,6 +1414,24 @@
       "writtenOn": "2018-06-20T05:24:03Z",
       "side": 1,
       "message": "How do you know that |socket| is bound on an interface corresponding to |ifindex|?",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e58a6ca_1e38776f",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "We don\u0027t, but I don\u0027t think it\u0027s trivial to know that here.  I see two main possibilities (both require some integration with the network interface API/types):\n\n1. Don\u0027t allow bind() on any endpoint, and instead specify a specific interface up front.\n2. getsockname() + matching against interface addresses (possibly only as a DCHECK since that would be expensive).\n\nLastly, although we may want to verify/sanity-check this for our API, Linux doesn\u0027t care if |socket| is bound to another interface/address.  This property is specific to sending UDP multicast traffic whereas bind() is specific to receiving traffic.  I verified this by bind()ing all sockets to an IP with no cast devices, but setting everything else as normal.",
+      "parentUuid": "f6ef43c9_36e7a935",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -789,6 +1455,24 @@
     },
     {
       "key": {
+        "uuid": "4eb72f60_4ff480d0",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "As in |ifindex| \u003e 0 or |ifindex| in \"set of available interfaces\"?",
+      "parentUuid": "37a1e15a_9e7859fd",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9916e7ba_40f54b04",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -803,6 +1487,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd7b9dd4_1c0b5b46",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9916e7ba_40f54b04",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -823,6 +1525,24 @@
     },
     {
       "key": {
+        "uuid": "3d7cac16_b708817a",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c9000e6_ea314e30",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60730601_fac5d964",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -837,6 +1557,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d50ef9a2_5211e23c",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60730601_fac5d964",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -857,6 +1595,24 @@
     },
     {
       "key": {
+        "uuid": "ba18f28e_3bf6510d",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "As discussed offline, the value here (1024) isn\u0027t specified anywhere and I haven\u0027t found a way to find this before calling recvmsg.  There is a flag set (MSG_CTRUNC) if this is insufficient but CMSG_NXTHDR prevents buffer overflow under the covers.  I believe all cmsg data is opt-in though (via setsockopt), so for now we only receive the destination address.\n\nThe alignment should probably be the same as for cmsghdr, since that is what will be placed at the start of the buffer.",
+      "parentUuid": "100301ae_5ebb6fc5",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8483b315_f24c8570",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -871,6 +1627,24 @@
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be06858c_7be08eb7",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-16T21:27:09Z",
+      "side": 1,
+      "message": "As discussed offline, this is the proper destination address of the packet (e.g. may be multicast address or our (unicast) address) which is required by mDNSResponder.  I added a comment about this.",
+      "parentUuid": "8483b315_f24c8570",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
