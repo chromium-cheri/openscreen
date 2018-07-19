@@ -2,15 +2,18 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+# TODO: Create a unittests-only target?
 group("gn_all") {
   testonly = true
 
   deps = [
     "//base:base_unittests",
     "//platform",
+    "//api"
   ]
 }
 
+# TODO: Move hello world into a subfolder?
 executable("hello") {
   sources = [
     "hello.cc",
