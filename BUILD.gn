@@ -2,12 +2,12 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-group("gn_all") {
+executable("unit_tests") {
   testonly = true
 
   deps = [
-    "//base:base_unittests",
-    "//platform",
+    "embedder:embedder_unittests",
+    "third_party/googletest:gtest_main",
   ]
 }
 
