@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c5a19ee_3ac8bbc7",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-19T23:38:18Z",
+      "side": 1,
+      "message": "I\u0027m not sure what we want our policy on this group to be going forward, but something to note: GN will build everything reachable from the root BUILD.gn.  This makes \":unittests\"  redundant here, as well as \"//base\".  So we should consider whether this group should be for everything we want to ensure is compiled, as it is now, or only to add references to otherwise unreferenced directories.",
+      "revId": "af1948b65580d4478e7ae4846b8b1bd9c89ca650",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b5677d0_426c4197",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-19T23:38:18Z",
+      "side": 1,
+      "message": "//platform?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "af1948b65580d4478e7ae4846b8b1bd9c89ca650",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07752881_e887cd4c",
+        "filename": "platform/api/time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-19T23:38:18Z",
+      "side": 1,
+      "message": "Hah, I guess time.cc was added by accident in the logging change.  Add to BUILD.gn?",
+      "revId": "af1948b65580d4478e7ae4846b8b1bd9c89ca650",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a4ca75f_d7191f4b",
+        "filename": "platform/base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-19T23:38:18Z",
+      "side": 1,
+      "message": "I originally preferred relative paths to make it easier to include as a subproject of another GN project (e.g. Chromium).  I believe WebRTC does this, except for some edge cases (e.g. shared third_party/ deps, configs where Chromium overrides WebRTC).\n\nIf I\u0027m wrong or this isn\u0027t relevant, the absolute path is fine with me.",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "af1948b65580d4478e7ae4846b8b1bd9c89ca650",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
