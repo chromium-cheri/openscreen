@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "eb72606d_37d6b475",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-20T23:19:43Z",
+      "side": 1,
+      "message": "I removed :unittests, but would rather keep an explicit dependency on //base rather than making it indirect via base_unittests.\n\nWe can get rid of this once we have a main executable that pulls in all of the library code.",
+      "parentUuid": "3c5a19ee_3ac8bbc7",
+      "revId": "af1948b65580d4478e7ae4846b8b1bd9c89ca650",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b5677d0_426c4197",
         "filename": "BUILD.gn",
         "patchSetId": 2
@@ -78,6 +96,30 @@
       "side": 1,
       "message": "IIUC, //platform should trigger //platform/base to be built, which then builds //platform/api.  Whether that\u0027s necessary is debatable.",
       "parentUuid": "952a034c_1b446bd5",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "af1948b65580d4478e7ae4846b8b1bd9c89ca650",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3e68966_87885c12",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-20T23:19:43Z",
+      "side": 1,
+      "message": "OK, changed it back to //platform.",
+      "parentUuid": "19070da7_ee581de5",
       "range": {
         "startLine": 11,
         "startChar": 0,
