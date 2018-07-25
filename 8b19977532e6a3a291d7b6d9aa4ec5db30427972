@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "8fff03c5_1fc461bb",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T21:30:02Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly enough to make a decision now.  I think the concern is, how much upstream code needs to care about this - i.e. will we need to have two versions of QUIC or mDNSResponder for the two socket types.  I think when we have upstream code landed the issue will be come clearer.",
+      "parentUuid": "079a5d7d_afa13c1d",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "102c9449_1f2316d3",
         "filename": "platform/api/network_interface.h",
         "patchSetId": 1
@@ -808,6 +826,24 @@
     },
     {
       "key": {
+        "uuid": "d7577706_775b25f7",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T21:30:02Z",
+      "side": 1,
+      "message": "Thinking about it, it does makes sense to have test-only assertions and to be able to enable extra assertions for debugging, so no objections to having both CHECK and DCHECK.",
+      "parentUuid": "fbc6b084_710d0cf2",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e62a1e57_abed06c2",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -1158,6 +1194,24 @@
     },
     {
       "key": {
+        "uuid": "83fd017d_c9876c17",
+        "filename": "platform/linux/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T21:30:02Z",
+      "side": 1,
+      "message": "I think enforcing non-blocking is more predictable here.  We can always add a parameter later if there\u0027s a use case for blocking calls.",
+      "parentUuid": "1bf9afbb_0f94fece",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0892e169_5c6c92ad",
         "filename": "platform/linux/event_waiter.cc",
         "patchSetId": 1
@@ -1333,6 +1387,24 @@
     },
     {
       "key": {
+        "uuid": "9b35be63_cb79fd74",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T21:30:02Z",
+      "side": 1,
+      "message": "I think I was arguing for consistency with the underlying POSIX socket API.  I don\u0027t feel strongly though.  I do think this should comment that it close()s the socket before destroying it.",
+      "parentUuid": "a1565f95_102b9747",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8ee154e_043e7bd3",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -1438,6 +1510,24 @@
     },
     {
       "key": {
+        "uuid": "6aa0eaa6_f22a63ce",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T21:30:02Z",
+      "side": 1,
+      "message": "I think (1) is slightly safer; and I could forsee an embedder wanting to have control over which interfaces are used by the library.\n\nAlthough, I wonder if the ifindex argument matters at all given your comment.\n\nI don\u0027t think any changes are warranted here in either case.",
+      "parentUuid": "1e58a6ca_1e38776f",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37a1e15a_9e7859fd",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 1
@@ -1467,6 +1557,24 @@
       "side": 1,
       "message": "As in |ifindex| \u003e 0 or |ifindex| in \"set of available interfaces\"?",
       "parentUuid": "37a1e15a_9e7859fd",
+      "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "356df3b8_f95543cc",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T21:30:02Z",
+      "side": 1,
+      "message": "\u003e0, similar to the other DCHECKs above.\n\nHowever, it sounds like any valid ifindex value works for the setsockopt call?",
+      "parentUuid": "4eb72f60_4ff480d0",
       "revId": "8b19977532e6a3a291d7b6d9aa4ec5db30427972",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
