@@ -7,13 +7,17 @@ source_set("base") {
     "ip_address.cc",
     "ip_address.h",
     "make_unique.h",
+    "scoped_pipe.h",
   ]
 }
 
-source_set("base_unittests") {
+executable("base_unittests") {
   testonly = true
 
-  sources = [ "ip_address_unittest.cc" ]
+  sources = [
+    "ip_address_unittest.cc",
+    "scoped_pipe_unittest.cc",
+  ]
 
   deps = [
     ":base",
