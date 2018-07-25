@@ -1,0 +1,310 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbb6db18_d59d92e5",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "ssize_t?",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a34cb7_9122f894",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Can data-\u003elength just be ssize_t instead of doing a (theoretically) unsafe cast?",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d2d51cd_dc382e14",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Similar comments about data length types here.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ced2546_1d9488ca",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "For readability, we may want a namespace with constants for linux syscall return codes (including this one).  Not urgent to address though.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c62ad5d0_90f585eb",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Nit: Function level static, so:\n\nstatic constexpr int reuse_addr",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e85a0362_fa9d0033",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "At some point we will probably want a way to report to higher layers which of several syscalls failed when e.g. trying to start up an mDNS listener or responder.  A system error reporting API would be a good requirement to include in the platform design doc.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0ec8c48_c4d58db6",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5da44a1c_24aac191",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9e3487a_97f202bb",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "ssize_t from \u003csys/types.h\u003e?  Or static_assert that int64_t is the same size?",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "821905a8_08050a0f",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "static constexpr?",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8fcbf43_0b7f4300",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "What will original_destination-\u003eport be set to if this code is not invoked?\nShould should the return value be?\nPlease document these values.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb53e501_1ef060ad",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "static constexpr?",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e40fb4e_15eb23eb",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Similar comments about the value of port and the return value if this loop does not succeed.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce927637_b947c2bd",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "How would the caller behave in this case?  I wonder if passing a watched socket should just be a no-op.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d169723e_7319b59b",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Can this just return true/false since there are only two possible return values?",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f89e807_58c70797",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Similar comment to the above - what would be the disadvantage of making this a no-op if an unwatched socket is passed.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abe0fa5c_aabe0e75",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "Could EventWaiter be a class with the following API?\n\nWatchReadable(IPv4Ptr)\nWatchReadable(IPv6Ptr)\n...\nWaitForEvents(Timeout, Events*)",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaf2c4e2_207cb5fe",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-25T23:54:20Z",
+      "side": 1,
+      "message": "return rv, or possibly the number of sockets with events?",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
