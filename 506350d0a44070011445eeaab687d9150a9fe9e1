@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "39870906_2fe0d3b1",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-26T17:23:07Z",
+      "side": 1,
+      "message": "Possibly both. See net/base/net_error_list.h in Chromium for one possible direction.  Not urgent to address though.",
+      "parentUuid": "203baa76_5f9c38ef",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c62ad5d0_90f585eb",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 2
@@ -171,6 +189,24 @@
       "side": 1,
       "message": "Yes but then it will be in global memory instead of on the stack and its value isn\u0027t important across calls?  constexpr isn\u0027t harmful but also doesn\u0027t buy anything as this is an l-value?",
       "parentUuid": "c62ad5d0_90f585eb",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57065a69_a9b3db00",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-26T17:23:07Z",
+      "side": 1,
+      "message": "Yeah function static is a premature optimization, it could save one or two instructions per invocation but probably not worth it.\n\nconstexpr is encouraged over const for new code when the rvalue is a literal, per http://chromium-cpp.appspot.com/",
+      "parentUuid": "951338a1_3b9cd26b",
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
