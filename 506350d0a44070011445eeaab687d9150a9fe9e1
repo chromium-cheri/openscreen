@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d8c047a0_c44ce958",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbb6db18_d59d92e5",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a34cb7_9122f894",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f533878_1f51b17d",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Done.  Also added DCHECK for std::array sanity.",
+      "parentUuid": "10a34cb7_9122f894",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6aba459a_e2d09eb8",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d2d51cd_dc382e14",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ced2546_1d9488ca",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2018-07-25T23:54:20Z",
       "side": 1,
       "message": "For readability, we may want a namespace with constants for linux syscall return codes (including this one).  Not urgent to address though.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "203baa76_5f9c38ef",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Are you referring to 1/0/-1 or things like EBADF, EINVAL, etc?",
+      "parentUuid": "3ced2546_1d9488ca",
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "951338a1_3b9cd26b",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Yes but then it will be in global memory instead of on the stack and its value isn\u0027t important across calls?  constexpr isn\u0027t harmful but also doesn\u0027t buy anything as this is an l-value?",
+      "parentUuid": "c62ad5d0_90f585eb",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e85a0362_fa9d0033",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2018-07-25T23:54:20Z",
       "side": 1,
       "message": "At some point we will probably want a way to report to higher layers which of several syscalls failed when e.g. trying to start up an mDNS listener or responder.  A system error reporting API would be a good requirement to include in the platform design doc.",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0198f270_b6148d4e",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e85a0362_fa9d0033",
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "7a5fae3b_1797e6ca",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "See first answer.",
+      "parentUuid": "b0ec8c48_c4d58db6",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5da44a1c_24aac191",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1963f320_fe84a619",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "See first answer.",
+      "parentUuid": "5da44a1c_24aac191",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "2e2e1201_0633346f",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "We\u0027ll have to define our own ssize_t if we add Windows support but I used \u003csys/types.h\u003e for now.",
+      "parentUuid": "c9e3487a_97f202bb",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "821905a8_08050a0f",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 2
@@ -169,6 +331,24 @@
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eea460a4_7ac3b220",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "See first answer.",
+      "parentUuid": "821905a8_08050a0f",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "76ca3ff0_22ed938b",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "If |original_destination| is passed in (and recvmsg succeeded), it is reset to 0s before anything else.  Added a comment about |port| here.",
+      "parentUuid": "b8fcbf43_0b7f4300",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb53e501_1ef060ad",
         "filename": "platform/linux/socket.cc",
         "patchSetId": 2
@@ -203,6 +401,24 @@
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67898568_0fe46b95",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "See first answer.",
+      "parentUuid": "cb53e501_1ef060ad",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "607737f4_f784f17e",
+        "filename": "platform/linux/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e40fb4e_15eb23eb",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce927637_b947c2bd",
         "filename": "platform/posix/event_waiter.cc",
         "patchSetId": 2
@@ -237,6 +471,24 @@
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b753fd8_2252cb67",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "IMO this is already a no-op?   Changed to bool per below.",
+      "parentUuid": "ce927637_b947c2bd",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "d7847d90_aa715c30",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of bools, even for this case, but done.",
+      "parentUuid": "d169723e_7319b59b",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f89e807_58c70797",
         "filename": "platform/posix/event_waiter.cc",
         "patchSetId": 2
@@ -271,6 +541,24 @@
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69c94911_e1bc248a",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Already a no-op?",
+      "parentUuid": "6f89e807_58c70797",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "5e4f4d94_0f6017a7",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "If you mean EventWaiterPrivate, that feels unnecessary, but if you mean the API overall then I feel like this comment will probably apply to all of the platform APIs, including the socket API here.  IIUC the advantage of this approach is to avoid virtual function overhead when there is only one implementation present and we don\u0027t need to mock it in unit tests (it can also be used to double as a C interface, but we aren\u0027t allowing that currently).  If you feel this is premature optimization and prefer the class style, I will change it in a follow up and we should consider this for other APIs as well.",
+      "parentUuid": "abe0fa5c_aabe0e75",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aaf2c4e2_207cb5fe",
         "filename": "platform/posix/event_waiter.cc",
         "patchSetId": 2
@@ -305,6 +611,24 @@
       "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90554ac8_5ea73d42",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-07-26T07:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaf2c4e2_207cb5fe",
+      "revId": "506350d0a44070011445eeaab687d9150a9fe9e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
