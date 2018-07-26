@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85ded81b_f4101669",
+        "filename": "api/screen_listener.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-26T21:00:45Z",
+      "side": 1,
+      "message": "If this is only used for debug level logging, then consider surrounding with #ifdef !NDEBUG.\n\nPersonally, I\u0027m okay with logging the enum\u0027s int value assuming that the source code is at hand, unless there\u0027s some really useful log message that needs the name; and I didn\u0027t see any logging in the rest of the patch that used this.  So, YAGNI :-)",
+      "revId": "9c950646f72302cf9b05b39a3fdee001dfe89933",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee2d57b_bcd65fa3",
+        "filename": "api/screen_listener.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-26T21:00:45Z",
+      "side": 1,
+      "message": "Do we need to support both copy and rvalue ref here?  This should be a pretty small (int + short string) and infrequently used object, so unless there\u0027s a compelling reason, I think copy only is ok.",
+      "revId": "9c950646f72302cf9b05b39a3fdee001dfe89933",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39847e11_44ed2288",
+        "filename": "api/screen_listener.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-26T21:00:45Z",
+      "side": 1,
+      "message": "I think I was channeling Blink style, which allows obvious names to be omitted.  But we haven\u0027t been doing that consistently yet.  Do you have a feeling either way?\n\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/blink-c++.md#May-leave-obvious-parameter-names-out-of-function-declarations",
+      "revId": "9c950646f72302cf9b05b39a3fdee001dfe89933",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46a1f5cb_4fa9dee0",
+        "filename": "embedder/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-26T21:00:45Z",
+      "side": 1,
+      "message": "Can you explain the difference between //embedder and //api?  It seems like ScreenList\n\nIf we want to partition the embedder exposed functionality into public and private parts, one way would be:\n\n//api/public (exported to other modules)\n//api/common (shared between public and impl) \n//api/impl (not exported outside of api)\n\nDo you have thoughts?",
+      "revId": "9c950646f72302cf9b05b39a3fdee001dfe89933",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d3e7e1b_342cd661",
+        "filename": "embedder/discovery_state_machine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-26T21:00:45Z",
+      "side": 1,
+      "message": "The state machine in the design should be deterministic (i.e. only one possible next state from a given transition).  If we need to track multiple possible transitions that is a design problem!",
+      "revId": "9c950646f72302cf9b05b39a3fdee001dfe89933",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2b892bd_dcc9da38",
+        "filename": "embedder/screen_listener_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-26T21:00:45Z",
+      "side": 1,
+      "message": "Do we need the \"internal\" and external states because there are two possible states of the implementation (searching from suspended/searching from running) that map to one state through the API?  And the possible transitions from those two internal states are different?",
+      "revId": "9c950646f72302cf9b05b39a3fdee001dfe89933",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
