@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad51f8b_eb075da1",
+        "filename": "api/impl/screen_listener_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "s1 -\u003e from, s2-\u003e to for consistency?",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adca3eb9_02ff1e10",
+        "filename": "api/impl/screen_listener_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "Please add a default case with a NOTREACHED() (or equivalent) in case a new value is added.",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "391d0432_8861dd14",
+        "filename": "api/impl/screen_listener_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "If this were a method it could have access to |state_| and |observer_| so they don\u0027t have to be params",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73dcc2cf_6fb11c37",
+        "filename": "api/impl/screen_listener_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "I think I would rather require the caller to pass a valid observer ptr, and make this a DCHECK",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db5a9a0e_59449ca9",
+        "filename": "api/impl/screen_listener_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "Can this simply be:\n\nif (observer_ \u0026\u0026 from !\u003d state_) NotifyObserver();\n\nSince we\u0027re assuming that any transition happening here is valid?",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31914eb9_9c5af5df",
+        "filename": "api/impl/screen_listener_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "Nit: Remove {} for one-line if here and below",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd27f93_962988c4",
+        "filename": "api/impl/screen_listener_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "Nit: It might be more correct to only invoke the observer if the state of the screen list actually changed; this would require more change detection logic and a return value from the ScreenList.\n\nI don\u0027t feel strongly about this as it\u0027s not clear if a no-op call to the observer will have any impact until we have implementations of the observer.",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47d05de1_db0cf58c",
+        "filename": "api/impl/screen_listener_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "Usually \"action\" methods start with a verb.  Mirroring the ScreenListener interface (Start, Stop, etc.) seems the clearest here?",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d826832_2de7fef9",
+        "filename": "api/impl/screen_listener_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "I feel like this should only be called by the delegate.  Can it be made private and make the delegate a friend?",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6bd2dbd_3ea15b76",
+        "filename": "api/impl/screen_listener_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "Instead of validating that the screen you added is now a member of the screen list with a lambda, you could write EXPECT_THAT(GetScreens(), ElementsAre(screen1)) which is a direct comparison.  Minor style suggestion.",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b8f4025_da04fbf9",
+        "filename": "api/public/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-28T01:02:06Z",
+      "side": 1,
+      "message": "Can this be combined into a top level unittests target?",
+      "revId": "e9ad064c640d831d1fab9ec725b322d5f3064068",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
