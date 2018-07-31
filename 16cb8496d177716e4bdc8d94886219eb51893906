@@ -1,0 +1,361 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e56fa44c_96b342ed",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Can you add a few class level comments - noting what this object is wrapping, and that it is move-only and presumably not thread safe as there are no locks.",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1985d715_8e64e10b",
+        "filename": "base/scoped_pipe_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "I don\u0027t think storage needs to be allocated for a static constexpr that is already declared as part of the struct above?",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be99e392_56f01d29",
+        "filename": "base/scoped_pipe_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "You will need to use TEST_F if you want gtest to instantiate this test object and call SetUp() before each test case.\n\nAlthough you might be able to write a static SetUp method that doesn\u0027t require instantiation - check the documentation.",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1c547e6_48851280",
+        "filename": "base/scoped_pipe_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Can you use the default ctor here?\nSame comment applies throughout",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "879b2bf6_4d877db4",
+        "filename": "base/scoped_pipe_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Can you write EXPECT_THAT(g_freed_values, ElementsAre(3))?\nSame comment applies throughout",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09c6b2b4_0f9a2240",
+        "filename": "base/scoped_pipe_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Good unit test :-)",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a14b7a26_329e8c73",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "{0} to set the values?",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c4a7229_4a652b68",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Do enum classes have default initialization?  If not, provide an initializer",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7b6dbc5_9394804e",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Needs comment",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a295a5b_ef1bf3c6",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Include errno in the log message (until we get an error reporting mechanism)",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a71efe3_5be6c955",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "This comment might belong below, where the pid field is assigned?",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c995065_a7ca9099",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Add errno?",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45d54f12_06b7e8a6",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "ssize_t?",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e7f45ce_f0985450",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "If this is encountered, is NLMSG_DONE guaranteed to be encountered later?\nFor safety\u0027s sake, |done \u003d true| I would think.",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3416e0fd_3245bf1c",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "If a message is encountered with NLM_F_MULTI set but not RTM_NEWLINK, the loop will exit without extracting any interface infos?",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69dbf465_2815035c",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Can you use an explicit type here?  The code is hard enough to read",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2089af98_1139e6c7",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db469b30_d1312813",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Can be removed if |hardware_address| is fully initialized by default ctor",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a891782_d1deffe1",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Is there a way to make this copy safer in case the syscall returns garbage (non-null-terminated string)?",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d150237a_730400a1",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Can this be stronger so we don\u0027t copy a partial hardware address (i.e. early exit)",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11ccc56_02a91339",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T04:10:44Z",
+      "side": 1,
+      "message": "Can this long method be broken into 3-5 smaller functions that take the relevant linux struct(s) and populate part of InterfaceInfo?  That would help make this code more readable and will help later debugging.",
+      "revId": "16cb8496d177716e4bdc8d94886219eb51893906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
