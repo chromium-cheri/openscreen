@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43f0edfb_36236755",
+        "filename": "base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "I was leaning towards having a single, top level unittests executable; that way you can run all the unit tests for the project with one command line, and don\u0027t have to link N different targets.",
+      "revId": "0121a390b41593377fbe15ee549bdca4ef587e78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66cd250d_79282956",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Since Data is inheriting from Traits, do you need Traits:: in these declarations?",
+      "revId": "0121a390b41593377fbe15ee549bdca4ef587e78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcc39e64_6ee63918",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "I didn\u0027t see any per-instance data in IntFdTraits. Is this taking an instance of Traits in case there\u0027s a different Traits that needs it?\n\nUntil that exists, a simpler approach would just use Traits as a template argument and not also as a superclass.",
+      "revId": "0121a390b41593377fbe15ee549bdca4ef587e78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163ba384_e363608a",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Alternatively, can you move the Data declaration to the private: block so you can just say:\n\nexplicit Data(PipeType pipe) : ...",
+      "revId": "0121a390b41593377fbe15ee549bdca4ef587e78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e69b63_8069253e",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Nit: { } not required for one-line if.",
+      "revId": "0121a390b41593377fbe15ee549bdca4ef587e78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

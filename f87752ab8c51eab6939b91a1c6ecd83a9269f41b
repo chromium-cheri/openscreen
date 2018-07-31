@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8df67ff1_e5b9fa0d",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Usually assignment doesn\u0027t modify its rvalue?\nI think you want this to be a move assignment operator instead, e.g.\nhttps://en.cppreference.com/w/cpp/language/move_assignment",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b5dbab4_7fccd354",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Not sure this is necessary if you implement move assignment.",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17d7bc21_fe6d31be",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Return by mutable ref is discouraged",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76ea8528_2cfb075d",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Usually getters are just named after the field, so traits().\n\nOr could this be data()?",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d552319d_e2e61e70",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Can you include static initializers for index and hardware_address (since there is no ctor declared)?",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1590b924_30c9edb5",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "IPv4Subnet?",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d8b81b_9a383f9f",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Ditto about initializer",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6bae4a2_030ac428",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "IPv6Subnet",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76a9efb5_0caaae3c",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Ditto about initializer",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd58b432_171e899b",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-07-31T00:38:20Z",
+      "side": 1,
+      "message": "Initializer",
+      "revId": "f87752ab8c51eab6939b91a1c6ecd83a9269f41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
