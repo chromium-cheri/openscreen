@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a479263d_c7b0d64e",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Please document each of these functions (inputs and return values).  This goes especially for ones that take Linux kernel structs.",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0d7b4d5_f7f8dc7c",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "CHECK(name_len \u003c IFNAMSIZ) to ensure null termination",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e16c45d_6ce00fa1",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "I think name.assign(kernel_name, name_len) is the shorter version of this?",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de91ebca_2e4f119b",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Paranoia: static_assert(sizeof(ifr.ifr_name) \u003d\u003d IFNAMSIZ)\nParanoia: CHECK(ifname.size() \u003c IFNAMSIZ) to ensure null termination\nSame comment applies other places that strncpy from ifname",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "494f2944_b25e24a9",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Nit: {} are not necessary for one line bodies.\nSame comment applies throughout.",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bce05fd_b3de2cea",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Make this a CHECK to crash before an unsafe memcpy below.",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc225294_dd442d85",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Can you add /** */ comments around the last four arguments with the param names?\nSame comment applies below.",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29673193_e79abc21",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "This is already declared in an enclosing block.  Put the declaration above into its own block or resolve the name conflict.  Same comment applies to |iov| and |sa|",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b5c1f2f_eb9e338b",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Please use meaningful variable names instead of sa, nh, etc. if such a thing exists for these APIs.  (kernel - sigh)",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7feb8d77_c4ea0a81",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Is there anything useful to log that can be dug out of |nh| in this case?  Or is errno set?",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52996b66_0c3c0679",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Add a comment explaining what this message flag means.",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb0e421_51a5bcf0",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Add a comment explaining what this message type means.",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62e0079b_9536e946",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "Add a comment here what this logic is for.",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "473b2737_383f0728",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "It looks like the code to send the netlink request and iterate over the result is repeated between here and GetLinkInfo().  Do you see any opportunity to factor out the common code  - say by having a method to return a vector\u003cstruct nlmsghdr*\u003e ?",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7603a617_6764db25",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "I would slightly prefer to encapsulate the bookkeeping part of this into its own function, e.g.\n\nInterfaceAddresses* GetAddressesForIndex(address_list, info_list, index)\n\nBut I don\u0027t feel strongly.",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dd42367_ec49abdd",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "DVLOG(1) ?",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf5c8c0c_49c238f0",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-01T00:50:38Z",
+      "side": 1,
+      "message": "s/bad/Unknown/ ?",
+      "revId": "eebe1c83d1b65e09d3e9db667a2ee98a2e4a59a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
