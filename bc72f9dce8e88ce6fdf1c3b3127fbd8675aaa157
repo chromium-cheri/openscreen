@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "689e941d_1be51dca",
+        "filename": "api/impl/screen_listener_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-03T21:24:29Z",
+      "side": 1,
+      "message": "Since the ScreenListener ctor is protected and undocumented, this is likely the right place to document the ctor arguments.  In particular, I would document that the delegate is mandatory and the observer is optional.",
+      "revId": "bc72f9dce8e88ce6fdf1c3b3127fbd8675aaa157",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e815d915_1c8c8395",
+        "filename": "api/public/mdns_screen_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-03T21:24:29Z",
+      "side": 1,
+      "message": "Should this take an observer argument as well?",
+      "revId": "bc72f9dce8e88ce6fdf1c3b3127fbd8675aaa157",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3a8d3f8_9e3d2da1",
+        "filename": "api/public/screen_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-03T21:24:29Z",
+      "side": 1,
+      "message": "1/ Initializer no longer required\n2/ Consider declaring as const",
+      "revId": "bc72f9dce8e88ce6fdf1c3b3127fbd8675aaa157",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
