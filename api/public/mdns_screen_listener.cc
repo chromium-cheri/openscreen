@@ -7,7 +7,7 @@
 namespace openscreen {
 
 MdnsScreenListener::MdnsScreenListener(MdnsScreenListenerConfig config)
-    : config_(config) {}
+    : ScreenListener(nullptr), config_(config) {}
 
 MdnsScreenListener::~MdnsScreenListener() = default;
 
