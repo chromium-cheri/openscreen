@@ -1,0 +1,531 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f0c3608_0346d44f",
+        "filename": ".gitmodules",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "FYI, check the open issues to see if there are any patches we should apply on top\n\nhttps://github.com/jevinskie/mDNSResponder/issues\n\nApple\u0027s bug tracking ... leaves something to be desired, but there seems to be one issue that is also worth looking at:\n\nhttps://openradar.appspot.com/search?query\u003dmDNSResponder\nhttps://openradar.appspot.com/search?query\u003dBonjour\n\nhttps://openradar.appspot.com/6437092",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2de1e9e_89b112fa",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "size_t here and below?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30bc1cb4_ad2e3b2f",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "I think this should be stronger than a DCHECK, as you\u0027re guaranteed to produce an invalid domain name by proceeding.  Convert to a CHECK if there\u0027s upstream code that failed to validate the arguments.\n\nOr, take an output argument and return false (effectively the same as converting the method below to take DomainName*)",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "832393ce_4ed472b6",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "I think:\n\nresult.domain_name.insert(result.domain_name.begin(), first.domain_name.begin(), \nfirst.domain_name.end())\nresult.domain_name.insert(result.domain_name.end(), second.domain_name.begin(), second.domain_name.end())\n\nis the simpler way to write this?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "064d83f0_b0e78fba",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Should this return a boolean false if the overall length is exceeded?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a803104_0b176128",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Should this be DomainName* result?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af21de6c_508ead10",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "CHECK() or return false",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a0da56_cbb619db",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "How do you know if result is sized appropriately to handle this copy?  This looks unsafe.\n\nIf result were a DomainName*,you could write\n\nresult-\u003einsert(...)\n\nas above.",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fd27b19_5aaaa30d",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "size_t",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dabb310b_cf0d629e",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Is the label size part of the overall domain name?  I didn\u0027t see the size being inserted in the other Append() methods.\n\nCan you briefly summarize the domain name syntax in the .h (for folks who aren\u0027t familiar with the RFC)?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a9ae65_e78b099e",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "General design side-bar:\n\nDo we need both copy and move semantics for this object?  It\u0027s less code to maintain to have one or the other.\n\nThe main motivations for move semantics are when storing an object in a container, or serializing it to a socket or IPC channel (so the raw contents can be copied out of the object and into an I/O buffer).  Another circumstance is when there\u0027s an API boundary or callback where ownership has to change.\n\nAre any of those things happening?  If it\u0027s just being passed around in our code, then you can use references to avoid copies.\n\nAlso, larger objects favor move semantics over copy (I tend to think \u003e 1KB as a rule of thumb).  Since this is limited to 256 bytes, unless there are a lot of copies being made, the memory savings from moving is pretty limited.\n\nI\u0027d be curious to hear your thoughts (as well as what Effective C++/More Effective C++ have to say). Some quick searching on the Web didn\u0027t yield much discussion on this point.",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b7bf370_2fc59e80",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "I think this is problematic - there\u0027s no well defined behavior if this invariant is violated.",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7d0469_210af9bb",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "std::vector::insert does the resizing and copying in one method.",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7af0f53a_9a2cc2e7",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Do we need to validate that labels do not contain \u00270\u0027 when the domain name is constructed?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "862a1119_01841eab",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "If the domain name is constructed correctly, maybe okay to skip these checks?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51892dca_b65680af",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "This is _LT because of the trailing zero, right?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2be584e_6bde7acf",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Is this for file output, or for logging?\n\nFor file output, an API to get the raw octets would be better than \u003c\u003c.\n\nFor logging, instead of casting raw octets and writing them to an output stream, consider converting to base64 or passing through an escaping function for non-printable characters.",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f676b2_b0ac1fd2",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Nit: It\u0027s more flexible to take begin/end iterators so you can pass multiple container types. However, this could also be easily changed later.",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caefd6aa_7e9d3157",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "\u0026\u0026 to make move semantics explicit",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01165e7d_a2aacb41",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "I think the number of DCHECKs in the implementation would argue for making domain_name private; if it can only be constructed/mutated through the API, you could remove some of the DCHECKs on DomainnName parameters because you know that they are valid.",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f565933c_62761fcf",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "After reading through the code, I would consider storing this as a std::vector\u003cstd::vector\u003cuint8_t\u003e\u003e, with an overall length counter and a method to get the serialized format as std::vector\u003cuint8_t\u003e (at the cost of a copy).\n\nThe code would be smaller and safer, as we don\u0027t have to iterate/parse over a sequence of bytes to manipulate the domain_name. \n\nIf there\u0027s a need to serialize the domain_name repeatedly maybe that leans for storing it this way, but that feels like an optimization?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "135eff88_e46a6194",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Need to handle a leading dot (it looks like it will add an empty string)?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "448c5af2_f5388622",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Should some of this go into ScreenListenerImplDelegate::Start() for the implementation that uses mDNSResponder?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29aac078_1a26cb9a",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Thanks - I can start to write a top-level main() for the entire OSP library that re-uses some of this code, in a followup patch.",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef0f0cfc_500cfb5b",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Is there an observer of the platform API for network interface changes to call register/unregister when the set of interfaces changes?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac90ad4_eb6a2fb0",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "These APIs take sockets, not interfaces, so they don\u0027t seem to have quite the right name (although I would expect there to be at most one socket per interface for this object)",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "036b6208_6ef85f11",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "Is this part of the public API or does the caller respond to the EventWaiter and feed data into this object?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af6b0837_481ebbee",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "size_t here and below",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35cd0c7_e0d6f9b6",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "RunLoop()?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d86bada_988fc369",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "I think everything from here on below is an implementation detail of the adapter?\nShould they be protected?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c017b731_8ba55476",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-06T22:06:38Z",
+      "side": 1,
+      "message": "This seems like part of the public API",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
