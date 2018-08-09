@@ -1,0 +1,458 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eef7b937_109c9643",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "It seems like we would benefit greatly from returning a StatusOr/ErrorOr like this one: https://cs.chromium.org/chromium/src/third_party/webrtc/api/rtcerror.h?q\u003derroror\u0026l\u003d203\u0026dr\u003dCSs\n\n\nThen this would be ErrorOr\u003cDomainName\u003e Append(first, second)",
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a61cb7f_61a03233",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Why? have this second version of append?",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4f29c8f_10430153",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Same here with ErrorOr\u003cDomainName\u003e",
+      "range": {
+        "startLine": 26,
+        "startChar": 65,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6e44fe_fb030b37",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "When would we get something other than a vector?",
+      "range": {
+        "startLine": 27,
+        "startChar": 28,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f467565e_dd68a9d0",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Does it make more sense to store the unparsed data and parse it every time we need it, or parse it once and store the parsed data?\n\nI\u0027m more inclined to storing the parsed data.",
+      "range": {
+        "startLine": 78,
+        "startChar": 27,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9a8b060_4ccc54b5",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "If we make an IpAddress and IpEndpoint class that represents either v4 or v6 (like Chromium does), then we could stop having v4 and v6 versions of everything, and this could just be one class.  I think that would be a good idea.",
+      "range": {
+        "startLine": 22,
+        "startChar": 33,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b97b2f8_b3d1f4da",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "A better name might be multicast_interface_index.  I know it\u0027s more verbose, but it\u0027s also more clear.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ee067c_3e51c2cb",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Again with v4 vs v6, this would just be a vector",
+      "range": {
+        "startLine": 36,
+        "startChar": 56,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb4a073f_35cdb9ae",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Would QueryResponseType or QueryResponseEventHeader::Type be better?",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efd50e69_a8b4e7bf",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Would these be kAdded, kAddedNoCache, kRemoved?",
+      "range": {
+        "startLine": 42,
+        "startChar": 10,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b80d685c_d0ed2b3b",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Why are these XResponseEvent instead of just XResponse?  Seems like it would be a nicer name.",
+      "range": {
+        "startLine": 45,
+        "startChar": 33,
+        "endLine": 45,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12af4e5_95379c4f",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Another places where v4 vs v6 would be more simple with one class that rules them all.",
+      "range": {
+        "startLine": 55,
+        "startChar": 65,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0909e28_8d4cdad6",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Then why not call it receiving_socket or receiving_socket_type?",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "147542fc_87008cb4",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Add another example where not needing to know which it is would be cleaner.",
+      "range": {
+        "startLine": 65,
+        "startChar": 41,
+        "endLine": 65,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92268ff9_67867e75",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Error \u003d\u003e ErrorCode?",
+      "range": {
+        "startLine": 139,
+        "startChar": 31,
+        "endLine": 139,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce0b45d0_8ebe5d5a",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Why is this called an Adapter?  Isn\u0027t it just a nice interface around mNDS responder?  Why not call it something like MdnsResponderClient?",
+      "range": {
+        "startLine": 146,
+        "startChar": 28,
+        "endLine": 146,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35255f97_04431374",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Oh... this is an interface.  Have we considered naming interfaces XInterface and the impl just X?  I usually prefer that over the interface being X and the impl being XImpl.  Because otherwise it\u0027s easy to not realize the interface is an interface when reading it.\n\nAt least that\u0027s how WebRTC names things.",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5524f86_e86c3489",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "The three above should be commented on what they do, and when/if they need to be called.",
+      "range": {
+        "startLine": 157,
+        "startChar": 63,
+        "endLine": 157,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "310c290f_bb2ef8c0",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "This is the kind of place where storing parsed data seems cleaner.",
+      "range": {
+        "startLine": 18,
+        "startChar": 63,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab12c58d_bc675c72",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T02:11:58Z",
+      "side": 1,
+      "message": "Why a separate .cc and _impl.cc?",
+      "range": {
+        "startLine": 6,
+        "startChar": 53,
+        "endLine": 6,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
