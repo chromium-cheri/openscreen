@@ -1,0 +1,475 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae4d7449_97eba197",
+        "filename": "api/impl/screen_publisher_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "I know this is legit according to the style guide, but wow, it scares me.  It\u0027s too easy to hit something like https://nakedsecurity.sophos.com/2014/02/24/anatomy-of-a-goto-fail-apples-ssl-bug-explained-plus-an-unofficial-patch/",
+      "range": {
+        "startLine": 59,
+        "startChar": 47,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ed2e194_c14f302f",
+        "filename": "api/impl/screen_publisher_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Why do we base the notification on what the state *was* rather than on what the state *is*?",
+      "range": {
+        "startLine": 108,
+        "startChar": 72,
+        "endLine": 108,
+        "endChar": 73
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f1bb1e_b169d8e2",
+        "filename": "api/impl/screen_publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "I do not understand why we use a Delegate here.  It seems to add indirection and complexity and I don\u0027t understand what we are getting from it.",
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28711b7f_8056b9c8",
+        "filename": "api/impl/screen_publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Rather than relying on null pointers (which is dangerous), can we use std::optional or something like it in base/?  optional\u003cScreenPublisherObserver*\u003e is so much harder to mess up.",
+      "range": {
+        "startLine": 38,
+        "startChar": 77,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd87ea5_615ff2a3",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Would making this ScreenPublisher::State make more sense?",
+      "range": {
+        "startLine": 16,
+        "startChar": 33,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a762258b_922eaaf1",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "I think ScreenPublisherErrorCode would be a better name (and \"error\" instead of \"error info\" for the other one). And would making this ScreenPublisher::ErrorCode make more sense?",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1d66e5_816ede9b",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "These seems like a case for an Error\u003cT\u003e class.  It\u0027s exactly similar to the ScreeListenerInfo one.  Then you could just have Error\u003cScreenPublisher::ErrorCode\u003e",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ff09262_89c67e59",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Would making this ScreenPublisher::Metrics make more sense?",
+      "range": {
+        "startLine": 48,
+        "startChar": 31,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29fd903b_b8134be3",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "I like how you in the the impl it\u0027s ScreenPublisherImpl::Delegate.  Can you make this ScreenPublisher::Delegate instead (and make ScreenListener::Delegate as well in another CL)?  That fits better the naming conventions I\u0027ve seen, such as in https://cs.chromium.org/chromium/src/net/third_party/quic/quartc/quartc_session.h?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0",
+      "range": {
+        "startLine": 66,
+        "startChar": 31,
+        "endLine": 66,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66771341_e280eca2",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "I think it would make more sense to have this be one OnStateChanged(ScreenPublisherState).  That\u0027s how I\u0027ve seen it down in WebRTC and in QUIC.  I think we should do the same for ScreenListener.",
+      "range": {
+        "startLine": 75,
+        "startChar": 33,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "772848eb_411da47c",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "How often do we fire OnMetrics?  Who decides?",
+      "range": {
+        "startLine": 81,
+        "startChar": 53,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c49ff4ce_59ff782b",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Would making this ScreenPublisher::Config make more sense?  And what\u0027s \"common\" about it?",
+      "range": {
+        "startLine": 84,
+        "startChar": 36,
+        "endLine": 84,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d3340c4_40edb24e",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "In UTF-8?",
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23ad2493_44ee5527",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Then would it make sense to call this the connection_server_port?",
+      "range": {
+        "startLine": 93,
+        "startChar": 46,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a0b35c7_60a0ee4c",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Is this a whitelist?  In other words, other interfaces cannot be used?",
+      "range": {
+        "startLine": 96,
+        "startChar": 69,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "248f1e17_d03b4664",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "I think interface id/names are fine as long as the network code and this code agree on what they are.  In other words, I don\u0027t think you need to worry about this in regards to being cross-platform.",
+      "range": {
+        "startLine": 100,
+        "startChar": 68,
+        "endLine": 100,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25e463c6_26d6a9dd",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "If they are network interface names, shouldn\u0027t this be network_interface_names?",
+      "range": {
+        "startLine": 101,
+        "startChar": 38,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93602e28_00b71e9b",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Why do we call it a ScreenPublisher?  Isn\u0027t it for speakers, too?  Isn\u0027t this, then, more like a SinkPublisher?",
+      "range": {
+        "startLine": 104,
+        "startChar": 23,
+        "endLine": 104,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "535d8477_727c6f42",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "What\u0027s the use case for this?",
+      "range": {
+        "startLine": 133,
+        "startChar": 72,
+        "endLine": 133,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2958ce9_c0098833",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be last_error()?",
+      "range": {
+        "startLine": 139,
+        "startChar": 71,
+        "endLine": 139,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b925ea_c16d065d",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-08-09T01:40:54Z",
+      "side": 1,
+      "message": "That\u0027s a weird state to start in, because then you can\u0027t tell the difference between a publisher that\u0027s been stopped explicitly and one that has never been started.  Should we have an init state?",
+      "range": {
+        "startLine": 144,
+        "startChar": 63,
+        "endLine": 144,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
