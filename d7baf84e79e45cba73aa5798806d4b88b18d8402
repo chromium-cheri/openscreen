@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a707b3f_6387e812",
+        "filename": "api/impl/screen_publisher_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-10T23:54:05Z",
+      "side": 1,
+      "message": "Agreed, switch() with NOTREACHED() as the default case is the safer choice here and below.",
+      "parentUuid": "ae4d7449_97eba197",
+      "range": {
+        "startLine": 59,
+        "startChar": 47,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ed2e194_c14f302f",
         "filename": "api/impl/screen_publisher_impl.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-09T01:40:54Z",
       "side": 1,
       "message": "Why do we base the notification on what the state *was* rather than on what the state *is*?",
+      "range": {
+        "startLine": 108,
+        "startChar": 72,
+        "endLine": 108,
+        "endChar": 73
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44d6d606_8a96e099",
+        "filename": "api/impl/screen_publisher_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-10T23:54:05Z",
+      "side": 1,
+      "message": "It\u0027s notifying on transitions.  Maybe we could short cut the self-transitions and always notify otherwise?  I would need to check the design doc for the publisher API.",
+      "parentUuid": "2ed2e194_c14f302f",
       "range": {
         "startLine": 108,
         "startChar": 72,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "2d806e1f_cafc2b4c",
+        "filename": "api/impl/screen_publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-10T23:54:05Z",
+      "side": 1,
+      "message": "The delegate allows the implementation of the state machine (which is shared among all) to be factored from the service implementation (which will vary depending on how the embedder chooses to provide mDNS).",
+      "parentUuid": "c9f1bb1e_b169d8e2",
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "28711b7f_8056b9c8",
         "filename": "api/impl/screen_publisher_impl.h",
         "patchSetId": 1
@@ -85,6 +151,30 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f21e60df_9f3975f5",
+        "filename": "api/impl/screen_publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-10T23:54:05Z",
+      "side": 1,
+      "message": "Agreed that this is a good choice for optional fields.  Can you file an issue in our tracker to add this and use when appropriate?  Sounds like a good starter bug ;-)\n\nhttps://bugs.chromium.org/p/openscreen/issues/list",
+      "parentUuid": "28711b7f_8056b9c8",
+      "range": {
+        "startLine": 38,
+        "startChar": 77,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "30b563b1_2512b82d",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-10T23:54:05Z",
+      "side": 1,
+      "message": "It\u0027s an enum that includes a \"none\" case, so maybe ScreenPublisher::Result, and kSuccess as an initial value?",
+      "parentUuid": "a762258b_922eaaf1",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f1d66e5_816ede9b",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -145,6 +259,30 @@
       "writtenOn": "2018-08-09T01:40:54Z",
       "side": 1,
       "message": "These seems like a case for an Error\u003cT\u003e class.  It\u0027s exactly similar to the ScreeListenerInfo one.  Then you could just have Error\u003cScreenPublisher::ErrorCode\u003e",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ddfbe7b_f0bd6686",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-10T23:54:05Z",
+      "side": 1,
+      "message": "Sounds like a great task for the issue tracker.",
+      "parentUuid": "9f1d66e5_816ede9b",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -191,6 +329,30 @@
       "writtenOn": "2018-08-09T01:40:54Z",
       "side": 1,
       "message": "I like how you in the the impl it\u0027s ScreenPublisherImpl::Delegate.  Can you make this ScreenPublisher::Delegate instead (and make ScreenListener::Delegate as well in another CL)?  That fits better the naming conventions I\u0027ve seen, such as in https://cs.chromium.org/chromium/src/net/third_party/quic/quartc/quartc_session.h?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0",
+      "range": {
+        "startLine": 66,
+        "startChar": 31,
+        "endLine": 66,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f084745_f80d2f6a",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-10T23:54:05Z",
+      "side": 1,
+      "message": "In this case, this is an observer is being notified of changes to the state.  It\u0027s not required for the publisher to function.",
+      "parentUuid": "29fd903b_b8134be3",
       "range": {
         "startLine": 66,
         "startChar": 31,
