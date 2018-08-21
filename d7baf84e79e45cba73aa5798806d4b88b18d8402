@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "edff3cfa_cbdde9d4",
+        "filename": "api/impl/screen_publisher_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "I don\u0027t think switch()/NOTREACHED() and |state_| case handling is what he was referring to, but rather no braces for single-line ifs.\n\nMy personal preference is to always use braces, but most people in Chromium prefer otherwise.  Upon double-checking the style guide, it doesn\u0027t mandate no braces here like I thought it might.  This can get added to the queue of style follow-up bugs.",
+      "parentUuid": "ae4d7449_97eba197",
+      "range": {
+        "startLine": 59,
+        "startChar": 47,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ed2e194_c14f302f",
         "filename": "api/impl/screen_publisher_impl.cc",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "74eda9d0_55193a72",
+        "filename": "api/impl/screen_publisher_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "We _do_ base it on what the state _is_ via |state_|.  This can actually be slightly cleaned up anyway due to most cases against which we\u0027re guarding being impossible.",
+      "parentUuid": "44d6d606_8a96e099",
+      "range": {
+        "startLine": 108,
+        "startChar": 72,
+        "endLine": 108,
+        "endChar": 73
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9f1bb1e_b169d8e2",
         "filename": "api/impl/screen_publisher_impl.h",
         "patchSetId": 1
@@ -128,6 +176,24 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e0b117a_306d8fa9",
+        "filename": "api/impl/screen_publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Yes, we intend to share the state machine validation logic among different mDNS implementations. \n I can see why the merits are debatable because ultimately the code we\u0027re sharing here is relatively small.  Additionally, I could see this changing as our mDNS abstraction evolves.",
+      "parentUuid": "2d806e1f_cafc2b4c",
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +244,30 @@
     },
     {
       "key": {
+        "uuid": "c50e5b24_09d1574d",
+        "filename": "api/impl/screen_publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f21e60df_9f3975f5",
+      "range": {
+        "startLine": 38,
+        "startChar": 77,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dd87ea5_615ff2a3",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -198,6 +288,30 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "977bce39_9c46e54a",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dd87ea5_615ff2a3",
+      "range": {
+        "startLine": 16,
+        "startChar": 33,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +362,30 @@
     },
     {
       "key": {
+        "uuid": "fb1f5c14_db3b63f0",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30b563b1_2512b82d",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f1d66e5_816ede9b",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -295,6 +433,30 @@
     },
     {
       "key": {
+        "uuid": "19e68891_042a9da1",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Added to the issue tracker.",
+      "parentUuid": "8ddfbe7b_f0bd6686",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ff09262_89c67e59",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -315,6 +477,30 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b9a1c4f_ebcb2954",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ff09262_89c67e59",
+      "range": {
+        "startLine": 48,
+        "startChar": 31,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -365,6 +551,30 @@
     },
     {
       "key": {
+        "uuid": "65605937_a47c92b5",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "As Mark stated and as discussed previously, Delegate vs. Observer is typically a semantic difference.",
+      "parentUuid": "3f084745_f80d2f6a",
+      "range": {
+        "startLine": 66,
+        "startChar": 31,
+        "endLine": 66,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66771341_e280eca2",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -385,6 +595,30 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcb13f16_fd8ecfae",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Added to the issue list.",
+      "parentUuid": "66771341_e280eca2",
+      "range": {
+        "startLine": 75,
+        "startChar": 33,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -411,6 +645,30 @@
     },
     {
       "key": {
+        "uuid": "4708b218_6c9a739a",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "At the moment, there\u0027s no actual path for anyone to send metrics.  In the future, it would probably by from the mdns implementation via ScreenPublisher::Delegate.",
+      "parentUuid": "772848eb_411da47c",
+      "range": {
+        "startLine": 81,
+        "startChar": 53,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c49ff4ce_59ff782b",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -434,6 +692,30 @@
     },
     {
       "key": {
+        "uuid": "a7f369a3_a143394a",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Moved to a nested class.  \"common\" is copy/pasta from the doc when we were still considering supporting both SSDP and mDNS.",
+      "parentUuid": "c49ff4ce_59ff782b",
+      "range": {
+        "startLine": 84,
+        "startChar": 36,
+        "endLine": 84,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d3340c4_40edb24e",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -448,6 +730,24 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9470a298_53a61aed",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d3340c4_40edb24e",
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -474,6 +774,30 @@
     },
     {
       "key": {
+        "uuid": "7f6c12ae_f7ccb45e",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23ad2493_44ee5527",
+      "range": {
+        "startLine": 93,
+        "startChar": 46,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a0b35c7_60a0ee4c",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -494,6 +818,30 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52521845_1499a2ed",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "9a0b35c7_60a0ee4c",
+      "range": {
+        "startLine": 96,
+        "startChar": 69,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -520,6 +868,30 @@
     },
     {
       "key": {
+        "uuid": "84e81344_daf4a11c",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "I think I agree, and I think using an index is even possible on all platforms.",
+      "parentUuid": "248f1e17_d03b4664",
+      "range": {
+        "startLine": 100,
+        "startChar": 68,
+        "endLine": 100,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25e463c6_26d6a9dd",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -540,6 +912,30 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8ffabc2_bcc9e3df",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25e463c6_26d6a9dd",
+      "range": {
+        "startLine": 101,
+        "startChar": 38,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -566,6 +962,30 @@
     },
     {
       "key": {
+        "uuid": "131d9c2c_6e0cd4e4",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Added to issue tracker.",
+      "parentUuid": "93602e28_00b71e9b",
+      "range": {
+        "startLine": 104,
+        "startChar": 23,
+        "endLine": 104,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66f5cf2b_9ec0f1a4",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -586,6 +1006,30 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98557602_45138900",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Added to issue tracker.",
+      "parentUuid": "66f5cf2b_9ec0f1a4",
+      "range": {
+        "startLine": 121,
+        "startChar": 26,
+        "endLine": 121,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -612,6 +1056,30 @@
     },
     {
       "key": {
+        "uuid": "7b4696b6_3a86c9d2",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "If the user changes the display name of their device, this allows the embedder to send that to the underlying publishing system (e.g. mdns).",
+      "parentUuid": "535d8477_727c6f42",
+      "range": {
+        "startLine": 133,
+        "startChar": 72,
+        "endLine": 133,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2958ce9_c0098833",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -635,6 +1103,30 @@
     },
     {
       "key": {
+        "uuid": "aa0ed30d_a68f4e6c",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2958ce9_c0098833",
+      "range": {
+        "startLine": 139,
+        "startChar": 71,
+        "endLine": 139,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74b925ea_c16d065d",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 1
@@ -655,6 +1147,30 @@
       "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2aa852f_3bb5319f",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-21T22:58:16Z",
+      "side": 1,
+      "message": "I don\u0027t think we need an init state.  I don\u0027t know if this is where you were coming from, but this is different than, for example, a connection, where you wouldn\u0027t re-open one that has been closed.  For the publisher and listener, they can stop/start/stop/start as many times as the embedder wants based on their needs/UX/etc.",
+      "parentUuid": "74b925ea_c16d065d",
+      "range": {
+        "startLine": 144,
+        "startChar": 63,
+        "endLine": 144,
+        "endChar": 0
+      },
+      "revId": "d7baf84e79e45cba73aa5798806d4b88b18d8402",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
