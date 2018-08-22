@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fb11697_c7653669",
+        "filename": "third_party/chromium_quic/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Does this rule depend on the installation of a protocol buffer code generator?",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdc39318_fc8c3f92",
+        "filename": "third_party/chromium_quic/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Yes, we should build and run these tests, unless there is some dependency/config that makes them difficult to run locally or in LUCI.",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9edc9574_bd22d2e3",
+        "filename": "third_party/chromium_quic/clone_helper.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "So, another way might be to run gn desc sources to get one file list, and find to get the file list on disk, and run a diff.",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "326fc8c9_de71df50",
+        "filename": "third_party/chromium_quic/clone_helper.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Would rsync -a have the same result?  Are you simply cloning a set of directories here or is there a need to select a subset of files from the chromium source tree?",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "957643db_8712e9e1",
+        "filename": "third_party/chromium_quic/demo/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "The error messages could probably use a bit more detail here like line numbers, but not a big deal for a demo app.",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9afcc613_ad2e785c",
+        "filename": "third_party/chromium_quic/demo/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "It would probably be a good idea to use random port allocation for the client in case there are any conflicts.",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "944b317c_38cbad20",
+        "filename": "third_party/chromium_quic/demo/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Taking an IP:port argument for the server address would be much more flexible - but I don\u0027t feel strongly about this, as it seems like the main purpose of the demo is to show the use of the QUIC library and not test different network paths.",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39077b7c_8ab7824b",
+        "filename": "third_party/chromium_quic/demo/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Is it necessary to send a packet ot the server address before starting the QUIC transport?  Can you provie more details on why in the comment?",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56cb9ea0_553af0b8",
+        "filename": "third_party/chromium_quic/demo/delegates.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Do you need to check connection_closed_?",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25fe702d_3736d184",
+        "filename": "third_party/chromium_quic/demo/delegates.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Should this method destroy the members of stream_delegates_?",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "733bcdce_7cc72c30",
+        "filename": "third_party/chromium_quic/demo/delegates.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "When do tasks_ get run?",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7669299_3d9b9c96",
+        "filename": "third_party/chromium_quic/demo/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Make the port number a command line parameter in case there are port conflicts?",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c7701f5_41574cfb",
+        "filename": "third_party/chromium_quic/demo/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-22T18:50:03Z",
+      "side": 1,
+      "message": "Check that this is \"turtle\"?",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
