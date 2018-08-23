@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c7292798_820edee3",
+        "filename": ".gitmodules",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Filed https://bugs.chromium.org/p/openscreen/issues/detail?id\u003d11 - feel free to add a TODO if you feel like it.",
+      "parentUuid": "3f0c3608_0346d44f",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2de1e9e_89b112fa",
         "filename": "discovery/mdns/domain_name.cc",
         "patchSetId": 3
@@ -366,6 +384,24 @@
       "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb9d167_580ed080",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "It sounds like the pro to adding move operations is speed.  Do you have a reference to the 32 bytes figure?  I\u0027d be curious on how it\u0027s derived.\n\nThe main cons are additional code size (to generate the move operations) and the potential for use-after-move.\n\nHowever, it looks like there\u0027s now a clang plugin to detect some uses after move:\nhttps://clang.llvm.org/extra/clang-tidy/checks/bugprone-use-after-move.html\n\nI don\u0027t feel strongly about this then.  It would be nice to add the plugin as a lint step at some point, and to add some text to our README.md to suggest adding move operations for objects with members known to be more than 32 bytes.  I\u0027ll add an issue for that.",
+      "parentUuid": "1e7c1c23_d5926b9b",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -730,6 +766,24 @@
       "writtenOn": "2018-08-06T22:06:38Z",
       "side": 1,
       "message": "Need to handle a leading dot (it looks like it will add an empty string)?",
+      "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9aa33552_c0c0d936",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Ping on this",
+      "parentUuid": "135eff88_e46a6194",
       "revId": "c00c454938b4a20d7cc00a51284d2c17b3888e92",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true

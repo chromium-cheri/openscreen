@@ -1,0 +1,718 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4479af32_283ebb1d",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "What does it mean to pass a sized array here?  Is this allocating a uint8_t[256] on the stack, or taking a uint8_t pointer that the compiler assumes points to 256 bytes?  (I just haven\u0027t seen this done before.)",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "193f804c_61c674d3",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Checks to prevent reads/writes from unintended memory should be CHECKs, not DCHECKs in my opinion. (Same applies to the size DCHECKs in the Append() methods above).  This would prevent dereferencing after.domain_name_.end() - 1 if after.domain_name_ is empty.\n\nNote that I don\u0027t see a way for there to be an empty domain_name_. The only way to construct one is from a one-element initializer list or by calling Append().  However CHECK-ing here would be paranoia to make it harder to exploit some bug elsewhere that creates an empty domain_name_.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a90c4e4b_c112f31a",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "A pretty printer for octets should probably go in a base/stringprintf.h file.  Surely something like this exists in Chromium\u0027s base library as well, if we are adding a dependency on it for quic.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e329abcc_bd8d5f75",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Can you add newlines between these definitions?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7e4b08a_008d1cd3",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Is this called repeatedly?  Otherwise it\u0027s just a macro for passing the iterators and maybe doesn\u0027t justify adding specific code here.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3763c0_689cac3d",
+        "filename": "discovery/mdns/domain_name_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I think EXPECT_EQ works on std::vector.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a3feab_932ab4c5",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Does this class wrap both the avertising and the listening functionality?\n\nIt seems like SetHostLabel() only applies if you are advertising services.\nAnd the Start/StopQuery API is for listening.\nCan you add some comments explaining how this API is to be used for advertisement and listening?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e6cc698_9b3553e9",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "RunTasks()?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc3587d_e692f357",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Can this be txt_lines (specifically this is to add content to the text record)?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d53167_de8bab37",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "- It seems like this belongs as a method on DomainName?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10e4280a_853907a0",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "What if domain \u003d\u003d kLocalDomain?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62d14a6f_00d82153",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Versus strncmp?  Or is that the underlying implementation of std::equal?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d3242c2_112db862",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Is the 256 byte limit enforced by mDNSResponder?\n\nThe RFC basically says you can make this as large as will fit into a DNS record (512 bytes), or even an UDP packet if you know the MTU.\n\nhttps://tools.ietf.org/html/rfc6763#section-6.2\n\nIt would be unfortunate if we have to stick with this limit because of mDNSResponder.  I suspect we may need more than 256 bytes of metadata during open screen discovery.\n\nThis comment applies throughout where 256 byte TXT records are assumed.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6744db3_b06d7ba4",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "The size of individual records has to be less than 256.  Where is that validated/enforced?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3d324f7_3c785dd7",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Where is the overall TXT record size validated/enforced?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abd930e5_902b2001",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "1/It seems like a const vector\u003cuint8_t\u003e\u0026 would be better here, to allow variable length responses and avoid passing array+length.\n\n2/Functions for manipulating TXT records could probably go into a separate mdns_util.h file.  They don\u0027t seem specific to mDNSResponder, and would make this file shorter.  Not a big deal though, especially if they are only used here.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b0b4e85_6c48ba0f",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "The RFC implies that TXT contents are \"character data\" but doesn\u0027t say anything about encoding.  We should be careful to document that so that upstream code that is parsing TXT for openscreen does proper validation and doesn\u0027t assume it\u0027s UTF-8 or some such.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eae6373_535ef5d5",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Both total_pos and line_length are untrusted data.\nYou have to validate that this is reading from a valid span of |data|.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c85ab86b_1572e0f6",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Is this for debugging?  Please remove any temporary logging before landing.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5eefd72_dd531b3f",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I\u0027m assuming this would get called on the first invocation of Screen{Listener|Publisher}::Start().  Is it OK to call more than once?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb9e7b5b_3e2af800",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Similar question - would this be called by Stop() once, or potentially each time?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80fda5bc_a77d9e7f",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I\u0027m having a little bit of a hard time following the re-registration case.  It looks like there are two cases: registering an interface for advertisement or not.  If you re-register an interface with advertise \u003d\u003d false, then it\u0027s a no-op.  If you re-register an interface with advertise \u003d\u003d true, then it deregisters and re-registers.\n\nThoughts:\n\n1/Would it be simpler for the calling code to ensure that interfaces are registered once and only once, and have this code do nothing for already-registered interfaces?  I guess we have to handle calling ScreenListener::Start() and ScreenPublisher::Start in either order.\n\n2/I would prefer to split the API into RegisterForAdvertise() and RegisterForListen(), which calls into a shared function to set the flag.  This won\u0027t be so bad since the IPv6 path isn\u0027t implemented yet.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c29543d7_e5851134",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Nit: info_it is more common for iterator results",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "202e12c5_45b3addd",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Nit: Prefer an explicit type here so I don\u0027t have to refer back to the .h when reading this.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e259790_318dc593",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "It\u0027s unfortunate that the mDNSResponder code doesn\u0027t use namespaces :-/",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1083b098_d7505fd5",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I\u0027m concerned about the safety of this cast.  What is the type of InterfaceID here?  Isn\u0027t |socket| an opaque type defined by the platform?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8be5d50d_e092f393",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "1/Please add a static_assert that |b| is correctly sized for address.bytes.\n2/Consider adding a CopyTo(uint8_t[4]/void*) method to IPV4Address to encapsulate this operation, versus having to dig through the members of interface_address.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11cb6fd_8c0f1a55",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Similar comments about STATIC_ASSERT and possibly adding a CopyHardwareAddressTo() method.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7efe5380_3cb37008",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Nit: info_it",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ad4cfab_25d0270d",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "1/Another potential use for adding a CopyTo() method to IPv4Address.\n2/Please static assert that |b| is appropriately sized.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f52e1b12_951a4dc6",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Is this cast safe?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2becdee_388d7131",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "If this fails, this means that some earlier answer was garbage.\nWe should just avoid sending any additional questions if responses are invalid.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "832a1816_fff2c7da",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "What is the type of QuestionContext?  void*?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c710a5_7595cafd",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Is it possible for mDNSResponder to send multiple questions in a single query?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2608dcb9_27ecb503",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "The service type shouldn\u0027t end with .local - it should be a pair of labels: _service._protocol\nWould be okay treating anything else as invalid here.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a72cd2f1_9dcd4832",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Where is service_name validated according to the rules (15 characters, no hyphens, etc.)?\nMaybe we don\u0027t care because this will only ever be \u0027_openscreen._udp\u0027.\n\nhttps://tools.ietf.org/html/rfc6763#page-19",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08fc6441_6ac39976",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I think this would be more readable as if ... else if.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f5f3ef5_01dd4dad",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Can this go into domain_name.h?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39edef76_2cebae3a",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Can we use sample data from openscreen instead?\n\nThere should be a string-to-hex converter on the Web somewhere, although you\u0027ll have to manually create some labels.  Alternatively, use a packet capture from an existing mDNS implementation.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477e4325_0ddbd5b5",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "size_t",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dd17d59_2a3eb0e3",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "How do we know that |msg| to |msg+length| points to valid memory?",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5afa1faf_f5bfd54a",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Time since epoch is not very random :-)  What is this used for?\n\nWe will need to have a platform source of entropy to generate truly random values.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

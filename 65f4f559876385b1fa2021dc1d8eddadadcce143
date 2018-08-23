@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d1a60e9b_4d322578",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Now that we have an issue the tracker here, add a TODO(issues/2)",
+      "parentUuid": "eef7b937_109c9643",
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a61cb7f_61a03233",
         "filename": "discovery/mdns/domain_name.h",
         "patchSetId": 4
@@ -81,6 +99,30 @@
       "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4317f4d5_53934369",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Another way would be to have a method specifically for the mDNSResponder case, if it\u0027s done repeatedly. I don\u0027t feel strongly though.\n\nDomainName result;\nAppend(..., \u0026result);\nresult.ToBuffer(uint8_t[256] mdns_result);",
+      "parentUuid": "9a61cb7f_61a03233",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -225,6 +267,98 @@
     },
     {
       "key": {
+        "uuid": "2a405bea_a4869996",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I would be inclined to store it as parsed, as in general as it\u0027s safer to store a std::string than a specially-formatted series of octets.  But it depends on the use case and it sounds like the common case is handling the unparsed data.",
+      "parentUuid": "f467565e_dd68a9d0",
+      "range": {
+        "startLine": 78,
+        "startChar": 27,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b39f7240_3601213a",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Maybe a std::map by service_instance to simply lookups below?",
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bd17890_6c1b2b0d",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I wonder if platform::InterfaceAddresses() should return a std::map of index -\u003e AddressInfo.\nThat would allow clients to iterate by index order, remove duplicates, and do lookups like the ones at L151-161.",
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa09325b_f3e5776a",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Does our platform/base have a utility function to pretty print a v4 address?",
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "350fb74f_bd06d6e9",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "This is to allow browsing of existing mDNS records (if you don\u0027t have a daemon advertising _openscreen._udp)?\n\nMaybe add a brief comment on command line usage at the top of the file.",
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d9a8b060_4ccc54b5",
         "filename": "discovery/mdns/mdns_responder_adapter.h",
         "patchSetId": 4
@@ -272,6 +406,30 @@
     },
     {
       "key": {
+        "uuid": "67208aaf_105e51a1",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I would generally agree with this, now that we are adding more data types with V4 and V6 variations.\n\nHowever, I don\u0027t think it\u0027s the best use of time to do that now, and hold up this patch further, versus landing this and merging the address types everywhere soon after.",
+      "parentUuid": "d9a8b060_4ccc54b5",
+      "range": {
+        "startLine": 22,
+        "startChar": 33,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b97b2f8_b3d1f4da",
         "filename": "discovery/mdns/mdns_responder_adapter.h",
         "patchSetId": 4
@@ -316,6 +474,30 @@
       "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c7e3975_5e47697f",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "I\u0027m okay with more cryptic names if they align with parameters directly to POSIX/UNIX APIs that have always used them for reasons.\n\nAt this layer, though, I agree we should use explicit names.",
+      "parentUuid": "6b97b2f8_b3d1f4da",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -836,6 +1018,40 @@
     },
     {
       "key": {
+        "uuid": "7f0bc0c3_584f595d",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "What does it mean to stop a query?  An mDNS query is generally fire-and-forget.  Or does this prevent this query type from being sent on the next recurring multicast?",
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bcf7151_0f5ef06e",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "Is this to manually register a service instance (that wasn\u0027t found by mDNS)?\nThis interface could generally use some per-method documentation and a short usage guide at the top.",
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "310c290f_bb2ef8c0",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 4
@@ -927,6 +1143,30 @@
       "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c94e84b_a868ce2a",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-08-23T21:51:47Z",
+      "side": 1,
+      "message": "There should be a compilation unit for the non-virtual declarations in mdns_responder_adapter.h.  Or are you asking if there is a need for MdnsResponderAdapter and MdnsResponderAdapterImpl?",
+      "parentUuid": "ab12c58d_bc675c72",
+      "range": {
+        "startLine": 6,
+        "startChar": 53,
+        "endLine": 6,
+        "endChar": 0
+      },
+      "revId": "65f4f559876385b1fa2021dc1d8eddadadcce143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
