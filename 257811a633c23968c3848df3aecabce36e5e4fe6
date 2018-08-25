@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "76d0528e_21f0184b",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "It passes a pointer (so it\u0027s an out-param) but the argument must have the type uint8_t[256] and not just uint8_t*.",
+      "parentUuid": "4479af32_283ebb1d",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "193f804c_61c674d3",
         "filename": "discovery/mdns/domain_name.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "502fb32f_909973a3",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "The size() DCHECKs are mostly carryovers from when domain_name_ was public.  I made them CHECKs for paranoia though.",
+      "parentUuid": "193f804c_61c674d3",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "46e13121_388a6b3d",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Moved the \"pretty\" logic to base/stringprintf.h.  I didn\u0027t see anything that does ascii-or-hex in base/strings.  Even if there were, I was hoping we\u0027d get rid of the //base dependency at some point anyway.",
+      "parentUuid": "a90c4e4b_c112f31a",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e329abcc_bd8d5f75",
         "filename": "discovery/mdns/domain_name.h",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c9de4f_a385665d",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e329abcc_bd8d5f75",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "90b2b45b_839f9c99",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "It\u0027s only used for converting command-line parameters and in tests.  Removed.",
+      "parentUuid": "b7e4b08a_008d1cd3",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d3763c0_689cac3d",
         "filename": "discovery/mdns/domain_name_unittest.cc",
         "patchSetId": 5
@@ -101,6 +191,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3337218f_53c67624",
+        "filename": "discovery/mdns/domain_name_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done.  I thought this used to give a better error message but maybe I was making that up haha.",
+      "parentUuid": "2d3763c0_689cac3d",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "15053b71_29f9a7d9",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Yes, this class wraps all of the mDNSResponder functionality we\u0027d want to use.  You\u0027re also correct about SetHostLabel and Start/StopQuery.  I added a class comment that explains this and some uses.",
+      "parentUuid": "c5a3feab_932ab4c5",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e6cc698_9b3553e9",
         "filename": "discovery/mdns/mdns_responder_adapter.h",
         "patchSetId": 5
@@ -135,6 +261,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5d470f9_ea830347",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e6cc698_9b3553e9",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "ecc3fe98_4f32db8d",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbc3587d_e692f357",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7d53167_de8bab37",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -169,6 +331,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85810995_d73cf5a3",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "It\u0027s not used anywhere else but sure.  Done.",
+      "parentUuid": "d7d53167_de8bab37",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "47e0035c_bc162c7e",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Currently, it would return true and the query that depends on |domain| wouldn\u0027t find anything.  I don\u0027t think that\u0027s a problem.",
+      "parentUuid": "10e4280a_853907a0",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62d14a6f_00d82153",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -203,6 +401,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d28629e_553708f9",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "I doubt that\u0027s the implementation of std::equal since strncmp would stop early at a null terminator.  strncmp would require extra casts though since these are uint8_t arrays.",
+      "parentUuid": "62d14a6f_00d82153",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "818c04ae_eed33bc0",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "As mentioned offline, we\u0027re not limited to this size by mDNSResponder, but we would need to do extra allocation work to handle larger TXT records on the publishing side.  We\u0027ll leave the 256-byte limit in for now and revisit this when we have a spec consensus on a reasonable TXT size limit.",
+      "parentUuid": "8d3242c2_112db862",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6744db3_b06d7ba4",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -237,6 +471,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16fc48fd_75420089",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Added.",
+      "parentUuid": "f6744db3_b06d7ba4",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "415cb767_1af6820d",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Currently, in RegisterService, which is the only use.  The check can be moved here when we decide on a size limit.",
+      "parentUuid": "a3d324f7_3c785dd7",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abd930e5_902b2001",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -271,6 +541,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6bbedf8_97cdc655",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "While we are limiting ourselves to 256 bytes for ease of interacting with mDNSResponder; they aren\u0027t very general.  When we move to a spec\u0027ed size for OSP these could become utility functions.",
+      "parentUuid": "abd930e5_902b2001",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "3b39aa08_92e2a632",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Added a comment to the TxtEvent struct.",
+      "parentUuid": "7b0b4e85_6c48ba0f",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7eae6373_535ef5d5",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -305,6 +611,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a5e2578_4c01dc8d",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7eae6373_535ef5d5",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +649,24 @@
     },
     {
       "key": {
+        "uuid": "9c46468a_3b1b6a05",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c85ab86b_1572e0f6",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5eefd72_dd531b3f",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -339,6 +681,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed9a5ff9_47bae288",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Yes, this should be called during a Start() method but should only be called once (as it 0s out a lot of fields).",
+      "parentUuid": "a5eefd72_dd531b3f",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +719,24 @@
     },
     {
       "key": {
+        "uuid": "f623b81d_067615df",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Yes, this would be called in Stop().  There\u0027s no harm in calling this multiple times, but ideally it would only be called once.",
+      "parentUuid": "eb9e7b5b_3e2af800",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80fda5bc_a77d9e7f",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -370,6 +748,24 @@
       "writtenOn": "2018-08-23T21:51:47Z",
       "side": 1,
       "message": "I\u0027m having a little bit of a hard time following the re-registration case.  It looks like there are two cases: registering an interface for advertisement or not.  If you re-register an interface with advertise \u003d\u003d false, then it\u0027s a no-op.  If you re-register an interface with advertise \u003d\u003d true, then it deregisters and re-registers.\n\nThoughts:\n\n1/Would it be simpler for the calling code to ensure that interfaces are registered once and only once, and have this code do nothing for already-registered interfaces?  I guess we have to handle calling ScreenListener::Start() and ScreenPublisher::Start in either order.\n\n2/I would prefer to split the API into RegisterForAdvertise() and RegisterForListen(), which calls into a shared function to set the flag.  This won\u0027t be so bad since the IPv6 path isn\u0027t implemented yet.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90c40449_a30188ee",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "I wasn\u0027t really happy with this either.  I changed it to managing the A/AAAA record manually.  Now we automatically advertise when the first service is registered and deadvertise when the last service is deregistered.  I\u0027m still using the storage in NetworkInterfaceInfo for this though.  LMK if you are happy with this.",
+      "parentUuid": "80fda5bc_a77d9e7f",
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -393,6 +789,24 @@
     },
     {
       "key": {
+        "uuid": "5e48d393_cf5a4a94",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done.  I usually use *_entry for map-like iterators to remember that it\u0027s a key-value pair.",
+      "parentUuid": "c29543d7_e5851134",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "202e12c5_45b3addd",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -407,6 +821,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ddae0b_0144768f",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "202e12c5_45b3addd",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -427,6 +859,24 @@
     },
     {
       "key": {
+        "uuid": "e917e5e3_ef52c86f",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Indeed, but then again it\u0027s C.",
+      "parentUuid": "0e259790_318dc593",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1083b098_d7505fd5",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -441,6 +891,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b382f685_a331a616",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Yes, this is a little odd.  mDNSResponder just wants _some_ identifier for an interface, but it is effectively a void* (it\u0027s actually typedef struct dummy { void* dummy; } *mDNSInterfaceId).  Similarly, |socket| is an opaque pointer to us.  reinterpret_cast never attempts to do any shifting or alignment of the pointer, so this is purely to satisfy the type system, when really we basically just mean void*.",
+      "parentUuid": "1083b098_d7505fd5",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -461,6 +929,24 @@
     },
     {
       "key": {
+        "uuid": "921d34c0_a7add11b",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8be5d50d_e092f393",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a11cb6fd_8c0f1a55",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -475,6 +961,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae09959f_fbf36257",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a11cb6fd_8c0f1a55",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -495,6 +999,24 @@
     },
     {
       "key": {
+        "uuid": "bc32e3c9_ef4a9c4b",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7efe5380_3cb37008",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ad4cfab_25d0270d",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -509,6 +1031,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f36a22b0_612913a1",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done.  static_assert isn\u0027t needed with CopyTo type checking.",
+      "parentUuid": "2ad4cfab_25d0270d",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -529,6 +1069,24 @@
     },
     {
       "key": {
+        "uuid": "4fe87308_dd9fc285",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Yes.  As mentioned above, this is just casting one opaque pointer to another.",
+      "parentUuid": "f52e1b12_951a4dc6",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2becdee_388d7131",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -540,6 +1098,24 @@
       "writtenOn": "2018-08-23T21:51:47Z",
       "side": 1,
       "message": "If this fails, this means that some earlier answer was garbage.\nWe should just avoid sending any additional questions if responses are invalid.",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90796f9d_a31879e2",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "I generally agree, which is why this is a DCHECK instead of an if.  Do you think the DCHECK should also be removed?",
+      "parentUuid": "e2becdee_388d7131",
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -563,6 +1139,24 @@
     },
     {
       "key": {
+        "uuid": "6beda2d8_0212a9e5",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "void*",
+      "parentUuid": "832a1816_fff2c7da",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02c710a5_7595cafd",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -577,6 +1171,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df7dad58_6773ffe2",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Yes.  It also sends known answers with each question though, and tries to make sure everything fits.  But given space, it will send multiple questions in one DNS message.  This happens in mDNS_Execute (our RunTasks()).",
+      "parentUuid": "02c710a5_7595cafd",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -597,6 +1209,24 @@
     },
     {
       "key": {
+        "uuid": "4ea8a5ff_ab373383",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "It needs to end with .local when we send it out, so I don\u0027t see a reason to treat it as an input error here.",
+      "parentUuid": "2608dcb9_27ecb503",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a72cd2f1_9dcd4832",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -611,6 +1241,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04401c35_daea4e24",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "I added these as DCHECKs since we should generally be using constants (like \"_openscreen._udp\") for these.",
+      "parentUuid": "a72cd2f1_9dcd4832",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -631,6 +1279,24 @@
     },
     {
       "key": {
+        "uuid": "e300a8e1_da5652b6",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08fc6441_6ac39976",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f5f3ef5_01dd4dad",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 5
@@ -645,6 +1311,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddca03c2_b1dd5e7d",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f5f3ef5_01dd4dad",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -665,6 +1349,24 @@
     },
     {
       "key": {
+        "uuid": "6e89ea2a_de1928d0",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39edef76_2cebae3a",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "477e4325_0ddbd5b5",
         "filename": "discovery/mdns/mdns_responder_platform.cc",
         "patchSetId": 5
@@ -679,6 +1381,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dc741dd_600ad06b",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "477e4325_0ddbd5b5",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -699,6 +1419,24 @@
     },
     {
       "key": {
+        "uuid": "b941d9ef_cc1651ba",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "Besides trusting mDNSResponder?  We don\u0027t.",
+      "parentUuid": "5dd17d59_2a3eb0e3",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5afa1faf_f5bfd54a",
         "filename": "discovery/mdns/mdns_responder_platform.cc",
         "patchSetId": 5
@@ -713,6 +1451,24 @@
       "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a82aa62_0b77c562",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-25T00:25:27Z",
+      "side": 1,
+      "message": "It\u0027s used to resolve name conflicts when publishing records.  First, mDNSResponder tries 2-9, if that fails it starts adding random increments, seeded by this function.  I added a TODO for better PRNG when we have it.",
+      "parentUuid": "5afa1faf_f5bfd54a",
+      "revId": "257811a633c23968c3848df3aecabce36e5e4fe6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
