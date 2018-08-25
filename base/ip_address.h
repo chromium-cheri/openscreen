@@ -39,6 +39,8 @@ struct IPv4Address {
   bool operator!=(const IPv4Address& o) const;
   explicit operator bool() const;
 
+  void CopyTo(uint8_t x[4]) const;
+
   std::array<uint8_t, 4> bytes;
 };
 
@@ -83,6 +85,8 @@ struct IPv6Address {
   bool operator==(const IPv6Address& o) const;
   bool operator!=(const IPv6Address& o) const;
   explicit operator bool() const;
+
+  void CopyTo(uint8_t x[16]) const;
 
   std::array<uint8_t, 16> bytes;
 };
