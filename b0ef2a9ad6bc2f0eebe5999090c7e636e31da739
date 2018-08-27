@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7b06c58b_cad85355",
+        "filename": "third_party/chromium_quic/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "No.  It depends on the protobuf checkout included at src/third_party/protobuf, and that is listed at the end of this rule.",
+      "parentUuid": "4fb11697_c7653669",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdc39318_fc8c3f92",
         "filename": "third_party/chromium_quic/BUILD.gn",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96ce953c_f0867533",
+        "filename": "third_party/chromium_quic/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Enabling these was leading to a lot of extra Chromium dependencies to chase, including more include path/flag hunting.  Leaving this as a TODO for now.",
+      "parentUuid": "bdc39318_fc8c3f92",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "eda2da9e_23bf065a",
+        "filename": "third_party/chromium_quic/clone_helper.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9edc9574_bd22d2e3",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "326fc8c9_de71df50",
         "filename": "third_party/chromium_quic/clone_helper.sh",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2505951_0719fc72",
+        "filename": "third_party/chromium_quic/clone_helper.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "I\u0027m trying to copy a minimum subset needed to compile QUIC and its platform layer.  This mostly saves space and simplifies the build files (which are easier to rewrite than copy because of all the chromium flags/configs used in the originals).  To consider just the main directories, base/, net/, and url/, the size difference between a complete copy and this method is roughly 90MB to 17MB.",
+      "parentUuid": "326fc8c9_de71df50",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ea5408d8_4832a6eb",
+        "filename": "third_party/chromium_quic/demo/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Currently, all the perror strings are unique as well.  Leaving them as-is for now.",
+      "parentUuid": "957643db_8712e9e1",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9afcc613_ad2e785c",
         "filename": "third_party/chromium_quic/demo/client.cc",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74271dbb_6ab34824",
+        "filename": "third_party/chromium_quic/demo/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9afcc613_ad2e785c",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "2e2d31e1_d2e13f8e",
+        "filename": "third_party/chromium_quic/demo/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Added a port argument as a middle ground.",
+      "parentUuid": "944b317c_38cbad20",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39077b7c_8ab7824b",
         "filename": "third_party/chromium_quic/demo/client.cc",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1858d736_ad99bc61",
+        "filename": "third_party/chromium_quic/demo/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "It\u0027s not necessary, it just simplified writing the server loop.  The server just needs to initialize its UdpTransport with the client address to which it is responding, and we need a packet first.  I removed this sync behavior and just forward the first packet the server receives to the QuartcSession for clarity.",
+      "parentUuid": "39077b7c_8ab7824b",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "c37ee6e5_48b6384f",
+        "filename": "third_party/chromium_quic/demo/delegates.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56cb9ea0_553af0b8",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25fe702d_3736d184",
         "filename": "third_party/chromium_quic/demo/delegates.cc",
         "patchSetId": 2
@@ -169,6 +331,24 @@
       "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da2d869e_7f369d35",
+        "filename": "third_party/chromium_quic/demo/delegates.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25fe702d_3736d184",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "ef0a2ddb_a878e358",
+        "filename": "third_party/chromium_quic/demo/delegates.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "There is a timing and execution component of the loop in both server.cc and client.cc that runs the alarm tasks.",
+      "parentUuid": "733bcdce_7cc72c30",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7669299_3d9b9c96",
         "filename": "third_party/chromium_quic/demo/server.cc",
         "patchSetId": 2
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "19723055_370a3e7b",
+        "filename": "third_party/chromium_quic/demo/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7669299_3d9b9c96",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c7701f5_41574cfb",
         "filename": "third_party/chromium_quic/demo/server.cc",
         "patchSetId": 2
@@ -220,6 +436,24 @@
       "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5168fb8c_7c6128ff",
+        "filename": "third_party/chromium_quic/demo/server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-08-27T21:23:02Z",
+      "side": 1,
+      "message": "Removed the sync packet.",
+      "parentUuid": "2c7701f5_41574cfb",
+      "revId": "b0ef2a9ad6bc2f0eebe5999090c7e636e31da739",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
