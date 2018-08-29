@@ -13,6 +13,11 @@ config("openscreen_code") {
     "-Werror",
   ]
 
+  cflags_cc = [
+    # issue/15: GMock does not support the override keyword.
+    "-Wno-inconsistent-missing-override",
+  ]
+
   if (dcheck_always_on) {
     defines = [ "DCHECK_ALWAYS_ON" ]
   }
