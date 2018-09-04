@@ -5,6 +5,7 @@
 #ifndef API_PUBLIC_SCREEN_INFO_H_
 #define API_PUBLIC_SCREEN_INFO_H_
 
+#include <cstdint>
 #include <string>
 
 #include "base/ip_address.h"
@@ -21,8 +22,8 @@ struct ScreenInfo {
   // User visible name of the screen in UTF-8.
   std::string friendly_name;
 
-  // The network interface that the screen was discovered on.
-  std::string network_interface;
+  // The index of the network interface that the screen was discovered on.
+  int32_t network_interface_index;
 
   // The network endpoint to create a new connection to the screen.
   // At least one of these two must be set.

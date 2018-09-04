@@ -9,7 +9,7 @@ namespace openscreen {
 bool ScreenInfo::operator==(const ScreenInfo& other) const {
   return (screen_id == other.screen_id &&
           friendly_name == other.friendly_name &&
-          network_interface == other.network_interface &&
+          network_interface_index == other.network_interface_index &&
           ipv4_endpoint.address == other.ipv4_endpoint.address &&
           ipv4_endpoint.port == other.ipv4_endpoint.port &&
           ipv6_endpoint.address == other.ipv6_endpoint.address &&

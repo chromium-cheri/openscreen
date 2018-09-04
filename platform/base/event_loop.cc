@@ -37,6 +37,7 @@ bool ReceiveDataFromIPv4Event(const UdpSocketIPv4ReadableEvent& read_event,
   }
   DCHECK_LE(len, kUdpMaxPacketSize);
   data->length = len;
+  data->socket = read_event.socket;
   return true;
 }
 
@@ -55,6 +56,7 @@ bool ReceiveDataFromIPv6Event(const UdpSocketIPv6ReadableEvent& read_event,
   }
   DCHECK_LE(len, kUdpMaxPacketSize);
   data->length = len;
+  data->socket = read_event.socket;
   return true;
 }
 

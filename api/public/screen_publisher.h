@@ -99,8 +99,12 @@ class ScreenPublisher {
     // By default, all enabled Ethernet and WiFi interfaces are used.
     // This configuration must be identical to the interfaces configured
     // in the ScreenConnectionServer.
-    // TODO(btolsch): Can this be an index list on all platforms?
-    std::vector<std::string> network_interface_names;
+    // TODO(btolsch): Currently for the mDNSResponder case, a ScreenListener
+    // will attempt to listen on all available interfaces but a ScreenPublisher
+    // may have a whitelist.  MdnsResponderAdapterImpl would need to restrict
+    // registered interfaces to this whitelist, narrowing the listening scope as
+    // well.  Are we okay with this?
+    std::vector<int32_t> network_interface_indices;
   };
 
   virtual ~ScreenPublisher();

@@ -13,6 +13,13 @@ source_set("api_unittests") {
   testonly = true
 
   sources = [
+    "impl/fake_mdns_platform_service.cc",
+    "impl/fake_mdns_platform_service.h",
+    "impl/fake_mdns_platform_service_unittest.cc",
+    "impl/fake_mdns_responder_adapter.cc",
+    "impl/fake_mdns_responder_adapter.h",
+    "impl/fake_mdns_responder_adapter_unittest.cc",
+    "impl/mdns_responder_service_unittest.cc",
     "impl/screen_list_unittest.cc",
     "impl/screen_listener_impl_unittest.cc",
     "impl/screen_publisher_impl_unittest.cc",

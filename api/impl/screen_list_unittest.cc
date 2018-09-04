@@ -14,14 +14,14 @@ TEST(ScreenListTest, AddScreens) {
   EXPECT_TRUE(list.screens().empty());
 
   const ScreenInfo screen1{
-      "id1", "name1", "eth0", {{192, 168, 1, 10}, 12345}, {{}, 0}};
+      "id1", "name1", 1, {{192, 168, 1, 10}, 12345}, {{}, 0}};
   list.OnScreenAdded(screen1);
 
   ASSERT_EQ(1u, list.screens().size());
   EXPECT_EQ(screen1, list.screens()[0]);
 
   const ScreenInfo screen2{
-      "id2", "name2", "eth0", {{192, 168, 1, 11}, 12345}, {{}, 0}};
+      "id2", "name2", 1, {{192, 168, 1, 11}, 12345}, {{}, 0}};
   list.OnScreenAdded(screen2);
 
   ASSERT_EQ(2u, list.screens().size());
@@ -40,13 +40,13 @@ TEST(ScreenListTest, AddScreens) {
 TEST(ScreenListTest, ChangeScreens) {
   ScreenList list;
   const ScreenInfo screen1{
-      "id1", "name1", "eth0", {{192, 168, 1, 10}, 12345}, {{}, 0}};
+      "id1", "name1", 1, {{192, 168, 1, 10}, 12345}, {{}, 0}};
   const ScreenInfo screen2{
-      "id2", "name2", "eth0", {{192, 168, 1, 11}, 12345}, {{}, 0}};
+      "id2", "name2", 1, {{192, 168, 1, 11}, 12345}, {{}, 0}};
   const ScreenInfo screen3{
-      "id3", "name3", "eth0", {{192, 168, 1, 12}, 12345}, {{}, 0}};
+      "id3", "name3", 1, {{192, 168, 1, 12}, 12345}, {{}, 0}};
   const ScreenInfo screen1_alt_name{
-      "id1", "name1 alt", "eth0", {{192, 168, 1, 10}, 12345}, {{}, 0}};
+      "id1", "name1 alt", 1, {{192, 168, 1, 10}, 12345}, {{}, 0}};
   list.OnScreenAdded(screen1);
   list.OnScreenAdded(screen2);
 
@@ -61,9 +61,9 @@ TEST(ScreenListTest, ChangeScreens) {
 TEST(ScreenListTest, RemoveScreens) {
   ScreenList list;
   const ScreenInfo screen1{
-      "id1", "name1", "eth0", {{192, 168, 1, 10}, 12345}, {{}, 0}};
+      "id1", "name1", 1, {{192, 168, 1, 10}, 12345}, {{}, 0}};
   const ScreenInfo screen2{
-      "id2", "name2", "eth0", {{192, 168, 1, 11}, 12345}, {{}, 0}};
+      "id2", "name2", 1, {{192, 168, 1, 11}, 12345}, {{}, 0}};
   EXPECT_FALSE(list.OnScreenRemoved(screen1));
   list.OnScreenAdded(screen1);
   EXPECT_FALSE(list.OnScreenRemoved(screen2));
@@ -79,9 +79,9 @@ TEST(ScreenListTest, RemoveScreens) {
 TEST(ScreenListTest, RemoveAllScreens) {
   ScreenList list;
   const ScreenInfo screen1{
-      "id1", "name1", "eth0", {{192, 168, 1, 10}, 12345}, {{}, 0}};
+      "id1", "name1", 1, {{192, 168, 1, 10}, 12345}, {{}, 0}};
   const ScreenInfo screen2{
-      "id2", "name2", "eth0", {{192, 168, 1, 11}, 12345}, {{}, 0}};
+      "id2", "name2", 1, {{192, 168, 1, 11}, 12345}, {{}, 0}};
   EXPECT_FALSE(list.OnAllScreensRemoved());
   list.OnScreenAdded(screen1);
   list.OnScreenAdded(screen2);
