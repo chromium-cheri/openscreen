@@ -20,7 +20,6 @@ enum class ScreenPublisherErrorCode {
 
 // Used to report an error from a ScreenListener implementation.
 struct ScreenPublisherError {
- public:
   ScreenPublisherError();
   ScreenPublisherError(ScreenPublisherErrorCode error,
                        const std::string& message);
