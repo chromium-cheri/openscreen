@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eac71656_32aac636",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "Define an enum class for all the tags for a given control protocol?",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d07d1c7a_2826c103",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "How does the caller know what size to allocate the buffer?  Do they need to compute the lengths of the encoded sizes of all the arguments?",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6626a41f_c42f2445",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "Is it possible to use a CborEncoder to encode more than one message?  I.e., is there any benefit from storing and reusing this?",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5389fbf_8518acc9",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "What does an error return value mean?  Is this something the caller can be expected to recover from?",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd7407b4_6bbdf360",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "Although macros are discouraged, repeated boilerplate code is even worse, especially since we will likely upgrade these statements to use to ErrorOr\u003c\u003e in the future.\n\nWDYT of having a CBOR_RETURN_ON_ERROR() macro?  (Or a shorter name, if you have one.)",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ca2bda9_848df55b",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "The encode_text_string function doesn\u0027t take a character encoding.  Is one assumed?  How are UTF-8 strings with embedded nulls handled?\n\nWe will also want to validate that url (and any other string passed from the embedder) is valid UTF-8 before encoding.",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84cfb8e6_3ceb6b4f",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "Is it safe to assume that all messages will be a tagged map as the outer container?\n\nIt would probably be reasonable to have a ExpectTaggedMap(\u0026it, kPresentationUrlAvailabilityRequestTag) that validates the expected tag and advances |it| into the map.",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1fc5472_c1cce082",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "Extract a function ExpectKey(\u0026map, kRequestIdKey) that consumes the next key from |map|?",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99d8c7cf_4467a52e",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "Similar comments above regarding UTF-8 validation.  We may not have a UTF-8 validation routine yet, in which case fine to leave as a TODO (but please file an issue for it).",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5510382d_cc3e8c24",
+        "filename": "control/messages.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "We will want to think about how to organize the CBOR protocol into namespaces according to the API/feature being supported.  Peter\u0027s document may have some guidance on this.\n\nNot necessary to figure out now, but I was thinking of using C++ namespaces to achieve some of this (and to organize the folder structure accordingly).  So this might be:\n\nnamespace openscreen {\nnamespace msgs {\nclass PresentationApi {\n\n\u003cstructs/enums\u003e\n\n}\n}\n}\n\n\nWhat do you think?",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23f9362e_607d359f",
+        "filename": "control/messages.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "Should this take a const PresentationUrlAvailabilityRequest\u0026 ?",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3704ec1e_86ce235d",
+        "filename": "control/messages.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T18:04:53Z",
+      "side": 1,
+      "message": "size_t?  Do we need to support negative lengths?",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
