@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "11ee29c9_28bd8b0b",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eac71656_32aac636",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d07d1c7a_2826c103",
         "filename": "control/messages.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72b436cb_94e5fe59",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "tinycbor helps us with this.  If it runs out of buffer space, it starts tracking the overflow amount instead, but returns CborErrorOutOfMemory on every call.  For now, I changed this to return the needed size when there is insufficient memory.  The caller can check this by comparing the result to the length they passed.  We could also return a discriminated union.",
+      "parentUuid": "d07d1c7a_2826c103",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "995af8b3_70a9a666",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "Yes, encoding more than one message is fine if it\u0027s in a continuous buffer.  The encoder setup is just 4 pointer/int assignments.  When we have more CBOR infra/use in place it might make sense to keep it around but for now I don\u0027t think it\u0027s a problem to recreate it every time.",
+      "parentUuid": "6626a41f_c42f2445",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5389fbf_8518acc9",
         "filename": "control/messages.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0edf0d3_8585defb",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "There are only a few possible encoding errors.  One example is if we say create_map(2), but write 1/3 key-value pairs, close_container() will return CborErrorToo{Few,Many}Items.  Similarly, requesting create_map(SIZE_MAX) would return CborErrorDataTooLarge.  I think the only other encoding error is CborErrorOutOfMemory, which I covered in the buffer length comment.",
+      "parentUuid": "b5389fbf_8518acc9",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ed13d5ae_6f5368b8",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "SGTM.  Done.",
+      "parentUuid": "dd7407b4_6bbdf360",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ca2bda9_848df55b",
         "filename": "control/messages.cc",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59d648f3_36708668",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "It\u0027s assumed to be UTF-8, but this function does no validation.  tinycbor has a validation function for encoded data, and for now we could also use that to validate data before encoding.  Embedded nulls are accepted both here and in the validation function.",
+      "parentUuid": "2ca2bda9_848df55b",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "a25010b6_69686a98",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "We may also use arrays as the outer container (but currently we only have maps spec\u0027d).  In general I don\u0027t think we can expect a particular tag.  If we are just pulling CBOR out of a QUIC stream, it could be any number of messages.  I think the TODO above is what we\u0027ll end up doing.",
+      "parentUuid": "84cfb8e6_3ceb6b4f",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1fc5472_c1cce082",
         "filename": "control/messages.cc",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49d49492_f46582da",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "Done + macro for using a string constant.",
+      "parentUuid": "b1fc5472_c1cce082",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "008251a9_772c1551",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "Done w/ (private) tinycbor utf8 routine for now.  I added a TODO for actually using our own (which could just be a copy of theirs).",
+      "parentUuid": "99d8c7cf_4467a52e",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5510382d_cc3e8c24",
         "filename": "control/messages.h",
         "patchSetId": 1
@@ -169,6 +331,24 @@
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "472558d4_4a12cccf",
+        "filename": "control/messages.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "I went with //msgs/presentation and the same namespaces.",
+      "parentUuid": "5510382d_cc3e8c24",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "4721a06a_331e6d0c",
+        "filename": "control/messages.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23f9362e_607d359f",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3704ec1e_86ce235d",
         "filename": "control/messages.h",
         "patchSetId": 1
@@ -203,6 +401,24 @@
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e1cc7ea_f139f1aa",
+        "filename": "control/messages.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-06T23:37:33Z",
+      "side": 1,
+      "message": "I originally just made this symmetric with the return type, but actually I don\u0027t see a problem with just making it size_t.  Done.",
+      "parentUuid": "3704ec1e_86ce235d",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
