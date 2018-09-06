@@ -1,0 +1,429 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06ca97e0_a521927a",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Let\u0027s put test support code in a testing/ folder, similar to Chromium.",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e655f722_2002b18d",
+        "filename": "api/impl/fake_mdns_platform_service_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Would it be possible to have some utility functions to create:\n\n- IPv4 socket\n- Ipv6 socket\n- platform::InterfaceInfo\n\nfrom arguments, to shorten setup code for these test cases?\n\nAnother option is to use TEST_F and instantiate fields in SetUp(), in particular |bound_interfaces|.",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343008b7_62ec3000",
+        "filename": "api/impl/fake_mdns_platform_service_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "I\u0027m not following what is being tested here.  It looks like you\u0027re testing the fake object, which returns |bound_interfaces| whenever you call RegisterInterfaces({}).   But there are also calls to MdnsPlatformService below.\n\nWould it make more sense to have MdnsPlatformService::SetInterfacesForTest(), then exercise the MdnsPlatformService API?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27370efe_49e658d5",
+        "filename": "api/impl/fake_mdns_responder_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "MakePtrEvent?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9da6599_538b8aa4",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Do we need this #if/#else?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1700a216_a9bf8f9f",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Declare the IPV4Address outside the loop",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6c96c7e_67c5896a",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Similar comment here",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64848d2e_43857df8",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "What is the difference between the two?  \"Hostname\" is a public DNS concept IIUC.",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3ec559_e46a6676",
+        "filename": "api/impl/internal_services.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "This seems to function as a \"MdnsResponderServiceFactory\", in that it creates and manages the MdnsResponderService, which is effectively a lazy singleton. Would that be a more accurate description?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2944ff6_a30e5940",
+        "filename": "api/impl/mdns_platform_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "What does it mean to copy a UdpSocketIPv{4,6}Ptr?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "376e059c_ba712806",
+        "filename": "api/impl/mdns_platform_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Does InterfaceInfo implement operator\u003d\u003d, or can it?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f23b3b8_e00298f4",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Do we already have this for parsing IPv4 addresses?  Can it go into a string utility module?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "841f8495_d5925401",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "For listening/publishing, deregistering all bound interfaces and pausing the event loop seems like the correct approach.\n\nThat will allow the platform to free any resources associated with the sockets and prevent network events from being handled, so it will result in minimal resource usage.\n\nWDYT?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4be48bf_81a0f8ba",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "The DNS-SD spec recommends a human readable name for a service instance (SRV hostname), but there are tradeoffs.\n\nSome discussion here:  https://github.com/webscreens/openscreenprotocol/blob/gh-pages/mdns.md\n\nWe should call this out when we write up mDNS for the 1.0 spec.  I\u0027ll add a GitHub issue for the standard.",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "957302d1_29e80fdc",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "do ... while (events_possible)?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af38ba76_ec4cd04d",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Should these queries go after the interface check below?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2465a9e7_21c86d32",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Maybe extract function: bool IsForBoundInterface(IPV4Socket)?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f262897_3abec263",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "It seems not entirely unreasonable for a packet to be received from an interface we just unregistered, so crashing seems drastic here.  Maybe just discard the ptr_event?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eafe7d34_f2e0d291",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Can we make this more object oriented by adding a constructor for ScreenInfo that takes this information?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46217123_dc37df1c",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Similarly:\n\nbool changed \u003d screen_info.Update(friendly_name, ...);",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35eaee5d_1784e6a1",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Did you consider populating ScreenInfo incrementally as DNS records came in, and then updating listeners when a check like ScreenInfo.IsComplete() returns true?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d92060_cd001c03",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "It\u0027s a little hard to reason about the lifetime of the values in the three maps, since a request to remove any of the record types should result in a removal of the entire entry.  Leaving something behind could result in a leak, or possibly a ScreenInfo with stale information.\n\nMaybe this could be written as:\n\n\nvector\u003cmdns::DomainName\u003e::iterator FindBySrv\nvector\u003cmnds::DomainName\u003e::iterator FindByTxt\n\netc., then a removal is handled by removing all ScreenInfo\u0027s that match the removal record.   Another approach would be to write predicates/lambdas and use std::remove_if. \n\nDo you think that is simpler?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a8ffa5_de304258",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Can we consolidate onto one std::map using mdns::DomainName as a key?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12ba804b_ec62cf09",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "That seems fine to me.",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07fcfbf2_b9ca46e9",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-06T23:07:31Z",
+      "side": 1,
+      "message": "Do you see a need to support C++14 in the library? We would want to see how that restricts the possible set of toolchains used by third parties.",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
