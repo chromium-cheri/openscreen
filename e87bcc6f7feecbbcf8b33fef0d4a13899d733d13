@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39684d23_3692e8de",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "I think this can be done with an iterator over |s|, as char is guaranteed to be 8 bits in C?",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b7999c_95d8aa8a",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "Nit: This can be combined with the previous statement.",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b667a2b1_cc016566",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "It might be simpler to always use the Cbor* return values, even from subroutines we write, so that we can use a single RETURN_ON_ERROR macro.",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b90239_b432f017",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "Nit: Can you please move #define\u0027s to the top of the .cc?",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77cc781_48ed933a",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "We will want a routine to write a string array to a map key; but fine to leave as a TODO until we need to do it a second time.",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2239329_4d3f0c27",
+        "filename": "msgs/presentation/messages.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "We will probably want to investigate type-based dispatch for encoding and decoding, so that \"Encode\" and \"Decode\" become operators supported by the structs that contain the parsed data.  This will allow us to write code that handles these messages in a generic way, for example to serialize a collection of them to a QUIC connection.\n\nE.g.\n\nSerializer\u003cT\u003e {   \n    ErrorOr\u003c\u003e Encode(const T\u0026, buffer, length);\n    ErrorOr\u003c\u003e Decode(buffer, length, T*);\n}\n\nI\u0027m sure other patterns are possible... we can wait until we need type-generic code to design this.",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6517fbfd_eae9a5e8",
+        "filename": "msgs/presentation/messages_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "Can this be broken into two test cases for Encode and Decode?",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

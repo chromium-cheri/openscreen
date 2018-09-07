@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "5f3ecd25_29d46fba",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "So does CborErrorOutOfMemory require a buffer reallocation and an additional attempt to encode the value that overflowed?",
+      "parentUuid": "72b436cb_94e5fe59",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6626a41f_c42f2445",
         "filename": "control/messages.cc",
         "patchSetId": 1
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Yes, encoding more than one message is fine if it\u0027s in a continuous buffer.  The encoder setup is just 4 pointer/int assignments.  When we have more CBOR infra/use in place it might make sense to keep it around but for now I don\u0027t think it\u0027s a problem to recreate it every time.",
       "parentUuid": "6626a41f_c42f2445",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a154d33_1b6f6d76",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "SGTM.  I was weighing whether it\u0027s worth encapsulating a CborEncoder in an object for  re-use.  It sounds like it\u0027s not a big deal to allocate one on the stack.  If we need to keep track of the output buffer and reallocate it on demand, though, we should definitely use an object/struct to keep track of it though.",
+      "parentUuid": "995af8b3_70a9a666",
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -139,6 +175,24 @@
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6d51e89_60dae87a",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "So it seems like some errors are due to coding problems, and some might be due to incoming data that hits CBOR size limitations.\n\nFor the former, I think a DCHECK is appropriate so that we catch bug early in test cases.  In either case, returning an error upstream (as you do in this patch) so that the API operation requested by the embedder API returns an error or times out.\n\nThe other option is to CHECK fail and I don\u0027t see a need for that, at least as this point, as I don\u0027t think an error return results in indeterminate or exploitable behavior.\n\nWDYT?",
+      "parentUuid": "e0edf0d3_8585defb",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -241,6 +295,24 @@
       "side": 1,
       "message": "We may also use arrays as the outer container (but currently we only have maps spec\u0027d).  In general I don\u0027t think we can expect a particular tag.  If we are just pulling CBOR out of a QUIC stream, it could be any number of messages.  I think the TODO above is what we\u0027ll end up doing.",
       "parentUuid": "84cfb8e6_3ceb6b4f",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aa6171d_9f4751f2",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-07T18:51:35Z",
+      "side": 1,
+      "message": "I wrote my comment poorly. I think I was looking to share the code that reads the next tag and prepares to iterate over the map (assuming that every outer message is a map).",
+      "parentUuid": "a25010b6_69686a98",
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
