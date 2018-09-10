@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "a05e3094_1d9cdb98",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "5f3ecd25_29d46fba",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6626a41f_c42f2445",
         "filename": "control/messages.cc",
         "patchSetId": 1
@@ -193,6 +211,24 @@
       "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "110ec8e5_eb12d92c",
+        "filename": "control/messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "I agree that it should be safe not to CHECK and just let this one operation fail.  Additionally, I should probably mention that I said \"only a few possible encoding errors\", which was referring to this specific line, but there are many more parsing errors possible.  I think it\u0027s safe not to CHECK in both cases though.\n\nFor now, I added some encoder DCHECKs to the return-on-error macro (which is safe but irrelevant for the parser).",
+      "parentUuid": "a6d51e89_60dae87a",
+      "revId": "968d54da194d2eb80d5de990859c737e35eb2bb8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {

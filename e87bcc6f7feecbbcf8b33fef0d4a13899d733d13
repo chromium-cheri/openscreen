@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1b448693_c685c683",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "get_utf8 is a C function which takes pointers, and even \u0026*it wouldn\u0027t work because it actually takes |buffer| as a |const uint8_t**| so it can advance it the necessary amount.  We could use iterators if we reimplement the utf8 checking at some point.",
+      "parentUuid": "39684d23_3692e8de",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27b7999c_95d8aa8a",
         "filename": "msgs/presentation/messages.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f095fa68_8e43f428",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27b7999c_95d8aa8a",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e91067cf_527b4ccc",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "That doesn\u0027t completely eliminate the need for another parameter and/or another macro.  Cbor* error values are positive (except OutOfMemory), but we want to return a negative value on error at the top level encode decode functions.  However, I still rewrote them to use Cbor* errors to avoid writing extra \"false\"s everywhere.  LMK if you prefer the first method or have another idea.",
+      "parentUuid": "b667a2b1_cc016566",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74b90239_b432f017",
         "filename": "msgs/presentation/messages.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "153e948f_0fcedd1a",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b90239_b432f017",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "d768b8f3_732c83e4",
+        "filename": "msgs/presentation/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b77cc781_48ed933a",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2239329_4d3f0c27",
         "filename": "msgs/presentation/messages.h",
         "patchSetId": 3
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "b58aa99c_ef955d26",
+        "filename": "msgs/presentation/messages.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2239329_4d3f0c27",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6517fbfd_eae9a5e8",
         "filename": "msgs/presentation/messages_unittest.cc",
         "patchSetId": 3
@@ -118,6 +226,24 @@
       "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "916b5d67_0a34a1f1",
+        "filename": "msgs/presentation/messages_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T17:55:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6517fbfd_eae9a5e8",
+      "revId": "e87bcc6f7feecbbcf8b33fef0d4a13899d733d13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
