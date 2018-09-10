@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4296f046_ebe4953b",
+        "filename": "base/ip_address.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T18:07:52Z",
+      "side": 1,
+      "message": "Nope :/ because the way it\u0027s written actually accepts any uint8_t*.  The above constructors can disambiguate because uint8_t (\u0026x)[4] is treated differently.  I can\u0027t write that here, however, because there are places in the socket code where we write into a pointer that is not actually defined as a uint8_t[4] (e.g. struct in_addr, which just has a uint32_t member).  I don\u0027t know of a way to cast from that to an actual array type.",
+      "parentUuid": "d9d696a5_a61b72df",
+      "revId": "a3dcb338b554dd2771db479874f61785e844a9b3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "253e15ff_14de8dd8",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "a3dcb338b554dd2771db479874f61785e844a9b3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e41680_b54f9396",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-10T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "253e15ff_14de8dd8",
+      "revId": "a3dcb338b554dd2771db479874f61785e844a9b3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
