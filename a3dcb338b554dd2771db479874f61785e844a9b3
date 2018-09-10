@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "cf1c4089_00f67929",
+        "filename": "base/ip_address.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1233199
+      },
+      "writtenOn": "2018-09-10T18:26:24Z",
+      "side": 1,
+      "message": "Yeah, you\u0027d likely have to reinterpret_cast\u003c\u003e to an array type. I think being more explicit is fine here.\n\nHowever, if you can pass a uint8_t*, then it\u0027s still up to the caller though to verify that x is correctly sized (e.g. static_assert()).  It might be worth calling that out in a comment.",
+      "parentUuid": "4296f046_ebe4953b",
+      "revId": "a3dcb338b554dd2771db479874f61785e844a9b3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "253e15ff_14de8dd8",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 1
