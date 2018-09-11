@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4e4b6db_238c9f68",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06ca97e0_a521927a",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e655f722_2002b18d",
         "filename": "api/impl/fake_mdns_platform_service_unittest.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "37f9d324_d7476c9a",
+        "filename": "api/impl/fake_mdns_platform_service_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e655f722_2002b18d",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "343008b7_62ec3000",
         "filename": "api/impl/fake_mdns_platform_service_unittest.cc",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-09-06T23:07:31Z",
       "side": 1,
       "message": "I\u0027m not following what is being tested here.  It looks like you\u0027re testing the fake object, which returns |bound_interfaces| whenever you call RegisterInterfaces({}).   But there are also calls to MdnsPlatformService below.\n\nWould it make more sense to have MdnsPlatformService::SetInterfacesForTest(), then exercise the MdnsPlatformService API?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03662b3d_68608179",
+        "filename": "api/impl/fake_mdns_platform_service_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "We discussed F2F what is going on here.\n\nAfter revisiting the whitelist code in InternalServices, it doesn\u0027t look like it can be easily shared (i.e. without a template) and is actually very small (rather paradoxically).  In spite of that, I prefer this over something like SetInterfacesForTest.  I don\u0027t think SetInterfacesForTest would let us really test cases like: Start-\u003eStop-\u003eStart correctly closes and reopens sockets, Listener start-\u003ePublisher start w/ whitelist closes non-whitelisted sockets.\n\nWDYT?",
+      "parentUuid": "343008b7_62ec3000",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "c2543f02_2402e7ac",
+        "filename": "api/impl/fake_mdns_responder_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27370efe_49e658d5",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9da6599_538b8aa4",
         "filename": "api/impl/internal_services.cc",
         "patchSetId": 2
@@ -84,6 +156,24 @@
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bc01432_057cb7c3",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "This is just so I can check the listener demo against cast devices as well, since the service type isn\u0027t a parameter.  I removed it now so I don\u0027t forget though, and I\u0027ll just change the string as necessary.",
+      "parentUuid": "f9da6599_538b8aa4",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "b2c2c11e_68d23b5a",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1700a216_a9bf8f9f",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6c96c7e_67c5896a",
         "filename": "api/impl/internal_services.cc",
         "patchSetId": 2
@@ -118,6 +226,24 @@
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51cf6b4c_8256822c",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6c96c7e_67c5896a",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "7c772474_f5e1b325",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Hostname goes in the A/AAAA record and the SRV references it.  Instance is how I\u0027m referring to the first label in a PTR answer (e.g. \"Chromecast-deadbeef\" in Chromecast-deadbeef._googlecast._tcp.local).",
+      "parentUuid": "64848d2e_43857df8",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa3ec559_e46a6676",
         "filename": "api/impl/internal_services.h",
         "patchSetId": 2
@@ -149,6 +293,24 @@
       "writtenOn": "2018-09-06T23:07:31Z",
       "side": 1,
       "message": "This seems to function as a \"MdnsResponderServiceFactory\", in that it creates and manages the MdnsResponderService, which is effectively a lazy singleton. Would that be a more accurate description?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "018529f8_033ea8c7",
+        "filename": "api/impl/internal_services.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "It\u0027s effectively a MdnsResponderServiceFactory, where it doesn\u0027t return the MdnsResponderService.  I named it InternalServices because I envisioned this being the owner of some internal QUIC objects in the future.  I can still rename it if you prefer.  WDYT?",
+      "parentUuid": "aa3ec559_e46a6676",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "8ee917ad_8573cfe8",
+        "filename": "api/impl/mdns_platform_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "This should be by value, since we\u0027re effectively just remember its address as an identity.",
+      "parentUuid": "c2944ff6_a30e5940",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "376e059c_ba712806",
         "filename": "api/impl/mdns_platform_service.cc",
         "patchSetId": 2
@@ -186,6 +366,24 @@
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20e8c2bb_813e83e3",
+        "filename": "api/impl/mdns_platform_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "376e059c_ba712806",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "c4d7bc63_8a68226f",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "IPv4 parsing is more specialized (e.g. it makes sure all non-\u0027.\u0027 characters are digits and that there are exactly 4 components).  I removed this since it\u0027s only being used on a constant, and now we just take the already-split pieces.",
+      "parentUuid": "4f23b3b8_e00298f4",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "841f8495_d5925401",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -217,6 +433,24 @@
       "writtenOn": "2018-09-06T23:07:31Z",
       "side": 1,
       "message": "For listening/publishing, deregistering all bound interfaces and pausing the event loop seems like the correct approach.\n\nThat will allow the platform to free any resources associated with the sockets and prevent network events from being handled, so it will result in minimal resource usage.\n\nWDYT?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7df5f4d_6ce5fed4",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "The part I\u0027m unsure about is whether it makes sense to leave mDNSResponder \"alive\".  OT1H, we get to keep its record cache, OTOH, we are violating its Execute() scheduling requirement and its cache will be invalid after a relatively short amount of time.  I\u0027m not sure mDNSResponder will do in that case.",
+      "parentUuid": "841f8495_d5925401",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "10717ecb_40701f4d",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "True, but the intention of this function is really to set metadata over discovery data.  I\u0027m just abusing it for the demo for now.",
+      "parentUuid": "e4be48bf_81a0f8ba",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "957302d1_29e80fdc",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -254,6 +506,24 @@
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfd783cc_3af88888",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "957302d1_29e80fdc",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "4e8866c8_e996b896",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af38ba76_ec4cd04d",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2465a9e7_21c86d32",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -288,6 +576,24 @@
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99747102_892767fe",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "I think the IPAddress merge cleaned this up enough, plus this isn\u0027t done anywhere else.",
+      "parentUuid": "2465a9e7_21c86d32",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -308,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "4ca7c051_3d699cb1",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f262897_3abec263",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eafe7d34_f2e0d291",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -322,6 +646,24 @@
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7396b6ce_6d39d456",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Now that there\u0027s no branch on address type, it can be aggregate initialized.",
+      "parentUuid": "eafe7d34_f2e0d291",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -342,6 +684,24 @@
     },
     {
       "key": {
+        "uuid": "838bb0f9_a925cd82",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46217123_dc37df1c",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35eaee5d_1784e6a1",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -359,6 +719,24 @@
     },
     {
       "key": {
+        "uuid": "41a09be2_02deea56",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "The one thing that ScreenInfo doesn\u0027t capture is the hostname of the device.  So we don\u0027t know how to map A/AAAA records to ScreenInfo instances directly.  If we wanted to add the hostname to ScreenInfo, incremental update would be possible.   A/AAAA events would require checking every ScreenInfo for potential update candidates though.",
+      "parentUuid": "35eaee5d_1784e6a1",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50d92060_cd001c03",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -370,6 +748,24 @@
       "writtenOn": "2018-09-06T23:07:31Z",
       "side": 1,
       "message": "It\u0027s a little hard to reason about the lifetime of the values in the three maps, since a request to remove any of the record types should result in a removal of the entire entry.  Leaving something behind could result in a leak, or possibly a ScreenInfo with stale information.\n\nMaybe this could be written as:\n\n\nvector\u003cmdns::DomainName\u003e::iterator FindBySrv\nvector\u003cmnds::DomainName\u003e::iterator FindByTxt\n\netc., then a removal is handled by removing all ScreenInfo\u0027s that match the removal record.   Another approach would be to write predicates/lambdas and use std::remove_if. \n\nDo you think that is simpler?",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59e2c8ee_7cc35d5f",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "I don\u0027t really understand the FindBySrv/FindByTxt declarations.  Would there be one vector for the service instance names and then a map for each record type (SRV, TXT, A) to help implement those functions?\n\nI don\u0027t think I like std::remove_if for this because we need to call OnScreenRemoved before removing, which would have to go inside a separate test in each remove_if lambda.\n\nThe situation may be complicated by the Stop*Query requirements, which I finished in the latest patch.",
+      "parentUuid": "50d92060_cd001c03",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -393,6 +789,24 @@
     },
     {
       "key": {
+        "uuid": "4e9977f5_606d5fa6",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Do you mean std::map\u003cmdns::DomainName, ScreenInfo\u003e?  If so, not unless we add a hostname field to ScreenInfo.",
+      "parentUuid": "62a8ffa5_de304258",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12ba804b_ec62cf09",
         "filename": "api/public/screen_publisher.h",
         "patchSetId": 2
@@ -410,6 +824,24 @@
     },
     {
       "key": {
+        "uuid": "4afd6ffa_e904d68e",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "12ba804b_ec62cf09",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07fcfbf2_b9ca46e9",
         "filename": "platform/api/network_interface.h",
         "patchSetId": 2
@@ -424,6 +856,24 @@
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6689d42_4b1dd309",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-11T22:14:11Z",
+      "side": 1,
+      "message": "No, we don\u0027t need to.  This is mostly just a note that I only added these because aggregate initialization isn\u0027t possible in C++11 when any members have default values, but _is_ allowed in C++14.  So if we end up having to use C++14, e.g. for QUIC, these _could_ be removed.  I can remove these comments if you feel they\u0027re confusing or noisy.",
+      "parentUuid": "07fcfbf2_b9ca46e9",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
