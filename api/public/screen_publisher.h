@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "base/macros.h"
+#include "base/time.h"
 
 namespace openscreen {
 
@@ -40,10 +41,6 @@ class ScreenPublisher {
     kStopping,
     kSuspended,
   };
-
-  // Microseconds after the epoch.
-  // TODO: Replace with a base::Time object.
-  typedef uint64_t timestamp_t;
 
   struct Metrics {
     Metrics();
