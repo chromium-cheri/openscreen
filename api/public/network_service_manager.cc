@@ -8,8 +8,8 @@
 
 #include "api/public/mdns_screen_listener.h"
 #include "api/public/mdns_screen_publisher.h"
-#include "api/public/screen_connection_client.h"
-#include "api/public/screen_connection_server.h"
+#include "api/public/protocol_connection_client.h"
+#include "api/public/protocol_connection_server.h"
 
 namespace {
 
@@ -23,8 +23,8 @@ namespace openscreen {
 NetworkServiceManager* NetworkServiceManager::Create(
     std::unique_ptr<MdnsScreenListener> mdns_listener,
     std::unique_ptr<MdnsScreenPublisher> mdns_publisher,
-    std::unique_ptr<ScreenConnectionClient> connection_client,
-    std::unique_ptr<ScreenConnectionServer> connection_server) {
+    std::unique_ptr<ProtocolConnectionClient> connection_client,
+    std::unique_ptr<ProtocolConnectionServer> connection_server) {
   // TODO(mfoltz): Convert to assertion failure
   if (g_network_service_manager_instance)
     return nullptr;
@@ -59,19 +59,19 @@ MdnsScreenPublisher* NetworkServiceManager::GetMdnsScreenPublisher() {
   return mdns_publisher_.get();
 }
 
-ScreenConnectionClient* NetworkServiceManager::GetScreenConnectionClient() {
+ProtocolConnectionClient* NetworkServiceManager::GetProtocolConnectionClient() {
   return connection_client_.get();
 }
 
-ScreenConnectionServer* NetworkServiceManager::GetScreenConnectionServer() {
+ProtocolConnectionServer* NetworkServiceManager::GetProtocolConnectionServer() {
   return connection_server_.get();
 }
 
 NetworkServiceManager::NetworkServiceManager(
     std::unique_ptr<MdnsScreenListener> mdns_listener,
     std::unique_ptr<MdnsScreenPublisher> mdns_publisher,
-    std::unique_ptr<ScreenConnectionClient> connection_client,
-    std::unique_ptr<ScreenConnectionServer> connection_server)
+    std::unique_ptr<ProtocolConnectionClient> connection_client,
+    std::unique_ptr<ProtocolConnectionServer> connection_server)
     : mdns_listener_(std::move(mdns_listener)),
       mdns_publisher_(std::move(mdns_publisher)),
       connection_client_(std::move(connection_client)),
