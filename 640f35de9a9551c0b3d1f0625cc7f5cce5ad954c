@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "f6cf55c8_cc22a406",
+        "filename": "api/impl/fake_mdns_platform_service_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-13T19:18:51Z",
+      "side": 1,
+      "message": "Per offline discussion, it\u0027s okay to have a stateful fake object here, if it isn\u0027t possible to share the logic with the real version.  And it sounds like a more targeted test API that allows the state of the real object to be faked isn\u0027t a good solution here either.",
+      "parentUuid": "03662b3d_68608179",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27370efe_49e658d5",
         "filename": "api/impl/fake_mdns_responder_adapter.h",
         "patchSetId": 2
@@ -282,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "753fbf9a_e42737e1",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-13T19:18:51Z",
+      "side": 1,
+      "message": "Thanks, we chatted about hostname vs. instance name offline.",
+      "parentUuid": "7c772474_f5e1b325",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa3ec559_e46a6676",
         "filename": "api/impl/internal_services.h",
         "patchSetId": 2
@@ -317,6 +353,24 @@
     },
     {
       "key": {
+        "uuid": "bf61e9a4_1770900a",
+        "filename": "api/impl/internal_services.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-13T19:18:51Z",
+      "side": 1,
+      "message": "I guess I\u0027d have to see it once the QUIC changes land, since I could see some things shared with QUIC and others that are more specific to mDNS.  Not urgent to rename now, but maybe add a comment explaining the purpose, e.g.\n\n// Factory for ScreenListener and ScreenPublisher instances; owns internal objects needed\n// to instantiate them using MdnsResponderService and runs event loop.\n\nOr something along those lines.",
+      "parentUuid": "018529f8_033ea8c7",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c2944ff6_a30e5940",
         "filename": "api/impl/mdns_platform_service.cc",
         "patchSetId": 2
@@ -346,6 +400,24 @@
       "side": 1,
       "message": "This should be by value, since we\u0027re effectively just remember its address as an identity.",
       "parentUuid": "c2944ff6_a30e5940",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5fdc03f_b850b2a6",
+        "filename": "api/impl/mdns_platform_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-13T19:18:51Z",
+      "side": 1,
+      "message": "OK, if this results in a copy or pointer to the underlying fd, the question is how do you notify all copies when the fd is no longer valid.\n\nIt looks like this code has changed, but I was going to suggest copying the address only if that is the important bit?",
+      "parentUuid": "8ee917ad_8573cfe8",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -451,6 +523,24 @@
       "side": 1,
       "message": "The part I\u0027m unsure about is whether it makes sense to leave mDNSResponder \"alive\".  OT1H, we get to keep its record cache, OTOH, we are violating its Execute() scheduling requirement and its cache will be invalid after a relatively short amount of time.  I\u0027m not sure mDNSResponder will do in that case.",
       "parentUuid": "841f8495_d5925401",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e46f20f_023eccab",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-13T19:18:51Z",
+      "side": 1,
+      "message": "Can we flush the cache?  Or will it ignore invalid records?  \n\nFine to leave as a TODO and file an issue to investigate later.",
+      "parentUuid": "e7df5f4d_6ce5fed4",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -772,6 +862,24 @@
     },
     {
       "key": {
+        "uuid": "cb2067da_7a3922ee",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-13T19:18:51Z",
+      "side": 1,
+      "message": "I probably didn\u0027t state my ideas very well.  Let me try again.\n\nIf you think of the responder service as a \"database\", I\u0027m wondering which \"schema\" makes the most sense.\n\nScreenInfo\u0027s are constructed from fragmented data: 4-5 different mDNS record  types that have a couple of different keys.  We could keep separate tables for each data type and have code to keep them in sync, which is more along the lines of the current patch.  There\u0027s always the risk of \"losing\" a record somewhere if you forget to clean it up, or maybe forgetting to update a ScreenInfo when a new mDNS record comes in at the wrong time.\n\nOr have a \"master record\" that owns all of the mDNS records and have different ways to search for it as records go in/out.  ScreenInfo seems to make the most sense, but what is the right set of keys?  Can you always find the right ScreenInfo for an incoming or removed record?\n\nGiven the fragmented nature of mDNS, I\u0027m not sure which is better.\n\nPeter suggested defining a new discovery mechanism based on multicasting a chunk of CBOR.  That is sounding attractive after looking at the work required to use mDNS even in a simple way :-P",
+      "parentUuid": "59e2c8ee_7cc35d5f",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62a8ffa5_de304258",
         "filename": "api/impl/mdns_responder_service.h",
         "patchSetId": 2
@@ -801,6 +909,24 @@
       "side": 1,
       "message": "Do you mean std::map\u003cmdns::DomainName, ScreenInfo\u003e?  If so, not unless we add a hostname field to ScreenInfo.",
       "parentUuid": "62a8ffa5_de304258",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ed2e447_a5de1c1c",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-13T19:18:51Z",
+      "side": 1,
+      "message": "Discussed offline about hostname vs. domainname.  I would not worry too much about Cast requirements.",
+      "parentUuid": "4e9977f5_606d5fa6",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
