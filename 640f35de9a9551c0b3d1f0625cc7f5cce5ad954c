@@ -371,6 +371,24 @@
     },
     {
       "key": {
+        "uuid": "0ae65595_a4256ee3",
+        "filename": "api/impl/internal_services.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-18T21:59:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf61e9a4_1770900a",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2944ff6_a30e5940",
         "filename": "api/impl/mdns_platform_service.cc",
         "patchSetId": 2
@@ -418,6 +436,24 @@
       "side": 1,
       "message": "OK, if this results in a copy or pointer to the underlying fd, the question is how do you notify all copies when the fd is no longer valid.\n\nIt looks like this code has changed, but I was going to suggest copying the address only if that is the important bit?",
       "parentUuid": "8ee917ad_8573cfe8",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adbe5de0_34dae758",
+        "filename": "api/impl/mdns_platform_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-18T21:59:04Z",
+      "side": 1,
+      "message": "I removed const\u0026 to make things clearer (copy-pasta or similar).  Confusion might be stemming from the fact that UdpSocketPtr is a typedef to UdpSocketPrivate*, so copy by value can only ever copy a pointer; no ref-counting of the fd is necessary.",
+      "parentUuid": "b5fdc03f_b850b2a6",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -544,6 +580,24 @@
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4caf1caa_17377849",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-18T21:59:04Z",
+      "side": 1,
+      "message": "Added more context to this TODO for further investigation and I filed issue/16 for this.",
+      "parentUuid": "8e46f20f_023eccab",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -874,6 +928,24 @@
       "side": 1,
       "message": "I probably didn\u0027t state my ideas very well.  Let me try again.\n\nIf you think of the responder service as a \"database\", I\u0027m wondering which \"schema\" makes the most sense.\n\nScreenInfo\u0027s are constructed from fragmented data: 4-5 different mDNS record  types that have a couple of different keys.  We could keep separate tables for each data type and have code to keep them in sync, which is more along the lines of the current patch.  There\u0027s always the risk of \"losing\" a record somewhere if you forget to clean it up, or maybe forgetting to update a ScreenInfo when a new mDNS record comes in at the wrong time.\n\nOr have a \"master record\" that owns all of the mDNS records and have different ways to search for it as records go in/out.  ScreenInfo seems to make the most sense, but what is the right set of keys?  Can you always find the right ScreenInfo for an incoming or removed record?\n\nGiven the fragmented nature of mDNS, I\u0027m not sure which is better.\n\nPeter suggested defining a new discovery mechanism based on multicasting a chunk of CBOR.  That is sounding attractive after looking at the work required to use mDNS even in a simple way :-P",
       "parentUuid": "59e2c8ee_7cc35d5f",
+      "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15370902_eea4af23",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-18T21:59:04Z",
+      "side": 1,
+      "message": "Okay, so my interpretation of this is that the function declarations might look more like:\n\n  vector\u003cScreenInfo\u003e::iterator FindBySrv(const SrvEvent\u0026);\n  ...\n\nI don\u0027t mind this approach, but it makes it more difficult to support multiple services per hostname (e.g. Cast groups).  FindByA would need to be something more like:\n\n  vector\u003cvector\u003cScreenInfo\u003e::iterator\u003e\u003e FindByA(const AEvent\u0026)\n\nBroadcasting CBOR is an interesting idea; even though mDNS is widely supported, it\u0027s clearly not very clean.",
+      "parentUuid": "cb2067da_7a3922ee",
       "revId": "640f35de9a9551c0b3d1f0625cc7f5cce5ad954c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
