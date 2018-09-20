@@ -10,10 +10,9 @@ ScreenConnectionClientError::ScreenConnectionClientError() = default;
 ScreenConnectionClientError::ScreenConnectionClientError(
     Code error,
     const std::string& message)
-  : error(error), message(message) {}
+    : error(error), message(message) {}
 ScreenConnectionClientError::ScreenConnectionClientError(
-    const ScreenConnectionClientError& other) =
-  default;
+    const ScreenConnectionClientError& other) = default;
 ScreenConnectionClientError::~ScreenConnectionClientError() = default;
 
 ScreenConnectionClientError& ScreenConnectionClientError::operator=(
@@ -26,8 +25,8 @@ ScreenConnectionClient::Config::Config() = default;
 ScreenConnectionClient::Config::~Config() = default;
 
 ScreenConnectionClient::ScreenConnectionClient(const Config& config,
-                                               Observer* observer) :
-  config_(config), observer_(observer) {}
+                                               Observer* observer)
+    : config_(config), observer_(observer) {}
 ScreenConnectionClient::~ScreenConnectionClient() = default;
 
 }  // namespace openscreen

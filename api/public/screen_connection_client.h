@@ -7,9 +7,9 @@
 
 #include <string>
 
+#include "api/public/screen_connection.h"
 #include "base/macros.h"
 #include "base/time.h"
-#include "api/public/screen_connection.h"
 
 namespace openscreen {
 
@@ -36,10 +36,7 @@ struct ScreenConnectionClientError {
 
 class ScreenConnectionClient {
  public:
-  enum class State {
-    kStopped = 0,
-    kRunning
-  };
+  enum class State { kStopped = 0, kRunning };
 
   // For any embedder-specific configuration of the ScreenConnectionClient.
   struct Config {
