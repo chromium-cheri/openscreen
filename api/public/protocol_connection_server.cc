@@ -2,15 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "api/public/protocol_connection_client.h"
+#include "api/public/protocol_connection_server.h"
 
 namespace openscreen {
 
-ProtocolConnectionClient::ProtocolConnectionClient(
-    const ServerConfig& config,
-    ProtocolConnectionObserver* observer)
+ProtocolConnectionServer::ProtocolConnectionServer(const ServerConfig& config,
+                                                   Observer* observer)
     : config_(config), observer_(observer) {}
 
-ProtocolConnectionClient::~ProtocolConnectionClient() = default;
+ProtocolConnectionServer::~ProtocolConnectionServer() = default;
 
 }  // namespace openscreen
