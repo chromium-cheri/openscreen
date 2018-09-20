@@ -65,7 +65,7 @@ class ScreenPublisher {
     virtual ~Observer() = default;
 
     // Called when the state becomes kRunning.
-    virtual void OnStarted() = 0;
+    virtual void OnRunning() = 0;
     // Called when the state becomes kStopped.
     virtual void OnStopped() = 0;
     // Called when the state becomes kSuspended.
