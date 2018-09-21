@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2db41201_afb8b4aa",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-09-21T17:40:28Z",
+      "side": 1,
+      "message": "What is a \"ScreenConnection\"?  This could use a class-level comment.  Is it a connection between a client and server?  Will this class be used from both sides of the connection?",
+      "revId": "ea5f0a1b04a3ef982113ecaaf941daada5d2fd89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8bb0e9f_cff24081",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-09-21T17:40:28Z",
+      "side": 1,
+      "message": "Why is it called \"ScreenConnection\" instead of just \"Connection\"?\n\nAnd the word \"Connection\" is already use in the API for the pre-presentation virtual connection within the connection, so we need to be careful not to have this be confusing.  Perhaps a class comment would help.  The other kind of connection would always be a \"PresentationConnection\".  Perhaps that\u0027s why this is a \"ScreenConnection\" to differentiate from \"PresentationConnection\"?  I guess that makes sense from the viewpoint of the controller, but from the viewpoint of the screen, it seems awkward (it might want to call it a ControllerConnection).  \n\nSo what\u0027s this connection used for?  It\u0027s used for sending protocol messages to control and later stream.  So... how about either ProtocolConnection or ControlConnection?",
+      "revId": "ea5f0a1b04a3ef982113ecaaf941daada5d2fd89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9356b5_93bc3a03",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-09-21T17:40:28Z",
+      "side": 1,
+      "message": "Is this a Base or an Interface?  Seems more like an Interface right now.",
+      "revId": "ea5f0a1b04a3ef982113ecaaf941daada5d2fd89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd2bb129_746de2d6",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-09-21T17:40:28Z",
+      "side": 1,
+      "message": "Should it be called OnRunning, then?",
+      "revId": "ea5f0a1b04a3ef982113ecaaf941daada5d2fd89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82924e1b_4aba3b76",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-09-21T17:40:28Z",
+      "side": 1,
+      "message": "Who do we expect to fire these?  Some ScreenConnectionManager?",
+      "revId": "ea5f0a1b04a3ef982113ecaaf941daada5d2fd89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "634ccc01_809a789b",
+        "filename": "api/public/screen_connection_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-09-21T17:40:28Z",
+      "side": 1,
+      "message": "What\u0027s the state between when the client tries to start the connection and when it\u0027s running?  Running? Or something before running?",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "ea5f0a1b04a3ef982113ecaaf941daada5d2fd89",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
