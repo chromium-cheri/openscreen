@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d1ce722_966c30f1",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-21T23:50:00Z",
+      "side": 1,
+      "message": "Did you mean to use DISALLOW_COPY_AND_ASSIGN below?  If not, this can be removed.",
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9ad4a94_e75e5a53",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-21T23:50:00Z",
+      "side": 1,
+      "message": "pair is redundant/erroneous here.",
+      "range": {
+        "startLine": 42,
+        "startChar": 56,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36f0cdc0_913acd7b",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-21T23:50:00Z",
+      "side": 1,
+      "message": "Looking at the API here and considering previous comments about sharing the underlying QUIC connection, is the expectation that there is always an existing ScreenConnection for a given receiver (advertised via OnConnectionAdded) even without any Presentation API calls being made?  So ScreenConnectionClient::Start() just opens QUIC connections to every discovered device?",
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86ec4083_2cf3b799",
+        "filename": "api/public/screen_connection_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-21T23:50:00Z",
+      "side": 1,
+      "message": "Looking at the server patch, this needs a base because only the server can suspend, and they have different error and metrics types (which actually hold the same data).  Although it probably makes less sense to suspend the connection client, is there any reason we couldn\u0027t?  I suppose it\u0027s not really a problem, but the client and server seem so similar, I wonder if they could just be the same type (ScreenConnectionEndpoint?), with something like a \"should_listen\" flag.  For that matter, I suppose that could just be how they are implemented, even though the interfaces are separate.  It feels hard to say without any implementation above _or_ below.",
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
