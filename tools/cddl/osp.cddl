@@ -1,0 +1,33 @@
+open-screen-message =
+  #6.2000(presentation-url-availability-request) /
+  #6.2001(presentation-url-availability-response)
+
+request-id = uint
+
+request = (
+  request-id: request-id
+)
+
+response = (
+  request-id: request-id
+)
+
+presentation-url-availability-request = {
+  request
+  urls: [* url]
+}
+
+presentation-url-availability-response = {
+  response
+  timestamp: time
+  url-availabilities: [* url-availability]
+}
+
+time = uint
+url = text
+
+url-availability = &(
+  not-compatible: 0
+  compatible: 1
+  not-valid: 10
+)

@@ -17,21 +17,22 @@ enum class Tag {
   kUrlAvailabilityRequest = 2000,
 };
 
-enum class UrlAvailability {
-  kCompatible = 0,
-  kNotCompatible = 1,
-  kNotValid = 10,
-};
-
-struct UrlAvailabilityRequest {
-  uint64_t request_id;
-  std::vector<std::string> urls;
-};
-
-// TODO(btolsch): ErrorOr<> would remove the need for ssize_t here.
-ssize_t EncodeUrlAvailabilityRequest(const UrlAvailabilityRequest& request,
-                                     uint8_t* buffer,
-                                     size_t length);
+#include "messages.gen.h"
+// enum class UrlAvailability {
+//   kCompatible = 0,
+//   kNotCompatible = 1,
+//   kNotValid = 10,
+// };
+// 
+// struct UrlAvailabilityRequest {
+//   uint64_t request_id;
+//   std::vector<std::string> urls;
+// };
+// 
+// // TODO(btolsch): ErrorOr<> would remove the need for ssize_t here.
+// ssize_t EncodeUrlAvailabilityRequest(const UrlAvailabilityRequest& request,
+//                                      uint8_t* buffer,
+//                                      size_t length);
 ssize_t DecodeUrlAvailabilityRequest(uint8_t* buffer,
                                      size_t length,
                                      UrlAvailabilityRequest* request);

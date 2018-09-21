@@ -97,6 +97,8 @@ CborError ExtractStringArray(CborValue* it,
 
 }  // namespace
 
+#include "messages.gen.cc"
+#if 0
 ssize_t EncodeUrlAvailabilityRequest(const UrlAvailabilityRequest& request,
                                      uint8_t* buffer,
                                      size_t length) {
@@ -134,6 +136,7 @@ ssize_t EncodeUrlAvailabilityRequest(const UrlAvailabilityRequest& request,
     return static_cast<ssize_t>(cbor_encoder_get_buffer_size(&encoder, buffer));
   }
 }
+#endif
 
 ssize_t DecodeUrlAvailabilityRequest(uint8_t* buffer,
                                      size_t length,
