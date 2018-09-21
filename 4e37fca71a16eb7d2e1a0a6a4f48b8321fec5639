@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2008c5f9_0e62b1f4",
+        "filename": "api/public/screen_connection_server.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-21T23:49:48Z",
+      "side": 1,
+      "message": "We could make this take a ScreenPublisher::Config and have ScreenPublisher expose the config it was originally given.  OT1H that seems pretty hacky, OTOH the automatic consistency between we do and what we advertise would be nice.",
+      "revId": "4e37fca71a16eb7d2e1a0a6a4f48b8321fec5639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714947f9_52e539f8",
+        "filename": "api/public/screen_connection_server.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-21T23:49:48Z",
+      "side": 1,
+      "message": "Peter also mentioned the ping-pong messages that are necessary to keep NAT traversal alive, which would be a problem for Suspend down the road.  Of course, we could just accept that Suspend/Resume may result in dropped connections, since I wouldn\u0027t imagine you\u0027d Suspend when anything important is alive anyway.",
+      "revId": "4e37fca71a16eb7d2e1a0a6a4f48b8321fec5639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
