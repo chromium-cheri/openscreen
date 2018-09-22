@@ -59,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "34d6cf91_261cc427",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-09-22T00:20:06Z",
+      "side": 1,
+      "message": "No, I don\u0027t think we\u0027d want to open QUIC connections to every discovered device.  That doesn\u0027t scale to many devices on the network.  Plus, it would require the whole JPAKE password thing in many cases.\n\nI was thing it\u0027s more like an \"on demand\" thing.  When you need to, you create one.  The first time, you might also need to be prepared to put in a JPAKE password.  Future times, you could do it ahead of time if you anticipated an action and wanted more speed (say... there\u0027s only 1 device in the list and you expect the user will click on it).  \n\nBut we shouldn\u0027t consider setting up a connection so cheap as to make them like crazy.",
+      "parentUuid": "36f0cdc0_913acd7b",
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86ec4083_2cf3b799",
         "filename": "api/public/screen_connection_client.h",
         "patchSetId": 6
