@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "88f1911c_232a251a",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-24T18:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d1ce722_966c30f1",
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9ad4a94_e75e5a53",
         "filename": "api/public/screen_connection.h",
         "patchSetId": 6
@@ -39,6 +57,30 @@
       "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8086182c_ec262ba5",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-24T18:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9ad4a94_e75e5a53",
+      "range": {
+        "startLine": 42,
+        "startChar": 56,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -113,6 +155,24 @@
     },
     {
       "key": {
+        "uuid": "5d1fa46b_e8704feb",
+        "filename": "api/public/screen_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-24T18:06:02Z",
+      "side": 1,
+      "message": "The question for this patch is: do we want the embedder to be able to force the library to connect on demand, or is that up to the implementation of individual protocols.  My opinion is to go with the latter initially until there is a use case for the former.\n\nRegarding J-PAKE, the rough flow I had in mind is:\n\n(1) Expose a status flag on the screen_info with authentication state.\n(2) Before an embedder can OSP to an unauthenticated screen, they have to authenticate through a separate embedder API specifically for authentication.  This creates a connection behind the scenes, but only for J-PAKE.  The embedder will need to be part of the J-PAKE flow).\n(3) Once the connection becomes authenticatied, it is exposed as a full-fledged ProtocolConnection and then they can use regular OSP or custom protocols.",
+      "parentUuid": "0c635988_925f18d1",
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86ec4083_2cf3b799",
         "filename": "api/public/screen_connection_client.h",
         "patchSetId": 6
@@ -127,6 +187,24 @@
       "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ce23bc8_2eb98b24",
+        "filename": "api/public/screen_connection_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-24T18:06:02Z",
+      "side": 1,
+      "message": "Regarding the suspend question, there are two use cases for suspending network services like this:\n\n1/The upstream clients in the embedder are all inactive/backgrounded (i.e., your tab went in the background), but they could become active at any time.\n2/The embedder went into a low power state but could come back at any time (you closed the lid on your laptop).\n\nIn either case, OSP shouldn\u0027t run an event loop and handle packets to save power. Ideally, we don\u0027t want to close all the sockets and drop connection state either so we can resume quickly.  The question is, will the connections remain in a useful state?\n\nRegarding the typing, looking at the demo code for QUIC, the implementations are different, so I am inclined to keep separate types for now.  If we discover at the end that the embedder APIs are identical, I don\u0027t see any obstacle to extracting a common type later before we finalize the embedder public APIs.\n\nAdded notes here capturing some of this discussion.  Let me know if you think code changes are needed.",
+      "parentUuid": "86ec4083_2cf3b799",
+      "revId": "5885dd2432cef0ecd9c421d2e75ab735ced92451",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
