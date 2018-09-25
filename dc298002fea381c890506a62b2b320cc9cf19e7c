@@ -1,0 +1,272 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec50634_b3ab7b50",
+        "filename": "base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "Add kCborParsing case.",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d75e171_66ae7745",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "Is kNone needed once we start using ErrorOr?  (Actually, I see it\u0027s needed for is_error(), so see the discriminated union comment instead).",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9013b665_03ad9425",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "nit: Here and below, copy and move constructors aren\u0027t usually explicit.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 10
+      },
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0100241d_c21650c9",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "Is there a strong reason to inline these but not the corresponding constructors?",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47b92380_18a8a2c5",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "No const for value return.",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 14
+      },
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c9eeb2_3362d2db",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "::",
+      "range": {
+        "startLine": 57,
+        "startChar": 19,
+        "endLine": 57,
+        "endChar": 20
+      },
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6312388_01c10a2b",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "nit: Allowing these to be implicit might make things like function return statements cleaner (e.g. the class comment above), but no strong opinion as it\u0027s arguably a readability trade-off.",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce0d3c72_77d1947e",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "std::move(message), otherwise it\u0027s actually a copy.",
+      "range": {
+        "startLine": 77,
+        "startChar": 66,
+        "endLine": 77,
+        "endChar": 73
+      },
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f3c4ecf_decdd333",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "nit: together, these could be ErrorOr(Error::Code code, std::string message) : error_(code, std::move(message)) {}. The same goes for ErrorOr(Error) and Error(Code, std::string).",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcc39c5f_e8e6dc10",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "DISALLOW_COPY_AND_ASSIGN",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf111466_0e65cbbd",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "Double space.",
+      "range": {
+        "startLine": 92,
+        "startChar": 17,
+        "endLine": 92,
+        "endChar": 19
+      },
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4098c6af_75e4ce40",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "Method can be const.",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "238a2a4a_2e883a52",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "nit: I\u0027d prefer consistent naming between the non-const rvalue-ref-returning error() and MoveValue().  Note that since you aren\u0027t returning by value, this could safely just be value() and it will continue to be valid until someone moves from it.",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34b4ac22_dcd8cfcf",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-25T23:55:39Z",
+      "side": 1,
+      "message": "Discriminated union?  Not much space saving but removes the need for Error::Code::kNone.  May enable holding some results by-value later as well, but that\u0027s just a guess.",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
