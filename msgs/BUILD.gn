@@ -1,0 +1,57 @@
+# Copyright 2018 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+source_set("msgs") {
+  sources = [
+    "messages.cc",
+    "messages.h",
+  ]
+
+  public_deps = [
+    ":cddl_gen",
+  ]
+  deps = [
+    "//third_party/tinycbor",
+  ]
+}
+
+config("cddl_gen_config") {
+  include_dirs = [ "$root_gen_dir" ]
+}
+
+action("cddl_gen") {
+  script = "//tools/cddl/cddl.py"
+  sources = [
+    "osp.cddl",
+  ]
+  outputs = [
+    "$target_gen_dir/osp.h",
+    "$target_gen_dir/osp.cc",
+  ]
+  public_configs = [ ":cddl_gen_config" ]
+
+  args = [
+           "--header",
+           rebase_path(outputs[0], root_build_dir),
+           "--cc",
+           rebase_path(outputs[1], root_build_dir),
+         ] + rebase_path(sources, root_build_dir)
+
+  deps = [
+    "//tools/cddl",
+  ]
+}
+
+source_set("unittests") {
+  testonly = true
+
+  sources = [
+    "messages_unittest.cc",
+  ]
+
+  deps = [
+    ":msgs",
+    "//third_party/googletest:gtest",
+  ]
+}
