@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bce0cfa1_5ee50b13",
+        "filename": "PRESUBMIT.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-26T19:10:01Z",
+      "side": 1,
+      "message": "When is this file run?  I don\u0027t think it gets run when I upload a commit to Gerrit.  And I think \u0027git cl lint\u0027 runs a different set of checks?\n\nMaybe add a comment to the README.md on how/when to run these checks.",
+      "revId": "a34b328ac44c2acb796d1b954e8fb5946ea1f8be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b80f5bd0_15d88e62",
+        "filename": "PRESUBMIT.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-26T19:10:01Z",
+      "side": 1,
+      "message": "For readability I would encourage you to factor out individual types of checks as bash functions.\n\nAny shell script over a few dozen lines, I also like to see eventually converted into python/go or similar, as those are more maintainable IMO. But maybe that\u0027s just because of my superficial expertise in bash. ;-)",
+      "revId": "a34b328ac44c2acb796d1b954e8fb5946ea1f8be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
