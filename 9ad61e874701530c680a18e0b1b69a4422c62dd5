@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c27371ad_425f4dc4",
+        "filename": "msgs/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "It\u0027s named like the directory to let it be automatically referenced as a target with \"//msgs\" instead of \"//msgs:messages\", and the directory is msgs because the namespace is msgs, which is msgs to keep it short since it might be repeated a lot.\n\nWith that being said, I don\u0027t feel strongly either way, and we can always do things like \"using messages::PresentationUrlAvailabilityRequest\" to remove the namespace in certain files.",
+      "parentUuid": "fbc8124d_37522094",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2063428_e007952a",
         "filename": "msgs/messages.cc",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4c4fc3f7_94ebb83b",
+        "filename": "msgs/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "No, stmt needs to be a single statement so we can check the return value.",
+      "parentUuid": "e2063428_e007952a",
+      "range": {
+        "startLine": 19,
+        "startChar": 27,
+        "endLine": 19,
+        "endChar": 72
+      },
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf6ddd41_3ac13161",
         "filename": "msgs/messages.cc",
         "patchSetId": 3
@@ -56,6 +98,24 @@
       "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7add5edd_84f19b95",
+        "filename": "msgs/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "CborErrorOutOfMemory is an encoder error that just means the buffer we provided for encoding was too small.  This can be used to tell how much space we _would_ need though.  You can look at any generated encoder epilogue for an example.",
+      "parentUuid": "cf6ddd41_3ac13161",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "21e5eaee_f2edb32d",
+        "filename": "msgs/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "I disagree that it would be easier to read without the macros since it\u0027s primarily error checking duplication.",
+      "parentUuid": "1169b807_d33b8068",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b3926e9_b280647d",
         "filename": "msgs/messages.cc",
         "patchSetId": 3
@@ -90,6 +168,24 @@
       "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cef5fc2_1580c5af",
+        "filename": "msgs/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "To make it work with CBOR_RETURN_ON_ERROR.  I changed it to return bool.",
+      "parentUuid": "9b3926e9_b280647d",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "64fdbb03_c77cb323",
+        "filename": "msgs/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59e7ffb1_c0383a55",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff9cd182_c4feec17",
         "filename": "msgs/messages.h",
         "patchSetId": 3
@@ -124,6 +238,24 @@
       "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "818eebed_07171249",
+        "filename": "msgs/messages.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "Although this was added for the first message, I think it\u0027s a good idea to keep it in light of the fact that we are generating plain enums with fairly simple constant names (e.g. kSuccess).",
+      "parentUuid": "ff9cd182_c4feec17",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "2323a0af_b3de9fc2",
+        "filename": "msgs/messages.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01cd147d_0c28db32",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e28c457_f5a16377",
         "filename": "tools/cddl/README.md",
         "patchSetId": 3
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "2b176e74_c56b0181",
+        "filename": "tools/cddl/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "It probably would be but we don\u0027t have an optional\u003cT\u003e at the moment.  I left a TODO for when we land an optional type.",
+      "parentUuid": "0e28c457_f5a16377",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9bd2cfc_3330675b",
         "filename": "tools/cddl/README.md",
         "patchSetId": 3
@@ -172,6 +340,24 @@
       "writtenOn": "2018-09-27T03:45:37Z",
       "side": 1,
       "message": "I removed the one use we had for this, so perhaps we don\u0027t need this...",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a94312f2_86066890",
+        "filename": "tools/cddl/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "Given that it\u0027s (mostly) implemented, would you still opt to remove that use?  It seems clearer semantically to specify \u0027bytes / text\u0027 and not too difficult to implement.",
+      "parentUuid": "b9bd2cfc_3330675b",
       "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "3a31bad7_a7afdf84",
+        "filename": "tools/cddl/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "The enum would have to neither include nor _be_ included anywhere.  I think I\u0027d prefer not to add that special case but I can leave a TODO if you\u0027d still like it.",
+      "parentUuid": "b0ec579a_2e86aeb4",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a00b814_3757f7d1",
         "filename": "tools/cddl/cddl.py",
         "patchSetId": 3
@@ -209,6 +413,24 @@
       "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9058a933_4a3cbea8",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "This is purely a wrapper to let the tool be called from gn, which will only run python scripts as \"actions\".\n\nI\u0027m not nearly as comfortable with python as C++, but if someone wants to port it...",
+      "parentUuid": "2a00b814_3757f7d1",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -229,6 +451,24 @@
     },
     {
       "key": {
+        "uuid": "4dd9c924_bb83daee",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e30c178b_f5dc153e",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7e40949_23431ed7",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 3
@@ -243,6 +483,24 @@
       "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f2e3c5f_eb8a8763",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7e40949_23431ed7",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -263,6 +521,24 @@
     },
     {
       "key": {
+        "uuid": "c9d7bbca_d12cfeb6",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "Done.  Note that toupper technically handles the user\u0027s locale, supports utf-16, etc.",
+      "parentUuid": "b146f007_03999edd",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd6573d3_c6ef89df",
         "filename": "tools/cddl/grammar.md",
         "patchSetId": 3
@@ -277,6 +553,24 @@
       "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8311d730_0c0edc52",
+        "filename": "tools/cddl/grammar.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T20:45:10Z",
+      "side": 1,
+      "message": "I thought other documentation might get added here, but then it didn\u0027t.  I suppose it could just be .abnf.",
+      "parentUuid": "bd6573d3_c6ef89df",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
