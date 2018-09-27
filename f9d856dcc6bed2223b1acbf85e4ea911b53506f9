@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24ffcfd8_9c4bbb91",
+        "filename": "base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-09-27T04:20:25Z",
+      "side": 1,
+      "message": "The WebRTC ErrorOr just uses Value here.  The chromium optional (and google3 StatusOr) do something like this:\n\n  union {\n    // |empty_| exists so that the union will always be initialized, even when\n    // it doesn\u0027t contain a value. Union members must be initialized for the\n    // constructor to be \u0027constexpr\u0027.\n    char empty_;\n    T value_;\n  };\n\n\n\nAnd if we want to save a few bytes, we could do \n\nunion {\n  Error error_;\n  Value value_;\n}\n\n\nI\u0027d be happy just using optional\u003cValue\u003e and then whether that\u0027s set or not indicates if we don\u0027t have an error or if we do.  It pretty much comes down to the same thing but is more readable.",
+      "revId": "f9d856dcc6bed2223b1acbf85e4ea911b53506f9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
