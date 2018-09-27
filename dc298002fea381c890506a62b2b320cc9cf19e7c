@@ -283,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "87f5f03a_9b0e5990",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T03:15:43Z",
+      "side": 1,
+      "message": "I wasn\u0027t referring to std::unique_ptr, but rather this and the following 4 ErrorOr constructors.  The code in the class-level comment won\u0027t compile if these are marked explicit.",
+      "parentUuid": "1ca385f4_3c94604a",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce0d3c72_77d1947e",
         "filename": "base/error.h",
         "patchSetId": 3
@@ -330,6 +348,30 @@
     },
     {
       "key": {
+        "uuid": "bd91cdc5_30ba2d50",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T03:15:43Z",
+      "side": 1,
+      "message": "|message| is an l-value, unfortunately.  You wrote the correct version of this above on line 74.",
+      "parentUuid": "6084c459_a14e1128",
+      "range": {
+        "startLine": 77,
+        "startChar": 66,
+        "endLine": 77,
+        "endChar": 73
+      },
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f3c4ecf_decdd333",
         "filename": "base/error.h",
         "patchSetId": 3
@@ -359,6 +401,24 @@
       "side": 1,
       "message": "Sorry didn\u0027t quite follow.  A const reference can\u0027t be moved, so this passes message as a copy.",
       "parentUuid": "4f3c4ecf_decdd333",
+      "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f388b69_e73c9eb2",
+        "filename": "base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-09-27T03:15:43Z",
+      "side": 1,
+      "message": "By \"together\" I meant this and the std::string\u0026\u0026 constructor above.  These two can be rewritten as I described.",
+      "parentUuid": "d5667ee7_0b506c69",
       "revId": "dc298002fea381c890506a62b2b320cc9cf19e7c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
