@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "983ec3de_5d7c84cb",
+        "filename": "api/public/protocol_connection_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-09-27T03:55:00Z",
+      "side": 1,
+      "message": "If the user of this config won\u0027t otherwise see the public config, then we need it here, and it\u0027s OK to copy.  Another option is to just have a ProtocolPublisher::Config here in this config, which might make sense if there are other things we want to have the user of the API know about.",
+      "revId": "e1c3bfe58994cddd88245517de9348d3ce513ebd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7af1ab70_2fb8d74c",
+        "filename": "api/public/protocol_connection_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-09-27T03:55:00Z",
+      "side": 1,
+      "message": "Why a vector?  When would we advertise more than one?  Just for ipv4 and ipv6?",
+      "revId": "e1c3bfe58994cddd88245517de9348d3ce513ebd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37fff1f9_0aefb2a5",
+        "filename": "api/public/protocol_connection_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-09-27T03:55:00Z",
+      "side": 1,
+      "message": "We can certainly stop sending or receiving anything, but if the remote side sends something during that time and doesn\u0027t get anything back, the remote side will likely tear down the connection.  I think it\u0027s more reasonable to just tear down all QUIC connections and let the clients reconnect when the server is back.",
+      "revId": "e1c3bfe58994cddd88245517de9348d3ce513ebd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
