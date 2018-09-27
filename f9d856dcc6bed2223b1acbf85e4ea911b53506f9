@@ -16,6 +16,24 @@
       "revId": "f9d856dcc6bed2223b1acbf85e4ea911b53506f9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d9e53ea_cffe222b",
+        "filename": "base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-09-27T19:11:48Z",
+      "side": 1,
+      "message": "C++11 doesn\u0027t have std::optional yet.\n\nI tried the union approach, but adding a unrestricted (non-POD) union as a class member carries a lot of baggage, because the compiler deletes all the default constructor/destructor/move operations, so you have to define them yourself, resulting in some ugly code.\n\nstd::variant would be the best solution, as it\u0027s a native discriminated union, but it\u0027s not available until C++17.\n\nI think this is good enough for now.  If we want to shave bits in the future, we have a few options, like implementing our own optional, dealing with the non-POD union, or waiting for std::variant.",
+      "parentUuid": "24ffcfd8_9c4bbb91",
+      "revId": "f9d856dcc6bed2223b1acbf85e4ea911b53506f9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
