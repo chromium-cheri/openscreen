@@ -34,6 +34,24 @@
       "revId": "f9d856dcc6bed2223b1acbf85e4ea911b53506f9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "265d7458_e654ee9c",
+        "filename": "base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-09-28T18:24:07Z",
+      "side": 1,
+      "message": "We should add optional to our base classes just like Chromium did :).\n\nI\u0027m fine if you land this patch and we come back later to improve this.  But it\u0027s weird that it only supports pointers and not any other values.  Could you at least make it just \"Value value_\" and then for your current use case use ErrorOr\u003cunique_ptr\u003cT\u003e\u003e?  That seems like an improvement.  \n\nBut again, go ahead and land and improve it later.",
+      "parentUuid": "2d9e53ea_cffe222b",
+      "revId": "f9d856dcc6bed2223b1acbf85e4ea911b53506f9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
