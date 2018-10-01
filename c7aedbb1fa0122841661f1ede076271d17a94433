@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0341c800_d41bb7b3",
+        "filename": "api/public/network_metrics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-01T20:45:07Z",
+      "side": 1,
+      "message": "The peak was intended, I updated the naming here to be more explicit.\n\nWe could also add a separate total_ metric if we were interested in the scenario you describe.",
+      "parentUuid": "440cb29f_d87b6d52",
+      "revId": "c7aedbb1fa0122841661f1ede076271d17a94433",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00392ed1_f3b393ea",
         "filename": "api/public/protocol_connection_client.h",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-01T19:10:12Z",
       "side": 1,
       "message": "Why is the server config (listening endpoints) being added to the client?",
+      "revId": "c7aedbb1fa0122841661f1ede076271d17a94433",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b208810_cfb87f65",
+        "filename": "api/public/protocol_connection_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-01T20:45:07Z",
+      "side": 1,
+      "message": "Good question. I was going to go through later and refine this object for various services.  Here\u0027s what I think we need:\n\nmDNS screen listener:\n- port (or always 5353?)\n- interface list\n\nmDNS screen publisher:\n- port (always 5353?)\n- interface list\n- server endpoint(s)\n- service specific data (service name, txt, etc.)\n\nquic connection client:\n- interface list (or will the screen listener will return the interface a receiver is discovered on?\n\nquic connection server:\n- interface list\n- server endpoint(s)\n\nSo for the client, it looks like we need an interface list, and for the server, we need that plus the server endpoints (IPv6 and IPv6 per interface).\n\nWe could have a single object that is a list of interfaces, with an optional list of endpoints per interface.  The endpoints are either populated by the embedder, or filled in by the library if a connection server is started on an interface without endpoints.\n\nWDYT?",
+      "parentUuid": "00392ed1_f3b393ea",
       "revId": "c7aedbb1fa0122841661f1ede076271d17a94433",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
