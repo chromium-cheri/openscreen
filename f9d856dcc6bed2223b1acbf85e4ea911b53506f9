@@ -52,6 +52,24 @@
       "revId": "f9d856dcc6bed2223b1acbf85e4ea911b53506f9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34d005ff_33dc5087",
+        "filename": "base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-01T17:31:12Z",
+      "side": 1,
+      "message": "Taking a pointer prevents passing results by copy, but it looks like taking an rvalue reference (like rtcerror) effectively does the same thing.  Obviously the caller will need to know all of the overload rules to know whether an rvalue will actually be passed, or not.",
+      "parentUuid": "265d7458_e654ee9c",
+      "revId": "f9d856dcc6bed2223b1acbf85e4ea911b53506f9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
