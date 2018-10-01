@@ -69,6 +69,24 @@
       "revId": "c7aedbb1fa0122841661f1ede076271d17a94433",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47a657c0_5d8748fc",
+        "filename": "api/public/protocol_connection_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-01T21:07:39Z",
+      "side": 1,
+      "message": "I know we are passing an interface list to the mDNS screen publisher to allow avoiding multicast on certain interfaces, but I don\u0027t see such an automatic reason to do the same thing for QUIC.  ScreenInfo _does_ contain the interface on which it was discovered, but I would expect normal IP routing to be sufficient for connecting via QUIC.  So I don\u0027t see a need for an interface list on either side of QUIC.  Even if we do, I don\u0027t think the types should be shared in this situation.",
+      "parentUuid": "8b208810_cfb87f65",
+      "revId": "c7aedbb1fa0122841661f1ede076271d17a94433",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
