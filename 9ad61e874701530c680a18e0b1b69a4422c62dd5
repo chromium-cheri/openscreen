@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8f2b60fb_1e474c9e",
+        "filename": "msgs/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Well, if we keep a separate namespace because of enums, we might as well make it short.",
+      "parentUuid": "c27371ad_425f4dc4",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2063428_e007952a",
         "filename": "msgs/messages.cc",
         "patchSetId": 3
@@ -148,6 +166,24 @@
       "side": 1,
       "message": "I disagree that it would be easier to read without the macros since it\u0027s primarily error checking duplication.",
       "parentUuid": "1169b807_d33b8068",
+      "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd845835_c345e2d8",
+        "filename": "msgs/messages.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Well then could you have the tool generate the macros?  I\u0027d feel more comfortable with all the code being generated and not a mix of generated and non-generated code mixed together.  It makes it easier to review (we should be more strict with review of runtime code vs. generator/tool code).\n\nOh... it looks like that\u0027s what you did :).",
+      "parentUuid": "21e5eaee_f2edb32d",
       "revId": "9ad61e874701530c680a18e0b1b69a4422c62dd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false

@@ -1,0 +1,820 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f5266ca_0e33ca58",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "The whole type string becomes an empty string?  Is this meant to be an error?\n\nIf so, it might be nice to document that with a comment on the function.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1419a01_75486c8e",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "It would be nice if all these methods had a comment, either here or in the header.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24afdf01_df182530",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "I don\u0027t see why we wouldn\u0027t just use std::string here.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4213e5fb_e01a0a7f",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "I\u0027m being picky, but I\u0027d like \"WriteX\" more than \"DumpX\".\n \nAnd this one in particular seems like it would be more clear as \"WriteTypeDefinition\"",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cacc34f_1102bd85",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "And here, perhaps \"WriteDependentTypeDefinitions\"",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "357e55cb_c1093c46",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "If these are not being mutated, can we use a const ref instead of a pointer?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1abf6e_d684de9a",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Some with places like here: a const ref.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e99804e0_e0bd886b",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Perhaps name the function WriteFunctionDeclarations?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc1e343e_80e3342b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Why are we sticking this into a global vector instead of putting it into the Parser struct?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bc525a7_f2f1b1cf",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "What does \"P\" stand for here?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "926dbb3a_165323aa",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "IsNewLine?\n\nAnd it seems like you could return the length of the new line to avoid the awkwardness of returning a pointer.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f62bafde_a1268ebf",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "If you\u0027re going to use x[1], you might as well use x[0].  In fact, I would kind of prefer that throughout the file.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10720d1e_6f4b0c55",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "A name like SkipComment might be more appropriate.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46623f13_73b1b41e",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "And SkipWhiteSpace",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da80c26e_a7423705",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "IsWhiteSpace(it[0])?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1014c17_9748bc2c",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "ParseAssignmentType might be a good name here.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d3cfe28_bd589460",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Do we even support these?  I don\u0027t see much reason to support them.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d85b47bf_b731c4cf",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "ParseType1, ParseType, ParseId?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e16ab5_e752ee3c",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "SkipUint?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71740706_f6dfe927",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Don\u0027t we need to have some kind of check that this isn\u0027t the end of the string (causing us to blow up?).  Actually, that seems to be a think through.  Perhaps we need a safe Matches(p, index, c).",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30950bd6_c1adb5b9",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "I\u0027m not sure \"plocal\" captures the meaning here.  It\u0027s more like \"speculative parser\" (which could fail, in which case you want to rollback.  Perhaps \"sp\"? or \"lookahead\"?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60892032_9c433ee7",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "An early return and pushing to the left would be nice, here and in other places.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e183587_b8fd6cc3",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484d08c5_9683bd05",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0683a670_3a42f6fc",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Any time we add a node, I think we should call the function ParseX.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67bac5e2_3b3f8e61",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "I\u0027ve seen this duplicate code enough make an AddNode(parser, type, length) helper function",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d642765_21d0516c",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Can you please document what MemberKey1 vs MemberKey2 vs MemberKey3 is?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77638801_279fc860",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "And when we just skip over things, SkipX would be nice.  Perhaps SkipOptionalComma",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c55386e6_3945301d",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Why do we do \"go forward and then rollback if something goes wrong\" instead of \"speculate and then commit things go right\" like in other places?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "080ef6a3_56430b26",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "If nodes were on the parser, we could avoid needing things like this, right?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3241847_42dbba1b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "IsValue?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b4cb6ee_e0ffa65e",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Why isn\u0027t this part of HandleValue?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cdf1528_40efdc7b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Can you document Type1 vs Type2 vs Type?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1807ffc_57eb00ea",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Can you document the differences between the different group entries?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78412c17_0cf03cc3",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "This could use some comments about what they are (esp. the strange names like type1, type2, assignT, assignG, Grpent)",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e9fdfa8_3ee5c5ce",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "In the sema code, I found this structure confusing when doing the various loops and navigations.\n\nFor example, why can\u0027t use a std::vector for the children?  \n\nAnd if we need a pointer to the next child, calling it next_child would seem to make sense.  But it seems like it would be preferable to iterate over vectors of children rather than having to go through sibling pointers.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c039ebe3_6134ca49",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Why not just use a std::string?  Or, if you are trying to avoid copying, a string_view would work.  But I don\u0027t see why we should care about copies.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9695e517_c90243c9",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be ParseCddl?  And why does it take a Parser instead of string?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca66d941_cf19e397",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "This sounds like a good LOTR joke, but I\u0027m not sure what it\u0027s for.  Could you leave a comment explaining?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "744aa283_52c11743",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "What does Handle mean?  Does it mean something more like Process or Analyze?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00dabf6_56079dd3",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "I don\u0027t understand the purpose of HandleType vs. HandleType1 vs. HandleType2.   Is it a depth thing?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d4be56c_a35963e4",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Similarly here with const if things aren\u0027t modified",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60d42c96_2865db93",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "I found navigation this way and through siblings confusing.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db903caa_0b52ae23",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "Why is the tag a string?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec0f0160_5956370e",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "All these bare pointers scare me.  Can we use unique_ptr?\n\nActually, a completely legitimate thing to do in this case is to never dealloc anything.  The tool is just going to run until completion anyway.  Who cares about memory leaks.  Have you considered that?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b29183_c46951f4",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "This could use some comments explaining things like: what is a direct choice, what is a value_value?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ec2af8_8ca52756",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "This makes me wish we wrote this in Rust :).  Rust has great support for these kinds of enum/union types",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc655b43_d72f9709",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2018-10-10T05:53:10Z",
+      "side": 1,
+      "message": "What\u0027s this?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
