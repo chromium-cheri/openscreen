@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7a472c6_b7583a45",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T20:55:15Z",
+      "side": 1,
+      "message": "Nit: I think this would be more readable to rename to max_fd, and pass max_fd+1 below to select, since it doesn\u0027t seem to actually count the number of fds, but rather the maximum.  Then again the C API uses \u0027nfds\u0027 so I could go either way.",
+      "revId": "883d9a0d244ff40bdac7ec75fece83ba4880f873",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
