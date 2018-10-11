@@ -2,6 +2,125 @@
   "comments": [
     {
       "key": {
+        "uuid": "710e678b_4931d697",
+        "filename": "msgs/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T21:36:11Z",
+      "side": 1,
+      "message": "Bikeshed: osp_messages.{h,cc}",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d73e0a1_02697d88",
+        "filename": "msgs/osp.cddl",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T21:36:11Z",
+      "side": 1,
+      "message": "It looks like this is the CBOR tag representation, and we\u0027re talking about moving to a type prefix value.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf452e20_36167ed9",
+        "filename": "msgs/osp.cddl",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T21:36:11Z",
+      "side": 1,
+      "message": "Nit: If there\u0027s one message input file, it would be nice to delimit into sections with comment blocks, if those are supported by the parser.\n\nE.g.\n\n### COMMON MESSAGES\n\n### PRESENTATION API \n\n### REMOTE PLAYBACK API",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4055adce_b5cd3f81",
+        "filename": "msgs/osp.cddl",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T21:36:11Z",
+      "side": 1,
+      "message": "Bikeshed: Can everything specific to the presentation API start with \u0027presentation-\u0027?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee7ee3d3_ba6bd041",
+        "filename": "msgs/osp.cddl",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T21:36:11Z",
+      "side": 1,
+      "message": "Can we define a group for timestamp fields (like we did for request and response)?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd14cdcd_f69b2dd2",
+        "filename": "msgs/osp.cddl",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T21:36:11Z",
+      "side": 1,
+      "message": "Nit: Group with common message definitions at the top.",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9093c3_296f524f",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T21:36:11Z",
+      "side": 1,
+      "message": "At first glance, this line of Python appears to be equivalent to starting a process with ./cddl directly.  Is there a need to run ./cddl in a subprocess?",
+      "revId": "4565ee51f1e6e67c4fd71749165a314221e29556",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f5266ca_0e33ca58",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 4
