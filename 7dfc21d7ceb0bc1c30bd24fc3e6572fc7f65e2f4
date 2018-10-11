@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82f4e6e2_64d58e41",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "ToUnderscoreId",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5883338c_11a06f4b",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "Style: Omit braces for single-line ifs here and throughout.",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23dee75f_027a4bf1",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "ToCamelCase",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "598540bc_5a984d8b",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "A trailing hyphen in x will result in an out of bounds read it looks like.  Maybe CHECK-fail instead of having non-deterministic behavior?",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3086bd60_6bbf3c56",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "switch statement?",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aba10293_b5b1ac43",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "switch statement?  Consider factoring out functions for different legs of the switch to shorten this function as well.",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c7ed685_44554dde",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "I was thinking that using an output stream for this would be a little nicer to read.\n\nUnfortunately there doesn\u0027t seem to be any template substitution available with std::ostream unless we adopt a third party library like boost.",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c5ff3e2_c6b12d65",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "This is really cool.  But if the default order of the struct declarations is the order in which they are read from the input CDDL, it might be reasonable to require that the CDDL be written so this isn\u0027t necessary.",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3485330c_f1e032eb",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T22:16:24Z",
+      "side": 1,
+      "message": "Nit: should be okay to put the fflush() after the switch {} and drop the break statements as I don\u0027t think this is performance sensitive.",
+      "revId": "7dfc21d7ceb0bc1c30bd24fc3e6572fc7f65e2f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
