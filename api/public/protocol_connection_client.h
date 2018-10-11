@@ -43,13 +43,13 @@ class ProtocolConnectionClient {
   State state() const { return state_; }
 
   // Returns the last error reported by this client.
-  const Error& last_error() const { return last_error_; }
+  const Error<GlobalErrorCode>& last_error() const { return last_error_; }
 
  protected:
   explicit ProtocolConnectionClient(ProtocolConnectionObserver* observer);
 
   State state_ = State::kStopped;
-  Error last_error_;
+  Error<GlobalErrorCode> last_error_;
   ProtocolConnectionObserver* const observer_;
 
   DISALLOW_COPY_AND_ASSIGN(ProtocolConnectionClient);

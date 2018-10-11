@@ -5,9 +5,10 @@
 #ifndef API_PUBLIC_PROTOCOL_CONNECTION_H_
 #define API_PUBLIC_PROTOCOL_CONNECTION_H_
 
+#include "base/error.h"
+
 namespace openscreen {
 
-class Error;
 class NetworkMetrics;
 
 // Represents an embedder's view of a connection between an Open Screen
@@ -51,7 +52,7 @@ class ProtocolConnectionObserver {
   // Called when metrics have been collected by the service.
   virtual void OnMetrics(const NetworkMetrics& metrics) = 0;
   // Called when an error has occurred.
-  virtual void OnError(const Error& error) = 0;
+  virtual void OnError(const Error<GlobalErrorCode>& error) = 0;
 
  protected:
   virtual ~ProtocolConnectionObserver() = default;

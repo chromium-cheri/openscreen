@@ -13,39 +13,49 @@
 
 namespace openscreen {
 
+enum class GlobalErrorCode {
+  // No error occurred.
+  kNone = 0,
+  // CBOR parsing error.
+  kCborParsing = 1,
+};
+
+#define ERROR_STRING_CASE(enm, value) \
+  case enm::k##value:                 \
+    return #value
+
+std::string ErrorCodeToString(GlobalErrorCode code);
+
 // Represents an error returned by an OSP library operation.  An error has a
 // code and an optional message.
+template <typename Code>
 class Error {
  public:
-  enum class Code {
-    // No error occurred.
-    kNone = 0,
-    // CBOR parsing error.
-    kCborParsing = 1,
-  };
+  Error() = default;
+  Error(const Error& error) = default;
+  Error(Error&& error) noexcept = default;
+  explicit Error(Code code) : code_(code) {}
+  Error(Code code, std::string message)
+      : code_(code), message_(std::move(message)) {}
 
-  Error();
-  Error(const Error& error);
-  Error(Error&& error) noexcept;
-  explicit Error(Code code);
-  Error(Code code, const std::string& message);
-  Error(Code code, std::string&& message);
-
-  Error& operator=(const Error& other);
-  Error& operator=(Error&& other);
-  bool operator==(const Error& other) const;
+  Error& operator=(const Error& other) = default;
+  Error& operator=(Error&& other) = default;
+  bool operator==(const Error& other) const {
+    return code_ == other.code_ && message_ == other.message_;
+  }
 
   Code code() const { return code_; }
   const std::string& message() const { return message_; }
-
-  static std::string CodeToString(Error::Code code);
 
  private:
   Code code_ = Code::kNone;
   std::string message_;
 };
 
-std::ostream& operator<<(std::ostream& out, const Error& error);
+template <typename Code>
+std::ostream& operator<<(std::ostream& out, const Error<Code>& error) {
+  return out << ErrorCodeToString(error.code()) << ": " << error.message();
+}
 
 // A convenience function to return a single value from a function that can
 // return a value or an error.  For normal results, construct with a Value*
@@ -65,31 +75,33 @@ std::ostream& operator<<(std::ostream& out, const Error& error);
 // TODO(mfoltz):
 // - Add support for type conversions
 // - Better support for primitive (non-movable) values
-template <typename Value>
+template <typename Value, typename ErrorCode = GlobalErrorCode>
 class ErrorOr {
  public:
   ErrorOr(ErrorOr&& error_or) = default;
-  ErrorOr(Value&& value) noexcept : value_(value) {}
-  ErrorOr(Error error) : error_(std::move(error)) {}
-  ErrorOr(Error::Code code) : error_(code) {}
-  ErrorOr(Error::Code code, std::string message)
-      : error_(code, std::move(message)) {}
+  ErrorOr(Value&& value) noexcept
+      : is_error_(false), value_(std::move(value)) {}
+  ErrorOr(Error<ErrorCode> error) : is_error_(true), error_(std::move(error)) {}
+  ErrorOr(ErrorCode code) : is_error_(true), error_(code) {}
+  ErrorOr(ErrorCode code, std::string message)
+      : is_error_(true), error_(code, std::move(message)) {}
   ~ErrorOr() = default;
 
   ErrorOr& operator=(ErrorOr&& other) = default;
 
-  bool is_error() const { return error_.code() != Error::Code::kNone; }
+  bool is_error() const { return is_error_; }
   bool is_value() const { return !is_error(); }
-  const Error& error() const { return error_; }
+  const Error<ErrorCode>& error() const { return error_; }
 
-  Error&& MoveError() { return std::move(error_); }
+  Error<ErrorCode>&& MoveError() { return std::move(error_); }
 
   const Value& value() const { return value_; }
 
   Value&& MoveValue() { return std::move(value_); }
 
  private:
-  Error error_;
+  bool is_error_;
+  Error<ErrorCode> error_;
   Value value_;
 
   DISALLOW_COPY_AND_ASSIGN(ErrorOr);

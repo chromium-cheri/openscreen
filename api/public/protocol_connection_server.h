@@ -61,14 +61,14 @@ class ProtocolConnectionServer {
   State state() const { return state_; }
 
   // Returns the last error reported by this client.
-  const Error& last_error() const { return last_error_; }
+  const Error<GlobalErrorCode>& last_error() const { return last_error_; }
 
  protected:
   ProtocolConnectionServer(const ServerConfig& config, Observer* observer);
 
   ServerConfig config_;
   State state_ = State::kStopped;
-  Error last_error_;
+  Error<GlobalErrorCode> last_error_;
   Observer* const observer_;
 
   DISALLOW_COPY_AND_ASSIGN(ProtocolConnectionServer);

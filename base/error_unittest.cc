@@ -20,55 +20,57 @@ class Dummy {
 
 namespace openscreen {
 
+using DefaultError = Error<GlobalErrorCode>;
+
 TEST(ErrorTest, TestDefaultError) {
-  Error error;
-  EXPECT_EQ(error.code(), Error::Code::kNone);
+  DefaultError error;
+  EXPECT_EQ(error.code(), GlobalErrorCode::kNone);
   EXPECT_EQ(error.message(), "");
 }
 
 TEST(ErrorTest, TestNonDefaultError) {
-  Error error(Error::Code::kCborParsing, "Parse error");
-  EXPECT_EQ(error.code(), Error::Code::kCborParsing);
+  DefaultError error(GlobalErrorCode::kCborParsing, "Parse error");
+  EXPECT_EQ(error.code(), GlobalErrorCode::kCborParsing);
   EXPECT_EQ(error.message(), "Parse error");
 
-  Error error2(error);
-  EXPECT_EQ(error2.code(), Error::Code::kCborParsing);
+  DefaultError error2(error);
+  EXPECT_EQ(error2.code(), GlobalErrorCode::kCborParsing);
   EXPECT_EQ(error2.message(), "Parse error");
 
-  Error error3 = error2;
+  DefaultError error3 = error2;
   EXPECT_EQ(error, error2);
   EXPECT_EQ(error, error3);
   EXPECT_EQ(error2, error3);
 
-  Error default_error;
+  DefaultError default_error;
   EXPECT_FALSE(error == default_error);
   EXPECT_FALSE(error2 == default_error);
   EXPECT_FALSE(error3 == default_error);
 
-  Error error4(std::move(error2));
-  Error error5 = std::move(error3);
+  DefaultError error4(std::move(error2));
+  DefaultError error5 = std::move(error3);
   EXPECT_EQ(error, error4);
   EXPECT_EQ(error, error5);
 }
 
 TEST(ErrorOrTest, ErrorOrWithError) {
-  ErrorOr<Dummy> error_or1(Error(Error::Code::kCborParsing, "Parse Error"));
-  ErrorOr<Dummy> error_or2(Error::Code::kCborParsing);
-  ErrorOr<Dummy> error_or3(Error::Code::kCborParsing, "Parse Error Again");
+  ErrorOr<Dummy> error_or1(DefaultError(GlobalErrorCode::kCborParsing, "Parse Error"));
+  ErrorOr<Dummy> error_or2(GlobalErrorCode::kCborParsing);
+  ErrorOr<Dummy> error_or3(GlobalErrorCode::kCborParsing, "Parse Error Again");
 
   EXPECT_FALSE(error_or1.is_value());
   EXPECT_TRUE(error_or1.is_error());
-  EXPECT_EQ(error_or1.error().code(), Error::Code::kCborParsing);
+  EXPECT_EQ(error_or1.error().code(), GlobalErrorCode::kCborParsing);
   EXPECT_EQ(error_or1.error().message(), "Parse Error");
 
   EXPECT_FALSE(error_or2.is_value());
   EXPECT_TRUE(error_or2.is_error());
-  EXPECT_EQ(error_or2.error().code(), Error::Code::kCborParsing);
+  EXPECT_EQ(error_or2.error().code(), GlobalErrorCode::kCborParsing);
   EXPECT_EQ(error_or2.error().message(), "");
 
   EXPECT_FALSE(error_or3.is_value());
   EXPECT_TRUE(error_or3.is_error());
-  EXPECT_EQ(error_or3.error().code(), Error::Code::kCborParsing);
+  EXPECT_EQ(error_or3.error().code(), GlobalErrorCode::kCborParsing);
   EXPECT_EQ(error_or3.error().message(), "Parse Error Again");
 
   ErrorOr<Dummy> error_or4(std::move(error_or1));
@@ -76,12 +78,12 @@ TEST(ErrorOrTest, ErrorOrWithError) {
 
   EXPECT_FALSE(error_or4.is_value());
   EXPECT_TRUE(error_or4.is_error());
-  EXPECT_EQ(error_or4.error().code(), Error::Code::kCborParsing);
+  EXPECT_EQ(error_or4.error().code(), GlobalErrorCode::kCborParsing);
   EXPECT_EQ(error_or4.error().message(), "Parse Error");
 
   EXPECT_FALSE(error_or5.is_value());
   EXPECT_TRUE(error_or5.is_error());
-  EXPECT_EQ(error_or5.error().code(), Error::Code::kCborParsing);
+  EXPECT_EQ(error_or5.error().code(), GlobalErrorCode::kCborParsing);
   EXPECT_EQ(error_or5.error().message(), "Parse Error Again");
 }
 
@@ -92,12 +94,12 @@ TEST(ErrorOrTest, ErrorOrWithValue) {
   EXPECT_TRUE(error_or1.is_value());
   EXPECT_FALSE(error_or1.is_error());
   EXPECT_EQ(error_or1.value().message, "Winterfell");
-  EXPECT_EQ(error_or1.error().code(), Error::Code::kNone);
+  EXPECT_EQ(error_or1.error().code(), GlobalErrorCode::kNone);
 
   EXPECT_TRUE(error_or2.is_value());
   EXPECT_FALSE(error_or2.is_error());
   EXPECT_EQ(error_or2.value().message, "Riverrun");
-  EXPECT_EQ(error_or2.error().code(), Error::Code::kNone);
+  EXPECT_EQ(error_or2.error().code(), GlobalErrorCode::kNone);
 
   ErrorOr<Dummy> error_or3(std::move(error_or1));
   ErrorOr<Dummy> error_or4 = std::move(error_or2);
@@ -105,12 +107,12 @@ TEST(ErrorOrTest, ErrorOrWithValue) {
   EXPECT_TRUE(error_or3.is_value());
   EXPECT_FALSE(error_or3.is_error());
   EXPECT_EQ(error_or3.value().message, "Winterfell");
-  EXPECT_EQ(error_or3.error().code(), Error::Code::kNone);
+  EXPECT_EQ(error_or3.error().code(), GlobalErrorCode::kNone);
 
   EXPECT_TRUE(error_or4.is_value());
   EXPECT_FALSE(error_or4.is_error());
   EXPECT_EQ(error_or4.value().message, "Riverrun");
-  EXPECT_EQ(error_or4.error().code(), Error::Code::kNone);
+  EXPECT_EQ(error_or4.error().code(), GlobalErrorCode::kNone);
 
   Dummy value = error_or4.MoveValue();
   EXPECT_EQ(value.message, "Riverrun");
