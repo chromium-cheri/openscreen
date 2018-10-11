@@ -96,6 +96,7 @@ int WaitForEvents(EventWaiterPtr waiter, Events* events) {
   }
   if (nfds == -1)
     return 0;
+  ++nfds;
 
   struct timeval tv = {};
   const int rv = select(nfds, &readfds, &writefds, nullptr, &tv);
