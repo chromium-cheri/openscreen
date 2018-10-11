@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6bdc2f1_bb4e499f",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "I wouldn\u0027t be opposed to defining a presentation { } namespace for classes that are specifically needed to implement the Presentation API, to shorten these names.  As long as it doesn\u0027t introduce the need for extra verbose qualification to access sibling namespaces like openscreen::platform.",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78e53c04_a923724c",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Typo in UserTerminated",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca55041c_5089bf76",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Can all receiver initiated cases be kReceiverFoo for consistency?\nOr is it possible to split into two enums?",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dc5aca1_5a9a1eb1",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "SuperNitPick:  The general case is when a document is unloaded, which can happen from navigation or calling window.close().  So maybe kReceiverPresentationUnloaded ?",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2db242_f29119f1",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Will there ever be an unknown reason?  Maybe it could be kControllerOther and kReceiverOther?",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67174770_199bc0b5",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "PresentationStartErrorCode?",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d83ce767_d3af148c",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Use openscreen::Error?  Requires merging all of the enums above into the global enum though.",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4e88063_e20ad7b5",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Is there a reason this is a nested enum class, while e.g. PresentationErrorCode is declared at the top level?  I guess this not an error code, so it makes sense to declare it in the API where it is used.",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be1c2283_f35cb6d8",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "OnClosedByRemote() sounds a little better to me.",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "607eea9c_240eb8d4",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Does this imply that the library discarded an underlying network connection?  Or the other party discarded its corresponding connection object without explicitly closing it?",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af1b6763_ae8daaae",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Can we std::move the string?",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f4be990_04c9413c",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Make non-const to allow moving message contents",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c2b4101_8f3719aa",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a111d1d0_a30d5798",
+        "filename": "api/public/presentation_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Rather than passing two enums, can the reason encode which side is initiating the terminate request?\n\nOr, if we decide to go with two distinct reason enums, it could be:\n\nTerminateByReceiver(ReceiverTerminationReason)\nTerminateByController(ControllerTerminationReason)\n\nWhich I like a little better.",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af4a151d_59f5c59c",
+        "filename": "api/public/presentation_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Nit: conn_delegate",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35433b92_07b560da",
+        "filename": "api/public/presentation_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Nit: conn_delegate",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7add14a3_ad24de76",
+        "filename": "api/public/presentation_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Does this initiate the termination process (by signaling the receiver?) Or is there some way that a presentation can be terminated without the OSP library\u0027s controller knowing about it?",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7d12e5c_f3523d43",
+        "filename": "api/public/presentation_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "Nit: Prefer the active sense here, since the delegate is fundamentally responsible for implementing the behavior: StartPresentation()",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a77a85a3_aad1f7b6",
+        "filename": "api/public/presentation_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "TerminatePresentation()",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5017e53a_3d547fb3",
+        "filename": "api/public/presentation_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "CreateConnection (I think)\n\nAlthough I agree that having the embedder create the PresentationConnection sounds like a simpler design, so ok to not bike shed this right now.",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f014eb7_96f1b5c9",
+        "filename": "api/public/presentation_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "OnConnectionCreated",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "424a8f43_64205f42",
+        "filename": "api/public/presentation_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "OnPresentationStarted",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef6df43_b3d3aa64",
+        "filename": "api/public/presentation_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-10-11T16:47:26Z",
+      "side": 1,
+      "message": "OnPresentationTerminated",
+      "revId": "730b2fb465261a728de535fc0793ae045428de69",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
