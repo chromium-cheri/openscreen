@@ -3,9 +3,49 @@
 # found in the LICENSE file.
 
 source_set("api") {
+  sources = [
+    "impl/internal_services.cc",
+    "impl/internal_services.h",
+    "impl/mdns_platform_service.cc",
+    "impl/mdns_platform_service.h",
+    "impl/mdns_responder_service.cc",
+    "impl/mdns_responder_service.h",
+    "impl/mdns_screen_listener_factory.cc",
+    "impl/mdns_screen_listener_factory.h",
+    "impl/mdns_screen_publisher_factory.cc",
+    "impl/mdns_screen_publisher_factory.h",
+    "impl/screen_list.cc",
+    "impl/screen_list.h",
+    "impl/screen_listener_impl.cc",
+    "impl/screen_listener_impl.h",
+    "impl/screen_publisher_impl.cc",
+    "impl/screen_publisher_impl.h",
+    "public/client_config.cc",
+    "public/client_config.h",
+    "public/network_metrics.h",
+    "public/network_service_manager.cc",
+    "public/network_service_manager.h",
+    "public/presentation/presentation_common.h",
+    "public/presentation/presentation_controller.h",
+    "public/presentation/presentation_receiver.h",
+    "public/protocol_connection.h",
+    "public/protocol_connection_client.cc",
+    "public/protocol_connection_client.h",
+    "public/protocol_connection_server.cc",
+    "public/protocol_connection_server.h",
+    "public/screen_info.cc",
+    "public/screen_info.h",
+    "public/screen_listener.cc",
+    "public/screen_listener.h",
+    "public/screen_publisher.cc",
+    "public/screen_publisher.h",
+    "public/server_config.cc",
+    "public/server_config.h",
+  ]
+
   deps = [
-    "impl",
-    "public:api",
+    "//base",
+    "//platform",
   ]
 }
 
@@ -21,10 +61,9 @@ source_set("api_unittests") {
   ]
 
   deps = [
-    "impl",
+    ":api",
     "impl/testing",
     "impl/testing:fakes_unittests",
-    "public:api",
     "//third_party/googletest:gmock",
     "//third_party/googletest:gtest",
   ]
