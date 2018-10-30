@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00a8841a_d4c6297a",
+        "filename": "build/toolchain/linux/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T21:30:06Z",
+      "side": 1,
+      "message": "Just curious, what\u0027s the reason to move these here instead of a build file?  Does the Apple linker not support this and/or this isn\u0027t desired on Mac?  I noticed the Mac toolchain used different flags, but why is rpath not used?  Would using an `if (is_gcc)` block be equivalent but maybe less clean?",
+      "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "340f8d58_2866d5e7",
+        "filename": "build/toolchain/linux/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T21:30:06Z",
+      "side": 1,
+      "message": "Why add this to before a cp -f?  Nice hard link :)",
+      "range": {
+        "startLine": 98,
+        "startChar": 59,
+        "endLine": 98,
+        "endChar": 76
+      },
+      "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36f15d44_e7c8cc2d",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T21:30:06Z",
+      "side": 1,
+      "message": "We are still targeting c++11, but were forced to change to c++14 for the quic implementation for now.  There _probably_ wouldn\u0027t be any ABI problem with compiling our code as c++11 and only third_party/chromium_quic as c++14 but I hadn\u0027t looked at that yet.  Do you know of any problems with doing that?",
+      "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddf166fc_d6347d8b",
+        "filename": "third_party/chromium_quic/src/third_party/icu/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T21:30:06Z",
+      "side": 1,
+      "message": "If we enable -Wall -Werror for this code, we probably need -fno-strict-aliasing [1]. The trybot only fingers ICU, but there may be other targets we imported from chromium.\n\n[1] https://bugs.chromium.org/p/chromium/issues/detail?id\u003d32204",
+      "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
