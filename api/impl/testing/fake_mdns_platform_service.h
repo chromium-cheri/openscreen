@@ -22,7 +22,7 @@ class FakeMdnsPlatformService final : public MdnsPlatformService {
 
   // PlatformService overrides.
   std::vector<BoundInterface> RegisterInterfaces(
-      const std::vector<int32_t>& interface_index_whitelist) override;
+      const std::vector<int64_t>& interface_index_whitelist) override;
   void DeregisterInterfaces(
       const std::vector<BoundInterface>& registered_interfaces) override;
 
