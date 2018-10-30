@@ -93,11 +93,16 @@ bool WriteStructMembers(
         // TODO(btolsch): Ctor/dtor when there's a d-union and
         // bool/uninitialized state when no uint present for this purpose.
         std::string cid = ToUnderscoreId(x.first);
-        dprintf(fd, "  enum class Which%s {\n",
-                ToCamelCase(x.second->name).c_str());
+        type_string = ToCamelCase(x.first);
+        dprintf(fd, "  struct %s {\n", type_string.c_str());
+        dprintf(fd, "    %s();\n    ~%s();\n\n", type_string.c_str(),
+                type_string.c_str());
+        dprintf(fd, "  enum class Which {\n");
+        bool has_uint = false;
         for (auto* union_member : x.second->discriminated_union.members) {
           switch (union_member->which) {
             case CppType::Which::kUint64:
+              has_uint = true;
               dprintf(fd, "    kUint64,\n");
               break;
             case CppType::Which::kString:
@@ -110,7 +115,9 @@ bool WriteStructMembers(
               return false;
           }
         }
-        dprintf(fd, "  } which_%s;\n", cid.c_str());
+        if (!has_uint)
+          dprintf(fd, "    kUninitialized,\n");
+        dprintf(fd, "  } which;\n");
         dprintf(fd, "  union {\n");
         for (auto* union_member : x.second->discriminated_union.members) {
           switch (union_member->which) {
@@ -127,8 +134,10 @@ bool WriteStructMembers(
               return false;
           }
         }
-        dprintf(fd, "  } %s;\n", cid.c_str());
-        return true;
+        if (!has_uint)
+          dprintf(fd, "    bool reserved_;\n");
+        dprintf(fd, "  };\n");
+        dprintf(fd, "  };\n");
       } break;
       default:
         type_string = CppTypeToString(*x.second);
@@ -376,12 +385,14 @@ bool WriteEncoder(int fd,
       return true;
     } break;
     case CppType::Which::kDiscriminatedUnion: {
+      bool has_uint = false;
       for (const auto* union_member : cpp_type.discriminated_union.members) {
         switch (union_member->which) {
           case CppType::Which::kUint64:
-            dprintf(fd, "  case %s::Which%s::kUint64:\n",
+            has_uint = true;
+            dprintf(fd, "  case %s::%s::Which::kUint64:\n",
                     ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(union_member->name).c_str());
+                    ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + std::string(".uint")),
                               *union_member, nested_type_scope,
                               encoder_depth)) {
@@ -390,9 +401,9 @@ bool WriteEncoder(int fd,
             dprintf(fd, "    break;\n");
             break;
           case CppType::Which::kString:
-            dprintf(fd, "  case %s::Which%s::kString:\n",
+            dprintf(fd, "  case %s::%s::Which::kString:\n",
                     ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(union_member->name).c_str());
+                    ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + std::string(".str")),
                               *union_member, nested_type_scope,
                               encoder_depth)) {
@@ -401,9 +412,9 @@ bool WriteEncoder(int fd,
             dprintf(fd, "    break;\n");
             break;
           case CppType::Which::kBytes:
-            dprintf(fd, "  case %s::Which%s::kBytes:\n",
+            dprintf(fd, "  case %s::%s::Which::kBytes:\n",
                     ToCamelCase(nested_type_scope).c_str(),
-                    ToCamelCase(union_member->name).c_str());
+                    ToCamelCase(cpp_type.name).c_str());
             if (!WriteEncoder(fd, ToUnderscoreId(name + std::string(".bytes")),
                               *union_member, nested_type_scope,
                               encoder_depth)) {
@@ -414,6 +425,12 @@ bool WriteEncoder(int fd,
           default:
             return false;
         }
+      }
+      if (!has_uint) {
+        dprintf(fd, "  case %s::%s::Which::kUninitialized:\n",
+                ToCamelCase(nested_type_scope).c_str(),
+                ToCamelCase(cpp_type.name).c_str());
+        dprintf(fd, "    return -CborUnknownError;\n");
       }
       return true;
     } break;
@@ -469,7 +486,7 @@ bool WriteMapEncoder(
           "sizeof(\"%s\") - 1));\n",
           encoder_depth, x.first.c_str(), x.first.c_str());
       if (x.second->which == CppType::Which::kDiscriminatedUnion) {
-        dprintf(fd, "  switch (%s.which_%s) {\n", fullname.c_str(),
+        dprintf(fd, "  switch (%s.%s.which) {\n", fullname.c_str(),
                 x.first.c_str());
       }
       fullname = fullname + std::string(".") + x.first;
@@ -521,7 +538,7 @@ bool WriteArrayEncoder(
                 ToUnderscoreId(x.first).c_str());
       }
       if (x.second->which == CppType::Which::kDiscriminatedUnion) {
-        dprintf(fd, "  switch (%s.which_%s) {\n", fullname.c_str(),
+        dprintf(fd, "  switch (%s.%s.which) {\n", fullname.c_str(),
                 x.first.c_str());
       }
       fullname = fullname + std::string(".") + x.first;
@@ -554,6 +571,56 @@ bool WriteEncoders(int fd, const CppSymbolTable& table) {
       continue;
     }
     std::string cpp_name = ToCamelCase(name);
+
+    for (const auto& x : type->struct_type.members) {
+      if (x.second->which != CppType::Which::kDiscriminatedUnion)
+        continue;
+      std::string dunion_cpp_name = ToCamelCase(x.first);
+      dprintf(fd, "\n%s::%s::%s()\n", cpp_name.c_str(), dunion_cpp_name.c_str(),
+              dunion_cpp_name.c_str());
+      bool has_uint = false;
+      for (const auto* y : x.second->discriminated_union.members) {
+        if (y->which == CppType::Which::kUint64) {
+          has_uint = true;
+          break;
+        }
+      }
+      std::string cid = ToUnderscoreId(x.first);
+      std::string type_name = ToCamelCase(x.first);
+      if (has_uint)
+        dprintf(fd, "    : which(Which::kUint64), uint(0) {}\n");
+      else
+        dprintf(fd,
+                "    : which(Which::kUninitialized), reserved_(false) {}\n");
+
+      dprintf(fd, "\n%s::%s::~%s() {\n", cpp_name.c_str(),
+              dunion_cpp_name.c_str(), dunion_cpp_name.c_str());
+      dprintf(fd, "  switch (which) {\n");
+      for (const auto* y : x.second->discriminated_union.members) {
+        switch (y->which) {
+          case CppType::Which::kUint64: {
+            dprintf(fd, " case Which::kUint64: break;\n");
+          } break;
+          case CppType::Which::kString: {
+            dprintf(fd, "  case Which::kString:\n");
+            dprintf(fd, "    str.std::string::~string();\n");
+            dprintf(fd, "    break;\n");
+          } break;
+          case CppType::Which::kBytes: {
+            dprintf(fd, "  case Which::kBytes:\n");
+            dprintf(fd, "    bytes.std::vector<uint8_t>::~vector();\n");
+            dprintf(fd, "    break;\n");
+          } break;
+          default:
+            return false;
+        }
+      }
+      if (!has_uint)
+        dprintf(fd, " case Which::kUninitialized: break;\n");
+      dprintf(fd, "  }\n");
+      dprintf(fd, "}\n");
+    }
+
     dprintf(fd, "\nssize_t Encode%s(\n", cpp_name.c_str());
     dprintf(fd, "    const %s& data,\n", cpp_name.c_str());
     dprintf(fd, "    uint8_t* buffer,\n    size_t length) {\n");
@@ -751,28 +818,38 @@ bool WriteDecoder(int fd,
                     "  if (type%d == CborIntegerType && (it%d.flags & "
                     "CborIteratorFlag_NegativeInteger) == 0) {\n",
                     temp_value_type, decoder_depth);
-            // TODO(btolsch): assign which_*.
+            dprintf(fd, "  %s.which = decltype(%s)::Which::kUint64;\n",
+                    name.c_str(), name.c_str());
             if (!WriteDecoder(fd, name + std::string(".uint"), ".", *x,
                               decoder_depth, temporary_count)) {
               return false;
             }
             break;
-          case CppType::Which::kString:
+          case CppType::Which::kString: {
             dprintf(fd, "  if (type%d == CborTextStringType) {\n",
                     temp_value_type);
-            if (!WriteDecoder(fd, name + std::string(".str"), ".", *x,
-                              decoder_depth, temporary_count)) {
+            dprintf(fd, "  %s.which = decltype(%s)::Which::kString;\n",
+                    name.c_str(), name.c_str());
+            std::string str_name = name + std::string(".str");
+            dprintf(fd, "  new (&%s) std::string();\n", str_name.c_str());
+            if (!WriteDecoder(fd, str_name, ".", *x, decoder_depth,
+                              temporary_count)) {
               return false;
             }
-            break;
-          case CppType::Which::kBytes:
+          } break;
+          case CppType::Which::kBytes: {
             dprintf(fd, "  if (type%d == CborByteStringType) {\n",
                     temp_value_type);
-            if (!WriteDecoder(fd, name + std::string(".bytes"), ".", *x,
-                              decoder_depth, temporary_count)) {
+            std::string bytes_name = name + std::string(".bytes");
+            dprintf(fd, "  %s.which = decltype(%s)::Which::kBytes;\n",
+                    name.c_str(), name.c_str());
+            dprintf(fd, "  new (&%s) std::vector<uint8_t>();\n",
+                    bytes_name.c_str());
+            if (!WriteDecoder(fd, bytes_name, ".", *x, decoder_depth,
+                              temporary_count)) {
               return false;
             }
-            break;
+          } break;
           default:
             return false;
         }
@@ -1009,8 +1086,7 @@ bool WriteHeaderEpilogue(int fd, const std::string& header_filename) {
   static const char epilogue[] = R"(
 }  // namespace msgs
 }  // namespace openscreen
-#endif  // %s
-  )";
+#endif  // %s)";
   std::string header_guard = ToHeaderGuard(header_filename);
   dprintf(fd, epilogue, header_guard.c_str());
   return true;
@@ -1082,8 +1158,7 @@ CborError ExpectKey(CborValue* it, const char* key, size_t key_length) {
 bool WriteSourceEpilogue(int fd) {
   static const char epilogue[] = R"(
 }  // namespace msgs
-}  // namespace openscreen
-)";
+}  // namespace openscreen)";
   dprintf(fd, epilogue);
   return true;
 }
