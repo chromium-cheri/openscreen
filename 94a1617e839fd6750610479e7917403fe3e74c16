@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90d873b0_e98f3a10",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T22:27:11Z",
+      "side": 1,
+      "message": "So far this is only used for locals, but it seems like being able to send/recv/read/write to pipe_ after a const get() is strange.  I don\u0027t feel strongly either way though.",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbc59b3a_da7e481d",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T22:27:11Z",
+      "side": 1,
+      "message": "What\u0027s the motivation for this change?  Putting the value on the stack in exchange for a function call?",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81eb02ab_3b9ca5b9",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T22:27:11Z",
+      "side": 1,
+      "message": "Why is avoiding an at-exit destructor important here?  AFAIK it just means we don\u0027t control the order.  Is there something else?",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9a60799_1b423c41",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T22:27:11Z",
+      "side": 1,
+      "message": "This would require the definition of EventWaiterPrivate be visible, which isn\u0027t allowed in the current architecture.  But I suppose part of the TODO could be to look at changing that.",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "611b8aea_92a8b308",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-10-30T22:27:11Z",
+      "side": 1,
+      "message": "Should retain the ull as only %lu is the printf format.  Here and below.",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
