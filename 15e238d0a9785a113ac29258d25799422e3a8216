@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a1f2ac9_103ce0ce",
+        "filename": "build/toolchain/linux/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2018-10-31T23:59:33Z",
+      "side": 1,
+      "message": "Yes, the linker on Mac does not like these flags. On Mac, the executable/library file format does not include the \"rpath\" concept. Some details on this: https://blogs.oracle.com/dipol/dynamic-libraries,-rpath,-and-mac-os",
+      "parentUuid": "00a8841a_d4c6297a",
+      "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "340f8d58_2866d5e7",
         "filename": "build/toolchain/linux/BUILD.gn",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "12bb1dac_b0ae5277",
+        "filename": "build/toolchain/linux/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2018-10-31T23:59:33Z",
+      "side": 1,
+      "message": "Not sure exactly. It was this way in the Chromium toolchain files. I suspect it cleans things up in cases like:\n\n  1. The `ln -f` failed in some way, but left a file entry in the dir.\n  2. The existing file cannot be overwritten by `cp -af`, but can be deleted to allow the copy to proceed.\n\nLike I said, not sure, but it feels like a reasonable thing to keep what someone else already thought was necessary. Too bad they hadn\u0027t documented anything about it (e.g., code comments).",
+      "parentUuid": "340f8d58_2866d5e7",
+      "range": {
+        "startLine": 98,
+        "startChar": 59,
+        "endLine": 98,
+        "endChar": 76
+      },
+      "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36f15d44_e7c8cc2d",
         "filename": "docs/style_guide.md",
         "patchSetId": 2
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "fc2bcfdf_f2c20986",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2018-10-31T23:59:33Z",
+      "side": 1,
+      "message": "What I\u0027d be mostly concerned about are STL features that are in C++14, but not C++11; and with our #include\u0027ing headers from chromium_quic, it might matter a lot when compiling certain code (or subtle issues with linking C++11-compiled objects with C++14-compiled ones).\n\nIMHO, at this early stage of the project, I think we should keep C++14 until we: a) replace chromium_quic with something else; and also b) know of a specific use case for downgrading to C++11 (it shouldn\u0027t be too hard to downgrade things later, if the need arises).",
+      "parentUuid": "36f15d44_e7c8cc2d",
+      "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddf166fc_d6347d8b",
         "filename": "third_party/chromium_quic/src/third_party/icu/BUILD.gn",
         "patchSetId": 2
@@ -73,6 +133,24 @@
       "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c670ac4_9911761b",
+        "filename": "third_party/chromium_quic/src/third_party/icu/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2018-10-31T23:59:33Z",
+      "side": 1,
+      "message": "Ok, added it to the global //build/config:openscreen_code config for safety.",
+      "parentUuid": "ddf166fc_d6347d8b",
+      "revId": "15e238d0a9785a113ac29258d25799422e3a8216",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
