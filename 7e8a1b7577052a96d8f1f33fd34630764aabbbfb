@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dca32ba1_9b4ecba2",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2018-11-01T01:44:08Z",
+      "side": 1,
+      "message": "Alternatives:\n\n1. Keep as-is.\n2. Change this to a string constant (\"::\") and call IPAddress::Parse() at runtime.\n3. Add a static factory method like base::IPAddress::CreateAnyAddress(Version version). But, is the extra code warranted (i.e., would this be a commonly-used thing)?\n\nWDYT?",
+      "parentUuid": "866bf53a_b123a274",
+      "revId": "7e8a1b7577052a96d8f1f33fd34630764aabbbfb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0af421af_1a04a7be",
         "filename": "api/impl/internal_services.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "7e8a1b7577052a96d8f1f33fd34630764aabbbfb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b72f5ccf_765fb214",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2018-11-01T01:44:08Z",
+      "side": 1,
+      "message": "Yep, it doesn\u0027t cooperate. :)\n\nAnd, on top of that, Apple keeps changing how to temporarily shut it down (and making it a lot more cumbersome to do so).",
+      "parentUuid": "0af421af_1a04a7be",
+      "revId": "7e8a1b7577052a96d8f1f33fd34630764aabbbfb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "7e8a1b7577052a96d8f1f33fd34630764aabbbfb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df14bc33_6a6198d7",
+        "filename": "platform/api/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2018-11-01T01:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80f0a094_11cd2e20",
+      "range": {
+        "startLine": 23,
+        "startChar": 44,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "7e8a1b7577052a96d8f1f33fd34630764aabbbfb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
