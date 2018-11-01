@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b95fe291_9309bb74",
+        "filename": "base/scoped_pipe.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-01T22:56:19Z",
+      "side": 1,
+      "message": "Yes, this is why I don\u0027t feel strongly about it.  const isn\u0027t transitive in C++ naturally, but is sometimes transitive by convention.",
+      "parentUuid": "ddd5d1ce_62f35468",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbc59b3a_da7e481d",
         "filename": "discovery/mdns/domain_name.h",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "The problem is that the DomainName class is not trivially destructible. So, having a static const member introduces at-exit code. These are prohibited in Google C++ style. Also, this is something we\u0027d have to fix in the future anyway, in order to link this library into Chromium (there are waterfall checks for this).\n\nI thought about this a bit, and was tempted to bring in Chromium\u0027s base::NoDestructor\u003c\u003e; but didn\u0027t want to start bringing in lots of code into this source repo for just this one case. That, and using NoDestructor would still cause a memory leak on the heap (because of the std::vector\u003cuint8_t\u003e private member).\n\nAn alternative solution here would be to make DomainName a constexpr class that is trivially destructible. However, we\u0027d have to replace its std::vector\u003cuint8_t\u003e private member with something like a constant-size C array, e.g.,:\n\n  const uint8_t domain_name_[256];  // NUL terminated octet string, per RFC 1035.",
       "parentUuid": "cbc59b3a_da7e481d",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2285ff61_859bf40b",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-01T22:56:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "90bcefcb_a4770b43",
       "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "0b79bd98_5ac0da8e",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-01T22:56:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "90e93499_9c1c2c43",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9a60799_1b423c41",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 1
@@ -136,6 +190,24 @@
       "side": 1,
       "message": "IIUC, what we are trying to do here is something like this:\n\n  class EventWaiter {\n   public:\n    virtual bool WatchUdpSocketReadable(socket) \u003d 0;\n    virtual bool StopWatchingUdpSocketReadable(socket) \u003d 0;\n    ...\n  };\n\n  class EventWaiterLinux : public EventWaiter {\n    ...implements all the pure virtual methods...\n  };\n\n...but we know we don\u0027t need the overhead of run-time virtual method calls since there should only be one impl, and this is known at compile/link time.\n\nIn most cases like this, in Chromium code, it\u0027s usually fine to just define a NON-virtual EventWaiter class and put the definition of the methods in separate per-platform .cc files (or have the embedder define them).\n\nWhat really made me put the TODO here was that I changed InternalServices and now this was leaking memory: I had to add a DestroyEventWaiter() call too. It\u0027s so easy, in future code changes, and by people not intimately familiar with the code, to forget to explicitly destroy things. So, IMHO, it\u0027s good practice to put some reasonable code structure in place to avoid those mistakes.",
       "parentUuid": "b9a60799_1b423c41",
+      "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0b9fb3a_5ebb0f6c",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-01T22:56:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8bb18e79_3f5521b9",
       "revId": "94a1617e839fd6750610479e7917403fe3e74c16",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
