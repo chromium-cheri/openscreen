@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f286952a_09ae0f15",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:34:29Z",
+      "side": 1,
+      "message": "Does this TODO need to be updated?",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fac36c95_e2072fd1",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:34:29Z",
+      "side": 1,
+      "message": "Is uint64 just to capture all of the possible CBOR integer types?\n\nWhat about negative integers (major type 1)? https://tools.ietf.org/html/rfc7049#section-2.1\nI suppose you could just add another enum value as needed.",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbbd2ccc_0dd971d9",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:34:29Z",
+      "side": 1,
+      "message": "What is the value of an uninitialized union value that includes a uint?\nIt would seem simpler to have a special flag/value for null regardless of the struct members.",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e175a6a9_2b6cb38f",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:34:29Z",
+      "side": 1,
+      "message": "There are native tag values for null and undefined which might also make sense here.\n\nhttps://tools.ietf.org/html/rfc7049#section-2.3",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb61cccc_f1385ca9",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:34:29Z",
+      "side": 1,
+      "message": "What is this for?  If this is for an null value, it might make sense to name it is_null_",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ed9630_100f124b",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:34:29Z",
+      "side": 1,
+      "message": "Won\u0027t the member dtors be automatically invoked as part of running the struct dtor?",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dba9aa2_0a193279",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:34:29Z",
+      "side": 1,
+      "message": "Can you explain the usage of placement new?  It looks like you\u0027re running placement new on the space already allocated for an empty std::string, then passing it to WriteDecoder to decode the CBOR string into it (which may require growing its buffer).\n\nWould it make more sense to have WriteDecoder allocate and return a std::string pointer so it can size the new object to hold the CBOR string?\n\nI might be wrong; it\u0027s tricky to figure out what the generated code looks like in my head :-) Like to hear the thoughts here.  Same comments apply to std::vector\u003cuint8_t\u003e below.",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "116039c5_26c964b7",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:34:29Z",
+      "side": 1,
+      "message": "Nit: Consider making this and the following if() one line statements.",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
