@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfc9b332_4e50dd9e",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:49:13Z",
+      "side": 1,
+      "message": "Instead of asking the publisher for its state, should this be done with a ScreenPublisher::Observer?",
+      "revId": "bb8039d88b9e71aab57d108436a12dcd49c1fc02",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10605e3a_9452ac96",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-01T17:49:13Z",
+      "side": 1,
+      "message": "If the state is kSuspended won\u0027t ::SuspendListener() below be called instead?  Should kStopped be the only valid state here?",
+      "revId": "bb8039d88b9e71aab57d108436a12dcd49c1fc02",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
