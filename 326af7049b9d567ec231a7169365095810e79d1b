@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5335ac8a_adfe7ce9",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:05:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f286952a_09ae0f15",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fac36c95_e2072fd1",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "326af7049b9d567ec231a7169365095810e79d1b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be38fff7_52fe270e",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:05:32Z",
+      "side": 1,
+      "message": "This is for the major type 0 which is CDDL uint.  Major type 1 isn\u0027t supported ATM, but tinycbor handles this with int64_t and an overflow check.",
+      "parentUuid": "fac36c95_e2072fd1",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7384342b_68ca5a69",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:05:32Z",
+      "side": 1,
+      "message": "The default value is 0 if it has a uint.  It\u0027s true though, that this doesn\u0027t actually make much sense.  I\u0027m not sure why I had the idea to omit kUninitialized when there\u0027s a uint, because it doesn\u0027t actually save any space.  I changed this to always including kUninitialized, which also simplifies some of the encoder/decoder generation.",
+      "parentUuid": "fbbd2ccc_0dd971d9",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e175a6a9_2b6cb38f",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "326af7049b9d567ec231a7169365095810e79d1b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d22d1b56_1c457458",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:05:32Z",
+      "side": 1,
+      "message": "This enum value has nothing to do with encoding/decoding though because we aren\u0027t using this to support \"bytes / text / null\".  This is just for the C++ side to know that it\u0027s uninitialized, which also lets the encoder and decoder do error checking.",
+      "parentUuid": "e175a6a9_2b6cb38f",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "6e59aaa4_26b156b8",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:05:32Z",
+      "side": 1,
+      "message": "This is to ensure the union can be easily constructed as \"uninitialized\".  I renamed this to placeholder_ because I feel is_null_ or is_uninitialized_ implies you can read from it to know whether that\u0027s true, which isn\u0027t the case with a union.",
+      "parentUuid": "cb61cccc_f1385ca9",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85ed9630_100f124b",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "326af7049b9d567ec231a7169365095810e79d1b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24bf06ef_5d66207b",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:05:32Z",
+      "side": 1,
+      "message": "No, unions don\u0027t automatically keep track of which member is in use and needs to be destroyed.",
+      "parentUuid": "85ed9630_100f124b",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "871a77a9_966e1c76",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:05:32Z",
+      "side": 1,
+      "message": "This isn\u0027t really a question of sizing or allocation, this is just handling union member initialization.  It\u0027s as if we only had a member `char str[sizeof(std::string)];` and want to use it as a proper std::string.  You can see a more concrete example of this in sema.cc with the CddlType class.",
+      "parentUuid": "3dba9aa2_0a193279",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "116039c5_26c964b7",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 3
@@ -135,6 +261,24 @@
       "revId": "326af7049b9d567ec231a7169365095810e79d1b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87f73e27_2a781c81",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:05:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "116039c5_26c964b7",
+      "revId": "326af7049b9d567ec231a7169365095810e79d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
