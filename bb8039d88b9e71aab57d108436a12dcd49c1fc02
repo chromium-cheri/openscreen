@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a58649ee_8ce55be7",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:10:34Z",
+      "side": 1,
+      "message": "This is saying: \"when stopping the listener, we can stop mDNSResponder _unless_ the publisher is active.\"  This is just a consequence of allowing independent state machines for the publisher and listener when they both depend on the same mDNSResponder instance.",
+      "parentUuid": "cfc9b332_4e50dd9e",
+      "revId": "bb8039d88b9e71aab57d108436a12dcd49c1fc02",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10605e3a_9452ac96",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "bb8039d88b9e71aab57d108436a12dcd49c1fc02",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c130392c_dc37d560",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-02T00:10:34Z",
+      "side": 1,
+      "message": "No, this is if the publisher is suspended, which will not force the listener to also be suspended.",
+      "parentUuid": "10605e3a_9452ac96",
+      "revId": "bb8039d88b9e71aab57d108436a12dcd49c1fc02",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
