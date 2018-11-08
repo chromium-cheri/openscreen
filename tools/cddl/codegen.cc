@@ -456,12 +456,35 @@ bool WriteMapEncoder(
     const std::vector<std::pair<std::string, CppType*>>& members,
     const std::string& nested_type_scope,
     int encoder_depth) {
+  std::string name_id = ToUnderscoreId(name);
   dprintf(fd, "  CborEncoder encoder%d;\n", encoder_depth);
-  dprintf(
-      fd,
-      "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_map(&encoder%d, &encoder%d, "
-      "%d));\n",
-      encoder_depth - 1, encoder_depth, static_cast<int>(members.size()));
+  int num_required_members = 0;
+  bool first_optional = true;
+  for (const auto& x : members) {
+    if (x.second->which == CppType::Which::kOptional) {
+      if (first_optional) {
+        dprintf(fd, "  int num_optionals_present = 0;\n");
+        first_optional = false;
+      }
+      dprintf(fd, "  num_optionals_present += !!(%s.has_%s);\n",
+              name_id.c_str(), ToUnderscoreId(x.first).c_str());
+    } else {
+      ++num_required_members;
+    }
+  }
+  if (first_optional) {
+    dprintf(fd,
+            "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_map(&encoder%d, "
+            "&encoder%d, "
+            "%d));\n",
+            encoder_depth - 1, encoder_depth, static_cast<int>(members.size()));
+  } else {
+    dprintf(fd,
+            "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_map(&encoder%d, "
+            "&encoder%d, "
+            "%d + num_optionals_present));\n",
+            encoder_depth - 1, encoder_depth, num_required_members);
+  }
 
   for (const auto& x : members) {
     std::string fullname = name;
@@ -471,7 +494,7 @@ bool WriteMapEncoder(
             CppType::Struct::KeyType::kPlainGroup) {
       if (x.second->which == CppType::Which::kOptional) {
         member_type = x.second->optional_type;
-        dprintf(fd, "  if (%s.has_%s) {\n", ToUnderscoreId(name).c_str(),
+        dprintf(fd, "  if (%s.has_%s) {\n", name_id.c_str(),
                 ToUnderscoreId(x.first).c_str());
       }
       dprintf(
@@ -514,11 +537,33 @@ bool WriteArrayEncoder(
     const std::vector<std::pair<std::string, CppType*>>& members,
     const std::string& nested_type_scope,
     int encoder_depth) {
+  std::string name_id = ToUnderscoreId(name);
   dprintf(fd, "  CborEncoder encoder%d;\n", encoder_depth);
-  dprintf(fd,
-          "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
-          "&encoder%d, %d));\n",
-          encoder_depth - 1, encoder_depth, static_cast<int>(members.size()));
+  int num_required_members = 0;
+  bool first_optional = true;
+  for (const auto& x : members) {
+    if (x.second->which == CppType::Which::kOptional) {
+      if (first_optional) {
+        dprintf(fd, "  int num_optionals_present = 0;\n");
+        first_optional = false;
+      }
+      dprintf(fd, "  num_optionals_present += !!(%s.has_%s);\n",
+              name_id.c_str(), ToUnderscoreId(x.first).c_str());
+    } else {
+      ++num_required_members;
+    }
+  }
+  if (first_optional) {
+    dprintf(fd,
+            "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
+            "&encoder%d, %d));\n",
+            encoder_depth - 1, encoder_depth, static_cast<int>(members.size()));
+  } else {
+    dprintf(fd,
+            "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
+            "&encoder%d, %d + num_optionals_present));\n",
+            encoder_depth - 1, encoder_depth, num_required_members);
+  }
 
   for (const auto& x : members) {
     std::string fullname = name;
@@ -528,7 +573,7 @@ bool WriteArrayEncoder(
             CppType::Struct::KeyType::kPlainGroup) {
       if (x.second->which == CppType::Which::kOptional) {
         member_type = x.second->optional_type;
-        dprintf(fd, "  if (%s.has_%s) {\n", ToUnderscoreId(name).c_str(),
+        dprintf(fd, "  if (%s.has_%s) {\n", name_id.c_str(),
                 ToUnderscoreId(x.first).c_str());
       }
       if (x.second->which == CppType::Which::kDiscriminatedUnion) {
@@ -889,9 +934,19 @@ bool WriteMapDecoder(
           "  CBOR_RETURN_ON_ERROR(cbor_value_get_map_length(&it%d, "
           "&it%d_length));\n",
           decoder_depth - 1, decoder_depth);
-  // TODO(btolsch): Account for optional combinations.
-  dprintf(fd, "  if (it%d_length != %d) {\n", decoder_depth,
+  int optional_members = 0;
+  for (const auto& member : members) {
+    if (member.second->which == CppType::Which::kOptional) {
+      ++optional_members;
+    }
+  }
+  dprintf(fd, "  if (it%d_length != %d", decoder_depth,
           static_cast<int>(members.size()));
+  for (int i = 0; i < optional_members; ++i) {
+    dprintf(fd, " && it%d_length != %d", decoder_depth,
+            static_cast<int>(members.size()) - i - 1);
+  }
+  dprintf(fd, ") {\n");
   dprintf(fd, "    return -1;\n");
   dprintf(fd, "  }\n");
   dprintf(fd,
@@ -901,10 +956,13 @@ bool WriteMapDecoder(
   for (const auto& x : members) {
     std::string cid = ToUnderscoreId(x.first);
     std::string fullname = name + member_accessor + cid;
-    dprintf(fd, "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
-            decoder_depth, x.first.c_str());
     if (x.second->which == CppType::Which::kOptional) {
+      // TODO(btolsch): This is wrong for the same reason as arrays, but will be
+      // easier to handle when doing out-of-order keys.
       dprintf(fd, "  if (it%d_length > %d) {\n", decoder_depth, member_pos);
+      dprintf(fd,
+              "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
+              decoder_depth, x.first.c_str());
       dprintf(fd, "    %s%shas_%s = true;\n", name.c_str(),
               member_accessor.c_str(), cid.c_str());
       if (!WriteDecoder(fd, fullname, ".", *x.second->optional_type,
@@ -916,6 +974,9 @@ bool WriteMapDecoder(
               member_accessor.c_str(), cid.c_str());
       dprintf(fd, "  }\n");
     } else {
+      dprintf(fd,
+              "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
+              decoder_depth, x.first.c_str());
       if (!WriteDecoder(fd, fullname, ".", *x.second, decoder_depth,
                         temporary_count)) {
         return false;
@@ -953,9 +1014,19 @@ bool WriteArrayDecoder(
           "  CBOR_RETURN_ON_ERROR(cbor_value_get_array_length(&it%d, "
           "&it%d_length));\n",
           decoder_depth - 1, decoder_depth);
-  // TODO(btolsch): Account for optional combinations.
-  dprintf(fd, "  if (it%d_length != %d) {\n", decoder_depth,
+  int optional_members = 0;
+  for (const auto& member : members) {
+    if (member.second->which == CppType::Which::kOptional) {
+      ++optional_members;
+    }
+  }
+  dprintf(fd, "  if (it%d_length != %d", decoder_depth,
           static_cast<int>(members.size()));
+  for (int i = 0; i < optional_members; ++i) {
+    dprintf(fd, " && it%d_length != %d", decoder_depth,
+            static_cast<int>(members.size()) - i - 1);
+  }
+  dprintf(fd, ") {\n");
   dprintf(fd, "    return -1;\n");
   dprintf(fd, "  }\n");
   dprintf(fd,
@@ -966,6 +1037,11 @@ bool WriteArrayDecoder(
     std::string cid = ToUnderscoreId(x.first);
     std::string fullname = name + member_accessor + cid;
     if (x.second->which == CppType::Which::kOptional) {
+      // TODO(btolsch): This only handles a single optional at the end of an
+      // array.  However, we likely don't really need more than one optional for
+      // arrays for the foreseeable future.  The proper approach would be to
+      // have a set of possible types for the next element and a map for the
+      // member to which each corresponds.
       dprintf(fd, "  if (it%d_length > %d) {\n", decoder_depth, member_pos);
       dprintf(fd, "    %s%shas_%s = true;\n", name.c_str(),
               member_accessor.c_str(), cid.c_str());
