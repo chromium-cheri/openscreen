@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52759856_0512a2f5",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T00:41:16Z",
+      "side": 1,
+      "message": "Can you use std::numeric_limits?",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f16d3c1c_3795f0ca",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T00:41:16Z",
+      "side": 1,
+      "message": "Consider writing a class for a append-only, automatically growing buffer, similar to a net::IOBuffer, versus passing around vector pointer and max size.  This is mostly to encapsulate the code managing the buffer\u0027s initial/current/max size.\n\nhttps://cs.chromium.org/chromium/src/net/base/io_buffer.h\n\nSomething like\n\nCborEncodeBuffer(type) {\n\n  bool Append(uint8_t* data, ssize_t data_length);\n\n  ssize_t size();\n  uint8_t* data();\n}\n\nNote we don\u0027t need the ref counting here...could msgs::Encode be written to take a pointer to such an object?",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "701ac5f0_4565691d",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T00:41:16Z",
+      "side": 1,
+      "message": "Nit: Remove { } for consistency",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756d4b35_5a527fd2",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T00:41:16Z",
+      "side": 1,
+      "message": "Is result here the position of the next byte to write?  Maybe next_write_index?",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfe4e906_77209f37",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T00:41:16Z",
+      "side": 1,
+      "message": "Would this be easier to write using std::iterator versus doing vector index math?",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2d8598_6b423ea1",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T00:41:16Z",
+      "side": 1,
+      "message": "Nit: Remove { }",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46ddcce9_54e8bf2f",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T00:41:16Z",
+      "side": 1,
+      "message": "It looks like this will incrementally resize according to the amount needed to encode the next part of the message?\n\nI wonder if there\u0027s a heuristic to resize the buffer either as a percentage of the current size, or use the lengths of the remaining fields to encode.\n\nThat might avoid extra allocations and copies.",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec15e81_46896071",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T00:41:16Z",
+      "side": 1,
+      "message": "This seems small given that we have messages with URLs and other strings of arbitrary length?",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
