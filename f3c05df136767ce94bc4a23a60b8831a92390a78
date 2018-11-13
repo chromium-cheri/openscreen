@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17515212_8b2b9125",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T20:45:45Z",
+      "side": 1,
+      "message": "If append_size is a constant here, should this just be buffer-\u003eSetInitialSize()?",
+      "revId": "f3c05df136767ce94bc4a23a60b8831a92390a78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a94064ff_5bd9f643",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T20:45:45Z",
+      "side": 1,
+      "message": "Should this logic to detect a non-appendable buffer go into buffer-\u003eAppend()?",
+      "revId": "f3c05df136767ce94bc4a23a60b8831a92390a78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7def706_28bbf918",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T20:45:45Z",
+      "side": 1,
+      "message": "buffer-\u003eSetType(Type:kFoo), which will always set the first byte?",
+      "revId": "f3c05df136767ce94bc4a23a60b8831a92390a78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b301f255_6b497d21",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T20:45:45Z",
+      "side": 1,
+      "message": "Do we need to add one each time around the loop, or only to increment past the type byte?\n\nWould it make sense to write this as:\n\nEncode%1$s(data, buffer-\u003ePosition(), buffer-\u003eAvailableLength())\n\n?",
+      "revId": "f3c05df136767ce94bc4a23a60b8831a92390a78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92c93a51_00fee464",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T20:45:45Z",
+      "side": 1,
+      "message": "I assume that \u003c 0 is the error case?  IsError(error_or_size) or error_or_size \u003d\u003d kError are more readable.",
+      "revId": "f3c05df136767ce94bc4a23a60b8831a92390a78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36177f28_ff9173f2",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-13T20:45:45Z",
+      "side": 1,
+      "message": "Can |buffer| track append_area as e.g. buffer-\u003ePosition()?",
+      "revId": "f3c05df136767ce94bc4a23a60b8831a92390a78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
