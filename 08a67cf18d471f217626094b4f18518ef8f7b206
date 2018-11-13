@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d02e4edc_97874b69",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-13T01:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52759856_0512a2f5",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f16d3c1c_3795f0ca",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c0dbd1_46965035",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-13T01:58:11Z",
+      "side": 1,
+      "message": "This isn\u0027t really an append-only case, currently (i.e. multiple messages don\u0027t get stacked in |buffer|).  For one message per buffer, a CborEncodeBuffer type would encapsulate the max size parameter but incur an extra copy, and prevent parameterizing the first (initial) allocation size (may or may not be important).  I added CborEncodeBuffer though.",
+      "parentUuid": "f16d3c1c_3795f0ca",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f82d1f32_1631049e",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-13T01:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "701ac5f0_4565691d",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "756d4b35_5a527fd2",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcfa8964_0bcc2038",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-13T01:58:11Z",
+      "side": 1,
+      "message": "|result| is an error or size of the encoded message.  Encode* counts the full size of the message, but stops actually writing to the buffer when it\u0027s full.  Renamed to |error_or_size|.",
+      "parentUuid": "756d4b35_5a527fd2",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "3087a8ee_605ceb5b",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-13T01:58:11Z",
+      "side": 1,
+      "message": "Not really IMHO.",
+      "parentUuid": "cfe4e906_77209f37",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f2d8598_6b423ea1",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1eb3f0e8_be1cfb8f",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-13T01:58:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f2d8598_6b423ea1",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "e28d146e_7310f739",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-13T01:58:11Z",
+      "side": 1,
+      "message": "This will only resize at most once because Encode* always returns the exact size of the encoded message.",
+      "parentUuid": "46ddcce9_54e8bf2f",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ec15e81_46896071",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2710b16_a1fd5e3e",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-11-13T01:58:11Z",
+      "side": 1,
+      "message": "Changed to 64k.",
+      "parentUuid": "9ec15e81_46896071",
+      "revId": "08a67cf18d471f217626094b4f18518ef8f7b206",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
