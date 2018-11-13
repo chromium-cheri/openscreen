@@ -5,6 +5,7 @@
 #include "tools/cddl/codegen.h"
 
 #include <cinttypes>
+#include <limits>
 #include <set>
 #include <string>
 #include <utility>
@@ -246,18 +247,24 @@ bool EnsureDependentTypeDefinitionsWritten(int fd,
 // This function ensures that Bar would be written sometime before Foo.
 bool WriteTypeDefinitions(int fd, const CppSymbolTable& table) {
   std::set<std::string> defs;
-  for (const auto& entry : table.cpp_type_map) {
-    auto* type = entry.second;
-    if (type->which != CppType::Which::kStruct ||
-        type->struct_type.key_type == CppType::Struct::KeyType::kPlainGroup) {
-      continue;
+  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
+  // NOTE: Currently encoding the type tag as a uint8_t.
+  if (root_type->discriminated_union.members.size() >
+      std::numeric_limits<uint8_t>::max()) {
+    return false;
+  }
+  for (const auto* type : root_type->discriminated_union.members) {
+    CppType* real_type = type->tagged_type.real_type;
+    if (real_type->which != CppType::Which::kStruct ||
+        real_type->struct_type.key_type ==
+            CppType::Struct::KeyType::kPlainGroup) {
+      return false;
     }
-    if (!EnsureDependentTypeDefinitionsWritten(fd, *type, &defs))
+    if (!EnsureDependentTypeDefinitionsWritten(fd, *real_type, &defs))
       return false;
   }
 
   dprintf(fd, "\nenum class Type {\n");
-  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
   for (const auto* type : root_type->discriminated_union.members) {
     dprintf(fd, "    k%s,\n",
             ToCamelCase(type->tagged_type.real_type->name).c_str());
@@ -269,15 +276,20 @@ bool WriteTypeDefinitions(int fd, const CppSymbolTable& table) {
 // Writes the function prototypes for the encode and decode functions for each
 // type in |table| to the file descriptor |fd|.
 bool WriteFunctionDeclarations(int fd, const CppSymbolTable& table) {
-  for (const auto& entry : table.cpp_type_map) {
-    const auto& name = entry.first;
-    const auto* type = entry.second;
-    if (type->which != CppType::Which::kStruct ||
-        type->struct_type.key_type == CppType::Struct::KeyType::kPlainGroup) {
-      continue;
+  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
+  for (const auto* type : root_type->discriminated_union.members) {
+    CppType* real_type = type->tagged_type.real_type;
+    const auto& name = real_type->name;
+    if (real_type->which != CppType::Which::kStruct ||
+        real_type->struct_type.key_type ==
+            CppType::Struct::KeyType::kPlainGroup) {
+      return false;
     }
     std::string cpp_name = ToCamelCase(name);
-    dprintf(fd, "\nssize_t Encode%s(\n", cpp_name.c_str());
+    dprintf(fd, "\nbool Encode%s(\n", cpp_name.c_str());
+    dprintf(fd, "    const %s& data,\n", cpp_name.c_str());
+    dprintf(fd, "    CborEncodeBuffer* buffer);\n");
+    dprintf(fd, "ssize_t Encode%s(\n", cpp_name.c_str());
     dprintf(fd, "    const %s& data,\n", cpp_name.c_str());
     dprintf(fd, "    uint8_t* buffer,\n    size_t length);\n");
     dprintf(fd, "ssize_t Decode%s(\n", cpp_name.c_str());
@@ -613,16 +625,18 @@ bool WriteArrayEncoder(
 // Writes encoding functions for each type in |table| to the file descriptor
 // |fd|.
 bool WriteEncoders(int fd, const CppSymbolTable& table) {
-  for (const auto& entry : table.cpp_type_map) {
-    const auto& name = entry.first;
-    const auto* type = entry.second;
-    if (type->which != CppType::Which::kStruct ||
-        type->struct_type.key_type == CppType::Struct::KeyType::kPlainGroup) {
-      continue;
+  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
+  for (const auto* type : root_type->discriminated_union.members) {
+    CppType* real_type = type->tagged_type.real_type;
+    const auto& name = real_type->name;
+    if (real_type->which != CppType::Which::kStruct ||
+        real_type->struct_type.key_type ==
+            CppType::Struct::KeyType::kPlainGroup) {
+      return false;
     }
     std::string cpp_name = ToCamelCase(name);
 
-    for (const auto& x : type->struct_type.members) {
+    for (const auto& x : real_type->struct_type.members) {
       if (x.second->which != CppType::Which::kDiscriminatedUnion)
         continue;
       std::string dunion_cpp_name = ToCamelCase(x.first);
@@ -660,18 +674,53 @@ bool WriteEncoders(int fd, const CppSymbolTable& table) {
       dprintf(fd, "}\n");
     }
 
+    static const char vector_encode_function[] =
+        R"(
+bool Encode%1$s(
+    const %1$s& data,
+    CborEncodeBuffer* buffer) {
+  size_t append_size = CborEncodeBuffer::kDefaultInitialEncodeBufferSize;
+  uint8_t* append_area = buffer->Append(append_size);
+  if (!append_area) {
+    append_size = 1;
+    append_area = buffer->Append(append_size);
+    if (!append_area)
+      return false;
+  }
+  append_area[0] = static_cast<uint8_t>(Type::k%1$s);
+  while (true) {
+    ssize_t error_or_size = msgs::Encode%1$s(
+        data, append_area + 1, append_size - 1);
+    if (error_or_size < 0) {
+      return false;
+    } else if (error_or_size > static_cast<ssize_t>(append_size - 1)) {
+      append_area =
+          buffer->Extend(append_area, error_or_size - (append_size - 1));
+      if (!append_area)
+        return false;
+      append_size = error_or_size + 1;
+    } else {
+      buffer->Release((append_size - 1) - error_or_size);
+      return true;
+    }
+  }
+}
+)";
+
+    dprintf(fd, vector_encode_function, cpp_name.c_str());
+
     dprintf(fd, "\nssize_t Encode%s(\n", cpp_name.c_str());
     dprintf(fd, "    const %s& data,\n", cpp_name.c_str());
     dprintf(fd, "    uint8_t* buffer,\n    size_t length) {\n");
     dprintf(fd, "  CborEncoder encoder0;\n");
     dprintf(fd, "  cbor_encoder_init(&encoder0, buffer, length, 0);\n");
 
-    if (type->struct_type.key_type == CppType::Struct::KeyType::kMap) {
-      if (!WriteMapEncoder(fd, "data", type->struct_type.members, type->name))
+    if (real_type->struct_type.key_type == CppType::Struct::KeyType::kMap) {
+      if (!WriteMapEncoder(fd, "data", real_type->struct_type.members, name))
         return false;
     } else {
-      if (!WriteArrayEncoder(fd, "data", type->struct_type.members,
-                             type->name)) {
+      if (!WriteArrayEncoder(fd, "data", real_type->struct_type.members,
+                             name)) {
         return false;
       }
     }
@@ -1082,12 +1131,14 @@ bool WriteArrayDecoder(
 // Writes a decoder function definition for every type in |table| to the file
 // descriptor |fd|.
 bool WriteDecoders(int fd, const CppSymbolTable& table) {
-  for (const auto& entry : table.cpp_type_map) {
+  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
+  for (const auto* type : root_type->discriminated_union.members) {
+    CppType* real_type = type->tagged_type.real_type;
+    const auto& name = real_type->name;
     int temporary_count = 0;
-    const auto& name = entry.first;
-    const auto* type = entry.second;
-    if (type->which != CppType::Which::kStruct ||
-        type->struct_type.key_type == CppType::Struct::KeyType::kPlainGroup) {
+    if (real_type->which != CppType::Which::kStruct ||
+        real_type->struct_type.key_type ==
+            CppType::Struct::KeyType::kPlainGroup) {
       continue;
     }
     std::string cpp_name = ToCamelCase(name);
@@ -1100,14 +1151,14 @@ bool WriteDecoders(int fd, const CppSymbolTable& table) {
         fd,
         "  CBOR_RETURN_ON_ERROR(cbor_parser_init(buffer, length, 0, &parser, "
         "&it0));\n");
-    if (type->struct_type.key_type == CppType::Struct::KeyType::kMap) {
-      if (!WriteMapDecoder(fd, "data", "->", type->struct_type.members, 1,
+    if (real_type->struct_type.key_type == CppType::Struct::KeyType::kMap) {
+      if (!WriteMapDecoder(fd, "data", "->", real_type->struct_type.members, 1,
                            &temporary_count)) {
         return false;
       }
     } else {
-      if (!WriteArrayDecoder(fd, "data", "->", type->struct_type.members, 1,
-                             &temporary_count)) {
+      if (!WriteArrayDecoder(fd, "data", "->", real_type->struct_type.members,
+                             1, &temporary_count)) {
         return false;
       }
     }
@@ -1147,6 +1198,27 @@ bool WriteHeaderPrologue(int fd, const std::string& header_filename) {
 namespace openscreen {
 namespace msgs {
 
+class CborEncodeBuffer {
+ public:
+  static constexpr size_t kDefaultInitialEncodeBufferSize = 250;
+  static constexpr size_t kDefaultMaxEncodeBufferSize = 64000;
+
+  CborEncodeBuffer();
+  CborEncodeBuffer(size_t initial_size, size_t max_size);
+  ~CborEncodeBuffer();
+
+  bool Append(const uint8_t* data, size_t length);
+  uint8_t* Append(size_t length);
+  uint8_t* Extend(uint8_t* base, size_t extra_length);
+  void Release(size_t length);
+
+  const uint8_t* data() const { return data_.data(); }
+  size_t size() const { return data_.size(); }
+
+ private:
+  size_t max_size_;
+  std::vector<uint8_t> data_;
+};
 )";
   std::string header_guard = ToHeaderGuard(header_filename);
   dprintf(fd, prologue, header_guard.c_str(), header_guard.c_str());
@@ -1221,6 +1293,51 @@ CborError ExpectKey(CborValue* it, const char* key, size_t key_length) {
 }
 
 }  // namespace
+
+// static
+constexpr size_t CborEncodeBuffer::kDefaultInitialEncodeBufferSize;
+
+// static
+constexpr size_t CborEncodeBuffer::kDefaultMaxEncodeBufferSize;
+
+CborEncodeBuffer::CborEncodeBuffer()
+    : max_size_(kDefaultMaxEncodeBufferSize) {
+  data_.reserve(kDefaultInitialEncodeBufferSize);
+}
+CborEncodeBuffer::CborEncodeBuffer(size_t initial_size, size_t max_size)
+    : max_size_(max_size) {
+  data_.reserve(initial_size);
+}
+CborEncodeBuffer::~CborEncodeBuffer() = default;
+
+bool CborEncodeBuffer::Append(const uint8_t* data, size_t length) {
+  if ((data_.size() + length) > max_size_)
+    return false;
+  data_.insert(data_.end(), data, data + length);
+  return true;
+}
+
+uint8_t* CborEncodeBuffer::Append(size_t length) {
+  if ((data_.size() + length) > max_size_)
+    return nullptr;
+  size_t append_area = data_.size();
+  data_.resize(append_area + length);
+  return &data_[0] + append_area;
+}
+
+uint8_t* CborEncodeBuffer::Extend(uint8_t* base, size_t extra_length) {
+  if ((data_.size() + extra_length) > max_size_)
+    return nullptr;
+  size_t base_offset = base - &data_[0];
+  data_.resize(data_.size() + extra_length);
+  return &data_[0] + base_offset;
+}
+
+void CborEncodeBuffer::Release(size_t length) {
+  if (data_.size() < length || length == 0)
+    return;
+  data_.resize(data_.size() - length);
+}
 )";
   dprintf(fd, prologue, header_filename.c_str());
   return true;
