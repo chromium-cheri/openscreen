@@ -72,9 +72,7 @@ void DestroyUdpSocket(UdpSocketPtr socket) {
   delete socket;
 }
 
-bool BindUdpSocket(UdpSocketPtr socket,
-                   const IPEndpoint& endpoint,
-                   InterfaceIndex ifindex) {
+bool BindUdpSocket(UdpSocketPtr socket, uint16_t port, InterfaceIndex ifindex) {
   OSP_DCHECK_GE(socket->fd, 0);
   if (socket->version == UdpSocketPrivate::Version::kV4) {
     if (ifindex > 0) {
@@ -100,7 +98,7 @@ bool BindUdpSocket(UdpSocketPtr socket,
 
     struct sockaddr_in address;
     address.sin_family = AF_INET;
-    address.sin_port = htons(endpoint.port);
+    address.sin_port = htons(port);
     address.sin_addr.s_addr = INADDR_ANY;
     return bind(socket->fd, reinterpret_cast<struct sockaddr*>(&address),
                 sizeof(address)) != -1;
@@ -123,7 +121,7 @@ bool BindUdpSocket(UdpSocketPtr socket,
     struct sockaddr_in6 address;
     address.sin6_family = AF_INET6;
     address.sin6_flowinfo = 0;
-    address.sin6_port = htons(endpoint.port);
+    address.sin6_port = htons(port);
     address.sin6_addr = IN6ADDR_ANY_INIT;
     address.sin6_scope_id = 0;
     return bind(socket->fd, reinterpret_cast<struct sockaddr*>(&address),

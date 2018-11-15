@@ -14,6 +14,10 @@
 
 namespace openscreen {
 
+class QuicConnectionFactory;
+class QuicService;
+class MessageDemuxer;
+
 // Manages services run as part of the Open Screen Protocol Library.  Library
 // embedders should pass instances of required services to Create(), which will
 // instantiate the singleton instance of the NetworkServiceManager and take
@@ -40,7 +44,13 @@ class NetworkServiceManager final {
   // by the service instance destructors.
   static void Dispose();
 
+  // Runs the event loop once for all of its owned services.  This mostly
+  // consists of check for available network events and passing that data to the
+  // listening services.
   void RunEventLoopOnce();
+
+  // Initializes internal QUIC and message routing services.
+  void InitSingletonServices();
 
   // Returns an instance of the mDNS screen listener, or nullptr if
   // not provided.
@@ -71,6 +81,9 @@ class NetworkServiceManager final {
   std::unique_ptr<ScreenPublisher> mdns_publisher_;
   std::unique_ptr<ProtocolConnectionClient> connection_client_;
   std::unique_ptr<ProtocolConnectionServer> connection_server_;
+  std::unique_ptr<QuicConnectionFactory> quic_connection_factory_;
+  std::unique_ptr<QuicService> quic_service_;
+  std::unique_ptr<MessageDemuxer> message_demuxer_;
 };
 
 }  // namespace openscreen

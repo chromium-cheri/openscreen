@@ -8,8 +8,8 @@
 #include <algorithm>
 #include <vector>
 
-#include "api/impl/mdns_screen_listener_factory.h"
-#include "api/impl/mdns_screen_publisher_factory.h"
+#include "api/public/mdns_screen_listener_factory.h"
+#include "api/public/mdns_screen_publisher_factory.h"
 #include "api/public/network_service_manager.h"
 #include "api/public/screen_listener.h"
 #include "api/public/screen_publisher.h"
@@ -94,6 +94,7 @@ void ListenerDemo() {
 
   auto* network_service = NetworkServiceManager::Create(
       std::move(mdns_listener), nullptr, nullptr, nullptr);
+  network_service->InitSingletonServices();
 
   network_service->GetMdnsScreenListener()->Start();
 
@@ -118,6 +119,7 @@ void PublisherDemo(const std::string& friendly_name) {
       MdnsScreenPublisherFactory::Create(publisher_config, &publisher_observer);
   auto* network_service = NetworkServiceManager::Create(
       nullptr, std::move(mdns_publisher), nullptr, nullptr);
+  network_service->InitSingletonServices();
 
   network_service->GetMdnsScreenPublisher()->Start();
 
@@ -134,6 +136,7 @@ void PublisherDemo(const std::string& friendly_name) {
 }  // namespace openscreen
 
 int main(int argc, char** argv) {
+  openscreen::platform::LogInit(nullptr);
   openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kVerbose,
                                     1);
   if (argc == 1) {

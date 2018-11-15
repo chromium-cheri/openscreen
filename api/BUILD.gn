@@ -3,9 +3,11 @@
 # found in the LICENSE file.
 
 source_set("api") {
+  public_deps = [
+    "public:api",
+  ]
   deps = [
     "impl",
-    "public:api",
   ]
 }
 
@@ -21,10 +23,10 @@ source_set("api_unittests") {
   ]
 
   deps = [
-    "impl",
+    ":api",
+    "impl/quic:test_support",
     "impl/testing",
     "impl/testing:fakes_unittests",
-    "public:api",
     "//third_party/googletest:gmock",
     "//third_party/googletest:gtest",
   ]

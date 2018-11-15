@@ -28,9 +28,7 @@ bool IsIPv6Socket(UdpSocketPtr socket);
 // Closes the underlying platform socket and frees any allocated memory.
 void DestroyUdpSocket(UdpSocketPtr socket);
 
-bool BindUdpSocket(UdpSocketPtr socket,
-                   const IPEndpoint& endpoint,
-                   InterfaceIndex ifindex);
+bool BindUdpSocket(UdpSocketPtr socket, uint16_t port, InterfaceIndex ifindex);
 bool JoinUdpMulticastGroup(UdpSocketPtr socket,
                            const IPAddress& address,
                            InterfaceIndex ifindex);

@@ -107,8 +107,7 @@ std::vector<platform::UdpSocketPtr> SetupMulticastSockets(
       DestroyUdpSocket(socket);
       continue;
     }
-    if (!BindUdpSocket(socket, IPEndpoint{IPAddress{0, 0, 0, 0}, 5353},
-                       ifindex)) {
+    if (!BindUdpSocket(socket, 5353, ifindex)) {
       OSP_LOG_ERROR << "bind failed for interface " << ifindex << ": "
                     << platform::GetLastErrorString();
       DestroyUdpSocket(socket);

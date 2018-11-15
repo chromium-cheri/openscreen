@@ -6,10 +6,11 @@ source_set("api") {
   sources = [
     "client_config.cc",
     "client_config.h",
+    "mdns_screen_listener_factory.h",
+    "mdns_screen_publisher_factory.h",
     "network_metrics.h",
-    "network_service_manager.cc",
     "network_service_manager.h",
-    "presentation/presentation_common.h",
+    "presentation/presentation_connection.h",
     "presentation/presentation_controller.h",
     "presentation/presentation_receiver.h",
     "protocol_connection.h",
@@ -27,7 +28,11 @@ source_set("api") {
     "server_config.h",
   ]
 
+  public_deps = [
+    "//msgs",
+  ]
   deps = [
     "//base",
+    "//platform",
   ]
 }

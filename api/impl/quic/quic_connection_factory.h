@@ -1,0 +1,55 @@
+// Copyright 2018 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef API_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_
+#define API_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_
+
+#include <memory>
+
+#include "api/impl/quic/quic_connection.h"
+#include "base/ip_address.h"
+
+namespace openscreen {
+
+// This interface provides a way to make new QUIC connections to endpoints.  It
+// also provides a way to receive incoming QUIC connections (as a server).
+class QuicConnectionFactory {
+ public:
+  class ServerDelegate {
+   public:
+    virtual ~ServerDelegate() = default;
+
+    virtual QuicConnection::Delegate* NextConnectionDelegate(
+        const IPEndpoint& source) = 0;
+    virtual void OnIncomingConnection(
+        std::unique_ptr<QuicConnection>&& connection) = 0;
+  };
+
+  static QuicConnectionFactory* Get();
+  static void Set(QuicConnectionFactory* factory);
+
+  virtual ~QuicConnectionFactory() = default;
+
+  // Initializes a server socket listening on |port| where new connection
+  // callbacks are sent to |delegate|.
+  virtual void SetServerDelegate(ServerDelegate* delegate,
+                                 IPAddress::Version ip_version,
+                                 uint16_t port) = 0;
+
+  // Listen for incoming network packets on both client and server sockets and
+  // dispatch any results.
+  virtual void RunTasks() = 0;
+
+  virtual std::unique_ptr<QuicConnection> Connect(
+      const IPEndpoint& endpoint,
+      QuicConnection::Delegate* connection_delegate) = 0;
+  virtual void OnConnectionClosed(QuicConnection* connection) = 0;
+
+ private:
+  static QuicConnectionFactory* factory_;
+};
+
+}  // namespace openscreen
+
+#endif  // API_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_

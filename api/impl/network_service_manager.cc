@@ -5,6 +5,9 @@
 #include "api/public/network_service_manager.h"
 
 #include "api/impl/internal_services.h"
+#include "api/impl/message_demuxer.h"
+#include "api/impl/quic/quic_connection_factory_impl.h"
+#include "api/impl/quic/quic_service.h"
 
 namespace {
 
@@ -39,6 +42,7 @@ NetworkServiceManager* NetworkServiceManager::Get() {
 
 // static
 void NetworkServiceManager::Dispose() {
+  QuicService::Get()->CloseAllConnections();
   // TODO(mfoltz): Convert to assertion failure
   if (!g_network_service_manager_instance)
     return;
@@ -48,6 +52,25 @@ void NetworkServiceManager::Dispose() {
 
 void NetworkServiceManager::RunEventLoopOnce() {
   InternalServices::RunEventLoopOnce();
+  QuicConnectionFactory::Get()->RunTasks();
+}
+
+void NetworkServiceManager::InitSingletonServices() {
+  if (!QuicConnectionFactory::Get()) {
+    DCHECK(!quic_connection_factory_);
+    quic_connection_factory_.reset(new QuicConnectionFactoryImpl);
+    QuicConnectionFactory::Set(quic_connection_factory_.get());
+  }
+  if (!QuicService::Get()) {
+    DCHECK(!quic_service_);
+    quic_service_.reset(new QuicService);
+    QuicService::Set(quic_service_.get());
+  }
+  if (!MessageDemuxer::Get()) {
+    DCHECK(!message_demuxer_);
+    message_demuxer_.reset(new MessageDemuxer);
+    MessageDemuxer::Set(message_demuxer_.get());
+  }
 }
 
 ScreenListener* NetworkServiceManager::GetMdnsScreenListener() {
