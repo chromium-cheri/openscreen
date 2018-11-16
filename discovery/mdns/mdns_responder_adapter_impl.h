@@ -73,6 +73,11 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
       const std::string& service_instance,
       const std::string& service_name,
       const std::string& service_protocol) override;
+  MdnsResponderErrorCode UpdateTxtData(
+      const std::string& service_instance,
+      const std::string& service_name,
+      const std::string& service_protocol,
+      const std::vector<std::string>& lines) override;
 
  private:
   static void AQueryCallback(mDNS* m,

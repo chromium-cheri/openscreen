@@ -289,4 +289,27 @@ TEST(FakeMdnsResponderAdapterTest, RegisterInterfaces) {
   EXPECT_EQ(0u, mdns_responder.registered_interfaces().size());
 }
 
+TEST(FakeMdnsResponderAdapterTest, UpdateTxtData) {
+  FakeMdnsResponderAdapter mdns_responder;
+
+  mdns_responder.Init();
+  ASSERT_TRUE(mdns_responder.running());
+
+  const std::vector<std::string> txt_data1{"asdf", "jkl"};
+  auto result = mdns_responder.RegisterService(
+      "instance", "name", "proto",
+      mdns::DomainName{{1, 'a', 5, 'l', 'o', 'c', 'a', 'l', 0}}, 12345,
+      txt_data1);
+  EXPECT_EQ(mdns::MdnsResponderErrorCode::kNoError, result);
+  ASSERT_EQ(1u, mdns_responder.registered_services().size());
+  EXPECT_EQ(txt_data1, mdns_responder.registered_services()[0].lines);
+
+  const std::vector<std::string> txt_data2{"monkey", "panda", "turtle",
+                                           "rhino"};
+  result = mdns_responder.UpdateTxtData("instance", "name", "proto", txt_data2);
+  EXPECT_EQ(mdns::MdnsResponderErrorCode::kNoError, result);
+  ASSERT_EQ(1u, mdns_responder.registered_services().size());
+  EXPECT_EQ(txt_data2, mdns_responder.registered_services()[0].lines);
+}
+
 }  // namespace openscreen

@@ -282,6 +282,11 @@ void BrowseDemo(const std::string& service_name,
       for (const auto& s : *g_services) {
         LogService(s.second);
       }
+      if (!service_instance.empty()) {
+        mdns_adapter->UpdateTxtData(service_instance, service_name,
+                                    service_protocol,
+                                    {"oogley", "moogley", "googley"});
+      }
       g_dump_services = false;
     }
     mdns_adapter->RunTasks();

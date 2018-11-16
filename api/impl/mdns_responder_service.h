@@ -60,7 +60,6 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
   void StopPublisher() override;
   void SuspendPublisher() override;
   void ResumePublisher() override;
-  void UpdateFriendlyName(const std::string& friendly_name) override;
 
  private:
   // NOTE: service_instance implicit in map key.

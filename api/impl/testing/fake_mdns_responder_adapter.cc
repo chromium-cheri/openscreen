@@ -472,10 +472,31 @@ mdns::MdnsResponderErrorCode FakeMdnsResponderAdapter::DeregisterService(
                             service.service_name == service_name &&
                             service.service_protocol == service_protocol;
                    });
-  if (it == registered_services_.end()) {
+  if (it == registered_services_.end())
     return mdns::MdnsResponderErrorCode::kUnknownError;
-  }
   registered_services_.erase(it);
+  return mdns::MdnsResponderErrorCode::kNoError;
+}
+
+mdns::MdnsResponderErrorCode FakeMdnsResponderAdapter::UpdateTxtData(
+    const std::string& service_instance,
+    const std::string& service_name,
+    const std::string& service_protocol,
+    const std::vector<std::string>& lines) {
+  if (!running_)
+    return mdns::MdnsResponderErrorCode::kUnknownError;
+
+  auto it =
+      std::find_if(registered_services_.begin(), registered_services_.end(),
+                   [&service_instance, &service_name,
+                    &service_protocol](const RegisteredService& service) {
+                     return service.service_instance == service_instance &&
+                            service.service_name == service_name &&
+                            service.service_protocol == service_protocol;
+                   });
+  if (it == registered_services_.end())
+    return mdns::MdnsResponderErrorCode::kUnknownError;
+  it->lines = lines;
   return mdns::MdnsResponderErrorCode::kNoError;
 }
 

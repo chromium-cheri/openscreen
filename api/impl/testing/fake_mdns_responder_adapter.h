@@ -172,6 +172,11 @@ class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
       const std::string& service_instance,
       const std::string& service_name,
       const std::string& service_protocol) override;
+  mdns::MdnsResponderErrorCode UpdateTxtData(
+      const std::string& service_instance,
+      const std::string& service_name,
+      const std::string& service_protocol,
+      const std::vector<std::string>& lines) override;
 
  private:
   bool running_ = false;

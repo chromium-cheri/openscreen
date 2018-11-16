@@ -242,6 +242,11 @@ class MdnsResponderAdapter {
       const std::string& service_instance,
       const std::string& service_name,
       const std::string& service_protocol) = 0;
+  virtual MdnsResponderErrorCode UpdateTxtData(
+      const std::string& service_instance,
+      const std::string& service_name,
+      const std::string& service_protocol,
+      const std::vector<std::string>& lines) = 0;
 };
 
 }  // namespace mdns

@@ -137,12 +137,6 @@ void MdnsResponderService::ResumePublisher() {
   ScreenPublisherImpl::Delegate::SetState(ScreenPublisher::State::kRunning);
 }
 
-void MdnsResponderService::UpdateFriendlyName(
-    const std::string& friendly_name) {
-  // TODO(btolsch): Need an MdnsResponderAdapter method to update the TXT
-  // record.
-}
-
 void MdnsResponderService::HandleMdnsEvents() {
   // NOTE: In the common case, we will get a single combined packet for
   // PTR/SRV/TXT/A and then no other packets.  If we don't loop here, we would
