@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ea334b2_28fbe793",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:39:40Z",
+      "side": 1,
+      "message": "Maybe this should be connection_server_port_ since publisher_port could correspond to mDNS or QUIC.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "968deee8_dbd59b00",
+        "filename": "api/impl/network_service_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:39:40Z",
+      "side": 1,
+      "message": "Should this be done through the ProtocolConnectionClient/Server?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3bdf62b_691e0c05",
+        "filename": "api/impl/network_service_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:39:40Z",
+      "side": 1,
+      "message": "connection_client_-\u003eRunTasks()\nconnection_server_-\u003eRunTasks()",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "540ae7d9_4d736064",
+        "filename": "api/impl/network_service_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:39:40Z",
+      "side": 1,
+      "message": "It looks like this class owns message_demuxer_, but a pointer is being stored as as singleton in the MessageDemuxer class.\n\nWhat access pattern for message_demuxer_ is required?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142e4784_89495e5c",
+        "filename": "api/public/mdns_screen_listener_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:39:40Z",
+      "side": 1,
+      "message": "It\u0027s probably okay to expose the implementation factories in public/.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8f3ea18_d2ee275b",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:39:40Z",
+      "side": 1,
+      "message": "Nit: Omit braces for single-line if.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
