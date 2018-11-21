@@ -19,6 +19,363 @@
     },
     {
       "key": {
+        "uuid": "8811a8ef_90af09dc",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "It seems like the API should be designed to only allow proper cancellation (via a watch_id or returning a Watch object), or this should just be an early return.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cad7793_02a6560a",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Is this how |QuicStream| signals that there is no more data to read?\nMaybe add a comment noting this.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1dc106e_ef790223",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Will this be called with size\u003d0 be called exactly once per stream_id?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ec36ff7_d166c3ed",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Since we use uint8_t* elsewhere, should we change data to be consistent and make the caller do the cast?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59154d6_41bbfda4",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Do we know the size of the incoming message?  It seems like we should reserve an appropriately sized vector at least |size| in length the first time we see data from stream_id.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c010f6_ec2351f6",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Nit: Instead of auto, consider declaring a typedef for the map entry.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d379e928_690ad1ea",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Is handled the same as else if?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd7eef02_6124a9e3",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Rather than use a \"magic\" IPEndpoint value for fallback handling, I would prefer an explicit API like SetDefaultMessageCallback().",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3da0b9a5_f0b20d8a",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Nit: Consider a typedef for message_callbacks.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a606cdd_fea99882",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Whoa.  Doesn\u0027t buffer[0] need to be bounds checked before this cast can be made?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3ea1dff_c3293cd9",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Consider using a typedef instead of auto here.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0643d01_d2a96958",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Woudn\u0027t it be safer to pass |buffer| or a const_iterator to buffer here?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b09fc9d_5664bafe",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Some unit test coverage would be good for this class (can be done in a separate patch).",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b7a95b2_b310173a",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure IPEndpoint is the right way to identify the source of a message.  In a future we may have ICE that allows endpoints to change IP at will.  The message source should be tied to an identifier derived from the authentication handshake.\n\nFine to leave a TODO since we don\u0027t have a handshake identifier yet, and this is primarily about future proofing.  But would like to record this as a design issue to resolve.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "695913ca_a7916b4d",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "In the future we may want to be able to parse CBOR from non-QUIC streams.  So I\u0027d like to understand what details of QUIC are necessary to support through this API.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f878f29_fe31a5c6",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "The API suggests that |buffer| will always contain a complete message?  Maybe |buffer| should be |message_data|?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25412a8c_2f42fc8e",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Nit: message_size or something that describes what is being measured",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fb80ebd_eccae10f",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Why does this need to be a singleton?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc258f32_4b69e356",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "What happens if there is more than one call to watch the same message_type?\n\nWho owns |callback|?\n\nWhat if a message is received before there\u0027s a callback for it?  Does the class retain the message and invoke the callback later?\n\nPlease add documentation here and below.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a8ec3ce_d8373081",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Is it important that StopWatching() corespond to a previous call to Watch()?\n\nIf so, consider returning a watch/registration ID that can be passed into StopWatching().\n\nThe slight advantage to this, is that as we add new watch mechanisms to the API, the stop watching API remains the same.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59c35e6c_781f5937",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "data_size",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "968deee8_dbd59b00",
         "filename": "api/impl/network_service_manager.cc",
         "patchSetId": 1
@@ -64,6 +421,125 @@
       "writtenOn": "2018-11-21T00:39:40Z",
       "side": 1,
       "message": "It looks like this class owns message_demuxer_, but a pointer is being stored as as singleton in the MessageDemuxer class.\n\nWhat access pattern for message_demuxer_ is required?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bded4e2_bb503f00",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "data_size",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442b9373_58b31b3b",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Can you check that these types for stream id / connection id match those in the underlying implementation/spec?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1fab030_d7e3aa68",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "What does \"Outgoing\" mean in this context?  The delegate looks like it supports read and write.    Does it just mean that this endpoint is sending the first bytes on a new stream_id?\n\nIf so, how does the caller set the stream_id for the new stream?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65caa0aa_608b3ad9",
+        "filename": "api/impl/quic/quic_connection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Does this need to be a static singleton?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b89b690_73378fc3",
+        "filename": "api/impl/quic/quic_connection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Which interface(s) are used for the socket?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8215270e_a44accce",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Can we use timestamp_t from base:: where appropriate?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f96bb50f_8537d416",
+        "filename": "api/impl/quic/quic_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T22:36:17Z",
+      "side": 1,
+      "message": "Does this need to be a static singleton?",
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
