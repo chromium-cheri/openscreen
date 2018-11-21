@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e00b6dc_5f3fd50f",
+        "filename": "api/impl/testing/fake_mdns_responder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "Nit: add newline after",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1889bfe9_0b7a456e",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "We may want to separate out the screen config from the network config if we want to allow multiple screens to be published.",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f0089ab_0260d7aa",
+        "filename": "api/public/screen_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "Should this be derived from friendly_name?  I suppose we can go back and address this when the screen publishing spec finalizes.",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e84362b2_89750c1c",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "I assume service_instance is truncated to 64 octets here?",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15accc7_0b4b4ac2",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "Do you know how conflict resolution works with mDNSResponder?  I.e. if two publishers conflict with the service name, one of the publishers has to agree to change its name.\n\nhttps://tools.ietf.org/html/rfc6762#section-9",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0661f600_7fec4b3f",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "I think auto hurts readability here (at least makes it harder to read the loop below).",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57d8bc4d_16337412",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "Please declare a constant for 256 if one is not already available.",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfb3a1b6_bd588f68",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "I think a range loop here would help readability; you could write record-\u003eRR_SRV, etc.",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e57e7afc_273ea81f",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "Please verify that there\u0027s a static assertion that RR_TXT.rdatastorage.u.txt.c can hold 256 characters.",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a94d880_8c5dbc09",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-11-21T00:03:06Z",
+      "side": 1,
+      "message": "The DNS-SD RFC suggests a specific key\u003dvalue format for TXT record lines:\n\nhttps://tools.ietf.org/html/rfc6763#section-6.4\n\nIt seems like we should support that through the API as well.",
+      "revId": "908ee14f5767be530dc6dd771bd834bde7f7d247",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
