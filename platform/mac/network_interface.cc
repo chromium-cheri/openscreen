@@ -33,7 +33,7 @@ namespace {
 // fails.
 template <size_t N>
 uint8_t ToPrefixLength(const uint8_t (&netmask)[N]) {
-  uint8_t result = 0;
+  uint8_t result = UINT8_C(0);
   size_t i = 0;
   while (i < N && netmask[i] == UINT8_C(0xff)) {
     result += 8;
