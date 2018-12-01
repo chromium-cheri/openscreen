@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "75566d07_a1df5381",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "I decided to just remove this since it can be used if either ScreenPublisher or ProtocolConnectionServer aren\u0027t our library implementation (which would apply to e.g. a chromium port).",
+      "parentUuid": "6ea334b2_28fbe793",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8811a8ef_90af09dc",
         "filename": "api/impl/message_demuxer.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38641d73_e6b9673c",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8811a8ef_90af09dc",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7dcdaa5e_db96fea6",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Under normal operation, QuicStream calls OnClose then OnReceive with empty data (analogous to the fin bit in the spec).  I\u0027m not sure yet what happens if a stream is cancelled (via RST_STREAM).  I have a TODO here for this for now.",
+      "parentUuid": "4cad7793_02a6560a",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1dc106e_ef790223",
         "filename": "api/impl/message_demuxer.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d774423_5d30597e",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "\u003c\u003d 1, see earlier comment.",
+      "parentUuid": "c1dc106e_ef790223",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "63f170f5_0a0c6cb7",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ec36ff7_d166c3ed",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e59154d6_41bbfda4",
         "filename": "api/impl/message_demuxer.cc",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b1132d3_fd2c5ac8",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "If you mean call buffer.reserve(), I think that\u0027s handled by insert.  If you mean the actual first CBOR message size, we don\u0027t know that.",
+      "parentUuid": "e59154d6_41bbfda4",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "c677858f_a134171f",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d5c010f6_ec2351f6",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d379e928_690ad1ea",
         "filename": "api/impl/message_demuxer.cc",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e7e1214_4ba7d088",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "No.  An else-if would mean there are no callbacks registered for this endpoint, !handled means that OR none of the callbacks are for the message type.",
+      "parentUuid": "d379e928_690ad1ea",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "d66d45b5_40100f5b",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd7eef02_6124a9e3",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3da0b9a5_f0b20d8a",
         "filename": "api/impl/message_demuxer.cc",
         "patchSetId": 1
@@ -169,6 +331,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec7ea53f_ca330d16",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3da0b9a5_f0b20d8a",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "626c1ab1_b4f27d71",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "The only way an out-of-bounds value would have an impact is if someone also registers a callback for that out-of-bounds value.",
+      "parentUuid": "7a606cdd_fea99882",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3ea1dff_c3293cd9",
         "filename": "api/impl/message_demuxer.cc",
         "patchSetId": 1
@@ -203,6 +401,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af8cf629_af9426a5",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b3ea1dff_c3293cd9",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "fa261456_dba27d2e",
+        "filename": "api/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "I don\u0027t see how those are safer and they would make OnStreamMessage specific to std::vector.",
+      "parentUuid": "c0643d01_d2a96958",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b09fc9d_5664bafe",
         "filename": "api/impl/message_demuxer.h",
         "patchSetId": 1
@@ -237,6 +471,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5d13c5_576f21ae",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b09fc9d_5664bafe",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "967675ee_45ef553f",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "For now I changed this to an opaque ID, but there\u0027s also a TODO in the QUIC code about how to consistently identify a connection.",
+      "parentUuid": "2b7a95b2_b310173a",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "695913ca_a7916b4d",
         "filename": "api/impl/message_demuxer.h",
         "patchSetId": 1
@@ -271,6 +541,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20696a39_5187c315",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "This was being passed to make responding easier.  It\u0027s removed now.",
+      "parentUuid": "695913ca_a7916b4d",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "8afc9116_859cca53",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "It could be a partial message, which will be buffered until we build up a complete message (i.e. parsing no longer fails with an EOF error).",
+      "parentUuid": "8f878f29_fe31a5c6",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25412a8c_2f42fc8e",
         "filename": "api/impl/message_demuxer.h",
         "patchSetId": 1
@@ -305,6 +611,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea5d3800_37e6d521",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25412a8c_2f42fc8e",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +649,24 @@
     },
     {
       "key": {
+        "uuid": "19bebaf0_9a44d14d",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "No longer a singleton.",
+      "parentUuid": "6fb80ebd_eccae10f",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc258f32_4b69e356",
         "filename": "api/impl/message_demuxer.h",
         "patchSetId": 1
@@ -339,6 +681,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa3f3b4_aa1533a2",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Subsequent watches will fail.  The caller must ensure |callback| outlives the watch period.  Unwatched messages will be buffered (up to a size limit) and dispatched whenever a watch is registered.",
+      "parentUuid": "dc258f32_4b69e356",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +719,24 @@
     },
     {
       "key": {
+        "uuid": "2aaa768d_73f1e472",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Added RAII class for this.",
+      "parentUuid": "1a8ec3ce_d8373081",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59c35e6c_781f5937",
         "filename": "api/impl/message_demuxer.h",
         "patchSetId": 1
@@ -373,6 +751,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3124eb5_a630caba",
+        "filename": "api/impl/message_demuxer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59c35e6c_781f5937",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +789,24 @@
     },
     {
       "key": {
+        "uuid": "1e49383d_d0917777",
+        "filename": "api/impl/network_service_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "968deee8_dbd59b00",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3bdf62b_691e0c05",
         "filename": "api/impl/network_service_manager.cc",
         "patchSetId": 1
@@ -407,6 +821,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "299c6a3a_df098cd8",
+        "filename": "api/impl/network_service_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3bdf62b_691e0c05",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -427,6 +859,24 @@
     },
     {
       "key": {
+        "uuid": "68197b00_51aade3a",
+        "filename": "api/impl/network_service_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "This has been changed and is now owned by the embedder and not stored as a singleton.",
+      "parentUuid": "540ae7d9_4d736064",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bded4e2_bb503f00",
         "filename": "api/impl/quic/quic_connection.h",
         "patchSetId": 1
@@ -441,6 +891,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9ad0bca_64d49296",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bded4e2_bb503f00",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -461,6 +929,24 @@
     },
     {
       "key": {
+        "uuid": "96d6c280_c531597b",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "In the current spec, both stream IDs are effectively a uint64_t, but our snapshot of QUIC is still using the older uint32_t.\n\nConnection IDs can be up to 18 bytes long, but our snapshot of QUIC only supports uint64_t (and it looks like the same is true upstream).  That being said, it also looks like Chromium QUIC is using no connection ID on the client side (meaning there can only be one open connection) and always the QUARTC API always uses 0 on the server side.",
+      "parentUuid": "442b9373_58b31b3b",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1fab030_d7e3aa68",
         "filename": "api/impl/quic/quic_connection.h",
         "patchSetId": 1
@@ -475,6 +961,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1611cfa1_23419b5f",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Incoming and Outgoing in QUIC refer to the endpoint which initiates the stream, even if it\u0027s a bidirectional stream.  Similarly, we don\u0027t set the stream ID ourselves, because these are allocated by QUIC.  QUIC uses even stream IDs for client-initiated streams and odd stream IDs for server-initiated streams.  I think this is probably to avoid both sides thinking they initiated a given stream ID (even though I think whether it leads to a conflict is up to the application layer).",
+      "parentUuid": "b1fab030_d7e3aa68",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -495,6 +999,24 @@
     },
     {
       "key": {
+        "uuid": "0dd06709_e77a00c3",
+        "filename": "api/impl/quic/quic_connection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Not a singleton anymore.",
+      "parentUuid": "65caa0aa_608b3ad9",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b89b690_73378fc3",
         "filename": "api/impl/quic/quic_connection_factory.h",
         "patchSetId": 1
@@ -509,6 +1031,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8974424e_2cbef408",
+        "filename": "api/impl/quic/quic_connection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "This is now a list of endpoints, which should correctly specify the interfaces in use.",
+      "parentUuid": "7b89b690_73378fc3",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -529,6 +1069,24 @@
     },
     {
       "key": {
+        "uuid": "c2785308_f2a6e2a3",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "There is no base::timestamp_t but if you meant our platform layer timestamp_t, this isn\u0027t using that.  This is using chromium base/ types.",
+      "parentUuid": "8215270e_a44accce",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f96bb50f_8537d416",
         "filename": "api/impl/quic/quic_service.h",
         "patchSetId": 1
@@ -543,6 +1101,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71623d67_2085b5aa",
+        "filename": "api/impl/quic/quic_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "No longer a singleton.",
+      "parentUuid": "f96bb50f_8537d416",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -563,6 +1139,24 @@
     },
     {
       "key": {
+        "uuid": "e84546ef_0865cadc",
+        "filename": "api/public/mdns_screen_listener_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "This relates back to point 1 in the commit message; this avoids build dependency cycles.",
+      "parentUuid": "142e4784_89495e5c",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8f3ea18_d2ee275b",
         "filename": "base/ip_address.cc",
         "patchSetId": 1
@@ -577,6 +1171,24 @@
       "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "169647b9_159b78a0",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-01T00:05:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8f3ea18_d2ee275b",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
