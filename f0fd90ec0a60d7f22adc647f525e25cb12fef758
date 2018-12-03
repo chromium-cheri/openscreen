@@ -947,6 +947,74 @@
     },
     {
       "key": {
+        "uuid": "1f7dec96_0abc317d",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "We will likely wan to add APIs in the future to expose the outcome of the handshake, like the public key fingerprint.  Probably not worth trying to design now until the spec is firmer.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bde30f44_9b755626",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Style nit: std::unique_ptr is already move-only, and I think it\u0027s preferred to pass-by-value rather than require an rvalue reference.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a6637f9_617d9812",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "I assume this allows the delegate implementation to construct and return a new QuickStream:Delegate to pass to an incoming stream object.\n\nCan you document this method to clarify?  Documentation for the other methods of the delegate API wouldn\u0027t hurt either.",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73096507_ff705c8b",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Normally data is received on a stream unless it\u0027s part of the initial handshake?  Can you add documentation to clarify when this is called?",
+      "revId": "f0fd90ec0a60d7f22adc647f525e25cb12fef758",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1fab030_d7e3aa68",
         "filename": "api/impl/quic/quic_connection.h",
         "patchSetId": 1

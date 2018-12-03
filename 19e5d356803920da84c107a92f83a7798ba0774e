@@ -1,0 +1,446 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd227839_c4bb1c33",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Is the intention to always create a new connection to |endpoint| when this is called by giving it a new QUIC connection ID?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df90c2f4_728cd618",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Adding some helper methods could make this more readable and object oriented.\n\ne.g.\n\nQuicConnection* connection \u003d GetConnection(connection_id);\n\nif (connection) {\n  auto pc \u003d MakeUnique\u003cQuicProtocolConnection\u003e(this, connection)\n}\n\nwhere the QuicProtocolConnection ctor takes care of setting up the outgoing stream.  It seems like there is a lot of \"wiring up\" here that could be details of the QuicProtocolConnection.",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b56526aa_bf4d0ac0",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "OpenConnection doesn\u0027t have these state checks...",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34ddcb44_ad6d93de",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Nit: prefer a newline after if statements without braces",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387a0b69_11edc946",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "As noted above, this logic seems duplicated with OpenConnection()",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fdd49fd_dd8700be",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "What is the need to track closed connections?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0224b6be_078f9c60",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "This class was bit hard to follow because the relationships between IPEndpoint, endpoint_id and request_id weren\u0027t totally obvious.  I think an endpoint_id is a QUIC connection_id, and a request_id is to track simultaneous attempts to open a connection to the same IPEndpoint?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9205ae8_45ae55f4",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Does connection_factory need an rvalue reference?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd0c4fa9_f3a98297",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Please add a comment e.g. // ProtocolConnectionClient overrides",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf2e92f7_152626e8",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "I would be okay naming this just Connect()",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a79a601_1c1e2892",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Maybe this could be CreateProtocolConnection() since it creates a new ProtocolConnection on an endpoint that already has a connection?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78a99a13_17139352",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Would it just make sense to add callbacks to ServiceConnectionData, possibly deleting them after they are fired?  Then \"pending\" could be a state of ServiceConnectionData, instead of a wrapper object.\n\nThis could reduce the number of maps keeping track of connections.",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c31e5cc4_8ee7dc76",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Can you please document the meanings of the keys and values in the maps here and below?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd241d0a_fada0d48",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "What is an endpoint_id?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "785c9755_2a672286",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "If the calls to the Open methods are not frequent, then it might be simpler to have a single map with a unique key (endpoint_id?) that is used to track all the state for a pending, connected or deleted connection, and getter methods to filter that list by IPEndpoint.",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8418f49_10d1bf78",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Nice design :-)",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "833db79e_8d2e9dd9",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Who owns |data| - the caller or the callee?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9035ed17_9b7faf9a",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "- Is ownership of |data| transferred or does the implementation make a copy?\n- Normally a UDP socket write returns the number of bytes written as a size_t.  It\u0027s not assumed that all bytes are written by a single call to sendto() in nonblocking mode.  Or this this queue the bytes internally?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d51f74_8dbd0fff",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "With the suggestion below, would it make more sense to pass a const QuicConnection* to the delegate methods, assuming re-entrant calls to const methods are safe?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd994ee7_00a2e149",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Should there be a member and a getter for the connection_id?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "444d9a4f_d366a74e",
+        "filename": "api/impl/quic/quic_connection_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "It seems like some of this API applies to running a QUIC client and some of it applies to running a QUIC server.  Would it make more sense to split into a QuicClientConnectionFactory and a QuicServerConnectionFactory?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f77fd4c_afd4bb98",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Does only the server call RunTasks()?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d5d9ff8_af2e7fc0",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "What does this statement do?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92ce396e_d2970e2b",
+        "filename": "api/impl/quic/quic_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "There is an open spec issue to explain the behavior of QUIC during a suspended state: https://github.com/webscreens/openscreenprotocol/issues/108\nI think the resolution will depend on what makes sense for implementations, so if you have thoughts, feel free to discuss them.",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b29185_bc856c37",
+        "filename": "api/impl/quic/quic_service_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "I think, if we had a callback object, this could be replaced with a callback.  No change requested though",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29afe2be_ad20756e",
+        "filename": "api/impl/quic/quic_service_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-03T06:22:25Z",
+      "side": 1,
+      "message": "Will |connection| point to a deleted object?  Or is it destroyed in the QUIC sense (closed)?",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
