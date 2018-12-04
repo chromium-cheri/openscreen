@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d23c660d_9bb4240d",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "The intention is to always get a new ProtocolConnection, which actually maps to a QUIC stream.",
+      "parentUuid": "bd227839_c4bb1c33",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df90c2f4_728cd618",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93b797cd_f2da09ee",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "I added a helper method for the QuicProtocolConnection wiring.  I didn\u0027t move it into QuicProtocolConnection though, partially because that constructor wouldn\u0027t be used by the server at all.",
+      "parentUuid": "df90c2f4_728cd618",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f257f6d7_e33be1f9",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Yes it does.",
+      "parentUuid": "b56526aa_bf4d0ac0",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34ddcb44_ad6d93de",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2018-12-03T06:22:25Z",
       "side": 1,
       "message": "Nit: prefer a newline after if statements without braces",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03dba820_425939ff",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Everywhere or just here in particular?",
+      "parentUuid": "34ddcb44_ad6d93de",
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "65e4a917_d924b4aa",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "387a0b69_11edc946",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6fdd49fd_dd8700be",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca433cbb_afd586e4",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "The QUIC implementation (net/third_party/quic) references other aspects of the connection object after this callback, so we can\u0027t destroy it here.  We have to wait until the current packet processing is done, so this queues it to be destroyed in the next event loop iteration.",
+      "parentUuid": "6fdd49fd_dd8700be",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "35f564d7_103f15e7",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "An endpoint_id is an opaque identifier for an IPEndpoint; this relationship is manifested in |endpoint_map_|.  The goal is to only expose endpoint IDs to callers once a connection is established, so that ICE and connection migration are free to happen without changing our concept of the connection\u0027s identity.  Currently, this doesn\u0027t actually work any better than the previous patch, but it at least puts the insulation in place between the caller and QuicClient.\n\nA request_id is assigned for each call to OpenConnection that must complete asynchronously, and is not related at all to which endpoint is being contacted.",
+      "parentUuid": "0224b6be_078f9c60",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9205ae8_45ae55f4",
         "filename": "api/impl/quic/quic_client.h",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41b7bac7_698ece1e",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "It could be by value but this just saves an extra move.  I don\u0027t feel strongly if you\u0027d prefer by-value.",
+      "parentUuid": "b9205ae8_45ae55f4",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "0522f262_73c96f7f",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd0c4fa9_f3a98297",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf2e92f7_152626e8",
         "filename": "api/impl/quic/quic_client.h",
         "patchSetId": 2
@@ -169,6 +331,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b187f1c_a070624c",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf2e92f7_152626e8",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "2ac3bcb7_e2a89268",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a79a601_1c1e2892",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78a99a13_17139352",
         "filename": "api/impl/quic/quic_client.h",
         "patchSetId": 2
@@ -203,6 +401,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a341c84a_e1309da6",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Although the maps could be merged, they aren\u0027t separate just because the types are different.  See the comment below for why this may or may not be a good idea.",
+      "parentUuid": "78a99a13_17139352",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "7b75c9ef_aa705c51",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c31e5cc4_8ee7dc76",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd241d0a_fada0d48",
         "filename": "api/impl/quic/quic_client.h",
         "patchSetId": 2
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "5e426dec_94f40c1d",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "An opaque identifier that replaces the use of IPEndpoint for the caller, once the handshake completes.",
+      "parentUuid": "bd241d0a_fada0d48",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "785c9755_2a672286",
         "filename": "api/impl/quic/quic_client.h",
         "patchSetId": 2
@@ -251,6 +503,24 @@
       "writtenOn": "2018-12-03T06:22:25Z",
       "side": 1,
       "message": "If the calls to the Open methods are not frequent, then it might be simpler to have a single map with a unique key (endpoint_id?) that is used to track all the state for a pending, connected or deleted connection, and getter methods to filter that list by IPEndpoint.",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd37671_9df21963",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "There\u0027s a few reasons that the maps are separate, but probably the important one to consider going forward with endpoint IDs is that QUIC connections are not allowed to change endpoints until after the handshake has completed.  In general, this will just be handled by the QUIC implementation below, but there might some odd cases to consider, like: screen1 advertises endpoint1, start handshake with endpoint1, screen1 suddenly changes to endpoint2, start handshake with endpoint2.  Depending on how we handle this migration in the future, the connections to both endpoint1 and endpoint2 might map to the same endpoint ID, preventing a new connection from being started.",
+      "parentUuid": "785c9755_2a672286",
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "fed49958_3a604b0c",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "a8418f49_10d1bf78",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "833db79e_8d2e9dd9",
         "filename": "api/impl/quic/quic_connection.h",
         "patchSetId": 2
@@ -288,6 +576,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ccd6e4_d8ae9184",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "The caller owns the data.  The Delegate would need to make a copy if it wants to keep it.",
+      "parentUuid": "833db79e_8d2e9dd9",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -308,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "fbc14094_8a666c4f",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "The implementation makes a copy.  Beyond an async UDP socket not necessarily sending everything, there\u0027s the bigger issue of breaking it up into QUIC packets, which may get lost and need to be retransmitted.  This could be an opportunity for reference counting the buffer or moving a std::vector, but I\u0027m reluctant to take that step right away.",
+      "parentUuid": "9035ed17_9b7faf9a",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d51f74_8dbd0fff",
         "filename": "api/impl/quic/quic_connection.h",
         "patchSetId": 2
@@ -322,6 +646,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2406315_edcda45a",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "ATM, only OnDataReceived uses the connection_id and only to forward it to callbacks, more as an opaque ID.",
+      "parentUuid": "68d51f74_8dbd0fff",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -342,6 +684,24 @@
     },
     {
       "key": {
+        "uuid": "13c5cb3c_992ad794",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "There\u0027s no real use for that right now except by MessageDemuxer, which can already get it from OnDataReceived.",
+      "parentUuid": "bd994ee7_00a2e149",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "444d9a4f_d366a74e",
         "filename": "api/impl/quic/quic_connection_factory.h",
         "patchSetId": 2
@@ -356,6 +716,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c4fce3e_6c2ad326",
+        "filename": "api/impl/quic/quic_connection_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Although this is true, I think enough of the implementation needs to be shared that the best split we could do would still require using a public virtual base, which goes against the style guide.",
+      "parentUuid": "444d9a4f_d366a74e",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -376,6 +754,24 @@
     },
     {
       "key": {
+        "uuid": "83585d67_e733b080",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "No, the client also calls RunTasks to receive responses/new streams/etc. from the server.  This particular block is only run by the server because it means some previously unknown endpoint wants to initiate a connection.",
+      "parentUuid": "4f77fd4c_afd4bb98",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d5d9ff8_af2e7fc0",
         "filename": "api/impl/quic/quic_connection_impl.cc",
         "patchSetId": 2
@@ -390,6 +786,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beb536d2_ac284e97",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "This is actually a carryover from the old QUIC demo which auto-closes the write end when the read end closes.  I removed it.",
+      "parentUuid": "8d5d9ff8_af2e7fc0",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -410,6 +824,24 @@
     },
     {
       "key": {
+        "uuid": "7075b5ba_c8a7301e",
+        "filename": "api/impl/quic/quic_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Left a comment on the github issue.",
+      "parentUuid": "92ce396e_d2970e2b",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18b29185_bc856c37",
         "filename": "api/impl/quic/quic_service_common.h",
         "patchSetId": 2
@@ -424,6 +856,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed0bff2_9930543d",
+        "filename": "api/impl/quic/quic_service_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "18b29185_bc856c37",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -444,6 +894,24 @@
     },
     {
       "key": {
+        "uuid": "521b1265_83826faa",
+        "filename": "api/impl/quic/quic_service_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "It\u0027s called right before the dtor of |connection|.  I added a comment here.",
+      "parentUuid": "29afe2be_ad20756e",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "561eb12d_f888d8d8",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 2
@@ -458,6 +926,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc88a6a3_a88d2a3b",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "No.  The default move constructor/assignment functions do a member-wise move, and we at least need a swap on |parent_|.",
+      "parentUuid": "561eb12d_f888d8d8",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -478,6 +964,24 @@
     },
     {
       "key": {
+        "uuid": "708382a6_93d8cf2b",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "No.  If |parent_| is nullptr then the dtor is a noop, so preserving the other members doesn\u0027t matter here.",
+      "parentUuid": "c950acbc_85aab863",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32c11711_7f73413d",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 2
@@ -492,6 +996,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dd1dfef_f3e95667",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-04T23:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32c11711_7f73413d",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
