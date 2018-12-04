@@ -3,9 +3,11 @@
 # found in the LICENSE file.
 
 source_set("api") {
+  public_deps = [
+    "public:api",
+  ]
   deps = [
     "impl",
-    "public:api",
   ]
 }
 
@@ -14,17 +16,20 @@ source_set("api_unittests") {
 
   sources = [
     "impl/mdns_responder_service_unittest.cc",
+    "impl/quic/quic_client_unittest.cc",
+    "impl/quic/quic_server_unittest.cc",
     "impl/screen_list_unittest.cc",
     "impl/screen_listener_impl_unittest.cc",
     "impl/screen_publisher_impl_unittest.cc",
+    "public/message_demuxer_unittest.cc",
     "public/screen_info_unittest.cc",
   ]
 
   deps = [
-    "impl",
+    ":api",
+    "impl/quic:test_support",
     "impl/testing",
     "impl/testing:fakes_unittests",
-    "public:api",
     "//third_party/googletest:gmock",
     "//third_party/googletest:gtest",
   ]
