@@ -5,6 +5,8 @@
 #include "api/public/network_service_manager.h"
 
 #include "api/impl/internal_services.h"
+#include "api/impl/quic/quic_connection_factory_impl.h"
+#include "api/public/message_demuxer.h"
 
 namespace {
 
@@ -48,6 +50,10 @@ void NetworkServiceManager::Dispose() {
 
 void NetworkServiceManager::RunEventLoopOnce() {
   InternalServices::RunEventLoopOnce();
+  if (connection_client_)
+    connection_client_->RunTasks();
+  if (connection_server_)
+    connection_server_->RunTasks();
 }
 
 ScreenListener* NetworkServiceManager::GetMdnsScreenListener() {

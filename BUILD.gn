@@ -24,6 +24,9 @@ executable("demo") {
     "//demo/demo.cc",
   ]
 
+  # TODO(btolsch): Handles MD5_* conflict between boringssl and mDNSResponder
+  # temporarily.
+  ldflags = [ "-Wl,-z,muldefs" ]
   deps = [
     "//api",
     "//base",
@@ -34,6 +37,7 @@ executable("demo") {
 
 executable("unittests") {
   testonly = true
+  ldflags = [ "-Wl,-z,muldefs" ]
   deps = [
     "//api:api_unittests",
     "//base:base_unittests",
