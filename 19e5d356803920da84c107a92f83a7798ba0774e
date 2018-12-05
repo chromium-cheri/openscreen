@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "f7f7cdb1_a360544a",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "93b797cd_f2da09ee",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b56526aa_bf4d0ac0",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 2
@@ -142,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "96571899_4c0e2a2a",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "When I went through and reformatted ifs, I added newlines.  But it looks like the style guide doesn\u0027t have specific advice.  I\u0027ll leave it up to you.",
+      "parentUuid": "03dba820_425939ff",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "387a0b69_11edc946",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 2
@@ -206,6 +242,24 @@
       "side": 1,
       "message": "The QUIC implementation (net/third_party/quic) references other aspects of the connection object after this callback, so we can\u0027t destroy it here.  We have to wait until the current packet processing is done, so this queues it to be destroyed in the next event loop iteration.",
       "parentUuid": "6fdd49fd_dd8700be",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "441f9afc_f91ad519",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ca433cbb_afd586e4",
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -527,6 +581,24 @@
     },
     {
       "key": {
+        "uuid": "86e51be1_e181d415",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "OK, how would endpoint1 and endpoint2 end up with the same ID? Would \"pending\", \"connected\" and \"deleted\" be possible states for a given endpoint_id?\n\nI don\u0027t think this scenario is blocking submit, but we will need to consider how to properly identify in-progress QUIC connections and possibly update this implementation accordingly.",
+      "parentUuid": "2dd37671_9df21963",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8418f49_10d1bf78",
         "filename": "api/impl/quic/quic_connection.h",
         "patchSetId": 2
@@ -667,6 +739,24 @@
     },
     {
       "key": {
+        "uuid": "1850199b_0fd42ce2",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c2406315_edcda45a",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd994ee7_00a2e149",
         "filename": "api/impl/quic/quic_connection.h",
         "patchSetId": 2
@@ -696,6 +786,24 @@
       "side": 1,
       "message": "There\u0027s no real use for that right now except by MessageDemuxer, which can already get it from OnDataReceived.",
       "parentUuid": "bd994ee7_00a2e149",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abed2e8d_fb4eecdb",
+        "filename": "api/impl/quic/quic_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "13c5cb3c_992ad794",
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -737,6 +845,24 @@
     },
     {
       "key": {
+        "uuid": "c97a0352_787886fa",
+        "filename": "api/impl/quic/quic_connection_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "I\u0027m not aware of any style guide restrictions on public virtual methods in base classes (you just can\u0027t call them from ctors/dtors).",
+      "parentUuid": "3c4fce3e_6c2ad326",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f77fd4c_afd4bb98",
         "filename": "api/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 2
@@ -766,6 +892,24 @@
       "side": 1,
       "message": "No, the client also calls RunTasks to receive responses/new streams/etc. from the server.  This particular block is only run by the server because it means some previously unknown endpoint wants to initiate a connection.",
       "parentUuid": "4f77fd4c_afd4bb98",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ed29a1e_fb45fd78",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "83585d67_e733b080",
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -804,6 +948,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7618121e_3ff8cf85",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2018-12-05T17:45:46Z",
+      "side": 1,
+      "message": "I still see it in PS#4",
+      "parentUuid": "beb536d2_ac284e97",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
