@@ -11,9 +11,10 @@ source_set("impl") {
     "mdns_responder_service.cc",
     "mdns_responder_service.h",
     "mdns_screen_listener_factory.cc",
-    "mdns_screen_listener_factory.h",
     "mdns_screen_publisher_factory.cc",
-    "mdns_screen_publisher_factory.h",
+    "network_service_manager.cc",
+    "protocol_connection_client_factory.cc",
+    "protocol_connection_server_factory.cc",
     "screen_list.cc",
     "screen_list.h",
     "screen_listener_impl.cc",
@@ -22,8 +23,12 @@ source_set("impl") {
     "screen_publisher_impl.h",
   ]
 
-  deps = [
+  public_deps = [
     "../public:api",
+    "//msgs",
+  ]
+  deps = [
+    "quic",
     "//base",
     "//platform",
   ]
