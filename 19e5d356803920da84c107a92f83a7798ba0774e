@@ -599,6 +599,24 @@
     },
     {
       "key": {
+        "uuid": "568390f1_c7bc55a5",
+        "filename": "api/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-10T21:19:38Z",
+      "side": 1,
+      "message": "I forgot what situation I was thinking of exactly, but mostly I was worried about endpoint ID becoming tied to a screen ID.  There\u0027s definitely no argument that it can be done this way or with a state field.  I guess it\u0027s just something to keep an on eye going forward.",
+      "parentUuid": "86e51be1_e181d415",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8418f49_10d1bf78",
         "filename": "api/impl/quic/quic_connection.h",
         "patchSetId": 2
@@ -863,6 +881,24 @@
     },
     {
       "key": {
+        "uuid": "dd3379ed_c4cca0f3",
+        "filename": "api/impl/quic/quic_connection_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-10T21:19:38Z",
+      "side": 1,
+      "message": "I meant public virtual inheritance (e.g. class A : public virtual B { ... };).  It wouldn\u0027t be _absolutely_ necessary, but there\u0027d be a lot of duplicated code without it.",
+      "parentUuid": "c97a0352_787886fa",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f77fd4c_afd4bb98",
         "filename": "api/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 2
@@ -966,6 +1002,24 @@
       "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f8648d_a71feda1",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-10T21:19:38Z",
+      "side": 1,
+      "message": "Good catch.  I commented before removing it and then forgot :(  I remembered later but didn\u0027t want to add another PS just for that.",
+      "parentUuid": "7618121e_3ff8cf85",
+      "revId": "19e5d356803920da84c107a92f83a7798ba0774e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
