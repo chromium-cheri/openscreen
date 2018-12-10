@@ -19,21 +19,31 @@ group("gn_all") {
   ]
 }
 
-executable("demo") {
-  sources = [
-    "//demo/demo.cc",
-  ]
+if (is_gcc) {
+  # TODO(btolsch): Darwin linker has deprecated -m, which handles the multiple
+  # definition error.  Until the boringssl/mDNSResponder conflict is fixed
+  # (which appears to be exactly the same code in both projects), the demo is
+  # gcc-only.
+  executable("demo") {
+    sources = [
+      "//demo/demo.cc",
+    ]
 
-  deps = [
-    "//api",
-    "//base",
-    "//discovery/mdns",
-    "//platform",
-  ]
+    # TODO(btolsch): Handles MD5_* conflict between boringssl and mDNSResponder
+    # temporarily.
+    ldflags = [ "-Wl,-z,muldefs" ]
+    deps = [
+      "//api",
+      "//base",
+      "//discovery/mdns",
+      "//platform",
+    ]
+  }
 }
 
 executable("unittests") {
   testonly = true
+  ldflags = [ "-Wl,-z,muldefs" ]
   deps = [
     "//api:api_unittests",
     "//base:base_unittests",
