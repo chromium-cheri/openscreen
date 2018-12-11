@@ -16,6 +16,8 @@
 namespace openscreen {
 namespace {
 
+using ::testing::_;
+
 constexpr char kTestServiceInstance[] = "turtle";
 constexpr char kTestServiceName[] = "_foo";
 constexpr char kTestServiceProtocol[] = "_udp";
@@ -151,7 +153,7 @@ TEST_F(MdnsResponderServiceTest, BasicServiceStates) {
                          default_socket_);
 
   std::string screen_id;
-  EXPECT_CALL(observer_, OnScreenAdded(::testing::_))
+  EXPECT_CALL(observer_, OnScreenAdded(_))
       .WillOnce(::testing::Invoke([&screen_id](const ScreenInfo& info) {
         screen_id = info.screen_id;
         EXPECT_EQ("shifty", info.friendly_name);
@@ -163,7 +165,7 @@ TEST_F(MdnsResponderServiceTest, BasicServiceStates) {
   mdns_responder->AddAEvent(MakeAEvent(
       "gigliorononomicon", IPAddress{192, 168, 3, 8}, default_socket_));
 
-  EXPECT_CALL(observer_, OnScreenChanged(::testing::_))
+  EXPECT_CALL(observer_, OnScreenChanged(_))
       .WillOnce(::testing::Invoke([&screen_id](const ScreenInfo& info) {
         EXPECT_EQ(screen_id, info.screen_id);
         EXPECT_EQ("shifty", info.friendly_name);
@@ -177,7 +179,7 @@ TEST_F(MdnsResponderServiceTest, BasicServiceStates) {
   ptr_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
   mdns_responder->AddPtrEvent(std::move(ptr_remove));
 
-  EXPECT_CALL(observer_, OnScreenRemoved(::testing::_))
+  EXPECT_CALL(observer_, OnScreenRemoved(_))
       .WillOnce(::testing::Invoke([&screen_id](const ScreenInfo& info) {
         EXPECT_EQ(screen_id, info.screen_id);
       }));
@@ -204,7 +206,7 @@ TEST_F(MdnsResponderServiceTest, NetworkInterfaceIndex) {
                          {"fn=shifty", "id=asdf"}, IPAddress{192, 168, 3, 7},
                          second_socket);
 
-  EXPECT_CALL(observer_, OnScreenAdded(::testing::_))
+  EXPECT_CALL(observer_, OnScreenAdded(_))
       .WillOnce(::testing::Invoke([](const ScreenInfo& info) {
         EXPECT_EQ(2, info.network_interface_index);
       }));
@@ -224,7 +226,7 @@ TEST_F(MdnsResponderServiceTest, SimultaneousFieldChanges) {
                          {"fn=shifty", "id=asdf"}, IPAddress{192, 168, 3, 7},
                          default_socket_);
 
-  EXPECT_CALL(observer_, OnScreenAdded(::testing::_));
+  EXPECT_CALL(observer_, OnScreenAdded(_));
   mdns_service_->HandleNewEvents({});
 
   mdns_responder->AddTxtEvent(
@@ -233,7 +235,7 @@ TEST_F(MdnsResponderServiceTest, SimultaneousFieldChanges) {
   mdns_responder->AddAEvent(MakeAEvent(
       "gigliorononomicon", IPAddress{192, 168, 3, 8}, default_socket_));
 
-  EXPECT_CALL(observer_, OnScreenChanged(::testing::_))
+  EXPECT_CALL(observer_, OnScreenChanged(_))
       .WillOnce(::testing::Invoke([](const ScreenInfo& info) {
         EXPECT_EQ("alpha", info.friendly_name);
         EXPECT_EQ((IPAddress{192, 168, 3, 8}), info.endpoint.address);
@@ -254,7 +256,7 @@ TEST_F(MdnsResponderServiceTest, SimultaneousHostAndAddressChange) {
                          {"fn=shifty", "id=asdf"}, IPAddress{192, 168, 3, 7},
                          default_socket_);
 
-  EXPECT_CALL(observer_, OnScreenAdded(::testing::_));
+  EXPECT_CALL(observer_, OnScreenAdded(_));
   mdns_service_->HandleNewEvents({});
 
   mdns_responder->AddSrvEvent(
@@ -265,7 +267,7 @@ TEST_F(MdnsResponderServiceTest, SimultaneousHostAndAddressChange) {
   mdns_responder->AddAEvent(
       MakeAEvent("alpha", IPAddress{192, 168, 3, 10}, default_socket_));
 
-  EXPECT_CALL(observer_, OnScreenChanged(::testing::_))
+  EXPECT_CALL(observer_, OnScreenChanged(_))
       .WillOnce(::testing::Invoke([](const ScreenInfo& info) {
         EXPECT_EQ((IPAddress{192, 168, 3, 10}), info.endpoint.address);
       }));
@@ -518,7 +520,7 @@ TEST_F(MdnsResponderServiceTest, AddressQueryStopped) {
                          {"fn=shifty", "id=asdf"}, IPAddress{192, 168, 3, 7},
                          default_socket_);
 
-  EXPECT_CALL(observer_, OnScreenAdded(::testing::_));
+  EXPECT_CALL(observer_, OnScreenAdded(_));
   mdns_service_->HandleNewEvents({});
 
   auto srv_remove =
@@ -527,7 +529,7 @@ TEST_F(MdnsResponderServiceTest, AddressQueryStopped) {
   srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
 
-  EXPECT_CALL(observer_, OnScreenRemoved(::testing::_));
+  EXPECT_CALL(observer_, OnScreenRemoved(_));
   mdns_service_->HandleNewEvents({});
 
   EXPECT_FALSE(mdns_responder->ptr_queries().empty());
@@ -552,7 +554,7 @@ TEST_F(MdnsResponderServiceTest, AddressQueryRefCount) {
                          {"fn=shwofty", "id=asdf"}, IPAddress{192, 168, 3, 7},
                          default_socket_);
 
-  EXPECT_CALL(observer_, OnScreenAdded(::testing::_)).Times(2);
+  EXPECT_CALL(observer_, OnScreenAdded(_)).Times(2);
   mdns_service_->HandleNewEvents({});
 
   auto srv_remove =
@@ -561,7 +563,7 @@ TEST_F(MdnsResponderServiceTest, AddressQueryRefCount) {
   srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
 
-  EXPECT_CALL(observer_, OnScreenRemoved(::testing::_));
+  EXPECT_CALL(observer_, OnScreenRemoved(_));
   mdns_service_->HandleNewEvents({});
 
   EXPECT_FALSE(mdns_responder->ptr_queries().empty());
@@ -576,7 +578,7 @@ TEST_F(MdnsResponderServiceTest, AddressQueryRefCount) {
   srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
 
-  EXPECT_CALL(observer_, OnScreenRemoved(::testing::_));
+  EXPECT_CALL(observer_, OnScreenRemoved(_));
   mdns_service_->HandleNewEvents({});
 
   EXPECT_FALSE(mdns_responder->ptr_queries().empty());
@@ -597,7 +599,7 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedSrvFirst) {
                          {"fn=shifty", "id=asdf"}, IPAddress{192, 168, 3, 7},
                          default_socket_);
 
-  EXPECT_CALL(observer_, OnScreenAdded(::testing::_));
+  EXPECT_CALL(observer_, OnScreenAdded(_));
   mdns_service_->HandleNewEvents({});
 
   auto srv_remove =
@@ -606,7 +608,7 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedSrvFirst) {
   srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
 
-  EXPECT_CALL(observer_, OnScreenRemoved(::testing::_));
+  EXPECT_CALL(observer_, OnScreenRemoved(_));
   mdns_service_->HandleNewEvents({});
 
   EXPECT_FALSE(mdns_responder->ptr_queries().empty());
@@ -639,7 +641,7 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedPtrFirst) {
                          {"fn=shifty", "id=asdf"}, IPAddress{192, 168, 3, 7},
                          default_socket_);
 
-  EXPECT_CALL(observer_, OnScreenAdded(::testing::_));
+  EXPECT_CALL(observer_, OnScreenAdded(_));
   mdns_service_->HandleNewEvents({});
 
   auto ptr_remove = MakePtrEvent(kTestServiceInstance, kTestServiceName,
@@ -647,7 +649,7 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedPtrFirst) {
   ptr_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
   mdns_responder->AddPtrEvent(std::move(ptr_remove));
 
-  EXPECT_CALL(observer_, OnScreenRemoved(::testing::_));
+  EXPECT_CALL(observer_, OnScreenRemoved(_));
   mdns_service_->HandleNewEvents({});
 
   EXPECT_FALSE(mdns_responder->ptr_queries().empty());
@@ -661,6 +663,54 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedPtrFirst) {
                    "gigliorononomicon", 12345, default_socket_);
   srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
+  mdns_service_->HandleNewEvents({});
+
+  EXPECT_FALSE(mdns_responder->ptr_queries().empty());
+  EXPECT_TRUE(mdns_responder->srv_queries().empty());
+  EXPECT_TRUE(mdns_responder->txt_queries().empty());
+  EXPECT_TRUE(mdns_responder->a_queries().empty());
+  EXPECT_TRUE(mdns_responder->aaaa_queries().empty());
+}
+
+TEST_F(MdnsResponderServiceTest, MultipleInterfaceRemove) {
+  screen_listener_->Start();
+
+  auto* mdns_responder = mdns_responder_factory_->last_mdns_responder();
+
+  AddEventsForNewService(mdns_responder, kTestServiceInstance, kTestServiceName,
+                         kTestServiceProtocol, "gigliorononomicon", 12345,
+                         {"fn=shifty", "id=asdf"}, IPAddress{192, 168, 3, 7},
+                         default_socket_);
+  AddEventsForNewService(mdns_responder, kTestServiceInstance, kTestServiceName,
+                         kTestServiceProtocol, "gigliorononomicon", 12345,
+                         {"fn=shifty", "id=asdf"}, IPAddress{192, 168, 3, 7},
+                         second_socket_);
+
+  EXPECT_CALL(observer_, OnScreenAdded(_));
+  mdns_service_->HandleNewEvents({});
+
+  auto srv_remove1 =
+      MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
+                   "gigliorononomicon", 12345, default_socket_);
+  srv_remove1.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  mdns_responder->AddSrvEvent(std::move(srv_remove1));
+  EXPECT_CALL(observer_, OnScreenChanged(_)).Times(0);
+  EXPECT_CALL(observer_, OnScreenRemoved(_));
+  mdns_service_->HandleNewEvents({});
+  EXPECT_TRUE(mdns_responder->a_queries().empty());
+
+  auto srv_remove2 =
+      MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
+                   "gigliorononomicon", 12345, second_socket_);
+  srv_remove2.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  mdns_responder->AddSrvEvent(std::move(srv_remove2));
+  EXPECT_CALL(observer_, OnScreenRemoved(_)).Times(0);
+  mdns_service_->HandleNewEvents({});
+
+  auto ptr_remove = MakePtrEvent(kTestServiceInstance, kTestServiceName,
+                                 kTestServiceProtocol, second_socket_);
+  ptr_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  mdns_responder->AddPtrEvent(std::move(ptr_remove));
   mdns_service_->HandleNewEvents({});
 
   EXPECT_FALSE(mdns_responder->ptr_queries().empty());
