@@ -406,28 +406,30 @@ bool MdnsResponderService::HandleSrvEvent(const mdns::SrvEvent& srv_event) {
     } break;
     case mdns::QueryEventHeader::Type::kRemoved: {
       auto hostname_entry = hostname_watchers_.find(entry->second->domain_name);
-      hostname_entry->second.services.erase(
-          std::remove_if(hostname_entry->second.services.begin(),
-                         hostname_entry->second.services.end(),
-                         [entry](ServiceInstance* instance) {
-                           return instance == entry->second.get();
-                         }));
-      if (hostname_entry->second.services.empty()) {
-        mdns_responder_->StopAQuery(hostname_entry->first);
-        mdns_responder_->StopAaaaQuery(hostname_entry->first);
-        hostname_watchers_.erase(hostname_entry);
-      }
-      // |ptr_interface_index| == kInvalidInterfaceIndex signals that there is
-      // no PTR record, and so the service is gone.
-      if (entry->second->ptr_interface_index ==
-          platform::kInvalidInterfaceIndex) {
-        mdns_responder_->StopSrvQuery(srv_event.service_instance);
-        mdns_responder_->StopTxtQuery(srv_event.service_instance);
-        services_.erase(entry);
-      } else {
-        entry->second->domain_name = mdns::DomainName();
-        entry->second->port = 0;
-        RemoveScreenInfo(srv_event.service_instance);
+      if (hostname_entry != hostname_watchers_.end()) {
+        hostname_entry->second.services.erase(
+            std::remove_if(hostname_entry->second.services.begin(),
+                           hostname_entry->second.services.end(),
+                           [entry](ServiceInstance* instance) {
+                             return instance == entry->second.get();
+                           }));
+        if (hostname_entry->second.services.empty()) {
+          mdns_responder_->StopAQuery(hostname_entry->first);
+          mdns_responder_->StopAaaaQuery(hostname_entry->first);
+          hostname_watchers_.erase(hostname_entry);
+        }
+        // |ptr_interface_index| == kInvalidInterfaceIndex signals that there is
+        // no PTR record, and so the service is gone.
+        if (entry->second->ptr_interface_index ==
+            platform::kInvalidInterfaceIndex) {
+          mdns_responder_->StopSrvQuery(srv_event.service_instance);
+          mdns_responder_->StopTxtQuery(srv_event.service_instance);
+          services_.erase(entry);
+        } else {
+          entry->second->domain_name = mdns::DomainName();
+          entry->second->port = 0;
+          RemoveScreenInfo(srv_event.service_instance);
+        }
       }
     } break;
   }
