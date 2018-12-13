@@ -210,11 +210,7 @@ void MdnsResponderAdapterImpl::Close() {
   }
   mDNS_FinalExit(&mdns_);
 
-  a_questions_.clear();
-  aaaa_questions_.clear();
-  ptr_questions_.clear();
-  srv_questions_.clear();
-  txt_questions_.clear();
+  questions_.clear();
 
   responder_interface_info_.clear();
 
@@ -355,18 +351,21 @@ std::vector<TxtEvent> MdnsResponderAdapterImpl::TakeTxtResponses() {
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAQuery(
-    const DomainName& domain_name) {
+    const DomainName& domain_name,
+    platform::UdpSocketPtr socket) {
   if (!domain_name.EndsWithLocalDomain())
     return MdnsResponderErrorCode::kInvalidParameters;
 
-  if (a_questions_.find(domain_name) != a_questions_.end())
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto& a_questions = questions_[interface_id].a_questions;
+  if (a_questions.find(domain_name) != a_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
-  auto& question = a_questions_[domain_name];
+  auto& question = a_questions[domain_name];
   std::copy(domain_name.domain_name().begin(), domain_name.domain_name().end(),
             question.qname.c);
 
-  question.InterfaceID = mDNSInterface_Any;
+  question.InterfaceID = interface_id;
   question.Target = {0};
   question.qtype = kDNSType_A;
   question.qclass = kDNSClass_IN;
@@ -390,18 +389,21 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAaaaQuery(
-    const DomainName& domain_name) {
+    const DomainName& domain_name,
+    platform::UdpSocketPtr socket) {
   if (!domain_name.EndsWithLocalDomain())
     return MdnsResponderErrorCode::kInvalidParameters;
 
-  if (aaaa_questions_.find(domain_name) != aaaa_questions_.end())
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto& aaaa_questions = questions_[interface_id].aaaa_questions;
+  if (aaaa_questions.find(domain_name) != aaaa_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
-  auto& question = aaaa_questions_[domain_name];
+  auto& question = aaaa_questions[domain_name];
   std::copy(domain_name.domain_name().begin(), domain_name.domain_name().end(),
             question.qname.c);
 
-  question.InterfaceID = mDNSInterface_Any;
+  question.InterfaceID = interface_id;
   question.Target = {0};
   question.qtype = kDNSType_AAAA;
   question.qclass = kDNSClass_IN;
@@ -425,13 +427,16 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAaaaQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartPtrQuery(
-    const DomainName& service_type) {
-  if (ptr_questions_.find(service_type) != ptr_questions_.end())
+    const DomainName& service_type,
+    platform::UdpSocketPtr socket) {
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto& ptr_questions = questions_[interface_id].ptr_questions;
+  if (ptr_questions.find(service_type) != ptr_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
-  auto& question = ptr_questions_[service_type];
+  auto& question = ptr_questions[service_type];
 
-  question.InterfaceID = mDNSInterface_Any;
+  question.InterfaceID = interface_id;
   question.Target = {0};
   if (service_type.EndsWithLocalDomain()) {
     std::copy(service_type.domain_name().begin(),
@@ -468,16 +473,19 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartPtrQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartSrvQuery(
-    const DomainName& service_instance) {
+    const DomainName& service_instance,
+    platform::UdpSocketPtr socket) {
   if (!service_instance.EndsWithLocalDomain())
     return MdnsResponderErrorCode::kInvalidParameters;
 
-  if (srv_questions_.find(service_instance) != srv_questions_.end())
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto& srv_questions = questions_[interface_id].srv_questions;
+  if (srv_questions.find(service_instance) != srv_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
-  auto& question = srv_questions_[service_instance];
+  auto& question = srv_questions[service_instance];
 
-  question.InterfaceID = mDNSInterface_Any;
+  question.InterfaceID = interface_id;
   question.Target = {0};
   std::copy(service_instance.domain_name().begin(),
             service_instance.domain_name().end(), question.qname.c);
@@ -503,16 +511,19 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartSrvQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartTxtQuery(
-    const DomainName& service_instance) {
+    const DomainName& service_instance,
+    platform::UdpSocketPtr socket) {
   if (!service_instance.EndsWithLocalDomain())
     return MdnsResponderErrorCode::kInvalidParameters;
 
-  if (txt_questions_.find(service_instance) != txt_questions_.end())
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto& txt_questions = questions_[interface_id].txt_questions;
+  if (txt_questions.find(service_instance) != txt_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
-  auto& question = txt_questions_[service_instance];
+  auto& question = txt_questions[service_instance];
 
-  question.InterfaceID = mDNSInterface_Any;
+  question.InterfaceID = interface_id;
   question.Target = {0};
   std::copy(service_instance.domain_name().begin(),
             service_instance.domain_name().end(), question.qname.c);
@@ -538,62 +549,92 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartTxtQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopAQuery(
-    const DomainName& domain_name) {
-  auto entry = a_questions_.find(domain_name);
-  if (entry == a_questions_.end())
+    const DomainName& domain_name,
+    platform::UdpSocketPtr socket) {
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto interface_entry = questions_.find(interface_id);
+  if (interface_entry == questions_.end())
+    return MdnsResponderErrorCode::kNoError;
+  auto entry = interface_entry->second.a_questions.find(domain_name);
+  if (entry == interface_entry->second.a_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
   const auto err = mDNS_StopQuery(&mdns_, &entry->second);
-  a_questions_.erase(entry);
+  interface_entry->second.a_questions.erase(entry);
   OSP_LOG_IF(WARN, err != mStatus_NoError) << "mDNS_StopQuery failed: " << err;
+  RemoveInterfaceQuestionsIfEmpty(interface_id);
   return MapMdnsError(err);
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopAaaaQuery(
-    const DomainName& domain_name) {
-  auto entry = aaaa_questions_.find(domain_name);
-  if (entry == aaaa_questions_.end())
+    const DomainName& domain_name,
+    platform::UdpSocketPtr socket) {
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto interface_entry = questions_.find(interface_id);
+  if (interface_entry == questions_.end())
+    return MdnsResponderErrorCode::kNoError;
+  auto entry = interface_entry->second.aaaa_questions.find(domain_name);
+  if (entry == interface_entry->second.aaaa_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
   const auto err = mDNS_StopQuery(&mdns_, &entry->second);
-  aaaa_questions_.erase(entry);
+  interface_entry->second.aaaa_questions.erase(entry);
   OSP_LOG_IF(WARN, err != mStatus_NoError) << "mDNS_StopQuery failed: " << err;
+  RemoveInterfaceQuestionsIfEmpty(interface_id);
   return MapMdnsError(err);
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopPtrQuery(
-    const DomainName& service_type) {
-  auto entry = ptr_questions_.find(service_type);
-  if (entry == ptr_questions_.end())
+    const DomainName& service_type,
+    platform::UdpSocketPtr socket) {
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto interface_entry = questions_.find(interface_id);
+  if (interface_entry == questions_.end())
+    return MdnsResponderErrorCode::kNoError;
+  auto entry = interface_entry->second.ptr_questions.find(service_type);
+  if (entry == interface_entry->second.ptr_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
   const auto err = mDNS_StopQuery(&mdns_, &entry->second);
-  ptr_questions_.erase(entry);
+  interface_entry->second.ptr_questions.erase(entry);
   OSP_LOG_IF(WARN, err != mStatus_NoError) << "mDNS_StopQuery failed: " << err;
+  RemoveInterfaceQuestionsIfEmpty(interface_id);
   return MapMdnsError(err);
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopSrvQuery(
-    const DomainName& service_instance) {
-  auto entry = srv_questions_.find(service_instance);
-  if (entry == srv_questions_.end())
+    const DomainName& service_instance,
+    platform::UdpSocketPtr socket) {
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto interface_entry = questions_.find(interface_id);
+  if (interface_entry == questions_.end())
+    return MdnsResponderErrorCode::kNoError;
+  auto entry = interface_entry->second.srv_questions.find(service_instance);
+  if (entry == interface_entry->second.srv_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
   const auto err = mDNS_StopQuery(&mdns_, &entry->second);
-  srv_questions_.erase(entry);
+  interface_entry->second.srv_questions.erase(entry);
   OSP_LOG_IF(WARN, err != mStatus_NoError) << "mDNS_StopQuery failed: " << err;
+  RemoveInterfaceQuestionsIfEmpty(interface_id);
   return MapMdnsError(err);
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopTxtQuery(
-    const DomainName& service_instance) {
-  auto entry = txt_questions_.find(service_instance);
-  if (entry == txt_questions_.end())
+    const DomainName& service_instance,
+    platform::UdpSocketPtr socket) {
+  auto interface_id = reinterpret_cast<mDNSInterfaceID>(socket);
+  auto interface_entry = questions_.find(interface_id);
+  if (interface_entry == questions_.end())
+    return MdnsResponderErrorCode::kNoError;
+  auto entry = interface_entry->second.txt_questions.find(service_instance);
+  if (entry == interface_entry->second.txt_questions.end())
     return MdnsResponderErrorCode::kNoError;
 
   const auto err = mDNS_StopQuery(&mdns_, &entry->second);
-  txt_questions_.erase(entry);
+  interface_entry->second.txt_questions.erase(entry);
   OSP_LOG_IF(WARN, err != mStatus_NoError) << "mDNS_StopQuery failed: " << err;
+  RemoveInterfaceQuestionsIfEmpty(interface_id);
   return MapMdnsError(err);
 }
 
@@ -883,8 +924,9 @@ void MdnsResponderAdapterImpl::AdvertiseInterfaces() {
   for (auto& info : responder_interface_info_) {
     NetworkInterfaceInfo& interface_info = info.second;
     mDNS_SetupResourceRecord(&interface_info.RR_A, /** RDataStorage */ nullptr,
-                             mDNSInterface_Any, kDNSType_A, kHostNameTTL,
-                             kDNSRecordTypeUnique, AuthRecordAny,
+                             reinterpret_cast<mDNSInterfaceID>(info.first),
+                             kDNSType_A, kHostNameTTL, kDNSRecordTypeUnique,
+                             AuthRecordAny,
                              /** Callback */ nullptr, /** Context */ nullptr);
     AssignDomainName(&interface_info.RR_A.namestorage,
                      &mdns_.MulticastHostname);
@@ -909,6 +951,18 @@ void MdnsResponderAdapterImpl::DeadvertiseInterfaces() {
       interface_info.RR_A.namestorage.c[0] = 0;
     }
   }
+}
+
+void MdnsResponderAdapterImpl::RemoveInterfaceQuestionsIfEmpty(
+    mDNSInterfaceID id) {
+  auto entry = questions_.find(id);
+  bool empty = entry->second.a_questions.empty() ||
+               entry->second.aaaa_questions.empty() ||
+               entry->second.ptr_questions.empty() ||
+               entry->second.srv_questions.empty() ||
+               entry->second.txt_questions.empty();
+  if (empty)
+    questions_.erase(entry);
 }
 
 }  // namespace mdns

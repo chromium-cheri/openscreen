@@ -207,25 +207,35 @@ class MdnsResponderAdapter {
   virtual std::vector<SrvEvent> TakeSrvResponses() = 0;
   virtual std::vector<TxtEvent> TakeTxtResponses() = 0;
 
-  virtual MdnsResponderErrorCode StartAQuery(const DomainName& domain_name) = 0;
+  virtual MdnsResponderErrorCode StartAQuery(const DomainName& domain_name,
+                                             platform::UdpSocketPtr socket) = 0;
   virtual MdnsResponderErrorCode StartAaaaQuery(
-      const DomainName& domain_name) = 0;
+      const DomainName& domain_name,
+      platform::UdpSocketPtr socket) = 0;
   virtual MdnsResponderErrorCode StartPtrQuery(
-      const DomainName& service_type) = 0;
+      const DomainName& service_type,
+      platform::UdpSocketPtr socket) = 0;
   virtual MdnsResponderErrorCode StartSrvQuery(
-      const DomainName& service_instance) = 0;
+      const DomainName& service_instance,
+      platform::UdpSocketPtr socket) = 0;
   virtual MdnsResponderErrorCode StartTxtQuery(
-      const DomainName& service_instance) = 0;
+      const DomainName& service_instance,
+      platform::UdpSocketPtr socket) = 0;
 
-  virtual MdnsResponderErrorCode StopAQuery(const DomainName& domain_name) = 0;
+  virtual MdnsResponderErrorCode StopAQuery(const DomainName& domain_name,
+                                            platform::UdpSocketPtr socket) = 0;
   virtual MdnsResponderErrorCode StopAaaaQuery(
-      const DomainName& domain_name) = 0;
+      const DomainName& domain_name,
+      platform::UdpSocketPtr socket) = 0;
   virtual MdnsResponderErrorCode StopPtrQuery(
-      const DomainName& service_type) = 0;
+      const DomainName& service_type,
+      platform::UdpSocketPtr socket) = 0;
   virtual MdnsResponderErrorCode StopSrvQuery(
-      const DomainName& service_instance) = 0;
+      const DomainName& service_instance,
+      platform::UdpSocketPtr socket) = 0;
   virtual MdnsResponderErrorCode StopTxtQuery(
-      const DomainName& service_instance) = 0;
+      const DomainName& service_instance,
+      platform::UdpSocketPtr socket) = 0;
 
   // The following methods concern advertising a service via mDNS.  The
   // arguments correspond to values needed in the PTR, SRV, and TXT records that

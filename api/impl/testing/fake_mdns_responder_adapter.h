@@ -90,26 +90,11 @@ class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
   const std::vector<RegisteredService>& registered_services() {
     return registered_services_;
   }
-  const std::set<mdns::DomainName, mdns::DomainNameComparator>& ptr_queries()
-      const {
-    return ptr_queries_;
-  }
-  const std::set<mdns::DomainName, mdns::DomainNameComparator>& srv_queries()
-      const {
-    return srv_queries_;
-  }
-  const std::set<mdns::DomainName, mdns::DomainNameComparator>& txt_queries()
-      const {
-    return txt_queries_;
-  }
-  const std::set<mdns::DomainName, mdns::DomainNameComparator>& a_queries()
-      const {
-    return a_queries_;
-  }
-  const std::set<mdns::DomainName, mdns::DomainNameComparator>& aaaa_queries()
-      const {
-    return aaaa_queries_;
-  }
+  bool ptr_queries_empty() const;
+  bool srv_queries_empty() const;
+  bool txt_queries_empty() const;
+  bool a_queries_empty() const;
+  bool aaaa_queries_empty() const;
   bool running() const { return running_; }
 
   // mdns::MdnsResponderAdapter overrides.
@@ -140,26 +125,36 @@ class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
   std::vector<mdns::TxtEvent> TakeTxtResponses() override;
 
   mdns::MdnsResponderErrorCode StartAQuery(
-      const mdns::DomainName& domain_name) override;
+      const mdns::DomainName& domain_name,
+      platform::UdpSocketPtr socket) override;
   mdns::MdnsResponderErrorCode StartAaaaQuery(
-      const mdns::DomainName& domain_name) override;
+      const mdns::DomainName& domain_name,
+      platform::UdpSocketPtr socket) override;
   mdns::MdnsResponderErrorCode StartPtrQuery(
-      const mdns::DomainName& service_type) override;
+      const mdns::DomainName& service_type,
+      platform::UdpSocketPtr socket) override;
   mdns::MdnsResponderErrorCode StartSrvQuery(
-      const mdns::DomainName& service_instance) override;
+      const mdns::DomainName& service_instance,
+      platform::UdpSocketPtr socket) override;
   mdns::MdnsResponderErrorCode StartTxtQuery(
-      const mdns::DomainName& service_instance) override;
+      const mdns::DomainName& service_instance,
+      platform::UdpSocketPtr socket) override;
 
   mdns::MdnsResponderErrorCode StopAQuery(
-      const mdns::DomainName& domain_name) override;
+      const mdns::DomainName& domain_name,
+      platform::UdpSocketPtr socket) override;
   mdns::MdnsResponderErrorCode StopAaaaQuery(
-      const mdns::DomainName& domain_name) override;
+      const mdns::DomainName& domain_name,
+      platform::UdpSocketPtr socket) override;
   mdns::MdnsResponderErrorCode StopPtrQuery(
-      const mdns::DomainName& service_type) override;
+      const mdns::DomainName& service_type,
+      platform::UdpSocketPtr socket) override;
   mdns::MdnsResponderErrorCode StopSrvQuery(
-      const mdns::DomainName& service_instance) override;
+      const mdns::DomainName& service_instance,
+      platform::UdpSocketPtr socket) override;
   mdns::MdnsResponderErrorCode StopTxtQuery(
-      const mdns::DomainName& service_instance) override;
+      const mdns::DomainName& service_instance,
+      platform::UdpSocketPtr socket) override;
 
   mdns::MdnsResponderErrorCode RegisterService(
       const std::string& service_instance,
@@ -179,14 +174,18 @@ class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
       const std::map<std::string, std::string>& txt_data) override;
 
  private:
+  struct InterfaceQueries {
+    std::set<mdns::DomainName, mdns::DomainNameComparator> a_queries;
+    std::set<mdns::DomainName, mdns::DomainNameComparator> aaaa_queries;
+    std::set<mdns::DomainName, mdns::DomainNameComparator> ptr_queries;
+    std::set<mdns::DomainName, mdns::DomainNameComparator> srv_queries;
+    std::set<mdns::DomainName, mdns::DomainNameComparator> txt_queries;
+  };
+
   bool running_ = false;
   LifetimeObserver* observer_ = nullptr;
 
-  std::set<mdns::DomainName, mdns::DomainNameComparator> ptr_queries_;
-  std::set<mdns::DomainName, mdns::DomainNameComparator> srv_queries_;
-  std::set<mdns::DomainName, mdns::DomainNameComparator> txt_queries_;
-  std::set<mdns::DomainName, mdns::DomainNameComparator> a_queries_;
-  std::set<mdns::DomainName, mdns::DomainNameComparator> aaaa_queries_;
+  std::map<platform::UdpSocketPtr, InterfaceQueries> queries_;
   // NOTE: One of many simplifications here is that there is no cache.  This
   // means that calling StartQuery, StopQuery, StartQuery will only return an
   // event the first time, unless the test also adds the event a second time.

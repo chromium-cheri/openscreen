@@ -38,12 +38,11 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
       std::unique_ptr<MdnsPlatformService> platform);
   ~MdnsResponderService() override;
 
-  void SetServiceConfig(
-      const std::string& hostname,
-      const std::string& instance,
-      uint16_t port,
-      const std::vector<platform::InterfaceIndex> whitelist,
-      const std::map<std::string, std::string>& txt_data);
+  void SetServiceConfig(const std::string& hostname,
+                        const std::string& instance,
+                        uint16_t port,
+                        const std::vector<platform::InterfaceIndex> whitelist,
+                        const std::map<std::string, std::string>& txt_data);
 
   void HandleNewEvents(const std::vector<platform::ReceivedData>& data);
 
@@ -69,14 +68,15 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
         platform::kInvalidInterfaceIndex;
     mdns::DomainName domain_name;
     uint16_t port = 0;
+    bool has_ptr = false;
     std::vector<std::string> txt_info;
   };
 
   // NOTE: hostname implicit in map key.
   struct HostnameWatchers {
     std::vector<ServiceInstance*> services;
-    // TODO(btolsch): std::vector<IPAddress>
-    IPAddress address;
+    IPAddress v4_address;
+    IPAddress v6_address;
   };
 
   void HandleMdnsEvents();
@@ -87,11 +87,13 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
   void StopMdnsResponder();
   void PushScreenInfo(const mdns::DomainName& service_instance,
                       const ServiceInstance& instance_info,
-                      const IPAddress& address);
+                      const IPAddress& v4_address,
+                      const IPAddress& v6_address);
   void MaybePushScreenInfo(const mdns::DomainName& service_instance,
                            const ServiceInstance& instance_info);
   void MaybePushScreenInfo(const mdns::DomainName& domain_name,
-                           const IPAddress& address);
+                           const IPAddress& v4_address,
+                           const IPAddress& v6_address);
   void RemoveScreenInfo(const mdns::DomainName& service_instance);
   void RemoveScreenInfoByDomain(const mdns::DomainName& domain_name);
   void RemoveAllScreens();
@@ -99,8 +101,18 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
   bool HandlePtrEvent(const mdns::PtrEvent& ptr_event);
   bool HandleSrvEvent(const mdns::SrvEvent& srv_event);
   bool HandleTxtEvent(const mdns::TxtEvent& txt_event);
+  bool HandleAddressEvent(platform::UdpSocketPtr socket,
+                          mdns::QueryEventHeader::Type response_type,
+                          const mdns::DomainName& domain_name,
+                          bool a_event,
+                          const IPAddress& address);
   bool HandleAEvent(const mdns::AEvent& a_event);
   bool HandleAaaaEvent(const mdns::AaaaEvent& aaaa_event);
+
+  platform::InterfaceIndex GetInterfaceIndexFromSocket(
+      platform::UdpSocketPtr socket) const;
+  platform::UdpSocketPtr GetSocketFromInterfaceIndex(
+      platform::InterfaceIndex index) const;
 
   // Service type separated as service name and service protocol for both
   // listening and publishing (e.g. {"_openscreen", "_udp"}).
@@ -126,13 +138,17 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
            mdns::DomainNameComparator>
       services_;
 
-  // A map of hostnames to IPAddresses which also includes pointers to dependent
-  // service instances.  The service instance pointers act as a reference count
-  // to keep the A/AAAA queries alive, when more than one service refers to the
-  // same hostname.  This is not currently used by openscreen, but is used by
-  // Cast, so may be supported in openscreen in the future.
-  std::map<mdns::DomainName, HostnameWatchers, mdns::DomainNameComparator>
-      hostname_watchers_;
+  // The first map level indicates to which interface the address records
+  // belong.  The second  map level is hostnames to IPAddresses which also
+  // includes pointers to dependent service instances.  The service instance
+  // pointers act as a reference count to keep the A/AAAA queries alive, when
+  // more than one service refers to the same hostname.  This is not currently
+  // used by openscreen, but is used by Cast, so may be supported in openscreen
+  // in the future.
+  std::map<
+      platform::InterfaceIndex,
+      std::map<mdns::DomainName, HostnameWatchers, mdns::DomainNameComparator>>
+      interface_hostname_watchers_;
 
   std::map<std::string, ScreenInfo> screen_info_;
 };

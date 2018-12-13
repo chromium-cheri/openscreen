@@ -162,8 +162,10 @@ void HandleEvents(mdns::MdnsResponderAdapterImpl* mdns_adapter) {
     switch (ptr_event.header.response_type) {
       case mdns::QueryEventHeader::Type::kAdded:
       case mdns::QueryEventHeader::Type::kAddedNoCache:
-        mdns_adapter->StartSrvQuery(ptr_event.service_instance);
-        mdns_adapter->StartTxtQuery(ptr_event.service_instance);
+        mdns_adapter->StartSrvQuery(ptr_event.service_instance,
+                                    ptr_event.header.socket);
+        mdns_adapter->StartTxtQuery(ptr_event.service_instance,
+                                    ptr_event.header.socket);
         if (it == g_services->end()) {
           g_services->emplace(ptr_event.service_instance,
                               Service(ptr_event.service_instance));
@@ -188,7 +190,8 @@ void HandleEvents(mdns::MdnsResponderAdapterImpl* mdns_adapter) {
     switch (srv_event.header.response_type) {
       case mdns::QueryEventHeader::Type::kAdded:
       case mdns::QueryEventHeader::Type::kAddedNoCache:
-        mdns_adapter->StartAQuery(srv_event.domain_name);
+        mdns_adapter->StartAQuery(srv_event.domain_name,
+                                  srv_event.header.socket);
         it->second.domain_name = std::move(srv_event.domain_name);
         it->second.port = srv_event.port;
         break;
@@ -271,9 +274,9 @@ void BrowseDemo(const std::string& service_name,
 
   for (auto* socket : sockets) {
     platform::WatchUdpSocketReadable(waiter, socket);
+    mdns_adapter->StartPtrQuery(service_type, socket);
   }
 
-  mdns_adapter->StartPtrQuery(service_type);
   while (!g_done) {
     HandleEvents(mdns_adapter.get());
     if (g_dump_services) {

@@ -46,21 +46,27 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
   std::vector<SrvEvent> TakeSrvResponses() override;
   std::vector<TxtEvent> TakeTxtResponses() override;
 
-  MdnsResponderErrorCode StartAQuery(const DomainName& domain_name) override;
-  MdnsResponderErrorCode StartAaaaQuery(const DomainName& domain_name) override;
-  MdnsResponderErrorCode StartPtrQuery(const DomainName& service_type) override;
-  MdnsResponderErrorCode StartSrvQuery(
-      const DomainName& service_instance) override;
-  MdnsResponderErrorCode StartTxtQuery(
-      const DomainName& service_instance) override;
+  MdnsResponderErrorCode StartAQuery(const DomainName& domain_name,
+                                     platform::UdpSocketPtr socket) override;
+  MdnsResponderErrorCode StartAaaaQuery(const DomainName& domain_name,
+                                        platform::UdpSocketPtr socket) override;
+  MdnsResponderErrorCode StartPtrQuery(const DomainName& service_type,
+                                       platform::UdpSocketPtr socket) override;
+  MdnsResponderErrorCode StartSrvQuery(const DomainName& service_instance,
+                                       platform::UdpSocketPtr socket) override;
+  MdnsResponderErrorCode StartTxtQuery(const DomainName& service_instance,
+                                       platform::UdpSocketPtr socket) override;
 
-  MdnsResponderErrorCode StopAQuery(const DomainName& domain_name) override;
-  MdnsResponderErrorCode StopAaaaQuery(const DomainName& domain_name) override;
-  MdnsResponderErrorCode StopPtrQuery(const DomainName& service_type) override;
-  MdnsResponderErrorCode StopSrvQuery(
-      const DomainName& service_instance) override;
-  MdnsResponderErrorCode StopTxtQuery(
-      const DomainName& service_instance) override;
+  MdnsResponderErrorCode StopAQuery(const DomainName& domain_name,
+                                    platform::UdpSocketPtr socket) override;
+  MdnsResponderErrorCode StopAaaaQuery(const DomainName& domain_name,
+                                       platform::UdpSocketPtr socket) override;
+  MdnsResponderErrorCode StopPtrQuery(const DomainName& service_type,
+                                      platform::UdpSocketPtr socket) override;
+  MdnsResponderErrorCode StopSrvQuery(const DomainName& service_instance,
+                                      platform::UdpSocketPtr socket) override;
+  MdnsResponderErrorCode StopTxtQuery(const DomainName& service_instance,
+                                      platform::UdpSocketPtr socket) override;
 
   MdnsResponderErrorCode RegisterService(
       const std::string& service_instance,
@@ -80,6 +86,14 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
       const std::map<std::string, std::string>& txt_data) override;
 
  private:
+  struct InterfaceQuestions {
+    std::map<DomainName, DNSQuestion, DomainNameComparator> a_questions;
+    std::map<DomainName, DNSQuestion, DomainNameComparator> aaaa_questions;
+    std::map<DomainName, DNSQuestion, DomainNameComparator> ptr_questions;
+    std::map<DomainName, DNSQuestion, DomainNameComparator> srv_questions;
+    std::map<DomainName, DNSQuestion, DomainNameComparator> txt_questions;
+  };
+
   static void AQueryCallback(mDNS* m,
                              DNSQuestion* question,
                              const ResourceRecord* answer,
@@ -106,6 +120,7 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
 
   void AdvertiseInterfaces();
   void DeadvertiseInterfaces();
+  void RemoveInterfaceQuestionsIfEmpty(mDNSInterfaceID id);
 
   CacheEntity rr_cache_[kRrCacheSize];
 
@@ -117,11 +132,7 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
   // platform sockets.
   mDNS_PlatformSupport platform_storage_;
 
-  std::map<DomainName, DNSQuestion, DomainNameComparator> a_questions_;
-  std::map<DomainName, DNSQuestion, DomainNameComparator> aaaa_questions_;
-  std::map<DomainName, DNSQuestion, DomainNameComparator> ptr_questions_;
-  std::map<DomainName, DNSQuestion, DomainNameComparator> srv_questions_;
-  std::map<DomainName, DNSQuestion, DomainNameComparator> txt_questions_;
+  std::map<mDNSInterfaceID, InterfaceQuestions> questions_;
 
   std::map<platform::UdpSocketPtr, NetworkInterfaceInfo>
       responder_interface_info_;

@@ -178,24 +178,31 @@ void MdnsResponderService::StartListening() {
   mdns::DomainName service_type;
   OSP_CHECK(mdns::DomainName::FromLabels(service_type_.begin(),
                                          service_type_.end(), &service_type));
-  mdns_responder_->StartPtrQuery(service_type);
+  for (const auto& interface : bound_interfaces_)
+    mdns_responder_->StartPtrQuery(service_type, interface.socket);
 }
 
 void MdnsResponderService::StopListening() {
   mdns::DomainName service_type;
   OSP_CHECK(mdns::DomainName::FromLabels(service_type_.begin(),
                                          service_type_.end(), &service_type));
-  for (const auto& hostname : hostname_watchers_) {
-    mdns_responder_->StopAQuery(hostname.first);
-    mdns_responder_->StopAaaaQuery(hostname.first);
+  for (const auto& interface_entry : interface_hostname_watchers_) {
+    const auto socket = GetSocketFromInterfaceIndex(interface_entry.first);
+    for (const auto& hostname : interface_entry.second) {
+      mdns_responder_->StopAQuery(hostname.first, socket);
+      mdns_responder_->StopAaaaQuery(hostname.first, socket);
+    }
   }
-  hostname_watchers_.clear();
+  interface_hostname_watchers_.clear();
   for (const auto& service : services_) {
-    mdns_responder_->StopSrvQuery(service.first);
-    mdns_responder_->StopTxtQuery(service.first);
+    const auto socket =
+        GetSocketFromInterfaceIndex(service.second->ptr_interface_index);
+    mdns_responder_->StopSrvQuery(service.first, socket);
+    mdns_responder_->StopTxtQuery(service.first, socket);
   }
   services_.clear();
-  mdns_responder_->StopPtrQuery(service_type);
+  for (const auto& interface : bound_interfaces_)
+    mdns_responder_->StopPtrQuery(service_type, interface.socket);
   RemoveAllScreens();
 }
 
@@ -244,7 +251,7 @@ void MdnsResponderService::StopMdnsResponder() {
   mdns_responder_->Close();
   platform_->DeregisterInterfaces(bound_interfaces_);
   bound_interfaces_.clear();
-  hostname_watchers_.clear();
+  interface_hostname_watchers_.clear();
   services_.clear();
   RemoveAllScreens();
 }
@@ -252,9 +259,9 @@ void MdnsResponderService::StopMdnsResponder() {
 void MdnsResponderService::PushScreenInfo(
     const mdns::DomainName& service_instance,
     const ServiceInstance& instance_info,
-    const IPAddress& address) {
-  std::string screen_id;
-  screen_id.assign(
+    const IPAddress& v4_address,
+    const IPAddress& v6_address) {
+  std::string screen_id(
       reinterpret_cast<const char*>(service_instance.domain_name().data()),
       service_instance.domain_name().size());
 
@@ -273,14 +280,16 @@ void MdnsResponderService::PushScreenInfo(
     ScreenInfo screen_info{std::move(screen_id),
                            std::move(friendly_name),
                            instance_info.ptr_interface_index,
-                           {address, instance_info.port}};
+                           {v4_address, instance_info.port},
+                           {v6_address, instance_info.port}};
     listener_->OnScreenAdded(screen_info);
     screen_info_.emplace(screen_info.screen_id, std::move(screen_info));
   } else {
     auto& screen_info = entry->second;
     if (screen_info.Update(std::move(friendly_name),
                            instance_info.ptr_interface_index,
-                           {address, instance_info.port})) {
+                           {v4_address, instance_info.port},
+                           {v6_address, instance_info.port})) {
       listener_->OnScreenChanged(screen_info);
     }
   }
@@ -293,19 +302,27 @@ void MdnsResponderService::MaybePushScreenInfo(
       instance_info.domain_name.IsEmpty() || instance_info.port == 0) {
     return;
   }
-  auto entry = hostname_watchers_.find(instance_info.domain_name);
-  if (entry == hostname_watchers_.end())
+  auto interface_entry =
+      interface_hostname_watchers_.find(instance_info.ptr_interface_index);
+  if (interface_entry == interface_hostname_watchers_.end())
     return;
+  auto entry = interface_entry->second.find(instance_info.domain_name);
+  if (entry == interface_entry->second.end() ||
+      !(entry->second.v4_address || entry->second.v6_address)) {
+    return;
+  }
 
-  PushScreenInfo(service_instance, instance_info, entry->second.address);
+  PushScreenInfo(service_instance, instance_info, entry->second.v4_address,
+                 entry->second.v6_address);
 }
 
 void MdnsResponderService::MaybePushScreenInfo(
     const mdns::DomainName& domain_name,
-    const IPAddress& address) {
+    const IPAddress& v4_address,
+    const IPAddress& v6_address) {
   for (auto& entry : services_) {
     if (entry.second->domain_name == domain_name)
-      PushScreenInfo(entry.first, *entry.second, address);
+      PushScreenInfo(entry.first, *entry.second, v4_address, v6_address);
   }
 }
 
@@ -341,42 +358,41 @@ bool MdnsResponderService::HandlePtrEvent(const mdns::PtrEvent& ptr_event) {
     case mdns::QueryEventHeader::Type::kAddedNoCache:
       break;
     case mdns::QueryEventHeader::Type::kAdded: {
-      auto socket = ptr_event.header.socket;
-      auto it = std::find_if(
-          bound_interfaces_.begin(), bound_interfaces_.end(),
-          [socket](const MdnsPlatformService::BoundInterface& interface) {
-            return socket == interface.socket;
-          });
-      if (it != bound_interfaces_.end()) {
-        const auto interface_index = it->interface_info.index;
-        mdns_responder_->StartSrvQuery(ptr_event.service_instance);
-        mdns_responder_->StartTxtQuery(ptr_event.service_instance);
+      if (entry != services_.end())
+        break;
+      const auto interface_index =
+          GetInterfaceIndexFromSocket(ptr_event.header.socket);
+      if (interface_index != platform::kInvalidInterfaceIndex) {
+        mdns_responder_->StartSrvQuery(ptr_event.service_instance,
+                                       ptr_event.header.socket);
+        mdns_responder_->StartTxtQuery(ptr_event.service_instance,
+                                       ptr_event.header.socket);
         events_possible = true;
 
-        if (entry == services_.end()) {
-          auto new_instance = MakeUnique<ServiceInstance>();
-          new_instance->ptr_interface_index = interface_index;
-          auto result = services_.emplace(std::move(ptr_event.service_instance),
-                                          std::move(new_instance));
-          entry = result.first;
-        } else {
-          entry->second->ptr_interface_index = interface_index;
-        }
-        MaybePushScreenInfo(ptr_event.service_instance, *entry->second);
+        auto new_instance = MakeUnique<ServiceInstance>();
+        new_instance->ptr_interface_index = interface_index;
+        new_instance->has_ptr = true;
+        auto result = services_.emplace(std::move(ptr_event.service_instance),
+                                        std::move(new_instance));
+        MaybePushScreenInfo(ptr_event.service_instance, *result.first->second);
       }
     } break;
     case mdns::QueryEventHeader::Type::kRemoved:
-      if (entry != services_.end()) {
-        // |port| == 0 signals that we also have no SRV record, and should
-        // consider this service to be gone.
-        if (entry->second->port == 0) {
-          mdns_responder_->StopSrvQuery(ptr_event.service_instance);
-          mdns_responder_->StopTxtQuery(ptr_event.service_instance);
-          services_.erase(entry);
-        } else {
-          entry->second->ptr_interface_index = platform::kInvalidInterfaceIndex;
-          RemoveScreenInfo(ptr_event.service_instance);
-        }
+      if (entry == services_.end())
+        break;
+      const auto socket =
+          GetSocketFromInterfaceIndex(entry->second->ptr_interface_index);
+      if (socket != ptr_event.header.socket)
+        break;
+      entry->second->has_ptr = false;
+      // |port| == 0 signals that we also have no SRV record, and should
+      // consider this service to be gone.
+      if (entry->second->port == 0) {
+        mdns_responder_->StopSrvQuery(ptr_event.service_instance, socket);
+        mdns_responder_->StopTxtQuery(ptr_event.service_instance, socket);
+        services_.erase(entry);
+      } else {
+        RemoveScreenInfo(ptr_event.service_instance);
       }
       break;
   }
@@ -386,17 +402,23 @@ bool MdnsResponderService::HandlePtrEvent(const mdns::PtrEvent& ptr_event) {
 bool MdnsResponderService::HandleSrvEvent(const mdns::SrvEvent& srv_event) {
   bool events_possible = false;
   auto entry = services_.find(srv_event.service_instance);
+  if (entry == services_.end())
+    return events_possible;
   switch (srv_event.header.response_type) {
     case mdns::QueryEventHeader::Type::kAddedNoCache:
       break;
     case mdns::QueryEventHeader::Type::kAdded: {
-      auto hostname_entry = hostname_watchers_.find(srv_event.domain_name);
-      if (hostname_entry == hostname_watchers_.end()) {
-        mdns_responder_->StartAQuery(srv_event.domain_name);
-        mdns_responder_->StartAaaaQuery(srv_event.domain_name);
+      auto& hostname_watchers =
+          interface_hostname_watchers_[entry->second->ptr_interface_index];
+      auto hostname_entry = hostname_watchers.find(srv_event.domain_name);
+      if (hostname_entry == hostname_watchers.end()) {
+        mdns_responder_->StartAQuery(srv_event.domain_name,
+                                     srv_event.header.socket);
+        mdns_responder_->StartAaaaQuery(srv_event.domain_name,
+                                        srv_event.header.socket);
         events_possible = true;
-        auto result = hostname_watchers_.emplace(srv_event.domain_name,
-                                                 HostnameWatchers{});
+        auto result = hostname_watchers.emplace(srv_event.domain_name,
+                                                HostnameWatchers{});
         hostname_entry = result.first;
       }
       auto& dependent_services = hostname_entry->second.services;
@@ -411,32 +433,40 @@ bool MdnsResponderService::HandleSrvEvent(const mdns::SrvEvent& srv_event) {
       MaybePushScreenInfo(srv_event.service_instance, *entry->second);
     } break;
     case mdns::QueryEventHeader::Type::kRemoved: {
-      auto hostname_entry = hostname_watchers_.find(srv_event.domain_name);
-      if (hostname_entry == hostname_watchers_.end())
+      auto interface_entry =
+          interface_hostname_watchers_.find(entry->second->ptr_interface_index);
+      if (interface_entry == interface_hostname_watchers_.end())
         break;
-      auto& dependent_services = hostname_entry->second.services;
-      dependent_services.erase(
-          std::remove_if(dependent_services.begin(), dependent_services.end(),
-                         [entry](ServiceInstance* instance) {
-                           return instance == entry->second.get();
-                         }),
-          dependent_services.end());
-      if (dependent_services.empty()) {
-        mdns_responder_->StopAQuery(hostname_entry->first);
-        mdns_responder_->StopAaaaQuery(hostname_entry->first);
-        hostname_watchers_.erase(hostname_entry);
+      auto& hostname_watchers = interface_entry->second;
+      auto hostname_entry = hostname_watchers.find(srv_event.domain_name);
+      if (hostname_entry != hostname_watchers.end()) {
+        auto& dependent_services = hostname_entry->second.services;
+        dependent_services.erase(
+            std::remove_if(dependent_services.begin(), dependent_services.end(),
+                           [entry](ServiceInstance* instance) {
+                             return instance == entry->second.get();
+                           }),
+            dependent_services.end());
+        if (dependent_services.empty()) {
+          mdns_responder_->StopAQuery(hostname_entry->first,
+                                      srv_event.header.socket);
+          mdns_responder_->StopAaaaQuery(hostname_entry->first,
+                                         srv_event.header.socket);
+          hostname_watchers.erase(hostname_entry);
+          if (hostname_watchers.empty())
+            interface_hostname_watchers_.erase(interface_entry);
+        }
       }
-      // |ptr_interface_index| == kInvalidInterfaceIndex signals that there is
-      // no PTR record, and so the service is gone.
-      if (entry->second->ptr_interface_index ==
-          platform::kInvalidInterfaceIndex) {
-        mdns_responder_->StopSrvQuery(srv_event.service_instance);
-        mdns_responder_->StopTxtQuery(srv_event.service_instance);
-        services_.erase(entry);
-      } else {
+      if (entry->second->has_ptr) {
         entry->second->domain_name = mdns::DomainName();
         entry->second->port = 0;
         RemoveScreenInfo(srv_event.service_instance);
+      } else {
+        mdns_responder_->StopSrvQuery(srv_event.service_instance,
+                                      srv_event.header.socket);
+        mdns_responder_->StopTxtQuery(srv_event.service_instance,
+                                      srv_event.header.socket);
+        services_.erase(entry);
       }
     } break;
   }
@@ -446,6 +476,8 @@ bool MdnsResponderService::HandleSrvEvent(const mdns::SrvEvent& srv_event) {
 bool MdnsResponderService::HandleTxtEvent(const mdns::TxtEvent& txt_event) {
   bool events_possible = false;
   auto entry = services_.find(txt_event.service_instance);
+  if (entry == services_.end())
+    return events_possible;
   switch (txt_event.header.response_type) {
     case mdns::QueryEventHeader::Type::kAddedNoCache:
       break;
@@ -466,40 +498,86 @@ bool MdnsResponderService::HandleTxtEvent(const mdns::TxtEvent& txt_event) {
   return events_possible;
 }
 
-bool MdnsResponderService::HandleAEvent(const mdns::AEvent& a_event) {
+bool MdnsResponderService::HandleAddressEvent(
+    platform::UdpSocketPtr socket,
+    mdns::QueryEventHeader::Type response_type,
+    const mdns::DomainName& domain_name,
+    bool a_event,
+    const IPAddress& address) {
   bool events_possible = false;
-  switch (a_event.header.response_type) {
+  const platform::InterfaceIndex interface_index =
+      GetInterfaceIndexFromSocket(socket);
+  if (interface_index == platform::kInvalidInterfaceIndex)
+    return events_possible;
+  switch (response_type) {
     case mdns::QueryEventHeader::Type::kAddedNoCache:
       break;
     case mdns::QueryEventHeader::Type::kAdded: {
-      auto& watchers = hostname_watchers_[a_event.domain_name];
-      watchers.address = a_event.address;
-      MaybePushScreenInfo(a_event.domain_name, watchers.address);
+      auto& watchers =
+          interface_hostname_watchers_[interface_index][domain_name];
+      if (a_event)
+        watchers.v4_address = address;
+      else
+        watchers.v6_address = address;
+      MaybePushScreenInfo(domain_name, watchers.v4_address,
+                          watchers.v6_address);
     } break;
     case mdns::QueryEventHeader::Type::kRemoved: {
-      RemoveScreenInfoByDomain(a_event.domain_name);
-      hostname_watchers_.erase(a_event.domain_name);
+      auto interface_entry = interface_hostname_watchers_.find(interface_index);
+      if (interface_entry == interface_hostname_watchers_.end())
+        break;
+      auto watchers_entry = interface_entry->second.find(domain_name);
+      if (watchers_entry == interface_entry->second.end())
+        break;
+      if (a_event)
+        watchers_entry->second.v4_address = IPAddress();
+      else
+        watchers_entry->second.v6_address = IPAddress();
+      if (watchers_entry->second.v4_address ||
+          watchers_entry->second.v6_address) {
+        MaybePushScreenInfo(domain_name, watchers_entry->second.v4_address,
+                            watchers_entry->second.v6_address);
+      } else {
+        RemoveScreenInfoByDomain(domain_name);
+      }
     } break;
   }
   return events_possible;
 }
 
+bool MdnsResponderService::HandleAEvent(const mdns::AEvent& a_event) {
+  return HandleAddressEvent(a_event.header.socket, a_event.header.response_type,
+                            a_event.domain_name, true, a_event.address);
+}
+
 bool MdnsResponderService::HandleAaaaEvent(const mdns::AaaaEvent& aaaa_event) {
-  bool events_possible = false;
-  switch (aaaa_event.header.response_type) {
-    case mdns::QueryEventHeader::Type::kAddedNoCache:
-      break;
-    case mdns::QueryEventHeader::Type::kAdded: {
-      auto& watchers = hostname_watchers_[aaaa_event.domain_name];
-      watchers.address = aaaa_event.address;
-      MaybePushScreenInfo(aaaa_event.domain_name, watchers.address);
-    } break;
-    case mdns::QueryEventHeader::Type::kRemoved: {
-      RemoveScreenInfoByDomain(aaaa_event.domain_name);
-      hostname_watchers_.erase(aaaa_event.domain_name);
-    } break;
-  }
-  return events_possible;
+  return HandleAddressEvent(aaaa_event.header.socket,
+                            aaaa_event.header.response_type,
+                            aaaa_event.domain_name, false, aaaa_event.address);
+}
+
+platform::InterfaceIndex MdnsResponderService::GetInterfaceIndexFromSocket(
+    platform::UdpSocketPtr socket) const {
+  auto it = std::find_if(
+      bound_interfaces_.begin(), bound_interfaces_.end(),
+      [socket](const MdnsPlatformService::BoundInterface& interface) {
+        return interface.socket == socket;
+      });
+  if (it == bound_interfaces_.end())
+    return platform::kInvalidInterfaceIndex;
+  return it->interface_info.index;
+}
+
+platform::UdpSocketPtr MdnsResponderService::GetSocketFromInterfaceIndex(
+    platform::InterfaceIndex index) const {
+  auto it = std::find_if(
+      bound_interfaces_.begin(), bound_interfaces_.end(),
+      [index](const MdnsPlatformService::BoundInterface& interface) {
+        return interface.interface_info.index == index;
+      });
+  if (it == bound_interfaces_.end())
+    return nullptr;
+  return it->socket;
 }
 
 }  // namespace openscreen
