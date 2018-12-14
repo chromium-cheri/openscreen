@@ -1,0 +1,754 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e8b7bfd_b0a6b9f1",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "We could have many network interfaces, especially ipv6 ones.  What happens if there are 100?  Are filtering or limiting them in any way?  For example, in the WebRTC code, we a bunch of ipv6 addresses: \n\nhttps://cs.chromium.org/chromium/src/content/renderer/p2p/ipc_network_manager.cc?l\u003d124\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/network.cc?l\u003d147\n\n(deprecated and loopback, mainly.  We probably want to keep link-local and MAC-based).",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c05be22_483fc939",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "I find these situations much more readable if you do something like this (like a poor man\u0027s c++17 structured binding).\n\nfor (const auto\u0026 kv : network_to_hostname_to_host_){\n  const auto\u0026 network_interface_idx \u003d kv.first;\n  const auto\u0026 hostname_to_host \u003d kv.second;\n\n  const auto socket \u003d GetSocketFromInterfaceIndex(network_interface_idx);\n  for (const auto\u0026 kv2 : hostname_to_host_) {\n    const auto\u0026 hostname \u003d kv2.first;\n\n    mdns_responder_-\u003eStopAQuery(hostname, socket);\n    mdns_responder_-\u003eStopAaaaQuery(hostname, socket);\n  }\n}",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56ed39c1_7bd79cf2",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "So if we get an A and an AAAA together, does OnScreenAdded get pushed with A and then OnScreenChanged get pushed with A and AAAA?  \n\nIs there any way we could see that we have both A and AAAA together and just have one OnScreenChanged?",
+      "range": {
+        "startLine": 295,
+        "startChar": 3,
+        "endLine": 296,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d96cd101_72ee511f",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Like before, I think this could be more readable with something like:\n\nauto kv \u003d network_to_domain_to_host.find(instance_info.ptr_interface_index);\nif (kv \u003d\u003d interface_hostname_watchers_.end())\n  return;\n\nauto\u0026 domain_to_host \u003d kv-\u003esecond;\nauto kv2 \u003d domain_to_host.find(instance_info.domain_name);\nif (kv \u003d\u003d domain_to_host.end())\n  return;\n\nauto\u0026 host \u003d kv-\u003esecond;\nif (host.v4_address || host.v6_address)) {\n  PushScreenInfo(service_instance, instance_info, host.v4_address, host.v6_address);\n}\n\nAlso, I think you could pull much of that into an HostInfo* GetHostInfo(network_interface_index, domain_name) helper method.  Then it would be:\n\nauto host \u003d GetHostInfo(instance_info.ptr_interface_index, instance_info.domain_name);\nif (host \u0026\u0026 (host-\u003ev4_address || host-\u003ev6_address)) {\n  PushScreenInfo(service_instance, instance_info, host-\u003ev4_address, host-\u003ev6_address);\n}",
+      "range": {
+        "startLine": 307,
+        "startChar": 60,
+        "endLine": 308,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36e1a0a4_0559da2a",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "I think something like this would be more readable:\n\nconst auto\u0026 instance_name \u003d entry.first;\nconst auto\u0026 instance \u003d entry.second;\nif (instance-\u003edomain_name \u003d\u003d domain_name)\n  PushScreenInfo(instance_name, *instance, v4_address, v6_address);",
+      "range": {
+        "startLine": 325,
+        "startChar": 73,
+        "endLine": 326,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d425f0cf_067fe0e2",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Can you make some nicer names at the top of the method?  \n\nconst auto\u0026 instance_name \u003d ptr_event.service_instance;\nconst auto\u0026 mdns_socket \u003d ptr_event.header.socket;",
+      "range": {
+        "startLine": 366,
+        "startChar": 66,
+        "endLine": 367,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6914a52_9a6d085f",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Why do we keep converting back and forth from socket to interface index?  Could we not just store the socket in the ServiceInstance?  Is it because we might close the socket and open a different one on the same network interface and expect to retain the ServiceInstance across those?",
+      "range": {
+        "startLine": 373,
+        "startChar": 60,
+        "endLine": 374,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89264f5e_931f9af0",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Can\u0027t you just do MaybePushScreenInfo(instance_name, new_instance)?   Why do you have to pull out of the result the thing you just put in if you know what you put in?  In fact, I don\u0027t think you need the return value at all.",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d7ea04b_b4cd7845",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Can we add a has_srv() method so that we can have this comment at the struct and not every place where port is accessed like this?",
+      "range": {
+        "startLine": 389,
+        "startChar": 42,
+        "endLine": 390,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "954ceb8b_23ddd6e0",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "I think all the calls to StartXQuery and StopXQuery should take the socket first rather than last.",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "796f5044_1604c563",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "GetHostInfo(entry-\u003esecond-\u003eptr_interface_index, srv_event.domain_name) would be nice here as well.",
+      "range": {
+        "startLine": 413,
+        "startChar": 74,
+        "endLine": 414,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7c92b16_c973049b",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Please add some nicer names here as well:\n\nauto\u0026 mdns_socket \u003d srv_event.header.socket;\nauto\u0026 domain_name \u003d srv_event.domain_name;",
+      "range": {
+        "startLine": 418,
+        "startChar": 65,
+        "endLine": 419,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "956bd27c_1d184a3b",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "GetHostInfo(entry-\u003esecond-\u003eptr_interface_index, srv_event.domain_name) would be nice here as well.",
+      "range": {
+        "startLine": 442,
+        "startChar": 54,
+        "endLine": 443,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6a97a7c_582a6574",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Similarly, a RemoveHostInfo(entry-\u003esecond-\u003eptr_interface_index, srv_event.domain_name) would be nice.",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "489a62f2_379076ba",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Needs a comment here as well that port \u003d 0 means we don\u0027t have an SRV record.",
+      "range": {
+        "startLine": 462,
+        "startChar": 32,
+        "endLine": 463,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd88218c_5d790e22",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Should probably comment that now we have neither SRV nor PTR, so we have nothing.\n\nActually, this would only happen if we have an SRV without a PTR.  When would that ever happen?",
+      "range": {
+        "startLine": 469,
+        "startChar": 31,
+        "endLine": 470,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d21af4_4b64fdcb",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "It\u0027s a little subtle here to auto-add like that.  Perhaps it would be better to have AddHostInfo(interface_index, domain_name) or maybe AddOrGetHostInfo.",
+      "range": {
+        "startLine": 517,
+        "startChar": 69,
+        "endLine": 518,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b73ede2f_a368b16d",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "GetHostInfo(inteface_index, domain_name)",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c47278f5_9b017f99",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "At first I thought this meant something do with a pointer or ptr_interface_index.  Could we rename it has_ptr_record, and perhaps add a comment like \"// PTR record\" to make it clear?",
+      "range": {
+        "startLine": 71,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4e08ef_0a15dea6",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "I find this a confusing name.  I seems like HostInfo (a host can have several service instances and IP addresses).",
+      "range": {
+        "startLine": 76,
+        "startChar": 27,
+        "endLine": 77,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d136efc_c7b64e49",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Aren\u0027t these all service_instance_name rather than service_instance?",
+      "range": {
+        "startLine": 92,
+        "startChar": 68,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f81954_ca365b9f",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Can we make a TODO or issue to call this NetworkInterfaceIndex instead of InterfaceIndex?  It would be so much more clear.",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e64c527_14587593",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "This would be more clear with a name like service_instance_name_to_instance_.",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45ac34f4_03e9b760",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "I\u0027d prefer a name like network_interface_index_to_domain_to_hostname_watcher_.  It\u0027s long, but it at least explains what is going on.  Or perhaps make it shorter with network_to_domain_to_host_.",
+      "range": {
+        "startLine": 151,
+        "startChar": 35,
+        "endLine": 152,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeb63b31_f43efd9c",
+        "filename": "api/public/screen_info.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Should we check the version of the address passed in matches what we expect?",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e9adf0_17df8be8",
+        "filename": "api/public/screen_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Will a Screen ever have more than on v4 or v6 address?",
+      "range": {
+        "startLine": 37,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45da3c9f_e1d8b78e",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Addrinfo needs to be renamed to make it clear it\u0027s plural.  Perhaps interface_addresses.",
+      "range": {
+        "startLine": 264,
+        "startChar": 52,
+        "endLine": 265,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80b598f5_3cb35f4b",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "It took me a while to figure out what was going on here.  It\u0027s very confusing that RegisterInterfaces actually creates UDP sockets on the interface.  It\u0027s not clear at all without finding the code and reading it.  I really think we need to rename that something that makes UDP socket create clear.  Further, it\u0027s not registering the interface with the mDNS provider, it\u0027s registering the UDP/mDNS socket.  Perhaps it would be more clear to call it CreateAndRegisterMdnsSockets.\n\nAnd when we pass around a socket we should make it clear it\u0027s a registered mDNS socket.  Perhaps call it registered_mdns_socket, or mdns_socket for short (since I don\u0027t think we can have an unregistered mdns_socket).  \n\nThus, call this \"mdns_sockets \u003d CreateAndRegisterMdnsSockets(interface_addresses, mdns_adapter.get())\" and then have things like \"for (auto* mdns_socket : mdns_sockets) { ... \".",
+      "range": {
+        "startLine": 268,
+        "startChar": 66,
+        "endLine": 269,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f42b62d_00b1fe8a",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Whenever we have a list of methods or maps for different types of queries, could we order them in the order we logically think of them happening (which I think is PTR, SRV, TXT, A, AAAA)?",
+      "range": {
+        "startLine": 223,
+        "startChar": 41,
+        "endLine": 224,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae7a89dc_f0ce98e5",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you make a GetQuestionsFromSocket name to reduce the need for duplicating this, especially the strange cast?",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef198e0_18330f9e",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "So the mDNS responder library can magically take a UdpSocketPtr and cast it to a network interface ID and that works?  A network interface ID and a UDP socket aren\u0027t even the same kind of thing (a network interface can give you many UDP sockets), so I find this kind of confusing that this works.  It is because when you register a socket it registers it as an IntefaceID?",
+      "range": {
+        "startLine": 368,
+        "startChar": 38,
+        "endLine": 369,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a72cc7ff_aa7deebf",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "And can\u0027t this be RemoveQuestionsIfEmptyBySocket(mdns_socket) so, again you can isolate this casting to one place?",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69c43ff4_c0853072",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Perhaps a GetInterfaceIdOfSocket would be a good method to isolate cast, even if the method is just a cast.\n\nAlso \"auto\u0026 socket \u003d info.first\" would be nice.",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e647e0de_05491a55",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Would Questions be a good name?",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8261cf_e25db046",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "Wouldn\u0027t .a, .aaaa, .ptr, .srv, .txt be good names?",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe33872c_9053b989",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-14T20:24:18Z",
+      "side": 1,
+      "message": "I think interface_id_to_questions would be a good name.",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
