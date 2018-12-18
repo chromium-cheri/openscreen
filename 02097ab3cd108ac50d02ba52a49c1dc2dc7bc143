@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e7697d16_f8bf90dc",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "I wasn\u0027t aware of the MAC issue or the deprecated flag.  It sounds like you\u0027re using interface and address interchangeably though.  This loop in particular is for interfaces (e.g. `ip link` output).  I will add an issue to do more IPv6 filtering when we pull addresses for each interface though.",
+      "parentUuid": "1e8b7bfd_b0a6b9f1",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c05be22_483fc939",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22629307_b95e3bbe",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c05be22_483fc939",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "82d87a6f_7e8ef4e6",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Instead of calling the observer directly when handling each record update, I added a set of instance names to HandleMdnsEvents which just tracks the name of changed services.  When all the records are processed, we can go through once to make Added/Removed/Changed observer calls.",
+      "parentUuid": "56ed39c1_7bd79cf2",
+      "range": {
+        "startLine": 295,
+        "startChar": 3,
+        "endLine": 296,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d96cd101_72ee511f",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -79,6 +139,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f083de6e_aeaa398b",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96cd101_72ee511f",
+      "range": {
+        "startLine": 307,
+        "startChar": 60,
+        "endLine": 308,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "199dcdd0_4a28c1ef",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36e1a0a4_0559da2a",
+      "range": {
+        "startLine": 325,
+        "startChar": 73,
+        "endLine": 326,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d425f0cf_067fe0e2",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -125,6 +233,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ac6da9_a21b7ae5",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d425f0cf_067fe0e2",
+      "range": {
+        "startLine": 366,
+        "startChar": 66,
+        "endLine": 367,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "bc22f8fd_a87d8a63",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "No, we can use socket in more places (everywhere but ScreenInfo).",
+      "parentUuid": "e6914a52_9a6d085f",
+      "range": {
+        "startLine": 373,
+        "startChar": 60,
+        "endLine": 374,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89264f5e_931f9af0",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -165,6 +321,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "564e1294_93750338",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "|new_instance| is a std::unique_ptr which is std::move()\u0027d into the map, so |new_instance| is now nullptr at this line.",
+      "parentUuid": "89264f5e_931f9af0",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "ab347882_a1d2d257",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d7ea04b_b4cd7845",
+      "range": {
+        "startLine": 389,
+        "startChar": 42,
+        "endLine": 390,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "954ceb8b_23ddd6e0",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -205,6 +403,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "132c6043_8486afd5",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "954ceb8b_23ddd6e0",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "e6e12185_90750477",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "796f5044_1604c563",
+      "range": {
+        "startLine": 413,
+        "startChar": 74,
+        "endLine": 414,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7c92b16_c973049b",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -251,6 +491,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57e4149a_cb34fe68",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7c92b16_c973049b",
+      "range": {
+        "startLine": 418,
+        "startChar": 65,
+        "endLine": 419,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -277,6 +541,30 @@
     },
     {
       "key": {
+        "uuid": "0d2f482d_5ae30e63",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "956bd27c_1d184a3b",
+      "range": {
+        "startLine": 442,
+        "startChar": 54,
+        "endLine": 443,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6a97a7c_582a6574",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -291,6 +579,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc203008_001fbeeb",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "This is the only place it\u0027s removed like this.",
+      "parentUuid": "f6a97a7c_582a6574",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -317,6 +623,30 @@
     },
     {
       "key": {
+        "uuid": "d186b03f_e402f62d",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "489a62f2_379076ba",
+      "range": {
+        "startLine": 462,
+        "startChar": 32,
+        "endLine": 463,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd88218c_5d790e22",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -337,6 +667,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cbcbad6_6ec93380",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "I\u0027ve seen this happen (for unknown reasons) on Cast devices; they send a PTR remove followed by a new PTR, so we\u0027d temporarily see no PTR.  Also, the recommended TTL values are 2 minutes for PTR and 75 minutes for others, so if there\u0027s an intermittent network failure/latency spike around refreshing the PTR, it will expire first.\n\nWe could start a timer when we lose the PTR so we don\u0027t allow the records to live for the full 75 minutes, but I\u0027m not sure that buys us much.  Unfortunately, though, through mDNSResponder we don\u0027t know whether the removal is the result of a cache expiration (i.e. no communication) or an explicit remove (i.e. sending TTL\u003d0) by the device.\n\nFWIW, this is just how the chromium client does it (waits for SRV _and_ PTR to be removed).",
+      "parentUuid": "cd88218c_5d790e22",
+      "range": {
+        "startLine": 469,
+        "startChar": 31,
+        "endLine": 470,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -363,6 +717,30 @@
     },
     {
       "key": {
+        "uuid": "ba0cc188_2d98d773",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74d21af4_4b64fdcb",
+      "range": {
+        "startLine": 517,
+        "startChar": 69,
+        "endLine": 518,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b73ede2f_a368b16d",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -377,6 +755,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e411b64e_50516f27",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b73ede2f_a368b16d",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -403,6 +799,30 @@
     },
     {
       "key": {
+        "uuid": "65336f51_9a042994",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Renamed to has_ptr_record.",
+      "parentUuid": "c47278f5_9b017f99",
+      "range": {
+        "startLine": 71,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc4e08ef_0a15dea6",
         "filename": "api/impl/mdns_responder_service.h",
         "patchSetId": 1
@@ -423,6 +843,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6933b15_8e1965f7",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc4e08ef_0a15dea6",
+      "range": {
+        "startLine": 76,
+        "startChar": 27,
+        "endLine": 77,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -449,6 +893,30 @@
     },
     {
       "key": {
+        "uuid": "1bcca2af_eeb98a0e",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d136efc_c7b64e49",
+      "range": {
+        "startLine": 92,
+        "startChar": 68,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89f81954_ca365b9f",
         "filename": "api/impl/mdns_responder_service.h",
         "patchSetId": 1
@@ -463,6 +931,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74ae44e2_980f4ba2",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Added an issue for follow-up.",
+      "parentUuid": "89f81954_ca365b9f",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -489,6 +975,30 @@
     },
     {
       "key": {
+        "uuid": "08fc23e6_0582c6bf",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "To compromise on length: services_by_name_.",
+      "parentUuid": "7e64c527_14587593",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45ac34f4_03e9b760",
         "filename": "api/impl/mdns_responder_service.h",
         "patchSetId": 1
@@ -509,6 +1019,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "346d2c45_667f4027",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Changed to network_to_domain_to_host_.",
+      "parentUuid": "45ac34f4_03e9b760",
+      "range": {
+        "startLine": 151,
+        "startChar": 35,
+        "endLine": 152,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -535,6 +1069,30 @@
     },
     {
       "key": {
+        "uuid": "555a2ffc_215bb8c6",
+        "filename": "api/public/screen_info.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aeb63b31_f43efd9c",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2e9adf0_17df8be8",
         "filename": "api/public/screen_info.h",
         "patchSetId": 1
@@ -555,6 +1113,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a98c03d6_f054712f",
+        "filename": "api/public/screen_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Certainly the host device can, but we don\u0027t need to know more than one.",
+      "parentUuid": "d2e9adf0_17df8be8",
+      "range": {
+        "startLine": 37,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -581,6 +1163,30 @@
     },
     {
       "key": {
+        "uuid": "181976e6_0830bfb5",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45da3c9f_e1d8b78e",
+      "range": {
+        "startLine": 264,
+        "startChar": 52,
+        "endLine": 265,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80b598f5_3cb35f4b",
         "filename": "discovery/mdns/embedder_demo.cc",
         "patchSetId": 1
@@ -601,6 +1207,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0b825b6_e015efcc",
+        "filename": "discovery/mdns/embedder_demo.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "I just inlined it since the naming is apparently confusing.",
+      "parentUuid": "80b598f5_3cb35f4b",
+      "range": {
+        "startLine": 268,
+        "startChar": 66,
+        "endLine": 269,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -627,6 +1257,30 @@
     },
     {
       "key": {
+        "uuid": "55923bc4_ff39bc51",
+        "filename": "discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f42b62d_00b1fe8a",
+      "range": {
+        "startLine": 223,
+        "startChar": 41,
+        "endLine": 224,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae7a89dc_f0ce98e5",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 1
@@ -641,6 +1295,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deb31b8e_5252d492",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "I don\u0027t see that saving anything.  We still need the casted value below.  As an alternative though, I changed everything to use the socket pointer directly, so the purpose of the casts should be clearer.",
+      "parentUuid": "ae7a89dc_f0ce98e5",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -667,6 +1339,30 @@
     },
     {
       "key": {
+        "uuid": "7d7bb84d_492f008c",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "mDNSInterfaceID is an opaque value that mDNSResponder just uses as a tag.  Its architecture is such that it doesn\u0027t send anything directly with sockets.  Instead, we also implement mDNSPlatformSendUDP (in mdns_responder_platform.cc) which does the actual send (and reverse cast).",
+      "parentUuid": "bef198e0_18330f9e",
+      "range": {
+        "startLine": 368,
+        "startChar": 38,
+        "endLine": 369,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a72cc7ff_aa7deebf",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 1
@@ -681,6 +1377,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bc8684e_0ee7ba02",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a72cc7ff_aa7deebf",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -701,6 +1415,24 @@
     },
     {
       "key": {
+        "uuid": "06753926_bec5a3e6",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Added socket \u003d info.first.  I still disagree that moving just the cast to a method is a good idea.",
+      "parentUuid": "69c43ff4_c0853072",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e647e0de_05491a55",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
         "patchSetId": 1
@@ -715,6 +1447,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a86bed0_7284ab02",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e647e0de_05491a55",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -735,6 +1485,24 @@
     },
     {
       "key": {
+        "uuid": "2af5c8d3_410f7d0b",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a8261cf_e25db046",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe33872c_9053b989",
         "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
         "patchSetId": 1
@@ -749,6 +1517,24 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "783a8ce8_0b1071b6",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T02:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe33872c_9053b989",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
