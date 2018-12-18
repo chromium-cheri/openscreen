@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7ba6ee4b_cc90809a",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T23:14:29Z",
+      "side": 1,
+      "message": "Good point, done.",
+      "parentUuid": "afb82e22_b9bc7482",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba619a4f_104063bd",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb5d2513_1882c753",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T23:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba619a4f_104063bd",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "530c4efd_ad8b665f",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T23:14:29Z",
+      "side": 1,
+      "message": "This is the only place this happens, and I\u0027d rather keep it inline to be clear that both the ScreenInfo and the actual ServiceInstance might be removed.",
+      "parentUuid": "cc038f05_b94503c0",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8c997b1_7a3730b9",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a71e441_47a9082b",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T23:14:29Z",
+      "side": 1,
+      "message": "This is an old TODO but it\u0027s pretty straight-forward to fix now.  I left both |screen_id| and |friendly_name| because |screen_id| is meant to be more like a GUID.  To do that, though, it probably at least needs to include a network ID, so I added a TODO there.  Originally, our hope was that |screen_id| could be used in OnScreenChanged to figure out which screen changed.  If the friendly name changes, though, now it\u0027ll be a remove/add.  There might not be a problem with that, but we should probably think about this more.",
+      "parentUuid": "f8c997b1_7a3730b9",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fb2c9291_ea2aab1b",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T23:14:29Z",
+      "side": 1,
+      "message": "I don\u0027t think it would add much, and I\u0027d like to reuse the |screen_info_| lookup from above.",
+      "parentUuid": "47769881_a830e4e6",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecfdc897_c2e2662a",
         "filename": "api/impl/mdns_responder_service.h",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb74521_68179022",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T23:14:29Z",
+      "side": 1,
+      "message": "I used InstanceNameSet since \"DomainName\" usually refers to hostname in this file.",
+      "parentUuid": "ecfdc897_c2e2662a",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "96b9e184_f6252186",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T23:14:29Z",
+      "side": 1,
+      "message": "Yes, that was kept from when I thought I might actually store which modifications were done inside the collection, so now it\u0027s just a bad name.  I used modified_instance_names and added a comment here and in HandleMdnsEvents.",
+      "parentUuid": "4994f65f_31933659",
+      "range": {
+        "startLine": 103,
+        "startChar": 69,
+        "endLine": 104,
+        "endChar": 0
+      },
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4dd863dc_68a13bce",
         "filename": "api/impl/mdns_responder_service.h",
         "patchSetId": 2
@@ -141,6 +273,24 @@
       "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "495bbe84_ea0ebf12",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2018-12-18T23:14:29Z",
+      "side": 1,
+      "message": "Yeah, I think that\u0027s a good solution to this problem.  It also makes preventing leaks easier.",
+      "parentUuid": "4dd863dc_68a13bce",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
