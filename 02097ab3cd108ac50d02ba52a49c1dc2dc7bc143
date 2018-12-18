@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "eaac59fc_0b2f37c3",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Yes, that\u0027s a good point,  I was mainly thinking of IP addresses, not interfaces.",
+      "parentUuid": "e7697d16_f8bf90dc",
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c05be22_483fc939",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -107,6 +125,30 @@
       "side": 1,
       "message": "Instead of calling the observer directly when handling each record update, I added a set of instance names to HandleMdnsEvents which just tracks the name of changed services.  When all the records are processed, we can go through once to make Added/Removed/Changed observer calls.",
       "parentUuid": "56ed39c1_7bd79cf2",
+      "range": {
+        "startLine": 295,
+        "startChar": 3,
+        "endLine": 296,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60f7d45a_9da352d7",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Ah, that\u0027s a good idea.",
+      "parentUuid": "82d87a6f_7e8ef4e6",
       "range": {
         "startLine": 295,
         "startChar": 3,
@@ -694,6 +736,30 @@
     },
     {
       "key": {
+        "uuid": "0a9fde65_ceb2f53e",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Well that\u0027s some good info.  Could you please put the gist of that into a comment in the code?  I think it will be valuable to future people reading this code.",
+      "parentUuid": "7cbcbad6_6ec93380",
+      "range": {
+        "startLine": 469,
+        "startChar": 31,
+        "endLine": 470,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74d21af4_4b64fdcb",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -996,6 +1062,30 @@
       "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a61c8e9_739cd466",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Wouldn\u0027t that be service_by_name_ (since there is one service per name)?",
+      "parentUuid": "08fc23e6_0582c6bf",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 0
+      },
+      "revId": "02097ab3cd108ac50d02ba52a49c1dc2dc7bc143",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {

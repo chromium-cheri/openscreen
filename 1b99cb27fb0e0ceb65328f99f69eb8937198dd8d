@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afb82e22_b9bc7482",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Since it\u0027s a for-loop over the elements, the empty check doesn\u0027t do anything (right?).",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba619a4f_104063bd",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Would it make sense to define a HostReady(host) or HostInfo-\u003eready() that is has_ptr_record \u0026\u0026 has_srv() \u0026\u0026 !txt_info.empty() \u0026\u0026 (v4_address || v6_address)?",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc038f05_b94503c0",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Would it make sense to define a RemoveServiceInstanceByName(instance_name) that does much of the above?",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8c997b1_7a3730b9",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Actually, we decided to use the service instance name as an \"unverified\" friendly name and then use QUIC for the verified name later.  So I don\u0027t think you need any of this.  And you can probably remove one of the fields of the ScreenInfo.",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47769881_a830e4e6",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Would it make sense to define an AddOrUpdateScreen(screen_id, host, service) method?",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecfdc897_c2e2662a",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Isn\u0027t the type just a set of domain names?  Perhaps just \"DomainNames\" or \"DomainNameSet\" as the type name?",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4994f65f_31933659",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Perhaps a comment explaining what a \"pending_screen_info_set\" would be nice here, explaining how it\u0027s meant to be used in these methods. \n\nI find the name confusing since it\u0027s a set of service instance names, not a set of screen infos.  Perhaps a better name would be modified_service_instance_names?",
+      "range": {
+        "startLine": 103,
+        "startChar": 69,
+        "endLine": 104,
+        "endChar": 0
+      },
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd863dc_68a13bce",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-18T18:42:37Z",
+      "side": 1,
+      "message": "Sorry to think of this now instead of before, but would it make sense to do something like this?\n\n1.  Define a concept of a NetworkScopedDomainName (domain name scoped to a particular network).  Basically, just a struct/pair of UdpSocketPtr + DomainName.\n\n2.  Use NetworkScopedDomainName as a composite key of the map.\n\n\nThat way, you only have one layer of map and not two, and you can pass around NetworkScopedDomainName around instead of having to pass around two things all the time.\n\nWhat do you think?",
+      "revId": "1b99cb27fb0e0ceb65328f99f69eb8937198dd8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
