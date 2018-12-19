@@ -33,12 +33,13 @@ class MockMessageCallback final : public MessageDemuxer::MessageCallback {
  public:
   ~MockMessageCallback() override = default;
 
-  MOCK_METHOD5(OnStreamMessage,
+  MOCK_METHOD6(OnStreamMessage,
                ErrorOr<size_t>(uint64_t endpoint_id,
                                uint64_t connection_id,
                                msgs::Type message_type,
                                const uint8_t* buffer,
-                               size_t buffer_size));
+                               size_t buffer_size,
+                               platform::TimeDelta now));
 };
 
 class MockConnectionObserver final : public ProtocolConnection::Observer {
@@ -113,11 +114,11 @@ class QuicClientTest : public ::testing::Test {
     EXPECT_CALL(
         mock_message_callback,
         OnStreamMessage(0, connection->connection_id(),
-                        msgs::Type::kPresentationConnectionMessage, _, _))
+                        msgs::Type::kPresentationConnectionMessage, _, _, _))
         .WillOnce(Invoke([&decode_result, &received_message](
                              uint64_t endpoint_id, uint64_t connection_id,
                              msgs::Type message_type, const uint8_t* buffer,
-                             size_t buffer_size) {
+                             size_t buffer_size, platform::TimeDelta now) {
           decode_result = msgs::DecodePresentationConnectionMessage(
               buffer, buffer_size, &received_message);
           if (decode_result < 0)

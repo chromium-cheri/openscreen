@@ -30,6 +30,10 @@ class ScreenObserver {
   // available.
   virtual void OnScreensAvailable(const std::string& presentation_url,
                                   const std::string& screen_id) = 0;
+  // Called when screens compatible with |presentation_url| are known to be
+  // unavailable.
+  virtual void OnScreensUnavailable(const std::string& presentation_url,
+                                    const std::string& screen_id) = 0;
 };
 
 class Controller {
