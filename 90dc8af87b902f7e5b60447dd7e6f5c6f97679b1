@@ -1,0 +1,996 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15b79c7d_3a0aaccf",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "If it\u0027s something we expect to have pop out of calls to \"msgs::\", should we make it so including  \"msgs/osp_messages.h\" is enough?  And can we give it a nicer name, like \"msgs::EOF\"?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d3bb1b4_bcb4c159",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "You know me... I prefer:\n\nfor (auto\u0026 entry : clients_) {\n  auto\u0026 client \u003d entry.second;\n  client-\u003eOnObserverRequest(urls, now, observer)\n}",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7a2dab6_72b5e228",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "The comment on RemoveObserver should probably make it clear that it\u0027s removing the connection between a URL and an observer, and it will only completely remove the observer if it\u0027s removed for all URLs for which AddObserver has been added.  I can\u0027t think of a better name for the method to convey that meaning (subscribe/unsubscribe?).",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c751eddb_8455e619",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Perhaps unobserved_urls?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cfc24fb_f44126f9",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "It\u0027s just a for loop, so you don\u0027t need the if.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a67fff06_60f285cb",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we just make StartOrQueueRequest(empty) do nothing?  Then you wouldn\u0027t need this check here.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "620557a4_51d24751",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Seems like a helper method copy_map_keys(map, \u0026keys) method would be useful here.  Perhaps if std::move magic allows, you could do:\n\nclient-\u003eStartOrQueueRequest(copy_map_keys(map));",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8070cda1_8978897e",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "auto\u0026 client \u003d client_entry-\u003esecond;\n\n:)",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34feaecf_55848d79",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "auto\u0026 client \u003d client_entry-\u003esecond;\n\n:)",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f21a707_935d7ee1",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "auto\u0026 client \u003d client_entry-\u003esecond;\n\n:)",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76e5a2b0_a6381b39",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Would GetOrRequestUrlAvailabilities be a better name?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d7ccb3f_97381871",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "requested_urls?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "154a973c_080ee935",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Would unknown_urls be a better name?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666cbfd1_69433d9f",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "const auto\u0026 availability \u003d entry.second;",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f33f9605_806dc43e",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Should we, instead, do something like observer-\u003eOnScreenAvailability(availability_entry-\u003esecond)?\n\nOtherwise, observer\u0027s will never know it\u0027s unavailable because they provided an invalid URL.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52015638_562cee2c",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Also, I\u0027ve seen this exact code in two places, so if you keep the switch statement, perhaps make a helper method like UpdateObserver(observer, url, screen_id, availability_entry-\u003esecond);",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29fd1eb7_f2a94de6",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Would RequestUrlAvailabilities be a better name?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cecae61b_4c441346",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Perhaps RequestAfterConnectionOpened?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f09351f0_c566c1c0",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "So if we fail to encode, we never try to send it again?  And we forget we ever tried? Seems odd.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d4337a4_b13d96b9",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Might be more clear as:\n\nif (stream \u0026\u0026 !StartRequest(request_id, urls)) {\n  return;  // failed to encode; forget the request\n}\nrequests.emplace(request_id, std::move(urls));",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6893f93c_097661c8",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Perhaps SendRequest?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1673eee5_22b70dca",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "auto\u0026 watch \u003d entry.second;",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "494753cd_11244f25",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Yeah, if (now \u003e watch.deadline) would be nice here.  Then you wouldn\u0027t need the remaining_time modification below (right?)\n\nActually, don\u0027t we need some amount of buffer before the deadline so we re-request the availability before the remote side thinks we aren\u0027t interested any more?  Otherwise, we might end up with a gap where we have stale data when we shouldn\u0027t.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52053cc8_add44826",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Would it be better to use just one call to emplace (instead of find + emplace)?\n\nresult \u003d current_availabilities.emplace(url, *availability);\nauto entry \u003d result.first;\nbool inserted \u003d result.second;\nbool updated \u003d (entry-\u003esecond !\u003d *availability_it);\nentry-\u003esecond \u003d *availability_it;\nif (inserted || updated) {\n for (auto* observer : listener-\u003eobservers_by_url_[url])\n  UpdateObserver(observer, url, screen_id, *availability_it); \n}\n++availability_it;",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00ad4a30_07c65f0a",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "for (auto* observer : listener-\u003eobservers_by_url_[url]) {\n  UpdateObserver(observer, url, screen_id, availability_entry-\u003esecond);\n}",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdcb0836_bf82c9e7",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Actually, doesn\u0027t this do the bad auto-add of observer list from the URL?  Perhaps we should use .find.  It would be bad if a result came back after we remove all observers and then it auto-added to our map in a way that leaks.\n\nActually, we should probably have a unit test for such a case of getting the response after removing the observer.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfa2facc_d96b88f6",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "My head hurts thinking about this method...\n\nIf the list of urls no longer observed because an observer was remove/unsubscribed is a superset of the urls of watch we no longer need the watch because the entire subset or the URLs watched is no longer being observed.  \n\nRight???\n\n\nThen maybe RemoveUnobservedWatches(unobserved_urls) would be a more clear name.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5879a3ba_b6a7aea0",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Same problem with auto-add behavior and find, right?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35e1a3aa_c119ad3d",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Hmmm.... can we put a TODO to remember that we need a way to tell the connection to stay alive as long as we expect to receive updates from the receiver/server?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c55f94f3_5bb61cb1",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "If we\u0027re not going to use \"stream_\", can we at least use \"this-\u003estream \u003d\"?  Otherwise, it took me a while to realize where stream came from.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c826ab0_324ddb32",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Should we notify observers somehow?  Tell them all the URLs are unavailable?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68ec40c5_4fd7cfde",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Why?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02073e14_24c9bbc0",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Do we have an issue for passing around a string view?  If not, can we add one?  It would be nicer in places like this?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e4bad2_177ec929",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "This is going to be a common error.  Shouldn\u0027t we have a code for it?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1db16e4_46df9f64",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "This is another common error (invalid response).  Shouldn\u0027t we have a code for it?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dc0273a_88006c19",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Could you explain what this is doing?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "715d5e43_72c4f902",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be an error returned?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44bb68cb_ed5e20bc",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "This could use a comment explaining what it is and how it should be used.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffa4631_d45da63d",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "It\u0027s not obvious to me why you would need to pass in a list of screens into a UrlAvailabilityListener.  Why not leave it off and then have those constructing it call OnScreenAdded after constructing it if needed?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe0609f8_f8622944",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "By the way, screen_info.h could use a comment explaining what ScreenInfo is.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34626456_d4152f8b",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Since these are public methods, should this be the active tense?  AddScreen, ChangeScreen, RemoveScreen, RemoveAllScreens?\n\nEither way, these methods could use comments",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd02001_09f0cd12",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "This could use a comment too",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f13dbffc_f6346ad2",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Isn\u0027t it really important for RefreshWatches to be called frequently if the observer wants availability for a long time (like, more often than kWatchDurationSeconds)?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fccb42b0_3b0f7d20",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "UrlAvailabilityClient?  Or Shorter (UrlAvailabilityListener::Client)?  Either way, but this middle ground of dropping Url but not Availability seems awkward.\n\nActually, the more I think about it, UrlAvailabilityListener is a cross-screen client (not just a listener!) and a UrlAvailabilityListener::AvailabilityClient is a per-screen client.  \n\nSo it seems that something like UrlAvailabilityRequester and UrlAvailabilityRequester::ScreenRequester would be better class names.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f175436c_813d1fe7",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "I\u0027d appreciate a comment explaining what AvailabilityClient is.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3307bc11_ace1a200",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "It\u0027s private to AvailabilityClient, so Watch is probably sufficient (AvailabilityClient::Watch)",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e643b1bc_38ab913b",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Would it make more sense for this to be a deadline?  Otherwise, in isolation, you don\u0027t know anything (remaining since when?).",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64508c26_6b0d0d7f",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Why not just pass in the whole ScreenInfo?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1118adf6_40e07c29",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "It feels like anything that takes \"now\" should take it last, such as AddObserver and OnObserverRequest.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78ed59bc_15cfd65c",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "I agree when it comes to request IDs.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b81ad171_57ab7bbd",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "The connection is called a stream?  What?  Why not connection or osp_connection?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce5c16fc_b777662d",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "requested_urls_by_request_id?\n\n(might make a request object with .urls and then have request_by_id)",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4ed342_dc69c779",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "watch_by_id?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d42c052b_8460fda0",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Isn\u0027t this last_refresh_time?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e82f622c_9bba2659",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "availability_by_url?  Or, better yet, received_availability_by_url or known_availability_by_url?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b4b68ce_41a974e1",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "The name made that clear (good naming :), so I don\u0027t think you need this comment.",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8521814_fd2094ac",
+        "filename": "api/impl/presentation/url_availability_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "client_by_screen_id_?",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e6e6805_f78d7482",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1271529
+      },
+      "writtenOn": "2018-12-20T03:03:48Z",
+      "side": 1,
+      "message": "Why are these plural when only one screen is given?  Shouldn\u0027t it be OnScreen(Un)Available?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 1
+      },
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
