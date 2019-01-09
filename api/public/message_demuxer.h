@@ -6,10 +6,12 @@
 #define API_PUBLIC_MESSAGE_DEMUXER_H_
 
 #include <map>
+#include <memory>
 #include <vector>
 
 #include "base/error.h"
 #include "msgs/osp_messages.h"
+#include "platform/api/time.h"
 
 namespace openscreen {
 
