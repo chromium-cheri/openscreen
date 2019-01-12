@@ -1,0 +1,305 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75b0ae71_fc79ea6d",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "still_observed_urls?",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2ba47f2_731b82ae",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "I feel like I missing something here.  We allocate the distance from the split to the end but then we move over URLs from the beginning to the split.  Shouldn\u0027t we do one or the other?  Here and in RemoveUnobservedWatches.",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0511e85_4bcb982f",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "Can I get a little early return?\n\nif (split \u003d\u003d watch.urls.end()) {\n  ++entry;\n  continue;\n}",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ef282ff_515cc7ae",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "I\u0027d be surprised if it were OK.\n\nCould we just copy all of the still-observed URLs into one big request outside of the for-loop?  Why does this need to happen inside of the loop?  In other words, can\u0027t one request replace all of the removed ones together?",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98072917_4266b060",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "Actually, I\u0027m wondering why we need to remove the requests at all.  What harm is there in leaving them until the response comes back (or times out)?  Then if it comes after the observer is removed, no observers are notified, but that doesn\u0027t do any harm.\n\nI feel like I\u0027m missing an edge case, though.",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1711c25_17af702c",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "still_observed_urls?",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "606ea0db_0a7dc450",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "It seems like sticking these 3 lines along with std::partition would be a nice helper function we could use in two places.",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba15615d_cb22f85d",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "Can we do a little early return?\n\nif (split \u003d\u003d watch.urls.end()) {\n  ++entry;\n  continue;\n}\n...\nentry \u003d watch_by_id_.erase(entry)",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f81e31f_5462914d",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "\"This class handles ...\" \u003d\u003e \"Handles\" (to match other comments)",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c7d457_3179ac22",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "Does it also request availability of the given URLs when new screens are found (\"all known screens\" across the present and the future)?",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a14a1da_fbe077d8",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "Does \"once for the first known availability\" really mean \"possibly once for the cached availability\"?  Because if it\u0027s not in the cache, it won\u0027t be known and it won\u0027t be fire (until it changes).  \n\nMaybe phrasing the comment more as \"Maybe once now from cache; maybe many times later as things are updated\" rather than \"Once either now or later; than many times later as things are updated\" would be more clear.",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28eaf09b_5882fbf5",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "I think we should make it more clear when an observer is completely removed (there are no more pointers from the UrlAvailabilityRequester to the Observer.  This isn\u0027t necessarily removing the Observer, so it could be easy to make the mistake of calling RemoveObserver, deleting the Observer, and the having it blow up. \n\nSome suggestions:\n\n1.  Name this RemoveObserverUrls (remove the URLs that an Observe)\n2.  (maybe) Have a RemoveObserver that removes the observer for all URLs.  \n3.  (maybe) Have RemoveObserverUrls return a bool indicating whether the observer is free or not.)\n\n\nSeems like either 2 or 3, but maybe not both.",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24f521c9_b32ce2cb",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "Ensure \u003d\u003e Ensures (to match all the other comments)",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72472934_374a6930",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "At first I thought that meant screens expire.  Perhaps \"...all open availability watches (to all screens) that are about to expire...\" would make that more clear",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "887836b4_a29b2577",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "\"This implements\" \u003d\u003e \"Implements\" (to match other comments)\n\nOr perhaps even better \"Handles Presentation API URL availability requests .... for one particular screen ...\"",
+      "range": {
+        "startLine": 65,
+        "startChar": 21,
+        "endLine": 65,
+        "endChar": 33
+      },
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59ccee80_70aa6e13",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "unobserved_request_ids? \n\nI had to go read the code to learn what \"orphaned\" meant.  I guess you could just leave a comment as well.",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4fa695a_6e7fcb0e",
+        "filename": "api/impl/presentation/url_availability_requester.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "Now that the class name doesn\u0027t have the word \"Client\" in it, \"client\" is weird here.  I can\u0027t think of a good solution...  \"screen_requester\", \"screen\", \"requester\"?  \"screen\" actually seems the best of those (so perhaps screen_by_id_ here and \"auto\u0026 screen \u003d entry.second\" below).",
+      "revId": "f3981992b9161dba6334a9dfed37a8da72f99ad5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

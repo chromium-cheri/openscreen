@@ -509,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "268a1535_ef00e22b",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "Oh, yeah, that is weird.... OK, leave it as-is",
+      "parentUuid": "ae3fe857_82e1be62",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52015638_562cee2c",
         "filename": "api/impl/presentation/url_availability_listener.cc",
         "patchSetId": 1
@@ -646,6 +664,24 @@
       "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c2bda5f_eceb11f2",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "That seems pretty good for now.  I guess later we\u0027ll have to figure out what to do with that in the observer.",
+      "parentUuid": "2200a363_b3c09b75",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -1238,6 +1274,24 @@
       "side": 1,
       "message": "This is resetting the RAII variable to stop watching for presentation-url-availability-response messages.",
       "parentUuid": "1dc0273a_88006c19",
+      "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e203a056_9a287571",
+        "filename": "api/impl/presentation/url_availability_listener.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-12T00:21:56Z",
+      "side": 1,
+      "message": "For these cases where you do \"X \u003d \u003d MessageDemuxer::MessageWatch()\"  could you make it more clear by making a simple function like StopWatching(\u0026repsonse_watch).  I saw this in other places too where StopWatching would be more readable as well.",
+      "parentUuid": "7e8f5a93_48c09a5b",
       "revId": "90dc8af87b902f7e5b60447dd7e6f5c6f97679b1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
