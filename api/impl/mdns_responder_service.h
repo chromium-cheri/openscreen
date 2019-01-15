@@ -19,6 +19,7 @@
 #include "discovery/mdns/mdns_responder_adapter.h"
 #include "platform/api/network_interface.h"
 #include "platform/base/event_loop.h"
+#include "third_party/abseil/src/absl/types/optional.h"
 
 namespace openscreen {
 
@@ -33,15 +34,13 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
                                    public ScreenPublisherImpl::Delegate {
  public:
   explicit MdnsResponderService(
-      const std::string& service_name,
-      const std::string& service_protocol,
+      const std::string& service_name, const std::string& service_protocol,
       std::unique_ptr<MdnsResponderAdapterFactory> mdns_responder_factory,
       std::unique_ptr<MdnsPlatformService> platform);
   ~MdnsResponderService() override;
 
   void SetServiceConfig(const std::string& hostname,
-                        const std::string& instance,
-                        uint16_t port,
+                        const std::string& instance, uint16_t port,
                         const std::vector<platform::InterfaceIndex> whitelist,
                         const std::map<std::string, std::string>& txt_data);
 
@@ -115,8 +114,7 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
                       InstanceNameSet* modified_instance_names);
   bool HandleAddressEvent(platform::UdpSocketPtr socket,
                           mdns::QueryEventHeader::Type response_type,
-                          const mdns::DomainName& domain_name,
-                          bool a_event,
+                          const mdns::DomainName& domain_name, bool a_event,
                           const IPAddress& address,
                           InstanceNameSet* modified_instance_names);
   bool HandleAEvent(const mdns::AEvent& a_event,
@@ -124,11 +122,12 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
   bool HandleAaaaEvent(const mdns::AaaaEvent& aaaa_event,
                        InstanceNameSet* modified_instance_names);
 
-  HostInfo* AddOrGetHostInfo(platform::UdpSocketPtr socket,
+  HostInfo& AddOrGetHostInfo(platform::UdpSocketPtr socket,
                              const mdns::DomainName& domain_name);
-  HostInfo* GetHostInfo(platform::UdpSocketPtr socket,
-                        const mdns::DomainName& domain_name);
-  bool IsServiceReady(const ServiceInstance& instance, HostInfo* host) const;
+  absl::optional<HostInfo> GetHostInfo(platform::UdpSocketPtr socket,
+                                       const mdns::DomainName& domain_name);
+  bool IsServiceReady(const ServiceInstance& instance,
+                      absl::optional<HostInfo>& host) const;
   platform::InterfaceIndex GetInterfaceIndexFromSocket(
       platform::UdpSocketPtr socket) const;
 
@@ -151,8 +150,7 @@ class MdnsResponderService final : public ScreenListenerImpl::Delegate,
 
   // A map of service information collected from PTR, SRV, and TXT records.  It
   // is keyed by service instance names.
-  std::map<mdns::DomainName,
-           std::unique_ptr<ServiceInstance>,
+  std::map<mdns::DomainName, std::unique_ptr<ServiceInstance>,
            mdns::DomainNameComparator>
       service_by_name_;
 

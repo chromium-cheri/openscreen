@@ -30,9 +30,7 @@ namespace {
 bool g_done = false;
 bool g_dump_services = false;
 
-void sigusr1_dump_services(int) {
-  g_dump_services = true;
-}
+void sigusr1_dump_services(int) { g_dump_services = true; }
 
 void sigint_stop(int) {
   OSP_LOG_INFO << "caught SIGINT, exiting...";
@@ -199,8 +197,7 @@ class ConnectionMessageCallback final : public MessageDemuxer::MessageCallback {
  public:
   ~ConnectionMessageCallback() override = default;
 
-  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
-                                  uint64_t connection_id,
+  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id, uint64_t connection_id,
                                   msgs::Type message_type,
                                   const uint8_t* buffer,
                                   size_t buffer_size) override {
