@@ -41,6 +41,8 @@ bool QuicClient::Stop() {
 
 void QuicClient::RunTasks() {
   connection_factory_->RunTasks();
+  for (auto& entry : connections_)
+    entry.second.delegate->DestroyClosedStreams();
   for (auto& entry : delete_connections_)
     connections_.erase(entry);
   delete_connections_.clear();
@@ -90,6 +92,8 @@ std::unique_ptr<ProtocolConnection> QuicClient::CreateProtocolConnection(
 }
 
 void QuicClient::OnConnectionDestroyed(QuicProtocolConnection* connection) {
+  if (!connection->stream())
+    return;
   auto connection_entry = connections_.find(connection->endpoint_id());
   if (connection_entry == connections_.end())
     return;
@@ -123,6 +127,8 @@ uint64_t QuicClient::OnCryptoHandshakeComplete(
 
 void QuicClient::OnIncomingStream(
     std::unique_ptr<QuicProtocolConnection>&& connection) {
+  // TODO(btolsch): Should the client's observer just get OnIncomingConnection
+  // so this is handled like QuicServer?
   connection->CloseWriteEnd();
   connection.reset();
 }

@@ -5,9 +5,13 @@
 #include "api/public/message_demuxer.h"
 
 #include "api/impl/quic/quic_connection.h"
+#include "base/make_unique.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {
+
+// static
+constexpr size_t MessageDemuxer::kDefaultBufferLimit;
 
 MessageDemuxer::MessageWatch::MessageWatch() = default;
 
@@ -31,8 +35,12 @@ MessageDemuxer::MessageWatch::MessageWatch(MessageDemuxer::MessageWatch&& other)
 MessageDemuxer::MessageWatch::~MessageWatch() {
   if (parent_) {
     if (is_default_) {
+      OSP_VLOG(1) << "dropping default handler for type: "
+                  << static_cast<int>(message_type_);
       parent_->StopDefaultMessageTypeWatch(message_type_);
     } else {
+      OSP_VLOG(1) << "dropping handler for type: "
+                  << static_cast<int>(message_type_);
       parent_->StopWatchingMessageType(endpoint_id_, message_type_);
     }
   }
@@ -48,8 +56,10 @@ MessageDemuxer::MessageWatch& MessageDemuxer::MessageWatch::operator=(
   return *this;
 }
 
-MessageDemuxer::MessageDemuxer(size_t buffer_limit)
-    : buffer_limit_(buffer_limit) {}
+MessageDemuxer::MessageDemuxer(size_t buffer_limit,
+                               std::unique_ptr<Clock> clock)
+    : buffer_limit_(buffer_limit),
+      clock_(clock ? std::move(clock) : MakeUnique<PlatformClock>()) {}
 MessageDemuxer::~MessageDemuxer() = default;
 
 MessageDemuxer::MessageWatch MessageDemuxer::WatchMessageType(
@@ -106,7 +116,8 @@ void MessageDemuxer::OnStreamData(uint64_t endpoint_id,
                                   uint64_t connection_id,
                                   const uint8_t* data,
                                   size_t data_size) {
-  OSP_VLOG(1) << __func__ << ": " << endpoint_id << " - (" << data_size << ")";
+  OSP_VLOG(1) << __func__ << ": [" << endpoint_id << ", " << connection_id
+              << "] - (" << data_size << ")";
   auto& stream_map = buffers_[endpoint_id];
   if (!data_size) {
     stream_map.erase(connection_id);
@@ -156,6 +167,7 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBufferLoop(
                                     &default_callbacks_, buffer);
       }
     }
+    OSP_VLOG_IF(1, !result.handled) << "no message handler matched";
   } while (result.consumed && !buffer->empty());
   return result;
 }
@@ -178,7 +190,7 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBuffer(
     OSP_VLOG(1) << "handling message type " << static_cast<int>(message_type);
     auto consumed_or_error = callback_entry->second->OnStreamMessage(
         endpoint_id, connection_id, message_type, buffer->data() + 1,
-        buffer->size() - 1);
+        buffer->size() - 1, clock_->Now());
     if (consumed_or_error.is_error()) {
       if (consumed_or_error.error().code() !=
           Error::Code::kCborIncompleteMessage) {

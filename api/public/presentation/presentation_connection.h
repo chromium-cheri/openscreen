@@ -2,14 +2,24 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_PUBLIC_PRESENTATION_PRESENTATION_COMMON_H_
-#define API_PUBLIC_PRESENTATION_PRESENTATION_COMMON_H_
+#ifndef API_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_
+#define API_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_
 
 #include <cstdint>
+#include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
+#include "api/public/message_demuxer.h"
+#include "base/ip_address.h"
+#include "base/macros.h"
+#include "platform/api/logging.h"
+
 namespace openscreen {
+
+class ProtocolConnection;
+
 namespace presentation {
 
 // TODO(btolsch): Can any of these enums be included from code generated from
@@ -50,6 +60,7 @@ class Connection {
   // An object to receive callbacks related to a single Connection.
   class Delegate {
    public:
+    Delegate() = default;
     virtual ~Delegate() = default;
 
     // State changes.
@@ -75,6 +86,14 @@ class Connection {
 
     // A binary message was received.
     virtual void OnBinaryMessage(std::vector<uint8_t> data) = 0;
+
+   private:
+    DISALLOW_COPY_AND_ASSIGN(Delegate);
+  };
+
+  enum class Role {
+    kController,
+    kReceiver,
   };
 
   struct Info {
@@ -83,12 +102,16 @@ class Connection {
   };
 
   // Constructs a new connection using |delegate| for callbacks.
-  Connection(const std::string& id, const std::string& url, Delegate* delegate);
+  Connection(const Info& info, Delegate* delegate, Role role);
+  ~Connection();
 
   // Returns the ID and URL of this presentation.
-  const std::string& id() const { return id_; }
-  const std::string& url() const { return url_; }
+  const std::string& id() const { return info_.id; }
+  const std::string& url() const { return info_.url; }
+  Role role() const { return role_; }
   State state() const { return state_; }
+  uint64_t endpoint_id() const { return endpoint_id_; }
+  uint64_t connection_id() const { return connection_id_; }
 
   // Sends a UTF-8 string message.
   void SendString(std::string&& message);
@@ -102,18 +125,70 @@ class Connection {
   void Close(CloseReason reason);
 
   // Terminates the presentation associated with this connection.
-  // TODO(btolsch): Should this co-exist with the Controller/Receiver terminate
-  // methods?
   void Terminate(TerminationReason reason);
 
+  void OnConnecting();
+  void OnConnected(uint64_t connection_id,
+                   uint64_t endpoint_id,
+                   std::unique_ptr<ProtocolConnection>&& stream);
+  void OnClosedByRemote();
+  void OnTerminated();
+
  private:
-  std::string id_;
-  std::string url_;
+  friend class ConnectionManager;
+
+  Info info_;
   State state_;
   Delegate* delegate_;
+  Role role_;
+  uint64_t connection_id_;
+  uint64_t endpoint_id_;
+  std::unique_ptr<ProtocolConnection> stream_;
+
+  DISALLOW_COPY_AND_ASSIGN(Connection);
+};
+
+class ConnectionManager final : public MessageDemuxer::MessageCallback {
+ public:
+  explicit ConnectionManager(MessageDemuxer* demuxer);
+
+  void AddConnection(Connection* connection);
+  void RemoveConnection(Connection* connection);
+  void AwaitCloseResponse(uint64_t request_id, Connection* connection);
+
+  // MessasgeDemuxer::MessageCallback overrides.
+  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
+                                  uint64_t connection_id,
+                                  msgs::Type message_type,
+                                  const uint8_t* buffer,
+                                  size_t buffer_size,
+                                  platform::TimeDelta now) override;
+
+ private:
+  struct ConnectionState {
+    Connection* connection;
+#if OSP_DCHECK_IS_ON()
+    bool has_stream_id = false;
+    uint64_t message_recv_stream_id = 0;
+#endif
+  };
+
+  ConnectionState* GetConnectionState(const std::string& presentation_id,
+                                      uint64_t connection_id);
+
+  MessageDemuxer* const demuxer_;
+  // presentation id - connection id
+  std::map<std::string, std::map<uint64_t, ConnectionState>> connections_;
+  // TODO(btolsch): What should the timeout behavior be if this response never
+  // comes?  Resend or give up?
+  std::map<uint64_t, Connection*> awaiting_close_response_;
+  MessageDemuxer::MessageWatch message_watch;
+  MessageDemuxer::MessageWatch close_request_watch;
+  MessageDemuxer::MessageWatch close_response_watch;
+  MessageDemuxer::MessageWatch close_event_watch;
 };
 
 }  // namespace presentation
 }  // namespace openscreen
 
-#endif  // API_PUBLIC_PRESENTATION_PRESENTATION_COMMON_H_
+#endif  // API_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_

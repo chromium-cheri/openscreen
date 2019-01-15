@@ -22,7 +22,10 @@ source_set("quic") {
 }
 
 source_set("test_support") {
+  testonly = true
   sources = [
+    "testing/fake_quic_bridge.cc",
+    "testing/fake_quic_bridge.h",
     "testing/fake_quic_connection.cc",
     "testing/fake_quic_connection.h",
     "testing/fake_quic_connection_factory.cc",
@@ -33,5 +36,6 @@ source_set("test_support") {
     "//base",
     "//msgs",
     "//platform",
+    "//third_party/googletest:gmock",
   ]
 }
