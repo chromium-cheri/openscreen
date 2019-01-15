@@ -25,6 +25,8 @@
 #include "base/scoped_pipe.h"
 #include "platform/api/logging.h"
 
+#include "third_party/abseil/src/absl/types/optional.h"
+
 namespace openscreen {
 namespace platform {
 namespace {
@@ -48,8 +50,7 @@ InterfaceInfo::Type GetInterfaceType(const std::string& ifname) {
   ScopedFd s(socket(AF_INET6, SOCK_DGRAM, 0));
   if (!s) {
     s = ScopedFd(socket(AF_INET, SOCK_DGRAM, 0));
-    if (!s)
-      return InterfaceInfo::Type::kOther;
+    if (!s) return InterfaceInfo::Type::kOther;
   }
 
   // Note: This uses Wireless Extensions to test the interface, which is
@@ -61,8 +62,7 @@ InterfaceInfo::Type GetInterfaceType(const std::string& ifname) {
                 "expected size of interface name fields");
   OSP_CHECK_LT(ifname.size(), IFNAMSIZ);
   strncpy(wr.ifr_name, ifname.c_str(), IFNAMSIZ);
-  if (ioctl(s.get(), SIOCGIWNAME, &wr) != -1)
-    return InterfaceInfo::Type::kWifi;
+  if (ioctl(s.get(), SIOCGIWNAME, &wr) != -1) return InterfaceInfo::Type::kWifi;
 
   struct ethtool_cmd ecmd;
   ecmd.cmd = ETHTOOL_GSET;
@@ -82,8 +82,7 @@ InterfaceInfo::Type GetInterfaceType(const std::string& ifname) {
 // the results in |info|.  |rta| is the first attribute structure returned as
 // part of an RTM_NEWLINK message.  |attrlen| is the total length of the buffer
 // pointed to by |rta|.
-void GetInterfaceAttributes(struct rtattr* rta,
-                            unsigned int attrlen,
+void GetInterfaceAttributes(struct rtattr* rta, unsigned int attrlen,
                             InterfaceInfo* info) {
   for (; RTA_OK(rta, attrlen); rta = RTA_NEXT(rta, attrlen)) {
     if (rta->rta_type == IFLA_IFNAME) {
@@ -99,27 +98,25 @@ void GetInterfaceAttributes(struct rtattr* rta,
   info->type = GetInterfaceType(info->name);
 }
 
-InterfaceAddresses* GetAddressesForIndex(
-    std::vector<InterfaceAddresses>* address_list,
-    const std::vector<InterfaceInfo>& info_list,
-    InterfaceIndex index) {
+absl::optional<InterfaceAddresses> GetAddressesForIndex(
+    std::vector<InterfaceAddresses>& address_list,
+    const std::vector<InterfaceInfo>& info_list, InterfaceIndex index) {
   const auto info_it = std::find_if(
       info_list.begin(), info_list.end(),
       [index](const InterfaceInfo& info) { return info.index == index; });
-  if (info_it == info_list.end())
-    return nullptr;
+  if (info_it == info_list.end()) return absl::nullopt;
 
-  auto addr_it = std::find_if(address_list->begin(), address_list->end(),
+  auto addr_it = std::find_if(address_list.begin(), address_list.end(),
                               [index](const InterfaceAddresses& addresses) {
                                 return addresses.info.index == index;
                               });
-  if (addr_it != address_list->end())
-    return &(*addr_it);
+  if (addr_it != address_list.end())
+    return absl::optional<InterfaceAddresses>(*addr_it);
 
-  address_list->emplace_back();
-  InterfaceAddresses& addr = address_list->back();
+  address_list.emplace_back();
+  InterfaceAddresses& addr = address_list.back();
   addr.info = *info_it;
-  return &addr;
+  return absl::optional<InterfaceAddresses>(addr);
 }
 
 // Reads the IPv4 address that comes from an RTM_NEWADDR message and places the
@@ -128,10 +125,8 @@ InterfaceAddresses* GetAddressesForIndex(
 // |ifname| is the name of the interface to which we believe the address belongs
 // based on interface index matching.  It is only used for sanity checking in
 // debug builds.
-void GetIPv4Address(struct rtattr* rta,
-                    unsigned int attrlen,
-                    const std::string& ifname,
-                    IPAddress* address) {
+void GetIPv4Address(struct rtattr* rta, unsigned int attrlen,
+                    const std::string& ifname, IPAddress* address) {
   bool have_local = false;
   IPAddress local;
   for (; RTA_OK(rta, attrlen); rta = RTA_NEXT(rta, attrlen)) {
@@ -148,8 +143,7 @@ void GetIPv4Address(struct rtattr* rta,
                         static_cast<uint8_t*>(RTA_DATA(rta)));
     }
   }
-  if (have_local)
-    *address = local;
+  if (have_local) *address = local;
 }
 
 // Reads the IPv6 address that comes from an RTM_NEWADDR message and places the
@@ -158,10 +152,8 @@ void GetIPv4Address(struct rtattr* rta,
 // |ifname| is the name of the interface to which we believe the address belongs
 // based on interface index matching.  It is only used for sanity checking in
 // debug builds.
-void GetIPv6Address(struct rtattr* rta,
-                    unsigned int attrlen,
-                    const std::string& ifname,
-                    IPAddress* address) {
+void GetIPv6Address(struct rtattr* rta, unsigned int attrlen,
+                    const std::string& ifname, IPAddress* address) {
   bool have_local = false;
   IPAddress local;
   for (; RTA_OK(rta, attrlen); rta = RTA_NEXT(rta, attrlen)) {
@@ -178,8 +170,7 @@ void GetIPv6Address(struct rtattr* rta,
                         static_cast<uint8_t*>(RTA_DATA(rta)));
     }
   }
-  if (have_local)
-    *address = local;
+  if (have_local) *address = local;
 }
 
 std::vector<InterfaceInfo> GetLinkInfo() {
@@ -259,8 +250,7 @@ std::vector<InterfaceInfo> GetLinkInfo() {
         }
 
         // RTM_NEWLINK messages describe existing network links on the host.
-        if (netlink_header->nlmsg_type != RTM_NEWLINK)
-          continue;
+        if (netlink_header->nlmsg_type != RTM_NEWLINK) continue;
 
         struct ifinfomsg* interface_info =
             static_cast<struct ifinfomsg*>(NLMSG_DATA(netlink_header));
@@ -355,13 +345,12 @@ std::vector<InterfaceAddresses> GetAddressInfo(
           done = true;
         }
 
-        if (netlink_header->nlmsg_type != RTM_NEWADDR)
-          continue;
+        if (netlink_header->nlmsg_type != RTM_NEWADDR) continue;
 
         struct ifaddrmsg* interface_address =
             static_cast<struct ifaddrmsg*>(NLMSG_DATA(netlink_header));
-        InterfaceAddresses* addresses = GetAddressesForIndex(
-            &address_list, info_list, interface_address->ifa_index);
+        absl::optional<InterfaceAddresses> addresses = GetAddressesForIndex(
+            address_list, info_list, interface_address->ifa_index);
         if (!addresses) {
           OSP_DVLOG(1) << "skipping address for interface "
                        << interface_address->ifa_index;
