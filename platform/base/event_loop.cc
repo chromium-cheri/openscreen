@@ -17,10 +17,10 @@ ReceivedData::~ReceivedData() = default;
 bool ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
                           ReceivedData* data) {
   OSP_DCHECK(data);
-  ssize_t len =
+  absl::optional<int> len =
       ReceiveUdp(read_event.socket, &data->bytes[0], data->bytes.size(),
                  &data->source, &data->original_destination);
-  if (len == -1) {
+  if (!len) {
     OSP_LOG_ERROR << "recv() failed: " << GetLastErrorString();
     return false;
   } else if (len == 0) {
@@ -28,7 +28,7 @@ bool ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
     return false;
   }
   OSP_DCHECK_LE(len, kUdpMaxPacketSize);
-  data->length = len;
+  data->length = len.value();
   data->socket = read_event.socket;
   return true;
 }
