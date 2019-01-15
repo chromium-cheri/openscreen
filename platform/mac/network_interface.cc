@@ -22,6 +22,8 @@
 #include "base/ip_address.h"
 #include "base/scoped_pipe.h"
 
+#include "third_party/abseil/src/absl/types/optional.h"
+
 namespace openscreen {
 namespace platform {
 
@@ -32,7 +34,7 @@ namespace {
 // that there are no "holes" in the bit pattern, returning 0 if that check
 // fails.
 template <size_t N>
-uint8_t ToPrefixLength(const uint8_t (&netmask)[N]) {
+absl::optional<uint8_t> ToPrefixLength(const uint8_t (&netmask)[N]) {
   uint8_t result = 0;
   size_t i = 0;
   while (i < N && netmask[i] == UINT8_C(0xff)) {
@@ -46,17 +48,17 @@ uint8_t ToPrefixLength(const uint8_t (&netmask)[N]) {
       last_byte <<= 1;
     }
     if (last_byte != UINT8_C(0x00)) {
-      return -1;
+      return {};
     }
     ++i;
   }
   while (i < N) {
     if (netmask[i] != 0) {
-      return -1;
+      return {};
     }
     ++i;
   }
-  return result;
+  return absl::optional<uint8_t>(result);
 }
 
 std::vector<InterfaceAddresses> ProcessInterfacesList(ifaddrs* interfaces) {
@@ -135,7 +137,9 @@ std::vector<InterfaceAddresses> ProcessInterfacesList(ifaddrs* interfaces) {
                      ->sin6_addr.s6_addr),
                sizeof(tmp));
       }
-      addresses->addresses.emplace_back(ip, ToPrefixLength(tmp));
+      const absl::optional<uint8_t> prefix_length = ToPrefixLength(tmp));
+      if (prefix_length)
+        addresses->addresses.emplace_back(ip, prefix_length.value());
     } else if (cur->ifa_addr->sa_family == AF_INET) {  // Ipv4 address.
       auto* const addr_in = reinterpret_cast<const sockaddr_in*>(cur->ifa_addr);
       uint8_t tmp[sizeof(addr_in->sin_addr.s_addr)];
@@ -148,7 +152,9 @@ std::vector<InterfaceAddresses> ProcessInterfacesList(ifaddrs* interfaces) {
                      ->sin_addr.s_addr),
                sizeof(tmp));
       }
-      addresses->addresses.emplace_back(ip, ToPrefixLength(tmp));
+      const absl::optional<uint8_t> prefix_length = ToPrefixLength(tmp));
+      if (prefix_length)
+        addresses->addresses.emplace_back(ip, prefix_length.value());
     }
   }
 

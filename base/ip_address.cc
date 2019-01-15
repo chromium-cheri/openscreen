@@ -8,6 +8,7 @@
 #include <iomanip>
 
 #include "platform/api/logging.h"
+#include "third_party/abseil/src/absl/types/optional.h"
 
 namespace openscreen {
 
@@ -38,22 +39,10 @@ IPAddress::IPAddress(const uint8_t (&b)[16])
     : version_(Version::kV6),
       bytes_{{b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10],
               b[11], b[12], b[13], b[14], b[15]}} {}
-IPAddress::IPAddress(uint8_t b1,
-                     uint8_t b2,
-                     uint8_t b3,
-                     uint8_t b4,
-                     uint8_t b5,
-                     uint8_t b6,
-                     uint8_t b7,
-                     uint8_t b8,
-                     uint8_t b9,
-                     uint8_t b10,
-                     uint8_t b11,
-                     uint8_t b12,
-                     uint8_t b13,
-                     uint8_t b14,
-                     uint8_t b15,
-                     uint8_t b16)
+IPAddress::IPAddress(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5,
+                     uint8_t b6, uint8_t b7, uint8_t b8, uint8_t b9,
+                     uint8_t b10, uint8_t b11, uint8_t b12, uint8_t b13,
+                     uint8_t b14, uint8_t b15, uint8_t b16)
     : version_(Version::kV6),
       bytes_{{b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15,
               b16}} {}
@@ -62,8 +51,7 @@ IPAddress::IPAddress(const IPAddress& o) = default;
 IPAddress& IPAddress::operator=(const IPAddress& o) = default;
 
 bool IPAddress::operator==(const IPAddress& o) const {
-  if (version_ != o.version_)
-    return false;
+  if (version_ != o.version_) return false;
 
   if (version_ == Version::kV4) {
     return bytes_[0] == o.bytes_[0] && bytes_[1] == o.bytes_[1] &&
@@ -72,17 +60,14 @@ bool IPAddress::operator==(const IPAddress& o) const {
   return bytes_ == o.bytes_;
 }
 
-bool IPAddress::operator!=(const IPAddress& o) const {
-  return !(*this == o);
-}
+bool IPAddress::operator!=(const IPAddress& o) const { return !(*this == o); }
 
 IPAddress::operator bool() const {
   if (version_ == Version::kV4)
     return bytes_[0] | bytes_[1] | bytes_[2] | bytes_[3];
 
   for (const auto& byte : bytes_)
-    if (byte)
-      return true;
+    if (byte) return true;
 
   return false;
 }
@@ -99,8 +84,7 @@ void IPAddress::CopyToV6(uint8_t x[16]) const {
 
 // static
 bool IPAddress::ParseV4(const std::string& s, IPAddress* address) {
-  if (s.size() > 0 && s[0] == '.')
-    return false;
+  if (s.size() > 0 && s[0] == '.') return false;
 
   uint16_t next_octet = 0;
   int i = 0;
@@ -113,24 +97,19 @@ bool IPAddress::ParseV4(const std::string& s, IPAddress* address) {
       address->bytes_[i++] = static_cast<uint8_t>(next_octet);
       next_octet = 0;
       previous_dot = true;
-      if (i > 3)
-        return false;
+      if (i > 3) return false;
 
       continue;
     }
     previous_dot = false;
-    if (!std::isdigit(c))
-      return false;
+    if (!std::isdigit(c)) return false;
 
     next_octet = next_octet * 10 + (c - '0');
-    if (next_octet > 255)
-      return false;
+    if (next_octet > 255) return false;
   }
-  if (previous_dot)
-    return false;
+  if (previous_dot) return false;
 
-  if (i != 3)
-    return false;
+  if (i != 3) return false;
 
   address->bytes_[i] = static_cast<uint8_t>(next_octet);
   address->version_ = Version::kV4;
@@ -139,22 +118,21 @@ bool IPAddress::ParseV4(const std::string& s, IPAddress* address) {
 
 // static
 bool IPAddress::ParseV6(const std::string& s, IPAddress* address) {
-  if (s.size() > 1 && s[0] == ':' && s[1] != ':')
-    return false;
+  if (s.size() > 1 && s[0] == ':' && s[1] != ':') return false;
 
   uint16_t next_value = 0;
   uint8_t values[16];
   int i = 0;
   int num_previous_colons = 0;
-  int double_colon_index = -1;
+  absl::optional<int> double_colon_index{};
   for (auto c : s) {
     if (c == ':') {
       ++num_previous_colons;
       if (num_previous_colons == 2) {
-        if (double_colon_index != -1) {
+        if (double_colon_index.has_value()) {
           return false;
         }
-        double_colon_index = i;
+        double_colon_index.emplace(i);
       } else if (i >= 15 || num_previous_colons > 2) {
         return false;
       } else {
@@ -181,23 +159,20 @@ bool IPAddress::ParseV6(const std::string& s, IPAddress* address) {
       }
     }
   }
-  if (num_previous_colons == 1)
-    return false;
+  if (num_previous_colons == 1) return false;
 
-  if (i >= 15)
-    return false;
+  if (i >= 15) return false;
 
   values[i++] = static_cast<uint8_t>(next_value >> 8);
   values[i] = static_cast<uint8_t>(next_value & 0xff);
-  if (!((i == 15 && double_colon_index == -1) ||
-        (i < 14 && double_colon_index != -1))) {
+  if (!((i == 15 && !double_colon_index.has_value()) ||
+        (i < 14 && double_colon_index.has_value()))) {
     return false;
   }
   for (int j = 15; j >= 0;) {
-    if (i == double_colon_index) {
+    if (double_colon_index && (i == double_colon_index.value())) {
       address->bytes_[j--] = values[i--];
-      while (j > i)
-        address->bytes_[j--] = 0;
+      while (j > i) address->bytes_[j--] = 0;
     } else {
       address->bytes_[j--] = values[i--];
     }
@@ -210,9 +185,7 @@ bool operator==(const IPEndpoint& a, const IPEndpoint& b) {
   return (a.address == b.address) && (a.port == b.port);
 }
 
-bool operator!=(const IPEndpoint& a, const IPEndpoint& b) {
-  return !(a == b);
-}
+bool operator!=(const IPEndpoint& a, const IPEndpoint& b) { return !(a == b); }
 
 bool IPEndpointComparator::operator()(const IPEndpoint& a,
                                       const IPEndpoint& b) const {
@@ -220,12 +193,10 @@ bool IPEndpointComparator::operator()(const IPEndpoint& a,
     return a.address.version() < b.address.version();
   if (a.address.IsV4()) {
     int ret = memcmp(a.address.bytes_.data(), b.address.bytes_.data(), 4);
-    if (ret != 0)
-      return ret < 0;
+    if (ret != 0) return ret < 0;
   } else {
     int ret = memcmp(a.address.bytes_.data(), b.address.bytes_.data(), 16);
-    if (ret != 0)
-      return ret < 0;
+    if (ret != 0) return ret < 0;
   }
   return a.port < b.port;
 }

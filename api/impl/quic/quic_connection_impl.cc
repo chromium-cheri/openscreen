@@ -6,6 +6,7 @@
 
 #include "api/impl/quic/quic_connection_factory_impl.h"
 #include "base/make_unique.h"
+#include "third_party/abseil/src/absl/types/optional.h"
 #include "third_party/chromium_quic/src/net/third_party/quic/platform/impl/quic_chromium_clock.h"
 
 namespace openscreen {
@@ -18,10 +19,12 @@ UdpTransport::~UdpTransport() = default;
 
 UdpTransport& UdpTransport::operator=(UdpTransport&&) = default;
 
-int UdpTransport::Write(const char* buffer,
-                        size_t buffer_length,
+int UdpTransport::Write(const char* buffer, size_t buffer_length,
                         const PacketInfo& info) {
-  return platform::SendUdp(socket_, buffer, buffer_length, destination_);
+  const absl::optional<std::size_t> packet_size =
+      platform::SendUdp(socket_, buffer, buffer_length, destination_);
+
+  return packet_size ? packet_size.value() : 0;
 }
 
 QuicStreamImpl::QuicStreamImpl(QuicStream::Delegate* delegate,
@@ -38,12 +41,9 @@ void QuicStreamImpl::Write(const uint8_t* data, size_t data_size) {
       false, nullptr);
 }
 
-void QuicStreamImpl::CloseWriteEnd() {
-  stream_->FinishWriting();
-}
+void QuicStreamImpl::CloseWriteEnd() { stream_->FinishWriting(); }
 
-void QuicStreamImpl::OnReceived(::quic::QuartcStream* stream,
-                                const char* data,
+void QuicStreamImpl::OnReceived(::quic::QuartcStream* stream, const char* data,
                                 size_t data_size) {
   delegate_->OnReceived(this, data, data_size);
 }
@@ -81,9 +81,7 @@ std::unique_ptr<QuicStream> QuicConnectionImpl::MakeOutgoingStream(
   return MakeUnique<QuicStreamImpl>(delegate, stream);
 }
 
-void QuicConnectionImpl::Close() {
-  session_->CloseConnection("closed");
-}
+void QuicConnectionImpl::Close() { session_->CloseConnection("closed"); }
 
 void QuicConnectionImpl::OnCryptoHandshakeComplete() {
   delegate_->OnCryptoHandshakeComplete(session_->connection_id());
@@ -99,8 +97,7 @@ void QuicConnectionImpl::OnIncomingStream(::quic::QuartcStream* stream) {
 }
 
 void QuicConnectionImpl::OnConnectionClosed(
-    ::quic::QuicErrorCode error_code,
-    const ::quic::QuicString& error_details,
+    ::quic::QuicErrorCode error_code, const ::quic::QuicString& error_details,
     ::quic::ConnectionCloseSource source) {
   parent_factory_->OnConnectionClosed(this);
   delegate_->OnConnectionClosed(session_->connection_id());
