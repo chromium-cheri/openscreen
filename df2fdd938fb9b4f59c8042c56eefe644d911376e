@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1232ddba_2a5e33f8",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-01-16T06:29:23Z",
+      "side": 1,
+      "message": "Per the prior comment, what I mean is that this could be:\n\n  if (!host || IsServiceReady(*service, *host)) {",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 39
+      },
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5596bbfc_35184844",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-01-16T06:29:23Z",
+      "side": 1,
+      "message": "Suggestion:\n\n  return {kv-\u003esecond};",
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "181f23e0_46c76e8f",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-01-16T06:29:23Z",
+      "side": 1,
+      "message": "Per C++ style rules, only const references can be returned. It looks like that would work here?",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 11
+      },
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d20460_47e329fa",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-01-16T06:29:23Z",
+      "side": 1,
+      "message": "C++ style: If using references, only const references can be used in function arguments.\n\nThinking aloud here: While optional\u003cHostInfo\u003e does add some structure to the idea of what this argument is, it also adds some runtime+space overhead. I\u0027m wondering if the existing \"raw ptr or null\" scheme is a suitably reasonable representation of an \"optional argument?\" It could be improved as \"const HostInfo*\" to make it clearer that the value is intended to be read-only.\n\nLooking deeper, an alternative comes to mind: We don\u0027t need an optional argument here at all. The caller shouldn\u0027t call this method without a HostInfo. Meaning, the 2nd argument should be good \u0027ol \"const HostInfo\u0026 host\".",
+      "range": {
+        "startLine": 130,
+        "startChar": 22,
+        "endLine": 130,
+        "endChar": 47
+      },
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbbea8d6_b26b1ad8",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-01-16T06:29:23Z",
+      "side": 1,
+      "message": "Suggestion:\n\n  const ... packet_size \u003d platform::SendUdp(socket_...);\n  return packet_size.value_or(0);\n\nOr, even just one statement (up to you, this is more a \"personal taste\" thing):\n\n  return platform::SendUdp(socket_...).value_or(0);",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 47
+      },
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dfc0e63_3863b22c",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-01-16T06:29:23Z",
+      "side": 1,
+      "message": "C++ style requires using pointers instead of references to objects that will be mutated.\n\nFWIW, I think the name of this function should indicate it may mutate |address_list|. Something like FindOrAddAddressesForIndex(). Though, maybe it\u0027d be even better if the caller were to mutate |address_list| instead of this function, whose primary purpose is \"searching.\"",
+      "range": {
+        "startLine": 102,
+        "startChar": 35,
+        "endLine": 102,
+        "endChar": 36
+      },
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d682d726_7e299e70",
+        "filename": "platform/mac/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-01-16T06:29:23Z",
+      "side": 1,
+      "message": "FWIW, I did a Google search to find out whether a standard/POSIX library function already exists for this, but nothing came up. Most people seem to write it themselves, just like we did. :)",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4b37c0f_e8e89ca5",
+        "filename": "platform/mac/network_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-01-16T06:29:23Z",
+      "side": 1,
+      "message": "Note: It could be 0x00 (e.g., 255.255.0.0). I think the \"intermediate byte\" is only special because we have to count bits one at a time.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 20
+      },
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
