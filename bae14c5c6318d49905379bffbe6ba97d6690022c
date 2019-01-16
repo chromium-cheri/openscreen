@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6db8f56_7e5b77c6",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "We are using clang-format for formatting consistency.  Make sure you run PRESUBMIT.sh to check formatting or tools/cl-format.sh to just perform a format.",
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6e92b21_c46329d7",
+        "filename": "api/impl/mdns_responder_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "This isn\u0027t going to work as an optional.  See the kRemoved case of HandleAddressEvent.  Even if it did though, I wouldn\u0027t be excited about the copy.",
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0523fd79_45eed70d",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "int64_t (or int if the change is left as-is).",
+      "range": {
+        "startLine": 24,
+        "startChar": 23,
+        "endLine": 24,
+        "endChar": 35
+      },
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9055e24d_6a7351fb",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "Just use operator bool here and below.",
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e13fa558_2a3e80a5",
+        "filename": "platform/linux/network_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "This isn\u0027t going to work as an optional because the code that calls this modifies the pointed-to value.  The copy wouldn\u0027t be ideal either though.",
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ddda3b4_54233746",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "return {}; here and below.",
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39f184e2_e28cef0a",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "I\u0027d prefer to keep this as int64_t.",
+      "range": {
+        "startLine": 186,
+        "startChar": 15,
+        "endLine": 186,
+        "endChar": 18
+      },
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "111a5d5e_c7907bd1",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "Same comment about int64_t.",
+      "range": {
+        "startLine": 301,
+        "startChar": 15,
+        "endLine": 301,
+        "endChar": 18
+      },
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7993d53d_2ee4c20e",
+        "filename": "third_party/abseil/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-16T00:40:13Z",
+      "side": 1,
+      "message": "For an example, see our //third_party/googletest/BUILD.gn.  Basically, make a config() with `include_dirs \u003d [\"//third_party/abseil/src\"]` and then add that config as a `public_config` for the abseil source set.",
+      "revId": "bae14c5c6318d49905379bffbe6ba97d6690022c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
