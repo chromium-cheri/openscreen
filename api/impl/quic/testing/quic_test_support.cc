@@ -28,16 +28,16 @@ FakeQuicBridge::FakeQuicBridge() {
 
   auto fake_client_factory =
       std::make_unique<FakeClientQuicConnectionFactory>(fake_bridge.get());
-  auto quic_client = std::make_unique<QuicClient>(controller_demuxer.get(),
-                                            std::move(fake_client_factory),
-                                            &mock_client_observer);
+  auto quic_client = std::make_unique<QuicClient>(
+      controller_demuxer.get(), std::move(fake_client_factory),
+      &mock_client_observer);
   auto fake_server_factory =
       std::make_unique<FakeServerQuicConnectionFactory>(fake_bridge.get());
   ServerConfig config;
   config.connection_endpoints.push_back(receiver_endpoint);
-  auto quic_server = std::make_unique<QuicServer>(config, receiver_demuxer.get(),
-                                            std::move(fake_server_factory),
-                                            &mock_server_observer);
+  auto quic_server = std::make_unique<QuicServer>(
+      config, receiver_demuxer.get(), std::move(fake_server_factory),
+      &mock_server_observer);
   quic_client->Start();
   quic_server->Start();
   NetworkServiceManager::Get()->Create(nullptr, nullptr, std::move(quic_client),
