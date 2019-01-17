@@ -51,7 +51,7 @@ class ConnectionCallback final
 
   void OnConnectionOpened(
       uint64_t request_id,
-      std::unique_ptr<ProtocolConnection>&& connection) override {
+      std::unique_ptr<ProtocolConnection> connection) override {
     OSP_DCHECK(!failed_ && !*connection_);
     *connection_ = std::move(connection);
   }
@@ -94,7 +94,7 @@ class QuicClientTest : public ::testing::Test {
     msgs::PresentationConnectionMessage received_message;
     EXPECT_CALL(
         mock_message_callback,
-        OnStreamMessage(0, connection->connection_id(),
+        OnStreamMessage(0, connection->id(),
                         msgs::Type::kPresentationConnectionMessage, _, _, _))
         .WillOnce(Invoke([&decode_result, &received_message](
                              uint64_t endpoint_id, uint64_t connection_id,
