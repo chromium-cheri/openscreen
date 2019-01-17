@@ -690,6 +690,24 @@
     },
     {
       "key": {
+        "uuid": "99deeb19_af8e7100",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:14:42Z",
+      "side": 1,
+      "message": "I didn\u0027t know that.  Thanks for enlightening me.",
+      "parentUuid": "94b2622f_de375046",
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1a22b1c_d1399cca",
         "filename": "base/ip_address.cc",
         "patchSetId": 4
@@ -913,6 +931,24 @@
     },
     {
       "key": {
+        "uuid": "e6fdca55_74419c38",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:14:42Z",
+      "side": 1,
+      "message": "OK, well... Maybe update the comment of ReceiveUdp to say \"empty means an error happened\"",
+      "parentUuid": "b86a3c5b_5437f3fa",
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2474c3cf_9381a0d6",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 4
@@ -948,6 +984,30 @@
       "side": 1,
       "message": "/* Send a message described MESSAGE on socket FD.\n   Returns the number of bytes sent, or -1 for errors.\n\n   This function is a cancellation point and therefore not marked with\n   __THROW.  */\n\n-1 is also the only magic error here. Let\u0027s sync in person if I\u0027m missing something :).",
       "parentUuid": "2474c3cf_9381a0d6",
+      "range": {
+        "startLine": 336,
+        "startChar": 66,
+        "endLine": 337,
+        "endChar": 0
+      },
+      "revId": "df2fdd938fb9b4f59c8042c56eefe644d911376e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "088d0932_553b62cd",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:14:42Z",
+      "side": 1,
+      "message": "OK, same as with ReceiveUdp: just make it clear in the comment if you could.",
+      "parentUuid": "9e06441e_9067d492",
       "range": {
         "startLine": 336,
         "startChar": 66,

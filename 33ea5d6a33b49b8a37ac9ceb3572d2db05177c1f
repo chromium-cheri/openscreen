@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8b6e8e4_dec7942e",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:14:42Z",
+      "side": 1,
+      "message": "Previously this would return -1 for an error.  Now it return 0.  That\u0027s not the same.  Should we use value_or(-1) until we can change the signature or meaning of UdpTransport::Write?",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "375f0768_f6b8e415",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:14:42Z",
+      "side": 1,
+      "message": "would \"if (double_colon_index \u003d\u003d i)\" do the same?",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 59
+      },
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aad3b7c_6e2a91cc",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:14:42Z",
+      "side": 1,
+      "message": "*len?",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f586b456_94ab7f50",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:14:42Z",
+      "side": 1,
+      "message": "*fd?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
