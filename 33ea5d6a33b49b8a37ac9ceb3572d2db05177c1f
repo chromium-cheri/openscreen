@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0a08eb54_c222b191",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:53:00Z",
+      "side": 1,
+      "message": "Yeah, you are definitely right. I hate it, but it\u0027s the right thing.",
+      "parentUuid": "d8b6e8e4_dec7942e",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e76f9eeb_e2aed072",
         "filename": "base/ip_address.cc",
         "patchSetId": 7
@@ -112,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "cb93011f_13b27865",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:53:00Z",
+      "side": 1,
+      "message": "Yeah, looks better IMO.",
+      "parentUuid": "375f0768_f6b8e415",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 59
+      },
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b10a1c5_45085b7a",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 7
@@ -161,6 +203,24 @@
       "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05f6abb_13e9c504",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:53:00Z",
+      "side": 1,
+      "message": "No can do, causes a build issue:\n\nerror: cannot convert ‘absl::optional\u003cint\u003e’ to ‘ssize_t {aka long int}’ in assignment\n\nMight be able to static cast, but I think .value() looks OK.",
+      "parentUuid": "1aad3b7c_6e2a91cc",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
