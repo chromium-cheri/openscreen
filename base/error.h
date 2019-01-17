@@ -57,6 +57,9 @@ class Error {
     kNoItemFound,
     kNotImplemented,
     kNotRunning,
+
+    kParseError,
+    kUnknownMessageType,
   };
 
   Error();
