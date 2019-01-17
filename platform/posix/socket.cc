@@ -186,10 +186,10 @@ bool JoinUdpMulticastGroup(UdpSocketPtr socket,
 }
 
 absl::optional<int64_t> ReceiveUdp(UdpSocketPtr socket,
-                               void* data,
-                               int64_t length,
-                               IPEndpoint* src,
-                               IPEndpoint* original_destination) {
+                                   void* data,
+                                   int64_t length,
+                                   IPEndpoint* src,
+                                   IPEndpoint* original_destination) {
   OSP_DCHECK_GE(socket->fd, 0);
   struct iovec iov = {data, static_cast<size_t>(length)};
   char control_buf[1024];
@@ -305,9 +305,9 @@ absl::optional<int64_t> ReceiveUdp(UdpSocketPtr socket,
 }
 
 absl::optional<int64_t> SendUdp(UdpSocketPtr socket,
-                            const void* data,
-                            int64_t length,
-                            const IPEndpoint& dest) {
+                                const void* data,
+                                int64_t length,
+                                const IPEndpoint& dest) {
   OSP_DCHECK_GE(socket->fd, 0);
 
   struct msghdr msg;
@@ -341,7 +341,8 @@ absl::optional<int64_t> SendUdp(UdpSocketPtr socket,
   }
 
   const int64_t return_value = sendmsg(socket->fd, &msg, 0);
-  return (return_value >= 0) ? absl::optional<int>(return_value) : absl::optional<int>();
+  return (return_value >= 0) ? absl::optional<int>(return_value)
+                             : absl::optional<int>();
 }
 
 }  // namespace platform

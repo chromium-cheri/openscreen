@@ -190,8 +190,7 @@ bool IPAddress::ParseV6(const std::string& s, IPAddress* address) {
 
   values[i++] = static_cast<uint8_t>(next_value >> 8);
   values[i] = static_cast<uint8_t>(next_value & 0xff);
-  if (!((i == 15 && !double_colon_index) ||
-        (i < 14 && double_colon_index))) {
+  if (!((i == 15 && !double_colon_index) || (i < 14 && double_colon_index))) {
     return false;
   }
   for (int j = 15; j >= 0;) {

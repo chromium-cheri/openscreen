@@ -37,14 +37,14 @@ bool JoinUdpMulticastGroup(UdpSocketPtr socket,
                            InterfaceIndex ifindex);
 
 absl::optional<int64_t> ReceiveUdp(UdpSocketPtr socket,
-                               void* data,
-                               int64_t length,
-                               IPEndpoint* src,
-                               IPEndpoint* original_destination);
+                                   void* data,
+                                   int64_t length,
+                                   IPEndpoint* src,
+                                   IPEndpoint* original_destination);
 absl::optional<int64_t> SendUdp(UdpSocketPtr socket,
-                            const void* data,
-                            int64_t length,
-                            const IPEndpoint& dest);
+                                const void* data,
+                                int64_t length,
+                                const IPEndpoint& dest);
 
 }  // namespace platform
 }  // namespace openscreen
