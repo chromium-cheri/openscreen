@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6579bc0_10438070",
+        "filename": ".gitmodules",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-17T07:32:24Z",
+      "side": 1,
+      "message": "This can just be third_party/abseil/src.",
+      "revId": "e5c052d32f7375973589c5eef62a4cecd83df407",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1f6a7d_c07bad63",
+        "filename": "api/impl/testing/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-17T07:32:24Z",
+      "side": 1,
+      "message": "This is probably actually a transitive dependency, so it probably belongs in //platform/api/BUILD.gn in `public_deps`.",
+      "revId": "e5c052d32f7375973589c5eef62a4cecd83df407",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e9dda98_008220b0",
+        "filename": "base/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-17T07:32:24Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be a public dep the abseil include isn\u0027t part of a public header.  This is probably related to not having the public dep in platform/api",
+      "revId": "e5c052d32f7375973589c5eef62a4cecd83df407",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0556cf18_6d32891b",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-01-17T07:32:24Z",
+      "side": 1,
+      "message": "Abseil shouldn\u0027t need the root include dir.",
+      "revId": "e5c052d32f7375973589c5eef62a4cecd83df407",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
