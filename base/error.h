@@ -63,6 +63,13 @@ class Error {
     kNoItemFound,
     kNotImplemented,
     kNotRunning,
+
+    kParseError,
+    kUnknownMessageType,
+
+    kNoActiveConnection,
+    kAlreadyClosed,
+    kNoStartedPresentation,
   };
 
   Error();
@@ -78,6 +85,8 @@ class Error {
   Error& operator=(Error&& other);
   bool operator==(const Error& other) const;
   bool ok() const { return code_ == Code::kNone; }
+
+  operator std::string() { return CodeToString(code_) + ": " + message_; }
 
   Code code() const { return code_; }
   const std::string& message() const { return message_; }

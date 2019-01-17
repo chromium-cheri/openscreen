@@ -30,6 +30,8 @@ bool Error::operator==(const Error& other) const {
   return code_ == other.code_ && message_ == other.message_;
 }
 
+// TODO(jophba): replace with a better solution, such as a generated
+// std::array of string values in a separate header.
 // static
 std::string Error::CodeToString(Error::Code code) {
   switch (code) {
