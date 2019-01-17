@@ -63,6 +63,13 @@ class Error {
     kNoItemFound,
     kNotImplemented,
     kNotRunning,
+
+    kParseError,
+    kUnknownMessageType,
+
+    kNoActiveConnection,
+    kAlreadyClosed,
+    kNoStartedPresentation,
   };
 
   Error();
