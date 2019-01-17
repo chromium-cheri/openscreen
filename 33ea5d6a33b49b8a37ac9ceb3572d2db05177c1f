@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "e76f9eeb_e2aed072",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-17T01:03:45Z",
+      "side": 1,
+      "message": "Looking through the headers, I think the no-arg constructor without the initializer list will result in an empty absl::optional.",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6be4e5_d82d0adc",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-17T01:03:45Z",
+      "side": 1,
+      "message": "This appears to do the extra work of in-place destruction and construction of the optional, which is just going to copy the value of i.  Would copy assignment work just as well?",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "375f0768_f6b8e415",
         "filename": "base/ip_address.cc",
         "patchSetId": 7
@@ -42,6 +76,23 @@
     },
     {
       "key": {
+        "uuid": "4b10a1c5_45085b7a",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-17T01:03:45Z",
+      "side": 1,
+      "message": "It looks like we are using \"no length\" to mean \"some error occurred.\" This seems like it could be base::ErrorOr\u003cint, errno\u003e?  I guess we can do a pass to convert this later.",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1aad3b7c_6e2a91cc",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 7
@@ -53,6 +104,57 @@
       "writtenOn": "2019-01-17T00:14:42Z",
       "side": 1,
       "message": "*len?",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf0ce5b_331e8cf9",
+        "filename": "platform/mac/network_interface.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-17T01:03:45Z",
+      "side": 1,
+      "message": "This is compiled out in release builds, unlike the previous code which returns -1 on error.",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942b8c60_45d880f9",
+        "filename": "platform/mac/network_interface.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-17T01:03:45Z",
+      "side": 1,
+      "message": "Typo in OSP_DCHECK?\nAlso same question as above.",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69da5b17_80fa5850",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-17T01:03:45Z",
+      "side": 1,
+      "message": "In Chromium, this would be written \"return absl::nullopt.\"",
       "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -76,6 +178,40 @@
         "endLine": 61,
         "endChar": 22
       },
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2ccb33c_251c12c9",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-17T01:03:45Z",
+      "side": 1,
+      "message": "Thanks for simplifying this :)",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960941c7_099fc476",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-17T01:03:45Z",
+      "side": 1,
+      "message": "Nit: I like ternary statements here, but that\u0027s just a personal preference.",
       "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
