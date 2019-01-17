@@ -18,7 +18,9 @@
 namespace openscreen {
 namespace presentation {
 
-using namespace testing;
+using ::testing::_;
+using ::testing::Invoke;
+using ::testing::Test;
 
 class MockReceiverObserver final : public ReceiverObserver {
  public:
@@ -84,10 +86,10 @@ class UrlAvailabilityRequesterTest : public Test {
     std::unique_ptr<ProtocolConnection> stream;
 
     EXPECT_CALL(quic_bridge_.mock_server_observer_, OnIncomingConnectionMock(_))
-        .WillOnce(WithArgs<0>(
+        .WillOnce(
             Invoke([&stream](std::unique_ptr<ProtocolConnection>& connection) {
               stream = std::move(connection);
-            })));
+            }));
     quic_bridge_.RunTasksUntilIdle();
 
     return stream;
@@ -141,8 +143,6 @@ class UrlAvailabilityRequesterTest : public Test {
   ServiceInfo info1_{service_id_, friendly_name_, 1,
                      quic_bridge_.kReceiverEndpoint};
 };
-
-namespace {}  // namespace
 
 TEST_F(UrlAvailabilityRequesterTest, AvailableObserverFirst) {
   MockReceiverObserver mock_observer;

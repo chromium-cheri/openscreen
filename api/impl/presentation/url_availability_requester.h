@@ -92,7 +92,7 @@ class UrlAvailabilityRequester {
                       const IPEndpoint& endpoint);
     ~ReceiverRequester() override;
 
-    void GetOrRequesetAvailabilities(
+    void GetOrRequestAvailabilities(
         const std::vector<std::string>& requested_urls,
         ReceiverObserver* observer);
     void RequestUrlAvailabilities(std::vector<std::string> urls);
