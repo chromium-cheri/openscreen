@@ -40,7 +40,7 @@ class MockConnectRequest final
 
   void OnConnectionOpened(
       uint64_t request_id,
-      std::unique_ptr<ProtocolConnection>&& connection) override {
+      std::unique_ptr<ProtocolConnection> connection) override {
     OnConnectionOpenedMock();
   }
   MOCK_METHOD0(OnConnectionOpenedMock, void());
