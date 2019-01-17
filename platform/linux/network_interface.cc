@@ -4,8 +4,6 @@
 
 #include "platform/api/network_interface.h"
 
-#include <sys/socket.h>
-
 #include <linux/ethtool.h>
 #include <linux/if_arp.h>
 #include <linux/netlink.h>
@@ -15,6 +13,7 @@
 #include <netinet/ip.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -361,8 +360,8 @@ std::vector<InterfaceAddresses> GetAddressInfo(
         InterfaceAddresses* addresses = FindOrAddAddressesForIndex(
             &address_list, info_list, interface_address->ifa_index);
         if (!addresses) {
-          OSP_DVLOG(1) << "skipping address for interface "
-                       << interface_address->ifa_index;
+          OSP_DVLOG << "skipping address for interface "
+                    << interface_address->ifa_index;
           continue;
         }
 

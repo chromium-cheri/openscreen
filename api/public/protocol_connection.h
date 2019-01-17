@@ -20,6 +20,9 @@ struct NetworkMetrics;
 //
 // A ProtocolConnection supports multiple protocols defined by the Open Screen
 // standard and can be extended by embedders with additional protocols.
+//
+// TODO(jophba): move to sharing underlying QUIC connections between multiple
+// instances of ProtocolConnection.
 class ProtocolConnection {
  public:
   class Observer {
@@ -50,14 +53,14 @@ class ProtocolConnection {
   // TODO(btolsch): This should be derived from the handshake auth identifier
   // when that is finalized and implemented.
   uint64_t endpoint_id() const { return endpoint_id_; }
-  uint64_t connection_id() const { return connection_id_; }
+  uint64_t id() const { return id_; }
 
   virtual void Write(const uint8_t* data, size_t data_size) = 0;
   virtual void CloseWriteEnd() = 0;
 
  protected:
   uint64_t endpoint_id_;
-  uint64_t connection_id_;
+  uint64_t id_;
   Observer* observer_ = nullptr;
 };
 

@@ -776,7 +776,7 @@ void MdnsResponderAdapterImpl::AaaaQueryCallback(mDNS* m,
                                                  QC_result added) {
   OSP_DCHECK(question);
   OSP_DCHECK(answer);
-  OSP_DCHECK_EQ(answer->rrtype, kDNSType_A);
+  OSP_DCHECK_EQ(answer->rrtype, kDNSType_AAAA);
   DomainName domain(std::vector<uint8_t>(
       question->qname.c,
       question->qname.c + DomainNameLength(&question->qname)));
