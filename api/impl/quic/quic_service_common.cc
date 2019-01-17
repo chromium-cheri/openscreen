@@ -56,7 +56,7 @@ ServiceStreamPair::ServiceStreamPair(
     std::unique_ptr<QuicStream>&& stream,
     QuicProtocolConnection* protocol_connection)
     : stream(std::move(stream)),
-      connection_id(protocol_connection->connection_id()),
+      connection_id(protocol_connection->id()),
       protocol_connection(std::move(protocol_connection)) {}
 ServiceStreamPair::~ServiceStreamPair() = default;
 

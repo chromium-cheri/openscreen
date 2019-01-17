@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <memory>
 
+#include "api/impl/presentation/presentation_common.h"
 #include "api/public/network_service_manager.h"
 #include "platform/api/logging.h"
 
@@ -47,7 +48,7 @@ void UrlAvailabilityRequester::AddObserver(const std::vector<std::string>& urls,
   }
   for (auto& entry : receiver_by_service_id_) {
     auto& receiver = entry.second;
-    receiver->GetOrRequesetAvailabilities(urls, observer);
+    receiver->GetOrRequestAvailabilities(urls, observer);
   }
 }
 
@@ -155,7 +156,7 @@ UrlAvailabilityRequester::ReceiverRequester::ReceiverRequester(
 
 UrlAvailabilityRequester::ReceiverRequester::~ReceiverRequester() = default;
 
-void UrlAvailabilityRequester::ReceiverRequester::GetOrRequesetAvailabilities(
+void UrlAvailabilityRequester::ReceiverRequester::GetOrRequestAvailabilities(
     const std::vector<std::string>& requested_urls,
     ReceiverObserver* observer) {
   std::vector<std::string> unknown_urls;
@@ -219,22 +220,12 @@ ErrorOr<uint64_t> UrlAvailabilityRequester::ReceiverRequester::SendRequest(
                   platform::TimeDelta::FromSeconds(kWatchDurationSeconds),
               urls});
     if (!event_watch) {
-      event_watch =
-          NetworkServiceManager::Get()
-              ->GetProtocolConnectionClient()
-              ->message_demuxer()
-              ->WatchMessageType(endpoint_id,
-                                 msgs::Type::kPresentationUrlAvailabilityEvent,
-                                 this);
+      event_watch = GetDemuxer()->WatchMessageType(
+          endpoint_id, msgs::Type::kPresentationUrlAvailabilityEvent, this);
     }
     if (!response_watch) {
-      response_watch =
-          NetworkServiceManager::Get()
-              ->GetProtocolConnectionClient()
-              ->message_demuxer()
-              ->WatchMessageType(
-                  endpoint_id, msgs::Type::kPresentationUrlAvailabilityResponse,
-                  this);
+      response_watch = GetDemuxer()->WatchMessageType(
+          endpoint_id, msgs::Type::kPresentationUrlAvailabilityResponse, this);
     }
     return watch_id;
   }
