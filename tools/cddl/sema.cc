@@ -8,10 +8,13 @@
 #include <unistd.h>
 
 #include <cinttypes>
+#include <cstdlib>
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
+
+#include "third_party/abseil/src/absl/strings/string_view.h"
 
 CddlType::CddlType() : map(nullptr) {}
 CddlType::~CddlType() {
@@ -100,7 +103,7 @@ void CppType::InitDiscriminatedUnion() {
   new (&discriminated_union) DiscriminatedUnion();
 }
 
-void InitString(std::string* s, const std::string& value) {
+void InitString(std::string* s, absl::string_view value) {
   new (s) std::string(value);
 }
 
@@ -144,8 +147,9 @@ CddlType* AnalyzeType2(CddlSymbolTable* table, const AstNode& type2) {
       const char* end = type2.text.data() + 3;
       while ('0' <= *end && *end <= '9')
         ++end;
-      tagged_type->tagged_type.tag_value =
-          atoll(type2.text.substr(3, end - type2.text.data()).c_str());
+
+      absl::string_view view = type2.text.substr(3, end - type2.text.data());
+      tagged_type->tagged_type.tag_value = atoll(std::string(view).c_str());
       tagged_type->tagged_type.type = AnalyzeType(table, *node);
       return tagged_type;
     }
@@ -219,7 +223,7 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
                        CddlGroup::Entry* entry) {
   const AstNode* node = group_entry.children;
   if (node->type == AstNode::Type::kOccur) {
-    entry->opt_occurrence = node->text;
+    entry->opt_occurrence = std::string(node->text);
     node = node->sibling;
   }
   if (node->type == AstNode::Type::kMemberKey) {
@@ -227,7 +231,7 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
       return false;
     entry->which = CddlGroup::Entry::Which::kType;
     InitGroupEntry(&entry->type);
-    entry->type.opt_key = node->children->text;
+    entry->type.opt_key = std::string(node->children->text);
     node = node->sibling;
   }
   if (node->type == AstNode::Type::kType) {
@@ -332,7 +336,7 @@ std::pair<bool, CddlSymbolTable> BuildSymbolTable(const AstNode& rules) {
     return result;
   }
   bool is_type = node->type == AstNode::Type::kTypename;
-  table.root_rule = node->text;
+  table.root_rule = std::string(node->text);
 
   node = node->sibling;
   if (node->type != AstNode::Type::kAssign)
