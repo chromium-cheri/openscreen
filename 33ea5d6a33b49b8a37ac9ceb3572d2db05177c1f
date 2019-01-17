@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "30402fb2_b3fd0317",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "It looks like it sets it to zero, not empty when I use the empty constructor. I have to call the constructor with (absl::nullopt), which IMO is kludgier than this.",
+      "parentUuid": "e76f9eeb_e2aed072",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c6be4e5_d82d0adc",
         "filename": "base/ip_address.cc",
         "patchSetId": 7
@@ -50,6 +68,24 @@
       "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "747ced3e_9d65a6c5",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "Yeah, copy works fine.",
+      "parentUuid": "6c6be4e5_d82d0adc",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +129,24 @@
     },
     {
       "key": {
+        "uuid": "99cef4fb_ed5970a8",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "We don\u0027t get any error info, which is why I didn\u0027t opt for ErrorOr. We just get -1 down at the platform layer.",
+      "parentUuid": "4b10a1c5_45085b7a",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aad3b7c_6e2a91cc",
         "filename": "platform/base/event_loop.cc",
         "patchSetId": 7
@@ -127,6 +181,24 @@
     },
     {
       "key": {
+        "uuid": "b2a31b56_589a9bce",
+        "filename": "platform/mac/network_interface.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "The -1 is bogus, since this is unsigned. I\u0027ll move this to a OSP_CHECK, and we can discuss tomorrow if there\u0027s still room for improvement :).",
+      "parentUuid": "daf0ce5b_331e8cf9",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "942b8c60_45d880f9",
         "filename": "platform/mac/network_interface.cc",
         "patchSetId": 7
@@ -144,6 +216,24 @@
     },
     {
       "key": {
+        "uuid": "4ebb99a2_a3cc971e",
+        "filename": "platform/mac/network_interface.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "Stupid question: this obviously means I\u0027m not doing the Mac build when I run autoninja. Do I need to get an enlistment on a macbook to test mac specific code, or can I give ninja a different build configuration to test mac code on linux?",
+      "parentUuid": "942b8c60_45d880f9",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69da5b17_80fa5850",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 7
@@ -158,6 +248,24 @@
       "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22362466_2d529042",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong preference. I was recommended to switch to {} in other feedback, I\u0027ll move to \"return absl::nullopt\" and if there\u0027s further contention we can talk about it.",
+      "parentUuid": "69da5b17_80fa5850",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -184,6 +292,30 @@
     },
     {
       "key": {
+        "uuid": "7015fdfb_36d646c6",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "optional provides overloads of common cases, such as this. If you try to dereference it, it will throw an error if not set.",
+      "parentUuid": "f586b456_94ab7f50",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2ccb33c_251c12c9",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 7
@@ -201,6 +333,24 @@
     },
     {
       "key": {
+        "uuid": "8ab85465_bfb95b73",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "I do what I can. Definitely more room for improvement, but this is fine-ish.",
+      "parentUuid": "e2ccb33c_251c12c9",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "960941c7_099fc476",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 7
@@ -215,6 +365,24 @@
       "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30c33358_9d47ee84",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-17T05:49:18Z",
+      "side": 1,
+      "message": "Fair enough. I\u0027m down to switch, it looks alright.",
+      "parentUuid": "960941c7_099fc476",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
