@@ -1,0 +1,1518 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78641c61_3e0cdd9e",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "I know I\u0027m being picky, but it seems like the right order here would be (info, role, delegate).",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30c9e14e_b8b66dcf",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "And presentation_ seems like a better name than info_ (later you\u0027ll have presentation_.id, etc).",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff3c6699_a6a47aa2",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Can we use an optional here?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebbc045a_5c9ab23c",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "The connection_id_ \u003d 0; stream_ \u003d nullptr; state_ \u003d State::kConnecting would be nice in the class declaration.  For ones that are always the same across all constructors, that\u0027s a nice place to put it.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73b4f06e_2bf5defe",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "And can we call stream_ protocol_connection_ instead?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cd94ac6_130da9cf",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "So there can only ever be one controller or receiver?  That seems strange.  \n\nIt seems like it would be better to let the controller or receiver add themselves as delegates to learn about connection destruction rather than having the Connection make these kinds of assumptions.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c201ed_23110e01",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "When is this called?  I don\u0027t see it used anywhere.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a4ced1d_ede21498",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Can you remind me what an endpoint_id is?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5b014c0_20f7f106",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Stream seems like a strange name here.  Perhaps protocol_connection?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "234b69b2_1181d5f1",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Would \"const std::string\u0026\" make sense or will this be more efficient?  I honestly don\u0027t know.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0005aa41_f5e2d24e",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Is there a more readable way to do this?  cobr_message.message \u003d std::move(message) would be ideal.  cobr_message.message.str \u003d std::move(message) would be OK.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f29ec0ff_8a74f187",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Can you do early return style?\n\nif (!msgs::EncodePresentationConnectionMessage(cbor_message, \u0026buffer)) {\n  OSP_LOG_WARN \u003c\u003c \"failed to send connection message\";\n}\nstream_-\u003eWrite(buffer.data(), buffer.size())",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbfff572_a587df39",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "You made a bunch of helper functions for msgs::Encode+Write.  Why not for this one too?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1588ea0_01180362",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "All the same comments as for SendString.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03a3dac5_5eb18a81",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "We reset the stream and then we get the stream again?  Why do we do that?  Whatever the answer, please leave a comment.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e442e392_feda1974",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Since this is a connection, id_ would probably be enough instead of connection_id_.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee09389_54a4ee06",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "I don\u0027t understand what the TODO action is.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e04bb8_1dda0cd7",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Could you put this convestion in is own function?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "395d32c0_f7dc9d9b",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "early return her as well",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3528f79_350d7d06",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "You made a bunch of helper functions for msgs::Encode+Write.  Why not for this one too?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8e7eacc_1f01ef7e",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "This would be much more clear as connections_[connection-\u003epresentation_id()] or connections_[connection-\u003epresentation().id].  It was confusing that connection-\u003eid() wasn\u0027t a connection id.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a885491_298f9d28",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Is this just a small optimization? Or to avoid some unused variable warning?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a3834a0_0168c3c7",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Can we use a composite key for the map instead so we can just have one layer of maps?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a7d74bb_638bd387",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "This might be a nice helper method called ForgetCloseRequests(connection).",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52b99e0f_31e904a1",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Why not return an error (if the type is ErrorOr)?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ca9a381_c8b8a5ec",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "You did an early return, so you can remove the else and shift everything left.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd36232_a7654cf8",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Again with ErrorOr",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a15b1b17_071a38ce",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "early return here as well",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16406245_34e9fe1d",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Why is the cast needed?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd60c5c_c70e820f",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Why do we need to do this instead of having the Connection send the message before closing?\n\nAnd you made a bunch of helper functions for msgs::Encode+Write.  Why not for this one too?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95726976_6a1f68e6",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Please flip around and use an early return for the failure case.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fae9596_87462068",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "It seems like we should do something with the request_entry, like notify the closer that the close was acked.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09e7d4ab_d8a88530",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Early return again.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af3913ba_d7225747",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Would it make sense to make a helper method of GetConnectionStateOrLog?  I\u0027ve seen the same code 3 places.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e30a0f_ef5e5889",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "The spec says to close the connection if we get a message we don\u0027t understand.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc0928e3_5cfeb4fc",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "This is not encoding.  It\u0027s *writing*.  Shouldn\u0027t we call these methods WriteX?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34205c59_f982dfaf",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Even for small things, I\u0027m a fan of early returns.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c4e068a_bb5a661b",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Error?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "660c18e8_34029664",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Early returns :).",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb7394c9_65ff18bb",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "0, 0?\n\nPlease make local variables (to give them names) with explanations.\n\nauto client_id \u003d 0;  // 0 because ...\nauto request_duration \u003d 0;  // 0 because ...",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c96fe2a_81e0e7bc",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Another place for msgs::Encode+Write method would make sense.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02913279_f5757074",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Early return please",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f62bebbb_eb68b235",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Why are we storing a response we haven\u0027t sent instead of just the request?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "419820ea_575d8f30",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Why are we storing the connection in the response rather than just the endpoint_id?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5f77978_0802481c",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Early return.   Sorry, I\u0027m a broken record.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74a71fb6_3e53993e",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "What if we get an open request for a presentation that hasn\u0027t started yet?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80f3c620_53d4e19f",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "OK, this line of code is starting to get really common.  Can we have a GetProtocolConnection(endpoint_id) helper method?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffaabc75_7cedccdf",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Same here: why not store the endpoint_id, and why not store it as requests instead of as responses?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61d6f873_5984d110",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "pop_back()?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c83ce13_a48c3ea4",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Early return",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4582bd1c_0f600859",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "In general, for log comments that are a sentence, can you capitalize it?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da0824ce_d4d3728c",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "What if we get a terminate request for a presentation that hasn\u0027t started yet?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "757e0f41_5fd5be3b",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Why do we want to work with the assumption that there\u0027s only one Receiver?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7bbb1a6_5ea4045e",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "A helper function for this may be nice as well: GetMessageDemuxer",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82b4002d_e3195353",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Early return :)",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec96dabe_05945490",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "StopWatching() from the other CL?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccfac03b_186bd2f6",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "It takes a while to understand what this loop does.  \n\nIt might be more clear with something like:\n\nstd::vector\u003cstring\u003e presentation_ids_to_remove(presentations_.size());\nfor (auto\u0026 it : presentations_) {\n  presentations_ids_to_removed.push_back(it.first);\n}\nfor (auto\u0026 it : presentation_ids_to_remove) {\n  OnPresentationTerminated(TerminationReason::kReceiverShuttingDown);\n}",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66219b88_c4fd3e0c",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "TODO?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fadc8eae_b53be8ff",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Instead of 3 map look-ups, could you use one?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dc86daa_50cab308",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "An early return when result !\u003d kSuccess would be nice.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be4c6470_b0ff51d8",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "What if there is no presentation or if the presentation hasn\u0027t started yet?  Will this auto-add?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e3f627_e16134a5",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "protocol_connection instead of stream",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c059a222_93e767fe",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "An early return would be nice here.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c322481_459806de",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Flipping this around and doing an early return would be nice.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b034a16_e8d278ed",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "A SendTerminationEvent helper method would help clean this up a bit.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698c7135_edc973fd",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "A composite key would be nice.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1317b4b9_c0d2876f",
+        "filename": "api/impl/quic/quic_service_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Can you put the QUIC bug fixing into a separate CL and land that separately?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3a50ee_0330ad87",
+        "filename": "api/public/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Could we also make this a separate CL?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1819e287_2f2d139d",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Why not ByRemote like OnClosed is?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96f9096_1520dc11",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Can\u0027t we use a \"const std::string\u0026\" here and let the caller copy if desired?  Or does the std::move magic get us what we want without doing that?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afbc50b7_16d6786b",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Same here with \"const std::vector\u003cuint8_t\u003e\u0026\"",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd80344e_910d1398",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "This is info about the Presentation, not the Connection, right?  If so, can we call it PresentationInfo?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2b8d289_dcb0ee9d",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "If Info is public why not just have \"const Info\u0026 presentation()\" ?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5666ff7_f9eec958",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Is there a good reason to need this?  If so, can you comment it?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea66fe16_7d850e21",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Great place for an optional!",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d4bca4a_1f81f9cc",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "That\u0027s a good question, and probably one for the spec.  Can you file an issue with that question?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "752a44bd_3136d3c4",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Hmmm.... something more explicit might be nice.  .observed() or .has_observer()?",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5f0e5be_40419fdf",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Again, something more explicit might be nice.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b55ba5_fad1fc6e",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "I\u0027d be in favor of that.",
+      "range": {
+        "startLine": 83,
+        "startChar": 73,
+        "endLine": 84,
+        "endChar": 0
+      },
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708f86cc_3e0746fd",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "I think it would be good to not assume singletons in general.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d796ced6_6fc1ae7a",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "When do we anticipate this will be used?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f94f9481_a6e70c3b",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Could use a comment.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16fedfd1_fc10e86b",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Could use a comment",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b20aeb96_ba885828",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Non-singleton would be nice.",
+      "range": {
+        "startLine": 59,
+        "startChar": 19,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97e1a26b_242acf04",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Comment?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a198d72_776d9417",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Comment?",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f5531a7_83ed9d22",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "This could use a comment about when things are added and removed.  \n\nAnd it appears that they are only added once the embedder starts the presentation, so perhaps we should call it started_presentations_.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cce2394_54ed0bec",
+        "filename": "api/public/protocol_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-01-17T00:06:02Z",
+      "side": 1,
+      "message": "Are we going to need it later?  If not, sure remove it.",
+      "revId": "425d265d82b273387a0bbe6444451af19d5a5fa2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
