@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "1de98719_ec3f62ef",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-18T00:31:53Z",
+      "side": 1,
+      "message": "How about double_colon_index \u003d absl::nullopt?",
+      "parentUuid": "30402fb2_b3fd0317",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c6be4e5_d82d0adc",
         "filename": "base/ip_address.cc",
         "patchSetId": 7
@@ -324,6 +342,24 @@
       "side": 1,
       "message": "Stupid question: this obviously means I\u0027m not doing the Mac build when I run autoninja. Do I need to get an enlistment on a macbook to test mac specific code, or can I give ninja a different build configuration to test mac code on linux?",
       "parentUuid": "942b8c60_45d880f9",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea56dda5_04620314",
+        "filename": "platform/mac/network_interface.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-18T00:31:53Z",
+      "side": 1,
+      "message": "If it compiles with clang, it *should* work on Mac.  However our Linux toolchain defaults to gcc.  Maybe we should just migrate to clang for Linux or add an option? This would be a good team meeting topic.\n\nHowever, clang might not be enough; you\u0027ll need a Mac because we need to compile against Mac system headers and use linkers from XCode.",
+      "parentUuid": "4ebb99a2_a3cc971e",
       "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
