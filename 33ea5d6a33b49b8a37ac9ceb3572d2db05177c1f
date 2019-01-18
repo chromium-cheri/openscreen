@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "9d62416b_d495256f",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-18T06:39:07Z",
+      "side": 1,
+      "message": "Yeah, that works. Updated :).",
+      "parentUuid": "1de98719_ec3f62ef",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c6be4e5_d82d0adc",
         "filename": "base/ip_address.cc",
         "patchSetId": 7
@@ -360,6 +378,24 @@
       "side": 1,
       "message": "If it compiles with clang, it *should* work on Mac.  However our Linux toolchain defaults to gcc.  Maybe we should just migrate to clang for Linux or add an option? This would be a good team meeting topic.\n\nHowever, clang might not be enough; you\u0027ll need a Mac because we need to compile against Mac system headers and use linkers from XCode.",
       "parentUuid": "4ebb99a2_a3cc971e",
+      "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bbb88655_20df8b9a",
+        "filename": "platform/mac/network_interface.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-18T06:39:07Z",
+      "side": 1,
+      "message": "Let\u0027s touch base about this tomorrow. Messing around with it, looks like running clang on linux isn\u0027t as simple as using the mac clang configuration in the ninja file -- I don\u0027t see any obvious way to do that without writing a new  toolchain / linux / BUILD.gn entry. I don\u0027t understand why we wouldn\u0027t just use clang for both, but I\u0027m sure there\u0027s other variables I\u0027m not yet aware of :).",
+      "parentUuid": "ea56dda5_04620314",
       "revId": "33ea5d6a33b49b8a37ac9ceb3572d2db05177c1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
