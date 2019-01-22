@@ -16,7 +16,7 @@ struct ClientConfig {
   ClientConfig();
   ~ClientConfig();
 
-  // The indexes of network interfaces that should be used by the Open Screen
+  // The indexes of network interfaces that should be used by the Open Receiver
   // Library.  The indexes derive from the values of
   // openscreen::platform::InterfaceInfo::index.
   std::vector<platform::InterfaceIndex> interface_indexes;

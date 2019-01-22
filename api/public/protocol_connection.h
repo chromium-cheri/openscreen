@@ -13,12 +13,12 @@ namespace openscreen {
 class Error;
 struct NetworkMetrics;
 
-// Represents an embedder's view of a connection between an Open Screen
+// Represents an embedder's view of a connection between an Open Receiver
 // controller and a receiver.  Both the controller and receiver will have a
 // ProtocolConnection object, although the information known about the other
 // party may not be symmetrical.
 //
-// A ProtocolConnection supports multiple protocols defined by the Open Screen
+// A ProtocolConnection supports multiple protocols defined by the Open Receiver
 // standard and can be extended by embedders with additional protocols.
 class ProtocolConnection {
  public:
@@ -40,10 +40,10 @@ class ProtocolConnection {
 
   // TODO(mfoltz): Define extension API exposed to embedders.  This would be
   // used, for example, to query for and implement vendor-specific protocols
-  // alongside the Open Screen Protocol.
+  // alongside the Open Receiver Protocol.
 
   // NOTE: ProtocolConnection instances that are owned by clients will have a
-  // ScreenInfo attached with data from discovery and QUIC connection
+  // ReceiverInfo attached with data from discovery and QUIC connection
   // establishment.  What about server connections?  We probably want to have
   // two different structures representing what the client and server know about
   // a connection.

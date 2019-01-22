@@ -4,23 +4,23 @@
 
 source_set("impl") {
   sources = [
+    "controller_publisher_impl.cc",
+    "controller_publisher_impl.h",
     "internal_services.cc",
     "internal_services.h",
+    "mdns_controller_publisher_factory.cc",
     "mdns_platform_service.cc",
     "mdns_platform_service.h",
+    "mdns_receiver_listener_factory.cc",
     "mdns_responder_service.cc",
     "mdns_responder_service.h",
-    "mdns_screen_listener_factory.cc",
-    "mdns_screen_publisher_factory.cc",
     "network_service_manager.cc",
     "presentation/url_availability_requester.cc",
     "presentation/url_availability_requester.h",
-    "screen_list.cc",
-    "screen_list.h",
-    "screen_listener_impl.cc",
-    "screen_listener_impl.h",
-    "screen_publisher_impl.cc",
-    "screen_publisher_impl.h",
+    "receiver_list.cc",
+    "receiver_list.h",
+    "receiver_listener_impl.cc",
+    "receiver_listener_impl.h",
   ]
 
   public_deps = [

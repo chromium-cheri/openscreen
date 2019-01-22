@@ -7,14 +7,14 @@
 
 #include <memory>
 
+#include "api/public/controller_publisher.h"
 #include "api/public/protocol_connection_client.h"
 #include "api/public/protocol_connection_server.h"
-#include "api/public/screen_listener.h"
-#include "api/public/screen_publisher.h"
+#include "api/public/receiver_listener.h"
 
 namespace openscreen {
 
-// Manages services run as part of the Open Screen Protocol Library.  Library
+// Manages services run as part of the Open Receiver Protocol Library.  Library
 // embedders should pass instances of required services to Create(), which will
 // instantiate the singleton instance of the NetworkServiceManager and take
 // ownership of the services.
@@ -26,8 +26,8 @@ class NetworkServiceManager final {
   // Creates the singleton instance of the NetworkServiceManager.  nullptr may
   // be passed for services not provided by the embedder.
   static NetworkServiceManager* Create(
-      std::unique_ptr<ScreenListener> mdns_listener,
-      std::unique_ptr<ScreenPublisher> mdns_publisher,
+      std::unique_ptr<ReceiverListener> mdns_listener,
+      std::unique_ptr<ControllerPublisher> mdns_publisher,
       std::unique_ptr<ProtocolConnectionClient> connection_client,
       std::unique_ptr<ProtocolConnectionServer> connection_server);
 
@@ -45,13 +45,13 @@ class NetworkServiceManager final {
   // listening services.
   void RunEventLoopOnce();
 
-  // Returns an instance of the mDNS screen listener, or nullptr if
+  // Returns an instance of the mDNS receiver listener, or nullptr if
   // not provided.
-  ScreenListener* GetMdnsScreenListener();
+  ReceiverListener* GetMdnsReceiverListener();
 
-  // Returns an instance of the mDNS screen publisher, or nullptr
+  // Returns an instance of the mDNS receiver publisher, or nullptr
   // if not provided.
-  ScreenPublisher* GetMdnsScreenPublisher();
+  ControllerPublisher* GetMdnsControllerPublisher();
 
   // Returns an instance of the protocol connection client, or nullptr
   // if not provided.
@@ -63,15 +63,15 @@ class NetworkServiceManager final {
 
  private:
   NetworkServiceManager(
-      std::unique_ptr<ScreenListener> mdns_listener,
-      std::unique_ptr<ScreenPublisher> mdns_publisher,
+      std::unique_ptr<ReceiverListener> mdns_listener,
+      std::unique_ptr<ControllerPublisher> mdns_publisher,
       std::unique_ptr<ProtocolConnectionClient> connection_client,
       std::unique_ptr<ProtocolConnectionServer> connection_server);
 
   ~NetworkServiceManager();
 
-  std::unique_ptr<ScreenListener> mdns_listener_;
-  std::unique_ptr<ScreenPublisher> mdns_publisher_;
+  std::unique_ptr<ReceiverListener> mdns_listener_;
+  std::unique_ptr<ControllerPublisher> mdns_publisher_;
   std::unique_ptr<ProtocolConnectionClient> connection_client_;
   std::unique_ptr<ProtocolConnectionServer> connection_server_;
 };

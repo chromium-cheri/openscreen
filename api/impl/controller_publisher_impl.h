@@ -2,24 +2,24 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_SCREEN_PUBLISHER_IMPL_H_
-#define API_IMPL_SCREEN_PUBLISHER_IMPL_H_
+#ifndef API_IMPL_CONTROLLER_PUBLISHER_IMPL_H_
+#define API_IMPL_CONTROLLER_PUBLISHER_IMPL_H_
 
-#include "api/public/screen_publisher.h"
+#include "api/public/controller_publisher.h"
 #include "base/macros.h"
 #include "base/with_destruction_callback.h"
 
 namespace openscreen {
 
-class ScreenPublisherImpl final : public ScreenPublisher,
-                                  public WithDestructionCallback {
+class ControllerPublisherImpl final : public ControllerPublisher,
+                                      public WithDestructionCallback {
  public:
   class Delegate {
    public:
     Delegate();
     virtual ~Delegate();
 
-    void SetPublisherImpl(ScreenPublisherImpl* publisher);
+    void SetPublisherImpl(ControllerPublisherImpl* publisher);
 
     virtual void StartPublisher() = 0;
     virtual void StartAndSuspendPublisher() = 0;
@@ -30,16 +30,16 @@ class ScreenPublisherImpl final : public ScreenPublisher,
    protected:
     void SetState(State state) { publisher_->SetState(state); }
 
-    ScreenPublisherImpl* publisher_ = nullptr;
+    ControllerPublisherImpl* publisher_ = nullptr;
   };
 
   // |observer| is optional.  If it is provided, it will receive appropriate
-  // notifications about this ScreenPublisher.  |delegate| is required and is
-  // used to implement state transitions.
-  ScreenPublisherImpl(Observer* observer, Delegate* delegate);
-  ~ScreenPublisherImpl() override;
+  // notifications about this ControllerPublisher.  |delegate| is required and
+  // is used to implement state transitions.
+  ControllerPublisherImpl(Observer* observer, Delegate* delegate);
+  ~ControllerPublisherImpl() override;
 
-  // ScreenPublisher overrides.
+  // ControllerPublisher overrides.
   bool Start() override;
   bool StartAndSuspend() override;
   bool Stop() override;
@@ -57,9 +57,9 @@ class ScreenPublisherImpl final : public ScreenPublisher,
 
   Delegate* const delegate_;
 
-  DISALLOW_COPY_AND_ASSIGN(ScreenPublisherImpl);
+  DISALLOW_COPY_AND_ASSIGN(ControllerPublisherImpl);
 };
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_SCREEN_PUBLISHER_IMPL_H_
+#endif  // API_IMPL_CONTROLLER_PUBLISHER_IMPL_H_

@@ -69,7 +69,7 @@ class ProtocolConnectionClient {
   // NOTE: Currently we do not support Suspend()/Resume() for the connection
   // client.  Add those if we can define behavior for the OSP protocol and QUIC
   // for those operations.
-  // See: https://github.com/webscreens/openscreenprotocol/issues/108
+  // See: https://github.com/webreceivers/openscreenprotocol/issues/108
 
   // Stops listening and cancels any search in progress.
   // Returns true if state() != (kStopped|kStopping).
