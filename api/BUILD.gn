@@ -24,15 +24,15 @@ source_set("api_unittests") {
   testonly = true
 
   sources = [
+    "impl/service_publisher_impl_unittest.cc",
     "impl/mdns_responder_service_unittest.cc",
     "impl/presentation/url_availability_requester_unittest.cc",
     "impl/quic/quic_client_unittest.cc",
     "impl/quic/quic_server_unittest.cc",
-    "impl/screen_list_unittest.cc",
-    "impl/screen_listener_impl_unittest.cc",
-    "impl/screen_publisher_impl_unittest.cc",
+    "impl/receiver_list_unittest.cc",
+    "impl/service_listener_impl_unittest.cc",
     "public/message_demuxer_unittest.cc",
-    "public/screen_info_unittest.cc",
+    "public/receiver_info_unittest.cc",
   ]
 
   deps = [
