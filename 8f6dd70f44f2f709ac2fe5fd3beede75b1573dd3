@@ -1,0 +1,327 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85a6fcb0_486e3889",
+        "filename": "api/impl/controller_publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "This API is managing the publishing of the QUIC server endpoint through mDNS, so it should be\nServicePublisher/ServicePublisherImpl.",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea438bcc_56223d4f",
+        "filename": "api/impl/mdns_controller_publisher_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "MdnsServicePublisherFactory",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "670b6557_6763fa0d",
+        "filename": "api/impl/mdns_receiver_listener_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "Hmmm.  In this situation, an mDNS listener is used by clients to discover QUIC server endpoints.\n\nI would put forth ServiceListener / MdnsServiceListenerFactory / etc.  But I am definitely open to suggestions.",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "238eaf32_dd7c8f31",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "ServiceId",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b093036a_62c6c4d3",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "This is definitely OK as the Presentation/Remote Playback API specs use \"receiver\" to describe the thing that accepts commands to present/play back.",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6e1129c_24857d38",
+        "filename": "api/impl/receiver_list.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "👍",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9e02749_f362e719",
+        "filename": "api/public/client_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "Let\u0027s keep calling it Open Screen Library, since that\u0027s consistent with the spec.\nEven if we won\u0027t use \"Screen\" in the code any more 😆",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675b0054_7dfc6014",
+        "filename": "api/public/controller_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "I think this should be ServerPublisherError",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7b6149_6fb77bbe",
+        "filename": "api/public/controller_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "s/receiver/service/ here and below",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8bea775_a2640852",
+        "filename": "api/public/controller_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "ProtocolConnectionServer?",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7988ef00_273a7bee",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "👍",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d8fe4dd_a37fd42e",
+        "filename": "api/public/protocol_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "s/Receiver/Screen/ here and below as part of \"Open Screen\"",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc8847d8_500293fa",
+        "filename": "api/public/protocol_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "ServiceInfo",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7c1c83_4c8878e8",
+        "filename": "api/public/protocol_connection_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35ca7f0_10ae5917",
+        "filename": "api/public/receiver_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "s/receiver/Open Screen service/",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fbe0a35_ffcc918e",
+        "filename": "api/public/receiver_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "s/ReceiverInfo/ServiceInfo/",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0927408_ede283f3",
+        "filename": "api/public/receiver_listener.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "s/ReceiverListener/ServiceListener/ here and below",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c208ccb7_28c0d918",
+        "filename": "api/public/server_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "s/Receiver/Screen/ here and below",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6fb8c30_af2dfe11",
+        "filename": "base/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-23T23:00:16Z",
+      "side": 1,
+      "message": "👍",
+      "revId": "8f6dd70f44f2f709ac2fe5fd3beede75b1573dd3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
