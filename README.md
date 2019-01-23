@@ -26,10 +26,6 @@ copy of the following build tools:
  - Build file generator: `gn`
  - Code formatter: `clang-format`
 
-You will have to obtain and install these yourself:
-
- - Compiler toolchain: Currently, this is `gcc` on Linux, and `clang` on Mac
-   (from Xcode).
  - Builder: `ninja`
 
    [GitHub releases](https://github.com/ninja-build/ninja/releases)
@@ -44,6 +40,11 @@ necessary submodules:
   git submodule init
   git submodule update
 ```
+
+ One of the submodules is the compiler toolchain: Currently, this is `clang` by
+ default on both Linux and  Mac (from Xcode). Passing the "is_gcc=true" flag on
+ Linux enables building using gcc instead. Note that g++ must be installed
+ for this to work.
 
 The following commands will build the current example executable and run it.
 
