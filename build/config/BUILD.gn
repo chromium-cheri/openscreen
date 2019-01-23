@@ -22,6 +22,12 @@ config("compiler_defaults") {
   }
   if (is_posix && !is_mac) {
     ldflags += [ "-Wl,--fatal-warnings" ]
+    if (is_clang) {
+      ldflags += [
+        "-stdlib=libc++",
+        "-I$clang_base_path/lib/clang/$clang_version/include"
+      ]
+    }
   }
 }
 
