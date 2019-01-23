@@ -61,6 +61,14 @@ declare_args() {
   # Debug build.  Most global debug build flags are declared in
   # //build/config/BUILD.gn.
   is_debug = false
+
+  # By default, we use the clang compiler on both Mac and Linux. To use the
+  # gcc compiler on Linux instead, set is_gcc to true.
+  is_gcc = false
+}
+
+declare_args() {
+  is_clang = !is_gcc
 }
 
 # ==============================================================================
@@ -68,14 +76,9 @@ declare_args() {
 # ==============================================================================
 #
 # Here we set the default toolchain. Currently only Mac and POSIX are defined.
-
 if (current_os == "chromeos" || current_os == "linux") {
-  is_clang = false
-  is_gcc = true
-  set_default_toolchain("//build/toolchain/linux:gcc")
+  set_default_toolchain("//build/toolchain/linux:linux")
 } else if (current_os == "mac") {
-  is_clang = true
-  is_gcc = false
   set_default_toolchain("//build/toolchain/mac:clang")
 } else {
   # TODO(miu): Windows, and others.
