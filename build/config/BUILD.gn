@@ -21,7 +21,14 @@ config("compiler_defaults") {
     ldflags += [ "-pthread" ]
   }
   if (is_posix && !is_mac) {
-    ldflags += [ "-Wl,--fatal-warnings" ]
+    if (is_gcc) {
+      ldflags += [ "-Wl,--fatal-warnings" ]
+    } else if (is_clang) {
+      ldflags += [
+        "-lstdc++",
+        "-stdlib=libc++",
+      ]
+    }
   }
 }
 
