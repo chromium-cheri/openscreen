@@ -1,0 +1,151 @@
+diff --git a/tools/update-clang-toolchain.py b/tools/update-clang-toolchain.py
+deleted file mode 100755
+index 6dc75e5..0000000
+--- a/tools/update-clang-toolchain.py
++++ /dev/null
+@@ -1,144 +0,0 @@
+-#!/usr/bin/env python
+-
+-# Copyright 2019 The Chromium Authors. All rights reserved.
+-# Use of this source code is governed by a BSD-style license that can be
+-# found in the LICENSE file.
+-
+-"""
+-This script is used to download the clang toolchain on Mac, Linux
+-"""
+-
+-import base64
+-import os
+-import subprocess
+-from sys import platform
+-import tarfile
+-
+-def decode_base64(base64_file):
+-  file_contents = ""
+-  with open(base64_file, "r") as f:
+-    file_contents = f.read()
+-
+-  with open(base64_file, 'w') as f:
+-    f.write(base64.b64decode(file_contents))
+-
+-class BuildDependency:
+-  def __init__(self, url, revision, local_path=""):
+-    self.url = url
+-    self.revision = revision
+-    if local_path:
+-      self.local_path = local_path
+-    else:
+-      _, self.local_path = os.path.split(url)
+-
+-  def is_resolved(self):
+-    return os.path.exists(self.local_path)
+-
+-  def resolve(self):
+-    subprocess.call(["curl", "-Lo", self.local_path, self.url])
+-
+-class GitDependency(BuildDependency):
+-  def __init__(self, url, revision, local_path=""):
+-    BuildDependency.__init__(self, url, revision, local_path)
+-    if not local_path:
+-      _, filename = os.path.split(url)
+-      self.local_path, _ = os.path.splitext(filename)
+-
+-  def is_resolved(self):
+-    if os.path.isdir(self.local_path):
+-      cwd = os.getcwd()
+-      os.chdir(self.local_path)
+-      head_version = subprocess.check_output(["git", "rev-parse", "HEAD"])
+-      os.chdir(cwd)
+-      return head_version == self.revision
+-
+-  def resolve(self):
+-    cwd = os.getcwd()
+-    if not os.path.isdir(self.local_path):
+-      subprocess.call(["git", "clone", self.url, self.local_path])
+-
+-    os.chdir(self.local_path)
+-    subprocess.call(["git", "checkout", self.revision])
+-    os.chdir(cwd)
+-
+-class TarGzDependency(BuildDependency):
+-  def __init__(self, url, revision, local_path=""):
+-    BuildDependency.__init__(self, url, revision, local_path)
+-    self.version_filename = "{}.version".format(self.local_path)
+-
+-  def is_resolved(self):
+-    if os.path.exists(self.version_filename):
+-      with open(self.version_filename, 'r') as f:
+-        version = f.read()
+-        return version == self.revision
+-    return False
+-
+-  def resolve(self):
+-    BuildDependency.resolve(self)
+-    tar = tarfile.open(self.local_path, "r:gz")
+-    tar.extractall()
+-    tar.close()
+-    with open(self.version_filename, 'w') as f:
+-      f.write(self.revision)
+-
+-class Base64FileDependency(BuildDependency):
+-  def __init__(self, url, revision, local_path=""):
+-    BuildDependency.__init__(self, url, revision, local_path)
+-
+-  def resolve(self):
+-    print ("Resolving base64 dep on {}".format(self.local_path))
+-    BuildDependency.resolve(self)
+-    decode_base64(self.local_path)
+-
+-CHROMIUM_URL = "https://chromium.googlesource.com/chromium"
+-COMMON_DATA_STORAGE_URL = "https://commondatastorage.googleapis.com"
+-
+-BUILD_DEPENDENCIES = [
+-  GitDependency(
+-    '{}/llvm-project/libcxx.git'.format(CHROMIUM_URL),
+-   '2199647acb904b91eea0a5e045f5b227c87d6e85',
+-   'libcxx/trunk'
+-   ),
+-   Base64FileDependency(
+-     '{}/buildtools/+/master/third_party/libc++/BUILD.gn?format=TEXT'
+-      .format(CHROMIUM_URL),
+-     '',
+-     'libcxx/BUILD.gn'
+-   )
+-]
+-
+-if platform == 'darwin':
+-  BUILD_DEPENDENCIES.append(TarGzDependency(
+-    '{}/chromium-browser-clang/Mac/clang-148039.tgz'
+-      .format(COMMON_DATA_STORAGE_URL),
+-   '1833085742de1d2a82dad0625f9cae81'))
+-
+-if platform == 'linux2' or platform == 'linux':
+-  BUILD_DEPENDENCIES.append(TarGzDependency(
+-    '{}/chromium-browser-clang/Linux_x64/clang-352138-1.tgz'
+-      .format(COMMON_DATA_STORAGE_URL),
+-   'd8254afed13d25218c37363f140cf0ca'))
+-
+-def get_buildtools_path():
+-  """Returns the absolute path to where the build tools should live"""
+-  root_dir = subprocess.check_output(['git', 'rev-parse', '--show-toplevel']).rstrip()
+-  return os.path.join(root_dir, 'buildtools')
+-
+-def switch_to_path(path):
+-  """This method handles switching a folder, whether or not it already exists"""
+-  if not os.path.exists(path):
+-    os.makedirs(path)
+-  os.chdir(path)
+-
+-def main():
+-  switch_to_path(get_buildtools_path())
+-
+-  for dependency in BUILD_DEPENDENCIES:
+-    if not dependency.is_resolved():
+-      print ("Resolving dependency on {}...".format(dependency.url))
+-      dependency.resolve()
+-
+-  print ("All dependencies have been resolved")
+-
+-if __name__ == "__main__":
+-  main()
+\ No newline at end of file
