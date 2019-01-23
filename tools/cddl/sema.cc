@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 #include <cinttypes>
+#include <cstdlib>
 #include <map>
 #include <memory>
 #include <string>

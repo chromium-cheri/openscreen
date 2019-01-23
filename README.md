@@ -28,8 +28,19 @@ copy of the following build tools:
 
 You will have to obtain and install these yourself:
 
- - Compiler toolchain: Currently, this is `gcc` on Linux, and `clang` on Mac
-   (from Xcode).
+ - Compiler toolchain: Currently, this is `clang` by default on both Linux and
+ Mac (from Xcode). Passing the "is_gcc" flag on Linux enables building using
+ gcc instead.
+
+ On gLinux, you want to make sure that the clang-4.0 and libstdc++6 packages
+ are installed for using clang. In some cases, clang may have issues
+ linking against libstdc++, in which case created a symlink using the following
+ command may help:
+
+```
+ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libstdc++.so
+```
+
  - Builder: `ninja`
 
    [GitHub releases](https://github.com/ninja-build/ninja/releases)
