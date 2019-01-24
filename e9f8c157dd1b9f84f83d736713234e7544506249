@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7f5e32e_cecd5462",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T19:34:34Z",
+      "side": 1,
+      "message": "Please add a comment explaining why it\u0027s safe to use string_view for storage.",
+      "revId": "e9f8c157dd1b9f84f83d736713234e7544506249",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32e5233e_f4bf43e1",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T19:34:34Z",
+      "side": 1,
+      "message": "In general we\u0027ve defined assertion macros in platfom/api/logging.h: OSP_CHECK and friends.\nCan we use those instead?",
+      "revId": "e9f8c157dd1b9f84f83d736713234e7544506249",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be9fa5df_10b8746d",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T19:34:34Z",
+      "side": 1,
+      "message": "It would be convenient to use size_t instead.  Is that possible by adding a compile time assertion that sizeof(absl::string_view::size_type) \u003d\u003d sizeof(size_t)?",
+      "revId": "e9f8c157dd1b9f84f83d736713234e7544506249",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c2124f1_8c761d8a",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T19:34:34Z",
+      "side": 1,
+      "message": "This is a risky change because you\u0027re converting owned storage to an unowned pointer.",
+      "revId": "e9f8c157dd1b9f84f83d736713234e7544506249",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
