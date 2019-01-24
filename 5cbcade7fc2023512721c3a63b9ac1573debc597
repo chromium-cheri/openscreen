@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8453e891_1c9707f4",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "It looks like TimeDelta is being used to represent either a timestamp, or a span of time.  We also have base::time_t for timestamps.   Maybe we can consolidate on TimeDelta for an arbitrary span of time and time_t for microseconds since the epoch?",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ea71843_e8554b2e",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Could this just be ProtocolConnection stream(stream_ptr)?",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d5bae55_40863673",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Is this the same as ASSERT_TRUE(stream_ptr)?\nIn which case it could go before you allocate ProtocolConnection.\n\nSimilar comments apply to similar code below.",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a966e851_0504bdf1",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "In general this looks like a really thorough test (great!) but it looks like there\u0027s some common code across the test cases to set up observers, accept a connection, and parse the incoming PresentationUrlAvailabilityRequest.\n\nDo you see a way it could be simplified/consolidated?  (Fine to do in a later patch or to file a cleanup task).",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef691d09_70ae6b19",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Nit: Prefer blank line after a one-line for statement.",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "399eab20_ae72c68b",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Nit: Make this a one-liner.",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d36c9e4d_c5aa6a59",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Not sure how to answer this without looking at the observer implementation.",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "200f85a2_548e7bcd",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Do we need to close and reset the connection on an incoming stream?  Or is this just a placeholder until we are ready to handle incoming streams?",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb8fe43_c621e913",
+        "filename": "api/impl/quic/quic_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Nit: one-liner",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f0d5bb2_7e8eb5af",
+        "filename": "api/impl/quic/quic_server_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Note that GMock can handle moveable types by passing them to an ::Invoke lambda (although I don\u0027t know if that extends to types passed by rvalue reference).  And it looks like you\u0027re not using the |connection| value in the test case below anyway.\n\nSee, e.g. \n\nhttps://cs.chromium.org/chromium/src/chrome/browser/media/router/presentation/presentation_service_delegate_impl_unittest.cc?rcl\u003da76d739a391bd98123fa0e20082b07e70904a740\u0026l\u003d424\n\nCould ProtocolConnection be move-only and passed by value (instead of using std::unique_ptr)?",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd48146_2f661551",
+        "filename": "api/impl/quic/quic_service_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Can you say a bit about the expected lifecycle of the QuicProtocolConnection?\n\nClosing the streams and dropping pointers/references to any stream data structures could be done as part of an explicit Close() operation, and the dtor could assert that the connection has been closed (to avoid leaks).",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50afb97f_b781764a",
+        "filename": "api/impl/quic/testing/fake_quic_bridge.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "If these additional mocks are intended to be used outside of this class, maybe this file could be named quic_test_support.h.  I don\u0027t feel strongly though.",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddf53d0e_b8269447",
+        "filename": "api/public/protocol_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-24T23:34:53Z",
+      "side": 1,
+      "message": "Sure, go for it!",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
