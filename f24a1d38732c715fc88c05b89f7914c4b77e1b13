@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "21e3c05b_f6cdb97d",
+        "filename": "build/config/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-24T00:15:33Z",
+      "side": 1,
+      "message": "Yeah, I just messed up the format I think. I don\u0027t really understand the comma syntax used here. This flag works on clang after testing, so just adding for both.",
+      "parentUuid": "4255547b_861445d1",
+      "revId": "f24a1d38732c715fc88c05b89f7914c4b77e1b13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4cc2314_62523872",
         "filename": "build/config/BUILDCONFIG.gn",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "f24a1d38732c715fc88c05b89f7914c4b77e1b13",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdd44f89_3805d7fa",
+        "filename": "build/config/BUILDCONFIG.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-24T00:15:33Z",
+      "side": 1,
+      "message": "These flags are used in the linux/BUILD.gn, which apparently gets ran before the //build/config/BUILD.gn does. Making this change gives me the following error:\n\n-----\n\n[1/1] Regenerating ninja files\nFAILED: build.ninja\n../../gn --root\u003d../.. -q gen .\nERROR at //build/toolchain/linux/BUILD.gn:9:7: Undefined identifier\n  if (is_gcc) {\n      ^-----\nSee //BUILD.gn:7:1: which caused the file to be included.\ngroup(\"gn_all\") {\n\n-----\n\nFor now, I vote to leave them where they are, unless there is additional context I am missing.",
+      "parentUuid": "a4cc2314_62523872",
+      "revId": "f24a1d38732c715fc88c05b89f7914c4b77e1b13",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
