@@ -17,11 +17,11 @@ struct EventWaiterPrivate;
 using EventWaiterPtr = EventWaiterPrivate*;
 
 struct UdpSocketReadableEvent {
-  UdpSocketPtr socket;
+  UdpSocket* socket;
 };
 
 struct UdpSocketWritableEvent {
-  UdpSocketPtr socket;
+  UdpSocket* socket;
 };
 
 // This struct represents a set of events associated with a particular
@@ -46,20 +46,20 @@ void DestroyEventWaiter(EventWaiterPtr waiter);
 // Returns true if |socket| was successfully added to the set of watched
 // sockets, false otherwise.  It will also return false if |socket| is already
 // being watched.
-bool WatchUdpSocketReadable(EventWaiterPtr waiter, UdpSocketPtr socket);
+bool WatchUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket);
 
 // Returns true if |socket| was successfully removed from the set of watched
 // sockets.
-bool StopWatchingUdpSocketReadable(EventWaiterPtr waiter, UdpSocketPtr socket);
+bool StopWatchingUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket);
 
 // Returns true if |socket| was successfully added to the set of watched
 // sockets, false otherwise.  It will also return false if |socket| is already
 // being watched.
-bool WatchUdpSocketWritable(EventWaiterPtr waiter, UdpSocketPtr socket);
+bool WatchUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket);
 
 // Returns true if |socket| was successfully removed from the set of watched
 // sockets.
-bool StopWatchingUdpSocketWritable(EventWaiterPtr waiter, UdpSocketPtr socket);
+bool StopWatchingUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket);
 
 // Returns true if |waiter| successfully started monitoring network change
 // events, false otherwise.  It will also return false if |waiter| is already

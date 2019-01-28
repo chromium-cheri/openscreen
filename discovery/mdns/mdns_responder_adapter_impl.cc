@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "base/make_unique.h"
+#include "discovery/mdns/opaque_conversions.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {
@@ -239,14 +240,16 @@ bool MdnsResponderAdapterImpl::SetHostLabel(const std::string& host_label) {
 bool MdnsResponderAdapterImpl::RegisterInterface(
     const platform::InterfaceInfo& interface_info,
     const platform::IPSubnet& interface_address,
-    platform::UdpSocketPtr socket) {
+    platform::UdpSocket* socket) {
+  OSP_DCHECK(socket);
+
   const auto info_it = responder_interface_info_.find(socket);
   if (info_it != responder_interface_info_.end())
     return true;
 
   NetworkInterfaceInfo& info = responder_interface_info_[socket];
   std::memset(&info, 0, sizeof(NetworkInterfaceInfo));
-  info.InterfaceID = reinterpret_cast<decltype(info.InterfaceID)>(socket);
+  ConvertToOpaqueId(socket, &info.InterfaceID);
   info.Advertise = mDNSfalse;
   if (interface_address.address.IsV4()) {
     info.ip.type = mDNSAddrType_IPv4;
@@ -272,7 +275,7 @@ bool MdnsResponderAdapterImpl::RegisterInterface(
 }
 
 bool MdnsResponderAdapterImpl::DeregisterInterface(
-    platform::UdpSocketPtr socket) {
+    platform::UdpSocket* socket) {
   const auto info_it = responder_interface_info_.find(socket);
   if (info_it == responder_interface_info_.end())
     return false;
@@ -295,7 +298,7 @@ void MdnsResponderAdapterImpl::OnDataReceived(
     const IPEndpoint& original_destination,
     const uint8_t* data,
     size_t length,
-    platform::UdpSocketPtr receiving_socket) {
+    platform::UdpSocket* receiving_socket) {
   mDNSAddr src;
   if (source.address.IsV4()) {
     src.type = mDNSAddrType_IPv4;
@@ -318,9 +321,10 @@ void MdnsResponderAdapterImpl::OnDataReceived(
   mDNSIPPort dstport;
   AssignMdnsPort(&dstport, original_destination.port);
 
+  mDNSInterfaceID mdns_id;
+  ConvertToOpaqueId(receiving_socket, &mdns_id);
   mDNSCoreReceive(&mdns_, const_cast<uint8_t*>(data), data + length, &src,
-                  srcport, &dst, dstport,
-                  reinterpret_cast<mDNSInterfaceID>(receiving_socket));
+                  srcport, &dst, dstport, mdns_id);
 }
 
 int MdnsResponderAdapterImpl::RunTasks() {
@@ -351,7 +355,7 @@ std::vector<AaaaEvent> MdnsResponderAdapterImpl::TakeAaaaResponses() {
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartPtrQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& service_type) {
   auto& ptr_questions = socket_to_questions_[socket].ptr;
   if (ptr_questions.find(service_type) != ptr_questions.end())
@@ -359,7 +363,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartPtrQuery(
 
   auto& question = ptr_questions[service_type];
 
-  question.InterfaceID = reinterpret_cast<mDNSInterfaceID>(socket);
+  ConvertToOpaqueId(socket, &question.InterfaceID);
   question.Target = {0};
   if (service_type.EndsWithLocalDomain()) {
     std::copy(service_type.domain_name().begin(),
@@ -396,7 +400,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartPtrQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartSrvQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& service_instance) {
   if (!service_instance.EndsWithLocalDomain())
     return MdnsResponderErrorCode::kInvalidParameters;
@@ -407,7 +411,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartSrvQuery(
 
   auto& question = srv_questions[service_instance];
 
-  question.InterfaceID = reinterpret_cast<mDNSInterfaceID>(socket);
+  ConvertToOpaqueId(socket, &question.InterfaceID);
   question.Target = {0};
   std::copy(service_instance.domain_name().begin(),
             service_instance.domain_name().end(), question.qname.c);
@@ -433,7 +437,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartSrvQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartTxtQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& service_instance) {
   if (!service_instance.EndsWithLocalDomain())
     return MdnsResponderErrorCode::kInvalidParameters;
@@ -444,7 +448,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartTxtQuery(
 
   auto& question = txt_questions[service_instance];
 
-  question.InterfaceID = reinterpret_cast<mDNSInterfaceID>(socket);
+  ConvertToOpaqueId(socket, &question.InterfaceID);
   question.Target = {0};
   std::copy(service_instance.domain_name().begin(),
             service_instance.domain_name().end(), question.qname.c);
@@ -470,7 +474,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartTxtQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& domain_name) {
   if (!domain_name.EndsWithLocalDomain())
     return MdnsResponderErrorCode::kInvalidParameters;
@@ -483,7 +487,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAQuery(
   std::copy(domain_name.domain_name().begin(), domain_name.domain_name().end(),
             question.qname.c);
 
-  question.InterfaceID = reinterpret_cast<mDNSInterfaceID>(socket);
+  ConvertToOpaqueId(socket, &question.InterfaceID);
   question.Target = {0};
   question.qtype = kDNSType_A;
   question.qclass = kDNSClass_IN;
@@ -507,7 +511,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAaaaQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& domain_name) {
   if (!domain_name.EndsWithLocalDomain())
     return MdnsResponderErrorCode::kInvalidParameters;
@@ -520,7 +524,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAaaaQuery(
   std::copy(domain_name.domain_name().begin(), domain_name.domain_name().end(),
             question.qname.c);
 
-  question.InterfaceID = reinterpret_cast<mDNSInterfaceID>(socket);
+  ConvertToOpaqueId(socket, &question.InterfaceID);
   question.Target = {0};
   question.qtype = kDNSType_AAAA;
   question.qclass = kDNSClass_IN;
@@ -544,7 +548,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StartAaaaQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopPtrQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& service_type) {
   auto interface_entry = socket_to_questions_.find(socket);
   if (interface_entry == socket_to_questions_.end())
@@ -561,7 +565,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StopPtrQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopSrvQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& service_instance) {
   auto interface_entry = socket_to_questions_.find(socket);
   if (interface_entry == socket_to_questions_.end())
@@ -578,7 +582,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StopSrvQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopTxtQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& service_instance) {
   auto interface_entry = socket_to_questions_.find(socket);
   if (interface_entry == socket_to_questions_.end())
@@ -595,7 +599,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StopTxtQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopAQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& domain_name) {
   auto interface_entry = socket_to_questions_.find(socket);
   if (interface_entry == socket_to_questions_.end())
@@ -612,7 +616,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::StopAQuery(
 }
 
 MdnsResponderErrorCode MdnsResponderAdapterImpl::StopAaaaQuery(
-    platform::UdpSocketPtr socket,
+    platform::UdpSocket* socket,
     const DomainName& domain_name) {
   auto interface_entry = socket_to_questions_.find(socket);
   if (interface_entry == socket_to_questions_.end())
@@ -747,8 +751,8 @@ void MdnsResponderAdapterImpl::AQueryCallback(mDNS* m,
       question->qname.c + DomainNameLength(&question->qname)));
   IPAddress address(answer->rdata->u.ipv4.b);
 
-  auto* adapter =
-      reinterpret_cast<MdnsResponderAdapterImpl*>(question->QuestionContext);
+  MdnsResponderAdapterImpl* adapter;
+  ConvertToPointer(&question->QuestionContext, &adapter);
   OSP_DCHECK(adapter);
   auto event_type = QueryEventHeader::Type::kAddedNoCache;
   if (added == QC_add) {
@@ -758,10 +762,10 @@ void MdnsResponderAdapterImpl::AQueryCallback(mDNS* m,
   } else {
     OSP_DCHECK_EQ(added, QC_addnocache);
   }
-  adapter->a_responses_.emplace_back(
-      QueryEventHeader{event_type, reinterpret_cast<platform::UdpSocketPtr>(
-                                       answer->InterfaceID)},
-      std::move(domain), address);
+  platform::UdpSocket* socket;
+  ConvertToPointer(&answer->InterfaceID, &socket);
+  adapter->a_responses_.emplace_back(QueryEventHeader{event_type, socket},
+                                     std::move(domain), address);
 }
 
 // static
@@ -777,8 +781,8 @@ void MdnsResponderAdapterImpl::AaaaQueryCallback(mDNS* m,
       question->qname.c + DomainNameLength(&question->qname)));
   IPAddress address(IPAddress::Version::kV6, answer->rdata->u.ipv6.b);
 
-  auto* adapter =
-      reinterpret_cast<MdnsResponderAdapterImpl*>(question->QuestionContext);
+  MdnsResponderAdapterImpl* adapter;
+  ConvertToPointer(&question->QuestionContext, &adapter);
   OSP_DCHECK(adapter);
   auto event_type = QueryEventHeader::Type::kAddedNoCache;
   if (added == QC_add) {
@@ -788,10 +792,10 @@ void MdnsResponderAdapterImpl::AaaaQueryCallback(mDNS* m,
   } else {
     OSP_DCHECK_EQ(added, QC_addnocache);
   }
-  adapter->aaaa_responses_.emplace_back(
-      QueryEventHeader{event_type, reinterpret_cast<platform::UdpSocketPtr>(
-                                       answer->InterfaceID)},
-      std::move(domain), address);
+  platform::UdpSocket* socket;
+  ConvertToPointer(&answer->InterfaceID, &socket);
+  adapter->aaaa_responses_.emplace_back(QueryEventHeader{event_type, socket},
+                                        std::move(domain), address);
 }
 
 // static
@@ -806,8 +810,8 @@ void MdnsResponderAdapterImpl::PtrQueryCallback(mDNS* m,
       answer->rdata->u.name.c,
       answer->rdata->u.name.c + DomainNameLength(&answer->rdata->u.name)));
 
-  auto* adapter =
-      reinterpret_cast<MdnsResponderAdapterImpl*>(question->QuestionContext);
+  MdnsResponderAdapterImpl* adapter;
+  ConvertToPointer(&question->QuestionContext, &adapter);
   OSP_DCHECK(adapter);
   auto event_type = QueryEventHeader::Type::kAddedNoCache;
   if (added == QC_add) {
@@ -817,10 +821,10 @@ void MdnsResponderAdapterImpl::PtrQueryCallback(mDNS* m,
   } else {
     OSP_DCHECK_EQ(added, QC_addnocache);
   }
-  adapter->ptr_responses_.emplace_back(
-      QueryEventHeader{event_type, reinterpret_cast<platform::UdpSocketPtr>(
-                                       answer->InterfaceID)},
-      std::move(result));
+  platform::UdpSocket* socket;
+  ConvertToPointer(&answer->InterfaceID, &socket);
+  adapter->ptr_responses_.emplace_back(QueryEventHeader{event_type, socket},
+                                       std::move(result));
 }
 
 // static
@@ -839,8 +843,8 @@ void MdnsResponderAdapterImpl::SrvQueryCallback(mDNS* m,
                            answer->rdata->u.srv.target.c +
                                DomainNameLength(&answer->rdata->u.srv.target)));
 
-  auto* adapter =
-      reinterpret_cast<MdnsResponderAdapterImpl*>(question->QuestionContext);
+  MdnsResponderAdapterImpl* adapter;
+  ConvertToPointer(&question->QuestionContext, &adapter);
   OSP_DCHECK(adapter);
   auto event_type = QueryEventHeader::Type::kAddedNoCache;
   if (added == QC_add) {
@@ -850,11 +854,11 @@ void MdnsResponderAdapterImpl::SrvQueryCallback(mDNS* m,
   } else {
     OSP_DCHECK_EQ(added, QC_addnocache);
   }
+  platform::UdpSocket* socket;
+  ConvertToPointer(&answer->InterfaceID, &socket);
   adapter->srv_responses_.emplace_back(
-      QueryEventHeader{event_type, reinterpret_cast<platform::UdpSocketPtr>(
-                                       answer->InterfaceID)},
-      std::move(service), std::move(result),
-      GetNetworkOrderPort(answer->rdata->u.srv.port));
+      QueryEventHeader{event_type, socket}, std::move(service),
+      std::move(result), GetNetworkOrderPort(answer->rdata->u.srv.port));
 }
 
 // static
@@ -870,8 +874,8 @@ void MdnsResponderAdapterImpl::TxtQueryCallback(mDNS* m,
       question->qname.c + DomainNameLength(&question->qname)));
   auto lines = ParseTxtResponse(answer->rdata->u.txt.c, answer->rdlength);
 
-  auto* adapter =
-      reinterpret_cast<MdnsResponderAdapterImpl*>(question->QuestionContext);
+  MdnsResponderAdapterImpl* adapter;
+  ConvertToPointer(&question->QuestionContext, &adapter);
   OSP_DCHECK(adapter);
   auto event_type = QueryEventHeader::Type::kAddedNoCache;
   if (added == QC_add) {
@@ -881,10 +885,10 @@ void MdnsResponderAdapterImpl::TxtQueryCallback(mDNS* m,
   } else {
     OSP_DCHECK_EQ(added, QC_addnocache);
   }
-  adapter->txt_responses_.emplace_back(
-      QueryEventHeader{event_type, reinterpret_cast<platform::UdpSocketPtr>(
-                                       answer->InterfaceID)},
-      std::move(service), std::move(lines));
+  platform::UdpSocket* socket;
+  ConvertToPointer(&answer->InterfaceID, &socket);
+  adapter->txt_responses_.emplace_back(QueryEventHeader{event_type, socket},
+                                       std::move(service), std::move(lines));
 }
 
 // static
@@ -894,8 +898,8 @@ void MdnsResponderAdapterImpl::ServiceCallback(mDNS* m,
   // TODO(btolsch): Handle mStatus_NameConflict.
   if (result == mStatus_MemFree) {
     OSP_DLOG_INFO << "free service record";
-    auto* adapter = reinterpret_cast<MdnsResponderAdapterImpl*>(
-        service_record->ServiceContext);
+    MdnsResponderAdapterImpl* adapter;
+    ConvertToPointer(&service_record->ServiceContext, &adapter);
     auto& service_records = adapter->service_records_;
     service_records.erase(
         std::remove_if(
@@ -912,12 +916,14 @@ void MdnsResponderAdapterImpl::ServiceCallback(mDNS* m,
 
 void MdnsResponderAdapterImpl::AdvertiseInterfaces() {
   for (auto& info : responder_interface_info_) {
-    platform::UdpSocketPtr socket = info.first;
+    platform::UdpSocket* const socket = info.first;
     NetworkInterfaceInfo& interface_info = info.second;
+
+    mDNSInterfaceID mdns_id;
+    ConvertToOpaqueId(&socket, &mdns_id);
     mDNS_SetupResourceRecord(&interface_info.RR_A, /** RDataStorage */ nullptr,
-                             reinterpret_cast<mDNSInterfaceID>(socket),
-                             kDNSType_A, kHostNameTTL, kDNSRecordTypeUnique,
-                             AuthRecordAny,
+                             mdns_id, kDNSType_A, kHostNameTTL,
+                             kDNSRecordTypeUnique, AuthRecordAny,
                              /** Callback */ nullptr, /** Context */ nullptr);
     AssignDomainName(&interface_info.RR_A.namestorage,
                      &mdns_.MulticastHostname);
@@ -945,7 +951,7 @@ void MdnsResponderAdapterImpl::DeadvertiseInterfaces() {
 }
 
 void MdnsResponderAdapterImpl::RemoveQuestionsIfEmpty(
-    platform::UdpSocketPtr socket) {
+    platform::UdpSocket* socket) {
   auto entry = socket_to_questions_.find(socket);
   bool empty = entry->second.a.empty() || entry->second.aaaa.empty() ||
                entry->second.ptr.empty() || entry->second.srv.empty() ||

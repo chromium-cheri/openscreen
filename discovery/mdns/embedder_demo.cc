@@ -96,28 +96,33 @@ void SignalThings() {
   OSP_LOG_INFO << "pid: " << getpid();
 }
 
-std::vector<platform::UdpSocketPtr> SetupMulticastSockets(
+std::vector<platform::UdpSocketUniquePtr> SetUpMulticastSockets(
     const std::vector<platform::NetworkInterfaceIndex>& index_list) {
-  std::vector<platform::UdpSocketPtr> fds;
+  std::vector<platform::UdpSocketUniquePtr> sockets;
   for (const auto ifindex : index_list) {
-    auto* socket = platform::CreateUdpSocketIPv4();
-    if (!JoinUdpMulticastGroup(socket, IPAddress{224, 0, 0, 251}, ifindex)) {
-      OSP_LOG_ERROR << "join multicast group failed for interface " << ifindex
+    auto socket =
+        platform::UdpSocket::Create(platform::UdpSocket::Version::kV4);
+    if (!socket) {
+      OSP_LOG_ERROR << "failed to create IPv4 socket for interface " << ifindex
                     << ": " << platform::GetLastErrorString();
-      DestroyUdpSocket(socket);
       continue;
     }
-    if (!BindUdpSocket(socket, {{}, 5353}, ifindex)) {
-      OSP_LOG_ERROR << "bind failed for interface " << ifindex << ": "
+    if (!socket->JoinMulticastGroup(IPAddress{224, 0, 0, 251}, ifindex)) {
+      OSP_LOG_ERROR << "join multicast group failed for interface " << ifindex
+                    << ": " << platform::GetLastErrorString();
+      continue;
+    }
+    if (!socket->SetMulticastOutboundInterface(ifindex) ||
+        !socket->Bind({{}, 5353})) {
+      OSP_LOG_ERROR << "multicast bind failed for interface " << ifindex << ": "
                     << platform::GetLastErrorString();
-      DestroyUdpSocket(socket);
       continue;
     }
 
     OSP_LOG_INFO << "listening on interface " << ifindex;
-    fds.push_back(socket);
+    sockets.emplace_back(std::move(socket));
   }
-  return fds;
+  return sockets;
 }
 
 void LogService(const Service& s) {
@@ -246,9 +251,14 @@ void BrowseDemo(const std::string& service_name,
       index_list.push_back(interface.info.index);
   }
 
-  auto sockets = SetupMulticastSockets(index_list);
-  // Listen on all interfaces
-  auto fd_it = sockets.begin();
+  auto sockets = SetUpMulticastSockets(index_list);
+  // The code below assumes the elements in |sockets| is in exact 1:1
+  // correspondence with the elements in |index_list|. Crash the demo if any
+  // sockets are missing (i.e., failed to be set up).
+  OSP_CHECK_EQ(sockets.size(), index_list.size());
+
+  // Listen on all interfaces.
+  auto socket_it = sockets.begin();
   for (platform::NetworkInterfaceIndex index : index_list) {
     const auto& addr = *std::find_if(
         interface_addresses.begin(), interface_addresses.end(),
@@ -257,7 +267,8 @@ void BrowseDemo(const std::string& service_name,
         });
     // Pick any address for the given interface.
     mdns_adapter->RegisterInterface(addr.info, addr.addresses.front(),
-                                    *fd_it++);
+                                    socket_it->get());
+    ++socket_it;
   }
 
   if (!service_instance.empty()) {
@@ -266,9 +277,9 @@ void BrowseDemo(const std::string& service_name,
                                   {{"k1", "yurtle"}, {"k2", "turtle"}});
   }
 
-  for (auto* socket : sockets) {
-    platform::WatchUdpSocketReadable(waiter, socket);
-    mdns_adapter->StartPtrQuery(socket, service_type);
+  for (const platform::UdpSocketUniquePtr& socket : sockets) {
+    platform::WatchUdpSocketReadable(waiter, socket.get());
+    mdns_adapter->StartPtrQuery(socket.get(), service_type);
   }
 
   while (!g_done) {
@@ -298,9 +309,9 @@ void BrowseDemo(const std::string& service_name,
     LogService(s.second);
   }
   platform::StopWatchingNetworkChange(waiter);
-  for (auto* socket : sockets) {
-    platform::StopWatchingUdpSocketReadable(waiter, socket);
-    mdns_adapter->DeregisterInterface(socket);
+  for (const platform::UdpSocketUniquePtr& socket : sockets) {
+    platform::StopWatchingUdpSocketReadable(waiter, socket.get());
+    mdns_adapter->DeregisterInterface(socket.get());
   }
   platform::DestroyEventWaiter(waiter);
   mdns_adapter->Close();

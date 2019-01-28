@@ -13,6 +13,11 @@ namespace platform {
 int GetLastError();
 std::string GetLastErrorString();
 
+// Returns true if the value returned from GetLastError() indicates a transient
+// condition where the caller should try again later (e.g., a socket operation
+// that would block a non-blocking socket).
+bool IsTryAgainError(int err);
+
 }  // namespace platform
 }  // namespace openscreen
 

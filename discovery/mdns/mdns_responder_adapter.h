@@ -28,13 +28,13 @@ struct QueryEventHeader {
   };
 
   QueryEventHeader();
-  QueryEventHeader(Type response_type, platform::UdpSocketPtr socket);
+  QueryEventHeader(Type response_type, platform::UdpSocket* socket);
   QueryEventHeader(const QueryEventHeader&);
   ~QueryEventHeader();
   QueryEventHeader& operator=(const QueryEventHeader&);
 
   Type response_type;
-  platform::UdpSocketPtr socket;
+  platform::UdpSocket* socket;
 };
 
 struct PtrEvent {
@@ -189,14 +189,14 @@ class MdnsResponderAdapter {
   // layer.
   virtual bool RegisterInterface(const platform::InterfaceInfo& interface_info,
                                  const platform::IPSubnet& interface_address,
-                                 platform::UdpSocketPtr socket) = 0;
-  virtual bool DeregisterInterface(platform::UdpSocketPtr socket) = 0;
+                                 platform::UdpSocket* socket) = 0;
+  virtual bool DeregisterInterface(platform::UdpSocket* socket) = 0;
 
   virtual void OnDataReceived(const IPEndpoint& source,
                               const IPEndpoint& original_destination,
                               const uint8_t* data,
                               size_t length,
-                              platform::UdpSocketPtr receiving_socket) = 0;
+                              platform::UdpSocket* receiving_socket) = 0;
 
   // Returns the number of seconds after which this method must be called again.
   virtual int RunTasks() = 0;
@@ -208,33 +208,33 @@ class MdnsResponderAdapter {
   virtual std::vector<AaaaEvent> TakeAaaaResponses() = 0;
 
   virtual MdnsResponderErrorCode StartPtrQuery(
-      platform::UdpSocketPtr socket,
+      platform::UdpSocket* socket,
       const DomainName& service_type) = 0;
   virtual MdnsResponderErrorCode StartSrvQuery(
-      platform::UdpSocketPtr socket,
+      platform::UdpSocket* socket,
       const DomainName& service_instance) = 0;
   virtual MdnsResponderErrorCode StartTxtQuery(
-      platform::UdpSocketPtr socket,
+      platform::UdpSocket* socket,
       const DomainName& service_instance) = 0;
-  virtual MdnsResponderErrorCode StartAQuery(platform::UdpSocketPtr socket,
+  virtual MdnsResponderErrorCode StartAQuery(platform::UdpSocket* socket,
                                              const DomainName& domain_name) = 0;
   virtual MdnsResponderErrorCode StartAaaaQuery(
-      platform::UdpSocketPtr socket,
+      platform::UdpSocket* socket,
       const DomainName& domain_name) = 0;
 
   virtual MdnsResponderErrorCode StopPtrQuery(
-      platform::UdpSocketPtr socket,
+      platform::UdpSocket* socket,
       const DomainName& service_type) = 0;
   virtual MdnsResponderErrorCode StopSrvQuery(
-      platform::UdpSocketPtr socket,
+      platform::UdpSocket* socket,
       const DomainName& service_instance) = 0;
   virtual MdnsResponderErrorCode StopTxtQuery(
-      platform::UdpSocketPtr socket,
+      platform::UdpSocket* socket,
       const DomainName& service_instance) = 0;
-  virtual MdnsResponderErrorCode StopAQuery(platform::UdpSocketPtr socket,
+  virtual MdnsResponderErrorCode StopAQuery(platform::UdpSocket* socket,
                                             const DomainName& domain_name) = 0;
   virtual MdnsResponderErrorCode StopAaaaQuery(
-      platform::UdpSocketPtr socket,
+      platform::UdpSocket* socket,
       const DomainName& domain_name) = 0;
 
   // The following methods concern advertising a service via mDNS.  The

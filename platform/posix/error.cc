@@ -18,5 +18,9 @@ std::string GetLastErrorString() {
   return strerror(errno);
 }
 
+bool IsTryAgainError(int err) {
+  return err == EAGAIN || err == EWOULDBLOCK || err == ENOBUFS;
+}
+
 }  // namespace platform
 }  // namespace openscreen

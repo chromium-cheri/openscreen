@@ -4,6 +4,8 @@
 
 #include "api/impl/mdns_platform_service.h"
 
+#include "platform/api/logging.h"
+
 #include <cstring>
 
 namespace openscreen {
@@ -11,8 +13,11 @@ namespace openscreen {
 MdnsPlatformService::BoundInterface::BoundInterface(
     const platform::InterfaceInfo& interface_info,
     const platform::IPSubnet& subnet,
-    platform::UdpSocketPtr socket)
-    : interface_info(interface_info), subnet(subnet), socket(socket) {}
+    platform::UdpSocket* socket)
+    : interface_info(interface_info), subnet(subnet), socket(socket) {
+  OSP_DCHECK(socket);
+}
+
 MdnsPlatformService::BoundInterface::~BoundInterface() = default;
 
 bool MdnsPlatformService::BoundInterface::operator==(
