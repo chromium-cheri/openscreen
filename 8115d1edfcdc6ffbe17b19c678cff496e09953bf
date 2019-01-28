@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a91fbc21_d9bfe89c",
+        "filename": "build/config/BUILDCONFIG.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-28T23:25:43Z",
+      "side": 1,
+      "message": "Does this need to be a separate declare_args() block?",
+      "revId": "8115d1edfcdc6ffbe17b19c678cff496e09953bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2278820_ce0da523",
+        "filename": "build/config/BUILDCONFIG.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-28T23:25:43Z",
+      "side": 1,
+      "message": "Hm, is this executed each time that BUILDCONFIG.gn is sourced?\n\nI wonder if this should be wrapped into a separate build step, as I\u0027m not sure pulling files into the source tree would be an expected side effect of just running gn.",
+      "revId": "8115d1edfcdc6ffbe17b19c678cff496e09953bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
