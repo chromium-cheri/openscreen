@@ -1,6 +1,8 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+
+#include "base/error.h"
 
 #include "platform/base/event_loop.h"
 
@@ -14,7 +16,7 @@ namespace platform {
 ReceivedData::ReceivedData() = default;
 ReceivedData::~ReceivedData() = default;
 
-bool ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
+Error ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
                           ReceivedData* data) {
   OSP_DCHECK(data);
   absl::optional<int> len =
@@ -22,33 +24,33 @@ bool ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
                  &data->source, &data->original_destination);
   if (!len) {
     OSP_LOG_ERROR << "recv() failed: " << GetLastErrorString();
-    return false;
+    return Error(Error::Code::kSocketReadFailure);
   } else if (len == 0) {
     OSP_LOG_WARN << "recv() = 0, closed?";
-    return false;
+    return Error(Error::Code::kSocketClosedFailure);
   }
   OSP_DCHECK_LE(*len, kUdpMaxPacketSize);
   data->length = *len;
   data->socket = read_event.socket;
-  return true;
+  return Error();
 }
 
 std::vector<ReceivedData> HandleUdpSocketReadEvents(const Events& events) {
   std::vector<ReceivedData> data;
   for (const auto& read_event : events.udp_readable_events) {
     ReceivedData next_data;
-    if (ReceiveDataFromEvent(read_event, &next_data))
+    if (ReceiveDataFromEvent(read_event, &next_data).ok())
       data.emplace_back(std::move(next_data));
   }
   return data;
 }
 
 std::vector<ReceivedData> OnePlatformLoopIteration(EventWaiterPtr waiter) {
-  Events events;
-  if (!WaitForEvents(waiter, &events))
+  ErrorOr<Events> events_or_error = WaitForEvents(waiter);
+  if (events_or_error.is_error())
     return {};
 
-  return HandleUdpSocketReadEvents(events);
+  return HandleUdpSocketReadEvents(events_or_error.value());
 }
 
 }  // namespace platform

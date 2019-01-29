@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6,6 +6,7 @@
 
 #include <algorithm>
 
+#include "base/error.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {
@@ -18,12 +19,12 @@ mdns::PtrEvent MakePtrEvent(const std::string& service_instance,
                             platform::UdpSocketPtr socket) {
   const auto labels = std::vector<std::string>{service_instance, service_type,
                                                service_protocol, kLocalDomain};
-  mdns::DomainName full_instance_name;
-  OSP_CHECK(mdns::DomainName::FromLabels(labels.begin(), labels.end(),
-                                         &full_instance_name));
+  ErrorOr<mdns::DomainName> full_instance_name =
+      mdns::DomainName::FromLabels(labels.begin(), labels.end());
+  OSP_CHECK(full_instance_name.is_value());
   mdns::PtrEvent result{
       mdns::QueryEventHeader{mdns::QueryEventHeader::Type::kAdded, socket},
-      full_instance_name};
+      full_instance_name.value()};
   return result;
 }
 
@@ -35,16 +36,18 @@ mdns::SrvEvent MakeSrvEvent(const std::string& service_instance,
                             platform::UdpSocketPtr socket) {
   const auto instance_labels = std::vector<std::string>{
       service_instance, service_type, service_protocol, kLocalDomain};
-  mdns::DomainName full_instance_name;
-  OSP_CHECK(mdns::DomainName::FromLabels(
-      instance_labels.begin(), instance_labels.end(), &full_instance_name));
+  ErrorOr<mdns::DomainName> full_instance_name = mdns::DomainName::FromLabels(
+      instance_labels.begin(), instance_labels.end());
+  OSP_CHECK(full_instance_name.is_value());
+
   const auto host_labels = std::vector<std::string>{hostname, kLocalDomain};
-  mdns::DomainName domain_name;
-  OSP_CHECK(mdns::DomainName::FromLabels(host_labels.begin(), host_labels.end(),
-                                         &domain_name));
+  ErrorOr<mdns::DomainName> domain_name =
+      mdns::DomainName::FromLabels(host_labels.begin(), host_labels.end());
+  OSP_CHECK(domain_name.is_value());
+
   mdns::SrvEvent result{
       mdns::QueryEventHeader{mdns::QueryEventHeader::Type::kAdded, socket},
-      full_instance_name, domain_name, port};
+      full_instance_name.value(), domain_name.value(), port};
   return result;
 }
 
@@ -55,12 +58,12 @@ mdns::TxtEvent MakeTxtEvent(const std::string& service_instance,
                             platform::UdpSocketPtr socket) {
   const auto labels = std::vector<std::string>{service_instance, service_type,
                                                service_protocol, kLocalDomain};
-  mdns::DomainName full_instance_name;
-  OSP_CHECK(mdns::DomainName::FromLabels(labels.begin(), labels.end(),
-                                         &full_instance_name));
+  ErrorOr<mdns::DomainName> domain_name =
+      mdns::DomainName::FromLabels(labels.begin(), labels.end());
+  OSP_CHECK(domain_name.is_value());
   mdns::TxtEvent result{
       mdns::QueryEventHeader{mdns::QueryEventHeader::Type::kAdded, socket},
-      full_instance_name, txt_lines};
+      domain_name.value(), txt_lines};
   return result;
 }
 
@@ -68,12 +71,12 @@ mdns::AEvent MakeAEvent(const std::string& hostname,
                         IPAddress address,
                         platform::UdpSocketPtr socket) {
   const auto labels = std::vector<std::string>{hostname, kLocalDomain};
-  mdns::DomainName domain_name;
-  OSP_CHECK(
-      mdns::DomainName::FromLabels(labels.begin(), labels.end(), &domain_name));
+  ErrorOr<mdns::DomainName> domain_name =
+      mdns::DomainName::FromLabels(labels.begin(), labels.end());
+  OSP_CHECK(domain_name.is_value());
   mdns::AEvent result{
       mdns::QueryEventHeader{mdns::QueryEventHeader::Type::kAdded, socket},
-      domain_name, address};
+      domain_name.value(), address};
   return result;
 }
 
@@ -81,12 +84,12 @@ mdns::AaaaEvent MakeAaaaEvent(const std::string& hostname,
                               IPAddress address,
                               platform::UdpSocketPtr socket) {
   const auto labels = std::vector<std::string>{hostname, kLocalDomain};
-  mdns::DomainName domain_name;
-  OSP_CHECK(
-      mdns::DomainName::FromLabels(labels.begin(), labels.end(), &domain_name));
+  ErrorOr<mdns::DomainName> domain_name =
+      mdns::DomainName::FromLabels(labels.begin(), labels.end());
+  OSP_CHECK(domain_name.is_value());
   mdns::AaaaEvent result{
       mdns::QueryEventHeader{mdns::QueryEventHeader::Type::kAdded, socket},
-      domain_name, address};
+      domain_name.value(), address};
   return result;
 }
 
@@ -180,10 +183,10 @@ bool FakeMdnsResponderAdapter::aaaa_queries_empty() const {
   return true;
 }
 
-bool FakeMdnsResponderAdapter::Init() {
+Error FakeMdnsResponderAdapter::Init() {
   OSP_CHECK(!running_);
   running_ = true;
-  return true;
+  return Error();
 }
 
 void FakeMdnsResponderAdapter::Close() {
@@ -198,28 +201,28 @@ void FakeMdnsResponderAdapter::Close() {
   running_ = false;
 }
 
-bool FakeMdnsResponderAdapter::SetHostLabel(const std::string& host_label) {
-  return false;
+Error FakeMdnsResponderAdapter::SetHostLabel(const std::string& host_label) {
+  return Error(Error::Code::kNotImplemented);
 }
 
-bool FakeMdnsResponderAdapter::RegisterInterface(
+Error FakeMdnsResponderAdapter::RegisterInterface(
     const platform::InterfaceInfo& interface_info,
     const platform::IPSubnet& interface_address,
     platform::UdpSocketPtr socket) {
   if (!running_)
-    return false;
+    return Error(Error::Code::kNotRunning);
 
   if (std::find_if(registered_interfaces_.begin(), registered_interfaces_.end(),
                    [&socket](const RegisteredInterface& interface) {
                      return interface.socket == socket;
                    }) != registered_interfaces_.end()) {
-    return false;
+    return Error(Error::Code::kNoItemFound);
   }
   registered_interfaces_.push_back({interface_info, interface_address, socket});
-  return true;
+  return Error();
 }
 
-bool FakeMdnsResponderAdapter::DeregisterInterface(
+Error FakeMdnsResponderAdapter::DeregisterInterface(
     platform::UdpSocketPtr socket) {
   auto it =
       std::find_if(registered_interfaces_.begin(), registered_interfaces_.end(),
@@ -227,10 +230,10 @@ bool FakeMdnsResponderAdapter::DeregisterInterface(
                      return interface.socket == socket;
                    });
   if (it == registered_interfaces_.end())
-    return false;
+    return Error(Error::Code::kNoItemFound);
 
   registered_interfaces_.erase(it);
-  return true;
+  return Error();
 }
 
 void FakeMdnsResponderAdapter::OnDataReceived(
@@ -371,9 +374,9 @@ mdns::MdnsResponderErrorCode FakeMdnsResponderAdapter::StartPtrQuery(
     return mdns::MdnsResponderErrorCode::kUnknownError;
 
   auto canonical_service_type = service_type;
-  if (!canonical_service_type.EndsWithLocalDomain())
-    OSP_CHECK(
-        canonical_service_type.Append(mdns::DomainName::GetLocalDomain()));
+  if (!canonical_service_type.EndsWithLocalDomain()) {
+    OSP_CHECK(canonical_service_type.Append(mdns::DomainName::GetLocalDomain()).ok());
+  }
 
   auto maybe_inserted =
       queries_[socket].ptr_queries.insert(canonical_service_type);
@@ -448,9 +451,9 @@ mdns::MdnsResponderErrorCode FakeMdnsResponderAdapter::StopPtrQuery(
     return mdns::MdnsResponderErrorCode::kUnknownError;
   auto& ptr_queries = interface_entry->second.ptr_queries;
   auto canonical_service_type = service_type;
-  if (!canonical_service_type.EndsWithLocalDomain())
-    OSP_CHECK(
-        canonical_service_type.Append(mdns::DomainName::GetLocalDomain()));
+  if (!canonical_service_type.EndsWithLocalDomain()) {
+    OSP_CHECK(canonical_service_type.Append(mdns::DomainName::GetLocalDomain()).ok());
+  }
 
   auto it = ptr_queries.find(canonical_service_type);
   if (it == ptr_queries.end())

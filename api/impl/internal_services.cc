@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -36,31 +36,34 @@ class MdnsResponderAdapterImplFactory final
   }
 };
 
-bool SetUpMulticastSocket(platform::UdpSocketPtr socket,
-                          platform::NetworkInterfaceIndex ifindex) {
-  do {
-    const IPAddress broadcast_address =
-        IsIPv6Socket(socket) ? kMulticastIPv6Address : kMulticastAddress;
-    if (!JoinUdpMulticastGroup(socket, broadcast_address, ifindex)) {
-      OSP_LOG_ERROR << "join multicast group failed for interface " << ifindex
-                    << ": " << platform::GetLastErrorString();
-      break;
-    }
-
-    if (!BindUdpSocket(socket, {{}, kMulticastListeningPort}, ifindex)) {
-      OSP_LOG_ERROR << "bind failed for interface " << ifindex << ": "
-                    << platform::GetLastErrorString();
-      break;
-    }
-
-    return true;
-  } while (false);
-
+Error GetLastError() {
   if (platform::GetLastError() == EADDRINUSE) {
     OSP_LOG_ERROR
         << "Is there a mDNS service, such as Bonjour, already running?";
+
+    return Error(Error::Code::kAddressInUse);
   }
-  return false;
+
+  return Error(Error::Code::kGenericPlatformError);
+}
+
+Error SetUpMulticastSocket(platform::UdpSocketPtr socket,
+                           platform::NetworkInterfaceIndex ifindex) {
+  const IPAddress broadcast_address =
+      IsIPv6Socket(socket) ? kMulticastIPv6Address : kMulticastAddress;
+  if (!JoinUdpMulticastGroup(socket, broadcast_address, ifindex).ok()) {
+    OSP_LOG_ERROR << "join multicast group failed for interface " << ifindex
+                  << ": " << platform::GetLastErrorString();
+    return GetLastError();
+  }
+
+  if (!BindUdpSocket(socket, {{}, kMulticastListeningPort}, ifindex).ok()) {
+    OSP_LOG_ERROR << "bind failed for interface " << ifindex << ": "
+                  << platform::GetLastErrorString();
+    return GetLastError();
+  }
+
+  return Error();
 }
 
 // Ref-counted singleton instance of InternalServices. This lives only as long
@@ -139,7 +142,7 @@ InternalServices::InternalPlatformLinkage::RegisterInterfaces(
     auto* socket = addr.addresses.front().address.IsV4()
                        ? platform::CreateUdpSocketIPv4()
                        : platform::CreateUdpSocketIPv6();
-    if (!SetUpMulticastSocket(socket, index)) {
+    if (!SetUpMulticastSocket(socket, index).ok()) {
       DestroyUdpSocket(socket);
       continue;
     }

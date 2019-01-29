@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -59,40 +59,39 @@ TEST(IPAddressTest, V4ComparisonAndBoolean) {
 
 TEST(IPAddressTest, V4Parse) {
   uint8_t bytes[4] = {};
-  IPAddress address;
-  ASSERT_TRUE(IPAddress::Parse("192.168.0.1", &address));
-  address.CopyToV4(bytes);
+
+  ErrorOr<IPAddress> address = IPAddress::Parse("192.168.0.1");
+  ASSERT_TRUE(address.is_value());
+  address.value().CopyToV4(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({192, 168, 0, 1}));
 }
 
 TEST(IPAddressTest, V4ParseFailures) {
-  IPAddress address;
-
-  EXPECT_FALSE(IPAddress::Parse("192..0.1", &address))
+  EXPECT_FALSE(IPAddress::Parse("192..0.1").is_value())
       << "empty value should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse(".192.168.0.1", &address))
+  EXPECT_FALSE(IPAddress::Parse(".192.168.0.1").is_value())
       << "leading dot should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse(".192.168.1", &address))
+  EXPECT_FALSE(IPAddress::Parse(".192.168.1").is_value())
       << "leading dot should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("..192.168.0.1", &address))
+  EXPECT_FALSE(IPAddress::Parse("..192.168.0.1").is_value())
       << "leading dot should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("..192.1", &address))
+  EXPECT_FALSE(IPAddress::Parse("..192.1").is_value())
       << "leading dot should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("192.168.0.1.", &address))
+  EXPECT_FALSE(IPAddress::Parse("192.168.0.1.").is_value())
       << "trailing dot should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("192.168.1.", &address))
+  EXPECT_FALSE(IPAddress::Parse("192.168.1.").is_value())
       << "trailing dot should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("192.168.1..", &address))
+  EXPECT_FALSE(IPAddress::Parse("192.168.1..").is_value())
       << "trailing dot should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("192.168..", &address))
+  EXPECT_FALSE(IPAddress::Parse("192.168..").is_value())
       << "trailing dot should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("192.x3.0.1", &address))
+  EXPECT_FALSE(IPAddress::Parse("192.x3.0.1").is_value())
       << "non-digit character should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("192.3.1", &address))
+  EXPECT_FALSE(IPAddress::Parse("192.3.1").is_value())
       << "too few values should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("192.3.2.0.1", &address))
+  EXPECT_FALSE(IPAddress::Parse("192.3.2.0.1").is_value())
       << "too many values should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("1920.3.2.1", &address))
+  EXPECT_FALSE(IPAddress::Parse("1920.3.2.1").is_value())
       << "value > 255 should fail to parse";
 }
 
@@ -145,10 +144,10 @@ TEST(IPAddressTest, V6ComparisonAndBoolean) {
 
 TEST(IPAddressTest, V6ParseBasic) {
   uint8_t bytes[16] = {};
-  IPAddress address;
-  ASSERT_TRUE(
-      IPAddress::Parse("abcd:ef01:2345:6789:9876:5432:10FE:DBCA", &address));
-  address.CopyToV6(bytes);
+  ErrorOr<IPAddress> address =
+      IPAddress::Parse("abcd:ef01:2345:6789:9876:5432:10FE:DBCA");
+  ASSERT_TRUE(address.is_value());
+  address.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67,
                                        0x89, 0x98, 0x76, 0x54, 0x32, 0x10, 0xfe,
                                        0xdb, 0xca}));
@@ -156,30 +155,30 @@ TEST(IPAddressTest, V6ParseBasic) {
 
 TEST(IPAddressTest, V6ParseDoubleColon) {
   uint8_t bytes[16] = {};
-  IPAddress address1;
-  ASSERT_TRUE(
-      IPAddress::Parse("abcd:ef01:2345:6789:9876:5432::dbca", &address1));
-  address1.CopyToV6(bytes);
+  ErrorOr<IPAddress> address1 =
+      IPAddress::Parse("abcd:ef01:2345:6789:9876:5432::dbca");
+  ASSERT_TRUE(address1.is_value());
+  address1.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67,
                                        0x89, 0x98, 0x76, 0x54, 0x32, 0x00, 0x00,
                                        0xdb, 0xca}));
-  IPAddress address2;
-  ASSERT_TRUE(IPAddress::Parse("abcd::10fe:dbca", &address2));
-  address2.CopyToV6(bytes);
+  ErrorOr<IPAddress> address2 = IPAddress::Parse("abcd::10fe:dbca");
+  ASSERT_TRUE(address2.is_value());
+  address2.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0xab, 0xcd, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0xfe,
                                        0xdb, 0xca}));
 
-  IPAddress address3;
-  ASSERT_TRUE(IPAddress::Parse("::10fe:dbca", &address3));
-  address3.CopyToV6(bytes);
+  ErrorOr<IPAddress> address3 = IPAddress::Parse("::10fe:dbca");
+  ASSERT_TRUE(address3.is_value());
+  address3.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0xfe,
                                        0xdb, 0xca}));
 
-  IPAddress address4;
-  ASSERT_TRUE(IPAddress::Parse("10fe:dbca::", &address4));
-  address4.CopyToV6(bytes);
+  ErrorOr<IPAddress> address4 = IPAddress::Parse("10fe:dbca::");
+  ASSERT_TRUE(address4.is_value());
+  address4.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0x10, 0xfe, 0xdb, 0xca, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00}));
@@ -187,59 +186,57 @@ TEST(IPAddressTest, V6ParseDoubleColon) {
 
 TEST(IPAddressTest, V6SmallValues) {
   uint8_t bytes[16] = {};
-  IPAddress address1;
-  ASSERT_TRUE(IPAddress::Parse("::", &address1));
-  address1.CopyToV6(bytes);
+  ErrorOr<IPAddress> address1 = IPAddress::Parse("::");
+  ASSERT_TRUE(address1.is_value());
+  address1.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00}));
 
-  IPAddress address2;
-  ASSERT_TRUE(IPAddress::Parse("::1", &address2));
-  address2.CopyToV6(bytes);
+  ErrorOr<IPAddress> address2 = IPAddress::Parse("::1");
+  ASSERT_TRUE(address2.is_value());
+  address2.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x01}));
 
-  IPAddress address3;
-  ASSERT_TRUE(IPAddress::Parse("::2:1", &address3));
-  address3.CopyToV6(bytes);
+  ErrorOr<IPAddress> address3 = IPAddress::Parse("::2:1");
+  ASSERT_TRUE(address3.is_value());
+  address3.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02,
                                        0x00, 0x01}));
 }
 
 TEST(IPAddressTest, V6ParseFailures) {
-  IPAddress address;
-
-  EXPECT_FALSE(IPAddress::Parse(":abcd::dbca", &address))
+  EXPECT_FALSE(IPAddress::Parse(":abcd::dbca").is_value())
       << "leading colon should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("abcd::dbca:", &address))
+  EXPECT_FALSE(IPAddress::Parse("abcd::dbca:").is_value())
       << "trailing colon should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("abxd::1234", &address))
+  EXPECT_FALSE(IPAddress::Parse("abxd::1234").is_value())
       << "non-hex digit should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("abcd:1234", &address))
+  EXPECT_FALSE(IPAddress::Parse("abcd:1234").is_value())
       << "too few values should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("a:b:c:d:e:f:0:1:2:3:4:5:6:7:8:9:a", &address))
+  EXPECT_FALSE(IPAddress::Parse("a:b:c:d:e:f:0:1:2:3:4:5:6:7:8:9:a").is_value())
       << "too many values should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("abcd1::dbca", &address))
+  EXPECT_FALSE(IPAddress::Parse("abcd1::dbca").is_value())
       << "value > 0xffff should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("::abcd::dbca", &address))
+  EXPECT_FALSE(IPAddress::Parse("::abcd::dbca").is_value())
       << "multiple double colon should fail to parse";
 
-  EXPECT_FALSE(IPAddress::Parse(":::abcd::dbca", &address))
+  EXPECT_FALSE(IPAddress::Parse(":::abcd::dbca").is_value())
       << "leading triple colon should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("abcd:::dbca", &address))
+  EXPECT_FALSE(IPAddress::Parse("abcd:::dbca").is_value())
       << "triple colon should fail to parse";
-  EXPECT_FALSE(IPAddress::Parse("abcd:dbca:::", &address))
+  EXPECT_FALSE(IPAddress::Parse("abcd:dbca:::").is_value())
       << "trailing triple colon should fail to parse";
 }
 
 TEST(IPAddressTest, V6ParseThreeDigitValue) {
   uint8_t bytes[16] = {};
-  IPAddress address;
-  ASSERT_TRUE(IPAddress::Parse("::123", &address));
-  address.CopyToV6(bytes);
+  ErrorOr<IPAddress> address = IPAddress::Parse("::123");
+  ASSERT_TRUE(address.is_value());
+  address.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x01, 0x23}));

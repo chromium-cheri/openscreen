@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -20,6 +20,7 @@ class Error {
   enum class Code {
     // No error occurred.
     kNone = 0,
+
     // CBOR errors.
     kCborParsing = 1,
     kCborEncoding,
@@ -33,6 +34,29 @@ class Error {
     kNoPresentationFound,
     kPreviousStartInProgress,
     kUnknownStartError,
+
+    kAddressInUse,
+    kAlreadyListening,
+    kDomainNameTooLong,
+    kDomainNameLabelTooLong,
+
+    kGenericPlatformError,
+
+    kIOFailure,
+    kInitializationFailure,
+    kInvalidIPV4Address,
+    kInvalidIPV6Address,
+
+    kSocketOptionSettingFailure,
+    kSocketBindFailure,
+    kSocketClosedFailure,
+    kSocketReadFailure,
+
+    kMdnsRegisterFailure,
+
+    kNoItemFound,
+    kNotImplemented,
+    kNotRunning,
   };
 
   Error();
@@ -45,6 +69,7 @@ class Error {
   Error& operator=(const Error& other);
   Error& operator=(Error&& other);
   bool operator==(const Error& other) const;
+  bool ok() const { return code_ == Code::kNone; }
 
   Code code() const { return code_; }
   const std::string& message() const { return message_; }
@@ -80,7 +105,7 @@ template <typename Value>
 class ErrorOr {
  public:
   ErrorOr(ErrorOr&& error_or) = default;
-  ErrorOr(Value&& value) noexcept : value_(value) {}
+  ErrorOr(Value&& value) noexcept : value_(std::move(value)) {}
   ErrorOr(Error error) : error_(std::move(error)) {}
   ErrorOr(Error::Code code) : error_(code) {}
   ErrorOr(Error::Code code, std::string message)

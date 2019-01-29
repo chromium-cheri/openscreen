@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <vector>
 
+#include "base/error.h"
 #include "base/ip_address.h"
 #include "platform/api/event_waiter.h"
 
@@ -30,7 +31,7 @@ struct ReceivedData {
   UdpSocketPtr socket;
 };
 
-bool ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
+Error ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
                           ReceivedData* data);
 std::vector<ReceivedData> HandleUdpSocketReadEvents(const Events& events);
 std::vector<ReceivedData> OnePlatformLoopIteration(EventWaiterPtr waiter);
