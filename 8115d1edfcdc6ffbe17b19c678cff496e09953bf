@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fec922dc_54250f5b",
+        "filename": "build/config/BUILDCONFIG.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-29T01:23:34Z",
+      "side": 1,
+      "message": "Yes, because you can\u0027t reference variables (in this case, is_gcc) from inside the same declare_args() block.",
+      "parentUuid": "a91fbc21_d9bfe89c",
+      "revId": "8115d1edfcdc6ffbe17b19c678cff496e09953bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2278820_ce0da523",
         "filename": "build/config/BUILDCONFIG.gn",
         "patchSetId": 21
@@ -33,6 +51,24 @@
       "revId": "8115d1edfcdc6ffbe17b19c678cff496e09953bf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96fe7f2c_1cd10790",
+        "filename": "build/config/BUILDCONFIG.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-29T01:23:34Z",
+      "side": 1,
+      "message": "I tested this by adding a print statement to see how many times it gets called during a build, and the answer is only one time.\n\nI was looking at adding it as a build step, we do have the ability to declare an action in a BUILD.gn, however it requires that you output something into your output directory. Looking at taking a more complicated approach here doesn\u0027t seem to help. We can touch base tomorrow, if we like the other approach more I\"m happy to prep a second patch.",
+      "parentUuid": "d2278820_ce0da523",
+      "revId": "8115d1edfcdc6ffbe17b19c678cff496e09953bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
