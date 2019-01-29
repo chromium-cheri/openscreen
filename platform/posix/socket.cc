@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -74,9 +74,9 @@ void DestroyUdpSocket(UdpSocketPtr socket) {
   delete socket;
 }
 
-bool BindUdpSocket(UdpSocketPtr socket,
-                   const IPEndpoint& endpoint,
-                   NetworkInterfaceIndex ifindex) {
+Error BindUdpSocket(UdpSocketPtr socket,
+                    const IPEndpoint& endpoint,
+                    NetworkInterfaceIndex ifindex) {
   OSP_DCHECK_GE(socket->fd, 0);
   if (socket->version == UdpSocketPrivate::Version::kV4) {
     if (ifindex > 0) {
@@ -89,14 +89,14 @@ bool BindUdpSocket(UdpSocketPtr socket,
       if (setsockopt(socket->fd, IPPROTO_IP, IP_MULTICAST_IF,
                      &multicast_properties,
                      sizeof(multicast_properties)) == -1) {
-        return false;
+        return Error(Error::Code::kSocketOptionSettingFailure);
       }
       // This is effectively a boolean passed to setsockopt() to allow a future
       // bind() on |socket| to succeed, even if the address is already in use.
       const int reuse_addr = 1;
       if (setsockopt(socket->fd, SOL_SOCKET, SO_REUSEADDR, &reuse_addr,
                      sizeof(reuse_addr)) == -1) {
-        return false;
+        return Error(Error::Code::kSocketOptionSettingFailure);
       }
     }
 
@@ -105,21 +105,24 @@ bool BindUdpSocket(UdpSocketPtr socket,
     address.sin_port = htons(endpoint.port);
     endpoint.address.CopyToV4(
         reinterpret_cast<uint8_t*>(&address.sin_addr.s_addr));
-    return bind(socket->fd, reinterpret_cast<struct sockaddr*>(&address),
-                sizeof(address)) != -1;
+    if (bind(socket->fd, reinterpret_cast<struct sockaddr*>(&address),
+             sizeof(address)) == -1) {
+      return Error(Error::Code::kSocketBindFailure);
+    }
+    return Error();
   } else {
     if (ifindex > 0) {
       const auto index = static_cast<IPv6NetworkInterfaceIndex>(ifindex);
       if (setsockopt(socket->fd, IPPROTO_IPV6, IPV6_MULTICAST_IF, &index,
                      sizeof(index)) == -1) {
-        return false;
+        return Error(Error::Code::kSocketOptionSettingFailure);
       }
       // This is effectively a boolean passed to setsockopt() to allow a future
       // bind() on |socket| to succeed, even if the address is already in use.
       const int reuse_addr = 1;
       if (setsockopt(socket->fd, SOL_SOCKET, SO_REUSEADDR, &reuse_addr,
                      sizeof(reuse_addr)) == -1) {
-        return false;
+        return Error(Error::Code::kSocketOptionSettingFailure);
       }
     }
 
@@ -129,14 +132,18 @@ bool BindUdpSocket(UdpSocketPtr socket,
     address.sin6_port = htons(endpoint.port);
     endpoint.address.CopyToV6(reinterpret_cast<uint8_t*>(&address.sin6_addr));
     address.sin6_scope_id = 0;
-    return bind(socket->fd, reinterpret_cast<struct sockaddr*>(&address),
-                sizeof(address)) != -1;
+
+    if (bind(socket->fd, reinterpret_cast<struct sockaddr*>(&address),
+             sizeof(address)) == -1) {
+      return Error(Error::Code::kSocketBindFailure);
+    }
+    return Error();
   }
 }
 
-bool JoinUdpMulticastGroup(UdpSocketPtr socket,
-                           const IPAddress& address,
-                           NetworkInterfaceIndex ifindex) {
+Error JoinUdpMulticastGroup(UdpSocketPtr socket,
+                            const IPAddress& address,
+                            NetworkInterfaceIndex ifindex) {
   OSP_DCHECK_GE(socket->fd, 0);
   if (socket->version == UdpSocketPrivate::Version::kV4) {
     // Passed as data to setsockopt().  1 means return IP_PKTINFO control data
@@ -144,7 +151,7 @@ bool JoinUdpMulticastGroup(UdpSocketPtr socket,
     const int enable_pktinfo = 1;
     if (setsockopt(socket->fd, IPPROTO_IP, IP_PKTINFO, &enable_pktinfo,
                    sizeof(enable_pktinfo)) == -1) {
-      return false;
+      return Error(Error::Code::kSocketOptionSettingFailure);
     }
     struct ip_mreqn multicast_properties;
     // Appropriate address is set based on |imr_ifindex| when set.
@@ -157,16 +164,16 @@ bool JoinUdpMulticastGroup(UdpSocketPtr socket,
         reinterpret_cast<uint8_t*>(&multicast_properties.imr_multiaddr));
     if (setsockopt(socket->fd, IPPROTO_IP, IP_ADD_MEMBERSHIP,
                    &multicast_properties, sizeof(multicast_properties)) == -1) {
-      return false;
+      return Error(Error::Code::kSocketOptionSettingFailure);
     }
-    return true;
+    return Error();
   } else {
     // Passed as data to setsockopt().  1 means return IPV6_PKTINFO control data
     // in recvmsg() calls.
     const int enable_pktinfo = 1;
     if (setsockopt(socket->fd, IPPROTO_IPV6, IPV6_RECVPKTINFO, &enable_pktinfo,
                    sizeof(enable_pktinfo)) == -1) {
-      return false;
+      return Error(Error::Code::kSocketOptionSettingFailure);
     }
     struct ipv6_mreq multicast_properties = {
         {/* filled-in below */},
@@ -180,9 +187,9 @@ bool JoinUdpMulticastGroup(UdpSocketPtr socket,
     // synonymous with IPV6_ADD_MEMBERSHIP.
     if (setsockopt(socket->fd, IPPROTO_IPV6, IPV6_JOIN_GROUP,
                    &multicast_properties, sizeof(multicast_properties)) == -1) {
-      return false;
+      return Error(Error::Code::kSocketOptionSettingFailure);
     }
-    return true;
+    return Error();
   }
 }
 
