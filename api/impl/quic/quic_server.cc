@@ -61,6 +61,8 @@ bool QuicServer::Resume() {
 void QuicServer::RunTasks() {
   if (state_ == State::kRunning)
     connection_factory_->RunTasks();
+  for (auto& entry : connections_)
+    entry.second.delegate->DestroyClosedStreams();
   for (auto& entry : delete_connections_)
     connections_.erase(entry);
   delete_connections_.clear();
@@ -79,6 +81,8 @@ std::unique_ptr<ProtocolConnection> QuicServer::CreateProtocolConnection(
 }
 
 void QuicServer::OnConnectionDestroyed(QuicProtocolConnection* connection) {
+  if (!connection->stream())
+    return;
   auto connection_entry = connections_.find(connection->endpoint_id());
   if (connection_entry == connections_.end())
     return;

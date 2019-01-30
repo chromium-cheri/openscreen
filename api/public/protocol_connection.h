@@ -27,6 +27,8 @@ class ProtocolConnection {
     virtual ~Observer() = default;
 
     // Called when the state of |connection| has changed.
+    // TODO(btolsch): This doesn't currently have any meaning, should we just
+    // remove it?
     virtual void OnConnectionChanged(const ProtocolConnection& connection) = 0;
 
     // Called when |connection| is no longer available, either because the
