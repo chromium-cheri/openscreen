@@ -5,7 +5,7 @@
 #include "api/impl/presentation/url_availability_requester.h"
 
 #include "api/impl/quic/quic_client.h"
-#include "api/impl/quic/testing/fake_quic_connection_factory.h"
+#include "api/impl/quic/testing/quic_test_support.h"
 #include "api/impl/testing/fake_clock.h"
 #include "api/public/network_service_manager.h"
 #include "base/make_unique.h"
@@ -34,12 +34,13 @@ class MockMessageCallback final : public MessageDemuxer::MessageCallback {
  public:
   ~MockMessageCallback() override = default;
 
-  MOCK_METHOD5(OnStreamMessage,
+  MOCK_METHOD6(OnStreamMessage,
                ErrorOr<size_t>(uint64_t endpoint_id,
-                               uint64_t connection_id,
+                               uint64_t connection_id_,
                                msgs::Type message_type,
                                const uint8_t* buffer,
-                               size_t buffer_size));
+                               size_t buffer_size,
+                               platform::TimeDelta now));
 };
 
 class NullObserver final : public ProtocolConnectionServiceObserver {
@@ -54,35 +55,20 @@ class NullObserver final : public ProtocolConnectionServiceObserver {
 class UrlAvailabilityRequesterTest : public ::testing::Test {
  public:
   void SetUp() override {
-    auto fake_factory = MakeUnique<FakeQuicConnectionFactory>(
-        controller_endpoint_, &receiver_demuxer_);
-    fake_factory_ = fake_factory.get();
-    auto quic_client = MakeUnique<QuicClient>(
-        &controller_demuxer_, std::move(fake_factory), &null_observer_);
-    quic_client->Start();
-    NetworkServiceManager::Get()->Create(nullptr, nullptr,
-                                         std::move(quic_client), nullptr);
-
-    availability_watch_ = receiver_demuxer_.SetDefaultMessageTypeWatch(
-        msgs::Type::kPresentationUrlAvailabilityRequest, &mock_callback_);
+    availability_watch_ =
+        quic_bridge_.receiver_demuxer->SetDefaultMessageTypeWatch(
+            msgs::Type::kPresentationUrlAvailabilityRequest, &mock_callback_);
   }
 
   void TearDown() override {
     availability_watch_ = MessageDemuxer::MessageWatch();
-    NetworkServiceManager::Get()->Dispose();
   }
 
  protected:
-  void RunTasksUntilIdle() {
-    do {
-      NetworkServiceManager::Get()->GetProtocolConnectionClient()->RunTasks();
-    } while (!fake_factory_->idle());
-  }
-
   void SendAvailabilityResponse(
       const msgs::PresentationUrlAvailabilityRequest& request,
       std::vector<msgs::PresentationUrlAvailability>&& availabilities,
-      FakeQuicStream* stream) {
+      ProtocolConnection* stream) {
     msgs::PresentationUrlAvailabilityResponse response;
     response.request_id = request.request_id;
     response.url_availabilities = std::move(availabilities);
@@ -90,14 +76,14 @@ class UrlAvailabilityRequesterTest : public ::testing::Test {
     ssize_t encode_result =
         msgs::EncodePresentationUrlAvailabilityResponse(response, &buffer);
     ASSERT_GT(encode_result, 0);
-    stream->ReceiveData(buffer.data(), buffer.size());
+    stream->Write(buffer.data(), buffer.size());
   }
 
   void SendAvailabilityEvent(
       uint64_t watch_id,
       std::vector<std::string>&& urls,
       std::vector<msgs::PresentationUrlAvailability>&& availabilities,
-      FakeQuicStream* stream) {
+      ProtocolConnection* stream) {
     msgs::PresentationUrlAvailabilityEvent event;
     event.watch_id = watch_id;
     event.urls = std::move(urls);
@@ -106,19 +92,14 @@ class UrlAvailabilityRequesterTest : public ::testing::Test {
     ssize_t encode_result =
         msgs::EncodePresentationUrlAvailabilityEvent(event, &buffer);
     ASSERT_GT(encode_result, 0);
-    stream->ReceiveData(buffer.data(), buffer.size());
+    stream->Write(buffer.data(), buffer.size());
   }
 
   MockMessageCallback mock_callback_;
   MessageDemuxer::MessageWatch availability_watch_;
-  const IPEndpoint controller_endpoint_{{192, 168, 1, 3}, 4321};
-  const IPEndpoint receiver_endpoint_{{192, 168, 1, 17}, 1234};
-  MessageDemuxer controller_demuxer_;
-  MessageDemuxer receiver_demuxer_;
-  FakeQuicConnectionFactory* fake_factory_;
-  NullObserver null_observer_;
-  platform::TimeDelta now_{platform::TimeDelta::FromSeconds(213489)};
-  std::unique_ptr<FakeClock> fake_clock_owned_{MakeUnique<FakeClock>(now_)};
+  FakeQuicBridge quic_bridge_;
+  std::unique_ptr<FakeClock> fake_clock_owned_{
+      MakeUnique<FakeClock>(quic_bridge_.controller_fake_clock->Now())};
   FakeClock* fake_clock_{fake_clock_owned_.get()};
   UrlAvailabilityRequester listener_{std::move(fake_clock_owned_)};
 
@@ -126,40 +107,52 @@ class UrlAvailabilityRequesterTest : public ::testing::Test {
   std::string url2_{"https://example.com/bar.html"};
   std::string service_id_{"asdf"};
   std::string friendly_name_{"turtle"};
-  ServiceInfo info1_{service_id_, friendly_name_, 1, receiver_endpoint_};
+  ServiceInfo info1_{service_id_, friendly_name_, 1,
+                     quic_bridge_.receiver_endpoint};
 };
+
+void ExpectStreamMessage(MockMessageCallback* mock_callback,
+                         msgs::PresentationUrlAvailabilityRequest* request) {
+  EXPECT_CALL(*mock_callback, OnStreamMessage(_, _, _, _, _, _))
+      .WillOnce(::testing::Invoke(
+          [request](uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
+                    const uint8_t* buffer, size_t buffer_size,
+                    platform::TimeDelta now) {
+            ssize_t request_result_size =
+                msgs::DecodePresentationUrlAvailabilityRequest(
+                    buffer, buffer_size, request);
+            OSP_DCHECK_GT(request_result_size, 0);
+            return request_result_size;
+          }));
+}
 
 TEST_F(UrlAvailabilityRequesterTest, AvailableObserverFirst) {
   MockReceiverObserver mock_observer;
   listener_.AddObserver({url1_}, &mock_observer);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   listener_.AddReceiver(info1_);
 
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer, OnReceiverAvailable(url1_, service_id_));
   EXPECT_CALL(mock_observer, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, AvailableReceiverFirst) {
@@ -168,31 +161,27 @@ TEST_F(UrlAvailabilityRequesterTest, AvailableReceiverFirst) {
   MockReceiverObserver mock_observer;
   listener_.AddObserver({url1_}, &mock_observer);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer, OnReceiverAvailable(url1_, service_id_));
   EXPECT_CALL(mock_observer, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, Unavailable) {
@@ -201,30 +190,26 @@ TEST_F(UrlAvailabilityRequesterTest, Unavailable) {
   MockReceiverObserver mock_observer;
   listener_.AddObserver({url1_}, &mock_observer);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer, OnReceiverAvailable(url1_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer, OnReceiverUnavailable(url1_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, AvailabilityIsCached) {
@@ -233,30 +218,26 @@ TEST_F(UrlAvailabilityRequesterTest, AvailabilityIsCached) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   MockReceiverObserver mock_observer2;
   EXPECT_CALL(mock_observer2, OnReceiverAvailable(url1_, service_id_)).Times(0);
@@ -270,30 +251,26 @@ TEST_F(UrlAvailabilityRequesterTest, AvailabilityCacheIsTransient) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   listener_.RemoveObserverUrls({url1_}, &mock_observer1);
   MockReceiverObserver mock_observer2;
@@ -309,58 +286,44 @@ TEST_F(UrlAvailabilityRequesterTest, PartiallyCachedAnswer) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   MockReceiverObserver mock_observer2;
   EXPECT_CALL(mock_observer2, OnReceiverAvailable(url1_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverUnavailable(url1_, service_id_));
   listener_.AddObserver({url1_, url2_}, &mock_observer2);
 
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+  quic_bridge_.RunTasksUntilIdle();
 
   EXPECT_EQ(std::vector<std::string>{url2_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer2, OnReceiverAvailable(url2_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverUnavailable(url2_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, MultipleOverlappingObservers) {
@@ -369,59 +332,44 @@ TEST_F(UrlAvailabilityRequesterTest, MultipleOverlappingObservers) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_));
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   MockReceiverObserver mock_observer2;
   EXPECT_CALL(mock_observer2, OnReceiverAvailable(url1_, service_id_));
   listener_.AddObserver({url1_, url2_}, &mock_observer2);
-
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+  quic_bridge_.RunTasksUntilIdle();
 
   EXPECT_EQ(std::vector<std::string>{url2_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverAvailable(_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverUnavailable(url2_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, RemoveObserverUrls) {
@@ -430,48 +378,33 @@ TEST_F(UrlAvailabilityRequesterTest, RemoveObserverUrls) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   uint64_t url1_watch_id = request.watch_id;
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_));
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   MockReceiverObserver mock_observer2;
   listener_.AddObserver({url1_, url2_}, &mock_observer2);
 
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+  quic_bridge_.RunTasksUntilIdle();
 
   EXPECT_EQ(std::vector<std::string>{url2_}, request.urls);
 
@@ -479,21 +412,21 @@ TEST_F(UrlAvailabilityRequesterTest, RemoveObserverUrls) {
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer2, OnReceiverAvailable(_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverUnavailable(url2_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   SendAvailabilityEvent(
       url1_watch_id, std::vector<std::string>{url1_},
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverUnavailable(url1_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, RemoveObserver) {
@@ -502,48 +435,34 @@ TEST_F(UrlAvailabilityRequesterTest, RemoveObserver) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   uint64_t url1_watch_id = request.watch_id;
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_));
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   MockReceiverObserver mock_observer2;
   listener_.AddObserver({url1_, url2_}, &mock_observer2);
 
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+  quic_bridge_.RunTasksUntilIdle();
 
   uint64_t url2_watch_id = request.watch_id;
   EXPECT_EQ(std::vector<std::string>{url2_}, request.urls);
@@ -552,37 +471,37 @@ TEST_F(UrlAvailabilityRequesterTest, RemoveObserver) {
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer2, OnReceiverAvailable(_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverUnavailable(url2_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   SendAvailabilityEvent(
       url1_watch_id, std::vector<std::string>{url1_},
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverUnavailable(url1_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   listener_.RemoveObserver(&mock_observer2);
 
   SendAvailabilityEvent(
       url1_watch_id, std::vector<std::string>{url1_},
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   SendAvailabilityEvent(
       url2_watch_id, std::vector<std::string>{url2_},
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer2, OnReceiverUnavailable(_, service_id_)).Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, EventUpdate) {
@@ -591,41 +510,36 @@ TEST_F(UrlAvailabilityRequesterTest, EventUpdate) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_, url2_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ((std::vector<std::string>{url1_, url2_}), request.urls);
-  SendAvailabilityResponse(
-      request,
-      std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible,
-                                                     msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+  SendAvailabilityResponse(request,
+                           std::vector<msgs::PresentationUrlAvailability>{
+                               msgs::kCompatible, msgs::kCompatible},
+                           stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_));
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url2_, service_id_));
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(_, service_id_)).Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _)).Times(0);
+  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _, _)).Times(0);
   SendAvailabilityEvent(
       request.watch_id, std::vector<std::string>{url2_},
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url2_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, RefreshWatches) {
@@ -634,55 +548,41 @@ TEST_F(UrlAvailabilityRequesterTest, RefreshWatches) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_));
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(_, service_id_)).Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   fake_clock_->Advance(platform::TimeDelta::FromSeconds(60));
 
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
+  ExpectStreamMessage(&mock_callback_, &request);
   listener_.RefreshWatches();
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_));
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 TEST_F(UrlAvailabilityRequesterTest, ResponseAfterRemoveObserver) {
@@ -691,32 +591,28 @@ TEST_F(UrlAvailabilityRequesterTest, ResponseAfterRemoveObserver) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   listener_.RemoveObserverUrls({url1_}, &mock_observer1);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   MockReceiverObserver mock_observer2;
   EXPECT_CALL(mock_observer2, OnReceiverAvailable(url1_, service_id_)).Times(0);
@@ -732,31 +628,27 @@ TEST_F(UrlAvailabilityRequesterTest,
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ(std::vector<std::string>{url1_}, request.urls);
   SendAvailabilityResponse(
       request,
       std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+      stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_));
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_))
       .Times(0);
-  RunTasksUntilIdle();
+  quic_bridge_.RunTasksUntilIdle();
 
   listener_.RemoveObserverUrls({url1_}, &mock_observer1);
   listener_.RemoveReceiver(info1_);
@@ -773,34 +665,29 @@ TEST_F(UrlAvailabilityRequesterTest, RemoveObserverInSteps) {
   MockReceiverObserver mock_observer1;
   listener_.AddObserver({url1_, url2_}, &mock_observer1);
 
+  ProtocolConnection* stream_ptr = nullptr;
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(::testing::SaveArg<0>(&stream_ptr));
+
   msgs::PresentationUrlAvailabilityRequest request;
-  uint64_t connection_id;
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  std::unique_ptr<ProtocolConnection> stream(stream_ptr);
+  ASSERT_TRUE(stream);
 
   EXPECT_EQ((std::vector<std::string>{url1_, url2_}), request.urls);
   listener_.RemoveObserverUrls({url1_}, &mock_observer1);
   listener_.RemoveObserverUrls({url2_}, &mock_observer1);
-  SendAvailabilityResponse(
-      request,
-      std::vector<msgs::PresentationUrlAvailability>{msgs::kCompatible,
-                                                     msgs::kCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
-  SendAvailabilityEvent(
-      request.watch_id, std::vector<std::string>{url1_, url2_},
-      std::vector<msgs::PresentationUrlAvailability>{msgs::kNotCompatible,
-                                                     msgs::kNotCompatible},
-      fake_factory_->GetIncomingStream(receiver_endpoint_, connection_id));
+  SendAvailabilityResponse(request,
+                           std::vector<msgs::PresentationUrlAvailability>{
+                               msgs::kCompatible, msgs::kCompatible},
+                           stream.get());
+  SendAvailabilityEvent(request.watch_id,
+                        std::vector<std::string>{url1_, url2_},
+                        std::vector<msgs::PresentationUrlAvailability>{
+                            msgs::kNotCompatible, msgs::kNotCompatible},
+                        stream.get());
 
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url1_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url1_, service_id_))
@@ -808,28 +695,20 @@ TEST_F(UrlAvailabilityRequesterTest, RemoveObserverInSteps) {
   EXPECT_CALL(mock_observer1, OnReceiverAvailable(url2_, service_id_)).Times(0);
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(url2_, service_id_))
       .Times(0);
+
   // NOTE: This message was generated between the two RemoveObserverUrls calls
   // above.  So even though the request is internally cancelled almost
   // immediately, this still went out on the wire.
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
-      .WillOnce(::testing::Invoke(
-          [&request, &connection_id](
-              uint64_t endpoint_id, uint64_t cid, msgs::Type message_type,
-              const uint8_t* buffer, size_t buffer_size) {
-            connection_id = cid;
-            ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                buffer, buffer_size, &request);
-            OSP_DCHECK_GT(result, 0);
-            return result;
-          }));
-  RunTasksUntilIdle();
+  ExpectStreamMessage(&mock_callback_, &request);
+
+  quic_bridge_.RunTasksUntilIdle();
   EXPECT_EQ((std::vector<std::string>{url2_}), request.urls);
 
   fake_clock_->Advance(platform::TimeDelta::FromSeconds(60));
 
   listener_.RefreshWatches();
-  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _)).Times(0);
-  RunTasksUntilIdle();
+  EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _, _)).Times(0);
+  quic_bridge_.RunTasksUntilIdle();
 }
 
 }  // namespace presentation
