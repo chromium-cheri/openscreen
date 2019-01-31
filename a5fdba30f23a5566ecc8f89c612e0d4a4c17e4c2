@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7297846_8ece6b15",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "Error::None() ?",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "401bd07b_6ec6f202",
+        "filename": "api/impl/testing/fake_mdns_responder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "Error::None() here and below?",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 17
+      },
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9ca0fe_8b7f2258",
+        "filename": "base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "Can you return const Error\u0026 here?",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "889262a1_92e4ec62",
+        "filename": "base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "Slightly prefer just using a constructor here, e.g.\n\nstatic Error error(Code::kNone)",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9b940b_cd8b98c6",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "Can this be moved into the return value?",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f1347a7_dfb756cd",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "std::move?",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ac11ee_1b92ed03",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "Error::None()",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "409e7218_cf619421",
+        "filename": "discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "If you\u0027ve included a header in a file\u0027s .h then you don\u0027t need to include it again in the .cc (same comment applies throughout)",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d48e0af_991cb8db",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "Nit: I\u0027m happy to just leave this as |events| since the type declaration implies it can be an error too.",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9783737c_3b61b2ae",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:10:09Z",
+      "side": 1,
+      "message": "Error::None() here and below",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
