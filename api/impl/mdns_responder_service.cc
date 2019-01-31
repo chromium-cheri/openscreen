@@ -7,8 +7,8 @@
 #include <algorithm>
 #include <utility>
 
+#include <memory>
 #include "base/error.h"
-#include "base/make_unique.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {
@@ -362,7 +362,7 @@ bool MdnsResponderService::HandlePtrEvent(
       mdns_responder_->StartTxtQuery(socket, instance_name);
       events_possible = true;
 
-      auto new_instance = MakeUnique<ServiceInstance>();
+      auto new_instance = std::make_unique<ServiceInstance>();
       new_instance->ptr_socket = socket;
       new_instance->has_ptr_record = true;
       modified_instance_names->emplace(instance_name);
@@ -471,8 +471,8 @@ bool MdnsResponderService::HandleTxtEvent(
     case mdns::QueryEventHeader::Type::kAdded:
       modified_instance_names->emplace(instance_name);
       if (entry == service_by_name_.end()) {
-        auto result = service_by_name_.emplace(std::move(instance_name),
-                                               MakeUnique<ServiceInstance>());
+        auto result = service_by_name_.emplace(
+            std::move(instance_name), std::make_unique<ServiceInstance>());
         entry = result.first;
       }
       entry->second->txt_info = std::move(txt_event.txt_info);
