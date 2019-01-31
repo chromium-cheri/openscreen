@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad155b2b_6965356e",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "#include \"base/error.h\" for IWYU here and elsewhere",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b41397e_2af065c8",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "Error is intended to be constructible directly from Error::Code.  Does returning a Code value work here?",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0652885_35b6e0df",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "Eventually we\u0027ll want to map more OS error codes to Error::Code enums so we don\u0027t have to return kGenericPlatformError for all of them.  Not necessary to do in this patch though.\n\nFeel like the mapping belongs in the platform later of the codebase (i.e. this code shouldn\u0027t know about EADDRINUSE).",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d976732_ce289963",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "Can we add an Error::None() that returns a singleton \"no error\" value?",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2887d13c_66a4a790",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "Nit: No need to update copyright on code that\u0027s being modified.",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f823c04e_93338146",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "For consistency with Error, it might be nice to have an ok() method here too.",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a6feae_2c7a3493",
+        "filename": "api/impl/receiver_list.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "return empty ? Error::Code::kNoItemFound : Error::None()",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "140dfada_ccfdd03d",
+        "filename": "api/impl/receiver_list_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "We could add a boolean operator to Error.  That would make writing assertions and if statements nicer.",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b4053b_acedde41",
+        "filename": "base/error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "Nice :-)",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bce32b1f_07bdae72",
+        "filename": "base/error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "I thought std::move was a no-op on an rvalue reference?  Or does passing value as a parameter somehow make it an lvalue?",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff625d9a_cc4286cf",
+        "filename": "base/error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "An ok() and boolean operator here would save some typing in this patch :-)",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd1d739b_cc7c0bb4",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "Could be:\n\nreturn address ? address : ParseV6(s);\n\n(with a boolean operator)",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d943770c_b50915a8",
+        "filename": "discovery/mdns/domain_name.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T01:18:10Z",
+      "side": 1,
+      "message": "nice :-)",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
