@@ -9,7 +9,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "base/make_unique.h"
+#include <memory>
 #include "platform/api/logging.h"
 
 namespace openscreen {
@@ -642,7 +642,7 @@ MdnsResponderErrorCode MdnsResponderAdapterImpl::RegisterService(
     const std::map<std::string, std::string>& txt_data) {
   OSP_DCHECK(IsValidServiceName(service_name));
   OSP_DCHECK(IsValidServiceProtocol(service_protocol));
-  service_records_.push_back(MakeUnique<ServiceRecordSet>());
+  service_records_.push_back(std::make_unique<ServiceRecordSet>());
   auto* service_record = service_records_.back().get();
   domainlabel instance;
   domainlabel name;
