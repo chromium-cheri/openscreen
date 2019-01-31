@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "ad39cdc9_1cc99485",
+        "filename": "base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T22:24:09Z",
+      "side": 1,
+      "message": "Ah, did some Googling and now understand what is going on here.  Yeah, we don\u0027t need/want to run any destructors at exit here so the current code is fine.",
+      "parentUuid": "cdb6a7ea_b5de7f33",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec9b940b_cd8b98c6",
         "filename": "base/ip_address.cc",
         "patchSetId": 3
@@ -189,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "56a2646a_dfa0a67e",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T22:24:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cf2e0815_3d4e7d63",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f1347a7_dfb756cd",
         "filename": "discovery/mdns/domain_name.cc",
         "patchSetId": 3
@@ -218,6 +254,24 @@
       "side": 1,
       "message": "Returning a local variable by value is a guaranteed move, right?\n\nhttps://stackoverflow.com/questions/14856344/when-should-stdmove-be-used-on-a-function-return-value\n\nThe caveat for x-values is that the return expression must just be the name of the variable, like here. That\u0027s why we had to add std::moves to some of the ternary operator return statements.",
       "parentUuid": "3f1347a7_dfb756cd",
+      "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd8fd8ce_87b799b3",
+        "filename": "discovery/mdns/domain_name.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T22:24:09Z",
+      "side": 1,
+      "message": "Ah, I wasn\u0027t aware of that rule.  Thanks for filling me in.",
+      "parentUuid": "a4795bcf_e2938d5b",
       "revId": "a5fdba30f23a5566ecc8f89c612e0d4a4c17e4c2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
