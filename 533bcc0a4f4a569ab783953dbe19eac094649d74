@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "324b3945_3dd8618f",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:14:48Z",
+      "side": 1,
+      "message": "Ah, that makes sense.  Strictly speaking this is against style guide to avoid unexpected conversions but I believe this is a good tradeoff to reduce verbosity.  Can you add a comment explaining why this isn\u0027t marked explicit?",
+      "parentUuid": "cba53048_ee3c6947",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0652885_35b6e0df",
         "filename": "api/impl/internal_services.cc",
         "patchSetId": 2
@@ -282,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "562043a8_850f3b7f",
+        "filename": "api/impl/receiver_list_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:14:48Z",
+      "side": 1,
+      "message": "Good points.  One thing that\u0027s a little confusing is that we are using Error to refer to both errors and normal results.  If we want to use it in that way, it might have been better named \"Result\" or \"Status\" as you suggest.  Let\u0027s see how folks feel at the next weekly meeting.",
+      "parentUuid": "59f26a5f_7db1b57e",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61b4053b_acedde41",
         "filename": "base/error.h",
         "patchSetId": 2
@@ -363,6 +399,24 @@
       "side": 1,
       "message": "Fair enough, I can add those. I don\u0027t know if we need ok() too, I\u0027m just gonna add the bool operator for now.",
       "parentUuid": "ff625d9a_cc4286cf",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55d3993b_f3de1f29",
+        "filename": "base/error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-01-31T19:14:48Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "bbafa324_4c8c06c3",
       "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
