@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "efb963d1_cb5f8b88",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "Taking offline. I think we have some refactoring to do :).",
+      "parentUuid": "8453e891_1c9707f4",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ea71843_e8554b2e",
         "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfbe3e9b_a9c3c7d2",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "No, because ProtocolConnection is an abstract class and thus we need subtype polymorphism.",
+      "parentUuid": "2ea71843_e8554b2e",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9488d7b8_578aa198",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "At first glance, yeah it is--but only because stream_ptr is improperly initialized (and thus contains junk :\u003d true). Null-initializing stream_ptr breaks the ASSERT_TRUE(stream_ptr) call, since it doesn\u0027t get initialized until OnIncomingConnectionMock gets called. We shouldn\u0027t be asserting this until the QUIC bridge has finishing running tasks, which is exactly where it is now.",
+      "parentUuid": "1d5bae55_40863673",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a966e851_0504bdf1",
         "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95676361_8689d60e",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "Definitely! Cut over 200 lines.",
+      "parentUuid": "a966e851_0504bdf1",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a442406a_b1d8de0f",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "Definitely.",
+      "parentUuid": "ef691d09_70ae6b19",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "399eab20_ae72c68b",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80fd7fb9_757d9e7c",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "Done. Can we make this part of cl-format? I will look.",
+      "parentUuid": "399eab20_ae72c68b",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "2467143d_8b95d13e",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "We don\u0027t really have the observer set up here, so for now I think this should be left as is.",
+      "parentUuid": "d36c9e4d_c5aa6a59",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "200f85a2_548e7bcd",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d8cf66_d8f99454",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "From what I can tell, it\u0027s just a placeholder.",
+      "parentUuid": "200f85a2_548e7bcd",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "34b9b622_6e1b4b68",
+        "filename": "api/impl/quic/quic_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "Taken offline.",
+      "parentUuid": "0bb8fe43_c621e913",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f0d5bb2_7e8eb5af",
         "filename": "api/impl/quic/quic_server_unittest.cc",
         "patchSetId": 1
@@ -169,6 +331,24 @@
       "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "155d94e2_c7756a68",
+        "filename": "api/impl/quic/quic_server_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "ProtocolConnection is an abstract class, so no passing by value here. We definitely don\u0027t really care about the value of connection here, though.\n\nThe unique_ptr syntax is just an override from the parent ConnectionRequestCallback class, and I do think it\u0027s probably the right approach due to the abstract nature and ownership. I do think the release is unnecessary, however I\u0027m pretty sure Brandon added it because GMock is too stupid to understand a std::unique_ptr\u0026\u0026 param. \n\nFor now, since we aren\u0027t even using it, I think I\u0027ll just make it a MOCK_METHOD0.",
+      "parentUuid": "5f0d5bb2_7e8eb5af",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "a533e5d4_7433d632",
+        "filename": "api/impl/quic/quic_service_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "Poking around, it looks like we have some tech debt around memory leaks.\n\nEnabling the LeakSanitizer in clang results in six leaks in our unittest suite. I think for now I\u0027ll take the IOU here and clean up as part of getting the LeakSanitizer working on build bots and fixing the resulting leaks.",
+      "parentUuid": "ecd48146_2f661551",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50afb97f_b781764a",
         "filename": "api/impl/quic/testing/fake_quic_bridge.h",
         "patchSetId": 1
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "424db6b6_a7e3e479",
+        "filename": "api/impl/quic/testing/fake_quic_bridge.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "Fair enough -- other classes must know about the mock implementations in order to use them.",
+      "parentUuid": "50afb97f_b781764a",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddf53d0e_b8269447",
         "filename": "api/public/protocol_connection.h",
         "patchSetId": 1
@@ -220,6 +436,24 @@
       "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49a0a55f_6c0ef67d",
+        "filename": "api/public/protocol_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T01:33:11Z",
+      "side": 1,
+      "message": "Love it. Nothing quite like the carthasis of code deletion.",
+      "parentUuid": "ddf53d0e_b8269447",
+      "revId": "5cbcade7fc2023512721c3a63b9ac1573debc597",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
