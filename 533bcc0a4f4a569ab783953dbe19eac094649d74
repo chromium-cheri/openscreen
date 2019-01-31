@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d19d7a52_5b583ef9",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "Fair enough. Would love to get this as part of cl-format.",
+      "parentUuid": "ad155b2b_6965356e",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b41397e_2af065c8",
         "filename": "api/impl/internal_services.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba53048_ee3c6947",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "Figured it out. The Error::Code constructor was marked explicit, explicitly prohibiting this conversion without a cast. I\u0027ve removed explicit (I don\u0027t see any obvious reason why not to)--if I\u0027m missing something please let me know.",
+      "parentUuid": "1b41397e_2af065c8",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b0e56974_0af31451",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "Totally agree. I\u0027ve added an IOU, this should definitely be a separate patch.",
+      "parentUuid": "c0652885_35b6e0df",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d976732_ce289963",
         "filename": "api/impl/internal_services.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ddcf459_4b056111",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "Definitely! Done.",
+      "parentUuid": "0d976732_ce289963",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "23a62347_e7e7c651",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "Sounds good -- good to know.",
+      "parentUuid": "2887d13c_66a4a790",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f823c04e_93338146",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bdaa19a_149c493e",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "I think we are safe with a bool operator for ErrorOr, so I\u0027ll just use that.",
+      "parentUuid": "f823c04e_93338146",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "d9ee8ef0_f396d447",
+        "filename": "api/impl/receiver_list.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "Aye.",
+      "parentUuid": "55a6feae_2c7a3493",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "140dfada_ccfdd03d",
         "filename": "api/impl/receiver_list_unittest.cc",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59f26a5f_7db1b57e",
+        "filename": "api/impl/receiver_list_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "I\u0027m happy to discuss -- my current feelings are that a boolean operator for Error would be confusing. Consider this\n\nError foo();\n\nYou would expect if (foo()) to return true if there was no error, or false if there was an error.\n\nNow consider:\n\nError error;\n\nSeems to me here that if (error) should return true if there was an error, and false otherwise.\n\nI think the syntactic difficulties here make a bool operator dangerous.\n\nIf we rename Error to Status or something similar I would reconsider.",
+      "parentUuid": "140dfada_ccfdd03d",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "3db88bdb_feb8f55b",
+        "filename": "base/error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "You would think, but the compiler is stupid here and ends up calling the (deleted) copy constructor without the explicit move syntax.",
+      "parentUuid": "bce32b1f_07bdae72",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff625d9a_cc4286cf",
         "filename": "base/error.h",
         "patchSetId": 2
@@ -189,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "bbafa324_4c8c06c3",
+        "filename": "base/error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "Fair enough, I can add those. I don\u0027t know if we need ok() too, I\u0027m just gonna add the bool operator for now.",
+      "parentUuid": "ff625d9a_cc4286cf",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd1d739b_cc7c0bb4",
         "filename": "base/ip_address.cc",
         "patchSetId": 2
@@ -203,6 +383,24 @@
       "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3625a66_385ff987",
+        "filename": "base/ip_address.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-01-31T02:37:16Z",
+      "side": 1,
+      "message": "I can oneline it, iff I use explicit std::move -- otherwise we get a compiler error about using a deleted ctor.",
+      "parentUuid": "cd1d739b_cc7c0bb4",
+      "revId": "533bcc0a4f4a569ab783953dbe19eac094649d74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
