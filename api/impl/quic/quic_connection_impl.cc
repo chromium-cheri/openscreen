@@ -5,7 +5,7 @@
 #include "api/impl/quic/quic_connection_impl.h"
 
 #include "api/impl/quic/quic_connection_factory_impl.h"
-#include "base/make_unique.h"
+#include "third_party/abseil/src/absl/memory/memory.h"
 #include "third_party/abseil/src/absl/types/optional.h"
 #include "third_party/chromium_quic/src/net/third_party/quic/platform/impl/quic_chromium_clock.h"
 
@@ -80,7 +80,7 @@ void QuicConnectionImpl::OnDataReceived(const platform::ReceivedData& data) {
 std::unique_ptr<QuicStream> QuicConnectionImpl::MakeOutgoingStream(
     QuicStream::Delegate* delegate) {
   ::quic::QuartcStream* stream = session_->CreateOutgoingDynamicStream();
-  return MakeUnique<QuicStreamImpl>(delegate, stream);
+  return absl::make_unique<QuicStreamImpl>(delegate, stream);
 }
 
 void QuicConnectionImpl::Close() {
@@ -92,7 +92,7 @@ void QuicConnectionImpl::OnCryptoHandshakeComplete() {
 }
 
 void QuicConnectionImpl::OnIncomingStream(::quic::QuartcStream* stream) {
-  auto public_stream = MakeUnique<QuicStreamImpl>(
+  auto public_stream = absl::make_unique<QuicStreamImpl>(
       delegate_->NextStreamDelegate(session_->connection_id(), stream->id()),
       stream);
   streams_.push_back(public_stream.get());

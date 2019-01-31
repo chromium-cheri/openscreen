@@ -10,10 +10,10 @@
 #include <vector>
 
 #include "base/error.h"
-#include "base/make_unique.h"
 #include "discovery/mdns/mdns_responder_adapter_impl.h"
 #include "platform/api/error.h"
 #include "platform/api/logging.h"
+#include "third_party/abseil/src/absl/memory/memory.h"
 
 // This file contains a demo of our mDNSResponder wrapper code.  It can both
 // listen for mDNS services and advertise an mDNS service.  The command-line
@@ -234,7 +234,7 @@ void BrowseDemo(const std::string& service_name,
     return;
   }
 
-  auto mdns_adapter = MakeUnique<mdns::MdnsResponderAdapterImpl>();
+  auto mdns_adapter = absl::make_unique<mdns::MdnsResponderAdapterImpl>();
   platform::EventWaiterPtr waiter = platform::CreateEventWaiter();
   mdns_adapter->Init();
   mdns_adapter->SetHostLabel("gigliorononomicon");

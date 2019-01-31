@@ -7,8 +7,8 @@
 #include <algorithm>
 
 #include "api/public/network_service_manager.h"
-#include "base/make_unique.h"
 #include "platform/api/logging.h"
+#include "third_party/abseil/src/absl/memory/memory.h"
 
 namespace openscreen {
 namespace presentation {
@@ -99,7 +99,7 @@ void UrlAvailabilityRequester::RemoveObserver(ReceiverObserver* observer) {
 void UrlAvailabilityRequester::AddReceiver(const ServiceInfo& info) {
   auto result = receiver_by_service_id_.emplace(
       info.service_id,
-      MakeUnique<ReceiverRequester>(
+      absl::make_unique<ReceiverRequester>(
           this, info.service_id,
           info.v4_endpoint.address ? info.v4_endpoint : info.v6_endpoint));
   std::unique_ptr<ReceiverRequester>& receiver = result.first->second;

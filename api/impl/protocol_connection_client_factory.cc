@@ -6,7 +6,7 @@
 
 #include "api/impl/quic/quic_client.h"
 #include "api/impl/quic/quic_connection_factory_impl.h"
-#include "base/make_unique.h"
+#include "third_party/abseil/src/absl/memory/memory.h"
 
 namespace openscreen {
 
@@ -15,8 +15,8 @@ std::unique_ptr<ProtocolConnectionClient>
 ProtocolConnectionClientFactory::Create(
     MessageDemuxer* demuxer,
     ProtocolConnectionServiceObserver* observer) {
-  return MakeUnique<QuicClient>(
-      demuxer, MakeUnique<QuicConnectionFactoryImpl>(), observer);
+  return absl::make_unique<QuicClient>(
+      demuxer, absl::make_unique<QuicConnectionFactoryImpl>(), observer);
 }
 
 }  // namespace openscreen

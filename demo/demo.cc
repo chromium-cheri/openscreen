@@ -18,10 +18,10 @@
 #include "api/public/protocol_connection_server_factory.h"
 #include "api/public/service_listener.h"
 #include "api/public/service_publisher.h"
-#include "base/make_unique.h"
 #include "msgs/osp_messages.h"
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
+#include "third_party/abseil/src/absl/memory/memory.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 
 namespace openscreen {
@@ -102,7 +102,7 @@ class ListenerObserver final : public ServiceListener::Observer {
   void OnReceiverAdded(const ServiceInfo& info) override {
     OSP_LOG_INFO << "found! " << info.friendly_name;
     if (!auto_message_) {
-      auto_message_ = MakeUnique<AutoMessage>();
+      auto_message_ = absl::make_unique<AutoMessage>();
       auto_message_->TakeRequest(
           NetworkServiceManager::Get()->GetProtocolConnectionClient()->Connect(
               info.v4_endpoint, auto_message_.get()));
@@ -183,7 +183,7 @@ class ConnectionServerObserver final
 
   void OnIncomingConnection(
       std::unique_ptr<ProtocolConnection>&& connection) override {
-    auto observer = MakeUnique<ConnectionObserver>(this);
+    auto observer = absl::make_unique<ConnectionObserver>(this);
     connection->SetObserver(observer.get());
     connections_.emplace_back(std::move(observer), std::move(connection));
     connections_.back().second->CloseWriteEnd();

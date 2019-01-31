@@ -4,7 +4,7 @@
 
 #include "api/impl/service_publisher_impl.h"
 
-#include "base/make_unique.h"
+#include "third_party/abseil/src/absl/memory/memory.h"
 #include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
 #include "third_party/googletest/src/googletest/include/gtest/gtest.h"
 
@@ -45,7 +45,7 @@ class ServicePublisherImplTest : public ::testing::Test {
  protected:
   void SetUp() override {
     service_publisher_ =
-        MakeUnique<ServicePublisherImpl>(nullptr, &mock_delegate_);
+        absl::make_unique<ServicePublisherImpl>(nullptr, &mock_delegate_);
   }
 
   MockMdnsDelegate mock_delegate_;
@@ -131,7 +131,7 @@ TEST_F(ServicePublisherImplTest, ObserverTransitions) {
   MockObserver observer;
   MockMdnsDelegate mock_delegate;
   service_publisher_ =
-      MakeUnique<ServicePublisherImpl>(&observer, &mock_delegate);
+      absl::make_unique<ServicePublisherImpl>(&observer, &mock_delegate);
 
   service_publisher_->Start();
   Expectation start_from_stopped = EXPECT_CALL(observer, OnStarted());
