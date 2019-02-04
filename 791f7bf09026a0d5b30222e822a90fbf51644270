@@ -1,0 +1,310 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25d24433_5579f571",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "I filed https://bugs.chromium.org/p/openscreen/issues/detail?id\u003d27 to implement the controller algorithms in this file - you can use TOOD(issue 27) to note the places where additional code needs to be written.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41240192_87da5d0f",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Nit: Prefer to pass move-only types by value, unless there\u0027s a specific reason to use an rvalue reference.  The compiler should be able to use an rvalue reference when appropriate?",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bdfe0c5_cd6bd3c7",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Does each PresentationConnection get its own ProtocolConnection instance (as a view onto the underlying QUIC stream)?  I believe the spec generally allows QUIC streams to be shared among multiple ProtocolConnection.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ad8153_b182d09e",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Here, IMO it\u0027s OK to pass an rvalue reference since we want the caller to move the message.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c02c17e1_442fe57c",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "We may want to return an error code if the caller is violating the contract of the PresentationConnection.  However, this could be expected - see below.\n\nMeta-question: Where is the source of truth about the connection state?\n\nIf there is a state change initiated by the embedder, it has to be the embedder - it will change state before it calls into the library to close the connection.\n\nIf there\u0027s a state change initiated by the OSP library (connection/disconnection/remote close/remote terminate), then it\u0027s the library, which will them notify the embedder.\n\nSo we\u0027ll have to make the APIs aware of the fact that there could be different connection states on the embedder and library sides.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee9b21e_78eb0f59",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Nit: using msgs::PresentationConnectionMessage, ::Message, ::Message::Which, etc. would shorten some lines in this file.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82353dfb_2d720b68",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "This should probably be propagated as an error, both through the return value and/or delegate-\u003eOnError().\n\nThe Presentation API spec suggests that failure to send a message should cause the PresentationConnection to be closed - step 5 in:\n\nhttps://w3c.github.io/presentation-api/#sending-a-message-through-presentationconnection\n\nWe should make sure the OSP spec follows suit.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c83b26e6_73b2d6b9",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "If you have methods with two different implementations selected at runtime, it\u0027s common to factor them out into separate classes (aka Strategy Pattern).\n\nIn this case, controller and receiver-specific methods could go ControllerDelegate and ReceiverDelegate nexted classes that implement a shared delegate base class.\n\nIf it ends up duplicating code, then may not be worth it, but I think you end up with a clearer picture of the role-specific code.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20dc80ba_c02136f2",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Can we use stream_ here or do we need a new ProtocolConnection to send this message?",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac76a11a_8ca50b34",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Return an error?",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6b5717_bf829453",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Nit: blank line to separate definitions",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "462968e2_e298b5b3",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "This has landed now, so feel free to update this patch as you see fit, or leave a TODO for another day.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad44f725_ea2c9c35",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "It looks like this is just used to pack the arguments to the ctor, in which case, it would be simpler to just pass the id and url.",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "672fe229_6bfe4e54",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Can you add a comment on who calls these and when?  Are they updating the state of the Connection in response to messages/network events?",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d753690_a2b3c4dd",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "I believe a given Connection should have the same connection ID throughout its lifetime, in which case, the connection id could be part of this struct.\n\nOn the other hand, could these values be members of Connection itself?",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac1f0ceb_0a0c0d02",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Is there a reason the values aren\u0027t just Connection*?",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd78079_b46b7e4a",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "Nit: private members should end in _",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3e786c_11309b5c",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-04T21:54:28Z",
+      "side": 1,
+      "message": "DISALLOW_COPY_AND_ASSIGN?",
+      "revId": "791f7bf09026a0d5b30222e822a90fbf51644270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
