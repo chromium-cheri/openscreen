@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d00b70cc_1f7f95d6",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "This might be exploitable if a remote party can trigger a function call on the destroyed socket. I would be okay with making this an OSP_CHECK().",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b168df13_ac9c7562",
+        "filename": "api/impl/mdns_responder_service_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "What are these pointing to?  Are these constants \u0027fake\u0027 pointers to unallocated memory?\n\nEven if the test passes as-is, it seems pretty brittle; as soon as someone tries to pass these into any function that calls through, they will have a bad time.",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b72c9b_a8bead5d",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "My reading of the code is the latter.  OnConnectionFailed() tells the embedder API that\u0027s managing connections (ProtocolConnectionClient) that no connection was created for the request that was passed in.",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7798ae49_e74e718e",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "The ServerDelegate needs to be informed that the call to Bind().  In addition returning an Error here would be a good idea.\n\nFeel free to add a TODO(mfoltz) here.",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48fd6bab_4e4938cb",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "We\u0027re trying to use ErrorOr\u003c\u003e here as a pattern for functions that can return a value, or return an error code.  In this case, Connect would return ErrorOr\u003cstd::unique_ptr\u003cQuicConnection\u003e\u003e and this line would return Error::Code::kSocketCreateFailure (a new code).\n\nFeel free to leave a TODO(mfoltz) if you want to avoid further API changes in this patch though.",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f067f48f_fa7edf58",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "I wonder why this didn\u0027t return size_t to begin with?",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d2b52d_7997e752",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "Another TODO(mfoltz) to use ErrorOr.",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26faf421_2b5fc32c",
+        "filename": "api/impl/testing/fake_mdns_platform_service_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "More fake pointers?",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad055df0_d5ab1f62",
+        "filename": "discovery/mdns/opaque_conversions.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-05T00:31:32Z",
+      "side": 1,
+      "message": "mDNSInterfaceID is defined to be a pointer (see below from mDNSEmbeddedAPI.h), and I would be happy to assume that all OpaqueId holders are equally sized to Pointer going forward.\n\ntypedef struct mDNSInterfaceID_dummystruct { void *dummy; } *mDNSInterfaceID;",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
