@@ -7,9 +7,12 @@
 #include <algorithm>
 #include <chrono>
 #include <cstring>
+#include <limits>
 #include <vector>
 
+#include "base/error.h"
 #include "base/ip_address.h"
+#include "discovery/mdns/opaque_conversions.h"
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
 #include "platform/api/socket.h"
@@ -36,8 +39,8 @@ mStatus mDNSPlatformSendUDP(const mDNS* m,
                             UDPSocket* src,
                             const mDNSAddr* dst,
                             mDNSIPPort dstport) {
-  const auto* socket =
-      reinterpret_cast<openscreen::platform::UdpSocketPtr>(InterfaceID);
+  openscreen::platform::UdpSocket* socket;
+  openscreen::mdns::ConvertToPointer(&InterfaceID, &socket);
   const auto socket_it =
       std::find(m->p->sockets.begin(), m->p->sockets.end(), socket);
   if (socket_it == m->p->sockets.end())
@@ -49,9 +52,18 @@ mStatus mDNSPlatformSendUDP(const mDNS* m,
                                 : openscreen::IPAddress::Version::kV6,
                             dst->ip.v4.b},
       static_cast<uint16_t>((dstport.b[0] << 8) | dstport.b[1])};
-  int64_t length = last - static_cast<const uint8_t*>(msg);
-  openscreen::platform::SendUdp(*socket_it, msg, length, dest);
-  return mStatus_NoError;
+  const int64_t length = last - static_cast<const uint8_t*>(msg);
+  if (length < 0 || length > std::numeric_limits<size_t>::max()) {
+    return mStatus_BadParamErr;
+  }
+  switch ((*socket_it)->SendMessage(msg, length, dest).code()) {
+    case openscreen::Error::Code::kNone:
+      return mStatus_NoError;
+    case openscreen::Error::Code::kAgain:
+      return mStatus_TransientErr;
+    default:
+      return mStatus_UnknownErr;
+  }
 }
 
 void mDNSPlatformLock(const mDNS* m) {
