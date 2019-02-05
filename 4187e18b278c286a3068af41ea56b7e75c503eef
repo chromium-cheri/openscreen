@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dd35f3dd_44abb933",
+        "filename": "api/impl/internal_services.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d00b70cc_1f7f95d6",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b168df13_ac9c7562",
         "filename": "api/impl/mdns_responder_service_unittest.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77dee6d6_74e1e436",
+        "filename": "api/impl/mdns_responder_service_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "Agreed. This was the case before my change (see L121 in unchanged code).\n\nI have an eng plan for the platform code: I want test binaries to be able to open UdpSockets and use them, but have the platform/BUILD.gn set up to link against a fake implementation (rather than actually doing socket I/O on the real network).\n\nI have a TODO list for this and some other things I noticed. I\u0027ll start cutting bugs for better tracking...",
+      "parentUuid": "b168df13_ac9c7562",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ebf50d27_05627db9",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "I was leaning towards that interpretation as well. Will file a bug for this, since adding the OnConnectionFailed() callback will require some significant code change (out-of-scope for this already-giant change). It may require a task runner...but, I\u0027m not sure.",
+      "parentUuid": "36b72c9b_a8bead5d",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7798ae49_e74e718e",
         "filename": "api/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2cc3bf2_4121960c",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7798ae49_e74e718e",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fd072daf_f409bda8",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "Added TODO, since I\u0027m a bit concerned about how big this patch is getting. :)",
+      "parentUuid": "48fd6bab_4e4938cb",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f067f48f_fa7edf58",
         "filename": "api/impl/quic/quic_connection_impl.cc",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a87b34_3f05ef97",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "This method is implementing an interface from chromium_quic code.",
+      "parentUuid": "f067f48f_fa7edf58",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "a9fe5116_e8b8205e",
+        "filename": "api/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "I did \"rebase\" this code, post Jordan\u0027s recent Error/ErrorOr change. :)",
+      "parentUuid": "f0d2b52d_7997e752",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26faf421_2b5fc32c",
         "filename": "api/impl/testing/fake_mdns_platform_service_unittest.cc",
         "patchSetId": 1
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "57e18939_64a487b0",
+        "filename": "api/impl/testing/fake_mdns_platform_service_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "Ack. (Pre-existing issue; see other comment.)",
+      "parentUuid": "26faf421_2b5fc32c",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad055df0_d5ab1f62",
         "filename": "discovery/mdns/opaque_conversions.h",
         "patchSetId": 1
@@ -152,6 +296,24 @@
       "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5258e6d4_57ea3312",
+        "filename": "discovery/mdns/opaque_conversions.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T04:14:21Z",
+      "side": 1,
+      "message": "Doh! I saw \"ID\" in the name and never saw \"*\" in the type decls anywhere, and so I assumed it was some kind of integer type. I\u0027ve reverted all this.",
+      "parentUuid": "ad055df0_d5ab1f62",
+      "revId": "4187e18b278c286a3068af41ea56b7e75c503eef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
