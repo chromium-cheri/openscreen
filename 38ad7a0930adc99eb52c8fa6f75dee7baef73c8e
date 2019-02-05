@@ -16,6 +16,24 @@
       "revId": "38ad7a0930adc99eb52c8fa6f75dee7baef73c8e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a7cfcce_c5e660da",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-05T02:08:34Z",
+      "side": 1,
+      "message": "Agreed. However, this has to match the //build_overrides/build.gni file in the Chromium project. What happens is:\n\nIf OpenScreen being built standalone: GN will use this file whenever import(\"//build_overrides/build.gni\") is referenced.\n\nIf OpenScreen being built in Chromium: GN will use Chromium\u0027s src/build_overrides/build.gni instead. The subtle \"hack\" here is the absolute path spec (the leading double-slash, \"//\"). When GN evals the OpenScreen BUILD.gn files, it is in the context of Chromium\u0027s root BUILD.gn.\n\nNote, this also means we will need to change our BUILD.gn files to use relative (not absolute) path specs (e.g., in \"deps\" and other such references) before we can build OpenScreen with Chromium. The other projects (e.g., WebRTC) do this, so I think that\u0027s the \"accepted standard operating procedure.\" :)",
+      "parentUuid": "72906676_041a6ff1",
+      "revId": "38ad7a0930adc99eb52c8fa6f75dee7baef73c8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
