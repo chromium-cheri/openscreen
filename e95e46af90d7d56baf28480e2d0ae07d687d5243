@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f1dc624_f04d57da",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-07T23:19:12Z",
+      "side": 1,
+      "message": "Suggest putting this in an anonymous namespace, so it can\u0027t mistakenly collide with functions in other test modules.",
+      "revId": "e95e46af90d7d56baf28480e2d0ae07d687d5243",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c1f3760_a243b450",
+        "filename": "api/impl/quic/testing/fake_quic_connection_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-07T23:19:12Z",
+      "side": 1,
+      "message": "bike-shedding: IMHO, it\u0027s more readable for these to read \"!written_data.empty()\".",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 29
+      },
+      "revId": "e95e46af90d7d56baf28480e2d0ae07d687d5243",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae092ada_45218c30",
+        "filename": "api/impl/quic/testing/fake_quic_connection_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-07T23:19:12Z",
+      "side": 1,
+      "message": "Side note: Looks like we need a task runner. :) It\u0027s brittle for both the caller and callee to be dipping their hands in all this.",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 22
+      },
+      "revId": "e95e46af90d7d56baf28480e2d0ae07d687d5243",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79158c0b_dead0284",
+        "filename": "api/impl/quic/testing/fake_quic_connection_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-07T23:19:12Z",
+      "side": 1,
+      "message": "I may be misunderstanding something, but the two iterators (controller_it and receiver_it) seem like they are supposed to correspond with each other. However, there are two very separate code paths for whether a controller_stream or receiver_stream is erases and/or the iterators advanced.\n\nPerhaps add some code comments throughout this loop (or here? or at the top?) to explain what\u0027s going on?",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 22
+      },
+      "revId": "e95e46af90d7d56baf28480e2d0ae07d687d5243",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b703664c_fdb11d77",
+        "filename": "api/impl/quic/testing/fake_quic_connection_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-07T23:19:12Z",
+      "side": 1,
+      "message": "Simplify:\n\n if (endpoint !\u003d receiver_endpoint_) {",
+      "range": {
+        "startLine": 121,
+        "startChar": 6,
+        "endLine": 122,
+        "endChar": 47
+      },
+      "revId": "e95e46af90d7d56baf28480e2d0ae07d687d5243",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "812f23bf_bc74aeea",
+        "filename": "api/impl/quic/testing/quic_test_support.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-07T23:19:12Z",
+      "side": 1,
+      "message": "New file: 2019",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "e95e46af90d7d56baf28480e2d0ae07d687d5243",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
