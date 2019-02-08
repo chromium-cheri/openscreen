@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6b52a439_188fd842",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-02-08T23:59:48Z",
+      "side": 1,
+      "message": "TBH...It seems like those classes should be in the anonymous namespace as well, to avoid clashing with other unittest.cc modules that might also declare a MockMessageCallback class. It may seem like I\u0027m being too pedantic here, but I\u0027ve actually encountered exactly this bug TWICE (in Chromium) in the past 6 years. :)",
+      "parentUuid": "3e496a43_784046f3",
+      "revId": "e95e46af90d7d56baf28480e2d0ae07d687d5243",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c1f3760_a243b450",
         "filename": "api/impl/quic/testing/fake_quic_connection_factory.cc",
         "patchSetId": 8
