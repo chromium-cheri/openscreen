@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d9806c9_1d59c4f8",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-08T06:33:08Z",
+      "side": 1,
+      "message": "In unit tests, it\u0027s common to import names from testing:: with using to make statements like these shorter and more readable.\n\nAlso, I think WithArgs here is redundant, as Invoke will already get called with the arguments to the mock.",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a021461f_d8d97248",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-08T06:33:08Z",
+      "side": 1,
+      "message": "Usually anonymous namespaces go at the top of the file.",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c24f34e9_0d5fd4cb",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-08T06:33:08Z",
+      "side": 1,
+      "message": "Where does this return value go?",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1391c27_6300e7b3",
+        "filename": "api/impl/quic/quic_server_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-08T06:33:08Z",
+      "side": 1,
+      "message": "Similar comment about WithArgs (I could be wrong on this though)",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c66577df_cd85b3be",
+        "filename": "api/impl/quic/quic_service_common.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-08T06:33:08Z",
+      "side": 1,
+      "message": "Can you be more specific?  Is the leak that the connection was not closed before this dtor was called, or is there a potential to leak a QuicProtocolConnection and not have it closed/destroyed at all?",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a09d801_2fd926aa",
+        "filename": "api/impl/quic/testing/fake_quic_connection_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-08T06:33:08Z",
+      "side": 1,
+      "message": "s/connectee/remote_connection/g perhaps?",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df3a8ec5_f979e5ee",
+        "filename": "api/impl/quic/testing/quic_test_support.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-08T06:33:08Z",
+      "side": 1,
+      "message": "Is it important that the controller and receiver have separate instances of FakeClock?\n\nIf so, can you give them distinct variable names?  (Reusing variable names is somewhat discouraged.)",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
