@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e1bb749f_d21db367",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-08T23:03:00Z",
+      "side": 1,
+      "message": "Agreed. Added using statement.",
+      "parentUuid": "7d9806c9_1d59c4f8",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a021461f_d8d97248",
         "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27957677_36045382",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-08T23:03:00Z",
+      "side": 1,
+      "message": "Yeah. I wrapped it here since it needs MockMessageCallback to be declared, and Yuri suggested that this go in an anonymous namespace to avoid polluting.\n\nI\u0027m going to side step the issue by making it a member method of MockMessageCallback.",
+      "parentUuid": "a021461f_d8d97248",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "afa7b646_c7b19708",
+        "filename": "api/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-08T23:03:00Z",
+      "side": 1,
+      "message": "This return value is primarily necessary because the lambda must have the same signature as OnStreamMessage. It is returned to the class that ends up fulfilling this mock call, which I believe is MessageDemuxer::HandleStreamBuffer. This class uses the return value to determine if there was an error or not, so this return actually does make a major difference.\n\nPlus, if you don\u0027t return it, you get:\n\n../../third_party/googletest/src/googlemock/include/gmock/gmock-generated-actions.h:164:19: error: no viable conversion from returned value of type \u0027void\u0027 to function return type \u0027openscreen::ErrorOr\u003cunsigned long\u003e\u0027",
+      "parentUuid": "c24f34e9_0d5fd4cb",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1391c27_6300e7b3",
         "filename": "api/impl/quic/quic_server_unittest.cc",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ff1cabd_edc2193c",
+        "filename": "api/impl/quic/quic_server_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-08T23:03:00Z",
+      "side": 1,
+      "message": "You are right--it\u0027s just a bad practice from the example code I used :).",
+      "parentUuid": "c1391c27_6300e7b3",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "b8fb5b71_0db4da6c",
+        "filename": "api/impl/quic/quic_service_common.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-08T23:03:00Z",
+      "side": 1,
+      "message": "I was just taking ownership of the todo. I fixed the leaking issue using the address sanitizer output, so I believe this is resolved now.",
+      "parentUuid": "c66577df_cd85b3be",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a09d801_2fd926aa",
         "filename": "api/impl/quic/testing/fake_quic_connection_factory.cc",
         "patchSetId": 9
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "e2d84cef_55b59e2c",
+        "filename": "api/impl/quic/testing/fake_quic_connection_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-08T23:03:00Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "0a09d801_2fd926aa",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df3a8ec5_f979e5ee",
         "filename": "api/impl/quic/testing/quic_test_support.cc",
         "patchSetId": 9
@@ -118,6 +226,24 @@
       "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d594ce8_7c46d844",
+        "filename": "api/impl/quic/testing/quic_test_support.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-08T23:03:00Z",
+      "side": 1,
+      "message": "No, it isn\u0027t. Cleaning up.",
+      "parentUuid": "df3a8ec5_f979e5ee",
+      "revId": "9e000aa94cd8fae08e22535a0a394c99f3742e4a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
