@@ -15,6 +15,8 @@
 #include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
 #include "third_party/googletest/src/googletest/include/gtest/gtest.h"
 
+using namespace std::literals::chrono_literals;
+
 namespace openscreen {
 namespace presentation {
 
@@ -118,11 +120,8 @@ class UrlAvailabilityRequesterTest : public ::testing::Test {
   MessageDemuxer receiver_demuxer_;
   FakeQuicConnectionFactory* fake_factory_;
   NullObserver null_observer_;
-  platform::TimeDelta now_{platform::TimeDelta::FromSeconds(213489)};
-  std::unique_ptr<FakeClock> fake_clock_owned_{
-      std::make_unique<FakeClock>(now_)};
-  FakeClock* fake_clock_{fake_clock_owned_.get()};
-  UrlAvailabilityRequester listener_{std::move(fake_clock_owned_)};
+  FakeClock fake_clock_{platform::Clock::time_point(213489s)};
+  UrlAvailabilityRequester listener_{FakeClock::now};
 
   std::string url1_{"https://example.com/foo.html"};
   std::string url2_{"https://example.com/bar.html"};
@@ -661,7 +660,7 @@ TEST_F(UrlAvailabilityRequesterTest, RefreshWatches) {
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(_, service_id_)).Times(0);
   RunTasksUntilIdle();
 
-  fake_clock_->Advance(platform::TimeDelta::FromSeconds(60));
+  fake_clock_.Advance(60s);
 
   EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _))
       .WillOnce(::testing::Invoke(
@@ -827,7 +826,7 @@ TEST_F(UrlAvailabilityRequesterTest, RemoveObserverInSteps) {
   RunTasksUntilIdle();
   EXPECT_EQ((std::vector<std::string>{url2_}), request.urls);
 
-  fake_clock_->Advance(platform::TimeDelta::FromSeconds(60));
+  fake_clock_.Advance(60s);
 
   listener_.RefreshWatches();
   EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _)).Times(0);

@@ -2,21 +2,22 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "api/public/clock.h"
+#include "platform/api/time.h"
 
 namespace openscreen {
 
-class FakeClock final : public Clock {
+class FakeClock {
  public:
-  explicit FakeClock(platform::TimeDelta now);
-  ~FakeClock() override;
+  explicit FakeClock(platform::Clock::time_point start_time);
+  ~FakeClock();
 
-  platform::TimeDelta Now() override;
+  void Advance(platform::Clock::duration delta);
 
-  void Advance(platform::TimeDelta delta);
+  static platform::Clock::time_point now() noexcept;
 
  private:
-  platform::TimeDelta now_;
+  static FakeClock* instance_;
+  static platform::Clock::time_point now_;
 };
 
 }  // namespace openscreen
