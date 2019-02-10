@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08c037a5_a6f4eba7",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-10T21:52:58Z",
+      "side": 1,
+      "message": "After talking with Mark, sounds like we aren\u0027t allowed to use generic using namespace commands?",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b806251_957a1e6b",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-10T21:52:58Z",
+      "side": 1,
+      "message": "Do we usually use auto for non-obvious types?",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b235974_688a6ba7",
+        "filename": "platform/api/time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-10T21:52:58Z",
+      "side": 1,
+      "message": "Can we have a more strongly typed using here?\n\nMaybe something like\n\ntypedef std::function\u003cClock::time_point()\u003e ClockNowFunctionPtr;",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "860562c0_160f0a87",
+        "filename": "platform/api/time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-10T21:52:58Z",
+      "side": 1,
+      "message": "Do we actually need to assume that the wall time is since unix epoch? Looks like the only usage we have of that assumption is when we will warn developers about the overflow in 2038. Does it actually hurt anything to remove that assumption?",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f280e2e_db656535",
+        "filename": "platform/api/time_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-10T21:52:58Z",
+      "side": 1,
+      "message": "Why a do..while loop instead of a more standard while loop? I don\u0027t see many do loops these days.\n\n```\nwhile((delta \u003d Clock::now() - start) \u003d\u003d 0us) {\n    ASSERT_LE(0us, delta);\n}\n```",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
