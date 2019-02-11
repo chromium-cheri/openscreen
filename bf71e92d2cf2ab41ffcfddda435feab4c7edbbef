@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "0d3688b3_8a2648bf",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "using namespace is not allowed by the style guide",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c8c11a0_c1edd099",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "std::chrono literals are c++14 only and Chromium is c++11.",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "677e0c75_92d84886",
+        "filename": "api/impl/testing/fake_clock.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "Could also be a function scoped static.",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9976e982_7fdfc58c",
+        "filename": "api/impl/testing/fake_clock.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "Why is there a private static singleton and a public constructor?\n\nA ccurrent pattern for singletons is to use a function-scoped static accessed by an Instance() static method:\n\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++-dos-and-donts.md#static-variables",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08c037a5_a6f4eba7",
         "filename": "discovery/mdns/mdns_responder_platform.cc",
         "patchSetId": 2
@@ -19,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "dfacc1f7_5928d369",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "Yeah.  These should be namespace aliases instead.",
+      "parentUuid": "08c037a5_a6f4eba7",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b806251_957a1e6b",
         "filename": "discovery/mdns/mdns_responder_platform.cc",
         "patchSetId": 2
@@ -30,6 +116,109 @@
       "writtenOn": "2019-02-10T21:52:58Z",
       "side": 1,
       "message": "Do we usually use auto for non-obvious types?",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7bfd35f_df9744fd",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "It\u0027s okay as long as you don\u0027t elide pointers or reference annotations by using auto.",
+      "parentUuid": "5b806251_957a1e6b",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "306b83b7_4f9c5700",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "Can you use an explicit type here?  Otherwise the numeric type returned by duration_cast isn\u0027t obvious.",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01770028_7156a6ca",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "What is the impact of returning time-since-initialization-plus-one-hour versus wall clock time?",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d8d5e29_18d73c62",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "Thinking ahead :-)\n\nIf this is also used elsewhere, could be a macro or function in platform/api/time.h.",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c900ad_bd11d598",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "Why is this excluded from the chromium build?",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6adf36a2_31be70c2",
+        "filename": "platform/api/time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "This is likely not sufficient for doing conversion to/from media clocks without losing precision.  The standard media clock is 90 kHz I believe.  Considering a wider set of audio and video clocks in use gets you something like 4GHz as a lowest common denominator.\n\nhttps://www.hackmath.net/en/calculator/least-common-denominator?input\u003d1%2F24+1%2F30+1%2F60+1%2F120+30000%2F1001+1%2F16000+1%2F8000+1%2F22050+1%2F44100+1%2F48000+1%2F96000+1%2F192000\u0026submit\u003dCalculate+LCD\n\nWDYT?",
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -81,6 +270,40 @@
       "writtenOn": "2019-02-10T21:52:58Z",
       "side": 1,
       "message": "Why a do..while loop instead of a more standard while loop? I don\u0027t see many do loops these days.\n\n```\nwhile((delta \u003d Clock::now() - start) \u003d\u003d 0us) {\n    ASSERT_LE(0us, delta);\n}\n```",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "973f9510_b7102f1f",
+        "filename": "platform/base/time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "In case the \"steady\" clock doesn\u0027t meet the resolution requirements, is a non-steady high-resolution clock useful at all?",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "846e38b6_a1d56fa5",
+        "filename": "platform/base/time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-11T23:36:21Z",
+      "side": 1,
+      "message": "Should this be a duration_cast?\n\nWhat is the underlying numeric type returned by this conversion - hopefully uint64 on all platforms?",
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
