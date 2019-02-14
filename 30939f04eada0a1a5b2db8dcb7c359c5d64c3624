@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a356df2c_8fecfc83",
+        "filename": "api/impl/presentation/presentation_common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "Nit: prefer newline after namespace decls.  Comment applies throughout patch",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ce5cc23_89a654e0",
+        "filename": "api/impl/presentation/presentation_common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "I wonder if this can be a method on ProtocolConnection.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f1501eb_c9eb7d5c",
+        "filename": "api/impl/presentation/presentation_common.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "Can you document these methods?  In particular:\n- Does this always return a new ProtocolConnection object?\n- What is the lifetime of the demuxer objects returned?",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e2585e7_93881f53",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "This could be a meta-TODO :-)\n\nTODO(issue/27): Address TODOs in this file",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5935e072_2d98b891",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "You can drop presentation:: here and below?",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "958cf994_cbedd02f",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "FIX LATER: Maybe the CDDL code generator could write a lookup table that maps the message type to function pointers to the encode/decode functions, so there could be a generic code path to write a message to a buffer?  Good to chat with btolsch@ about this.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfd06b92_6732d2b8",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "FIX LATER:  Start base/stl_util.h with helper functions like these - I strongly suspect this will not be the first time we need this.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f886ff9_d60b9a32",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "Can you check that Connections are move-only (DISALLOW_COPY_AND_ASSIGN)?",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b08a4812_7db620a9",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "Does this make a copy of the |message| contents, or does cbor_message.message take ownership?",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea29938_befc7ed2",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "FIX LATER: Ideally the messaging APIs could be optimized to be zero copy by passing by rvalue ref here and moving the contents into message.bytes.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "116ef6dc_340d9230",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "Is a ProtocolConnection one-way or duplex?  I believe the underlying QUIC stream is duplex, so it would be most straightforward to match its semantics.  \n\nFIX LATER: I wonder if we can simplify this to send on protocol_connection_.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a6d17cb_0bd8dbfc",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "This may no longer be necessary since miu@ landed a patch to allow the compiler to \"see\" that arguemnts used in DCHECK\u0027s are used, while still eliminating the associating code generation when DHCECKs are off.\n\nSame comment applies below.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b99c489e_6be36c6b",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "FIX LATER: I think the RegisterWatch/OnStreamMessage API could use some refinement.  In particular I think there should be a layer between the code that needs to run logic on the messages and the layer that parses and dispatches the messages.  The code in this class shouldn\u0027t have to deal with encoding/decoding CBOR and byte buffers, only valid parsed message objects.\n\nIn addition, a utility object to handle tracking requests and responses would be good.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ae860d9_ab2c26cf",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "Is the break; necessary?  The case statement has a top level return.\nSame comment applies below.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f701c37_bd630120",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "FIX LATER: The existence of this message in the OSP spec is actually a spec bug IMO, as the controller is explicitly not supposed to wait for acknowledgement that the connection is closed.  \n\nFiled https://github.com/webscreens/openscreenprotocol/issues/138",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3489008a_9a6ed0a5",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-14T19:54:25Z",
+      "side": 1,
+      "message": "Presumably connection-\u003eOnClosedByRemote() and passing error as the reason?\nOr adding OnClosedByError().",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
