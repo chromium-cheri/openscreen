@@ -559,6 +559,74 @@
       "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df0d634c_c430b11a",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "Please use the Invoke() pattern if possible to test move parameters, instead of using trampoline methods.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d677b4f_71d006e7",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "Same comment here",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0a5da6a_a5c94e3e",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "Bikeshed: I would consider aggregate initialization here, but I don\u0027t feel strongly about it.  You would probably want to add /* member */ comments inline to make it clear what each parameter was for, so it might not save much typing.\n\nhttps://en.cppreference.com/w/cpp/language/aggregate_initialization",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42f69f75_002b3958",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "I don\u0027t think all of these are used on the wire, so it might not make sense to use one enum type for the API and the wire format.  I would be OK deleting this TODO.",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

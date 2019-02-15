@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d5289b8_72ea76e6",
+        "filename": "api/impl/presentation/presentation_connection_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "Update copyright (here and elsewhere)",
+      "revId": "76fe84bdd375efdd94add0a1ed3b0474b9467e3b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fe1c569_46fb5942",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "Nit: remove extra blank lines",
+      "revId": "76fe84bdd375efdd94add0a1ed3b0474b9467e3b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "892b8628_47723347",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "Where does the client_id come from?  It\u0027s not in the spec and I believe the embedder submits a watch_id to be able to refer to a pending request.",
+      "revId": "76fe84bdd375efdd94add0a1ed3b0474b9467e3b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d76cd99_55425035",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "specific URLs?",
+      "revId": "76fe84bdd375efdd94add0a1ed3b0474b9467e3b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9701ceca_6d76f64d",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "Can you file an umbrella bug to reconsider the use of singletons in the embedder API and protocol implementation layers?  I can\u0027t think of a good reason to have them, especially since we don\u0027t want the library to allocate long lived objects unless a particular protocol or API is actually in use.\n\nFor bonus points, update all the TODO(foo) to TODO(issue/XX) to make it easy to find them later.",
+      "revId": "76fe84bdd375efdd94add0a1ed3b0474b9467e3b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d9d86cd_98cc8ac3",
+        "filename": "api/public/presentation/presentation_receiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "Would it be possible to add a discrimination enum to QueuedResponse and combine these maps?",
+      "revId": "76fe84bdd375efdd94add0a1ed3b0474b9467e3b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b0a7530_1643292a",
+        "filename": "base/error.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "FIX LATER: jrw@ is working on a utility library to map between strings and enums using constexpr structs.  We could adopt it here once it lands.",
+      "revId": "76fe84bdd375efdd94add0a1ed3b0474b9467e3b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6f6b726_6e124745",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-15T19:50:39Z",
+      "side": 1,
+      "message": "FIX LATER: Agreed, the numbered debug logging is overkill IMO.",
+      "revId": "76fe84bdd375efdd94add0a1ed3b0474b9467e3b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
