@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 #include <algorithm>
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -13,6 +14,8 @@
 #include "api/public/mdns_service_publisher_factory.h"
 #include "api/public/message_demuxer.h"
 #include "api/public/network_service_manager.h"
+#include "api/public/presentation/presentation_controller.h"
+#include "api/public/presentation/presentation_receiver.h"
 #include "api/public/protocol_connection_client.h"
 #include "api/public/protocol_connection_client_factory.h"
 #include "api/public/protocol_connection_server.h"
@@ -22,6 +25,7 @@
 #include "msgs/osp_messages.h"
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
+#include "third_party/abseil/src/absl/strings/string_view.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 
 namespace openscreen {
@@ -193,33 +197,6 @@ class ConnectionServerObserver final
       connections_;
 };
 
-class ConnectionMessageCallback final : public MessageDemuxer::MessageCallback {
- public:
-  ~ConnectionMessageCallback() override = default;
-
-  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
-                                  uint64_t connection_id,
-                                  msgs::Type message_type,
-                                  const uint8_t* buffer,
-                                  size_t buffer_size,
-                                  platform::TimeDelta now) override {
-    msgs::PresentationConnectionMessage message;
-    ssize_t result = msgs::DecodePresentationConnectionMessage(
-        buffer, buffer_size, &message);
-    if (result < 0) {
-      // TODO(btolsch): Need something better than including tinycbor.
-      if (result == -CborErrorUnexpectedEOF) {
-        return Error::Code::kCborIncompleteMessage;
-      } else {
-        return Error::Code::kCborParsing;
-      }
-    } else {
-      OSP_LOG_INFO << "message: " << message.message.str;
-      return result;
-    }
-  }
-};
-
 void ListenerDemo() {
   SignalThings();
 
@@ -249,13 +226,48 @@ void ListenerDemo() {
   NetworkServiceManager::Dispose();
 }
 
-void PublisherDemo(const std::string& friendly_name) {
+class ReceiverDelegateDemo final : public presentation::ReceiverDelegate {
+ public:
+  std::vector<msgs::PresentationUrlAvailability> OnUrlAvailabilityRequest(
+      uint64_t client_id,
+      uint64_t request_duration,
+      std::vector<std::string> urls) {
+    std::vector<msgs::PresentationUrlAvailability> availabilities{urls.size()};
+
+    for (auto& availability : availabilities) {
+      availability = msgs::PresentationUrlAvailability::kCompatible;
+    }
+
+    return availabilities;
+  }
+
+  bool StartPresentation(const presentation::Connection::PresentationInfo& info,
+                         uint64_t source_id,
+                         const std::string& http_headers) {
+    OSP_LOG_INFO << "Starting presentation " << source_id;
+    return true;
+  }
+
+  bool ConnectToPresentation(uint64_t request_id,
+                             const std::string& id,
+                             uint64_t source_id) {
+    OSP_LOG_INFO << "Connecting to presentation " << id;
+    return true;
+  }
+
+  void TerminatePresentation(const std::string& id,
+                             presentation::TerminationReason reason) {
+    OSP_LOG_INFO << "Terminating presentation " << id;
+  }
+};
+
+void PublisherDemo(absl::string_view friendly_name) {
   SignalThings();
 
   PublisherObserver publisher_observer;
   // TODO(btolsch): aggregate initialization probably better?
   ServicePublisher::Config publisher_config;
-  publisher_config.friendly_name = friendly_name;
+  publisher_config.friendly_name = std::string(friendly_name);
   publisher_config.hostname = "turtle-deadbeef";
   publisher_config.service_instance_name = "deadbeef";
   publisher_config.connection_server_port = 6667;
@@ -269,10 +281,13 @@ void PublisherDemo(const std::string& friendly_name) {
     server_config.connection_endpoints.push_back(
         IPEndpoint{interface.addresses[0].address, 6667});
   }
+
   MessageDemuxer demuxer;
-  ConnectionMessageCallback message_callback;
+
+  presentation::Receiver* receiver = presentation::Receiver::Get();
+
   MessageDemuxer::MessageWatch message_watch = demuxer.WatchMessageType(
-      0, msgs::Type::kPresentationConnectionMessage, &message_callback);
+      0, msgs::Type::kPresentationConnectionMessage, receiver);
   ConnectionServerObserver server_observer;
   auto connection_server = ProtocolConnectionServerFactory::Create(
       server_config, &demuxer, &server_observer);
@@ -282,6 +297,13 @@ void PublisherDemo(const std::string& friendly_name) {
 
   network_service->GetMdnsServicePublisher()->Start();
   network_service->GetProtocolConnectionServer()->Start();
+
+  // We initialize the receiver once the Demuxer is in place.
+  receiver->Init();
+
+  std::unique_ptr<presentation::ReceiverDelegate> delegate =
+      std::make_unique<ReceiverDelegateDemo>();
+  receiver->SetReceiverDelegate(delegate.get());
 
   while (!g_done) {
     network_service->RunEventLoopOnce();
@@ -296,10 +318,40 @@ void PublisherDemo(const std::string& friendly_name) {
 }  // namespace
 }  // namespace openscreen
 
+struct InputArgs {
+  absl::string_view friendly_server_name;
+  bool is_verbose;
+};
+
+InputArgs GetInputArgs(int argc, char** argv) {
+  InputArgs args;
+  for (int i = 1; i < argc; ++i) {
+    if (strcmp("-v", argv[i]) == 0) {
+      args.is_verbose = true;
+    } else {
+      args.friendly_server_name = argv[i];
+    }
+  }
+
+  return args;
+}
+
 int main(int argc, char** argv) {
+  using openscreen::platform::LogLevel;
+
+  std::cout << "Usage: demo [-v] [friendly_name]" << std::endl
+            << "-v: enable more verbose logging" << std::endl
+            << "friendly_name: server name, runs the publisher demo."
+            << std::endl
+            << "               omitting runs the listener demo." << std::endl
+            << std::endl;
+
+  InputArgs args = GetInputArgs(argc, argv);
   openscreen::platform::LogInit(nullptr);
-  openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kVerbose,
-                                    1);
+
+  LogLevel level = args.is_verbose ? LogLevel::kVerbose : LogLevel::kInfo;
+  openscreen::platform::SetLogLevel(level);
+
   if (argc == 1) {
     openscreen::ListenerDemo();
   } else {
