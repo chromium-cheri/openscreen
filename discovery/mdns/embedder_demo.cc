@@ -335,8 +335,8 @@ void BrowseDemo(const std::string& service_name,
 
 int main(int argc, char** argv) {
   openscreen::platform::LogInit(nullptr);
-  openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kVerbose,
-                                    0);
+  openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kVerbose);
+
   std::string service_instance;
   std::string service_type("_openscreen._udp");
   if (argc >= 2)

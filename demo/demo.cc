@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 #include <algorithm>
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -22,6 +23,7 @@
 #include "msgs/osp_messages.h"
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
+#include "third_party/abseil/src/absl/strings/string_view.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 
 namespace openscreen {
@@ -249,13 +251,13 @@ void ListenerDemo() {
   NetworkServiceManager::Dispose();
 }
 
-void PublisherDemo(const std::string& friendly_name) {
+void PublisherDemo(absl::string_view friendly_name) {
   SignalThings();
 
   PublisherObserver publisher_observer;
   // TODO(btolsch): aggregate initialization probably better?
   ServicePublisher::Config publisher_config;
-  publisher_config.friendly_name = friendly_name;
+  publisher_config.friendly_name = std::string(friendly_name);
   publisher_config.hostname = "turtle-deadbeef";
   publisher_config.service_instance_name = "deadbeef";
   publisher_config.connection_server_port = 6667;
@@ -269,6 +271,7 @@ void PublisherDemo(const std::string& friendly_name) {
     server_config.connection_endpoints.push_back(
         IPEndpoint{interface.addresses[0].address, 6667});
   }
+
   MessageDemuxer demuxer;
   ConnectionMessageCallback message_callback;
   MessageDemuxer::MessageWatch message_watch = demuxer.WatchMessageType(
@@ -296,10 +299,40 @@ void PublisherDemo(const std::string& friendly_name) {
 }  // namespace
 }  // namespace openscreen
 
+struct InputArgs {
+  absl::string_view friendly_server_name;
+  bool is_verbose;
+};
+
+InputArgs GetInputArgs(int argc, char** argv) {
+  InputArgs args;
+  for (int i = 1; i < argc; ++i) {
+    if (strcmp("-v", argv[i]) == 0) {
+      args.is_verbose = true;
+    } else {
+      args.friendly_server_name = argv[i];
+    }
+  }
+
+  return args;
+}
+
 int main(int argc, char** argv) {
+  using openscreen::platform::LogLevel;
+
+  std::cout << "Usage: demo [-v] [friendly_name]" << std::endl
+            << "-v: enable more verbose logging" << std::endl
+            << "friendly_name: server name, runs the publisher demo."
+            << std::endl
+            << "               omitting runs the listener demo." << std::endl
+            << std::endl;
+
+  InputArgs args = GetInputArgs(argc, argv);
   openscreen::platform::LogInit(nullptr);
-  openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kVerbose,
-                                    1);
+
+  LogLevel level = args.is_verbose ? LogLevel::kVerbose : LogLevel::kInfo;
+  openscreen::platform::SetLogLevel(level);
+
   if (argc == 1) {
     openscreen::ListenerDemo();
   } else {
