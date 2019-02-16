@@ -366,7 +366,7 @@ std::vector<InterfaceAddresses> GetAddressInfo(
             &address_list, info_list, interface_address->ifa_index);
         if (!addresses) {
           OSP_DVLOG << "skipping address for interface "
-                    << interface_address->ifa_index;
+                           << interface_address->ifa_index;
           continue;
         }
 
