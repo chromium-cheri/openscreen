@@ -85,7 +85,7 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t endpoint_id,
                                           platform::TimeDelta now) {
   switch (message_type) {
     case msgs::Type::kPresentationUrlAvailabilityRequest: {
-      OSP_VLOG(1) << "got presentation-url-availability-request";
+      OSP_LOG_VERBOSE << "got presentation-url-availability-request";
       msgs::PresentationUrlAvailabilityRequest request;
       ssize_t decode_result = msgs::DecodePresentationUrlAvailabilityRequest(
           buffer, buffer_size, &request);
@@ -108,7 +108,7 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t endpoint_id,
     }
 
     case msgs::Type::kPresentationInitiationRequest: {
-      OSP_VLOG(1) << "got presentation-initiation-request";
+      OSP_LOG_VERBOSE << "got presentation-initiation-request";
       msgs::PresentationInitiationRequest request;
       const ssize_t result = msgs::DecodePresentationInitiationRequest(
           buffer, buffer_size, &request);
@@ -162,7 +162,7 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t endpoint_id,
     }
 
     case msgs::Type::kPresentationConnectionOpenRequest: {
-      OSP_VLOG(1) << "Got a presentation-connection-open-request";
+      OSP_LOG_VERBOSE << "Got a presentation-connection-open-request";
       msgs::PresentationConnectionOpenRequest request;
       const ssize_t result = msgs::DecodePresentationConnectionOpenRequest(
           buffer, buffer_size, &request);
@@ -221,7 +221,7 @@ ErrorOr<size_t> Receiver::OnStreamMessage(uint64_t endpoint_id,
     }
 
     case msgs::Type::kPresentationTerminationRequest: {
-      OSP_VLOG(1) << "got presentation-termination-open-request";
+      OSP_LOG_VERBOSE << "got presentation-termination-open-request";
       msgs::PresentationTerminationRequest request;
       const ssize_t result = msgs::DecodePresentationTerminationRequest(
           buffer, buffer_size, &request);
@@ -336,8 +336,8 @@ Error Receiver::OnPresentationStarted(const std::string& presentation_id,
       GetProtocolConnection(initiation_response.endpoint_id);
   auto* raw_protocol_connection_ptr = protocol_connection.get();
 
-  OSP_VLOG(1) << "presentation started with protocol_connection id: "
-              << protocol_connection->id();
+  OSP_LOG_VERBOSE << "presentation started with protocol_connection id: "
+                  << protocol_connection->id();
   if (result != ResponseResult::kSuccess) {
     response.result =
         static_cast<decltype(response.result)>(msgs::kUnknownError);

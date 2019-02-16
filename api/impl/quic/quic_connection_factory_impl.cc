@@ -138,8 +138,8 @@ void QuicConnectionFactoryImpl::RunTasks() {
     auto conn_it = connections_.find(packet.source);
     if (conn_it == connections_.end()) {
       if (server_delegate_) {
-        OSP_VLOG(1) << __func__ << ": spawning connection from "
-                    << packet.source;
+        OSP_LOG_VERBOSE << __func__ << ": spawning connection from "
+                        << packet.source;
         auto transport =
             std::make_unique<UdpTransport>(packet.socket, packet.source);
         ::quic::QuartcSessionConfig session_config;
@@ -157,8 +157,8 @@ void QuicConnectionFactoryImpl::RunTasks() {
         result_ptr->OnDataReceived(packet);
       }
     } else {
-      OSP_VLOG(1) << __func__ << ": data for existing connection from "
-                  << packet.source;
+      OSP_LOG_VERBOSE << __func__ << ": data for existing connection from "
+                      << packet.source;
       conn_it->second.connection->OnDataReceived(packet);
     }
   }

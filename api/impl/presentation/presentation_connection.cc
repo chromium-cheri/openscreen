@@ -329,8 +329,8 @@ Connection* ConnectionManager::GetConnection(const std::string& presentation_id,
     return entry->second;
   }
 
-  OSP_DVLOG << "unknown ID pair: (" << presentation_id << ", " << connection_id
-            << ")";
+  OSP_DLOG_VERBOSE << "unknown ID pair: (" << presentation_id << ", "
+                   << connection_id << ")";
   return nullptr;
 }
 
