@@ -579,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "0c0eff1f_2efcbe0b",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-16T01:48:07Z",
+      "side": 1,
+      "message": "The trampoline methods are necessary right now for move-only methods, because Googlemock has a bug in it. I filed the issue with the googlemock team here:\n\nhttps://github.com/google/googletest/issues/2130\n\nEven using their example code, I still get this issue.",
+      "parentUuid": "df0d634c_c430b11a",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d677b4f_71d006e7",
         "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
         "patchSetId": 9
@@ -593,6 +611,24 @@
       "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6a325fe_b2ffe5d1",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-16T01:48:07Z",
+      "side": 1,
+      "message": "This one is fixable, although I think the mocking framework just makes a copy.",
+      "parentUuid": "5d677b4f_71d006e7",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -613,6 +649,24 @@
     },
     {
       "key": {
+        "uuid": "4f2b3abb_f949410f",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-16T01:48:07Z",
+      "side": 1,
+      "message": "Looks like C++20 has limited support for designated aggregate initializers, but it\u0027s not in the C++14 spec. Clang supports them just fine, but GCC doesn\u0027t so we can\u0027t really use designators. Changed to an aggregate initializer, lmk if you like the look or not.",
+      "parentUuid": "e0a5da6a_a5c94e3e",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42f69f75_002b3958",
         "filename": "api/public/presentation/presentation_connection.h",
         "patchSetId": 9
@@ -627,6 +681,24 @@
       "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddd752fe_dc1d0a2f",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-16T01:48:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42f69f75_002b3958",
+      "revId": "30939f04eada0a1a5b2db8dcb7c359c5d64c3624",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
