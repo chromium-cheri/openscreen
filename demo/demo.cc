@@ -2,17 +2,22 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <poll.h>
 #include <signal.h>
 #include <unistd.h>
 
 #include <algorithm>
+#include <iostream>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "api/public/mdns_service_listener_factory.h"
 #include "api/public/mdns_service_publisher_factory.h"
 #include "api/public/message_demuxer.h"
 #include "api/public/network_service_manager.h"
+#include "api/public/presentation/presentation_controller.h"
+#include "api/public/presentation/presentation_receiver.h"
 #include "api/public/protocol_connection_client.h"
 #include "api/public/protocol_connection_client_factory.h"
 #include "api/public/protocol_connection_server.h"
@@ -193,33 +198,6 @@ class ConnectionServerObserver final
       connections_;
 };
 
-class ConnectionMessageCallback final : public MessageDemuxer::MessageCallback {
- public:
-  ~ConnectionMessageCallback() override = default;
-
-  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
-                                  uint64_t connection_id,
-                                  msgs::Type message_type,
-                                  const uint8_t* buffer,
-                                  size_t buffer_size,
-                                  platform::TimeDelta now) override {
-    msgs::PresentationConnectionMessage message;
-    ssize_t result = msgs::DecodePresentationConnectionMessage(
-        buffer, buffer_size, &message);
-    if (result < 0) {
-      // TODO(btolsch): Need something better than including tinycbor.
-      if (result == -CborErrorUnexpectedEOF) {
-        return Error::Code::kCborIncompleteMessage;
-      } else {
-        return Error::Code::kCborParsing;
-      }
-    } else {
-      OSP_LOG_INFO << "message: " << message.message.str;
-      return result;
-    }
-  }
-};
-
 void ListenerDemo() {
   SignalThings();
 
@@ -252,15 +230,20 @@ void ListenerDemo() {
 void PublisherDemo(const std::string& friendly_name) {
   SignalThings();
 
+  constexpr uint16_t server_port = 6667;
+
   PublisherObserver publisher_observer;
   // TODO(btolsch): aggregate initialization probably better?
-  ServicePublisher::Config publisher_config;
+  ScreenPublisher::Config publisher_config;
   publisher_config.friendly_name = friendly_name;
   publisher_config.hostname = "turtle-deadbeef";
   publisher_config.service_instance_name = "deadbeef";
-  publisher_config.connection_server_port = 6667;
-  auto mdns_publisher = MdnsServicePublisherFactory::Create(
-      publisher_config, &publisher_observer);
+  publisher_config.connection_server_port = server_port;
+  // TODO(btolsch): Multihomed support is broken due to ScreenInfo holding
+  // only one address.
+  // publisher_config.network_interface_indices.push_back(3);
+  auto mdns_publisher =
+      MdnsScreenPublisherFactory::Create(publisher_config, &publisher_observer);
 
   ServerConfig server_config;
   std::vector<platform::InterfaceAddresses> interfaces =
@@ -270,9 +253,6 @@ void PublisherDemo(const std::string& friendly_name) {
         IPEndpoint{interface.addresses[0].address, 6667});
   }
   MessageDemuxer demuxer;
-  ConnectionMessageCallback message_callback;
-  MessageDemuxer::MessageWatch message_watch = demuxer.WatchMessageType(
-      0, msgs::Type::kPresentationConnectionMessage, &message_callback);
   ConnectionServerObserver server_observer;
   auto connection_server = ProtocolConnectionServerFactory::Create(
       server_config, &demuxer, &server_observer);
@@ -280,14 +260,57 @@ void PublisherDemo(const std::string& friendly_name) {
       NetworkServiceManager::Create(nullptr, std::move(mdns_publisher), nullptr,
                                     std::move(connection_server));
 
-  network_service->GetMdnsServicePublisher()->Start();
+  ReceiverDelegate receiver_delegate;
+  presentation::Receiver::Get()->Init();
+  presentation::Receiver::Get()->SetReceiverDelegate(&receiver_delegate);
+  network_service->GetMdnsScreenPublisher()->Start();
   network_service->GetProtocolConnectionServer()->Start();
 
-  while (!g_done) {
+  pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
+
+  write(STDOUT_FILENO, "$ ", 2);
+
+  while (poll(&stdin_pollfd, 1, 10) >= 0) {
+    if (g_done) {
+      break;
+    }
     network_service->RunEventLoopOnce();
+
+    if (stdin_pollfd.revents == 0) {
+      continue;
+    } else if (stdin_pollfd.revents & (POLLERR | POLLHUP)) {
+      break;
+    }
+    std::string line;
+    if (!std::getline(std::cin, line)) {
+      break;
+    }
+
+    size_t i = 0;
+    while (i < line.size() && line[i] != ' ') {
+      ++i;
+    }
+    std::string command = line.substr(0, i);
+    ++i;
+
+    if (command == "avail") {
+    } else if (command == "msg") {
+      receiver_delegate.connection->SendString(line.substr(i));
+    } else if (command == "close") {
+      receiver_delegate.connection->Close(
+          presentation::Connection::CloseReason::kClosed);
+    } else if (command == "term") {
+      presentation::Receiver::Get()->OnPresentationTerminated(
+          receiver_delegate.presentation_id,
+          presentation::TerminationReason::kReceiverUserTerminated);
+    }
+
+    write(STDOUT_FILENO, "$ ", 2);
   }
 
-  network_service->GetMdnsServicePublisher()->Stop();
+  presentation::Receiver::Get()->SetReceiverDelegate(nullptr);
+  presentation::Receiver::Get()->Deinit();
+  network_service->GetMdnsScreenPublisher()->Stop();
   network_service->GetProtocolConnectionServer()->Stop();
 
   NetworkServiceManager::Dispose();
@@ -297,7 +320,7 @@ void PublisherDemo(const std::string& friendly_name) {
 }  // namespace openscreen
 
 int main(int argc, char** argv) {
-  openscreen::platform::LogInit(nullptr);
+  openscreen::platform::LogInit(argc > 1 ? "_recv_fifo" : "_cntl_fifo");
   openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kVerbose,
                                     1);
   if (argc == 1) {
