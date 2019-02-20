@@ -76,6 +76,10 @@ class Receiver final : public MessageDemuxer::MessageCallback {
                               Connection* connection,
                               ResponseResult result);
 
+  Error OnConnectionCreated(uint64_t request_id,
+                            Connection* connection,
+                            ResponseResult result);
+
   // Called by the embedder to report that a presentation has been terminated.
   Error OnPresentationTerminated(const std::string& presentation_id,
                                  TerminationReason reason);
@@ -94,15 +98,10 @@ class Receiver final : public MessageDemuxer::MessageCallback {
   struct QueuedResponse {
     enum class Type { kInitiation, kConnection };
 
-    QueuedResponse() = default;
-    QueuedResponse(QueuedResponse&&) = default;
-
     Type type;
     uint64_t request_id;
     uint64_t connection_id;
     uint64_t endpoint_id;
-
-    DISALLOW_COPY_AND_ASSIGN(QueuedResponse);
   };
 
   struct Presentation {
