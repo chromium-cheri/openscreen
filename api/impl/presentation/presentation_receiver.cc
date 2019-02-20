@@ -369,6 +369,57 @@ Error Receiver::OnPresentationStarted(const std::string& presentation_id,
                                              raw_protocol_connection_ptr);
 }
 
+Error Receiver::OnConnectionCreated(uint64_t request_id,
+                                    Connection* connection,
+                                    ResponseResult result) {
+  const auto presentation_id = connection->get_presentation_info().id;
+
+  auto entry = queued_responses_.find(presentation_id);
+  if (entry == queued_responses_.end()) {
+    OSP_LOG_WARN << "connection created for unknown request";
+    return Error::Code::kUnknownRequestId;
+  }
+
+  std::vector<QueuedResponse>& responses = entry->second;
+  auto it = std::find_if(responses.begin(), responses.end(),
+                         [request_id](const QueuedResponse& response) {
+                           return response.request_id == request_id;
+                         });
+  if (it == responses.end()) {
+    OSP_LOG_WARN << "connection created for unknown request";
+    return Error::Code::kUnknownRequestId;
+  }
+
+  QueuedResponse& connection_response = *it;
+  connection->OnConnected(
+      connection_response.connection_id, connection_response.endpoint_id,
+      NetworkServiceManager::Get()
+          ->GetProtocolConnectionServer()
+          ->CreateProtocolConnection(connection_response.endpoint_id));
+
+  started_presentations_[presentation_id].connections.push_back(connection);
+  connection_manager_->AddConnection(connection);
+
+  msgs::PresentationConnectionOpenResponse response;
+  response.request_id = request_id;
+  response.result = static_cast<decltype(response.result)>(msgs::kSuccess);
+
+  auto protocol_connection =
+      GetProtocolConnection(connection_response.endpoint_id);
+
+  WritePresentationConnectionOpenResponse(response, protocol_connection.get());
+
+  responses.erase(std::remove_if(responses.begin(), responses.end(),
+                                 [request_id](const QueuedResponse& response) {
+                                   return response.request_id == request_id;
+                                 }));
+
+  if (responses.empty())
+    queued_responses_.erase(entry);
+
+  return Error::None();
+}
+
 Error Receiver::OnPresentationTerminated(const std::string& presentation_id,
                                          TerminationReason reason) {
   auto presentation_entry = started_presentations_.find(presentation_id);
