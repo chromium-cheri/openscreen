@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 #include "msgs/osp_messages.h"
-
 #include "third_party/googletest/src/googletest/include/gtest/gtest.h"
 
 namespace openscreen {

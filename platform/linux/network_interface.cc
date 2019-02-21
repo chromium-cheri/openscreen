@@ -4,8 +4,6 @@
 
 #include "platform/api/network_interface.h"
 
-#include <sys/socket.h>
-
 #include <linux/ethtool.h>
 #include <linux/if_arp.h>
 #include <linux/netlink.h>
@@ -15,6 +13,7 @@
 #include <netinet/ip.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
 
