@@ -16,6 +16,24 @@
       "revId": "8a11e6d9d98e0aa550950bce0302e80710d9a745",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c601388a_81394919",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T01:56:13Z",
+      "side": 1,
+      "message": "Strangely, it does support `.member \u003d value`, which is still used elsewhere.  The error is \"non-trivial designated initializer\", which I think boils down to sockaddr_in6 having a union member (sin6_addr) instead of only primitives.\n\nThe noexcept issue is that UdpTransport had a noexcept move operator defaulted, but that default method needed to do an IPAddress copy, which isn\u0027t noexcept.  Just being pedantic I guess?\n\nI added both of these to style_guide.md.",
+      "parentUuid": "7f86109b_a7afc742",
+      "revId": "8a11e6d9d98e0aa550950bce0302e80710d9a745",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
