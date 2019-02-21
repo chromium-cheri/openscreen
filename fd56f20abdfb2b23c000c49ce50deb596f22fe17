@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac3b45fa_0b278b5e",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-21T21:40:54Z",
+      "side": 1,
+      "message": "This pattern will likely be re-used to handle other kinds of requests.  As a first step, WDYT of factoring out a method to return the QueuedResponse for a presentation_id/request_id pair?",
+      "revId": "fd56f20abdfb2b23c000c49ce50deb596f22fe17",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27643b48_aed2c14f",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-21T21:40:54Z",
+      "side": 1,
+      "message": "Non-const refs are discouraged; maybe rename it to connection_response instead?",
+      "revId": "fd56f20abdfb2b23c000c49ce50deb596f22fe17",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4074bf3_5118bc10",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-21T21:40:54Z",
+      "side": 1,
+      "message": "This is because |response.result| is an integral type and msgs::kSuccess is a member of an enum class?  I wonder if response.result could be generated with the enum class type, and the conversion done inside the generated code. \n\n(Not to fix in this patch, but maybe chat with Brandon about it?)",
+      "revId": "fd56f20abdfb2b23c000c49ce50deb596f22fe17",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51cae8d_781d9b15",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-02-21T21:40:54Z",
+      "side": 1,
+      "message": "Can you just write responses.erase(it)?",
+      "revId": "fd56f20abdfb2b23c000c49ce50deb596f22fe17",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
