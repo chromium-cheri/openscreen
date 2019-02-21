@@ -4,12 +4,6 @@
 
 #include "platform/api/network_interface.h"
 
-// clang-format off
-// NOTE: this header MUST be included before linux/if_arp and others, as
-// they depend on struct sockaddr being a complete type.
-#include <sys/socket.h>
-// clang-format on
-
 #include <linux/ethtool.h>
 #include <linux/if_arp.h>
 #include <linux/netlink.h>
@@ -19,6 +13,7 @@
 #include <netinet/ip.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
 
