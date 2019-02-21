@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4af5e364_b00fe617",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "Pull this into a local ref for here and above?",
+      "range": {
+        "startLine": 397,
+        "startChar": 25,
+        "endLine": 397,
+        "endChar": 63
+      },
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "816838f2_a852a4d3",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "Not necessarily something to fix in this CL, but `queued_responses_` seems wrong to me.  A request ID should be scoped to a particular endpoint, not a presentation.  Otherwise, how would two separate controllers know what the next request ID to use is?  A conflict here means we would respond to one endpoint but clear all requests.",
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12a8698d_5c2dcefd",
+        "filename": "demo/demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "nit: maybe argument_tail since we might eventually have commands that take multiple arguments, so this will actually be further split.",
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55f514d3_106cf0a2",
+        "filename": "demo/demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "bikeshed: this sounds like it does one poll, not the whole poll loop.  Maybe RunReceiverPollLoop?",
+      "range": {
+        "startLine": 338,
+        "startChar": 5,
+        "endLine": 338,
+        "endChar": 25
+      },
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb4c433_6f2a044a",
+        "filename": "demo/demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "It\u0027s not necessary to include this.  I also don\u0027t think the TODO is true anymore since we (mostly) fixed multihomed mDNS.",
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44090429_76b5fa7c",
+        "filename": "demo/demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "server_port",
+      "range": {
+        "startLine": 402,
+        "startChar": 51,
+        "endLine": 402,
+        "endChar": 55
+      },
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab6dbce3_508d3704",
+        "filename": "demo/demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "nit: This should probably move into the poll function so the two prompt print calls are close together (in case we change the symbol or something like that).",
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeaf3f5d_6c06486f",
+        "filename": "demo/demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "This should be something like `!args.friendly_server_name.empty()` because `demo -v` is a verbose listener demo.",
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48f49abc_fcef3d1f",
+        "filename": "demo/demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-02-21T02:02:33Z",
+      "side": 1,
+      "message": "This should be args.friendly_server_name.",
+      "range": {
+        "startLine": 471,
+        "startChar": 30,
+        "endLine": 471,
+        "endChar": 37
+      },
+      "revId": "1dccf878986e338cda3ce4df7f1938bfd665db4d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
