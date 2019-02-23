@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3227371b_8980352b",
+        "filename": "go/cmd/osp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-23T22:12:43Z",
+      "side": 1,
+      "message": "Do these really need to be for...ranges? Looks like we just use the first IP Address?",
+      "revId": "d3c36454053b0d5d40d6da00ceb2365f9c957083",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e739d72_f3c8a24d",
+        "filename": "go/cmd/osp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-23T22:12:43Z",
+      "side": 1,
+      "message": "Super nit: replace two spaces with one",
+      "revId": "d3c36454053b0d5d40d6da00ceb2365f9c957083",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fed60f7_73adb0dd",
+        "filename": "go/cmd/osp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-02-23T22:12:43Z",
+      "side": 1,
+      "message": "So, this looks like we fling to multiple receivers with a single context--correct? If so, does this mean that we will start the presentation successfully on some, and then on the first failure all of the remaining presentations are cancelled?\n\nI think we need to consider what state we are left in if we Fatalln here.",
+      "revId": "d3c36454053b0d5d40d6da00ceb2365f9c957083",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
