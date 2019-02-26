@@ -13,7 +13,7 @@ vars = {
 
     # TODO(jophba): move to googlesource external for github repos.
     'github': "https://github.com",
-    'third_party_dir': 'openscreen/third_party'
+    'third_party_dir': 'src/third_party'
 }
 
 deps = {
