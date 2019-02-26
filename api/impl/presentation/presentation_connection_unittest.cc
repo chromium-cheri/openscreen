@@ -89,10 +89,10 @@ TEST_F(ConnectionTest, ConnectAndSend) {
   Connection receiver(Connection::PresentationInfo{id, url},
                       Connection::Role::kReceiver, &mock_receiver_delegate);
 
-  EXPECT_EQ(id, controller.get_presentation_info().id);
-  EXPECT_EQ(url, controller.get_presentation_info().url);
-  EXPECT_EQ(id, receiver.get_presentation_info().id);
-  EXPECT_EQ(url, receiver.get_presentation_info().url);
+  EXPECT_EQ(id, controller.info().id);
+  EXPECT_EQ(url, controller.info().url);
+  EXPECT_EQ(id, receiver.info().id);
+  EXPECT_EQ(url, receiver.info().url);
 
   EXPECT_EQ(Connection::State::kConnecting, controller.state());
   EXPECT_EQ(Connection::State::kConnecting, receiver.state());
