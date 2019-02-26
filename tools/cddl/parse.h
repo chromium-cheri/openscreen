@@ -45,7 +45,11 @@ struct AstNode {
 
   AstNode* children;
   AstNode* sibling;
+
+  // Type of node being represented
   Type type;
+
+  // Text which was parsed into the string
   std::string text;
 };
 
