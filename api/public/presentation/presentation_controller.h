@@ -9,6 +9,7 @@
 #include <memory>
 #include <string>
 
+#include "api/public/clock.h"
 #include "api/public/presentation/presentation_connection.h"
 #include "api/public/protocol_connection.h"
 #include "api/public/service_listener.h"
@@ -17,7 +18,7 @@
 namespace openscreen {
 namespace presentation {
 
-class UrlAvailabilityListener;
+class UrlAvailabilityRequester;
 
 class RequestDelegate {
  public:
@@ -48,22 +49,25 @@ class ReceiverObserver {
 
 class Controller final : public ServiceListener::Observer {
  public:
-  // Returns the single instance.
-  static Controller* Get();
-
   class ReceiverWatch {
    public:
     ReceiverWatch();
     ReceiverWatch(const std::vector<std::string>& urls,
-                  ProtocolConnectionServiceObserver* observer);
+                  ReceiverObserver* observer,
+                  Controller* parent);
     ReceiverWatch(ReceiverWatch&&);
     ~ReceiverWatch();
 
-    ReceiverWatch& operator=(ReceiverWatch&&);
+    ReceiverWatch& operator=(ReceiverWatch);
+
+    explicit operator bool() const { return observer_; }
+
+    friend void swap(ReceiverWatch& a, ReceiverWatch& b);
 
    private:
     std::vector<std::string> urls_;
-    ProtocolConnectionServiceObserver* observer_ = nullptr;
+    ReceiverObserver* observer_ = nullptr;
+    Controller* parent_ = nullptr;
   };
 
   class ConnectRequest {
@@ -71,30 +75,33 @@ class Controller final : public ServiceListener::Observer {
     ConnectRequest();
     ConnectRequest(const std::string& service_id,
                    bool is_reconnect,
-                   uint64_t request_id);
+                   uint64_t request_id,
+                   Controller* parent);
     ConnectRequest(ConnectRequest&&);
     ~ConnectRequest();
 
-    ConnectRequest& operator=(ConnectRequest&&);
+    ConnectRequest& operator=(ConnectRequest);
+
+    explicit operator bool() const { return request_id_; }
+
+    friend void swap(ConnectRequest& a, ConnectRequest& b);
 
    private:
     std::string service_id_;
     bool is_reconnect_;
-    uint64_t request_id_;
+    uint64_t request_id_ = 0;
+    Controller* parent_;
   };
 
-  // TODO(issue/31): Remove singletons in the embedder API and protocol
-  // implementation layers
-  void Init();
-  void Deinit();
+  explicit Controller(std::unique_ptr<Clock> clock);
+  ~Controller();
 
   // Requests receivers compatible with all urls in |urls| and registers
   // |observer| for availability changes.  The screens will be a subset of the
   // screen list maintained by the ServiceListener.  Returns an RAII object that
   // tracks the registration.
-  ReceiverWatch RegisterReceiverWatch(
-      const std::vector<std::string>& urls,
-      ProtocolConnectionServiceObserver* observer);
+  ReceiverWatch RegisterReceiverWatch(const std::vector<std::string>& urls,
+                                      ReceiverObserver* observer);
 
   // Requests that a new presentation be created on |service_id| using
   // |presentation_url|, with the result passed to |delegate|.
@@ -106,6 +113,11 @@ class Controller final : public ServiceListener::Observer {
                                    RequestDelegate* delegate,
                                    Connection::Delegate* conn_delegate);
 
+  // Requests reconnection to the presentation with the given id and URL running
+  // on |service_id|, with the result passed to |delegate|.  |conn_delegate| is
+  // passed to the resulting connection.  The returned ConnectRequest object may
+  // be destroyed before any |delegate| methods are called to cancel the
+  // request.
   // TODO(issue/31): Remove singletons in the embedder API and protocol
   // implementation layers. Esp. for any case where we need to segregate
   // information on the receiver for privacy reasons (e.g. receiver status only
@@ -115,6 +127,13 @@ class Controller final : public ServiceListener::Observer {
                                        const std::string& service_id,
                                        RequestDelegate* delegate,
                                        Connection::Delegate* conn_delegate);
+
+  // Requests reconnection with a previously-connected connection.  This both
+  // avoids having to respecify the parameters and connection delegate but also
+  // simplifies the implementation of the Presentation API requirement to return
+  // the same connection object where possible.
+  ConnectRequest ReconnectConnection(std::unique_ptr<Connection> connection,
+                                     RequestDelegate* delegate);
 
   // Called by the embedder to report that a presentation has been terminated.
   void OnPresentationTerminated(const std::string& presentation_id,
@@ -150,22 +169,12 @@ class Controller final : public ServiceListener::Observer {
   static std::string MakePresentationId(const std::string& url,
                                         const std::string& service_id);
 
-  Controller();
-  ~Controller();
-
   uint64_t GetNextConnectionId(const std::string& id);
-
-  void OpenConnection(uint64_t connection_id,
-                      uint64_t endpoint_id,
-                      const std::string& service_id,
-                      RequestDelegate* request_delegate,
-                      std::unique_ptr<Connection> connection,
-                      std::unique_ptr<ProtocolConnection> stream);
 
   // Cancels compatible receiver monitoring for the given |urls|, |observer|
   // pair.
   void CancelReceiverWatch(const std::vector<std::string>& urls,
-                           ProtocolConnectionServiceObserver* observer);
+                           ReceiverObserver* observer);
 
   // Cancels a presentation connect request for the given |request_id| if one is
   // pending.
@@ -192,12 +201,8 @@ class Controller final : public ServiceListener::Observer {
 
   std::unique_ptr<ConnectionManager> connection_manager_;
 
-  std::unique_ptr<UrlAvailabilityListener> availability_listener_;
+  std::unique_ptr<UrlAvailabilityRequester> availability_requester_;
   std::map<std::string, IPEndpoint> receiver_endpoints_;
-
-  std::map<std::string, std::unique_ptr<MessageGroupStreams>> group_streams_;
-  std::map<std::string, std::unique_ptr<TerminateListener>>
-      terminate_listeners_;
 };
 
 }  // namespace presentation
