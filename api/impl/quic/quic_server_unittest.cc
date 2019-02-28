@@ -189,4 +189,21 @@ TEST_F(QuicServerTest, States) {
   EXPECT_TRUE(server_->Stop());
 }
 
+TEST_F(QuicServerTest, RequestIds) {
+  std::unique_ptr<ProtocolConnection> connection = ExpectIncomingConnection();
+  ASSERT_TRUE(connection);
+
+  uint64_t endpoint_id = connection->endpoint_id();
+  EXPECT_EQ(1u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+  EXPECT_EQ(2u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+
+  connection->CloseWriteEnd();
+  connection.reset();
+  quic_bridge_.RunTasksUntilIdle();
+  EXPECT_EQ(1u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+
+  server_->Stop();
+  EXPECT_EQ(1u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+}
+
 }  // namespace openscreen

@@ -62,8 +62,11 @@ bool QuicServer::Resume() {
 void QuicServer::RunTasks() {
   if (state_ == State::kRunning)
     connection_factory_->RunTasks();
-  for (auto& entry : connections_)
+  for (auto& entry : connections_) {
     entry.second.delegate->DestroyClosedStreams();
+    if (!entry.second.delegate->has_streams())
+      entry.second.connection->Close();
+  }
 
   for (auto& entry : delete_connections_)
     connections_.erase(entry);
@@ -124,6 +127,7 @@ void QuicServer::OnConnectionClosed(uint64_t endpoint_id,
     return;
 
   delete_connections_.emplace_back(connection_entry);
+  endpoint_request_ids_.ResetRequestId(endpoint_id);
 }
 
 void QuicServer::OnDataReceived(uint64_t endpoint_id,
@@ -146,6 +150,7 @@ void QuicServer::CloseAllConnections() {
   connections_.clear();
   endpoint_map_.clear();
   next_endpoint_id_ = 0;
+  endpoint_request_ids_.Reset();
 }
 
 QuicConnection::Delegate* QuicServer::NextConnectionDelegate(

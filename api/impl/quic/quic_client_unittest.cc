@@ -213,4 +213,33 @@ TEST_F(QuicClientTest, States) {
   EXPECT_FALSE(connection2);
 }
 
+TEST_F(QuicClientTest, RequestIds) {
+  client_->Start();
+
+  EXPECT_CALL(quic_bridge_.mock_server_observer, OnIncomingConnectionMock(_))
+      .WillOnce(Invoke([](std::unique_ptr<ProtocolConnection>& connection) {
+        connection->CloseWriteEnd();
+      }));
+  std::unique_ptr<ProtocolConnection> connection;
+  ConnectionCallback connection_callback(&connection);
+  ProtocolConnectionClient::ConnectRequest request =
+      client_->Connect(quic_bridge_.kReceiverEndpoint, &connection_callback);
+  ASSERT_TRUE(request);
+
+  quic_bridge_.RunTasksUntilIdle();
+  ASSERT_TRUE(connection);
+
+  uint64_t endpoint_id = connection->endpoint_id();
+  EXPECT_EQ(1u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+  EXPECT_EQ(2u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+
+  connection->CloseWriteEnd();
+  connection.reset();
+  quic_bridge_.RunTasksUntilIdle();
+  EXPECT_EQ(1u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+
+  client_->Stop();
+  EXPECT_EQ(1u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+}
+
 }  // namespace openscreen
