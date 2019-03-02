@@ -5,18 +5,21 @@
 #include "api/impl/presentation/url_availability_requester.h"
 
 #include <algorithm>
+#include <chrono>
 #include <memory>
 
 #include "api/impl/presentation/presentation_common.h"
 #include "api/public/network_service_manager.h"
 #include "platform/api/logging.h"
 
+using namespace std::literals::chrono_literals;
+
 namespace openscreen {
 namespace presentation {
 namespace {
 
-static constexpr uint32_t kWatchDurationSeconds = 20;
-static constexpr uint32_t kWatchRefreshPaddingSeconds = 2;
+static constexpr platform::Clock::duration kWatchDuration = 20s;
+static constexpr platform::Clock::duration kWatchRefreshPadding = 2s;
 
 std::vector<std::string>::iterator PartitionUrlsBySetMembership(
     std::vector<std::string>* urls,
@@ -36,8 +39,11 @@ void MoveVectorSegment(std::vector<std::string>::iterator first,
 
 }  // namespace
 
-UrlAvailabilityRequester::UrlAvailabilityRequester(std::unique_ptr<Clock> clock)
-    : clock_(std::move(clock)) {}
+UrlAvailabilityRequester::UrlAvailabilityRequester(
+    platform::ClockNowFunctionPtr now_function)
+    : now_function_(now_function) {
+  OSP_DCHECK(now_function_);
+}
 
 UrlAvailabilityRequester::~UrlAvailabilityRequester() = default;
 
@@ -130,13 +136,12 @@ void UrlAvailabilityRequester::RemoveAllReceivers() {
   receiver_by_service_id_.clear();
 }
 
-platform::TimeDelta UrlAvailabilityRequester::RefreshWatches() {
-  platform::TimeDelta now = clock_->Now();
-  platform::TimeDelta minimum_schedule_time =
-      platform::TimeDelta::FromSeconds(kWatchDurationSeconds);
+platform::Clock::time_point UrlAvailabilityRequester::RefreshWatches() {
+  const auto now = now_function_();
+  auto minimum_schedule_time = now + kWatchDuration;
   for (auto& entry : receiver_by_service_id_) {
     auto& receiver = entry.second;
-    platform::TimeDelta requested_schedule_time = receiver->RefreshWatches(now);
+    const auto requested_schedule_time = receiver->RefreshWatches(now);
     if (requested_schedule_time < minimum_schedule_time)
       minimum_schedule_time = requested_schedule_time;
   }
@@ -215,10 +220,7 @@ ErrorOr<uint64_t> UrlAvailabilityRequester::ReceiverRequester::SendRequest(
     OSP_VLOG << "writing presentation-url-availability-request";
     connection->Write(buffer.data(), buffer.size());
     watch_by_id.emplace(
-        watch_id,
-        Watch{listener->clock_->Now() +
-                  platform::TimeDelta::FromSeconds(kWatchDurationSeconds),
-              urls});
+        watch_id, Watch{listener->now_function_() + kWatchDuration, urls});
     if (!event_watch) {
       event_watch = GetClientDemuxer()->WatchMessageType(
           endpoint_id, msgs::Type::kPresentationUrlAvailabilityEvent, this);
@@ -232,16 +234,15 @@ ErrorOr<uint64_t> UrlAvailabilityRequester::ReceiverRequester::SendRequest(
   return Error::Code::kCborEncoding;
 }
 
-platform::TimeDelta UrlAvailabilityRequester::ReceiverRequester::RefreshWatches(
-    platform::TimeDelta now) {
-  platform::TimeDelta minimum_schedule_time =
-      platform::TimeDelta::FromSeconds(kWatchDurationSeconds);
+platform::Clock::time_point
+UrlAvailabilityRequester::ReceiverRequester::RefreshWatches(
+    platform::Clock::time_point now) {
+  auto minimum_schedule_time = now + kWatchDuration;
   std::vector<std::vector<std::string>> new_requests;
   for (auto entry = watch_by_id.begin(); entry != watch_by_id.end();) {
     Watch& watch = entry->second;
-    platform::TimeDelta buffered_deadline =
-        watch.deadline -
-        platform::TimeDelta::FromSeconds(kWatchRefreshPaddingSeconds);
+    const platform::Clock::time_point buffered_deadline =
+        watch.deadline - kWatchRefreshPadding;
     if (now > buffered_deadline) {
       new_requests.emplace_back(std::move(watch.urls));
       entry = watch_by_id.erase(entry);
@@ -410,7 +411,7 @@ ErrorOr<size_t> UrlAvailabilityRequester::ReceiverRequester::OnStreamMessage(
     msgs::Type message_type,
     const uint8_t* buffer,
     size_t buffer_size,
-    platform::TimeDelta now) {
+    platform::Clock::time_point now) {
   switch (message_type) {
     case msgs::Type::kPresentationUrlAvailabilityResponse: {
       msgs::PresentationUrlAvailabilityResponse response;

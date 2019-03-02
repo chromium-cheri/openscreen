@@ -9,12 +9,15 @@
 #include "api/impl/quic/quic_service_common.h"
 #include "api/impl/quic/testing/fake_quic_connection_factory.h"
 #include "api/impl/quic/testing/quic_test_support.h"
+#include "api/impl/testing/fake_clock.h"
 #include "api/public/network_metrics.h"
 #include "api/public/network_service_manager.h"
 #include "base/error.h"
 #include "platform/api/logging.h"
 #include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
 #include "third_party/googletest/src/googletest/include/gtest/gtest.h"
+
+using namespace std::literals::chrono_literals;
 
 namespace openscreen {
 namespace {
@@ -32,7 +35,7 @@ class MockMessageCallback final : public MessageDemuxer::MessageCallback {
                                msgs::Type message_type,
                                const uint8_t* buffer,
                                size_t buffer_size,
-                               platform::TimeDelta now));
+                               platform::Clock::time_point now));
 };
 
 class MockConnectionObserver final : public ProtocolConnection::Observer {
@@ -103,7 +106,8 @@ class QuicClientTest : public ::testing::Test {
         .WillOnce(Invoke([&decode_result, &received_message](
                              uint64_t endpoint_id, uint64_t connection_id,
                              msgs::Type message_type, const uint8_t* buffer,
-                             size_t buffer_size, platform::TimeDelta now) {
+                             size_t buffer_size,
+                             platform::Clock::time_point now) {
           decode_result = msgs::DecodePresentationConnectionMessage(
               buffer, buffer_size, &received_message);
           if (decode_result < 0)
@@ -121,7 +125,8 @@ class QuicClientTest : public ::testing::Test {
     EXPECT_EQ(received_message.message.str, message.message.str);
   }
 
-  FakeQuicBridge quic_bridge_;
+  FakeClock fake_clock_{platform::Clock::time_point(1298424ms)};
+  FakeQuicBridge quic_bridge_{FakeClock::now};
   QuicClient* client_;
 };
 

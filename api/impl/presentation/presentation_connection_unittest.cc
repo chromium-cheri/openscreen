@@ -9,11 +9,14 @@
 #include "api/impl/quic/testing/fake_quic_connection.h"
 #include "api/impl/quic/testing/fake_quic_connection_factory.h"
 #include "api/impl/quic/testing/quic_test_support.h"
+#include "api/impl/testing/fake_clock.h"
 #include "api/public/network_service_manager.h"
 #include "api/public/presentation/presentation_controller.h"
 #include "third_party/abseil/src/absl/strings/string_view.h"
 #include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
 #include "third_party/googletest/src/googletest/include/gtest/gtest.h"
+
+using namespace std::literals::chrono_literals;
 
 namespace openscreen {
 namespace presentation {
@@ -70,7 +73,8 @@ class ConnectionTest : public ::testing::Test {
     return response;
   }
 
-  FakeQuicBridge quic_bridge_;
+  FakeClock fake_clock_{platform::Clock::time_point(1298424ms)};
+  FakeQuicBridge quic_bridge_{FakeClock::now};
   ConnectionManager controller_connection_manager_{
       quic_bridge_.controller_demuxer.get()};
   ConnectionManager receiver_connection_manager_{
