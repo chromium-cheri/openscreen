@@ -167,5 +167,6 @@ struct CppSymbolTable {
 std::pair<bool, CddlSymbolTable> BuildSymbolTable(const AstNode& rules);
 std::pair<bool, CppSymbolTable> BuildCppTypes(
     const CddlSymbolTable& cddl_table);
+bool ValidateCppTypes(const CppSymbolTable& cppSymbols);
 
 #endif  // TOOLS_CDDL_SEMA_H_
