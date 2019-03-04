@@ -47,6 +47,7 @@ struct AstNode {
   AstNode* sibling;
   Type type;
   std::string text;
+  std::string internal_text;
 };
 
 struct ParseResult {

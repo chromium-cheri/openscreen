@@ -303,6 +303,7 @@ bool WriteMapEncoder(
     int fd,
     const std::string& name,
     const std::vector<std::pair<std::string, CppType*>>& members,
+    const std::map<std::string, std::string>& names_over_the_wire,
     const std::string& nested_type_scope,
     int encoder_depth = 1);
 bool WriteArrayEncoder(
@@ -311,6 +312,14 @@ bool WriteArrayEncoder(
     const std::vector<std::pair<std::string, CppType*>>& members,
     const std::string& nested_type_scope,
     int encoder_depth = 1);
+
+std::string GetNameOverTheWire(
+  const std::map<std::string, std::string>& names_over_the_wire,
+  std::string member_name) {
+  auto name_on_wire = names_over_the_wire.find(member_name);
+  return name_on_wire == names_over_the_wire.end() ? member_name :
+                                                     name_on_wire->second;
+}
 
 // Writes the encoding function for the C++ type |cpp_type| to the file
 // descriptor |fd|.  |name| is the C++ variable name that needs to be encoded.
@@ -326,6 +335,7 @@ bool WriteEncoder(int fd,
     case CppType::Which::kStruct:
       if (cpp_type.struct_type.key_type == CppType::Struct::KeyType::kMap) {
         if (!WriteMapEncoder(fd, name, cpp_type.struct_type.members,
+                             cpp_type.struct_type.names_over_the_wire,
                              cpp_type.name, encoder_depth)) {
           return false;
         }
@@ -339,10 +349,12 @@ bool WriteEncoder(int fd,
         return true;
       } else {
         for (const auto& x : cpp_type.struct_type.members) {
+          std::string name_on_wire = GetNameOverTheWire(
+            cpp_type.struct_type.names_over_the_wire, x.first);
           dprintf(fd,
                   "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string(&encoder%d, "
                   "\"%s\", sizeof(\"%s\") - 1));\n",
-                  encoder_depth, x.first.c_str(), x.first.c_str());
+                  encoder_depth, name_on_wire.c_str(), name_on_wire.c_str());
           if (!WriteEncoder(fd, name + "." + ToUnderscoreId(x.first), *x.second,
                             nested_type_scope, encoder_depth)) {
             return false;
@@ -502,6 +514,7 @@ bool WriteMapEncoder(
     int fd,
     const std::string& name,
     const std::vector<std::pair<std::string, CppType*>>& members,
+    const std::map<std::string, std::string>& names_over_the_wire,
     const std::string& nested_type_scope,
     int encoder_depth) {
   std::string name_id = ToUnderscoreId(name);
@@ -532,11 +545,13 @@ bool WriteMapEncoder(
         dprintf(fd, "  if (%s.has_%s) {\n", name_id.c_str(),
                 ToUnderscoreId(x.first).c_str());
       }
+      std::string name_on_wire = GetNameOverTheWire(names_over_the_wire,
+                                                    x.first);
       dprintf(
           fd,
           "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string(&encoder%d, \"%s\", "
           "sizeof(\"%s\") - 1));\n",
-          encoder_depth, x.first.c_str(), x.first.c_str());
+          encoder_depth, name_on_wire.c_str(), name_on_wire.c_str());
       if (x.second->which == CppType::Which::kDiscriminatedUnion) {
         dprintf(fd, "  switch (%s.%s.which) {\n", fullname.c_str(),
                 x.first.c_str());
@@ -708,7 +723,8 @@ bool Encode%1$s(
     dprintf(fd, "  cbor_encoder_init(&encoder0, buffer, length, 0);\n");
 
     if (real_type->struct_type.key_type == CppType::Struct::KeyType::kMap) {
-      if (!WriteMapEncoder(fd, "data", real_type->struct_type.members, name))
+      if (!WriteMapEncoder(fd, "data", real_type->struct_type.members,
+        real_type->struct_type.names_over_the_wire, name))
         return false;
     } else {
       if (!WriteArrayEncoder(fd, "data", real_type->struct_type.members,
@@ -739,6 +755,7 @@ bool WriteMapDecoder(
     const std::string& name,
     const std::string& member_accessor,
     const std::vector<std::pair<std::string, CppType*>>& members,
+    const std::map<std::string, std::string>& names_over_the_wire,
     int decoder_depth,
     int* temporary_count);
 bool WriteArrayDecoder(
@@ -875,7 +892,9 @@ bool WriteDecoder(int fd,
     case CppType::Which::kStruct: {
       if (cpp_type.struct_type.key_type == CppType::Struct::KeyType::kMap) {
         return WriteMapDecoder(fd, name, member_accessor,
-                               cpp_type.struct_type.members, decoder_depth + 1,
+                               cpp_type.struct_type.members,
+                               cpp_type.struct_type.names_over_the_wire,
+                               decoder_depth + 1,
                                temporary_count);
       } else if (cpp_type.struct_type.key_type ==
                  CppType::Struct::KeyType::kArray) {
@@ -976,6 +995,7 @@ bool WriteMapDecoder(
     const std::string& name,
     const std::string& member_accessor,
     const std::vector<std::pair<std::string, CppType*>>& members,
+    const std::map<std::string, std::string>& names_over_the_wire,
     int decoder_depth,
     int* temporary_count) {
   dprintf(fd, "  if (cbor_value_get_type(&it%d) != CborMapType) {\n",
@@ -1008,6 +1028,7 @@ bool WriteMapDecoder(
           decoder_depth - 1, decoder_depth);
   int member_pos = 0;
   for (const auto& x : members) {
+    std::string name_on_wire = GetNameOverTheWire(names_over_the_wire, x.first);
     std::string cid = ToUnderscoreId(x.first);
     std::string fullname = name + member_accessor + cid;
     if (x.second->which == CppType::Which::kOptional) {
@@ -1016,7 +1037,7 @@ bool WriteMapDecoder(
       dprintf(fd, "  if (it%d_length > %d) {\n", decoder_depth, member_pos);
       dprintf(fd,
               "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
-              decoder_depth, x.first.c_str());
+              decoder_depth, name_on_wire.c_str());
       dprintf(fd, "    %s%shas_%s = true;\n", name.c_str(),
               member_accessor.c_str(), cid.c_str());
       if (!WriteDecoder(fd, fullname, ".", *x.second->optional_type,
@@ -1030,7 +1051,7 @@ bool WriteMapDecoder(
     } else {
       dprintf(fd,
               "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
-              decoder_depth, x.first.c_str());
+              decoder_depth, name_on_wire.c_str());
       if (!WriteDecoder(fd, fullname, ".", *x.second, decoder_depth,
                         temporary_count)) {
         return false;
@@ -1146,7 +1167,8 @@ bool WriteDecoders(int fd, const CppSymbolTable& table) {
         "  CBOR_RETURN_ON_ERROR(cbor_parser_init(buffer, length, 0, &parser, "
         "&it0));\n");
     if (real_type->struct_type.key_type == CppType::Struct::KeyType::kMap) {
-      if (!WriteMapDecoder(fd, "data", "->", real_type->struct_type.members, 1,
+      if (!WriteMapDecoder(fd, "data", "->", real_type->struct_type.members,
+                           real_type->struct_type.names_over_the_wire, 1,
                            &temporary_count)) {
         return false;
       }

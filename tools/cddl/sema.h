@@ -75,6 +75,7 @@ struct CddlGroup {
     ~Entry();
 
     std::string opt_occurrence;
+    std::string name_over_wire;
     Which which = Which::kUninitialized;
     union {
       EntryType type;
@@ -124,6 +125,7 @@ struct CppType {
       kPlainGroup,
     };
     std::vector<std::pair<std::string, CppType*>> members;
+    std::map<std::string, std::string> names_over_the_wire;
     KeyType key_type;
   };
 

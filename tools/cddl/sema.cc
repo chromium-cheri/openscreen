@@ -228,6 +228,7 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
     entry->which = CddlGroup::Entry::Which::kType;
     InitGroupEntry(&entry->type);
     entry->type.opt_key = std::string(node->children->text);
+    entry->name_over_wire = node->internal_text;
     node = node->sibling;
   }
   if (node->type == AstNode::Type::kType) {
@@ -478,6 +479,11 @@ bool AddMembersToStruct(
           return false;
         if (member_type->name.empty())
           member_type->name = x->type.opt_key;
+        if (!x->name_over_wire.empty()) {
+          cpp_type->struct_type.names_over_the_wire.insert(
+            std::pair<std::string, std::string>(x->type.opt_key,
+                                                x->name_over_wire));
+        }
         if (x->opt_occurrence == "?") {
           table->cpp_types.emplace_back(new CppType);
           CppType* optional_type = table->cpp_types.back().get();
