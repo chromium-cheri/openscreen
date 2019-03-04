@@ -46,7 +46,12 @@ struct AstNode {
   AstNode* children;
   AstNode* sibling;
   Type type;
+
+  // Text parsed from the spec to create this node.
   std::string text;
+
+  // Text parsed from another source but used when serializing this node.
+  std::string serialization_text;
 };
 
 struct ParseResult {

@@ -75,6 +75,7 @@ struct CddlGroup {
     ~Entry();
 
     std::string opt_occurrence;
+    std::string serialization_key;
     Which which = Which::kUninitialized;
     union {
       EntryType type;
@@ -117,13 +118,39 @@ struct CppType {
     std::vector<std::pair<std::string, uint64_t>> members;
   };
 
+  // Represents a C++ Struct
   struct Struct {
     enum class KeyType {
       kMap,
       kArray,
       kPlainGroup,
     };
-    std::vector<std::pair<std::string, CppType*>> members;
+    // Contains a member of a C++ Struct.
+    struct CppMember {
+      // Constructs a new CppMember from the required fields. This constructor
+      // is needed for vector::emplace_back(...).
+      CppMember(std::string name,
+                std::string serialization_key,
+                CppType* type) {
+        this->name = name;
+        this->serialization_key = serialization_key;
+        this->type = type;
+      }
+
+      // Name visible to callers of the generated C++ methods.
+      std::string name;
+
+      // Name sent over the wire when making a network call.
+      std::string serialization_key;
+
+      // C++ Type this member represents.
+      CppType* type;
+    };
+
+    // Set of all members in this Struct.
+    std::vector<CppMember> members;
+
+    // Type of data structure being represented.
     KeyType key_type;
   };
 

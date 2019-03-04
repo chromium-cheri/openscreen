@@ -228,6 +228,7 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
     entry->which = CddlGroup::Entry::Which::kType;
     InitGroupEntry(&entry->type);
     entry->type.opt_key = std::string(node->children->text);
+    entry->serialization_key = node->serialization_text;
     node = node->sibling;
   }
   if (node->type == AstNode::Type::kType) {
@@ -478,16 +479,18 @@ bool AddMembersToStruct(
           return false;
         if (member_type->name.empty())
           member_type->name = x->type.opt_key;
+        std::string serialization_key =
+            x->serialization_key.empty() ? x->type.opt_key : x->serialization_key;
         if (x->opt_occurrence == "?") {
           table->cpp_types.emplace_back(new CppType);
           CppType* optional_type = table->cpp_types.back().get();
           optional_type->which = CppType::Which::kOptional;
           optional_type->optional_type = member_type;
-          cpp_type->struct_type.members.emplace_back(x->type.opt_key,
-                                                     optional_type);
+          cpp_type->struct_type.members.emplace_back(
+              x->type.opt_key, serialization_key, optional_type);
         } else {
-          cpp_type->struct_type.members.emplace_back(x->type.opt_key,
-                                                     member_type);
+          cpp_type->struct_type.members.emplace_back(
+              x->type.opt_key, serialization_key, member_type);
         }
       }
     } else {
