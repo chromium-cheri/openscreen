@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "tools/cddl/parse.h"
+#include "third_party/abseil/src/absl/types/optional.h"
 
 struct CddlGroup;
 
@@ -72,6 +73,7 @@ struct CddlGroup {
     };
     struct EntryType {
       std::string opt_key;
+      absl::optional<uint64_t> serialization_key;
       CddlType* value;
     };
     Entry();
@@ -132,13 +134,39 @@ struct CppType {
     std::vector<std::pair<std::string, uint64_t>> members;
   };
 
+  // Represents a C++ Struct.
   struct Struct {
     enum class KeyType {
       kMap,
       kArray,
       kPlainGroup,
     };
-    std::vector<std::pair<std::string, CppType*>> members;
+    // Contains a member of a C++ Struct.
+    struct CppMember {
+      // Constructs a new CppMember from the required fields. This constructor
+      // is needed for vector::emplace_back(...).
+      CppMember(std::string name,
+                absl::optional<uint64_t> serialization_key,
+                CppType* type) {
+        this->name = std::move(name);
+        this->serialization_key = serialization_key;
+        this->type = type;
+      }
+
+      // Name visible to callers of the generated C++ methods.
+      std::string name;
+
+      // Id sent over the wire when making a network call.
+      absl::optional<uint64_t> serialization_key;
+
+      // C++ Type this member represents.
+      CppType* type;
+    };
+
+    // Set of all members in this Struct.
+    std::vector<CppMember> members;
+
+    // Type of data structure being represented.
     KeyType key_type;
   };
 
