@@ -46,7 +46,13 @@ struct AstNode {
   AstNode* children;
   AstNode* sibling;
   Type type;
+
+  // Text parsed from the spec to create this node.
   std::string text;
+
+  // Text parsed from a comment in the spec to provide additional information
+  // about this node.
+  std::string text_from_comment;
 };
 
 struct ParseResult {
