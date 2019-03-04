@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "third_party/abseil/src/absl/strings/string_view.h"
+#include "third_party/abseil/src/absl/types/optional.h"
 
 CddlType::CddlType() : map(nullptr) {}
 CddlType::~CddlType() {
@@ -219,6 +220,18 @@ CddlGroup* AnalyzeGroup(CddlSymbolTable* table, const AstNode& group) {
   return group_def;
 }
 
+absl::optional<uint64_t> ParseOptionalUint(std::string text) {
+  if (text == "0") {
+    return 0;
+  }
+
+  uint64_t parsed = std::strtoul(text.c_str(), nullptr, 10);
+  if (!parsed) {
+    return absl::nullopt;
+  }
+  return parsed;
+}
+
 bool AnalyzeGroupEntry(CddlSymbolTable* table,
                        const AstNode& group_entry,
                        CddlGroup::Entry* entry) {
@@ -238,6 +251,8 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
     entry->which = CddlGroup::Entry::Which::kType;
     InitGroupEntry(&entry->type);
     entry->type.opt_key = std::string(node->children->text);
+    entry->type.serialization_key =
+        ParseOptionalUint(node->serialization_text);
     node = node->sibling;
   }
 
@@ -482,11 +497,11 @@ bool AddMembersToStruct(
           CppType* optional_type = table->cpp_types.back().get();
           optional_type->which = CppType::Which::kOptional;
           optional_type->optional_type = member_type;
-          cpp_type->struct_type.members.emplace_back(x->type.opt_key,
-                                                     optional_type);
+          cpp_type->struct_type.members.emplace_back(
+              x->type.opt_key, x->type.serialization_key, optional_type);
         } else {
-          cpp_type->struct_type.members.emplace_back(x->type.opt_key,
-                                                     member_type);
+          cpp_type->struct_type.members.emplace_back(
+              x->type.opt_key, x->type.serialization_key, member_type);
         }
       }
     } else {
