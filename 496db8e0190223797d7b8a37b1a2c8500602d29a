@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57355039_e518b4e2",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-05T14:35:09Z",
+      "side": 1,
+      "message": "Would it be possible to add a method to QuicConnection to do these cleanup actions like QuicConnection::Cleanup()?",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d891904_c962ad4a",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-05T14:35:09Z",
+      "side": 1,
+      "message": "The spec says, \"A request and a response includes a request ID which is an unsigned integer chosen by the requester. Responses must include the request ID of the request they are associated with.\"\n\nI don\u0027t think these are scoped to a specific QUIC connection, meaning that a request could be sent on one connection and a response on another (from this instance of the library to the same endpoint).\n\nI filed https://github.com/webscreens/openscreenprotocol/issues/139 to improve the spec language.",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "035e8d53_be5a1b4f",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-05T14:35:09Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "452083cd_5420edbd",
+        "filename": "api/impl/quic/quic_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-05T14:35:09Z",
+      "side": 1,
+      "message": "Similar comments as in quic_client.cc.",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4033d19_94e2b7f6",
+        "filename": "api/public/endpoint_request_ids.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-05T14:35:09Z",
+      "side": 1,
+      "message": "The downside to keeping the request counter across connections is that you will never erase an endpoint_id from the map...  unless we added something to the protocol to relay the next request_id on a new connection.",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0efe640_fa36da71",
+        "filename": "api/public/endpoint_request_ids.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-05T14:35:09Z",
+      "side": 1,
+      "message": "But it looks like both ends of the connection will start at 0 and increment by one? So there will be duplicate IDs on the connection.\n\nShould one side start at 1 and both sides increment by 2?",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
