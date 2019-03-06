@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "681f1dce_d71775e5",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:50:48Z",
+      "side": 1,
+      "message": "When talking with Peter, he had said that we should support both integer keys and string keys. I can change this, but let\u0027s make sure we all agree first",
+      "parentUuid": "82c85aae_4731e504",
+      "range": {
+        "startLine": 320,
+        "startChar": 53,
+        "endLine": 320,
+        "endChar": 64
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0e87672_12672368",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 1
@@ -76,6 +100,24 @@
     },
     {
       "key": {
+        "uuid": "1fce3ce1_14453b91",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:50:48Z",
+      "side": 1,
+      "message": "It actually broke existing code when I implemented ParseText, so I removed the call from here. I also removed ParseBytes so that the same issue wasn\u0027t hit later if we wanted to add it back in",
+      "parentUuid": "c775b98d_3833c1f7",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c58283b5_40c2b57e",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -87,6 +129,30 @@
       "writtenOn": "2019-03-06T07:05:04Z",
       "side": 1,
       "message": "ParseId",
+      "range": {
+        "startLine": 254,
+        "startChar": 19,
+        "endLine": 254,
+        "endChar": 28
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d90a8d9b_350b2221",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:50:48Z",
+      "side": 1,
+      "message": "Good catch!",
+      "parentUuid": "c58283b5_40c2b57e",
       "range": {
         "startLine": 254,
         "startChar": 19,
@@ -116,6 +182,24 @@
     },
     {
       "key": {
+        "uuid": "76620ac3_f4edc051",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:50:48Z",
+      "side": 1,
+      "message": "I like the idea of more descriptive names. I wasn\u0027t sure what they were named for and assumed it was just the order they were called in",
+      "parentUuid": "31d677ec_dbf7aebe",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "177dfd5e_4e34ac4f",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -127,6 +211,24 @@
       "writtenOn": "2019-03-06T07:05:04Z",
       "side": 1,
       "message": "I feel like this should be the other way around: the proper key is still the number, which will be serialized, but our \"internal text\" is how we represent it in the C++ structure.",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d3809c8_bb2cb2b1",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:50:48Z",
+      "side": 1,
+      "message": "I can switch it around. I was thinking of it the other way, where the \u0027internal text\u0027 is only used internally to the serialization process (ie the number key), while the external text is the interface visible to callers",
+      "parentUuid": "177dfd5e_4e34ac4f",
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -156,6 +258,30 @@
     },
     {
       "key": {
+        "uuid": "e1c899a6_09e26a12",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:50:48Z",
+      "side": 1,
+      "message": "Will make the change, but for future reference what\u0027s the difference?",
+      "parentUuid": "1002ac08_cc45ca5a",
+      "range": {
+        "startLine": 483,
+        "startChar": 52,
+        "endLine": 483,
+        "endChar": 58
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cbadc37_4254429a",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 1
@@ -167,6 +293,24 @@
       "writtenOn": "2019-03-06T07:05:04Z",
       "side": 1,
       "message": "I think it would be easier to do something more like:\n\nstruct Member {\n  std::string name;\n  uint64_t value_over_wire;\n  CppType* type;\n};\nstd::vector\u003cMember\u003e members;\n\nEvery lookup in this map in codegen.cc is when you would have already had the appropriate value in your loop iterator, and populating it in sema.cc is also a 1:1 stepping.",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f83bfd4_ed37b66f",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:50:48Z",
+      "side": 1,
+      "message": "I like that approach more - feels much cleaner. Will make that change",
+      "parentUuid": "4cbadc37_4254429a",
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
