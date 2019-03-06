@@ -101,6 +101,24 @@
       "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b03dd6_5128d1d8",
+        "filename": "api/public/endpoint_request_ids.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T23:42:38Z",
+      "side": 1,
+      "message": "Do we need to maintain a counter at all? If we instead picked a random uint64, the chance of getting the same id twice is 1/2^64, which should in practice be unique. This would mean that there is no \"state\" that 2 connections could share, so we don\u0027t have to worry about those edge-cases where different clients are in either the same or different states",
+      "parentUuid": "e0efe640_fa36da71",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
