@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "83aa8d73_9f212f87",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:24:10Z",
+      "side": 1,
+      "message": "I\u0027m not against a bit of refactoring, but I think this should come later, for 2 reasons:\n1) My next change is adding failure messages and/or runtime logs for the tool. Making these changes would fit naturally into that\n2) I have 2 open CLs and am planning to push a 3rd in the morning on the same tool. Making large refactoring changes would break all of the other CLs",
+      "parentUuid": "b50396ab_67154066",
+      "revId": "f0a3702bab4eda8bbda185326682ac0af50553a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8df1db2a_f21a2eda",
         "filename": "tools/cddl/main.cc",
         "patchSetId": 1
@@ -89,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "a4d9d71e_5072e9ed",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:24:10Z",
+      "side": 1,
+      "message": "I will add it back as a NOTE. Think I misread it originally which is why I removed it",
+      "parentUuid": "dbb1627b_f2719580",
+      "revId": "f0a3702bab4eda8bbda185326682ac0af50553a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a7dd175_34e82ce6",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -118,6 +154,24 @@
       "side": 1,
       "message": "You _could_ move this out, but the logic here is \"parse as Type, otherwise as GroupEntry, otherwise fail\".",
       "parentUuid": "8a7dd175_34e82ce6",
+      "revId": "f0a3702bab4eda8bbda185326682ac0af50553a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "386709a1_f63e27fd",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-06T19:24:10Z",
+      "side": 1,
+      "message": "I left it with the if inside the else statement to keep the logic unchanged, but I do like Jordan\u0027s idea. The logic would be the same, and it would (at least to me) look cleaner",
+      "parentUuid": "8623d33c_8591b3e2",
       "revId": "f0a3702bab4eda8bbda185326682ac0af50553a3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
