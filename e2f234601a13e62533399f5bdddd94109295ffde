@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "75a5b2cf_16d2488f",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T20:40:32Z",
+      "side": 1,
+      "message": "That\u0027s fair, then.",
+      "parentUuid": "681f1dce_d71775e5",
+      "range": {
+        "startLine": 320,
+        "startChar": 53,
+        "endLine": 320,
+        "endChar": 64
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0e87672_12672368",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 1
@@ -112,6 +136,24 @@
       "side": 1,
       "message": "It actually broke existing code when I implemented ParseText, so I removed the call from here. I also removed ParseBytes so that the same issue wasn\u0027t hit later if we wanted to add it back in",
       "parentUuid": "c775b98d_3833c1f7",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f43ff0_a97b9f0f",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T20:40:32Z",
+      "side": 1,
+      "message": "Yes, that\u0027s probably because you implemented ParseText similar to ParseId, so an id would parse as a value, which is bad.  I\u0027d suggest reverting this when ParseText is fixed.",
+      "parentUuid": "1fce3ce1_14453b91",
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -235,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "b74ffba0_1e85c549",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T20:40:32Z",
+      "side": 1,
+      "message": "Yeah, I guess it depends what you consider internal vs. external.  I consider internal to be the library and the wire/network to be external.  But you could also consider the \"serializer\" to be internal the the callers/library to be external.  I guess we should get other opinions before settling on either one.",
+      "parentUuid": "0d3809c8_bb2cb2b1",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1002ac08_cc45ca5a",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 1
@@ -270,6 +330,30 @@
       "side": 1,
       "message": "Will make the change, but for future reference what\u0027s the difference?",
       "parentUuid": "1002ac08_cc45ca5a",
+      "range": {
+        "startLine": 483,
+        "startChar": 52,
+        "endLine": 483,
+        "endChar": 58
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a8a6621_028f1323",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T20:40:32Z",
+      "side": 1,
+      "message": "The simple answer is that map.insert(pair(a, b)) constructs a pair and then _copies_ or _moves_ it into the map\u0027s internal pair object.  map.emplace(a, b) directly constructs the internal pair object from the arguments (a, b).  If you\u0027re not familiar with this, I\u0027d suggest looking up \"perfect forwarding\".",
+      "parentUuid": "e1c899a6_09e26a12",
       "range": {
         "startLine": 483,
         "startChar": 52,
