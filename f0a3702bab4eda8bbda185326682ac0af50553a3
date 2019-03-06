@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b50396ab_67154066",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-06T02:02:20Z",
+      "side": 1,
+      "message": "Kind of a meta comment about this patch. The added comments (esp. in this file) seem to be naming sections of the code that perform specific tasks. I am strongly of the opinion that these types of comments actually indicate that there should be separate methods.\n\nHere, you could add the following functions:\n\nParseHeaderFilename()\nParseOutputFilename()\nParseDirectoryPrefix()\nParseAndValidateArgs()\nCreateCppFilesFromSymbols()",
+      "revId": "f0a3702bab4eda8bbda185326682ac0af50553a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8df1db2a_f21a2eda",
         "filename": "tools/cddl/main.cc",
         "patchSetId": 1
@@ -30,6 +47,41 @@
       "writtenOn": "2019-03-05T23:19:06Z",
       "side": 1,
       "message": "I\u0027d like to preserve the note that was here.  You can rephrase if you want.  To clarify, syntax-wise this should also be matched by ParseType2, but ParseType2 always comes first in the search/recursion order.",
+      "revId": "f0a3702bab4eda8bbda185326682ac0af50553a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37f2bb6b_b4dd4d13",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-06T02:02:20Z",
+      "side": 1,
+      "message": "%s/NOTE/TODO?",
+      "parentUuid": "514ec508_363c1b6f",
+      "revId": "f0a3702bab4eda8bbda185326682ac0af50553a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7dd175_34e82ce6",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-06T02:02:20Z",
+      "side": 1,
+      "message": "Move this \"if\" outside the block and below? I think a general catchall for being null makes sense to me.",
       "revId": "f0a3702bab4eda8bbda185326682ac0af50553a3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
