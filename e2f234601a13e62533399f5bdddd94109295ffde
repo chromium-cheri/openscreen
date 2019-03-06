@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82c85aae_4731e504",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "This case should just be a failure; every struct member must have an integer key now.",
+      "range": {
+        "startLine": 320,
+        "startChar": 53,
+        "endLine": 320,
+        "endChar": 64
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0e87672_12672368",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "This should be writing a uint key now, not a string.",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eac8f91_80d3386a",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "This should be matching (approx., see the IETF draft for actual character set): \".*\"",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c775b98d_3833c1f7",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "Of course, we aren\u0027t using literal text or bytes at the moment, so this won\u0027t break anything, but is there a reason for this change?",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c58283b5_40c2b57e",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "ParseId",
+      "range": {
+        "startLine": 254,
+        "startChar": 19,
+        "endLine": 254,
+        "endChar": 28
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31d677ec_dbf7aebe",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "This should still be optional, or we should figure out how to rename these methods.  Currently, they\u0027re named for the line of the grammar which they implement (https://tools.ietf.org/html/draft-ietf-cbor-cddl-07#appendix-B).  This function should accept any form of |grpent|\u0027s first line.  If we want to deviate from that convention, I think we need to come up with better names.",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "177dfd5e_4e34ac4f",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "I feel like this should be the other way around: the proper key is still the number, which will be serialized, but our \"internal text\" is how we represent it in the C++ structure.",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1002ac08_cc45ca5a",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "emplace",
+      "range": {
+        "startLine": 483,
+        "startChar": 52,
+        "endLine": 483,
+        "endChar": 58
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cbadc37_4254429a",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-06T07:05:04Z",
+      "side": 1,
+      "message": "I think it would be easier to do something more like:\n\nstruct Member {\n  std::string name;\n  uint64_t value_over_wire;\n  CppType* type;\n};\nstd::vector\u003cMember\u003e members;\n\nEvery lookup in this map in codegen.cc is when you would have already had the appropriate value in your loop iterator, and populating it in sema.cc is also a 1:1 stepping.",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
