@@ -74,12 +74,17 @@ struct CddlGroup {
     Entry();
     ~Entry();
 
-    std::string opt_occurrence;
+    int occurence_min;
+    int occurence_max;
     Which which = Which::kUninitialized;
     union {
       EntryType type;
       CddlGroup* group;
     };
+
+    bool hasOptOccurence() {
+      return occurence_min != 1 || occurence_max != 1;
+    }
   };
 
   std::vector<std::unique_ptr<Entry>> entries;
@@ -109,6 +114,8 @@ struct CppType {
 
   struct Vector {
     CppType* element_type;
+    int min_length;
+    int max_length;
   };
 
   struct Enum {

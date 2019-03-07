@@ -129,6 +129,7 @@ int main(int argc, char** argv) {
   if (!cddl_result.first) {
     return 1;
   }
+
   std::pair<bool, CppSymbolTable> cpp_result =
       BuildCppTypes(cddl_result.second);
   if (!cpp_result.first) {

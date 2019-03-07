@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <unistd.h>
+#include <iostream>
 
 #include <cinttypes>
 #include <cstdlib>
@@ -86,6 +87,9 @@ CppType::~CppType() {
 
 void CppType::InitVector() {
   which = Which::kVector;
+  new (&vector_type) Vector();
+  vector_type.min_length = -1;
+  vector_type.max_length = -1;
 }
 
 void CppType::InitEnum() {
@@ -219,8 +223,38 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
                        CddlGroup::Entry* entry) {
   const AstNode* node = group_entry.children;
   if (node->type == AstNode::Type::kOccur) {
-    entry->opt_occurrence = std::string(node->text);
+    if (node->text == "?") {
+      entry->occurence_min = 0;
+      entry->occurence_max = 1;
+    } else if (node->text == "+") {
+      entry->occurence_min = 1;
+      entry->occurence_max = -1;
+    } else {
+      entry->occurence_min = 0;
+      entry->occurence_max = 0;
+      int* occurence_ptr = &entry->occurence_min;
+      for (uint i = 0; i < node->text.length(); i++) {
+        if (node->text[i] == '*') {
+          if (occurence_ptr == &entry->occurence_max) {
+            return false;
+          }
+          occurence_ptr = &entry->occurence_max;
+        } else {
+          int charNum = node->text[i] - '0';
+          if (charNum < 0 || charNum > 9) {
+            return false;
+          }
+          *occurence_ptr = *occurence_ptr * 10 + charNum;
+        }
+      }
+      if (occurence_ptr != &entry->occurence_max) {
+        return false;
+      }
+    }
     node = node->sibling;
+  } else {
+      entry->occurence_min = 1;
+      entry->occurence_max = 1;
   }
   if (node->type == AstNode::Type::kMemberKey) {
     if (node->text[node->text.size() - 1] == '>')
@@ -294,15 +328,18 @@ void DumpGroup(CddlGroup* group, int indent_level) {
         break;
       case CddlGroup::Entry::Which::kType:
         printf("kType:");
-        if (!entry->opt_occurrence.empty())
-          printf(" %s", entry->opt_occurrence.c_str());
+        if (entry->hasOptOccurence())
+          printf("minOccurance: %d maxOccurance: %d", entry->occurence_min,
+                                                      entry->occurence_max);
         if (!entry->type.opt_key.empty())
           printf(" %s =>", entry->type.opt_key.c_str());
         printf("\n");
         DumpType(entry->type.value, indent_level + 1);
         break;
       case CddlGroup::Entry::Which::kGroup:
-        printf("kGroup: %s\n", entry->opt_occurrence.c_str());
+        if (entry->hasOptOccurence())
+          printf("minOccurance: %d maxOccurance: %d", entry->occurence_min,
+                                                      entry->occurence_max);
         DumpGroup(entry->group, indent_level + 1);
         break;
     }
@@ -404,7 +441,7 @@ bool IncludeGroupMembersInEnum(CppSymbolTable* table,
                                CppType* cpp_type,
                                const CddlGroup& group) {
   for (const auto& x : group.entries) {
-    if (!x->opt_occurrence.empty() ||
+    if (x->hasOptOccurence() ||
         x->which != CddlGroup::Entry::Which::kType) {
       return false;
     }
@@ -414,8 +451,9 @@ bool IncludeGroupMembersInEnum(CppSymbolTable* table,
           x->type.opt_key, atoi(x->type.value->value.c_str()));
     } else if (x->type.value->which == CddlType::Which::kId) {
       auto group_entry = cddl_table.group_map.find(x->type.value->id);
-      if (group_entry == cddl_table.group_map.end())
+      if (group_entry == cddl_table.group_map.end()) {
         return false;
+      }
       if (group_entry->second->entries.size() != 1 ||
           group_entry->second->entries[0]->which !=
               CddlGroup::Entry::Which::kGroup) {
@@ -453,7 +491,7 @@ bool AddMembersToStruct(
     if (x->which == CddlGroup::Entry::Which::kType) {
       if (x->type.opt_key.empty()) {
         if (x->type.value->which != CddlType::Which::kId ||
-            !x->opt_occurrence.empty()) {
+            x->hasOptOccurence()) {
           return false;
         }
         auto group_entry = cddl_table.group_map.find(x->type.value->id);
@@ -478,7 +516,7 @@ bool AddMembersToStruct(
           return false;
         if (member_type->name.empty())
           member_type->name = x->type.opt_key;
-        if (x->opt_occurrence == "?") {
+        if (x->occurence_min <= 0 && x->occurence_max == 1) {
           table->cpp_types.emplace_back(new CppType);
           CppType* optional_type = table->cpp_types.back().get();
           optional_type->which = CppType::Which::kOptional;
@@ -529,8 +567,12 @@ CppType* MakeCppType(CppSymbolTable* table,
     case CddlType::Which::kArray: {
       cpp_type = GetCppType(table, name);
       if (type.array->entries.size() == 1 ||
-          type.array->entries[0]->opt_occurrence == "*") {
+          type.array->entries[0]->occurence_max <= 0) {
         cpp_type->InitVector();
+        cpp_type->vector_type.min_length =
+          type.array->entries[0]->occurence_min;
+        cpp_type->vector_type.max_length =
+          type.array->entries[0]->occurence_max;
         cpp_type->vector_type.element_type =
             GetCppType(table, type.array->entries[0]->type.value->id);
       } else {

@@ -212,12 +212,25 @@ AstNode* ParseValue(Parser* p) {
 }
 
 AstNode* ParseOccur(Parser* p) {
-  if (p->data[0] != '*' && p->data[0] != '?') {
+  Parser p_speculative{p->data};
+  bool seenOperator = false;
+  while (*p_speculative.data != ' ') {
+    char current = *p_speculative.data;
+    if (current == '*' || current == '+' || current == '?') {
+      seenOperator = true;
+    }
+    p_speculative.data++;
+  }
+  if (!seenOperator) {
     return nullptr;
   }
+
   AstNode* node =
-      AddNode(p, AstNode::Type::kOccur, absl::string_view(p->data, 1));
-  ++p->data;
+      AddNode(p, AstNode::Type::kOccur,
+              absl::string_view(p->data, p_speculative.data - p->data));
+  p->data = p_speculative.data;
+  std::move(p_speculative.nodes.begin(), p_speculative.nodes.end(),
+            std::back_inserter(p->nodes));
   return node;
 }
 
