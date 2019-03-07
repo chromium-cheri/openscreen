@@ -57,6 +57,23 @@ bool IsNewline(char x) {
   return x == '\r' || x == '\n';
 }
 
+bool IsWhitespace(char c) {
+  return c == ' ' || c == ';' || c == '\r' || c == '\n';
+}
+
+// Determines if one of the characters present in the character_set occurs in
+// the provided view prior to any whitespace characters.
+bool ContainsCharBeforeWhitespace(absl::string_view view,
+                                  std::string character_set) {
+  for (int i = 0; !IsWhitespace(view[i]); i++) {
+    std::cout.flush();
+    if (character_set.find(view[i]) != std::string::npos) {
+      return true;
+    }
+  }
+  return false;
+}
+
 absl::string_view SkipNewline(absl::string_view view) {
   size_t index = 0;
   while (IsNewline(view[index])) {
@@ -82,10 +99,6 @@ absl::string_view SkipComment(absl::string_view view) {
   }
 
   return view.substr(index);
-}
-
-bool IsWhitespace(char c) {
-  return c == ' ' || c == ';' || c == '\r' || c == '\n';
 }
 
 void SkipWhitespaceAndComments(Parser* p) {
@@ -211,13 +224,21 @@ AstNode* ParseValue(Parser* p) {
   return node;
 }
 
+// Determines whether an occurence operator occurs before the next whitespace
+// character, and creates a new Occurance node if so.
 AstNode* ParseOccur(Parser* p) {
-  if (p->data[0] != '*' && p->data[0] != '?') {
+  Parser p_speculative{p->data};
+  if (!ContainsCharBeforeWhitespace(p->data, "*+?")) {
     return nullptr;
   }
+
+  for (; !IsWhitespace(*p_speculative.data); p_speculative.data++) {}
   AstNode* node =
-      AddNode(p, AstNode::Type::kOccur, absl::string_view(p->data, 1));
-  ++p->data;
+      AddNode(p, AstNode::Type::kOccur,
+              absl::string_view(p->data, p_speculative.data - p->data));
+  p->data = p_speculative.data;
+  std::move(p_speculative.nodes.begin(), p_speculative.nodes.end(),
+            std::back_inserter(p->nodes));
   return node;
 }
 
