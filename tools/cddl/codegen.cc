@@ -379,6 +379,18 @@ bool WriteEncoder(int fd,
     case CppType::Which::kVector: {
       std::string cid = ToUnderscoreId(name);
       dprintf(fd, "  {\n");
+      if (cpp_type.vector_type.min_length > 0) {
+        dprintf(fd, "  if(%s.size() < %d) {\n", cid.c_str(),
+          cpp_type.vector_type.min_length);
+        dprintf(fd, "    return -CborErrorTooFewItems;\n");
+        dprintf(fd, "  }\n");
+      }
+      if (cpp_type.vector_type.max_length > 0) {
+        dprintf(fd, "  if(%s.size() > %d) {\n", cid.c_str(),
+          cpp_type.vector_type.max_length);
+        dprintf(fd, "    return -CborErrorTooManyItems;\n");
+        dprintf(fd, "  }\n");
+      }
       dprintf(fd, "  CborEncoder encoder%d;\n", encoder_depth + 1);
       dprintf(fd,
               "  CBOR_RETURN_ON_ERROR(cbor_encoder_create_array(&encoder%d, "
