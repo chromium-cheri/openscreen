@@ -12,8 +12,10 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
+#include "third_party/abseil/src/absl/algorithm/container.h"
 #include "third_party/abseil/src/absl/strings/string_view.h"
 #include "third_party/abseil/src/absl/types/optional.h"
 
@@ -268,7 +270,6 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
       }
 
       int upper_bound = CddlGroup::Entry::kOccurrenceMaxUnbounded;
-
       std::string second_half =
           index >= node->text.length() ? "" : node->text.substr(index + 1);
       if ((second_half.length() != 1 || second_half.at(0) != '0') &&
@@ -694,4 +695,29 @@ std::pair<bool, CppSymbolTable> BuildCppTypes(
 
   result.first = true;
   return result;
+}
+
+bool VerifyUniqueKey(std::unordered_set<std::string>* names,
+                     const CppType::Struct::CppMember& member) {
+  bool has_int_key = member.integer_key.has_value();
+  std::string int_key_string =
+      has_int_key ? std::to_string(member.integer_key.value()) : "";
+
+  return names->insert(member.name).second &&
+         (!has_int_key || names->insert(int_key_string).second);
+}
+
+bool HasUniqueKeys(const CppType& type) {
+  std::unordered_set<std::string> names;
+  return type.which != CppType::Which::kStruct ||
+         absl::c_all_of(type.struct_type.members,
+                        [&names](const CppType::Struct::CppMember& member) {
+                          return VerifyUniqueKey(&names, member);
+                        });
+}
+
+bool ValidateCppTypes(const CppSymbolTable& cpp_symbols) {
+  return absl::c_all_of(
+      cpp_symbols.cpp_types,
+      [](const std::unique_ptr<CppType>& ptr) { return HasUniqueKeys(*ptr); });
 }
