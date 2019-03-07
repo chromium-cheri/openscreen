@@ -12,6 +12,7 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "third_party/abseil/src/absl/strings/string_view.h"
@@ -695,4 +696,40 @@ std::pair<bool, CppSymbolTable> BuildCppTypes(
 
   result.first = true;
   return result;
+}
+
+bool IsValidCppType(const CppType& type) {
+  if (type.which != CppType::Which::kStruct) {
+    return true;
+  }
+
+  std::unordered_set<std::string> names;
+  for (auto& x : type.struct_type.members) {
+    if (names.find(x.name) != names.end()) {
+      return false;
+    } else {
+      names.insert(x.name);
+    }
+
+    if (x.integer_key.has_value()) {
+      std::string integer_key_string = std::to_string(x.integer_key.value());
+      if (names.find(integer_key_string) != names.end()) {
+        return false;
+      } else {
+        names.insert(integer_key_string);
+      }
+    }
+  }
+
+  return true;
+}
+
+bool ValidateCppTypes(const CppSymbolTable& cpp_symbols) {
+  for (const std::unique_ptr<CppType>& type : cpp_symbols.cpp_types) {
+    if (!IsValidCppType(*type)) {
+      return false;
+    }
+  }
+
+  return true;
 }
