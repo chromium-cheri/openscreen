@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6028b634_db3d0ab0",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-07T06:29:25Z",
+      "side": 1,
+      "message": "This is the copy(/move)-swap idiom.  This avoids duplication between ctor, operator\u003d, and potentially a swap method (especially for other classes using the same idiom).  The original operand is first move-constructed by \"swapping\" with an empty object above, then the result is swapped here, and finally the original LHS is destroyed because |other| is actually a local.",
+      "parentUuid": "f2bdabd1_76c860bd",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 21
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dca84d95_bb02cbbc",
         "filename": "api/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ff7162f7_317aacc0",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-07T06:29:25Z",
+      "side": 1,
+      "message": "There\u0027s no logical XOR, but this could be (!delegate !\u003d !server_delegate_).",
+      "parentUuid": "dca84d95_bb02cbbc",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 45
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dedb813f_8ef2ad3c",
         "filename": "api/impl/service_listener_impl.h",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa0f2b07_40312237",
+        "filename": "api/impl/service_listener_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-07T06:29:25Z",
+      "side": 1,
+      "message": "The \"if\" explains the \"maybe\".  For example, the observer doesn\u0027t need to fire if the state is kStarting.",
+      "parentUuid": "dedb813f_8ef2ad3c",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 73,
+        "endChar": 47
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
