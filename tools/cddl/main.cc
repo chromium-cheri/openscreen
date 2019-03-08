@@ -134,6 +134,8 @@ int main(int argc, char** argv) {
   if (!cpp_result.first) {
     return 1;
   }
+  ValidateCppTypes(cpp_result.second);
+
   if (!WriteHeaderPrologue(header_fd, args.header_filename) ||
       !WriteTypeDefinitions(header_fd, cpp_result.second) ||
       !WriteFunctionDeclarations(header_fd, cpp_result.second) ||
