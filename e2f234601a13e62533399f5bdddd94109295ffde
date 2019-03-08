@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "c727588c_ea7064fb",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-08T00:04:35Z",
+      "side": 1,
+      "message": "I\u0027m plannnig on leaving this as a string - in the case of integer keys, it\u0027s a uint64, but for non-integer keys it\u0027s a string",
+      "parentUuid": "e0e87672_12672368",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2eac8f91_80d3386a",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -104,6 +122,24 @@
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7dbc26b_1fbdf7f9",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-08T00:04:35Z",
+      "side": 1,
+      "message": "Since this is no longer needed (as below was changed to parseId), I am reverting this to the unimplemented state",
+      "parentUuid": "2eac8f91_80d3386a",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -160,6 +196,24 @@
     },
     {
       "key": {
+        "uuid": "94e659fe_0ca29b96",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-08T00:04:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0f43ff0_a97b9f0f",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c58283b5_40c2b57e",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -207,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "a92f58f4_4219f0f5",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-08T00:04:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d90a8d9b_350b2221",
+      "range": {
+        "startLine": 254,
+        "startChar": 19,
+        "endLine": 254,
+        "endChar": 28
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31d677ec_dbf7aebe",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -236,6 +314,24 @@
       "side": 1,
       "message": "I like the idea of more descriptive names. I wasn\u0027t sure what they were named for and assumed it was just the order they were called in",
       "parentUuid": "31d677ec_dbf7aebe",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "900c6747_fdf53a9c",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-08T00:04:35Z",
+      "side": 1,
+      "message": "I\u0027ve updated the names. What do you think of the new ones:\n\nParseGroupEntry1 --\u003e PrarseGroupEntryWithNameInComment\nParseGroupEntry2 --\u003e ParseGroupEntryWithNameAsId\nParseGroupEntry3 --\u003e ParseGroupEntryWithGroupReference\nParseGroupEntry4 --\u003e ParseGroupEntryWithInlineGroupDefinition\n\nI don\u0027t think it should be in this CL, but I would like to update all of the Parse____# names similarly to make the code more readable",
+      "parentUuid": "76620ac3_f4edc051",
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -289,6 +385,24 @@
       "side": 1,
       "message": "Yeah, I guess it depends what you consider internal vs. external.  I consider internal to be the library and the wire/network to be external.  But you could also consider the \"serializer\" to be internal the the callers/library to be external.  I guess we should get other opinions before settling on either one.",
       "parentUuid": "0d3809c8_bb2cb2b1",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da59d4d_a56dc76b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-08T00:04:35Z",
+      "side": 1,
+      "message": "updated it to \u0027text\u0027 and \u0027text_from_comment\u0027 - even if other people agree to internal vs external, it may still be confusing which will detract from code readability. This is more explicit.",
+      "parentUuid": "b74ffba0_1e85c549",
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -366,6 +480,30 @@
     },
     {
       "key": {
+        "uuid": "afaecce1_767e0b30",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-08T00:04:35Z",
+      "side": 1,
+      "message": "That\u0027s really cool!Removed the reference here since struct_type.names_over_the_wire has been removed, but made similar perf improvements elsewhere in my code as possible",
+      "parentUuid": "6a8a6621_028f1323",
+      "range": {
+        "startLine": 483,
+        "startChar": 52,
+        "endLine": 483,
+        "endChar": 58
+      },
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cbadc37_4254429a",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 1
@@ -395,6 +533,24 @@
       "side": 1,
       "message": "I like that approach more - feels much cleaner. Will make that change",
       "parentUuid": "4cbadc37_4254429a",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bfebe48_e18f57ec",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-08T00:04:35Z",
+      "side": 1,
+      "message": "Updated to:\nstruct CppMember {\n  std::string public_name;\n  std::string name_over_wire;\n  CppType* type;\n};\n\n(string instead of uint64 since for non-integer-keys it is a string)",
+      "parentUuid": "3f83bfd4_ed37b66f",
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
