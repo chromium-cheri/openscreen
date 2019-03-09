@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "074e4b34_71fcf24e",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-09T00:32:52Z",
+      "side": 1,
+      "message": "Reading this patch, it looks like it constructs structs for each request so that the request can be sent immediately or queued for sending later when the connection is established.\n\nIt seems like the queuing behavior should be implemented at a lower layer (inside of ProtocolConnection).  That implementation would maintain a queue of generic messages-to-send and coordinate with the underlying transport connection.  Perhaps this could be a QuicProtocolConnection in api/impl.\n\nThis way the controller code can just call ProtocolConnection-\u003eWriteMessage with the encoded request.\n\nWDYT?",
+      "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a534c3e_7a23760d",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-09T00:32:52Z",
+      "side": 1,
+      "message": "What if the initiation request is in queued_initiation_requests_?",
+      "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e82d976d_6cb9b175",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-09T00:32:52Z",
+      "side": 1,
+      "message": "Is this guaranteed to succeed?  Otherwise it looks like the queued request will get deleted on L298 without an error being propagated.",
+      "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abd42ab5_d97bea6b",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-09T00:32:52Z",
+      "side": 1,
+      "message": "1/Can this be declared private and friended from Presentation{Controller,Receiver}, since it\u0027s internal to the library implementation?\n\n2/I\u0027d like to come up with naming for internal delegates like this one vs. external delegates that need to be implemented by the embedder.  How do you feel about InternalDelegate?",
+      "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9098275_dd49a922",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-09T00:32:52Z",
+      "side": 1,
+      "message": "Can Connection be passed const to avoid mutation or deletion by the delegate (circular control flows)?",
+      "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
