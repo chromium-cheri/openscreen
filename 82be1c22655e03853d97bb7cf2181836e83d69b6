@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "2a6d33d2_89d8a068",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-11T21:20:29Z",
+      "side": 1,
+      "message": "Pulling this into a separate method would require parsing the input twice instead of once - once to determine if the character is present and a second time to move the p_speculative data pointer to the end of the occurrence operator\n\nThis is doable, just seems sub-optimal and seems to be a pattern not used elsewhere in the file. Thoughts?",
+      "parentUuid": "55a20eae_14e775e3",
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc8408cd_93c9ea51",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 2
@@ -64,6 +82,30 @@
       "writtenOn": "2019-03-11T20:34:04Z",
       "side": 1,
       "message": "These are optional, right?  I\u0027d prefer the use of optional\u003cint\u003e, but at the very least the \"opt_\" prefix with a comment for the unset value.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 22
+      },
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa5c6d97_77943535",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-11T21:20:29Z",
+      "side": 1,
+      "message": "an occurrence operator is optional, but there is always a minimum and maximum occurrence number allowed - when there is no occurrence operator specified, a default of 1 is used for both so that exactly 1 must be present (this is a standard described in the CDDL spec)\n\nI can update the names to prefix \u0027opt_\u0027, though since one is always present it doesn\u0027t make sense to me in this case\n\nthoughts?",
+      "parentUuid": "e2aa41ff_3e88fa7f",
       "range": {
         "startLine": 78,
         "startChar": 0,
