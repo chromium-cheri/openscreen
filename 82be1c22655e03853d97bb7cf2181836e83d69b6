@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d94def8_0df08808",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-11T20:34:04Z",
+      "side": 1,
+      "message": "seen_operator",
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a20eae_14e775e3",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-11T20:34:04Z",
+      "side": 1,
+      "message": "Perhaps a helper method would be valuable here.  Something like ContainsCharBeforeWhitespace(p, \"*+?\").  Then you could have \n\nif (!ContainsCharBeforeWhitespace(p, \"*+?\")) {\n  return nullptr;\n}",
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc8408cd_93c9ea51",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-11T20:34:04Z",
+      "side": 1,
+      "message": "char_num",
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2aa41ff_3e88fa7f",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-11T20:34:04Z",
+      "side": 1,
+      "message": "These are optional, right?  I\u0027d prefer the use of optional\u003cint\u003e, but at the very least the \"opt_\" prefix with a comment for the unset value.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 22
+      },
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee560715_8e57ccfa",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-11T20:34:04Z",
+      "side": 1,
+      "message": "HasOccurence ?",
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
