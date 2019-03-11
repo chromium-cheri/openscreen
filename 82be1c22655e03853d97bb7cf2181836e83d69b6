@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bb0305dd_b6f6bcf0",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-11T21:32:30Z",
+      "side": 1,
+      "message": "I don\u0027t think performance is going to be an issue.  We\u0027ll never see a CDDL file big enough to matter.  So I\u0027d value readability over having to pass over some memory twice.",
+      "parentUuid": "2a6d33d2_89d8a068",
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc8408cd_93c9ea51",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 2
@@ -106,6 +124,30 @@
       "side": 1,
       "message": "an occurrence operator is optional, but there is always a minimum and maximum occurrence number allowed - when there is no occurrence operator specified, a default of 1 is used for both so that exactly 1 must be present (this is a standard described in the CDDL spec)\n\nI can update the names to prefix \u0027opt_\u0027, though since one is always present it doesn\u0027t make sense to me in this case\n\nthoughts?",
       "parentUuid": "e2aa41ff_3e88fa7f",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 22
+      },
+      "revId": "82be1c22655e03853d97bb7cf2181836e83d69b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4f809cb_029e72ab",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-11T21:32:30Z",
+      "side": 1,
+      "message": "Ah, that\u0027s a good point.  But what about max?  Isn\u0027t max optional in the sense that it can be unbounded?",
+      "parentUuid": "fa5c6d97_77943535",
       "range": {
         "startLine": 78,
         "startChar": 0,
