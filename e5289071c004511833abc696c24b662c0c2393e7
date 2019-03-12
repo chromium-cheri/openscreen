@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ad54ce8_0ba08016",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "Need space between \"if\" and \"(\" (here and later).",
+      "range": {
+        "startLine": 383,
+        "startChar": 23,
+        "endLine": 383,
+        "endChar": 26
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da9aa827_c60abb86",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "nit: Maybe this change, or maybe in a future clean-up patch (since this seems to be all over the existing code): We shouldn\u0027t have multiple calls to dprintf() when one will do. It both bloats the code and is less readable.\n\nFor example, the code could be:\n\n        dprintf(fd, \"  if(%s.size() \u003e %d) {\\n\"\n                    \"    return -CborErrorTooManyItems;\\n\"\n                    \"  }\\n\", cid.c_str(), cpp_type.vector_type.max_length);\n\n(BTW--If clang-format messes-up the code, sometimes surrounding the multi-line string literal with parens will make it behave.)",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 29
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce2cc120_4422505b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "IIUC, could this function just re-use existing string-searching functions? I\u0027m thinking something like:\n\n  const whitespace_idx \u003d std::min(view.find_first_of(\u0027 ;\\r\\n\u0027), view.size());\n  return view.substr(whitespace_idx).find_first_of(character_set) !\u003d string_view::npos;",
+      "range": {
+        "startLine": 67,
+        "startChar": 5,
+        "endLine": 67,
+        "endChar": 33
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6833507_cc515564",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "Is view[i] always valid (i.e., not reading past EOS)?",
+      "range": {
+        "startLine": 69,
+        "startChar": 32,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c679308_5b2e5a4b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "Did you mean to remove this after some debugging? :)",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 22
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1324c104_7ba13df8",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "I could be mistaken, but it seems |p_speculative.nodes| is never populated with anything.",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 31
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dde232d8_583f6dec",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "This looks like atoi(). How about we just use that or, better yet, absl::SimpleAtoi()?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 58
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48297868_8e3fbaf8",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "sp",
+      "range": {
+        "startLine": 80,
+        "startChar": 54,
+        "endLine": 80,
+        "endChar": 63
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfebbb24_c8e6c85a",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "You\u0027ll probably want to chat with Brandon about this. IMHO, the max uint value (std::numeric_limits\u003cuint\u003e::max()) should signify \"unlimited\" rather than 0. Also, it may be useful, now or in the future, for users to specify a max of 0 to disable the use of a field (i.e., as a way to document that certain fields used to exist, but are no longer accepted).",
+      "range": {
+        "startLine": 83,
+        "startChar": 64,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3acd94d1_cf71b1f5",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "c++ style: https://google.github.io/styleguide/cppguide.html#Function_Names",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 93,
+        "endChar": 10
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2808164e_50e20ded",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-12T21:53:45Z",
+      "side": 1,
+      "message": "Add const, please. https://google.github.io/styleguide/cppguide.html#Use_of_const",
+      "range": {
+        "startLine": 93,
+        "startChar": 31,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
