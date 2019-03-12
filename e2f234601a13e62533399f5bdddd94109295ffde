@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "6bb040eb_57e764c2",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-12T21:02:35Z",
+      "side": 1,
+      "message": "Even if we\u0027re keeping both strings and integer keys, the integer keys need to serialize with cbor_encode_uint.",
+      "parentUuid": "c727588c_ea7064fb",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2eac8f91_80d3386a",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -338,6 +356,24 @@
     },
     {
       "key": {
+        "uuid": "b887f500_140bd085",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-12T21:02:35Z",
+      "side": 1,
+      "message": "The renames sound fine.  I still think the new 1 and 2 could just be one method.  Just change `if (!member_key) ...` to `if (member_key) member_key-\u003einternal_text` plus keep an AstNode* for whether the \"real\" key is the first one or the one found in the comment for passing to UpdateNodesForGroupEntry.  If that ends up seeming complicated, then this is fine.",
+      "parentUuid": "900c6747_fdf53a9c",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "177dfd5e_4e34ac4f",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -406,6 +442,24 @@
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20af8a49_e1fd4615",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-12T21:02:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8da59d4d_a56dc76b",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -554,6 +608,24 @@
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38f02279_b6da3c46",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-12T21:02:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8bfebe48_e18f57ec",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
