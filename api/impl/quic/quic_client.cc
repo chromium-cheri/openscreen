@@ -66,19 +66,17 @@ QuicClient::ConnectRequest QuicClient::Connect(
       request->OnConnectionOpened(0, std::move(pc));
       return ConnectRequest(this, 0);
     }
-    auto pending_entry = pending_connections_.find(endpoint);
-    if (pending_entry == pending_connections_.end()) {
-      uint64_t request_id = StartConnectionRequest(endpoint, request);
-      return ConnectRequest(this, request_id);
-    } else {
-      uint64_t request_id = next_request_id_++;
-      pending_entry->second.callbacks.emplace_back(request_id, request);
-      return ConnectRequest(this, request_id);
-    }
   }
 
-  uint64_t request_id = StartConnectionRequest(endpoint, request);
-  return ConnectRequest(this, request_id);
+  auto pending_entry = pending_connections_.find(endpoint);
+  if (pending_entry == pending_connections_.end()) {
+    uint64_t request_id = StartConnectionRequest(endpoint, request);
+    return ConnectRequest(this, request_id);
+  } else {
+    uint64_t request_id = next_request_id_++;
+    pending_entry->second.callbacks.emplace_back(request_id, request);
+    return ConnectRequest(this, request_id);
+  }
 }
 
 std::unique_ptr<ProtocolConnection> QuicClient::CreateProtocolConnection(
