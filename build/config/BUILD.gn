@@ -30,6 +30,11 @@ config("compiler_defaults") {
       ]
     }
   }
+
+  defines = []
+  if (is_clang && is_debug) {
+    defines += [ "_GLIBCXX_DEBUG" ]
+  }
 }
 
 config("no_exceptions") {
