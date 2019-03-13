@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a8b2ba52_c8efa6d4",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-13T17:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa09d273_1bab59ac",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 6
+      },
+      "revId": "a9a93e4babd22492324a742ae45a937c5be15060",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c0d419a_cf6bf0c1",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-12T22:03:20Z",
       "side": 1,
       "message": "This implies that comments part of the syntax of the language, and need special handling. But, that doesn\u0027t seem right to me. Shouldn\u0027t they all be considered whitespace (or non-existent chars, not even as whitespace)?",
+      "range": {
+        "startLine": 250,
+        "startChar": 2,
+        "endLine": 250,
+        "endChar": 40
+      },
+      "revId": "a9a93e4babd22492324a742ae45a937c5be15060",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a899e09f_fcf523bb",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-13T17:07:09Z",
+      "side": 1,
+      "message": "In our new spec, we are using a naming format that treats the comments as part of the language\n\nFor example, we want to parse\n\"0: text ; friendly-name\"\n\nOut of this, we need to pull the \u0027friendly-name\u0027 string from the comment and treat it essentially as the variable name in place of the 0\nI agree it\u0027s a bit confusing, but the idea was that we could send less bytes over-the-wire with this approach",
+      "parentUuid": "4c0d419a_cf6bf0c1",
       "range": {
         "startLine": 250,
         "startChar": 2,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "9b9e48ea_8018784c",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-13T17:07:09Z",
+      "side": 1,
+      "message": "Makes sense. Moving it",
+      "parentUuid": "a33e8fbe_0df48339",
+      "revId": "a9a93e4babd22492324a742ae45a937c5be15060",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45acaccb_6c4789e8",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 3
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "c11596ac_4a766bf6",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-13T17:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45acaccb_6c4789e8",
+      "range": {
+        "startLine": 135,
+        "startChar": 21,
+        "endLine": 135,
+        "endChar": 25
+      },
+      "revId": "a9a93e4babd22492324a742ae45a937c5be15060",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c71b3dc1_c2c0ffa0",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 3
@@ -108,6 +198,30 @@
       "revId": "a9a93e4babd22492324a742ae45a937c5be15060",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74c8b5d1_77b8bb0d",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-13T17:07:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c71b3dc1_c2c0ffa0",
+      "range": {
+        "startLine": 136,
+        "startChar": 34,
+        "endLine": 136,
+        "endChar": 51
+      },
+      "revId": "a9a93e4babd22492324a742ae45a937c5be15060",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

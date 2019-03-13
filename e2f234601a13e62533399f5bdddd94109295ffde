@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "7dad7a78_8818d68d",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-13T17:07:09Z",
+      "side": 1,
+      "message": "Ah, I completely missed that. If it needs to be special cased here, it makes sense to plumb it all the way through the code as an optional uint instead of a string too",
+      "parentUuid": "6bb040eb_57e764c2",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eac8f91_80d3386a",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 1
@@ -371,6 +389,24 @@
       "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a48dff0_ad78b517",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-13T17:07:09Z",
+      "side": 1,
+      "message": "I think keeping it as 2 separate methods help improve readability - it could be done as one like you say, but it would require enough special casing that things would start to get complex",
+      "parentUuid": "b887f500_140bd085",
+      "revId": "e2f234601a13e62533399f5bdddd94109295ffde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
