@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "d4ba21a7_e2a51927",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T21:51:47Z",
+      "side": 1,
+      "message": "Can this (and swap() below) go in an anonymous namespace?",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13d44aa_602e7aee",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T21:51:47Z",
+      "side": 1,
+      "message": "Slightly prefer using optional for request_id_ (is 0 a valid request_id)?",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2bdabd1_76c860bd",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -46,6 +80,74 @@
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8aad416e_be424bb5",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T21:51:47Z",
+      "side": 1,
+      "message": "TODO: Replace service_id with endpoint_id",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6438a40_a2c6d4a3",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T21:51:47Z",
+      "side": 1,
+      "message": "ISTM that monitoring the list of endpoints/receivers to send availability requests could be the job of the UrlAvailabilityRequester - since it already manages the ReceiverObserver\u0027s passed through this API.",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61182481_d3e6182d",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T21:51:47Z",
+      "side": 1,
+      "message": "We should generate a UUID seeded with a secure random value.  There is code for this in Chromium I bet; I looked for the specific code to allocate media capture devices from getUserMedia, but couldn\u0027t find the code that generates a token to pass to the renderer conveying device permission.\n\nI can look some more if it\u0027s not obvious.",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c66b111_4bf34449",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T21:51:47Z",
+      "side": 1,
+      "message": "I think this will be fixed by another in-progress patch?",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -96,6 +198,23 @@
     },
     {
       "key": {
+        "uuid": "7127a163_9c7a000c",
+        "filename": "api/impl/service_listener_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T21:51:47Z",
+      "side": 1,
+      "message": "TODO: Write a simple ObserverList implementation in base/; it\u0027s worth it because we can check that the list is empty on destruction (check_empty \u003d true in Chromium\u0027s base::ObserverList).",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dedb813f_8ef2ad3c",
         "filename": "api/impl/service_listener_impl.h",
         "patchSetId": 2
@@ -131,6 +250,30 @@
       "side": 1,
       "message": "The \"if\" explains the \"maybe\".  For example, the observer doesn\u0027t need to fire if the state is kStarting.",
       "parentUuid": "dedb813f_8ef2ad3c",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 73,
+        "endChar": 47
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87788f21_cf555666",
+        "filename": "api/impl/service_listener_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T21:51:47Z",
+      "side": 1,
+      "message": "We might just change this to always fire with the new state.  See https://crbug.com/openscreen/6.  I would be in favor of that in general.",
+      "parentUuid": "aa0f2b07_40312237",
       "range": {
         "startLine": 72,
         "startChar": 1,
