@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9ec6685_cf6b0d25",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T19:01:13Z",
+      "side": 1,
+      "message": "I wonder if getopt would make life easier for us?  \n\nhttps://www.gnu.org/software/libc/manual/html_node/Getopt.html\n\nIt looks like the command-line interface should work fine with getopt_long.\nLow priority to fix, though.",
+      "revId": "9c17a267c89a82529e1f4d09c3e9652a04201144",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e600be0_f6344dc2",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T19:01:13Z",
+      "side": 1,
+      "message": "Converting ParseCommandLineArguments to return ErrorOr\u003cCommandLineArguments\u003e would allow meaningful error messages to be returned to main().  Again, not a high priority but would help debugging in the future.",
+      "revId": "9c17a267c89a82529e1f4d09c3e9652a04201144",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163f9fb6_d337685b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T19:01:13Z",
+      "side": 1,
+      "message": "Nit: s/occurance/occurrence/g",
+      "revId": "9c17a267c89a82529e1f4d09c3e9652a04201144",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a05d0ad2_00d7e97b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T19:01:13Z",
+      "side": 1,
+      "message": "Nit: typo in subgroupName",
+      "revId": "9c17a267c89a82529e1f4d09c3e9652a04201144",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04139ec5_366c9d63",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T19:01:13Z",
+      "side": 1,
+      "message": "Nit: Typo in siblings",
+      "revId": "9c17a267c89a82529e1f4d09c3e9652a04201144",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b0bf65_5e8a6e0e",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T19:01:13Z",
+      "side": 1,
+      "message": "I assume this is nullptr for the last node in a list of siblings (since there isn\u0027t a kType representing a null node)?  A comment to document this would be good.",
+      "revId": "9c17a267c89a82529e1f4d09c3e9652a04201144",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10704394_0ad9e0f0",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T19:01:13Z",
+      "side": 1,
+      "message": "How are |nodes| related to |root| here?",
+      "revId": "9c17a267c89a82529e1f4d09c3e9652a04201144",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac11da47_70294b69",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-14T19:01:13Z",
+      "side": 1,
+      "message": "Represents",
+      "revId": "9c17a267c89a82529e1f4d09c3e9652a04201144",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
