@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "47af2aac_ca023757",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ad54ce8_0ba08016",
+      "range": {
+        "startLine": 383,
+        "startChar": 23,
+        "endLine": 383,
+        "endChar": 26
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d87a80ef_5a630170",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5913f13_fe787168",
+      "range": {
+        "startLine": 383,
+        "startChar": 23,
+        "endLine": 383,
+        "endChar": 26
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32e7cbf0_aaa0e02a",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 4
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "a632f7a0_37a63df8",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "I like this idea, but it seems like a larger change outside of the scope of this CL\nFor now, I\u0027d prefer to add the code in this format (to match the rest of the file) then update the whole file at once\n\nIf it\u0027s important I can change the new additions here though :)",
+      "parentUuid": "da9aa827_c60abb86",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 29
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d2f00f1_454735a9",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 4
@@ -105,6 +177,24 @@
       "writtenOn": "2019-03-12T22:09:28Z",
       "side": 1,
       "message": "There should be a corresponding WriteDecoder change that checks for a valid size range.",
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2030830f_2b415ecc",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "I actually purposefully left it off the decoder\nMy worry was with backwards compatibility issues after we\u0027ve launched\n\nLet\u0027s say after release in version n we have an array, then in version n+1 we make that array have a min or max length. Since we don\u0027t control the upgrade schedules for third parties using our library, either the sender or the receiver could upgrade first.\nWith validation only on the sender side, then there is no case where the sender sends valid data and then the receiver receives invalid data, but if validation is on both ends then an old sender could send valid data (from version n before the min length addition) and then the receiver receives invalid data (from version n+1 where there is a min size)",
+      "parentUuid": "4d2f00f1_454735a9",
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -131,6 +221,30 @@
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a9fbdb1_ea161823",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "removing this method since it\u0027s no longer used :)",
+      "parentUuid": "ce2cc120_4422505b",
+      "range": {
+        "startLine": 67,
+        "startChar": 5,
+        "endLine": 67,
+        "endChar": 33
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +288,48 @@
     },
     {
       "key": {
+        "uuid": "7a375578_0790fc3b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7113d51_19ac6302",
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20b9f2d8_4bd67842",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Modified it to also check for this case",
+      "parentUuid": "e6833507_cc515564",
+      "range": {
+        "startLine": 69,
+        "startChar": 32,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c679308_5b2e5a4b",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 4
@@ -214,6 +370,48 @@
     },
     {
       "key": {
+        "uuid": "84f658ca_1b9aa0c6",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Accidentally left it in while debugging an issue - removed it",
+      "parentUuid": "94af59f8_df916eec",
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "875c1f7f_6068eefa",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Yeah - removed it now :)",
+      "parentUuid": "0c679308_5b2e5a4b",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 22
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bda82241_769252b0",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 4
@@ -237,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "967976b4_177b3ef5",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "spelling is hard :) Updated all comments and variable names",
+      "parentUuid": "bda82241_769252b0",
+      "range": {
+        "startLine": 230,
+        "startChar": 25,
+        "endLine": 230,
+        "endChar": 34
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a066173_ec5bbdab",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 4
@@ -251,6 +473,24 @@
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3c82561_ba7b2c38",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a066173_ec5bbdab",
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -277,6 +517,30 @@
     },
     {
       "key": {
+        "uuid": "3f61a1b0_3f5be058",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "copy-and-paste error. removed this",
+      "parentUuid": "1324c104_7ba13df8",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 31
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dde232d8_583f6dec",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 4
@@ -288,6 +552,30 @@
       "writtenOn": "2019-03-12T21:53:45Z",
       "side": 1,
       "message": "This looks like atoi(). How about we just use that or, better yet, absl::SimpleAtoi()?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 58
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb4911c_a9b49596",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "I hit compilation issues when trying to import the header file for SimpleAtoi, so I\u0027d prefer to avoid using that if possible\n\nI updated it to use 2 Atoi calls and string parsing instead of relying on parsing character-by-character - this just seems to me to be more complex than the code I was already using\n\nThoughts?",
+      "parentUuid": "dde232d8_583f6dec",
       "range": {
         "startLine": 250,
         "startChar": 0,
@@ -317,6 +605,24 @@
     },
     {
       "key": {
+        "uuid": "767a518d_6add4074",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Interesting. I didn\u0027t think of that case. Adding an extra bool to specify if it\u0027s explicitly set or not, and relying on that instead of the min and max values",
+      "parentUuid": "e41be2b2_a4441a78",
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50fc56ca_ad228693",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 4
@@ -331,6 +637,24 @@
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdbddcc1_bdcda388",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Adding an extra bool to specify if it\u0027s explicitly set or not, and relying on that instead of the min and max values",
+      "parentUuid": "50fc56ca_ad228693",
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -371,6 +695,30 @@
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba2e568e_bc7b586c",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48297868_8e3fbaf8",
+      "range": {
+        "startLine": 80,
+        "startChar": 54,
+        "endLine": 80,
+        "endChar": 63
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -420,6 +768,54 @@
     },
     {
       "key": {
+        "uuid": "5d599987_e0eb063b",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "I\u0027d discussed this extensively with Peter - originally I had the same opinion as you\n\nIn some cases (ie arrays), the occurence_max is unbounded, so it is optional because it isn\u0027t always present. For that reason, it made more sense to call them both opt_occurence_type instead of making just the max opt_ - at least to me, having occurence_min and opt_occurence_max would be more confusing",
+      "parentUuid": "72edff58_a791c02e",
+      "range": {
+        "startLine": 81,
+        "startChar": 9,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c987f0d_3cd0588b",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "597e7dd1_39b35f65",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 8
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfebbb24_c8e6c85a",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 4
@@ -440,6 +836,30 @@
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c37f6163_b227363c",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "discussed offline, and I am changing to std::numeric_limits\u003cuint\u003e::max() as suggested\n\nAlso, I defined constants to make this behavior with unbounded min and max clearer",
+      "parentUuid": "bfebbb24_c8e6c85a",
+      "range": {
+        "startLine": 83,
+        "startChar": 64,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -489,6 +909,54 @@
     },
     {
       "key": {
+        "uuid": "44175e3f_4a635655",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3acd94d1_cf71b1f5",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 93,
+        "endChar": 10
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0530f87_032ad2de",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2808164e_50e20ded",
+      "range": {
+        "startLine": 93,
+        "startChar": 31,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c84e3028_ff8fcaf1",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 4
@@ -503,6 +971,24 @@
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da8f73ad_08aa0db3",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-14T17:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c84e3028_ff8fcaf1",
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
