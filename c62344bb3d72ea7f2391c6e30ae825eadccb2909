@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bb6f1985_8b505522",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-15T19:43:57Z",
+      "side": 1,
+      "message": "Currently, putting this directly in ProtocolConnection is a little awkward because Connect() doesn\u0027t return a ProtocolConnection until it\u0027s connected.  Instead, I tried adding a request/response queue wrapper.  LMK if you think that route looks promising or if we should return un-connected ProtocolConnections so the queueing can occur there (although even then, matching responses might be less clean).",
+      "parentUuid": "074e4b34_71fcf24e",
+      "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a534c3e_7a23760d",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d5c6c52d_f9662c62",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-15T19:43:57Z",
+      "side": 1,
+      "message": "Good point, this code was (re)moved though.",
+      "parentUuid": "5a534c3e_7a23760d",
+      "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e82d976d_6cb9b175",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7f36a12_5601a2cd",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-15T19:43:57Z",
+      "side": 1,
+      "message": "It can fail, but the OnError call is already handled in SendRequest.",
+      "parentUuid": "e82d976d_6cb9b175",
+      "revId": "c62344bb3d72ea7f2391c6e30ae825eadccb2909",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
