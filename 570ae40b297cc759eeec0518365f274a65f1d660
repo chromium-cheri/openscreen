@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba90769d_3f3f6c7f",
+        "filename": "COMMITTERS",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T20:36:15Z",
+      "side": 1,
+      "message": "Is there any reason to prefer this method, instead of just directing to our list here?\n\nhttps://chrome-infra-auth.appspot.com/auth/groups/project-openscreen-committers\n\nSee example here:\nhttps://cs.chromium.org/chromium/src/third_party/skia/CQ_COMMITTERS",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbee5381_9742d3ad",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T20:36:15Z",
+      "side": 1,
+      "message": "Nit: verb tense is inconsistent in the headers, we sometimes use the present progressive form (e.g. \"Getting the code\") and other times use the simple form (e.g. \"Install build dependencies\").\n\nI would vote for consistently using the present progressive form, i.e. something like this:\n\n    Getting the code\n    Installing depot tools\n\n    Building\n    Installing build dependencies",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5195b97c_2e488537",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T20:36:15Z",
+      "side": 1,
+      "message": "We don\u0027t have submodules anymore, so this is misleading (likely why it said module originally). \n\nProbably say something like this:\n\n    After running these commands, you will have the openscreen repository checked out to the latest version, with all necessary dependencies.",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb2ed6fe_fd338a45",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T20:36:15Z",
+      "side": 1,
+      "message": "More descriptive name warranted IMO, maybe:\n\n    Building the \"hello\" sample executable",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dedc204c_6f8d5061",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T20:36:15Z",
+      "side": 1,
+      "message": "What are we missing for this todo, and can we create an issue for it or add someone\u0027s name here? I think TODOs with no owner are not super helpful.",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf2d4969_b95ae1c2",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T20:36:15Z",
+      "side": 1,
+      "message": "Does this do anything different than the below command?\n\n    ninja -C out/Default\n\nPlus, we should probably be using `autoninja` in example commands.",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa63a24_f92b642f",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T20:36:15Z",
+      "side": 1,
+      "message": "Is the ??? a TODO to find the version? Do we want to bother specifying the OS version here anyway? It seems fragile, since if bot OS version gets updated no one is going to update it here.",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5609d4ee_f9ace28b",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T20:36:15Z",
+      "side": 1,
+      "message": "Can we add a note about how to do a pre-commit hook?\n\nIt should be just adding a pre-commit hook under .git/hooks, with the following content:\n\n    #!/usr/bin/env sh\n\n    root_folder\u003d$(git rev-parse --show-toplevel)\n    presubmit_script\u003d\"$root_folder/PRESUBMIT.sh\"\n\n    message\u003d$(eval $presubmit_script)\n    error_code\u003d$?\n\n    if [[ $error_code -ne 0 ]]; then\n      echo $message\n      exit $error_code\n    fi",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
