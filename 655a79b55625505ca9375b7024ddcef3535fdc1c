@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a99dc17_07a686eb",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:10:39Z",
+      "side": 1,
+      "message": "Why use int here? Why not std::size_t, I think that\u0027s generally more appropriate.\n\nI would also vote for moving the static cast to a separate line.",
+      "revId": "655a79b55625505ca9375b7024ddcef3535fdc1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa231eb_f72706b5",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:10:39Z",
+      "side": 1,
+      "message": "Why return bool if we just ignore the return value?",
+      "revId": "655a79b55625505ca9375b7024ddcef3535fdc1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
