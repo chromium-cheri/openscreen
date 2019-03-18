@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cd7edc61_c475aafd",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T18:00:21Z",
+      "side": 1,
+      "message": "fixed. Spelling is hard :)",
+      "parentUuid": "d8e45ac1_e084e93f",
+      "revId": "ebcf95f7d9de8121ad12f3366f495ec610df44df",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f135a0b_e84ac488",
         "filename": "tools/cddl/cddl.py",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "ebcf95f7d9de8121ad12f3366f495ec610df44df",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c8f0493_c62353ac",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T18:00:21Z",
+      "side": 1,
+      "message": "Didn\u0027t consider adding future parameters - I agree flags would be simpler going forward, so updated it",
+      "parentUuid": "8f135a0b_e84ac488",
+      "revId": "ebcf95f7d9de8121ad12f3366f495ec610df44df",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e387cfec_bb535323",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T18:00:21Z",
+      "side": 1,
+      "message": "Added in some logging to show what happens:\n\n[1/42] ACTION //msgs:cddl_gen(//build/toolchain/linux:linux)\nCreating C++ files from provided CDDL file...\n\tExecuting command: ./cddl --header msgs/osp_messages.h --cc msgs/osp_messages.cc --gen-dir gen cddlFile\n\tExecuting command: clang-format -i gen/msgs/osp_messages.h\n\tExecuting command: clang-format -i gen/msgs/osp_messages.cc\n[42/42] LINK unittests\n\nAn alternative approach would be to generate a temp file for logging and log the output from this script to there",
+      "parentUuid": "1f7f3206_1c68b0cf",
+      "revId": "ebcf95f7d9de8121ad12f3366f495ec610df44df",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8f6ad0c_9f8105bc",
         "filename": "tools/cddl/cddl.py",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "ebcf95f7d9de8121ad12f3366f495ec610df44df",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ab7d649_959ede0a",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T18:00:21Z",
+      "side": 1,
+      "message": "the README already calls out clang-format as a dependency, so I added a line to explicitly state that it and gn both need to appear in $PATH",
+      "parentUuid": "c8f6ad0c_9f8105bc",
+      "revId": "ebcf95f7d9de8121ad12f3366f495ec610df44df",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
