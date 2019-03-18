@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3cf9fcb7_ddea4895",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T20:36:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb63f86_e3649c90",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 64
+      },
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54e0841f_36936e1b",
         "filename": "tools/cddl/parse.h",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-18T19:58:33Z",
       "side": 1,
       "message": "I find this comment confusing.  Could you make it clear that sometimes it\u0027s the CDDL text value, and sometimes it\u0027s from the CDDL comment (when we use integer-based members)?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 56
+      },
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb026f07_606efd13",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T20:36:12Z",
+      "side": 1,
+      "message": "Discussed offline and, due to the recursive nature of this structure, this cannot be made more specific. For group entries, this may be the CDDL text value or comment, but it can be any number of other things as well depending on where in the recursive structure this node falls",
+      "parentUuid": "54e0841f_36936e1b",
       "range": {
         "startLine": 56,
         "startChar": 0,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "914a8481_dd81becc",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T20:36:12Z",
+      "side": 1,
+      "message": "Updated name as suggested\n\nDiscussed offline and parsing will remain at sema.cc layer to maintain consistency with remainder of this layer",
+      "parentUuid": "2bed33ff_e5609a39",
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e8ccd85_426d6025",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 5
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "4409d401_c2da8b3c",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T20:36:12Z",
+      "side": 1,
+      "message": "Updated to integer_key",
+      "parentUuid": "5e8ccd85_426d6025",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2448694f_57d50916",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 5
@@ -102,6 +192,24 @@
       "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "babe51ad_01c7e35c",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-18T20:36:12Z",
+      "side": 1,
+      "message": "Updated to integer_key and updated comment",
+      "parentUuid": "2448694f_57d50916",
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
