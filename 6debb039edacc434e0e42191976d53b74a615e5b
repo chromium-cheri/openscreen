@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feb63f86_e3649c90",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-18T19:58:33Z",
+      "side": 1,
+      "message": "Please use an early return here and push the rest of the method to the right.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 64
+      },
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e0841f_36936e1b",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-18T19:58:33Z",
+      "side": 1,
+      "message": "I find this comment confusing.  Could you make it clear that sometimes it\u0027s the CDDL text value, and sometimes it\u0027s from the CDDL comment (when we use integer-based members)?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 56
+      },
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bed33ff_e5609a39",
+        "filename": "tools/cddl/parse.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-18T19:58:33Z",
+      "side": 1,
+      "message": "Since this is only used for integer-based members, can we just call it integer_member_key_text?  Better yet, why not just parse it right now?",
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8ccd85_426d6025",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-18T19:58:33Z",
+      "side": 1,
+      "message": "Here, too, I think calling this integer_key or int_key would be more clear, along with a comment making it clear that this is only set for integer-based members.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2448694f_57d50916",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-18T19:58:33Z",
+      "side": 1,
+      "message": "Again, int_key would be better, and then say for integer-based members, this is used as the key (for others, the name is used).",
+      "revId": "6debb039edacc434e0e42191976d53b74a615e5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
