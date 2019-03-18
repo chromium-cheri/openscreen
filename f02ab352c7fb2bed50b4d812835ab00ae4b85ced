@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1c280863_c968dd05",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:00:17Z",
+      "side": 1,
+      "message": "I changed the name from info to get_presentation_info because @pthatcher specifically requested that. Can you check with him if we actually want to undo that feedback?\n\nSee: https://chromium-review.googlesource.com/c/openscreen/+/1412264/1/api/impl/presentation/presentation_connection.cc#21",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4ba21a7_e2a51927",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -13,6 +30,24 @@
       "writtenOn": "2019-03-14T21:51:47Z",
       "side": 1,
       "message": "Can this (and swap() below) go in an anonymous namespace?",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0bf720f_45a8f2af",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:00:17Z",
+      "side": 1,
+      "message": "We own ReceiverWatch, why not just expose a swap method on that, that takes an other param?",
+      "parentUuid": "d4ba21a7_e2a51927",
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -80,6 +115,23 @@
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8068a090_2675ace8",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:00:17Z",
+      "side": 1,
+      "message": "Same here, can we just put this on the ConnectRequest class?",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -162,6 +214,23 @@
       "writtenOn": "2019-03-15T23:16:28Z",
       "side": 1,
       "message": "nit: constexpr",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7c5833_ecc3cce1",
+        "filename": "api/impl/presentation/presentation_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:00:17Z",
+      "side": 1,
+      "message": "I\u0027d vote for doing that in this patch, instead of adding yet another implementation (making it like 7 now?). Even if you just leave the other classes that implement it alone with a TODO.",
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -351,6 +420,74 @@
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b600f9f_ca8585bc",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:00:17Z",
+      "side": 1,
+      "message": "I mentioned this elsewhere, but why not make this a method on the class instead of a friend method? I don\u0027t understand what we gain from this.",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3feebb71_08946bf9",
+        "filename": "demo/demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:00:17Z",
+      "side": 1,
+      "message": "Can you move this code to a separate helper method? It\u0027s duplicated three times here.\n\nAlso, the logic you have for checking that a character is printable is unclear, most people don\u0027t know that space and tilde represent the ends of the range. We have helpful methods that can do this for us instead, such as std::isprint or absl::ascii_isprint.\n\n\n E.g.\n\n    std::string SanitizeServiceId(absl::string_view unsafe_service_id) {\n        std::string safe_service_id(unsafe_service_id);\n\n        for (auto\u0026 c : safe_service_id) {\n            if (!std::isprint(c))\n              c \u003d \u0027.\u0027;\n        }\n\n        return safe_service_id;\n    }",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3820b7_cd813fa5",
+        "filename": "demo/demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:00:17Z",
+      "side": 1,
+      "message": "Can you split up this method? it\u0027s pretty big.\n\nI would suggested moving lines 291-306 into a HandleEventLine method or something similar.",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "112b03d6_812595b4",
+        "filename": "demo/demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-18T21:00:17Z",
+      "side": 1,
+      "message": "Duplicate code to lines 296+. Can we just add a command and argument_tail struct, and a single method that takes a absl::string_view line and splits it up?",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
