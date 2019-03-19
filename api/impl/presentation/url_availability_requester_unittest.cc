@@ -15,6 +15,9 @@
 #include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
 #include "third_party/googletest/src/googletest/include/gtest/gtest.h"
 
+using std::chrono::milliseconds;
+using std::chrono::seconds;
+
 namespace openscreen {
 namespace presentation {
 
@@ -43,14 +46,14 @@ class MockMessageCallback final : public MessageDemuxer::MessageCallback {
                                msgs::Type message_type,
                                const uint8_t* buffer,
                                size_t buffer_size,
-                               platform::TimeDelta now));
+                               platform::Clock::time_point now));
 
   void ExpectStreamMessage(msgs::PresentationUrlAvailabilityRequest* request) {
     EXPECT_CALL(*this, OnStreamMessage(_, _, _, _, _, _))
-        .WillOnce(
-            Invoke([request](uint64_t endpoint_id, uint64_t cid,
-                             msgs::Type message_type, const uint8_t* buffer,
-                             size_t buffer_size, platform::TimeDelta now) {
+        .WillOnce(Invoke(
+            [request](uint64_t endpoint_id, uint64_t cid,
+                      msgs::Type message_type, const uint8_t* buffer,
+                      size_t buffer_size, platform::Clock::time_point now) {
               ssize_t request_result_size =
                   msgs::DecodePresentationUrlAvailabilityRequest(
                       buffer, buffer_size, request);
@@ -131,14 +134,9 @@ class UrlAvailabilityRequesterTest : public Test {
 
   MockMessageCallback mock_callback_;
   MessageDemuxer::MessageWatch availability_watch_;
-  FakeQuicBridge quic_bridge_;
-  std::unique_ptr<FakeClock> fake_clock_owned_{
-      std::make_unique<FakeClock>(quic_bridge_.initial_clock_time)};
-
-  // We keep a weak pointer for changing the clock later.
-  FakeClock* fake_clock_{fake_clock_owned_.get()};
-
-  UrlAvailabilityRequester listener_{std::move(fake_clock_owned_)};
+  FakeClock fake_clock_{platform::Clock::time_point(milliseconds(1298424))};
+  FakeQuicBridge quic_bridge_{FakeClock::now};
+  UrlAvailabilityRequester listener_{FakeClock::now};
 
   std::string url1_{"https://example.com/foo.html"};
   std::string url2_{"https://example.com/bar.html"};
@@ -536,7 +534,7 @@ TEST_F(UrlAvailabilityRequesterTest, RefreshWatches) {
   EXPECT_CALL(mock_observer1, OnReceiverUnavailable(_, service_id_)).Times(0);
   quic_bridge_.RunTasksUntilIdle();
 
-  fake_clock_->Advance(platform::TimeDelta::FromSeconds(60));
+  fake_clock_.Advance(seconds(60));
 
   mock_callback_.ExpectStreamMessage(&request);
   listener_.RefreshWatches();
@@ -656,7 +654,7 @@ TEST_F(UrlAvailabilityRequesterTest, RemoveObserverInSteps) {
   quic_bridge_.RunTasksUntilIdle();
   EXPECT_EQ((std::vector<std::string>{url2_}), request.urls);
 
-  fake_clock_->Advance(platform::TimeDelta::FromSeconds(60));
+  fake_clock_.Advance(seconds(60));
 
   listener_.RefreshWatches();
   EXPECT_CALL(mock_callback_, OnStreamMessage(_, _, _, _, _, _)).Times(0);

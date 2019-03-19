@@ -33,7 +33,7 @@ class MockMessageCallback final : public MessageDemuxer::MessageCallback {
                                msgs::Type message_type,
                                const uint8_t* buffer,
                                size_t buffer_size,
-                               platform::TimeDelta now));
+                               platform::Clock::time_point now));
 };
 
 class MockConnectionDelegate final : public Connection::Delegate {
@@ -115,7 +115,9 @@ class PresentationReceiverTest : public ::testing::Test {
   }
 
   const std::string url1_{"https://www.example.com/receiver.html"};
-  FakeQuicBridge quic_bridge_;
+  FakeClock fake_clock_{
+      platform::Clock::time_point(std::chrono::milliseconds(1298424))};
+  FakeQuicBridge quic_bridge_{FakeClock::now};
   MockReceiverDelegate mock_receiver_delegate_;
 };
 
@@ -151,10 +153,10 @@ TEST_F(PresentationReceiverTest, QueryAvailability) {
 
   msgs::PresentationUrlAvailabilityResponse response;
   EXPECT_CALL(mock_callback, OnStreamMessage(_, _, _, _, _, _))
-      .WillOnce(
-          Invoke([&response](uint64_t endpoint_id, uint64_t cid,
-                             msgs::Type message_type, const uint8_t* buffer,
-                             size_t buffer_size, platform::TimeDelta now) {
+      .WillOnce(Invoke(
+          [&response](uint64_t endpoint_id, uint64_t cid,
+                      msgs::Type message_type, const uint8_t* buffer,
+                      size_t buffer_size, platform::Clock::time_point now) {
             ssize_t result = msgs::DecodePresentationUrlAvailabilityResponse(
                 buffer, buffer_size, &response);
             return result;
@@ -200,10 +202,10 @@ TEST_F(PresentationReceiverTest, StartPresentation) {
                                          ResponseResult::kSuccess);
   msgs::PresentationInitiationResponse response;
   EXPECT_CALL(mock_callback, OnStreamMessage(_, _, _, _, _, _))
-      .WillOnce(
-          Invoke([&response](uint64_t endpoint_id, uint64_t cid,
-                             msgs::Type message_type, const uint8_t* buffer,
-                             size_t buffer_size, platform::TimeDelta now) {
+      .WillOnce(Invoke(
+          [&response](uint64_t endpoint_id, uint64_t cid,
+                      msgs::Type message_type, const uint8_t* buffer,
+                      size_t buffer_size, platform::Clock::time_point now) {
             ssize_t result = msgs::DecodePresentationInitiationResponse(
                 buffer, buffer_size, &response);
             return result;
