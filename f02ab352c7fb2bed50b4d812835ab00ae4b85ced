@@ -19,6 +19,58 @@
     },
     {
       "key": {
+        "uuid": "2104c041_b4cd9e67",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "Or perhaps just presentation_info().  \"connection-\u003einfo()\" does sound like info about the connection, not the presentation.  And \"get_\" isn\u0027t really needed.",
+      "parentUuid": "1c280863_c968dd05",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda77325_940a2151",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "It seems like the controller should be the first argument rather than the last.",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343949df_c9ef8e32",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "I think calling it \"controller_\" instead of \"parent_\" might make it more clear what it is.  Or parent_controller_ if you want to be verbose.",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4ba21a7_e2a51927",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -65,6 +117,24 @@
       "writtenOn": "2019-03-14T21:51:47Z",
       "side": 1,
       "message": "Slightly prefer using optional for request_id_ (is 0 a valid request_id)?",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1148aad4_7baef624",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a13d44aa_602e7aee",
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -135,6 +205,23 @@
     },
     {
       "key": {
+        "uuid": "375237dc_7dc28b46",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "Are we going to expect users to create/clone a clock for the controller?  Seems like a place where a raw pointer should be fine.",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8aad416e_be424bb5",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -169,6 +256,23 @@
     },
     {
       "key": {
+        "uuid": "9e78b1f3_78e2ea16",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "Am I allowed to ask for {}s?",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61182481_d3e6182d",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -180,6 +284,24 @@
       "writtenOn": "2019-03-14T21:51:47Z",
       "side": 1,
       "message": "We should generate a UUID seeded with a secure random value.  There is code for this in Chromium I bet; I looked for the specific code to allocate media capture devices from getUserMedia, but couldn\u0027t find the code that generates a token to pass to the renderer conveying device permission.\n\nI can look some more if it\u0027s not obvious.",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d136d75_f53de04b",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "But that should be a TODO for now, since it\u0027s OSP_UNIMPLEMENTED, right?",
+      "parentUuid": "61182481_d3e6182d",
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -335,6 +457,99 @@
     },
     {
       "key": {
+        "uuid": "a3934594_882f2210",
+        "filename": "api/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "Could just make a function xor(a, b).  \n\nBut I actually prefer the expanded version for readability.",
+      "parentUuid": "ff7162f7_317aacc0",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 45
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47292840_1557b1fc",
+        "filename": "api/impl/service_listener_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "Why is an empty check needed before a for loop?  If it\u0027s empty, the loop won\u0027t do anything.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 26
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be67f916_ee59f265",
+        "filename": "api/impl/service_listener_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "Same here, and below",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 48
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "807fe642_921497da",
+        "filename": "api/impl/service_listener_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "And can I still ask for {}s?  :)",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 40
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7127a163_9c7a000c",
         "filename": "api/impl/service_listener_impl.cc",
         "patchSetId": 2
@@ -440,6 +655,29 @@
     },
     {
       "key": {
+        "uuid": "a1c0f9e6_1ef94b77",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "I think we should document that \"not found\" is returned by \"\".",
+      "range": {
+        "startLine": 142,
+        "startChar": 44,
+        "endLine": 143,
+        "endChar": 0
+      },
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3feebb71_08946bf9",
         "filename": "demo/demo.cc",
         "patchSetId": 2
@@ -451,6 +689,24 @@
       "writtenOn": "2019-03-18T21:00:17Z",
       "side": 1,
       "message": "Can you move this code to a separate helper method? It\u0027s duplicated three times here.\n\nAlso, the logic you have for checking that a character is printable is unclear, most people don\u0027t know that space and tilde represent the ends of the range. We have helpful methods that can do this for us instead, such as std::isprint or absl::ascii_isprint.\n\n\n E.g.\n\n    std::string SanitizeServiceId(absl::string_view unsafe_service_id) {\n        std::string safe_service_id(unsafe_service_id);\n\n        for (auto\u0026 c : safe_service_id) {\n            if (!std::isprint(c))\n              c \u003d \u0027.\u0027;\n        }\n\n        return safe_service_id;\n    }",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "217fb87e_3cf9ca6f",
+        "filename": "demo/demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T19:57:55Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "3feebb71_08946bf9",
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
