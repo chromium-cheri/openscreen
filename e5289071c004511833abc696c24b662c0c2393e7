@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "aeb12f97_d0f50e5d",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-19T08:54:47Z",
+      "side": 1,
+      "message": "Yeah, no action needed now.  After looking at more of the code it\u0027s pretty entrenched here.",
+      "parentUuid": "a632f7a0_37a63df8",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 29
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d2f00f1_454735a9",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 4
@@ -195,6 +219,24 @@
       "side": 1,
       "message": "I actually purposefully left it off the decoder\nMy worry was with backwards compatibility issues after we\u0027ve launched\n\nLet\u0027s say after release in version n we have an array, then in version n+1 we make that array have a min or max length. Since we don\u0027t control the upgrade schedules for third parties using our library, either the sender or the receiver could upgrade first.\nWith validation only on the sender side, then there is no case where the sender sends valid data and then the receiver receives invalid data, but if validation is on both ends then an old sender could send valid data (from version n before the min length addition) and then the receiver receives invalid data (from version n+1 where there is a min size)",
       "parentUuid": "4d2f00f1_454735a9",
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d397c9f_2f7c8e7d",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-19T08:54:47Z",
+      "side": 1,
+      "message": "Since this is all hypothetical, I guess it still depends on the real motivation for such a change, but I feel if we have move to n+1 by imposing a min, and then continue to accept below that, it\u0027s just inconsistent.  In cases it could be handled at layers above.  In some cases we may also want to handle this as part of version negotiation.  I\u0027ll try to get Peter or Mark\u0027s input on this.",
+      "parentUuid": "2030830f_2b415ecc",
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -809,6 +851,30 @@
         "startChar": 4,
         "endLine": 81,
         "endChar": 8
+      },
+      "revId": "e5289071c004511833abc696c24b662c0c2393e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c19c7656_b406ce6a",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-19T08:54:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d599987_e0eb063b",
+      "range": {
+        "startLine": 81,
+        "startChar": 9,
+        "endLine": 81,
+        "endChar": 26
       },
       "revId": "e5289071c004511833abc696c24b662c0c2393e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
