@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f837957c_062115c7",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d3688b3_8a2648bf",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c8c11a0_c1edd099",
         "filename": "api/impl/presentation/url_availability_requester.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d05ea517_16e266f5",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "Done. Looking into this, I see that both Chromium and the Google C++ style guide say not to use literals. So, I\u0027ve removed them.\n\nBTW--Chromium is C++14 now, and IIRC, we sort of had this discussion before, resulting in the Open Screen docs/style_guide.md allowance for C++14. All said, we can revisit this issue in team discussion.",
+      "parentUuid": "2c8c11a0_c1edd099",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5d6ecb1b_f683fa52",
+        "filename": "api/impl/testing/fake_clock.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure how: It\u0027s set in the ctor, changed in the Advance() method, and read by now().",
+      "parentUuid": "677e0c75_92d84886",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9976e982_7fdfc58c",
         "filename": "api/impl/testing/fake_clock.h",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0e6d68e_afccbfdc",
+        "filename": "api/impl/testing/fake_clock.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "This pointer is not being used to \"own\" the object. It is being used to ensure there is only ever one instance, and to assert that this \u003d\u003d instance_. Also, a FakeClock instance is not meant to live for the life of the process, just within the scope of one test case.\n\nSide note: It\u0027s also Chromium style to avoid using singleton objects (e.g., the Instance() pattern) unless absolutely necessary. Since Open Screen is a library meant to be used for a wide range of embedders, I feel we need to be even more careful about never introducing any infinitely-lived objects.\n\nChromium discussions: https://www.chromium.org/developers/coding-style/important-abstractions-and-data-structures#TOC-Singleton-base::LazyInstance and http://neugierig.org/software/chromium/notes/2011/08/static-initializers.html.\n\nExternal discussion: http://www.object-oriented-security.org/lets-argue/singletons",
+      "parentUuid": "9976e982_7fdfc58c",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "e6ff5f28_e0d69946",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "dfacc1f7_5928d369",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b806251_957a1e6b",
         "filename": "discovery/mdns/mdns_responder_platform.cc",
         "patchSetId": 2
@@ -140,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "3d16359d_501c543e",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "As a matter of personal style, I try not to use auto unless the code becomes too verbose (versus how obvious the type would be to a reader unfamiliar with the code). Another case is when I\u0027m assigning to a new variable, and the RHS has a type cast (i.e., it\u0027s totally redundant to spell-out the type again).\n\nI think I used auto here and in a few other places before I realized I didn\u0027t need to spell-out the full canonical template-specialized type. So, I\u0027ve gone through and fixed some of those.",
+      "parentUuid": "a7bfd35f_df9744fd",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "306b83b7_4f9c5700",
         "filename": "discovery/mdns/mdns_responder_platform.cc",
         "patchSetId": 2
@@ -154,6 +262,24 @@
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e32aacb3_586fbddc",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "Done. (A good example of where I shouldn\u0027t have used auto.) :)",
+      "parentUuid": "306b83b7_4f9c5700",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "33a19a88_dd4f8be8",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "The prior code had a bug: Millis since UNIX epoch cannot, in 2019, be represented in a signed 32-bit integer. Note:\n\n  (2^31-1)                        \u003d 2147483647\n  (2019-1970)*365.25*24*3600*1000 \u003d 1546322400000\n\nI suppose we\u0027ve been lucky, so far, that the wrap-around of the integers resulted in some arbitrary sequence of integers that did not end up overflowing (positive to negative, or vice-versa) when the mDNS library was doing time math on them.\n\nSince the clock we\u0027re using (the chrono one) could return values from any origin point, we have no way of knowing if the time values are going to cause signed integer overflow within the library either. That\u0027s why I\u0027ve re-centered the values around time-since-initialization.",
+      "parentUuid": "01770028_7156a6ca",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d8d5e29_18d73c62",
         "filename": "discovery/mdns/mdns_responder_platform.cc",
         "patchSetId": 2
@@ -188,6 +332,24 @@
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d55dd3b_13934747",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "FWIW, there is a CHECK(2038 bug) in Chromium\u0027s task runner code too. LOL...2038 is gonna be a fun year to be a Software Engineer.",
+      "parentUuid": "0d8d5e29_18d73c62",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -208,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "5ab6b694_d43da314",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "Added comment to the BUILD.gn file here:\n\nThe unit tests in base/ assume the standalone implementation is being built. Exclude them if an embedder is providing the implementation.",
+      "parentUuid": "71c900ad_bd11d598",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6adf36a2_31be70c2",
         "filename": "platform/api/time.h",
         "patchSetId": 2
@@ -222,6 +402,24 @@
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bc3a17a_f69f0cfd",
+        "filename": "platform/api/time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "This is relating to clock precision, not the smallest possible discrete unit of measurement. I updated the variable naming and code comment here a little, since this is all about declaring that we need a platform clock that ticks at least 10000 times per second. It does not mean that we cannot choose to measure time in other granularities in other parts of the code as needed.",
+      "parentUuid": "6adf36a2_31be70c2",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -242,6 +440,24 @@
     },
     {
       "key": {
+        "uuid": "228167bf_b39314ac",
+        "filename": "platform/api/time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "Use of std::function\u003c\u003e is banned...and with good reason, as it has performance and memory-management implications.",
+      "parentUuid": "4b235974_688a6ba7",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "860562c0_160f0a87",
         "filename": "platform/api/time.h",
         "patchSetId": 2
@@ -259,6 +475,24 @@
     },
     {
       "key": {
+        "uuid": "821d32fb_d75d021f",
+        "filename": "platform/api/time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "Current code might not require this (seems the mDNS adapter code can handle a clock ticking from any origin point). However, the Cast Streaming code I\u0027ll be importing soon *does* have this requirement (as it uses epoch timestamps in its protocol).",
+      "parentUuid": "860562c0_160f0a87",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f280e2e_db656535",
         "filename": "platform/api/time_unittest.cc",
         "patchSetId": 2
@@ -270,6 +504,24 @@
       "writtenOn": "2019-02-10T21:52:58Z",
       "side": 1,
       "message": "Why a do..while loop instead of a more standard while loop? I don\u0027t see many do loops these days.\n\n```\nwhile((delta \u003d Clock::now() - start) \u003d\u003d 0us) {\n    ASSERT_LE(0us, delta);\n}\n```",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cab1df9a_58888e84",
+        "filename": "platform/api/time_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "I believe this is a matter of personal style.\n\nFWIW, one could also argue that assignment in the test expression of a while loop is not very common. ;)",
+      "parentUuid": "5f280e2e_db656535",
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -293,6 +545,24 @@
     },
     {
       "key": {
+        "uuid": "ba723075_250a6436",
+        "filename": "platform/base/time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "The 2nd part of the expression on L21 ensures the high-res clock must be steady as well. (Clang-formatting kind of hides that part of the expression in all this.)\n\nBTW--I\u0027ve updated this code with a comment to explain my assumptions here about which clock to prefer.",
+      "parentUuid": "973f9510_b7102f1f",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "846e38b6_a1d56fa5",
         "filename": "platform/base/time.cc",
         "patchSetId": 2
@@ -307,6 +577,24 @@
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b2d2366_6596561c",
+        "filename": "platform/base/time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-19T04:14:38Z",
+      "side": 1,
+      "message": "Added my 2038 DCHECK here too. :)\n\nAccording to Compiler Explorer, clang on x86-64 uses a 64-bit integer for time_t: https://godbolt.org/z/6JdAWZ",
+      "parentUuid": "846e38b6_a1d56fa5",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
