@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2324daa_54782920",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "This would probably be cleaner using argparse (https://docs.python.org/3/library/argparse.html)",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85cc75df_1a1ec449",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "Could probably use \"assert (pred), \"message\" in all of these.  Would make it shorter.",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dd4af8f_ac8012aa",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "\"Error: %s is not a valid .h file\" % header\n\nor \n\n\"Error: %s is not a valid .h file\".format(header)\n\n\n(Old and new style; might matter for Python 2 vs 3).",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9fc8e9_8068a72d",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "Should probably use os.path.join",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b5ee4ae_b92d089d",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "Could we catch failures of clang-format and just continue without it if it fails (perhaps with just a warning)?",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8acfa083_54b9a704",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as headerFile.endswith(\u0027.h\u0027)?",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "568c57ee_f26638a4",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as ccFile.endswith(\u0027.cc\u0027)?",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "529ea964_01bc0e20",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as os.path.isdir(dirPath)?",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6aeda45_9314c96c",
+        "filename": "tools/cddl/cddl.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-19T20:39:30Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as os.path.isfile(cddlFile)?",
+      "revId": "7e1302d10283e18a08a70f2d23998ea6c9307f58",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
