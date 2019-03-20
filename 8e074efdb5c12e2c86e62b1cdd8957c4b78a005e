@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14751511_5350add9",
+        "filename": "api/impl/presentation/presentation_connection_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-20T22:45:38Z",
+      "side": 1,
+      "message": "Where are expectations set on these mocks?  It seems like testing that these are being called is important since PresentationConnection calls through to this delegate.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2850135a_3ed07110",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-20T22:45:38Z",
+      "side": 1,
+      "message": "I would prefer an explicit template parameter vs. decltype(auto), since that requires hunting down additional declarations to figure out the return type.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "342fcac0_6d28239a",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-20T22:45:38Z",
+      "side": 1,
+      "message": "Would it be simpler to declare a combined traits with members for the encoding, decoding and request functions?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e89035d_f730a93b",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-20T22:45:38Z",
+      "side": 1,
+      "message": "If |id| is optional, does that mean there are messages that can\u0027t be canceled?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e6dfdbc_311e14cb",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-20T22:45:38Z",
+      "side": 1,
+      "message": "non-const references are discouraged.  Can this return a pointer?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8eb082a_a4a9645d",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-20T22:45:38Z",
+      "side": 1,
+      "message": "It seems like MessageGroupStreams has two jobs:\n(1) Create a ProtocolConnection when necessary\n(2) Hold pointers to various message handlers and call them when necessary\n\nISTM the functionality for #1 could be pushed into RequestResponseHandler; when a request to write a message is received, it will attempt to connect the protocol connection (while queueing the message in the interim).\n\nFor #2, maybe that could be done directly in PresentationController?\n\nAnyway, I\u0027m proposing that removing the extra layer introduced by MessageGroupStreams would result in simpler code overall, but happy to hear your thoughts on it.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
