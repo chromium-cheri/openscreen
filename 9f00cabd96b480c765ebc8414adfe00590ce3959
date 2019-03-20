@@ -46,6 +46,201 @@
       "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3c5e0a9_b5326d31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "There is indeed already logging code for the library in //platform/api/logging.h, but my preference is to keep the tool independent of the rest of the library.  OTOH depending on the logging code is minor, OTOH, duplicating it is fairly minor as well.\n\nAs far as stdout/stderr goes, I don\u0027t think it\u0027s a problem to log to those; ninja should hide all output unless there\u0027s an error, and stdout/stderr is easier to debug if running the compiler separately.",
+      "parentUuid": "bdaea460_aff1cefb",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1ae3c5_d918d93e",
+        "filename": "tools/cddl/logging.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0462a342_d479dc37",
+        "filename": "tools/cddl/logging.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "I\u0027d prefer using Logger* here, but even with auto it should be auto*.\n\nAlso, it doesn\u0027t seem to actually be in the style guide, but we always put \"// static\" above definitions of static members.  This applies to this variable as well as the static methods above.",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b1850f8_40cfa9d2",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67948fce_27ccc4f8",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "style: Unless a different declaration order is required, we prefer public, protected, then private sections.\n\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4641c4e_96d32220",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "style: Here and below, add trailing \u0027_\u0027 to private variable names.\n\nhttps://google.github.io/styleguide/cppguide.html#Variable_Names",
+      "range": {
+        "startLine": 17,
+        "startChar": 14,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94338d9e_26359d58",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "We would probably also need a the same for gcc...  Thinking about this more, I realize that in all our other codebases we do logging with C++ streams.  That would also avoid the need for the MakePrintable conversion, and let us easily define custom printing for things like CddlGroup, CppType, etc. directly.  I think I would prefer that here as well.  If you want a reference, look at //platform/api/logging.h.",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30ae3fde_2a3d5709",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "const std::string\u0026, but I also think logging to stdout/stderr is better.",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61fa2aee_6543ad10",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "const std::string\u0026",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12a45ba9_11c58537",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T20:39:58Z",
+      "side": 1,
+      "message": "Here and below, you don\u0027t need std::forward for message.",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
