@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7db81f0f_c98867eb",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-20T20:07:04Z",
+      "side": 1,
+      "message": "We want to use cerr here, so even if output is redirected, this message is still printed to the user. For example, cddl is called in a script executed by a user with the output of the script redirected to a file. We want to print usage to the user, instead of redirecting it to the output.",
+      "parentUuid": "6b82dd15_0431be51",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 13
+      },
+      "revId": "147f59ff13b2e045689e5e4cee5f9ea2759da946",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bf0e7bd_bb489a83",
         "filename": "tools/cddl/main.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "147f59ff13b2e045689e5e4cee5f9ea2759da946",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24af860a_772622d7",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-20T20:07:04Z",
+      "side": 1,
+      "message": "Calling ./cddl -? or ./cddl --help or any other way to get a help message results in a usage message being printed.",
+      "parentUuid": "5bf0e7bd_bb489a83",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 27
+      },
+      "revId": "147f59ff13b2e045689e5e4cee5f9ea2759da946",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
