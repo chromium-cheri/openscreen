@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "tools/cddl/codegen.h"
+#include "tools/cddl/logging.h"
 #include "tools/cddl/parse.h"
 #include "tools/cddl/sema.h"
 
@@ -136,37 +137,99 @@ int main(int argc, char** argv) {
     return 1;
   }
 
+  Logger::Get()->Initialize(args.gen_dir);
+  std::string log_path = Logger::GetFilePath();
+  std::cout << "CDDL File Generator logging to: " + log_path << "\n";
+
+  Logger::Log("Successfully initialized CDDL Code generator!");
+
   // Parse the full CDDL into a graph structure.
+  Logger::Log("Parsing CDDL Input File...");
   ParseResult parse_result = ParseCddl(data);
   if (!parse_result.root) {
     return 1;
   }
+  Logger::Log("Successfully parsed CDDL input file!\n");
 
   // Build the Symbol table from this graph structure.
+  Logger::Log("Generating CDDL Symbol Table...");
   std::pair<bool, CddlSymbolTable> cddl_result =
       BuildSymbolTable(*parse_result.root);
   if (!cddl_result.first) {
+    Logger::Error("Failed to generate CDDL Symbol table");
     return 1;
   }
+  Logger::Log("Successfully generated CDDL symbol table!\n");
+
+  Logger::Log("Generating CPP symbol table...");
   std::pair<bool, CppSymbolTable> cpp_result =
       BuildCppTypes(cddl_result.second);
   if (!cpp_result.first) {
+    Logger::Error("Failed to generate CPP Symbol table");
     return 1;
   }
+  Logger::Log("Successfully generated CPP symbol table!\n");
 
   // Create the C++ files from the Symbol table.
-  if (!WriteHeaderPrologue(header_fd, args.header_filename) ||
-      !WriteTypeDefinitions(header_fd, cpp_result.second) ||
-      !WriteFunctionDeclarations(header_fd, cpp_result.second) ||
-      !WriteHeaderEpilogue(header_fd, args.header_filename) ||
-      !WriteSourcePrologue(cc_fd, args.header_filename) ||
-      !WriteEncoders(cc_fd, cpp_result.second) ||
-      !WriteDecoders(cc_fd, cpp_result.second) || !WriteSourceEpilogue(cc_fd)) {
+  Logger::Log("Writing Header prologue...");
+  if (!WriteHeaderPrologue(header_fd, args.header_filename)) {
+    Logger::Error("WriteHeaderPrologue failed");
     return 1;
   }
+  Logger::Log("Successfully wrote header prologue!\n");
+
+  Logger::Log("Writing type definitions...");
+  if (!WriteTypeDefinitions(header_fd, cpp_result.second)) {
+    Logger::Error("WriteTypeDefinitions failed");
+    return 1;
+  }
+  Logger::Log("Successfully wrote type definitions!\n");
+
+  Logger::Log("Writing function declaration...");
+  if (!WriteFunctionDeclarations(header_fd, cpp_result.second)) {
+    Logger::Error("WriteFunctionDeclarations failed");
+    return 1;
+  }
+  Logger::Log("Successfully wrote function declarations!\n");
+
+  Logger::Log("Writing header epilogue...");
+  if (!WriteHeaderEpilogue(header_fd, args.header_filename)) {
+    Logger::Error("WriteHeaderEpilogue failed");
+    return 1;
+  }
+  Logger::Log("Successfully wrote header epilogue!\n");
+
+  Logger::Log("Writing source prologue...");
+  if (!WriteSourcePrologue(cc_fd, args.header_filename)) {
+    Logger::Error("WriteSourcePrologue failed");
+    return 1;
+  }
+  Logger::Log("Successfully wrote source prologue!\n");
+
+  Logger::Log("Writing encoders...");
+  if (!WriteEncoders(cc_fd, cpp_result.second)) {
+    Logger::Error("WriteEncoders failed");
+    return 1;
+  }
+  Logger::Log("Successfully wrote encoders!\n");
+
+  Logger::Log("Writing decoders...");
+  if (!WriteDecoders(cc_fd, cpp_result.second)) {
+    Logger::Error("WriteDecoders failed");
+    return 1;
+  }
+  Logger::Log("Successfully wrote decoders!\n");
+
+  Logger::Log("Writing source epilogue...");
+  if (!WriteSourceEpilogue(cc_fd)) {
+    Logger::Error("WriteSourceEpilogue failed");
+    return 1;
+  }
+  Logger::Log("Successfully wrote source epilogue!\n");
 
   close(header_fd);
   close(cc_fd);
+  Logger::Log("SUCCESSFULLY COMPLETED ALL OPERATIONS");
 
   return 0;
 }
