@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "tools/cddl/logging.h"
 #include "tools/cddl/parse.h"
 
 #include <unistd.h>
@@ -801,6 +802,7 @@ ParseResult ParseCddl(absl::string_view data) {
   AstNode* tail = nullptr;
   do {
     AstNode* next = ParseRule(&p);
+
     if (!next) {
       return {nullptr, {}};
     }
