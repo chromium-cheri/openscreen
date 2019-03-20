@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "3ece1d6f_5bbcd2cc",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-20T21:33:13Z",
+      "side": 1,
+      "message": "While reviewing the rest of the code, I always worried about reading past the end of the string. Is it well-understood that |data| must be a NUL-terminated string? Perhaps this should be an absl::string_view instead of a const char*?",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "20f7f3b6ef2d926e5eb112c574ef5ea82aa1614a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00213fe9_6a0ee3e1",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 5
@@ -64,6 +87,29 @@
       "writtenOn": "2019-03-20T21:05:45Z",
       "side": 1,
       "message": "typo in Occurrence",
+      "revId": "20f7f3b6ef2d926e5eb112c574ef5ea82aa1614a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4535a40_e1911766",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-20T21:33:13Z",
+      "side": 1,
+      "message": "I don\u0027t see any length checks in this code. How do we know we\u0027re not going to read past the end of the string, or advance the char* past the end of the string? (e.g., bad input cases where we reach an \"unexpected end of string\" when parsing)\n\nAlso, consider using OSP_DCHECK() (see platform/api/logging.h) to both document assumptions and ensure they are upheld in debug builds.",
+      "range": {
+        "startLine": 221,
+        "startChar": 23,
+        "endLine": 221,
+        "endChar": 30
+      },
       "revId": "20f7f3b6ef2d926e5eb112c574ef5ea82aa1614a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
