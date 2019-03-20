@@ -418,6 +418,24 @@
     },
     {
       "key": {
+        "uuid": "0153e84d_c0e31010",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-20T22:02:06Z",
+      "side": 1,
+      "message": "I guess so.  However, in the long run, I don\u0027t think the PresentationController should be keeping track of this mapping.  It does need to know which endpoints are available to send availability requests to, but it just needs a ProtocolConnection for the endpoint to send those requests.  I can try to explain the layering I have in mind separately.",
+      "parentUuid": "627b1dfe_15d3bd2a",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9e78b1f3_78e2ea16",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -535,6 +553,24 @@
       "side": 1,
       "message": "I don\u0027t think so, which patch were you thinking of?",
       "parentUuid": "0c66b111_4bf34449",
+      "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6ecafcb_cf42126f",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-20T22:02:06Z",
+      "side": 1,
+      "message": "This one? https://chromium-review.googlesource.com/c/openscreen/+/1495225",
+      "parentUuid": "e661eb74_46ceee96",
       "revId": "f02ab352c7fb2bed50b4d812835ab00ae4b85ced",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
