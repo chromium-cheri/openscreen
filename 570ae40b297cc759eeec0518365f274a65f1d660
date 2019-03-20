@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "50a3245d_b5365aed",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T00:10:06Z",
+      "side": 1,
+      "message": "At least some of git-cl does work though (upload, try, lint, etc.).  Not sure if that really warrants rephrasing this though.",
+      "range": {
+        "startLine": 21,
+        "startChar": 72,
+        "endLine": 21,
+        "endChar": 78
+      },
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5195b97c_2e488537",
         "filename": "README.md",
         "patchSetId": 4
@@ -64,6 +87,23 @@
       "writtenOn": "2019-03-18T20:36:15Z",
       "side": 1,
       "message": "More descriptive name warranted IMO, maybe:\n\n    Building the \"hello\" sample executable",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8aa09181_a85f87eb",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T00:10:06Z",
+      "side": 1,
+      "message": "Sort of an aside, but how much longer do we want to keep the hello example?  We don\u0027t have any other use of a shared library target, but otherwise I would think the unit tests could be used here instead.",
       "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -104,6 +144,24 @@
     },
     {
       "key": {
+        "uuid": "f2dd7f7a_81c231ea",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T00:10:06Z",
+      "side": 1,
+      "message": "gn_all doesn\u0027t include the demo or actual unittests executable.\n\nWe don\u0027t support goma, but is there some other reason to use autoninja?",
+      "parentUuid": "cf2d4969_b95ae1c2",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9fa63a24_f92b642f",
         "filename": "README.md",
         "patchSetId": 4
@@ -132,6 +190,40 @@
       "writtenOn": "2019-03-18T20:36:15Z",
       "side": 1,
       "message": "Can we add a note about how to do a pre-commit hook?\n\nIt should be just adding a pre-commit hook under .git/hooks, with the following content:\n\n    #!/usr/bin/env sh\n\n    root_folder\u003d$(git rev-parse --show-toplevel)\n    presubmit_script\u003d\"$root_folder/PRESUBMIT.sh\"\n\n    message\u003d$(eval $presubmit_script)\n    error_code\u003d$?\n\n    if [[ $error_code -ne 0 ]]; then\n      echo $message\n      exit $error_code\n    fi",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9af7bdd_6e66aab2",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T00:10:06Z",
+      "side": 1,
+      "message": "I think it\u0027s worth mentioning `git cl upload` here as well.",
+      "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef3137fc_149f8137",
+        "filename": "README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-20T00:10:06Z",
+      "side": 1,
+      "message": "Can we add a section like \"Updating\" that would remind people (us) to run `gclient sync` when you checkout any new commit that changes DEPS?",
       "revId": "570ae40b297cc759eeec0518365f274a65f1d660",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
