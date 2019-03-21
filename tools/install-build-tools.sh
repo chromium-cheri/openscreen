@@ -16,10 +16,11 @@ GOOGLE_STORAGE_URL="https://storage.googleapis.com"
 
 GIT_ROOT=$(git rev-parse --show-toplevel)
 
+GN_SHA1="3523d50538357829725d4ed74b777a572ce0ac74"
+
 pushd $GIT_ROOT
 set -x  # echo on
-sha1=$(curl "$BUILDTOOLS_REPO_URL/+/master/$env/gn.sha1?format=TEXT" | base64 --decode)
-curl -Lo gn "$GOOGLE_STORAGE_URL/chromium-gn/$sha1"
+curl -Lo gn "$GOOGLE_STORAGE_URL/chromium-gn/$GN_SHA1"
 chmod +x gn
 
 sha1=$(curl "$BUILDTOOLS_REPO_URL/+/master/$env/clang-format.sha1?format=TEXT" | base64 --decode)
