@@ -5,9 +5,54 @@
 #ifndef PLATFORM_API_LOGGING_H_
 #define PLATFORM_API_LOGGING_H_
 
+#if defined(BUILD_WITH_CHROMIUM)
+#include "base/logging.h"
+
+#define OSP_VLOG VLOG(1)
+#define OSP_LOG LOG(INFO)
+#define OSP_LOG_INFO LOG(INFO)
+#define OSP_LOG_WARN LOG(WARNING)
+#define OSP_LOG_ERROR LOG(ERROR)
+#define OSP_LOG_FATAL LOG(FATAL)
+#define OSP_VLOG_IF(condition) VLOG_IF(1, condition)
+// TODO(btolsch): This will not work if we ever use OSP_LOG_IF(WARN), because we
+// use WARN and Chromium uses WARNING.  To simplify this, change ours to
+// WARNING.
+#define OSP_LOG_IF LOG_IF
+
+#define OSP_CHECK CHECK
+#define OSP_CHECK_EQ CHECK_EQ
+#define OSP_CHECK_NE CHECK_NE
+#define OSP_CHECK_LT CHECK_LT
+#define OSP_CHECK_LE CHECK_LE
+#define OSP_CHECK_GT CHECK_GT
+#define OSP_CHECK_GE CHECK_GE
+
+#define OSP_DCHECK_IS_ON DCHECK_IS_ON
+#define OSP_DCHECK DCHECK
+#define OSP_DCHECK_EQ DCHECK_EQ
+#define OSP_DCHECK_NE DCHECK_NE
+#define OSP_DCHECK_LT DCHECK_LT
+#define OSP_DCHECK_LE DCHECK_LE
+#define OSP_DCHECK_GT DCHECK_GT
+#define OSP_DCHECK_GE DCHECK_GE
+
+#define OSP_DVLOG DVLOG(1)
+#define OSP_DLOG_INFO DLOG(INFO)
+#define OSP_DLOG_WARN DLOG(WARNING)
+#define OSP_DLOG_ERROR DLOG(ERROR)
+#define OSP_DLOG_FATAL DLOG(FATAL)
+#define OSP_DVLOG_IF DVLOG_IF
+#define OSP_DLOG_IF DLOG_IF
+
+#define OSP_UNIMPLEMENTED NOTIMPLEMENTED
+
+#define OSP_NOTREACHED NOTREACHED
+
+#else
 #include <sstream>
 
-#include "third_party/abseil/src/absl/strings/string_view.h"
+#include "absl/strings/string_view.h"
 
 namespace openscreen {
 namespace platform {
@@ -64,9 +109,6 @@ class LogMessage {
                                    __FILE__, __LINE__)                       \
       .stream()
 
-// Necessary for auto macro in OSP_LOG_IF
-#define OSP_LOG_VERBOSE OSP_VLOG
-
 #define OSP_LOG_INFO                                                      \
   openscreen::platform::LogMessage(openscreen::platform::LogLevel::kInfo, \
                                    __FILE__, __LINE__)                    \
@@ -99,6 +141,7 @@ class Voidify {
 #define OSP_LAZY_STREAM(stream, condition) \
   !(condition) ? (void)0 : openscreen::platform::detail::Voidify() & (stream)
 #define OSP_EAT_STREAM OSP_LAZY_STREAM(OSP_LOG, false)
+#define OSP_VLOG_IF(condition) OSP_LAZY_STREAM(OSP_VLOG, (condition))
 #define OSP_LOG_IF(level, condition) \
   OSP_LAZY_STREAM(OSP_LOG_##level, (condition))
 
@@ -137,11 +180,12 @@ class Voidify {
 #define OSP_DCHECK_GE(a, b) OSP_EAT_STREAM << !((a) >= (b))
 #endif
 
-#define OSP_DVLOG OSP_LOG_IF(VERBOSE, OSP_DCHECK_IS_ON())
+#define OSP_DVLOG OSP_VLOG_IF(OSP_DCHECK_IS_ON())
 #define OSP_DLOG_INFO OSP_LOG_IF(INFO, OSP_DCHECK_IS_ON())
 #define OSP_DLOG_WARN OSP_LOG_IF(WARN, OSP_DCHECK_IS_ON())
 #define OSP_DLOG_ERROR OSP_LOG_IF(ERROR, OSP_DCHECK_IS_ON())
 #define OSP_DLOG_FATAL OSP_LOG_IF(FATAL, OSP_DCHECK_IS_ON())
+#define OSP_DVLOG_IF(condition) OSP_VLOG_IF(OSP_DCHECK_IS_ON() && (condition))
 #define OSP_DLOG_IF(level, condition) \
   OSP_LOG_IF(level, OSP_DCHECK_IS_ON() && (condition))
 
@@ -151,5 +195,7 @@ class Voidify {
 
 }  // namespace platform
 }  // namespace openscreen
+
+#endif  // defined(BUILD_WITH_CHROMIUM)
 
 #endif  // PLATFORM_API_LOGGING_H_

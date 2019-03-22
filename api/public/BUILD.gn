@@ -36,10 +36,11 @@ source_set("api") {
   ]
 
   public_deps = [
-    "//msgs",
+    "../../msgs",
   ]
   deps = [
-    "//base",
-    "//platform",
+    "../../base",
+    "../../platform",
   ]
+  configs += [ "../..:root_config_overrides" ]
 }

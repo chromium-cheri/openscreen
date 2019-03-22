@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-#include "third_party/abseil/src/absl/strings/string_view.h"
+#include "absl/strings/string_view.h"
 
 CddlType::CddlType() : map(nullptr) {}
 CddlType::~CddlType() {
