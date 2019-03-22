@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "abf2c147_92db7848",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-22T17:46:34Z",
+      "side": 1,
+      "message": "What effect does this have?  Is this passing -I. on the clang command line (which is not included by default)?",
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa375f6a_4d9fdd24",
         "filename": "api/BUILD.gn",
         "patchSetId": 2
@@ -48,6 +65,23 @@
     },
     {
       "key": {
+        "uuid": "c5b36d5c_d5cb8840",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-22T17:46:34Z",
+      "side": 1,
+      "message": "Is this referring to Chromium //base; so we are going to make our platform layer depend directly on it?",
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6647352a_c81630a7",
         "filename": "platform/api/logging.h",
         "patchSetId": 2
@@ -65,6 +99,40 @@
         "endLine": 8,
         "endChar": 32
       },
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9a82978_d908ad7d",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-22T17:46:34Z",
+      "side": 1,
+      "message": "I think this doesn\u0027t belong in the OSP library but in a Chromium file, since it\u0027s using the Chromium base macros.",
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4645f268_eb51c8eb",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-22T17:46:34Z",
+      "side": 1,
+      "message": "I would prefer a world where there was no text logging in release builds, but DLOG could be enabled through a GN flag.",
       "revId": "844e73fe62d1793ff21995047ab140fc30021131",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
