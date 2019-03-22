@@ -2,46 +2,65 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+import("//build_overrides/build.gni")
+
+if (build_with_chromium) {
+  config("root_config_overrides") {
+    include_dirs = [ "." ]
+    defines = [ "BUILD_WITH_CHROMIUM" ]
+  }
+} else {
+  config("root_config_overrides") {
+  }
+}
+
 # All compilable non-test targets in the repository (both executables and
 # source_sets).
 group("gn_all") {
   deps = [
-    "//api",
-    "//base",
-    "//discovery/mdns:embedder_demo",
-    "//platform",
-    "//sample:hello",
-    "//third_party/abseil",
-    "//third_party/chromium_quic",
-    "//third_party/chromium_quic:demo_client",
-    "//third_party/chromium_quic:demo_server",
-    "//third_party/tinycbor",
-    "//tools/cddl",
+    "api",
+    "base",
+    "msgs",
+    "platform",
+    "third_party/abseil",
+    "third_party/tinycbor",
+    "tools/cddl",
   ]
+  if (!build_with_chromium) {
+    deps += [
+      "discovery/mdns:embedder_demo",
+      "sample:hello",
+      "third_party/chromium_quic",
+      "third_party/chromium_quic:demo_client",
+      "third_party/chromium_quic:demo_server",
+    ]
+  }
 }
 
-executable("demo") {
-  sources = [
-    "//demo/demo.cc",
-  ]
+if (!build_with_chromium) {
+  executable("demo") {
+    sources = [
+      "demo/demo.cc",
+    ]
 
-  deps = [
-    "//api:api_with_chromium_quic",
-    "//base",
-    "//discovery/mdns",
-    "//platform",
-  ]
-}
+    deps = [
+      "api:api_with_chromium_quic",
+      "base",
+      "discovery/mdns",
+      "platform",
+    ]
+  }
 
-executable("unittests") {
-  testonly = true
-  deps = [
-    "//api:api_unittests",
-    "//base:base_unittests",
-    "//discovery/mdns:mdns_unittests",
-    "//msgs:unittests",
-    "//sample:hello_unittests",
-    "//third_party/abseil",
-    "//third_party/googletest:gtest_main",
-  ]
+  executable("unittests") {
+    testonly = true
+    deps = [
+      "api:api_unittests",
+      "base:base_unittests",
+      "discovery/mdns:mdns_unittests",
+      "msgs:unittests",
+      "sample:hello_unittests",
+      "third_party/abseil",
+      "third_party/googletest:gtest_main",
+    ]
+  }
 }

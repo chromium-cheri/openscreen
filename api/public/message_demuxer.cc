@@ -168,7 +168,7 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBufferLoop(
                                     &default_callbacks_, buffer);
       }
     }
-    OSP_LOG_IF(VERBOSE, !result.handled) << "no message handler matched";
+    OSP_VLOG_IF(!result.handled) << "no message handler matched";
   } while (result.consumed && !buffer->empty());
   return result;
 }
