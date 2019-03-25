@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d9719b60_8c729c6b",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-25T21:32:58Z",
+      "side": 1,
+      "message": "Errors in cbor.h mostly cover invalid serialization.\nThe case here is a technically valid CBOR, but not what we expect.\nI\u0027ve looked through the list of errors and did not find a one that fits here. Did you have a particular one in mind?\n\nAlso, there\u0027s a bunch of places where we return -1. Usually when the data we decoded is not what we expected, even though it\u0027s valid CBOR, e.g.:\n\n  size_t it1_length \u003d 0;\n  CBOR_RETURN_ON_ERROR(cbor_value_get_map_length(\u0026it0, \u0026it1_length));\n  if (it1_length !\u003d 3) {\n    return -1;\n  }",
+      "parentUuid": "555a22fb_669a17ac",
+      "range": {
+        "startLine": 857,
+        "startChar": 32,
+        "endLine": 857,
+        "endChar": 34
+      },
+      "revId": "84fbf8e83801d2a63b8683349360178e5713d2ef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbb2f9df_519da769",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bff43d09_d8e2733e",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-25T21:32:58Z",
+      "side": 1,
+      "message": "Full name of this thing is Operator, which I didn\u0027t use to avoid confusion/collisions with C++ operator keyword. When used this looks like CddlType::Op::kSize. I can rename it to CddlOperator or ControlOperator.",
+      "parentUuid": "dbb2f9df_519da769",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "84fbf8e83801d2a63b8683349360178e5713d2ef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1cdd32bd_5129ae23",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2019-03-25T20:56:05Z",
       "side": 1,
       "message": "We already have a TaggedType in the above union. What is the purpose of this second one?",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "84fbf8e83801d2a63b8683349360178e5713d2ef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b580f4bf_7df7d76e",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-25T21:32:58Z",
+      "side": 1,
+      "message": "This is separate from type tags and is here to cover this rule in the grammar:\ntype1 \u003d type2 [S (rangeop / ctlop) S type2]\nThis means that for any type there might or might not be a range or control operator with another type as the argument to the operator",
+      "parentUuid": "1cdd32bd_5129ae23",
       "range": {
         "startLine": 84,
         "startChar": 2,
