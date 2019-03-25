@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "448ea32c_9bf554e0",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-25T23:20:28Z",
+      "side": 1,
+      "message": "For the occurrence operator bounds, we return CborErrorTooManyItems and CborErrorTooFewItems. I would think either those should be used here too, or the occurrence operator bounds should be updated to return -1 as we do here - either works for me, but I feel like we should do one of the two for consistency across the generated code",
+      "parentUuid": "d9719b60_8c729c6b",
+      "range": {
+        "startLine": 857,
+        "startChar": 32,
+        "endLine": 857,
+        "endChar": 34
+      },
+      "revId": "84fbf8e83801d2a63b8683349360178e5713d2ef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbb2f9df_519da769",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 5
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Full name of this thing is Operator, which I didn\u0027t use to avoid confusion/collisions with C++ operator keyword. When used this looks like CddlType::Op::kSize. I can rename it to CddlOperator or ControlOperator.",
       "parentUuid": "dbb2f9df_519da769",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "84fbf8e83801d2a63b8683349360178e5713d2ef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c202448_843ff631",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-25T23:20:28Z",
+      "side": 1,
+      "message": "I feel like either of the two above is clearer, but if no one else has a problem leaving it this way I am fine leaving it. Maybe get Peter\u0027s opinion?",
+      "parentUuid": "bff43d09_d8e2733e",
       "range": {
         "startLine": 33,
         "startChar": 13,
@@ -140,6 +188,30 @@
       "revId": "84fbf8e83801d2a63b8683349360178e5713d2ef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94fc25b7_14e6a655",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-25T23:20:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b580f4bf_7df7d76e",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "84fbf8e83801d2a63b8683349360178e5713d2ef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
