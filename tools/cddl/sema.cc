@@ -17,7 +17,8 @@
 #include "third_party/abseil/src/absl/strings/string_view.h"
 #include "third_party/abseil/src/absl/types/optional.h"
 
-CddlType::CddlType() : map(nullptr) {}
+CddlType::CddlType()
+    : map(nullptr), op(CddlType::Op::kNone), constraint_type(nullptr) {}
 CddlType::~CddlType() {
   switch (which) {
     case CddlType::Which::kDirectChoice:
@@ -105,6 +106,10 @@ void CppType::InitDiscriminatedUnion() {
   new (&discriminated_union) DiscriminatedUnion();
 }
 
+void CppType::InitBytes() {
+  which = Which::kBytes;
+}
+
 void InitString(std::string* s, absl::string_view value) {
   new (s) std::string(value);
 }
@@ -181,7 +186,53 @@ CddlType* AnalyzeType2(CddlSymbolTable* table, const AstNode& type2) {
 }
 
 CddlType* AnalyzeType1(CddlSymbolTable* table, const AstNode& type1) {
-  return AnalyzeType2(table, *type1.children);
+  const AstNode* type2 = type1.children;
+  CddlType* analyzed_type = AnalyzeType2(table, *type2);
+  if (type2->sibling) {
+    if (type2->sibling->type == AstNode::Type::kRangeop) {
+      // TODO(btolsch,yakimakha): implement CDDL rangeop
+    } else if (type2->sibling->type == AstNode::Type::kCtlop) {
+      const AstNode* ctlop = type2->sibling;
+      if (ctlop->children) {
+        const AstNode* ctlop_id = ctlop->children;
+        if (ctlop_id->text == "size") {
+          analyzed_type->op = CddlType::Op::kSize;
+        } else if (ctlop_id->text == "bits") {
+          analyzed_type->op = CddlType::Op::kBits;
+        } else if (ctlop_id->text == "regexp") {
+          analyzed_type->op = CddlType::Op::kRegexp;
+        } else if (ctlop_id->text == "cbor") {
+          analyzed_type->op = CddlType::Op::kCbor;
+        } else if (ctlop_id->text == "cborseq") {
+          analyzed_type->op = CddlType::Op::kCborseq;
+        } else if (ctlop_id->text == "within") {
+          analyzed_type->op = CddlType::Op::kWithin;
+        } else if (ctlop_id->text == "and") {
+          analyzed_type->op = CddlType::Op::kAnd;
+        } else if (ctlop_id->text == "lt") {
+          analyzed_type->op = CddlType::Op::kLess;
+        } else if (ctlop_id->text == "le") {
+          analyzed_type->op = CddlType::Op::kLessOrEqual;
+        } else if (ctlop_id->text == "gt") {
+          analyzed_type->op = CddlType::Op::kGreater;
+        } else if (ctlop_id->text == "ge") {
+          analyzed_type->op = CddlType::Op::kGreaterOrEqual;
+        } else if (ctlop_id->text == "eq") {
+          analyzed_type->op = CddlType::Op::kEqual;
+        } else if (ctlop_id->text == "ne") {
+          analyzed_type->op = CddlType::Op::kNotEqual;
+        } else if (ctlop_id->text == "default") {
+          analyzed_type->op = CddlType::Op::kDefault;
+        } else {
+          analyzed_type->op = CddlType::Op::kNone;
+        }
+        if (analyzed_type->op != CddlType::Op::kNone && ctlop->sibling) {
+          analyzed_type->constraint_type = AnalyzeType2(table, *ctlop->sibling);
+        }
+      }
+    }
+  }
+  return analyzed_type;
 }
 
 CddlType* AnalyzeType(CddlSymbolTable* table, const AstNode& type) {
@@ -267,7 +318,8 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
         }
       }
 
-      int upper_bound = CddlGroup::Entry::kOccurrenceMaxUnbounded;;
+      int upper_bound = CddlGroup::Entry::kOccurrenceMaxUnbounded;
+      ;
       std::string second_half =
           index >= node->text.length() ? "" : node->text.substr(index + 1);
       if ((second_half.length() != 1 || second_half.at(0) != '0') &&
@@ -284,9 +336,9 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
     entry->occurrence_specified = true;
     node = node->sibling;
   } else {
-      entry->opt_occurrence_min = 1;
-      entry->opt_occurrence_max = 1;
-      entry->occurrence_specified = false;
+    entry->opt_occurrence_min = 1;
+    entry->opt_occurrence_max = 1;
+    entry->occurrence_specified = false;
   }
 
   // If it's a member key (key in a map), save it and go to next node.
@@ -296,8 +348,7 @@ bool AnalyzeGroupEntry(CddlSymbolTable* table,
     entry->which = CddlGroup::Entry::Which::kType;
     InitGroupEntry(&entry->type);
     entry->type.opt_key = std::string(node->children->text);
-    entry->type.integer_key =
-        ParseOptionalUint(node->integer_member_key_text);
+    entry->type.integer_key = ParseOptionalUint(node->integer_member_key_text);
     node = node->sibling;
   }
 
@@ -367,8 +418,7 @@ void DumpGroup(CddlGroup* group, int indent_level) {
       case CddlGroup::Entry::Which::kType:
         printf("kType:");
         if (entry->HasOccurrenceOperator())
-          printf("minOccurance: %d maxOccurance: %d",
-                 entry->opt_occurrence_min,
+          printf("minOccurance: %d maxOccurance: %d", entry->opt_occurrence_min,
                  entry->opt_occurrence_max);
         if (!entry->type.opt_key.empty())
           printf(" %s =>", entry->type.opt_key.c_str());
@@ -377,8 +427,7 @@ void DumpGroup(CddlGroup* group, int indent_level) {
         break;
       case CddlGroup::Entry::Which::kGroup:
         if (entry->HasOccurrenceOperator())
-          printf("minOccurance: %d maxOccurance: %d",
-                 entry->opt_occurrence_min,
+          printf("minOccurance: %d maxOccurance: %d", entry->opt_occurrence_min,
                  entry->opt_occurrence_max);
         DumpGroup(entry->group, indent_level + 1);
         break;
@@ -541,7 +590,8 @@ bool AddMembersToStruct(
           return false;
         if (member_type->name.empty())
           member_type->name = x->type.opt_key;
-        if (x->opt_occurrence_min == CddlGroup::Entry::kOccurrenceMinUnbounded &&
+        if (x->opt_occurrence_min ==
+                CddlGroup::Entry::kOccurrenceMinUnbounded &&
             x->opt_occurrence_max == 1) {
           // Create an "optional" type, with sub-type being the type that is
           // optional. This corresponds with occurrence operator '?'.
@@ -580,7 +630,12 @@ CppType* MakeCppType(CppSymbolTable* table,
         cpp_type->which = CppType::Which::kString;
       } else if (type.id == "bytes") {
         cpp_type = GetCppType(table, name);
-        cpp_type->which = CppType::Which::kBytes;
+        cpp_type->InitBytes();
+        if (type.op == CddlType::Op::kSize) {
+          cpp_type->bytes_type.has_fixed_size = true;
+          cpp_type->bytes_type.size =
+              std::atoi(type.constraint_type->value.c_str());
+        }
       } else {
         cpp_type = GetCppType(table, type.id);
       }
@@ -599,9 +654,9 @@ CppType* MakeCppType(CppSymbolTable* table,
           type.array->entries[0]->HasOccurrenceOperator()) {
         cpp_type->InitVector();
         cpp_type->vector_type.min_length =
-          type.array->entries[0]->opt_occurrence_min;
+            type.array->entries[0]->opt_occurrence_min;
         cpp_type->vector_type.max_length =
-          type.array->entries[0]->opt_occurrence_max;
+            type.array->entries[0]->opt_occurrence_max;
         cpp_type->vector_type.element_type =
             GetCppType(table, type.array->entries[0]->type.value->id);
       } else {
