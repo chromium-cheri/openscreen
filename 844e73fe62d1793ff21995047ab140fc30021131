@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3e5a0587_3a2c0168",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-25T09:09:02Z",
+      "side": 1,
+      "message": "I think maintaining a file list in a README is too brittle, but I added info about the flags that switch things in GN to the README.",
+      "parentUuid": "0393d128_5033dfbc",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 64
+      },
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abf2c147_92db7848",
         "filename": "BUILD.gn",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "844e73fe62d1793ff21995047ab140fc30021131",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfac03ea_c1248cad",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-25T09:09:02Z",
+      "side": 1,
+      "message": "\".\" is intrepreted, not passed directly (i.e. not \"-I.\", but \"-I../../third_party/openscreen/src\").  This makes our src-relative includes work.",
+      "parentUuid": "abf2c147_92db7848",
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "7a7d7c87_eb1385e4",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-25T09:09:02Z",
+      "side": 1,
+      "message": "It\u0027s defined as a GN variable in //build_overrides/build.gni.  In Chromium, it actually comes from //build/config/gclient_args.gni.  It\u0027s used to tell us about our larger build environment.\n\nIt isn\u0027t automatically an environment variable, so if necessary, it\u0027d have to be passed as an extra argument to a GN action script.",
+      "parentUuid": "fa375f6a_4d9fdd24",
+      "range": {
+        "startLine": 16,
+        "startChar": 5,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5b36d5c_d5cb8840",
         "filename": "platform/BUILD.gn",
         "patchSetId": 2
@@ -79,6 +145,24 @@
       "revId": "844e73fe62d1793ff21995047ab140fc30021131",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "600d56f0_9b463f0b",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-25T09:09:02Z",
+      "side": 1,
+      "message": "Yes, we need to if we want to hook into Chromium\u0027s logging.",
+      "parentUuid": "c5b36d5c_d5cb8840",
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +206,48 @@
     },
     {
       "key": {
+        "uuid": "3595fc56_b81aeaaf",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-25T09:09:02Z",
+      "side": 1,
+      "message": "BUILD_WITH_CHROMIUM isn\u0027t a //base macro.  But I moved this to a separate file by calling Chromium\u0027s logging class directly.",
+      "parentUuid": "b9a82978_d908ad7d",
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7c0a927_78040577",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-25T09:09:02Z",
+      "side": 1,
+      "message": "This moved to //platform/chromium/logging.cc.",
+      "parentUuid": "6647352a_c81630a7",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 32
+      },
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4645f268_eb51c8eb",
         "filename": "platform/api/logging.h",
         "patchSetId": 2
@@ -136,6 +262,24 @@
       "revId": "844e73fe62d1793ff21995047ab140fc30021131",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db383a55_6e7a42cc",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-25T09:09:02Z",
+      "side": 1,
+      "message": "Since this will have to change other code that\u0027s currently calling these, I will change this in a follow-up CL.",
+      "parentUuid": "4645f268_eb51c8eb",
+      "revId": "844e73fe62d1793ff21995047ab140fc30021131",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
