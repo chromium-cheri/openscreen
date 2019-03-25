@@ -242,5 +242,8 @@ struct CppSymbolTable {
 std::pair<bool, CddlSymbolTable> BuildSymbolTable(const AstNode& rules);
 std::pair<bool, CppSymbolTable> BuildCppTypes(
     const CddlSymbolTable& cddl_table);
+void DumpType(CddlType* type, int indent_level = 0);
+void DumpGroup(CddlGroup* group, int indent_level = 0);
+void DumpSymbolTable(CddlSymbolTable* table);
 
 #endif  // TOOLS_CDDL_SEMA_H_
