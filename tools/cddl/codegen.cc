@@ -52,15 +52,21 @@ std::string CppTypeToString(const CppType& cpp_type) {
       return "uint64_t";
     case CppType::Which::kString:
       return "std::string";
-    case CppType::Which::kBytes:
-      return "std::vector<uint8_t>";
+    case CppType::Which::kBytes: {
+      if (cpp_type.bytes_type.has_fixed_size) {
+        std::string size_string = std::to_string(cpp_type.bytes_type.size);
+        return "std::array<uint8_t, " + size_string + ">";
+      } else {
+        return "std::vector<uint8_t>";
+      }
+    }
     case CppType::Which::kVector: {
       std::string element_string =
           CppTypeToString(*cpp_type.vector_type.element_type);
       if (element_string.empty())
         return std::string();
       return "std::vector<" + element_string + ">";
-    } break;
+    }
     case CppType::Which::kEnum:
       return ToCamelCase(cpp_type.name);
     case CppType::Which::kStruct:
@@ -350,11 +356,10 @@ bool WriteEncoder(int fd,
             dprintf(fd,
                     "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string("
                     "&encoder%d, \"%s\", sizeof(\"%s\") - 1));\n",
-                    encoder_depth, x.name.c_str(),
-                    x.name.c_str());
+                    encoder_depth, x.name.c_str(), x.name.c_str());
           }
-          if (!WriteEncoder(fd, name + "." + ToUnderscoreId(x.name),
-                            *x.type, nested_type_scope, encoder_depth)) {
+          if (!WriteEncoder(fd, name + "." + ToUnderscoreId(x.name), *x.type,
+                            nested_type_scope, encoder_depth)) {
             return false;
           }
         }
@@ -392,14 +397,14 @@ bool WriteEncoder(int fd,
       if (cpp_type.vector_type.min_length !=
           CppType::Vector::kMinLengthUnbounded) {
         dprintf(fd, "  if (%s.size() < %d) {\n", cid.c_str(),
-          cpp_type.vector_type.min_length);
+                cpp_type.vector_type.min_length);
         dprintf(fd, "    return -CborErrorTooFewItems;\n");
         dprintf(fd, "  }\n");
       }
       if (cpp_type.vector_type.max_length !=
           CppType::Vector::kMaxLengthUnbounded) {
         dprintf(fd, "  if (%s.size() > %d) {\n", cid.c_str(),
-          cpp_type.vector_type.max_length);
+                cpp_type.vector_type.max_length);
         dprintf(fd, "    return -CborErrorTooManyItems;\n");
         dprintf(fd, "  }\n");
       }
@@ -556,16 +561,15 @@ bool WriteMapEncoder(int fd,
       }
 
       if (x.integer_key.has_value()) {
-        dprintf(
-            fd,
-            "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, %" PRIu64
-            "));\n", encoder_depth, x.integer_key.value());
+        dprintf(fd,
+                "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, %" PRIu64
+                "));\n",
+                encoder_depth, x.integer_key.value());
       } else {
-        dprintf(
-            fd,
-            "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string(&encoder%d, "
-            "\"%s\", sizeof(\"%s\") - 1));\n",
-            encoder_depth, x.name.c_str(), x.name.c_str());
+        dprintf(fd,
+                "  CBOR_RETURN_ON_ERROR(cbor_encode_text_string(&encoder%d, "
+                "\"%s\", sizeof(\"%s\") - 1));\n",
+                encoder_depth, x.name.c_str(), x.name.c_str());
       }
       if (x.type->which == CppType::Which::kDiscriminatedUnion) {
         dprintf(fd, "  switch (%s.%s.which) {\n", fullname.c_str(),
@@ -844,8 +848,15 @@ bool WriteDecoder(int fd,
           "&length%d));\n",
           decoder_depth, temp_length);
       dprintf(fd, "  }\n");
-      dprintf(fd, "  %s%sresize(length%d);\n", name.c_str(),
-              member_accessor.c_str(), temp_length);
+      if (!cpp_type.bytes_type.has_fixed_size) {
+        dprintf(fd, "  %s%sresize(length%d);\n", name.c_str(),
+                member_accessor.c_str(), temp_length);
+      } else {
+        dprintf(fd, "  if (length%d != %d) {\n", temp_length,
+                static_cast<int>(cpp_type.bytes_type.size));
+        dprintf(fd, "    return -1;\n");
+        dprintf(fd, "  };\n");
+      }
       dprintf(fd,
               "  CBOR_RETURN_ON_ERROR(cbor_value_copy_byte_string(&it%d, "
               "const_cast<uint8_t*>(%s%sdata()), &length%d, nullptr));\n",
@@ -870,14 +881,14 @@ bool WriteDecoder(int fd,
       if (cpp_type.vector_type.min_length !=
           CppType::Vector::kMinLengthUnbounded) {
         dprintf(fd, "  if (it%d_length < %d) {\n", decoder_depth + 1,
-          cpp_type.vector_type.min_length);
+                cpp_type.vector_type.min_length);
         dprintf(fd, "    return -CborErrorTooFewItems;\n");
         dprintf(fd, "  }\n");
       }
       if (cpp_type.vector_type.max_length !=
           CppType::Vector::kMaxLengthUnbounded) {
         dprintf(fd, "  if (it%d_length > %d) {\n", decoder_depth + 1,
-          cpp_type.vector_type.max_length);
+                cpp_type.vector_type.max_length);
         dprintf(fd, "    return -CborErrorTooManyItems;\n");
         dprintf(fd, "  }\n");
       }
@@ -1057,7 +1068,8 @@ bool WriteMapDecoder(int fd,
       if (x.integer_key.has_value()) {
         dprintf(fd,
                 "  CBOR_RETURN_ON_ERROR(EXPECT_INT_KEY_CONSTANT(&it%d, %" PRIu64
-                "));\n", decoder_depth, x.integer_key.value());
+                "));\n",
+                decoder_depth, x.integer_key.value());
       } else {
         dprintf(fd,
                 "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
@@ -1077,7 +1089,8 @@ bool WriteMapDecoder(int fd,
       if (x.integer_key.has_value()) {
         dprintf(fd,
                 "  CBOR_RETURN_ON_ERROR(EXPECT_INT_KEY_CONSTANT(&it%d, %" PRIu64
-                "));\n", decoder_depth, x.integer_key.value());
+                "));\n",
+                decoder_depth, x.integer_key.value());
       } else {
         dprintf(fd,
                 "  CBOR_RETURN_ON_ERROR(EXPECT_KEY_CONSTANT(&it%d, \"%s\"));\n",
@@ -1236,6 +1249,7 @@ bool WriteHeaderPrologue(int fd, const std::string& header_filename) {
       R"(#ifndef %s
 #define %s
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <vector>
