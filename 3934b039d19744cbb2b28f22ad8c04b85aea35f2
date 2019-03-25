@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aae3ec3_a0c1ae13",
+        "filename": "BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-25T20:59:33Z",
+      "side": 1,
+      "message": "nit:\n\nconfig(\"root_config_overrides\") {\n  if (build_with_chromium) {\n    include_dirs \u003d [ \".\" ]\n  }\n}",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d3a0eb_97f4e451",
+        "filename": "BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-25T20:59:33Z",
+      "side": 1,
+      "message": "It seems like we should always define \"unittests\", regardless of what combination of build flags are being used. The unittests from each subdir can decide which tests to include/exclude based on the impls being built.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 3
+      },
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
