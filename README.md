@@ -164,3 +164,12 @@ commit with the correct Change-Id:
 where '4' means that you want to squash three additional commits onto an
 existing commit that has been uploaded for review.
 
+## Chromium Build Differences
+
+Currently, openscreen is also built in Chromium, with some build differences.
+The files that are built are determined by the `build_with_chromium` variable
+that comes from `//build_overrides/build.gni`.  There are two other variables,
+that are themselves determined by `build_with_chromium`: `use_mdns_responder`
+and `use_chromium_quic`.  These control whether the default mDNSResponder mDNS
+implementation and Chromium QUIC implementation clone are used, respectively.
+These are set by `//build/config/services.gni`.
