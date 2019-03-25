@@ -12,8 +12,8 @@
 #include <utility>
 #include <vector>
 
-#include "tools/cddl/parse.h"
 #include "third_party/abseil/src/absl/types/optional.h"
+#include "tools/cddl/parse.h"
 
 struct CddlGroup;
 
@@ -29,6 +29,25 @@ struct CddlType {
     kGroupChoice,
     kGroupnameChoice,
     kTaggedType,
+  };
+  enum class Op {
+    kNone,            // not specified
+    kInclusiveRange,  // ..
+    kExclusiveRange,  // ...
+    kSize,            // .size
+    kBits,            // .bits
+    kRegexp,          // .regexp
+    kCbor,            // .cbor
+    kCborseq,         // .cborseq
+    kWithin,          //.within
+    kAnd,             //.and
+    kLess,            //.lt
+    kLessOrEqual,     //.lt
+    kGreater,         //.gt
+    kGreaterOrEqual,  //.ge
+    kEqual,           //.eq
+    kNotEqual,        //.ne
+    kDefault,         //.default
   };
   struct TaggedType {
     uint64_t tag_value;
@@ -60,6 +79,9 @@ struct CddlType {
     CddlGroup* group_choice;
     TaggedType tagged_type;
   };
+
+  Op op;
+  CddlType* constraint_type;
 };
 
 // Represets a group defined in CDDL.
@@ -101,9 +123,7 @@ struct CddlGroup {
       CddlGroup* group;
     };
 
-    bool HasOccurrenceOperator() const {
-      return occurrence_specified;
-    }
+    bool HasOccurrenceOperator() const { return occurrence_specified; }
   };
 
   std::vector<std::unique_ptr<Entry>> entries;
@@ -208,6 +228,11 @@ struct CppType {
     std::vector<CppType*> members;
   };
 
+  struct Bytes {
+    bool has_fixed_size;
+    size_t size;
+  };
+
   struct TaggedType {
     uint64_t tag;
     CppType* real_type;
@@ -220,6 +245,7 @@ struct CppType {
   void InitEnum();
   void InitStruct();
   void InitDiscriminatedUnion();
+  void InitBytes();
 
   Which which = Which::kUninitialized;
   std::string name;
@@ -229,6 +255,7 @@ struct CppType {
     Struct struct_type;
     CppType* optional_type;
     DiscriminatedUnion discriminated_union;
+    Bytes bytes_type;
     TaggedType tagged_type;
   };
 };
