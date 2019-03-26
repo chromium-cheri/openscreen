@@ -32,11 +32,15 @@ source_set("platform") {
       "chromium/network_interface.cc",
       "chromium/socket.cc",
       "chromium/socket.h",
+      "chromium/task_runner_impl.cc",
+      "chromium/task_runner_impl.h",
       "chromium/time.cc",
     ]
   } else {  # !build_with_chromium
     sources += [
       "base/logging.cc",
+      "base/task_runner_impl.cc",
+      "base/task_runner_impl.h",
       "base/time.cc",
     ]
 
@@ -71,7 +75,10 @@ source_set("platform_unittests") {
   # The unit tests in base/ assume the standalone implementation is being used.
   # Exclude them if an embedder is providing the implementation.
   if (!build_with_chromium) {
-    sources += [ "base/time_unittest.cc" ]
+    sources += [
+      "base/task_runner_unittest.cc",
+      "base/time_unittest.cc",
+    ]
   }
 
   deps = [
