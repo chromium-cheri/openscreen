@@ -45,6 +45,210 @@
       "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7eee12a_8bd8c78d",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Nit: maybe turn this into a list of build flags, instead of paragraph form",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c3724c_63f25a8a",
+        "filename": "api/impl/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Nit: empty line before if statements",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27375cb8_f039d91f",
+        "filename": "build/config/services.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Nit: should be alphabetical, i.e. use_chromium_quic first. PRESUBMIT doesn\u0027t care?",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a939a6c6_0d4862e9",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Is the TODO no longer relevant, or is it completed?",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac9188f2_6d3e7a39",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "We don\u0027t need socket.cc, time.cc, and network_interface.cc here anymore?",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ec6eccb_88070930",
+        "filename": "platform/base/event_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Don\u0027t we always prefix as std::size_t?",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e461f1_a95d1289",
+        "filename": "platform/chromium/logging.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Consider moving the switch into a separate, anonymous method, e.g.\n\n    ::logging::LogSeverity GetSeverityFromLogLevel(LogLevel level);\n\nThen you can return the severity, skip the break statements, and make LogWithLevel specifically concerned with logging.",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4102c18f_b53ae3c8",
+        "filename": "third_party/googletest/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Just curious about order, should the groups be organized alphabetically? e.g. gmock, gtest, then gtest_main.",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0963075_6c088920",
+        "filename": "third_party/tinycbor/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Nit: can we stuff the path into a variable, e.g. something like this?\n\n    config_path \u003d \"//build/config\"\n    if (build_with_chromium) {\n        config_path +\u003d \"/gcc\"\n    }\n\n    configs -\u003d [ \"$config_path:symbol_visibility_hidden\" ]\n    configs +\u003d [ \"$config_path:symbol_visibility_default\" ]\n\nAlso, can we safely assume that the config will always work on clang? It is gcc, after all.",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae1595e_d196d6e3",
+        "filename": "tools/cddl/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "What do we need this for? It\u0027s kind of unusual, can you comment on it?",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d117c31c_041a8e4a",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Remove erroneous second colon.",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11e76984_53ba5351",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:05:16Z",
+      "side": 1,
+      "message": "Did we change our clang format rules? This is interesting.",
+      "revId": "3934b039d19744cbb2b28f22ad8c04b85aea35f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
