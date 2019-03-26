@@ -79,16 +79,16 @@ class UrlAvailabilityRequesterTest : public Test {
   void ExpectStreamMessage(MockMessageCallback* mock_callback,
                            msgs::PresentationUrlAvailabilityRequest* request) {
     EXPECT_CALL(*mock_callback, OnStreamMessage(_, _, _, _, _, _))
-        .WillOnce(Invoke(
-            [request](uint64_t endpoint_id, uint64_t cid,
-                      msgs::Type message_type, const uint8_t* buffer,
-                      size_t buffer_size, platform::Clock::time_point now) {
-              ssize_t request_result_size =
-                  msgs::DecodePresentationUrlAvailabilityRequest(
-                      buffer, buffer_size, request);
-              OSP_DCHECK_GT(request_result_size, 0);
-              return request_result_size;
-            }));
+        .WillOnce(Invoke([request](uint64_t endpoint_id, uint64_t cid,
+                                   msgs::Type message_type,
+                                   const uint8_t* buffer, size_t buffer_size,
+                                   platform::Clock::time_point now) {
+          ssize_t request_result_size =
+              msgs::DecodePresentationUrlAvailabilityRequest(
+                  buffer, buffer_size, request);
+          OSP_DCHECK_GT(request_result_size, 0);
+          return request_result_size;
+        }));
   }
 
   void SendAvailabilityResponse(
