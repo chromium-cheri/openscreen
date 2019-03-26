@@ -84,14 +84,14 @@ class ControllerTest : public ::testing::Test {
       MockMessageCallback* mock_callback,
       msgs::PresentationUrlAvailabilityRequest* request) {
     EXPECT_CALL(*mock_callback, OnStreamMessage(_, _, _, _, _, _))
-        .WillOnce(Invoke(
-            [request](uint64_t endpoint_id, uint64_t cid,
-                      msgs::Type message_type, const uint8_t* buffer,
-                      size_t buffer_size, platform::Clock::time_point now) {
-              ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
-                  buffer, buffer_size, request);
-              return result;
-            }));
+        .WillOnce(Invoke([request](uint64_t endpoint_id, uint64_t cid,
+                                   msgs::Type message_type,
+                                   const uint8_t* buffer, size_t buffer_size,
+                                   platform::Clock::time_point now) {
+          ssize_t result = msgs::DecodePresentationUrlAvailabilityRequest(
+              buffer, buffer_size, request);
+          return result;
+        }));
   }
 
   void SendAvailabilityResponse(
