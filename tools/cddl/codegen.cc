@@ -52,8 +52,14 @@ std::string CppTypeToString(const CppType& cpp_type) {
       return "uint64_t";
     case CppType::Which::kString:
       return "std::string";
-    case CppType::Which::kBytes:
-      return "std::vector<uint8_t>";
+    case CppType::Which::kBytes: {
+      if (cpp_type.bytes_type.has_fixed_size) {
+        std::string size_string = std::to_string(cpp_type.bytes_type.size);
+        return "std::array<uint8_t, " + size_string + ">";
+      } else {
+        return "std::vector<uint8_t>";
+      }
+    }
     case CppType::Which::kVector: {
       std::string element_string =
           CppTypeToString(*cpp_type.vector_type.element_type);
@@ -842,8 +848,18 @@ bool WriteDecoder(int fd,
           "&length%d));\n",
           decoder_depth, temp_length);
       dprintf(fd, "  }\n");
-      dprintf(fd, "  %s%sresize(length%d);\n", name.c_str(),
-              member_accessor.c_str(), temp_length);
+      if (!cpp_type.bytes_type.has_fixed_size) {
+        dprintf(fd, "  %s%sresize(length%d);\n", name.c_str(),
+                member_accessor.c_str(), temp_length);
+      } else {
+        dprintf(fd, "  if (length%d < %d) {\n", temp_length,
+                static_cast<int>(cpp_type.bytes_type.size));
+        dprintf(fd, "    return -CborErrorTooFewItems;\n");
+        dprintf(fd, "  } else if (length%d > %d) {\n", temp_length,
+                static_cast<int>(cpp_type.bytes_type.size));
+        dprintf(fd, "    return -CborErrorTooManyItems;\n");
+        dprintf(fd, "  }\n");
+      }
       dprintf(fd,
               "  CBOR_RETURN_ON_ERROR(cbor_value_copy_byte_string(&it%d, "
               "const_cast<uint8_t*>(%s%sdata()), &length%d, nullptr));\n",
@@ -1236,6 +1252,7 @@ bool WriteHeaderPrologue(int fd, const std::string& header_filename) {
       R"(#ifndef %s
 #define %s
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <vector>
