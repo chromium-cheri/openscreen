@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "96a4014b_4530309b",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:28:50Z",
+      "side": 1,
+      "message": "Can you do some early returns to push code left?\n\nif (!type2-\u003esibling) {\n  return analyzed_type;\n}\nif (type2-\u003esibling-\u003etype \u003d\u003d AstNode::Type::kRangeop) {\n  // TODO\n  return ???;\n}\nif (type2-\u003esibling-\u003etype \u003d\u003d AstNode::Type::kCtlop) {\n  ...\n  if (!ctlop-\u003echildren) {\n    return ???;\n  }\n  const AstNode* ctlop_id \u003d ctlop-\u003echildren;\n  ...\n}",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a267f84e_4e8ed1b4",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 9
@@ -19,6 +36,137 @@
         "endLine": 193,
         "endChar": 56
       },
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32876569_83205eb0",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:28:50Z",
+      "side": 1,
+      "message": "Why not just \"op \u003d \"?  \"ctlop\" seems like an ugly name.",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffc5a040_e0fa1431",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:28:50Z",
+      "side": 1,
+      "message": "Why not make a const ref to ctlop-\u003echildren-\u003etext?  Would make the code below a bit shorter.\n\nActually a OpFromString function might be nice here so you could just do\n\nanalyzed_type-\u003eop \u003d OpFromString(ctlop-\u003echildren-\u003etext);",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e6b0041_9c69fe23",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:28:50Z",
+      "side": 1,
+      "message": "I\u0027m guessing we don\u0027t need this.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 7
+      },
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4216142_48865800",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:28:50Z",
+      "side": 1,
+      "message": "Maybe we should run clang format in a separate CL to clean up the diffs (one for clang format and one for the real changes).",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 594,
+        "endChar": 60
+      },
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5d309f4_db66c905",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:28:50Z",
+      "side": 1,
+      "message": "Should we handle the failure case?",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8138892e_e5a4ed58",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:28:50Z",
+      "side": 1,
+      "message": "nit: some of these are \"// .\" and some are \"//.\".  Could you pick one?  I prefer \"// .\".",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d0daad_1356887e",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:28:50Z",
+      "side": 1,
+      "message": "Would an \"optional\u003csize_t\u003e\" size make sense here?",
       "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
