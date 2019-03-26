@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "ba1c4de8_c961ec7a",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T19:14:01Z",
+      "side": 1,
+      "message": "If the only place in our code where we will need this is here, then I\u0027d prefer leaving it here (as sort of a hack when using mDNSResponder).  But if we think we might need it in other places, then it would make sense to pull it into a reusable function.",
+      "parentUuid": "3352be3a_c01fe180",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a3bbed8_ad983677",
         "filename": "platform/api/time.h",
         "patchSetId": 5
@@ -47,6 +65,24 @@
       "writtenOn": "2019-03-26T18:27:36Z",
       "side": 1,
       "message": "Are all of these used? I see duration, time_point used but not rep or period.",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f32af465_8f9dae7f",
+        "filename": "platform/api/time.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T19:14:01Z",
+      "side": 1,
+      "message": "+1\n\nDo you have plans for using those in future CLs?",
+      "parentUuid": "4a3bbed8_ad983677",
       "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
