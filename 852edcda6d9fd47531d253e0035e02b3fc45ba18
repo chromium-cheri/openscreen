@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22c95434_65e27524",
+        "filename": "streaming/cast/clock_drift_smoother.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:28:27Z",
+      "side": 1,
+      "message": "Alright, so elapsed_ticks is the number of ticks that have occured since Update was last called, then weight is ticks/(ticks + some passed in constant), so presumably ranges from 0 to 1, and the time constant is inversely correlated to weight.\n\nFinally, we take that weight, multiply it by some offset, then add it to some estimated_tick_offset? Looks like we are trying to guess the clock drift using the time constant to determine how our estimate decays?\n\nI\u0027d love a comment here explaining the logic.",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5b43ddf_86851425",
+        "filename": "streaming/cast/clock_drift_smoother.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:28:27Z",
+      "side": 1,
+      "message": "Do we actually need this in the cpp? It\u0027s declared and set in the header, I don\u0027t understand why we need it here.",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15b0c076_b75e7dca",
+        "filename": "streaming/cast/clock_drift_smoother.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:28:27Z",
+      "side": 1,
+      "message": "Can we organize alphabetically or something?",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b31242_377e7ec1",
+        "filename": "streaming/cast/constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:28:27Z",
+      "side": 1,
+      "message": "Thanks for taking this out of an enum, that was pretty gross.",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f755e18_d82389b8",
+        "filename": "streaming/cast/constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:28:27Z",
+      "side": 1,
+      "message": "consider using a std::ratio, although this works just fine.",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc222e6_7be80c90",
+        "filename": "streaming/cast/encoded_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:28:27Z",
+      "side": 1,
+      "message": "If we don\u0027t declare the values (hence no negatives), why not uint8_t? Also, why not an enum class?",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba29b5db_2ab5c33f",
+        "filename": "streaming/cast/rtp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:28:27Z",
+      "side": 1,
+      "message": "Value of static_assert versus OSP_CHECK?",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee2ab8b_5b21c0ad",
+        "filename": "streaming/cast/rtp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:28:27Z",
+      "side": 1,
+      "message": "This seems odd, since we pass the double directory into Rep. Why doesn\u0027t Rep do the rounding, or get passed an integer type in this case?",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
