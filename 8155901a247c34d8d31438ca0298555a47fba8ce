@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1066ffe_404b8abc",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:58:09Z",
+      "side": 1,
+      "message": "Perhaps HasUniqueKeys?",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35bb5653_aef18329",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:58:09Z",
+      "side": 1,
+      "message": "You can do this with only one lookup:\n\nif(names.insert(x.name).second) {\n  return false;\n}",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c8f05a8_93f6e696",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:58:09Z",
+      "side": 1,
+      "message": "I don\u0027t think you need the has_value(), do you?  absl::optional overrides the bool operator.",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d21461_6a8f7d67",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:58:09Z",
+      "side": 1,
+      "message": "Maybe a \"std::unordered_set\u003cint\u003e keys\" would make sense.  Then you don\u0027t need the string conversion:\n\nif (x.integer_key \u0026\u0026 keys.insert(x.integer_key.value()).second) {\n  return false;\n}",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1338241_46b95570",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:58:09Z",
+      "side": 1,
+      "message": "Would a std::all_of(cpp_symbols.cpp_types... AreAllMapKeysUnique...) make sense here?  Might have a little line noise in it, though.",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
