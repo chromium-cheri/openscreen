@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37cd10e7_3207c619",
+        "filename": "api/impl/presentation/presentation_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T18:27:36Z",
+      "side": 1,
+      "message": "Any particular reason this is outside the namespace and the testing usings are inside? I would vote for consistency.",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3352be3a_c01fe180",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T18:27:36Z",
+      "side": 1,
+      "message": "This seems like we are making the mdns_responder_platform know too much about time here, though I\u0027m not sure it is worth pulling out--plus isn\u0027t the mDNSPlatformUTC just doing a duplicate overflow check since GetWallTimeSinceUnixEpoch does the same thing?",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3bbed8_ad983677",
+        "filename": "platform/api/time.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T18:27:36Z",
+      "side": 1,
+      "message": "Are all of these used? I see duration, time_point used but not rep or period.",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a8a359_f0a97923",
+        "filename": "platform/api/time_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T18:27:36Z",
+      "side": 1,
+      "message": "Why 2 milliseconds? Random selection? Or so that kSleepPeriod/2 is 1 millisecond?",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b99e7c_7c801843",
+        "filename": "platform/base/time.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T18:27:36Z",
+      "side": 1,
+      "message": "Suggestion: move the ternary to a separate line, so there\u0027s only one duration cast and it\u0027s broken up. This is just super dense IMHO.",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
