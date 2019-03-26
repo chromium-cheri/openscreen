@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "6eb5a6a9_1f0edd2b",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:48:01Z",
+      "side": 1,
+      "message": "I think you could use absl::StartsWith and be a little more readable, and perhaps string_view::substr().  Something like:\n\nauto orig \u003d absl::string_view(p-\u003edata);\nif (absl::StartsWith(orig, \"..\")) {\n  return AddNode(p, AstNode::Type::kRangeop, orig.substr(0, 2));\n} \nif (absl::StartsWith(orig, \"...\")) {\n  return AddNode(p, AstNode::Type::kRangeop, orig.substr(0, 3));\n} \nreturn nullptr;",
+      "revId": "c0fdccf40edf4665757cae93e0d66339dcced32e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "012dd206_2a199645",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 3
@@ -93,6 +110,23 @@
       "revId": "c0fdccf40edf4665757cae93e0d66339dcced32e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67ab59e4_34edb456",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-26T18:48:01Z",
+      "side": 1,
+      "message": "Again, perhaps something like:\n\nauto orig \u003d absl::string_view(p-\u003edata);\nif (!absl::StartsWith(orig, \".\")) {\n  return nullptr;\n}\naudo id \u003d orig.substr(1);\n...\nreturn AddNode(p, AstNode::Type::kCtlop, orig.substr(0, 1), id);",
+      "revId": "c0fdccf40edf4665757cae93e0d66339dcced32e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
