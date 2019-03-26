@@ -1,0 +1,45 @@
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef PLATFORM_API_TASK_RUNNER_H_
+#define PLATFORM_API_TASK_RUNNER_H_
+
+#include <deque>
+#include <functional>
+#include <list>
+#include <memory>
+#include <utility>
+
+#include "platform/api/time.h"
+
+namespace openscreen {
+namespace platform {
+
+struct TaskId;
+
+class TaskRunner {
+ public:
+  using Task = std::function<void()>;
+
+  virtual ~TaskRunner() = default;
+
+  // Cancels a scheduled task with a specific task ID.
+  virtual void CancelTask(TaskId id) = 0;
+
+  // Takes a Task that should be run at the first convenient time.
+  virtual TaskId PostTask(Task task) = 0;
+
+  // Takes a Task that should be run no sooner than "delay" time from now. Note
+  // that we do not guarantee it will run precisely "delay" later, merely that
+  // it will run no sooner than "delay" time from now.
+  virtual TaskId PostTaskWithDelay(Task task, Clock::duration delay) = 0;
+};
+
+// Must be implemented by the platform or embedder.
+std::unique_ptr<TaskRunner> CreateTaskRunner();
+
+}  // namespace platform
+}  // namespace openscreen
+
+#endif  // PLATFORM_API_TASK_RUNNER_H_
