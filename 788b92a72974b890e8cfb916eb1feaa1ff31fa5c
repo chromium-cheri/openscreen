@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0bd9d332_20fbc929",
+        "filename": "api/impl/presentation/presentation_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-26T22:38:27Z",
+      "side": 1,
+      "message": "Moved inside the namespace.",
+      "parentUuid": "37cd10e7_3207c619",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3352be3a_c01fe180",
         "filename": "discovery/mdns/mdns_responder_platform.cc",
         "patchSetId": 5
@@ -51,6 +69,24 @@
       "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01800637_deceedbb",
+        "filename": "discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-26T22:38:27Z",
+      "side": 1,
+      "message": "This will be the only place in our code where we have to convert the monotonic clock into a 32-bit milliseconds value representation. Note that this code here is itself \"platform glue,\" in that it is only adapting our native time clock/representation to the data types used internally within mDNS.\n\nThe range adjustment here is just to prevent overflow bugs inherent within mDNS (which is third-party code).\n\nAs for duplicate logic in mDNSPlatformUTC(): It\u0027s the same overflow check, but different. Here, the mDNSs32 data type (a 32-bit signed int) will definitely cause the math to overflow in 2038. However, in platform/base/time.cc:GetWallTimeSinceUnixEpoch(), the std::time_t data type defines the limit. std::time_t can be *any* arithmetic type (signed or unsigned, 32-bit or 64-bit, or other). Note that we don\u0027t incur a run-time cost for any of this when DCHECKs are turned off. I\u0027ll add a little extra annotation in time.cc to make it clear *when* we are worried about the overflow there.",
+      "parentUuid": "ba1c4de8_c961ec7a",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "ed1ccef3_c62859cd",
+        "filename": "platform/api/time.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-26T22:38:27Z",
+      "side": 1,
+      "message": "These are all required for std::chrono clocks: https://en.cppreference.com/w/cpp/named_req/TrivialClock\n\nIn other words, some of the std::chrono templates may use them, so we should define them. I\u0027ll add a code comment to clarify this.",
+      "parentUuid": "f32af465_8f9dae7f",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00a8a359_f0a97923",
         "filename": "platform/api/time_unittest.cc",
         "patchSetId": 5
@@ -100,6 +154,24 @@
       "writtenOn": "2019-03-26T18:27:36Z",
       "side": 1,
       "message": "Why 2 milliseconds? Random selection? Or so that kSleepPeriod/2 is 1 millisecond?",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0f7a60_fcfba802",
+        "filename": "platform/api/time_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-26T22:38:27Z",
+      "side": 1,
+      "message": "It\u0027s arbitrary. Small enough so the test runs quickly, large enough so the clock has a very good chance to tick forward.",
+      "parentUuid": "00a8a359_f0a97923",
       "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -120,6 +192,24 @@
       "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19c28984_e9dcfaba",
+        "filename": "platform/base/time.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-26T22:38:27Z",
+      "side": 1,
+      "message": "The problems are:\n\n1. steady_clock::duration may not be the same type as high_resolution_clock::duration. So, the duration_cast has to be done on both, independently.\n\n2. clang-format did this. :)\n\nSolution: Replaced the ternary with \"if (can_use_steady_clock) { return A; } return B;\" Hopefully, the braces break things up more.",
+      "parentUuid": "f5b99e7c_7c801843",
+      "revId": "788b92a72974b890e8cfb916eb1feaa1ff31fa5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
