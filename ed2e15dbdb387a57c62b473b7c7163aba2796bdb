@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f083b57a_4a98c731",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-26T23:46:39Z",
+      "side": 1,
+      "message": "Changed the function to early-out on error conditions",
+      "parentUuid": "96a4014b_4530309b",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a267f84e_4e8ed1b4",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 9
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "bab7c895_3e355441",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-26T23:46:39Z",
+      "side": 1,
+      "message": "Added logging to stderr for all error cases in AnalyzeType1, AnalyzeCtlop and AnalyzeRangeop. Done with dprintf for consistency with the rest of the file.",
+      "parentUuid": "a267f84e_4e8ed1b4",
+      "range": {
+        "startLine": 193,
+        "startChar": 6,
+        "endLine": 193,
+        "endChar": 56
+      },
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32876569_83205eb0",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 9
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "a676a434_2abbb4de",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-26T23:46:39Z",
+      "side": 1,
+      "message": "I\u0027ve named it ctlop because it\u0027s called ctlop in CDDL grammar. Same reason why we have type1 and type2 names and methods called AnalyzeType1, AnalyzeType2, etc. While working on CDDL tool I\u0027ve come to the conclusion that this naming convention helps cross-referencing our parser and CDDL ABNF. Unless you feel strongly about this one, I\u0027d like to keep it named this way.",
+      "parentUuid": "32876569_83205eb0",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffc5a040_e0fa1431",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 9
@@ -73,6 +133,24 @@
       "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aadc257_7149dde1",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-26T23:46:39Z",
+      "side": 1,
+      "message": "Extracted handling of ctlop into its own AnalyzeCtlop function, same for rangeop -\u003e AnalyzeRangeop",
+      "parentUuid": "ffc5a040_e0fa1431",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "2ade6f99_5f314b0a",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-26T23:46:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e6b0041_9c69fe23",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 7
+      },
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4216142_48865800",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 9
@@ -119,6 +221,30 @@
       "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7069a683_3a31e252",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-26T23:46:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4216142_48865800",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 594,
+        "endChar": 60
+      },
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -171,6 +297,24 @@
       "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55bc1c7f_f7463a84",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-26T23:46:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8138892e_e5a4ed58",
+      "revId": "ed2e15dbdb387a57c62b473b7c7163aba2796bdb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
