@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c1489802_8655bcaa",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:35:58Z",
+      "side": 1,
+      "message": "What does 1 mean here? Since we are adding yet another return 1 statement, can we add a constant?",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1066ffe_404b8abc",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 3
@@ -81,6 +98,24 @@
       "writtenOn": "2019-03-26T18:58:09Z",
       "side": 1,
       "message": "Would a std::all_of(cpp_symbols.cpp_types... AreAllMapKeysUnique...) make sense here?  Might have a little line noise in it, though.",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa0c1a5_9fede77c",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-26T20:35:58Z",
+      "side": 1,
+      "message": "+1\n\n    return std::all_of(cpp_symbols.cpp_types.cbegin(), cpp_symbols.cpp_types.cend(), HasUniqueKeys);\n\nLooks pretty good, IMO. Only downside is would have to change the signature of HasUniqueKeys.",
+      "parentUuid": "f1338241_46b95570",
       "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
