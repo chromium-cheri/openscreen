@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c1034fa_86ca5f11",
+        "filename": "api/public/endpoint_request_ids.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T01:00:58Z",
+      "side": 1,
+      "message": "Hmm... this is an interesting question about the scope of request IDs.  The only property we need of a request ID is that it can uniquely identify a response.  Request IDs being globally unique across all connections is fine, except that they will possibly take an extra byte on the wire since they have a larger value.  \n\nSo I\u0027m not sure if the extra complexity of tracking request IDs per endpoint is worth it.  \n\nAnd if we think it is, perhaps it is easier keep the last used request ID right next to the place where we store the outstanding requests (that haven\u0027t gotten a response yet).  Something like this (probably templatized by RequestT):\n\nstd::map\u003cuint64_t, RequestT*\u003e outstanding_request_by_id_;\nuint64_t next_request_id_ \u003d 1;\n\n\nWe\u0027ll need such a map to be per endpoint/connection anyway, so why not store those two types of data next to each other?",
+      "revId": "8bd36429faf811967e80235798d5444128c428a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
