@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "35f60c43_053534ad",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "This is all magic to me.  Can you write a comment explaining what it does and why we need it?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "342fcac0_6d28239a",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -47,6 +64,57 @@
       "writtenOn": "2019-03-20T22:45:38Z",
       "side": 1,
       "message": "Would it be simpler to declare a combined traits with members for the encoding, decoding and request functions?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb2b93ef_32d1a37b",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Where is MessageEncodingFunction defined?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee5f79e_27c2fed5",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "This seems rather complex.  Could we accomplish the same thing in a more simple way by defining an abstract class (interface) that\u0027s some kind of RequestMessageCoder\u003cRequestT, ResponseT\u003e with EncodeRequest and DecodeResponse methods?  Or perhaps encode and decode are just abstract methods of RequestResponseHandler that must be overridden?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f866571b_be67cace",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "This could use a comment explaining what its purpose is and how it should be used.",
       "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +155,397 @@
     },
     {
       "key": {
+        "uuid": "e64e4053_a758a5e6",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "A \"if (!connection_)\" with early return being first would be nice to push the main logic to the left.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ef260a_88eb5788",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "It seems like a RequestResponseHandler::GetNextRequestId() would make sense.  I see this big line of code more than once.\n\nOn the other hand, if you read my comment on the other CL, maybe we could do this differently in general.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5edd157c_dd23c675",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Could we change WriteMessage to just take an already-encoded message?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3435fdc_8ae2a844",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "queue_ could use a batter name.  Perhaps messages_to_send_ or just to_send_?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe6aa5d9_c2370418",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "We still put in sent_ even if it fails?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee18a7fd_30ffd6c7",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "An early return for non-response-type would push this to the left.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46de447e_daaeaad4",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Why doesn\u0027t checking msg.id work?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fadc33e_92830a6e",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "So the Decoder has to provide a request id?  If so, would it make it cleaner to not tie it to the \u0026response given by the Decoder and instead have it return 2 values (the response and the request id)?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db303ae3_fdded141",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "A more clear name might be RequestWithId",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef9aba30_84962f71",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "What does it mean for this to be unset?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98eef7a8_6d56024b",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Having this be \"RequestT request\" seems like it would be more readable.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3ea43d6_63816383",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Why struct instead of class?  Seems a better fit for class.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7e11a8a_c9b151e8",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "It seems like request.delegate would be better than request.request_delegate",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7c0e2b3_4067b743",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Is this a presentation::Connection::Delegate?  If so, it would have been more clear to call it so.  I wasn\u0027t sure what it was at first.  And perhaps (although it\u0027s verbose), presentation_connection_delegate.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cd45891_7588ab7e",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "I\u0027m imagining something like \n\nclass InitiationRequestResponseHandler : RequestResponseHandler\u003cInitiationRequest, InitiationResponse\u003e { \n\n  ... GetResponseType() override {\n    msgs::Type::kPresentationTerminationResponse;\n  }\n\n  ... EncodeRequest(...) override {\n    return msgs::EncodePresentationInitiationRequest(...);\n  }\n\n  ... DecodeResponse(...) override {\n    return msgs::DecodePresentationInitiationResponse(...);\n  }\n\n}\n\n\nIt may be a little more verbose in use, but it seems like it could be less complex to reason about.  And perhaps a macro or template on top of a simple structure would be a good way to make many of these together.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b308ba6b_be4655e3",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Should the caller have to provide the request ID?  Why not just have that filled in?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58ab99a_abe61fd1",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "What does Cancel mean if the message has already been sent?  Should this return some kind of error/status/bool indicating whether cancellation was possible?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7021ee93_80a9f218",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "No way to cancel a termination?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61ac7633_25ff223f",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Should we group the Initiation send/cancel/response/error methods and the terminate send/cancel/response/error methods together?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a1d78f_fbd99511",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "What\u0027s a \"stream request\" and not just \"presentation_connection_request\"?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8917f4c_65b19217",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Why isn\u0027t this called \"protocol_connection\"?  Why \"initiation stream\"?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00bd5d2b_3cbc4ff0",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "I don\u0027t understand what it is.  Could you explain it a little more?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fceeb6c9_c49335ec",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "This might be out of scope for this CL, but what happens when we have two connections to the same endpoint?  Do we treat that as one big connection, with it possible to receive responses on one connection from another.  That sounds interesting, but also complicated.  Would it make more sense to have message handling all scoped to a connection (even if we have multiple connections to the same endpoint)?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8eb082a_a4a9645d",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -98,6 +557,273 @@
       "writtenOn": "2019-03-20T22:45:38Z",
       "side": 1,
       "message": "It seems like MessageGroupStreams has two jobs:\n(1) Create a ProtocolConnection when necessary\n(2) Hold pointers to various message handlers and call them when necessary\n\nISTM the functionality for #1 could be pushed into RequestResponseHandler; when a request to write a message is received, it will attempt to connect the protocol connection (while queueing the message in the interim).\n\nFor #2, maybe that could be done directly in PresentationController?\n\nAnyway, I\u0027m proposing that removing the extra layer introduced by MessageGroupStreams would result in simpler code overall, but happy to hear your thoughts on it.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0757cda_5065db3d",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Could you do the error case first to get an early return and push the non-error path to the left?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "202fff8a_083bcb26",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "I think we need to change this to key/value pairs.  But in any case, setting it to nothing probably shouldn\u0027t be a necessary step, so we could probably remove this line.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fafaab9_b575cb1f",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Probably out of scope for this CL, but why could we use an absl::optional to make it not required to set the has_connection_id?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b66328_4441206f",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Some local variables like \"bool foo \u003d false\" would make it more clear what false means here.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2412f7c2_983fa33d",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Can I make a blanket \"please use {}s\" for the whole CL?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1df19eca_3d8c64c6",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "I know it\u0027s verbose, but PresentationConnection instead of Connection everywhere here would make things much more clear.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c59c8733_7139e602",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "This would be more clear if it were called OpenPresentationConnection, and if it had a comment, and if the \"Connection connection\" below were \"PresentationConnection presentation_connection\", and if the ID were presentation_connection_id.\n\nI know it\u0027s verbose.  But keeping track of what is a protocol connection and what is a presentation connection is confusing otherwise.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b54ad1ad_0ecbbe7e",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Why is the variable \"stream\" here?  Shouldn\u0027t it be protocol_connection?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a2329c4_c67f1d19",
+        "filename": "api/impl/presentation/presentation_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "Should this be named protocol_connection?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0f5a914_72546e5b",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "\"Stream\" doesn\u0027t make sense to me.  Why not \"protocol_connection\"?",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dacaa6db_05836bbd",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "I think I mentioned before that connection-\u003epresentation_info() here would be a lot more clear.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7395d4d_ba1d2c79",
+        "filename": "api/public/presentation/presentation_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "I\u0027m confused by the name ParentDelegate.  I don\u0027t understand why we have two delegates (parent and not) and I don\u0027t know what \"parent\" means in this context.  Could you explain it with a comment?",
+      "range": {
+        "startLine": 92,
+        "startChar": 24,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13decd59_50c1e7e7",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "I was really confused by the name of MessageGroupStreams.  It seems like \n\n1.  We should have a name that reflects the idea of it representing a particular Receiver, or how to controller a Receiver.  Perhaps something like Controller::Receiver, or ReceiverProxy.\n\n2.  This should be called receiver_by_id_.\n\n3.  We need to make it clear in a comment with blinking lights or something that we are assuming we will only ever have one connection to a given receiver, so we have receiver_by_id_ instead of connection_by_id_.  Otherwise, we should rename the thing to ReceiverConnection and have this be connection_by_id_.\n\n\nBut we already have an object called Receiver.  So maybe there\u0027s something I\u0027m missing.  I feel like I need a diagram to understand all the moving parts here.",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded5b86d_d34ba3c8",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "This would be more clear, I think, if it were PresentationTerminationListener and presentation_termination_listener_by_id_",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 27
+      },
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e081b3d3_a4ff2de7",
+        "filename": "demo/demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-27T04:55:23Z",
+      "side": 1,
+      "message": "\"url \u003d line.substr(split_index, next_split - split_index)\" here would be nice.",
       "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
