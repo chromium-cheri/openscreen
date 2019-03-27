@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4035bbc7_9294096c",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-27T22:49:49Z",
+      "side": 1,
+      "message": "I\u0027m quite certain that this is the same clang-format I\u0027ve merged with a separate change. Could you please rebase to the head of the master?\n\nThis should do the trick and only keep relevant changes in the CL:\n\ngit rebase master\ngit cl upload",
+      "revId": "37f81414ca26b536305d4300078fc475b26abb28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c38595fc_f91ab811",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-03-27T22:49:49Z",
+      "side": 1,
+      "message": "optional has overloaded cast to bool operator, you should be able to use member.integer_key directly instead of has_int_key:\n\nstd::string int_key_string \u003d member.integer_key ? std::to_string(member.integer_key.value()) : \"\";",
+      "range": {
+        "startLine": 703,
+        "startChar": 2,
+        "endLine": 705,
+        "endChar": 68
+      },
+      "revId": "37f81414ca26b536305d4300078fc475b26abb28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
