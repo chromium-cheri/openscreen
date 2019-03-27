@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9d2e49f1_a3d2f909",
+        "filename": "streaming/cast/clock_drift_smoother.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-27T00:14:19Z",
+      "side": 1,
+      "message": "The class comments mention an IIR filter is applied. So, if you want the fine-grained details, Wikipedia would be a good source for that.\n\nFor the code here, I added a localized code comment explaining the behavior/outcome being accomplished.",
+      "parentUuid": "22c95434_65e27524",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5b43ddf_86851425",
         "filename": "streaming/cast/clock_drift_smoother.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7540390b_46d1b67a",
+        "filename": "streaming/cast/clock_drift_smoother.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-27T00:14:19Z",
+      "side": 1,
+      "message": "I did this out of habit. There was an issue in earlier toolchains (not sure if it still exists) where the compilers for some platforms required this. I just removed it, and it compiles just fine on Clang. Let\u0027s roll the dice and hope it\u0027s no longer an issue.",
+      "parentUuid": "a5b43ddf_86851425",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15b0c076_b75e7dca",
         "filename": "streaming/cast/clock_drift_smoother.h",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-03-26T20:28:27Z",
       "side": 1,
       "message": "Can we organize alphabetically or something?",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03123d3b_b2402082",
+        "filename": "streaming/cast/clock_drift_smoother.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-27T00:14:19Z",
+      "side": 1,
+      "message": "I took your question to mean \"organize this better,\" since we generally don\u0027t enforce any alphabetical constraints on the order of members. :) PTAL.",
+      "parentUuid": "15b0c076_b75e7dca",
       "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "c6295899_ae44edab",
+        "filename": "streaming/cast/constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-27T00:14:19Z",
+      "side": 1,
+      "message": "The original code was written before C++11 was available. :)",
+      "parentUuid": "f4b31242_377e7ec1",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f755e18_d82389b8",
         "filename": "streaming/cast/constants.h",
         "patchSetId": 2
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fd501af3_a6ed18c8",
+        "filename": "streaming/cast/constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-27T00:14:19Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "2f755e18_d82389b8",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fc222e6_7be80c90",
         "filename": "streaming/cast/encoded_frame.h",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2019-03-26T20:28:27Z",
       "side": 1,
       "message": "If we don\u0027t declare the values (hence no negatives), why not uint8_t? Also, why not an enum class?",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b27e5547_765860c0",
+        "filename": "streaming/cast/encoded_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-27T00:14:19Z",
+      "side": 1,
+      "message": "int8_t vs uint8_t: Doesn\u0027t matter, right? We just need something that provides the range the compiler will use when it auto-assigns values.\n\nWhy not an enum class: Too much verbosity when using the types, poor readability. Compare:\n\n  EncodedFrame::DEPENDENT\n\nversus:\n\n  EncodedFrame::Dependency::DEPENDENT\n\nThe latter has an obvious, large redundancy, and there is lots of code than will run into the 80-col limit and need to be wrapped. So, the longer form is far less desirable.",
+      "parentUuid": "2fc222e6_7be80c90",
       "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "3da8b7a0_20ab323d",
+        "filename": "streaming/cast/rtp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-27T00:14:19Z",
+      "side": 1,
+      "message": "static_assert is evaluated at compile time. OSP_CHECK is evaluated at run time.",
+      "parentUuid": "ba29b5db_2ab5c33f",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ee2ab8b_5b21c0ad",
         "filename": "streaming/cast/rtp_time.h",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d620330_9fdf624d",
+        "filename": "streaming/cast/rtp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-27T00:14:19Z",
+      "side": 1,
+      "message": "Rep is a POD (e.g., int64_t, double, or whatever), and so the compiler is just going to do implicit type casting. So, if Rep is an int64_t and ticks is a double, this code is the same as:\n\n  return int64_t(ticks);\n\n...which is just going to truncate to the integer part of ticks (no rounding). If we want rounding, we have to do it ourselves.\n\nIf your question is about duration_cast\u003c\u003e, the C++ spec defined that the same way: It doesn\u0027t round values when converting, it just truncates (rounds towards zero). The chrono rounding code we\u0027d really like to have isn\u0027t available until C++17: https://en.cppreference.com/w/cpp/chrono/duration/round",
+      "parentUuid": "3ee2ab8b_5b21c0ad",
+      "revId": "852edcda6d9fd47531d253e0035e02b3fc45ba18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
