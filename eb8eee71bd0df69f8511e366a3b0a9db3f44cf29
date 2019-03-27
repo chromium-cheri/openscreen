@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea3f85f2_87180200",
+        "filename": "api/impl/testing/fake_clock.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:03:03Z",
+      "side": 1,
+      "message": "Does this need to be a singleton?  The issue that arises is that if a test suite fails to re-initialize an existing FakeClock and inherits one with unknown state, then the test will fail in a possibly-flaky and hard to debug way.\n\nIf there\u0027s a use case to re-use a FakeClock across tests (versus enforcing explicit set-up and tear-down) happy to hear it.",
+      "revId": "eb8eee71bd0df69f8511e366a3b0a9db3f44cf29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e6b76f_6b4f8d81",
+        "filename": "api/impl/testing/fake_clock.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:03:03Z",
+      "side": 1,
+      "message": "Would it be possible for there to be a ctor overload that takes a std::chrono::duration, to save some typing where FakeClock is instantiated?",
+      "revId": "eb8eee71bd0df69f8511e366a3b0a9db3f44cf29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a358d737_49517227",
+        "filename": "api/impl/testing/fake_clock.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:03:03Z",
+      "side": 1,
+      "message": "IIUC, platform::Clock::time_point is a template instantiation of std::chrono::time_point with platform::Clock.\n\nSo I wonder if operators on the time_point returned here will use the implementation provided by platform::Clock or the implementation provided by FakeClock.  Or they may not use that template parameter at all, in which case this point is moot.",
+      "revId": "eb8eee71bd0df69f8511e366a3b0a9db3f44cf29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae84b79c_6dc7857a",
+        "filename": "platform/api/time.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:03:03Z",
+      "side": 1,
+      "message": "I believe (in principle) it should be possible to support millisecond resolution across platforms for the system clock.  At least POSIX requires microsecond resolution and Windows seems to support millisecond resolution.\n\nWhy do we care?  Well, if we want to timestamp logs, we probably want to be able to show millisecond resolution timestamps, rather than grouping a bunch of messages together at second resolution.\n\nNot a big deal ATM - something we can address when there\u0027s a need for a higher resolution system clock.",
+      "revId": "eb8eee71bd0df69f8511e366a3b0a9db3f44cf29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e29fdbc_b62eccef",
+        "filename": "platform/base/time.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:03:03Z",
+      "side": 1,
+      "message": "I really can\u0027t imagine a reasonable platform with a 32-bit time_t, but who knows :-)",
+      "revId": "eb8eee71bd0df69f8511e366a3b0a9db3f44cf29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
