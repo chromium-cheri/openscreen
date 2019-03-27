@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "4db59a6c_76a8c46c",
+        "filename": "api/impl/testing/fake_clock.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:57:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d6ecb1b_f683fa52",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9976e982_7fdfc58c",
         "filename": "api/impl/testing/fake_clock.h",
         "patchSetId": 2
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "This pointer is not being used to \"own\" the object. It is being used to ensure there is only ever one instance, and to assert that this \u003d\u003d instance_. Also, a FakeClock instance is not meant to live for the life of the process, just within the scope of one test case.\n\nSide note: It\u0027s also Chromium style to avoid using singleton objects (e.g., the Instance() pattern) unless absolutely necessary. Since Open Screen is a library meant to be used for a wide range of embedders, I feel we need to be even more careful about never introducing any infinitely-lived objects.\n\nChromium discussions: https://www.chromium.org/developers/coding-style/important-abstractions-and-data-structures#TOC-Singleton-base::LazyInstance and http://neugierig.org/software/chromium/notes/2011/08/static-initializers.html.\n\nExternal discussion: http://www.object-oriented-security.org/lets-argue/singletons",
       "parentUuid": "9976e982_7fdfc58c",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8975e04_5e65b5b9",
+        "filename": "api/impl/testing/fake_clock.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:57:01Z",
+      "side": 1,
+      "message": "OK, this addresses my later question about singletons; this member is used to enforce a singleton, but it\u0027s short-lived.\n\nHowever when a static pointer is seen, it\u0027s most often for long-lived singletons.  This declaration probably deserves a clarifying comment. \n\nAlso, it might be useful to have a method to ensure that a test case has cleaned up its FakeClock, which could be checked in the test runner.",
+      "parentUuid": "c0e6d68e_afccbfdc",
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -423,6 +459,24 @@
     },
     {
       "key": {
+        "uuid": "2f500bbe_86d2b4d8",
+        "filename": "platform/api/time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:57:01Z",
+      "side": 1,
+      "message": "SGTM, sorry for any misunderstanding.",
+      "parentUuid": "0bc3a17a_f69f0cfd",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b235974_688a6ba7",
         "filename": "platform/api/time.h",
         "patchSetId": 2
@@ -557,6 +611,24 @@
       "side": 1,
       "message": "The 2nd part of the expression on L21 ensures the high-res clock must be steady as well. (Clang-formatting kind of hides that part of the expression in all this.)\n\nBTW--I\u0027ve updated this code with a comment to explain my assumptions here about which clock to prefer.",
       "parentUuid": "973f9510_b7102f1f",
+      "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0f377a4_4353dd6b",
+        "filename": "platform/base/time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-27T18:57:01Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "ba723075_250a6436",
       "revId": "bf71e92d2cf2ab41ffcfddda435feab4c7edbbef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
