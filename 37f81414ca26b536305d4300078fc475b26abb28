@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "33ac2169_1fe7695d",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-27T23:01:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4035bbc7_9294096c",
+      "revId": "37f81414ca26b536305d4300078fc475b26abb28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c38595fc_f91ab811",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2019-03-27T22:49:49Z",
       "side": 1,
       "message": "optional has overloaded cast to bool operator, you should be able to use member.integer_key directly instead of has_int_key:\n\nstd::string int_key_string \u003d member.integer_key ? std::to_string(member.integer_key.value()) : \"\";",
+      "range": {
+        "startLine": 703,
+        "startChar": 2,
+        "endLine": 705,
+        "endChar": 68
+      },
+      "revId": "37f81414ca26b536305d4300078fc475b26abb28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5bde641_2c596924",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-27T23:01:27Z",
+      "side": 1,
+      "message": "Peter mentioned this in a previous iteration\n\nTo summarize the comment there - while that is possible, I think explicitly calling has_value() is much clearer so I would prefer to leave it this way for readability purposes",
+      "parentUuid": "c38595fc_f91ab811",
       "range": {
         "startLine": 703,
         "startChar": 2,
