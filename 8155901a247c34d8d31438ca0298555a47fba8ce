@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "010cb963_09aa3727",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-27T22:28:30Z",
+      "side": 1,
+      "message": "Here, 1 is just so that the main method doesn\u0027t return 0 - by convention 0 is success and non-zero is error for a console application\n\nWe could define error codes, but it seems a bit extraneous given:\n- the logging CL is in progress\n- Understanding the error code would involve opening the code to figure out what the error code meant\n\nWithout the logging, I agree constants would be helpful. But both of the above together make it feel unnecessary to me. If you think it\u0027s important I am happy to add them, but that seems lim,e it should be a separate follow up CL instead of part of this one",
+      "parentUuid": "c1489802_8655bcaa",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1066ffe_404b8abc",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57ecb25c_359a1834",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-27T22:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1066ffe_404b8abc",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f8bb7739_ed6cb827",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-27T22:28:30Z",
+      "side": 1,
+      "message": "Cool - Updated to use this instead",
+      "parentUuid": "35bb5653_aef18329",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c8f05a8_93f6e696",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "e2fbfec1_096a4914",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-27T22:28:30Z",
+      "side": 1,
+      "message": "Looking through the abseil code, it does look like it isn\u0027t needed\n\nI still think it should be left in though - without the \u0027has_value()\u0027, my intuition about the code is that it\u0027s checking whether integer_key \u003d\u003d 0, which is incorrect - this seems much clearer",
+      "parentUuid": "3c8f05a8_93f6e696",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07d21461_6a8f7d67",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 3
@@ -81,6 +153,24 @@
       "writtenOn": "2019-03-26T18:58:09Z",
       "side": 1,
       "message": "Maybe a \"std::unordered_set\u003cint\u003e keys\" would make sense.  Then you don\u0027t need the string conversion:\n\nif (x.integer_key \u0026\u0026 keys.insert(x.integer_key.value()).second) {\n  return false;\n}",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a755ab_8d0db370",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-27T22:28:30Z",
+      "side": 1,
+      "message": "I\u0027m also trying to compare it against the string keys, so I need both the integer and string keys in a single set. There are a couple edge cases I am trying to protect against - Brandon has a comment in the previous iteration where we are discussing them all",
+      "parentUuid": "07d21461_6a8f7d67",
       "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -119,6 +209,24 @@
       "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9b1b14_9d0d072f",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-27T22:28:30Z",
+      "side": 1,
+      "message": "I was actually really disappointed when I thought C++ didn\u0027t have any commands like this - I was missing C#\u0027s LINQ magic. Definitely switching here and above!\n\nThe abseil version seems slightly cleaner though, so I\u0027m going to use that one instead",
+      "parentUuid": "6aa0c1a5_9fede77c",
+      "revId": "8155901a247c34d8d31438ca0298555a47fba8ce",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
