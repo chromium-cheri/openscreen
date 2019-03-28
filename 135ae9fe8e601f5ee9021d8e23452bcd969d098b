@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0caec0f_3861bfa3",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-28T23:09:05Z",
+      "side": 1,
+      "message": "we don\u0027t need to lock this far up. Move down to after the empty check for better perf",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 48
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e221a72_f26e4744",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-28T23:09:05Z",
+      "side": 1,
+      "message": "nit: Might be clearer as a for loop",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 3
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba5c4283_d5906b5c",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-28T23:09:05Z",
+      "side": 1,
+      "message": "It seems like we could call ScheduleDelayedTasks() on a separate thread instead of making the main Run loop wait on it",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 27
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77a0318e_017fcbeb",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-28T23:09:05Z",
+      "side": 1,
+      "message": "Add a NOTE here that setting a boolean is an atomic operation - might reduce confusion in future",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 18
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb57580e_2726d732",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-28T23:09:05Z",
+      "side": 1,
+      "message": "we probably want to lock the mutex before calling these since they are non-read operation",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 25
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d85ed30_fd3aa46b",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-28T23:09:05Z",
+      "side": 1,
+      "message": "I think we would get better perf by having separate mutexes for delayed_tasks_ and for tasks_. Thoughts?",
+      "range": {
+        "startLine": 71,
+        "startChar": 1,
+        "endLine": 71,
+        "endChar": 24
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2df754ec_bb326fc7",
+        "filename": "platform/base/task_runner_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-03-28T23:09:05Z",
+      "side": 1,
+      "message": "Add a test to throw 1000 items into the queue - just to make sure we don\u0027t hit deadlock/don\u0027t do concurrent writes/other bugs in parallelism we might have missed",
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
