@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fd4a2ed_b5469dbd",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-28T02:23:04Z",
+      "side": 1,
+      "message": "Key should at least be Keys, since it\u0027s plural.\n\nAnd shouldn\u0027t the first arg be \"keys\"?",
+      "revId": "2d11f71f7fb01a462368a8e54f77f8b92324faa8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b391444_6755de05",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-28T02:23:04Z",
+      "side": 1,
+      "message": "I guess this could be one line, then:\n\nreturn names-\u003einsert(member.name).second \u0026\u0026\n         (!member.integer_key.has_value() || names-\u003einsert(std::to_string(member.integer_key.value())).second);\n\nAnd you could just inline it below.",
+      "revId": "2d11f71f7fb01a462368a8e54f77f8b92324faa8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a8431ec_bf2baa5b",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-28T02:23:04Z",
+      "side": 1,
+      "message": "keys?",
+      "range": {
+        "startLine": 711,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 40
+      },
+      "revId": "2d11f71f7fb01a462368a8e54f77f8b92324faa8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
