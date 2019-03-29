@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8e86b624_ce792286",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T18:39:59Z",
+      "side": 1,
+      "message": "OK, there might be some APIs that could make these policies more explicit.  But not really related to this change.",
+      "parentUuid": "4b9a39a0_6785c7b4",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d891904_c962ad4a",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 3
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "db1875a0_cd0758b2",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T18:39:59Z",
+      "side": 1,
+      "message": "That could make sense.  We should probably resolve the spec issue before making the implementation more complicated here.  Can you add a TODO this behavior may change when the spec issue is resolved?  I filed https://crbug.com/openscreen/42 to link to the TODO.",
+      "parentUuid": "3238b722_6b490432",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "035e8d53_be5a1b4f",
         "filename": "api/impl/quic/quic_client.cc",
         "patchSetId": 3
@@ -86,6 +122,24 @@
       "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d8abcd2_52f16726",
+        "filename": "api/impl/quic/quic_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T18:39:59Z",
+      "side": 1,
+      "message": "Can you add the same TODO() here?",
+      "parentUuid": "035e8d53_be5a1b4f",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -135,6 +189,24 @@
       "side": 1,
       "message": "WDYT about a timeout with no active connections vs. making that part of our opening \"handshake/setup\" messages?",
       "parentUuid": "b4033d19_94e2b7f6",
+      "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae9c7899_23b82ff2",
+        "filename": "api/public/endpoint_request_ids.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T18:39:59Z",
+      "side": 1,
+      "message": "I think those are slightly independent?  If we sent the counter with the handshake, or derived it from the connection metadata in some way, we should be able to delete a counter on connection close.",
+      "parentUuid": "2dfdbfd8_6efccce3",
       "revId": "496db8e0190223797d7b8a37b1a2c8500602d29a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
