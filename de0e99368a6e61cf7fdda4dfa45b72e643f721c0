@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "97a820c9_8e6e196f",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-29T21:33:45Z",
+      "side": 1,
+      "message": "I\u0027d suggest a class-level comment describing the behavior of the runner. In particluar, to answer questions like:\n\n1. Will tasks only run from the same thread, or any thread?\n2. Can tasks run simultaneously, or are they guaranteed to never overlap in time/CPUs?\n3. If task A is posted before task B, is task A guaranteed to run and complete before task B is run?\n\nI think, for our purposes, the simplest solution would be to relax #1, but require #2 and #3 (to abate multithreading/race concerns, prevent the need for additional locking/thread-sync, etc.). This maps exactly to the same behavior as Chromium\u0027s base::SequencedTaskRunner (and that makes it an obvious choice for our use by our \"embedder glue.\")",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4aeb84d0_48df6424",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -36,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "8deedd26_4c0afe5c",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-29T21:33:45Z",
+      "side": 1,
+      "message": "Agree that we should \"invert\" this. Any app, whether Chromium as an embedder, or one of our standalone apps, should have to call a \"SetTaskRunner()\" before starting any streaming sessions, discovery, etc.\n\nThe main reason is that Chromium will already have a set of task runners instantiated for various purposes, such as \"main\" and \"I/O\" and \"blocking stuff;\" and it\u0027s preferred to use the existing ones instead of creating a separate one for each third-party library or product feature.",
+      "parentUuid": "920ea61c_a5608366",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1924b03_8928aa37",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 2
@@ -64,6 +105,29 @@
       "writtenOn": "2019-03-29T19:41:17Z",
       "side": 1,
       "message": "Nit: This could be inlined below.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6926d3b0_7a3bb005",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-29T21:33:45Z",
+      "side": 1,
+      "message": "Instead of calling Clock::now() directly, I recommend injecting the platform::ClockNowFunctionPtr via a TaskRunnerImpl ctor. This would allow unit tests to inject an alternative fake clock into this TaskRunnerImpl and drive things forward without having to wait for the real-world passage of time.\n\nExample of where we do this elsewhere in OpenScreen: L32 in api/impl/presentation/url_availability_requester.h",
+      "range": {
+        "startLine": 26,
+        "startChar": 37,
+        "endLine": 26,
+        "endChar": 49
+      },
       "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +185,52 @@
     },
     {
       "key": {
+        "uuid": "4019bd55_4fdf2aa6",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-29T21:33:45Z",
+      "side": 1,
+      "message": "Per my comment in the header file for RunUntilIdleForTesting(), I think we should leave the tasks in the queues. In other words, Quit() shouldn\u0027t be permanent, but just temporary, until whatever controls the TaskRunner decides to resume it. (Again, this is in-line with the Chromium task runner behavior, and is very useful when unit testing.)",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 25
+      },
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b61a56b_2f4111ee",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-29T21:33:45Z",
+      "side": 1,
+      "message": "nit: I believe Brandon\u0027s recent change simplifies the #include\u0027s for abseil. We might want to just start using that, for readability\u0027s sake.\n\nExample: https://chromium-review.googlesource.com/c/openscreen/+/1534469/7/base/ip_address.cc",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 54
+      },
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90702b8c_ae615353",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 2
@@ -132,6 +242,75 @@
       "writtenOn": "2019-03-29T19:41:17Z",
       "side": 1,
       "message": "Can this be done now?  It seems like the right CL to add this functionality.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bffac19_a380563f",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-29T21:33:45Z",
+      "side": 1,
+      "message": "For making the \"Chromium glue\" more straightforward, we might adopt their philosophy around handling task cancellations: Once a task is added to the task queue, it can never be removed and will eventually be run. Thus, in order to be able to cancel a task, the task itself must include a mechanism to \"cancel itself\" so that it becomes a no-op when run.\n\nIn Chromium, this is generally accomplished by binding a WeakPtr with a method call. The WeakPtr is made invalid, and when the task tries to dereference it to make a method call, it simply no-ops instead of calling the method.\n\nFor OpenScreen, I\u0027m not proposing [yet] that we add WeakPtrs and do the same. For example, we could always invent a simple \"cancellable std::function wrapper\" class. However, I *am* proposing that we not make the task runner responsible for handling cancellations.\n\nNote that, the common case is to expect every posted task will be run. The only need for cancellations is to interrupt the task flow of the system when performing a safe shutdown.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f08467f6_5763dfdd",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-29T21:33:45Z",
+      "side": 1,
+      "message": "We should clarify that this will run all pending tasks that can run now, but delayed tasks that are not ready to fire won\u0027t run yet. This matches the Chromium behavior (which is valuable to have for unit testing).",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bbf4dd3_0ca01856",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-03-29T21:33:45Z",
+      "side": 1,
+      "message": "Rather than expose this publicly just for the task runner unit tests, maybe we should just make the TaskRunnerTest class a private friend?",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 48
+      },
       "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
