@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9933deff_db0ef38e",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T00:24:16Z",
+      "side": 1,
+      "message": "Fair enough. Note: we have to recheck empty in case it changed while taking the lock (this has happened in testing already).",
+      "parentUuid": "f0caec0f_3861bfa3",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 48
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e221a72_f26e4744",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "df211a7a_99968a72",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T00:24:16Z",
+      "side": 1,
+      "message": "Tried it, look any better?",
+      "parentUuid": "4e221a72_f26e4744",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 3
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba5c4283_d5906b5c",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-03-28T23:09:05Z",
       "side": 1,
       "message": "It seems like we could call ScheduleDelayedTasks() on a separate thread instead of making the main Run loop wait on it",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 27
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53249b0d_c79adb90",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T00:24:16Z",
+      "side": 1,
+      "message": "I think you are right, though from talking to @miu I think we want to limit this to one thread?",
+      "parentUuid": "ba5c4283_d5906b5c",
       "range": {
         "startLine": 78,
         "startChar": 4,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "f69002c4_f9665a88",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T00:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77a0318e_017fcbeb",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 18
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb57580e_2726d732",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a3c84e_7221b9bd",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T00:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb57580e_2726d732",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 25
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "6237fd1d_13a0ad5b",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T00:24:16Z",
+      "side": 1,
+      "message": "I\u0027ve looked at it both ways, and don\u0027t have strong feelings about it. Pushing a new revision, let\u0027s see if it\u0027s better?",
+      "parentUuid": "6d85ed30_fd3aa46b",
+      "range": {
+        "startLine": 71,
+        "startChar": 1,
+        "endLine": 71,
+        "endChar": 24
+      },
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2df754ec_bb326fc7",
         "filename": "platform/base/task_runner_unittest.cc",
         "patchSetId": 1
@@ -154,6 +298,24 @@
       "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97603346_1439d477",
+        "filename": "platform/base/task_runner_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T00:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2df754ec_bb326fc7",
+      "revId": "135ae9fe8e601f5ee9021d8e23452bcd969d098b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
