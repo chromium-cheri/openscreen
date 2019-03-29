@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fdf7587_65f54bba",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-29T23:27:03Z",
+      "side": 1,
+      "message": "Since we\u0027re already checking has_value() here, I\u0027d just put the std::to_string() call here.  Furthermore, is there a reason to do the string conversion at all?  Why not just have a separate std::unordered_set\u003cuint64_t\u003e* int_keys?",
+      "range": {
+        "startLine": 707,
+        "startChar": 23,
+        "endLine": 707,
+        "endChar": 37
+      },
+      "revId": "1e37409fa199547f7621ed2d2300d51313068e80",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485b1213_82be5ade",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-29T23:27:03Z",
+      "side": 1,
+      "message": "style: cpp_symbols",
+      "range": {
+        "startLine": 243,
+        "startChar": 44,
+        "endLine": 243,
+        "endChar": 54
+      },
+      "revId": "1e37409fa199547f7621ed2d2300d51313068e80",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
