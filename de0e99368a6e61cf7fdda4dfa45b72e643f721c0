@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4aeb84d0_48df6424",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "Nit: Needs trailing period.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "920ea61c_a5608366",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "We should think about how Chromium would inject its TaskRunner implementation.  I don\u0027t think of Chromium as a \"platform\" the same way as POSIX or Mac.\n\nWe\u0027ll probably need a \"top\" API to allow the embedder to inject a TaskRunnerFactory when setting up the library.\n\nThis can be designed in later changes though.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1924b03_8928aa37",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "nit: Can you match declaration order in this file?",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faec439a_444c18d1",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "Nit: This could be inlined below.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "097cba18_721e8426",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "So this will run tasks_ in a separate thread.  But our library isn\u0027t threadsafe so anything that calls in/out of the embedder API (on the embedder\u0027s thread) will need to thread-hop.  I believe our consensus was to retain single-threading in the library.  \n\nI\u0027m not super familiar with std::thread to know if it offers scheduling primitives.  It looks like you can yield but not schedule.  WebRTC has an implementation that uses libevent for async scheduling or there may be pthread APIs to get a signal when the thread is available.  The question is how do we cooperatively schedule with the embedder.  Need to think about this a bit more.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60d013c8_62f9b14b",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct as std::queue is not threadsafe.  A task could be added by another thread concurrently.  I would recommend dropping this and always checking the queue guarded by task_mutex.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb5b32b_f96f4b5f",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "So this will be a busy loop while |tasks_| is empty?",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90702b8c_ae615353",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "Can this be done now?  It seems like the right CL to add this functionality.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da70cf7d_b519f496",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "Does this need to be atomic?",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f5b73b3_dde60bf7",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T19:41:17Z",
+      "side": 1,
+      "message": "These need a trailing underscore.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
