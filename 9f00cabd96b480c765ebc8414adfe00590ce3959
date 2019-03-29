@@ -409,6 +409,24 @@
     },
     {
       "key": {
+        "uuid": "1861f7ff_32ba529d",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-29T23:21:49Z",
+      "side": 1,
+      "message": "1. There\u0027s no reason the CddlGroup et. al. printing methods would have to be defined here.  It would just be like any other operator\u003c\u003c overload.\n\n2. I was thinking that OSP_LOG_* would just replace Logger::Log and Logger::Error.  It seems like the only benefit/difference here is that we keep the format string style of output.  Although I find that\u0027s easier to read for the code-gen output code, I\u0027m not sure it\u0027s justified for logging.",
+      "parentUuid": "1696a1f2_9c33ecc0",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30ae3fde_2a3d5709",
         "filename": "tools/cddl/logging.h",
         "patchSetId": 2
