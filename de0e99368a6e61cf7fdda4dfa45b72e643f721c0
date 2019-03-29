@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "ce4d91aa_25792eed",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aeb84d0_48df6424",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "920ea61c_a5608366",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -77,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "4edb3a63_e4d43dd7",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Sounds good to me. I\u0027ll change this comment, I see no reason we couldn\u0027t just have Chromium implement CreateTaskRunner, unless a Factory class is cleaner/better standard.",
+      "parentUuid": "920ea61c_a5608366",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1924b03_8928aa37",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 2
@@ -91,6 +127,24 @@
       "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb9327e6_831c5bb8",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1924b03_8928aa37",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +188,24 @@
     },
     {
       "key": {
+        "uuid": "769f46f9_6a4abca3",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faec439a_444c18d1",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "097cba18_721e8426",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 2
@@ -145,6 +217,24 @@
       "writtenOn": "2019-03-29T19:41:17Z",
       "side": 1,
       "message": "So this will run tasks_ in a separate thread.  But our library isn\u0027t threadsafe so anything that calls in/out of the embedder API (on the embedder\u0027s thread) will need to thread-hop.  I believe our consensus was to retain single-threading in the library.  \n\nI\u0027m not super familiar with std::thread to know if it offers scheduling primitives.  It looks like you can yield but not schedule.  WebRTC has an implementation that uses libevent for async scheduling or there may be pthread APIs to get a signal when the thread is available.  The question is how do we cooperatively schedule with the embedder.  Need to think about this a bit more.",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba96ec7_03f6045f",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Yeah, this needs additional consideration. I\u0027ll work on solving this (which also impacts the busy tasks loop feedback below) and post a new revision once I\u0027m happy with the fix.",
+      "parentUuid": "097cba18_721e8426",
       "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -168,6 +258,24 @@
     },
     {
       "key": {
+        "uuid": "fb45f4c7_d9d05273",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60d013c8_62f9b14b",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbb5b32b_f96f4b5f",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 2
@@ -179,6 +287,24 @@
       "writtenOn": "2019-03-29T19:41:17Z",
       "side": 1,
       "message": "So this will be a busy loop while |tasks_| is empty?",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73eb3f24_be328357",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Yup. I\u0027ll look for a better fix. Ideally we could \"sleep\", and \"wake up\" when a new task is posted.",
+      "parentUuid": "bbb5b32b_f96f4b5f",
       "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -271,6 +397,24 @@
     },
     {
       "key": {
+        "uuid": "1b8f2754_2cd0dd1c",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90702b8c_ae615353",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f08467f6_5763dfdd",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 2
@@ -334,6 +478,24 @@
     },
     {
       "key": {
+        "uuid": "1750f2c9_f9c71b03",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Probably--switching types.",
+      "parentUuid": "da70cf7d_b519f496",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f5b73b3_dde60bf7",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 2
@@ -348,6 +510,24 @@
       "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0899d263_5dff4baf",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-03-29T21:34:51Z",
+      "side": 1,
+      "message": "Thanks. Would love to catch this programmatically, but not sure how.",
+      "parentUuid": "1f5b73b3_dde60bf7",
+      "revId": "de0e99368a6e61cf7fdda4dfa45b72e643f721c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
