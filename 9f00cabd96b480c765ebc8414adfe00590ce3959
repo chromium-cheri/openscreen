@@ -391,6 +391,24 @@
     },
     {
       "key": {
+        "uuid": "1696a1f2_9c33ecc0",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T17:13:47Z",
+      "side": 1,
+      "message": "Regarding #3, running gn gen out/Default --args\u003d\"is_gcc\u003dtrue\" will compile locally with gcc.  Or you can create a new output path and put is_gcc\u003dtrue in the args.gn there.\n\nFeel free to drop questions like this into the chat room for a faster response :-)",
+      "parentUuid": "cb040319_d1a5b63a",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30ae3fde_2a3d5709",
         "filename": "tools/cddl/logging.h",
         "patchSetId": 2
@@ -490,6 +508,24 @@
       "side": 1,
       "message": "I\u0027m happy to remove this, though lets sync as to why they aren\u0027t needed\n\nMy understanding from the Perfect Forwarding doc was that I should be using std::forward to push the parameters as-is all the way to the dprintf statement - and I\u0027d like to develop a better understanding as to what I\u0027m misunderstanding to fix it for future CLs",
       "parentUuid": "12a45ba9_11c58537",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90919d86_fd505f3c",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-03-29T17:13:47Z",
+      "side": 1,
+      "message": "std::forward is for forwarding template parameters with the correct value type to other functions (so that rvalues get passed as rvalue references and lvalues as lvalue references).\n\nMore details here: https://stackoverflow.com/questions/8526598/how-does-stdforward-work\n\nSince |message| is declared as a const reference, we know the value type up front and we\u0027ll always be passing it as a const ref into WriteLog (there\u0027s no reason to convert it to an rvalue).\n\nAs a rule of thumb std::forward is for passing template arguments to other functions (so that using a moveable type in the template works correctly) and can be ignored otherwise.",
+      "parentUuid": "72a4580c_ff1c1848",
       "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
