@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "3469f99d_175087e5",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-30T03:14:35Z",
+      "side": 1,
+      "message": "This won\u0027t work outside of the implementation file.  If you want to hide the definition of TaskId, you\u0027ll need to involve indirection at some point.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b269d475_44ea2714",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-03-30T03:14:35Z",
+      "side": 1,
+      "message": "There\u0027s obviously some debate going on here about whether we are going to remain single-threaded and what that means for the thread-safety requirements of other APIs.  However, whatever we decide makes sense for TaskRunner needs to be documented here (e.g. is this outer API thread-safe).",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75f50f83_5139c304",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 3
