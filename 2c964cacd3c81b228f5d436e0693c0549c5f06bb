@@ -1,0 +1,378 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75f50f83_5139c304",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Nit: everyone else (Chromium, WebRTC) seems to call this PostDelayedTask.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98e2dfe6_f64dd5a1",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "I\u0027m curious: I don\u0027t see this on any other TaskRunner on TaskQueue, which would make it hard to implement this on top of one of those.  And ... do we really need it?",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35934dab_5e867548",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Do the tasks IDs have to be in order or do they just have to be unique?  If not, we could get the next ID outside the lock to shorten the time we\u0027re in the lock.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38c64dff_bdea2542",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Why does this not need to take the lock to check the empty state?  Because tests never call Run()?  If so, should probably comment that.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f10c3cb3_69d20b2e",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Since it actually removes the task, perhaps DequeTask would be a better name.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6faeef9f_c236483b",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Do we even need these lines?  Wouldn\u0027t it have the same behavior without them?",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "951ce603_804bdd1a",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "This doesn\u0027t do what the comment says.  It says it runs the already queued tasks, but this actually runs until empty, which is different.  If a task queues a task, for example, the behavior would be different.  \n\nCould just rename this method \"RunTasksUntilEmpty()\"",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64fa3467_21bfb163",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Non-delayed tasks can starve delayed tasks.  If a task queues a task which queues a task... and so on, then delayed tasks would never get scheduled.  Perhaps a limit on the number of tasks that can run before scheduling would be appropriate.  Or the amount of time they can run, either way.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e170652_1df16c6b",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "How do you iterate over the delayed tasks without the lock?",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028d0704_e364cd69",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Do you need both locks before doing either operation?  Can\u0027t you take the delayed_lock, remove the task, then take the non-delayed lock and insert?  \n\nTaking two locks at the same time is always dangerous (if you do it in the other order elsewhere, you can hit deadlock).",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28c7793d_9e1e34e0",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Why expose this instead of just exposing the Quit() method.  Or, if it must be inserted rather than called directly, why not a PostQuitTask() method?  Quit() is more simple, but perhaps easier to do the wrong thing.  PostQuicTask is more simple and harder to do the wrong thing (I think).",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eb3286e_abbd78c9",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Run() makes it sounds like it will take the caller\u0027s thread and actually execute the tasks (it sounds like RunLoop()).  Perhaps Start() would be a better name?\n\nAlso, we should make it clear this spawns a thread",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeb0bb68_58d7eb90",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "I\u0027d prefer using a struct so you can do scheduled.task and scheduled.task_id instead of .first and .second.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbf8b338_708bdeeb",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Just below we have TaskQueue, so shouldn\u0027t this be DelayedTaskQueue?\n\nAlso, I again would prefer a struct (so you can do scheduled.time).  In fact, why not just have one task type that has an optional time?",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b675886d_1d4164b2",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Why a std::list instead of a std::deque?  Is it for cancelling?  If so, we could just put a \"cancelled\" bit on Tasks, or null out their function to a no-op.  I\u0027m always wary of the perf of std::list.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88adea7_16b1a2da",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "Just make it clear it doesn\u0027t block, but instead returns null when there is none.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcfce5f1_51a84b43",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "RunAlreadyQueuedTasks?",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "417fde0c_5d8a96f1",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "In the current thread, right?  Should make that clear.\n\nAnd it\u0027s not forever.  It\u0027s until Quit() is called.\n\nSo maybe RunTasksUntilQuit would be a nice, clear name.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64c71f00_ea4ee069",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "If the other is called \"Start\", perhaps this should be \"Stop\".\n\nAlso, we should comment on the state of the runner after the call returns.  Is it guaranteed to be running nothing by then?  If so, does it wait for the last task to complete?",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f631c763_8fa1ad41",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "We should comment why these must be atomic.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa20d36b_8cc0ff2c",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "We should comment when these must be used.\n\nOr better yet, can we use the GUARDED_BY annotation?",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07943803_4c9f976c",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-03-30T00:00:53Z",
+      "side": 1,
+      "message": "I think the style guide prefers just having the type here rather than using typedefs.",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
