@@ -155,6 +155,24 @@
     },
     {
       "key": {
+        "uuid": "d657ce78_c2a46ffe",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-01T14:55:18Z",
+      "side": 1,
+      "message": "Actually, it would probably be better to keep this as RunCurrentTasks and instead just drain the queue into a local variable (perhaps a swap) in a lock and let tasks be added to it while the tasks in the local variable are run.  That would solve the issue of when to do a scheduling run as well.",
+      "parentUuid": "951ce603_804bdd1a",
+      "revId": "2c964cacd3c81b228f5d436e0693c0549c5f06bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64fa3467_21bfb163",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 3
