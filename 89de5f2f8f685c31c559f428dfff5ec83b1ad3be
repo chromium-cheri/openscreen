@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feec21b3_3068751b",
+        "filename": "platform/base/task_runner_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-01T22:17:27Z",
+      "side": 1,
+      "message": "Could this lambda be executed after this method returns? (Meaning, |task_runner| becomes invalid.)",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 20,
+        "endChar": 46
+      },
+      "revId": "89de5f2f8f685c31c559f428dfff5ec83b1ad3be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b767d249_aab6db60",
+        "filename": "platform/base/task_runner_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-01T22:17:27Z",
+      "side": 1,
+      "message": "When does this thread end?\n\nIt seems the TaskRunnerImpl should own the thread, and make sure it joins on it before ~TaskRunnerImpl() finishes.",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "89de5f2f8f685c31c559f428dfff5ec83b1ad3be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b08bd6f_07db7c43",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-01T22:17:27Z",
+      "side": 1,
+      "message": "Need to specify the 2nd argument to wait() here, to wake back up for already-queued delayed tasks. Otherwise, this may sleep forever.\n\nMaybe |delayed_tasks_| should become a min-heap so you can always peek at the next-to-run Task\u0027s timestamp in O(1)? std::priority_queue is one option, but it doesn\u0027t have std::move() support, so we\u0027d have to be careful our Task objects don\u0027t contain large objects. Alternatively, a std::vector, with use of std::make_heap() and friends, might also work; and allows for using std::move(); but is slightly more code.\n\nAlso, note that using the min-heap would also mean that you don\u0027t have to scan through all elements of |delayed_tasks_| when moving them to |tasks_| (just keep popping the min-heap while peek().timestamp \u003c\u003d now).",
+      "range": {
+        "startLine": 85,
+        "startChar": 23,
+        "endLine": 85,
+        "endChar": 27
+      },
+      "revId": "89de5f2f8f685c31c559f428dfff5ec83b1ad3be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "732cd23d_083d0977",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-01T22:17:27Z",
+      "side": 1,
+      "message": "nit: We shouldn\u0027t need to transfer the delayed tasks using a temporary array. It seems this temporary array is being used to help clarify the code structure around using two separate locks. However, do we need two separate locks?\n\nSuggestion: ScheduleDelayedTasks() could just transfer the tasks directly while holding the one lock:\n\nvoid TaskRunnerImpl::ScheduleDelayedTasks() {\n  std::lock_guard\u003cstd::mutex\u003e lock(task_mutex_);\n\n  // Sample clock after waiting to acquire the mutex.\n  const Clock::time_point now \u003d Clock::now();\n\n  // Transfer tasks that should run now to the immediate-run task queue.\n  const auto pivot \u003d std::partition(\n      delayed_tasks_.begin(), delayed_tasks_.end(),\n      [\u0026now](const decltype(delayed_tasks_)::value_type\u0026 task_and_time) {\n        return task_and_time.second \u003e now;\n      });\n  std::move(pivot, delayed_tasks_.end(), std::back_inserter(tasks_));\n  delayed_tasks_.resize(std::distance(pivot - delayed_tasks_.begin());\n}",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 62
+      },
+      "revId": "89de5f2f8f685c31c559f428dfff5ec83b1ad3be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e12c6c_f6a579d4",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-01T22:17:27Z",
+      "side": 1,
+      "message": "Do we need two separate locks? Seems like |task_mutex_| would be suitable for guarding both containers.",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "89de5f2f8f685c31c559f428dfff5ec83b1ad3be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f29e8da_91fa8d37",
+        "filename": "platform/base/task_runner_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-01T22:17:27Z",
+      "side": 1,
+      "message": "nit: 1ms should be enough since most of these tests will PostTask() and run it on the other thread in a few microseconds, maybe less.",
+      "range": {
+        "startLine": 16,
+        "startChar": 47,
+        "endLine": 16,
+        "endChar": 49
+      },
+      "revId": "89de5f2f8f685c31c559f428dfff5ec83b1ad3be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47856736_f2e0fa05",
+        "filename": "platform/base/task_runner_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-01T22:17:27Z",
+      "side": 1,
+      "message": "The gtest framework already has a process-level watchdog timeout, so you can write your tests knowing they will fail if they get stuck indefinitely. Thus, this isn\u0027t needed.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "89de5f2f8f685c31c559f428dfff5ec83b1ad3be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76e47024_d9c5c2cb",
+        "filename": "platform/base/task_runner_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-01T22:17:27Z",
+      "side": 1,
+      "message": "nit: No need to heap-allocate it. Suggest just:\n\n  TaskRunnerImpl runner(platform::Clock::now);\n\n...and for the other tests...",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 80
+      },
+      "revId": "89de5f2f8f685c31c559f428dfff5ec83b1ad3be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
