@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "531bcfce_6f3dc4e0",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-02T22:57:13Z",
+      "side": 1,
+      "message": "Nice :-)",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee00bed7_876067f0",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-02T22:57:13Z",
+      "side": 1,
+      "message": "Nit: Can we add a comment block at the beginning of the file with a links to:\n\n(1) The Open Screen protocol spec appendix A: https://webscreens.github.io/openscreenprotocol/#appendix-a\n(2) The CDDL spec: https://tools.ietf.org/html/draft-ietf-cbor-cddl-08",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "839511e9_be013f35",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-02T22:57:13Z",
+      "side": 1,
+      "message": "All tag values before 37 are used for builtin types so we shouldn\u0027t re-declare them.\n\nhttps://tools.ietf.org/html/rfc7049#section-7.2",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8053d7ac_a6a07174",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-02T22:57:13Z",
+      "side": 1,
+      "message": "Various other tags from 103-1040 are registered in IANA.\n\nhttps://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml\n\nThe earliest \"safe\" tag at the present time is 1041.  Until someone IANA registers it :-)",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a572bcf7_39cc4aab",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-02T22:57:13Z",
+      "side": 1,
+      "message": "I thought we weren\u0027t going to use CBOR tags to discriminate message types, but instead use type keys that are defined outside of CDDL.\n\nOr are we using tags in the interim until we have a way for the CBOR parser to extract and use type keys?",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d5c630_1e5ee49a",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-02T22:57:13Z",
+      "side": 1,
+      "message": "I feel that definition used in other messages (i.e. without a type key) should be grouped at the beginning of the file, and separated with a comment block indicating that they are common definitions.",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caa3ea7a_09d73c24",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-02T22:57:13Z",
+      "side": 1,
+      "message": "It\u0027s a little confusing to have response-result and result-result below.\nI might have preferred authentication-challenge and authentication-answer.\nBut that\u0027s a spec issue, not something to fix here.",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
