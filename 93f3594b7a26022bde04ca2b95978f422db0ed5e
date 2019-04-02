@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5340c9a7_29598261",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2620993_48f892e9",
+      "range": {
+        "startLine": 7,
+        "startChar": 58,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8ff6b71_8b990341",
         "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-02T19:40:46Z",
       "side": 1,
       "message": "I would prefer explicit initialization of fields via . operator, i.e.\nmsgs::HttpHeader header;\nheader.key \u003d \"Accept-Language\"\nheader.value \u003d \"de\"\nrequest.headers.push_back(header);",
+      "range": {
+        "startLine": 173,
+        "startChar": 2,
+        "endLine": 173,
+        "endChar": 64
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9623c16e_bff9816a",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "In production code I agree, but I am not sure that\u0027s necessary for UT code - for UT purposes I think having it all constrained to one line might actually make the intent clearer",
+      "parentUuid": "c8ff6b71_8b990341",
       "range": {
         "startLine": 173,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0402bb3d_f545fd33",
+        "filename": "msgs/messages_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Updating to std::vector\u003cHttpHeader\u003e headers",
+      "parentUuid": "123679f1_fd901084",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 54
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42c244c3_905f9839",
         "filename": "msgs/messages_unittest.cc",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-04-02T19:40:46Z",
       "side": 1,
       "message": "Same comment",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 54
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efefedc4_e211aa47",
+        "filename": "msgs/messages_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Updating to std::vector\u003cHttpHeader\u003e headers",
+      "parentUuid": "42c244c3_905f9839",
       "range": {
         "startLine": 121,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b86cc919_40df2f78",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Without them, we get compilation errors when one of these 2 methods is unused - which can change without any change to the code itself when the CDDL spec changes. This gets around the compilation error",
+      "parentUuid": "9d940fbe_563697b2",
+      "range": {
+        "startLine": 1400,
+        "startChar": 0,
+        "endLine": 1401,
+        "endChar": 71
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "870cd476_c134b972",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2019-04-02T19:40:46Z",
       "side": 1,
       "message": "Why do you need to move ExpectKey methods out of a namespace?",
+      "range": {
+        "startLine": 1452,
+        "startChar": 1,
+        "endLine": 1480,
+        "endChar": 1
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07c5d2f3_273e45e9",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1480,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Moved out so that they would match up with the declaration in the header",
+      "parentUuid": "870cd476_c134b972",
       "range": {
         "startLine": 1452,
         "startChar": 1,

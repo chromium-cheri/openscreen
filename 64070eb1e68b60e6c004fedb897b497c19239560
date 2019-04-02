@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "37da6e58_ac4c50f1",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Good idea - I\u0027ve added it here",
+      "parentUuid": "ee00bed7_876067f0",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "839511e9_be013f35",
         "filename": "msgs/osp_messages.cddl",
         "patchSetId": 2
@@ -47,6 +65,24 @@
       "writtenOn": "2019-04-02T22:57:13Z",
       "side": 1,
       "message": "All tag values before 37 are used for builtin types so we shouldn\u0027t re-declare them.\n\nhttps://tools.ietf.org/html/rfc7049#section-7.2",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39e943f5_ea69bdbe",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "What values would you recommend? These tag values are taken from the \"type key\", so I will plan to update the spec with whatever we decide",
+      "parentUuid": "839511e9_be013f35",
       "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "2b7cbcda_e0e713f2",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Should we just start all of our tags at 10000? Then we know they will never be hit :)",
+      "parentUuid": "8053d7ac_a6a07174",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a572bcf7_39cc4aab",
         "filename": "msgs/osp_messages.cddl",
         "patchSetId": 2
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "b5fb8205_48c1e887",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Right now we rely on CBOR tags as part of the CDDL parsing tool\n\nIf we want to remove these I can make the required change, though I wasn\u0027t aware of that - lets sync on it tomorrow",
+      "parentUuid": "a572bcf7_39cc4aab",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68d5c630_1e5ee49a",
         "filename": "msgs/osp_messages.cddl",
         "patchSetId": 2
@@ -98,6 +170,24 @@
       "writtenOn": "2019-04-02T22:57:13Z",
       "side": 1,
       "message": "I feel that definition used in other messages (i.e. without a type key) should be grouped at the beginning of the file, and separated with a comment block indicating that they are common definitions.",
+      "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ae91651_1e7d5b6c",
+        "filename": "msgs/osp_messages.cddl",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T23:55:17Z",
+      "side": 1,
+      "message": "Once the spec changes in GitHub are in, I plan to make that change both on GitHub and here. For now, I\u0027ve left the order here the same as in GitHub. Thoughts?",
+      "parentUuid": "68d5c630_1e5ee49a",
       "revId": "64070eb1e68b60e6c004fedb897b497c19239560",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
