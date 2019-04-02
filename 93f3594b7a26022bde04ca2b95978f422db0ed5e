@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8ff6b71_8b990341",
+        "filename": "api/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-02T19:40:46Z",
+      "side": 1,
+      "message": "I would prefer explicit initialization of fields via . operator, i.e.\nmsgs::HttpHeader header;\nheader.key \u003d \"Accept-Language\"\nheader.value \u003d \"de\"\nrequest.headers.push_back(header);",
+      "range": {
+        "startLine": 173,
+        "startChar": 2,
+        "endLine": 173,
+        "endChar": 64
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "123679f1_fd901084",
+        "filename": "msgs/messages_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-02T19:40:46Z",
+      "side": 1,
+      "message": "Why can\u0027t it be simply std::vector\u003cHttpHeader\u003e headers ?\nAlso, I don\u0027t see a matching delete here.",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 54
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c244c3_905f9839",
+        "filename": "msgs/messages_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-02T19:40:46Z",
+      "side": 1,
+      "message": "Same comment",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 54
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d940fbe_563697b2",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-02T19:40:46Z",
+      "side": 1,
+      "message": "Why are these forward declarations needed? I don\u0027t see any new calls to ExpectKey that would require these",
+      "range": {
+        "startLine": 1400,
+        "startChar": 0,
+        "endLine": 1401,
+        "endChar": 71
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "870cd476_c134b972",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1480,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-02T19:40:46Z",
+      "side": 1,
+      "message": "Why do you need to move ExpectKey methods out of a namespace?",
+      "range": {
+        "startLine": 1452,
+        "startChar": 1,
+        "endLine": 1480,
+        "endChar": 1
+      },
+      "revId": "93f3594b7a26022bde04ca2b95978f422db0ed5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
