@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b1a503b_f46ee6aa",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-02T23:44:13Z",
+      "side": 1,
+      "message": "Nit: consider placing this giant call into its own method.",
+      "revId": "08b3fdd40d7047b2b103aaae2e7ddb9621994998",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca3e5f3e_8bf5e633",
+        "filename": "api/impl/quic/quic_client_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-02T23:44:13Z",
+      "side": 1,
+      "message": "Nit: might as well be const.",
+      "revId": "08b3fdd40d7047b2b103aaae2e7ddb9621994998",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56a99a94_7e7b8b29",
+        "filename": "api/public/endpoint_request_ids_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-02T23:44:13Z",
+      "side": 1,
+      "message": "We are also implicitly testing that IDs increase by exactly 2. Shouldn\u0027t we be just checking that the value of each call to GetNextRequestId is greater than the last call? E.g.\n\nauto last_call_value \u003d request_ids_client.GetNextRequestId(7);\nEXPECT_LT(last_call_value, (last_call_value \u003d request_ids_client.GetNextRequestId()));",
+      "revId": "08b3fdd40d7047b2b103aaae2e7ddb9621994998",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f8b49f_b6e694be",
+        "filename": "api/public/endpoint_request_ids_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-02T23:44:13Z",
+      "side": 1,
+      "message": "Why mix 3 and 7 here? Not sure what that is testing.",
+      "revId": "08b3fdd40d7047b2b103aaae2e7ddb9621994998",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cad75a4_22999cf9",
+        "filename": "api/public/endpoint_request_ids_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-02T23:44:13Z",
+      "side": 1,
+      "message": "Why reset here again? We don\u0027t test any values after.",
+      "revId": "08b3fdd40d7047b2b103aaae2e7ddb9621994998",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec7a199_6c71e612",
+        "filename": "api/public/endpoint_request_ids_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-02T23:44:13Z",
+      "side": 1,
+      "message": "Why reset here again? We don\u0027t test any values after.",
+      "revId": "08b3fdd40d7047b2b103aaae2e7ddb9621994998",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
