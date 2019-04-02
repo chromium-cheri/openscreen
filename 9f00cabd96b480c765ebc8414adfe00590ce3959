@@ -427,6 +427,24 @@
     },
     {
       "key": {
+        "uuid": "1b5874f2_43d9d39b",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T22:23:28Z",
+      "side": 1,
+      "message": "@Mark thank you for the info! It looks like this failure only occurs with clang, and it isn\u0027t a concern with gcc.\n\n@Brandon I discussed it with Mark, and he agrees that using the format string is reasonable inside the logging library, so I am proceeding that way. For this reason, overriding \u003c\u003c doesn\u0027t quite work, since it can\u0027t easily be provided to a function. Once you\u0027re back from your OOO we can discuss it further and I can submit a follow UP CL to make any changes that come of that discussion :)",
+      "parentUuid": "1861f7ff_32ba529d",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30ae3fde_2a3d5709",
         "filename": "tools/cddl/logging.h",
         "patchSetId": 2
@@ -547,6 +565,24 @@
       "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e50d5db0_37f62ef2",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-02T22:23:28Z",
+      "side": 1,
+      "message": "That makes sense. Thank you for the clarification! Removing the std::forward from the const string in other functions in this file as-well",
+      "parentUuid": "90919d86_fd505f3c",
+      "revId": "9f00cabd96b480c765ebc8414adfe00590ce3959",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
