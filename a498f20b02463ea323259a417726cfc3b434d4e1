@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "825a1b9d_e6c5c09c",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T19:25:07Z",
+      "side": 1,
+      "message": "Fair point. Maybe we can\u0027t avoid a lock here :(",
+      "parentUuid": "d2691325_24feaf1a",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89528aec_7c7b9d39",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 12
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "52fd7fa6_bd0c7bff",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T19:25:07Z",
+      "side": 1,
+      "message": "The issue is that after calling wait(lock), the system does the following:\n- release lock on task_mutex_\n- wait for a notify\n\nOn notify it does the following\n- Re-acquire lock on task_mutex_\n- continue running\n\nSince we don\u0027t actually need the lock on task_mutex after recieving the notify, and will in fact release it immediately after re-acquiring it, this introduces unnecessary delay\nhttps://en.cppreference.com/w/cpp/thread/condition_variable/wait",
+      "parentUuid": "a8f3bd0f_f1d10705",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6cede2a_c2a4d2d4",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 12
@@ -248,6 +296,30 @@
       "writtenOn": "2019-04-03T18:32:48Z",
       "side": 1,
       "message": "Sampling the clock can be \"expensive\" on some platforms (e.g., on Windows sometimes a global mutex is acquired!). I suggest just calling now_function_() once, and using the same value for comparison:\n\n  std::lock_guard...\n\n  if (delayed_tasks_.empty()) {\n    return;\n  }\n\n  Clock::time_point now \u003d now_function_();\n\n  while (delayed_tasks_.empty() \u0026\u0026 ...top... \u003c now) {\n    ...\n  }",
+      "range": {
+        "startLine": 81,
+        "startChar": 53,
+        "endLine": 81,
+        "endChar": 68
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c08720c4_f5b77d8d",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T19:25:07Z",
+      "side": 1,
+      "message": "Good catch! Let\u0027s add a comment about this as-well so we don\u0027t re-introduce the same issue later when refactoring",
+      "parentUuid": "d6cede2a_c2a4d2d4",
       "range": {
         "startLine": 81,
         "startChar": 53,
@@ -398,6 +470,30 @@
       "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5033ae79_cf695114",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T19:25:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6f990e92_3b726054",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
