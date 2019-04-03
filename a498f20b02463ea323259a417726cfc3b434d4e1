@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7404a415_2190d787",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "This notify_all() call shouldn\u0027t be necessary, right? It would assume there is already some other thread running tasks, which there shouldn\u0027t be (that would be a serious logic flaw in the caller).\n\nThis infers that an atomic swap should be used:\n\n  const bool was_runnning \u003d is_running_.exchange(true);\n  OSP_CHECK(!was_running);",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 32
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2404e535_0501d79c",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "I think you have to acquire |task_mutex_| before you can signal the cond var, right? (And, in Stop() too.)",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 32
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3810bed_3933e547",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 12
@@ -13,6 +59,30 @@
       "writtenOn": "2019-04-03T01:02:32Z",
       "side": 1,
       "message": "if we used an std::atomic\u003cdeque\u003c...\u003e\u003e we could have an atomic swap operation without locking. Given how frequently this method is run, it seems worth the extra complexity to get the associated perf gain from avoiding using the lock. Thoughts?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2691325_24feaf1a",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "I doubt std::atomic\u003cdeque\u003e is lock-free: https://en.cppreference.com/w/cpp/atomic/atomic/is_lock_free",
+      "parentUuid": "f3810bed_3933e547",
       "range": {
         "startLine": 49,
         "startChar": 0,
@@ -48,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "1f447aba_b35c4e21",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "IMHO, it\u0027d read better to just put the code in RunCurrentTasks() in this method (i.e., don\u0027t have two separate methods).",
+      "parentUuid": "89528aec_7c7b9d39",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f1c91a6_b0b82aa0",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 12
@@ -64,6 +158,99 @@
         "startChar": 0,
         "endLine": 71,
         "endChar": 36
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f3bd0f_f1d10705",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "I don\u0027t understand: A lock always has to be held while reading/mutating the task queues, right?",
+      "parentUuid": "4f1c91a6_b0b82aa0",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6cede2a_c2a4d2d4",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "Sampling the clock can be \"expensive\" on some platforms (e.g., on Windows sometimes a global mutex is acquired!). I suggest just calling now_function_() once, and using the same value for comparison:\n\n  std::lock_guard...\n\n  if (delayed_tasks_.empty()) {\n    return;\n  }\n\n  Clock::time_point now \u003d now_function_();\n\n  while (delayed_tasks_.empty() \u0026\u0026 ...top... \u003c now) {\n    ...\n  }",
+      "range": {
+        "startLine": 81,
+        "startChar": 53,
+        "endLine": 81,
+        "endChar": 68
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7472095a_b2a4a767",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "C++ style: Need explicit keyword for single-arg ctor.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46ab5e17_2aed2406",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "Looking at this again, a couple things:\n\n1. Naming: Since Start() will block the current thread indefinitely (or until Stop()), consider adjusting its naming. Maybe Run() or RunUntilStopped()? To me, the \"Start\" naming sounds like it spawns some separate async operation, and is non-blocking. Note that the corresponding \"Stop\" does not block (maybe it should be named StopSoon() or RequestStopSoon()?).\n\n2. Stop() can race with Start(). This probably wouldn\u0027t happen in practice, but Chromium\u0027s task runner mitigates this race by requiring posting quit tasks. IIRC, you had this in a prior patch set.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 14
       },
       "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
@@ -142,6 +329,29 @@
     },
     {
       "key": {
+        "uuid": "b41808ae_83ec5e12",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "task(std::move(task_))",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 20
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a760e942_de361230",
         "filename": "api/impl/task_runner_impl.h",
         "patchSetId": 12
@@ -165,6 +375,29 @@
     },
     {
       "key": {
+        "uuid": "aef39a72_515f2792",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "C++ style: const platform::ClockNowFunctionPtr function_; since it doesn\u0027t change after being init\u0027ed by the ctor.",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6393e604_c86fb14a",
         "filename": "api/impl/task_runner_impl.h",
         "patchSetId": 12
@@ -181,6 +414,53 @@
         "startChar": 2,
         "endLine": 74,
         "endChar": 31
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc2f1c5b_14d59e48",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "We have to be careful: The \"plain bool is atomic\" assumption is only true on certain architectures.",
+      "parentUuid": "6393e604_c86fb14a",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 31
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "603e3da9_35f5f43a",
+        "filename": "api/impl/task_runner_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-03T18:32:48Z",
+      "side": 1,
+      "message": "Suggestion: Post a second task that runs in 10 ms, then, below:\n\n  WaitUntilCondition([\u0026ran_tasks] { return ran_tasks \u003d\u003d \"12\"; });\n\n(to confirm multiple delayed tasks run in order)",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 46
       },
       "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
