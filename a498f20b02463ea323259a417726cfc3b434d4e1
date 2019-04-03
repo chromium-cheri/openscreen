@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "2a6c3d3c_b388960a",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2404e535_0501d79c",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 32
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d40843b6_1e2fb0d1",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7404a415_2190d787",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 32
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3810bed_3933e547",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 12
@@ -285,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "630261fd_8c6bfb89",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Alright, I think the right answer is to refactor so we actually use the lock. I\u0027ve done this in the new revision.",
+      "parentUuid": "52fd7fa6_bd0c7bff",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6cede2a_c2a4d2d4",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 12
@@ -332,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "98a202d4_0151e2de",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c08720c4_f5b77d8d",
+      "range": {
+        "startLine": 81,
+        "startChar": 53,
+        "endLine": 81,
+        "endChar": 68
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7472095a_b2a4a767",
         "filename": "api/impl/task_runner_impl.h",
         "patchSetId": 12
@@ -355,6 +451,30 @@
     },
     {
       "key": {
+        "uuid": "2b206819_b086f0af",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7472095a_b2a4a767",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46ab5e17_2aed2406",
         "filename": "api/impl/task_runner_impl.h",
         "patchSetId": 12
@@ -366,6 +486,30 @@
       "writtenOn": "2019-04-03T18:32:48Z",
       "side": 1,
       "message": "Looking at this again, a couple things:\n\n1. Naming: Since Start() will block the current thread indefinitely (or until Stop()), consider adjusting its naming. Maybe Run() or RunUntilStopped()? To me, the \"Start\" naming sounds like it spawns some separate async operation, and is non-blocking. Note that the corresponding \"Stop\" does not block (maybe it should be named StopSoon() or RequestStopSoon()?).\n\n2. Stop() can race with Start(). This probably wouldn\u0027t happen in practice, but Chromium\u0027s task runner mitigates this race by requiring posting quit tasks. IIRC, you had this in a prior patch set.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ffc082_f4610653",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Renamed both methods. I am happy to add the Quit task back in, I removed it due to other feedback on this patch. Let\u0027s touch base today?",
+      "parentUuid": "46ab5e17_2aed2406",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -520,6 +664,30 @@
     },
     {
       "key": {
+        "uuid": "063107e2_b8769346",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b41808ae_83ec5e12",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 20
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a760e942_de361230",
         "filename": "api/impl/task_runner_impl.h",
         "patchSetId": 12
@@ -587,6 +755,30 @@
       "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f14e7f1_c9a40e99",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef39a72_515f2792",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 31
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -681,6 +873,30 @@
       "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf1c0ebc_926bce47",
+        "filename": "api/impl/task_runner_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-03T20:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "603e3da9_35f5f43a",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
