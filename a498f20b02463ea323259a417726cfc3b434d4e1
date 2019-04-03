@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3810bed_3933e547",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T01:02:32Z",
+      "side": 1,
+      "message": "if we used an std::atomic\u003cdeque\u003c...\u003e\u003e we could have an atomic swap operation without locking. Given how frequently this method is run, it seems worth the extra complexity to get the associated perf gain from avoiding using the lock. Thoughts?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89528aec_7c7b9d39",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T01:02:32Z",
+      "side": 1,
+      "message": "Add a comment about what this check is checking - the parallelism that makes it not immediately clear",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f1c91a6_b0b82aa0",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T01:02:32Z",
+      "side": 1,
+      "message": "When the context is re-acquired, we need to wait for the lock to get re-acquired. Is there any alternative synchronization mechanism we can use that doesn\u0027t incur this cost?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 36
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fbd8e1e_f9175381",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T01:02:32Z",
+      "side": 1,
+      "message": "What are your thoughts on making this private and making the UT class a Friend class of this one? It seems a bit weird to expose a method as public but expect that it\u0027s never actually used",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a760e942_de361230",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T01:02:32Z",
+      "side": 1,
+      "message": "Are there any cases where we care about the number ran instead of just a true/false? Might be worth returning a uint instead of bool",
+      "range": {
+        "startLine": 59,
+        "startChar": 46,
+        "endLine": 60,
+        "endChar": 29
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6393e604_c86fb14a",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-03T01:02:32Z",
+      "side": 1,
+      "message": "why are you using an atomic_bool instead of regular bool?\n\nlooking at the below code, you never try to modify and read in the same place, and any single read or write operation is atomic for a standard bool",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 31
+      },
+      "revId": "a498f20b02463ea323259a417726cfc3b434d4e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
