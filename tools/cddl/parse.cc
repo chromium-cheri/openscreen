@@ -559,6 +559,7 @@ AstNode* ParseType2(Parser* p) {
                     << std::endl;
           return nullptr;
         }
+        id->type = AstNode::Type::kGroupname;
         node->children = id;
       } else {
         return nullptr;
