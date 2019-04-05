@@ -183,14 +183,14 @@ void UrlAvailabilityRequester::ReceiverRequester::GetOrRequestAvailabilities(
       continue;
     }
 
-    msgs::PresentationUrlAvailability availability = availability_entry->second;
+    msgs::UrlAvailability availability = availability_entry->second;
     if (observer) {
       switch (availability) {
-        case msgs::PresentationUrlAvailability::kCompatible:
+        case msgs::UrlAvailability::kAvailable:
           observer->OnReceiverAvailable(url, service_id);
           break;
-        case msgs::PresentationUrlAvailability::kNotCompatible:
-        case msgs::PresentationUrlAvailability::kNotValid:
+        case msgs::UrlAvailability::kUnavailable:
+        case msgs::UrlAvailability::kInvalid:
           observer->OnReceiverUnavailable(url, service_id);
           break;
       }
@@ -271,10 +271,13 @@ Clock::time_point UrlAvailabilityRequester::ReceiverRequester::RefreshWatches(
   return minimum_schedule_time;
 }
 
-void UrlAvailabilityRequester::ReceiverRequester::UpdateAvailabilities(
+Error::Code UrlAvailabilityRequester::ReceiverRequester::UpdateAvailabilities(
     const std::vector<std::string>& urls,
-    const std::vector<msgs::PresentationUrlAvailability>& availabilities) {
+    const std::vector<msgs::UrlAvailability>& availabilities) {
   auto availability_it = availabilities.begin();
+  if (urls.size() != availabilities.size()) {
+    return Error::Code::kCborInvalidMessage;
+  }
   for (const auto& url : urls) {
     auto observer_entry = listener->observers_by_url_.find(url);
     if (observer_entry == listener->observers_by_url_.end())
@@ -286,12 +289,12 @@ void UrlAvailabilityRequester::ReceiverRequester::UpdateAvailabilities(
     bool updated = (entry->second != *availability_it);
     if (inserted || updated) {
       switch (*availability_it) {
-        case msgs::PresentationUrlAvailability::kCompatible:
+        case msgs::UrlAvailability::kAvailable:
           for (auto* observer : observers)
             observer->OnReceiverAvailable(url, service_id);
           break;
-        case msgs::PresentationUrlAvailability::kNotCompatible:
-        case msgs::PresentationUrlAvailability::kNotValid:
+        case msgs::UrlAvailability::kUnavailable:
+        case msgs::UrlAvailability::kInvalid:
           for (auto* observer : observers)
             observer->OnReceiverUnavailable(url, service_id);
           break;
@@ -301,6 +304,7 @@ void UrlAvailabilityRequester::ReceiverRequester::UpdateAvailabilities(
     }
     ++availability_it;
   }
+  return Error::Code::kNone;
 }
 
 void UrlAvailabilityRequester::ReceiverRequester::RemoveUnobservedRequests(
@@ -369,7 +373,7 @@ void UrlAvailabilityRequester::ReceiverRequester::RemoveUnobservedWatches(
 
 void UrlAvailabilityRequester::ReceiverRequester::RemoveReceiver() {
   for (const auto& availability : known_availability_by_url) {
-    if (availability.second == msgs::PresentationUrlAvailability::kCompatible) {
+    if (availability.second == msgs::UrlAvailability::kAvailable) {
       const std::string& url = availability.first;
       for (auto& observer : listener->observers_by_url_[url])
         observer->OnReceiverUnavailable(url, service_id);
@@ -444,7 +448,11 @@ ErrorOr<size_t> UrlAvailabilityRequester::ReceiverRequester::OnStreamMessage(
                        << " but got " << response.url_availabilities.size();
           return Error::Code::kCborInvalidMessage;
         }
-        UpdateAvailabilities(urls, response.url_availabilities);
+        Error::Code update =
+            UpdateAvailabilities(urls, response.url_availabilities);
+        if (update != Error::Code::kNone) {
+          return update;
+        }
         request_by_id.erase(response.request_id);
         if (request_by_id.empty())
           StopWatching(&response_watch);
@@ -462,8 +470,14 @@ ErrorOr<size_t> UrlAvailabilityRequester::ReceiverRequester::OnStreamMessage(
         return Error::Code::kCborParsing;
       } else {
         auto watch_entry = watch_by_id.find(event.watch_id);
-        if (watch_entry != watch_by_id.end())
-          UpdateAvailabilities(event.urls, event.url_availabilities);
+        if (watch_entry != watch_by_id.end()) {
+          std::vector<std::string> urls = watch_entry->second.urls;
+          Error::Code update =
+              UpdateAvailabilities(urls, event.url_availabilities);
+          if (update != Error::Code::kNone) {
+            return update;
+          }
+        }
         return result;
       }
     } break;
