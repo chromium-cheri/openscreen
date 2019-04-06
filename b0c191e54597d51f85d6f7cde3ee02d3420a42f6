@@ -1,0 +1,197 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0be37fc0_84f4e909",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "How is this possible?  You can\u0027t delete the TaskRunner until RunUntilStopped has returned.  But that doesn\u0027t return until after you\u0027ve stopped.  So you shouldn\u0027t have to stop in the destructor, right?",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bca2da5_e7595958",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "So we use a hot loop when in tests?  That\u0027s a nice, simple way of letting a fake clock advance.  I like it.  But a comment explaining that\u0027s what\u0027s going on would be nice.   Assuming I guess right why this is.",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f026cb28_5504982a",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "When we use this TaskRunner in unit tests for things that use TaskRunner, and not test of TaskRunner itself, we will want to put the TaskRunner in \"use hot loop for fake clock\" mode.  \n\nPerhaps we should just have one RunCurrentTasks method that checks the \"in unit test\" flag.",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "459a1c2b_1e0ae455",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "Can you use a scope instead?\n\n{\n  std::unique_lock\u003cstd::mutex\u003e lock(task_mutex_);\n  tasks_.swap(current_tasks);\n}",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "165d6c84_b2123ee7",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "Same here with the scope.",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15c31267_7a10feac",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "How do you know there isn\u0027t any work currently?\n\nI feel like there should be a \"if (!tasks_.empty()) { return lock }\" above here.  Am I missing something?\n\nIt seems like if we have delayed tasks, we\u0027ll wait to execute even the non-delayed tasks, even though we shouldn\u0027t delay the non-delayed tasks.  Do you have a unit test for that case?\n\nPostTask(foo)\nPostTaskWithDelay(bar, big_delay)\n\nfoo should be done immediately and bar after big_delay.  But I think instead you\u0027ll see both done after big_delay.  \n\nBut maybe I\u0027m missing something.",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12d130bd_5e229173",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "Stop isn\u0027t a method any more.  I think you mean RequestStopSoon()",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3b2985b_34b53c2a",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "Do we expect this to be called from a task, or this thread safe and can be called from a different thread?",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 7
+      },
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3514923_d527f57a",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "Why not just \"runnable_after\"?  We know it\u0027s a time from the type.",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a4807e5_436598e3",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "What\u0027s the difference between them?  The comment could perhaps be expanded.",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5974cd79_16b4a657",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-06T00:59:24Z",
+      "side": 1,
+      "message": "The Stop method appears to have been renamed.",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
