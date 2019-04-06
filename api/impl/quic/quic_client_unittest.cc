@@ -246,17 +246,29 @@ TEST_F(QuicClientTest, RequestIds) {
   quic_bridge_.RunTasksUntilIdle();
   ASSERT_TRUE(connection);
 
+<<<<<<< HEAD
   const uint64_t endpoint_id = connection->endpoint_id();
   EXPECT_EQ(0u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+=======
+  uint64_t endpoint_id = connection->endpoint_id();
+  EXPECT_EQ(1u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+>>>>>>> Track request IDs by endpoint ID
   EXPECT_EQ(2u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
 
   connection->CloseWriteEnd();
   connection.reset();
   quic_bridge_.RunTasksUntilIdle();
+<<<<<<< HEAD
   EXPECT_EQ(0u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
 
   client_->Stop();
   EXPECT_EQ(0u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+=======
+  EXPECT_EQ(1u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+
+  client_->Stop();
+  EXPECT_EQ(1u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+>>>>>>> Track request IDs by endpoint ID
 }
 
 }  // namespace openscreen

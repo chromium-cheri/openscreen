@@ -95,8 +95,12 @@ void ServiceConnectionDelegate::DestroyClosedStreams() {
 void ServiceConnectionDelegate::OnCryptoHandshakeComplete(
     uint64_t connection_id) {
   endpoint_id_ = parent_->OnCryptoHandshakeComplete(this, connection_id);
+<<<<<<< HEAD
   OSP_VLOG << "QUIC connection handshake complete for endpoint "
            << endpoint_id_;
+=======
+  OSP_VLOG << "QUIC connection handshake complete for endpoint " << endpoint_id_;
+>>>>>>> Track request IDs by endpoint ID
 }
 
 void ServiceConnectionDelegate::OnIncomingStream(

@@ -187,12 +187,20 @@ TEST_F(QuicServerTest, RequestIds) {
 
   uint64_t endpoint_id = connection->endpoint_id();
   EXPECT_EQ(1u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+<<<<<<< HEAD
   EXPECT_EQ(3u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+=======
+  EXPECT_EQ(2u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+>>>>>>> Track request IDs by endpoint ID
 
   connection->CloseWriteEnd();
   connection.reset();
   quic_bridge_.RunTasksUntilIdle();
+<<<<<<< HEAD
   EXPECT_EQ(5u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+=======
+  EXPECT_EQ(3u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
+>>>>>>> Track request IDs by endpoint ID
 
   server_->Stop();
   EXPECT_EQ(1u, server_->endpoint_request_ids()->GetNextRequestId(endpoint_id));

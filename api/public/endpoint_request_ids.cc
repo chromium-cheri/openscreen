@@ -6,6 +6,7 @@
 
 namespace openscreen {
 
+<<<<<<< HEAD
 EndpointRequestIds::EndpointRequestIds(Role role) : role_(role) {}
 EndpointRequestIds::~EndpointRequestIds() = default;
 
@@ -19,6 +20,16 @@ uint64_t EndpointRequestIds::GetNextRequestId(uint64_t endpoint_id) {
 void EndpointRequestIds::ResetRequestId(uint64_t endpoint_id) {
   // TODO(issue/42): Consider using a timeout to drop the request id counter,
   // and/or possibly set the initial value as part of the handshake.
+=======
+EndpointRequestIds::EndpointRequestIds() = default;
+EndpointRequestIds::~EndpointRequestIds() = default;
+
+uint64_t EndpointRequestIds::GetNextRequestId(uint64_t endpoint_id) {
+  return ++request_ids_by_endpoint_id_[endpoint_id];
+}
+
+void EndpointRequestIds::ResetRequestId(uint64_t endpoint_id) {
+>>>>>>> Track request IDs by endpoint ID
   request_ids_by_endpoint_id_.erase(endpoint_id);
 }
 

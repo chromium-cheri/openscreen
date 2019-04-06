@@ -8,6 +8,7 @@
 
 namespace openscreen {
 
+<<<<<<< HEAD
 // These tests validate RequestId generation for two endpoints with IDs 3 and 7.
 
 TEST(EndpointRequestIdsTest, StrictlyIncreasingRequestIdSequence) {
@@ -81,6 +82,45 @@ TEST(EndpointRequestIdsTest, ResetAll) {
   request_ids_server.Reset();
   EXPECT_EQ(1u, request_ids_server.GetNextRequestId(7));
   EXPECT_EQ(1u, request_ids_server.GetNextRequestId(3));
+=======
+TEST(EndpointRequestIdsTest, StrictlyIncreasingRequestIdSequence) {
+  EndpointRequestIds request_ids;
+
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(2u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(3u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(3));
+  EXPECT_EQ(4u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(2u, request_ids.GetNextRequestId(3));
+}
+
+TEST(EndpointRequestIdsTest, ResetRequestId) {
+  EndpointRequestIds request_ids;
+
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(2u, request_ids.GetNextRequestId(7));
+  request_ids.ResetRequestId(7);
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(2u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(3));
+  EXPECT_EQ(2u, request_ids.GetNextRequestId(3));
+  request_ids.ResetRequestId(7);
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(2u, request_ids.GetNextRequestId(7));
+  request_ids.ResetRequestId(9);
+}
+
+TEST(EndpointRequestIdsTest, ResetAll) {
+  EndpointRequestIds request_ids;
+
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(2u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(3));
+  EXPECT_EQ(2u, request_ids.GetNextRequestId(3));
+  request_ids.Reset();
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(7));
+  EXPECT_EQ(1u, request_ids.GetNextRequestId(3));
+>>>>>>> Track request IDs by endpoint ID
 }
 
 }  // namespace openscreen

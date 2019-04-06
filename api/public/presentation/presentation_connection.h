@@ -14,6 +14,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/public/message_demuxer.h"
+#include "base/error.h"
 #include "base/ip_address.h"
 #include "base/macros.h"
 #include "platform/api/logging.h"
@@ -77,7 +78,7 @@ class Connection {
     virtual void OnError(const absl::string_view message) = 0;
 
     // Terminated through a different connection.
-    virtual void OnTerminatedByRemote() = 0;
+    virtual void OnTerminated() = 0;
 
     // A UTF-8 string message was received.
     virtual void OnStringMessage(const absl::string_view message) = 0;
@@ -89,9 +90,19 @@ class Connection {
     DISALLOW_COPY_AND_ASSIGN(Delegate);
   };
 
-  enum class Role {
-    kController,
-    kReceiver,
+  class ParentDelegate {
+   public:
+    ParentDelegate() = default;
+    virtual ~ParentDelegate() = default;
+
+    virtual Error CloseConnection(Connection* connection,
+                                  CloseReason reason) = 0;
+    virtual Error OnPresentationTerminated(const std::string& presentation_id,
+                                           TerminationReason reason) = 0;
+    virtual void OnConnectionDestroyed(Connection* connection) = 0;
+
+   private:
+    DISALLOW_COPY_AND_ASSIGN(ParentDelegate);
   };
 
   struct PresentationInfo {
@@ -100,13 +111,14 @@ class Connection {
   };
 
   // Constructs a new connection using |delegate| for callbacks.
-  Connection(const PresentationInfo& info, Role role, Delegate* delegate);
+  Connection(const PresentationInfo& info,
+             Delegate* delegate,
+             ParentDelegate* parent_delegate);
   ~Connection();
 
   // Returns the ID and URL of this presentation.
   const PresentationInfo& presentation_info() const { return presentation_; }
 
-  Role role() const { return role_; }
   State state() const { return state_; }
 
   ProtocolConnection* get_protocol_connection() const {
@@ -145,7 +157,7 @@ class Connection {
 
   void OnClosedByError(Error cause);
   void OnClosedByRemote();
-  void OnTerminatedByRemote();
+  void OnTerminated();
 
   Delegate* get_delegate() { return delegate_; }
 
@@ -158,7 +170,7 @@ class Connection {
   PresentationInfo presentation_;
   State state_ = State::kConnecting;
   Delegate* delegate_;
-  Role role_;
+  ParentDelegate* parent_delegate_;
   absl::optional<uint64_t> connection_id_;
   absl::optional<uint64_t> endpoint_id_;
   std::unique_ptr<ProtocolConnection> protocol_connection_;

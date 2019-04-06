@@ -94,7 +94,8 @@ QuicConnectionFactoryImpl::~QuicConnectionFactoryImpl() {
 void QuicConnectionFactoryImpl::SetServerDelegate(
     ServerDelegate* delegate,
     const std::vector<IPEndpoint>& endpoints) {
-  OSP_DCHECK(!delegate != !server_delegate_);
+  OSP_DCHECK((delegate && !server_delegate_) ||
+             (!delegate && server_delegate_));
 
   server_delegate_ = delegate;
   sockets_.reserve(sockets_.size() + endpoints.size());

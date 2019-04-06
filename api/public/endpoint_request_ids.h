@@ -19,12 +19,16 @@ namespace openscreen {
 // within a pair of endpoints.
 class EndpointRequestIds {
  public:
+<<<<<<< HEAD
   enum class Role {
     kClient,
     kServer,
   };
 
   explicit EndpointRequestIds(Role role);
+=======
+  EndpointRequestIds();
+>>>>>>> Track request IDs by endpoint ID
   ~EndpointRequestIds();
 
   uint64_t GetNextRequestId(uint64_t endpoint_id);
@@ -32,7 +36,10 @@ class EndpointRequestIds {
   void Reset();
 
  private:
+<<<<<<< HEAD
   const Role role_;
+=======
+>>>>>>> Track request IDs by endpoint ID
   std::map<uint64_t, uint64_t> request_ids_by_endpoint_id_;
 
   DISALLOW_COPY_AND_ASSIGN(EndpointRequestIds);
