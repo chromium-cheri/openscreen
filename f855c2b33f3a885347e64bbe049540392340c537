@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99bdbdc7_4800c0ba",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-08T20:24:51Z",
+      "side": 1,
+      "message": "Can you just remove it then and use the default constructor?",
+      "revId": "f855c2b33f3a885347e64bbe049540392340c537",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec360126_642a48e0",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-08T20:24:51Z",
+      "side": 1,
+      "message": "I see what I was missing now.  It\u0027s that this is equivalent to:\n\nif (wait_predicate()) {\n  return lock;\n}\n\nif (!delayed_tasks_.empty()) {\n  run_loop_wakeup_.wait_until(lock, delayed_tasks_.top().runnable_after,\n                              wait_predicate);\n   // We don\u0027t have any work queued.\n} else if (tasks_.empty()) {\n  run_loop_wakeup_.wait(lock, wait_predicate);\n}\n\n\nWhich is equivalent to:\n\nif (!this-\u003eis_running_ || !this-\u003etasks_.empty() || !this-\u003edelayed_tasks_.empty()) {\n  return lock;\n}\n\nif (!delayed_tasks_.empty()) {\n  run_loop_wakeup_.wait_until(lock, delayed_tasks_.top().runnable_after,\n                              wait_predicate);\n   // We don\u0027t have any work queued.\n} else if (tasks_.empty()) {\n  run_loop_wakeup_.wait(lock, wait_predicate);\n}\n\n\nWhich is equivalent to:\n\nif (!this-\u003eis_running_ || !this-\u003etasks_.empty()) {\n  return lock;\n}\n\nif (!delayed_tasks_.empty()) {\n  run_loop_wakeup_.wait_until(lock, delayed_tasks_.top().runnable_after,\n                              wait_predicate);\n   // We don\u0027t have any work queued.\n} else if (tasks_.empty()) {\n  run_loop_wakeup_.wait(lock, wait_predicate);\n}\n\n\n\nWhich seems more readable.  You could even put a comment like \"This is redundant because it\u0027s a subset of the wait_predicate, but it\u0027s more readable this way\".",
+      "revId": "f855c2b33f3a885347e64bbe049540392340c537",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f04f65_fd153e79",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-08T20:24:51Z",
+      "side": 1,
+      "message": "nit: Thread-safe",
+      "revId": "f855c2b33f3a885347e64bbe049540392340c537",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c21a769f_dbf57c8b",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-08T20:24:51Z",
+      "side": 1,
+      "message": "Should update the comment to indicate we don\u0027t wait for a notify if there are tasks or if we are stopped.  And that we aren\u0027t just waiting for work, we are waiting for work or being stopped.  But we always take the lock even if we\u0027re stopped.",
+      "revId": "f855c2b33f3a885347e64bbe049540392340c537",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
