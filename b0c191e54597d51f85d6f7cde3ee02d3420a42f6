@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "79e2cc97_b3f23520",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Makes sense.",
+      "parentUuid": "0be37fc0_84f4e909",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bca2da5_e7595958",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 19
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d9f1c4fe_14f52604",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Added a comment explaining behavior.",
+      "parentUuid": "8bca2da5_e7595958",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f026cb28_5504982a",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 19
@@ -47,6 +83,24 @@
       "writtenOn": "2019-04-06T00:59:24Z",
       "side": 1,
       "message": "When we use this TaskRunner in unit tests for things that use TaskRunner, and not test of TaskRunner itself, we will want to put the TaskRunner in \"use hot loop for fake clock\" mode.  \n\nPerhaps we should just have one RunCurrentTasks method that checks the \"in unit test\" flag.",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a93eb9ca_a3d8c645",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Isn\u0027t that flag flaky? I thought we weren\u0027t supposed to rely on that inside of Chromium. What\u0027s the reliable way to tell?",
+      "parentUuid": "f026cb28_5504982a",
       "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "01966017_fd9313ab",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "459a1c2b_1e0ae455",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "165d6c84_b2123ee7",
         "filename": "api/impl/task_runner_impl.cc",
         "patchSetId": 19
@@ -84,6 +156,24 @@
       "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c265478_3ca0bbb6",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "165d6c84_b2123ee7",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "93817b52_c86928e1",
+        "filename": "api/impl/task_runner_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "I think you are missing something. We take the lock here immediately, and only wait if there are no ready tasks. wait_until adds a timeout--if a task gets added immediately it will still get notified immediately, it just will also time out after the given time.s\n\nThe case where we have tasks is the implicit \"else\" case here, I\u0027ll add a comment and a unit test.",
+      "parentUuid": "15c31267_7a10feac",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12d130bd_5e229173",
         "filename": "api/impl/task_runner_impl.h",
         "patchSetId": 19
@@ -118,6 +226,24 @@
       "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c0c06a_c75e344d",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12d130bd_5e229173",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "7f2d4486_6c0a4574",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3b2985b_34b53c2a",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 7
+      },
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3514923_d527f57a",
         "filename": "api/impl/task_runner_impl.h",
         "patchSetId": 19
@@ -158,6 +308,24 @@
       "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a13573c_752423dc",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Sounds good. I struggled with naming this.",
+      "parentUuid": "b3514923_d527f57a",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +346,24 @@
     },
     {
       "key": {
+        "uuid": "74b279de_8b34d352",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a4807e5_436598e3",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5974cd79_16b4a657",
         "filename": "api/impl/task_runner_impl.h",
         "patchSetId": 19
@@ -192,6 +378,24 @@
       "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7522f592_c07f16b3",
+        "filename": "api/impl/task_runner_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5974cd79_16b4a657",
+      "revId": "b0c191e54597d51f85d6f7cde3ee02d3420a42f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
