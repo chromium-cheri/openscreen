@@ -12,6 +12,7 @@
 namespace {
 using openscreen::platform::Clock;
 using std::chrono::milliseconds;
+using std::chrono_literals::operator""ms;
 
 const auto kTaskRunnerSleepTime = milliseconds(1);
 
@@ -161,6 +162,23 @@ TEST(TaskRunnerTest, TaskRunnerIsStableWithLotsOfTasks) {
 
   runner.RunUntilIdleForTesting();
   EXPECT_EQ(ran_tasks, expected_ran_tasks);
+}
+
+TEST(TaskRunnerTest, TaskRunnerDelayedTasksDontBlockImmediateTasks) {
+  TaskRunnerImpl runner(platform::Clock::now);
+
+  std::string ran_tasks;
+  const auto task = [&ran_tasks] { ran_tasks += "1"; };
+  const auto delayed_task = [&ran_tasks] { ran_tasks += "A"; };
+
+  runner.PostTaskWithDelay(delayed_task, 10000ms);
+  runner.PostTask(task);
+
+  runner.RunUntilIdleForTesting();
+  // The immediate task should have run, even though the delayed task
+  // was added first.
+
+  EXPECT_EQ(ran_tasks, "1");
 }
 }  // namespace platform
 }  // namespace openscreen
