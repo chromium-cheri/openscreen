@@ -371,6 +371,25 @@ bool SkipOptionalComma(Parser* p) {
   return true;
 }
 
+AstNode* CreatePlaceholderGroup(Parser* p) {
+  std::string key = "temp-placeholder";
+  std::string value = "text";
+  std::string entry = key + ": " + value;
+
+  // Artificially create the same structure that parsing a group would give.
+  AstNode* entry_node = AddNode(p, AstNode::Type::kGrpent, entry);
+  AstNode* key_node = AddNode(p, AstNode::Type::kId, key);
+  key_node = AddNode(p, AstNode::Type::kMemberKey, key + ":", key_node);
+  AstNode* value_node = AddNode(p, AstNode::Type::kTypename, value);
+  value_node = AddNode(p, AstNode::Type::kType2, value, value_node);
+  value_node = AddNode(p, AstNode::Type::kType1, value, value_node);
+  value_node = AddNode(p, AstNode::Type::kType, value, value_node);
+  entry_node->children = key_node;
+  key_node->sibling = value_node;
+  AstNode* gp_node = AddNode(p, AstNode::Type::kGrpchoice, entry, entry_node);
+  return AddNode(p, AstNode::Type::kGroup, entry, gp_node);
+}
+
 // Parse the group contained inside of other brackets. Since the brackets around
 // the group are optional inside of other brackets, we can't directly call
 // ParseGroupEntry(...) and instead need this wrapper around it.
@@ -500,16 +519,21 @@ AstNode* ParseType2(Parser* p) {
   } else if (it[0] == '{') {
     p->data = it + 1;
     SkipWhitespace(p);
-    AstNode* group = ParseGroup(p);
-    if (!group) {
-      return nullptr;
+    if (p->data[0] == '}') {
+      ++p->data;
+      node->children = CreatePlaceholderGroup(p);
+    } else {
+      AstNode* group = ParseGroup(p);
+      if (!group) {
+        return nullptr;
+      }
+      SkipWhitespace(p);
+      if (p->data[0] != '}') {
+        return nullptr;
+      }
+      ++p->data;
+      node->children = group;
     }
-    SkipWhitespace(p);
-    if (p->data[0] != '}') {
-      return nullptr;
-    }
-    ++p->data;
-    node->children = group;
   } else if (it[0] == '[') {
     p->data = it + 1;
     SkipWhitespace(p);
