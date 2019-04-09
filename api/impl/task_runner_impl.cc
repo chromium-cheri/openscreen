@@ -92,10 +92,26 @@ void TaskRunnerImpl::ScheduleDelayedTasks() {
   // Getting the time can be expensive on some platforms, so only get it once.
   const auto current_time = now_function_();
   while (!delayed_tasks_.empty() &&
-         (delayed_tasks_.top().runnable_after < current_time)) {
+         (delayed_tasks_.top().runnable_after <= current_time)) {
     tasks_.push_back(std::move(delayed_tasks_.top().task));
     delayed_tasks_.pop();
   }
+}
+
+bool TaskRunnerImpl::ShouldWakeUpRunLoop() {
+  OSP_LOG_INFO << "Is running? " << is_running_;
+  if (!is_running_)
+    return true;
+
+  OSP_LOG_INFO << "Task count: " << tasks_.size();
+  if (!tasks_.empty())
+    return true;
+
+  OSP_LOG_INFO << "Delayed task count: " << delayed_tasks_.size();
+  if (!delayed_tasks_.empty())
+    return delayed_tasks_.top().runnable_after <= now_function_();
+
+  return false;
 }
 
 std::unique_lock<std::mutex> TaskRunnerImpl::WaitForWorkAndAcquireLock() {
@@ -112,23 +128,16 @@ std::unique_lock<std::mutex> TaskRunnerImpl::WaitForWorkAndAcquireLock() {
   }
 
   // Pass a wait predicate to avoid lost or spurious wakeups.
-  const auto wait_predicate = [this] {
-    // Either we got woken up because we aren't running
-    // (probably just to end the thread), or we are running and have tasks to
-    // do or schedule.
-    return !this->is_running_ || !this->tasks_.empty() ||
-           !this->delayed_tasks_.empty();
-  };
+  const auto wait_predicate = [this] { return ShouldWakeUpRunLoop(); };
 
-  // TODO(jophba): find a predicate method that is compatible with our
-  // fake clock, for easier use with testing.
-  // We don't have any work to do currently, but know we have some in the pipe.
   if (!delayed_tasks_.empty()) {
+    // We don't have any work to do currently, but have some in the
+    // pipe.
     run_loop_wakeup_.wait_until(lock, delayed_tasks_.top().runnable_after,
                                 wait_predicate);
 
+  } else {
     // We don't have any work queued.
-  } else if (tasks_.empty()) {
     run_loop_wakeup_.wait(lock, wait_predicate);
   }
 
