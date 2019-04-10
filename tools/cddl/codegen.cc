@@ -11,6 +11,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "absl/types/optional.h"
 
 // Convert '-' to '_' to use a CDDL identifier as a C identifier.
@@ -79,6 +80,52 @@ std::string CppTypeToString(const CppType& cpp_type) {
   }
 }
 
+// Write the equality operators for comparing an enum and its parent types.
+// NOTE: These need to be added in the header for the inline operator to apply,
+// which will give us a perf improvement.
+bool WriteEnumEqualityOperator(int fd,
+                               const CppType& type,
+                               const CppType& parent) {
+  std::string name = ToCamelCase(type.name);
+  std::string parent_name = ToCamelCase(parent.name);
+
+  // Define type == parentType.
+  dprintf(fd, "inline bool operator==(const %s& child, const %s& parent) {\n",
+          name.c_str(), parent_name.c_str());
+  dprintf(fd, "  switch (parent) {\n");
+  for (const auto& x : parent.enum_type.members) {
+    std::string enum_value = "k" + ToCamelCase(x.first);
+    dprintf(fd, "    case %s::%s: return child == %s::%s;\n",
+            parent_name.c_str(), enum_value.c_str(), name.c_str(),
+            enum_value.c_str());
+  }
+  dprintf(fd, "  }\n}\n");
+
+  // Define parentType == type.
+  dprintf(fd, "inline bool operator==(const %s& parent, const %s& child) {\n",
+          parent_name.c_str(), name.c_str());
+  dprintf(fd, "  return child == parent;\n}\n");
+
+  // Define type != parentType.
+  dprintf(fd, "inline bool operator!=(const %s& child, const %s& parent) {\n",
+          name.c_str(), parent_name.c_str());
+  dprintf(fd, "  return !(child == parent);\n}\n");
+
+  // Define parentType != type.
+  dprintf(fd, "inline bool operator!=(const %s& parent, const %s& child) {\n",
+          parent_name.c_str(), name.c_str());
+  dprintf(fd, "  return !(parent == child);\n}\n");
+
+  return true;
+}
+
+bool WriteEnumEqualityOperator(int fd, const CppType& type) {
+  return absl::c_all_of(type.enum_type.sub_members,
+                        [&fd, &type](CppType* parent) {
+                          return WriteEnumEqualityOperator(fd, type, *parent);
+                        });
+}
+
 // Writes the equality operator for a specific Discriminated Union.
 bool WriteDiscriminatedUnionEqualityOperator(
     int fd,
@@ -108,6 +155,9 @@ bool WriteDiscriminatedUnionEqualityOperator(
     }
   }
   dprintf(fd, ";\n}\n");
+  dprintf(fd, "bool %s::operator!=(const %s& other) const {\n", name.c_str(),
+          name.c_str());
+  dprintf(fd, "  return !(*this == other);\n}\n");
   return true;
 }
 
@@ -127,8 +177,10 @@ bool WriteStructEqualityOperator(int fd,
     auto name = ToUnderscoreId(type.struct_type.members[i].name);
     dprintf(fd, "this->%s == other.%s", name.c_str(), name.c_str());
   }
-  dprintf(fd, ";\n}\n");
-
+  dprintf(fd, ";\n}");
+  dprintf(fd, "\nbool %s::operator!=(const %s& other) const {\n", name.c_str(),
+          name.c_str());
+  dprintf(fd, "  return !(*this == other);\n}\n");
   std::string new_prefix = name_prefix + ToCamelCase(type.name) + "::";
   for (const auto& x : type.struct_type.members) {
     // NOTE: Don't need to call recursively on struct members, since all structs
@@ -174,7 +226,9 @@ bool WriteStructMembers(
         dprintf(fd, "    %s();\n    ~%s();\n\n", type_string.c_str(),
                 type_string.c_str());
 
-        dprintf(fd, "  bool operator==(const %s& other) const;\n\n",
+        dprintf(fd, "  bool operator==(const %s& other) const;\n",
+                type_string.c_str());
+        dprintf(fd, "  bool operator!=(const %s& other) const;\n\n",
                 type_string.c_str());
         dprintf(fd, "  enum class Which {\n");
         for (auto* union_member : x.type->discriminated_union.members) {
@@ -247,10 +301,14 @@ bool WriteTypeDefinition(int fd, const CppType& type) {
       dprintf(fd, "\nenum class %s : uint64_t {\n", name.c_str());
       WriteEnumMembers(fd, type);
       dprintf(fd, "};\n");
+      if (!WriteEnumEqualityOperator(fd, type))
+        return false;
     } break;
     case CppType::Which::kStruct: {
       dprintf(fd, "\nstruct %s {\n", name.c_str());
-      dprintf(fd, "  bool operator==(const %s& other) const;\n\n",
+      dprintf(fd, "  bool operator==(const %s& other) const;\n",
+              name.c_str());
+      dprintf(fd, "  bool operator!=(const %s& other) const;\n\n",
               name.c_str());
       if (!WriteStructMembers(fd, type.name, type.struct_type.members))
         return false;
@@ -1271,16 +1329,15 @@ bool WriteArrayDecoder(int fd,
 }
 
 // Writes the equality operators for all structs.
-bool WriteStructEqualityOperators(int fd, const CppSymbolTable& table) {
+bool WriteEqualityOperators(int fd, const CppSymbolTable& table) {
   for (const auto& pair : table.cpp_type_map) {
     CppType* real_type = pair.second;
-    if (real_type->which != CppType::Which::kStruct ||
-        real_type->struct_type.key_type ==
+    if (real_type->which == CppType::Which::kStruct &&
+        real_type->struct_type.key_type !=
             CppType::Struct::KeyType::kPlainGroup) {
-      continue;
-    }
-    if (!WriteStructEqualityOperator(fd, *real_type)) {
-      return false;
+      if (!WriteStructEqualityOperator(fd, *real_type)) {
+        return false;
+      }
     }
   }
   return true;
