@@ -22,6 +22,121 @@
       "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32028328_f5e31525",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-10T19:08:24Z",
+      "side": 1,
+      "message": "Should this be something like std::atomic\u003cuint64_t\u003e with fetch_add to exclude potential of two requests getting the same ID?",
+      "range": {
+        "startLine": 496,
+        "startChar": 9,
+        "endLine": 496,
+        "endChar": 17
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85569c1d_004fada1",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-10T19:08:24Z",
+      "side": 1,
+      "message": "Maybe something like update_result or update_error?",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 26
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aa0ba45_d25fdab3",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-10T19:08:24Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 475,
+        "startChar": 22,
+        "endLine": 475,
+        "endChar": 28
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b1b771d_62287262",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-10T19:08:24Z",
+      "side": 1,
+      "message": "This depends on the compilation flags. In case code is compiled and linked with link time code generation, compiler and linker can choose to inline functions that do not have their implementations in the header. I think the flags are -flto for clang and GCC, and /GL /LTCG for MSVC.\n\nAnd inline specifier does not guarantee that the function will be inlined.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 41
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "066a5f70_ce90ebcd",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-10T19:08:24Z",
+      "side": 1,
+      "message": "Why do we need a flush here?",
+      "range": {
+        "startLine": 688,
+        "startChar": 6,
+        "endLine": 688,
+        "endChar": 24
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
