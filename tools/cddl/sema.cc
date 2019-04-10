@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "tools/cddl/logging.h"
 #include "tools/cddl/sema.h"
 
 #include <string.h>
@@ -10,6 +9,7 @@
 
 #include <cinttypes>
 #include <cstdlib>
+#include <iostream>
 #include <map>
 #include <memory>
 #include <string>
@@ -20,6 +20,7 @@
 #include "absl/strings/numbers.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "tools/cddl/logging.h"
 
 CddlType::CddlType()
     : map(nullptr), op(CddlType::Op::kNone), constraint_type(nullptr) {}
@@ -462,8 +463,10 @@ std::pair<bool, CddlSymbolTable> BuildSymbolTable(const AstNode& rules) {
     if (is_type) {
       CddlType* type = AnalyzeType(&table, *node);
       if (!type) {
-        Logger::Error("Error parsing node with text '%s'."
-                      "Failed to analyze node type.", node->text);
+        Logger::Error(
+            "Error parsing node with text '%s'."
+            "Failed to analyze node type.",
+            node->text);
       }
       table.type_map.emplace(std::string(name), type);
     } else {
@@ -499,6 +502,37 @@ CppType* GetCppType(CppSymbolTable* table, const std::string& name) {
 bool IncludeGroupMembersInEnum(CppSymbolTable* table,
                                const CddlSymbolTable& cddl_table,
                                CppType* cpp_type,
+                               const CddlGroup& group);
+
+bool IncludeGroupMembersInSubEnum(CppSymbolTable* table,
+                                  const CddlSymbolTable& cddl_table,
+                                  CppType* cpp_type,
+                                  const std::string& name) {
+  auto group_entry = cddl_table.group_map.find(name);
+  if (group_entry == cddl_table.group_map.end()) {
+    return false;
+  }
+  if (group_entry->second->entries.size() != 1 ||
+      group_entry->second->entries[0]->which !=
+          CddlGroup::Entry::Which::kGroup) {
+    return false;
+  }
+  CppType* sub_enum = GetCppType(table, name);
+  if (sub_enum->which == CppType::Which::kUninitialized) {
+    sub_enum->InitEnum();
+    sub_enum->name = name;
+    if (!IncludeGroupMembersInEnum(table, cddl_table, sub_enum,
+                                   *group_entry->second->entries[0]->group)) {
+      return false;
+    }
+  }
+  cpp_type->enum_type.sub_members.push_back(sub_enum);
+  return true;
+}
+
+bool IncludeGroupMembersInEnum(CppSymbolTable* table,
+                               const CddlSymbolTable& cddl_table,
+                               CppType* cpp_type,
                                const CddlGroup& group) {
   for (const auto& x : group.entries) {
     if (x->HasOccurrenceOperator() ||
@@ -510,26 +544,8 @@ bool IncludeGroupMembersInEnum(CppSymbolTable* table,
       cpp_type->enum_type.members.emplace_back(
           x->type.opt_key, atoi(x->type.value->value.c_str()));
     } else if (x->type.value->which == CddlType::Which::kId) {
-      auto group_entry = cddl_table.group_map.find(x->type.value->id);
-      if (group_entry == cddl_table.group_map.end()) {
-        return false;
-      }
-      if (group_entry->second->entries.size() != 1 ||
-          group_entry->second->entries[0]->which !=
-              CddlGroup::Entry::Which::kGroup) {
-        return false;
-      }
-      CppType* sub_enum = GetCppType(table, x->type.value->id);
-      if (sub_enum->which == CppType::Which::kUninitialized) {
-        sub_enum->InitEnum();
-        sub_enum->name = x->type.value->id;
-        if (!IncludeGroupMembersInEnum(
-                table, cddl_table, sub_enum,
-                *group_entry->second->entries[0]->group)) {
-          return false;
-        }
-      }
-      cpp_type->enum_type.sub_members.push_back(sub_enum);
+      IncludeGroupMembersInSubEnum(table, cddl_table, cpp_type,
+                                   x->type.value->id);
     } else {
       return false;
     }
@@ -637,8 +653,9 @@ CppType* MakeCppType(CppSymbolTable* table,
       cpp_type->InitStruct();
       cpp_type->struct_type.key_type = CppType::Struct::KeyType::kMap;
       cpp_type->name = name;
-      if (!AddMembersToStruct(table, cddl_table, cpp_type, type.map->entries))
+      if (!AddMembersToStruct(table, cddl_table, cpp_type, type.map->entries)) {
         return nullptr;
+      }
     } break;
     case CddlType::Which::kArray: {
       cpp_type = GetCppType(table, name);
@@ -667,6 +684,15 @@ CppType* MakeCppType(CppSymbolTable* table,
       cpp_type->name = name;
       if (!IncludeGroupMembersInEnum(table, cddl_table, cpp_type,
                                      *type.group_choice)) {
+        return nullptr;
+      }
+    } break;
+    case CddlType::Which::kGroupnameChoice: {
+      std::cout.flush();
+      cpp_type = GetCppType(table, name);
+      cpp_type->InitEnum();
+      cpp_type->name = name;
+      if (!IncludeGroupMembersInSubEnum(table, cddl_table, cpp_type, type.id)) {
         return nullptr;
       }
     } break;
@@ -722,6 +748,7 @@ std::pair<bool, CppSymbolTable> BuildCppTypes(
   auto& table = result.second;
   table.root_rule = cddl_table.root_rule;
   for (const auto& type_entry : cddl_table.type_map) {
+    Logger::Log("\tProcessing type '%s'", type_entry.first);
     if (!MakeCppType(&table, cddl_table, type_entry.first,
                      *type_entry.second)) {
       return result;
@@ -772,7 +799,7 @@ void DumpType(CddlType* type, int indent_level) {
     output += "--";
   switch (type->which) {
     case CddlType::Which::kDirectChoice:
-      output ="kDirectChoice:";
+      output = "kDirectChoice:";
       Logger::Log(output);
       for (auto& option : type->direct_choice)
         DumpType(option, indent_level + 1);
@@ -823,10 +850,9 @@ void DumpGroup(CddlGroup* group, int indent_level) {
       case CddlGroup::Entry::Which::kType:
         output += "kType:";
         if (entry->HasOccurrenceOperator()) {
-          output += "minOccurance: " +
-                    std::to_string(entry->opt_occurrence_min) +
-                    " maxOccurance: " +
-                    std::to_string(entry->opt_occurrence_max);
+          output +=
+              "minOccurance: " + std::to_string(entry->opt_occurrence_min) +
+              " maxOccurance: " + std::to_string(entry->opt_occurrence_max);
         }
         if (!entry->type.opt_key.empty()) {
           output += " " + entry->type.opt_key + "=>";
@@ -836,10 +862,9 @@ void DumpGroup(CddlGroup* group, int indent_level) {
         break;
       case CddlGroup::Entry::Which::kGroup:
         if (entry->HasOccurrenceOperator())
-          output += "minOccurance: " +
-                    std::to_string(entry->opt_occurrence_min) +
-                    " maxOccurance: " +
-                    std::to_string(entry->opt_occurrence_max);
+          output +=
+              "minOccurance: " + std::to_string(entry->opt_occurrence_min) +
+              " maxOccurance: " + std::to_string(entry->opt_occurrence_max);
         Logger::Log(output);
         DumpGroup(entry->group, indent_level + 1);
         break;
