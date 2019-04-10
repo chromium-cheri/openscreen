@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9abe1f2b_99d60fe2",
+        "filename": "api/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-10T19:21:32Z",
+      "side": 1,
+      "message": "This is just intended to be a placeholder so that the code still makes sense. The real implementation should be provided by Brandon\u0027s open CL: https://chromium-review.googlesource.com/c/openscreen/+/1496795/3/api/impl/presentation/presentation_receiver.cc",
+      "parentUuid": "32028328_f5e31525",
+      "range": {
+        "startLine": 496,
+        "startChar": 9,
+        "endLine": 496,
+        "endChar": 17
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85569c1d_004fada1",
         "filename": "api/impl/presentation/url_availability_requester.cc",
         "patchSetId": 5
@@ -68,6 +92,30 @@
       "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37ce10bf_47511efa",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-10T19:21:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85569c1d_004fada1",
+      "range": {
+        "startLine": 451,
+        "startChar": 20,
+        "endLine": 451,
+        "endChar": 26
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "9bdbbfc8_17d0a3f0",
+        "filename": "api/impl/presentation/url_availability_requester.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-10T19:21:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aa0ba45_d25fdab3",
+      "range": {
+        "startLine": 475,
+        "startChar": 22,
+        "endLine": 475,
+        "endChar": 28
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b1b771d_62287262",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 5
@@ -105,6 +177,30 @@
       "writtenOn": "2019-04-10T19:08:24Z",
       "side": 1,
       "message": "This depends on the compilation flags. In case code is compiled and linked with link time code generation, compiler and linker can choose to inline functions that do not have their implementations in the header. I think the flags are -flto for clang and GCC, and /GL /LTCG for MSVC.\n\nAnd inline specifier does not guarantee that the function will be inlined.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 41
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9075de69_5e8feb8d",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-10T19:21:32Z",
+      "side": 1,
+      "message": "That\u0027s really good to know :) I\u0027m not sure that we should change the required compiler flags though (so should leave these definitions in the header). What does everyone else think?",
+      "parentUuid": "8b1b771d_62287262",
       "range": {
         "startLine": 84,
         "startChar": 0,
@@ -137,6 +233,30 @@
       "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4bf7c09_c549259f",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-10T19:21:32Z",
+      "side": 1,
+      "message": "Good catch - thought I had deleted all these and didn\u0027t see any of them when looking the CL over. Removed it.",
+      "parentUuid": "066a5f70_ce90ebcd",
+      "range": {
+        "startLine": 688,
+        "startChar": 6,
+        "endLine": 688,
+        "endChar": 24
+      },
+      "revId": "1bce9d4652a2ba5075b51f9651bc7d9be0decd93",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
