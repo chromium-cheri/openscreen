@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "tools/cddl/logging.h"
 #include "tools/cddl/parse.h"
 
 #include <unistd.h>
@@ -16,6 +15,7 @@
 #include "absl/strings/ascii.h"
 #include "absl/strings/match.h"
 #include "platform/api/logging.h"
+#include "tools/cddl/logging.h"
 
 static_assert(sizeof(absl::string_view::size_type) == sizeof(size_t),
               "We assume string_view's size_type is the same as size_t. If "
@@ -371,6 +371,38 @@ bool SkipOptionalComma(Parser* p) {
   return true;
 }
 
+// Creates a placeholder with value of given type.
+AstNode* CreatePlaceholder(Parser* p,
+                           std::string key,
+                           AstNode::Type data_type,
+                           std::string value) {
+  std::string entry = key + ": " + value;
+
+  // Artificially create the same structure that parsing a group would give.
+  AstNode* entry_node = AddNode(p, AstNode::Type::kGrpent, entry);
+  AstNode* key_node = AddNode(p, AstNode::Type::kId, key);
+  key_node = AddNode(p, AstNode::Type::kMemberKey, key + ":", key_node);
+  AstNode* value_node = AddNode(p, data_type, value);
+  value_node = AddNode(p, AstNode::Type::kType2, value, value_node);
+  value_node = AddNode(p, AstNode::Type::kType1, value, value_node);
+  value_node = AddNode(p, AstNode::Type::kType, value, value_node);
+  entry_node->children = key_node;
+  key_node->sibling = value_node;
+  AstNode* gp_node = AddNode(p, AstNode::Type::kGrpchoice, entry, entry_node);
+  return AddNode(p, AstNode::Type::kGroup, entry, gp_node);
+}
+
+// Creates a temp placeholder in a group with no entries.
+AstNode* CreatePlaceholderGroupEntity(Parser* p) {
+  return CreatePlaceholder(p, "temp-placeholder", AstNode::Type::kTypename,
+                           "text");
+}
+
+// Creates a temp placeholder in a groupchoice / enum..
+AstNode* CreatePlaceholderEnumEntity(Parser* p) {
+  return CreatePlaceholder(p, "unknown", AstNode::Type::kNumber, "0");
+}
+
 // Parse the group contained inside of other brackets. Since the brackets around
 // the group are optional inside of other brackets, we can't directly call
 // ParseGroupEntry(...) and instead need this wrapper around it.
@@ -487,29 +519,39 @@ AstNode* ParseType2(Parser* p) {
   } else if (it[0] == '(') {
     p->data = it + 1;
     SkipWhitespace(p);
-    AstNode* type = ParseType(p);
-    if (!type) {
-      return nullptr;
+    if (p->data[0] == ')') {
+      ++p->data;
+      node->children = CreatePlaceholderGroupEntity(p);
+    } else {
+      AstNode* type = ParseType(p);
+      if (!type) {
+        return nullptr;
+      }
+      SkipWhitespace(p);
+      if (p->data[0] != ')') {
+        return nullptr;
+      }
+      ++p->data;
+      node->children = type;
     }
-    SkipWhitespace(p);
-    if (p->data[0] != ')') {
-      return nullptr;
-    }
-    ++p->data;
-    node->children = type;
   } else if (it[0] == '{') {
     p->data = it + 1;
     SkipWhitespace(p);
-    AstNode* group = ParseGroup(p);
-    if (!group) {
-      return nullptr;
+    if (p->data[0] == '}') {
+      ++p->data;
+      node->children = CreatePlaceholderGroupEntity(p);
+    } else {
+      AstNode* group = ParseGroup(p);
+      if (!group) {
+        return nullptr;
+      }
+      SkipWhitespace(p);
+      if (p->data[0] != '}') {
+        return nullptr;
+      }
+      ++p->data;
+      node->children = group;
     }
-    SkipWhitespace(p);
-    if (p->data[0] != '}') {
-      return nullptr;
-    }
-    ++p->data;
-    node->children = group;
   } else if (it[0] == '[') {
     p->data = it + 1;
     SkipWhitespace(p);
@@ -541,16 +583,21 @@ AstNode* ParseType2(Parser* p) {
     if (p->data[0] == '(') {
       ++p->data;
       SkipWhitespace(p);
-      AstNode* group = ParseGroup(p);
-      if (!group) {
-        return nullptr;
+      if (p->data[0] == ')') {
+        ++p->data;
+        node->children = CreatePlaceholderEnumEntity(p);
+      } else {
+        AstNode* group = ParseGroup(p);
+        if (!group) {
+          return nullptr;
+        }
+        SkipWhitespace(p);
+        if (p->data[0] != ')') {
+          return nullptr;
+        }
+        ++p->data;
+        node->children = group;
       }
-      SkipWhitespace(p);
-      if (p->data[0] != ')') {
-        return nullptr;
-      }
-      ++p->data;
-      node->children = group;
     } else {
       AstNode* id = ParseId(p);
       if (id) {
@@ -936,7 +983,8 @@ ParseResult ParseCddl(absl::string_view data) {
   do {
     AstNode* next = ParseRule(&p);
     if (!next) {
-      Logger::Error("Failed to parse next node. Failed starting at: '%s'", p.data);
+      Logger::Error("Failed to parse next node. Failed starting at: '%s'",
+                    p.data);
       return {nullptr, {}};
     }
 
