@@ -19,6 +19,8 @@ vars = {
     # NOTE: Strangely enough, this will be overridden by any _parent_ DEPS, so
     # in Chromium it will correctly be True.
     'build_with_chromium': False,
+    
+    'checkout_chromium_quic_boringssl': False,
 }
 
 deps = {
@@ -32,6 +34,12 @@ deps = {
     'third_party/mDNSResponder/src': {
         'url': Var('github') + '/jevinskie/mDNSResponder.git' +
             '@' + '2942dde61f920fbbf96ff9a3840567ebbe7cb1b6',
+        'condition': 'not build_with_chromium',
+    },
+
+    'third_party/boringssl/src': {
+        'url' : Var('boringssl_git') + '/boringssl.git' +
+            '@' + '6410e18e9190b6b0c71955119fbf3cae1b9eedb7',
         'condition': 'not build_with_chromium',
     },
 
