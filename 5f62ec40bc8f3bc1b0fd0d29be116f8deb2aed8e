@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2075bf66_90f56b4f",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-11T23:10:57Z",
+      "side": 1,
+      "message": "clang-format moved this as it\u0027s a style issue.  The top-most include is the header this file implements.  Everything else goes below and follows normal include order.",
+      "parentUuid": "08d67507_d4b90cd2",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "5f62ec40bc8f3bc1b0fd0d29be116f8deb2aed8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0937225b_dfb57adc",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "dc6392f8_6317d1c3",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-11T23:10:57Z",
+      "side": 1,
+      "message": "Because std::set is larger and slower for a list of integers.  It isn\u0027t really necessary one way or the other for this case though.",
+      "parentUuid": "0937225b_dfb57adc",
+      "range": {
+        "startLine": 768,
+        "startChar": 4,
+        "endLine": 768,
+        "endChar": 26
+      },
+      "revId": "5f62ec40bc8f3bc1b0fd0d29be116f8deb2aed8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c95a14c_c0bb66f2",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-04-11T18:05:57Z",
       "side": 1,
       "message": "Do we ever expect to have a large number of enums? We could get O(n) runtime instead of O(nlogn) using Radix sort then running std::adjacent_find, but it likely doesnt matter unless we expect a large data set",
+      "range": {
+        "startLine": 765,
+        "startChar": 0,
+        "endLine": 772,
+        "endChar": 1
+      },
+      "revId": "5f62ec40bc8f3bc1b0fd0d29be116f8deb2aed8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e31fbed_cfd000db",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-11T23:10:57Z",
+      "side": 1,
+      "message": "I don\u0027t expect we\u0027ll have such large enums any time soon.  I\u0027m not very familiar with radix sort, but it looks like it\u0027s actually O(width * n), which doesn\u0027t seem good (isn\u0027t width ~ log n?).",
+      "parentUuid": "4c95a14c_c0bb66f2",
       "range": {
         "startLine": 765,
         "startChar": 0,
