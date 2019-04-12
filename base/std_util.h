@@ -5,6 +5,7 @@
 #ifndef BASE_STD_UTIL_H_
 #define BASE_STD_UTIL_H_
 
+#include <algorithm>
 #include <map>
 
 namespace openscreen {
@@ -18,6 +19,19 @@ void RemoveValueFromMap(std::map<Key, Value*>* map, Value* value) {
       ++it;
     }
   }
+}
+
+template <typename ForwardIteratingContainer>
+bool AreElementsSortedAndUnique(const ForwardIteratingContainer& c) {
+  return std::is_sorted(c.begin(), c.end()) &&
+         (std::adjacent_find(c.begin(), c.end()) == c.end());
+}
+
+template <typename RandomAccessContainer>
+void SortAndDedupeElements(RandomAccessContainer* c) {
+  std::sort(c->begin(), c->end());
+  const auto new_end = std::unique(c->begin(), c->end());
+  c->erase(new_end, c->end());
 }
 
 }  // namespace openscreen
