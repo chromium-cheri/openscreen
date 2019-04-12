@@ -2,6 +2,295 @@
   "comments": [
     {
       "key": {
+        "uuid": "e300921a_cc8f91e6",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Style: It\u0027s preferred to put definitions in the declaration order of the .cc whenever possible.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "790f9278_efac7594",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Can this be invoked outside of Controller?  I am unsure what a public declaration means in a private class.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "022939b8_ce11cf06",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Optional: I would be okay with declaring a file-specific macro to make this boilerplate easier to manage, something like:\n\nDECLARE_MSG_REQUEST_RESPONSE(PresentationInitiation)\n\nwhich generates all of the constexpr members.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69325a17_c9790f2f",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure how I feel about file-level using-declarations to shorten template instantiations, if for the only reason that it\u0027s one more hop to go from usage to declaration in an IDE.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b78513_93c183cc",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Similar comment about visibility of the MessageGroupStreams ctor.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c22b22_2c05f98f",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Do you need to declare a dtor?",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76777b7a_8fa54810",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "If message_type !\u003d kPresentationTerminationEvent that\u0027s a bug in the MessageDemuxer?\nShould we just OSP_CHECK on it instead of using a switch statement (to avoid using the wrong decoding function)?",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c16e63_bd796e32",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Should this be kCborParseError?",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d86e7a_5c775a0e",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "It seems like this should be an error code, not the parse result.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2958ca65_85185844",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "I slightly prefer if ... early return to if ... else if ... else for error handling.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8087b012_9eed0e1a",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "I wonder if the request/response handler could take care of making the connection if necessary, and queueing the message to be sent if successful.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a2ed399_76282c86",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Can the URL and the response-\u003eresult go into the Error message, and then just OSP_LOG_INFO the Error?",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d58e4ec_a3f668e4",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Could ControlledPresentation be initialized with a PresentationInfo to hold the presentation start parameters?",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a8e272d_6390f2ec",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Is this to re-use the same ProtocolConnection for initiation and termination requests?\nMaybe it could be named just protocol_connection_ and protocol_connect_request_.",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7287f19_70a48d37",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Why would this get called with a connection other than initiation_protocol_connection_?\nCan we DCHECK that they are the same?",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b7bf7a_d51fd718",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Style: can you add newlines between declarations, to be consistent with the above?",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cb58e39_995f99c6",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-12T02:12:11Z",
+      "side": 1,
+      "message": "Style: Usually move-only types don\u0027t need to be passed explicitly as rvalue references, since there\u0027s no overload possible.\n\nhttps://google.github.io/styleguide/cppguide.html#Rvalue_references",
+      "revId": "436b35c174a0708be33db33ec7452c6a5acef7a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddb56f29_f853b082",
         "filename": "demo/broken_service.cc",
         "patchSetId": 3
