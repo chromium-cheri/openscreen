@@ -1,0 +1,122 @@
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "streaming/cast/frame_crypto.h"
+
+#include <random>
+
+#include "streaming/cast/big_endian.h"
+#include "third_party/boringssl/src/include/openssl/aes.h"
+#include "third_party/boringssl/src/include/openssl/crypto.h"
+#include "third_party/boringssl/src/include/openssl/err.h"
+#include "third_party/boringssl/src/include/openssl/rand.h"
+
+namespace openscreen {
+namespace cast_streaming {
+
+namespace {
+
+// Helper function to log errors that have been queued-up within the boringssl
+// library.
+void LogPendingOpensslErrors() {
+  ERR_print_errors_cb(
+      [](const char* str, size_t len, void* context) {
+        (OSP_LOG_ERROR << "[boringssl] ").write(str, len);
+        return 1;
+      },
+      nullptr);
+  ERR_clear_error();
+}
+
+}  // namespace
+
+EncryptedFrame::EncryptedFrame() = default;
+EncryptedFrame::~EncryptedFrame() = default;
+
+EncryptedFrame::EncryptedFrame(EncryptedFrame&&) MAYBE_NOEXCEPT = default;
+EncryptedFrame& EncryptedFrame::operator=(EncryptedFrame&&)
+    MAYBE_NOEXCEPT = default;
+
+FrameCrypto::FrameCrypto(std::array<uint8_t, 16> aes_key,
+                         std::array<uint8_t, 16> cast_iv_mask)
+    : aes_key_storage_{}, cast_iv_mask_(cast_iv_mask) {
+  // Ensure that the library has been initialized. CRYPTO_library_init() may be
+  // safely called multiple times during the life of a process.
+  CRYPTO_library_init();
+
+  // Initialize the 244-byte AES_KEY struct once, here at construction time. The
+  // const_cast<> is reasonable as this is a one-time-ctor-initialized value
+  // that will remain constant from here onward.
+  static_assert(sizeof(AES_KEY) <= sizeof(aes_key_storage_),
+                "aes_key_storage_ not large enough");
+  const int return_code = AES_set_encrypt_key(
+      aes_key.data(), aes_key.size() * 8,
+      const_cast<AES_KEY*>(reinterpret_cast<const AES_KEY*>(aes_key_storage_)));
+  if (return_code != 0) {
+    LogPendingOpensslErrors();
+    OSP_LOG_FATAL << "Failure when setting encryption key; unsafe to continue.";
+    OSP_NOTREACHED();
+  }
+}
+
+FrameCrypto::~FrameCrypto() = default;
+
+EncryptedFrame FrameCrypto::Encrypt(const EncodedFrame& encoded_frame) const {
+  EncryptedFrame result;
+  encoded_frame.CopyMetadataTo(&result);
+  result.data.resize(encoded_frame.data.size());
+  EncryptCommon(encoded_frame.frame_id, encoded_frame.data, result.data.data());
+  return result;
+}
+
+EncodedFrame FrameCrypto::Decrypt(const EncryptedFrame& encrypted_frame) const {
+  EncodedFrame result;
+  encrypted_frame.CopyMetadataTo(&result);
+  result.data.resize(encrypted_frame.data.size());
+  // AES-CTC is symmetric. Thus, decryption back to the plaintext is the same as
+  // encrypting the ciphertext.
+  EncryptCommon(encrypted_frame.frame_id, encrypted_frame.data,
+                result.data.data());
+  return result;
+}
+
+void FrameCrypto::EncryptCommon(FrameId frame_id,
+                                const std::vector<uint8_t>& in,
+                                uint8_t* out) const {
+  OSP_DCHECK(!frame_id.is_null());
+
+  // Compute the AES nonce for Cast Streaming payload encryption, which is based
+  // on the |frame_id|.
+  SixteenBytes aes_nonce{/* zero initialized */};
+  static_assert(
+      AES_BLOCK_SIZE == (aes_nonce.size() * sizeof(SixteenBytes::value_type)),
+      "AES_BLOCK_SIZE is not 16 bytes?!?!");
+  WriteBigEndian<uint32_t>(frame_id.lower_32_bits(), aes_nonce.data() + 8);
+  for (size_t i = 0; i < aes_nonce.size(); ++i) {
+    aes_nonce[i] ^= cast_iv_mask_[i];
+  }
+
+  SixteenBytes ecount_buf{/* zero initialized */};
+  unsigned int block_offset = 0;
+  AES_ctr128_encrypt(in.data(), out, in.size(),
+                     reinterpret_cast<const AES_KEY*>(aes_key_storage_),
+                     aes_nonce.data(), ecount_buf.data(), &block_offset);
+}
+
+// static
+FrameCrypto::SixteenBytes FrameCrypto::GenerateRandomBytes() {
+  SixteenBytes result;
+  const int return_code = RAND_bytes(
+      result.data(), result.size() * sizeof(SixteenBytes::value_type));
+  if (return_code != 1) {
+    LogPendingOpensslErrors();
+    OSP_LOG_FATAL
+        << "Failure when generating random bytes; unsafe to continue.";
+    OSP_NOTREACHED();
+  }
+  return result;
+}
+
+}  // namespace cast_streaming
+}  // namespace openscreen

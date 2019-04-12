@@ -2,6 +2,8 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+import("//build_overrides/build.gni")
+
 source_set("cast") {
   sources = [
     "big_endian.h",
@@ -11,6 +13,8 @@ source_set("cast") {
     "encoded_frame.cc",
     "encoded_frame.h",
     "expanded_value_base.h",
+    "frame_crypto.cc",
+    "frame_crypto.h",
     "frame_id.cc",
     "frame_id.h",
     "ntp_time.cc",
@@ -28,6 +32,21 @@ source_set("cast") {
   deps = [
     "../../platform",
   ]
+
+  # For FrameCrypto, either use the Chromium boringssl or steal the one from
+  # within Open Screen's "chromium_quic" import.
+  if (build_with_chromium) {
+    deps += [ "//third_party/boringssl" ]
+  } else {
+    deps += [ "../../third_party/chromium_quic/src/third_party/boringssl" ]
+
+    configs -= [ "//build:default_include_dirs" ]
+    include_dirs = [
+      "../../",
+      "../../third_party/chromium_quic/src",
+      "../..third_party/chromium_quic/src/third_party/boringssl/src/include",
+    ]
+  }
 }
 
 source_set("cast_unittests") {
@@ -36,6 +55,7 @@ source_set("cast_unittests") {
   sources = [
     "big_endian_unittest.cc",
     "expanded_value_base_unittest.cc",
+    "frame_crypto_unittest.cc",
     "ntp_time_unittest.cc",
     "rtp_time_unittest.cc",
     "ssrc_unittest.cc",
