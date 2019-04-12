@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fd8f38c_15b912de",
+        "filename": "streaming/cast/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-12T23:29:03Z",
+      "side": 1,
+      "message": "This should be  \"../../third_party/boringssl\" after my changes",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 72
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c40d7eb_9f47c52c",
+        "filename": "streaming/cast/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-12T23:29:03Z",
+      "side": 1,
+      "message": "\"../../third_party/boringssl/src/include\"",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 76
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38153235_a810fb09",
+        "filename": "streaming/cast/frame_crypto.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-12T23:29:03Z",
+      "side": 1,
+      "message": "SixteenBytes here as well?",
+      "range": {
+        "startLine": 41,
+        "startChar": 25,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14412790_eb3530a9",
+        "filename": "streaming/cast/frame_crypto.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-12T23:29:03Z",
+      "side": 1,
+      "message": "Maybe have a constructor that accepts data size for EncryptedFrame (and maybe EncodedFrame as well) that reserved the memory on construction?\n\nOr maybe something like std::swap(result.data, EncryptCommon(encoded_frame.frame_id, encoded_frame.data)) and return std::string from EncryptCommon?",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e04500c_ae38a198",
+        "filename": "streaming/cast/frame_crypto.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-12T23:29:03Z",
+      "side": 1,
+      "message": "nit: remove ?!?!, even though no one will ever see this message",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 41
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9922e9d0_4b81e233",
+        "filename": "streaming/cast/frame_crypto.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-12T23:29:03Z",
+      "side": 1,
+      "message": "Would absl::uint128 work instead? Also why not use array type as is?",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bc88441_65d4c276",
+        "filename": "streaming/cast/frame_crypto.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-12T23:29:03Z",
+      "side": 1,
+      "message": "Why is it hard to use AES_KEY here? Wouldn\u0027t including third_party/boringssl/src/include/aes.h work?",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
