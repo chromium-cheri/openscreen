@@ -1624,6 +1624,24 @@
     },
     {
       "key": {
+        "uuid": "e0440953_d8014161",
+        "filename": "api/public/presentation/presentation_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-15T15:26:35Z",
+      "side": 1,
+      "message": "So it\u0027s a QUIC stream for a message group keyed by service ID? \n\nIn that case I\u0027d call it something MessageStream with a comment explaining it\u0027s a series of in-order messages serialize to a QUIC stream.  Then call the map message_stream_by_service_id_, with a comment explaining that in the future we may choose to have more than one stream, but for now one suffices.",
+      "parentUuid": "2ac5b7bc_56df5ee0",
+      "revId": "8e074efdb5c12e2c86e62b1cdd8957c4b78a005e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ded5b86d_d34ba3c8",
         "filename": "api/public/presentation/presentation_controller.h",
         "patchSetId": 2
