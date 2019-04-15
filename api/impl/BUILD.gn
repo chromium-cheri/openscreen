@@ -6,6 +6,8 @@ import("../../build/config/services.gni")
 
 source_set("impl") {
   sources = [
+    "authentication/hkdf_scrypt_psk.cc",
+    "authentication/hkdf_scrypt_psk.h",
     "mdns_platform_service.cc",
     "mdns_platform_service.h",
     "network_service_manager.cc",
@@ -38,6 +40,7 @@ source_set("impl") {
   public_deps = [
     "../../msgs",
     "../public:api",
+    "../../third_party/boringssl",
   ]
   deps = [
     "../../base",

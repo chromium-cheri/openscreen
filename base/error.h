@@ -72,6 +72,9 @@ class Error {
     kAlreadyClosed,
     kNoStartedPresentation,
     kPresentationAlreadyStarted,
+
+    // Authentication errors
+    kProofComputationFailed,
   };
 
   Error();
