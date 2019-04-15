@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c16d4382_3a616816",
+        "filename": "streaming/cast/big_endian.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-15T22:06:07Z",
+      "side": 1,
+      "message": "Both clang and gcc optimize this out completely at compile time. So, it only *looks* like a lot is going on; but, in reality, it\u0027s a spec-compliant, verbose description of a bool constant. :)\n\nI also looked into a constexpr version to make it clear there wasn\u0027t going to be any runtime cost. However, the C++ spec doesn\u0027t provide for any way to do so. (Google searches revealed lots of discussion about this exact issue, as others want a constexpr \"big endian or little endian\" test in their code.)",
+      "parentUuid": "aec48840_729b31df",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "6720428c00d5bf0a48af02682988424565cea14c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb96283c_561fba27",
         "filename": "streaming/cast/big_endian.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "6720428c00d5bf0a48af02682988424565cea14c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12ff21d_f33663f0",
+        "filename": "streaming/cast/big_endian.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-15T22:06:07Z",
+      "side": 1,
+      "message": "In Chromium/Google C++ style, output arguments must come after input arguments.\n\nref: https://google.github.io/styleguide/cppguide.html#Output_Parameters",
+      "parentUuid": "eb96283c_561fba27",
+      "range": {
+        "startLine": 98,
+        "startChar": 27,
+        "endLine": 98,
+        "endChar": 51
+      },
+      "revId": "6720428c00d5bf0a48af02682988424565cea14c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b94752a4_541e72ce",
+        "filename": "streaming/cast/big_endian_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-15T22:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93b72cda_ffc6bfa7",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "6720428c00d5bf0a48af02682988424565cea14c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1a296f9_e0742550",
         "filename": "streaming/cast/big_endian_unittest.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "6720428c00d5bf0a48af02682988424565cea14c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dd275dc_1275ba45",
+        "filename": "streaming/cast/big_endian_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-15T22:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1a296f9_e0742550",
+      "range": {
+        "startLine": 44,
+        "startChar": 20,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "6720428c00d5bf0a48af02682988424565cea14c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
