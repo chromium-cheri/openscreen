@@ -119,6 +119,12 @@ class MessageDemuxer {
 // resest function for readability.
 void StopWatching(MessageDemuxer::MessageWatch* watch);
 
+class CborDecoder {
+ public:
+  static std::pair<size_t, msgs::Type> GetType(
+      const std::vector<uint8_t>& buffer);
+};
+
 }  // namespace openscreen
 
 #endif  // API_PUBLIC_MESSAGE_DEMUXER_H_

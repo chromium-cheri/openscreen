@@ -221,5 +221,26 @@ TEST(PresentationMessagesTest, CborEncodeBufferTooLarge) {
   ASSERT_FALSE(EncodePresentationUrlAvailabilityRequest(request, &buffer));
 }
 
+TEST(EncodingTest, EncodekAgentInfoResponse) {
+  const Type type = Type::kAgentInfoResponse;
+  const auto& encoding = CborEncodeBuffer::Encoding<type>::Id;
+  const uint64_t& id = static_cast<uint64_t>(type);
+  ASSERT_EQ(id, static_cast<uint64_t>(11));
+
+  ASSERT_EQ(sizeof(encoding), static_cast<size_t>(1));
+  ASSERT_EQ(encoding[0], static_cast<uint64_t>(0x0b));
+}
+
+TEST(EncodingTest, EncodekAuthenticationRequest) {
+  const Type type = Type::kAuthenticationRequest;
+  const uint64_t& id = static_cast<uint64_t>(type);
+  ASSERT_EQ(id, static_cast<uint64_t>(1001));
+  const auto& encoding = CborEncodeBuffer::Encoding<type>::Id;
+
+  ASSERT_EQ(sizeof(encoding), static_cast<size_t>(2));
+  ASSERT_EQ(encoding[0], static_cast<uint8_t>((0x01 << 6) | 0x03));
+  ASSERT_EQ(encoding[1], static_cast<uint8_t>(0xE9));
+}
+
 }  // namespace msgs
 }  // namespace openscreen

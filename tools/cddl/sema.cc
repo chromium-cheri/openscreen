@@ -351,6 +351,12 @@ absl::optional<uint64_t> ParseOptionalUint(const std::string& text) {
   return parsed;
 }
 
+inline absl::optional<uint64_t> ParseOptionalUint(
+    const absl::optional<std::string>& text) {
+  return text == absl::nullopt ? absl::nullopt
+                               : ParseOptionalUint(text.value());
+}
+
 bool AnalyzeGroupEntry(CddlSymbolTable* table,
                        const AstNode& group_entry,
                        CddlGroup::Entry* entry) {
@@ -434,7 +440,6 @@ std::pair<bool, CddlSymbolTable> BuildSymbolTable(const AstNode& rules) {
   std::pair<bool, CddlSymbolTable> result;
   result.first = false;
   auto& table = result.second;
-  table.root_rule = std::string(rules.children->text);
 
   // Parse over all rules iteratively.
   for (const AstNode* rule = &rules; rule; rule = rule->sibling) {
@@ -462,6 +467,7 @@ std::pair<bool, CddlSymbolTable> BuildSymbolTable(const AstNode& rules) {
     node = node->sibling;
     if (is_type) {
       CddlType* type = AnalyzeType(&table, *node);
+      type->type_key = ParseOptionalUint(rule->type_key);
       if (!type) {
         Logger::Error(
             "Error parsing node with text '%s'."
@@ -715,6 +721,8 @@ CppType* MakeCppType(CppSymbolTable* table,
     default:
       return nullptr;
   }
+
+  cpp_type->type_key = type.type_key;
   return cpp_type;
 }
 
@@ -744,24 +752,11 @@ std::pair<bool, CppSymbolTable> BuildCppTypes(
   result.first = false;
   PrePopulateCppTypes(&result.second);
   auto& table = result.second;
-  table.root_rule = cddl_table.root_rule;
   for (const auto& type_entry : cddl_table.type_map) {
     if (!MakeCppType(&table, cddl_table, type_entry.first,
                      *type_entry.second)) {
       return result;
     }
-  }
-  auto root_rule_entry = table.cpp_type_map.find(table.root_rule);
-  if (root_rule_entry == table.cpp_type_map.end())
-    return result;
-  CppType* root_rule = root_rule_entry->second;
-  if (root_rule->which != CppType::Which::kDiscriminatedUnion)
-    return result;
-  for (const auto* choice : root_rule->discriminated_union.members) {
-    if (choice->which != CppType::Which::kTaggedType)
-      return result;
-    if (choice->tagged_type.real_type->name.empty())
-      return result;
   }
 
   result.first = true;
@@ -818,46 +813,54 @@ bool ValidateCppTypes(const CppSymbolTable& cpp_symbols) {
       });
 }
 
+std::string DumpTypeKey(absl::optional<uint64_t> key) {
+  if (key != absl::nullopt) {
+    return " (type key=\"" + std::to_string(key.value()) + "\")";
+  }
+  return "";
+}
+
 void DumpType(CddlType* type, int indent_level) {
   std::string output = "";
   for (int i = 0; i <= indent_level; ++i)
     output += "--";
   switch (type->which) {
     case CddlType::Which::kDirectChoice:
-      output = "kDirectChoice:";
+      output = "kDirectChoice" + DumpTypeKey(type->type_key) + ": ";
       Logger::Log(output);
       for (auto& option : type->direct_choice)
         DumpType(option, indent_level + 1);
       break;
     case CddlType::Which::kValue:
-      output += "kValue: " + type->value;
+      output += "kValue" + DumpTypeKey(type->type_key) + ": " + type->value;
       Logger::Log(output);
       break;
     case CddlType::Which::kId:
-      output += "kId: " + type->id;
+      output += "kId" + DumpTypeKey(type->type_key) + ": " + type->id;
       Logger::Log(output);
       break;
     case CddlType::Which::kMap:
-      output += "kMap:";
+      output += "kMap" + DumpTypeKey(type->type_key) + ": ";
       Logger::Log(output);
       DumpGroup(type->map, indent_level + 1);
       break;
     case CddlType::Which::kArray:
-      output += "kArray:";
+      output += "kArray" + DumpTypeKey(type->type_key) + ": ";
       Logger::Log(output);
       DumpGroup(type->array, indent_level + 1);
       break;
     case CddlType::Which::kGroupChoice:
-      output += "kGroupChoice:";
+      output += "kGroupChoice" + DumpTypeKey(type->type_key) + ": ";
       Logger::Log(output);
       DumpGroup(type->group_choice, indent_level + 1);
       break;
     case CddlType::Which::kGroupnameChoice:
-      output += "kGroupnameChoice:";
+      output += "kGroupnameChoice" + DumpTypeKey(type->type_key) + ": ";
       Logger::Log(output);
       break;
     case CddlType::Which::kTaggedType:
-      output += "kTaggedType: " + std::to_string(type->tagged_type.tag_value);
+      output += "kTaggedType" + DumpTypeKey(type->type_key) + ": " +
+                std::to_string(type->tagged_type.tag_value);
       Logger::Log(output);
       DumpType(type->tagged_type.type, indent_level + 1);
       break;
