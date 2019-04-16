@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "17961d94_eec5c0b5",
+        "filename": "streaming/cast/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T00:29:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fd8f38c_15b912de",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 72
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c40d7eb_9f47c52c",
         "filename": "streaming/cast/BUILD.gn",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f176736a_e4ec0e79",
+        "filename": "streaming/cast/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T00:29:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c40d7eb_9f47c52c",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 76
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "047ee2c9_6867b245",
+        "filename": "streaming/cast/frame_crypto.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T00:29:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38153235_a810fb09",
+      "range": {
+        "startLine": 41,
+        "startChar": 25,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14412790_eb3530a9",
         "filename": "streaming/cast/frame_crypto.cc",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-04-12T23:29:03Z",
       "side": 1,
       "message": "Maybe have a constructor that accepts data size for EncryptedFrame (and maybe EncodedFrame as well) that reserved the memory on construction?\n\nOr maybe something like std::swap(result.data, EncryptCommon(encoded_frame.frame_id, encoded_frame.data)) and return std::string from EncryptCommon?",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59c98ab_3f94809a",
+        "filename": "streaming/cast/frame_crypto.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T00:29:55Z",
+      "side": 1,
+      "message": "\u003e Maybe have a constructor that accepts data size...?\n\nI didn\u0027t see the need to \"freeze\" anything in the EncodedFrame struct at construction time. This is the struct client code will populate and then pass into our library.\n\nAs for reserving memory, I like your suggestion: We shouldn\u0027t be resizing the vector in Encrypt() or Decrypt(). Instead, EncryptCommon() can just create the right-sized output and return it, and we can swap that into the right spot.\n\n\u003e Or maybe something like std::swap(...) and return std::string from EncryptCommon?\n\nDone. The newer version of the code lets return value optimization happen, per advice in https://www.chromium.org/rvalue-references.\n\nAs for std::string: I had considered a number of different containers for this. I also did a bunch of searching online to see what others were doing. The consensus seems to be:\n\n  1. If you\u0027re doing string operations (like substr, find, to_uppercas, etc.) then use std::string.\n  2. Otherwise, use std::vector\u003cuint8_t\u003e to represent \"opaque byte payloads.\"\n\n#2 also seems to be consistent with other APIs (e.g., codec libraries), and so we\u0027d avoid a lot of type-casting in the surrounding code by using uint8_t as the element type.",
+      "parentUuid": "14412790_eb3530a9",
       "range": {
         "startLine": 68,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "e09e6592_d5417221",
+        "filename": "streaming/cast/frame_crypto.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T00:29:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e04500c_ae38a198",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 41
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9922e9d0_4b81e233",
         "filename": "streaming/cast/frame_crypto.h",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2019-04-12T23:29:03Z",
       "side": 1,
       "message": "Would absl::uint128 work instead? Also why not use array type as is?",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b97b20a_fece139c",
+        "filename": "streaming/cast/frame_crypto.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T00:29:55Z",
+      "side": 1,
+      "message": "\u003e Would absl::uint128 work instead?\n\nInteresting idea. However, boringssl imports by passing an unsigned char* (pointer to 16 bytes), and so there\u0027d have to be endian-aware conversion code if we used the native 128-bit integers. So, I think it makes sense to just use a 16-byte array in this class to keep things simple.\n\n\u003e Also why not use array type as is?\n\nDo you mean, why not use uint8_t[16] instead of std::array\u003cuint8_t, 16\u003e? Mostly, it\u0027s just syntactic sugar, to be able to treat the array like an object that can be passed around by value instead of a pointer-to-object.",
+      "parentUuid": "9922e9d0_4b81e233",
       "range": {
         "startLine": 40,
         "startChar": 8,
@@ -160,6 +304,30 @@
       "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b8e79f3_688e0750",
+        "filename": "streaming/cast/frame_crypto.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T00:29:55Z",
+      "side": 1,
+      "message": "Fixed. Resolved header issue by s/deps/public_deps/.",
+      "parentUuid": "7bc88441_65d4c276",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "9a2f18e55ee462280cee73ef764f5863e283cb5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
