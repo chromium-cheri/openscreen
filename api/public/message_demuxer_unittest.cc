@@ -6,6 +6,7 @@
 
 #include "api/impl/testing/fake_clock.h"
 #include "api/public/testing/message_demuxer_test_support.h"
+#include "msgs/osp_messages.h"
 #include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
 #include "third_party/googletest/src/googletest/include/gtest/gtest.h"
 #include "third_party/tinycbor/src/src/cbor.h"
@@ -37,8 +38,12 @@ class MessageDemuxerTest : public ::testing::Test {
   void ExpectDecodedRequest(
       ssize_t decode_result,
       const msgs::PresentationConnectionOpenRequest& received_request) {
+    auto expected_size =
+        sizeof(msgs::CborEncodeBuffer::Encoding<
+               msgs::Type::kPresentationConnectionOpenRequest>::Id);
     ASSERT_GT(decode_result, 0);
-    EXPECT_EQ(decode_result, static_cast<ssize_t>(buffer_.size() - 1));
+    EXPECT_EQ(decode_result,
+              static_cast<ssize_t>(buffer_.size() - expected_size));
     EXPECT_EQ(request_.request_id, received_request.request_id);
     EXPECT_EQ(request_.presentation_id, received_request.presentation_id);
     EXPECT_EQ(request_.url, received_request.url);
@@ -205,9 +210,6 @@ TEST_F(MessageDemuxerTest, DefaultWatchOverridden) {
 }
 
 TEST_F(MessageDemuxerTest, WatchAfterData) {
-  demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer_.data(),
-                        buffer_.size());
-
   msgs::PresentationConnectionOpenRequest received_request;
   ssize_t decode_result = 0;
   EXPECT_CALL(
@@ -227,29 +229,20 @@ TEST_F(MessageDemuxerTest, WatchAfterData) {
       endpoint_id_, msgs::Type::kPresentationConnectionOpenRequest,
       &mock_callback_);
   ASSERT_TRUE(watch);
+
+  demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer_.data(),
+                        buffer_.size());
   ExpectDecodedRequest(decode_result, received_request);
 }
 
 TEST_F(MessageDemuxerTest, WatchAfterMultipleData) {
-  demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer_.data(),
-                        buffer_.size());
-
-  msgs::CborEncodeBuffer buffer;
-  msgs::PresentationStartRequest request;
-  request.request_id = 2;
-  request.url = "https://example.com/recv";
-  ASSERT_TRUE(msgs::EncodePresentationStartRequest(request, &buffer));
-  demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer.data(),
-                        buffer.size());
-
   MockMessageCallback mock_init_callback;
   msgs::PresentationConnectionOpenRequest received_request;
   msgs::PresentationStartRequest received_init_request;
   ssize_t decode_result1 = 0;
   ssize_t decode_result2 = 0;
   MessageDemuxer::MessageWatch init_watch = demuxer_.WatchMessageType(
-      endpoint_id_, msgs::Type::kPresentationStartRequest,
-      &mock_init_callback);
+      endpoint_id_, msgs::Type::kPresentationStartRequest, &mock_init_callback);
   EXPECT_CALL(
       mock_callback_,
       OnStreamMessage(endpoint_id_, connection_id_,
@@ -263,35 +256,44 @@ TEST_F(MessageDemuxerTest, WatchAfterMultipleData) {
                 buffer, buffer_size, &received_request);
             return ConvertDecodeResult(decode_result1);
           }));
-  EXPECT_CALL(
-      mock_init_callback,
-      OnStreamMessage(endpoint_id_, connection_id_,
-                      msgs::Type::kPresentationStartRequest, _, _, _))
-      .WillOnce(Invoke([&decode_result2, &received_init_request](
-                           uint64_t endpoint_id, uint64_t connection_id,
-                           msgs::Type message_type, const uint8_t* buffer,
-                           size_t buffer_size,
-                           platform::Clock::time_point now) {
-        decode_result2 = msgs::DecodePresentationStartRequest(
-            buffer, buffer_size, &received_init_request);
-        return ConvertDecodeResult(decode_result2);
-      }));
+  EXPECT_CALL(mock_init_callback,
+              OnStreamMessage(endpoint_id_, connection_id_,
+                              msgs::Type::kPresentationStartRequest, _, _, _))
+      .WillOnce(
+          Invoke([&decode_result2, &received_init_request](
+                     uint64_t endpoint_id, uint64_t connection_id,
+                     msgs::Type message_type, const uint8_t* buffer,
+                     size_t buffer_size, platform::Clock::time_point now) {
+            decode_result2 = msgs::DecodePresentationStartRequest(
+                buffer, buffer_size, &received_init_request);
+            return ConvertDecodeResult(decode_result2);
+          }));
   MessageDemuxer::MessageWatch watch = demuxer_.WatchMessageType(
       endpoint_id_, msgs::Type::kPresentationConnectionOpenRequest,
       &mock_callback_);
   ASSERT_TRUE(watch);
-  ExpectDecodedRequest(decode_result1, received_request);
 
+  demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer_.data(),
+                        buffer_.size());
+
+  msgs::CborEncodeBuffer buffer;
+  msgs::PresentationStartRequest request;
+  request.request_id = 2;
+  request.url = "https://example.com/recv";
+  ASSERT_TRUE(msgs::EncodePresentationStartRequest(request, &buffer));
+  demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer.data(),
+                        buffer.size());
+
+  ExpectDecodedRequest(decode_result1, received_request);
   ASSERT_GT(decode_result2, 0);
-  EXPECT_EQ(decode_result2, static_cast<ssize_t>(buffer.size() - 1));
+  size_t id_size = sizeof(msgs::CborEncodeBuffer::Encoding<
+                          msgs::Type::kPresentationConnectionOpenRequest>::Id);
+  EXPECT_EQ(decode_result2, static_cast<ssize_t>(buffer.size() - id_size));
   EXPECT_EQ(request.request_id, received_init_request.request_id);
   EXPECT_EQ(request.url, received_init_request.url);
 }
 
 TEST_F(MessageDemuxerTest, GlobalWatchAfterData) {
-  demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer_.data(),
-                        buffer_.size());
-
   msgs::PresentationConnectionOpenRequest received_request;
   ssize_t decode_result = 0;
   EXPECT_CALL(
@@ -310,6 +312,8 @@ TEST_F(MessageDemuxerTest, GlobalWatchAfterData) {
   MessageDemuxer::MessageWatch watch = demuxer_.SetDefaultMessageTypeWatch(
       msgs::Type::kPresentationConnectionOpenRequest, &mock_callback_);
   ASSERT_TRUE(watch);
+  demuxer_.OnStreamData(endpoint_id_, connection_id_, buffer_.data(),
+                        buffer_.size());
   ExpectDecodedRequest(decode_result, received_request);
 }
 
@@ -341,6 +345,30 @@ TEST_F(MessageDemuxerTest, BufferLimit) {
   demuxer.OnStreamData(endpoint_id_, connection_id_, buffer_.data(),
                        buffer_.size());
   ExpectDecodedRequest(decode_result, received_request);
+}
+
+TEST_F(MessageDemuxerTest, DeserializeMessages) {
+  std::vector<uint8_t> kAgentInfoResponseSerialized{0x0B, 0xFF};
+  std::vector<uint8_t> kPresentationConnectionCloseEventSerialized{0x40, 0x71,
+                                                                   0x00};
+  std::vector<uint8_t> kAuthenticationRequestSerialized{0x43, 0xE9, 0xFF, 0x00};
+
+  auto kAgentInfoResponseInfo =
+      CborDecoder::GetType(kAgentInfoResponseSerialized);
+  EXPECT_EQ(kAgentInfoResponseInfo.first, (size_t)1);
+  EXPECT_EQ(kAgentInfoResponseInfo.second, msgs::Type::kAgentInfoResponse);
+
+  auto kPresentationConnectionCloseEventInfo =
+      CborDecoder::GetType(kPresentationConnectionCloseEventSerialized);
+  EXPECT_EQ(kPresentationConnectionCloseEventInfo.first, (size_t)2);
+  EXPECT_EQ(kPresentationConnectionCloseEventInfo.second,
+            msgs::Type::kPresentationConnectionCloseEvent);
+
+  auto kAuthenticationRequestInfo =
+      CborDecoder::GetType(kAuthenticationRequestSerialized);
+  EXPECT_EQ(kAuthenticationRequestInfo.first, (size_t)2);
+  EXPECT_EQ(kAuthenticationRequestInfo.second,
+            msgs::Type::kAuthenticationRequest);
 }
 
 }  // namespace openscreen

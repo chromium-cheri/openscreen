@@ -151,6 +151,7 @@ int main(int argc, char** argv) {
   Logger::Log("Parsing CDDL Input File...");
   ParseResult parse_result = ParseCddl(data);
   if (!parse_result.root) {
+    Logger::Error("Failed to parse CDDL Input File");
     return 1;
   }
   Logger::Log("Successfully parsed CDDL input file!\n");

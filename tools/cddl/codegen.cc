@@ -81,9 +81,9 @@ std::string CppTypeToString(const CppType& cpp_type) {
 }
 
 bool WriteEnumEqualityOperatorSwitchCases(int fd,
-                                         const CppType& parent,
-                                         std::string child_name,
-                                         std::string parent_name) {
+                                          const CppType& parent,
+                                          std::string child_name,
+                                          std::string parent_name) {
   for (const auto& x : parent.enum_type.members) {
     std::string enum_value = "k" + ToCamelCase(x.first);
     dprintf(fd, "    case %s::%s: return parent == %s::%s;\n",
@@ -134,8 +134,8 @@ bool WriteEnumEqualityOperator(int fd,
 }
 
 bool WriteEnumStreamOperatorSwitchCases(int fd,
-                                       const CppType& type,
-                                       std::string name) {
+                                        const CppType& type,
+                                        std::string name) {
   for (const auto& x : type.enum_type.members) {
     std::string enum_value = "k" + ToCamelCase(x.first);
     dprintf(fd, "    case %s::%s: os << \"%s\"; break;\n", name.c_str(),
@@ -159,8 +159,9 @@ bool WriteEnumOperators(int fd, const CppType& type) {
   if (!WriteEnumStreamOperatorSwitchCases(fd, type, name)) {
     return false;
   }
-  dprintf(fd, "    default: os << \"Unknown Value: \" << static_cast<int>(val);"
-    "\n      break;\n    }\n  return os;\n}\n");
+  dprintf(fd,
+          "    default: os << \"Unknown Value: \" << static_cast<int>(val);"
+          "\n      break;\n    }\n  return os;\n}\n");
 
   // Write equality operators.
   return absl::c_all_of(type.enum_type.sub_members,
@@ -349,6 +350,9 @@ bool WriteTypeDefinition(int fd, const CppType& type) {
     } break;
     case CppType::Which::kStruct: {
       dprintf(fd, "\nstruct %s {\n", name.c_str());
+      if (type.type_key != absl::nullopt) {
+        dprintf(fd, "  // type key: %" PRIu64 "\n", type.type_key.value());
+      }
       dprintf(fd, "  bool operator==(const %s& other) const;\n", name.c_str());
       dprintf(fd, "  bool operator!=(const %s& other) const;\n\n",
               name.c_str());
@@ -436,27 +440,24 @@ bool EnsureDependentTypeDefinitionsWritten(int fd,
 // This function ensures that Bar would be written sometime before Foo.
 bool WriteTypeDefinitions(int fd, const CppSymbolTable& table) {
   std::set<std::string> defs;
-  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
-  // NOTE: Currently encoding the type tag as a uint8_t.
-  if (root_type->discriminated_union.members.size() >
-      std::numeric_limits<uint8_t>::max()) {
-    return false;
-  }
-  for (const auto* type : root_type->discriminated_union.members) {
-    CppType* real_type = type->tagged_type.real_type;
+  for (const std::unique_ptr<CppType>& real_type : table.cpp_types) {
     if (real_type->which != CppType::Which::kStruct ||
         real_type->struct_type.key_type ==
             CppType::Struct::KeyType::kPlainGroup) {
-      return false;
+      continue;
     }
     if (!EnsureDependentTypeDefinitionsWritten(fd, *real_type, &defs))
       return false;
   }
 
-  dprintf(fd, "\nenum class Type {\n");
-  for (const auto* type : root_type->discriminated_union.members) {
-    dprintf(fd, "    k%s,\n",
-            ToCamelCase(type->tagged_type.real_type->name).c_str());
+  dprintf(fd, "\nenum class Type : uint64_t {\n");
+      dprintf(fd, "    kUnknown = 0ull,\n");
+for (const std::unique_ptr<CppType>& type : table.cpp_types) {
+    if (type->type_key == absl::nullopt) {
+      continue;
+    }
+
+    dprintf(fd, "    k%s = %" PRIu64 "ull,\n", ToCamelCase(type->name).c_str(), type->type_key.value());
   }
   dprintf(fd, "};\n");
   return true;
@@ -465,9 +466,11 @@ bool WriteTypeDefinitions(int fd, const CppSymbolTable& table) {
 // Writes the function prototypes for the encode and decode functions for each
 // type in |table| to the file descriptor |fd|.
 bool WriteFunctionDeclarations(int fd, const CppSymbolTable& table) {
-  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
-  for (const auto* type : root_type->discriminated_union.members) {
-    CppType* real_type = type->tagged_type.real_type;
+  for (const std::unique_ptr<CppType>& real_type : table.cpp_types) {
+    if (real_type->type_key == absl::nullopt) {
+      continue;
+    }
+
     const auto& name = real_type->name;
     if (real_type->which != CppType::Which::kStruct ||
         real_type->struct_type.key_type ==
@@ -837,9 +840,11 @@ bool WriteArrayEncoder(int fd,
 // Writes encoding functions for each type in |table| to the file descriptor
 // |fd|.
 bool WriteEncoders(int fd, const CppSymbolTable& table) {
-  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
-  for (const auto* type : root_type->discriminated_union.members) {
-    CppType* real_type = type->tagged_type.real_type;
+  for (const std::unique_ptr<CppType>& real_type : table.cpp_types) {
+    if (real_type->type_key == absl::nullopt) {
+      continue;
+    }
+
     const auto& name = real_type->name;
     if (real_type->which != CppType::Which::kStruct ||
         real_type->struct_type.key_type ==
@@ -894,7 +899,7 @@ bool Encode%1$s(
   if (buffer->AvailableLength() == 0 &&
       !buffer->Append(CborEncodeBuffer::kDefaultInitialEncodeBufferSize))
     return false;
-  buffer->SetType(Type::k%1$s);
+  buffer->SetType<Type::k%1$s>();
   while (true) {
     size_t available_length = buffer->AvailableLength();
     ssize_t error_or_size = msgs::Encode%1$s(
@@ -1388,9 +1393,11 @@ bool WriteEqualityOperators(int fd, const CppSymbolTable& table) {
 // Writes a decoder function definition for every type in |table| to the file
 // descriptor |fd|.
 bool WriteDecoders(int fd, const CppSymbolTable& table) {
-  CppType* root_type = table.cpp_type_map.find(table.root_rule)->second;
-  for (const auto* type : root_type->discriminated_union.members) {
-    CppType* real_type = type->tagged_type.real_type;
+  for (const std::unique_ptr<CppType>& real_type : table.cpp_types) {
+    if (real_type->type_key == absl::nullopt) {
+      continue;
+    }
+
     const auto& name = real_type->name;
     int temporary_count = 0;
     if (real_type->which != CppType::Which::kStruct ||
@@ -1452,6 +1459,7 @@ bool WriteHeaderPrologue(int fd, const std::string& header_filename) {
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 #include "third_party/tinycbor/src/src/cbor.h"
@@ -1483,13 +1491,56 @@ class CborEncodeBuffer {
 
   bool Append(size_t length);
   bool ResizeBy(ssize_t length);
-  void SetType(Type type);
+  template<Type>
+  void SetType();
 
   const uint8_t* data() const { return data_.data(); }
   size_t size() const { return data_.size(); }
 
   uint8_t* Position() { return &data_[0] + position_; }
   size_t AvailableLength() { return data_.size() - position_; }
+
+  // Get the CBOR message header to preface each network call. These will all
+  // be calculated at compile time, so that they do not need to be re-calculated
+  // for each call. Further details can be found at:
+  // https://tools.ietf.org/html/draft-ietf-quic-transport-16#section-16
+  static constexpr uint8_t GetByte(Type value, size_t byte) {
+    return static_cast<uint8_t>((static_cast<uint64_t>(value) >> (byte * 8)) &
+                                0xFF);
+  }
+  template <Type, typename = void>
+  struct Encoding;
+  template <Type T>
+  struct Encoding<
+      T, typename std::enable_if<static_cast<uint64_t>(T) < (0x1 << 6)>::type> {
+    static constexpr uint8_t Id[] = {GetByte(T, 0)};  // First 2 bits are 0x0.
+  };
+  template <Type T>
+  struct Encoding<T, typename std::enable_if<
+                         static_cast<uint64_t>(T) >= (0x1 << 6) &&
+                         static_cast<uint64_t>(T) < (0x1 << 14)>::type> {
+    static constexpr uint8_t Id[] = {0x01 << 6 | GetByte(T, 1), GetByte(T, 0)};
+  };
+  template <Type T>
+  struct Encoding<T, typename std::enable_if<
+                         static_cast<uint64_t>(T) >= (0x1 << 14) &&
+                         static_cast<uint64_t>(T) < (0x1 << 30)>::type> {
+    static constexpr uint8_t Id[] = {0x02 << 6 | GetByte(T, 3), GetByte(T, 2),
+                                     GetByte(T, 1), GetByte(T, 0)};
+  };
+  template <Type T>
+  struct Encoding<T, typename std::enable_if<
+                         static_cast<uint64_t>(T) >= (0x1 << 30) &&
+                         static_cast<uint64_t>(T) < (0x1 << 60)>::type> {
+    static constexpr uint8_t Id[] = {0x03 << 6 | GetByte(T, 7),
+                                     GetByte(T, 6),
+                                     GetByte(T, 5),
+                                     GetByte(T, 4),
+                                     GetByte(T, 3),
+                                     GetByte(T, 2),
+                                     GetByte(T, 1),
+                                     GetByte(T, 0)};
+  };
 
  private:
   size_t max_size_;
@@ -1511,6 +1562,8 @@ CborError ExpectKey(CborValue* it, const char* key, size_t key_length);
 bool WriteSourcePrologue(int fd, const std::string& header_filename) {
   static const char prologue[] =
       R"(#include "%s"
+
+#include <array>
 
 #include "platform/api/logging.h"
 #include "third_party/tinycbor/src/src/utf8_p.h"
@@ -1587,10 +1640,10 @@ constexpr size_t CborEncodeBuffer::kDefaultMaxEncodeBufferSize;
 
 CborEncodeBuffer::CborEncodeBuffer()
     : max_size_(kDefaultMaxEncodeBufferSize),
-      position_(1),
+      position_(0),
       data_(kDefaultInitialEncodeBufferSize) {}
 CborEncodeBuffer::CborEncodeBuffer(size_t initial_size, size_t max_size)
-    : max_size_(max_size), position_(1), data_(initial_size) {}
+    : max_size_(max_size), position_(0), data_(initial_size) {}
 CborEncodeBuffer::~CborEncodeBuffer() = default;
 
 bool CborEncodeBuffer::Append(size_t length) {
@@ -1603,7 +1656,7 @@ bool CborEncodeBuffer::Append(size_t length) {
   }
   size_t append_area = data_.size();
   data_.resize(append_area + length);
-  position_ = append_area + 1;
+  position_ = append_area;
   return true;
 }
 
@@ -1618,8 +1671,10 @@ bool CborEncodeBuffer::ResizeBy(ssize_t delta) {
   return true;
 }
 
-void CborEncodeBuffer::SetType(Type type) {
-  data_[position_ - 1] = static_cast<uint8_t>(type);
+template<Type T>
+void CborEncodeBuffer::SetType() {
+  memcpy(&data_[position_], &Encoding<T>::Id, sizeof(Encoding<T>::Id));
+  position_ += sizeof(Encoding<T>::Id);
 }
 
 bool IsError(ssize_t x) {

@@ -7,9 +7,46 @@
 #include <memory>
 
 #include "api/impl/quic/quic_connection.h"
+#include "base/big_endian.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {
+
+// static
+std::pair<size_t, msgs::Type> CborDecoder::GetType(
+    const std::vector<uint8_t>& buffer) {
+  std::pair<size_t, msgs::Type> result{static_cast<size_t>(0),
+                                       msgs::Type::kUnknown};
+  if (buffer.size() == 0) {
+    return result;
+  }
+
+  size_t size_bits = static_cast<uint8_t>(0x03 & (buffer[0] >> 6));
+  size_t id_bytes = 0x1 << size_bits;
+  if (buffer.size() < id_bytes) {
+    return result;
+  }
+
+  uint64_t enum_value;
+  switch (size_bits) {
+    case 0:
+      enum_value = buffer[0] & ~0xC0;
+      break;
+    case 1:
+      enum_value = ReadBigEndian<uint16_t>(&buffer[0]) & ~(0xC0 << 8);
+      break;
+    case 2:
+      enum_value = ReadBigEndian<uint32_t>(&buffer[0]) & ~(0xC0 << 24);
+      break;
+    case 3:
+      enum_value = ReadBigEndian<uint64_t>(&buffer[0]) & ~(0xC0ull << 56);
+      break;
+    default:
+      return result;
+  }
+
+  return {id_bytes, static_cast<msgs::Type>(enum_value)};
+}
 
 // static
 constexpr size_t MessageDemuxer::kDefaultBufferLimit;
@@ -185,15 +222,21 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBuffer(
   bool handled = false;
   do {
     consumed = 0;
-    auto message_type = static_cast<msgs::Type>((*buffer)[0]);
+    auto message_details = CborDecoder::GetType(*buffer);
+    size_t id_bytes = message_details.first;
+    std::cout << "MESSAGE TYPE: " << (uint64_t)message_details.second << "\n";
+    if (id_bytes == 0) {
+      break;
+    }
+    msgs::Type message_type = message_details.second;
     auto callback_entry = message_callbacks->find(message_type);
     if (callback_entry == message_callbacks->end())
       break;
     handled = true;
     OSP_VLOG << "handling message type " << static_cast<int>(message_type);
     auto consumed_or_error = callback_entry->second->OnStreamMessage(
-        endpoint_id, connection_id, message_type, buffer->data() + 1,
-        buffer->size() - 1, now_function_());
+        endpoint_id, connection_id, message_type, buffer->data() + id_bytes,
+        buffer->size() - id_bytes, now_function_());
     if (!consumed_or_error) {
       if (consumed_or_error.error().code() !=
           Error::Code::kCborIncompleteMessage) {
@@ -202,7 +245,7 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBuffer(
       }
     } else {
       consumed = consumed_or_error.value();
-      buffer->erase(buffer->begin(), buffer->begin() + consumed + 1);
+      buffer->erase(buffer->begin(), buffer->begin() + consumed + id_bytes);
     }
     total_consumed += consumed;
   } while (consumed && !buffer->empty());
