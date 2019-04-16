@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c4c2cff_783a35e2",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T23:48:22Z",
+      "side": 1,
+      "message": "For portability, I\u0027d suggest either:\n\n1. Use the standard macro from stdint.h: ~(UINT64_C(0xC0) \u003c\u003c 56)\n\nor\n\n2. uint64_t{0xC0}",
+      "range": {
+        "startLine": 42,
+        "startChar": 59,
+        "endLine": 42,
+        "endChar": 66
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "709b3134_f0cb9e5c",
+        "filename": "api/public/message_demuxer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T23:48:22Z",
+      "side": 1,
+      "message": "style nit: Avoid C-style casts. Instead, just tweak this to: size_t{1}\n\n(and a couple of spots below)",
+      "range": {
+        "startLine": 358,
+        "startChar": 42,
+        "endLine": 358,
+        "endChar": 51
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3dc3bef_324e9650",
+        "filename": "msgs/messages_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-16T23:48:22Z",
+      "side": 1,
+      "message": "bike-shedding nit: For numeric constants, you could just: uint64_t{11}",
+      "range": {
+        "startLine": 228,
+        "startChar": 16,
+        "endLine": 228,
+        "endChar": 37
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
