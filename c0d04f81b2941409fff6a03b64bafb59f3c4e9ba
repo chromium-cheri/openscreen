@@ -110,6 +110,29 @@
     },
     {
       "key": {
+        "uuid": "5ebd5705_23e3125c",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-17T09:52:41Z",
+      "side": 1,
+      "message": "OSP_NOTREACHED or omit since you\u0027re switching on a 2-bit value (guaranteed by the shift).",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 19
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eca969b8_43fd7a31",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 2
@@ -174,6 +197,23 @@
     },
     {
       "key": {
+        "uuid": "25cbc5f2_16e11dfc",
+        "filename": "api/public/message_demuxer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-17T09:52:41Z",
+      "side": 1,
+      "message": "nit: The variable-length integer decoding has nothing to do with CBOR (and comes from QUIC).  Maybe VarIntTypeDecoder or MessageTypeDecoder?",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "709b3134_f0cb9e5c",
         "filename": "api/public/message_demuxer_unittest.cc",
         "patchSetId": 2
@@ -231,6 +271,74 @@
       "writtenOn": "2019-04-17T00:00:49Z",
       "side": 1,
       "message": "This is repeated a couple of times, so it may be worth adding a function to CppSymbolTable to return CppTypes with a non-null type_key.",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14ba6167_32504ae0",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-17T09:52:41Z",
+      "side": 1,
+      "message": "Can we just come up with the encoding for a type at codegen time instead and avoid writing the template at all?",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d76689be_51216bdb",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-17T09:52:41Z",
+      "side": 1,
+      "message": "nit: I wouldn\u0027t use T here since this is a constant, not a typename (which is how it\u0027s commonly used).",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2995602f_afe76bfa",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-17T09:52:41Z",
+      "side": 1,
+      "message": "I don\u0027t think this parsing should be optional.",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db832c03_b22cf803",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-17T09:52:41Z",
+      "side": 1,
+      "message": "I think this could just be a required member of Struct, but I don\u0027t feel strongly.",
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
