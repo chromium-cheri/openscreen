@@ -2,6 +2,91 @@
   "comments": [
     {
       "key": {
+        "uuid": "18516097_1be05236",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-17T00:00:49Z",
+      "side": 1,
+      "message": "Can we use ErrorOr to return a kCborParseError here?",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8e44cc3_ec893030",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-17T00:00:49Z",
+      "side": 1,
+      "message": "I would just declare this as a uint8_t, since it\u0027s really an enumeration over the four possible type lengths.\n\nIs AND-ing with 0x03 necessary after right shifting a byte 6 bits?\n\nAlso s/size_bits/num_type_bytes/ ?",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4cf9e97_c6619bb7",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-17T00:00:49Z",
+      "side": 1,
+      "message": "s/id_bytes/type_size/",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf1cca25_8f4035fa",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-17T00:00:49Z",
+      "side": 1,
+      "message": "Can this be (buffer.size() !\u003d type_size) to check for the exact buffer size?",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4caca9d_781ee5ec",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-17T00:00:49Z",
+      "side": 1,
+      "message": "message_type?",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c4c2cff_783a35e2",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 2
@@ -18,6 +103,46 @@
         "startChar": 59,
         "endLine": 42,
         "endChar": 66
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eca969b8_43fd7a31",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-17T00:00:49Z",
+      "side": 1,
+      "message": "It would be slightly better to declare the enum class with a specific storage base and then use that type to hold the message_type result, instead of using a static_cast.\n\nHowever, we\u0027ll eventually want to allow embedders to add additional protocols as well, in which case we\u0027ll need to come up with a more dynamic way to map type values onto types that the code can use.  So not worth investing a lot in polishing this right now, IMO.",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b171c4c_09f344e0",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-17T00:00:49Z",
+      "side": 1,
+      "message": "Comment #2: message_type should be bounds checked against the allowable range for msgs::Type.  The behavior if it\u0027s out of bounds is not obvious and appears to be undefined in C++17.",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 8
       },
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
@@ -65,6 +190,23 @@
         "endLine": 228,
         "endChar": 37
       },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efd6d987_2091fe11",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-17T00:00:49Z",
+      "side": 1,
+      "message": "This is repeated a couple of times, so it may be worth adding a function to CppSymbolTable to return CppTypes with a non-null type_key.",
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
