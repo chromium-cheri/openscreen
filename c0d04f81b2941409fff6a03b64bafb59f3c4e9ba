@@ -150,6 +150,30 @@
     },
     {
       "key": {
+        "uuid": "d1c0c935_f4bf5479",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-17T00:24:44Z",
+      "side": 1,
+      "message": "I actually spent a while investigating whether there was a performant way to do this. Since the enums values are essentially just random ints, the best I could come up with was generating a big switch statement in codegen.cc instead of using a cast. In other languages, I would have used a TryCast sort of function, but can\u0027t find that in C++.\n\nAlternatively, I could convert this whole method to use a static Trie, so decoding would only involve up to 4 map checks and we never actually need to convert the input into an enum at all (just rely on the Trie lookup) - though that would add much more complexity\n\nThoughts?",
+      "parentUuid": "8b171c4c_09f344e0",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 8
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "709b3134_f0cb9e5c",
         "filename": "api/public/message_demuxer_unittest.cc",
         "patchSetId": 2
