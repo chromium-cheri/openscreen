@@ -18,6 +18,9 @@ config("compiler_defaults") {
 
   ldflags = []
   if (is_linux) {
+    if (is_clang && is_debug) {
+      cflags += [ "-D_GLIBCXX_DEBUG" ]
+    }
     ldflags += [ "-pthread" ]
   }
   if (is_posix && !is_mac) {
