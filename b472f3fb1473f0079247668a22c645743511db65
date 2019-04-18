@@ -139,6 +139,24 @@
     },
     {
       "key": {
+        "uuid": "05383810_9bd8ae43",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T20:12:26Z",
+      "side": 1,
+      "message": "Actually, I think we can use absl::Span. Then we can easily use subspan for things like this.",
+      "parentUuid": "0e2f4ab3_bc665ace",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4793df14_40625adb",
         "filename": "api/public/message_demuxer.h",
         "patchSetId": 3
@@ -150,6 +168,24 @@
       "writtenOn": "2019-04-18T18:44:28Z",
       "side": 1,
       "message": "I think this would be better as something like:\n\nErrorOr\u003cmsgs::Type\u003e DecodeType(const std::vector\u003cuint8_t\u003e\u0026 buffer, size_t* bytes_to_skip)\n\n\nAnd then called as:\n\nsize_t bytes_to_skip;\nauto msg_type \u003d MessageTypeDecoder::DecodeType(buffer, \u0026bytes_to_skip);",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e34f85c2_f17f714a",
+        "filename": "api/public/message_demuxer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T20:12:26Z",
+      "side": 1,
+      "message": "Or better yet:\n\nErrorOr\u003cmsgs::Type\u003e ReadType(*absl::span)\n\n(The span can be replaced by a subspan in place that skips the bytes read.",
+      "parentUuid": "4793df14_40625adb",
       "revId": "b472f3fb1473f0079247668a22c645743511db65",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
