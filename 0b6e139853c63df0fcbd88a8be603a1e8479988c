@@ -1,0 +1,701 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb993300_342dac21",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Why not an enum?",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "376ab634_74a4a88c",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Can we return an Error?",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f28a7d_ac7771a5",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "It\u0027s better to check if it\u0027s RTCP or not and if it\u0027s not, use RTCP.\n\nFunny enough, WebRTC does that in two different ways:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/base/rtp_utils.cc?dr\u003dCSs\u0026g\u003d0\u0026l\u003d292\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_utility.cc?dr\u003dCSs\u0026g\u003d0\u0026l\u003d60",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "490f57df_6a76a899",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "This is rather duplicate with the code below.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64c0a9af_65358114",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Please use named constant for min cast RTP packet size",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "336a8c87_fed4ef71",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Please use named constant for SSRC offset",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b271ac89_281d0dd6",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Why not just \"payload_type\"?\n\nAlso, named constants and duplicate code",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675eb84b_9bf7863c",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "named constant for seqnum offset",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09f7994b_aafa2aff",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "named constant for RTP timestamp offset",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58562c42_146fd389",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "named constants for cast header frame info offset",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97bdb35c_caa86022",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "named constants for cast header frame ID offset\n\nOK, I\u0027ll stop.  You get the idea",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f5344dc_a4d0d580",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Nice place for an ErrorOr",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44f4c642_2840dce3",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Wait.... can we just use that instead of using (named) offsets in all of the above code?  That would be nice.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69bc2374_e32e5bc2",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Can we make our own ReadUint16 method to both read it and remove the prefix?  That could make for some very readable code without any offsets, which would be nice.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b63891b3_8ad13d01",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Name constants :)\n\nSorry, couldn\u0027t resist",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e81420_334be32b",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Please used name constant for min cast streaming packet size",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a8c16ae_949f1489",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "I\u0027ve seen this in several places.  We should probably put it in its own method to read PT.\n\nIt\u0027s probably worth looking at the WebRTC code that does this:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/base/rtp_utils.h?q\u003disrtcppacket+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026dr\u003dCSsv\n\nAnd please used name constant for things like payload type offset and payload type mask",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d575c30_102aa3ab",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Please used name constant for things like min cast rtp packet size",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37815b1f_3ac80f7b",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "It would be nice to return Errors so when we get broken packets we can get good logs as to why they are broken.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd0340f6_4ce7c6f7",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be the first thing you check after size?",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff5da3b1_0900ea65",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "I\u0027m going to be picky for a second about names.  \n\n1.  I think we should be consistent between parser and packetizer.  You gave the packetizer the \"Rtp\" prefix and the parser you didn\u0027t.  Let\u0027s pick one.  \n\n2.  We should pick a noun for what kind of packet a CastV2 streaming packet is.  It\u0027s RTP/RTCP but it\u0027s not just RTP/RTCP.  \"CastRtp\" \"CastRtcp\"  might be good names.  But then the method down below should be \"ParseCastRtp\" instead of just \"ParseRtp\" and \"ParseCastRtcp\" instead of just \"ParseCastRtcp\", since it does both.  Then we should rename \"RtpCastHeaders\" to \"CastRtpHeaders\".\n\n3.  I think we should pull serialization out of the packetizer into its own thing, in which case the name should be something consistent like CastRtpSerializer.\n\n4.  We also need a noun for \"Packet that is either Cast RTP or Cast RTCP\".  And whatever we pick there might persuaded us to change from \"CastRtpParser\" to \"CastFooParser.   Maybe it should just be \"Cast Streaming Packet\", and the class becomes CastStreamingPacketParser, but then we could drop down to being \"cast_streaming::PacketParser\" like you already have.  But to be consistent, then we\u0027d want \"Packetizer\", not \"RtpPacketizer\", and perhaps \"PacketSerialilizer\" to go along with it.\n\n5.  Comments like \"Parses RTP and RTCP\" should say something like \"Parses cast streaming packets, either cast RTP packets or cast RTCP packets\". That would go well with \"CastRtpHeaders\".",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0f76b9a_7490428f",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "I\u0027d suggest we just put the ssrc in the CastRtpHeaders and let the caller decide to check.  Or, if we are receiving more than one thing at a time (audio and video), have one parser that parses everything and then demuxes or drops.   That\u0027s what WebRTC does (https://cs.chromium.org/chromium/src/third_party/webrtc/call/rtp_demuxer.h?q\u003dwebrtc+rtpdemuxer\u0026sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026l\u003d84)\n\nPlus, \"remote_ssrc\" should be called \"sender_ssrc\".\n\nSame story with local_ssrc and RTCP.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3170e70_4a1e5c8c",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "That\u0027s weird.  Why not have a Packet or ParsedPacket type and then return an absl::Optional\u003cPacket\u003e?  That\u0027s what WebRTC does: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_packet.h?sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026g\u003d0\u0026l\u003d25\n\nOf course, then you\u0027ll have to have it be either an CastRtpPacket or CastRtcpPacket, but there are several clean ways to do that.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ab8ad68_83d2e497",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "I think we should return the SSRC rather than having the method check the SSRC.  The caller can choose to do what it wants with the SSRC.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6818589_c6291da6",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Yeah, so the way WebRTC does it is that is parses all the headers first. \n\nHowever, there *is* a preliminary parsing we could do: check if it\u0027s RTP or RTCP.  Maybe parsing would look something like this:\n\nstruct CastRtpDemuxInfo {\n  bool is_rtcp;\n  Ssrc ssrc;\n}\n\nErrorOr\u003cCastRtpDemuxInfo\u003e InspectForDemux(absl::Span\u003cconst uint8_t\u003e packet);\nErrorOr\u003cCastRtpPacket\u003e ParseCastRtp(absl::Span\u003cconst uint8_t\u003e packet);\nErrorOr\u003cCastRtcpPacket\u003e ParseCastRtcp(absl::Span\u003cconst uint8_t\u003e packet);\n\n\nauto demux_info \u003d parser-\u003eInspectForDemux(packet);\nif (IsInteresting(demux_info.ssrc)) {\n  if (demux_info.is_rtcp) {\n    auto rtcp \u003d parser-\u003eParseCastRtcp(packet);\n  } else {\n    auto rtp \u003d parser-\u003eParseCastRtp(packet);\n  }\n}",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a517baa2_ea5b0a9e",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Can we use Error as the return type?",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63ca8d01_3b7aaf51",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "OK, I think I get what\u0027s going on here.  This class is both a PacketParser and a Receiver which does logic on top of parsing.  I think we should separate those and have a PacketParser and Receiver.  The parser just parses (and maybe have one class do parsing and serilization) and one class keeps state when receiving for expanding on timestamps and frame IDs, etc.  But that thing should work with already parsed packets.  Makes it easier to test as well.\n\nThen the SSRC state would make sense for the receiver, but they should be called sender_ssrc and receiver_ssrc.  And there should be a Demuxer object that parses the packet, looks at what SSRC it has, and chooses which Receiver to hand it to.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e9bae1a_8c70ecb8",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Should point out these are not just ID but sequence numbers (starting at 0 and going sequentially through the frame).  And perhaps also point out that this is only relevant for video.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56ae40fb_165e7f04",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "I think the name \"PacketId\" makes it sound like the ID of a Cast Streaming Packet, which it is not.  It\u0027s a frame-scoped packet sequence number.  Perhaps call it FramePacketId?",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a42729d4_125730fb",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "That doesn\u0027t work for ipv6, and will also fail if we expand this to run over ICE or QUIC or both.  We should probably let it be configurable by the user of these classes (the network stack would feed in info), and allow it to be dynamic.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a1c5c12_fc6f1342",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Is this ever used?",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1be7101_0113e3a2",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Is this ever used?",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceec3e86_60a1572f",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "This is very duplicate with the Parser, which makes me doubly think should combine both into one class and everywhere else use already-parsed (or pre-serialized) packets.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98846651_83c70a54",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "I think the only reason to make the sequence number random is to make crypto stronger.  But since you\u0027re not encrypting the sequence number anyway, I don\u0027t think we need to randomize it.\n\nThe same goes for SSRCs, which are supposed to be randomized, but we\u0027re not following that from the standard either.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45f4fdcb_1b604f01",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "I think if we passed in the network overhead into GeneratePacket and ComputeNumberOfPackets, then we\u0027d be good for making it dynamic.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90922f55_a6da58cd",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Should have an ErrorOr here!",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b9db595_6daf0606",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "This is where using a serializer separately would be nice.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739aec41_afb1c0eb",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Using a span remove_prefix and our own WriteUin16 method would be nice to avoid needing offsets (named or unnamed).",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6051396_680d01a8",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Why?  To let the other side know you have nothing?",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7f765fe_f773703b",
+        "filename": "streaming/cast/rtp_packetizer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "What do you mean by \"same media stream\"?  An RTP encoded stream can have more than one SRCC, but an RTP stream has only one (at a time).\n\nPerhaps emphasize that Cast RTP only uses one RTP stream and one SSRC per logical sequence of encoded audio/video frames.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6962c1f_5a2f4030",
+        "filename": "streaming/cast/rtp_packetizer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T21:24:44Z",
+      "side": 1,
+      "message": "Retransmissions are sent with the same packet ID but different sequence number?  I\u0027d be interested to hear why it was done that way.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
