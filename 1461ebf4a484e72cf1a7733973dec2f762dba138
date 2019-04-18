@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1c27f8fa_e722d156",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-18T22:46:21Z",
+      "side": 1,
+      "message": "It\u0027s just based on current usage, but as WebRTC has discovered, there may be some Abseil things we definitely _don\u0027t_ want to use.  So we should have to consider each new abseil use.",
+      "parentUuid": "e20f35c8_3afc8fb0",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 29
+      },
+      "revId": "1461ebf4a484e72cf1a7733973dec2f762dba138",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35017ffa_d4310911",
         "filename": "PRESUBMIT.py",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "04a02430_13a27139",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-18T22:46:21Z",
+      "side": 1,
+      "message": "Omitting the catch means it _isn\u0027t_ caught.  So the finally block executes, restoring sys.path, and the exception continues up the stack.",
+      "parentUuid": "35017ffa_d4310911",
+      "range": {
+        "startLine": 10,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 6
+      },
+      "revId": "1461ebf4a484e72cf1a7733973dec2f762dba138",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8d9a0c7_55303b17",
         "filename": "PRESUBMIT.py",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "1461ebf4a484e72cf1a7733973dec2f762dba138",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ecb9d09_72f0c2dd",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-18T22:46:21Z",
+      "side": 1,
+      "message": "This function must return a list or tuple; it can\u0027t be a generator.",
+      "parentUuid": "b8d9a0c7_55303b17",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "1461ebf4a484e72cf1a7733973dec2f762dba138",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
