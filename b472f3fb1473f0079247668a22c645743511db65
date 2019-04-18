@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "ee9bfc9b_578d29ee",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "A reference to the relevant QUIC spec section would be nice here.",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be351b2f_6509e0e0",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "Seems like a separate DecodeVarInt function would be handy.  We\u0027ll need it for message size prefixing also.",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0dc3a021_4e855bff",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 3
@@ -53,6 +87,98 @@
     },
     {
       "key": {
+        "uuid": "db9c3792_c84b95f9",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "Should at least but a TODO here to propagate the error up.",
+      "parentUuid": "96a7734d_59fdff83",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a5d69a5_6c85c18c",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "Perhaps msg_type_byte_length",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e2f4ab3_bc665ace",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "Do we already have a TODO to use something like rtc::Buffer: https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/buffer.h?q\u003dbuffer+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026dr\u003dCSs\u0026l\u003d11\n\nIt\u0027s less error prone",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4793df14_40625adb",
+        "filename": "api/public/message_demuxer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "I think this would be better as something like:\n\nErrorOr\u003cmsgs::Type\u003e DecodeType(const std::vector\u003cuint8_t\u003e\u0026 buffer, size_t* bytes_to_skip)\n\n\nAnd then called as:\n\nsize_t bytes_to_skip;\nauto msg_type \u003d MessageTypeDecoder::DecodeType(buffer, \u0026bytes_to_skip);",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a2fb8f8_d5ac236b",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "I prefer to call them \"type key\"s like the spec does.  And the code below does to!  So, GetEncodedTypeKey.",
+      "range": {
+        "startLine": 855,
+        "startChar": 12,
+        "endLine": 855,
+        "endChar": 28
+      },
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a55d6fbb_2049bb3b",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 3
@@ -70,6 +196,23 @@
         "endLine": 863,
         "endChar": 30
       },
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa30535_811b6a77",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "Seems like a separate EncodeVarUint function would be good.  We\u0027ll need it for message size prefixing also.",
       "revId": "b472f3fb1473f0079247668a22c645743511db65",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -167,6 +310,23 @@
     },
     {
       "key": {
+        "uuid": "967c670a_35cf576a",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "Why don\u0027t we just parse it into a uint64 here?",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0c88d4f_d1479cdd",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 3
@@ -184,6 +344,40 @@
     },
     {
       "key": {
+        "uuid": "d361e570_6de96ed1",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "The types don\u0027t change right?\n\nSo why not just make a copy of types that have keys once and then read it every time?",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85aec827_cad5124d",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "Isn\u0027t this whole thing a one-liner using std::copy_if or absl::c_copy_if?",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85378554_9e38fb1b",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 3
@@ -195,6 +389,23 @@
       "writtenOn": "2019-04-18T03:06:30Z",
       "side": 1,
       "message": "emplace_back(ptr.get())",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7443ac63_4ce5a897",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T18:44:28Z",
+      "side": 1,
+      "message": "It\u0027s only used once... so... I\u0027d suggest just using it in that one place.",
       "revId": "b472f3fb1473f0079247668a22c645743511db65",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
