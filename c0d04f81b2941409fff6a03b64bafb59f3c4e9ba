@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f5ba9276_83bc25ab",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "I didn\u0027t realize ErrorOr\u003c...\u003e Existed - thank you for pointing this out!\nUpdated this case to kCborIncompleteMessage and the below switch failure case to kCborParsing, and kCborInvalidMessage for if the enum below fails to parse",
+      "parentUuid": "18516097_1be05236",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8e44cc3_ec893030",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73aac700_d6bf2dec",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Updated, and removed the AND",
+      "parentUuid": "b8e44cc3_ec893030",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "dc663d7e_ca8941b5",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4cf9e97_c6619bb7",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf1cca25_8f4035fa",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "bffcc47d_6a18c24a",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "We actually don\u0027t expect it to be equal in any valid case:\nbuffer.size() can\u0027t be smaller, or ReadBigEndian will try to read past the end of buffer\nThe two also can\u0027t be equal because we expect the id to be followed by a message in the same buffer\n\nAdding a comment to explain this, and updating to \u003c\u003d instead of just \u003c in the check",
+      "parentUuid": "cf1cca25_8f4035fa",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4caca9d_781ee5ec",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 2
@@ -84,6 +156,24 @@
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b9a92b6_48a62e78",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4caca9d_781ee5ec",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "98477a63_666a1d2a",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c4c2cff_783a35e2",
+      "range": {
+        "startLine": 42,
+        "startChar": 59,
+        "endLine": 42,
+        "endChar": 66
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ebd5705_23e3125c",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 2
@@ -130,6 +244,30 @@
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2371acd8_4887f007",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "I couldn\u0027t see any case where this would get hit either, but wanted to leave the case here in case it somehow gets hit after a future refactor\n\nAdding OSP_NOTREACHED as suggested",
+      "parentUuid": "5ebd5705_23e3125c",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 19
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -221,6 +359,30 @@
     },
     {
       "key": {
+        "uuid": "3270099f_fbc78595",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Discussed offline, and added a switch statement for parsing generated in the codegen.cc file at compile time to use for this validation",
+      "parentUuid": "eca2ecd4_f852d110",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 8
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25cbc5f2_16e11dfc",
         "filename": "api/public/message_demuxer.h",
         "patchSetId": 2
@@ -235,6 +397,24 @@
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0d056cc_b3444a8d",
+        "filename": "api/public/message_demuxer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Updated to MessageTypeDecoder as suggested",
+      "parentUuid": "25cbc5f2_16e11dfc",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -285,6 +465,30 @@
     },
     {
       "key": {
+        "uuid": "bf7fce38_4887ebb3",
+        "filename": "api/public/message_demuxer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Actually didn\u0027t realize this constructor was an option :) updating them all now",
+      "parentUuid": "709b3134_f0cb9e5c",
+      "range": {
+        "startLine": 358,
+        "startChar": 42,
+        "endLine": 358,
+        "endChar": 51
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3dc3bef_324e9650",
         "filename": "msgs/messages_unittest.cc",
         "patchSetId": 2
@@ -308,6 +512,30 @@
     },
     {
       "key": {
+        "uuid": "e9d751a3_bb1f1ba5",
+        "filename": "msgs/messages_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3dc3bef_324e9650",
+      "range": {
+        "startLine": 228,
+        "startChar": 16,
+        "endLine": 228,
+        "endChar": 37
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efd6d987_2091fe11",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 2
@@ -322,6 +550,24 @@
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5938f0fe_52d8f516",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efd6d987_2091fe11",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -342,6 +588,24 @@
     },
     {
       "key": {
+        "uuid": "9dc2f4ac_b2a663dc",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Modified the code to support this approach - great idea!",
+      "parentUuid": "14ba6167_32504ae0",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d76689be_51216bdb",
         "filename": "tools/cddl/codegen.cc",
         "patchSetId": 2
@@ -359,6 +623,24 @@
     },
     {
       "key": {
+        "uuid": "7485ce40_3b5ae52e",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "What would you suggest for a name?\n\nI\u0027ve updated it to TType for now, since I\u0027ve generally seen generics prefaced with \u0027T\u0027 across languages, and the style guide doesn\u0027t give a recommendation",
+      "parentUuid": "d76689be_51216bdb",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5aad198e_4b0cb24d",
         "filename": "tools/cddl/main.cc",
         "patchSetId": 2
@@ -370,6 +652,30 @@
       "writtenOn": "2019-04-18T00:11:23Z",
       "side": 1,
       "message": "Different case for CDDL input file in these messages",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 56
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "772319c3_9d9d88f9",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you are asking for here. All I changed here was added a logging message to make failures more explicit",
+      "parentUuid": "5aad198e_4b0cb24d",
       "range": {
         "startLine": 154,
         "startChar": 4,
@@ -405,6 +711,30 @@
     },
     {
       "key": {
+        "uuid": "9f5e89d7_a5084b2e",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "See below",
+      "parentUuid": "3987f13d_1f7ad307",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 27
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "524be4d8_35ffd4e7",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 2
@@ -428,6 +758,30 @@
     },
     {
       "key": {
+        "uuid": "2206b82c_75312f98",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "524be4d8_35ffd4e7",
+      "range": {
+        "startLine": 269,
+        "startChar": 2,
+        "endLine": 269,
+        "endChar": 38
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c384c0c_f2a3a420",
         "filename": "tools/cddl/parse.cc",
         "patchSetId": 2
@@ -439,6 +793,30 @@
       "writtenOn": "2019-04-18T00:11:23Z",
       "side": 1,
       "message": "Maybe use absl::StartsWith, it\u0027s used in a couple other places in the parser",
+      "range": {
+        "startLine": 270,
+        "startChar": 2,
+        "endLine": 276,
+        "endChar": 3
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8606f039_8898ccd5",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "I\u0027m seeing failures in the tool run with this approach, so I will need to dig into it a bit more in the morning. I like the idea though",
+      "parentUuid": "4c384c0c_f2a3a420",
       "range": {
         "startLine": 270,
         "startChar": 2,
@@ -474,6 +852,30 @@
     },
     {
       "key": {
+        "uuid": "edf44b30_59260b4a",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "I\u0027m attempting to avoid that complexity. To parse to an AstNode in a way consistent with the rest of the file would involve defining a new node type, then parsing the full string to a node that\u0027s its child, then parsing the number to a node below that\n\nFor this purpose, this seems to be needlessly complex, so I chose to avoid that",
+      "parentUuid": "257a7a3a_425df892",
+      "range": {
+        "startLine": 280,
+        "startChar": 2,
+        "endLine": 281,
+        "endChar": 3
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2995602f_afe76bfa",
         "filename": "tools/cddl/sema.cc",
         "patchSetId": 2
@@ -491,6 +893,24 @@
     },
     {
       "key": {
+        "uuid": "1e7b2318_23edba1c",
+        "filename": "tools/cddl/sema.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you\u0027re referring to\n\nIf you mean the type id, some structs will not have a type id (see agent-info) so it has to be\nIf you mean this method in general, please elaborate",
+      "parentUuid": "2995602f_afe76bfa",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db832c03_b22cf803",
         "filename": "tools/cddl/sema.h",
         "patchSetId": 2
@@ -502,6 +922,24 @@
       "writtenOn": "2019-04-17T09:52:41Z",
       "side": 1,
       "message": "I think this could just be a required member of Struct, but I don\u0027t feel strongly.",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b360584_850db81e",
+        "filename": "tools/cddl/sema.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-18T00:31:29Z",
+      "side": 1,
+      "message": "It can\u0027t be required - some of the structs generated in our current spec don\u0027t have a type id (the same ones in past that didn\u0027t have a CBOR tag) \n\nFor instance:\nagent-info \u003d {\n  0: text ; friendly-name\n  1: text ; model-name\n  ; ...\n}",
+      "parentUuid": "db832c03_b22cf803",
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
