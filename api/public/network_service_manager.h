@@ -33,6 +33,7 @@ class NetworkServiceManager final {
 
   // Returns the singleton instance of the NetworkServiceManager previously
   // created by Create().
+  //
   static NetworkServiceManager* Get();
 
   // Destroys the NetworkServiceManager singleton and its owned services.  The
