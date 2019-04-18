@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "4244de6e_8f7f6526",
+        "filename": "api/public/message_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T22:42:38Z",
+      "side": 1,
+      "message": "I mean that in the spec we\u0027re supposed to have 2 varuints on the wire, one for the message type key and one for the message size.  If you look down to where this method is called, it doesn\u0027t read out 2 varuints, just 1.  We\u0027ll eventually need to read out a second one.  And at that point, we\u0027ll want this code to be usable for both.",
+      "parentUuid": "184b3894_68e67544",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0dc3a021_4e855bff",
         "filename": "api/public/message_demuxer.cc",
         "patchSetId": 3
@@ -462,6 +480,24 @@
       "revId": "b472f3fb1473f0079247668a22c645743511db65",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5526266_e6490efe",
+        "filename": "tools/cddl/codegen.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-18T22:42:38Z",
+      "side": 1,
+      "message": "Same as the response earlier: the spec has 2 varuints on the wire.",
+      "parentUuid": "4302990f_0a1925f2",
+      "revId": "b472f3fb1473f0079247668a22c645743511db65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
