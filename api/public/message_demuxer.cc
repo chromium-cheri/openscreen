@@ -4,12 +4,60 @@
 
 #include "api/public/message_demuxer.h"
 
+#include <iostream>
 #include <memory>
 
 #include "api/impl/quic/quic_connection.h"
+#include "base/big_endian.h"
+#include "base/error.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {
+
+// static
+std::pair<ErrorOr<size_t>, msgs::Type> MessageTypeDecoder::GetType(
+    const std::vector<uint8_t>& buffer) {
+  if (buffer.size() == 0) {
+    return {Error::Code::kCborIncompleteMessage, msgs::Type::kUnknown};
+  }
+
+  uint8_t num_type_bytes = static_cast<uint8_t>(buffer[0] >> 6 & 0x03);
+  size_t type_size = 0x1 << num_type_bytes;
+
+  // Ensure that ReadBigEndian won't read beyond the end of the buffer. Also,
+  // since we expect the id to be followed by the message, equality is not valid
+  if (buffer.size() <= type_size) {
+    return {Error::Code::kCborIncompleteMessage, msgs::Type::kUnknown};
+  }
+
+  uint64_t message_type;
+  switch (num_type_bytes) {
+    case 0:
+      message_type = buffer[0] & ~0xC0;
+      break;
+    case 1:
+      message_type = ReadBigEndian<uint16_t>(&buffer[0]) & ~(0xC0 << 8);
+      break;
+    case 2:
+      message_type = ReadBigEndian<uint32_t>(&buffer[0]) & ~(0xC0 << 24);
+      break;
+    case 3:
+      message_type =
+          ReadBigEndian<uint64_t>(&buffer[0]) & ~(uint64_t{0xC0} << 56);
+      break;
+    default:
+      OSP_NOTREACHED();
+      return {Error::Code::kCborParsing, msgs::Type::kUnknown};
+  }
+
+  msgs::Type parsed_type = msgs::TypeParser::Parse(message_type);
+  if (parsed_type == msgs::Type::kUnknown) {
+    return {Error::Code::kCborInvalidMessage, msgs::Type::kUnknown};
+  }
+
+  std::cerr << "id: " << uint64_t{num_type_bytes} << "bytes: " << uint64_t{size_t{type_size}} << "\n";
+  return {ErrorOr<size_t>{type_size}, parsed_type};
+}
 
 // static
 constexpr size_t MessageDemuxer::kDefaultBufferLimit;
@@ -185,15 +233,20 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBuffer(
   bool handled = false;
   do {
     consumed = 0;
-    auto message_type = static_cast<msgs::Type>((*buffer)[0]);
+    auto message_details = MessageTypeDecoder::GetType(*buffer);
+    if (message_details.first.is_error()) {
+      break;
+    }
+    size_t id_bytes = message_details.first.value();
+    msgs::Type message_type = message_details.second;
     auto callback_entry = message_callbacks->find(message_type);
     if (callback_entry == message_callbacks->end())
       break;
     handled = true;
     OSP_VLOG << "handling message type " << static_cast<int>(message_type);
     auto consumed_or_error = callback_entry->second->OnStreamMessage(
-        endpoint_id, connection_id, message_type, buffer->data() + 1,
-        buffer->size() - 1, now_function_());
+        endpoint_id, connection_id, message_type, buffer->data() + id_bytes,
+        buffer->size() - id_bytes, now_function_());
     if (!consumed_or_error) {
       if (consumed_or_error.error().code() !=
           Error::Code::kCborIncompleteMessage) {
@@ -202,7 +255,7 @@ MessageDemuxer::HandleStreamBufferResult MessageDemuxer::HandleStreamBuffer(
       }
     } else {
       consumed = consumed_or_error.value();
-      buffer->erase(buffer->begin(), buffer->begin() + consumed + 1);
+      buffer->erase(buffer->begin(), buffer->begin() + consumed + id_bytes);
     }
     total_consumed += consumed;
   } while (consumed && !buffer->empty());
