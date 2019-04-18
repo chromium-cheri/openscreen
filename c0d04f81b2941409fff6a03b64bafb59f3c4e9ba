@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "5f739587_52f29465",
+        "filename": "api/public/message_demuxer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-18T00:11:23Z",
+      "side": 1,
+      "message": "Or size_t(1)",
+      "parentUuid": "709b3134_f0cb9e5c",
+      "range": {
+        "startLine": 358,
+        "startChar": 42,
+        "endLine": 358,
+        "endChar": 51
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3dc3bef_324e9650",
         "filename": "msgs/messages_unittest.cc",
         "patchSetId": 2
@@ -329,6 +353,121 @@
       "writtenOn": "2019-04-17T09:52:41Z",
       "side": 1,
       "message": "nit: I wouldn\u0027t use T here since this is a constant, not a typename (which is how it\u0027s commonly used).",
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aad198e_4b0cb24d",
+        "filename": "tools/cddl/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-18T00:11:23Z",
+      "side": 1,
+      "message": "Different case for CDDL input file in these messages",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 56
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3987f13d_1f7ad307",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-18T00:11:23Z",
+      "side": 1,
+      "message": "Why not AstNode*?",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 27
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "524be4d8_35ffd4e7",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-18T00:11:23Z",
+      "side": 1,
+      "message": "Having this as a string would dynamically allocate memory and then copy the literal to that memory. You can compare against a const char* key_string.",
+      "range": {
+        "startLine": 269,
+        "startChar": 2,
+        "endLine": 269,
+        "endChar": 38
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c384c0c_f2a3a420",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-18T00:11:23Z",
+      "side": 1,
+      "message": "Maybe use absl::StartsWith, it\u0027s used in a couple other places in the parser",
+      "range": {
+        "startLine": 270,
+        "startChar": 2,
+        "endLine": 276,
+        "endChar": 3
+      },
+      "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "257a7a3a_425df892",
+        "filename": "tools/cddl/parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-18T00:11:23Z",
+      "side": 1,
+      "message": "You can use ParseNumber if you are willing to return AstNode* from the function",
+      "range": {
+        "startLine": 280,
+        "startChar": 2,
+        "endLine": 281,
+        "endChar": 3
+      },
       "revId": "c0d04f81b2941409fff6a03b64bafb59f3c4e9ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
