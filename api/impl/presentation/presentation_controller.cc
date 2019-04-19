@@ -172,7 +172,17 @@ void Controller::MessageGroupStreams::OnMatchedResponse(
     msgs::PresentationTerminationResponse* response,
     uint64_t endpoint_id) {
   OSP_VLOG << "got presentation-termination-response for "
-           << request->request.presentation_id;
+           << request->request.presentation_id << " with result "
+           << static_cast<int>(response->result);
+  auto& controlled_presentations = controller_->presentations_;
+  auto presentation_entry =
+      controlled_presentations.find(request->request.presentation_id);
+  if (presentation_entry != controlled_presentations.end()) {
+    for (auto* connection : presentation_entry->second.connections) {
+      connection->OnTerminated();
+    }
+    controlled_presentations.erase(presentation_entry);
+  }
 }
 
 void Controller::MessageGroupStreams::OnError(TerminationRequest* request,
