@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "667bfcaa_74e87c24",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "N/A anymore.",
+      "parentUuid": "bb993300_342dac21",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "376ab634_74a4a88c",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34ba66cf_e75e8358",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Used absl::optional\u003c\u003e as a return type. A nullopt indicates a corrupt packet.\n\nI thought a bit about using ErrorOr here, with string messages describing a parse failure, but I feel it tilts somewhat on the side of over-engineering: RtpPacketParser isn\u0027t meant to be an interactive command-line tool (like the CDDL parser), and our end-users wouldn\u0027t be able to take any action on such logging. At development time, it would be trivial to just take a failed packet and run it through the parser in a debugger to quickly find out what\u0027s going on.\n\nData corruption can come from two places: 1) A software bug in the sender (or parser). 2) Over-the-network corruption. #1 is something that should be avoided by employing sufficiently-thorough testing before deployment. Corruption due to #2 is pretty much never actionable by our team (i.e., it\u0027s going to be due to an infrastructure issue out of our control).",
+      "parentUuid": "376ab634_74a4a88c",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "623e79e8_cc6e585e",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "As this class was re-purposed to be specific to RTP packet parsing, this is no longer applicable. If the RTP payload type found in byte 1 is not valid, the whole packet is just considered corrupt, since it should never have been given to the RtpPacketParser in the first place.",
+      "parentUuid": "02f28a7d_ac7771a5",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "490f57df_6a76a899",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b2b2df_ca61013f",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "490f57df_6a76a899",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "96858470_2b20cf24",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64c0a9af_65358114",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "336a8c87_fed4ef71",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ebdf03f_daefc338",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "336a8c87_fed4ef71",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "e9126698_7b56415d",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b271ac89_281d0dd6",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "675eb84b_9bf7863c",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7d6b93_0a48b7b6",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "675eb84b_9bf7863c",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "d17753ec_173eb36c",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09f7994b_aafa2aff",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58562c42_146fd389",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -169,6 +331,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3aedde4_2e47f62c",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58562c42_146fd389",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "5cd65ac5_ba174acc",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97bdb35c_caa86022",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f5344dc_a4d0d580",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -203,6 +401,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb64d5e_f69ed1e9",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2f5344dc_a4d0d580",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "fe06ded2_4f3cd9f8",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44f4c642_2840dce3",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69bc2374_e32e5bc2",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -237,6 +471,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16d7091e_de4eaa29",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done. Added a AppendField() helper function in packet_util.h.",
+      "parentUuid": "69bc2374_e32e5bc2",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "3ed8719d_7b74e9c5",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b63891b3_8ad13d01",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8e81420_334be32b",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -271,6 +541,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bf8e35e_1768a5ca",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8e81420_334be32b",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "fbad5eed_8de44be3",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done. Added InspectPacketForRouting() function (in packet_util.h).",
+      "parentUuid": "6a8c16ae_949f1489",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d575c30_102aa3ab",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -305,6 +611,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77e64c17_d83ff1dc",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d575c30_102aa3ab",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +649,24 @@
     },
     {
       "key": {
+        "uuid": "b90a3236_44e6142f",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Discussed in other comment.",
+      "parentUuid": "37815b1f_3ac80f7b",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd0340f6_4ce7c6f7",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2
@@ -339,6 +681,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "380d1dd5_27b814b4",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd0340f6_4ce7c6f7",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +719,24 @@
     },
     {
       "key": {
+        "uuid": "f0a42ae9_550051e9",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "\u003e 1.  I think we should be consistent between parser and packetizer.  You gave the packetizer the \"Rtp\" prefix and the parser you didn\u0027t.  Let\u0027s pick one.  \n\nOriginally, I was thinking PacketParser would be a single instance meant to parse both RTP and RTCP packets. You see, Cast Streaming sends the packets to the same UDP socket, and so it seemed useful to just dump all the packets into one parser and have it spit-out whatever it gleaned from the input.\n\nHowever, we still have to separate packets by SSRC ahead of the parse, so they will go to the right parser instance. Also, after going through your comments, I think it makes a lot more sense to just have separate parsers, and use an upfront \"packet router\" for everything. So, now it\u0027s RtpPacketParser.\n\n\u003e 2.  We should pick a noun for what kind of packet a CastV2 streaming packet is.  It\u0027s RTP/RTCP but it\u0027s not just RTP/RTCP.  \"CastRtp\" \"CastRtcp\"  might be good names.  ...\n\nRtpCastHeaders was just copied over from the existing Chromium code. I think it\u0027s redundant to have \"Cast\" in the class name at all since all of these classes are already in the cast_streaming namespace. At this point, the comment is no longer applicable due to refactoring (I merged this struct into RtpPacketParser::ParseResult) based on other things I\u0027ve addressed.\n\nNote that, at the top of rtp_defines.h, there is a comment that states this implementation is a subset of the RTP spec with special Cast-specific add-ons.\n\n\u003e 3.  I think we should pull serialization out of the packetizer into its own thing, in which case the name should be something consistent like CastRtpSerializer.\n\nAddressed in other responses.\n\n\u003e 4. ...\n\u003e 5. ...\n\nBased on your other comments, and how I\u0027ve addressed the issues as a whole, I\u0027ve decided to just have separate classes for RTP vs. RTCP parsing. So, points 4 and 5 are no longer applicable.",
+      "parentUuid": "ff5da3b1_0900ea65",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0f76b9a_7490428f",
         "filename": "streaming/cast/packet_parser.h",
         "patchSetId": 2
@@ -373,6 +751,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c79e7c71_0d792ad9",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Agree w/ the SSRC naming change. Using receiver/sender_ssrc (instead of local/remote).\n\nThere are a few reasons I didn\u0027t put the ssrc in CastRtpHeaders and have the caller check:\n\n1. The SSRC check already occurs before the parse even happens. As packets come in from the UDP recv(), they are \"quick scanned\" for the SSRC field to determine whether the packet is for the audio or the video stream. In other words, packets get routed to one particular parser instance. Thus, the code calling the parser already knows the SSRC.\n\n2. Since the parser is not stateless (e.g., for FrameId bit expansion), there need to be multiple instances (one for audio, one for video). So, I don\u0027t believe WebRTC\u0027s shared-parser/demuxing design applies to our situation here.\n\n3. If the SSRC does not match, it\u0027s wasteful to continue the parse. So, we shouldn\u0027t wait until after all of the parsing has finished to do the SSRC check.",
+      "parentUuid": "e0f76b9a_7490428f",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +789,24 @@
     },
     {
       "key": {
+        "uuid": "b6281f5a_3721e030",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done. FWIW, this code started-out coming from the media/cast implementation, which did it this way for legacy reasons. Sure, we can change that, and let C++ Return Value Optimization elide the extra copying. :)",
+      "parentUuid": "c3170e70_4a1e5c8c",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ab8ad68_83d2e497",
         "filename": "streaming/cast/packet_parser.h",
         "patchSetId": 2
@@ -407,6 +821,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "996eb39e_2efc0d87",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done. I turned this into a \"packet inspection\" scheme, and moved it into packet_util.h as an InspectPacketForRouting() function.",
+      "parentUuid": "1ab8ad68_83d2e497",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -427,6 +859,24 @@
     },
     {
       "key": {
+        "uuid": "f00b4d05_979c5731",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "I took parts of this advice into account, alongside other considerations, making an InspectPacketForRouting() function.",
+      "parentUuid": "b6818589_c6291da6",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a517baa2_ea5b0a9e",
         "filename": "streaming/cast/packet_parser.h",
         "patchSetId": 2
@@ -444,6 +894,24 @@
     },
     {
       "key": {
+        "uuid": "63fd2cdb_d847ec52",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "N/A anymore.",
+      "parentUuid": "a517baa2_ea5b0a9e",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63ca8d01_3b7aaf51",
         "filename": "streaming/cast/packet_parser.h",
         "patchSetId": 2
@@ -455,6 +923,24 @@
       "writtenOn": "2019-04-18T21:24:44Z",
       "side": 1,
       "message": "OK, I think I get what\u0027s going on here.  This class is both a PacketParser and a Receiver which does logic on top of parsing.  I think we should separate those and have a PacketParser and Receiver.  The parser just parses (and maybe have one class do parsing and serilization) and one class keeps state when receiving for expanding on timestamps and frame IDs, etc.  But that thing should work with already parsed packets.  Makes it easier to test as well.\n\nThen the SSRC state would make sense for the receiver, but they should be called sender_ssrc and receiver_ssrc.  And there should be a Demuxer object that parses the packet, looks at what SSRC it has, and chooses which Receiver to hand it to.",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "284bd96d_7b61235d",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Well, it\u0027s not really acting as a Receiver (no protocol-level logic, frame assembly, bandwidth estimation, buffering/timing, etc.). It\u0027s definitely an instance that would be owned by one and only one Receiver, so I can see your point in that respect.\n\nWhat we have here is a structural parser, with special logic added just for the bit-expansion of FrameId/timestamp values that are truncated as part of the serialization process. Whether the bit-expansion logic is a function of \"parsing\" isn\u0027t exactly black-and-white, but to me it seems reasonable to include it in this class. Consider that there is nothing making decisions on these values. The extra logic is entirely about re-constituting values that the Receiver logic will be able to act on.",
+      "parentUuid": "63ca8d01_3b7aaf51",
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -478,6 +964,24 @@
     },
     {
       "key": {
+        "uuid": "89c1b0b4_555b47f7",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done. However, in Cast Streaming, there is no requirement that audio frames only have one packet. Practically speaking, they usually are just one packet, when running audio at 100 FPS (10ms frames) with typical compression bitrates. FWIW, there were proposals to use 20ms or even 40ms frame durations to alleviate certain design issues, and that might result in multiple audio packets per frame. If you\u0027re interested, I can discuss more about the reasons for that offline...",
+      "parentUuid": "2e9bae1a_8c70ecb8",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56ae40fb_165e7f04",
         "filename": "streaming/cast/rtp_defines.h",
         "patchSetId": 2
@@ -492,6 +996,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be194db_11d1ce91",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "56ae40fb_165e7f04",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -512,6 +1034,24 @@
     },
     {
       "key": {
+        "uuid": "7d445b8e_568a3319",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Good point. I put constants for IPv4/UDP and IPv6/UDP here, along with a more-thorough discussion of MTU and transports, and then made RtpPacketizer take the max packet size as a ctor argument.",
+      "parentUuid": "a42729d4_125730fb",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a1c5c12_fc6f1342",
         "filename": "streaming/cast/rtp_defines.h",
         "patchSetId": 2
@@ -526,6 +1066,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "060a2e87_81604ca7",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Media Remoting uses this (Cast Streaming is used as a reliable transport of opaque data). I had copied this enum definition from the Chromium media/cast code. I felt the comments/naming should be scrubbed some more, so I did that.",
+      "parentUuid": "9a1c5c12_fc6f1342",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -546,6 +1104,24 @@
     },
     {
       "key": {
+        "uuid": "d75b2c03_80491c9a",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "c1be7101_0113e3a2",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ceec3e86_60a1572f",
         "filename": "streaming/cast/rtp_packetizer.cc",
         "patchSetId": 2
@@ -560,6 +1136,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04906c5f_7034de2b",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "\"Combining the code\" was mentioned a few times in your comments, so I\u0027ll address them all here:\n\nIIUC, what you\u0027re suggesting is that we just have one class that handles both RTP parsing and serialization. However, a receiver build only needs parsing, and a sender build only needs serialization. This suggests we should have separate code modules, but with shared constants and struct definitions in a common code module used by both (a.k.a. rtp_defines.h).\n\nI feel it\u0027s important to keep the build lean for the various embedded applications of the library. After considering many of your other comments, I realized I didn\u0027t do a very good job of that in Patchset 2; and made some minor refactorings to address that.\n\nI moved the wire-format diagrams and all wire-format-related constants/bitmasks/enums/etc. into rtp_defines.h. I think it makes sense for rtp_defines.h to essentially be \"the spec\" for Cast RTP/RTCP packets.",
+      "parentUuid": "ceec3e86_60a1572f",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -580,6 +1174,24 @@
     },
     {
       "key": {
+        "uuid": "3839b275_ef9e5761",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "What you\u0027re implying--that we should just always start at zero--makes perfect sense to me. However, that would be a behavior change from the existing impls. I\u0027ll just document in code comments here that \"we don\u0027t know why we do this, but it always was done this way.\"\n\nFWIW, I did check available sources: The spec doesn\u0027t say why the sequence number starts randomly. It only says, \"Starts with a random value and is incremented by one for each packet.\" There is also nothing in existing source code impls that explains the reason for it.",
+      "parentUuid": "98846651_83c70a54",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45f4fdcb_1b604f01",
         "filename": "streaming/cast/rtp_packetizer.cc",
         "patchSetId": 2
@@ -594,6 +1206,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cae446da_f43f9b29",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Done. Passed into ctor.",
+      "parentUuid": "45f4fdcb_1b604f01",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -614,6 +1244,24 @@
     },
     {
       "key": {
+        "uuid": "03d66861_b78bd48b",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "I thought about this more, and I think only a logic flaw would result in a too-small buffer being passed to this method. Thus, I\u0027ve updated the header comments to mention the buffer size requirement, and replaced the code here with an illegal-argument-DCHECK at the top of the method.",
+      "parentUuid": "90922f55_a6da58cd",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b9db595_6daf0606",
         "filename": "streaming/cast/rtp_packetizer.cc",
         "patchSetId": 2
@@ -628,6 +1276,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c3cda2_60b8c76e",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "N/A due to other changes.",
+      "parentUuid": "5b9db595_6daf0606",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -648,6 +1314,24 @@
     },
     {
       "key": {
+        "uuid": "5cc99105_f2c12fa2",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Added a helper function called AppendField() (in the new packet_util.h) that does the big-endian write and calls remove_prefix() on the span to advance the pointer. No more offsets.",
+      "parentUuid": "739aec41_afb1c0eb",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6051396_680d01a8",
         "filename": "streaming/cast/rtp_packetizer.cc",
         "patchSetId": 2
@@ -662,6 +1346,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "399ee1b7_50e2a77f",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "Explained by expanding this code comment. For example, the Opus codec can use empty payloads to represent \"a period of silence.\"",
+      "parentUuid": "a6051396_680d01a8",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -682,6 +1384,24 @@
     },
     {
       "key": {
+        "uuid": "998c37d2_a4a113df",
+        "filename": "streaming/cast/rtp_packetizer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "I\u0027ll eliminate the discussion of what an SSRC is in the code comments here, and update ssrc.h with what you\u0027ve suggested to clarify things.",
+      "parentUuid": "a7f765fe_f773703b",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6962c1f_5a2f4030",
         "filename": "streaming/cast/rtp_packetizer.h",
         "patchSetId": 2
@@ -696,6 +1416,24 @@
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e444712_51567bb3",
+        "filename": "streaming/cast/rtp_packetizer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-21T02:09:24Z",
+      "side": 1,
+      "message": "I believe it was originally in the spec so the receiver could identify which packets were dropped. While the receiver (as it currently exists) doesn\u0027t do anything based on *which* were dropped, it does accumulate a count of the number of drops and lets the sender know in one of the \"stats\" RTCP reports.",
+      "parentUuid": "f6962c1f_5a2f4030",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
