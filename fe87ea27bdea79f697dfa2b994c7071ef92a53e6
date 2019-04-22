@@ -2,6 +2,91 @@
   "comments": [
     {
       "key": {
+        "uuid": "79285c00_d664aa7b",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-22T20:53:34Z",
+      "side": 1,
+      "message": "IIUC, this loop exists because the client could have changed the interface_index_whitelist since the service was last stopped (and therefore there could be a bound interface that\u0027s not in the current whitelist).\n\nAnd the other condition is that there is an interface still bound (even after the service was stopped).\n\nI wonder if we could always unbind all interfaces when the MdnsResponderService stops so we can simply rebind the ones in the whitelist each time it starts again?\n\nOr is this extra complexity necessary because the service (and state of bound interfaces) is shared by the listener and responder?",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed6ba8f_7ede9819",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-22T20:53:34Z",
+      "side": 1,
+      "message": "Is it possible for there to be no bound interfaces left after the loop above, because none of the previously bound interfaces were on the current whitelist?  In which case, drop the \u0027else\u0027...",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da9fdaca_4b25ed81",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-22T20:53:34Z",
+      "side": 1,
+      "message": "Do we need to always call this to pick up newly added interfaces to interface_index_whitelist_?",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "171c11d6_c0d3a51f",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-22T20:53:34Z",
+      "side": 1,
+      "message": "Could this be implemented in PresentationController, i.e.\n\nPresentationController::TerminatePresentationById(const absl::string_view\u0026 presentation_id)\n\n?",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa43ec2c_4e694d07",
+        "filename": "demo/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-22T20:53:34Z",
+      "side": 1,
+      "message": "Cool.  However, /dev/stderr can also act as a FIFO, and can be easily redirected to a file with shell commands, which can be tail\u0027ed in a separate terminal. So maybe we could tweak things in the future to direct logging to a fifo, or stderr.",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64e988d7_7124d73f",
         "filename": "demo/demo.cc",
         "patchSetId": 1
