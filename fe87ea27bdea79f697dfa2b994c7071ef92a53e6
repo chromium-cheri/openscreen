@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "73dba66d_a33c170f",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-23T20:21:46Z",
+      "side": 1,
+      "message": "Here is what I am thinking.  Changing the interface whitelist while the service is suspended is not something that is necessary to support.  Ordinarily, this setting would be more like an advanced setting in the UI to allow users to customize the mDNS behavior.   Or it allows the embedder to have their own rules about which interfaces it makes sense to run discovery (for example, filtering out cellular/VPN interfaces).  I don\u0027t think it will be changed on the fly very often.\n\nIn that case, it would be okay to drop this loop, and document that changes to the whitelist require a stop()/start() cycle to reset the underlying service state.\n\nHow does that sound?",
+      "parentUuid": "2e49fc94_af88392f",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fed6ba8f_7ede9819",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Currently we would, but that would still leave us not using new interfaces between restarts.  What really should happen is there should be something like a MdnsPlatformService::Delegate that this implements to get a callback when interfaces are added and removed.  Then the MdnsPlatformService can use platform::WatchNetworkChange() to wait for such changes.  I added a TODO for that and will address it in another CL.",
       "parentUuid": "da9fdaca_4b25ed81",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14d05fcc_c171fc37",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-23T20:21:46Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "ed888cc9_217e1541",
       "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
