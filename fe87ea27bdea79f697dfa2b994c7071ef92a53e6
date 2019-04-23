@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "35badd0f_d1a83864",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-23T22:42:20Z",
+      "side": 1,
+      "message": "Actually, there\u0027s another case that I missed.  If we start the listener first, it automatically grabs all interfaces.  If we then start the publisher with a restricted interface list, we have to deregister some.  There isn\u0027t currently one place in the embedder API that we can put a single interface whitelist parameter.  So we could either add one to the listener and maybe CHECK that they are equal if they both get started, or continue doing this loop, or we could plumb the whitelist down to MdnsResponderAdapter so we can restrict just the published service to the given interfaces.  The latter is definitely my least favorite and I would probably prefer the former (since listening still generates broadcast traffic, so having control over that might not be bad).  WDYT?",
+      "parentUuid": "73dba66d_a33c170f",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fed6ba8f_7ede9819",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
