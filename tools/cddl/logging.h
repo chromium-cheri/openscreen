@@ -82,13 +82,14 @@ class Logger {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-security"
 #endif
-    asprintf(&str_buffer, message.c_str(),
-             this->MakePrintable(std::forward<Args>(args))...);
+    int byte_count = asprintf(&str_buffer, message.c_str(),
+                              this->MakePrintable(std::forward<Args>(args))...);
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #elif defined(__GNUC__)
 #pragma GCC diagnostic pop
 #endif
+    OSP_CHECK_GE(byte_count, 0);
     stream << str_buffer << std::endl;
     free(str_buffer);
   }
