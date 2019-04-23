@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2e49fc94_af88392f",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-23T19:37:30Z",
+      "side": 1,
+      "message": "The first part is correct: this is to make sure that we obey a changed interface whitelist if the service was merely suspended.  Interfaces are completely unregistered when the service stops (StopMdnsResponder() below), but they are not unregistered when we only suspend the listener and publisher.  This is to maintain the mdns cache items received on those interfaces.  Otherwise, suspend \u003d\u003d stop and there\u0027s no real point (although obviously we don\u0027t actually have a real use case for suspend vs. stop yet).",
+      "parentUuid": "79285c00_d664aa7b",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fed6ba8f_7ede9819",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16be4067_d0cf8378",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-23T19:37:30Z",
+      "side": 1,
+      "message": "Yes, but dropping the \u0027else\u0027 wouldn\u0027t be the solution, because we don\u0027t want to call Init() and SetHostLabel again.  The real solution is related to the network change comment below.",
+      "parentUuid": "fed6ba8f_7ede9819",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ed888cc9_217e1541",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-23T19:37:30Z",
+      "side": 1,
+      "message": "Currently we would, but that would still leave us not using new interfaces between restarts.  What really should happen is there should be something like a MdnsPlatformService::Delegate that this implements to get a callback when interfaces are added and removed.  Then the MdnsPlatformService can use platform::WatchNetworkChange() to wait for such changes.  I added a TODO for that and will address it in another CL.",
+      "parentUuid": "da9fdaca_4b25ed81",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "171c11d6_c0d3a51f",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "83b1dd8b_ef392501",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-23T19:37:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "171c11d6_c0d3a51f",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa43ec2c_4e694d07",
         "filename": "demo/README.md",
         "patchSetId": 1
@@ -81,6 +153,24 @@
       "writtenOn": "2019-04-22T20:53:34Z",
       "side": 1,
       "message": "Cool.  However, /dev/stderr can also act as a FIFO, and can be easily redirected to a file with shell commands, which can be tail\u0027ed in a separate terminal. So maybe we could tweak things in the future to direct logging to a fifo, or stderr.",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d780dcf1_ef04e768",
+        "filename": "demo/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-23T19:37:30Z",
+      "side": 1,
+      "message": "I\u0027m not sure that makes much of a practical difference.  If you want to avoid cluttering the terminal with logging and you output to stderr, you\u0027ll redirect stderr to a file/fifo.  If you want to see that output live, you\u0027ll still need a `tail -f`/`cat` respectively, right?  I\u0027m not particular about how we do it though.",
+      "parentUuid": "aa43ec2c_4e694d07",
       "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -107,6 +197,30 @@
       "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a63240e2_c642e49f",
+        "filename": "demo/demo.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-23T19:37:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64e988d7_7124d73f",
+      "range": {
+        "startLine": 332,
+        "startChar": 2,
+        "endLine": 332,
+        "endChar": 52
+      },
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
