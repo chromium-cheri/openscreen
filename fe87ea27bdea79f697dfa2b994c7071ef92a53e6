@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "04b31257_6561e9e4",
+        "filename": "api/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-25T22:34:33Z",
+      "side": 1,
+      "message": "I think the underlying problem is \"There isn\u0027t currently one place in the embedder API that we can put a single interface whitelist parameter.\"  That creates unnecessary complexity since in reality both mDNS, QUIC or any other network service should obey this whitelist.  Can you file a bug to fix this in the embedder API and leave a TODO here.",
+      "parentUuid": "35badd0f_d1a83864",
+      "revId": "fe87ea27bdea79f697dfa2b994c7071ef92a53e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fed6ba8f_7ede9819",
         "filename": "api/impl/mdns_responder_service.cc",
         "patchSetId": 1
