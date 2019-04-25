@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "42104e00_80ad134b",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-25T23:38:58Z",
+      "side": 1,
+      "message": "The WebRTC team recommends against using absl::span, though we may not have a better option: https://webrtc.googlesource.com/src.git/+/refs/heads/master/abseil-in-webrtc.md\n\nBased on the comment there, though, it sounds like absl::span will be changing soon to match the C++20 version (And since we are using a shared library in Chromium, we will be forced to change to the new version)",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7421e1b_28238936",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-25T23:38:58Z",
+      "side": 1,
+      "message": "You can limit the template to be valid for only numeric values using SFINAE as detailed here: https://stackoverflow.com/questions/14294267/class-template-for-numeric-types\n\nIf you chose not to do this on purpose, what was your reasoning?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "938c204e_c5225ce4",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-25T23:38:58Z",
+      "side": 1,
+      "message": "It might allow for simpler code to special case the ReadBigEndian\u003c\u003e and WriteBigEndian\u003c\u003e methods in Big_Endian.h for uint8_t values rather than special casing all of our calls that use that method. Thoughts?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 1
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30ab3e23_695845ec",
         "filename": "streaming/cast/rtp_defines.h",
         "patchSetId": 3
@@ -30,6 +99,29 @@
       "writtenOn": "2019-04-25T17:45:11Z",
       "side": 1,
       "message": "kRtpMarkerBitMask (to be consistent with those below)?",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47ad58a4_2237cd22",
+        "filename": "streaming/cast/rtp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-25T23:38:58Z",
+      "side": 1,
+      "message": "Since there seem to be a few different error cases here, maybe ErrorOr\u003cRtpPacketParser::ParseResult\u003e instead of optional\u003cRtpPacketParser::ParseResult\u003e - even if the error isn\u0027t used now, it could be useful in future",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 14
+      },
       "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -98,6 +190,29 @@
       "writtenOn": "2019-04-25T17:45:11Z",
       "side": 1,
       "message": "That looks really nice.",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d690d83_402b6eb2",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-25T23:38:58Z",
+      "side": 1,
+      "message": "This is a clever way to calculate it. Had to do it out on paper to convince myself there were no edge cases aside from frame.data.size() \u003d\u003d 0 :)",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 25
+      },
       "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
