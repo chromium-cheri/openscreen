@@ -947,6 +947,24 @@
     },
     {
       "key": {
+        "uuid": "3e85a6b1_e7e86f09",
+        "filename": "streaming/cast/packet_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "I guess it comes down to a stateful vs. stateless parser.  I\u0027m fine with it being stateful.  I like the class-level comment you have now.",
+      "parentUuid": "284bd96d_7b61235d",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e9bae1a_8c70ecb8",
         "filename": "streaming/cast/rtp_defines.h",
         "patchSetId": 2
@@ -1157,6 +1175,24 @@
     },
     {
       "key": {
+        "uuid": "333e234d_54636249",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "Yes, you are right about the builds being smaller that way.  That\u0027s more important.",
+      "parentUuid": "04906c5f_7034de2b",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98846651_83c70a54",
         "filename": "streaming/cast/rtp_packetizer.cc",
         "patchSetId": 2
@@ -1192,6 +1228,24 @@
     },
     {
       "key": {
+        "uuid": "fab32e01_8c397101",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "Good point; avoid risk.  Thanks for the comment.",
+      "parentUuid": "3839b275_ef9e5761",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45f4fdcb_1b604f01",
         "filename": "streaming/cast/rtp_packetizer.cc",
         "patchSetId": 2
@@ -1221,6 +1275,24 @@
       "side": 1,
       "message": "Done. Passed into ctor.",
       "parentUuid": "45f4fdcb_1b604f01",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca72be1a_1bed75e6",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "I was about to say \"that\u0027s fine until we run over ICE\", but hopefully by then we\u0027d be using OSP anyway, so SGTM.",
+      "parentUuid": "cae446da_f43f9b29",
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -1431,6 +1503,24 @@
       "side": 1,
       "message": "I believe it was originally in the spec so the receiver could identify which packets were dropped. While the receiver (as it currently exists) doesn\u0027t do anything based on *which* were dropped, it does accumulate a count of the number of drops and lets the sender know in one of the \"stats\" RTCP reports.",
       "parentUuid": "f6962c1f_5a2f4030",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0caa9cd_04f5f0f1",
+        "filename": "streaming/cast/rtp_packetizer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "That makes sense.  We do a similar thing with ICE and transaction IDs (even though standard says not to).",
+      "parentUuid": "3e444712_51567bb3",
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false

@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30ab3e23_695845ec",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "kRtpMinValidPacketSize (to be consistent with those below)?",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb20d28_6d2dde3c",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "kRtpMarkerBitMask (to be consistent with those below)?",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e1010f_adbe4043",
+        "filename": "streaming/cast/rtp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "This ConsumeField thing is great.",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ba98d0e_bfcaaa2c",
+        "filename": "streaming/cast/rtp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "Do we have to worry about the lifetime of the payload?  The comment on the Parse method doesn\u0027t say anything about keeping the passed-in buffer alive longer than the result payload.\nI can see a few options:\n\n1.  Put a big warning on Parse about this.\n2.  Copy\n3.  Take ownership of the buffer and make the result own the buffer and make the caller own the result.\n\n\nDepending on the code that will be using this, I\u0027m guessing #1 is best.  I don\u0027t like #2.  #3 might work, even if it is a bit more complex.\n\nSometimes I wish we could write code like this in Rust :).",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adb51f74_8902dd66",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "Only being DCHECK makes me a little nervous of the possibility of an out-of-bounds write.  \n\nCould we still have it guarantee that won\u0027t happen on release builds also?",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a852e3_269156f5",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "That looks really nice.",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61ec2780_9fa6448b",
+        "filename": "streaming/cast/rtp_packetizer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-04-25T17:45:11Z",
+      "side": 1,
+      "message": "RFID?",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
