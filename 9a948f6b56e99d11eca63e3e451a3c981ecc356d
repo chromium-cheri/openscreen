@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "87c9baaf_41ef2894",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "Yeah, it doesn\u0027t sound like there was a technical argument for it being bad; just that they already had their own ArrayView class that did the same thing.",
+      "parentUuid": "42104e00_80ad134b",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7421e1b_28238936",
         "filename": "streaming/cast/packet_util.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c631ae41_678afd11",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "My reasoning before your comment: It just didn\u0027t occur to me.\n\nMy reasoning after your comment: ReadBigEndian\u003c\u003e isn\u0027t defined for non-integer types, so using it w/ non-integers would generate a compiler error anyway. Thus, for readability\u0027s sake, I think it makes sense to keep the template definition simpler. :)",
+      "parentUuid": "a7421e1b_28238936",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "938c204e_c5225ce4",
         "filename": "streaming/cast/packet_util.h",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-04-25T23:38:58Z",
       "side": 1,
       "message": "It might allow for simpler code to special case the ReadBigEndian\u003c\u003e and WriteBigEndian\u003c\u003e methods in Big_Endian.h for uint8_t values rather than special casing all of our calls that use that method. Thoughts?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 1
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83056f73_aa860d77",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "I flip-flopped on the thinking around this back when I wrote the ReadBigEndian stuff: Convenience versus Semantics versus Readability. I eventually decided against it because I figured client-side code shouldn\u0027t be trying to byte-swap a single byte; and, if someone came across a ReadBigEndian\u003cuint8_t\u003e(), would they think it was something unconventional, like the individual *bits* of a single byte were in reverse order?\n\nIn the code here, semantically speaking, the extra template specialization makes sense because it\u0027s calling-out that there are these things called \"fields\" that are integers of either one-byte or multiple bytes in big-endian order. Then, the code that calls these functions works out to be pretty clean, IMHO.",
+      "parentUuid": "938c204e_c5225ce4",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "ba1dc8e8_b6cad3ec",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30ab3e23_695845ec",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bb20d28_6d2dde3c",
         "filename": "streaming/cast/rtp_defines.h",
         "patchSetId": 3
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "6eab9fd5_5b37c60a",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bb20d28_6d2dde3c",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47ad58a4_2237cd22",
         "filename": "streaming/cast/rtp_packet_parser.cc",
         "patchSetId": 3
@@ -116,6 +224,30 @@
       "writtenOn": "2019-04-25T23:38:58Z",
       "side": 1,
       "message": "Since there seem to be a few different error cases here, maybe ErrorOr\u003cRtpPacketParser::ParseResult\u003e instead of optional\u003cRtpPacketParser::ParseResult\u003e - even if the error isn\u0027t used now, it could be useful in future",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 14
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b47e0eb5_48f3d1dd",
+        "filename": "streaming/cast/rtp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "Peter brought this up last time around. Please see my responses to those comments.",
+      "parentUuid": "47ad58a4_2237cd22",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -145,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "6439abbe_02898c09",
+        "filename": "streaming/cast/rtp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "...and Clang seems to optimize everything out: It doesn\u0027t bother updating the |size| part of the span, and computes the exact address offsets itself and hard-codes them (e.g., the assembly looks like the code I had before).",
+      "parentUuid": "55e1010f_adbe4043",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ba98d0e_bfcaaa2c",
         "filename": "streaming/cast/rtp_packet_parser.cc",
         "patchSetId": 3
@@ -162,6 +312,24 @@
     },
     {
       "key": {
+        "uuid": "5c7aae8f_07b0e955",
+        "filename": "streaming/cast/rtp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "Went with #1. I\u0027m not too worried because: a) |packet| must point to valid memory until after the call to Parse() returns; b) The Parse() call is returning |payload|, which is a subspan of |packet| and so it should be pointing to memory that should still be valid.\n\nI added a comment for ParseResult::payload to warn about this.\n\nIn the bigger picture: I\u0027m envisioning that something will receive and take ownership of a packet, then parse and keep the ParseResult alongside the owned pointer. When all the packets of the frame have been received, then one single copy of the data can be made to assemble an EncryptedFrame from all the packets\u0027 payloads.",
+      "parentUuid": "9ba98d0e_bfcaaa2c",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adb51f74_8902dd66",
         "filename": "streaming/cast/rtp_packetizer.cc",
         "patchSetId": 3
@@ -176,6 +344,24 @@
       "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e861b244_b62ded3b",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "Okay. Made it a full CHECK.",
+      "parentUuid": "adb51f74_8902dd66",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +405,30 @@
     },
     {
       "key": {
+        "uuid": "7b1053cc_1fc7557d",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "Good comment. I should have written the code better so you wouldn\u0027t have had to take the time to do that. So, I changed these LOC to be more self-documenting. :)",
+      "parentUuid": "6d690d83_402b6eb2",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 25
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61ec2780_9fa6448b",
         "filename": "streaming/cast/rtp_packetizer.h",
         "patchSetId": 3
@@ -233,6 +443,24 @@
       "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf4296e4_18adc14c",
+        "filename": "streaming/cast/rtp_packetizer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "Expanded the comment.",
+      "parentUuid": "61ec2780_9fa6448b",
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

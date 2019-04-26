@@ -1246,6 +1246,24 @@
     },
     {
       "key": {
+        "uuid": "c0db9bd0_61ca48a6",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "I took a closer look, and the RFC for RTP does talk a bit about why the sequence number is random. However, we don\u0027t encrypt the entire packet, just the payload. (Meaning, we\u0027re rolling our own thing.) They even admit that a 32-bit field is a very weak random initialization vector for encryption purposes. https://tools.ietf.org/html/rfc3550#section-5.1\n\nAll said, I\u0027m still going to keep things as they are here to preserve existing behavior. :)",
+      "parentUuid": "fab32e01_8c397101",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45f4fdcb_1b604f01",
         "filename": "streaming/cast/rtp_packetizer.cc",
         "patchSetId": 2
@@ -1293,6 +1311,24 @@
       "side": 1,
       "message": "I was about to say \"that\u0027s fine until we run over ICE\", but hopefully by then we\u0027d be using OSP anyway, so SGTM.",
       "parentUuid": "cae446da_f43f9b29",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "601e92fb_38d8e9eb",
+        "filename": "streaming/cast/rtp_packetizer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-04-26T18:40:08Z",
+      "side": 1,
+      "message": "You suggestion was still a good idea: Even if we only ever use UDP/IP, the MTU is still a dynamic limit, depending on any particular network configuration in-the-wild (e.g., WiFi routers often allow this to be changed). It might improve performance to use one of the standard heuristics to discover the true MTU before Cast Streaming starts sending packets. Not sure if we want to invest time and code to do that any time soon, though...",
+      "parentUuid": "ca72be1a_1bed75e6",
       "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
