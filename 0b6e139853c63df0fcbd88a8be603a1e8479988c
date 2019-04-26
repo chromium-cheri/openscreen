@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "1867b48f_20efb1ce",
+        "filename": "streaming/cast/packet_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-26T20:04:59Z",
+      "side": 1,
+      "message": "I don\u0027t quite agree with this - this seems useful internally. Even if we have extensive testing, bugs will always slip through, so having the means to find and debug them already in place seems useful.\n\nThis is especially true if we decide to support including Success-vs-Failure in trace logs as is being discussed in the ongoing trace logging design doc. Receiving and processing a packet seems like a reasonable trace to include (if not just the parsing the packet itself), and this would provide specific reason for failure to include in the trace. It may not be useful in every case, but if there are cases where it may be useful, and there is no downside to doing so, I am of the opinion we should include it\n\nThoughts?",
+      "parentUuid": "34ba66cf_e75e8358",
+      "revId": "0b6e139853c63df0fcbd88a8be603a1e8479988c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02f28a7d_ac7771a5",
         "filename": "streaming/cast/packet_parser.cc",
         "patchSetId": 2

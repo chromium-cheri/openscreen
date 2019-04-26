@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "531de8f5_14150b37",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-26T20:04:59Z",
+      "side": 1,
+      "message": "Sounds good. My main concern was that Chromium would force an abseil upgrade, which would break us if absl::span changed, but if this isn\u0027t a concern I see no issue with it",
+      "parentUuid": "87c9baaf_41ef2894",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7421e1b_28238936",
         "filename": "streaming/cast/packet_util.h",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "My reasoning before your comment: It just didn\u0027t occur to me.\n\nMy reasoning after your comment: ReadBigEndian\u003c\u003e isn\u0027t defined for non-integer types, so using it w/ non-integers would generate a compiler error anyway. Thus, for readability\u0027s sake, I think it makes sense to keep the template definition simpler. :)",
       "parentUuid": "a7421e1b_28238936",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6f7142f_cfc56ac1",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-26T20:04:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c631ae41_678afd11",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -140,6 +188,30 @@
       "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc1d81fb_c836d192",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-26T20:04:59Z",
+      "side": 1,
+      "message": "That\u0027s fair. The main reason I thought to special case it in BigEndian is that I know my code using it needs a special case too - though I agree that the readability concerns are probably a bigger deal :)",
+      "parentUuid": "83056f73_aa860d77",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 1
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +329,30 @@
       "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "613598bf_b2e8e070",
+        "filename": "streaming/cast/rtp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-26T20:04:59Z",
+      "side": 1,
+      "message": "Continued that thread. I am of the opinion we should return it for logging purposes (especially with our upcoming trace architecture)",
+      "parentUuid": "b47e0eb5_48f3d1dd",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 14
+      },
+      "revId": "9a948f6b56e99d11eca63e3e451a3c981ecc356d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
