@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e5af40db_45324018",
+        "filename": "platform/api/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2ceaf3f_00712f5d",
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78b1128c_80865ad6",
         "filename": "platform/api/socket.h",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4a49f341_a62b1dd9",
+        "filename": "platform/api/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78b1128c_80865ad6",
+      "range": {
+        "startLine": 85,
+        "startChar": 43,
+        "endLine": 85,
+        "endChar": 50
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64282080_959c0e00",
         "filename": "platform/api/socket.h",
         "patchSetId": 1
@@ -62,6 +104,30 @@
       "revId": "dfb094424e3757c1055136713f306eada732181d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1f37673_7111e650",
+        "filename": "platform/api/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "Updated to const",
+      "parentUuid": "64282080_959c0e00",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -136,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "ec8e2115_fe84870b",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "My original reason for using the absl::optional\u003c...\u003e instead of a default parameter was that the state upon creation of a socket might differ platform-to-platform. On Posix systems, the default is IPTOS_LOWDELAY, but this might be different on chromium or Windows (and might be internally optimized to this system). Then, absl::nullopt can signify \"set back to the platform-optimized default setting\", rather than any specific mode. \n\nI\u0027ve also verified that default parameters don\u0027t seem to work here for the reasons Brandon described, so I am in favor of leaving the constants as defined here, but @Max if you have a strong opinion otherwise I can update it. We would need to add a call to SetDscp to the UdpSocket constructor though - otherwise the value at startup may not match the default value.",
+      "parentUuid": "ef880d15_55ec94f3",
+      "range": {
+        "startLine": 432,
+        "startChar": 24,
+        "endLine": 432,
+        "endChar": 60
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4235c4dc_72f301b0",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 1
@@ -159,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "fc2353a4_1f44932d",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4235c4dc_72f301b0",
+      "range": {
+        "startLine": 435,
+        "startChar": 39,
+        "endLine": 435,
+        "endChar": 41
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21b8fdc3_3bb08c7c",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 1
@@ -176,6 +290,24 @@
     },
     {
       "key": {
+        "uuid": "a61346b7_740732f9",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "Updated phrasing to be clearer",
+      "parentUuid": "21b8fdc3_3bb08c7c",
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93c350d8_ee4b8cf6",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 1
@@ -190,6 +322,24 @@
       "revId": "dfb094424e3757c1055136713f306eada732181d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc324d5_f2368e21",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93c350d8_ee4b8cf6",
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -254,6 +404,48 @@
       "revId": "dfb094424e3757c1055136713f306eada732181d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b062d93a_f4734364",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "Updating to the first option so that the multi-line casts only take up one line :)",
+      "parentUuid": "97a688af_3caf6ea0",
+      "range": {
+        "startLine": 452,
+        "startChar": 38,
+        "endLine": 452,
+        "endChar": 74
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9df47f3_d4ac68fd",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-29T21:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4989ffd_df85aca5",
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
