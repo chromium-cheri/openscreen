@@ -429,5 +429,37 @@ Error UdpSocket::SendMessage(const void* data,
   return Error::Code::kNone;
 }
 
+void UdpSocket::SetDscp(absl::optional<uint8_t> control_code) {
+  auto* const socket = UdpSocketPosix::From(this);
+
+  // kDscpLowDelay is the pre-configured value set by the system, on new
+  // sockets, so reset to this value when nullopt is provided.
+  uint8_t dscp_value[1] = {control_code.has_value()
+                               ? control_code.value()
+                               : UdpSocket::kDscpLowLatency};
+
+  constexpr auto kSettingLevel = IPPROTO_IP;
+  auto code = setsockopt(socket->fd, kSettingLevel, IP_TOS, dscp_value,
+                         sizeof(uint8_t));
+
+  OSP_VLOG_IF(code == EBADF || code == ENOTSOCK || code == EFAULT)
+      << "BAD SOCKET PROVIDED. CODE: " << code;
+  OSP_VLOG_IF(code == EINVAL) << "INVALID DSCP INFO PROVIDED";
+  OSP_VLOG_IF(code == ENOPROTOOPT)
+      << "INVALID DSCP SETTING LEVEL PROVIDED: " << kSettingLevel;
+}
+
+// static
+const uint8_t UdpSocket::kDscpLowPriority = uint8_t(IPTOS_MINCOST);
+
+// static
+const uint8_t UdpSocket::kDscpLowLatency = uint8_t(IPTOS_LOWDELAY);
+
+// static
+const uint8_t UdpSocket::kDscpMaxThroughput = uint8_t(IPTOS_THROUGHPUT);
+
+// static
+const uint8_t UdpSocket::kDscpMaxReliability = uint8_t(IPTOS_RELIABILITY);
+
 }  // namespace platform
 }  // namespace openscreen
