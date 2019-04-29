@@ -226,6 +226,30 @@
     },
     {
       "key": {
+        "uuid": "3bfccaf9_39b14267",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-04-29T21:30:57Z",
+      "side": 1,
+      "message": "In my clarification comment I meant that having two methods like this\nvoid SetDscp();\nvoid SetDscp(uint8_t control_code);\nallows for an equivalent of a default parameter without the need to expose constants. absl::optional feels weird to me since it\u0027s not a real optional parameter to the function, but I\u0027m not insisting on not using it.",
+      "parentUuid": "ec8e2115_fe84870b",
+      "range": {
+        "startLine": 432,
+        "startChar": 24,
+        "endLine": 432,
+        "endChar": 60
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4235c4dc_72f301b0",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 1
