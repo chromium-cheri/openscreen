@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "e2ceaf3f_00712f5d",
+        "filename": "platform/api/socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-29T20:12:50Z",
+      "side": 1,
+      "message": "s#third_party/abseil/src/##",
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78b1128c_80865ad6",
         "filename": "platform/api/socket.h",
         "patchSetId": 1
@@ -71,6 +88,87 @@
     },
     {
       "key": {
+        "uuid": "ef880d15_55ec94f3",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-29T20:12:50Z",
+      "side": 1,
+      "message": "I was thinking this as well, but I believe you can\u0027t use kDscpLowLatency as a default since its value isn\u0027t defined at the SetDscp declaration point (and it isn\u0027t defined because these are platform-specific values).\n\nI think to use a default parameter, you\u0027d have to change the constants to an enum, and then use a switch to convert the enum parameter to the proper constant here.  Although that seems slightly cleaner to avoid absl::optional, the switch seems unnecessary.\n\nI don\u0027t feel strongly either way though.",
+      "parentUuid": "019b0042_9d62dc5f",
+      "range": {
+        "startLine": 432,
+        "startChar": 24,
+        "endLine": 432,
+        "endChar": 60
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4235c4dc_72f301b0",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-29T20:12:50Z",
+      "side": 1,
+      "message": "nit: double space.",
+      "range": {
+        "startLine": 435,
+        "startChar": 39,
+        "endLine": 435,
+        "endChar": 41
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b8fdc3_3bb08c7c",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-29T20:12:50Z",
+      "side": 1,
+      "message": "This sentence doesn\u0027t quite make sense because of the double use of \"default\".  Maybe \"... so reset to kDscpLowLatency if no value provided.\"",
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93c350d8_ee4b8cf6",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-29T20:12:50Z",
+      "side": 1,
+      "message": "nit: explicit `[1]` here",
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "895637a3_23c07df7",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 1
@@ -82,6 +180,47 @@
       "writtenOn": "2019-04-29T19:59:46Z",
       "side": 1,
       "message": "uint8_t(IPTOS_MINCOST) instead of cast here and below",
+      "range": {
+        "startLine": 452,
+        "startChar": 38,
+        "endLine": 452,
+        "endChar": 74
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4989ffd_df85aca5",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-29T20:12:50Z",
+      "side": 1,
+      "message": "nit: can you put \"// static\" above each of these?",
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97a688af_3caf6ea0",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-04-29T20:12:50Z",
+      "side": 1,
+      "message": "I believe we normally do casts with static_cast\u003c\u003e, but I don\u0027t feel strongly.",
+      "parentUuid": "895637a3_23c07df7",
       "range": {
         "startLine": 452,
         "startChar": 38,
