@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "absl/strings/string_view.h"
+#include "api/impl/presentation/testing/mock_connection_delegate.h"
 #include "api/impl/quic/testing/fake_quic_connection.h"
 #include "api/impl/quic/testing/fake_quic_connection_factory.h"
 #include "api/impl/quic/testing/quic_test_support.h"
@@ -21,20 +22,6 @@ namespace presentation {
 
 using ::testing::_;
 using ::testing::Invoke;
-
-class MockConnectionDelegate final : public Connection::Delegate {
- public:
-  MockConnectionDelegate() = default;
-  ~MockConnectionDelegate() override = default;
-
-  MOCK_METHOD0(OnConnected, void());
-  MOCK_METHOD0(OnClosedByRemote, void());
-  MOCK_METHOD0(OnDiscarded, void());
-  MOCK_METHOD1(OnError, void(const absl::string_view message));
-  MOCK_METHOD0(OnTerminated, void());
-  MOCK_METHOD1(OnStringMessage, void(const absl::string_view message));
-  MOCK_METHOD1(OnBinaryMessage, void(const std::vector<uint8_t>& data));
-};
 
 class MockParentDelegate final : public Connection::ParentDelegate {
  public:

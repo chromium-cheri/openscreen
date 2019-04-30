@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "api/impl/presentation/testing/mock_connection_delegate.h"
 #include "api/impl/quic/testing/quic_test_support.h"
 #include "api/impl/service_listener_impl.h"
 #include "api/impl/testing/fake_clock.h"
@@ -52,22 +53,6 @@ class MockReceiverObserver final : public ReceiverObserver {
   MOCK_METHOD2(OnReceiverUnavailable,
                void(const std::string& presentation_url,
                     const std::string& service_id));
-};
-
-// TODO(btolsch): This is also used in multiple places now; factor out to
-// separate file.
-class MockConnectionDelegate final : public Connection::Delegate {
- public:
-  MockConnectionDelegate() = default;
-  ~MockConnectionDelegate() override = default;
-
-  MOCK_METHOD0(OnConnected, void());
-  MOCK_METHOD0(OnClosedByRemote, void());
-  MOCK_METHOD0(OnDiscarded, void());
-  MOCK_METHOD1(OnError, void(const absl::string_view message));
-  MOCK_METHOD0(OnTerminated, void());
-  MOCK_METHOD1(OnStringMessage, void(const absl::string_view message));
-  MOCK_METHOD1(OnBinaryMessage, void(const std::vector<uint8_t>& data));
 };
 
 class MockRequestDelegate final : public RequestDelegate {
@@ -188,6 +173,50 @@ class ControllerTest : public ::testing::Test {
         protocol_connection
             ->WriteMessage(event, msgs::EncodePresentationTerminationEvent)
             .code());
+  }
+
+  void ExpectCloseRequest(MockMessageCallback* mock_callback,
+                          msgs::PresentationConnectionCloseRequest* request,
+                          msgs::Type* msg_type) {
+    EXPECT_CALL(*mock_callback, OnStreamMessage(_, _, _, _, _, _))
+        .WillOnce(Invoke([request, msg_type](uint64_t endpoint_id, uint64_t cid,
+                                             msgs::Type message_type,
+                                             const uint8_t* buffer,
+                                             size_t buffer_size,
+                                             platform::Clock::time_point now) {
+          *msg_type = message_type;
+          ssize_t result = msgs::DecodePresentationConnectionCloseRequest(
+              buffer, buffer_size, request);
+          return result;
+        }));
+  }
+
+  void SendCloseResponse(
+      const msgs::PresentationConnectionCloseResponse& response) {
+    std::unique_ptr<ProtocolConnection> protocol_connection =
+        NetworkServiceManager::Get()
+            ->GetProtocolConnectionServer()
+            ->CreateProtocolConnection(controller_endpoint_id_);
+    ASSERT_TRUE(protocol_connection);
+    ASSERT_EQ(Error::Code::kNone,
+              protocol_connection
+                  ->WriteMessage(
+                      response, msgs::EncodePresentationConnectionCloseResponse)
+                  .code());
+  }
+
+  void SendOpenResponse(
+      const msgs::PresentationConnectionOpenResponse& response) {
+    std::unique_ptr<ProtocolConnection> protocol_connection =
+        NetworkServiceManager::Get()
+            ->GetProtocolConnectionServer()
+            ->CreateProtocolConnection(controller_endpoint_id_);
+    ASSERT_TRUE(protocol_connection);
+    ASSERT_EQ(Error::Code::kNone,
+              protocol_connection
+                  ->WriteMessage(response,
+                                 msgs::EncodePresentationConnectionOpenResponse)
+                  .code());
   }
 
   void StartPresentation(MockMessageCallback* mock_callback,
@@ -396,6 +425,95 @@ TEST_F(ControllerTest, TerminatePresentationFromReceiver) {
 
   EXPECT_CALL(mock_connection_delegate, OnTerminated());
   quic_bridge_.RunTasksUntilIdle();
+}
+
+TEST_F(ControllerTest, CloseConnection) {
+  MockMessageCallback mock_callback;
+  MockConnectionDelegate mock_connection_delegate;
+  std::unique_ptr<Connection> connection;
+  StartPresentation(&mock_callback, &mock_connection_delegate, &connection);
+
+  MessageDemuxer::MessageWatch close_request_watch =
+      quic_bridge_.receiver_demuxer->SetDefaultMessageTypeWatch(
+          msgs::Type::kPresentationConnectionCloseRequest, &mock_callback);
+  msgs::Type msg_type;
+  msgs::PresentationConnectionCloseRequest close_request;
+  ExpectCloseRequest(&mock_callback, &close_request, &msg_type);
+  connection->Close(Connection::CloseReason::kClosed);
+  quic_bridge_.RunTasksUntilIdle();
+
+  ASSERT_EQ(msg_type, msgs::Type::kPresentationConnectionCloseRequest);
+  msgs::PresentationConnectionCloseResponse close_response;
+  close_response.request_id = close_request.request_id;
+  close_response.result =
+      msgs::PresentationConnectionCloseResponse_result::kSuccess;
+  SendCloseResponse(close_response);
+  quic_bridge_.RunTasksUntilIdle();
+}
+
+TEST_F(ControllerTest, Reconnect) {
+  MockMessageCallback mock_callback;
+  MockConnectionDelegate mock_connection_delegate;
+  std::unique_ptr<Connection> connection;
+  StartPresentation(&mock_callback, &mock_connection_delegate, &connection);
+
+  MessageDemuxer::MessageWatch close_request_watch =
+      quic_bridge_.receiver_demuxer->SetDefaultMessageTypeWatch(
+          msgs::Type::kPresentationConnectionCloseRequest, &mock_callback);
+  msgs::Type msg_type;
+  msgs::PresentationConnectionCloseRequest close_request;
+  ExpectCloseRequest(&mock_callback, &close_request, &msg_type);
+  connection->Close(Connection::CloseReason::kClosed);
+  EXPECT_EQ(connection->state(), Connection::State::kClosed);
+  quic_bridge_.RunTasksUntilIdle();
+
+  ASSERT_EQ(msg_type, msgs::Type::kPresentationConnectionCloseRequest);
+  msgs::PresentationConnectionCloseResponse close_response;
+  close_response.request_id = close_request.request_id;
+  close_response.result =
+      msgs::PresentationConnectionCloseResponse_result::kSuccess;
+  SendCloseResponse(close_response);
+  quic_bridge_.RunTasksUntilIdle();
+
+  MessageDemuxer::MessageWatch connection_open_watch =
+      quic_bridge_.receiver_demuxer->SetDefaultMessageTypeWatch(
+          msgs::Type::kPresentationConnectionOpenRequest, &mock_callback);
+  msgs::PresentationConnectionOpenRequest open_request;
+  MockRequestDelegate reconnect_delegate;
+  Controller::ConnectRequest reconnect_request =
+      controller_->ReconnectConnection(std::move(connection),
+                                       &reconnect_delegate);
+  ASSERT_TRUE(reconnect_request);
+  EXPECT_CALL(mock_callback, OnStreamMessage(_, _, _, _, _, _))
+      .WillOnce(
+          Invoke([&open_request, &msg_type](
+                     uint64_t endpoint_id, uint64_t cid,
+                     msgs::Type message_type, const uint8_t* buffer,
+                     size_t buffer_size, platform::Clock::time_point now) {
+            msg_type = message_type;
+            ssize_t result = msgs::DecodePresentationConnectionOpenRequest(
+                buffer, buffer_size, &open_request);
+            return result;
+          }));
+  quic_bridge_.RunTasksUntilIdle();
+
+  ASSERT_FALSE(connection);
+  ASSERT_EQ(msg_type, msgs::Type::kPresentationConnectionOpenRequest);
+  msgs::PresentationConnectionOpenResponse open_response;
+  open_response.request_id = open_request.request_id;
+  open_response.connection_id = 17;
+  open_response.result =
+      msgs::PresentationConnectionOpenResponse_result::kSuccess;
+  SendOpenResponse(open_response);
+
+  EXPECT_CALL(reconnect_delegate, OnConnectionMock(_))
+      .WillOnce(Invoke([&connection](std::unique_ptr<Connection>& c) {
+        connection = std::move(c);
+      }));
+  EXPECT_CALL(mock_connection_delegate, OnConnected());
+  quic_bridge_.RunTasksUntilIdle();
+  ASSERT_TRUE(connection);
+  EXPECT_EQ(connection->state(), Connection::State::kConnected);
 }
 
 }  // namespace presentation
