@@ -23,6 +23,10 @@ struct UdpSocketPosix : public UdpSocket {
   static UdpSocketPosix* From(UdpSocket* socket) {
     return static_cast<UdpSocketPosix*>(socket);
   }
+
+  // Calculates the Posix DSCP constant associated with the provided DscpMode
+  // enum value.
+  static ErrorOr<uint8_t> ToConstant(UdpSocket::DscpMode state);
 };
 
 }  // namespace platform
