@@ -274,6 +274,30 @@
     },
     {
       "key": {
+        "uuid": "9ec4853a_3f44c9e5",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-30T16:16:50Z",
+      "side": 1,
+      "message": "That was one of the options discussed earlier - unfortunately that doesn\u0027t seem to work, since its value isn\u0027t declared at the function\u0027s declaration point\n\nIf you have a solution for this, I\u0027d be happy to make the change, though it would require us setting the socket\u0027s DSCP level in the constructor which isn\u0027t currently done (this may not be the default value on creation for other platforms aside from posix)",
+      "parentUuid": "829903fc_a5f03ee6",
+      "range": {
+        "startLine": 432,
+        "startChar": 24,
+        "endLine": 432,
+        "endChar": 60
+      },
+      "revId": "dfb094424e3757c1055136713f306eada732181d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4235c4dc_72f301b0",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 1
