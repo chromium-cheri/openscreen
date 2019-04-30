@@ -49,6 +49,11 @@ Connection::~Connection() {
   parent_delegate_->OnConnectionDestroyed(this);
 }
 
+void Connection::OnConnecting() {
+  OSP_DCHECK(!protocol_connection_);
+  state_ = State::kConnecting;
+}
+
 void Connection::OnConnected(
     uint64_t connection_id,
     uint64_t endpoint_id,
@@ -213,19 +218,37 @@ ErrorOr<size_t> ConnectionManager::OnStreamMessage(
       ssize_t result = msgs::DecodePresentationConnectionCloseRequest(
           buffer, buffer_size, &request);
       if (result < 0) {
-        OSP_LOG_WARN << "decode presentation-connection-close-event error: "
+        OSP_LOG_WARN << "decode presentation-connection-close-request error: "
                      << result;
         return Error::Code::kCborInvalidMessage;
       }
 
+      ErrorOr<size_t> ret = result;
+      msgs::PresentationConnectionCloseResponse response;
+      response.request_id = request.request_id;
+      response.result =
+          msgs::PresentationConnectionCloseResponse_result::kSuccess;
+
       Connection* connection = GetConnection(request.connection_id);
-      if (!connection) {
-        return Error::Code::kNoActiveConnection;
+      if (connection) {
+        // TODO(btolsch): Do we want closed/discarded/error here?
+        connection->OnClosedByRemote();
+      } else {
+        ret = Error::Code::kNoActiveConnection;
+        response.result = msgs::PresentationConnectionCloseResponse_result::
+            kInvalidConnectionId;
       }
 
-      // TODO(btolsch): Do we want closed/discarded/error here?
-      connection->OnClosedByRemote();
-      return result;
+      std::unique_ptr<ProtocolConnection> protocol_connection =
+          NetworkServiceManager::Get()
+              ->GetProtocolConnectionServer()
+              ->CreateProtocolConnection(endpoint_id);
+      if (protocol_connection) {
+        protocol_connection->WriteMessage(
+            response, &msgs::EncodePresentationConnectionCloseResponse);
+      }
+
+      return ret;
     }
 
     case msgs::Type::kPresentationConnectionCloseEvent: {
