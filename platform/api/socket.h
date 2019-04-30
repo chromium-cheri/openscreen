@@ -12,6 +12,7 @@
 #include "base/ip_address.h"
 #include "base/macros.h"
 #include "platform/api/network_interface.h"
+#include "absl/types/optional.h"
 
 namespace openscreen {
 namespace platform {
@@ -77,6 +78,15 @@ class UdpSocket {
   // Error::Code::kAgain might be returned to indicate the operation would
   // block, which can be expected during normal operation.
   Error SendMessage(const void* data, size_t length, const IPEndpoint& dest);
+
+  // Sets the DSCP value to use for all messages sent from this socket.
+  void SetDscp(absl::optional<uint8_t> control_code);
+
+  // Constants used to specify how we want packets sent from this socket.
+  static const uint8_t kDscpLowPriority;
+  static const uint8_t kDscpLowLatency;
+  static const uint8_t kDscpMaxThroughput;
+  static const uint8_t kDscpMaxReliability;
 
  protected:
   UdpSocket();
