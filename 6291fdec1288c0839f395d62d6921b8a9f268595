@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "558fd6ba_f4de7f6c",
+        "filename": "platform/api/socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-30T19:27:21Z",
+      "side": 1,
+      "message": "I had intended the 4 values below to map to the 3 you mention above, plus one more we should need :)\nkDscpLowLatency \u003d system default\nkDscpMaxThroughput \u003d my guess at what we would want for video\nkDscpMaxReliability \u003d my guess at what we would want for audio\nkDscpLowPriority \u003d log messages (see design doc)\n\nI\u0027ve updated it to be an enum with names similar to your suggestions instead of constants though :)",
+      "parentUuid": "30005b19_9222b98c",
+      "revId": "6291fdec1288c0839f395d62d6921b8a9f268595",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1332a35d_cec4fbca",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 2
@@ -80,6 +98,24 @@
       "revId": "6291fdec1288c0839f395d62d6921b8a9f268595",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "405e0705_3f4bc8f9",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-04-30T19:27:21Z",
+      "side": 1,
+      "message": "I defined an enum as suggested in C",
+      "parentUuid": "fdc9d30b_3b3653d7",
+      "revId": "6291fdec1288c0839f395d62d6921b8a9f268595",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
