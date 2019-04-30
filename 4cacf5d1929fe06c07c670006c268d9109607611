@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34334f45_27155f04",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-30T22:57:40Z",
+      "side": 1,
+      "message": "This would be a little easier to follow if s/result/bytes_decoded/, since there\u0027s also a result field in the response message.  But if there\u0027s already a pattern in place with the current naming scheme elsewhere, not worth doing a bunch of renaming in this patch.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d00cae65_d32a061f",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-30T22:57:40Z",
+      "side": 1,
+      "message": "Nit: I feel this should go in the if {} block below.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e49a2b5b_634f4c11",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-30T22:57:40Z",
+      "side": 1,
+      "message": "Since this is in response from a successful request to close by the remote agent, I think you can assume \"closed\" as the CloseReason here.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f00bfaf7_541a8f2c",
+        "filename": "api/impl/presentation/presentation_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-30T22:57:40Z",
+      "side": 1,
+      "message": "Slightly prefer:\n\nreturn response.result \u003d\u003d kSuccess ? bytes_decoded : Error::Code::kNoActiveConnection\n\nso that the logic determining the return value is in one place.  But I don\u0027t feel strongly.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb8db697_69742359",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-04-30T22:57:40Z",
+      "side": 1,
+      "message": "Do you need to call request-\u003edelegate-\u003eOnError here?",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
