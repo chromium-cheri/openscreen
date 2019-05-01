@@ -429,5 +429,48 @@ Error UdpSocket::SendMessage(const void* data,
   return Error::Code::kNone;
 }
 
+Error UdpSocket::SetDscp(UdpSocket::DscpMode state) {
+  auto* const socket = UdpSocketPosix::From(this);
+
+  ErrorOr<uint8_t> dscp_socket_code = UdpSocketPosix::ToDscpValue(state);
+  if (dscp_socket_code.is_error()) {
+    return dscp_socket_code.error();
+  }
+
+  constexpr auto kSettingLevel = IPPROTO_IP;
+  uint8_t code_array[1] = {dscp_socket_code.value()};
+  auto code = setsockopt(socket->fd, kSettingLevel, IP_TOS, code_array,
+                         sizeof(uint8_t));
+
+  if (code == EBADF || code == ENOTSOCK || code == EFAULT) {
+    OSP_VLOG << "BAD SOCKET PROVIDED. CODE: " << code;
+    return Error::Code::kSocketOptionSettingFailure;
+  } else if (code == EINVAL) {
+    OSP_VLOG << "INVALID DSCP INFO PROVIDED";
+    return Error::Code::kSocketOptionSettingFailure;
+  } else if (code == ENOPROTOOPT) {
+    OSP_VLOG << "INVALID DSCP SETTING LEVEL PROVIDED: " << kSettingLevel;
+    return Error::Code::kSocketOptionSettingFailure;
+  }
+
+  return Error::Code::kNone;
+}
+
+// static
+ErrorOr<uint8_t> UdpSocketPosix::ToDscpValue(UdpSocket::DscpMode state) {
+  switch (state) {
+    case UdpSocket::DscpMode::kUnspecified:
+      return static_cast<uint8_t>(IPTOS_CLASS_DEFAULT);
+    case UdpSocket::DscpMode::kAudioOnly:
+      return static_cast<uint8_t>(IPTOS_DSCP_EF);
+    case UdpSocket::DscpMode::kAudioVideo:
+      return static_cast<uint8_t>(IPTOS_DSCP_AF41);
+    case UdpSocket::DscpMode::kLowPriority:
+      return static_cast<uint8_t>(IPTOS_CLASS_CS1);
+    default:
+      return Error::Code::kSocketOptionSettingFailure;
+  }
+}
+
 }  // namespace platform
 }  // namespace openscreen
