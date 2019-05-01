@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <type_traits>
 
-#include "base/error.h"
+#include "osp_base/error.h"
 #include "msgs/osp_messages.h"
 #include "platform/api/logging.h"
 

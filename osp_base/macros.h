@@ -2,6 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#ifndef OSP_BASE_MACROS_H_
+#define OSP_BASE_MACROS_H_
+
+// This unusual double #ifndef is required because we will multiply define
+// macros found in chromium/base, that get included by files that depend
+// on our third_party/chromium_quic component.
 #ifndef BASE_MACROS_H_
 #define BASE_MACROS_H_
 
@@ -26,4 +32,5 @@
   ClassName() = delete;                           \
   DISALLOW_COPY_AND_ASSIGN(ClassName)
 
-#endif  // BASE_MACROS_H_
+#endif // BASE_MACROS_H_
+#endif  // OSP_BASE_MACROS_H_

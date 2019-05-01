@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 
-#include "base/macros.h"
-#include "base/time.h"
+#include "osp_base/macros.h"
+#include "osp_base/time.h"
 #include "platform/api/network_interface.h"
 
 namespace openscreen {

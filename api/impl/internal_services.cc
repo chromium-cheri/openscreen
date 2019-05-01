@@ -7,7 +7,7 @@
 #include <algorithm>
 
 #include "api/impl/mdns_responder_service.h"
-#include "base/error.h"
+#include "osp_base/error.h"
 #include "discovery/mdns/mdns_responder_adapter_impl.h"
 #include "platform/api/logging.h"
 #include "platform/api/socket.h"

@@ -10,7 +10,7 @@
 #include <memory>
 #include <vector>
 
-#include "base/error.h"
+#include "osp_base/error.h"
 #include "discovery/mdns/mdns_responder_adapter_impl.h"
 #include "platform/api/logging.h"
 

@@ -14,7 +14,7 @@
 #include "api/public/presentation/presentation_controller.h"
 #include "api/public/protocol_connection_client.h"
 #include "api/public/service_info.h"
-#include "base/error.h"
+#include "osp_base/error.h"
 #include "msgs/osp_messages.h"
 #include "platform/api/time.h"
 
