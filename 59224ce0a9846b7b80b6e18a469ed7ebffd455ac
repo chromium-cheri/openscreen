@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b7dd6b8_c831adf0",
+        "filename": "streaming/cast/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-01T20:45:23Z",
+      "side": 0,
+      "message": "Should we revert all the changes to this file that Brandon had made because of this? IMHO, we should get our BUILD files in a state where we don\u0027t have to worry about externalities w.r.t. build config and header include paths.\n\n---------------snip------------------\n\ndiff --git a/streaming/cast/BUILD.gn b/streaming/cast/BUILD.gn\nindex 83f7d3c..b80fa22 100644\n--- a/streaming/cast/BUILD.gn\n+++ b/streaming/cast/BUILD.gn\n@@ -24,14 +24,17 @@ source_set(\"cast\") {\n     \"ssrc.h\",\n   ]\n \n+  # TODO(btolsch): Here and elsewhere, this begs the question of whether we\n+  # should either change //base to //osp_base (like webrtc) or maybe introduce\n+  # an osp_source_set template (also like webrtc).\n+  if (build_with_chromium) {\n+    configs -\u003d [ \"//build/config/compiler:default_include_dirs\" ]\n+  }\n+  configs +\u003d [ \"../..:root_config_overrides\" ]\n   public_deps \u003d [\n     \"../../third_party/abseil\",\n+    \"../../third_party/boringssl\",\n   ]\n-  if (build_with_chromium) {\n-    public_deps +\u003d [ \"//third_party/boringssl\" ]\n-  } else {\n-    public_deps +\u003d [ \"../../third_party/boringssl\" ]\n-  }\n \n   deps \u003d [\n     \"../../platform\",\n@@ -49,6 +52,10 @@ source_set(\"cast_unittests\") {\n     \"ssrc_unittest.cc\",\n   ]\n \n+  if (build_with_chromium) {\n+    configs -\u003d [ \"//build/config/compiler:default_include_dirs\" ]\n+  }\n+  configs +\u003d [ \"../..:root_config_overrides\" ]\n   deps \u003d [\n     \":cast\",\n     \"../../third_party/googletest:gtest\",",
+      "revId": "59224ce0a9846b7b80b6e18a469ed7ebffd455ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
