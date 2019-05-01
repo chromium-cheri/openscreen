@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "ae1bbe8a_4d077daa",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-01T17:16:17Z",
+      "side": 1,
+      "message": "The default (and almost all traffic in the wild) is CS0, or 0.  I\u0027m not sure why the man page says that but it sounds out of date.  No one would ever send anything other than 0 by default because it just wouldn\u0027t work (setting DSCP in danger can be worse than not because many routers \"black hole\" or do other crazy stuff).",
+      "parentUuid": "515409f5_902f8c0e",
+      "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f69050e4_6a926c18",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 5
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "Updated. Where are you finding the constants for what we \"usually\" use?",
       "parentUuid": "f69050e4_6a926c18",
+      "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b43239a4_56ec5515",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-01T17:16:17Z",
+      "side": 1,
+      "message": "https://tools.ietf.org/html/rfc4594\n\nhttps://cs.chromium.org/chromium/src/net/socket/diff_serv_code_point.h?type\u003dcs\u0026q\u003dDiffServCodePoint\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d15\n\nhttps://tools.ietf.org/html/draft-ietf-tsvwg-rtcweb-qos-18\n\nhttps://cs.corp.google.com/piper///depot/google3/third_party/grte/v4_x86/release/usr/grte/v4/include/netinet/ip.h?type\u003dcs\u0026q\u003dAF41\u0026sq\u003dpackage:%5Epiper$+-file:%5E//depot/google3/experimental+file:%5E//depot/google3/\u0026g\u003d0\u0026l\u003d190",
+      "parentUuid": "6824f63d_7f6cf50f",
       "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false

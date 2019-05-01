@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e2fc26d_45011ef1",
+        "filename": "platform/posix/socket.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-01T17:16:17Z",
+      "side": 1,
+      "message": "It\u0027s not a POSIX value, though.  Those are just POSIX constants that point at IETF-defined values.  You could just hard code the numbers.  \n\nBut Windows doesn\u0027t let you set DSCP directly anyway, so maybe it doesn\u0027t matter.",
+      "revId": "fe94d28697dd8cad155a8fb9e6b0f52ed082dec8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
