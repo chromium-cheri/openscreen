@@ -12,9 +12,9 @@
 #include "api/public/endpoint_request_ids.h"
 #include "api/public/message_demuxer.h"
 #include "api/public/protocol_connection.h"
-#include "base/error.h"
-#include "base/ip_address.h"
-#include "base/macros.h"
+#include "osp_base/error.h"
+#include "osp_base/ip_address.h"
+#include "osp_base/macros.h"
 
 namespace openscreen {
 

@@ -14,9 +14,9 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/public/message_demuxer.h"
-#include "base/error.h"
-#include "base/ip_address.h"
-#include "base/macros.h"
+#include "osp_base/error.h"
+#include "osp_base/ip_address.h"
+#include "osp_base/macros.h"
 #include "platform/api/logging.h"
 #include "platform/api/time.h"
 

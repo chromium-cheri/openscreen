@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef BASE_ERROR_H_
-#define BASE_ERROR_H_
+#ifndef OSP_BASE_ERROR_H_
+#define OSP_BASE_ERROR_H_
 
 #include <ostream>
 #include <string>
 #include <utility>
 
-#include "base/macros.h"
+#include "osp_base/macros.h"
 
 namespace openscreen {
 
@@ -164,4 +164,4 @@ class ErrorOr {
 
 }  // namespace openscreen
 
-#endif  // BASE_ERROR_H_
+#endif  // OSP_BASE_ERROR_H_

@@ -10,8 +10,8 @@
 
 #include "api/public/message_demuxer.h"
 #include "api/public/protocol_connection.h"
-#include "base/error.h"
-#include "base/macros.h"
+#include "osp_base/error.h"
+#include "osp_base/macros.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {
