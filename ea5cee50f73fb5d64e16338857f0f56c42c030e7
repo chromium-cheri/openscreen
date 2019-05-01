@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "66987fd8_a036de20",
+        "filename": "platform/api/socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-01T15:36:15Z",
+      "side": 1,
+      "message": "I can remove the default value. I don\u0027t know how I feel about it either, but I added it here due to a previous discussion thread in this CL",
+      "parentUuid": "2110434f_1a004943",
+      "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39b7f1d7_1a24957e",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4be03b3c_617a3e31",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-01T15:36:15Z",
+      "side": 1,
+      "message": "Good idea. Going with ToPosixDscpValue for clarity",
+      "parentUuid": "39b7f1d7_1a24957e",
+      "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee48153d_ee2d9b5c",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 5
@@ -47,6 +83,24 @@
       "writtenOn": "2019-05-01T02:48:39Z",
       "side": 1,
       "message": "I think we should have a DscpMode::Default that is 0.",
+      "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "515409f5_902f8c0e",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-01T15:36:15Z",
+      "side": 1,
+      "message": "The reason I went with IPTOS_LOWDELAY for and specifically used kUnspecified for the name is that this is the value when a new socket is created on Posix systems\n\nAccording to http://man7.org/linux/man-pages/man7/ip.7.html \"Linux sends IPTOS_LOWDELAY datagrams first by default\"\n\nWe could add a constructor that sets the DscpMode to whatever we want the default to be, but I wanted to take advantage of whatever internal optimizations a system (posix or otherwise) has in its \"default\" state for any non-media data sent, which is why I went this route",
+      "parentUuid": "ee48153d_ee2d9b5c",
       "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "6824f63d_7f6cf50f",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-01T15:36:15Z",
+      "side": 1,
+      "message": "Updated. Where are you finding the constants for what we \"usually\" use?",
+      "parentUuid": "f69050e4_6a926c18",
+      "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c889753_b9bd30d2",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 5
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2b97c591_17ac7461",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-01T15:36:15Z",
+      "side": 1,
+      "message": "Updated to IPTOS_DSCP_AF41 to align with existing code",
+      "parentUuid": "6c889753_b9bd30d2",
+      "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e872dbc_70cd31e3",
         "filename": "platform/posix/socket.cc",
         "patchSetId": 5
@@ -101,6 +191,24 @@
       "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d033ee98_b39a102e",
+        "filename": "platform/posix/socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-01T15:36:15Z",
+      "side": 1,
+      "message": "Updated to IPTOS_DSCP_CS1\n\nwhere are you getting information on what is usually used?",
+      "parentUuid": "0e872dbc_70cd31e3",
+      "revId": "ea5cee50f73fb5d64e16338857f0f56c42c030e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
