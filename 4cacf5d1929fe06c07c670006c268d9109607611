@@ -70,6 +70,91 @@
     },
     {
       "key": {
+        "uuid": "d702064e_7541d756",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "It looks like WriteMessage takes ownership of request, but that\u0027s not obvious from how it\u0027s called.  Can WriteMessage take an rvalue reference to request instead?",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5a8dda9_45d6f196",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "If |request| was move\u0027d to RequestResponseHandler, is it okay to access its members or delegate?",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0b21afa_13ec0150",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "ISTM that the connection_id and endpoint_id could be passed to the Connection ctor, as they should not change over the lifetime of the connection.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749ec08e_35d7fb10",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "Can there be Controller::AddConnection(const Connection*)?",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f78d133b_9dab8db1",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "Optional: Would prefer WriteRequest(request_id, message) and WriteMessage(message) methods, versus passing nullopt sometimes.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb8db697_69742359",
         "filename": "api/impl/presentation/presentation_controller.cc",
         "patchSetId": 2
@@ -81,6 +166,74 @@
       "writtenOn": "2019-04-30T22:57:40Z",
       "side": 1,
       "message": "Do you need to call request-\u003edelegate-\u003eOnError here?",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77f8046_2d9bf8f0",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "reconnect() requires matching both the presentation_id and the one of the URLs passed in.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8f02c22_d792d85b",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "The RequestDelegate() should be signaled with an error if there\u0027s no matching presentation.\nReturning a false ConnectRequest is OK, but should be documented in the public API.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01748ef0_cff90bff",
+        "filename": "api/impl/presentation/presentation_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "Similar comment here and below about signaling an error via the delegate and documentation.",
+      "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a12905a8_48bb1051",
+        "filename": "api/impl/presentation/presentation_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-02T17:51:36Z",
+      "side": 1,
+      "message": "Can you assert that the decode was successful and decoded the right message type?\nSame comment applies to Invoke() below.",
       "revId": "4cacf5d1929fe06c07c670006c268d9109607611",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
