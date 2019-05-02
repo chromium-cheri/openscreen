@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_TESTING_FAKE_MDNS_PLATFORM_SERVICE_H_
-#define API_IMPL_TESTING_FAKE_MDNS_PLATFORM_SERVICE_H_
+#ifndef OSP_IMPL_TESTING_FAKE_MDNS_PLATFORM_SERVICE_H_
+#define OSP_IMPL_TESTING_FAKE_MDNS_PLATFORM_SERVICE_H_
 
 #include <vector>
 
@@ -34,4 +34,4 @@ class FakeMdnsPlatformService final : public MdnsPlatformService {
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_TESTING_FAKE_MDNS_PLATFORM_SERVICE_H_
+#endif  // OSP_IMPL_TESTING_FAKE_MDNS_PLATFORM_SERVICE_H_

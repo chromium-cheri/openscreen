@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_PUBLIC_PROTOCOL_CONNECTION_CLIENT_H_
-#define API_PUBLIC_PROTOCOL_CONNECTION_CLIENT_H_
+#ifndef OSP_PUBLIC_PROTOCOL_CONNECTION_CLIENT_H_
+#define OSP_PUBLIC_PROTOCOL_CONNECTION_CLIENT_H_
 
 #include <memory>
 #include <ostream>
@@ -121,4 +121,4 @@ std::ostream& operator<<(std::ostream& os,
 
 }  // namespace openscreen
 
-#endif  // API_PUBLIC_PROTOCOL_CONNECTION_CLIENT_H_
+#endif  // OSP_PUBLIC_PROTOCOL_CONNECTION_CLIENT_H_

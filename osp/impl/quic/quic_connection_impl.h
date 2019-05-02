@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_QUIC_QUIC_CONNECTION_IMPL_H_
-#define API_IMPL_QUIC_QUIC_CONNECTION_IMPL_H_
+#ifndef OSP_IMPL_QUIC_QUIC_CONNECTION_IMPL_H_
+#define OSP_IMPL_QUIC_QUIC_CONNECTION_IMPL_H_
 
 #include <list>
 #include <memory>
@@ -96,4 +96,4 @@ class QuicConnectionImpl final : public QuicConnection,
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_QUIC_QUIC_CONNECTION_IMPL_H_
+#endif  // OSP_IMPL_QUIC_QUIC_CONNECTION_IMPL_H_

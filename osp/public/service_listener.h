@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_PUBLIC_SERVICE_LISTENER_H_
-#define API_PUBLIC_SERVICE_LISTENER_H_
+#ifndef OSP_PUBLIC_SERVICE_LISTENER_H_
+#define OSP_PUBLIC_SERVICE_LISTENER_H_
 
 #include <cstdint>
 #include <string>
@@ -159,4 +159,4 @@ class ServiceListener {
 
 }  // namespace openscreen
 
-#endif  // API_PUBLIC_SERVICE_LISTENER_H_
+#endif  // OSP_PUBLIC_SERVICE_LISTENER_H_

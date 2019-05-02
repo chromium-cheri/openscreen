@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_PRESENTATION_URL_AVAILABILITY_REQUESTER_H_
-#define API_IMPL_PRESENTATION_URL_AVAILABILITY_REQUESTER_H_
+#ifndef OSP_IMPL_PRESENTATION_URL_AVAILABILITY_REQUESTER_H_
+#define OSP_IMPL_PRESENTATION_URL_AVAILABILITY_REQUESTER_H_
 
 #include <map>
 #include <memory>
@@ -149,4 +149,4 @@ class UrlAvailabilityRequester {
 }  // namespace presentation
 }  // namespace openscreen
 
-#endif  // API_IMPL_PRESENTATION_URL_AVAILABILITY_REQUESTER_H_
+#endif  // OSP_IMPL_PRESENTATION_URL_AVAILABILITY_REQUESTER_H_

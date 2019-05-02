@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_PUBLIC_PROTOCOL_CONNECTION_SERVER_FACTORY_H_
-#define API_PUBLIC_PROTOCOL_CONNECTION_SERVER_FACTORY_H_
+#ifndef OSP_PUBLIC_PROTOCOL_CONNECTION_SERVER_FACTORY_H_
+#define OSP_PUBLIC_PROTOCOL_CONNECTION_SERVER_FACTORY_H_
 
 #include <memory>
 
@@ -22,4 +22,4 @@ class ProtocolConnectionServerFactory {
 
 }  // namespace openscreen
 
-#endif  // API_PUBLIC_PROTOCOL_CONNECTION_SERVER_FACTORY_H_
+#endif  // OSP_PUBLIC_PROTOCOL_CONNECTION_SERVER_FACTORY_H_

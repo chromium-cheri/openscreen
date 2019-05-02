@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_MDNS_RESPONDER_SERVICE_H_
-#define API_IMPL_MDNS_RESPONDER_SERVICE_H_
+#ifndef OSP_IMPL_MDNS_RESPONDER_SERVICE_H_
+#define OSP_IMPL_MDNS_RESPONDER_SERVICE_H_
 
 #include <array>
 #include <map>
@@ -174,4 +174,4 @@ class MdnsResponderService final : public ServiceListenerImpl::Delegate,
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_MDNS_RESPONDER_SERVICE_H_
+#endif  // OSP_IMPL_MDNS_RESPONDER_SERVICE_H_

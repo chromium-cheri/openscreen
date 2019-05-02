@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_TESTING_FAKE_MDNS_RESPONDER_ADAPTER_H_
-#define API_IMPL_TESTING_FAKE_MDNS_RESPONDER_ADAPTER_H_
+#ifndef OSP_IMPL_TESTING_FAKE_MDNS_RESPONDER_ADAPTER_H_
+#define OSP_IMPL_TESTING_FAKE_MDNS_RESPONDER_ADAPTER_H_
 
 #include <set>
 #include <vector>
@@ -201,4 +201,4 @@ class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_TESTING_FAKE_MDNS_RESPONDER_ADAPTER_H_
+#endif  // OSP_IMPL_TESTING_FAKE_MDNS_RESPONDER_ADAPTER_H_

@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_QUIC_QUIC_SERVER_H_
-#define API_IMPL_QUIC_QUIC_SERVER_H_
+#ifndef OSP_IMPL_QUIC_QUIC_SERVER_H_
+#define OSP_IMPL_QUIC_QUIC_SERVER_H_
 
 #include <cstdint>
 #include <map>
@@ -96,4 +96,4 @@ class QuicServer final : public ProtocolConnectionServer,
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_QUIC_QUIC_SERVER_H_
+#endif  // OSP_IMPL_QUIC_QUIC_SERVER_H_

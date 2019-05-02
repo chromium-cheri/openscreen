@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef MSGS_REQUEST_RESPONSE_HANDLER_H_
-#define MSGS_REQUEST_RESPONSE_HANDLER_H_
+#ifndef OSP_MSGS_REQUEST_RESPONSE_HANDLER_H_
+#define OSP_MSGS_REQUEST_RESPONSE_HANDLER_H_
 
 #include <cstddef>
 #include <cstdint>
@@ -203,4 +203,4 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
 
 }  // namespace openscreen
 
-#endif  // MSGS_REQUEST_RESPONSE_HANDLER_H_
+#endif  // OSP_MSGS_REQUEST_RESPONSE_HANDLER_H_

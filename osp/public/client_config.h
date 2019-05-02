@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_PUBLIC_CLIENT_CONFIG_H_
-#define API_PUBLIC_CLIENT_CONFIG_H_
+#ifndef OSP_PUBLIC_CLIENT_CONFIG_H_
+#define OSP_PUBLIC_CLIENT_CONFIG_H_
 
 #include <cstdint>
 #include <vector>
@@ -24,4 +24,4 @@ struct ClientConfig {
 
 }  // namespace openscreen
 
-#endif  // API_PUBLIC_CLIENT_CONFIG_H_
+#endif  // OSP_PUBLIC_CLIENT_CONFIG_H_

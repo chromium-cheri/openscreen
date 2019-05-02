@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_
-#define API_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_
+#ifndef OSP_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_
+#define OSP_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_
 
 #include <memory>
 #include <vector>
@@ -45,4 +45,4 @@ class QuicConnectionFactory {
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_
+#endif  // OSP_IMPL_QUIC_QUIC_CONNECTION_FACTORY_H_

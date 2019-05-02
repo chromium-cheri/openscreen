@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_PUBLIC_TESTING_MESSAGE_DEMUXER_TEST_SUPPORT_H_
-#define API_PUBLIC_TESTING_MESSAGE_DEMUXER_TEST_SUPPORT_H_
+#ifndef OSP_PUBLIC_TESTING_MESSAGE_DEMUXER_TEST_SUPPORT_H_
+#define OSP_PUBLIC_TESTING_MESSAGE_DEMUXER_TEST_SUPPORT_H_
 
 #include "osp/public/message_demuxer.h"
 #include "platform/api/time.h"
@@ -26,4 +26,4 @@ class MockMessageCallback final : public MessageDemuxer::MessageCallback {
 
 }  // namespace openscreen
 
-#endif  // API_PUBLIC_TESTING_MESSAGE_DEMUXER_TEST_SUPPORT_H_
+#endif  // OSP_PUBLIC_TESTING_MESSAGE_DEMUXER_TEST_SUPPORT_H_

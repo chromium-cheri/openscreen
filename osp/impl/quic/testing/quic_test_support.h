@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_QUIC_TESTING_QUIC_TEST_SUPPORT_H_
-#define API_IMPL_QUIC_TESTING_QUIC_TEST_SUPPORT_H_
+#ifndef OSP_IMPL_QUIC_TESTING_QUIC_TEST_SUPPORT_H_
+#define OSP_IMPL_QUIC_TESTING_QUIC_TEST_SUPPORT_H_
 
 #include <memory>
 
@@ -71,4 +71,4 @@ class FakeQuicBridge {
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_QUIC_TESTING_QUIC_TEST_SUPPORT_H_
+#endif  // OSP_IMPL_QUIC_TESTING_QUIC_TEST_SUPPORT_H_

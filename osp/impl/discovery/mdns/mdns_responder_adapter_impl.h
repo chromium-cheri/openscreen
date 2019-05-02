@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef DISCOVERY_MDNS_MDNS_RESPONDER_ADAPTER_IMPL_H_
-#define DISCOVERY_MDNS_MDNS_RESPONDER_ADAPTER_IMPL_H_
+#ifndef OSP_IMPL_DISCOVERY_MDNS_MDNS_RESPONDER_ADAPTER_IMPL_H_
+#define OSP_IMPL_DISCOVERY_MDNS_MDNS_RESPONDER_ADAPTER_IMPL_H_
 
 #include <map>
 #include <memory>
@@ -156,4 +156,4 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
 }  // namespace mdns
 }  // namespace openscreen
 
-#endif  // DISCOVERY_MDNS_MDNS_RESPONDER_ADAPTER_IMPL_H_
+#endif  // OSP_IMPL_DISCOVERY_MDNS_MDNS_RESPONDER_ADAPTER_IMPL_H_

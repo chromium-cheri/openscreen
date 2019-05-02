@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_IMPL_SERVICE_PUBLISHER_IMPL_H_
-#define API_IMPL_SERVICE_PUBLISHER_IMPL_H_
+#ifndef OSP_IMPL_SERVICE_PUBLISHER_IMPL_H_
+#define OSP_IMPL_SERVICE_PUBLISHER_IMPL_H_
 
 #include "osp/public/service_publisher.h"
 #include "base/macros.h"
@@ -65,4 +65,4 @@ class ServicePublisherImpl final : public ServicePublisher,
 
 }  // namespace openscreen
 
-#endif  // API_IMPL_SERVICE_PUBLISHER_IMPL_H_
+#endif  // OSP_IMPL_SERVICE_PUBLISHER_IMPL_H_

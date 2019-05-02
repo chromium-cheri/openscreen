@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef DISCOVERY_MDNS_MDNS_RESPONDER_PLATFORM_H_
-#define DISCOVERY_MDNS_MDNS_RESPONDER_PLATFORM_H_
+#ifndef OSP_IMPL_DISCOVERY_MDNS_MDNS_RESPONDER_PLATFORM_H_
+#define OSP_IMPL_DISCOVERY_MDNS_MDNS_RESPONDER_PLATFORM_H_
 
 #include <vector>
 
@@ -13,4 +13,4 @@ struct mDNS_PlatformSupport_struct {
   std::vector<openscreen::platform::UdpSocket*> sockets;
 };
 
-#endif  // DISCOVERY_MDNS_MDNS_RESPONDER_PLATFORM_H_
+#endif  // OSP_IMPL_DISCOVERY_MDNS_MDNS_RESPONDER_PLATFORM_H_

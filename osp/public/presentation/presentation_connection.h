@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef API_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_
-#define API_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_
+#ifndef OSP_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_
+#define OSP_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_
 
 #include <cstdint>
 #include <map>
@@ -213,4 +213,4 @@ class ConnectionManager final : public MessageDemuxer::MessageCallback {
 }  // namespace presentation
 }  // namespace openscreen
 
-#endif  // API_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_
+#endif  // OSP_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_

@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef DISCOVERY_MDNS_DOMAIN_NAME_H_
-#define DISCOVERY_MDNS_DOMAIN_NAME_H_
+#ifndef OSP_IMPL_DISCOVERY_MDNS_DOMAIN_NAME_H_
+#define OSP_IMPL_DISCOVERY_MDNS_DOMAIN_NAME_H_
 
 #include <cstdint>
 #include <ostream>
@@ -89,4 +89,4 @@ std::ostream& operator<<(std::ostream& os, const DomainName& domain_name);
 }  // namespace mdns
 }  // namespace openscreen
 
-#endif  // DISCOVERY_MDNS_DOMAIN_NAME_H_
+#endif  // OSP_IMPL_DISCOVERY_MDNS_DOMAIN_NAME_H_
