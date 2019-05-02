@@ -11,6 +11,7 @@
 #include "base/error.h"
 #include "base/macros.h"
 #include "osp/public/message_demuxer.h"
+#include "osp/public/network_service_manager.h"
 #include "osp/public/protocol_connection.h"
 #include "platform/api/logging.h"
 
