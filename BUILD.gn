@@ -3,7 +3,7 @@
 # found in the LICENSE file.
 
 import("//build_overrides/build.gni")
-import("build/config/services.gni")
+import("osp/build/config/services.gni")
 
 config("root_config_overrides") {
   if (build_with_chromium) {
@@ -15,9 +15,9 @@ config("root_config_overrides") {
 # source_sets).
 group("gn_all") {
   deps = [
-    "api",
     "base",
-    "msgs",
+    "osp",
+    "osp/msgs",
     "platform",
     "third_party/abseil",
     "third_party/tinycbor",
@@ -25,7 +25,7 @@ group("gn_all") {
   ]
 
   if (use_mdns_responder) {
-    deps += [ "discovery/mdns:embedder_demo" ]
+    deps += [ "osp/impl/discovery/mdns:embedder_demo" ]
   }
 
   if (use_chromium_quic) {
@@ -40,10 +40,10 @@ group("gn_all") {
 executable("openscreen_unittests") {
   testonly = true
   deps = [
-    "api:api_unittests",
     "base:base_unittests",
-    "discovery/mdns:mdns_unittests",
-    "msgs:unittests",
+    "osp/impl/discovery/mdns:mdns_unittests",
+    "osp/msgs:unittests",
+    "osp:osp_unittests",
     "platform:platform_unittests",
     "streaming/cast:cast_unittests",
     "third_party/abseil",
@@ -54,14 +54,15 @@ executable("openscreen_unittests") {
 if (use_chromium_quic && use_mdns_responder) {
   executable("demo") {
     sources = [
-      "demo/demo.cc",
+      "osp/demo/demo.cc",
     ]
 
     deps = [
-      "api:api_with_chromium_quic",
-      "base",
-      "discovery/mdns",
-      "platform",
+      "//osp:osp_with_chromium_quic",
+      "//osp/public",
+      "//base",
+      "//osp/impl/discovery/mdns",
+      "//platform",
     ]
   }
 }
