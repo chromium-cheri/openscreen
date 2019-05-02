@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c331ae68_d7139285",
+        "filename": "platform/base/network_socket_watcher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-02T23:11:23Z",
+      "side": 1,
+      "message": "In the design doc, we are calling the callback on the read data, instead of on the socket:\n\nReceivedData data;\n    ev.socket-\u003eReadMessage(\u0026data-\u003ebytes[0], data-\u003ebytes.size(), \u0026data-\u003esource,\n        \u0026data-\u003eoriginal_destination);\n    auto entry \u003d read_callbacks_.find(ev.socket);\n    if (entry !\u003d read_callbacks_.end()) {\n      entry-\u003esecond-\u003eOnRead(data);\n    }\n\n\nWhat are your thoughts on going this route instead? If we\u0027re calling it on the socket, I worry it may not actually get read before the next iteration of the Wait(...) method gets calls, and a read from the same socket will get queued twice\n\nSimilar comment for write",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "7df2ca20f6792e92654dea6cb8e22c61edbd5748",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
