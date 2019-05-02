@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "9450d169_4259a179",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-02T21:52:00Z",
+      "side": 1,
+      "message": "I had been under the impression we would use the same NetworkWaiter class in Chromium since there EventWaiter is in TaskRunner base not impl, but looking back at the doc it seems that Chromium integration was never explicitly called out\n\nPlease add a section to the design doc, and we can discuss it further there - if the implementations are going to be so dramatically different between the two platforms, I think consideration between options merits further discussion before committing any code",
+      "parentUuid": "3f77d2ca_362c6368",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 19
+      },
+      "revId": "b8f580e886e138d436e4d5746bb844d9e293817a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60ba8524_340ecb66",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 2
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "I don\u0027t think so.  The problem is that NetworkLoop always needs to know about a TaskRunner to control where the callbacks are run.  In our TaskRunnerImpl, the NetworkLoop implementation happens to be the same as the EventWaiter implementation.  Even if you broke up NetworkWaiter, I think you would just be elongating the cycle.  In Chromium, however, this wouldn\u0027t be a circular dependency; there would be no dependency from TaskRunner back to NetworkLoop.",
       "parentUuid": "60ba8524_340ecb66",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 35
+      },
+      "revId": "b8f580e886e138d436e4d5746bb844d9e293817a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f3a0625_8e4c531a",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-02T21:52:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56396fee_a3cd332c",
       "range": {
         "startLine": 128,
         "startChar": 0,
