@@ -45,6 +45,29 @@
       "revId": "b8f580e886e138d436e4d5746bb844d9e293817a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60ba8524_340ecb66",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-02T17:08:30Z",
+      "side": 1,
+      "message": "Based on this design, it looks like the TaskRunner will contain the eventLoop (here) and the EventLoop will contain the TaskRunner (NetworkWaiter::SetTaskRunner(...)). Can we update this design to break the circular dependency?",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 35
+      },
+      "revId": "b8f580e886e138d436e4d5746bb844d9e293817a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
