@@ -26,7 +26,29 @@ namespace platform {
 
 class TaskRunnerImpl : public TaskRunner {
  public:
-  explicit TaskRunnerImpl(platform::ClockNowFunctionPtr now_function);
+  class EventWaiter {
+   public:
+    virtual ~EventWaiter() = default;
+
+    // These calls should be thread-safe.  The absolute minimum is that WakeUp
+    // must be safe to call from another thread while this is inside Wait.
+    // NOTE: There may be spurious wakeups from Wait depending on whether the
+    // specific implementation chooses to clear queued WakeUps before entering
+    // Wait.
+
+    // Blocks until some event occurs, which means new tasks may have been
+    // posted.  Wait may only block up to |timeout| where 0 means don't block at
+    // all (not block forever).
+    virtual void Wait(Clock::duration timeout) = 0;
+
+    // If a Wait call is currently blocking, unblock it immediately.
+    virtual void WakeUp() = 0;
+  };
+
+  explicit TaskRunnerImpl(
+      platform::ClockNowFunctionPtr now_function,
+      EventWaiter* event_waiter = nullptr,
+      Clock::duration waiter_timeout = std::chrono::milliseconds(100));
 
   // TaskRunner overrides
   ~TaskRunnerImpl() override;
@@ -103,6 +125,8 @@ class TaskRunnerImpl : public TaskRunner {
       delayed_tasks_ GUARDED_BY(task_mutex_);
 
   std::condition_variable run_loop_wakeup_;
+  EventWaiter* const event_waiter_;
+  Clock::duration waiter_timeout_;
   std::deque<Task> tasks_ GUARDED_BY(task_mutex_);
 };
 }  // namespace platform
