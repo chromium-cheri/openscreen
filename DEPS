@@ -92,9 +92,8 @@ recursedeps = [
 ]
 
 include_rules = [
-    '+api',
     '+base',
-    '+msgs',
+    '+osp',
     '+platform',
     '+third_party',
 
