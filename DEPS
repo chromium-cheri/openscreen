@@ -91,10 +91,11 @@ recursedeps = [
     'third_party/chromium_quic/src',
 ]
 
+# TODO(mfoltz): Change to allow only base and third_party from the top level
+# once OSP code is moved into osp/.
 include_rules = [
-    '+api',
     '+base',
-    '+msgs',
+    '+osp',
     '+platform',
     '+third_party',
 
