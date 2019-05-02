@@ -10,12 +10,12 @@
 #include <set>
 #include <string>
 
+#include "base/error.h"
+#include "osp/msgs/osp_messages.h"
 #include "osp/public/message_demuxer.h"
 #include "osp/public/presentation/presentation_controller.h"
 #include "osp/public/protocol_connection_client.h"
 #include "osp/public/service_info.h"
-#include "base/error.h"
-#include "osp/msgs/osp_messages.h"
 #include "platform/api/time.h"
 
 namespace openscreen {

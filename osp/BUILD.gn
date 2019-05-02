@@ -43,15 +43,15 @@ source_set("osp_unittests") {
   ]
 
   deps = [
-    "public",
     "impl",
-    "//third_party/abseil",
-    "//third_party/googletest:gmock",
-    "//third_party/googletest:gtest",
     "impl/quic:test_support",
     "impl/testing",
     "impl/testing:fakes_unittests",
+    "public",
     "public:test_support",
+    "//third_party/abseil",
+    "//third_party/googletest:gmock",
+    "//third_party/googletest:gtest",
   ]
   configs += [ "//:root_config_overrides" ]
 

@@ -10,13 +10,13 @@
 #include <string>
 #include <vector>
 
+#include "base/error.h"
+#include "base/ip_address.h"
+#include "base/macros.h"
 #include "osp/public/endpoint_request_ids.h"
 #include "osp/public/message_demuxer.h"
 #include "osp/public/protocol_connection.h"
 #include "osp/public/server_config.h"
-#include "base/error.h"
-#include "base/ip_address.h"
-#include "base/macros.h"
 
 namespace openscreen {
 

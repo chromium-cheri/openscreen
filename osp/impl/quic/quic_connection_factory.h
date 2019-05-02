@@ -8,8 +8,8 @@
 #include <memory>
 #include <vector>
 
-#include "osp/impl/quic/quic_connection.h"
 #include "base/ip_address.h"
+#include "osp/impl/quic/quic_connection.h"
 
 namespace openscreen {
 

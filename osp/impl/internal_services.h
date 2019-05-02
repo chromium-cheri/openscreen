@@ -8,6 +8,8 @@
 #include <memory>
 #include <vector>
 
+#include "base/ip_address.h"
+#include "base/macros.h"
 #include "osp/impl/mdns_platform_service.h"
 #include "osp/impl/mdns_responder_service.h"
 #include "osp/impl/quic/quic_connection_factory.h"
@@ -17,8 +19,6 @@
 #include "osp/public/mdns_service_publisher_factory.h"
 #include "osp/public/protocol_connection_client.h"
 #include "osp/public/protocol_connection_server.h"
-#include "base/ip_address.h"
-#include "base/macros.h"
 #include "platform/api/event_waiter.h"
 #include "platform/api/network_interface.h"
 #include "platform/api/socket.h"

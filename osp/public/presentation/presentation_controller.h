@@ -11,10 +11,10 @@
 
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "base/error.h"
 #include "osp/public/presentation/presentation_connection.h"
 #include "osp/public/protocol_connection.h"
 #include "osp/public/service_listener.h"
-#include "base/error.h"
 #include "platform/api/time.h"
 
 namespace openscreen {

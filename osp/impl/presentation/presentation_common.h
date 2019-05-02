@@ -8,10 +8,10 @@
 #include <algorithm>
 #include <memory>
 
+#include "osp/msgs/osp_messages.h"
 #include "osp/public/message_demuxer.h"
 #include "osp/public/network_service_manager.h"
 #include "osp/public/protocol_connection_server.h"
-#include "osp/msgs/osp_messages.h"
 #include "platform/api/logging.h"
 #include "platform/api/time.h"
 

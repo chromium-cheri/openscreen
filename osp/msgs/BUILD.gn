@@ -20,8 +20,8 @@ source_set("msgs") {
 }
 
 config("cddl_gen_config") {
-#  include_dirs = [ "$root_gen_dir" + "/" + rebase_path("..", "//") ]
-   include_dirs = [ "$root_gen_dir" ]
+  #  include_dirs = [ "$root_gen_dir" + "/" + rebase_path("..", "//") ]
+  include_dirs = [ "$root_gen_dir" ]
 }
 
 action("cddl_gen") {

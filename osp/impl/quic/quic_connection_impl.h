@@ -8,8 +8,8 @@
 #include <list>
 #include <memory>
 
-#include "osp/impl/quic/quic_connection.h"
 #include "base/ip_address.h"
+#include "osp/impl/quic/quic_connection.h"
 #include "platform/api/socket.h"
 #include "third_party/chromium_quic/src/base/callback.h"
 #include "third_party/chromium_quic/src/base/location.h"

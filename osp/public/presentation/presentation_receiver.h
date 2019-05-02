@@ -10,9 +10,9 @@
 #include <string>
 #include <vector>
 
+#include "osp/msgs/osp_messages.h"
 #include "osp/public/message_demuxer.h"
 #include "osp/public/presentation/presentation_connection.h"
-#include "osp/msgs/osp_messages.h"
 
 namespace openscreen {
 namespace presentation {

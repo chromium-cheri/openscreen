@@ -8,10 +8,10 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "osp/public/message_demuxer.h"
-#include "osp/public/protocol_connection.h"
 #include "base/error.h"
 #include "base/macros.h"
+#include "osp/public/message_demuxer.h"
+#include "osp/public/protocol_connection.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {

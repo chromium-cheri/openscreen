@@ -7,6 +7,7 @@
 
 #include <memory>
 
+#include "base/ip_address.h"
 #include "osp/impl/quic/quic_client.h"
 #include "osp/impl/quic/quic_server.h"
 #include "osp/impl/quic/testing/fake_quic_connection_factory.h"
@@ -15,7 +16,6 @@
 #include "osp/public/network_metrics.h"
 #include "osp/public/protocol_connection_client.h"
 #include "osp/public/protocol_connection_server.h"
-#include "base/ip_address.h"
 #include "platform/api/time.h"
 #include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
 

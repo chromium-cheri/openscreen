@@ -6,6 +6,7 @@
 
 #include <memory>
 
+#include "base/error.h"
 #include "osp/impl/quic/quic_service_common.h"
 #include "osp/impl/quic/testing/fake_quic_connection_factory.h"
 #include "osp/impl/quic/testing/quic_test_support.h"
@@ -13,7 +14,6 @@
 #include "osp/public/network_metrics.h"
 #include "osp/public/network_service_manager.h"
 #include "osp/public/testing/message_demuxer_test_support.h"
-#include "base/error.h"
 #include "platform/api/logging.h"
 #include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
 #include "third_party/googletest/src/googletest/include/gtest/gtest.h"

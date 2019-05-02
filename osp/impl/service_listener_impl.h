@@ -7,11 +7,11 @@
 
 #include <vector>
 
+#include "base/macros.h"
+#include "base/with_destruction_callback.h"
 #include "osp/impl/receiver_list.h"
 #include "osp/public/service_info.h"
 #include "osp/public/service_listener.h"
-#include "base/macros.h"
-#include "base/with_destruction_callback.h"
 
 namespace openscreen {
 

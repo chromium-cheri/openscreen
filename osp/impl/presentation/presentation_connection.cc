@@ -8,13 +8,13 @@
 #include <memory>
 
 #include "absl/strings/string_view.h"
+#include "base/std_util.h"
 #include "osp/impl/presentation/presentation_common.h"
+#include "osp/msgs/osp_messages.h"
 #include "osp/public/network_service_manager.h"
 #include "osp/public/presentation/presentation_controller.h"
 #include "osp/public/presentation/presentation_receiver.h"
 #include "osp/public/protocol_connection.h"
-#include "base/std_util.h"
-#include "osp/msgs/osp_messages.h"
 #include "platform/api/logging.h"
 
 // TODO(issue/27): Address TODOs in this file

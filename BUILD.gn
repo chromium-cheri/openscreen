@@ -41,9 +41,9 @@ executable("openscreen_unittests") {
   testonly = true
   deps = [
     "base:base_unittests",
+    "osp:osp_unittests",
     "osp/impl/discovery/mdns:mdns_unittests",
     "osp/msgs:unittests",
-    "osp:osp_unittests",
     "platform:platform_unittests",
     "streaming/cast:cast_unittests",
     "third_party/abseil",
@@ -58,10 +58,10 @@ if (use_chromium_quic && use_mdns_responder) {
     ]
 
     deps = [
-      "//osp:osp_with_chromium_quic",
-      "//osp/public",
       "//base",
+      "//osp:osp_with_chromium_quic",
       "//osp/impl/discovery/mdns",
+      "//osp/public",
       "//platform",
     ]
   }

@@ -8,8 +8,8 @@
 #include <memory>
 #include <utility>
 
-#include "osp/impl/internal_services.h"
 #include "base/error.h"
+#include "osp/impl/internal_services.h"
 #include "platform/api/logging.h"
 
 namespace openscreen {

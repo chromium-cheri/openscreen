@@ -9,10 +9,10 @@
 #include <map>
 #include <memory>
 
+#include "base/ip_address.h"
 #include "osp/impl/quic/quic_connection_factory.h"
 #include "osp/impl/quic/quic_service_common.h"
 #include "osp/public/protocol_connection_server.h"
-#include "base/ip_address.h"
 
 namespace openscreen {
 
