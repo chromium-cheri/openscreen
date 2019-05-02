@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-import("../../../../build/config/services.gni")
+import("//osp/build/config/services.gni")
 
 source_set("mdns_interface") {
   sources = [
@@ -13,10 +13,10 @@ source_set("mdns_interface") {
   ]
 
   public_deps = [
-    "../../../../base",
-    "../../../../platform",
+    "//base",
+    "//platform",
   ]
-  configs += [ "../../../..:root_config_overrides" ]
+  configs += [ "//:root_config_overrides" ]
 }
 
 source_set("mdns_unittests") {
@@ -28,10 +28,10 @@ source_set("mdns_unittests") {
 
   deps = [
     ":mdns_interface",
-    "../../../../third_party/googletest:gmock",
-    "../../../../third_party/googletest:gtest",
+    "//third_party/googletest:gmock",
+    "//third_party/googletest:gtest",
   ]
-  configs += [ "../../../..:root_config_overrides" ]
+  configs += [ "//:root_config_overrides" ]
 
   if (use_mdns_responder) {
     sources += [ "mdns_responder_adapter_impl_unittest.cc" ]
@@ -60,12 +60,12 @@ if (use_mdns_responder) {
 
     public_deps = [
       ":mdns_interface",
-      "../../../../base",
-      "../../../../platform",
+      "//base",
+      "//platform",
     ]
 
     deps = [
-      "../../../../third_party/mDNSResponder:core",
+      "//third_party/mDNSResponder:core",
     ]
   }
 }

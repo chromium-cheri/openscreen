@@ -15,9 +15,9 @@ source_set("testing") {
 
   deps = [
     "../discovery/mdns:mdns_interface",
-    "../../../platform",
+    "//platform",
   ]
-  configs += [ "../../..:root_config_overrides" ]
+  configs += [ "//:root_config_overrides" ]
 }
 
 source_set("fakes_unittests") {
@@ -29,8 +29,8 @@ source_set("fakes_unittests") {
 
   deps = [
     ":testing",
-    "../../../third_party/abseil",
+    "//third_party/abseil",
     "//third_party/googletest:gtest",
   ]
-  configs += [ "../../..:root_config_overrides" ]
+  configs += [ "//:root_config_overrides" ]
 }

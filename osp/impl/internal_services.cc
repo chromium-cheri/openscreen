@@ -8,7 +8,7 @@
 
 #include "osp/impl/mdns_responder_service.h"
 #include "base/error.h"
-#include "osp/impl/discoverymdns/mdns_responder_adapter_impl.h"
+#include "osp/impl/discovery/mdns/mdns_responder_adapter_impl.h"
 #include "platform/api/logging.h"
 #include "platform/api/socket.h"
 

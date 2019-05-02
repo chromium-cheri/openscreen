@@ -16,7 +16,7 @@
 #include "osp/impl/service_listener_impl.h"
 #include "osp/impl/service_publisher_impl.h"
 #include "base/ip_address.h"
-#include "osp/impl/discoverymdns/mdns_responder_adapter.h"
+#include "osp/impl/discovery/mdns/mdns_responder_adapter.h"
 #include "platform/api/network_interface.h"
 #include "platform/base/event_loop.h"
 

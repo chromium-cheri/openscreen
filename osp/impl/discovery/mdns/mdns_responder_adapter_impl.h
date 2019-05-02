@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "base/error.h"
-#include "osp/impl/discoverymdns/mdns_responder_adapter.h"
+#include "osp/impl/discovery/mdns/mdns_responder_adapter.h"
 #include "platform/api/socket.h"
 #include "third_party/mDNSResponder/src/mDNSCore/mDNSEmbeddedAPI.h"
 

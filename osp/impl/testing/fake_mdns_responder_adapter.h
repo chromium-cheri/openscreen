@@ -8,7 +8,7 @@
 #include <set>
 #include <vector>
 
-#include "osp/impl/discoverymdns/mdns_responder_adapter.h"
+#include "osp/impl/discovery/mdns/mdns_responder_adapter.h"
 
 namespace openscreen {
 

@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-import("../../build/config/services.gni")
+import("//osp/build/config/services.gni")
 
 source_set("impl") {
   sources = [
@@ -36,15 +36,15 @@ source_set("impl") {
   }
 
   public_deps = [
-    "../../msgs",
-    "../public",
+    "//osp/msgs",
+    "//osp/public",
   ]
   deps = [
-    "../../base",
-    "../../platform",
+    "//base",
+    "//platform",
     "quic",
   ]
-  configs += [ "../../..:root_config_overrides" ]
+  configs += [ "//:root_config_overrides" ]
 }
 
 if (use_chromium_quic) {
@@ -63,7 +63,7 @@ if (use_chromium_quic) {
     deps = [
       "quic",
       "//base",
-      "//msgs",
+      "//osp/msgs",
       "//platform",
       "//third_party/chromium_quic",
     ]

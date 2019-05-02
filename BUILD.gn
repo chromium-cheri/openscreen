@@ -40,10 +40,10 @@ group("gn_all") {
 executable("openscreen_unittests") {
   testonly = true
   deps = [
-    "api:api_unittests",
     "base:base_unittests",
-    "discovery/mdns:mdns_unittests",
-    "msgs:unittests",
+    "osp/impl/discovery/mdns:mdns_unittests",
+    "osp/msgs:unittests",
+    "osp:osp_unittests",
     "platform:platform_unittests",
     "streaming/cast:cast_unittests",
     "third_party/abseil",
@@ -54,14 +54,15 @@ executable("openscreen_unittests") {
 if (use_chromium_quic && use_mdns_responder) {
   executable("demo") {
     sources = [
-      "demo/demo.cc",
+      "osp/demo/demo.cc",
     ]
 
     deps = [
-      "api:api_with_chromium_quic",
-      "base",
-      "discovery/mdns",
-      "platform",
+      "//osp:osp_with_chromium_quic",
+      "//osp/public",
+      "//base",
+      "//osp/impl/discovery/mdns",
+      "//platform",
     ]
   }
 }
