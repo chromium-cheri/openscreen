@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "2ea2f811_b3de46f1",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-03T03:07:58Z",
+      "side": 1,
+      "message": "I don\u0027t feel that the code is dramatically different - just that with this approach we now need to maintain two entirely separate NetworkLoops instead of relying on a single one shared between the two approached. Since this is a core component, I worry it would open the way for more bugs and increased difficulty integrating with chromium\n\n(for instance, right now it just handled UDP - I assume the number of methods is going to double when we also need to support TCP, and perhaps more complexity will arise in the future. And with this approach every new requirement takes twice as much code, testing, etc)",
+      "parentUuid": "e3560744_1991b104",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 19
+      },
+      "revId": "b8f580e886e138d436e4d5746bb844d9e293817a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60ba8524_340ecb66",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 2

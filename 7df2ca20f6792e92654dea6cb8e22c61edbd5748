@@ -46,6 +46,30 @@
       "revId": "7df2ca20f6792e92654dea6cb8e22c61edbd5748",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "569b5b1d_00d45f74",
+        "filename": "platform/base/network_socket_watcher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-03T03:07:58Z",
+      "side": 1,
+      "message": "With this approach, wouldn\u0027t we have to run the callback on the network thread instead of queuing it on the Task Runner as originally planned? Does this mean we\u0027re assuming that the callback is only going to do trivial work (ie read the data then throw another function on the task queue itself)? \n\nMy original thought had been to use std::bind(this, ReadData) to create a Task\u003dfunction\u003cvoid()\u003e with the callback and read data, then throw it on the Task queue for processing, so the absolute minimal time would be used before proceeding. With this approach we can no longer do that, and any callbacks need to be completed before we can exit after a WakeUp() call, so it might introduce some jitter in playback if the callbacks arent sufficiently simple",
+      "parentUuid": "30d6bfa8_e028207c",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "7df2ca20f6792e92654dea6cb8e22c61edbd5748",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
