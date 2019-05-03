@@ -22,6 +22,30 @@
       "revId": "7df2ca20f6792e92654dea6cb8e22c61edbd5748",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30d6bfa8_e028207c",
+        "filename": "platform/base/network_socket_watcher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-03T00:54:27Z",
+      "side": 1,
+      "message": "You\u0027re right, I changed the API but didn\u0027t change the implementation example.  The reason it was changed was to avoid having to decide on a buffer size/allocation point.  This is probably even more important in the TCP case where there is not a clear \"packet\" size to use.",
+      "parentUuid": "c331ae68_d7139285",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "7df2ca20f6792e92654dea6cb8e22c61edbd5748",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
