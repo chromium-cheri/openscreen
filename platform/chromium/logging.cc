@@ -4,28 +4,8 @@
 
 #include "platform/api/logging.h"
 
-#include "osp_base/logging.h"
-
 namespace openscreen {
 namespace platform {
-namespace {
-
-::logging::LogSeverity MapLogLevel(LogLevel level) {
-  switch (level) {
-    case LogLevel::kVerbose:
-      return ::logging::LOG_VERBOSE;
-    case LogLevel::kInfo:
-      return ::logging::LOG_INFO;
-    case LogLevel::kWarning:
-      return ::logging::LOG_WARNING;
-    case LogLevel::kError:
-      return ::logging::LOG_ERROR;
-    case LogLevel::kFatal:
-      return ::logging::LOG_FATAL;
-  }
-}
-
-}  // namespace
 
 // We don't initialize Chromium's logging.
 void LogInit(const char* filename) {}
@@ -37,14 +17,15 @@ void LogWithLevel(LogLevel level,
                   absl::string_view file,
                   int line,
                   absl::string_view msg) {
-  ::logging::LogMessage(file.data(), line, MapLogLevel(level)).stream() << msg;
+  // TODO(jophba): fix logging in Chromium, currently we cannot interact
+  // with the Chromium logger from third_party.
 }
 
 void Break() {
 #if defined(OFFICIAL_BUILD) && defined(NDEBUG)
   IMMEDIATE_CRASH();
 #else
-  ::base::debug::BreakDebugger();
+  // TODO(jophba): add support for breaking debugger in Chromium.
 #endif
 }
 

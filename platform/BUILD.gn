@@ -71,7 +71,9 @@ if (build_with_chromium) {
 
     deps = [
       "../third_party/abseil",
-      "//base",
+    ]
+
+    public_deps = [
     ]
 
     configs += [ "..:root_config_overrides" ]

@@ -45,6 +45,7 @@ source_set("receiver") {
     "rtp_packet_parser.h",
   ]
 
+  configs += [ "../..:root_config_overrides" ]
   public_deps = [
     ":common",
   ]
@@ -56,6 +57,7 @@ source_set("sender") {
     "rtp_packetizer.h",
   ]
 
+  configs += [ "../..:root_config_overrides" ]
   public_deps = [
     ":common",
   ]
@@ -97,6 +99,8 @@ if (build_with_chromium) {
     ]
 
     seed_corpus = "rtp_packet_parser_fuzzer_seeds"
+
+    additional_configs = [ "../..:root_config_overrides" ]
 
     # Note: 1500 is approx. kMaxRtpPacketSize in rtp_defines.h.
     libfuzzer_options = [ "max_len=1500" ]
