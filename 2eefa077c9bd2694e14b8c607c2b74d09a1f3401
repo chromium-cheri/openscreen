@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "a836c3f2_3aa7026b",
+        "filename": "platform/base/network_socket_watcher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-03T23:53:44Z",
+      "side": 1,
+      "message": "Is there a reason that these are void instead of Error like the current platform/api/event_waiter.h methods that do similar things?",
+      "range": {
+        "startLine": 39,
+        "startChar": 10,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "2eefa077c9bd2694e14b8c607c2b74d09a1f3401",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20442d65_8ce223fa",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-03T23:53:44Z",
+      "side": 1,
+      "message": "Since we already have platform/api/event_waiter, can we call this something else? Maybe EventLoopHandler or similar?\n\nThis class involves platform-specific code (Which I am keeping out of NetworkWaiter), so I am planning to keep it around",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 19
+      },
+      "revId": "2eefa077c9bd2694e14b8c607c2b74d09a1f3401",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cbaeae9_74179a1e",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 4
