@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "922da4b2_a47893df",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-03T22:29:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26cd73f6_fef843e9",
+      "range": {
+        "startLine": 48,
+        "startChar": 31,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae88f37d_02528561",
         "filename": "streaming/cast/rtcp_common.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "738b2be8_8c7fa7db",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-03T22:29:37Z",
+      "side": 1,
+      "message": "The c++ style guide says not to use unsigned ints for a number of reasons, but tl;dr: intended math semantics, and performance.\n\nUnsigned ints are acceptable for bit manipulation, mod 2^32 arithmetic, etc. But, we\u0027re not doing that here. :)",
+      "parentUuid": "ae88f37d_02528561",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b2d6a084_acf670a1",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-03T22:29:37Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "1b7d4656_8c415af0",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "319768ae_25658f8d",
         "filename": "streaming/cast/rtcp_common.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29a11716_c564af20",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-03T22:29:37Z",
+      "side": 1,
+      "message": "tl;dr from discussion in the RTP patch: The error would not be actionable at this low a level of abstraction. Let\u0027s focus on testing instead. :)",
+      "parentUuid": "319768ae_25658f8d",
+      "range": {
+        "startLine": 97,
+        "startChar": 72,
+        "endLine": 99,
+        "endChar": 15
+      },
+      "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "82a123cb_3e7c5232",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-03T22:29:37Z",
+      "side": 1,
+      "message": "This isn\u0027t a hex literal, it\u0027s a binary literal. 0b100 \u003d\u003d 4 \u003d\u003d 0x4",
+      "parentUuid": "e932cfe9_c28d4fb7",
+      "range": {
+        "startLine": 130,
+        "startChar": 55,
+        "endLine": 130,
+        "endChar": 60
+      },
+      "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccfb3b9f_6d9b0587",
         "filename": "streaming/cast/sender_report_parser.h",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "33d3ffd3_8f0402b3",
+        "filename": "streaming/cast/sender_report_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-03T22:29:37Z",
+      "side": 1,
+      "message": "The others were meant to be shared utility methods. But, thinking about thing more, I like your idea. Done.",
+      "parentUuid": "ccfb3b9f_6d9b0587",
+      "range": {
+        "startLine": 26,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 12
+      },
+      "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7824fc72_72d5d54c",
         "filename": "streaming/cast/sender_report_parser_fuzzer.cc",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7416285e_567f1c11",
+        "filename": "streaming/cast/sender_report_parser_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-03T22:29:37Z",
+      "side": 1,
+      "message": "We only turn this on for Clang: build/config/BUILD.gn:79",
+      "parentUuid": "7824fc72_72d5d54c",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 58
+      },
+      "revId": "7a566f2e897168cbc42bedd179b7a5be963e18d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
