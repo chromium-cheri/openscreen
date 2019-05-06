@@ -246,6 +246,7 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
                                           size_t length,
                                           IPEndpoint* src,
                                           IPEndpoint* original_destination) {
+  TRACE("SendMessage", "size", length);
   auto* const socket = UdpSocketPosix::From(this);
 
   struct iovec iov = {data, length};
@@ -267,7 +268,10 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
 
       ssize_t num_bytes_received = recvmsg(socket->fd, &msg, 0);
       if (num_bytes_received == -1) {
-        return ChooseError(errno, Error::Code::kSocketReadFailure);
+        auto result = ChooseError(errno, Error::Code::kSocketReadFailure);
+        TRACE_RESULT_SUCCESSFUL(false);
+        TRACE_ARG("ErrorCode", result);
+        return result;
       }
       OSP_DCHECK_GE(num_bytes_received, 0);
 
@@ -311,6 +315,8 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
         }
       }
 
+      TRACE_RESULT_SUCCESSFUL(true);
+      TRACE_ARG("ErrorCode", Error::Code::kNone);
       return num_bytes_received;
     }
 
@@ -327,7 +333,10 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
 
       ssize_t num_bytes_received = recvmsg(socket->fd, &msg, 0);
       if (num_bytes_received == -1) {
-        return ChooseError(errno, Error::Code::kSocketReadFailure);
+        auto result = ChooseError(errno, Error::Code::kSocketReadFailure);
+        TRACE_RESULT_SUCCESSFUL(false);
+        TRACE_ARG("ErrorCode", result);
+        return result;
       }
       OSP_DCHECK_GE(num_bytes_received, 0);
 
@@ -372,61 +381,72 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
         }
       }
 
+      TRACE_ARG("ErrorCode", Error::Code::kNone);
+      TRACE_RESULT_SUCCESSFUL(true);
       return num_bytes_received;
     }
   }
 
   OSP_NOTREACHED();
+  TRACE_RESULT_SUCCESSFUL(false);
+  TRACE_ARG("ErrorCode", Error::Code::kGenericPlatformError);
   return Error::Code::kGenericPlatformError;
 }
 
 Error UdpSocket::SendMessage(const void* data,
                              size_t length,
                              const IPEndpoint& dest) {
-  auto* const socket = UdpSocketPosix::From(this);
+  // OPTION 2: FUNCTIONAL STYLE
+  return TRACE([data, length, dest]() {
+    auto* const socket = UdpSocketPosix::From(this);
 
-  struct iovec iov = {const_cast<void*>(data), length};
-  struct msghdr msg;
-  msg.msg_iov = &iov;
-  msg.msg_iovlen = 1;
-  msg.msg_control = nullptr;
-  msg.msg_controllen = 0;
-  msg.msg_flags = 0;
+    struct iovec iov = {const_cast<void*>(data), length};
+    struct msghdr msg;
+    msg.msg_iov = &iov;
+    msg.msg_iovlen = 1;
+    msg.msg_control = nullptr;
+    msg.msg_controllen = 0;
+    msg.msg_flags = 0;
 
-  ssize_t num_bytes_sent = -2;
-  switch (socket->version) {
-    case UdpSocket::Version::kV4: {
-      struct sockaddr_in sa = {
-          .sin_family = AF_INET,
-          .sin_port = htons(dest.port),
-      };
-      dest.address.CopyToV4(reinterpret_cast<uint8_t*>(&sa.sin_addr.s_addr));
-      msg.msg_name = &sa;
-      msg.msg_namelen = sizeof(sa);
-      num_bytes_sent = sendmsg(socket->fd, &msg, 0);
-      break;
+    ssize_t num_bytes_sent = -2;
+    switch (socket->version) {
+      case UdpSocket::Version::kV4: {
+        struct sockaddr_in sa = {
+            .sin_family = AF_INET,
+            .sin_port = htons(dest.port),
+        };
+        dest.address.CopyToV4(reinterpret_cast<uint8_t*>(&sa.sin_addr.s_addr));
+        msg.msg_name = &sa;
+        msg.msg_namelen = sizeof(sa);
+        num_bytes_sent = sendmsg(socket->fd, &msg, 0);
+        break;
+      }
+
+      case UdpSocket::Version::kV6: {
+        struct sockaddr_in6 sa = {};
+        sa.sin6_family = AF_INET6;
+        sa.sin6_flowinfo = 0;
+        sa.sin6_scope_id = 0;
+        sa.sin6_port = htons(dest.port);
+        dest.address.CopyToV6(reinterpret_cast<uint8_t*>(&sa.sin6_addr.s6_addr));
+        msg.msg_name = &sa;
+        msg.msg_namelen = sizeof(sa);
+        num_bytes_sent = sendmsg(socket->fd, &msg, 0);
+        break;
+      }
     }
 
-    case UdpSocket::Version::kV6: {
-      struct sockaddr_in6 sa = {};
-      sa.sin6_family = AF_INET6;
-      sa.sin6_flowinfo = 0;
-      sa.sin6_scope_id = 0;
-      sa.sin6_port = htons(dest.port);
-      dest.address.CopyToV6(reinterpret_cast<uint8_t*>(&sa.sin6_addr.s6_addr));
-      msg.msg_name = &sa;
-      msg.msg_namelen = sizeof(sa);
-      num_bytes_sent = sendmsg(socket->fd, &msg, 0);
-      break;
+    if (num_bytes_sent == -1) {
+      return ChooseError(errno, Error::Code::kSocketSendFailure);
     }
+    // Sanity-check: UDP datagram sendmsg() is all or nothing.
+    OSP_DCHECK_EQ(static_cast<size_t>(num_bytes_sent), length);
+    return Error::Code::kNone;
+  },
+    [](ErrorOr<size_t> result) {return !result.is_error();}, "SendMessage",
+    "size", length,
+    "ErrorCode", [](ErrorOr<size_t> result) {result.is_error ? result.error() : Error::Code::kNone;});
   }
-
-  if (num_bytes_sent == -1) {
-    return ChooseError(errno, Error::Code::kSocketSendFailure);
-  }
-  // Sanity-check: UDP datagram sendmsg() is all or nothing.
-  OSP_DCHECK_EQ(static_cast<size_t>(num_bytes_sent), length);
-  return Error::Code::kNone;
 }
 
 Error UdpSocket::SetDscp(UdpSocket::DscpMode state) {
