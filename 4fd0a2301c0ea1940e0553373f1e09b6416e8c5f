@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "055a084d_945960ed",
+        "filename": "cast/common/mdns/mdns_constants.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T22:15:07Z",
+      "side": 1,
+      "message": "It\u0027s \"meh\" either way, removing clang-format off/on",
+      "parentUuid": "614eb481_75d7f795",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76fc355e_433a55c9",
         "filename": "cast/common/mdns/mdns_constants.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96715877_2de07830",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T22:15:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76fc355e_433a55c9",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -175,6 +211,30 @@
       "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d75a6f07_11602030",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T22:15:07Z",
+      "side": 1,
+      "message": "Updated with a bug link.",
+      "parentUuid": "ef180199_41dc5fa9",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 26
+      },
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -343,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "b74d970f_05811d57",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T22:15:07Z",
+      "side": 1,
+      "message": "I\u0027m so used to seeing these pragma statements that I didn\u0027t realize this was sort of MSVC specific. In this case it has zero effect as far as I can tell, as all struct fields are uint16_t and there will be no \"gaps\" due to alignment anyway. I think the right thing to do is to to delete these #pragma directives.",
+      "parentUuid": "61843bff_c41b441e",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 15
+      },
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e36ede9_7292b7cd",
         "filename": "cast/common/mdns/mdns_constants.h",
         "patchSetId": 2
@@ -357,6 +441,24 @@
       "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7db1622_da44970d",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T22:15:07Z",
+      "side": 1,
+      "message": "Main reason is to minimize code churn in mdns code I\u0027m porting over.\nI don\u0027t think that making these constants members of different enum classes has enough benefit to justify the cascading changes at this stage.\nGiven that the values are coupled to mask value and shift value (some are pre-shifted, some aren\u0027t) I think at this point in time it\u0027s an unnecessary risk.\nMoreover, if I were to make it nice an shiny, I\u0027d rather define a struct (with fields of specific bit width) that describes the DNS packet.",
+      "parentUuid": "5e36ede9_7292b7cd",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -424,6 +526,24 @@
     },
     {
       "key": {
+        "uuid": "71ab0941_b1d8b1ce",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T22:15:07Z",
+      "side": 1,
+      "message": "Same",
+      "parentUuid": "a816aac4_c035b15f",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "637e8af9_1496e589",
         "filename": "cast/common/mdns/mdns_constants.h",
         "patchSetId": 2
@@ -438,6 +558,24 @@
       "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67bf15f7_831d482e",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T22:15:07Z",
+      "side": 1,
+      "message": "Same",
+      "parentUuid": "637e8af9_1496e589",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
