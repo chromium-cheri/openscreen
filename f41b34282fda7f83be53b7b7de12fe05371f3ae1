@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74419f85_8aaea0c9",
+        "filename": "streaming/cast/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T20:41:20Z",
+      "side": 1,
+      "message": "nit: maybe simply put \"Compensating for 2036 wrap-around to support fuzz testing\" or something similar?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "107623dc_38abc9dd",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T20:41:20Z",
+      "side": 1,
+      "message": "I think having unions for packed packet headers defined in rtp_defines.h could be convenient in methods like this, but I don\u0027t feel strongly about it.",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7043508c_72b6f640",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T20:41:20Z",
+      "side": 1,
+      "message": "If I understand correctly, there will be a narrowing conversion here after the shift.\nCould you please express it explicitly even though compiler does not require it?",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 29
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a9bc938_10b3c9bb",
+        "filename": "streaming/cast/sender_report_builder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T20:41:20Z",
+      "side": 1,
+      "message": "maybe add Serialize method to RtcpSenderReport?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 3
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ded2e39_421f2356",
+        "filename": "streaming/cast/sender_report_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T20:41:20Z",
+      "side": 1,
+      "message": "Maybe something like this since Parse does the necessary checks?\n\nwhile (header \u003d RtcpCommonHeader::Parse(buffer)) {\n  buffer.remove_prefix(kRtcpCommonHeaderSize);\n  ...\n}",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 5
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "454d1436_a7513287",
+        "filename": "streaming/cast/sender_report_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T20:41:20Z",
+      "side": 1,
+      "message": "Could it happen that there will be more that one packet in the buffer that have packet_type \u003d\u003d RtcpPacketType::kSenderReport and ssrc \u003d\u003d session_-\u003esender_ssrc()?",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e06d44d7_1fe10e53",
+        "filename": "streaming/cast/sender_report_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1333145
+      },
+      "writtenOn": "2019-05-06T20:41:20Z",
+      "side": 1,
+      "message": "What if somehow there\u0027s more than one report block? Will it correctly bail out of the parsing on next iteration of while (!buffer.empty()) loop ? Could you please add a test for this?",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 9
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
