@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "614eb481_75d7f795",
+        "filename": "cast/common/mdns/mdns_constants.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-06T20:20:44Z",
+      "side": 1,
+      "message": "What happens if we let clang do its job here? This looks kinda hacky to just turn it off and on over and over again here.",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76fc355e_433a55c9",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-06T20:20:44Z",
+      "side": 1,
+      "message": "Nit: I think having the \"parsed representation\" comment here is duplicate and doesn\u0027t add value. Any changes to this require changing this comment, as well as the actual value and the comment in the cc. I would vote for removing the comments here declaring the variable value. I\u0027d much prefer a comment in the cpp file telling where the values come from, instead of what they are.",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5188cbaa_dfdbe3b2",
         "filename": "cast/common/mdns/mdns_constants.h",
         "patchSetId": 2
@@ -117,6 +151,30 @@
       "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef180199_41dc5fa9",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-06T20:20:44Z",
+      "side": 1,
+      "message": "Agreed. I would vote for converting to issues and having the issue numbers here. We are likely to lose track of these otherwise.",
+      "parentUuid": "4ce27123_4c505c34",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 26
+      },
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -261,6 +319,47 @@
     },
     {
       "key": {
+        "uuid": "61843bff_c41b441e",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-06T20:20:44Z",
+      "side": 1,
+      "message": "I think a comment about the pragma pack stuff specifically is warranted. It\u0027s a janky MSVC extension that clang and gcc happen to support, with minor differences:\n\n\"clang supports the Microsoft #pragma pack feature for controlling record layout. GCC also contains support for this feature, however where MSVC and GCC are incompatible clang follows the MSVC definition.\"\n\nI\u0027ve never even heard of this #pragma, and I personally think #pragmas are of the devil.\n\nhttp://releases.llvm.org/3.4/tools/clang/docs/UsersManual.html",
+      "parentUuid": "662eb323_b4170459",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 15
+      },
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e36ede9_7292b7cd",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-06T20:20:44Z",
+      "side": 1,
+      "message": "Any particular reason these aren\u0027t enum class uint16_t members?",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51074b42_f31836a0",
         "filename": "cast/common/mdns/mdns_constants.h",
         "patchSetId": 2
@@ -305,6 +404,40 @@
       "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a816aac4_c035b15f",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-06T20:20:44Z",
+      "side": 1,
+      "message": "Same here, couldn\u0027t these be an enum class uint8_t OpCode::Query, etc?",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "637e8af9_1496e589",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-06T20:20:44Z",
+      "side": 1,
+      "message": "One more time, enum class.",
+      "revId": "4fd0a2301c0ea1940e0553373f1e09b6416e8c5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
