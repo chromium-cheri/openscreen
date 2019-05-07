@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bbfc917_9b298894",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T03:10:15Z",
+      "side": 1,
+      "message": "Looks like we just need \u003cstdint.h\u003e and not \u003cstddef.h\u003e.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8615507_41044c58",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T03:10:15Z",
+      "side": 1,
+      "message": "Maybe just \"cast\" (to reflect the dir structure)?\n\nhttps://google.github.io/styleguide/cppguide.html#Namespaces",
+      "range": {
+        "startLine": 19,
+        "startChar": 10,
+        "endLine": 19,
+        "endChar": 17
+      },
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ae4c33_6549cd46",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T03:10:15Z",
+      "side": 1,
+      "message": "80 chars max.",
+      "range": {
+        "startLine": 67,
+        "startChar": 73,
+        "endLine": 67,
+        "endChar": 94
+      },
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fac06627_27c2bde1",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T03:10:15Z",
+      "side": 1,
+      "message": "Yeah, we\u0027re going to want a utility function to detect this since it truly is meant to be dynamic; fully dependent on the route a packet takes from source to destination.\n\nIIRC, the most-common heuristic is to send varying-sized ping packets with fragmentation turned off and then, from the presence or lack of ACKs, binary-search your way towards converging on the MTU.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 18
+      },
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
