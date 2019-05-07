@@ -4,6 +4,7 @@
 
 #include "streaming/cast/packet_util.h"
 
+#include "streaming/cast/rtcp_common.h"
 #include "streaming/cast/rtp_defines.h"
 
 namespace openscreen {
@@ -11,9 +12,21 @@ namespace cast_streaming {
 
 std::pair<ApparentPacketType, Ssrc> InspectPacketForRouting(
     absl::Span<const uint8_t> packet) {
-  // TODO(miu): Detect RTCP packet type in soon-upcoming change.
+  // See rtp_defines.h for wire-format diagrams.
 
-  // See rtp_defines.h for wire-format diagram.
+  // While RTCP packets are valid if they consist of just the RTCP Common
+  // Header, all the RTCP packet types processed by this implementation will
+  // also have a SSRC field immediately following the header. This is important
+  // for routing the packet to the correct parser instance.
+  constexpr int kRtcpPacketMinAcceptableSize =
+      kRtcpCommonHeaderSize + sizeof(uint32_t);
+  if (packet.size() >= kRtcpPacketMinAcceptableSize &&
+      RtcpCommonHeader::Parse(packet).has_value()) {
+    return std::make_pair(
+        ApparentPacketType::RTCP,
+        Ssrc{ReadBigEndian<uint32_t>(packet.data() + kRtcpCommonHeaderSize)});
+  }
+
   if (packet.size() < kRtpPacketMinValidSize ||
       packet[0] != kRtpRequiredFirstByte ||
       !IsRtpPayloadType(packet[1] & kRtpPayloadTypeMask)) {
