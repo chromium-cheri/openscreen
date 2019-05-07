@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0dea15ab_a81d52fa",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T15:30:07Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be 2016?",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8bbfc917_9b298894",
         "filename": "cast/common/mdns/mdns_constants.h",
         "patchSetId": 5
@@ -42,6 +65,74 @@
         "endLine": 19,
         "endChar": 17
       },
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85847d7f_b57868ae",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T15:30:07Z",
+      "side": 1,
+      "message": "We should probably reference RFC 6762 section 3, where this is defined.  Here and below for IPv6.",
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "970aec41_0761e9fa",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T15:30:07Z",
+      "side": 1,
+      "message": "Even though it didn\u0027t become an RFC, we should probably reference https://tools.ietf.org/html/draft-cai-ssdp-v1-03 since that\u0027s where this IP address comes from.  \n\nWe should also reference that 239.*.*.* meaning \"Administratively Scoped Block\" some from RFCs 2365 and 5771.  And the \"relative address\" of 5 for SSDP from https://www.iana.org/assignments/multicast-addresses/multicast-addresses.xhtml, which combined means 239.255.255.250.",
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af518266_388a2190",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T15:30:07Z",
+      "side": 1,
+      "message": "Same here, except it\u0027s RFC 7346 defining that it\u0027s 0xFF05 meaning site-local and https://www.iana.org/assignments/ipv6-multicast-addresses/ipv6-multicast-addresses.xhtml being the IANA registry for FF0*:0:0:0:0:0:0:C as being for SSDP.  Combined, that makes FF05:0:0:0:0:0:0:C mean \"site-local SSDP\".",
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd59726f_d6b3820d",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T15:30:07Z",
+      "side": 1,
+      "message": "A reference to RFC 6762 section 2 would be good here as well.",
       "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -91,6 +182,47 @@
       "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1de90bbe_62242b78",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T15:30:07Z",
+      "side": 1,
+      "message": "Does that really matter for mDNS?  I think we can just be very conservative with the limit.",
+      "parentUuid": "fac06627_27c2bde1",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 18
+      },
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1e37a40_13b27d38",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T15:30:07Z",
+      "side": 1,
+      "message": "Could we add a TODO to use an enum class?  Here and for kRcode and DNS types below.",
+      "revId": "dffdcebb294b96b473ef5157d7fc09e0fcd0ed48",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
