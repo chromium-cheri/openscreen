@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f5731ba_8e7592fc",
+        "filename": "streaming/cast/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T02:49:54Z",
+      "side": 1,
+      "message": "Done. I just simplified the comment. Mentioning the fuzz testing isn\u0027t really relevant to the impl here: It had only mentioned it before as a justification for replacing the DCHECK with impl that resolves the issue.",
+      "parentUuid": "74419f85_8aaea0c9",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "107623dc_38abc9dd",
         "filename": "streaming/cast/rtcp_common.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab6572f_c48059e9",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T02:49:54Z",
+      "side": 1,
+      "message": "This is pretty much the only bit manipulation in the whole patch, so I\u0027ll just leave as-is.",
+      "parentUuid": "107623dc_38abc9dd",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8df31d58_48e2096a",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T02:49:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7043508c_72b6f640",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 29
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a9bc938_10b3c9bb",
         "filename": "streaming/cast/sender_report_builder.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b749344a_0c143626",
+        "filename": "streaming/cast/sender_report_builder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T02:49:54Z",
+      "side": 1,
+      "message": "It would only ever be called from here, so no reason to split this out into a separate function.",
+      "parentUuid": "9a9bc938_10b3c9bb",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 3
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d4571b4b_42b59b68",
+        "filename": "streaming/cast/sender_report_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T02:49:54Z",
+      "side": 1,
+      "message": "Doing that, it\u0027s possible that a corrupt packet would not cause this method to return nullopt (i.e., a sender report was already parsed from a previous iteration of the loop, but corruption was detected in a later iteration).",
+      "parentUuid": "4ded2e39_421f2356",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 5
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "454d1436_a7513287",
         "filename": "streaming/cast/sender_report_parser.cc",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "869206ff_e1ff25e8",
+        "filename": "streaming/cast/sender_report_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T02:49:54Z",
+      "side": 1,
+      "message": "Per the wire format, yes. Practically speaking, no. I\u0027m just maintaining behavior from the existing impl.",
+      "parentUuid": "454d1436_a7513287",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e06d44d7_1fe10e53",
         "filename": "streaming/cast/sender_report_parser.cc",
         "patchSetId": 2
@@ -160,6 +304,30 @@
       "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de525bba_8e382fbd",
+        "filename": "streaming/cast/sender_report_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-07T02:49:54Z",
+      "side": 1,
+      "message": "Note the call to buffer.remove_prefix() on L60. So, the correct skip amount will always happen.\n\nRtcpCommonTest.ParsesOneReportBlockFromMultipleBlocks tests the case where there are multiple report blocks.",
+      "parentUuid": "e06d44d7_1fe10e53",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 9
+      },
+      "revId": "f41b34282fda7f83be53b7b7de12fe05371f3ae1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
