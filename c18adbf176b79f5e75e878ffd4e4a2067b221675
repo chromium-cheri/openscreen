@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "430ce64e_3a55b915",
+        "filename": "streaming/cast/ntp_time.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "This would slightly more readable as kTimeBetweenNtpEpochAndUnixEpoch or kTimeBetweenNtpAndUnixEpochs",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe2b2cd_2d9ed3f2",
+        "filename": "streaming/cast/packet_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "Since almost all packets are RTP packets not RTCP packets, I\u0027d suggest putting this after the RTP packet check so that RtcpCommonHeader::Parse is not called for most packets.  Otherwise, it would be easy to accidentally put something in RtcpCommonHeader::Parse that\u0027s in the hot path for all packets.",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cd6f0ce_084d3351",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "So isn\u0027t this a const kRtcpByte0?",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6276f851_8f73238c",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "And isn\u0027t this a const kRtcpMaxReportCount or kRtcpMaxNumReports?",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70900ef2_f3317573",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "Same here with naming of recipient_ssrc.",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d382739a_99259fab",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "Then why not call it \"report_block_count\" or \"num_report_blocks\"?",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a338f142_bed7737f",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be called payload_size, then, if it doesn\u0027t include the header?",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b33130_b6bb9d3d",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "If the buffer is too small, what does it do?",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8d29de7_84a6d894",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "This could use a reference to RFC 3550 section 6.4.1.",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20a1e442_52f71f67",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "I thought of this SSRC more as identifying the RTP Stream to which this set of stats refers to.\n\nThe WebRTC code calls it the \"source_ssrc\".  RFC 3550 calls it \"The SSRC identifier of the source to which the information in this reception report block pertains.\"  But by \"source\" it means the RTP stream.  \n\nLong story short, I\u0027d just call this \"SSRC\", but maybe \"source_ssrc\".",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "056febb0_18d20819",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "This is such a confusing value when using it in code that I think I\u0027d prefer an explicit name like \"fraction_lost_per_256_packets_since_last_report\"",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "203e6b7e_cc9d9e3b",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "What if the buffer isn\u0027t big enough?",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c525062_efd461eb",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "Why not system_time or system_timestamp?",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f0f8f10_bc291092",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "This comment could use some more info.  I\u0027m not sure what it means.",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ef96ef9_f2061495",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "Could use RFC 3550 reference",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bee5102_105b6d38",
+        "filename": "streaming/cast/sender_report_builder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "kMaxPacketSize?",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9c9f422_bd050052",
+        "filename": "streaming/cast/sender_report_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-07T16:20:07Z",
+      "side": 1,
+      "message": "And early break here would be nice to push the code left.",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
