@@ -14,11 +14,12 @@ if (build_with_chromium) {
 } else {
   config("abseil_config") {
     include_dirs = [ "//third_party/abseil/src" ]
+    cflags_cc = [
+      "-Wno-sign-compare",
+    ]
   }
 
   source_set("abseil") {
-    cflags_cc = [ "-Wno-sign-compare" ]
-
     sources = [
       "src/absl/base/attributes.h",
       "src/absl/base/config.h",
@@ -35,6 +36,12 @@ if (build_with_chromium) {
       "src/absl/base/optimization.h",
       "src/absl/base/policy_checks.h",
       "src/absl/base/port.h",
+      "src/absl/container/internal/common.h",
+      "src/absl/hash/internal/city.cc",
+      "src/absl/hash/internal/city.h",
+      "src/absl/hash/internal/hash.cc",
+      "src/absl/hash/internal/hash.h",
+      "src/absl/hash/hash.h",
       "src/absl/memory/memory.h",
       "src/absl/meta/type_traits.h",
       "src/absl/strings/ascii.cc",
