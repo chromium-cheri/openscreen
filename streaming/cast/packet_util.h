@@ -42,6 +42,13 @@ inline void AppendField(uint8_t value, absl::Span<uint8_t>* out) {
   out->remove_prefix(sizeof(uint8_t));
 }
 
+// Returns a bitmask for a field having the given number of bits. For example,
+// FieldBitmask<uint8_t>(5) returns 0b00011111.
+template <typename Integer>
+constexpr Integer FieldBitmask(unsigned field_size_in_bits) {
+  return (Integer{1} << field_size_in_bits) - 1;
+}
+
 // Performs a quick-scan of the packet data for the purposes of routing it to an
 // appropriate parser. Identifies whether the packet is a RTP packet, RTCP
 // packet, or unknown; and provides the originator's SSRC. This only performs a
