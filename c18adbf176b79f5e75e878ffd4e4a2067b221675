@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96475b30_c8374a59",
+        "filename": "streaming/cast/ntp_time.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "430ce64e_3a55b915",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfe2b2cd_2d9ed3f2",
         "filename": "streaming/cast/packet_util.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6961884c_2b41c1fa",
+        "filename": "streaming/cast/packet_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfe2b2cd_2d9ed3f2",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "0d422504_e1f7452d",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "It\u0027s only the first 3 bits. byte0 is further modified in the switch-statement.",
+      "parentUuid": "7cd6f0ce_084d3351",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6276f851_8f73238c",
         "filename": "streaming/cast/rtcp_common.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ec3c99_355108c8",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Updated to use FieldBitmask() to make it clearer that this is guarding against out-of-range values for the bit-width of the field.",
+      "parentUuid": "6276f851_8f73238c",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "f73b1840_49cafba3",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70900ef2_f3317573",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d382739a_99259fab",
         "filename": "streaming/cast/rtcp_common.h",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "278e6ab6_3f6e7c6f",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "This came from the existing Cast Streaming code. I renamed it to \"report_count,\" which matches the naming the RFC spec gives it.\n\nI also just realized: Since report_count and subtype are never used at the same time, it makes sense to \"union\" them.",
+      "parentUuid": "d382739a_99259fab",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "0a03293c_f12dd84f",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a338f142_bed7737f",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36b33130_b6bb9d3d",
         "filename": "streaming/cast/rtcp_common.h",
         "patchSetId": 3
@@ -135,6 +261,24 @@
       "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cd41252_2fed4030",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "There\u0027s a CHECK() to sanity-check the argument.",
+      "parentUuid": "36b33130_b6bb9d3d",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "ae8d4c26_4ce4b8aa",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8d29de7_84a6d894",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20a1e442_52f71f67",
         "filename": "streaming/cast/rtcp_common.h",
         "patchSetId": 3
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "3ce96c2a_91aa996e",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20a1e442_52f71f67",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "056febb0_18d20819",
         "filename": "streaming/cast/rtcp_common.h",
         "patchSetId": 3
@@ -183,6 +363,24 @@
       "writtenOn": "2019-05-07T16:20:07Z",
       "side": 1,
       "message": "This is such a confusing value when using it in code that I think I\u0027d prefer an explicit name like \"fraction_lost_per_256_packets_since_last_report\"",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5edb3ce_1b6ec5fe",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Hmmm...To me, that\u0027s even more confusing. :)\n\nFor a while, I looked at this and wondered if it would be less confusing if it were a float in the range [0,255/256]. However, I wouldn\u0027t want to go introducing floating-point types/math without a really good reason, especially since the receiver can very easily calculate this value with simple integer math.\n\nMy solution was to specify this (name and comments) as the \"numerator\" of a fraction. WDYT?",
+      "parentUuid": "056febb0_18d20819",
       "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "461deb03_d26a1058",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "CHECK()\u0027ed.",
+      "parentUuid": "203e6b7e_cc9d9e3b",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c525062_efd461eb",
         "filename": "streaming/cast/rtcp_common.h",
         "patchSetId": 3
@@ -220,6 +436,24 @@
       "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b1e0a09_faee7edc",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "It\u0027ll become clearer in later patches, but throughout Cast Streaming, we use a \"reference_time\" to mean \"a timestamp from the common reference clock corresponding to the RTP timestamp, for A/V sync.\"\n\nUpdated comments to explain this a bit better.",
+      "parentUuid": "7c525062_efd461eb",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "7ca40d36_10116cdc",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "I deleted the comment. I don\u0027t want to explain about something I\u0027m never going to bring over from the old code. :)\n\nFWIW, this was a receiver-to-sender packet type where the Cast Receiver would provide packet-level log event/tracing data; and the sender would then combine this with its own tracing data for sender-side analysis (and included in user feedback reports to help diagnose in-the-wild issues).\n\nIn the future, we might actually decide to revive this; if we ever want to continue such analyses/diagnoses. It\u0027s just a whole lot of code to maintain for unused functionality.",
+      "parentUuid": "6f0f8f10_bc291092",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef96ef9_f2061495",
         "filename": "streaming/cast/rtp_defines.h",
         "patchSetId": 3
@@ -254,6 +506,24 @@
       "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68e1123d_a30fb547",
+        "filename": "streaming/cast/rtp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "There\u0027s a link to it in the top-of-file comments.",
+      "parentUuid": "4ef96ef9_f2061495",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "ed225f21_2817c0ef",
+        "filename": "streaming/cast/sender_report_builder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Renamed to kRequiredBufferSize. That\u0027s really its purpose.",
+      "parentUuid": "2bee5102_105b6d38",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9c9f422_bd050052",
         "filename": "streaming/cast/sender_report_parser.cc",
         "patchSetId": 3
@@ -288,6 +576,24 @@
       "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d49c925a_3d9c6617",
+        "filename": "streaming/cast/sender_report_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-08T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9c9f422_bd050052",
+      "revId": "c18adbf176b79f5e75e878ffd4e4a2067b221675",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
