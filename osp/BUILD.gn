@@ -8,9 +8,11 @@ source_set("osp") {
   public_deps = [
     "public",
   ]
+
   deps = [
     "impl",
   ]
+
   configs += [ "../build:allow_build_from_embedder" ]
 }
 
@@ -19,6 +21,7 @@ if (use_chromium_quic) {
     public_deps = [
       ":osp",
     ]
+
     deps = [
       "impl:chromium_quic_integration",
     ]
