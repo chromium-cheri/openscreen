@@ -1,0 +1,786 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b49329b7_29028f61",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure this is exactly the same as absl::EqualsIgnoreCase:\n\nhttps://github.com/abseil/abseil-cpp/blob/master/absl/strings/match.cc#L21\nhttps://github.com/abseil/abseil-cpp/blob/38b704384cd2f17590b3922b97744be0b43622c9/absl/strings/internal/memutil.cc#L22",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1a23bde_872346b1",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Sounds like it should be called RebaseStringViews.  It doesn\u0027t have anything to do with Labels.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "837fe526_432f5996",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "parses absl::string_view labels from the underlying buffer",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21cf2a84_f2bc0528",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "begin/end/start/current sounds a lot like a BigEndianReader/MdnsReader.  Should it use one of those to track it position instead of doing it manually?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89326464_cae87500",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "bytes_consumed()?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7567a9cc_6ef9536e",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "to the most recent call",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00688491_79f67f29",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "of the name",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee3983d_a1de9fe8",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This seems like a good place to use an optional\u003cabsl::string_view\u003e.  Then we don\u0027t need label() and label_.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2b5a62d_29ae98fe",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Might be cleaner as \n\nwhile(current_ \u003c end_) {\n  \n}\n// Read off the end\nerror_ \u003d true;\nreturn false;",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70b0b91_8ff6b811",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Would be a little more readable with something like \n\nauto label_type \u003d *current_ \u0026 kLabelMask;\nswitch(label_type) {",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e489ff18_67ca47fb",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This is all basically BigEndianReader::ReadU16, right?  Why not just use that?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166e4696_7dc62594",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "And this is BigEndiaReader::Skip, right?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "547061d0_1936d1a3",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "And this is ReadU8",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1419b16_b063fc3b",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This looks a lot like ReadPiece, right?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d1a00c1_33888d23",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Why did the other cases use {} but this one didn\u0027t?  We might as well be consistent.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b89e35ed_c2269547",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Might as well use IsValidDomainLabel here",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed9b5391_edc1bf9b",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "new_label \u003d name_.substr(offset)",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d6b1f3e_6562b73a",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Why are we storing this instead of just calculating it on demand?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1254be85_a467972c",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "So I think this would be more clear as:\nauto label \u003d labels_[label_index]\nauto label_offset \u003d label.data() - name_.data() \nreturn name.substr(label_offset);",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06b586ae_e120494a",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This is frequent enough that it seems like having helper methods would be in order.  Perhaps something like:\n\nsize_t BigEndianReader::size() {\n  return end_ - ptr_;\n}\n\nvoid BigEndianReader::advance(size_t len) {\n  ptr_ +\u003d len;\n}\n\nif (len \u003e size())\n  return false\n...\nadvance(len)\n\n\nBetter yet, just use Skip everywhere:\n\nIn ReadBytes:\n\nauto ptr \u003d ptr_;\nif (!Skip(len))\n  return false;\nmemcpy(out, ptr, len);\nreturn true;\n\nAnd ReadPiece is:\n\nauto ptr \u003d ptr_;\nif (!Skip(len))\n  return false;\n*out \u003d absl::string_view(reinterpret_cast\u003cconst char*\u003e(ptr), len);\nreturn true;\n\nAnd Read is:\nauto ptr \u003d ptr_\nif (!Skip(sizeof(T))\n  return false;\n*out \u003d openscreen::ReadBigEndian\u003cT\u003e(ptr);\nreturn true;\n\n\nOr maybe even use a lambda:\n\nReadBytes:\n\nreturn Read([out, len](const uint8_t* ptr) { \n  memcpy(out, ptr, len);\n}\n\nReadPiece:\n\nreturn Read([out, len](const uint8_t* ptr) { \n  *out \u003d absl::string_view(reinterpret_cast\u003cconst char*\u003e(ptr), len);\n}\n\nRead:\n\nreturn Read([out, len](const uint8_t* ptr) { \n  *out \u003d openscreen::ReadBigEndian\u003cT\u003e(ptr);\n}",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70d7630d_3fc779a8",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Same here with either size()+advance() or using Skip() or using lambdas",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6c7091_e8c6d301",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "In both places where we pass in begin and end we just calculate the end by begin + length.  So can we pass in begin, length instead of being, end?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0d8904_6a2f96b7",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Why don\u0027t we use a C++ iterator and then a for loop?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18bbece7_016481f5",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "It looks like all of our calls to WriteDomainName allow compression, so we could probably just drop the check and always use compression.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cfa8a9f_4d052240",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This comment looks like it belongs one line down",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32ea0a47_56f02f1e",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This could use a better name, like compression_map or written_label_offset_from_subhash.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b11ba450_00a8e846",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Same here: something like domain_name.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c61a12e9_562ab311",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "And domain_name_offset.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14873705_97cd1041",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Might as well use IsValidDomainLabel here",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0e53a07_fdcec7c0",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Why not wrap local_buf in a BigEndianWriter and use \n\nuint16_t label_offset \u003d it-\u003esecond;\ndomain_name.WriteU16((kLabelPointer \u003c\u003c 8) | (label_offset \u0026 kLabelOffsetMask));",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c816f6bf_5c0c2140",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "domain_name.WriteU8(label.size()) here?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "631cbb76_0112aacf",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "And domain_name.WriteBytes(label) here?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64ad93a8_d4c0cc3d",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "And domain_name.WriteU8(kLabelTermination) here?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a05d5fc7_e286651e",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This could be more readable if BigEndianWriter had a ::written_length() {ptr_ - begin_} (by having it store the begin, length, and current offset instead of just current offset and length).\n\nWriteBytes(domain_name, domain_name.written_length());",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c0806a6_68060e3c",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This could use a class-level comment.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "265c71f8_ddf24a84",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "This could use a comment.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e9073e1_77c336b2",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "It should include in the comment that an out-of-bounds index results in the value 0.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "114786b8_186db643",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Can you move the \"\u003d 0\" here?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e804f95e_5af3218c",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Probably worth a comment that the views map to the owned name_ below.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558ab9de_8f78ef21",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "These BigEndianReader/Writer classes would be nice outside of the mdns code.  Can we move those into their own file in common/?\n\nSomeday we should probably unify with the very similar code Yuri just added for streaming.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84a436ff_77b24fae",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "I\u0027ve always thought the out variable should be last.  Is it too much trouble to swap them?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5786fb8a_364db1c0",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Might as well call those \"out\" as well.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49be9ea7_abc23264",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "out?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b827390c_7c916dfa",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "It seems like buffer_ and length_ (and buffer() and length() and offset()) should just be move into BigEndianWriter.  This this class can just focus on ReadDomainName.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a109e697_ed30816c",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Same here with buffer_, length_, buffer(), length(), and offset() all moving to the base class.",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d73408f9_ab8a948e",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T17:24:49Z",
+      "side": 1,
+      "message": "Can we rename this something better like written_name_offset_from_subhash_ or written_name_subhash_to_offset_?",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
