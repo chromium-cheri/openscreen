@@ -84,6 +84,13 @@ class IPAddress {
 
 struct IPEndpoint {
  public:
+  IPEndpoint() = default;
+  IPEndpoint(IPEndpoint&&) = default;
+  IPEndpoint(const IPEndpoint&) = default;
+
+  IPEndpoint& operator=(IPEndpoint&&) = default;
+  IPEndpoint& operator=(const IPEndpoint&) = default;
+
   IPAddress address;
   uint16_t port;
 };
