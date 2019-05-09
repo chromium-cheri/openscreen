@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "36eb97a1_2d343049",
+        "filename": "platform/base/network_socket_watcher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T20:48:26Z",
+      "side": 1,
+      "message": "Can we land the rest of this CL without this file?  I like the changes to TaskRunner, but this seems unrelated.",
+      "revId": "2eefa077c9bd2694e14b8c607c2b74d09a1f3401",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a836c3f2_3aa7026b",
         "filename": "platform/base/network_socket_watcher.h",
         "patchSetId": 4
@@ -48,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "64502929_d987850f",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T20:48:26Z",
+      "side": 1,
+      "message": "We could call it TaskRunnerImpl::Waiter or maybe TaskRunnerImpl::TaskWaiter.  The comment even says it blocks until a new task has been posted.",
+      "parentUuid": "20442d65_8ce223fa",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 19
+      },
+      "revId": "2eefa077c9bd2694e14b8c607c2b74d09a1f3401",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cbaeae9_74179a1e",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 4
@@ -65,6 +106,40 @@
         "endLine": 42,
         "endChar": 16
       },
+      "revId": "2eefa077c9bd2694e14b8c607c2b74d09a1f3401",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30fa8ab2_662f0848",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T20:48:26Z",
+      "side": 1,
+      "message": "Maybe call this WaitForTaskToBePosted",
+      "revId": "2eefa077c9bd2694e14b8c607c2b74d09a1f3401",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c797a1d1_9df77b0c",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-09T20:48:26Z",
+      "side": 1,
+      "message": "Maybe call this OnTaskPosted",
       "revId": "2eefa077c9bd2694e14b8c607c2b74d09a1f3401",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
