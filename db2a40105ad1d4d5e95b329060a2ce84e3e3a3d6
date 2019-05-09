@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c6a27cf_2ca3ff4d",
+        "filename": "osp/public/service_info.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-09T21:03:43Z",
+      "side": 1,
+      "message": "IPEndpoint not movable (i.e. no move optimization).",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc6c3c7_f5a7fd72",
+        "filename": "osp/public/service_info.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-09T21:03:43Z",
+      "side": 1,
+      "message": "Should these be |other.friendly_name|, etc.?",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acf8211c_f11c169d",
+        "filename": "osp/public/service_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-09T21:03:43Z",
+      "side": 1,
+      "message": "IPEndpoint isn\u0027t movable and I\u0027d prefer not to copy two to the stack unnecessarily.",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c6227ad_6ba591c2",
+        "filename": "osp/public/service_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-09T21:03:43Z",
+      "side": 1,
+      "message": "I\u0027d prefer |ServiceInfo\u0026\u0026| here since ServiceInfo isn\u0027t copy-constructible (and 3/5 fields would be copied during each move anyway).",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeeca716_68529328",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-09T21:03:43Z",
+      "side": 1,
+      "message": "Are these `gn format` changes?  Do you know why this passes presubmit on the other patch?",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
