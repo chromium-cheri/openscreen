@@ -8,8 +8,8 @@ source_set("platform") {
   sources = [
     "api/event_waiter.cc",
     "api/event_waiter.h",
-    "api/logging_util.cc",
     "api/logging.h",
+    "api/logging_util.cc",
     "api/network_interface.cc",
     "api/network_interface.h",
     "api/socket.h",
@@ -57,7 +57,7 @@ source_set("platform") {
     }
 
     deps = [
-      ":default_logger"
+      ":default_logger",
     ]
   }
 }
@@ -68,9 +68,7 @@ source_set("default_logger") {
   ]
 
   if (is_posix) {
-    sources += [
-      "posix/log_initializer.cc",
-    ]
+    sources += [ "posix/log_initializer.cc" ]
   }
 
   configs += [ "../build:allow_build_from_embedder" ]
