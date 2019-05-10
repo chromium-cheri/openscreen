@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5199cc9c_390a8ae7",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-10T15:29:27Z",
+      "side": 1,
+      "message": "Does this mean we use 2^16 bytes for every chunk of data?  Or can the array pointer actually end up being smaller (only the length below)?",
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc36c7ba_36c062bb",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-10T15:29:27Z",
+      "side": 1,
+      "message": "Later we\u0027ll want a TCP/TLS version of this.  Should we rename the ReceivedData to ReceivedUdpPacket or UdpSocketReadCallback::Packet?\n\nAlso, would UdpReadCallback be a sufficient name?",
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08c9bf33_736f296b",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-10T15:29:27Z",
+      "side": 1,
+      "message": "Would it make sense to just have a task_runner() method on NetworkRunner?",
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d32ded02_19152135",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-10T15:29:27Z",
+      "side": 1,
+      "message": "Would it make more sense to have this be something like ReadAll where we keep reading from that socket and calling the callback until either the socket is closed or CancelRead is called? Then the user doesn\u0027t have to keep driving it.",
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
