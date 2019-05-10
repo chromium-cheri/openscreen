@@ -7,29 +7,14 @@
 
 #include <sys/types.h>
 
-#include <array>
-#include <cstdint>
 #include <vector>
 
 #include "osp_base/error.h"
-#include "osp_base/ip_address.h"
 #include "platform/api/event_waiter.h"
+#include "platform/api/network_runner.h"
 
 namespace openscreen {
 namespace platform {
-
-static constexpr int kUdpMaxPacketSize = 1 << 16;
-
-struct ReceivedData {
-  ReceivedData();
-  ~ReceivedData();
-
-  IPEndpoint source;
-  IPEndpoint original_destination;
-  std::array<uint8_t, kUdpMaxPacketSize> bytes;
-  ssize_t length;
-  UdpSocket* socket;
-};
 
 Error ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
                            ReceivedData* data);
