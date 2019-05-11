@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2daedffe_12811343",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "I\u0027ve usually seen this written as\n\nsize_t i \u003d 0, j \u003d 0;\nwhile (i \u003c frame_nacks.size() \u0026\u0026 j \u003c packet_nacks.size()) {\n}\nif (i \u003d\u003d frame_nacks.size()) {\n}\nif (j \u003d\u003d packet_nacks.size()) {\n}\n\nI think it\u0027s easier to read this way, but I don\u0027t feel strongly about it.",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 3
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcce38e8_21096e31",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "This function is almost 200 lines long, I think it might make sense to break it up.",
+      "range": {
+        "startLine": 111,
+        "startChar": 41,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "432cb012_6675b19f",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "Maybe this should be a part of Serialize method? Here and below remove_prefix immediately follows Serialize",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 48
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1181c6b_77459808",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "Maybe while loops?\nwhile (it !\u003d nacks_.end() \u0026\u0026 it-\u003efirst \u003c\u003d checkpoint_frame_id_)\n  ++it;\nwhile (it !\u003d nacks_.end() \u0026\u0026 num_loss_fields !\u003d max_num_loss_fields)",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 211,
+        "endChar": 77
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d95d031_932501a5",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "I think it might be worth creating a placement bit vector class for this, where you provide span and it takes care of changing i-th bit in the underlying memory, e.g. though an overloaded []",
+      "range": {
+        "startLine": 243,
+        "startChar": 6,
+        "endLine": 246,
+        "endChar": 59
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9bdd6ae_b592995f",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "Where does +2 come from?",
+      "range": {
+        "startLine": 251,
+        "startChar": 39,
+        "endLine": 251,
+        "endChar": 63
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5fb2d0c_dfcda33f",
+        "filename": "streaming/cast/compound_rtcp_builder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "What\u0027s the reason behind this restriction?",
+      "range": {
+        "startLine": 71,
+        "startChar": 20,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94084501_e548c9be",
+        "filename": "streaming/cast/compound_rtcp_builder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "Maybe rename to include_picture_loss_indicator_ or something along those lines?",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 23
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac0e92c9_f7611b02",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-11T00:16:56Z",
+      "side": 1,
+      "message": "If |num_bytes| is greater than the length of the |out| span, |reserved| span will have length equal to length of |out| spane. Is this the desired behavior?",
+      "range": {
+        "startLine": 45,
+        "startChar": 39,
+        "endLine": 45,
+        "endChar": 65
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
