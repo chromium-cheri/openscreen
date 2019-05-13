@@ -209,6 +209,30 @@
     },
     {
       "key": {
+        "uuid": "6ed36486_41dbef2a",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-13T19:32:40Z",
+      "side": 1,
+      "message": "Or maybe have something like this:\n\nstruct FramePacketLossInformation {\nstd::vector\u003cFramePacketId\u003e lost_packets;\nbool lost_entire_frame \u003d false;\n};\n\nand then accumulate loss information into\nstd::unordered_map\u003cFrameId, FramePacketLossInformation\u003e packet_loss_info;\n\npacket_loss_info[frame_id].lost_packets.push_back(packet_id);\nor\npacket_loss_info[frame_id].lost_entire_frame \u003d true;\n\nthen this function is not needed at all",
+      "parentUuid": "f97653b4_8ab497ce",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a32a20f1_7ca0dfc7",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 1
