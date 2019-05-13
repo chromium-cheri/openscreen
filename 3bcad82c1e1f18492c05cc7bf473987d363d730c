@@ -186,6 +186,75 @@
     },
     {
       "key": {
+        "uuid": "f97653b4_8ab497ce",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-13T18:18:24Z",
+      "side": 1,
+      "message": "Would it make sense to simply have these as std::set since elements being sorted and unique is a required property?",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a32a20f1_7ca0dfc7",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-13T18:18:24Z",
+      "side": 1,
+      "message": "For packets collection after sort there are three passes over it, one in std::unique, one to assign kNullId and one to remove all kNullId entries. I think it can be done in one pass over the sorted packets collection.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 42
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f1e31f1_d05abda2",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-13T18:18:24Z",
+      "side": 1,
+      "message": "Where does it skip over the rest of the ignored data? If ssrc was matching, more data would be read, that should be skipped in case ssrc does not match.",
+      "range": {
+        "startLine": 271,
+        "startChar": 4,
+        "endLine": 271,
+        "endChar": 57
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac0e92c9_f7611b02",
         "filename": "streaming/cast/packet_util.h",
         "patchSetId": 1
