@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "87ac3837_4d9e9037",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-14T19:19:14Z",
+      "side": 1,
+      "message": "This is 2^16 every time.  We could make it a std::vector to enable resizing it down after it\u0027s read, but since this is should be a temporary structure I don\u0027t think there\u0027s much benefit there.",
+      "parentUuid": "5199cc9c_390a8ae7",
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc36c7ba_36c062bb",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e446a189_b655d1ba",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-14T19:19:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc36c7ba_36c062bb",
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a40657f_4b15a53c",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2019-05-10T23:08:11Z",
       "side": 1,
       "message": "What happened to the Write methods mentioned in the design doc?",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 19
+      },
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44211f99_7150925a",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-14T19:19:14Z",
+      "side": 1,
+      "message": "We don\u0027t actually have any current or planned use for those methods, so although we have them in the watch API and I put them in the doc, I had second thoughts about including them here.",
+      "parentUuid": "3a40657f_4b15a53c",
       "range": {
         "startLine": 52,
         "startChar": 6,
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "0838f4a1_123e7dbc",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-14T19:19:14Z",
+      "side": 1,
+      "message": "I don\u0027t think adding the extra indirection is helpful, and it might be even more unnecessary in the Chromium implementation (e.g. NetworkRunner would have a SequencedTaskRunner that it uses, and the network service callbacks also refer to that task runner, but we\u0027d also need to wrap SequencedTaskRunner in a TaskRunner interface to return from the NetworkRunner interface).",
+      "parentUuid": "08c9bf33_736f296b",
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "750b6888_af8e752d",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 1
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "bf7844c5_a279cdff",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-14T19:19:14Z",
+      "side": 1,
+      "message": "Changed to ReadAll per Peter\u0027s comment.",
+      "parentUuid": "750b6888_af8e752d",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 27
+      },
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d32ded02_19152135",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 1
@@ -113,6 +215,24 @@
       "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1b06565_72a105a2",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-14T19:19:14Z",
+      "side": 1,
+      "message": "I should\u0027ve included this in the above comment, but the intention was for it to be a permanent watch without the need for re-subscribing after every read, as was discussed in the doc.  Changing the name to ReadAll would also make that more clear though.",
+      "parentUuid": "d32ded02_19152135",
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
