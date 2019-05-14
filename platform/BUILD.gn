@@ -16,6 +16,8 @@ source_set("platform") {
     "api/task_runner.h",
     "api/task_runner_factory.h",
     "api/time.h",
+    "api/trace_logging.cc",
+    "api/trace_logging.h",
     "base/time.cc",
   ]
 
@@ -34,6 +36,7 @@ source_set("platform") {
       "base/task_runner_factory.cc",
       "base/task_runner_impl.cc",
       "base/task_runner_impl.h",
+      "base/trace_logging.cc",
     ]
 
     if (is_linux) {
@@ -68,6 +71,7 @@ source_set("platform_unittests") {
   # Exclude them if an embedder is providing the implementation.
   if (!build_with_chromium) {
     sources += [
+      "api/trace_logging_unittest.cc",
       "base/task_runner_unittest.cc",
       "base/time_unittest.cc",
     ]
@@ -76,5 +80,6 @@ source_set("platform_unittests") {
   deps = [
     ":platform",
     "../third_party/googletest:gtest",
+    "../third_party/googletest:gmock",
   ]
 }

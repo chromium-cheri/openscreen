@@ -101,6 +101,125 @@ class Error {
   Code code_ = Code::kNone;
   std::string message_;
 };
+inline std::ostream& operator<<(std::ostream& os, const Error::Code& code) {
+  switch (code) {
+    case Error::Code::kNone:
+      os << "Success";
+      break;
+    case Error::Code::kAgain:
+      os << "Transient Failure";
+      break;
+    case Error::Code::kCborParsing:
+      os << "Failure: CborParsing";
+      break;
+    case Error::Code::kCborEncoding:
+      os << "Failure: CborEncoding";
+      break;
+    case Error::Code::kCborIncompleteMessage:
+      os << "Failure: CborIncompleteMessage";
+      break;
+    case Error::Code::kCborInvalidMessage:
+      os << "Failure: CborInvalidMessage";
+      break;
+    case Error::Code::kCborInvalidResponseId:
+      os << "Failure: CborInvalidResponseId";
+      break;
+    case Error::Code::kNoAvailableReceivers:
+      os << "Failure: NoAvailableReceivers";
+      break;
+    case Error::Code::kRequestCancelled:
+      os << "Failure: RequestCancelled";
+      break;
+    case Error::Code::kNoPresentationFound:
+      os << "Failure: NoPresentationFound";
+      break;
+    case Error::Code::kPreviousStartInProgress:
+      os << "Failure: PreviousStartInProgress";
+      break;
+    case Error::Code::kUnknownStartError:
+      os << "Failure: UnknownStartError";
+      break;
+    case Error::Code::kUnknownRequestId:
+      os << "Failure: UnknownRequestId";
+      break;
+    case Error::Code::kAddressInUse:
+      os << "Failure: AddressInUse";
+      break;
+    case Error::Code::kAlreadyListening:
+      os << "Failure: AlreadyListening";
+      break;
+    case Error::Code::kDomainNameTooLong:
+      os << "Failure: DomainNameTooLong";
+      break;
+    case Error::Code::kDomainNameLabelTooLong:
+      os << "Failure: DomainNameLabelTooLong";
+      break;
+    case Error::Code::kGenericPlatformError:
+      os << "Failure: GenericPlatformError";
+      break;
+    case Error::Code::kIOFailure:
+      os << "Failure: IOFailure";
+      break;
+    case Error::Code::kInitializationFailure:
+      os << "Failure: InitializationFailure";
+      break;
+    case Error::Code::kInvalidIPV4Address:
+      os << "Failure: InvalidIPV4Address";
+      break;
+    case Error::Code::kInvalidIPV6Address:
+      os << "Failure: InvalidIPV6Address";
+      break;
+    case Error::Code::kConnectionFailed:
+      os << "Failure: ConnectionFailed";
+      break;
+    case Error::Code::kSocketOptionSettingFailure:
+      os << "Failure: SocketOptionSettingFailure";
+      break;
+    case Error::Code::kSocketBindFailure:
+      os << "Failure: SocketBindFailure";
+      break;
+    case Error::Code::kSocketClosedFailure:
+      os << "Failure: SocketClosedFailure";
+      break;
+    case Error::Code::kSocketReadFailure:
+      os << "Failure: SocketReadFailure";
+      break;
+    case Error::Code::kSocketSendFailure:
+      os << "Failure: SocketSendFailure";
+      break;
+    case Error::Code::kMdnsRegisterFailure:
+      os << "Failure: MdnsRegisterFailure";
+      break;
+    case Error::Code::kNoItemFound:
+      os << "Failure: NoItemFound";
+      break;
+    case Error::Code::kNotImplemented:
+      os << "Failure: NotImplemented";
+      break;
+    case Error::Code::kNotRunning:
+      os << "Failure: NotRunning";
+      break;
+    case Error::Code::kParseError:
+      os << "Failure: ParseError";
+      break;
+    case Error::Code::kUnknownMessageType:
+      os << "Failure: UnknownMessageType";
+      break;
+    case Error::Code::kNoActiveConnection:
+      os << "Failure: NoActiveConnection";
+      break;
+    case Error::Code::kAlreadyClosed:
+      os << "Failure: AlreadyClosed";
+      break;
+    case Error::Code::kNoStartedPresentation:
+      os << "Failure: NoStartedPresentation";
+      break;
+    case Error::Code::kPresentationAlreadyStarted:
+      os << "Failure: PresentationAlreadyStarted";
+      break;
+  }
+  return os;
+}
 
 std::ostream& operator<<(std::ostream& out, const Error& error);
 
