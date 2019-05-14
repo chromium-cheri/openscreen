@@ -6,6 +6,7 @@
 #define PLATFORM_API_TIME_H_
 
 #include <chrono>
+#include <ostream>
 
 namespace openscreen {
 namespace platform {
@@ -41,6 +42,10 @@ class Clock {
   static_assert(std::is_trivially_copyable<time_point>(),
                 "time_point is not trivially copyable");
 };
+inline std::ostream& operator<<(std::ostream& os, const Clock::time_point& tp) {
+  os << tp.time_since_epoch().count();
+  return os;
+}
 
 // Convenience, for injecting Clocks into classes. Note: The 'noexcept' keyword
 // is dropped here to avoid a well-known Clang compiler warning (about an

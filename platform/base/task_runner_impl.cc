@@ -21,7 +21,7 @@ TaskRunnerImpl::~TaskRunnerImpl() = default;
 
 void TaskRunnerImpl::PostTask(Task task) {
   std::lock_guard<std::mutex> lock(task_mutex_);
-  tasks_.push_back(std::move(task));
+  tasks_.push_back(ImmediateTask{std::move(task)});
   if (task_waiter_) {
     task_waiter_->OnTaskPosted();
   } else {
@@ -66,7 +66,7 @@ void TaskRunnerImpl::RunUntilIdleForTesting() {
 }
 
 void TaskRunnerImpl::RunCurrentTasksForTesting() {
-  std::deque<Task> current_tasks;
+  std::deque<ImmediateTask> current_tasks;
   {
     // Unlike in the RunCurrentTasksBlocking method, here we just immediately
     // take the lock and drain the tasks_ queue. This allows tests to avoid
@@ -75,13 +75,13 @@ void TaskRunnerImpl::RunCurrentTasksForTesting() {
     tasks_.swap(current_tasks);
   }
 
-  for (Task& task : current_tasks) {
-    task();
+  for (ImmediateTask& imm_task : current_tasks) {
+    imm_task.task();
   }
 }
 
 void TaskRunnerImpl::RunCurrentTasksBlocking() {
-  std::deque<Task> current_tasks;
+  std::deque<ImmediateTask> current_tasks;
   {
     // Wait for the lock. If there are no current tasks, we will wait until
     // a delayed task is ready or a task gets added to the queue.
@@ -93,9 +93,10 @@ void TaskRunnerImpl::RunCurrentTasksBlocking() {
     tasks_.swap(current_tasks);
   }
 
-  for (Task& task : current_tasks) {
+  for (ImmediateTask& imm_task : current_tasks) {
     OSP_DVLOG << "Running " << current_tasks.size() << " current tasks...";
-    task();
+    TRACE_SET_HIERARCHY(imm_task.trace_ids);
+    imm_task.task();
   }
 }
 
@@ -113,7 +114,8 @@ void TaskRunnerImpl::ScheduleDelayedTasks() {
   const auto current_time = now_function_();
   while (!delayed_tasks_.empty() &&
          (delayed_tasks_.top().runnable_after <= current_time)) {
-    tasks_.push_back(std::move(delayed_tasks_.top().task));
+    tasks_.push_back({std::move(delayed_tasks_.top().task),
+                      std::move(delayed_tasks_.top().trace_ids)});
     delayed_tasks_.pop();
   }
 }
