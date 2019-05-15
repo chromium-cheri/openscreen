@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "307b8089_da9ed1db",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-15T17:12:46Z",
+      "side": 1,
+      "message": "Any reason to prefer this over Clock::duration?",
+      "range": {
+        "startLine": 36,
+        "startChar": 42,
+        "endLine": 36,
+        "endChar": 67
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2daedffe_12811343",
         "filename": "streaming/cast/compound_rtcp_builder.cc",
         "patchSetId": 1
@@ -25,6 +48,53 @@
     },
     {
       "key": {
+        "uuid": "8f434bed_7b2c7987",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-15T17:12:46Z",
+      "side": 1,
+      "message": "Alternatively, what are your thoughts on using std::transform -\u003e std::merge / absl::c_merge? It would be more readable, though I am not sure if the compiler would optimize out the extra iteration",
+      "parentUuid": "2daedffe_12811343",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 3
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "509c93d8_a5c6d10e",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-15T17:12:46Z",
+      "side": 1,
+      "message": "why not make this the for loop\u0027s break condition",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 5
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcce38e8_21096e31",
         "filename": "streaming/cast/compound_rtcp_builder.cc",
         "patchSetId": 1
@@ -36,6 +106,30 @@
       "writtenOn": "2019-05-11T00:16:56Z",
       "side": 1,
       "message": "This function is almost 200 lines long, I think it might make sense to break it up.",
+      "range": {
+        "startLine": 111,
+        "startChar": 41,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "620ab8de_e83d069e",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-15T17:12:46Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "fcce38e8_21096e31",
       "range": {
         "startLine": 111,
         "startChar": 41,
@@ -156,6 +250,29 @@
         "startChar": 20,
         "endLine": 72,
         "endChar": 28
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166affb0_1889d4a8",
+        "filename": "streaming/cast/compound_rtcp_builder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-15T17:12:46Z",
+      "side": 1,
+      "message": "nit: increasing or decreasing",
+      "range": {
+        "startLine": 74,
+        "startChar": 42,
+        "endLine": 74,
+        "endChar": 48
       },
       "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
