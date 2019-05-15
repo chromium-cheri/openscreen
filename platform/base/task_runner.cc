@@ -2,24 +2,24 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file
 
-#include "platform/base/task_runner_impl.h"
+#include "platform/base/task_runner.h"
 
 #include "platform/api/logging.h"
 
 namespace openscreen {
 namespace platform {
 
-TaskRunnerImpl::TaskRunnerImpl(platform::ClockNowFunctionPtr now_function,
-                               TaskWaiter* event_waiter,
-                               Clock::duration waiter_timeout)
+TaskRunner::TaskRunner(platform::ClockNowFunctionPtr now_function,
+                       TaskWaiter* event_waiter,
+                       Clock::duration waiter_timeout)
     : now_function_(now_function),
       is_running_(false),
       task_waiter_(event_waiter),
       waiter_timeout_(waiter_timeout) {}
 
-TaskRunnerImpl::~TaskRunnerImpl() = default;
+TaskRunner::~TaskRunner() = default;
 
-void TaskRunnerImpl::PostTask(Task task) {
+void TaskRunner::PostTask(Task task) {
   std::lock_guard<std::mutex> lock(task_mutex_);
   tasks_.push_back(std::move(task));
   if (task_waiter_) {
@@ -29,7 +29,7 @@ void TaskRunnerImpl::PostTask(Task task) {
   }
 }
 
-void TaskRunnerImpl::PostTaskWithDelay(Task task, Clock::duration delay) {
+void TaskRunner::PostTaskWithDelay(Task task, Clock::duration delay) {
   std::lock_guard<std::mutex> lock(task_mutex_);
   delayed_tasks_.emplace(std::move(task), now_function_() + delay);
   if (task_waiter_) {
@@ -39,14 +39,14 @@ void TaskRunnerImpl::PostTaskWithDelay(Task task, Clock::duration delay) {
   }
 }
 
-void TaskRunnerImpl::RunUntilStopped() {
+void TaskRunner::RunUntilStopped() {
   const bool was_running = is_running_.exchange(true);
   OSP_CHECK(!was_running);
 
   RunTasksUntilStopped();
 }
 
-void TaskRunnerImpl::RequestStopSoon() {
+void TaskRunner::RequestStopSoon() {
   const bool was_running = is_running_.exchange(false);
 
   if (was_running) {
@@ -60,12 +60,12 @@ void TaskRunnerImpl::RequestStopSoon() {
   }
 }
 
-void TaskRunnerImpl::RunUntilIdleForTesting() {
+void TaskRunner::RunUntilIdleForTesting() {
   ScheduleDelayedTasks();
   RunCurrentTasksForTesting();
 }
 
-void TaskRunnerImpl::RunCurrentTasksForTesting() {
+void TaskRunner::RunCurrentTasksForTesting() {
   std::deque<Task> current_tasks;
   {
     // Unlike in the RunCurrentTasksBlocking method, here we just immediately
@@ -80,7 +80,7 @@ void TaskRunnerImpl::RunCurrentTasksForTesting() {
   }
 }
 
-void TaskRunnerImpl::RunCurrentTasksBlocking() {
+void TaskRunner::RunCurrentTasksBlocking() {
   std::deque<Task> current_tasks;
   {
     // Wait for the lock. If there are no current tasks, we will wait until
@@ -99,14 +99,14 @@ void TaskRunnerImpl::RunCurrentTasksBlocking() {
   }
 }
 
-void TaskRunnerImpl::RunTasksUntilStopped() {
+void TaskRunner::RunTasksUntilStopped() {
   while (is_running_) {
     ScheduleDelayedTasks();
     RunCurrentTasksBlocking();
   }
 }
 
-void TaskRunnerImpl::ScheduleDelayedTasks() {
+void TaskRunner::ScheduleDelayedTasks() {
   std::lock_guard<std::mutex> lock(task_mutex_);
 
   // Getting the time can be expensive on some platforms, so only get it once.
@@ -118,7 +118,7 @@ void TaskRunnerImpl::ScheduleDelayedTasks() {
   }
 }
 
-bool TaskRunnerImpl::ShouldWakeUpRunLoop() {
+bool TaskRunner::ShouldWakeUpRunLoop() {
   if (!is_running_) {
     return true;
   }
@@ -131,7 +131,7 @@ bool TaskRunnerImpl::ShouldWakeUpRunLoop() {
          (delayed_tasks_.top().runnable_after <= now_function_());
 }
 
-std::unique_lock<std::mutex> TaskRunnerImpl::WaitForWorkAndAcquireLock() {
+std::unique_lock<std::mutex> TaskRunner::WaitForWorkAndAcquireLock() {
   // These checks are redundant, as they are a subset of predicates in the
   // below wait predicate. However, this is more readable and a slight
   // optimization, as we don't need to take a lock if we aren't running.

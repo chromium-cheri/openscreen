@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef PLATFORM_BASE_TASK_RUNNER_IMPL_H_
-#define PLATFORM_BASE_TASK_RUNNER_IMPL_H_
+#ifndef PLATFORM_BASE_TASK_RUNNER_H_
+#define PLATFORM_BASE_TASK_RUNNER_H_
 
 #include <atomic>
 #include <condition_variable>  // NOLINT
@@ -19,14 +19,16 @@
 #include "absl/base/thread_annotations.h"
 #include "absl/types/optional.h"
 #include "osp_base/error.h"
-#include "platform/api/task_runner.h"
+#include "platform/api/network_runner.h"
 #include "platform/api/time.h"
 
 namespace openscreen {
 namespace platform {
 
-class TaskRunnerImpl : public TaskRunner {
+class TaskRunner {
  public:
+  using Task = NetworkRunner::Task;
+
   class TaskWaiter {
    public:
     virtual ~TaskWaiter() = default;
@@ -47,25 +49,24 @@ class TaskRunnerImpl : public TaskRunner {
     virtual void OnTaskPosted() = 0;
   };
 
-  explicit TaskRunnerImpl(
+  explicit TaskRunner(
       platform::ClockNowFunctionPtr now_function,
       TaskWaiter* event_waiter = nullptr,
       Clock::duration waiter_timeout = std::chrono::milliseconds(100));
 
-  // TaskRunner overrides
-  ~TaskRunnerImpl() override;
-  void PostTask(Task task) override;
-  void PostTaskWithDelay(Task task, Clock::duration delay) override;
+  ~TaskRunner();
+  void PostTask(Task task);
+  void PostTaskWithDelay(Task task, Clock::duration delay);
 
   // Tasks will only be executed if RunUntilStopped has been called, and
-  // RequestStopSoon has not. Important note: TaskRunnerImpl does NOT do any
+  // RequestStopSoon has not. Important note: TaskRunner does NOT do any
   // threading, so calling "RunUntilStopped()" will block whatever thread you
   // are calling it on.
   void RunUntilStopped();
 
-  // Thread-safe method for requesting the TaskRunnerImpl to stop running. This
-  // sets a flag that will get checked in the run loop, typically after
-  // completing the current task.
+  // Thread-safe method for requesting the TaskRunner to stop running. This sets
+  // a flag that will get checked in the run loop, typically after completing
+  // the current task.
   void RequestStopSoon();
 
   // Execute all tasks immediately, useful for testing only. Note: this method
@@ -137,4 +138,4 @@ class TaskRunnerImpl : public TaskRunner {
 }  // namespace platform
 }  // namespace openscreen
 
-#endif  // PLATFORM_BASE_TASK_RUNNER_IMPL_H_
+#endif  // PLATFORM_BASE_TASK_RUNNER_H_
