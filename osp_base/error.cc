@@ -59,9 +59,4 @@ const Error& Error::None() {
   return error;
 }
 
-std::ostream& operator<<(std::ostream& out, const Error& error) {
-  out << Error::CodeToString(error.code()) << ": " << error.message();
-  return out;
-}
-
 }  // namespace openscreen
