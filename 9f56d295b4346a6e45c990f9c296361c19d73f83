@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "44b37461_68cdb0cf",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-17T16:58:09Z",
+      "side": 1,
+      "message": "Why are we combining the interfaces for the TaskRunner and the Network Waiter? I am 100% for having the same object handle both, but I think having separate interfaces would be better - that way we can pass all TaskRunner calls to an internal TaskRunner object (previously TaskRunnerImpl) and all NetworkWaiter calls to an internal NetworkWaiter object.\n\nThen the UdpReadCallback can directly refer to the internal NetworkWaiter, rather than adding an extra level of indirection and std::bind call before passing all processing along to the internal NetworkWaiter",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86626789_319df86c",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 4
