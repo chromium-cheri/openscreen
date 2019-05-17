@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f60b82b8_ce7d7b17",
+        "filename": "osp/public/service_info.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-17T18:36:25Z",
+      "side": 1,
+      "message": "Why don\u0027t we just add a move optimization? I don\u0027t understand why copying is better.",
+      "parentUuid": "5c6a27cf_2ca3ff4d",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bc6c3c7_f5a7fd72",
         "filename": "osp/public/service_info.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b2314353_621d4aeb",
+        "filename": "osp/public/service_info.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-17T18:36:25Z",
+      "side": 1,
+      "message": "Deleting this method.",
+      "parentUuid": "3bc6c3c7_f5a7fd72",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef6f208c_23355295",
         "filename": "osp/public/service_info.cc",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dd8079d_9d596afd",
+        "filename": "osp/public/service_info.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-17T18:36:25Z",
+      "side": 1,
+      "message": "Deleting this method.",
+      "parentUuid": "ef6f208c_23355295",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "85ad5531_974daaa1",
+        "filename": "osp/public/service_info.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-17T18:36:25Z",
+      "side": 1,
+      "message": "Added one for Update. Do we want one for ctors? Seems excessive.",
+      "parentUuid": "4f41bc43_c82d2fd5",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acf8211c_f11c169d",
         "filename": "osp/public/service_info.h",
         "patchSetId": 2
@@ -87,6 +165,24 @@
       "writtenOn": "2019-05-09T21:03:43Z",
       "side": 1,
       "message": "IPEndpoint isn\u0027t movable and I\u0027d prefer not to copy two to the stack unnecessarily.",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f8bfa47_0a5ef763",
+        "filename": "osp/public/service_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-17T18:36:25Z",
+      "side": 1,
+      "message": "If we pass a const reference here, and we have direct copy below, how is the stack copy unnecessary? Passing a const\u0026 just hides the stack copy internally, passing IPEndpoint directly here creates a temporary variable that gets moved to the v4_endpoint field.\n\nAm I missing something?",
+      "parentUuid": "acf8211c_f11c169d",
       "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -128,6 +224,24 @@
     },
     {
       "key": {
+        "uuid": "dc0374a3_f7df4965",
+        "filename": "osp/public/service_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-17T18:36:25Z",
+      "side": 1,
+      "message": "Good point. Deleting.",
+      "parentUuid": "c738db86_70a217d8",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeeca716_68529328",
         "filename": "platform/BUILD.gn",
         "patchSetId": 2
@@ -142,6 +256,24 @@
       "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb751d44_482123f9",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-17T18:36:25Z",
+      "side": 1,
+      "message": "Yeah, I think I touched this file in an earlier revision. I can nuke this for now.",
+      "parentUuid": "eeeca716_68529328",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
