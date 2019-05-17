@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d6f62a0c_4d2726e9",
+        "filename": "osp/public/service_info.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-17T20:37:14Z",
+      "side": 1,
+      "message": "IPEndpoint consists of an enum and a std::array, both of which are always copied.  Copying is not better, but it\u0027s the only possibility.  You can write std::move() but it will still do a copy.",
+      "parentUuid": "f60b82b8_ce7d7b17",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3bc6c3c7_f5a7fd72",
         "filename": "osp/public/service_info.cc",
         "patchSetId": 2
@@ -183,6 +201,24 @@
       "side": 1,
       "message": "If we pass a const reference here, and we have direct copy below, how is the stack copy unnecessary? Passing a const\u0026 just hides the stack copy internally, passing IPEndpoint directly here creates a temporary variable that gets moved to the v4_endpoint field.\n\nAm I missing something?",
       "parentUuid": "acf8211c_f11c169d",
+      "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c543ae_a6157173",
+        "filename": "osp/public/service_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-17T20:37:14Z",
+      "side": 1,
+      "message": "Some method Foo() will call Update and has a v4_endpoint to pass.  It\u0027s stored somewhere, local or otherwise.  It calls Update() as-is so it gets copied to the argument part of the stack in the call preamble.  Update() the copies from the stack\u0027s argument space to |this-\u003ev4_endpoint|.\n\nPassing as a const-ref: Calling Update() puts a pointer on in the stack argument space.  Update() follows the pointer to copy from that memory to |this-\u003ev4_endpoint|.\n\nThis optimizer _may_ do away with the second copy in the current situation but I doubt it.",
+      "parentUuid": "9f8bfa47_0a5ef763",
       "revId": "db2a40105ad1d4d5e95b329060a2ce84e3e3a3d6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
