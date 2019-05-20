@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "01f1e9c6_0e202ecd",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-20T22:04:31Z",
+      "side": 1,
+      "message": "Instead of using a unique_ptr, how about just a regular pointer and we make it part of the call contract that we expect the caller to delete the object?\n\nThe reason for this is that unique_ptr is non-copyable, which means we can\u0027t use std::bind(...) to bind this function to a function\u003cvoid()\u003e, so it will be difficult to push OnRead(...) to the TaskQueue (which expects function\u003cvoid()\u003e) for later processing",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41d28fd5_a5f2b98c",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
