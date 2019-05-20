@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b178adcf_8bb43d8c",
+        "filename": "osp_base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-20T20:19:50Z",
+      "side": 1,
+      "message": "Why do we have the operator\u003c\u003c and CodeToString?\nI would prefer putting the operator\u003c\u003c cases here, to avoid duplication.",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63b8d4e2_64b0f231",
+        "filename": "osp_base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-20T20:19:50Z",
+      "side": 1,
+      "message": "Why is this declared inline in the .h?  error.h is included from many files.",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a8db487_592152f2",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-20T20:19:50Z",
+      "side": 1,
+      "message": "Can this .h be split into two files:\n- The macros which code that uses tracing will actually need\n- The tracing implementation\n\nThis will make it clearer to calling code what parts should actually be used.",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c87cfe2b_560bb803",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-20T20:19:50Z",
+      "side": 1,
+      "message": "Can you add some documentation to our docs/ folder on how to use the tracing framework, and add a link here?  Fine to do in a separate patch.",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9a4e85d_f1daac4b",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-20T20:19:50Z",
+      "side": 1,
+      "message": "What is the meaning of these categories and why did you choose these initial categories?  Can you elaborate a bit more here?",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e801d15_5f493045",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-20T20:19:50Z",
+      "side": 1,
+      "message": "Who sets this and when?",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
