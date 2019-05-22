@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cfb90cc5_d0de600a",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Switched to using absl::EqualsIgnoreCase for comparison",
+      "parentUuid": "b49329b7_29028f61",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1a23bde_872346b1",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cea651f_94ce2804",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Not needed anymore after the re-write",
+      "parentUuid": "f1a23bde_872346b1",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f3ccbbea_24c73994",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "837fe526_432f5996",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21cf2a84_f2bc0528",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "609160c2_77ee5036",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Using begin(), end() and current() where possible in MdnsReader and MdnsWriter subclasses. Cannot use Read method for reading domain names as Read advances current_ pointer. This is the desired behavior for Read method itself, but we do not want to modify current_ until we are sure we\u0027ve successfully read the domain name.",
+      "parentUuid": "21cf2a84_f2bc0528",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "aba6e160_1ad6c0c4",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Doesn\u0027t apply here, the entire label iterator is chopped. Named a similar field in MdnsWriter consumed_bytes",
+      "parentUuid": "89326464_cae87500",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7567a9cc_6ef9536e",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e57d6f2d_0f01db6d",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7567a9cc_6ef9536e",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "5c90a9ea_b0dc1e93",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00688491_79f67f29",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dee3983d_a1de9fe8",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -135,6 +261,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07f696c5_9d3ae72b",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Fake iterator-not-iterator class is no more.",
+      "parentUuid": "dee3983d_a1de9fe8",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "ef8cd867_a4e0e75b",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Switched to using if-else to handle kLabelTermination nicely",
+      "parentUuid": "a70b0b91_8ff6b811",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e489ff18_67ca47fb",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -186,6 +348,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edfd59f6_1dd39b09",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "ReadU16 advances current_ (desired behavior) which we don\u0027t want to do unless we are sure we\u0027ve successfully read the domain name.",
+      "parentUuid": "e489ff18_67ca47fb",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +386,24 @@
     },
     {
       "key": {
+        "uuid": "bc8ecb81_0482f41d",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Using Skip to advance current_ where possible in MdnsReader and MdnsWriter subclasses.",
+      "parentUuid": "166e4696_7dc62594",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "547061d0_1936d1a3",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -220,6 +418,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59e04f6_6f0cbaf2",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Not used for the same reason as above",
+      "parentUuid": "547061d0_1936d1a3",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -240,6 +456,24 @@
     },
     {
       "key": {
+        "uuid": "09e38e99_bbc00838",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Same as ReadU8 and ReadU16, also tossed away ReadPiece due to zero usages anywhere.",
+      "parentUuid": "a1419b16_b063fc3b",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d1a00c1_33888d23",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -254,6 +488,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3af69a05_52c155a8",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Replaced switch with if-else to simplify check for kLabelTermination",
+      "parentUuid": "1d1a00c1_33888d23",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +543,24 @@
     },
     {
       "key": {
+        "uuid": "9e1696a6_ae5c9f5a",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed9b5391_edc1bf9b",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d6b1f3e_6562b73a",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -305,6 +575,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd83f31_1085f1ea",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "I left this as is, similar to how std containers try to keep constant time whenever it\u0027s cheap. (e.g. size())\nIt would be comparatively expensive to iterate multiple string labels and accumulate all the sizes to just storing and extra size_t per an instance of DomainName",
+      "parentUuid": "1d6b1f3e_6562b73a",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +613,24 @@
     },
     {
       "key": {
+        "uuid": "11dd3d83_5093415a",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "SubName method is gone, it\u0027s only use was for compression, which I\u0027ve re-written.",
+      "parentUuid": "1254be85_a467972c",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06b586ae_e120494a",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -339,6 +645,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac43be37_c430188c",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Moved to a different code review.",
+      "parentUuid": "06b586ae_e120494a",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +683,24 @@
     },
     {
       "key": {
+        "uuid": "2df2f919_088c3b39",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "In a different PR",
+      "parentUuid": "70d7630d_3fc779a8",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b6c7091_e8c6d301",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -376,6 +718,24 @@
     },
     {
       "key": {
+        "uuid": "5648ab06_41566b8b",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "ReadDomainName works of begin(), end() and current() methods available from the base BigEndianReader class now.",
+      "parentUuid": "2b6c7091_e8c6d301",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b0d8904_6a2f96b7",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -390,6 +750,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b87fce8_4904d66d",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Chopped the iterator class completely, we don\u0027t need it at all for anything.",
+      "parentUuid": "9b0d8904_6a2f96b7",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -444,6 +822,24 @@
     },
     {
       "key": {
+        "uuid": "e4d89348_a59013a9",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Gone",
+      "parentUuid": "32ea0a47_56f02f1e",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b11ba450_00a8e846",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -461,6 +857,24 @@
     },
     {
       "key": {
+        "uuid": "a6520631_1773283f",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Gone",
+      "parentUuid": "b11ba450_00a8e846",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c61a12e9_562ab311",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -475,6 +889,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83259ccf_ebd9dba5",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Gone",
+      "parentUuid": "c61a12e9_562ab311",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -512,6 +944,24 @@
     },
     {
       "key": {
+        "uuid": "18b7f350_f13d91df",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "That\u0027s pretty much what happened after the re-write.",
+      "parentUuid": "a0e53a07_fdcec7c0",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c816f6bf_5c0c2140",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -526,6 +976,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e307a94c_84579417",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Not using Write method as it advances current_ (desired behavior), which we don\u0027t want to do here until we are sure we were able to write the full domain name. Then using Skip to set the writer to the right place.",
+      "parentUuid": "c816f6bf_5c0c2140",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -546,6 +1014,24 @@
     },
     {
       "key": {
+        "uuid": "4b61ae7f_9ca6318d",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Same reason as Write",
+      "parentUuid": "631cbb76_0112aacf",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64ad93a8_d4c0cc3d",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -563,6 +1049,24 @@
     },
     {
       "key": {
+        "uuid": "1310738e_d2ebe3de",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Same reason as above",
+      "parentUuid": "64ad93a8_d4c0cc3d",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a05d5fc7_e286651e",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 3
@@ -577,6 +1081,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16cd41c_96ebddaa",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "domain_name is gone, writing directly to destination buffer",
+      "parentUuid": "a05d5fc7_e286651e",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -648,6 +1170,24 @@
     },
     {
       "key": {
+        "uuid": "463209aa_96c9cc52",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "114786b8_186db643",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e804f95e_5af3218c",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 3
@@ -662,6 +1202,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bba93963_48f4e7ad",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Doesn\u0027t apply after the re-write, labels are stored as strings as-is.",
+      "parentUuid": "e804f95e_5af3218c",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -700,6 +1258,24 @@
     },
     {
       "key": {
+        "uuid": "f43a1eae_450d8e4e",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Factored out classes based on Peter\u0027s suggestion. It makes MdnsReader and MdnsWriter code easier to understand, since these subclasses are very simple now. Cannot use absl::Span approach for these classes, since mDNS name compression requires looking back into the already parsed buffer.",
+      "parentUuid": "9542c8a8_b2ec3b7e",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84a436ff_77b24fae",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 3
@@ -714,6 +1290,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52fdb093_7d88e588",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84a436ff_77b24fae",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -734,6 +1328,24 @@
     },
     {
       "key": {
+        "uuid": "c10e6a22_15213a4c",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Removed these in favor of templated Read",
+      "parentUuid": "5786fb8a_364db1c0",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49be9ea7_abc23264",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 3
@@ -748,6 +1360,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed714635_4e0b50c6",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49be9ea7_abc23264",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -768,6 +1398,24 @@
     },
     {
       "key": {
+        "uuid": "b2b71a3d_020d260e",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b827390c_7c916dfa",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a109e697_ed30816c",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 3
@@ -785,6 +1433,24 @@
     },
     {
       "key": {
+        "uuid": "cff771cc_4e246642",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a109e697_ed30816c",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d73408f9_ab8a948e",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 3
@@ -799,6 +1465,24 @@
       "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49171d57_c6f11a34",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-22T23:02:54Z",
+      "side": 1,
+      "message": "I\u0027ve renamed it to dictionary_ (as it\u0027s called in compression algorithms) and updated the comment.",
+      "parentUuid": "d73408f9_ab8a948e",
+      "revId": "bcee51def28beeb7769ca81180358d4fbdad4ce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
