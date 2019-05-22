@@ -119,6 +119,8 @@ include_rules = [
     '+absl/strings/match.h',
     '+absl/strings/numbers.h',
     '+absl/strings/string_view.h',
+    '+absl/strings/str_cat.h',
+    '+absl/strings/substitute.h',
     '+absl/types/optional.h',
     '+absl/types/span.h',
 ]
