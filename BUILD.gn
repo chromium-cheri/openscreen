@@ -35,6 +35,7 @@ group("gn_all") {
 executable("openscreen_unittests") {
   testonly = true
   deps = [
+    "cast/common/mdns:mdns_unittests",
     "osp:osp_unittests",
     "osp/impl/discovery/mdns:mdns_unittests",
     "osp/msgs:unittests",
