@@ -192,20 +192,20 @@ InternalServices::InternalServices()
                     kServiceProtocol,
                     std::make_unique<MdnsResponderAdapterImplFactory>(),
                     std::make_unique<InternalPlatformLinkage>(this)),
-      mdns_waiter_(platform::CreateEventWaiter()) {
+      mdns_waiter_(platform::EventWaiter::Create()) {
   OSP_DCHECK(mdns_waiter_);
 }
 
 InternalServices::~InternalServices() {
-  DestroyEventWaiter(mdns_waiter_);
+  delete mdns_waiter_;
 }
 
 void InternalServices::RegisterMdnsSocket(platform::UdpSocket* socket) {
-  platform::WatchUdpSocketReadable(mdns_waiter_, socket);
+  mdns_waiter_->WatchUdpSocketReadable(socket);
 }
 
 void InternalServices::DeregisterMdnsSocket(platform::UdpSocket* socket) {
-  platform::StopWatchingUdpSocketReadable(mdns_waiter_, socket);
+  mdns_waiter_->StopWatchingUdpSocketReadable(socket);
 }
 
 // static

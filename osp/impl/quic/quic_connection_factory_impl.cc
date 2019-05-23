@@ -83,12 +83,12 @@ QuicConnectionFactoryImpl::QuicConnectionFactoryImpl() {
   factory_config.alarm_factory = alarm_factory_.get();
   factory_config.clock = ::quic::QuicChromiumClock::GetInstance();
   quartc_factory_ = std::make_unique<::quic::QuartcFactory>(factory_config);
-  waiter_ = platform::CreateEventWaiter();
+  waiter_ = platform::EventWaiter::Create();
 }
 
 QuicConnectionFactoryImpl::~QuicConnectionFactoryImpl() {
   OSP_DCHECK(connections_.empty());
-  platform::DestroyEventWaiter(waiter_);
+  delete waiter_;
 }
 
 void QuicConnectionFactoryImpl::SetServerDelegate(
@@ -118,7 +118,7 @@ void QuicConnectionFactoryImpl::SetServerDelegate(
                     << "): " << bind_result.message();
       continue;
     }
-    platform::WatchUdpSocketReadable(waiter_, server_socket.get());
+    waiter_->WatchUdpSocketReadable(server_socket.get());
     sockets_.emplace_back(std::move(server_socket));
   }
 }
@@ -186,7 +186,7 @@ std::unique_ptr<QuicConnection> QuicConnectionFactoryImpl::Connect(
       this, connection_delegate, std::move(transport),
       quartc_factory_->CreateQuartcSession(session_config));
 
-  platform::WatchUdpSocketReadable(waiter_, socket.get());
+  waiter_->WatchUdpSocketReadable(socket.get());
 
   // TODO(btolsch): This presents a problem for multihomed receivers, which may
   // register as a different endpoint in their response.  I think QUIC is
@@ -214,7 +214,7 @@ void QuicConnectionFactoryImpl::OnConnectionClosed(QuicConnection* connection) {
                    [socket](const decltype(connections_)::value_type& entry) {
                      return entry.second.socket == socket;
                    }) == connections_.end()) {
-    platform::StopWatchingUdpSocketReadable(waiter_, socket);
+    waiter_->StopWatchingUdpSocketReadable(socket);
     auto socket_it =
         std::find_if(sockets_.begin(), sockets_.end(),
                      [socket](const platform::UdpSocketUniquePtr& s) {

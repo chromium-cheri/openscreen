@@ -35,7 +35,7 @@ struct ReceivedData {
 Error ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
                            ReceivedData* data);
 std::vector<ReceivedData> HandleUdpSocketReadEvents(const Events& events);
-std::vector<ReceivedData> OnePlatformLoopIteration(EventWaiterPtr waiter);
+std::vector<ReceivedData> OnePlatformLoopIteration(EventWaiter* waiter);
 
 }  // namespace platform
 }  // namespace openscreen
