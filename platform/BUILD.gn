@@ -37,6 +37,8 @@ source_set("platform") {
       "base/event_loop.cc",
       "base/event_loop.h",
       "base/logging.cc",
+      "base/network_loop.h",
+      "base/network_loop.cc",
       "base/task_runner_factory.cc",
       "base/task_runner_impl.cc",
       "base/task_runner_impl.h",
@@ -91,11 +93,14 @@ source_set("platform_unittests") {
     sources += [
       "base/task_runner_unittest.cc",
       "base/time_unittest.cc",
+      "base/network_loop_unittest.cc",
+      "posix/event_waiter_unittest.cc",
     ]
   }
 
   deps = [
     ":platform",
+    "../third_party/googletest:gmock",
     "../third_party/googletest:gtest",
   ]
 

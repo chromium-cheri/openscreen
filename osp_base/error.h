@@ -119,6 +119,8 @@ std::ostream& operator<<(std::ostream& out, const Error& error);
 //   }
 // }
 //
+// NOTE: This class much have a copy-constructor for mocking support in UTs.
+//
 // TODO(mfoltz):
 // - Add support for type conversions
 template <typename Value>
@@ -129,6 +131,7 @@ class ErrorOr {
     return error;
   }
 
+  ErrorOr(const ErrorOr& error_or) = default;
   ErrorOr(ErrorOr&& error_or) = default;
   ErrorOr(const Value& value) : value_(value) {}
   ErrorOr(Value&& value) noexcept : value_(std::move(value)) {}
@@ -158,8 +161,6 @@ class ErrorOr {
  private:
   Error error_;
   Value value_;
-
-  OSP_DISALLOW_COPY_AND_ASSIGN(ErrorOr);
 };
 
 }  // namespace openscreen

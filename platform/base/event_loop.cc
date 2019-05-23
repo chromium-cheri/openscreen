@@ -40,8 +40,8 @@ std::vector<ReceivedData> HandleUdpSocketReadEvents(const Events& events) {
   return data;
 }
 
-std::vector<ReceivedData> OnePlatformLoopIteration(EventWaiterPtr waiter) {
-  ErrorOr<Events> events = WaitForEvents(waiter);
+std::vector<ReceivedData> OnePlatformLoopIteration(EventWaiter* waiter) {
+  ErrorOr<Events> events = waiter->WaitForEvents(Clock::duration::zero());
   if (!events)
     return {};
 
