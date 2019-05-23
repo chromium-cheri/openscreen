@@ -45,7 +45,7 @@ class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
 
   std::vector<platform::UdpSocketUniquePtr> sockets_;
 
-  platform::EventWaiterPtr waiter_;
+  platform::EventWaiter* waiter_;
 
   struct OpenConnection {
     QuicConnection* connection;

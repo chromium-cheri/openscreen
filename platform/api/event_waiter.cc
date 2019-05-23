@@ -9,8 +9,12 @@ namespace platform {
 
 Events::Events() = default;
 Events::~Events() = default;
+Events::Events(const Events& o) = default;
 Events::Events(Events&& o) = default;
 Events& Events::operator=(Events&& o) = default;
+
+EventWaiter::EventWaiter() = default;
+EventWaiter::~EventWaiter() = default;
 
 }  // namespace platform
 }  // namespace openscreen

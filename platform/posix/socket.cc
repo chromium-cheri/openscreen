@@ -429,5 +429,15 @@ Error UdpSocket::SendMessage(const void* data,
   return Error::Code::kNone;
 }
 
+void WriteByte(UdpSocketPosix* socket, uint8_t byte) {
+  write(socket->fd, &byte, sizeof(byte));
+}
+
+uint8_t ReadByte(UdpSocketPosix* socket) {
+  uint8_t result;
+  read(socket->fd, &result, sizeof(result));
+  return result;
+}
+
 }  // namespace platform
 }  // namespace openscreen

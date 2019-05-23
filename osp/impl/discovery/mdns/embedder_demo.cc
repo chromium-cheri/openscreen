@@ -250,7 +250,7 @@ void BrowseDemo(const std::string& service_name,
   }
 
   auto mdns_adapter = std::make_unique<mdns::MdnsResponderAdapterImpl>();
-  platform::EventWaiterPtr waiter = platform::CreateEventWaiter();
+  auto waiter = platform::EventWaiter::Create();
   mdns_adapter->Init();
   mdns_adapter->SetHostLabel("gigliorononomicon");
   auto interface_addresses = platform::GetInterfaceAddresses();
@@ -291,7 +291,7 @@ void BrowseDemo(const std::string& service_name,
   }
 
   for (const platform::UdpSocketUniquePtr& socket : sockets) {
-    platform::WatchUdpSocketReadable(waiter, socket.get());
+    waiter->WatchUdpSocketReadable(socket.get());
     mdns_adapter->StartPtrQuery(socket.get(), service_type.value());
   }
 
@@ -321,12 +321,12 @@ void BrowseDemo(const std::string& service_name,
   for (const auto& s : *g_services) {
     LogService(s.second);
   }
-  platform::StopWatchingNetworkChange(waiter);
+  waiter->StopWatchingNetworkChange();
   for (const platform::UdpSocketUniquePtr& socket : sockets) {
-    platform::StopWatchingUdpSocketReadable(waiter, socket.get());
+    waiter->StopWatchingUdpSocketReadable(socket.get());
     mdns_adapter->DeregisterInterface(socket.get());
   }
-  platform::DestroyEventWaiter(waiter);
+  delete waiter;
   mdns_adapter->Close();
 }
 

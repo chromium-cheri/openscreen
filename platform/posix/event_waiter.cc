@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "platform/api/event_waiter.h"
+#include "platform/posix/event_waiter.h"
 
 #include <sys/select.h>
+#include <time.h>
 
 #include <algorithm>
 #include <vector>
@@ -41,84 +42,194 @@ Error RemoveFromVectorIfPresent(UdpSocketPosix* socket,
 
 }  // namespace
 
-struct EventWaiterPrivate {
-  std::vector<UdpSocketPosix*> read_sockets;
-  std::vector<UdpSocketPosix*> write_sockets;
-};
-
-EventWaiterPtr CreateEventWaiter() {
-  return new EventWaiterPrivate;
+SocketHandlerPosix::SocketHandlerPosix() {
+  FD_ZERO(&set);
+  max_fd = -1;
 }
 
-void DestroyEventWaiter(EventWaiterPtr waiter) {
-  delete waiter;
+void SocketHandlerPosix::Watch(int fd, bool is_real_socket) {
+  FD_SET(fd, &set);
+  if (is_real_socket) {
+    max_fd = std::max(max_fd, fd);
+  }
 }
 
-Error WatchUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket) {
+bool SocketHandlerPosix::IsChanged(int fd) {
+  return FD_ISSET(fd, &set);
+}
+
+// static
+Error SocketHandlerPosix::WatchForChanges(SocketHandlerPosix* read_handles,
+                                          SocketHandlerPosix* write_handles,
+                                          Clock::duration timeout) {
+  struct timeval tv = ToTimeval(timeout);
+
+  int max_fd = std::max(read_handles->max_fd, write_handles->max_fd);
+  const int rv =
+      select(max_fd + 1, &read_handles->set, &write_handles->set, nullptr, &tv);
+  if (rv == -1 || rv == 0) {
+    return Error::Code::kIOFailure;
+  }
+
+  return Error::None();
+}
+
+// static
+struct timeval SocketHandlerPosix::ToTimeval(Clock::duration timeout) {
+  struct timeval tv;
+  constexpr uint64_t max_microseconds = uint64_t{1000000};
+  uint64_t microseconds =
+      static_cast<uint64_t>(std::chrono::microseconds(timeout).count());
+  tv.tv_sec = microseconds / (max_microseconds);
+  tv.tv_usec = microseconds % (max_microseconds);
+
+  return tv;
+}
+
+EventWaiterPosix::EventWaiterPosix(WakeUpHandler* handler)
+    : wake_up_handler(handler) {}
+
+EventWaiterPosix::~EventWaiterPosix() {
+  delete wake_up_handler;
+}
+
+Error EventWaiterPosix::WatchUdpSocketReadable(UdpSocket* socket) {
   return AddToVectorIfMissing(UdpSocketPosix::From(socket),
-                              &waiter->read_sockets);
+                              &this->read_sockets);
 }
 
-Error StopWatchingUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket) {
+Error EventWaiterPosix::StopWatchingUdpSocketReadable(UdpSocket* socket) {
   return RemoveFromVectorIfPresent(UdpSocketPosix::From(socket),
-                                   &waiter->read_sockets);
+                                   &this->read_sockets);
 }
 
-Error WatchUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket) {
+Error EventWaiterPosix::WatchUdpSocketWritable(UdpSocket* socket) {
   return AddToVectorIfMissing(UdpSocketPosix::From(socket),
-                              &waiter->write_sockets);
+                              &this->write_sockets);
 }
 
-Error StopWatchingUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket) {
+Error EventWaiterPosix::StopWatchingUdpSocketWritable(UdpSocket* socket) {
   return RemoveFromVectorIfPresent(UdpSocketPosix::From(socket),
-                                   &waiter->write_sockets);
+                                   &this->write_sockets);
 }
 
-Error WatchNetworkChange(EventWaiterPtr waiter) {
+Error EventWaiterPosix::WatchNetworkChange() {
   // TODO(btolsch): Implement network change watching.
   OSP_UNIMPLEMENTED();
   return Error::Code::kNotImplemented;
 }
 
-Error StopWatchingNetworkChange(EventWaiterPtr waiter) {
+Error EventWaiterPosix::StopWatchingNetworkChange() {
   // TODO(btolsch): Implement stop network change watching.
   OSP_UNIMPLEMENTED();
   return Error::Code::kNotImplemented;
 }
 
-ErrorOr<Events> WaitForEvents(EventWaiterPtr waiter) {
-  int max_fd = -1;
-  fd_set readfds;
-  fd_set writefds;
-  FD_ZERO(&readfds);
-  FD_ZERO(&writefds);
-  for (const auto* read_socket : waiter->read_sockets) {
-    FD_SET(read_socket->fd, &readfds);
-    max_fd = std::max(max_fd, read_socket->fd);
-  }
-  for (const auto* write_socket : waiter->write_sockets) {
-    FD_SET(write_socket->fd, &writefds);
-    max_fd = std::max(max_fd, write_socket->fd);
-  }
-  if (max_fd == -1)
-    return Error::Code::kIOFailure;
+ErrorOr<Events> EventWaiterPosix::WaitForEvents(Clock::duration timeout) {
+  SocketHandlerPosix read_handler;
+  SocketHandlerPosix write_handler;
+  return WaitForEvents(timeout, &read_handler, &write_handler);
+}
 
-  struct timeval tv = {};
-  const int rv = select(max_fd + 1, &readfds, &writefds, nullptr, &tv);
-  if (rv == -1 || rv == 0)
-    return Error::Code::kIOFailure;
+ErrorOr<Events> EventWaiterPosix::WaitForEvents(Clock::duration timeout,
+                                                SocketHandler* reads,
+                                                SocketHandler* writes) {
+  WakeUpHandlerPosix* handler = WakeUpHandlerPosix::From(this->wake_up_handler);
+
+  reads->Watch(handler->GetReadHandle(), false);
+  for (const auto* read_socket : this->read_sockets) {
+    reads->Watch(read_socket->fd);
+  }
+  for (const auto* write_socket : this->write_sockets) {
+    writes->Watch(write_socket->fd);
+  }
+
+  auto error = WaitForSockets(timeout, reads, writes);
+  if (error.code() != Error::Code::kNone) {
+    return error;
+  }
 
   Events events;
-  for (auto* read_socket : waiter->read_sockets) {
-    if (FD_ISSET(read_socket->fd, &readfds))
-      events.udp_readable_events.push_back({read_socket});
+  if (reads->IsChanged(handler->GetReadHandle())) {
+    handler->Clear();
   }
-  for (auto* write_socket : waiter->write_sockets) {
-    if (FD_ISSET(write_socket->fd, &writefds))
+  for (auto* read_socket : this->read_sockets) {
+    if (reads->IsChanged(read_socket->fd)) {
+      events.udp_readable_events.push_back({read_socket});
+    }
+  }
+  for (auto* write_socket : this->write_sockets) {
+    if (writes->IsChanged(write_socket->fd)) {
       events.udp_writable_events.push_back({write_socket});
+    }
   }
 
   return std::move(events);
+}
+
+Error EventWaiterPosix::WaitForSockets(Clock::duration timeout,
+                                       SocketHandler* reads,
+                                       SocketHandler* writes) {
+  auto* read_handler = static_cast<SocketHandlerPosix*>(reads);
+  auto* write_handler = static_cast<SocketHandlerPosix*>(writes);
+  if (read_handler->max_fd < 0 && write_handler->max_fd < 0) {
+    return Error::Code::kIOFailure;
+  }
+
+  return SocketHandlerPosix::WatchForChanges(read_handler, write_handler,
+                                             timeout);
+}
+
+// static
+EventWaiter* EventWaiter::Create() {
+  return new EventWaiterPosix(WakeUpHandler::Create());
+}
+
+WakeUpHandlerPosix::WakeUpHandlerPosix(int read, int write)
+    : write_fd(write), read_fd(read) {
+  is_set.store(false);
+}
+
+WakeUpHandlerPosix::~WakeUpHandlerPosix() = default;
+
+void WakeUpHandler::Set() {
+  WakeUpHandlerPosix* handler = WakeUpHandlerPosix::From(this);
+  if (handler->is_set.load()) {
+    return;
+  }
+
+  std::lock_guard<std::mutex> lock(handler->setter_lock);
+  if (handler->is_set.load()) {
+    return;
+  }
+  uint8_t byte = uint8_t{0x1};
+  write(handler->write_fd, &byte, sizeof(byte));
+  handler->is_set.store(true);
+}
+
+void WakeUpHandler::Clear() {
+  WakeUpHandlerPosix* handler = WakeUpHandlerPosix::From(this);
+  if (!handler->is_set.load()) {
+    return;
+  }
+
+  std::lock_guard<std::mutex> lock(handler->setter_lock);
+  if (!handler->is_set.load()) {
+    return;
+  }
+  uint8_t result = 0;
+  read(handler->read_fd, &result, sizeof(result));
+  handler->is_set.store(false);
+}
+
+// static
+WakeUpHandler* WakeUpHandler::Create() {
+  int pipefds[2];
+  if (pipe(pipefds) == -1) {
+    return nullptr;
+  }
+
+  return new WakeUpHandlerPosix(pipefds);
 }
 
 }  // namespace platform

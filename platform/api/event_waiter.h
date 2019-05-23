@@ -14,9 +14,6 @@
 namespace openscreen {
 namespace platform {
 
-struct EventWaiterPrivate;
-using EventWaiterPtr = EventWaiterPrivate*;
-
 struct UdpSocketReadableEvent {
   UdpSocket* socket;
 };
@@ -25,13 +22,37 @@ struct UdpSocketWritableEvent {
   UdpSocket* socket;
 };
 
+// This class functions as a platform-specific mechanism to wake the
+// NetworkWaiter out of the Wait(...) loop. The instace used in NetworkWaiter
+// is created via the Create() factory method, which can be implemented at
+// to return a platform-specific instance.
+class WakeUpHandler {
+ public:
+  virtual ~WakeUpHandler() = default;
+
+  // Returns a new instance of WakeUpHandler. It is the responsibility of the
+  // caller to delete this instance.
+  static WakeUpHandler* Create();
+
+  // Sets the wakeup handler to wake the NetworkWaiter from a wait loop.
+  virtual void Set();
+
+  // Clears the wakeup handler so it will not wake the network waiter.
+  virtual void Clear();
+
+ protected:
+  WakeUpHandler() = default;
+};
+
 // This struct represents a set of events associated with a particular
 // EventWaiterPtr and is created by WaitForEvents.  Any combination and number
 // of events may be present, depending on how the platform implements event
 // waiting and what has occured since the last WaitForEvents call.
+// NOTE: Copy constructor is needed for Mocking in UTs.
 struct Events {
   Events();
   ~Events();
+  Events(const Events& o);
   Events(Events&& o);
   Events& operator=(Events&& o);
 
@@ -39,23 +60,32 @@ struct Events {
   std::vector<UdpSocketWritableEvent> udp_writable_events;
 };
 
-// TODO(miu): This should be a std::unique_ptr<> instead of two separate
-// methods, so that code structure auto-scopes the lifetime of the instance.
-EventWaiterPtr CreateEventWaiter();
-void DestroyEventWaiter(EventWaiterPtr waiter);
+// Note: virtual methods are required to allow for Unit testing of all classes
+// that depend on this class.
+class EventWaiter {
+ public:
+  static EventWaiter* Create();
+  virtual ~EventWaiter();
 
-Error WatchUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket);
-Error StopWatchingUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket);
+  virtual Error WatchUdpSocketReadable(UdpSocket* socket) = 0;
+  virtual Error StopWatchingUdpSocketReadable(UdpSocket* socket) = 0;
 
-Error WatchUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket);
-Error StopWatchingUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket);
+  virtual Error WatchUdpSocketWritable(UdpSocket* socket) = 0;
+  virtual Error StopWatchingUdpSocketWritable(UdpSocket* socket) = 0;
 
-Error WatchNetworkChange(EventWaiterPtr waiter);
-Error StopWatchingNetworkChange(EventWaiterPtr waiter);
+  virtual Error WatchNetworkChange() = 0;
+  virtual Error StopWatchingNetworkChange() = 0;
 
-// Returns the number of events that were added to |events| if there were any, 0
-// if there were no events, and -1 if an error occurred.
-ErrorOr<Events> WaitForEvents(EventWaiterPtr waiter);
+  // Returns the number of events that were added to |events| if there were any,
+  // 0 if there were no events, and -1 if an error occurred.
+  virtual ErrorOr<Events> WaitForEvents(Clock::duration timeout) = 0;
+
+  // Get the wake up handler associated with this EventWaiter.
+  virtual WakeUpHandler* GetWakeUpHandler() = 0;
+
+ protected:
+  EventWaiter();
+};
 
 }  // namespace platform
 }  // namespace openscreen
