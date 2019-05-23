@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b83d62b1_79bd6844",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "sorting nit: str_cat goes above string_view",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 30
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4e8276d_c646ffc0",
+        "filename": "osp_base/location.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "My understanding is this default compiler-generated constructor does not initialize fields function_name_, file_name_, line_number_ and program_counter_ since those are all built-in types. These fields will contain garbage in the trivial case:\n{\n...\nLocation l;\n...\n}",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 31
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad84916c_205a265a",
+        "filename": "osp_base/location.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "Other fields also should be initialized.",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "084b3c53_1291a46e",
+        "filename": "osp_base/location.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "This seems overkill to me, maybe something simpler?\nreturn \"pc:\" + std::to_string(program_counter_);",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 53
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e0b405_7779433a",
+        "filename": "osp_base/location.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "Since we primarily build with Clang, have you looked into Clang alternative/equivalent for this?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 6
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b72d6e1d_a637b5ac",
+        "filename": "osp_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "nit: remove preposition",
+      "range": {
+        "startLine": 19,
+        "startChar": 38,
+        "endLine": 19,
+        "endChar": 40
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f152046_90c41f2a",
+        "filename": "osp_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "If a copy constructor is defined, but a move constructor isn\u0027t, this means the object is not movable. Is this the intended behavior here?",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bb86dd9_857a0181",
+        "filename": "osp_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "Why not remove it now?",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 63
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e60d7e15_454b01de",
+        "filename": "osp_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-23T20:51:29Z",
+      "side": 1,
+      "message": "If you want to keep these, you want to update namespace from base to openscreen. I personally don\u0027t like these macros, I don\u0027t think they simplify code and they have very generic names",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 63
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
