@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d304c7b6_2584a199",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-23T22:34:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b83d62b1_79bd6844",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 30
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4e8276d_c646ffc0",
         "filename": "osp_base/location.cc",
         "patchSetId": 2
@@ -142,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1c380155_520c1e57",
+        "filename": "osp_base/location.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-23T22:34:13Z",
+      "side": 1,
+      "message": "There is no std::to_string for program_counter_, since its a void pointer. absl::Substitute is reasonably simple, works well, and is faster than naive string concatenation AFAIK.",
+      "parentUuid": "084b3c53_1291a46e",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 53
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43e0b405_7779433a",
         "filename": "osp_base/location.cc",
         "patchSetId": 2
@@ -162,6 +210,30 @@
       "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f44f67e_75a28906",
+        "filename": "osp_base/location.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-23T22:34:13Z",
+      "side": 1,
+      "message": "We don\u0027t define this, however looking at the docs it just maps to __GNUC__, which is defined by both gcc and clang (and NOT MSVC). Switching to use __GNUC__ directly.",
+      "parentUuid": "43e0b405_7779433a",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 6
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -188,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "af9b302d_42c1d9e0",
+        "filename": "osp_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-23T22:34:13Z",
+      "side": 1,
+      "message": "Lifted directly from Chromium. Rewording.",
+      "parentUuid": "b72d6e1d_a637b5ac",
+      "range": {
+        "startLine": 19,
+        "startChar": 38,
+        "endLine": 19,
+        "endChar": 40
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f152046_90c41f2a",
         "filename": "osp_base/location.h",
         "patchSetId": 2
@@ -208,6 +304,30 @@
       "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae91677a_de2fcd36",
+        "filename": "osp_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-23T22:34:13Z",
+      "side": 1,
+      "message": "I don\u0027t see why we would explicitly want it to not be movable. Changing.",
+      "parentUuid": "3f152046_90c41f2a",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -254,6 +374,30 @@
       "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa223328_a901370f",
+        "filename": "osp_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-05-23T22:34:13Z",
+      "side": 1,
+      "message": "I\u0027m going to delete FROM_HERE_WITH_EXPLICIT_FUNCTION, since it\u0027s basically never used. I do think that \"FROM_HERE\" is much better than sprinkling the code with \"::base::Location::CreateFromHere(__FILE__)\", since that\u0027s overly verbose and needs to be used everywhere. It has to be a macro to get access to __FILE__.\n\nI\u0027d be open to renaming it to CURRENT_LOCATION, since FROM_HERE is very vague.",
+      "parentUuid": "e60d7e15_454b01de",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 63
+      },
+      "revId": "0b32e6bc9e64a07546def04d3a7719b9cff9f1e2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
