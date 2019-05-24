@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "06ec4ff0_b40165e3",
+        "filename": "osp_base/big_endian.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-24T21:34:21Z",
+      "side": 1,
+      "message": "nit: Do we need the namespace prefix here (and in BigEndianWriter)?",
+      "range": {
+        "startLine": 120,
+        "startChar": 11,
+        "endLine": 120,
+        "endChar": 21
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63ab799f_a8628912",
+        "filename": "osp_base/big_endian.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-24T21:34:21Z",
+      "side": 1,
+      "message": "Random thoughts here: Feel free to decide for yourself whether to take any action...\n\nFWIW, the reason I didn\u0027t originally just copy over Chromium\u0027s BigEndianReader/Writer classes was because it seemed redundant to check the remaining size as each field was written. Generally, when serializing, the total amount of required space is known up-front since a right-sized buffer has to be allocated ahead of time anyway.\n\nIf this is meant to protect against coding bugs over-running past the end of a buffer, we have ASAN and fuzzer for that. :)\n\nAlso, I wonder if it is worthwhile to even return a boolean? Would OSP_CHECK() be better (i.e., just crash the process), since it should be a logic flaw to attempt to Write past the end of a buffer? Though, adding the OSP_CHECK() might make this code heavy-weight enough not to want to inline anymore...",
+      "range": {
+        "startLine": 149,
+        "startChar": 3,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "93658744_2ee9c3d8",
         "filename": "osp_base/big_endian.h",
         "patchSetId": 1
@@ -46,6 +92,76 @@
       "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "190b54c1_48b659c5",
+        "filename": "osp_base/big_endian.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-24T21:34:21Z",
+      "side": 1,
+      "message": "I think Ryan was indicating the pointers should be const (not the referents):\n\n  uint8_t* const begin_;\n  uint8_t* current_:\n  uint8_t* const end_;",
+      "parentUuid": "3dc2b4a2_4b8f2942",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 16
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "def463b6_102c60fa",
+        "filename": "osp_base/big_endian_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-24T21:34:21Z",
+      "side": 1,
+      "message": "style nit: Complete sentences for comments. So, start with capital letter and end with a period.",
+      "range": {
+        "startLine": 134,
+        "startChar": 3,
+        "endLine": 134,
+        "endChar": 67
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "279bf607_b3ae2f14",
+        "filename": "osp_base/big_endian_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-24T21:34:21Z",
+      "side": 1,
+      "message": "ditto (sentence style)",
+      "range": {
+        "startLine": 262,
+        "startChar": 3,
+        "endLine": 262,
+        "endChar": 4
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
