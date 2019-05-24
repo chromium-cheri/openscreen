@@ -22,6 +22,30 @@
       "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dc2b4a2_4b8f2942",
+        "filename": "osp_base/big_endian.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-24T20:04:43Z",
+      "side": 1,
+      "message": "This is a writer, so the data is modifiable.\nTechnically only current_ has to be non-const, but I left begin_ and end_ non-const so that classes inheriting from BigEndianWriter (like MdnsWriter in the other PR) don\u0027t have to do const_cast anywhere.",
+      "parentUuid": "93658744_2ee9c3d8",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 16
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
