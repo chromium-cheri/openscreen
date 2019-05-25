@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19f16009_2c5e366b",
+        "filename": "osp_base/big_endian.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-25T00:33:18Z",
+      "side": 1,
+      "message": "No, we don\u0027t. I forgot to remove it. Thanks for catching this.",
+      "parentUuid": "06ec4ff0_b40165e3",
+      "range": {
+        "startLine": 120,
+        "startChar": 11,
+        "endLine": 120,
+        "endChar": 21
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63ab799f_a8628912",
         "filename": "osp_base/big_endian.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3abc880d_9e4a8f80",
+        "filename": "osp_base/big_endian.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-25T00:33:18Z",
+      "side": 1,
+      "message": "I initially tried to simply use ReadBigEndian, WriteBigEndian, ConsumeField and AppendField functions, but that wasn\u0027t enough for some things, namely mDNS name compression requires looking back at the buffer. This is why I decided to go with BigEndianReader/Writer classes. I don\u0027t think at this point that changing this interface justifies extra work needed to update the rest of mDNS code.",
+      "parentUuid": "63ab799f_a8628912",
+      "range": {
+        "startLine": 149,
+        "startChar": 3,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "b362c25b_e4ec3b5d",
+        "filename": "osp_base/big_endian_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-25T00:33:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "def463b6_102c60fa",
+      "range": {
+        "startLine": 134,
+        "startChar": 3,
+        "endLine": 134,
+        "endChar": 67
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "279bf607_b3ae2f14",
         "filename": "osp_base/big_endian_unittest.cc",
         "patchSetId": 1
@@ -162,6 +234,30 @@
       "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d98989_54eae47c",
+        "filename": "osp_base/big_endian_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-25T00:33:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "279bf607_b3ae2f14",
+      "range": {
+        "startLine": 262,
+        "startChar": 3,
+        "endLine": 262,
+        "endChar": 4
+      },
+      "revId": "b91f06323bf02a269ac976ad23eb2dedf2039605",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
