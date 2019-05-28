@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "30882d50_bc24e89c",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T22:24:19Z",
+      "side": 1,
+      "message": "If writing our own std::bind works, I am up for that approach. My thought for a possible approach was to add a new method to the TaskRunner\n\ntemplate\u003cTType\u003e ExecutePointerTask(std::function\u003cvoid(TType*)\u003e, std::unique_ptr\u003cTType\u003e) {...}\n\nTo execute the task, then delete the UniquePtr\u003c...\u003e once it had been run.",
+      "parentUuid": "6d48561b_a58cfe72",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41d28fd5_a5f2b98c",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "455a6a70_1a58ed07",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T22:24:19Z",
+      "side": 1,
+      "message": "After writing up my code (see https://chromium-review.googlesource.com/c/openscreen/+/1627673 ) I only use the UdpReadCallback and Packet together as you expect, but they are used outside of the NetworkRunner class (specifically at the layer below NetworkRunner), so I suspect putting that in its own file (or with one of the interfaces if we split this up - discussed below) would be cleaner",
+      "parentUuid": "a9602c90_60b7e8fd",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 2
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44b37461_68cdb0cf",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "The fact that it combines two otherwise independent interfaces doesn\u0027t really preclude its use in the scenarios you described.\n\nThe reason for having a single interface is item 3 in the comment above: adding a read callback also has threading implications w.r.t. some task runner.  It\u0027s seems clearer to have those tightly coupled in this case.",
       "parentUuid": "44b37461_68cdb0cf",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed915756_9e357ea4",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T22:24:19Z",
+      "side": 1,
+      "message": "In order to make this top layer Unit Testable, we should stick some interface in between NetworkRunner and the lower layers rather than calling them directly. My opinion is that using the same interfaces for both the top layer (NetworkRunner) and lower layers (NetworkLoop / whatever we call the network handling + the task runner) is the cleanest approach, but I don\u0027t have that strong of an opinion between that and creating new interfaces for those layers\n\nThe new interfaces would have to share nearly all methods with this interface though",
+      "parentUuid": "35b70a9f_0e8f6cc7",
       "range": {
         "startLine": 55,
         "startChar": 6,
