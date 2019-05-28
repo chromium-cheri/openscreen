@@ -7,6 +7,7 @@
 
 #include <ostream>
 #include <string>
+#include <sstream>
 #include <utility>
 
 #include "osp_base/macros.h"
@@ -15,6 +16,10 @@ namespace openscreen {
 
 // Represents an error returned by an OSP library operation.  An error has a
 // code and an optional message.
+class Error;
+
+std::ostream& operator<<(std::ostream& out, const Error& error);
+
 class Error {
  public:
   enum class Code : int8_t {
@@ -89,12 +94,15 @@ class Error {
   bool operator==(const Error& other) const;
   bool ok() const { return code_ == Code::kNone; }
 
-  operator std::string() { return CodeToString(code_) + ": " + message_; }
+  operator std::string() {
+    std::stringstream ss;
+    ss << *this;
+    return ss.str();
+  }
 
   Code code() const { return code_; }
   const std::string& message() const { return message_; }
 
-  static std::string CodeToString(Error::Code code);
   static const Error& None();
 
  private:
@@ -102,7 +110,7 @@ class Error {
   std::string message_;
 };
 
-std::ostream& operator<<(std::ostream& out, const Error& error);
+std::ostream& operator<<(std::ostream& os, const Error::Code& code);
 
 // A convenience function to return a single value from a function that can
 // return a value or an error.  For normal results, construct with a Value*
@@ -161,6 +169,11 @@ class ErrorOr {
 
   OSP_DISALLOW_COPY_AND_ASSIGN(ErrorOr);
 };
+
+template <typename Value>
+std::ostream& operator<<(std::ostream& out, const ErrorOr<Value>& error_or) {
+  return error_or.is_error() ? out << error_or.error() : out << Error::Code::kNone;
+}
 
 }  // namespace openscreen
 

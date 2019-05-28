@@ -29,6 +29,7 @@
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
 #include "platform/api/time.h"
+#include "platform/api/trace_logging.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 
 namespace openscreen {
@@ -370,6 +371,7 @@ CommandWaitResult WaitForCommand(pollfd* pollfd) {
 }
 
 void RunControllerPollLoop(presentation::Controller* controller) {
+  TRACE_SCOPED(TraceCategory::CastFlinging, "RunControllerPollLoop");
   ReceiverObserver receiver_observer;
   RequestDelegate request_delegate;
   ConnectionDelegate connection_delegate;
@@ -378,7 +380,8 @@ void RunControllerPollLoop(presentation::Controller* controller) {
 
   pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
 
-  do {
+  for (uint64_t it = uint64_t{0x1} << 60; true; it++) {
+    TRACE_SCOPED(TraceCategory::CastFlinging, "ControllerPollIteration", it);
     write(STDOUT_FILENO, "$ ", 2);
 
     CommandWaitResult command_result = WaitForCommand(&stdin_pollfd);
@@ -407,7 +410,7 @@ void RunControllerPollLoop(presentation::Controller* controller) {
       request_delegate.connection->Terminate(
           presentation::TerminationReason::kControllerTerminateCalled);
     }
-  } while (true);
+  };
 
   watch = presentation::Controller::ReceiverWatch();
 }
@@ -472,8 +475,10 @@ void HandleReceiverCommand(absl::string_view command,
 void RunReceiverPollLoop(pollfd& file_descriptor,
                          NetworkServiceManager* manager,
                          ReceiverDelegate& delegate) {
+  TRACE_SCOPED(TraceCategory::CastFlinging, "RunReceiverPollLoop");
   pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
-  do {
+  for (uint64_t it = uint64_t{0x1} << 40; true; it++) {
+    TRACE_SCOPED(TraceCategory::CastFlinging, "ReceiverPollIteration", it);
     write(STDOUT_FILENO, "$ ", 2);
 
     CommandWaitResult command_result = WaitForCommand(&stdin_pollfd);
@@ -484,7 +489,7 @@ void RunReceiverPollLoop(pollfd& file_descriptor,
     HandleReceiverCommand(command_result.command_line.command,
                           command_result.command_line.argument_tail, delegate,
                           manager);
-  } while (true);
+  }
 }
 
 void CleanupPublisherDemo(NetworkServiceManager* manager) {

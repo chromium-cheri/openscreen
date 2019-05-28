@@ -16,6 +16,11 @@ source_set("platform") {
     "api/task_runner.h",
     "api/task_runner_factory.h",
     "api/time.h",
+    "api/trace_logging.h",
+    "api/trace_logging_internal.cc",
+    "api/trace_logging_interna.h",
+    "api/trace_logging_platform.h",
+    "api/trace_logging_types.h",
     "base/time.cc",
   ]
 
@@ -35,6 +40,7 @@ source_set("platform") {
       "base/task_runner_factory.cc",
       "base/task_runner_impl.cc",
       "base/task_runner_impl.h",
+      "base/trace_logging_platform.cc",
     ]
 
     if (is_linux) {
@@ -86,6 +92,7 @@ source_set("platform_unittests") {
 
   sources = [
     "api/time_unittest.cc",
+    "api/trace_logging_unittest.cc",
   ]
 
   # The unit tests in base/ assume the standalone implementation is being used.
@@ -100,6 +107,7 @@ source_set("platform_unittests") {
   deps = [
     ":platform",
     "../third_party/googletest:gtest",
+    "../third_party/googletest:gmock",
   ]
 
   configs += [ "../build:allow_build_from_embedder" ]
