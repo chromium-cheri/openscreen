@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b50e9125_db05710c",
+        "filename": "osp_base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "Didn\u0027t want to cause any regression by messing with the existing string() method. Removed CodeToString(...) entirely now",
+      "parentUuid": "b178adcf_8bb43d8c",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63b8d4e2_64b0f231",
         "filename": "osp_base/error.h",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-05-20T20:19:50Z",
       "side": 1,
       "message": "Why is this declared inline in the .h?  error.h is included from many files.",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "170ea13a_db2633ca",
+        "filename": "osp_base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "Moved it to the .cc file\n\nOriginally had it inlined here so we could get the perf benefit of defining it inline (since this method will be hit every trace function), but I have no problem moving it if this is less of a concern than I believed it to be.",
+      "parentUuid": "63b8d4e2_64b0f231",
       "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "2366d954_f2a7ca3a",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "Splitting this into 2 files",
+      "parentUuid": "4a8db487_592152f2",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c87cfe2b_560bb803",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5674ece5_63a40078",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c87cfe2b_560bb803",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "365f2c8b_44521678",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "For now, I just wanted to add placeholder categories. I assumed we could come back and modify these constants once the actual categories we needed became clearer as the library was used in real use cases\n\nI am open to suggestions if you have better ideas about what the categories should be",
+      "parentUuid": "c9a4e85d_f1daac4b",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e801d15_5f493045",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79c3941f_f7cf5a9e",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "Platform specific code will define a class implementing interface TraceLoggingPlatform and will set this constant there. See platform/base/trace_logging.cc for an example\n\nThe reason we needed to use an interface rather than platform-specific linking rules is being discussed in a thread on the previous iteration, if you want to join that :)",
+      "parentUuid": "6e801d15_5f493045",
+      "revId": "ee4c70c719a9b1c30669f32b1ce6f65022b4928a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

@@ -378,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "af3c82af_8f17ceec",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "Added a comment to specify this",
+      "parentUuid": "77e89808_6816b76d",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 37
+      },
+      "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "89f79504_60257d16",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 2
@@ -469,6 +493,30 @@
       "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36d14881_4aa6829f",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "It turns out that #undef\u0027ing them means that compile-time substitutions using them don\u0027t get applied correctly, even if they are defined inside this file. They need to be not #undef\u0027d in to allow for correct functioning of the code. \n\nAny suggestions on names to prevent issues associated with leaking macros / name collision? I made an attempt at it in this newest iteration by prefacing them with \u0027TRACE_INTERNAL_\u0027.",
+      "parentUuid": "a56ce722_97b55cb4",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 46
+      },
+      "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -895,6 +943,30 @@
     },
     {
       "key": {
+        "uuid": "f37c8117_eee8d117",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "I re-examined this and tried to add it, but ran into an issue. Details described here:\nhttps://stackoverflow.com/questions/29842095/incompatible-operand-types-when-using-ternary-conditional-operator\n\nThe short answer is that, to add this, I would need to add a bunch of static_cast\u003cTraceBase\u0026\u003e lines which I think it\u0027s actually less readable than the current approach.",
+      "parentUuid": "f21c07be_df4614e5",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6cdc617a_5e294cb4",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 2
@@ -1198,6 +1270,30 @@
       "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91908ac6_a84b87a6",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "Based on Mark\u0027s suggestion, I am splitting this file into multiple. The internal details I am putting in a traceinternal { ... } namespace to hide them",
+      "parentUuid": "4981cdf9_780e3f92",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 15
+      },
+      "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -1574,6 +1670,30 @@
       "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51d1de73_a3c39467",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-28T20:11:02Z",
+      "side": 1,
+      "message": "Figured out what you meant on this after rereading it. Changing to this approach now",
+      "parentUuid": "bdb7c579_f3d220c4",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 335,
+        "endChar": 17
+      },
+      "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
