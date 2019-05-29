@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "79307e2b_d7e93009",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-29T23:12:16Z",
+      "side": 1,
+      "message": "The in between state is because the CL was getting too large - I don\u0027t want to bundle the entire change into a 2000 line CL or it would take far longer to review, so here I\u0027m just changing the EventWaiter layer to be an object instead of static methods, since the same EventWaiter layer will be a lower-level layer of the Network Waiter. Changes here are just to keep the source compiling during the middle step",
+      "parentUuid": "150d0941_b2f066bb",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 47
+      },
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "313f6334_3948fc85",
         "filename": "osp_base/error.h",
         "patchSetId": 3
@@ -112,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "c358b336_4c456803",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-29T23:12:16Z",
+      "side": 1,
+      "message": "The reason I added it here was that it was already written by the design review when we decided to make this the \"backup\" approach. Once I had it, I realized we can get better Perf when adding/removing socket callbacks since we can wake the wait loop up instead of waiting for the timeout, and then acquire the mutex more quickly. Happy to pull it out if its a bit too hacky for just a small perf improvement though",
+      "parentUuid": "5a952390_150de49f",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "544272d9_3a52deb8",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -158,6 +200,24 @@
       "writtenOn": "2019-05-29T22:28:30Z",
       "side": 1,
       "message": "I\u0027m thinking that instead of having a TaskRunner interface and an EventWaiter interface, we should have a NetworkRunner interface that\u0027s a superset of TaskRunner, and not expose any EventWaiter to the users of the API.  I think that would simplify things a lot, especially if we\u0027re doing the 2-thread approach.\n\nAlong with the previous comment, I think we should skip to async reads and not have an in between state before that.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0a9eeca_fdcfdee5",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-29T23:12:16Z",
+      "side": 1,
+      "message": "I agree that the EventWaiter should not be exposed. \n\nOnce I am back from my OOO I will work on the next steps, pending the open interface CL. Happy to leave this one open indefinitely and not check it in - getting some feedback at this stage will be helpful regardless :)",
+      "parentUuid": "078bf772_efa6183a",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
