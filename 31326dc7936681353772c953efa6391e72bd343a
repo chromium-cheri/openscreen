@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7378595f_742610cb",
+        "filename": "osp_base/error.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T19:22:50Z",
+      "side": 1,
+      "message": "It would be nice to have a way to enforce that new values added to the enum are added to this operator\u0027s implementation.\n\nMaybe something like static_assert(Error::Code::kMaxValue \u003d\u003d kHardcodedMaxValue, \"A new member was added to Error::Code, please update this function\");\n\nGiven that there\u0027s not even a default case, a new value would be an empty string.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 69
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7157a3bb_25b3d7b7",
+        "filename": "osp_base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T19:22:50Z",
+      "side": 1,
+      "message": "I think if you move this operator\u003c\u003c down next to operator\u003c\u003c for Error::Code, you won\u0027t need the forward declaration. Also, it\u0027s a bit weird to see the operator\u003c\u003c declared before the class itself.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8bf020d_02bc9280",
+        "filename": "osp_base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T19:22:50Z",
+      "side": 1,
+      "message": "Please move implementation to .cc, it\u0027s not a trivial implementation anymore and stringstream is not a trivial class.",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 3
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8deadd_74fc6be2",
+        "filename": "osp_base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T19:22:50Z",
+      "side": 1,
+      "message": "From the declaration of this operator I expected that it puts value() into the stream on success.",
+      "range": {
+        "startLine": 175,
+        "startChar": 64,
+        "endLine": 175,
+        "endChar": 82
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0758635d_cb15ad78",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T19:22:50Z",
+      "side": 1,
+      "message": "There\u0027s a lette missing",
+      "range": {
+        "startLine": 21,
+        "startChar": 9,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
