@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "be2b08f3_5136f7de",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-29T19:30:32Z",
+      "side": 1,
+      "message": "For this code, I just updating existing code to allow it to continue compiling - I changed EventWaiter to an interface, and these changes are to reflect that change. Once we add the top layer (Network Runner, pending your other CL), the code here will be replaced with calls to that. This work is being tracked by a different item on the task tracking sheet, so I didn\u0027t feel the need to wrap it all up into the same giant CL and just wanted the code to continue functioning for this step",
+      "parentUuid": "838ace2b_9f51ab7b",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "313f6334_3948fc85",
         "filename": "osp_base/error.h",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bca7a87c_8f096221",
+        "filename": "osp_base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-29T19:30:32Z",
+      "side": 1,
+      "message": "I think I am missing something, and haven\u0027t been able to find a workaround. Using ByMove causes the error:\n\n../../platform/base/network_loop_unittest.cc:199:75: error: call to implicitly-deleted copy constructor of \u0027openscreen::ErrorOr\u003copenscreen::platform::Events\u003e\u0027\n  EXPECT_CALL(mock_waiter, WaitForEvents(timeout)).WillOnce(Return(ByMove(result)));\n                                                                          ^~~~~~\n../../osp_base/error.h:132:3: note: copy constructor is implicitly deleted because \u0027ErrorOr\u003copenscreen::platform::Events\u003e\u0027 has a user-declared move constructor\n  ErrorOr(ErrorOr\u0026\u0026 error_or) \u003d default;\n\nDo you have any intuition on how to fix this?",
+      "parentUuid": "313f6334_3948fc85",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "544272d9_3a52deb8",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2019-05-29T02:53:05Z",
       "side": 1,
       "message": "Also unnecessary.  See ErrorOr comment.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ae3dde6_7a6aefe6",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-05-29T19:30:32Z",
+      "side": 1,
+      "message": "Same issue as on ErrorOr comment",
+      "parentUuid": "544272d9_3a52deb8",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
