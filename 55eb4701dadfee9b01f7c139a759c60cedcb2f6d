@@ -22,6 +22,172 @@
       "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80af3d5c_9f3fda75",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T18:53:18Z",
+      "side": 1,
+      "message": "Since TlsSocketMessage is already passed by reference, it seems like these should be static here (i.e. IPEndpoint src).",
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0442b71_245d9883",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T18:53:18Z",
+      "side": 1,
+      "message": "\u0026",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e97d3d88_8f59c4a7",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T18:53:18Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly but I don\u0027t particularly like this alias since Create(Version) sounds more like you\u0027re specifying a TLS version (1.2, 1.3, etc.).",
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28aedfee_4734ca9a",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T18:53:18Z",
+      "side": 1,
+      "message": "Here and in TlsSocketFactory: const std::string\u0026",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 86,
+        "endChar": 21
+      },
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cbf1432_df371bb0",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T18:53:18Z",
+      "side": 1,
+      "message": "You can\u0027t have a pure virtual constructor, since you can\u0027t have a virtual constructor at all.",
+      "range": {
+        "startLine": 94,
+        "startChar": 47,
+        "endLine": 94,
+        "endChar": 50
+      },
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b726aa_aabfc4f2",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T18:53:18Z",
+      "side": 1,
+      "message": "nit: top-level const in parameter is somewhat unnecessary",
+      "range": {
+        "startLine": 94,
+        "startChar": 31,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47fa56ef_8c502985",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T18:53:18Z",
+      "side": 1,
+      "message": "It seems there\u0027s no place that assigns this yet, but possibly `const std::string` if the intention is that this is always initialized by the constructor.",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 13
+      },
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f465b99e_84dbec3f",
+        "filename": "platform/api/tls_socket_creds.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T18:53:18Z",
+      "side": 1,
+      "message": "If this is meant to be binary key data (i.e. not base64, DER, etc.), I\u0027d prefer std::vector\u003cuint8_t\u003e.  I don\u0027t feel strongly though since I know many people are fine with std::string for this.",
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
