@@ -215,6 +215,64 @@
     },
     {
       "key": {
+        "uuid": "9cc9d7cc_f503e8d4",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:39:00Z",
+      "side": 1,
+      "message": "I like the idea of separate TaskRunner and NetworkRunner interfaces, but I think it make sense us to do either:\n\nA.  NetworkRunner subclasses TaskRunner\n\nB.  NetworkRunner has a GetTaskRunner() method.  \n\n\nI\u0027m fine with either.  I\u0027d rather go with the one that\u0027s easier to use.  Which one is that?  Well, A has easier memory management because if you call GetTaskRunner(), you have to worry about 2 lifetimes instead of 1.",
+      "parentUuid": "ed915756_9e357ea4",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9db041c3_87176fba",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:39:00Z",
+      "side": 1,
+      "message": "The best name I can come up with is ReadRepeatedly.",
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8637a279_7602599b",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:39:00Z",
+      "side": 1,
+      "message": "And CancelReads",
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86626789_319df86c",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 4
