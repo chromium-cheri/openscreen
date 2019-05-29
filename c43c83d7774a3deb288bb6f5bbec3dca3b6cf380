@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "150d0941_b2f066bb",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Isn\u0027t our goal to get to the point where we use async reads instead of sync waits?  I don\u0027t see what the point of changing this here is when we want to eventually get rid of it (and switch to async read instead of sync wait).  Why don\u0027t we just skip to async read instead of having this in between state?",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 47
+      },
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "313f6334_3948fc85",
         "filename": "osp_base/error.h",
         "patchSetId": 3
@@ -72,6 +95,23 @@
     },
     {
       "key": {
+        "uuid": "5a952390_150de49f",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "If we\u0027re doing the 2-thread approach, why do we need a mechanism to wake up the NetworkLoop?  Can\u0027t we just have the NetworkLoop run until we shut it down?  I think we only needed that for the 1-thread approach which we decided not to do.\n\nCan you pull the 1-thread (hacky thing) out of this CL?  Perhaps leave it as a pending CL for a while in case we change our minds, but let\u0027s stick with the 2-thread approach for now.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "544272d9_3a52deb8",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -101,6 +141,23 @@
       "side": 1,
       "message": "Same issue as on ErrorOr comment",
       "parentUuid": "544272d9_3a52deb8",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "078bf772_efa6183a",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "I\u0027m thinking that instead of having a TaskRunner interface and an EventWaiter interface, we should have a NetworkRunner interface that\u0027s a superset of TaskRunner, and not expose any EventWaiter to the users of the API.  I think that would simplify things a lot, especially if we\u0027re doing the 2-thread approach.\n\nAlong with the previous comment, I think we should skip to async reads and not have an in between state before that.",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -181,6 +238,159 @@
     },
     {
       "key": {
+        "uuid": "5e365f96_c71abd8a",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "We should probably put in the documentation somewhere that there can only be one callback per socket.  And should we return an error here if there\u0027s already one?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "825cf5cb_4da7674d",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Would it make sense to do this instead?\n\nOnRead(Packet* data, UdpSocket* socket, NetworkLoop* network_runner);\n\nThat way you don\u0027t have a packet.socket, which is kind of a weird thing.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8fd90cc_919cb052",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Isn\u0027t this in Brandon\u0027s CL?  Will this be removed when you rebase?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71de6622_6e54aaf5",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be an implementation of NetworkRunner (a superser of TaskRunner with an async read method)?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6844863c_dce2a26e",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Can we have this CL stick to just reading and not writing?  I think writing could be done synchronously (or fake synchronously like we did in Chromium already).  The QUIC code expects synchronous writes.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbe812b0_65bf8db6",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Why is this a setter instead of taking it in the constructor?  Would you ever change it?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "388c97af_8d696e21",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Why is this public?  If it\u0027s just for tests, can you call it XForTesting?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "415aa161_b6ed5acd",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "As mentioned, I don\u0027t think we need this.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ea15c0a_332d1c62",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Can you make the members private and limit what is protected?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73e99f8b_ed486dca",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 3
@@ -215,6 +425,23 @@
         "endLine": 101,
         "endChar": 16
       },
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b82d23f_9b12171a",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-05-29T22:28:30Z",
+      "side": 1,
+      "message": "Two locks always scares me.  Plus, we don\u0027t really need the writing one, so another reason to stick with reading in this CL.",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
