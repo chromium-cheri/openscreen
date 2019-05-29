@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "838ace2b_9f51ab7b",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "This isn\u0027t an unreasonable transformation by itself, but the goal of adding NetworkRunner or similar would be to _replace_ uses of EventWaiter and things like OnePlatformLoopIteration, not wrap it.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "313f6334_3948fc85",
+        "filename": "osp_base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "Not necessary.  Use `WillOnce(Return(ByMove(...)))`",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544272d9_3a52deb8",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "Also unnecessary.  See ErrorOr comment.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5610fe80_bc4835b4",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "Why not make this std::unique_ptr\u003cEventWaiter\u003e like the comment mentions?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b4c151a_4a556e0b",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "Why are you passing a factory function if all you need is a single WakeUpHandler*?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ad7f69_332fdc93",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "Why not unique_ptr?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c2ee854_042226bf",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "nit: remove inconsistent use of `this-\u003e`.",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73e99f8b_ed486dca",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "Missing trailing underscore.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3c5bd7_b9f6d093",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-05-29T02:53:05Z",
+      "side": 1,
+      "message": "extra preposition",
+      "range": {
+        "startLine": 101,
+        "startChar": 13,
+        "endLine": 101,
+        "endChar": 16
+      },
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
