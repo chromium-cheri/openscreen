@@ -344,6 +344,24 @@
       "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffd24a6e_4a5bc7ab",
+        "filename": "platform/api/tls_socket_creds.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T21:47:29Z",
+      "side": 1,
+      "message": "I would prefer std::vector\u003cuint8_t\u003e as well. tls_cert_der_, tls_pk_sha256_hash_, private_key_base64_ and public_key_base64_ might have to be changed to std::vector\u003cuint8_t\u003e as well.",
+      "parentUuid": "f465b99e_84dbec3f",
+      "revId": "55eb4701dadfee9b01f7c139a759c60cedcb2f6d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

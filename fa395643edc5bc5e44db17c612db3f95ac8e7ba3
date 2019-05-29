@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f249177d_7f944ea7",
+        "filename": "platform/api/tls_socket_creds.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T21:47:29Z",
+      "side": 1,
+      "message": "Is the intent to create instances only with factory methods? If yes, it would make sense to make this constructor private or protected, since members are non assignable from the outside of the class?",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "fa395643edc5bc5e44db17c612db3f95ac8e7ba3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34b0c51a_18784fc7",
+        "filename": "platform/api/tls_socket_creds.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T21:47:29Z",
+      "side": 1,
+      "message": "Do we need a virtual destructor here?",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "fa395643edc5bc5e44db17c612db3f95ac8e7ba3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2b7359f_f246fb95",
+        "filename": "platform/api/tls_socket_creds.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-29T21:47:29Z",
+      "side": 1,
+      "message": "I think we decided to either put it in public section or not use it (as per style guide).\nOn the other hand, why do we want to ban copying only to add Clone method? This is a neat class with all members correctly copy-able by a default copy constructor and assignment operators.",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 30
+      },
+      "revId": "fa395643edc5bc5e44db17c612db3f95ac8e7ba3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
