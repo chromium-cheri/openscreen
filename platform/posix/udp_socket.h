@@ -11,9 +11,6 @@ namespace openscreen {
 namespace platform {
 
 struct UdpSocketPosix : public UdpSocket {
-  const int fd;
-  const UdpSocket::Version version;
-
   UdpSocketPosix(int fd, Version version);
 
   static const UdpSocketPosix* From(const UdpSocket* socket) {
@@ -23,6 +20,9 @@ struct UdpSocketPosix : public UdpSocket {
   static UdpSocketPosix* From(UdpSocket* socket) {
     return static_cast<UdpSocketPosix*>(socket);
   }
+
+  const int fd;
+  const UdpSocket::Version version;
 };
 
 }  // namespace platform

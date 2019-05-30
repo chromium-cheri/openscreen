@@ -18,6 +18,7 @@
 #include "absl/types/optional.h"
 #include "osp_base/error.h"
 #include "platform/api/logging.h"
+#include "platform/posix/socket_util.h"
 #include "platform/posix/udp_socket.h"
 
 namespace openscreen {
@@ -33,21 +34,6 @@ static_assert(IsPowerOf2(alignof(struct cmsghdr)),
 
 using IPv4NetworkInterfaceIndex = decltype(ip_mreqn().imr_ifindex);
 using IPv6NetworkInterfaceIndex = decltype(ipv6_mreq().ipv6mr_interface);
-
-ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
-  int fd = socket(domain, SOCK_DGRAM, 0);
-  if (fd == -1) {
-    return Error(Error::Code::kInitializationFailure, strerror(errno));
-  }
-  // On non-Linux, the SOCK_NONBLOCK option is not available, so use the
-  // more-portable method of calling fcntl() to set this behavior.
-  if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) | O_NONBLOCK) == -1) {
-    close(fd);
-    return Error(Error::Code::kInitializationFailure, strerror(errno));
-  }
-  return fd;
-}
-
 }  // namespace
 
 UdpSocket::UdpSocket() = default;
@@ -58,16 +44,7 @@ UdpSocketPosix::UdpSocketPosix(int fd, UdpSocket::Version version)
 
 // static
 ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(UdpSocket::Version version) {
-  int domain;
-  switch (version) {
-    case Version::kV4:
-      domain = AF_INET;
-      break;
-    case Version::kV6:
-      domain = AF_INET6;
-      break;
-  }
-  const ErrorOr<int> fd = CreateNonBlockingUdpSocket(domain);
+  const ErrorOr<int> fd = CreateNonBlockingSocket(SocketType::Udp, version);
   if (!fd) {
     return fd.error();
   }
