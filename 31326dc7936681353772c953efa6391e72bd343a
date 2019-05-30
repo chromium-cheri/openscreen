@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "33fc9dbe_c82c2d17",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:57:59Z",
+      "side": 1,
+      "message": "Tracing",
+      "range": {
+        "startLine": 83,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 11
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7378595f_742610cb",
         "filename": "osp_base/error.cc",
         "patchSetId": 4
@@ -13,6 +36,30 @@
       "writtenOn": "2019-05-29T19:22:50Z",
       "side": 1,
       "message": "It would be nice to have a way to enforce that new values added to the enum are added to this operator\u0027s implementation.\n\nMaybe something like static_assert(Error::Code::kMaxValue \u003d\u003d kHardcodedMaxValue, \"A new member was added to Error::Code, please update this function\");\n\nGiven that there\u0027s not even a default case, a new value would be an empty string.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 69
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a088bfe_c7162e92",
+        "filename": "osp_base/error.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:57:59Z",
+      "side": 1,
+      "message": "IIRC, we\u0027ve turned on compiler warnings for missing cases in switch statements.",
+      "parentUuid": "7378595f_742610cb",
       "range": {
         "startLine": 33,
         "startChar": 0,
@@ -94,6 +141,29 @@
     },
     {
       "key": {
+        "uuid": "e0d9a8e6_848dafb6",
+        "filename": "osp_base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:57:59Z",
+      "side": 1,
+      "message": "nit: Add parens around each \"out \u003c\u003c something\" to help readability.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 83
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0758635d_cb15ad78",
         "filename": "platform/BUILD.gn",
         "patchSetId": 4
@@ -110,6 +180,98 @@
         "startChar": 9,
         "endLine": 21,
         "endChar": 30
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b56743d9_2417adf2",
+        "filename": "platform/api/time.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:57:59Z",
+      "side": 1,
+      "message": "It\u0027s µs, not ms. Also, since this is a time_point and not a duration, the units should be something that describes the difference.\n\nChromium uses something like \"bogoticks,\" IIRC.",
+      "range": {
+        "startLine": 47,
+        "startChar": 42,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be19da74_69ccf6f6",
+        "filename": "platform/api/trace_logging_types.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:57:59Z",
+      "side": 1,
+      "message": "nit: I think this can be \"constexpr static\".",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 8
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a06ba374_fe665650",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:57:59Z",
+      "side": 1,
+      "message": "Can this be in the initializer list too?\n\n(and below, in ImmediateTask?)",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 34
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d075e6_260cab1b",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:57:59Z",
+      "side": 1,
+      "message": "This can be a TODO, but we should probably provide some way to turn tracing on for the standalone implementation (e.g., parsing command-line args?), and regardless of whether it\u0027s a DEBUG build or not.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 8
       },
       "revId": "31326dc7936681353772c953efa6391e72bd343a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
