@@ -58,6 +58,10 @@ source_set("platform") {
     if (is_posix) {
       sources += [
         "posix/event_waiter.cc",
+        "posix/socket_util.cc",
+        "posix/socket_util.h",
+        "posix/tls_socket.cc",
+        "posix/tls_socket.h",
         "posix/udp_socket.cc",
         "posix/udp_socket.h",
       ]
