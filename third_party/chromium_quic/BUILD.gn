@@ -6,6 +6,7 @@ config("chromium_quic_config") {
   cflags_cc = [
     "-Wno-error=attributes",
     "-Wno-unused-const-variable",
+    "-Wno-defaulted-function-deleted",
   ]
 
   if (is_linux) {
