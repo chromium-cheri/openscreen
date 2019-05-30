@@ -88,7 +88,7 @@ class UdpSocket {
                                  IPEndpoint* src,
                                  IPEndpoint* original_destination);
 
-  // Sends a message and returns the number of bytes sent, on success.
+  // Sends a message and returns the error, if any.
   // Error::Code::kAgain might be returned to indicate the operation would
   // block, which can be expected during normal operation.
   Error SendMessage(const void* data, size_t length, const IPEndpoint& dest);
