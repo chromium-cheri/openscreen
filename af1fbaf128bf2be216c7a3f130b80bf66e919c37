@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "736f8908_c9109e6a",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with the wire format being parsed here. Can you provide a link to the relevant RFC/spec document? (i.e., as a code comment, for the benefit of future readers)",
+      "range": {
+        "startLine": 91,
+        "startChar": 1,
+        "endLine": 91,
+        "endChar": 31
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33afa791_19f0ea45",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "Is it illegal to call this function with an empty name? Should that be an OSP_DCHECK(!name.empty()) to catch logic flaws in the calling code?\n\nAlso, consider doing the IsValidDomainLabel() DCHECK here on each name.labels_:\n\n#if OSP_DCHECK_IS_ON()\n  OSP_DCHECK(!name.empty());\n  for (i \u003d 0; i \u003c name.labels.size(); ++i) {\n    OSP_DCHECK(IsValidDomainLabel(name.Label(i))) \u003c\u003c \"Bad label at offset: \" \u003c\u003c i;\n  }\n#endif",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 3
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c886d39d_8ff78cf5",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "Should this code also be looking in tentative_dictionary_ while going through everything?",
+      "range": {
+        "startLine": 159,
+        "startChar": 23,
+        "endLine": 159,
+        "endChar": 54
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fa508cf_67f0a88d",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "This pattern of WriteBigEndian() followed by position +\u003d sizeof(...) seems to occur a lot. Up to you, but it might improve SNR to move the AppendField() and ConsumeField() methods from streaming/cast/packet_util.h to osp_base/somethingsomething.h and use them.",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 30
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10b6a623_9c9d0c83",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem like any macros are being used in this header file.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "999964a9_65e904fb",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "It would be too easy for calling code to ignore the return value and think everything\u0027s okay. Suggestion:\n\n  [[nodiscard]] bool PushLabel(...);\n\nThe attribute syntax was introduced in C++11, but \"nodiscard\" was not available until C++17. Even so, we can use it because both GCC and Clang respects it even when in \"-std\u003dc++14\" mode, which is very cool. :)",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "027047a5_5d556af5",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "s/will/could\n\n...and maybe explain that this is only an upper-bound, and not necessarily the actual wire size?",
+      "range": {
+        "startLine": 42,
+        "startChar": 52,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f6e46b3_96c5dc87",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "Make these public const methods, as discussed face-to-face just now. :)",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 71
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84c2689c_3a0ec784",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "Does this mean a MdnsWriter is only good for one call to WriteDomainName()? Or, only good for writing one mDNS record with multiple domain names, but not a second mDNS record?\n\nIf applicable, you might want to either/both:\n\n1. Add a code comment to WriteDomainName() explaining this.\n2. Add a ClearDictionary() method.",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 53
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4739b71d_f29883c8",
+        "filename": "cast/common/mdns/mdns_parsing_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-05-30T01:01:56Z",
+      "side": 1,
+      "message": "This made me go back and check the class declarations again. DomainNames don\u0027t do any raw pointer sharing, or have any special ownership semantics that client code needs to worry about. So, should we even include this in the unit tests (seems too pedantic, IMHO)?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 22
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
