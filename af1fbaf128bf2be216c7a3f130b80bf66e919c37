@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "854d2303_a36c686a",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "Added a link to the RFC here, also linked in mdns_constants with more comments.",
+      "parentUuid": "736f8908_c9109e6a",
+      "range": {
+        "startLine": 91,
+        "startChar": 1,
+        "endLine": 91,
+        "endChar": 31
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33afa791_19f0ea45",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ad9203a_37db57c2",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "It\u0027s considered illegal in pre-existing code and covered by a unit test, I chose to keep it this way. Adding DCHECKs here, good suggestion",
+      "parentUuid": "33afa791_19f0ea45",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 3
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2b889ed6_060d8354",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "Nope. tentative_dictionary only gets entries that we were unable to find in the main compression dictionary. We are writing and trying to compress the domain name from long to short. Here\u0027s an example:\nThe domain name is example.domain.com.\nWe first try to compress example.domain.com\nIf we don\u0027t find a previous entry in the dictionary, we write a direct label \"example\" and insert an entry into the tentative dictionary that points to where \"example.domain.com\" starts in the buffer.\nThen we try to compress \"domain.com\", then \"com\"\nA sub-name cannot possibly be compressed to any of the entries already in the tentative dictionary as those are for the longer names.",
+      "parentUuid": "c886d39d_8ff78cf5",
+      "range": {
+        "startLine": 159,
+        "startChar": 23,
+        "endLine": 159,
+        "endChar": 54
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fa508cf_67f0a88d",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 11
@@ -91,6 +163,30 @@
       "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f32ec0c5_036a115c",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed for the current three usages in MdnsWriter, but I might factor this and a few other things out into helper methods as I add support for other mDNS types to MdnsReader and MdnsWriter. Let me know if you want this changed in this PR.",
+      "parentUuid": "7fa508cf_67f0a88d",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 30
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "575f6dca_0b85b564",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10b6a623_9c9d0c83",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "999964a9_65e904fb",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 11
@@ -137,6 +257,30 @@
       "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c530b2_c22d7d22",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "It\u0027s pretty neat that this is supported. However, any function that returns an error code or a bool or any other indication of success assumes that it\u0027s the callers responsibility to check if the call succeeded. I\u0027m not willing to add attributes right now, until we agree on this in OSP style guide or it makes its way into parent C++ style guides.",
+      "parentUuid": "999964a9_65e904fb",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "dd2e756b_2f2eeea5",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "027047a5_5d556af5",
+      "range": {
+        "startLine": 42,
+        "startChar": 52,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f6e46b3_96c5dc87",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 11
@@ -183,6 +351,30 @@
       "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8fb8a7b_fcc9ceff",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f6e46b3_96c5dc87",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 71
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "6914adb6_30f057c6",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "Compression of multiple domain names in multiple records is supported as long as they go to the same underlying buffer. Buffer may or may not contain other data in addition to the domain names. Compression dictionary persists between calls to WriteDomainName. Adding this a comment in the code.",
+      "parentUuid": "84c2689c_3a0ec784",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 53
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4739b71d_f29883c8",
         "filename": "cast/common/mdns/mdns_parsing_unittest.cc",
         "patchSetId": 11
@@ -229,6 +445,30 @@
       "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c1dc5c8_cd5e24c0",
+        "filename": "cast/common/mdns/mdns_parsing_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-05-30T21:36:28Z",
+      "side": 1,
+      "message": "Good point, updated the test",
+      "parentUuid": "4739b71d_f29883c8",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 22
+      },
+      "revId": "af1fbaf128bf2be216c7a3f130b80bf66e919c37",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
