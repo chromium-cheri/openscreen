@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "7943c510_a2d77c33",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Style #1: Don\u0027t use auto to erase pointers from types.\nStyle #2: Use std::unique_ptr, don\u0027t manually allocate and delete objects.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "087de7c6_918dbefe",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Unwrapping a unique_ptr to pass into an API that then does stuff with the raw pointer is problematic.  Is the raw pointer stored anywhere?\n\nIt would be better to pass socket as a const ref here, but this is optional to fix (as the goal of this patch isn\u0027t to improve EventWaiter per se).",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "838ace2b_9f51ab7b",
         "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
         "patchSetId": 3
@@ -31,6 +65,24 @@
       "side": 1,
       "message": "For this code, I just updating existing code to allow it to continue compiling - I changed EventWaiter to an interface, and these changes are to reflect that change. Once we add the top layer (Network Runner, pending your other CL), the code here will be replaced with calls to that. This work is being tracked by a different item on the task tracking sheet, so I didn\u0027t feel the need to wrap it all up into the same giant CL and just wanted the code to continue functioning for this step",
       "parentUuid": "838ace2b_9f51ab7b",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "646c535d_e07c29ba",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "I agree we should deprecate and remove EventWaiter unless its API proves useful.  It seems reasonable to make this change as an interim step so we can decide later what to do with EventWaiter.",
+      "parentUuid": "be2b08f3_5136f7de",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -84,6 +136,40 @@
     },
     {
       "key": {
+        "uuid": "b8afdc42_df1e1d2d",
+        "filename": "osp/impl/internal_services.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Please use a std::unique_ptr here.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21064502_ec4b9657",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "std::unique_ptr",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "313f6334_3948fc85",
         "filename": "osp_base/error.h",
         "patchSetId": 3
@@ -113,6 +199,24 @@
       "side": 1,
       "message": "I think I am missing something, and haven\u0027t been able to find a workaround. Using ByMove causes the error:\n\n../../platform/base/network_loop_unittest.cc:199:75: error: call to implicitly-deleted copy constructor of \u0027openscreen::ErrorOr\u003copenscreen::platform::Events\u003e\u0027\n  EXPECT_CALL(mock_waiter, WaitForEvents(timeout)).WillOnce(Return(ByMove(result)));\n                                                                          ^~~~~~\n../../osp_base/error.h:132:3: note: copy constructor is implicitly deleted because \u0027ErrorOr\u003copenscreen::platform::Events\u003e\u0027 has a user-declared move constructor\n  ErrorOr(ErrorOr\u0026\u0026 error_or) \u003d default;\n\nDo you have any intuition on how to fix this?",
       "parentUuid": "313f6334_3948fc85",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc7f9f0_6d9571b6",
+        "filename": "osp_base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "The argument to ByMove has to be an rvalue reference.   You need to construct a temporary or use std::move.",
+      "parentUuid": "bca7a87c_8f096221",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -154,6 +258,24 @@
     },
     {
       "key": {
+        "uuid": "5c2854e7_aa3c83a8",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "+1 for having a persistent NetworkLoop.  I didn\u0027t follow the comment about needing a timeout for socket callbacks but it may be answered elsewhere in the patch.",
+      "parentUuid": "c358b336_4c456803",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "544272d9_3a52deb8",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -189,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "43b4f82c_2818400b",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "See comments.  Fixing the unittest will allow this to be removed.   We shouldn\u0027t be changing the semantics of our objects because of unittests.",
+      "parentUuid": "0ae3dde6_7a6aefe6",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "078bf772_efa6183a",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -218,6 +358,24 @@
       "side": 1,
       "message": "I agree that the EventWaiter should not be exposed. \n\nOnce I am back from my OOO I will work on the next steps, pending the open interface CL. Happy to leave this one open indefinitely and not check it in - getting some feedback at this stage will be helpful regardless :)",
       "parentUuid": "078bf772_efa6183a",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "807653ec_e5f71e81",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Again, I agree we should strive to remove EventWaiter, but it depends on whether it\u0027s simpler to make that migration in two stages or one.",
+      "parentUuid": "d0a9eeca_fdcfdee5",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -315,6 +473,176 @@
     },
     {
       "key": {
+        "uuid": "89cdaa44_e18e2686",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Also please use insert+move here instead of allocation and assignment.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b07775a_b6152cae",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Similar comment as above.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a6c094_2e47db86",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Passing in the ctor would avoid this error condition.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd7d48f_f4400518",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Does the default ctor for ErrorOr already do this?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd1898e4_e26f6ab2",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Let\u0027s not use two locks in this class.  That adds risk of deadlock with no clear benefit.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73f500aa_3978f1f1",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Rather than have the network loop allocate memory for each packet read, it is going to be much more efficient to have the socket own a circular buffer that it allocates once and appends data to.  The callback would then pass a pointer and length which the Quic implementation would use to consume the data read (copying it out of the buffer).\n\nAgain, not sure this can be fixed without reimplementing UdpSocket.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84b9f9d6_0605e69e",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "s/2018/2019/ here and elsewhere for new files",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e44bb721_1e7354cb",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Nit: I would expect this to be defined in udp_socket.h, not here.  If that creates circular includes, a separate file like network_constants.h would be an option.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "836674ef_c6ede40e",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Please make this move-only so it can only be owned and invoked once.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb3b999f_9b002582",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Allocating 64K for the read callback is not efficient since we should avoiding datagram fragmentation and only sending datagrams that are less than the path MTU.\n\nQUIC actually mandates this: https://quicwg.org/base-drafts/draft-ietf-quic-transport.html#rfc.section.14\n\nThe more correct thing to do is to query each socket for path MTU and allocate the read callback size to match.  But in the absence of that, we should probably assume the QUIC packet sizes in the spec.",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "825cf5cb_4da7674d",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 3
@@ -343,6 +671,23 @@
       "writtenOn": "2019-05-29T22:28:30Z",
       "side": 1,
       "message": "Isn\u0027t this in Brandon\u0027s CL?  Will this be removed when you rebase?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3135f4d7_f6ee877c",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "Please make this move-only (see comment re: UdpReadCallback)",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -445,6 +790,23 @@
       "writtenOn": "2019-05-29T22:28:30Z",
       "side": 1,
       "message": "Can you make the members private and limit what is protected?",
+      "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6100aeb9_850c85fc",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-05-30T23:50:37Z",
+      "side": 1,
+      "message": "I would rather structure the code so that callbacks can be registered with the sockets directly instead of being maintained in separate data structures.  Since this code is part of platform/base what is the concern with having the socket API depend on it?\n\nWe may need to split the socket implementation into a base implementation and a backend which can be implemented embedder-side for the platform-specific code.  If it requires major surgery, then it\u0027s probably best to discuss further and implement in a separate patch.",
       "revId": "c43c83d7774a3deb288bb6f5bbec3dca3b6cf380",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
