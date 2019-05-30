@@ -77,6 +77,9 @@ class Error {
 
     kJsonParseError,
     kJsonWriteError,
+
+    // OpenSSL errors
+    kFileLoadFailure,
   };
 
   Error();
