@@ -6,14 +6,12 @@
 #define PLATFORM_POSIX_UDP_SOCKET_H_
 
 #include "platform/api/udp_socket.h"
+#include "platform/posix/posix_socket.h"
 
 namespace openscreen {
 namespace platform {
 
 struct UdpSocketPosix : public UdpSocket {
-  const int fd;
-  const UdpSocket::Version version;
-
   UdpSocketPosix(int fd, Version version);
 
   static const UdpSocketPosix* From(const UdpSocket* socket) {
@@ -23,6 +21,9 @@ struct UdpSocketPosix : public UdpSocket {
   static UdpSocketPosix* From(UdpSocket* socket) {
     return static_cast<UdpSocketPosix*>(socket);
   }
+
+  bool operator==(const UdpSocketPosix& other);
+  const PosixSocket impl;
 };
 
 }  // namespace platform

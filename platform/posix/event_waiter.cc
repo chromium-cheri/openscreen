@@ -12,6 +12,7 @@
 #include "osp_base/error.h"
 #include "platform/api/logging.h"
 #include "platform/posix/udp_socket.h"
+#include "platform/posix/posix_socket.h"
 
 namespace openscreen {
 namespace platform {
@@ -20,7 +21,7 @@ namespace {
 Error AddToVectorIfMissing(UdpSocketPosix* socket,
                            std::vector<UdpSocketPosix*>* watched_sockets) {
   for (const auto* s : *watched_sockets) {
-    if (s->fd == socket->fd)
+    if (s == socket)
       return Error::Code::kAlreadyListening;
   }
   watched_sockets->push_back(socket);
@@ -31,7 +32,7 @@ Error RemoveFromVectorIfPresent(UdpSocketPosix* socket,
                                 std::vector<UdpSocketPosix*>* watched_sockets) {
   const auto it =
       std::find_if(watched_sockets->begin(), watched_sockets->end(),
-                   [socket](UdpSocketPosix* s) { return s->fd == socket->fd; });
+                   [socket](UdpSocketPosix* s) { return s == socket; });
   if (it == watched_sockets->end())
     return Error::Code::kNoItemFound;
 
@@ -93,12 +94,12 @@ ErrorOr<Events> WaitForEvents(EventWaiterPtr waiter) {
   FD_ZERO(&readfds);
   FD_ZERO(&writefds);
   for (const auto* read_socket : waiter->read_sockets) {
-    FD_SET(read_socket->fd, &readfds);
-    max_fd = std::max(max_fd, read_socket->fd);
+    FD_SET(read_socket->impl.file_descriptor, &readfds);
+    max_fd = std::max(max_fd, read_socket->impl.file_descriptor);
   }
   for (const auto* write_socket : waiter->write_sockets) {
-    FD_SET(write_socket->fd, &writefds);
-    max_fd = std::max(max_fd, write_socket->fd);
+    FD_SET(write_socket->impl.file_descriptor, &writefds);
+    max_fd = std::max(max_fd, write_socket->impl.file_descriptor);
   }
   if (max_fd == -1)
     return Error::Code::kIOFailure;
@@ -110,11 +111,11 @@ ErrorOr<Events> WaitForEvents(EventWaiterPtr waiter) {
 
   Events events;
   for (auto* read_socket : waiter->read_sockets) {
-    if (FD_ISSET(read_socket->fd, &readfds))
+    if (FD_ISSET(read_socket->impl.file_descriptor, &readfds))
       events.udp_readable_events.push_back({read_socket});
   }
   for (auto* write_socket : waiter->write_sockets) {
-    if (FD_ISSET(write_socket->fd, &writefds))
+    if (FD_ISSET(write_socket->impl.file_descriptor, &writefds))
       events.udp_writable_events.push_back({write_socket});
   }
 

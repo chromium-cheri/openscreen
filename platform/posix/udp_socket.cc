@@ -18,7 +18,7 @@
 #include "absl/types/optional.h"
 #include "osp_base/error.h"
 #include "platform/api/logging.h"
-#include "platform/posix/udp_socket.h"
+#include "platform/posix/socket_util.h"
 
 namespace openscreen {
 namespace platform {
@@ -33,21 +33,6 @@ static_assert(IsPowerOf2(alignof(struct cmsghdr)),
 
 using IPv4NetworkInterfaceIndex = decltype(ip_mreqn().imr_ifindex);
 using IPv6NetworkInterfaceIndex = decltype(ipv6_mreq().ipv6mr_interface);
-
-ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
-  int fd = socket(domain, SOCK_DGRAM, 0);
-  if (fd == -1) {
-    return Error(Error::Code::kInitializationFailure, strerror(errno));
-  }
-  // On non-Linux, the SOCK_NONBLOCK option is not available, so use the
-  // more-portable method of calling fcntl() to set this behavior.
-  if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) | O_NONBLOCK) == -1) {
-    close(fd);
-    return Error(Error::Code::kInitializationFailure, strerror(errno));
-  }
-  return fd;
-}
-
 }  // namespace
 
 UdpSocket::UdpSocket() = default;
@@ -56,18 +41,13 @@ UdpSocket::~UdpSocket() = default;
 UdpSocketPosix::UdpSocketPosix(int fd, UdpSocket::Version version)
     : fd(fd), version(version) {}
 
+bool UdpSocketPosix::operator==(const UdpSocketPosix& other) {
+  return impl == other.impl;
+}
+
 // static
 ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(UdpSocket::Version version) {
-  int domain;
-  switch (version) {
-    case Version::kV4:
-      domain = AF_INET;
-      break;
-    case Version::kV6:
-      domain = AF_INET6;
-      break;
-  }
-  const ErrorOr<int> fd = CreateNonBlockingUdpSocket(domain);
+  const ErrorOr<int> fd = CreateNonBlockingSocket(SocketType::Udp, version);
   if (!fd) {
     return fd.error();
   }
@@ -228,20 +208,6 @@ Error UdpSocket::JoinMulticastGroup(const IPAddress& address,
   return Error::Code::kGenericPlatformError;
 }
 
-namespace {
-
-// Examine |posix_errno| to determine whether the specific cause of a failure
-// was transient or hard, and return the appropriate error response.
-Error ChooseError(decltype(errno) posix_errno, Error::Code hard_error_code) {
-  if (posix_errno == EAGAIN || posix_errno == EWOULDBLOCK ||
-      posix_errno == ENOBUFS) {
-    return Error(Error::Code::kAgain, strerror(errno));
-  }
-  return Error(hard_error_code, strerror(errno));
-}
-
-}  // namespace
-
 ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
                                           size_t length,
                                           IPEndpoint* src,
@@ -384,49 +350,7 @@ Error UdpSocket::SendMessage(const void* data,
                              size_t length,
                              const IPEndpoint& dest) {
   auto* const socket = UdpSocketPosix::From(this);
-
-  struct iovec iov = {const_cast<void*>(data), length};
-  struct msghdr msg;
-  msg.msg_iov = &iov;
-  msg.msg_iovlen = 1;
-  msg.msg_control = nullptr;
-  msg.msg_controllen = 0;
-  msg.msg_flags = 0;
-
-  ssize_t num_bytes_sent = -2;
-  switch (socket->version) {
-    case UdpSocket::Version::kV4: {
-      struct sockaddr_in sa = {
-          .sin_family = AF_INET,
-          .sin_port = htons(dest.port),
-      };
-      dest.address.CopyToV4(reinterpret_cast<uint8_t*>(&sa.sin_addr.s_addr));
-      msg.msg_name = &sa;
-      msg.msg_namelen = sizeof(sa);
-      num_bytes_sent = sendmsg(socket->fd, &msg, 0);
-      break;
-    }
-
-    case UdpSocket::Version::kV6: {
-      struct sockaddr_in6 sa = {};
-      sa.sin6_family = AF_INET6;
-      sa.sin6_flowinfo = 0;
-      sa.sin6_scope_id = 0;
-      sa.sin6_port = htons(dest.port);
-      dest.address.CopyToV6(reinterpret_cast<uint8_t*>(&sa.sin6_addr.s6_addr));
-      msg.msg_name = &sa;
-      msg.msg_namelen = sizeof(sa);
-      num_bytes_sent = sendmsg(socket->fd, &msg, 0);
-      break;
-    }
-  }
-
-  if (num_bytes_sent == -1) {
-    return ChooseError(errno, Error::Code::kSocketSendFailure);
-  }
-  // Sanity-check: UDP datagram sendmsg() is all or nothing.
-  OSP_DCHECK_EQ(static_cast<size_t>(num_bytes_sent), length);
-  return Error::Code::kNone;
+  return socket->impl.SendMessage(data, length, dest);
 }
 
 Error UdpSocket::SetDscp(UdpSocket::DscpMode state) {
