@@ -39,7 +39,7 @@ class TlsSocket {
  public:
   class Delegate {
    public:
-    // Provides a unique ID for use by the TlsSocketFactory.
+    // Provides a unique ID for use by the TlsServerSocket.
     virtual const std::string& GetNewSocketId() = 0;
 
     // Called when a |socket| is created or accepted.
@@ -68,20 +68,20 @@ class TlsSocket {
   static ErrorOr<TlsSocketUniquePtr> Create(IPAddress::Version version);
 
   // Returns true if |socket| belongs to the IPv4/IPv6 address family.
-  bool IsIPv4() const;
-  bool IsIPv6() const;
+  bool IsIPv4() const { return version_ == IPAddress::Version::kV6; }
+  bool IsIPv6() const { return version_ == IPAddress::Version::kV4; }
 
   // Closes this socket. Delegate::OnClosed is called when complete.
-  virtual void Close(CloseReason reason) = 0;
+  void Close(CloseReason reason);
 
   // Start reading data. Delegate::OnMessage is called when new data arrives.
-  virtual Error Read() = 0;
+  Error Read();
 
-  // Sends a message and returns the number of bytes sent, on success.
-  virtual Error SendMessage(const TlsSocketMessage& message) = 0;
+  // Sends a message and returns the error code, if any.
+  Error SendMessage(const TlsSocketMessage& message);
 
   // Returns the unique identifier of the factory that created this socket.
-  virtual const std::string& GetFactoryId() const = 0;
+  const std::string& GetFactoryId() const;
 
   // Returns the unique identifier for this socket.
   const std::string& id() const { return id_; }
@@ -89,21 +89,23 @@ class TlsSocket {
  protected:
   Delegate* delegate() const { return delegate_; }
 
-  explicit TlsSocket(Delegate* delegate) {}
+  TlsSocket(Delegate* delegate, IPAddress::Version version) :
+       delegate_(delegate), version_(version) {}
   virtual ~TlsSocket() = 0;
 
  private:
-  const std::string id_;
   Delegate* const delegate_;
+  const std::string id_;
+  IPAddress::Version version_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TlsSocket);
 };
 
 // Abstract factory class for building TlsSockets.
-class TlsSocketFactory {
+class TlsServerSocket {
  public:
-  TlsSocketFactory() = default;
-  virtual ~TlsSocketFactory() = default;
+  TlsServerSocket() = default;
+  virtual ~TlsServerSocket() = default;
 
   // Returns a unique identifier for this Factory.
   virtual const std::string& GetId() = 0;
@@ -124,8 +126,8 @@ class TlsSocketFactory {
   virtual TlsSocket::Delegate* GetDelegate() const = 0;
 
  private:
-  OSP_DISALLOW_COPY_AND_ASSIGN(TlsSocketFactory);
-}
+  OSP_DISALLOW_COPY_AND_ASSIGN(TlsServerSocket);
+};
 }  // namespace platform
 }  // namespace openscreen
 
