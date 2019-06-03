@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "61b3e1e8_8a3e1536",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T18:31:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d580905_4ab7ae5f",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75aec925_8814dc8b",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 12
@@ -87,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "c34702d0_cf479a91",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T18:31:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe9c1849_afaffca8",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7873d2c_623f4678",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 12
@@ -98,6 +134,24 @@
       "writtenOn": "2019-05-31T00:19:29Z",
       "side": 1,
       "message": "Nit: mdns_parser.h would be more consistent with the names of similar files elsewhere in Chromium.  I don\u0027t feel strongly however.",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d313e71a_932ff7eb",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T18:31:06Z",
+      "side": 1,
+      "message": "Based on what I have in the changes after this one, I planned having mdns_writer.h/.cc and mdns_reader.h/.cc while DomainName class is moving elswhere. Would it be fine with you if the rename comes in the next PR?",
+      "parentUuid": "f7873d2c_623f4678",
       "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -118,6 +172,24 @@
       "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c126f3a1_d8fbebbd",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T18:31:06Z",
+      "side": 1,
+      "message": "I think none of these should be publicly exposed. I\u0027ll restructure it as needed in the future.",
+      "parentUuid": "06009411_a649e2fc",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -149,6 +221,24 @@
       "writtenOn": "2019-06-03T17:43:05Z",
       "side": 1,
       "message": "Do you mean https://cs.chromium.org/chromium/src/third_party/openscreen/src/osp/impl/discovery/mdns/domain_name.h?g\u003d0\n\n?\n\nThat sounds like an interesting idea.   But if we are successful in using this mDNS code, we won\u0027t need mDNSResponder, which means we won\u0027t need the other DomainName class and we can just delete it.  \n\nThe other alternative is to use that DomainName here and not write a new one, but I\u0027m not sure it does everything this code needs.",
+      "parentUuid": "dfbda14f_4e13e2bd",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "298cae4c_98247e44",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T18:31:06Z",
+      "side": 1,
+      "message": "While this code is primarily for CastV2 support, the goal is to have a single implementation of mDNS (this one) and use it in OSP. I think it\u0027s currently too far from complete to start moving OSP to using this code.",
       "parentUuid": "dfbda14f_4e13e2bd",
       "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
@@ -221,6 +311,24 @@
       "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293ae20c_1d8e9e82",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T18:31:06Z",
+      "side": 1,
+      "message": "Label pointer in only 14 bits per https://tools.ietf.org/html/rfc1035#section-4.1.4\n\nThis means any domain name that\u0027s recorded into the buffer at offset of greater or equal than 2^14 is non-compressible.\n\nAdding a comment for this and replacing DCHECK with an if statement",
+      "parentUuid": "fbe10f8c_31330ac2",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
