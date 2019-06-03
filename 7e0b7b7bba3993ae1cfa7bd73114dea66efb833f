@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "18a1005e_094eb715",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T23:29:51Z",
+      "side": 1,
+      "message": "I\u0027ve tried a few times, but always ended up with a longer less readable piece of code (IMO).\nThere are a few things that prevent it from being all nice, tidy and simple:\n1. If the domain name contains a compression pointer, next thing to be read from MdnsReader/BigEndianReader must be read from right after the pointer, not from the end of the label this pointer points to.\n2. Circular compression detection to prevent us from sitting in a loop forever when reading bad data.\n3. There\u0027s nothing in RFC that prevents pointers from pointing forward in the buffer.\n4. Label type is a single byte length (two top bits are 0) or the most significant byte of a two byte label pointer (two top bits are 1), i.e. either different size of big endian data must be read at the same offset or we do bit manipulation.\n\nExample that\u0027s a bit longer than what\u0027s in PR:\n\nwhile (bytes_processed \u003c\u003d bytes_total) {\n  uint8_t label_type;\n  if (!Read(\u0026label_type)) {\n    break;\n  }\n  bytes_processed +\u003d sizeof(uint8_t);\n  if (label_type \u003d\u003d kLabelTermination) {\n    if (finish !\u003d nullptr) {\n      set_current(finish);\n    }\n    return true;\n  } else if ((label_type \u0026 kLabelMask) \u003d\u003d kLabelPointer) {\n    uint8_t label_pointer_second_octet;\n    if (!Read(\u0026label_pointer_second_octet)) {\n      break;\n    }\n    bytes_processed +\u003d sizeof(uint8_t);\n    uint16_t label_offset \u003d\n        (uint16_t(label_type) \u003c\u003c 8 | label_pointer_second_octet) \u0026\n        kLabelOffsetMask;\n    if (finish \u003d\u003d nullptr) {\n      finish \u003d current();\n    }\n    set_current(begin() + label_offset);\n  } else if ((label_type \u0026 kLabelMask) \u003d\u003d kLabelDirect) {\n    uint8_t label_length \u003d label_type \u0026 ~kLabelMask;\n    OSP_DCHECK_NE(label_length, 0);\n    std::string label;\n    if (!ReadString(label_length, \u0026label)) { //ReadString is not impl\n      break\n    }\n    bytes_processed +\u003d label_length;\n    if (!out-\u003ePushLabel(label)) {\n      break;\n    }\n  } else {\n    break;\n  }\n}\n\nset_current(start);\nreturn false;",
+      "parentUuid": "75aec925_8814dc8b",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef71df2c_a4cd6a04",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 12
@@ -71,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "055582a4_cf30f112",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T23:29:51Z",
+      "side": 1,
+      "message": "Here hash does not have to be persistent or cryptographically secure. And we are only hashing a few items here.\nHowever, I\u0027ve noticed that this uses 32 bit constant for combining, while hashes are 64-bit. I\u0027m re-writing a new one for 64-bit combining using bits of absl.",
+      "parentUuid": "ef71df2c_a4cd6a04",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ca06f_5e4c4e5d",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 12
@@ -85,6 +121,24 @@
       "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a03d214_b16274c4",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T23:29:51Z",
+      "side": 1,
+      "message": "Yes, definitely in this case.",
+      "parentUuid": "c42ca06f_5e4c4e5d",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -263,6 +317,24 @@
     },
     {
       "key": {
+        "uuid": "71b998e2_bcb2f444",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T23:29:51Z",
+      "side": 1,
+      "message": "DomainName class does not allow building an invalid domain name, PushLabel returns false if a user attempts to build an invalid domain name. MdnsReader will fail a call to ReadDomainName for an invalid domain name.",
+      "parentUuid": "0659d68e_3b2f9204",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "491d0755_62952fff",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 12
@@ -280,6 +352,24 @@
     },
     {
       "key": {
+        "uuid": "93a8be74_069d8941",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T23:29:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "491d0755_62952fff",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffbc9260_70e4f5df",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 12
@@ -294,6 +384,24 @@
       "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3492acf3_33d20143",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-03T23:29:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffbc9260_70e4f5df",
+      "revId": "7e0b7b7bba3993ae1cfa7bd73114dea66efb833f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
