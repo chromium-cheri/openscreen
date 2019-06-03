@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a5e9062_49436ef1",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "I so prefer constant initializers to be in the class definition.  (picture_is_lost_ \u003d false up above, for example).",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "307b8089_da9ed1db",
         "filename": "streaming/cast/compound_rtcp_builder.cc",
         "patchSetId": 1
@@ -19,6 +36,108 @@
         "endLine": 36,
         "endChar": 67
       },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "381d270b_ca865b76",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "But this is only for one packet, right?  So why not just delay this until the packet is built?",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fe131fb_1885b29d",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "It seems like this could be nicer spun out into its own method with something like:\n\nnacks_ \u003d MergeNacks(frame_nacks, packet_nackets);",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "691c1795_964582fe",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Can you call these frame_i and packet_i or something like that?  Would be easier to read than with i and j.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd68b507_dda84685",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "The above two lines are just optimizations, right?  In the name of readability, could we just forego them and be slightly less efficient (by going around the loop i+j times rather than max(i, j) times).\n\nIf not, a comment or 2 like \"There are no more frame/packet nacks, so all the rest are packet/packet nacks, so just insert them and stop.\" would make the above more clear.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "748deedf_f4193695",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of having to remember what the .first is.  Could you make a simple FramePacketId struct that is FrameId + PacketId so this can be packet_nacks[j].frame_id?",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a876cf32_a9f001b1",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "A comment here of \"Insert the first nack, either frame or packet, and go around again\"",
       "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -72,6 +191,23 @@
     },
     {
       "key": {
+        "uuid": "37f6d772_9651f8bd",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Can you put this in a helper method and call OSP_DCHECK(NoAcksInNacks(acks, nacks)) here?  That would be easier to read.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "509c93d8_a5c6d10e",
         "filename": "streaming/cast/compound_rtcp_builder.cc",
         "patchSetId": 1
@@ -89,6 +225,40 @@
         "endLine": 97,
         "endChar": 5
       },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84c3c404_c3619fb6",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Could be shorter:\n\nfor (size_t i \u003d 0, j \u003d 0; i \u003c acks_.size() \u0026\u0026 j \u003c nacks_size(); ) {\n}",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a7b3ab_ec9019a3",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Instead of i and j could you do ack_i and nack_i?",
       "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -142,6 +312,23 @@
     },
     {
       "key": {
+        "uuid": "11dd7ad8_593b65ec",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "It seems like a helper method of AppendReceiverReport(receiver_report_block_, \u0026header) would make sense here, and be more readable.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "432cb012_6675b19f",
         "filename": "streaming/cast/compound_rtcp_builder.cc",
         "patchSetId": 1
@@ -165,6 +352,115 @@
     },
     {
       "key": {
+        "uuid": "86e95720_eb6fb551",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "We could have a method like AppendCommonHeader(header, \u0026buffer).",
+      "parentUuid": "432cb012_6675b19f",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 48
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab325ad5_c584d4a4",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "What\u0027s this?  Could use a named constant to be more clear.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b029e19d_ae73f11f",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Helper method of AppendExtendedReport would be a nice here as well.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50fd69fa_163fa9e1",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Low priority, but would it make sense to use Max\u0027s BigEndianWriter?",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143cb408_0de66772",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "See below my suggestion for pushing the loss calculations into a separate method.  If you did that, you could do something like this:\n\nauto losses \u003d CalculateLosses(buffer.size() - sizeof(uint16_t));\nAppendField\u003cuint8_t\u003e(losses.length(), \u0026buffer);\nAppendField\u003cuint16_t\u003e(playout_delay_.count(), \u0026buffer);\nfor (auto loss : losses) {\n  AppendField\u003cuint32_t\u003e(loss);\n}",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59639e74_34ff94f2",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Can you push this calculation into a separate method?  It seems like that would make this more readable.  Maybe instead of having it append to the buffer, have it return a vector of losses.  Then take that array and append both its length and its values.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1181c6b_77459808",
         "filename": "streaming/cast/compound_rtcp_builder.cc",
         "patchSetId": 1
@@ -182,6 +478,64 @@
         "endLine": 211,
         "endChar": 77
       },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60fd6f89_753d86fb",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "+1\n\nAnd a comment might be nice, something like \"skip everything up to the checkpoint\".\n\nIn fact.... couldn\u0027t you use std::find?",
+      "parentUuid": "e1181c6b_77459808",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 211,
+        "endChar": 77
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f13e0e5f_4e1c1411",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "This might be more clear by using AppendField approach you already have:\n\nAppendField\u003cuint8_t\u003e(frame_id.lower_b_bits(), \u0026buffer);\nAppendField\u003cuint32_t\u003e(first_packet_id);\nAppendField\u003cuint8_t\u003e(nack_bits);",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "824cf963_125e12d9",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "If the NACKs filled up the buffer, then there won\u0027t be space for ACKs, right?",
       "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -234,6 +588,74 @@
     },
     {
       "key": {
+        "uuid": "1da0cb64_4fac1ba4",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Maybe it would make sense to make a copy of the buffer before feedback:\n\nuint8_t* const feedback_begin \u003d buffer.data();\nconst auto space_for_header \u003d ReserveSpace(kRtcpCommonHeaderSize, \u0026buffer);",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ebdc870_86c9b001",
+        "filename": "streaming/cast/compound_rtcp_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Why do these get cleared every time you build a packet?  Would you ever want to resent ack/nack data in different packets?",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f0cda0b_a0cde110",
+        "filename": "streaming/cast/compound_rtcp_builder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "OK, so the pattern is that when you call SetFoo, that\u0027s \"sticky\" for all future RTCP packets?  Could you make that more explicit in the class-level comment?  I didn\u0027t catch that until I got down this far.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bda2d24_a674f7ce",
+        "filename": "streaming/cast/compound_rtcp_builder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "why not just picture_lost_indicator()?",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5fb2d0c_dfcda33f",
         "filename": "streaming/cast/compound_rtcp_builder.h",
         "patchSetId": 1
@@ -280,6 +702,23 @@
     },
     {
       "key": {
+        "uuid": "036d184d_3efdf85b",
+        "filename": "streaming/cast/compound_rtcp_builder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "I think the state variable names should make it clear which ones are only for the next packet and which are not, just like the method names.\n\nPerhaps recevier_report_for_next_packet_, nacks_for_next_packet_, and acks_for_next_packet_.",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94084501_e548c9be",
         "filename": "streaming/cast/compound_rtcp_builder.h",
         "patchSetId": 1
@@ -291,6 +730,30 @@
       "writtenOn": "2019-05-11T00:16:56Z",
       "side": 1,
       "message": "Maybe rename to include_picture_loss_indicator_ or something along those lines?",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 23
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ccc61ff_57c49e90",
+        "filename": "streaming/cast/compound_rtcp_builder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Why not just picture_loss_indicator_?",
+      "parentUuid": "94084501_e548c9be",
       "range": {
         "startLine": 111,
         "startChar": 7,
@@ -407,6 +870,30 @@
       "writtenOn": "2019-05-11T00:16:56Z",
       "side": 1,
       "message": "If |num_bytes| is greater than the length of the |out| span, |reserved| span will have length equal to length of |out| spane. Is this the desired behavior?",
+      "range": {
+        "startLine": 45,
+        "startChar": 39,
+        "endLine": 45,
+        "endChar": 65
+      },
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00671265_905e5299",
+        "filename": "streaming/cast/packet_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-03T18:23:25Z",
+      "side": 1,
+      "message": "Yeah, it seems like this should have a more clear way to fail in the case where you can\u0027t reserve because there isn\u0027t enough space.",
+      "parentUuid": "ac0e92c9_f7611b02",
       "range": {
         "startLine": 45,
         "startChar": 39,
