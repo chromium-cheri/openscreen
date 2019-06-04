@@ -1148,6 +1148,30 @@
     },
     {
       "key": {
+        "uuid": "3ac9ca43_3908d164",
+        "filename": "osp_base/error.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-04T19:14:59Z",
+      "side": 1,
+      "message": "Yep, operator\u003c\u003c might be unsupported. Frequently, template operators like this are not declared at all for this reason.\nSince it\u0027s not printing Value, it\u0027s really not different from operator\u003c\u003c for Error::Code in what it\u0027s for. I suggest getting rid of this one.",
+      "parentUuid": "3980cb33_6d1b758f",
+      "range": {
+        "startLine": 175,
+        "startChar": 64,
+        "endLine": 175,
+        "endChar": 82
+      },
+      "revId": "31326dc7936681353772c953efa6391e72bd343a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0758635d_cb15ad78",
         "filename": "platform/BUILD.gn",
         "patchSetId": 4
