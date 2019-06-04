@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffe047dc_56cf6a6f",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-04T18:12:21Z",
+      "side": 1,
+      "message": "If you define comparison operators for PacketNack to put kAllPacketsLost at the front after a call to std::sort, then you won\u0027t have to walk the collection from the back. Erasing at the back of the vector is somewhat better than at the beginning.\nOr you can define a sort predicate here and not bother with operator overloading.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 45
+      },
+      "revId": "18fdd8006a36bd1343ce11ef7e7bcd7d923e77a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60713352_7e87bff4",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-04T18:12:21Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be simpler to just compare fields?\nreturn frame_id \u003d\u003d other.frame_id \u0026\u0026 packet_id \u003d\u003d other.packet_id;",
+      "range": {
+        "startLine": 151,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 53
+      },
+      "revId": "18fdd8006a36bd1343ce11ef7e7bcd7d923e77a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5eeef31_5117eb9e",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-04T18:12:21Z",
+      "side": 1,
+      "message": "Usually expressed through \u003d\u003d operator\nWould be nice to have this one, but alas https://en.cppreference.com/w/cpp/language/operator_comparison#Three-way_comparison",
+      "range": {
+        "startLine": 154,
+        "startChar": 2,
+        "endLine": 154,
+        "endChar": 60
+      },
+      "revId": "18fdd8006a36bd1343ce11ef7e7bcd7d923e77a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
