@@ -921,6 +921,30 @@
     },
     {
       "key": {
+        "uuid": "1eabc6d9_993e3fb1",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-04T00:41:37Z",
+      "side": 1,
+      "message": "That\u0027s so much easier! Thank you!",
+      "parentUuid": "9847043a_3d07edc8",
+      "range": {
+        "startLine": 62,
+        "startChar": 39,
+        "endLine": 62,
+        "endChar": 57
+      },
+      "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f79f139f_953d3090",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 2
@@ -1734,6 +1758,30 @@
       "side": 1,
       "message": "Thinking about this comment, and the others related to this: Maybe what would work is to define a kNullTraceId to be one value, a kEmptyTraceId to be a different value, etc.\n\nSince we\u0027re defining all TraceId\u0027s less than 2^63 as user-controlled, the ones with the high bit set could include these special cases. Meaning,\n\n  constexpr TraceId kNullTraceId \u003d std::numeric_limits\u003cTraceId\u003e::max();  // All bits set.\n  constexpr TraceId kEmptyTraceId \u003d kNullTraceId - 1;\n  \n  ...global atomic64 TraceIdCounter starts at (1 \u003c\u003c 63)...\n\n...or, whatever value assignment scheme you feel comfortable with. :)",
       "parentUuid": "2db19224_10dd9ff5",
+      "range": {
+        "startLine": 287,
+        "startChar": 14,
+        "endLine": 289,
+        "endChar": 29
+      },
+      "revId": "9f9fea0758cbe1a29e77ff18d54bea4f79b7c4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5370a276_6b39bfa0",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-04T00:41:37Z",
+      "side": 1,
+      "message": "Good idea - updating to this approach now. Went with kUnsetTraceId for the new one for clarity",
+      "parentUuid": "dc7bc645_93457f73",
       "range": {
         "startLine": 287,
         "startChar": 14,
