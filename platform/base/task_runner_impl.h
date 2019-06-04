@@ -21,6 +21,7 @@
 #include "osp_base/error.h"
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
+#include "platform/api/trace_logging.h"
 
 namespace openscreen {
 namespace platform {
@@ -76,14 +77,27 @@ class TaskRunnerImpl : public TaskRunner {
  private:
   struct DelayedTask {
     DelayedTask(Task task_, Clock::time_point runnable_after_)
-        : task(std::move(task_)), runnable_after(runnable_after_) {}
+        : task(std::move(task_)),
+          runnable_after(runnable_after_),
+          trace_ids(TRACE_HIERARCHY) {}
 
     Task task;
     Clock::time_point runnable_after;
+    TraceIdHierarchy trace_ids;
 
     bool operator>(const DelayedTask& other) const {
       return this->runnable_after > other.runnable_after;
     }
+  };
+
+  struct ImmediateTask {
+    explicit ImmediateTask(Task task_)
+        : task(std::move(task_)), trace_ids(TRACE_HIERARCHY) {}
+    ImmediateTask(Task task_, TraceIdHierarchy ids)
+        : task(std::move(task_)), trace_ids(std::move(ids)) {}
+
+    Task task;
+    TraceIdHierarchy trace_ids;
   };
 
   // Run all tasks already in the task queue. If the queue is empty, wait for
@@ -132,7 +146,7 @@ class TaskRunnerImpl : public TaskRunner {
   std::condition_variable run_loop_wakeup_;
   TaskWaiter* const task_waiter_;
   Clock::duration waiter_timeout_;
-  std::deque<Task> tasks_ GUARDED_BY(task_mutex_);
+  std::deque<ImmediateTask> tasks_ GUARDED_BY(task_mutex_);
 };
 }  // namespace platform
 }  // namespace openscreen

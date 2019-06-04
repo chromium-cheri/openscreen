@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <sstream>
 
 #include "absl/strings/string_view.h"
 #include "osp/impl/presentation/presentation_common.h"
@@ -74,8 +75,11 @@ bool Connection::OnClosed() {
 }
 
 void Connection::OnClosedByError(Error cause) {
-  if (OnClosed())
-    delegate_->OnError(std::string(cause));
+  if (OnClosed()) {
+    std::stringstream ss;
+    ss << cause;
+    delegate_->OnError(std::string(ss.str()));
+  }
 }
 
 void Connection::OnClosedByRemote() {

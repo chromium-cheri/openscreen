@@ -89,18 +89,17 @@ class Error {
   bool operator==(const Error& other) const;
   bool ok() const { return code_ == Code::kNone; }
 
-  operator std::string() { return CodeToString(code_) + ": " + message_; }
-
   Code code() const { return code_; }
   const std::string& message() const { return message_; }
 
-  static std::string CodeToString(Error::Code code);
   static const Error& None();
 
  private:
   Code code_ = Code::kNone;
   std::string message_;
 };
+
+std::ostream& operator<<(std::ostream& os, const Error::Code& code);
 
 std::ostream& operator<<(std::ostream& out, const Error& error);
 
@@ -161,6 +160,12 @@ class ErrorOr {
 
   OSP_DISALLOW_COPY_AND_ASSIGN(ErrorOr);
 };
+
+template <typename Value>
+std::ostream& operator<<(std::ostream& out, const ErrorOr<Value>& error_or) {
+  return error_or.is_error() ? (out << error_or.error())
+                             : (out << Error::Code::kNone);
+}
 
 }  // namespace openscreen
 
