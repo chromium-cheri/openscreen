@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b085a004_fd6bebad",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-04T23:49:20Z",
+      "side": 1,
+      "message": "Ah ha! One pass, here we come!",
+      "parentUuid": "ffe047dc_56cf6a6f",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 45
+      },
+      "revId": "18fdd8006a36bd1343ce11ef7e7bcd7d923e77a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60713352_7e87bff4",
         "filename": "streaming/cast/rtcp_common.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-04T18:12:21Z",
       "side": 1,
       "message": "Wouldn\u0027t it be simpler to just compare fields?\nreturn frame_id \u003d\u003d other.frame_id \u0026\u0026 packet_id \u003d\u003d other.packet_id;",
+      "range": {
+        "startLine": 151,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 53
+      },
+      "revId": "18fdd8006a36bd1343ce11ef7e7bcd7d923e77a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5eb14b5_6df50111",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-04T23:49:20Z",
+      "side": 1,
+      "message": "I think this might just be a matter of taste, since it\u0027s the same number of LOC, and equally readable, IMHO. Actually, on any other day, I might have written it the way you suggest; but yesterday I was starting to write a preprocessor macro to generate all the operators, and then just punted and put in only the three I needed.",
+      "parentUuid": "60713352_7e87bff4",
       "range": {
         "startLine": 151,
         "startChar": 11,
@@ -68,6 +116,30 @@
       "revId": "18fdd8006a36bd1343ce11ef7e7bcd7d923e77a1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96b2a019_774dfdb8",
+        "filename": "streaming/cast/rtcp_common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-04T23:49:20Z",
+      "side": 1,
+      "message": "Yeah, the spaceship operator is C++ 20. :)",
+      "parentUuid": "c5eeef31_5117eb9e",
+      "range": {
+        "startLine": 154,
+        "startChar": 2,
+        "endLine": 154,
+        "endChar": 60
+      },
+      "revId": "18fdd8006a36bd1343ce11ef7e7bcd7d923e77a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
