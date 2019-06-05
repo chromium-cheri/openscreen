@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d8fe289_a91f7886",
+        "filename": "cast/common/mdns/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "I\u0027d prefer adding new targets in cast/common/BUILD.gn, versus sprinkling additional BUILD.gn files around inside the folder structure.  It just means less repetition overall in build metadata.",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5742eef3_9a4ae18e",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "Is MdnsReader an std::iterator or just a wrapper around a fixed length buffer?  It seems odd that you need to call begin() and end() repeatedly throughout this loop.",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6ee0e30_4a2c6b97",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "An OSP_CHECK(position \u003e\u003d begin()) would prevent an out of bounds read inside the loop.",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c7e3b2d_fc895efd",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "Is it valid to process fewer than bytes_total bytes?\n\nI\u0027m a little confused as to the purpose of bytes_consumed.  Is it to update the buffer pointers after consuming the domain name?  How is that different than setting current() \u003d position after the termination label is read?",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a158280_e89131d9",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cc993ba_904e7926",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "What is kLabelMask?  label_type is under the control of an attacker so if it can be zero, that should be handled.\n\nThis either needs to be an OSP_CHECK (to abort because of a bug) or an early return (to reject gracefully).",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49f3dff4_86eca0e4",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "Since there aren\u0027t any user declared copy or move operators, the compiler should generate all of these default constructors and assignment operators for you.  I suppose it can\u0027t hurt to be explicit though.  Does the style guide have any specific guidance?",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3a43d4_bf5486a4",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "Slightly prefer label_count()",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9b0092e_24c8d663",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "Is there a reason this doesn\u0027t take a std::vector\u003cuint8_t\u003e (or an iterator into one)?",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e242f8ed_17fc4b7d",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T00:50:39Z",
+      "side": 1,
+      "message": "I would be okay with Write(const DomainName\u0026 name) - unless you plan on adding other Write() methods in the future for other data types.",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
