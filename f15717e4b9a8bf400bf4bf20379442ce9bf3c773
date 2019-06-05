@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d0e619a0_419796f4",
+        "filename": "cast/common/mdns/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d8fe289_a91f7886",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5742eef3_9a4ae18e",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 13
@@ -30,6 +48,24 @@
       "writtenOn": "2019-06-05T00:50:39Z",
       "side": 1,
       "message": "Is MdnsReader an std::iterator or just a wrapper around a fixed length buffer?  It seems odd that you need to call begin() and end() repeatedly throughout this loop.",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d93791fc_28fe1d81",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "It\u0027s just a wrapper around a contiguous block of memory. begin(), end(), current(), length(), etc. are methods on the base BigEndianReader class.",
+      "parentUuid": "5742eef3_9a4ae18e",
       "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b462f3d3_6a2e930b",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "I think that\u0027s not possible as position is always begin() + unsigned offset.\nI\u0027d rather put an explicit check in the while() statement:\nwhile (position \u003e\u003d begin() \u0026\u0026 position \u003c end() \u0026\u0026 bytes_processed \u003c\u003d bytes_total)\n\nThen the method returns a failure to read the name and the program continues execution",
+      "parentUuid": "e6ee0e30_4a2c6b97",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c7e3b2d_fc895efd",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 13
@@ -67,6 +121,24 @@
       "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b3b8c3e_9fc5f6e4",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "Yes, it\u0027s valid to read fewer bytes than bytes_total. bytes_total is just a total length of the buffer. I\u0027ve replaced it with a call to length().\n\nbytes_processed is how many bytes where read when reading a domain name. This value is used to detect circular pointer labels in case of malformed data and to break out of the loop gracefully when bytes_processed exceeds length of the buffer. There\u0027s a unit test that covers this.\n\nbytes_consumed is how much \"new data\" was read from the buffer, This is equal to the actual wire size of the DomainName accounting for compression.\n\nI\u0027ve clarified the comments for these variables.",
+      "parentUuid": "2c7e3b2d_fc895efd",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "12f625da_a2b24f55",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a158280_e89131d9",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cc993ba_904e7926",
         "filename": "cast/common/mdns/mdns_parsing.cc",
         "patchSetId": 13
@@ -101,6 +191,24 @@
       "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a1d5ec7_e587d855",
+        "filename": "cast/common/mdns/mdns_parsing.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "kLabelMask is two top bits of a byte.\n00 means kLabelDirect, a uint8_t direct label, where lower 6 bits are the label\u0027s length, up to a maximum of 63 characters.\n11 means kLabelPointer, a uint16_t pointer label, where lower 14 bits are the offset into the buffer.\n01 and 10 are invalid and the function returns false for failure to read the domain name.\nThere\u0027s a unit test covering this.",
+      "parentUuid": "8cc993ba_904e7926",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "a2c207ae_038241b6",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "That\u0027s correct, this is the same behavior as if none of these were declared as default.\nStyle guide recommends explicitly declaring copy and move behavior.\n\n\"A class\u0027s public API should make explicit whether the class is copyable, move-only, or neither copyable nor movable. Support copying and/or moving if these operations are clear and meaningful for your type.\"\n\n\"Every class\u0027s public interface should make explicit which copy and move operations the class supports. This should usually take the form of explicitly declaring and/or deleting the appropriate operations in the public section of the declaration.\"\n\nMore here:\nhttps://engdoc.corp.google.com/eng/doc/devguide/cpp/styleguide.md?cl\u003dhead#Copyable_Movable_Types",
+      "parentUuid": "49f3dff4_86eca0e4",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b3a43d4_bf5486a4",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 13
@@ -135,6 +261,24 @@
       "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d749d8f4_bc271102",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b3a43d4_bf5486a4",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "5026aced_3737d85d",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "That would be somewhat limiting to how users might use this class. This way is can be used with any contiguous block of memory. Users are free to declare a vector and pass .data() and .size() to this constructor. Also this declaration means that MdnsWriter does not own the memory, but simply does write to it.",
+      "parentUuid": "c9b0092e_24c8d663",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e242f8ed_17fc4b7d",
         "filename": "cast/common/mdns/mdns_parsing.h",
         "patchSetId": 13
@@ -169,6 +331,24 @@
       "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4291cb6e_3e8cf2f2",
+        "filename": "cast/common/mdns/mdns_parsing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-05T18:53:53Z",
+      "side": 1,
+      "message": "There are many other WriteX methods in the upcoming change for Rdata structs",
+      "parentUuid": "e242f8ed_17fc4b7d",
+      "revId": "f15717e4b9a8bf400bf4bf20379442ce9bf3c773",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
