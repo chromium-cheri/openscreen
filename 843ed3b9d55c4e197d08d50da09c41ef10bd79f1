@@ -1,0 +1,463 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "219b6182_82524979",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "This sentence seems to be cut off",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fd53818_84f4c692",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Would it be correct to say this is the default implementation?  Or does the embedder have to specifically compile it in if they don\u0027t want to provide their own implementation?\n\nDocumenting when this implementation is used and how to override it would be would be good.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "651f1640_94325534",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Is the conversion from while(true) just so we could include a counter with the trace? Is there an advantage to just keeping a separate counter variable for this?  Minor style issue as there are never going to be 1 \u003c\u003c 60 loops executed.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cc62ceb_d053d0a9",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Similar comment",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "913bee61_250f4666",
+        "filename": "osp/impl/presentation/presentation_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "str() returns a copy, so the ctor is not necessary here.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4405b40d_ef5bf49c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "s/Macro/macro/g\n\nI\u0027d prefer to not capitalize things that are just jargon and not proper names or class/type names.\n\nIf you\u0027re not sure search the Chromium code base to see what existing comments do.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3e9b38a_4dce38ed",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Since this class is the root of an inheritance chain, it should have a virtual destructor (even if it\u0027s a default) and its subclasses should declare theirs as an override.  Otherwise a pointer to the base type won\u0027t use the vtable when its dtor is called and bad things will happen.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ba5a111_086e9c1d",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Traces the end of an asynchronous call.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64bf4ad7_53b3c16d",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "\"only support one TraceLoggingPlatform\" (is what you meant?)",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4910641_e7855c6f",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Class variables (including statics) need a trailing underscore\n\nhttps://google.github.io/styleguide/cppguide.html#Variable_Names\n\nAlso this needs to be initialized to nullptr",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "570599b1_fc940266",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Is there a distinction that needs to be made between TraceBase and ScopedTraceOperation?  It looks like STO is the only class that uses TraceBase.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d8a501_5be2af28",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "needs override",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a2e2199_64b073b3",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "The convention is that ctors are declared first, followed by dtors, then assignment operators.\n\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order\n\nI\u0027ve usually seen this followed, even for delete\u0027d operators.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc54e1fa_0ecb942b",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Usually I\u0027ve seen \"LIFO\" but the stack comment makes this clear enough :-)",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6a25ce8_87d11de1",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "I assume you\u0027re pushing and popping off the back?\n\nDid you consider a std::deque, which is always constant time, but has more pointer overhead?\n\nstd::vector always grows.  Is there a cap on the stack depth? Do you call shrink_to_fit() at any point?",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc1456e_514fa1f7",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Usually \u0027this\u0027 is omitted in implementations of class methods.\n\nAlso, non-trivial methods should be defined out-of-line in a .cc.\n\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++-dos-and-donts.md#minimize-code-in-header",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce87e9d_7d985c6c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Needs to override dtor",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68349431_5380a08b",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "initialize to nullptr",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3833a779_2fbe44cf",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Initialize start_time and result through a normal constructor initializers?",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "549de16e_e6a437f7",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "override",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b62a02be_30b5ec6f",
+        "filename": "platform/api/time.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "What is a \"bogotick\"? :-)",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4aec37_771caff7",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "I see that all categories are disabled on non-debug builds, but did we discuss how to compile out the tracing code macros entirely?\n\nSee how we do this for e.g. OSP_DCHECK:\nhttps://chromium.googlesource.com/openscreen/+/refs/heads/master/platform/api/logging.h#119\n\nThis can be dealt with as we have a need (i.e. we aren\u0027t going to be shipping release builds for a little while), but if you decided to postpone this, then please file an issue and assign a TODO here to come back to it.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f28c0218_34eccf23",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Can this call a static method that checks that default_trace_platform was nullptr first and platform !\u003d nullptr?",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef9fdf4e_84773540",
+        "filename": "platform/api/trace_logging_types.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "enum class TraceCategory : uint64_t { ?",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fab8756_e20f0a66",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Typo in unrelated",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "323eeb60_c893ab55",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Nit: Prefer \u003d default",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0654206_24e7632f",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-05T23:57:38Z",
+      "side": 1,
+      "message": "Nit: remove extra ()",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
