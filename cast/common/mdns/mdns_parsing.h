@@ -5,81 +5,46 @@
 #ifndef CAST_COMMON_MDNS_MDNS_PARSING_H_
 #define CAST_COMMON_MDNS_MDNS_PARSING_H_
 
-#include <stdint.h>
-
-#include <string>
 #include <unordered_map>
-#include <vector>
 
-#include "absl/strings/string_view.h"
+#include "cast/common/mdns/mdns_rdata.h"
 #include "osp_base/big_endian.h"
 
 namespace cast {
 namespace mdns {
 
-bool IsValidDomainLabel(const std::string& label);
-
-// Represents domain name as a collection of labels, ensures label length and
-// domain name length requirements are met.
-class DomainName {
- public:
-  DomainName() = default;
-  DomainName(const DomainName& other) = default;
-  DomainName(DomainName&& other) = default;
-  ~DomainName() = default;
-
-  DomainName& operator=(const DomainName& other) = default;
-  DomainName& operator=(DomainName&& other) = default;
-
-  // Clear removes all previously pushed labels and puts DomainName in its
-  // initial state.
-  void Clear();
-  // Appends the given label to the end of the domain name and returns true if
-  // the label is a valid domain label and the domain name does not exceed the
-  // maximum length. Returns false otherwise.
-  bool PushLabel(const std::string& label);
-  // Returns a reference to the label at specified label_index. No bounds
-  // checking is performed.
-  const std::string& Label(size_t label_index) const;
-  std::string ToString() const;
-
-  // Returns the maximum space that the domain name could take up in its
-  // on-the-wire format. This is an upper bound based on the length of the
-  // labels that make up the domain name. It's possible that with domain name
-  // compression the actual space taken in on-the-wire format is smaller.
-  size_t max_wire_size() const { return max_wire_size_; }
-  bool empty() const { return labels_.empty(); }
-  size_t label_count() const { return labels_.size(); }
-
-  bool operator==(const DomainName& rhs) const;
-  bool operator!=(const DomainName& rhs) const;
-
- private:
-  // wire_size_ starts at 1 for the terminating character length.
-  size_t max_wire_size_ = 1;
-  std::vector<std::string> labels_;
-};
-
-std::ostream& operator<<(std::ostream& stream, const DomainName& domain_name);
-
 class MdnsReader : public openscreen::BigEndianReader {
  public:
   MdnsReader(const uint8_t* buffer, size_t length);
-  // Returns true if the method was able to successfully read DomainName to
-  // |out| and advances current() to point right past the read data. Returns
-  // false if the method failed to read DomainName to |out|, current() remains
-  // unchanged.
+
+  // The following methods return true if the method was able to successfully
+  // read the value to |out| and advances current() to point right past the read
+  // data. Returns false if the method failed to read the value to |out|,
+  // current() remains unchanged.
   bool ReadDomainName(DomainName* out);
+  bool ReadRawRecordRdata(RawRecordRdata* out);
+  bool ReadSrvRecordRdata(SrvRecordRdata* out);
+  bool ReadARecordRdata(ARecordRdata* out);
+  bool ReadAAAARecordRdata(AAAARecordRdata* out);
+  bool ReadPtrRecordRdata(PtrRecordRdata* out);
+  bool ReadTxtRecordRdata(TxtRecordRdata* out);
 };
 
 class MdnsWriter : public openscreen::BigEndianWriter {
  public:
   MdnsWriter(uint8_t* buffer, size_t length);
-  // Returns true if the method was able to successfully write DomainName |name|
-  // to the underlying buffer and advances current() to point right past the
-  // written data. Returns false if the method failed to write DomainName |name|
-  // to the underlying buffer, current() remains unchanged.
+  
+  // The following methods return true if the method was able to successfully
+  // write the value to the underlying buffer and advances current() to point
+  // right past the written data. Returns false if the method failed to write
+  // the value to the underlying buffer, current() remains unchanged.
   bool WriteDomainName(const DomainName& name);
+  bool WriteRawRecordRdata(const RawRecordRdata& rdata);
+  bool WriteSrvRecordRdata(const SrvRecordRdata& rdata);
+  bool WriteARecordRdata(const ARecordRdata& rdata);
+  bool WriteAAAARecordRdata(const AAAARecordRdata& rdata);
+  bool WritePtrRecordRdata(const PtrRecordRdata& rdata);
+  bool WriteTxtRecordRdata(const TxtRecordRdata& rdata);
 
  private:
   // Domain name compression dictionary.

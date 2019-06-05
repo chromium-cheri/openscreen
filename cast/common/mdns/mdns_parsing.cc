@@ -6,73 +6,11 @@
 
 #include "absl/hash/hash.h"
 #include "absl/strings/ascii.h"
-#include "absl/strings/match.h"
-#include "absl/strings/str_join.h"
 #include "cast/common/mdns/mdns_constants.h"
 #include "platform/api/logging.h"
 
 namespace cast {
 namespace mdns {
-
-bool IsValidDomainLabel(const std::string& label) {
-  const size_t label_size = label.size();
-  return label_size > 0 && label_size <= kMaxLabelLength;
-}
-
-void DomainName::Clear() {
-  max_wire_size_ = 1;
-  labels_.clear();
-}
-
-bool DomainName::PushLabel(const std::string& label) {
-  if (!IsValidDomainLabel(label)) {
-    OSP_DLOG_ERROR << "Invalid domain name label: \"" << label << "\"";
-    return false;
-  }
-  // Include the label length byte in the size calculation.
-  // Add terminating character byte to maximum domain length, as it only
-  // limits label bytes and label length bytes.
-  if (max_wire_size_ + label.size() + 1 > kMaxDomainNameLength + 1) {
-    OSP_DLOG_ERROR << "Name too long. Cannot push label: \"" << label << "\"";
-    return false;
-  }
-
-  labels_.push_back(label);
-
-  // Update the size of the full name in wire format. Include the length byte in
-  // the size calculation.
-  max_wire_size_ += label.size() + 1;
-  return true;
-}
-
-const std::string& DomainName::Label(size_t label_index) const {
-  OSP_DCHECK(label_index < labels_.size());
-  return labels_[label_index];
-}
-
-std::string DomainName::ToString() const {
-  return absl::StrJoin(labels_, ".");
-}
-
-bool DomainName::operator==(const DomainName& rhs) const {
-  if (labels_.size() != rhs.labels_.size()) {
-    return false;
-  }
-  for (size_t i = 0; i < labels_.size(); ++i) {
-    if (!absl::EqualsIgnoreCase(labels_[i], rhs.labels_[i])) {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool DomainName::operator!=(const DomainName& rhs) const {
-  return !(*this == rhs);
-}
-
-std::ostream& operator<<(std::ostream& stream, const DomainName& domain_name) {
-  return stream << domain_name.ToString();
-}
 
 MdnsReader::MdnsReader(const uint8_t* buffer, size_t length)
     : BigEndianReader(buffer, length) {}
@@ -137,8 +75,192 @@ bool MdnsReader::ReadDomainName(DomainName* out) {
   return false;
 }
 
+bool MdnsReader::ReadRawRecordRdata(RawRecordRdata* out) {
+  OSP_DCHECK(out);
+  const uint8_t* rollback_position = current();
+  uint16_t record_length;
+  if (Read<uint16_t>(&record_length)) {
+    std::vector<uint8_t> buffer(record_length);
+    if (ReadBytes(buffer.size(), buffer.data())) {
+      out->set_rdata(buffer);
+      return true;
+    }
+  }
+  set_current(rollback_position);
+  return false;
+}
+
+bool MdnsReader::ReadSrvRecordRdata(SrvRecordRdata* out) {
+  OSP_DCHECK(out);
+  const uint8_t* rollback_position = current();
+  uint16_t record_length;
+  uint16_t priority;
+  uint16_t weight;
+  uint16_t port;
+  DomainName target;
+  if (Read<uint16_t>(&record_length) && Read<uint16_t>(&priority) &&
+      Read<uint16_t>(&weight) && Read<uint16_t>(&port) &&
+      ReadDomainName(&target) &&
+      (current() - rollback_position == record_length)) {
+    out->set_priority(priority);
+    out->set_weight(weight);
+    out->set_port(port);
+    out->set_target(target);
+    return true;
+  }
+  set_current(rollback_position);
+  return false;
+}
+
+bool MdnsReader::ReadARecordRdata(ARecordRdata* out) {
+  OSP_DCHECK(out);
+  const uint8_t* rollback_position = current();
+  uint16_t record_length;
+  uint8_t buffer[openscreen::IPAddress::kV4Size];
+  if (Read<uint16_t>(&record_length) && (record_length == sizeof(buffer)) &&
+      ReadBytes(sizeof(buffer), buffer)) {
+    openscreen::IPAddress address(buffer);
+    OSP_DCHECK(address.IsV4());
+    out->set_address(address);
+    return true;
+  }
+  set_current(rollback_position);
+  return false;
+}
+
+bool MdnsReader::ReadAAAARecordRdata(AAAARecordRdata* out) {
+  OSP_DCHECK(out);
+  const uint8_t* rollback_position = current();
+  uint16_t record_length;
+  uint8_t buffer[openscreen::IPAddress::kV6Size];
+  if (Read<uint16_t>(&record_length) && (record_length == sizeof(buffer)) &&
+      ReadBytes(sizeof(buffer), buffer)) {
+    openscreen::IPAddress address(buffer);
+    OSP_DCHECK(address.IsV6());
+    out->set_address(address);
+    return true;
+  }
+  set_current(rollback_position);
+  return false;
+}
+
+bool MdnsReader::ReadPtrRecordRdata(PtrRecordRdata* out) {
+  OSP_DCHECK(out);
+  const uint8_t* rollback_position = current();
+  uint16_t record_length;
+  DomainName ptr_domain;
+  if (Read<uint16_t>(&record_length) && ReadDomainName(&ptr_domain) &&
+      (current() - rollback_position == record_length)) {
+    out->set_ptr_domain(ptr_domain);
+    return true;
+  }
+  set_current(rollback_position);
+  return false;
+}
+
+// TODO: check if length is indeed as expected
+
+bool MdnsReader::ReadTxtRecordRdata(TxtRecordRdata* out) {
+  OSP_DCHECK(out);
+  const uint8_t* rollback_position = current();
+  uint16_t record_length;
+  if (Read<uint16_t>(&record_length)) {
+    uint8_t entry_length = 0;
+    char buffer[kTXTMaxEntrySize];
+    std::vector<std::string> texts;
+    // TODO: need to rollback reader in case of failure
+    // TODO: must not read more than specified record_length
+
+    while (Read<uint8_t>(&entry_length) && entry_length > 0 &&
+           entry_length <= sizeof(buffer) && ReadBytes(entry_length, buffer)) {
+      texts.emplace_back(buffer, entry_length);
+    }
+
+    // do {
+    //   MAKE_SURE(Read<uint8_t>(&entry_length));
+    //   MAKE_SURE(entry_length <= sizeof(buffer));
+    //   if (!entry_length)
+    //     break;  // Found a zero length entry.
+    //   MAKE_SURE(ReadBytes(entry_length, buffer));
+    //   texts.push_back(std::string(buffer, entry_length));
+    // } while (reader->offset() - start_offset < rdlength);
+
+    out->set_texts(std::move(texts));
+    return true;
+  }
+  set_current(rollback_position);
+  return false;
+}
+
 MdnsWriter::MdnsWriter(uint8_t* buffer, size_t length)
     : BigEndianWriter(buffer, length) {}
+
+MdnsReader::MdnsReader(const uint8_t* buffer, size_t length)
+    : BigEndianReader(buffer, length) {}
+
+// RFC 1035: https://www.ietf.org/rfc/rfc1035.txt
+// See section 4.1.4. Message compression
+bool MdnsReader::ReadDomainName(DomainName* out) {
+  OSP_DCHECK(out);
+  out->Clear();
+  const uint8_t* position = current();
+  // The number of bytes consumed reading from the starting position to either
+  // the first label pointer or the final termination byte, including the
+  // pointer or the termination byte. This is equal to the actual wire size of
+  // the DomainName accounting for compression.
+  size_t bytes_consumed = 0;
+  // The number of bytes that was processed when reading the DomainName,
+  // including all label pointers and direct labels. It is used to detect
+  // circular compression. The number of processed bytes cannot be possibly
+  // greater than the length of the buffer.
+  size_t bytes_processed = 0;
+
+  // If we are pointing before the beginning or past the end of the buffer, we
+  // hit a malformed pointer. If we have processed more bytes than there are in
+  // the buffer, we are in a circular compression loop.
+  while (position >= begin() && position < end() &&
+         bytes_processed <= length()) {
+    const uint8_t label_type = openscreen::ReadBigEndian<uint8_t>(position);
+    if (label_type == kLabelTermination) {
+      if (bytes_consumed == 0) {
+        bytes_consumed = position + sizeof(uint8_t) - current();
+      }
+      return Skip(bytes_consumed);
+    } else if ((label_type & kLabelMask) == kLabelPointer) {
+      if (position + sizeof(uint16_t) > end()) {
+        return false;
+      }
+      const uint16_t label_offset =
+          openscreen::ReadBigEndian<uint16_t>(position) & kLabelOffsetMask;
+      if (bytes_consumed == 0) {
+        bytes_consumed = position + sizeof(uint16_t) - current();
+      }
+      bytes_processed += sizeof(uint16_t);
+      position = begin() + label_offset;
+    } else if ((label_type & kLabelMask) == kLabelDirect) {
+      const uint8_t label_length = label_type & ~kLabelMask;
+      OSP_DCHECK_NE(label_length, 0);
+      position += sizeof(uint8_t);
+      bytes_processed += sizeof(uint8_t);
+      if (position + label_length >= end()) {
+        return false;
+      }
+      if (!out->PushLabel(std::string(reinterpret_cast<const char*>(position),
+                                      label_length))) {
+        return false;
+      }
+      bytes_processed += label_length;
+      position += label_length;
+    } else {
+      return false;
+    }
+  }
+  return false;
+}
+
+  uint8_t* position = current();
+  for (size_t i = 0; i < name.labels_size(); ++i) {
+    const std::string& label = name.Label(i);
 
 namespace {
 
@@ -221,6 +343,79 @@ bool MdnsWriter::WriteDomainName(const DomainName& name) {
   // number of domain names compressed is insignificant in comparison to the
   // hash function image.
   dictionary_.insert(tentative_dictionary.begin(), tentative_dictionary.end());
+  return true;
+}
+
+bool MdnsWriter::WriteRawRecordRdata(const RawRecordRdata& rdata) {
+  if (rdata.rdata().size() > std::numeric_limits<uint16_t>::max()) {
+    return false;
+  }
+  uint8_t* rollback_position = current();
+  uint16_t record_length = static_cast<uint16_t>(rdata.rdata().size());
+  if (Write<uint16_t>(record_length) &&
+      WriteBytes(rdata.rdata().data(), record_length)) {
+    return true;
+  }
+  set_current(rollback_position);
+  return false;
+}
+
+// TODO: roll back writer on failure in all write methods
+
+bool MdnsWriter::WriteSrvRecordRdata(const SrvRecordRdata& rdata) {
+  return Write<uint16_t>(rdata.priority()) && Write<uint16_t>(rdata.weight()) &&
+         Write<uint16_t>(rdata.port()) && WriteDomainName(rdata.target());
+}
+
+bool MdnsWriter::WriteARecordRdata(const ARecordRdata& rdata) {
+  OSP_DCHECK(rdata.address().IsV4());
+  uint8_t* rollback_position = current();
+  if (Write<uint16_t>(openscreen::IPAddress::kV4Size)) {
+    uint8_t bytes[openscreen::IPAddress::kV4Size];
+    rdata.address().CopyToV4(bytes);
+    if (WriteBytes(bytes, sizeof(bytes))) {
+      return true;
+    }
+  }
+  set_current(rollback_position);
+  return false;
+}
+
+bool MdnsWriter::WriteAAAARecordRdata(const AAAARecordRdata& rdata) {
+  OSP_DCHECK(rdata.address().IsV6());
+  uint8_t* rollback_position = current();
+  if (Write<uint16_t>(openscreen::IPAddress::kV6Size)) {
+    uint8_t bytes[openscreen::IPAddress::kV6Size];
+    rdata.address().CopyToV6(bytes);
+    if (WriteBytes(bytes, sizeof(bytes))) {
+      return true;
+    }
+  }
+  set_current(rollback_position);
+  return false;
+}
+
+bool MdnsWriter::WritePtrRecordRdata(const PtrRecordRdata& rdata) {
+  return WriteDomainName(rdata.ptr_domain());
+}
+
+bool MdnsWriter::WriteTxtRecordRdata(const TxtRecordRdata& rdata) {
+  // TODO: roll back writer on failure
+  // size_t start_offset = writer->offset();
+  const std::vector<std::string>& texts = rdata.texts();
+  if (!texts.empty()) {
+    for (const std::string& entry : texts) {
+      // MAKE_SURE(entry.size() <= kTXTMaxEntrySize); DCHECK this? make this
+      // part of TxtRecordRdata?
+      if (!(Write<uint8_t>(entry.size()) &&
+            WriteBytes(entry.data(), entry.size()))) {
+        return false;
+      }
+    }
+  } else {
+    return Write<uint8_t>(kTXTEmptyRdata);
+  }
+  //*bytes_written = writer->offset() - start_offset;
   return true;
 }
 

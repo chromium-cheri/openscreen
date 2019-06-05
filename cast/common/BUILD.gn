@@ -9,6 +9,8 @@ source_set("mdns") {
     "mdns/mdns_constants.h",
     "mdns/mdns_parsing.cc",
     "mdns/mdns_parsing.h",
+    "mdns/mdns_rdata.cc",
+    "mdns/mdns_rdata.h",
   ]
 
   deps = [
@@ -25,6 +27,7 @@ source_set("mdns_unittests") {
 
   sources = [
     "mdns/mdns_parsing_unittest.cc",
+    "mdns/mdns_rdata_unittest.cc",
   ]
 
   deps = [
