@@ -334,6 +334,29 @@
       "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3e26ce7_28087783",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-05T19:48:04Z",
+      "side": 1,
+      "message": "Based on my understanding of the design, I thought we only wanted one instance - so shouldn\u0027t this be:\nstatic NetworkRunner* GetSingleton()\n\nOr similar?",
+      "range": {
+        "startLine": 20,
+        "startChar": 40,
+        "endLine": 20,
+        "endChar": 46
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
