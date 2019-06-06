@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff87f7f8_148992ce",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "\u0027mdns_records\u0027 or \u0027mdns_data\u0027 are little more obvious names for these files for folks who aren\u0027t as familiar with DNS jargon.\n\nAlso, strictly speaking, this code is not specific to mDNS.  It\u0027s implementing DNS RFCs.  So maybe \u0027dns_records.cc\u0027?\n\nI don\u0027t feel strongly about this though.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7ae653a_ad15a836",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "Please update.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17079c31_a2624319",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "This seems to be a longer way of saying:\n\nstruct RData {\n  uint16_t type;\n  std::vector\u003cuint8_t\u003e rdata;\n}\n\nDoes this need to be a class?\n\nSimilar comments for the other record classes defined here that have trivial getters, setters, ctors and no vtable.\n\nhttps://google.github.io/styleguide/cppguide.html#Structs_vs._Classes\n\nBut if you would end up with a mix of structs and classes, prefer classes for all, so callers don\u0027t have to remember which is which.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5a783c0_594aabd1",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "ipv4_address_",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecf922fd_8ee08de6",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "You could CHECK() that the ip_address is the correct type here.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c02ca38_e1d7d2c0",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "ipv6_address_",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49bc4cdb_ad7fb1e5",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "Consider adding methods to the reader class to improve readability and reduce repetition:\n\nvoid Mark()\nbool Check(size_t offset) // returns true if offset bytes were read since Mark()\nvoid Done()   // clears Mark()\nvoid Revert() // resets current to Mark()\n\nFor bonus points, declare an object with this API that will assert if it goes out of scope without Done() or Revert() being called.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f16181f2_bdaf4fed",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "The only type passed is uint16_t.  Does this need a template parameter?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89e5d04c_cd8ae6b9",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "Can we update the writer API to take a size_t and do the assertion/conversions internally?\n\nI.e. WriteAsUint16(size_t value)",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46b0451b_9e30e191",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "I think this would be clearer as a range loop with an early return if any of WriteCharacterString() fail.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40b0bda3_7a1077b8",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "Typo in length",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be55d7d1_5e8049c6",
+        "filename": "cast/common/mdns/mdns_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "absl::string_view to handle const char* as well?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd879825_29b68be9",
+        "filename": "cast/common/mdns/mdns_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-06T23:51:39Z",
+      "side": 1,
+      "message": "Presumably libcast will be generating the data to be written into this API; if we\u0027re unable to serialize it into DNS records, there is a serious problem earlier in the code.\n\nI haven\u0027t seen the code calling this, but I wonder how it could handle an error writing a record?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
