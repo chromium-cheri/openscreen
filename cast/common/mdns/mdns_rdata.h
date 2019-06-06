@@ -1,21 +1,20 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_COMMON_MDNS_MDNS_PARSING_H_
-#define CAST_COMMON_MDNS_MDNS_PARSING_H_
-
-#include <stdint.h>
+#ifndef CAST_COMMON_MDNS_MDNS_RDATA_H_
+#define CAST_COMMON_MDNS_MDNS_RDATA_H_
 
 #include <string>
-#include <unordered_map>
 #include <vector>
 
-#include "absl/strings/string_view.h"
-#include "osp_base/big_endian.h"
+#include "cast/common/mdns/mdns_constants.h"
+#include "osp_base/ip_address.h"
 
 namespace cast {
 namespace mdns {
+
+using IPAddress = openscreen::IPAddress;
 
 bool IsValidDomainLabel(const std::string& label);
 
@@ -30,6 +29,9 @@ class DomainName {
 
   DomainName& operator=(const DomainName& other) = default;
   DomainName& operator=(DomainName&& other) = default;
+
+  bool operator==(const DomainName& rhs) const;
+  bool operator!=(const DomainName& rhs) const;
 
   // Clear removes all previously pushed labels and puts DomainName in its
   // initial state.
@@ -51,9 +53,6 @@ class DomainName {
   bool empty() const { return labels_.empty(); }
   size_t label_count() const { return labels_.size(); }
 
-  bool operator==(const DomainName& rhs) const;
-  bool operator!=(const DomainName& rhs) const;
-
  private:
   // wire_size_ starts at 1 for the terminating character length.
   size_t max_wire_size_ = 1;
@@ -62,39 +61,7 @@ class DomainName {
 
 std::ostream& operator<<(std::ostream& stream, const DomainName& domain_name);
 
-class MdnsReader : public openscreen::BigEndianReader {
- public:
-  MdnsReader(const uint8_t* buffer, size_t length);
-  // Returns true if the method was able to successfully read DomainName to
-  // |out| and advances current() to point right past the read data. Returns
-  // false if the method failed to read DomainName to |out|, current() remains
-  // unchanged.
-  bool ReadDomainName(DomainName* out);
-};
-
-class MdnsWriter : public openscreen::BigEndianWriter {
- public:
-  MdnsWriter(uint8_t* buffer, size_t length);
-  // Returns true if the method was able to successfully write DomainName |name|
-  // to the underlying buffer and advances current() to point right past the
-  // written data. Returns false if the method failed to write DomainName |name|
-  // to the underlying buffer, current() remains unchanged.
-  bool WriteDomainName(const DomainName& name);
-
- private:
-  // Domain name compression dictionary.
-  // Maps hashes of previously written domain (sub)names
-  // to the label pointers of the first occurences in the underlying buffer.
-  // Compression of multiple domain names is supported on the same instance of
-  // the MdnsWriter. Underlying buffer may contain other data in addition to the
-  // domain names. The compression dictionary persists between calls to
-  // WriteDomainName.
-  // Label pointer is only 16 bits in size as per RFC 1035. Only lower 14 bits
-  // are allocated for storing the offset.
-  std::unordered_map<uint64_t, uint16_t> dictionary_;
-};
-
 }  // namespace mdns
 }  // namespace cast
 
-#endif  // CAST_COMMON_MDNS_MDNS_PARSING_H_
+#endif  // CAST_COMMON_MDNS_MDNS_RDATA_H_
