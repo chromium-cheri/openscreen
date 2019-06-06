@@ -233,6 +233,29 @@
       "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "485c8f06_92046d16",
+        "filename": "platform/base/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-06T20:14:28Z",
+      "side": 1,
+      "message": "Please revert this line. TaskRunner is a \"core interface\" and should declare the type. It should not be declared by an external code module that is a client of posting tasks.\n\nFurthermore, from the team meeting a while back, I thought the decision was that the \"UDP reader\" was going to sit on a separate thread and receive the UDP packets and post tasks back to the main thread\u0027s TaskRunner for dispatch to the intended receiver?",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "f803fc30f59d7c2fc4435c7edcb95a42f1aa737f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

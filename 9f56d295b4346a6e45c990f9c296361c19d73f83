@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "08c54461_68035105",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-06T20:14:28Z",
+      "side": 1,
+      "message": "A mild suggestion (since Packet \"is-a\" chunk of bytes):\n\n  struct Packet : public std::array\u003cuint8_t, kUdpMaxPacketSize\u003e {\n    IPEndpoint source;\n    IPEndpoint destination;\n  };",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8cf2dd7_84076ad6",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-06T20:14:28Z",
+      "side": 1,
+      "message": "How do we know the pointer will be valid later when it is used (i.e., after a Packet sits in the task queue for a while)?\n\nIf it\u0027s meant to be an opaque identifier, then it can\u0027t be a pointer to an object in memory (since objects can be destroyed and the same address re-used for a different object).",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01f1e9c6_0e202ecd",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
@@ -61,6 +107,30 @@
       "side": 1,
       "message": "If writing our own std::bind works, I am up for that approach. My thought for a possible approach was to add a new method to the TaskRunner\n\ntemplate\u003cTType\u003e ExecutePointerTask(std::function\u003cvoid(TType*)\u003e, std::unique_ptr\u003cTType\u003e) {...}\n\nTo execute the task, then delete the UniquePtr\u003c...\u003e once it had been run.",
       "parentUuid": "6d48561b_a58cfe72",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ef9c0e5_adeca581",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-06T20:14:28Z",
+      "side": 1,
+      "message": "FWIW, I fixed the TaskRunner (committed yesterday) to permit any kind of \"functor-like thing\" to be used with PostTask() (lambda, std::bind result, etc.), and it now supports movable objects (such as std::unique_ptr).\n\nOOC, what\u0027s wrong with std::bind? I think I missed the part of the discussion where we talked about why we need to roll our own.",
+      "parentUuid": "30882d50_bc24e89c",
       "range": {
         "startLine": 40,
         "startChar": 22,
@@ -232,6 +302,29 @@
         "startChar": 6,
         "endLine": 55,
         "endChar": 19
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22c6eb00_510214f6",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-06T20:14:28Z",
+      "side": 1,
+      "message": "This changed (see https://chromium-review.googlesource.com/c/openscreen/+/1646564 for an explanation of what didn\u0027t work and how it was fixed).",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 37
       },
       "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
