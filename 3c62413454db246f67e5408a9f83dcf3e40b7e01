@@ -2,6 +2,125 @@
   "comments": [
     {
       "key": {
+        "uuid": "45c26d61_7a5a6792",
+        "filename": "build/config/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-07T17:05:34Z",
+      "side": 1,
+      "message": "Can you please provide a link to documentation on what these flags are disabling?",
+      "revId": "3c62413454db246f67e5408a9f83dcf3e40b7e01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d8978f3_c0707a14",
+        "filename": "osp_base/json/json_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-07T17:05:34Z",
+      "side": 1,
+      "message": "constexpr",
+      "revId": "3c62413454db246f67e5408a9f83dcf3e40b7e01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "019dad68_db904e66",
+        "filename": "osp_base/json/json_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-07T17:05:34Z",
+      "side": 1,
+      "message": "Prefer to just return the message with the error object when convenient.  (Comment applied throughout)",
+      "revId": "3c62413454db246f67e5408a9f83dcf3e40b7e01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbccc7aa_1f2519e1",
+        "filename": "osp_base/json/json_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-07T17:05:34Z",
+      "side": 1,
+      "message": "I don\u0027t see reader passed anywhere.  Is unique_ptr necessary?",
+      "revId": "3c62413454db246f67e5408a9f83dcf3e40b7e01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45ea7a46_2e055137",
+        "filename": "osp_base/json/json_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-07T17:05:34Z",
+      "side": 1,
+      "message": "Does this allocate a std::string that ErrorOr copies or will ErrorOr move a temporary?\n\nPlease double check that the return value is moved into ErrorOr and that callers can move the result out of ErrorOr.",
+      "revId": "3c62413454db246f67e5408a9f83dcf3e40b7e01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9c3c524_d812248d",
+        "filename": "osp_base/json/json_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-07T17:05:34Z",
+      "side": 1,
+      "message": "The common case for libcast will be writing into a protocol message used by the Cast V2 protocol, which has a... unique API:\n\nhttps://cs.chromium.org/chromium/src/out/Debug/gen/components/cast_channel/proto/cast_channel.pb.h?rcl\u003d388203cf565f47822812d7b66577298a4ed2c2fc\u0026l\u003d1296\n\nSo let\u0027s have this method allocate a std::string which can be moved into the message.",
+      "revId": "3c62413454db246f67e5408a9f83dcf3e40b7e01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb8d580_76cb6189",
+        "filename": "third_party/jsoncpp/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-07T17:05:34Z",
+      "side": 1,
+      "message": "Update",
+      "revId": "3c62413454db246f67e5408a9f83dcf3e40b7e01",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f05fffe_84e5e824",
         "filename": "third_party/jsoncpp/BUILD.gn",
         "patchSetId": 6
