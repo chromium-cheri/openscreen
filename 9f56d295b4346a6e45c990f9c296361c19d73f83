@@ -604,6 +604,29 @@
     },
     {
       "key": {
+        "uuid": "8896683f_99f842c7",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-07T21:47:03Z",
+      "side": 1,
+      "message": "As long as we\u0027re modifying this file anyway...\n\nIs there any reason to have a separate TaskRunnerFactory class rather than have a static factory method in TaskRunner?\nThen:\n- We don\u0027t have this extra 20 line header and related cc file to maintain\n- We could keep the constructor of TaskRunner and NetworkRunner protected instead of public, which seems cleaner to me for classes we never want the user constructing.",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3e26ce7_28087783",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 4
