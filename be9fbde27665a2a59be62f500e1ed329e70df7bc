@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9ee23ba7_efa56b6a",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-07T23:34:41Z",
+      "side": 1,
+      "message": "I like \"mdns_records\", or maybe just mdns/records.cc or keep it as mdns_parsing?\n\nI\u0027d be fine with any of those.",
+      "parentUuid": "ff87f7f8_148992ce",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd178bd4_e78356f0",
         "filename": "cast/common/mdns/mdns_rdata.cc",
         "patchSetId": 6
@@ -240,6 +258,24 @@
       "writtenOn": "2019-06-07T20:20:43Z",
       "side": 1,
       "message": "I\u0027ll explore a bit if it looks nicer as structs. Some things, like max_wire_size() and comparison operators are not supposed to be in structs as per style guide. Another thing I could do to make the code a bit smaller is to have proper non-default constructors and get rid of all the setters. This way if we have an object, it\u0027s a properly valid one, so we\u0027d be able to do fewer checks in other places. Thoughts?",
+      "parentUuid": "17079c31_a2624319",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80102f96_dfaec2c6",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-07T23:34:41Z",
+      "side": 1,
+      "message": "+1\n\nThe only thing left is max_wire_size(), but that could be replaced with a MaxWireSize function.",
       "parentUuid": "17079c31_a2624319",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
