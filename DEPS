@@ -125,6 +125,10 @@ include_rules = [
     '+absl/strings/substitute.h',
     '+absl/types/optional.h',
     '+absl/types/span.h',
+
+    # Test whitelist.
+    "+gtest",
+    "+gmock",
 ]
 
 skip_child_includes = [
