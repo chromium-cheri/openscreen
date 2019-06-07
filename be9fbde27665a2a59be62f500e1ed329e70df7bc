@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "51570269_8141368a",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "I\u0027m not sure yet where mdns record/question/message types will go. If I put them in this file, I\u0027ll rename it to mdns_data or mdns_records in the next PR.",
+      "parentUuid": "ff87f7f8_148992ce",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7ae653a_ad15a836",
         "filename": "cast/common/mdns/mdns_rdata.h",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "610aca14_09bcee29",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7ae653a_ad15a836",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17079c31_a2624319",
         "filename": "cast/common/mdns/mdns_rdata.h",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2019-06-06T23:51:39Z",
       "side": 1,
       "message": "This seems to be a longer way of saying:\n\nstruct RData {\n  uint16_t type;\n  std::vector\u003cuint8_t\u003e rdata;\n}\n\nDoes this need to be a class?\n\nSimilar comments for the other record classes defined here that have trivial getters, setters, ctors and no vtable.\n\nhttps://google.github.io/styleguide/cppguide.html#Structs_vs._Classes\n\nBut if you would end up with a mix of structs and classes, prefer classes for all, so callers don\u0027t have to remember which is which.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "061cd3c9_54bd1d95",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "I\u0027ll explore a bit if it looks nicer as structs. Some things, like max_wire_size() and comparison operators are not supposed to be in structs as per style guide. Another thing I could do to make the code a bit smaller is to have proper non-default constructors and get rid of all the setters. This way if we have an object, it\u0027s a properly valid one, so we\u0027d be able to do fewer checks in other places. Thoughts?",
+      "parentUuid": "17079c31_a2624319",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "158f7436_3d5791bc",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5a783c0_594aabd1",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecf922fd_8ee08de6",
         "filename": "cast/common/mdns/mdns_rdata.h",
         "patchSetId": 6
@@ -84,6 +156,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b5372a4_945e3366",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecf922fd_8ee08de6",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "a048177f_d49bc985",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c02ca38_e1d7d2c0",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49bc4cdb_ad7fb1e5",
         "filename": "cast/common/mdns/mdns_reader.cc",
         "patchSetId": 6
@@ -115,6 +223,24 @@
       "writtenOn": "2019-06-06T23:51:39Z",
       "side": 1,
       "message": "Consider adding methods to the reader class to improve readability and reduce repetition:\n\nvoid Mark()\nbool Check(size_t offset) // returns true if offset bytes were read since Mark()\nvoid Done()   // clears Mark()\nvoid Revert() // resets current to Mark()\n\nFor bonus points, declare an object with this API that will assert if it goes out of scope without Done() or Revert() being called.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d02e5c6b_22071fce",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Mark/Done/Revert would have to maintain a stack for nested calls to Read*/Write*, current examples are DomainName and CharacterString, and all of the RDATA classes here will be part of bigger data entries as well.\n\nWhat do you think about the following approach:\n\nAdd a transaction class that accept the pointer to the MdnsReader and stores current() on construction. When transaction object goes out of scope (e.g. we return false because we failed to read something) it rolls back MdnsReader. We call Commit() on the transaction before returning true to make it not roll back MdnsReader.\n\nThere\u0027s only one \"return true\" for success, but many early outs for failures, so this will simplify the code somewhat, but not much.\n\nMdnsReader::Transaction ta(this);\n\nif (Read() \u0026\u0026 Read() \u0026\u0026 Read()) {\n  ta.Commit();\n  return true;\n}\n\nreturn false;",
+      "parentUuid": "49bc4cdb_ad7fb1e5",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "30e10b56_8cddf707",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Done. We do not need a template right now.",
+      "parentUuid": "f16181f2_bdaf4fed",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89e5d04c_cd8ae6b9",
         "filename": "cast/common/mdns/mdns_writer.cc",
         "patchSetId": 6
@@ -149,6 +293,24 @@
       "writtenOn": "2019-06-06T23:51:39Z",
       "side": 1,
       "message": "Can we update the writer API to take a size_t and do the assertion/conversions internally?\n\nI.e. WriteAsUint16(size_t value)",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3070780c_a5301175",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "I don\u0027t want to promote every integer we write to size_t to only do an immediate narrowing conversion after that, I think it\u0027s better to enforce size of rdata in the RawRecordRdata itself. What\u0027s your opinion on this?",
+      "parentUuid": "89e5d04c_cd8ae6b9",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "86d35825_d6ae93e7",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Done. I had it as loop before going with all_of, couldn\u0027t decide which one I like more.",
+      "parentUuid": "46b0451b_9e30e191",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40b0bda3_7a1077b8",
         "filename": "cast/common/mdns/mdns_writer.cc",
         "patchSetId": 6
@@ -186,6 +366,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe5903bf_a9262b79",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40b0bda3_7a1077b8",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "4127661c_24cb2cdf",
+        "filename": "cast/common/mdns/mdns_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be55d7d1_5e8049c6",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd879825_29b68be9",
         "filename": "cast/common/mdns/mdns_writer.h",
         "patchSetId": 6
@@ -217,6 +433,24 @@
       "writtenOn": "2019-06-06T23:51:39Z",
       "side": 1,
       "message": "Presumably libcast will be generating the data to be written into this API; if we\u0027re unable to serialize it into DNS records, there is a serious problem earlier in the code.\n\nI haven\u0027t seen the code calling this, but I wonder how it could handle an error writing a record?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d5466e_fc338664",
+        "filename": "cast/common/mdns/mdns_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T20:20:43Z",
+      "side": 1,
+      "message": "I don\u0027t know yet what calling code does on failure because I haven\u0027t written it yet. Previous implementation simply logged the error. If we keep RDATA as classes, add proper constructors instead of setters and add more checks, that would help pinpoint the issue in the calling code compared to a single point of failure in Write*. This would also leave a single major reason for Write* to fail, an insufficient buffer. Then on failure calling code can try to allocate a bigger buffer and try writing again. Thoughts?",
+      "parentUuid": "bd879825_29b68be9",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
