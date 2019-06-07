@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "bac5ae68_518f316e",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-07T22:15:42Z",
+      "side": 1,
+      "message": "When we discussed this the other day, we planned to support Write Callbacks so that Quic could be notified when the socket was ready for further writes to occur. My understanding was that this method would serve that purpose - it wouldn\u0027t do actual writing, but would only be used to signal when the Select(...) call determined that the socket was free to write to again\n\nthoughts?",
+      "parentUuid": "6a17a13e_3ce11415",
+      "revId": "1197727ad580474d5074d4a1a02f8ae288a59d95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "539ad669_1da590d2",
         "filename": "platform/api/udp_callbacks.h",
         "patchSetId": 6
