@@ -37,6 +37,40 @@
     },
     {
       "key": {
+        "uuid": "dd178bd4_e78356f0",
+        "filename": "cast/common/mdns/mdns_rdata.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Consider using std::all_of here:\n\nhttp://www.cplusplus.com/reference/algorithm/all_of/",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4746e2e9_2c58bafe",
+        "filename": "cast/common/mdns/mdns_rdata.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Consider adding a std::array\u003cuint16_t, 5\u003e kRawRecordTypes, then you can do\n\nfor (auto record_type : kRawRecordTypes) {\n    OSP_DCHECK_NE(type, record_type);\n}\n\nI would generally vote to separate data (in this case, record types) from algorithms (in this case, just dchecking).",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7ae653a_ad15a836",
         "filename": "cast/common/mdns/mdns_rdata.h",
         "patchSetId": 6
@@ -72,6 +106,40 @@
     },
     {
       "key": {
+        "uuid": "8cfe8035_81e45a42",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "If these are all default, and just standard constructors/assigners, do you actually need them at all?\n\nhttps://en.cppreference.com/w/cpp/language/move_constructor\n\nIf no user-defined move constructors are provided for a class type (struct, class, or union), and all of the following is true:\n\nthere are no user-declared copy constructors;\nthere are no user-declared copy assignment operators;\nthere are no user-declared move assignment operators;\nthere are no user-declared destructors;\nthe implicitly-declared move function Object() { [native code] } is not defined as deleted due to conditions detailed in the next section,\n(until C++14)\nthen the compiler will declare a move function Object() { [native code] } as a non-explicit inline public member of its class with the signature T::T(T\u0026\u0026).",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d674c68_80baaba0",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Prefer absl::string_view, esp. since you just dump to a stream (which absl::string_view does just fine).",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17079c31_a2624319",
         "filename": "cast/common/mdns/mdns_rdata.h",
         "patchSetId": 6
@@ -101,6 +169,23 @@
       "side": 1,
       "message": "I\u0027ll explore a bit if it looks nicer as structs. Some things, like max_wire_size() and comparison operators are not supposed to be in structs as per style guide. Another thing I could do to make the code a bit smaller is to have proper non-default constructors and get rid of all the setters. This way if we have an object, it\u0027s a properly valid one, so we\u0027d be able to do fewer checks in other places. Thoughts?",
       "parentUuid": "17079c31_a2624319",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c455e8b6_e4939c48",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Maybe not necessary, but consider adding an abstract interface that exposes a method:\n\nstruct RecordData {\nvirtual size_t max_wire_size() const \u003d 0;\n}\n\nThen any serializing library could calculate sizes without needing to know the specific record type.",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -212,6 +297,40 @@
     },
     {
       "key": {
+        "uuid": "53ad5ffc_c25027ae",
+        "filename": "cast/common/mdns/mdns_rdata_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Nit: test name is vague. Looks like you are checking that the labels work properly?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02fa09a7_387315e2",
+        "filename": "cast/common/mdns/mdns_rdata_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Uncomment and fix, or delete please.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "49bc4cdb_ad7fb1e5",
         "filename": "cast/common/mdns/mdns_reader.cc",
         "patchSetId": 6
@@ -241,6 +360,193 @@
       "side": 1,
       "message": "Mark/Done/Revert would have to maintain a stack for nested calls to Read*/Write*, current examples are DomainName and CharacterString, and all of the RDATA classes here will be part of bigger data entries as well.\n\nWhat do you think about the following approach:\n\nAdd a transaction class that accept the pointer to the MdnsReader and stores current() on construction. When transaction object goes out of scope (e.g. we return false because we failed to read something) it rolls back MdnsReader. We call Commit() on the transaction before returning true to make it not roll back MdnsReader.\n\nThere\u0027s only one \"return true\" for success, but many early outs for failures, so this will simplify the code somewhat, but not much.\n\nMdnsReader::Transaction ta(this);\n\nif (Read() \u0026\u0026 Read() \u0026\u0026 Read()) {\n  ta.Commit();\n  return true;\n}\n\nreturn false;",
       "parentUuid": "49bc4cdb_ad7fb1e5",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f2d4c83_093e3ee5",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "!bytes_consumed\n\n?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990d9370_55d852ca",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Nit: doesn\u0027t need to be else, since the if returns. I would vote for removing the else and adding a new line... this method is super dense.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cde4af1d_02a84c4b",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "So, we AND the label_type with the label mask to get the actual label, and then take the inverse of the label mask and AND it with label_type to get the length of the label?\n\nCan you add a comment explaining why this works? I\u0027m assuming it\u0027s part of the spec, but here it\u0027s just black bitwise magic.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15e5e55b_6612ef8f",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Nit: OSP_DCHECK_GE",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d9ac8d_14313791",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Seems like a lot of boilerplate. Can you streamline it down a little bit?\n\nEven if you just added a method that did something like this:\n\ntemplate\u003ctypename T\u003e\nbool MdnsReader::ReadData(T* out, std::function\u003cvoid(T*, uint16_t)\u003e reader) {\n    OSP_DCHECK(out);\n    const uint8_t* const rollback_position \u003d current();\n    uint16_t record_length;\n    bool succeeded \u003d false;\n    if (Read\u003cuint16_t\u003e(\u0026record_length)) {\n        succeeded \u003d reader(out, record_length);\n    }\n    \n    if (!succeeded) {\n        set_current(rollback_position);\n    }\n\n    return succeeded;\n}\n\nAnd wrote reader methods for each type, I would love to see less copypasta.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03d566d1_919f27db",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Update includes... just pushed up a change so this should be the following:\n\n#include \"gmock/gmock.h\"\n#include \"gtest/gtest.h\"",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35594ab7_ae1b41ef",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "constexpr?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8175e21_6bbd96aa",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Nit: remove unnecessary newline",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c6c2351_0083725c",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "What does the 0x03 mean, just the size of the domain name? Is this documented anywhere?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8299ff54_9938657d",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Why is clang-format off here and on for kMessage above?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da1bd7d8_8c6e1b5e",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Can you do something less explicit here, like expose the std::vector of Labels on DomainName and do something like:\n\nHashState::combine(H, const Args\u0026...): Combines an arbitrary number of values into a hash state, returning the updated state. Each of the Args types must be hashable.\n\nhttps://abseil.io/docs/cpp/guides/hash\n\n?",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -279,6 +585,23 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3385434e_7fd2d29e",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-07T20:42:14Z",
+      "side": 1,
+      "message": "Nit: dense bitwise magic. Can you explain or split up into multiple lines?",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
