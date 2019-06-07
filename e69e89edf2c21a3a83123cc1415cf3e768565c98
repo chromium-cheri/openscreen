@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be6b42ca_87640b7f",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-07T23:25:30Z",
+      "side": 1,
+      "message": "If feels cleaner to me to make this an instance method rather than defining it inline. Then the call her would just be:\n\ntask_runner_-\u003ePostTaskWithDelay(\n  std::bind(BackReference::ConditionallyFire, BackReference(this)),\n  delay)\nwhich is much clearer at first glance (at least to me)\n\nif you define the () operator mentioned above, it would just be \ntask_runner_-\u003ePostTaskWithDelay(BackReference(this), delay)",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 13
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75e2d164_b0ae9cc6",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-07T23:25:30Z",
+      "side": 1,
+      "message": "Why include this if we only need it because platform::TaskRunner::Task happens to be a future - if we changed that definition, this import would be unused",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 17
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "097a8015_05b2ca4d",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-07T23:25:30Z",
+      "side": 1,
+      "message": "It seems weird to make OSP_BASE depend on platform - I was actually under the impression that our include rules forbade this. Maybe this class should go in platform?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "996633ff_c4aec25f",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-07T23:25:30Z",
+      "side": 1,
+      "message": "Why define a new method rather than the () operator?",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 14
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e334fa40_3e407ead",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-07T23:25:30Z",
+      "side": 1,
+      "message": "might be useful to name this something more specific, so that \"This is NOT the task that Alarm provides to the TaskRunner\" remains obvious throughout the cc file as-well",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 13
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
