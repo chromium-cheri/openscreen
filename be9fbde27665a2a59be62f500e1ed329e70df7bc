@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d7002473_0b14365a",
+        "filename": "cast/common/mdns/mdns_rdata.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "std::all_of passes const std::string\u0026 to the predicate, which makes it very inconvenient to compare the object to an object at the same index in another collection.\nstd::equal does the trick",
+      "parentUuid": "dd178bd4_e78356f0",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4746e2e9_2c58bafe",
         "filename": "cast/common/mdns/mdns_rdata.cc",
         "patchSetId": 6
@@ -68,6 +86,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2144b1c_713effe1",
+        "filename": "cast/common/mdns/mdns_rdata.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Done with std::none_of to not leave an empty loop as a homework to the compiler.",
+      "parentUuid": "4746e2e9_2c58bafe",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -123,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "886422b6_7e2313ba",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Here and below we absolutely do not need these, as this is the default behavior in C++, same as if nothing is declared. However, our style guide insists:\n\n\"A class\u0027s public API should make explicit whether the class is copyable, move-only, or neither copyable nor movable. Support copying and/or moving if these operations are clear and meaningful for your type.\"\n\n\"Every class\u0027s public interface should make explicit which copy and move operations the class supports. This should usually take the form of explicitly declaring and/or deleting the appropriate operations in the public section of the declaration.\"",
+      "parentUuid": "8cfe8035_81e45a42",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d674c68_80baaba0",
         "filename": "cast/common/mdns/mdns_rdata.h",
         "patchSetId": 6
@@ -137,6 +191,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "093cd06d_10a9b035",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d674c68_80baaba0",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +261,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "748d2a99_0febfca9",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Not needed right now, but I\u0027ll add it if necessary.",
+      "parentUuid": "c455e8b6_e4939c48",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -314,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "02b945ba_3388806d",
+        "filename": "cast/common/mdns/mdns_rdata_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53ad5ffc_c25027ae",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02fa09a7_387315e2",
         "filename": "cast/common/mdns/mdns_rdata_unittest.cc",
         "patchSetId": 6
@@ -328,6 +436,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90162158_8cbfd1b6",
+        "filename": "cast/common/mdns/mdns_rdata_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02fa09a7_387315e2",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -383,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "40a857e3_89d72acc",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "!bytes_consumed probably better expresses \"not previously set\" in this case. Done here and in the second spot.",
+      "parentUuid": "1f2d4c83_093e3ee5",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "990d9370_55d852ca",
         "filename": "cast/common/mdns/mdns_reader.cc",
         "patchSetId": 6
@@ -397,6 +541,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aacd813a_2c6a3130",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "In the else statement based on previous feedback to accentuate that we return false in case label_type \u0026 kLabelMask is neither a pointer label nor a direct label.",
+      "parentUuid": "990d9370_55d852ca",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -417,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "3df51c31_3c7ea083",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Moved all of bit manipulation to mdns_constants, right were the explanation of what bits mean is.",
+      "parentUuid": "cde4af1d_02a84c4b",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15e5e55b_6612ef8f",
         "filename": "cast/common/mdns/mdns_reader.cc",
         "patchSetId": 6
@@ -434,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "c1d3541a_6ee6883d",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "label_length is unsigned, so the check is for a value greater than 0, I think you meant OSP_DCHECK_GT, not OSP_DCHECK_GT. Done.",
+      "parentUuid": "15e5e55b_6612ef8f",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7d9ac8d_14313791",
         "filename": "cast/common/mdns/mdns_reader.cc",
         "patchSetId": 6
@@ -445,6 +643,24 @@
       "writtenOn": "2019-06-07T20:42:14Z",
       "side": 1,
       "message": "Seems like a lot of boilerplate. Can you streamline it down a little bit?\n\nEven if you just added a method that did something like this:\n\ntemplate\u003ctypename T\u003e\nbool MdnsReader::ReadData(T* out, std::function\u003cvoid(T*, uint16_t)\u003e reader) {\n    OSP_DCHECK(out);\n    const uint8_t* const rollback_position \u003d current();\n    uint16_t record_length;\n    bool succeeded \u003d false;\n    if (Read\u003cuint16_t\u003e(\u0026record_length)) {\n        succeeded \u003d reader(out, record_length);\n    }\n    \n    if (!succeeded) {\n        set_current(rollback_position);\n    }\n\n    return succeeded;\n}\n\nAnd wrote reader methods for each type, I would love to see less copypasta.",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1452b4ef_ccc00c73",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "This somewhat depends on if we decide to go with struct vs class and a decision on how we do rollback, leaving this for later.",
+      "parentUuid": "d7d9ac8d_14313791",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -468,6 +684,24 @@
     },
     {
       "key": {
+        "uuid": "62df2e7e_9b07fd25",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03d566d1_919f27db",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35594ab7_ae1b41ef",
         "filename": "cast/common/mdns/mdns_reader_unittest.cc",
         "patchSetId": 6
@@ -482,6 +716,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b93b7270_44e9bebc",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Yes, done here and for all other occurrences across test cases.",
+      "parentUuid": "35594ab7_ae1b41ef",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -502,6 +754,24 @@
     },
     {
       "key": {
+        "uuid": "169319bf_a9c531a0",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Added intentionally to separate the comment from the test directly below it, as the comment applies to all tests that cover failure cases. Clarified the comment to explicitly mention multiple tests below.",
+      "parentUuid": "f8175e21_6bbd96aa",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c6c2351_0083725c",
         "filename": "cast/common/mdns/mdns_reader_unittest.cc",
         "patchSetId": 6
@@ -516,6 +786,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "766616e6_7989e62f",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "0x03 is longer that the available data intentionally. We expect a failure here. Added a comment.",
+      "parentUuid": "5c6c2351_0083725c",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -536,6 +824,24 @@
     },
     {
       "key": {
+        "uuid": "f77ac528_98c5249a",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Unfortunately, clang-format insists on a less-readable representation of test data here and in a few other places. Only sprinkled it in a couple places were results of clang-format were undesirable.",
+      "parentUuid": "8299ff54_9938657d",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da1bd7d8_8c6e1b5e",
         "filename": "cast/common/mdns/mdns_writer.cc",
         "patchSetId": 6
@@ -550,6 +856,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c371ad8_859d8738",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Yeah, I wanted to use that one, but it doesn\u0027t do what I need.\nIf I wanted to have a hashable DomainName, that would be the way to go. Compression algorithm uses hashes of each subname to look-up how much can be compressed. This is not expressible through public absl hash API right now as far as I can tell.",
+      "parentUuid": "da1bd7d8_8c6e1b5e",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -602,6 +926,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70bd9fd_609ff193",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-07T23:21:31Z",
+      "side": 1,
+      "message": "Moved bit manipulation to mdns_constants.h where the explanation and the constants live.",
+      "parentUuid": "3385434e_7fd2d29e",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
