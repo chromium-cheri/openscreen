@@ -17,7 +17,7 @@
 #include "osp/public/protocol_connection_server.h"
 #include "osp_base/ip_address.h"
 #include "platform/api/time.h"
-#include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
+#include "gmock/gmock.h"
 
 namespace openscreen {
 

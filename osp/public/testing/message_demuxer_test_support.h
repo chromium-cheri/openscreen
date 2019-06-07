@@ -7,7 +7,7 @@
 
 #include "osp/public/message_demuxer.h"
 #include "platform/api/time.h"
-#include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
+#include "gmock/gmock.h"
 
 namespace openscreen {
 

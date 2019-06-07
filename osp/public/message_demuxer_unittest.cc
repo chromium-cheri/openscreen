@@ -7,8 +7,8 @@
 #include "platform/test/fake_clock.h"
 #include "osp/msgs/osp_messages.h"
 #include "osp/public/testing/message_demuxer_test_support.h"
-#include "third_party/googletest/src/googlemock/include/gmock/gmock.h"
-#include "third_party/googletest/src/googletest/include/gtest/gtest.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 
 namespace openscreen {
