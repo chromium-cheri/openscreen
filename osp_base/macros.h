@@ -53,4 +53,11 @@
 #define OSP_NOINLINE __attribute__((noinline))
 #endif
 
+#undef WARN_UNUSED_RESULT
+#if defined(COMPILER_GCC) || defined(__clang__)
+#define WARN_UNUSED_RESULT __attribute__((warn_unused_result))
+#else
+#define WARN_UNUSED_RESULT
+#endif
+
 #endif  // OSP_BASE_MACROS_H_
