@@ -557,6 +557,24 @@
     },
     {
       "key": {
+        "uuid": "eacf9c99_c99d05ec",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T22:26:45Z",
+      "side": 1,
+      "message": "Resolving because this will be postponed after all.",
+      "parentUuid": "9b19ad3f_e6001fff",
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86626789_319df86c",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 4
@@ -627,6 +645,30 @@
     },
     {
       "key": {
+        "uuid": "d9f8351e_4c36f59e",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T22:26:45Z",
+      "side": 1,
+      "message": "Yes, this could just be a static method on NetworkRunner.  I suppose the only reason to have *Factory is if it\u0027s going to allow wrapping state, not being static.\n\nI\u0027m not sure I follow the second point though: NetworkRunner and TaskRunner are pure virtual so already can\u0027t be constructed standalone.",
+      "parentUuid": "8896683f_99f842c7",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3e26ce7_28087783",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 4
@@ -694,6 +736,30 @@
       "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cf1d14d_c50e1191",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T22:26:45Z",
+      "side": 1,
+      "message": "Removing this file, but I don\u0027t think we will ever want to _create_ only a TaskRunner, at least for now.",
+      "parentUuid": "b65515a3_8f3adeff",
+      "range": {
+        "startLine": 20,
+        "startChar": 25,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
