@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34ffc4bf_dd3adce3",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08c54461_68035105",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8cf2dd7_84076ad6",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f55d9f3_9ea611ab",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "This has moved to be a parameter of OnRead, though I don\u0027t think it changes this issue.  The idea is that CancelReads should, in addition to removing it from our socket read pool, remove even already-read data for the socket from the TaskRunner for just this reason.  I\u0027ll add a TODO here as a reminder going forward into the implementation.",
+      "parentUuid": "e8cf2dd7_84076ad6",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -214,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "cd4e0cf3_d0c7a1eb",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "Moved to udp_callbacks.h",
+      "parentUuid": "455a6a70_1a58ed07",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 2
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44b37461_68cdb0cf",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
@@ -309,6 +381,30 @@
     },
     {
       "key": {
+        "uuid": "62181187_ca0b04e1",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "I went with NetworkRunner subclasses TaskRunner (A).",
+      "parentUuid": "9cc9d7cc_f503e8d4",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22c6eb00_510214f6",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
@@ -332,6 +428,30 @@
     },
     {
       "key": {
+        "uuid": "24d365c0_6324bfff",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "Automatically changed because of inheritance change, but thanks for the heads up.",
+      "parentUuid": "22c6eb00_510214f6",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9db041c3_87176fba",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
@@ -346,6 +466,24 @@
       "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3efd533_da7e8b15",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9db041c3_87176fba",
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -366,6 +504,24 @@
     },
     {
       "key": {
+        "uuid": "792898e6_9bd7b9d9",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8637a279_7602599b",
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fc03dfd_62624096",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 4
@@ -377,6 +533,24 @@
       "writtenOn": "2019-06-04T16:15:57Z",
       "side": 1,
       "message": "Based on discussions with Mark and Peter, we will need to support callbacks when writes complete as-well.\n\nFor consistency in naming, how about calling them WriteAll and CancelWrite?",
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b19ad3f_e6001fff",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "How would this API be used.  I\u0027m thinking it would be:\n\n// non-blocking will detect EWOULDBLOCK\nwrite(socket, data, ...);\n// get EWOULDBLOCK, so wait for it to be free\nnetwork-\u003eWriteNext(socket, me);  // Maybe just Write?\n\n|me| is a callback that we redo the write().  There could still be a CancelWrite.\n\nThe problem that I still see with this is that if we get EWOULDBLOCK because we\u0027re just trying to write to much at once we\u0027ll just spin between EWOULDBLOCk/network-\u003eWrite (unless there\u0027s a poll/epoll/fcntl/ioctl way of getting actual socket buffer size).\n\nNow, given that\u0027s what I had in mind for writing, what would the use of WriteAll look like?  If the user doesn\u0027t have anything to write, presumably they\u0027d just repeatedly get their callback called, so should they remove it while not wanting to write?  Alternatively, should the API try to be smart and only callback once on entering the unblocked state (not sure this is trivial to detect on e.g. posix)?",
+      "parentUuid": "5fc03dfd_62624096",
       "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -450,6 +624,30 @@
       "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ead57e5_41831c56",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-07T19:42:39Z",
+      "side": 1,
+      "message": "This doesn\u0027t preclude usage as a singleton/setting it somewhere else as a singleton so IMO this is better in general.",
+      "parentUuid": "d3e26ce7_28087783",
+      "range": {
+        "startLine": 20,
+        "startChar": 40,
+        "endLine": 20,
+        "endChar": 46
+      },
+      "revId": "9f56d295b4346a6e45c990f9c296361c19d73f83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
