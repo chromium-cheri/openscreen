@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "15d846b9_bf7e8702",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-08T01:02:32Z",
+      "side": 1,
+      "message": "Question for mfoltz@: I had a face-to-face chat with Ryan and Max about this, and it seems weird that this DEPS restriction is in-place: Why shouldn\u0027t all osp_base code be allowed to #include \"platform/api/\u003canything\u003e\"? In other words, why shouldn\u0027t general-purpose utility classes be allowed to access things like the platform Clock, TaskRunner, UdpSocket, etc.?\n\nAlso considered in our face-to-face discussion: This new Alarm class isn\u0027t something that belongs in platform/, because it does not require an embedder implementation; and not platform/base, because it\u0027s not actually defining the \"standalone impl\" of any platform/api interface.",
+      "parentUuid": "097a8015_05b2ca4d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "996633ff_c4aec25f",
         "filename": "osp_base/alarm.h",
         "patchSetId": 1
