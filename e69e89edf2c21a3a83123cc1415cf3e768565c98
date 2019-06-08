@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "667ceaa5_572b167a",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-08T00:58:48Z",
+      "side": 1,
+      "message": "Taking these and the header file comments into consideration, I agree that it becomes much cleaner to remove this lambda and just add a call operator to the BackReference class. In addition, I did some name changing to better reflect the encapsulation of responsibilities: BackReference → CancelableFunctor, Invalidate() → Cancel().\n\nAnd, now, there\u0027s not even a need to use std::bind() at all! :)",
+      "parentUuid": "be6b42ca_87640b7f",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 13
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75e2d164_b0ae9cc6",
         "filename": "osp_base/alarm.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c43d1f7_d8c5c023",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-08T00:58:48Z",
+      "side": 1,
+      "message": "Good point. Removed it.",
+      "parentUuid": "75e2d164_b0ae9cc6",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 17
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "026fbb49_c9168a72",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-08T00:58:48Z",
+      "side": 1,
+      "message": "Stuff changed here. See reply to .cc file comments...",
+      "parentUuid": "996633ff_c4aec25f",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 14
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e334fa40_3e407ead",
         "filename": "osp_base/alarm.h",
         "patchSetId": 1
@@ -114,6 +186,30 @@
       "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961af2c2_353fd687",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-08T00:58:48Z",
+      "side": 1,
+      "message": "Done. Renamed to |client_task_|.",
+      "parentUuid": "e334fa40_3e407ead",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 13
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
