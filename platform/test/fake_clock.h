@@ -2,27 +2,41 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef OSP_IMPL_TESTING_FAKE_CLOCK_H_
-#define OSP_IMPL_TESTING_FAKE_CLOCK_H_
+#ifndef PLATFORM_TEST_FAKE_CLOCK_H_
+#define PLATFORM_TEST_FAKE_CLOCK_H_
+
+#include <vector>
 
 #include "platform/api/time.h"
 
 namespace openscreen {
+namespace platform {
+
+class FakeTaskRunner;
 
 class FakeClock {
  public:
-  explicit FakeClock(platform::Clock::time_point start_time);
+  explicit FakeClock(Clock::time_point start_time);
   ~FakeClock();
 
-  void Advance(platform::Clock::duration delta);
+  void Advance(Clock::duration delta);
 
-  static platform::Clock::time_point now() noexcept;
+  static Clock::time_point now() noexcept;
+
+ protected:
+  friend class FakeTaskRunner;
+
+  void SubscribeToTimeChanges(FakeTaskRunner* task_runner);
+  void UnsubscribeFromTimeChanges(FakeTaskRunner* task_runner);
 
  private:
+  std::vector<FakeTaskRunner*> task_runners_;
+
   static FakeClock* instance_;
-  static platform::Clock::time_point now_;
+  static Clock::time_point now_;
 };
 
+}  // namespace platform
 }  // namespace openscreen
 
-#endif  // OSP_IMPL_TESTING_FAKE_CLOCK_H_
+#endif  // PLATFORM_TEST_FAKE_CLOCK_H_
