@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "3823a6ac_4c773ae6",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-08T01:41:55Z",
+      "side": 1,
+      "message": "I agree with the second point; it really seems like it doesn\u0027t belong in platform/* (i.e. probably in osp_base instead).\n\nThe include rules for osp_base seem a little strange to me: it seems like we either want osp_base to be able to include nothing other than maybe abseil/gtest/etc. so it\u0027s extremely modular, or that + platform for cases like this.  Maybe an osp_base/platform(_util?) would make sense for this case?",
+      "parentUuid": "15d846b9_bf7e8702",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "e69e89edf2c21a3a83123cc1415cf3e768565c98",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "996633ff_c4aec25f",
         "filename": "osp_base/alarm.h",
         "patchSetId": 1
