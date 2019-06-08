@@ -2,6 +2,176 @@
   "comments": [
     {
       "key": {
+        "uuid": "b62d7e83_3e19ad12",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "I think this would be slightly more readable like this:\n\n// If there is no task in the TaskRunner, schedule one\n// If there is but it would fire too late, cancel it and schedule a new one.\nif (!pending_fire_) {\n  Schedule(now_function_(), alarm_time);\n} else if (next_fire_time_ \u003e alarm_time) {\n  pending_fire_-\u003eCancel();\n  Schedule(now_function_(), alarm_time);\n}",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d85c46a7_132384e1",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "meantime",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e4ffa2b_aeecad5b",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "Since the comment basically describes this as reschedulable Task, why not call it ReschedulableTask?  Or, since you can change the task as well as the time, perhaps AdjustableTask.",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3747db31_1a6df706",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "Why not call it Schedule?  That\u0027s what the comment calls it.",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19ba1bb3_9e381ee1",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "Why not just call it Cancel? That\u0027s what the comment calls it.",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02629fd2_266d1a50",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "ScheduleTask?",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4caa3c3d_be4e75ac",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "It seems like this should be called CancelableWrapper.",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f65e2d_72983203",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "Seems like this should be called \"TryInvoke\" or perhaps \"TryExecute\"",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1b3ddb8_7b3ac916",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "Seems like this should be called armed_task (the task passed into Arm)",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "777fd237_ab2d8cc5",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "This is called \"alarm time\" everywhere else, so why not \"client_task_alarm_time\" or just \"alarm_time\"?",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3bd1d7b_64993f38",
         "filename": "osp_base/alarm.h",
         "patchSetId": 2
@@ -19,6 +189,23 @@
         "endLine": 84,
         "endChar": 55
       },
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d6dd30_b33d180a",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-08T05:13:16Z",
+      "side": 1,
+      "message": "It seems like this should be called queued_fire_ or maybe queued_cancelable_wrapper_",
       "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
