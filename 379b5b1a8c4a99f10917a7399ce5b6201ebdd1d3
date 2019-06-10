@@ -2,6 +2,210 @@
   "comments": [
     {
       "key": {
+        "uuid": "7fa5c8d8_caaa971f",
+        "filename": "osp_base/crypto/rsa_private_key.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "Does this value have a more meaningful name than \u0027bignum\u0027?\nCan it be \u0027exponent\u0027?",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4f31e60_8063bacb",
+        "filename": "osp_base/crypto/rsa_private_key.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "s/cbs/private_key_cbs/",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873816b8_a5d40c11",
+        "filename": "osp_base/crypto/rsa_private_key.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "s/pkey/private_key/",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c9a986d_07252fa9",
+        "filename": "osp_base/crypto/rsa_private_key.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "s/copy/result/",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17758c18_7b2822b5",
+        "filename": "osp_base/crypto/rsa_private_key.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "Please put definitions in declaration order.",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48467d6e_23714336",
+        "filename": "osp_base/crypto/rsa_private_key.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "Would this TODO make more sense on the Copy() method?  Assuming you want to replace Copy() with  shared_ptr usage.",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0681aba_e95729c0",
+        "filename": "osp_base/crypto/rsa_private_key.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "Nit: can you add a blank line before the macro",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f15fbaba_2cf49a50",
+        "filename": "osp_base/crypto/secure_hash.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "Includes out of order (and there\u0027s an extra blank line)",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "176e3a88_e8bd14bf",
+        "filename": "osp_base/crypto/secure_hash.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "Please add a blank line before",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b48402c_37209a91",
+        "filename": "osp_base/crypto/secure_hash.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "Making this class copyable means that ctx_ gets double deleted.",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f2a79f_0a113085",
+        "filename": "osp_base/crypto/secure_hash.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "What if the \u0027type\u0027 argument for |other| is different from the one for |this|?",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c05c23e_b6d3b48a",
+        "filename": "osp_base/crypto/secure_hash.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "When you move a pointer, it makes a copy, so you\u0027ll get double deletion again.\nI would just wrap ctx_ in a std::unique_ptr with a custom deleter.",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0a7c1f0_f303a762",
         "filename": "osp_base/crypto/secure_hash.cc",
         "patchSetId": 6
@@ -46,6 +250,40 @@
       "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96987530_eb01db54",
+        "filename": "osp_base/crypto/secure_hash.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "In general complex initialization should not be done inline, but I assume this saves a lot of duplication?",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4724d967_a06c892e",
+        "filename": "osp_base/crypto/sha2.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T23:45:44Z",
+      "side": 1,
+      "message": "const ref for str here and below?   Or does the openssl routine take a non-const char* :-(",
+      "revId": "379b5b1a8c4a99f10917a7399ce5b6201ebdd1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
