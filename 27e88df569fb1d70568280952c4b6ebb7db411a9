@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34235e74_632253b2",
+        "filename": "osp_crypto/rsa_private_key.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-10T19:46:45Z",
+      "side": 1,
+      "message": "Um, so a regular copyable and movable class with shared_ptr\u003cEVP_PKEY\u003e in it? :)\nThen no need for unique_ptr manipulation in Copy method.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 76
+      },
+      "revId": "27e88df569fb1d70568280952c4b6ebb7db411a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c794d99_8cecf5eb",
+        "filename": "osp_crypto/secure_hash.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-10T19:46:45Z",
+      "side": 1,
+      "message": "Mark has asked to update the year in all of my recent PRs. I know that Peter has suggested the opposite in the past.",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "27e88df569fb1d70568280952c4b6ebb7db411a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a35db764_8c379eba",
+        "filename": "osp_crypto/secure_hash.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-10T19:46:45Z",
+      "side": 1,
+      "message": "There\u0027s a generalizaion of this already in BoringSSL in digest.h that you pass a hash function to (e.g. OPENSSL_EXPORT const EVP_MD *EVP_sha256(void);)\n\nEVP_DigestInit\nEVP_DigestUpdate\nEVP_DigestFinal\n\nIs that something we might use here? Maybe have a just SecureHash class (no children) for which we get hash function (EVP_sha256) based on enum in consturctor, and then use BoringSSL generalized functions here?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 42
+      },
+      "revId": "27e88df569fb1d70568280952c4b6ebb7db411a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b62b6248_6745bc14",
+        "filename": "osp_crypto/secure_hash.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-10T19:46:45Z",
+      "side": 1,
+      "message": "This is somewhat weird approach. Let\u0027s say we add another algorithm, say SHA512\nSomewhere in the code we have a pointer SecureHash* secure_hash;\nNow, to know what buffer to pass to Finish we need to call GetHashSize.\nIt seems weird that we allocate a safe buffer and truncate hash here if a buffer of an insufficient size was passed. Maybe it\u0027s better to CHECK() here?\nAlso, if an output buffer is longer than needed, we don\u0027t do anything with the extra bytes. I also don\u0027t see us returning how many bytes were written.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "27e88df569fb1d70568280952c4b6ebb7db411a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92baa016_0da312e7",
+        "filename": "osp_crypto/secure_hash.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-10T19:46:45Z",
+      "side": 1,
+      "message": "Somewhat overkill for just one algorithm, but I see that we might want to add SHA512.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 26
+      },
+      "revId": "27e88df569fb1d70568280952c4b6ebb7db411a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8889579e_4938d05f",
+        "filename": "osp_crypto/secure_hash.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-10T19:46:45Z",
+      "side": 1,
+      "message": "Maybe just make this copyable. Also it\u0027s really weird that this is a move-only class, but its subclass has a copy constructor, but not a move constructor",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "27e88df569fb1d70568280952c4b6ebb7db411a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0915fbc5_8f7cb4db",
+        "filename": "osp_crypto/sha2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-10T19:46:45Z",
+      "side": 1,
+      "message": "Maybe std::array? I don\u0027t feel strongly about this one though",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 58
+      },
+      "revId": "27e88df569fb1d70568280952c4b6ebb7db411a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89dedb84_61cc2ad5",
+        "filename": "osp_crypto/sha2_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-10T19:46:45Z",
+      "side": 1,
+      "message": "This should work:\nEXPECT_THAT(output, testing::ElementsAreArray(kExpected));",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 61
+      },
+      "revId": "27e88df569fb1d70568280952c4b6ebb7db411a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
