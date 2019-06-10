@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3c280679_82ff0012",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "Is there a particular reason these files aren\u0027t in osp_base/crypto?",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de3c989f_3613cb0a",
         "filename": "osp_base/macros.h",
         "patchSetId": 2
@@ -46,6 +63,98 @@
       "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fd556c6_16723612",
+        "filename": "osp_base/macros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "It looks like nodiscard is c++17 and we only have up to c++11 plus a little c++14 in the library.",
+      "parentUuid": "de3c989f_3613cb0a",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 6
+      },
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41ee4e82_197adbf2",
+        "filename": "osp_base/std_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "How is this different from str.data()?\nI need to see a usage to understand.",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22237079_5a0e0c36",
+        "filename": "osp_crypto/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "Update",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1afcff76_afee6a42",
+        "filename": "osp_crypto/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "Prefer to make these rules part of osp_base/BUILD.gn",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65952f9a_d4b77d87",
+        "filename": "osp_crypto/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "We should just +logging.h in osp_base/DEPS since we will need logging in osp_base too.",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -190,6 +299,74 @@
     },
     {
       "key": {
+        "uuid": "a1399847_74d721e4",
+        "filename": "osp_crypto/openssl_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "Update here and throughout.",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2cd2953_8af216f3",
+        "filename": "osp_crypto/openssl_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "If the caller always has to allocate min_sized_buffer_ in case it\u0027s needed, why just not have it always allocate a buffer that size?  Need to see the usage to understand why this class exists.",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a34aaadb_a121be39",
+        "filename": "osp_crypto/openssl_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "MIN_SIZE seems odd, because min_sized_buffer never grows.  It will always be exactly MIN_SIZE bytes.",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b0b807_19ebb0db",
+        "filename": "osp_crypto/openssl_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "If output_len \u003e\u003d MIN_SIZE, you don\u0027t need to allocate this at all.",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8ecbf78_656268e6",
         "filename": "osp_crypto/openssl_util.h",
         "patchSetId": 2
@@ -234,6 +411,57 @@
       "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af3f40e_6b9f4591",
+        "filename": "osp_crypto/rsa_private_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "Nit: s/NULL/nullptr/ throughout",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee194837_aad1b728",
+        "filename": "osp_crypto/rsa_private_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "Can this take a const-pointer-to-const (or a const reference)?",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "537ad704_bfd1a2f0",
+        "filename": "osp_crypto/rsa_private_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-10T20:43:25Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "0d747e14e18efbacf902a588d6495ffcf53ba90c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
