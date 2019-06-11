@@ -5,9 +5,19 @@
 config("chromium_quic_config") {
   cflags_cc = [
     "-Wno-error=attributes",
-    "-Wno-defaulted-function-deleted",
     "-Wno-unused-const-variable",
   ]
+
+  if (is_clang) {
+    cflags_cc += [ "-Wno-defaulted-function-deleted" ]
+
+    # The clang version on the Mac OS X build bots is old, causing them to
+    # not recognize the defaulted-function-deleted warning. This flag allows
+    # us to build on both older and newer Mac OS X Clang toolchains.
+    if (is_mac) {
+      cflags_cc += [ "-Wno-unknown-warning-option" ]
+    }
+  }
 
   if (is_gcc) {
     cflags_cc += [
