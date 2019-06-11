@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15a654bb_6b32e156",
+        "filename": "platform/base/ssl_context.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T20:37:38Z",
+      "side": 1,
+      "message": "The filename argument is a const char*.  Is it necessary to convert to std::string or can you call cert_filename.data()?",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8fc01f3_da730f2a",
+        "filename": "platform/base/ssl_context.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T20:37:38Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4750480f_b350d860",
+        "filename": "platform/base/ssl_context.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T20:37:38Z",
+      "side": 1,
+      "message": "What value is passed to SSL_CTX_new here?  It needs to be TLS 1.3 for compatibility with Cast.",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5ca520a_68c5470d",
+        "filename": "platform/base/ssl_context.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T20:37:38Z",
+      "side": 1,
+      "message": "Nit: prefer ternary return here",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba54fdd2_54e3044a",
+        "filename": "platform/base/ssl_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T20:37:38Z",
+      "side": 1,
+      "message": "Just to check - declaring a default move constructor means this object can\u0027t be copied, correct?",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efea885d_75bec149",
+        "filename": "platform/base/ssl_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T20:37:38Z",
+      "side": 1,
+      "message": "Nit: Prefer consistency, so choose between \u0027Create\u0027 and \u0027GetNew\u0027 for factory methods.",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c7c4593_6f6931a1",
+        "filename": "platform/base/ssl_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T20:37:38Z",
+      "side": 1,
+      "message": "Nit: prefer a blank line before namespace braces",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ca6cebf_1569fc77",
+        "filename": "platform/base/ssl_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T20:37:38Z",
+      "side": 1,
+      "message": "Nit: prefer a blank line before #endif",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
