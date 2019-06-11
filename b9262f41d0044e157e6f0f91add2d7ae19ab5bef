@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e589332d_7f0df78e",
+        "filename": "platform/base/ssl_context.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-11T22:51:02Z",
+      "side": 1,
+      "message": "The conversion is necessary (annoyingly enough) because string_view makes no guarantee that .data() is nullterminated--meaning that you can get serious overflow bugs.",
+      "parentUuid": "15a654bb_6b32e156",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8fc01f3_da730f2a",
         "filename": "platform/base/ssl_context.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a66285d6_670b3569",
+        "filename": "platform/base/ssl_context.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-11T22:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8fc01f3_da730f2a",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "09d44b62_5574467a",
+        "filename": "platform/base/ssl_context.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-11T22:51:02Z",
+      "side": 1,
+      "message": "TLS 1.3. You can only specify \"legacy\" versions (1.1 or 1.2):\n\nhttps://github.com/google/boringssl/blob/master/ssl/tls_method.cc",
+      "parentUuid": "4750480f_b350d860",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5ca520a_68c5470d",
         "filename": "platform/base/ssl_context.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c424f98b_1ef7e6df",
+        "filename": "platform/base/ssl_context.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-11T22:51:02Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s better:\n\n../../platform/base/ssl_context.cc:50:21: error: incompatible operand types (\u0027openscreen::platform::SSLContext\u0027 and \u0027openscreen::Error\u0027)\n    return error.ok() ? context : error;\nso it\u0027s:\n    if (!error.ok()) {\n        return error;\n    }\n    return context;\n\nversus:\n     return error.ok() ? ErrorOr\u003cSSLContext\u003e(context) : ErrorOr\u003cSSLContext\u003e(error);",
+      "parentUuid": "c5ca520a_68c5470d",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "dc5428fa_e52e025a",
+        "filename": "platform/base/ssl_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-11T22:51:02Z",
+      "side": 1,
+      "message": "Yes, definitely.",
+      "parentUuid": "ba54fdd2_54e3044a",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efea885d_75bec149",
         "filename": "platform/base/ssl_context.h",
         "patchSetId": 4
@@ -101,6 +191,24 @@
       "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd11e812_058d7058",
+        "filename": "platform/base/ssl_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-11T22:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efea885d_75bec149",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "4366f0f7_0198e12c",
+        "filename": "platform/base/ssl_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-11T22:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c7c4593_6f6931a1",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ca6cebf_1569fc77",
         "filename": "platform/base/ssl_context.h",
         "patchSetId": 4
@@ -135,6 +261,24 @@
       "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa5b0da7_bc7f80fc",
+        "filename": "platform/base/ssl_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-06-11T22:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ca6cebf_1569fc77",
+      "revId": "b9262f41d0044e157e6f0f91add2d7ae19ab5bef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
