@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "5494235c_4c7058a3",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T19:28:01Z",
+      "side": 1,
+      "message": "Fine to rename in a different patch once we see what the final contents look like.",
+      "parentUuid": "9ee23ba7_efa56b6a",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd178bd4_e78356f0",
         "filename": "cast/common/mdns/mdns_rdata.cc",
         "patchSetId": 6
@@ -277,6 +295,24 @@
       "side": 1,
       "message": "+1\n\nThe only thing left is max_wire_size(), but that could be replaced with a MaxWireSize function.",
       "parentUuid": "17079c31_a2624319",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ddc373b_17bae7e8",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T19:28:01Z",
+      "side": 1,
+      "message": "I\u0027m in favor of leaving them as classes with proper constructors, const data members and setters removed",
+      "parentUuid": "80102f96_dfaec2c6",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -528,6 +564,24 @@
     },
     {
       "key": {
+        "uuid": "549e81bf_6984e97f",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T19:28:01Z",
+      "side": 1,
+      "message": "Yeah, that sounds pretty good, although I believe \"transaction\" has a specific meaning for DNS. So maybe call the object ReadPosition or something like that.",
+      "parentUuid": "d02e5c6b_22071fce",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f2d4c83_093e3ee5",
         "filename": "cast/common/mdns/mdns_reader.cc",
         "patchSetId": 6
@@ -697,6 +751,24 @@
       "side": 1,
       "message": "This somewhat depends on if we decide to go with struct vs class and a decision on how we do rollback, leaving this for later.",
       "parentUuid": "d7d9ac8d_14313791",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56ca57f9_ff2b71f0",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T19:28:01Z",
+      "side": 1,
+      "message": "Let\u0027s see what it looks like with the transaction object and decide if we need additional simplification.  I\u0027m not generally a fan of templates just to reduce code duplication unless you are actually using them for type polymorphism.",
+      "parentUuid": "1452b4ef_ccc00c73",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -1018,6 +1090,24 @@
     },
     {
       "key": {
+        "uuid": "0b616d24_7425e670",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T19:28:01Z",
+      "side": 1,
+      "message": "What about having rdata.size() return a uint16_t since it can never exceed that size anyway?",
+      "parentUuid": "3070780c_a5301175",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46b0451b_9e30e191",
         "filename": "cast/common/mdns/mdns_writer.cc",
         "patchSetId": 6
@@ -1152,6 +1242,24 @@
       "side": 1,
       "message": "I don\u0027t know yet what calling code does on failure because I haven\u0027t written it yet. Previous implementation simply logged the error. If we keep RDATA as classes, add proper constructors instead of setters and add more checks, that would help pinpoint the issue in the calling code compared to a single point of failure in Write*. This would also leave a single major reason for Write* to fail, an insufficient buffer. Then on failure calling code can try to allocate a bigger buffer and try writing again. Thoughts?",
       "parentUuid": "bd879825_29b68be9",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a583bd35_f21a65db",
+        "filename": "cast/common/mdns/mdns_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-11T19:28:01Z",
+      "side": 1,
+      "message": "Let\u0027s see what the code looks like with the rdata class checks in place. If buffer size is the only failure point, then the caller can reject the operation or CHECK-fail depending on how strict it is.  If there are additional failure modes, let\u0027s return an Error enum.   Sound good?",
+      "parentUuid": "50d5466e_fc338664",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
