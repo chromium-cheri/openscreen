@@ -14,6 +14,7 @@ source_set("platform") {
     "api/network_interface.h",
     "api/network_runner.cc",
     "api/network_runner.h",
+    "api/power_save_blocker.h",
     "api/socket.h",
     "api/task_runner.h",
     "api/time.h",
@@ -21,6 +22,8 @@ source_set("platform") {
     "api/tls_socket_creds.h",
     "api/udp_socket.h",
     "api/upd_callbacks.h",
+    "base/power_manager.cc",
+    "base/power_manager.h",
     "base/ssl_context.cc",
     "base/ssl_context.h",
     "base/time.cc",
@@ -58,6 +61,7 @@ source_set("platform") {
     if (is_posix) {
       sources += [
         "posix/event_waiter.cc",
+        "posix/power_save_blocker.cc",
         "posix/udp_socket.cc",
         "posix/udp_socket.h",
       ]
