@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00ef6a51_9417e508",
+        "filename": "osp_base/crypto/secure_hash.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-12T09:51:19Z",
+      "side": 1,
+      "message": "I don\u0027t know much about openssl APIs, but it looks like you might want to do something more like:\n\nauto* ctx \u003d ctx_.get();\nctx_.reset();\nOPENSSL_cleanse(ctx, sizeof(*ctx));\n\nI just wonder if zeroing the struct first is causing something in the bssl::UniquePtr destructor to not run.",
+      "revId": "06d5dbeb753696c899629011be8dabd5ce05a23e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
