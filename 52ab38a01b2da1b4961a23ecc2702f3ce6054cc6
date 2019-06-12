@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbf2f769_1ae4c718",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-12T00:59:38Z",
+      "side": 1,
+      "message": "I couldn\u0027t come up with a better approach than to wrap our task runner as the Chromium Task Runner (which in Chromium means it\u0027s the Chromium TR wrapped as our TR wrapped as the Chromium TR) - anyone have a better idea?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 56
+      },
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4fe68a5_04196acb",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-12T00:59:38Z",
+      "side": 1,
+      "message": "This and the associated class are defined in the Header rather than .cc so that the function can be inlined. If this is not worth the perf benefit, let me know and I will pull it to the .cc",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e47f6b49_2ec3064a",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-12T00:59:38Z",
+      "side": 1,
+      "message": "For now, I have included support for Write callbacks. They were already written + tested before we decided against including them in the NetworkRunner layer (based on our meeting mid last week), so I wanted to check everyone\u0027s thoughts before pulling this out.\n\nIn the current setup, these methods are written here but not exposed in NetworkRunner, so callers cannot access them. For this reason I see it as reasonable to not delete the existing code. Especially since we\u0027ve already decided it needs to be removed and hasn\u0027t been yet\n\nThoughts @pthatcher @mfoltz",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
