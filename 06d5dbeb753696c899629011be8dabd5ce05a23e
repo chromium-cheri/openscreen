@@ -16,6 +16,24 @@
       "revId": "06d5dbeb753696c899629011be8dabd5ce05a23e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40b1ad95_884436c8",
+        "filename": "osp_base/crypto/secure_hash.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-12T18:01:36Z",
+      "side": 1,
+      "message": "+1, trying to understand if OPENSSL_CLEANSE is a custom dtor for bssl::UniquePtr here or if you need to null out the bssl::UniquePtr separately.  Maybe drop bssl::UniquePtr if it\u0027s not useful after all.",
+      "parentUuid": "00ef6a51_9417e508",
+      "revId": "06d5dbeb753696c899629011be8dabd5ce05a23e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
