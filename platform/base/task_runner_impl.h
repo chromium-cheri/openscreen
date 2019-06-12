@@ -52,6 +52,9 @@ class TaskRunnerImpl final : public TaskRunner {
       TaskWaiter* event_waiter = nullptr,
       Clock::duration waiter_timeout = std::chrono::milliseconds(100));
 
+  static std::unique_ptr<TaskRunner> Create(
+      platform::ClockNowFunctionPtr now_function);
+
   // TaskRunner overrides
   ~TaskRunnerImpl() final;
   void PostPackagedTask(Task task) final;

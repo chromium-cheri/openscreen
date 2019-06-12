@@ -14,8 +14,26 @@
 namespace openscreen {
 namespace platform {
 
-struct EventWaiterPrivate;
-using EventWaiterPtr = EventWaiterPrivate*;
+// A interface to hide all socket-level manipulation done in this class. This
+// provides a wrapper around Socket operations so that higher-level code may
+// remain platform independant.
+class SocketHandler {
+ public:
+  // Creates a new instance of SocketHandler.
+  static std::unique_ptr<SocketHandler> Create();
+
+  // Virtual destructor needed to support delete call from unique_ptr.
+  virtual ~SocketHandler() = default;
+
+  // Watches the selected file handle.
+  virtual void Watch(const UdpSocket& socket) = 0;
+
+  // Determines if the given handle has changed.
+  virtual bool IsChanged(const UdpSocket& socket) = 0;
+
+  // Clears any currently set sockets.
+  virtual void Clear() = 0;
+};
 
 struct UdpSocketReadableEvent {
   UdpSocket* socket;
@@ -24,6 +42,25 @@ struct UdpSocketReadableEvent {
 struct UdpSocketWritableEvent {
   UdpSocket* socket;
 };
+
+// Note: virtual methods are required to allow for Unit testing of all classes
+// that depend on this class.
+class EventWaiter {
+ public:
+  static std::unique_ptr<EventWaiter> Create();
+
+  // Virtual destructor needed to support delete call from unique_ptr.
+  virtual ~EventWaiter() = default;
+
+  // Waits until the sockets provided to these SocketHandlers determine a read
+  // or write has occured, or the provided timeout has passed.
+  virtual Error WaitForEvents(Clock::duration timeout,
+                              SocketHandler* reads,
+                              SocketHandler* writes) = 0;
+};
+
+struct EventWaiterPrivate;
+using EventWaiterPtr = EventWaiterPrivate*;
 
 // This struct represents a set of events associated with a particular
 // EventWaiterPtr and is created by WaitForEvents.  Any combination and number

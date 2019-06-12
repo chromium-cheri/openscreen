@@ -35,8 +35,10 @@ class NetworkRunner : public TaskRunner {
  public:
   using TaskRunner::Task;
 
-  static std::unique_ptr<NetworkRunner> Create(
-      platform::ClockNowFunctionPtr now_function);
+  // Returns the singleton instance of the NetworkRunner.
+  // NOTE: This cannot return a unique_ptr<...> because the same singleton
+  // reference must be returned every time this method is called.
+  static NetworkRunner* GetSingleton();
 
   ~NetworkRunner() override = default;
 
@@ -50,7 +52,7 @@ class NetworkRunner : public TaskRunner {
                                UdpReadCallback* callback) = 0;
 
   // Cancels any pending wait on reading |socket|.
-  virtual void CancelRead(UdpSocket* socket) = 0;
+  virtual Error CancelRead(UdpSocket* socket) = 0;
 };
 
 }  // namespace platform
