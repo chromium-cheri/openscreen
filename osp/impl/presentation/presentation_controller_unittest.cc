@@ -16,6 +16,7 @@
 #include "osp/public/network_service_manager.h"
 #include "osp/public/testing/message_demuxer_test_support.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_network_runner.h"
 
 namespace openscreen {
 namespace presentation {
@@ -279,10 +280,11 @@ class ControllerTest : public ::testing::Test {
     ASSERT_TRUE(*connection);
   }
 
+  platform::FakeNetworkRunner network_runner_;
   MessageDemuxer::MessageWatch availability_watch_;
   MockMessageCallback mock_callback_;
   FakeClock fake_clock_{platform::Clock::time_point(seconds(11111))};
-  FakeQuicBridge quic_bridge_{FakeClock::now};
+  FakeQuicBridge quic_bridge_{&network_runner_, FakeClock::now};
   MockServiceListenerDelegate mock_listener_delegate_;
   std::unique_ptr<Controller> controller_;
   ServiceInfo receiver_info1{"service-id1",

@@ -343,12 +343,10 @@ struct CommandWaitResult {
 };
 
 CommandWaitResult WaitForCommand(pollfd* pollfd) {
-  NetworkServiceManager* network_service = NetworkServiceManager::Get();
   while (poll(pollfd, 1, 10) >= 0) {
     if (g_done) {
       return {true};
     }
-    network_service->RunEventLoopOnce();
 
     if (pollfd->revents == 0) {
       continue;

@@ -8,6 +8,7 @@
 #include <array>
 #include <cstdint>
 #include <functional>
+#include <future>
 #include <memory>
 
 #include "osp_base/error.h"
@@ -35,10 +36,10 @@ class NetworkRunner : public TaskRunner {
  public:
   using TaskRunner::Task;
 
-  static std::unique_ptr<NetworkRunner> Create(
-      platform::ClockNowFunctionPtr now_function);
-
-  ~NetworkRunner() override = default;
+  // Returns the singleton instance of the NetworkRunner.
+  // NOTE: This cannot return a unique_ptr<...> because the same singleton
+  // reference must be returned every time this method is called.
+  static NetworkRunner* GetSingleton();
 
   // Waits for |socket| to be readable and then posts and then runs |callback|
   // with the received data.  The actual network operations may occur on a
@@ -50,7 +51,7 @@ class NetworkRunner : public TaskRunner {
                                UdpReadCallback* callback) = 0;
 
   // Cancels any pending wait on reading |socket|.
-  virtual void CancelRead(UdpSocket* socket) = 0;
+  virtual Error CancelRead(UdpSocket* socket) = 0;
 };
 
 }  // namespace platform

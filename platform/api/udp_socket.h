@@ -96,9 +96,10 @@ class UdpSocket {
   // Sets the DSCP value to use for all messages sent from this socket.
   Error SetDscp(DscpMode state);
 
+  ~UdpSocket();
+
  protected:
   UdpSocket();
-  ~UdpSocket();
 
  private:
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);

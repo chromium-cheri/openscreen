@@ -8,6 +8,7 @@
 
 #include "osp/impl/quic/quic_client.h"
 #include "osp/impl/quic/quic_connection_factory_impl.h"
+#include "platform/api/network_runner.h"
 
 namespace openscreen {
 
@@ -17,7 +18,10 @@ ProtocolConnectionClientFactory::Create(
     MessageDemuxer* demuxer,
     ProtocolConnectionServiceObserver* observer) {
   return std::make_unique<QuicClient>(
-      demuxer, std::make_unique<QuicConnectionFactoryImpl>(), observer);
+      demuxer,
+      std::make_unique<QuicConnectionFactoryImpl>(
+          platform::NetworkRunner::GetSingleton()),
+      observer);
 }
 
 }  // namespace openscreen

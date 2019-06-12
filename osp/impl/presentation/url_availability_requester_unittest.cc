@@ -15,6 +15,7 @@
 #include "osp/public/testing/message_demuxer_test_support.h"
 #include "platform/api/logging.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_network_runner.h"
 
 using std::chrono::milliseconds;
 using std::chrono::seconds;
@@ -119,10 +120,11 @@ class UrlAvailabilityRequesterTest : public Test {
     stream->Write(buffer.data(), buffer.size());
   }
 
+  platform::FakeNetworkRunner network_runner_;
   MockMessageCallback mock_callback_;
   MessageDemuxer::MessageWatch availability_watch_;
   FakeClock fake_clock_{platform::Clock::time_point(milliseconds(1298424))};
-  FakeQuicBridge quic_bridge_{FakeClock::now};
+  FakeQuicBridge quic_bridge_{&network_runner_, FakeClock::now};
   UrlAvailabilityRequester listener_{FakeClock::now};
 
   std::string url1_{"https://example.com/foo.html"};

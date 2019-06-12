@@ -15,6 +15,7 @@
 #include "osp/public/testing/message_demuxer_test_support.h"
 #include "osp_base/error.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_network_runner.h"
 
 namespace openscreen {
 namespace {
@@ -112,9 +113,10 @@ class QuicServerTest : public Test {
     EXPECT_EQ(received_message.message.str, message.message.str);
   }
 
+  platform::FakeNetworkRunner network_runner_;
   FakeClock fake_clock_{
       platform::Clock::time_point(std::chrono::milliseconds(1298424))};
-  FakeQuicBridge quic_bridge_{FakeClock::now};
+  FakeQuicBridge quic_bridge_{&network_runner_, FakeClock::now};
   QuicServer* server_;
 };
 

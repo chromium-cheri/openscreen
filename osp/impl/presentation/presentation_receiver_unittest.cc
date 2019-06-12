@@ -17,6 +17,7 @@
 #include "osp/public/protocol_connection_server.h"
 #include "osp/public/testing/message_demuxer_test_support.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_network_runner.h"
 
 namespace openscreen {
 namespace presentation {
@@ -90,10 +91,11 @@ class PresentationReceiverTest : public ::testing::Test {
     NetworkServiceManager::Dispose();
   }
 
+  platform::FakeNetworkRunner network_runner_;
   const std::string url1_{"https://www.example.com/receiver.html"};
   FakeClock fake_clock_{
       platform::Clock::time_point(std::chrono::milliseconds(1298424))};
-  FakeQuicBridge quic_bridge_{FakeClock::now};
+  FakeQuicBridge quic_bridge_{&network_runner_, FakeClock::now};
   MockReceiverDelegate mock_receiver_delegate_;
 };
 

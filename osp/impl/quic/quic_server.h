@@ -40,7 +40,6 @@ class QuicServer final : public ProtocolConnectionServer,
   bool Stop() override;
   bool Suspend() override;
   bool Resume() override;
-  void RunTasks() override;
   std::unique_ptr<ProtocolConnection> CreateProtocolConnection(
       uint64_t endpoint_id) override;
 
@@ -67,6 +66,8 @@ class QuicServer final : public ProtocolConnectionServer,
       const IPEndpoint& source) override;
   void OnIncomingConnection(
       std::unique_ptr<QuicConnection> connection) override;
+
+  uint32_t CleanConnections();
 
   const std::vector<IPEndpoint> connection_endpoints_;
   std::unique_ptr<QuicConnectionFactory> connection_factory_;
