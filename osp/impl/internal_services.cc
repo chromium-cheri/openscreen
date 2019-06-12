@@ -73,13 +73,6 @@ int g_instance_ref_count = 0;
 }  // namespace
 
 // static
-void InternalServices::RunEventLoopOnce() {
-  OSP_CHECK(g_instance) << "No listener or publisher is alive.";
-  g_instance->mdns_service_.HandleNewEvents(
-      platform::OnePlatformLoopIteration(g_instance->mdns_waiter_));
-}
-
-// static
 std::unique_ptr<ServiceListener> InternalServices::CreateListener(
     const MdnsServiceListenerConfig& config,
     ServiceListener::Observer* observer) {
@@ -187,32 +180,29 @@ void InternalServices::InternalPlatformLinkage::DeregisterInterfaces(
   }
 }
 
-InternalServices::InternalServices()
-    : mdns_service_(kServiceName,
+InternalServices::InternalServices(platform::NetworkRunner* network_runner)
+    : mdns_service_(network_runner,
+                    kServiceName,
                     kServiceProtocol,
                     std::make_unique<MdnsResponderAdapterImplFactory>(),
                     std::make_unique<InternalPlatformLinkage>(this)),
-      mdns_waiter_(platform::CreateEventWaiter()) {
-  OSP_DCHECK(mdns_waiter_);
-}
+      network_runner_(network_runner) {}
 
-InternalServices::~InternalServices() {
-  DestroyEventWaiter(mdns_waiter_);
-}
+InternalServices::~InternalServices() {}
 
 void InternalServices::RegisterMdnsSocket(platform::UdpSocket* socket) {
-  platform::WatchUdpSocketReadable(mdns_waiter_, socket);
+  network_runner_->ReadRepeatedly(socket, &g_instance->mdns_service_);
 }
 
 void InternalServices::DeregisterMdnsSocket(platform::UdpSocket* socket) {
-  platform::StopWatchingUdpSocketReadable(mdns_waiter_, socket);
+  network_runner_->CancelRead(socket);
 }
 
 // static
 InternalServices* InternalServices::ReferenceSingleton() {
   if (!g_instance) {
     OSP_CHECK_EQ(g_instance_ref_count, 0);
-    g_instance = new InternalServices();
+    g_instance = new InternalServices(platform::NetworkRunner::GetSingleton());
   }
   ++g_instance_ref_count;
   return g_instance;

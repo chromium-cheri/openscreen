@@ -21,8 +21,8 @@
 #include "osp_base/macros.h"
 #include "platform/api/event_waiter.h"
 #include "platform/api/network_interface.h"
+#include "platform/api/network_runner.h"
 #include "platform/api/udp_socket.h"
-#include "platform/base/event_loop.h"
 
 namespace openscreen {
 
@@ -33,8 +33,6 @@ namespace openscreen {
 // this use case is more concrete.
 class InternalServices {
  public:
-  static void RunEventLoopOnce();
-
   static std::unique_ptr<ServiceListener> CreateListener(
       const MdnsServiceListenerConfig& config,
       ServiceListener::Observer* observer);
@@ -58,7 +56,7 @@ class InternalServices {
     std::vector<platform::UdpSocketUniquePtr> open_sockets_;
   };
 
-  InternalServices();
+  explicit InternalServices(platform::NetworkRunner* network_runner);
   ~InternalServices();
 
   void RegisterMdnsSocket(platform::UdpSocket* socket);
@@ -69,13 +67,7 @@ class InternalServices {
 
   MdnsResponderService mdns_service_;
 
-  // TODO(btolsch): To support e.g. both QUIC and mDNS listening for separate
-  // sockets, we need to either:
-  //  - give them their own individual waiter objects
-  //  - remember who registered for what in a wrapper here
-  //  - something else...
-  // Currently, RegisterMdnsSocket is our hook to do 1 or 2.
-  platform::EventWaiterPtr mdns_waiter_;
+  platform::NetworkRunner* network_runner_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(InternalServices);
 };

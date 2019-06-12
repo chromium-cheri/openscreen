@@ -234,7 +234,8 @@ void HandleEvents(mdns::MdnsResponderAdapterImpl* mdns_adapter) {
   }
 }
 
-void BrowseDemo(const std::string& service_name,
+void BrowseDemo(platform::NetworkRunner* network_runner,
+                const std::string& service_name,
                 const std::string& service_protocol,
                 const std::string& service_instance) {
   SignalThings();
@@ -250,7 +251,6 @@ void BrowseDemo(const std::string& service_name,
   }
 
   auto mdns_adapter = std::make_unique<mdns::MdnsResponderAdapterImpl>();
-  platform::EventWaiterPtr waiter = platform::CreateEventWaiter();
   mdns_adapter->Init();
   mdns_adapter->SetHostLabel("gigliorononomicon");
   auto interface_addresses = platform::GetInterfaceAddresses();
@@ -291,7 +291,7 @@ void BrowseDemo(const std::string& service_name,
   }
 
   for (const platform::UdpSocketUniquePtr& socket : sockets) {
-    platform::WatchUdpSocketReadable(waiter, socket.get());
+    network_runner->ReadRepeatedly(socket.get(), mdns_adapter.get());
     mdns_adapter->StartPtrQuery(socket.get(), service_type.value());
   }
 
@@ -310,22 +310,16 @@ void BrowseDemo(const std::string& service_name,
       g_dump_services = false;
     }
     mdns_adapter->RunTasks();
-    auto data = platform::OnePlatformLoopIteration(waiter);
-    for (auto& packet : data) {
-      mdns_adapter->OnDataReceived(packet.source, packet.original_destination,
-                                   packet.data(), packet.length, packet.socket);
-    }
   }
   OSP_LOG << "num services: " << g_services->size();
   for (const auto& s : *g_services) {
     LogService(s.second);
   }
-  platform::StopWatchingNetworkChange(waiter);
+  network_runner->RequestStopSoon();
   for (const platform::UdpSocketUniquePtr& socket : sockets) {
-    platform::StopWatchingUdpSocketReadable(waiter, socket.get());
+    network_runner->CancelRead(socket.get());
     mdns_adapter->DeregisterInterface(socket.get());
   }
-  platform::DestroyEventWaiter(waiter);
   mdns_adapter->Close();
 }
 
@@ -353,7 +347,8 @@ int main(int argc, char** argv) {
 
   openscreen::ServiceMap services;
   openscreen::g_services = &services;
-  openscreen::BrowseDemo(labels[0], labels[1], service_instance);
+  auto* runner = openscreen::platform::NetworkRunner::GetSingleton();
+  openscreen::BrowseDemo(runner, labels[0], labels[1], service_instance);
   openscreen::g_services = nullptr;
   return 0;
 }

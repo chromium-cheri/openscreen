@@ -19,6 +19,12 @@ TaskRunnerImpl::TaskRunnerImpl(platform::ClockNowFunctionPtr now_function,
 
 TaskRunnerImpl::~TaskRunnerImpl() = default;
 
+// static
+std::unique_ptr<TaskRunner> TaskRunnerImpl::Create(
+    platform::ClockNowFunctionPtr now_function) {
+  return std::unique_ptr<TaskRunner>(new TaskRunnerImpl(now_function));
+}
+
 void TaskRunnerImpl::PostPackagedTask(Task task) {
   std::lock_guard<std::mutex> lock(task_mutex_);
   tasks_.push_back(std::move(task));

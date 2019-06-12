@@ -17,7 +17,10 @@ QuicServer::QuicServer(
     ProtocolConnectionServer::Observer* observer)
     : ProtocolConnectionServer(demuxer, observer),
       connection_endpoints_(config.connection_endpoints),
-      connection_factory_(std::move(connection_factory)) {}
+      connection_factory_(std::move(connection_factory)) {
+  connection_factory_->ScheduleCleanUp(
+      std::bind(&QuicServer::CleanConnections, this));
+}
 
 QuicServer::~QuicServer() {
   CloseAllConnections();
@@ -59,9 +62,7 @@ bool QuicServer::Resume() {
   return true;
 }
 
-void QuicServer::RunTasks() {
-  if (state_ == State::kRunning)
-    connection_factory_->RunTasks();
+uint32_t QuicServer::CleanConnections() {
   for (auto& entry : connections_)
     entry.second.delegate->DestroyClosedStreams();
 
@@ -69,6 +70,8 @@ void QuicServer::RunTasks() {
     connections_.erase(entry);
 
   delete_connections_.clear();
+
+  return static_cast<uint32_t>(state_ != State::kStopped ? 500 : 0);
 }
 
 std::unique_ptr<ProtocolConnection> QuicServer::CreateProtocolConnection(

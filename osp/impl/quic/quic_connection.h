@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "platform/api/udp_socket.h"
-#include "platform/base/event_loop.h"
+#include "platform/base/network_runner.h"
 
 namespace openscreen {
 
@@ -37,7 +37,7 @@ class QuicStream {
   uint64_t id_;
 };
 
-class QuicConnection {
+class QuicConnection : public platform::UdpReadCallback {
  public:
   class Delegate {
    public:
@@ -67,12 +67,6 @@ class QuicConnection {
 
   explicit QuicConnection(Delegate* delegate) : delegate_(delegate) {}
   virtual ~QuicConnection() = default;
-
-  // Passes a received UDP packet to the QUIC implementation.  If this contains
-  // any stream data, it will be passed automatically to the relevant
-  // QuicStream::Delegate objects.
-  virtual void OnDataReceived(
-      const platform::UdpReadCallback::Packet& data) = 0;
 
   virtual std::unique_ptr<QuicStream> MakeOutgoingStream(
       QuicStream::Delegate* delegate) = 0;

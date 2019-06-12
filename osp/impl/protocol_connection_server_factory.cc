@@ -18,7 +18,10 @@ ProtocolConnectionServerFactory::Create(
     MessageDemuxer* demuxer,
     ProtocolConnectionServer::Observer* observer) {
   return std::make_unique<QuicServer>(
-      config, demuxer, std::make_unique<QuicConnectionFactoryImpl>(), observer);
+      config, demuxer,
+      std::make_unique<QuicConnectionFactoryImpl>(
+          platform::NetworkRunner::GetSingleton()),
+      observer);
 }
 
 }  // namespace openscreen
