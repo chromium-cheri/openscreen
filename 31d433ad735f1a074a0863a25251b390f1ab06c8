@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbc2dc4b_79854be5",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-12T16:43:12Z",
+      "side": 1,
+      "message": "This and the associated class are defined in the Header rather than .cc so that the function can be inlined. If this is not worth the perf benefit, let me know and I will pull it to the .cc",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66ad1b46_7ddb9d5d",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-12T16:43:12Z",
+      "side": 1,
+      "message": "Does it seem worth adding constants to Clock for 1 second, 1 ms, etc...? I haven\u0027t yet, but am in favor of doing so",
+      "range": {
+        "startLine": 142,
+        "startChar": 50,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ce5ee18_0c90d6f5",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-12T16:43:12Z",
+      "side": 1,
+      "message": "For now, I have included support for Write callbacks. They were already written + tested before we decided against including them in the NetworkRunner layer (based on our meeting mid last week), so I wanted to check everyone\u0027s thoughts before pulling this out.\n\nIn the current setup, these methods are written here but not exposed in NetworkRunner, so callers cannot access them. For this reason I see it as reasonable to not delete the existing code. Especially since we\u0027ve already decided it needs to be removed and hasn\u0027t been yet\n\nThoughts @pthatcher @mfoltz",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e817ab08_6bec2082",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-12T16:43:12Z",
+      "side": 1,
+      "message": "Really wanted this to be protected, but needed it public to support NetworkRunner::GetSingleton(). If someone has a clever way to make this non-public, I\u0027d appreciate it :)",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
