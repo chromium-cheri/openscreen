@@ -319,6 +319,24 @@
     },
     {
       "key": {
+        "uuid": "8a842d48_6fc00ae5",
+        "filename": "cast/common/mdns/mdns_rdata.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-12T19:28:22Z",
+      "side": 1,
+      "message": "Left as classes with non trivial constructor and no setters. Making members const makes classes non-movable and non-copy-assignable.",
+      "parentUuid": "7ddc373b_17bae7e8",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c455e8b6_e4939c48",
         "filename": "cast/common/mdns/mdns_rdata.h",
         "patchSetId": 6
@@ -582,6 +600,24 @@
     },
     {
       "key": {
+        "uuid": "abf0c953_1bd9adc5",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-12T19:28:22Z",
+      "side": 1,
+      "message": "Merged Cursor change in and updated all of the PR to use it",
+      "parentUuid": "549e81bf_6984e97f",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f2d4c83_093e3ee5",
         "filename": "cast/common/mdns/mdns_reader.cc",
         "patchSetId": 6
@@ -772,6 +808,24 @@
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40a673dd_5dca84be",
+        "filename": "cast/common/mdns/mdns_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-12T19:28:22Z",
+      "side": 1,
+      "message": "I extracted reading and writing IPAddress into a function that\u0027s used in both A and AAAA records.",
+      "parentUuid": "56ca57f9_ff2b71f0",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -1108,6 +1162,24 @@
     },
     {
       "key": {
+        "uuid": "a311531d_c1cfa08e",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-12T19:28:22Z",
+      "side": 1,
+      "message": "That\u0027s a great suggestion. Done.",
+      "parentUuid": "0b616d24_7425e670",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46b0451b_9e30e191",
         "filename": "cast/common/mdns/mdns_writer.cc",
         "patchSetId": 6
@@ -1260,6 +1332,24 @@
       "side": 1,
       "message": "Let\u0027s see what the code looks like with the rdata class checks in place. If buffer size is the only failure point, then the caller can reject the operation or CHECK-fail depending on how strict it is.  If there are additional failure modes, let\u0027s return an Error enum.   Sound good?",
       "parentUuid": "50d5466e_fc338664",
+      "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e68e1a_70525aa0",
+        "filename": "cast/common/mdns/mdns_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-12T19:28:22Z",
+      "side": 1,
+      "message": "If we decide to change the interface for reader to return Error instead of bool and for writer to return ErrorOr\u003cT\u003e instead of bool, I\u0027d like to do this as a separate PR.",
+      "parentUuid": "a583bd35_f21a65db",
       "revId": "be9fbde27665a2a59be62f500e1ed329e70df7bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
