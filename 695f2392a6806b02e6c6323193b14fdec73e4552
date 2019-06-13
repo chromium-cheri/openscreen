@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dd7b953_951affa6",
+        "filename": "platform/api/power_save_blocker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-13T20:53:52Z",
+      "side": 1,
+      "message": "Nit: Wrap at 80 cols",
+      "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a873be49_97347867",
+        "filename": "platform/api/power_save_blocker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-13T20:53:52Z",
+      "side": 1,
+      "message": "The name I\u0027ve heard for this kind of capability on other platforms is \"WakeLock\":\n\nhttps://developer.android.com/reference/android/os/PowerManager.WakeLock\n\nhttps://developers.google.com/web/updates/2018/12/wakelock\n\nWDYT?",
+      "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f18032a_479b9a61",
+        "filename": "platform/base/power_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-13T20:53:52Z",
+      "side": 1,
+      "message": "Complex initialization is not allowed for static variables.",
+      "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc7a15a1_e39ae56a",
+        "filename": "platform/base/power_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-13T20:53:52Z",
+      "side": 1,
+      "message": "Is this to run a destructor at process exit time?\nI\u0027m not sure what guarantees can be made that they will execute.",
+      "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
