@@ -30,10 +30,11 @@ class MdnsWriter : public openscreen::BigEndianWriter {
   bool WriteAAAARecordRdata(const AAAARecordRdata& rdata);
   bool WritePtrRecordRdata(const PtrRecordRdata& rdata);
   bool WriteTxtRecordRdata(const TxtRecordRdata& rdata);
+  bool WriteMdnsRecord(const MdnsRecord& record);
 
  private:
   bool WriteIPAddress(const IPAddress& address);
-
+  bool WriteRdata(const Rdata& rdata);
   // Domain name compression dictionary.
   // Maps hashes of previously written domain (sub)names
   // to the label pointers of the first occurences in the underlying buffer.
