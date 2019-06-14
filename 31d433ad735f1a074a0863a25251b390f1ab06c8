@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4f0660ae_01bfaeb7",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-14T21:48:13Z",
+      "side": 1,
+      "message": "nit: It\u0027s usually called GetInstance",
+      "range": {
+        "startLine": 41,
+        "startChar": 24,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbc2dc4b_79854be5",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -105,6 +128,30 @@
       "writtenOn": "2019-06-12T16:43:12Z",
       "side": 1,
       "message": "Really wanted this to be protected, but needed it public to support NetworkRunner::GetSingleton(). If someone has a clever way to make this non-public, I\u0027d appreciate it :)",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eccd6829_fcce284d",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-14T21:48:13Z",
+      "side": 1,
+      "message": "I think you can get it to work with CRTP https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern\nNetworkRunnerImpl : public NetworkRunner\u003cNetworkRunnerImpl\u003e\nThis way code in NetworkRunner can call into NetworkRunnerImpl as a template, i.e. it can call GetSingleton method which will be implemented in NetworkRunnerImpl.\nI\u0027m sure if you search for CRTP singleton, something will come up",
+      "parentUuid": "e817ab08_6bec2082",
       "range": {
         "startLine": 21,
         "startChar": 0,
