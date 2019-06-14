@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d925882_abffcb9b",
+        "filename": "cast/common/mdns/mdns_reader.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "Please document how this is different from the other reader methods (it figures out the type of the record).",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b949d820_457ed169",
+        "filename": "cast/common/mdns/mdns_records.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "What does it mean to pass a pair of pointers into the std::vector ctor?  I am not familiar with this syntax.",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b25352_cd149571",
+        "filename": "cast/common/mdns/mdns_records.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "Is this already enforced in the ctor of absl::variant for Rdata?  Otherwise what is absl::variant doing for us?",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dbe866d_f7ce4db9",
+        "filename": "cast/common/mdns/mdns_records.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "I would say so, since those two records have different representations and different meanings.  We can use \u003d\u003d to deduplicate records, and if callers have other requirements they can write their own comparison logic.",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48341076_a4d61798",
+        "filename": "cast/common/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "What does it mean for a default-constructed Rdata?  Which type in the discriminated union is it?",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac7323a5_62a33433",
+        "filename": "cast/common/mdns/mdns_records_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "212e94c7_63ca7f5b",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "Nit: explicit for one-arg ctor",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3f52b22_6deeed31",
+        "filename": "cast/common/mdns/mdns_writer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be initialized since you have ctor initialization.",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e1fdbd4_b3cd4e0f",
+        "filename": "cast/common/mdns/mdns_writer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-14T19:24:05Z",
+      "side": 1,
+      "message": "Please document that this is a generic writer over record types.",
+      "revId": "2ae1f8ba0cfb023af3fc153a92e3c5633701d943",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
