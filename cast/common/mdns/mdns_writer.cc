@@ -203,6 +203,27 @@ bool MdnsWriter::WriteTxtRecordRdata(const TxtRecordRdata& rdata) {
   return true;
 }
 
+bool MdnsWriter::WriteMdnsRecord(const MdnsRecord& record) {
+  Cursor cursor(this);
+  if (WriteDomainName(record.name()) && Write<uint16_t>(record.type()) &&
+      Write<uint16_t>(record.record_class()) && Write<uint32_t>(record.ttl()) &&
+      WriteRdata(record.rdata())) {
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
+bool MdnsWriter::WriteMdnsQuestion(const MdnsQuestion& question) {
+  Cursor cursor(this);
+  if (WriteDomainName(question.name()) && Write<uint16_t>(question.type()) &&
+      Write<uint16_t>(question.record_class())) {
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
 bool MdnsWriter::WriteIPAddress(const IPAddress& address) {
   uint8_t bytes[IPAddress::kV6Size];
   size_t size;
@@ -214,6 +235,37 @@ bool MdnsWriter::WriteIPAddress(const IPAddress& address) {
     size = IPAddress::kV4Size;
   }
   return WriteBytes(bytes, size);
+}
+
+bool MdnsWriter::WriteRdata(const Rdata& rdata) {
+  class RdataWriter {
+   public:
+    RdataWriter(MdnsWriter* writer) : writer_(writer) {}
+    bool operator()(const RawRecordRdata& value) const {
+      return writer_->WriteRawRecordRdata(value);
+    }
+    bool operator()(const SrvRecordRdata& value) const {
+      return writer_->WriteSrvRecordRdata(value);
+    }
+    bool operator()(const ARecordRdata& value) const {
+      return writer_->WriteARecordRdata(value);
+    }
+    bool operator()(const AAAARecordRdata& value) const {
+      return writer_->WriteAAAARecordRdata(value);
+    }
+    bool operator()(const PtrRecordRdata& value) const {
+      return writer_->WritePtrRecordRdata(value);
+    }
+    bool operator()(const TxtRecordRdata& value) const {
+      return writer_->WriteTxtRecordRdata(value);
+    }
+
+   private:
+    MdnsWriter* writer_ = nullptr;
+  };
+
+  RdataWriter rdata_writer(this);
+  return absl::visit(rdata_writer, rdata);
 }
 
 }  // namespace mdns
