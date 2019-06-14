@@ -5,12 +5,14 @@
 #ifndef CAST_COMMON_MDNS_MDNS_RECORDS_H_
 #define CAST_COMMON_MDNS_MDNS_RECORDS_H_
 
+#include <initializer_list>
 #include <string>
 #include <vector>
 
 #include "absl/strings/string_view.h"
 #include "cast/common/mdns/mdns_constants.h"
 #include "osp_base/ip_address.h"
+#include "platform/api/logging.h"
 
 namespace cast {
 namespace mdns {
@@ -24,6 +26,26 @@ bool IsValidDomainLabel(absl::string_view label);
 class DomainName {
  public:
   DomainName() = default;
+
+  template <typename IteratorType>
+  DomainName(IteratorType first, IteratorType last) {
+    for (IteratorType i = first; i != last; ++i) {
+      auto& label = *i;
+      OSP_DCHECK(IsValidDomainLabel(label));
+      // Include the label length byte in the size calculation.
+      // Add terminating character byte to maximum domain length, as it only
+      // limits label bytes and label length bytes.
+      OSP_DCHECK(max_wire_size_ + label.size() + 1 <= kMaxDomainNameLength + 1);
+      labels_.emplace_back(static_cast<std::string>(label));
+      // Update the size of the full name in wire format. Include the length
+      // byte in the size calculation.
+      max_wire_size_ += label.size() + 1;
+    }
+  }
+
+  DomainName(std::initializer_list<absl::string_view> labels)
+      : DomainName(labels.begin(), labels.end()) {}
+
   DomainName(const DomainName& other) = default;
   DomainName(DomainName&& other) noexcept = default;
   ~DomainName() = default;
@@ -34,13 +56,6 @@ class DomainName {
   bool operator==(const DomainName& rhs) const;
   bool operator!=(const DomainName& rhs) const;
 
-  // Clear removes all previously pushed labels and puts DomainName in its
-  // initial state.
-  void Clear();
-  // Appends the given label to the end of the domain name and returns true if
-  // the label is a valid domain label and the domain name does not exceed the
-  // maximum length. Returns false otherwise.
-  bool PushLabel(absl::string_view label);
   // Returns a reference to the label at specified label_index. No bounds
   // checking is performed.
   const std::string& Label(size_t label_index) const;
