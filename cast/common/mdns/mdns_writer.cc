@@ -203,6 +203,64 @@ bool MdnsWriter::WriteTxtRecordRdata(const TxtRecordRdata& rdata) {
   return true;
 }
 
+bool MdnsWriter::WriteMdnsRecord(const MdnsRecord& record) {
+  Cursor cursor(this);
+  if (WriteDomainName(record.name()) && Write<uint16_t>(record.type()) &&
+      Write<uint16_t>(record.record_class()) && Write<uint32_t>(record.ttl()) &&
+      WriteRdata(record.rdata())) {
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
+bool MdnsWriter::WriteMdnsQuestion(const MdnsQuestion& question) {
+  Cursor cursor(this);
+  if (WriteDomainName(question.name()) && Write<uint16_t>(question.type()) &&
+      Write<uint16_t>(question.record_class())) {
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
+bool MdnsWriter::WriteMdnsMessage(const MdnsMessage& message) {
+  Cursor cursor(this);
+
+  Header header;
+  header.id = message.id();
+  header.flags = message.flags();
+  header.qdcount = message.questions().size(); // TODO: maybe have questions_count() accessor
+  header.ancount = message.answers().size();
+  header.nscount = message.authority_records().size();
+  header.arcount = message.additional_records().size();
+  if (WriteMdnsMessageHeader(header)) {
+    for (const MdnsQuestion& question : message.questions()) {
+      if (!WriteMdnsQuestion(question)){
+        return false;
+      }
+    }
+    for (const MdnsRecord& answer : message.answers()) {
+      if (!WriteMdnsRecord(answer)){
+        return false;
+      }
+    }
+    for (const MdnsRecord& record : message.authority_records()) {
+      if (!WriteMdnsRecord(record)){
+        return false;
+      }
+    }
+    for (const MdnsRecord& record : message.additional_records()) {
+      if (!WriteMdnsRecord(record)){
+        return false;
+      }
+    }
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
 bool MdnsWriter::WriteIPAddress(const IPAddress& address) {
   uint8_t bytes[IPAddress::kV6Size];
   size_t size;
@@ -214,6 +272,48 @@ bool MdnsWriter::WriteIPAddress(const IPAddress& address) {
     size = IPAddress::kV4Size;
   }
   return WriteBytes(bytes, size);
+}
+
+bool MdnsWriter::WriteRdata(const Rdata& rdata) {
+  class RdataWriter {
+   public:
+    RdataWriter(MdnsWriter* writer) : writer_(writer) {}
+    bool operator()(const RawRecordRdata& value) const {
+      return writer_->WriteRawRecordRdata(value);
+    }
+    bool operator()(const SrvRecordRdata& value) const {
+      return writer_->WriteSrvRecordRdata(value);
+    }
+    bool operator()(const ARecordRdata& value) const {
+      return writer_->WriteARecordRdata(value);
+    }
+    bool operator()(const AAAARecordRdata& value) const {
+      return writer_->WriteAAAARecordRdata(value);
+    }
+    bool operator()(const PtrRecordRdata& value) const {
+      return writer_->WritePtrRecordRdata(value);
+    }
+    bool operator()(const TxtRecordRdata& value) const {
+      return writer_->WriteTxtRecordRdata(value);
+    }
+
+   private:
+    MdnsWriter* writer_ = nullptr;
+  };
+
+  RdataWriter rdata_writer(this);
+  return absl::visit(rdata_writer, rdata);
+}
+
+bool MdnsWriter::WriteMdnsMessageHeader(const Header& header) {
+  Cursor cursor(this);
+  if (Write<uint16_t>(header.id) && Write<uint16_t>(header.flags) &&
+      Write<uint16_t>(header.qdcount) && Write<uint16_t>(header.ancount) &&
+      Write<uint16_t>(header.nscount) && Write<uint16_t>(header.arcount)) {
+    cursor.Commit();
+    return true;
+  }
+  return false;
 }
 
 }  // namespace mdns
