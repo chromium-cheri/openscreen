@@ -188,7 +188,7 @@ bool MdnsReader::ReadTxtRecordRdata(TxtRecordRdata* out) {
   return false;
 }
 
-bool MdnsReader::ReadIPAddress(IPAddress::Version version, IPAddress* out){
+bool MdnsReader::ReadIPAddress(IPAddress::Version version, IPAddress* out) {
   size_t ipaddress_size = (version == IPAddress::Version::kV6)
                               ? IPAddress::kV6Size
                               : IPAddress::kV4Size;

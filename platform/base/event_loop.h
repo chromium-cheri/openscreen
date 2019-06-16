@@ -16,12 +16,10 @@
 namespace openscreen {
 namespace platform {
 
-Error ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
-                           UdpReadCallback::Packet* data);
-std::vector<UdpReadCallback::Packet> HandleUdpSocketReadEvents(
-    const Events& events);
-std::vector<UdpReadCallback::Packet> OnePlatformLoopIteration(
-    EventWaiterPtr waiter);
+Error ReceiveDataFromEvent(const SocketReadableEvent& read_event,
+                           Socket::Message* data);
+std::vector<Socket::Message> HandleSocketReadEvents(const Events& events);
+std::vector<Socket::Message> OnePlatformLoopIteration(EventWaiterPtr waiter);
 
 }  // namespace platform
 }  // namespace openscreen

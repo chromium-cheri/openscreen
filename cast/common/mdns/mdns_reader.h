@@ -28,7 +28,7 @@ class MdnsReader : public openscreen::BigEndianReader {
   bool ReadPtrRecordRdata(PtrRecordRdata* out);
   bool ReadTxtRecordRdata(TxtRecordRdata* out);
 
-private:
+ private:
   bool ReadIPAddress(IPAddress::Version version, IPAddress* out);
 };
 

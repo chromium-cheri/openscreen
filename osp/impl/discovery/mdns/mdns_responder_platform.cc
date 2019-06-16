@@ -14,8 +14,8 @@
 #include "osp_base/ip_address.h"
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
+#include "platform/api/socket.h"
 #include "platform/api/time.h"
-#include "platform/api/udp_socket.h"
 #include "third_party/mDNSResponder/src/mDNSCore/mDNSEmbeddedAPI.h"
 
 using openscreen::platform::Clock;
@@ -45,7 +45,7 @@ mStatus mDNSPlatformSendUDP(const mDNS* m,
                             const mDNSAddr* dst,
                             mDNSIPPort dstport) {
   auto* const socket =
-      reinterpret_cast<openscreen::platform::UdpSocket*>(InterfaceID);
+      reinterpret_cast<openscreen::platform::Socket*>(InterfaceID);
   const auto socket_it =
       std::find(m->p->sockets.begin(), m->p->sockets.end(), socket);
   if (socket_it == m->p->sockets.end())
@@ -58,10 +58,20 @@ mStatus mDNSPlatformSendUDP(const mDNS* m,
                             dst->ip.v4.b},
       static_cast<uint16_t>((dstport.b[0] << 8) | dstport.b[1])};
   const int64_t length = last - static_cast<const uint8_t*>(msg);
-  if (length < 0 || length > std::numeric_limits<ssize_t>::max()) {
+  if (length < 0 || length > std::numeric_limits<size_t>::max()) {
     return mStatus_BadParamErr;
   }
-  switch ((*socket_it)->SendMessage(msg, length, dest).code()) {
+
+  // TODO(jophba): fix this garbage
+  openscreen::platform::Socket::Message message;
+  unsigned char* modifiable_data = const_cast<unsigned char*>(message.data());
+  modifiable_data =
+      const_cast<unsigned char*>(reinterpret_cast<const unsigned char*>(msg));
+
+  message.length = length;
+  message.destination = dest;
+
+  switch ((*socket_it)->SendMessage(message).code()) {
     case openscreen::Error::Code::kNone:
       return mStatus_NoError;
     case openscreen::Error::Code::kAgain:
