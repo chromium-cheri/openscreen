@@ -12,10 +12,10 @@
 
 #include "osp_base/error.h"
 #include "osp_base/ip_address.h"
+#include "platform/api/socket.h"
+#include "platform/api/socket_callbacks.h"
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
-#include "platform/api/udp_callbacks.h"
-#include "platform/api/udp_socket.h"
 
 namespace openscreen {
 namespace platform {
@@ -46,11 +46,11 @@ class NetworkRunner : public TaskRunner {
   // to this NetworkRunner (i.e. |callback| will be run as if PostTask were
   // called on |callback->OnRead|, modulo syntax).  This will continue to wait
   // for more packets until CancelReadAll is called on the same |socket|.
-  virtual Error ReadRepeatedly(UdpSocket* socket,
-                               UdpReadCallback* callback) = 0;
+  virtual Error ReadRepeatedly(Socket* socket,
+                               SocketReadCallback* callback) = 0;
 
   // Cancels any pending wait on reading |socket|.
-  virtual void CancelRead(UdpSocket* socket) = 0;
+  virtual void CancelRead(Socket* socket) = 0;
 };
 
 }  // namespace platform

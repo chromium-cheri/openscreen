@@ -7,45 +7,43 @@
 #include <utility>
 
 #include "platform/api/logging.h"
-#include "platform/api/udp_socket.h"
+#include "platform/api/socket.h"
 
 namespace openscreen {
 namespace platform {
 
-Error ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
-                           UdpReadCallback::Packet* data) {
+Error ReceiveDataFromEvent(const SocketReadableEvent& read_event,
+                           Socket::Message* data) {
   OSP_DCHECK(data);
-  ErrorOr<size_t> len = read_event.socket->ReceiveMessage(
-      &data[0], data->size(), &data->source, &data->original_destination);
-  if (!len) {
+  ErrorOr<Socket::Message> msg = read_event.socket->ReceiveMessage();
+
+  if (!msg) {
     OSP_LOG_ERROR << "ReceiveMessage() on socket failed: "
-                  << len.error().message();
-    return len.error();
+                  << msg.error().message();
+    return msg.error();
   }
-  OSP_DCHECK_LE(len.value(), static_cast<size_t>(kUdpMaxPacketSize));
-  data->length = len.value();
-  data->socket = read_event.socket;
+  OSP_DCHECK_LE(msg.value().length, static_cast<size_t>(kMaxSocketPacketSize));
+
+  *data = msg.MoveValue();
   return Error::None();
 }
 
-std::vector<UdpReadCallback::Packet> HandleUdpSocketReadEvents(
-    const Events& events) {
-  std::vector<UdpReadCallback::Packet> data;
+std::vector<Socket::Message> HandleSocketReadEvents(const Events& events) {
+  std::vector<Socket::Message> data;
   for (const auto& read_event : events.udp_readable_events) {
-    UdpReadCallback::Packet next_data;
+    Socket::Message next_data;
     if (ReceiveDataFromEvent(read_event, &next_data).ok())
       data.emplace_back(std::move(next_data));
   }
   return data;
 }
 
-std::vector<UdpReadCallback::Packet> OnePlatformLoopIteration(
-    EventWaiterPtr waiter) {
+std::vector<Socket::Message> OnePlatformLoopIteration(EventWaiterPtr waiter) {
   ErrorOr<Events> events = WaitForEvents(waiter);
   if (!events)
     return {};
 
-  return HandleUdpSocketReadEvents(events.value());
+  return HandleSocketReadEvents(events.value());
 }
 
 }  // namespace platform

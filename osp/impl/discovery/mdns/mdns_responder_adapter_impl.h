@@ -11,7 +11,7 @@
 
 #include "osp/impl/discovery/mdns/mdns_responder_adapter.h"
 #include "osp_base/error.h"
-#include "platform/api/udp_socket.h"
+#include "platform/api/socket.h"
 #include "third_party/mDNSResponder/src/mDNSCore/mDNSEmbeddedAPI.h"
 
 namespace openscreen {
@@ -31,14 +31,14 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
 
   Error RegisterInterface(const platform::InterfaceInfo& interface_info,
                           const platform::IPSubnet& interface_address,
-                          platform::UdpSocket* socket) override;
-  Error DeregisterInterface(platform::UdpSocket* socket) override;
+                          platform::Socket* socket) override;
+  Error DeregisterInterface(platform::Socket* socket) override;
 
   void OnDataReceived(const IPEndpoint& source,
-                      const IPEndpoint& original_destination,
+                      const IPEndpoint& destination,
                       const uint8_t* data,
                       size_t length,
-                      platform::UdpSocket* receiving_socket) override;
+                      platform::Socket* receiving_socket) override;
   int RunTasks() override;
 
   std::vector<PtrEvent> TakePtrResponses() override;
@@ -47,29 +47,29 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
   std::vector<AEvent> TakeAResponses() override;
   std::vector<AaaaEvent> TakeAaaaResponses() override;
 
-  MdnsResponderErrorCode StartPtrQuery(platform::UdpSocket* socket,
+  MdnsResponderErrorCode StartPtrQuery(platform::Socket* socket,
                                        const DomainName& service_type) override;
   MdnsResponderErrorCode StartSrvQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const DomainName& service_instance) override;
   MdnsResponderErrorCode StartTxtQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const DomainName& service_instance) override;
-  MdnsResponderErrorCode StartAQuery(platform::UdpSocket* socket,
+  MdnsResponderErrorCode StartAQuery(platform::Socket* socket,
                                      const DomainName& domain_name) override;
-  MdnsResponderErrorCode StartAaaaQuery(platform::UdpSocket* socket,
+  MdnsResponderErrorCode StartAaaaQuery(platform::Socket* socket,
                                         const DomainName& domain_name) override;
-  MdnsResponderErrorCode StopPtrQuery(platform::UdpSocket* socket,
+  MdnsResponderErrorCode StopPtrQuery(platform::Socket* socket,
                                       const DomainName& service_type) override;
   MdnsResponderErrorCode StopSrvQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const DomainName& service_instance) override;
   MdnsResponderErrorCode StopTxtQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const DomainName& service_instance) override;
-  MdnsResponderErrorCode StopAQuery(platform::UdpSocket* socket,
+  MdnsResponderErrorCode StopAQuery(platform::Socket* socket,
                                     const DomainName& domain_name) override;
-  MdnsResponderErrorCode StopAaaaQuery(platform::UdpSocket* socket,
+  MdnsResponderErrorCode StopAaaaQuery(platform::Socket* socket,
                                        const DomainName& domain_name) override;
 
   MdnsResponderErrorCode RegisterService(
@@ -124,7 +124,7 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
 
   void AdvertiseInterfaces();
   void DeadvertiseInterfaces();
-  void RemoveQuestionsIfEmpty(platform::UdpSocket* socket);
+  void RemoveQuestionsIfEmpty(platform::Socket* socket);
 
   CacheEntity rr_cache_[kRrCacheSize];
 
@@ -136,10 +136,9 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
   // platform sockets.
   mDNS_PlatformSupport platform_storage_;
 
-  std::map<platform::UdpSocket*, Questions> socket_to_questions_;
+  std::map<platform::Socket*, Questions> socket_to_questions_;
 
-  std::map<platform::UdpSocket*, NetworkInterfaceInfo>
-      responder_interface_info_;
+  std::map<platform::Socket*, NetworkInterfaceInfo> responder_interface_info_;
 
   std::vector<AEvent> a_responses_;
   std::vector<AaaaEvent> aaaa_responses_;

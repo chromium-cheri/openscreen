@@ -11,14 +11,14 @@
 
 #include "osp_base/error.h"
 #include "platform/api/logging.h"
-#include "platform/posix/udp_socket.h"
+#include "platform/posix/socket.h"
 
 namespace openscreen {
 namespace platform {
 namespace {
 
-Error AddToVectorIfMissing(UdpSocketPosix* socket,
-                           std::vector<UdpSocketPosix*>* watched_sockets) {
+Error AddToVectorIfMissing(SocketPosix* socket,
+                           std::vector<SocketPosix*>* watched_sockets) {
   for (const auto* s : *watched_sockets) {
     if (s->fd == socket->fd)
       return Error::Code::kAlreadyListening;
@@ -27,11 +27,11 @@ Error AddToVectorIfMissing(UdpSocketPosix* socket,
   return Error::None();
 }
 
-Error RemoveFromVectorIfPresent(UdpSocketPosix* socket,
-                                std::vector<UdpSocketPosix*>* watched_sockets) {
+Error RemoveFromVectorIfPresent(SocketPosix* socket,
+                                std::vector<SocketPosix*>* watched_sockets) {
   const auto it =
       std::find_if(watched_sockets->begin(), watched_sockets->end(),
-                   [socket](UdpSocketPosix* s) { return s->fd == socket->fd; });
+                   [socket](SocketPosix* s) { return s->fd == socket->fd; });
   if (it == watched_sockets->end())
     return Error::Code::kNoItemFound;
 
@@ -42,8 +42,8 @@ Error RemoveFromVectorIfPresent(UdpSocketPosix* socket,
 }  // namespace
 
 struct EventWaiterPrivate {
-  std::vector<UdpSocketPosix*> read_sockets;
-  std::vector<UdpSocketPosix*> write_sockets;
+  std::vector<SocketPosix*> read_sockets;
+  std::vector<SocketPosix*> write_sockets;
 };
 
 EventWaiterPtr CreateEventWaiter() {
@@ -54,23 +54,22 @@ void DestroyEventWaiter(EventWaiterPtr waiter) {
   delete waiter;
 }
 
-Error WatchUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket) {
-  return AddToVectorIfMissing(UdpSocketPosix::From(socket),
-                              &waiter->read_sockets);
+Error WatchSocketReadable(EventWaiterPtr waiter, Socket* socket) {
+  return AddToVectorIfMissing(SocketPosix::From(socket), &waiter->read_sockets);
 }
 
-Error StopWatchingUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket) {
-  return RemoveFromVectorIfPresent(UdpSocketPosix::From(socket),
+Error StopWatchingSocketReadable(EventWaiterPtr waiter, Socket* socket) {
+  return RemoveFromVectorIfPresent(SocketPosix::From(socket),
                                    &waiter->read_sockets);
 }
 
-Error WatchUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket) {
-  return AddToVectorIfMissing(UdpSocketPosix::From(socket),
+Error WatchSocketWritable(EventWaiterPtr waiter, Socket* socket) {
+  return AddToVectorIfMissing(SocketPosix::From(socket),
                               &waiter->write_sockets);
 }
 
-Error StopWatchingUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket) {
-  return RemoveFromVectorIfPresent(UdpSocketPosix::From(socket),
+Error StopWatchingSocketWritable(EventWaiterPtr waiter, Socket* socket) {
+  return RemoveFromVectorIfPresent(SocketPosix::From(socket),
                                    &waiter->write_sockets);
 }
 
