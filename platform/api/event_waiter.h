@@ -8,8 +8,8 @@
 #include <vector>
 
 #include "osp_base/error.h"
+#include "platform/api/socket.h"
 #include "platform/api/time.h"
-#include "platform/api/udp_socket.h"
 
 namespace openscreen {
 namespace platform {
@@ -17,12 +17,12 @@ namespace platform {
 struct EventWaiterPrivate;
 using EventWaiterPtr = EventWaiterPrivate*;
 
-struct UdpSocketReadableEvent {
-  UdpSocket* socket;
+struct SocketReadableEvent {
+  Socket* socket;
 };
 
-struct UdpSocketWritableEvent {
-  UdpSocket* socket;
+struct SocketWritableEvent {
+  Socket* socket;
 };
 
 // This struct represents a set of events associated with a particular
@@ -35,8 +35,8 @@ struct Events {
   Events(Events&& o);
   Events& operator=(Events&& o);
 
-  std::vector<UdpSocketReadableEvent> udp_readable_events;
-  std::vector<UdpSocketWritableEvent> udp_writable_events;
+  std::vector<SocketReadableEvent> udp_readable_events;
+  std::vector<SocketWritableEvent> udp_writable_events;
 };
 
 // TODO(miu): This should be a std::unique_ptr<> instead of two separate
@@ -44,11 +44,11 @@ struct Events {
 EventWaiterPtr CreateEventWaiter();
 void DestroyEventWaiter(EventWaiterPtr waiter);
 
-Error WatchUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket);
-Error StopWatchingUdpSocketReadable(EventWaiterPtr waiter, UdpSocket* socket);
+Error WatchSocketReadable(EventWaiterPtr waiter, Socket* socket);
+Error StopWatchingSocketReadable(EventWaiterPtr waiter, Socket* socket);
 
-Error WatchUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket);
-Error StopWatchingUdpSocketWritable(EventWaiterPtr waiter, UdpSocket* socket);
+Error WatchSocketWritable(EventWaiterPtr waiter, Socket* socket);
+Error StopWatchingSocketWritable(EventWaiterPtr waiter, Socket* socket);
 
 Error WatchNetworkChange(EventWaiterPtr waiter);
 Error StopWatchingNetworkChange(EventWaiterPtr waiter);

@@ -12,15 +12,12 @@ source_set("platform") {
     "api/logging_util.cc",
     "api/network_interface.cc",
     "api/network_interface.h",
-    "api/network_runner.cc",
     "api/network_runner.h",
+    "api/socket.h",
     "api/socket.h",
     "api/task_runner.h",
     "api/time.h",
-    "api/tls_socket.h",
     "api/tls_socket_creds.h",
-    "api/udp_socket.h",
-    "api/upd_callbacks.h",
     "base/ssl_context.cc",
     "base/ssl_context.h",
     "base/time.cc",
@@ -58,8 +55,8 @@ source_set("platform") {
     if (is_posix) {
       sources += [
         "posix/event_waiter.cc",
-        "posix/udp_socket.cc",
-        "posix/udp_socket.h",
+        "posix/socket.cc",
+        "posix/socket.h",
       ]
     }
 

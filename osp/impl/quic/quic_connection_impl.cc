@@ -15,7 +15,7 @@
 
 namespace openscreen {
 
-UdpTransport::UdpTransport(platform::UdpSocket* socket,
+UdpTransport::UdpTransport(platform::Socket* socket,
                            const IPEndpoint& destination)
     : socket_(socket), destination_(destination) {
   OSP_DCHECK(socket_);
@@ -29,7 +29,10 @@ UdpTransport& UdpTransport::operator=(UdpTransport&&) noexcept = default;
 int UdpTransport::Write(const char* buffer,
                         size_t buffer_length,
                         const PacketInfo& info) {
-  switch (socket_->SendMessage(buffer, buffer_length, destination_).code()) {
+  platform::Socket::Message message(buffer);
+  message.length = buffer_length;
+  message.destination = destination_;
+  switch (socket_->SendMessage(message).code()) {
     case Error::Code::kNone:
       OSP_DCHECK_LE(buffer_length,
                     static_cast<size_t>(std::numeric_limits<int>::max()));
@@ -89,10 +92,8 @@ QuicConnectionImpl::QuicConnectionImpl(
 
 QuicConnectionImpl::~QuicConnectionImpl() = default;
 
-void QuicConnectionImpl::OnDataReceived(
-    const platform::UdpReadCallback::Packet& data) {
-  session_->OnTransportReceived(reinterpret_cast<const char*>(data.data()),
-                                data.length);
+void QuicConnectionImpl::OnDataReceived(const platform::Socket::Message& data) {
+  session_->OnTransportReceived(data.data(), data.length);
 }
 
 std::unique_ptr<QuicStream> QuicConnectionImpl::MakeOutgoingStream(

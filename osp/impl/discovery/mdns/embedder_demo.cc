@@ -95,18 +95,18 @@ void SignalThings() {
   OSP_LOG << "signal handlers setup" << std::endl << "pid: " << getpid();
 }
 
-std::vector<platform::UdpSocketUniquePtr> SetUpMulticastSockets(
+std::vector<platform::SocketUniquePtr> SetUpMulticastSockets(
     const std::vector<platform::NetworkInterfaceIndex>& index_list) {
-  std::vector<platform::UdpSocketUniquePtr> sockets;
+  std::vector<platform::SocketUniquePtr> sockets;
   for (const auto ifindex : index_list) {
-    auto create_result =
-        platform::UdpSocket::Create(platform::UdpSocket::Version::kV4);
+    auto create_result = platform::Socket::Create(
+        platform::Socket::Version::kV4, platform::Socket::Type::Udp);
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create IPv4 socket for interface " << ifindex
                     << ": " << create_result.error().message();
       continue;
     }
-    platform::UdpSocketUniquePtr socket = create_result.MoveValue();
+    platform::SocketUniquePtr socket = create_result.MoveValue();
 
     Error result =
         socket->JoinMulticastGroup(IPAddress{224, 0, 0, 251}, ifindex);
@@ -290,8 +290,8 @@ void BrowseDemo(const std::string& service_name,
                                   {{"k1", "yurtle"}, {"k2", "turtle"}});
   }
 
-  for (const platform::UdpSocketUniquePtr& socket : sockets) {
-    platform::WatchUdpSocketReadable(waiter, socket.get());
+  for (const platform::SocketUniquePtr& socket : sockets) {
+    platform::WatchSocketReadable(waiter, socket.get());
     mdns_adapter->StartPtrQuery(socket.get(), service_type.value());
   }
 
@@ -312,7 +312,7 @@ void BrowseDemo(const std::string& service_name,
     mdns_adapter->RunTasks();
     auto data = platform::OnePlatformLoopIteration(waiter);
     for (auto& packet : data) {
-      mdns_adapter->OnDataReceived(packet.source, packet.original_destination,
+      mdns_adapter->OnDataReceived(packet.source, packet.destination,
                                    packet.data(), packet.length, packet.socket);
     }
   }
@@ -321,8 +321,8 @@ void BrowseDemo(const std::string& service_name,
     LogService(s.second);
   }
   platform::StopWatchingNetworkChange(waiter);
-  for (const platform::UdpSocketUniquePtr& socket : sockets) {
-    platform::StopWatchingUdpSocketReadable(waiter, socket.get());
+  for (const platform::SocketUniquePtr& socket : sockets) {
+    platform::StopWatchingSocketReadable(waiter, socket.get());
     mdns_adapter->DeregisterInterface(socket.get());
   }
   platform::DestroyEventWaiter(waiter);

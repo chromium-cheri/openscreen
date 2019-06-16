@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "platform/posix/udp_socket.h"
+#include "platform/posix/socket.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -14,15 +14,25 @@
 
 #include <cstring>
 #include <memory>
+#include <string>
 
 #include "absl/types/optional.h"
 #include "osp_base/error.h"
 #include "platform/api/logging.h"
-#include "platform/posix/udp_socket.h"
 
 namespace openscreen {
 namespace platform {
 namespace {
+
+// iovec is strange about constness, so we have to do some manipulation.
+struct iovec ToIOVector(const Socket::Message& message) {
+  void* cast_data =
+      const_cast<void*>(reinterpret_cast<const void*>(message.data()));
+  struct iovec out {
+    cast_data, message.length
+  };
+  return out;
+}
 
 constexpr bool IsPowerOf2(uint32_t x) {
   return (x > 0) && ((x & (x - 1)) == 0);
@@ -34,8 +44,26 @@ static_assert(IsPowerOf2(alignof(struct cmsghdr)),
 using IPv4NetworkInterfaceIndex = decltype(ip_mreqn().imr_ifindex);
 using IPv6NetworkInterfaceIndex = decltype(ipv6_mreq().ipv6mr_interface);
 
-ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
-  int fd = socket(domain, SOCK_DGRAM, 0);
+int GetAsDomain(Socket::Version version) {
+  switch (version) {
+    case Socket::Version::kV4:
+      return AF_INET;
+    case Socket::Version::kV6:
+      return AF_INET6;
+  }
+}
+
+int GetAsSockType(Socket::Type type) {
+  switch (type) {
+    case Socket::Type::Udp:
+      return SOCK_DGRAM;
+    case Socket::Type::Tcp:
+      return SOCK_STREAM;
+  }
+}
+
+ErrorOr<int> CreateNonBlockingSocket(int domain, int type) {
+  int fd = socket(domain, type, 0);
   if (fd == -1) {
     return Error(Error::Code::kInitializationFailure, strerror(errno));
   }
@@ -50,47 +78,52 @@ ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
 
 }  // namespace
 
-UdpSocket::UdpSocket() = default;
-UdpSocket::~UdpSocket() = default;
+Socket::Socket(std::string id, Delegate* delegate)
+    : id_(id), delegate_(delegate) {}
+Socket::~Socket() = default;
 
-UdpSocketPosix::UdpSocketPosix(int fd, UdpSocket::Version version)
-    : fd(fd), version(version) {}
+SocketPosix::SocketPosix(int fd,
+                         Socket::Version version,
+                         std::string id,
+                         Socket::Delegate* delegate)
+    : Socket(id, delegate), fd(fd), version(version) {}
 
 // static
-ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(UdpSocket::Version version) {
-  int domain;
-  switch (version) {
-    case Version::kV4:
-      domain = AF_INET;
-      break;
-    case Version::kV6:
-      domain = AF_INET6;
-      break;
-  }
-  const ErrorOr<int> fd = CreateNonBlockingUdpSocket(domain);
+ErrorOr<SocketUniquePtr> Socket::Create(Socket::Version version,
+                                        Socket::Type type) {
+  return Create(version, type, std::string(), nullptr);
+}
+
+// static
+ErrorOr<SocketUniquePtr> Socket::Create(Socket::Version version,
+                                        Socket::Type type,
+                                        std::string id,
+                                        Socket::Delegate* delegate) {
+  const ErrorOr<int> fd =
+      CreateNonBlockingSocket(GetAsDomain(version), GetAsSockType(type));
   if (!fd) {
     return fd.error();
   }
-  return UdpSocketUniquePtr(
-      static_cast<UdpSocket*>(new UdpSocketPosix(fd.value(), version)));
+  return SocketUniquePtr(
+      static_cast<Socket*>(new SocketPosix(fd.value(), version, id, delegate)));
 }
 
-bool UdpSocket::IsIPv4() const {
-  return UdpSocketPosix::From(this)->version == UdpSocket::Version::kV4;
+bool Socket::IsIPv4() const {
+  return SocketPosix::From(this)->version == Socket::Version::kV4;
 }
 
-bool UdpSocket::IsIPv6() const {
-  return UdpSocketPosix::From(this)->version == UdpSocket::Version::kV6;
+bool Socket::IsIPv6() const {
+  return SocketPosix::From(this)->version == Socket::Version::kV6;
 }
 
-void UdpSocketDeleter::operator()(UdpSocket* socket_api) const {
-  auto* const socket = UdpSocketPosix::From(socket_api);
+void SocketDeleter::operator()(Socket* socket_api) const {
+  auto* const socket = SocketPosix::From(socket_api);
   close(socket->fd);
   delete socket;
 }
 
-Error UdpSocket::Bind(const IPEndpoint& endpoint) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::Bind(const IPEndpoint& endpoint) {
+  auto* const socket = SocketPosix::From(this);
 
   // This is effectively a boolean passed to setsockopt() to allow a future
   // bind() on the same socket to succeed, even if the address is already in
@@ -102,7 +135,7 @@ Error UdpSocket::Bind(const IPEndpoint& endpoint) {
   }
 
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       struct sockaddr_in address;
       address.sin_family = AF_INET;
       address.sin_port = htons(endpoint.port);
@@ -115,7 +148,7 @@ Error UdpSocket::Bind(const IPEndpoint& endpoint) {
       return Error::Code::kNone;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       struct sockaddr_in6 address;
       address.sin6_family = AF_INET6;
       address.sin6_flowinfo = 0;
@@ -134,11 +167,11 @@ Error UdpSocket::Bind(const IPEndpoint& endpoint) {
   return Error::Code::kGenericPlatformError;
 }
 
-Error UdpSocket::SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
+  auto* const socket = SocketPosix::From(this);
 
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       struct ip_mreqn multicast_properties;
       // Appropriate address is set based on |imr_ifindex| when set.
       multicast_properties.imr_address.s_addr = INADDR_ANY;
@@ -153,7 +186,7 @@ Error UdpSocket::SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
       return Error::Code::kNone;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       const auto index = static_cast<IPv6NetworkInterfaceIndex>(ifindex);
       if (setsockopt(socket->fd, IPPROTO_IPV6, IPV6_MULTICAST_IF, &index,
                      sizeof(index)) == -1) {
@@ -167,12 +200,12 @@ Error UdpSocket::SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
   return Error::Code::kGenericPlatformError;
 }
 
-Error UdpSocket::JoinMulticastGroup(const IPAddress& address,
-                                    NetworkInterfaceIndex ifindex) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::JoinMulticastGroup(const IPAddress& address,
+                                 NetworkInterfaceIndex ifindex) {
+  auto* const socket = SocketPosix::From(this);
 
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       // Passed as data to setsockopt().  1 means return IP_PKTINFO control data
       // in recvmsg() calls.
       const int enable_pktinfo = 1;
@@ -197,7 +230,7 @@ Error UdpSocket::JoinMulticastGroup(const IPAddress& address,
       return Error::Code::kNone;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       // Passed as data to setsockopt().  1 means return IPV6_PKTINFO control
       // data in recvmsg() calls.
       const int enable_pktinfo = 1;
@@ -242,19 +275,20 @@ Error ChooseError(decltype(errno) posix_errno, Error::Code hard_error_code) {
 
 }  // namespace
 
-ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
-                                          size_t length,
-                                          IPEndpoint* src,
-                                          IPEndpoint* original_destination) {
-  auto* const socket = UdpSocketPosix::From(this);
+ErrorOr<Socket::Message> Socket::ReceiveMessage() {
+  auto* const socket = SocketPosix::From(this);
 
-  struct iovec iov = {data, length};
+  Message received;
+  received.socket = socket;
+  struct iovec iov = ToIOVector(received);
   char control_buf[1024];
   size_t cmsg_size = sizeof(control_buf) - sizeof(struct cmsghdr) + 1;
   void* cmsg_buf = control_buf;
   std::align(alignof(struct cmsghdr), sizeof(cmsg_buf), cmsg_buf, cmsg_size);
+
+  // TODO(jophba): Clean up...
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       struct sockaddr_in sa;
       struct msghdr msg;
       msg.msg_name = &sa;
@@ -265,56 +299,51 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
       msg.msg_controllen = cmsg_size;
       msg.msg_flags = 0;
 
-      ssize_t num_bytes_received = recvmsg(socket->fd, &msg, 0);
-      if (num_bytes_received == -1) {
+      received.num_bytes_received = recvmsg(socket->fd, &msg, 0);
+      if (received.num_bytes_received == -1) {
         return ChooseError(errno, Error::Code::kSocketReadFailure);
       }
-      OSP_DCHECK_GE(num_bytes_received, 0);
+      OSP_DCHECK_GE(received.num_bytes_received, 0);
 
-      if (src) {
-        src->address =
-            IPAddress(IPAddress::Version::kV4,
-                      reinterpret_cast<const uint8_t*>(&sa.sin_addr.s_addr));
-        src->port = ntohs(sa.sin_port);
-      }
+      received.source.address =
+          IPAddress(IPAddress::Version::kV4,
+                    reinterpret_cast<const uint8_t*>(&sa.sin_addr.s_addr));
+      received.source.port = ntohs(sa.sin_port);
 
       // For multicast sockets, the packet's original destination address may be
       // the host address (since we called bind()) but it may also be a
       // multicast address.  This may be relevant for handling multicast data;
       // specifically, mDNSResponder requires this information to work properly.
-      if (original_destination) {
-        *original_destination = IPEndpoint{{}, 0};
-        if ((msg.msg_flags & MSG_CTRUNC) == 0) {
-          for (struct cmsghdr* cmh = CMSG_FIRSTHDR(&msg); cmh;
-               cmh = CMSG_NXTHDR(&msg, cmh)) {
-            if (cmh->cmsg_level != IPPROTO_IP || cmh->cmsg_type != IP_PKTINFO)
-              continue;
+      received.destination = IPEndpoint{{}, 0};
+      if ((msg.msg_flags & MSG_CTRUNC) == 0) {
+        for (struct cmsghdr* cmh = CMSG_FIRSTHDR(&msg); cmh;
+             cmh = CMSG_NXTHDR(&msg, cmh)) {
+          if (cmh->cmsg_level != IPPROTO_IP || cmh->cmsg_type != IP_PKTINFO)
+            continue;
 
-            struct sockaddr_in addr;
-            socklen_t addr_len = sizeof(addr);
-            if (getsockname(socket->fd,
-                            reinterpret_cast<struct sockaddr*>(&addr),
-                            &addr_len) == -1) {
-              break;
-            }
-            // |original_destination->port| will be 0 if this line isn't
-            // reached.
-            original_destination->port = ntohs(addr.sin_port);
-
-            struct in_pktinfo* pktinfo =
-                reinterpret_cast<struct in_pktinfo*>(CMSG_DATA(cmh));
-            original_destination->address =
-                IPAddress(IPAddress::Version::kV4,
-                          reinterpret_cast<const uint8_t*>(&pktinfo->ipi_addr));
+          struct sockaddr_in addr;
+          socklen_t addr_len = sizeof(addr);
+          if (getsockname(socket->fd, reinterpret_cast<struct sockaddr*>(&addr),
+                          &addr_len) == -1) {
             break;
           }
+          // |destination->port| will be 0 if this line isn't
+          // reached.
+          received.destination.port = ntohs(addr.sin_port);
+
+          struct in_pktinfo* pktinfo =
+              reinterpret_cast<struct in_pktinfo*>(CMSG_DATA(cmh));
+          received.destination.address =
+              IPAddress(IPAddress::Version::kV4,
+                        reinterpret_cast<const uint8_t*>(&pktinfo->ipi_addr));
+          break;
         }
       }
 
-      return num_bytes_received;
+      return received;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       struct sockaddr_in6 sa;
       struct msghdr msg;
       msg.msg_name = &sa;
@@ -331,61 +360,54 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
       }
       OSP_DCHECK_GE(num_bytes_received, 0);
 
-      if (src) {
-        src->address =
-            IPAddress(IPAddress::Version::kV6,
-                      reinterpret_cast<const uint8_t*>(&sa.sin6_addr.s6_addr));
-        src->port = ntohs(sa.sin6_port);
-      }
+      received.source.address =
+          IPAddress(IPAddress::Version::kV6,
+                    reinterpret_cast<const uint8_t*>(&sa.sin6_addr.s6_addr));
+      received.source.port = ntohs(sa.sin6_port);
 
       // For multicast sockets, the packet's original destination address may be
       // the host address (since we called bind()) but it may also be a
       // multicast address.  This may be relevant for handling multicast data;
       // specifically, mDNSResponder requires this information to work properly.
-      if (original_destination) {
-        *original_destination = IPEndpoint{{}, 0};
-        if ((msg.msg_flags & MSG_CTRUNC) == 0) {
-          for (struct cmsghdr* cmh = CMSG_FIRSTHDR(&msg); cmh;
-               cmh = CMSG_NXTHDR(&msg, cmh)) {
-            if (cmh->cmsg_level != IPPROTO_IPV6 ||
-                cmh->cmsg_type != IPV6_PKTINFO) {
-              continue;
-            }
-            struct sockaddr_in6 addr;
-            socklen_t addr_len = sizeof(addr);
-            if (getsockname(socket->fd,
-                            reinterpret_cast<struct sockaddr*>(&addr),
-                            &addr_len) == -1) {
-              break;
-            }
-            // |original_destination->port| will be 0 if this line isn't
-            // reached.
-            original_destination->port = ntohs(addr.sin6_port);
-
-            struct in6_pktinfo* pktinfo =
-                reinterpret_cast<struct in6_pktinfo*>(CMSG_DATA(cmh));
-            original_destination->address = IPAddress(
-                IPAddress::Version::kV6,
-                reinterpret_cast<const uint8_t*>(&pktinfo->ipi6_addr));
+      received.destination = IPEndpoint{{}, 0};
+      if ((msg.msg_flags & MSG_CTRUNC) == 0) {
+        for (struct cmsghdr* cmh = CMSG_FIRSTHDR(&msg); cmh;
+             cmh = CMSG_NXTHDR(&msg, cmh)) {
+          if (cmh->cmsg_level != IPPROTO_IPV6 ||
+              cmh->cmsg_type != IPV6_PKTINFO) {
+            continue;
+          }
+          struct sockaddr_in6 addr;
+          socklen_t addr_len = sizeof(addr);
+          if (getsockname(socket->fd, reinterpret_cast<struct sockaddr*>(&addr),
+                          &addr_len) == -1) {
             break;
           }
+          // |destination->port| will be 0 if this line isn't
+          // reached.
+          received.destination.port = ntohs(addr.sin6_port);
+
+          struct in6_pktinfo* pktinfo =
+              reinterpret_cast<struct in6_pktinfo*>(CMSG_DATA(cmh));
+          received.destination.address =
+              IPAddress(IPAddress::Version::kV6,
+                        reinterpret_cast<const uint8_t*>(&pktinfo->ipi6_addr));
+          break;
         }
       }
-
-      return num_bytes_received;
     }
+
+      return received;
   }
 
   OSP_NOTREACHED();
   return Error::Code::kGenericPlatformError;
-}
+}  // namespace platform
 
-Error UdpSocket::SendMessage(const void* data,
-                             size_t length,
-                             const IPEndpoint& dest) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::SendMessage(const Message& message) {
+  auto* const socket = SocketPosix::From(this);
 
-  struct iovec iov = {const_cast<void*>(data), length};
+  struct iovec iov = ToIOVector(message);
   struct msghdr msg;
   msg.msg_iov = &iov;
   msg.msg_iovlen = 1;
@@ -395,25 +417,27 @@ Error UdpSocket::SendMessage(const void* data,
 
   ssize_t num_bytes_sent = -2;
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       struct sockaddr_in sa = {
           .sin_family = AF_INET,
-          .sin_port = htons(dest.port),
+          .sin_port = htons(message.destination.port),
       };
-      dest.address.CopyToV4(reinterpret_cast<uint8_t*>(&sa.sin_addr.s_addr));
+      message.destination.address.CopyToV4(
+          reinterpret_cast<uint8_t*>(&sa.sin_addr.s_addr));
       msg.msg_name = &sa;
       msg.msg_namelen = sizeof(sa);
       num_bytes_sent = sendmsg(socket->fd, &msg, 0);
       break;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       struct sockaddr_in6 sa = {};
       sa.sin6_family = AF_INET6;
       sa.sin6_flowinfo = 0;
       sa.sin6_scope_id = 0;
-      sa.sin6_port = htons(dest.port);
-      dest.address.CopyToV6(reinterpret_cast<uint8_t*>(&sa.sin6_addr.s6_addr));
+      sa.sin6_port = htons(message.destination.port);
+      message.destination.address.CopyToV6(
+          reinterpret_cast<uint8_t*>(&sa.sin6_addr.s6_addr));
       msg.msg_name = &sa;
       msg.msg_namelen = sizeof(sa);
       num_bytes_sent = sendmsg(socket->fd, &msg, 0);
@@ -425,12 +449,12 @@ Error UdpSocket::SendMessage(const void* data,
     return ChooseError(errno, Error::Code::kSocketSendFailure);
   }
   // Sanity-check: UDP datagram sendmsg() is all or nothing.
-  OSP_DCHECK_EQ(static_cast<size_t>(num_bytes_sent), length);
+  OSP_DCHECK_EQ(static_cast<size_t>(num_bytes_sent), message.length);
   return Error::Code::kNone;
 }
 
-Error UdpSocket::SetDscp(UdpSocket::DscpMode state) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::SetDscp(Socket::DscpMode state) {
+  auto* const socket = SocketPosix::From(this);
 
   constexpr auto kSettingLevel = IPPROTO_IP;
   uint8_t code_array[1] = {static_cast<uint8_t>(state)};
