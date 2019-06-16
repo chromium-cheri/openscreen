@@ -61,7 +61,7 @@ std::unique_ptr<FakeQuicStream> FakeQuicConnection::MakeIncomingStream() {
 }
 
 void FakeQuicConnection::OnDataReceived(
-    const platform::UdpReadCallback::Packet& data) {
+    const platform::SocketReadCallback::Packet& data) {
   OSP_DCHECK(false) << "data should go directly to fake streams";
 }
 

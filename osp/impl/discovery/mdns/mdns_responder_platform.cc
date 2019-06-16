@@ -14,8 +14,8 @@
 #include "osp_base/ip_address.h"
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
+#include "platform/api/socket.h"
 #include "platform/api/time.h"
-#include "platform/api/udp_socket.h"
 #include "third_party/mDNSResponder/src/mDNSCore/mDNSEmbeddedAPI.h"
 
 using openscreen::platform::Clock;
@@ -45,7 +45,7 @@ mStatus mDNSPlatformSendUDP(const mDNS* m,
                             const mDNSAddr* dst,
                             mDNSIPPort dstport) {
   auto* const socket =
-      reinterpret_cast<openscreen::platform::UdpSocket*>(InterfaceID);
+      reinterpret_cast<openscreen::platform::Socket*>(InterfaceID);
   const auto socket_it =
       std::find(m->p->sockets.begin(), m->p->sockets.end(), socket);
   if (socket_it == m->p->sockets.end())

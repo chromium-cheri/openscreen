@@ -7,13 +7,13 @@
 #include <utility>
 
 #include "platform/api/logging.h"
-#include "platform/api/udp_socket.h"
+#include "platform/api/socket.h"
 
 namespace openscreen {
 namespace platform {
 
-Error ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
-                           UdpReadCallback::Packet* data) {
+Error ReceiveDataFromEvent(const SocketReadableEvent& read_event,
+                           SocketReadCallback::Packet* data) {
   OSP_DCHECK(data);
   ErrorOr<size_t> len = read_event.socket->ReceiveMessage(
       &data[0], data->size(), &data->source, &data->original_destination);
@@ -22,30 +22,30 @@ Error ReceiveDataFromEvent(const UdpSocketReadableEvent& read_event,
                   << len.error().message();
     return len.error();
   }
-  OSP_DCHECK_LE(len.value(), static_cast<size_t>(kUdpMaxPacketSize));
+  OSP_DCHECK_LE(len.value(), static_cast<size_t>(kMaxSocketPacketSize));
   data->length = len.value();
   data->socket = read_event.socket;
   return Error::None();
 }
 
-std::vector<UdpReadCallback::Packet> HandleUdpSocketReadEvents(
+std::vector<SocketReadCallback::Packet> HandleSocketReadEvents(
     const Events& events) {
-  std::vector<UdpReadCallback::Packet> data;
+  std::vector<SocketReadCallback::Packet> data;
   for (const auto& read_event : events.udp_readable_events) {
-    UdpReadCallback::Packet next_data;
+    SocketReadCallback::Packet next_data;
     if (ReceiveDataFromEvent(read_event, &next_data).ok())
       data.emplace_back(std::move(next_data));
   }
   return data;
 }
 
-std::vector<UdpReadCallback::Packet> OnePlatformLoopIteration(
+std::vector<SocketReadCallback::Packet> OnePlatformLoopIteration(
     EventWaiterPtr waiter) {
   ErrorOr<Events> events = WaitForEvents(waiter);
   if (!events)
     return {};
 
-  return HandleUdpSocketReadEvents(events.value());
+  return HandleSocketReadEvents(events.value());
 }
 
 }  // namespace platform

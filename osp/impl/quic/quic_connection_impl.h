@@ -10,7 +10,7 @@
 
 #include "osp/impl/quic/quic_connection.h"
 #include "osp_base/ip_address.h"
-#include "platform/api/udp_socket.h"
+#include "platform/api/socket.h"
 #include "third_party/chromium_quic/src/base/callback.h"
 #include "third_party/chromium_quic/src/base/location.h"
 #include "third_party/chromium_quic/src/base/task_runner.h"
@@ -25,7 +25,7 @@ class QuicConnectionFactoryImpl;
 
 class UdpTransport final : public ::quic::QuartcPacketTransport {
  public:
-  UdpTransport(platform::UdpSocket* socket, const IPEndpoint& destination);
+  UdpTransport(platform::Socket* socket, const IPEndpoint& destination);
   UdpTransport(UdpTransport&&) noexcept;
   ~UdpTransport() override;
 
@@ -36,10 +36,10 @@ class UdpTransport final : public ::quic::QuartcPacketTransport {
             size_t buffer_length,
             const PacketInfo& info) override;
 
-  platform::UdpSocket* socket() const { return socket_; }
+  platform::Socket* socket() const { return socket_; }
 
  private:
-  platform::UdpSocket* socket_;
+  platform::Socket* socket_;
   IPEndpoint destination_;
 };
 
@@ -75,7 +75,8 @@ class QuicConnectionImpl final : public QuicConnection,
   ~QuicConnectionImpl() override;
 
   // QuicConnection overrides.
-  void OnDataReceived(const platform::UdpReadCallback::Packet& data) override;
+  void OnDataReceived(
+      const platform::SocketReadCallback::Packet& data) override;
   std::unique_ptr<QuicStream> MakeOutgoingStream(
       QuicStream::Delegate* delegate) override;
   void Close() override;

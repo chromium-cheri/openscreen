@@ -17,28 +17,28 @@ class FakeMdnsResponderAdapter;
 mdns::PtrEvent MakePtrEvent(const std::string& service_instance,
                             const std::string& service_type,
                             const std::string& service_protocol,
-                            platform::UdpSocket* socket);
+                            platform::Socket* socket);
 
 mdns::SrvEvent MakeSrvEvent(const std::string& service_instance,
                             const std::string& service_type,
                             const std::string& service_protocol,
                             const std::string& hostname,
                             uint16_t port,
-                            platform::UdpSocket* socket);
+                            platform::Socket* socket);
 
 mdns::TxtEvent MakeTxtEvent(const std::string& service_instance,
                             const std::string& service_type,
                             const std::string& service_protocol,
                             const std::vector<std::string>& txt_lines,
-                            platform::UdpSocket* socket);
+                            platform::Socket* socket);
 
 mdns::AEvent MakeAEvent(const std::string& hostname,
                         IPAddress address,
-                        platform::UdpSocket* socket);
+                        platform::Socket* socket);
 
 mdns::AaaaEvent MakeAaaaEvent(const std::string& hostname,
                               IPAddress address,
-                              platform::UdpSocket* socket);
+                              platform::Socket* socket);
 
 void AddEventsForNewService(FakeMdnsResponderAdapter* mdns_responder,
                             const std::string& service_instance,
@@ -48,14 +48,14 @@ void AddEventsForNewService(FakeMdnsResponderAdapter* mdns_responder,
                             uint16_t port,
                             const std::vector<std::string>& txt_lines,
                             const IPAddress& address,
-                            platform::UdpSocket* socket);
+                            platform::Socket* socket);
 
 class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
  public:
   struct RegisteredInterface {
     platform::InterfaceInfo interface_info;
     platform::IPSubnet interface_address;
-    platform::UdpSocket* socket;
+    platform::Socket* socket;
   };
 
   struct RegisteredService {
@@ -107,14 +107,14 @@ class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
   // interface?
   Error RegisterInterface(const platform::InterfaceInfo& interface_info,
                           const platform::IPSubnet& interface_address,
-                          platform::UdpSocket* socket) override;
-  Error DeregisterInterface(platform::UdpSocket* socket) override;
+                          platform::Socket* socket) override;
+  Error DeregisterInterface(platform::Socket* socket) override;
 
   void OnDataReceived(const IPEndpoint& source,
                       const IPEndpoint& original_destination,
                       const uint8_t* data,
                       size_t length,
-                      platform::UdpSocket* receiving_socket) override;
+                      platform::Socket* receiving_socket) override;
 
   int RunTasks() override;
 
@@ -125,35 +125,35 @@ class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
   std::vector<mdns::AaaaEvent> TakeAaaaResponses() override;
 
   mdns::MdnsResponderErrorCode StartPtrQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& service_type) override;
   mdns::MdnsResponderErrorCode StartSrvQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& service_instance) override;
   mdns::MdnsResponderErrorCode StartTxtQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& service_instance) override;
   mdns::MdnsResponderErrorCode StartAQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& domain_name) override;
   mdns::MdnsResponderErrorCode StartAaaaQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& domain_name) override;
 
   mdns::MdnsResponderErrorCode StopPtrQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& service_type) override;
   mdns::MdnsResponderErrorCode StopSrvQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& service_instance) override;
   mdns::MdnsResponderErrorCode StopTxtQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& service_instance) override;
   mdns::MdnsResponderErrorCode StopAQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& domain_name) override;
   mdns::MdnsResponderErrorCode StopAaaaQuery(
-      platform::UdpSocket* socket,
+      platform::Socket* socket,
       const mdns::DomainName& domain_name) override;
 
   mdns::MdnsResponderErrorCode RegisterService(
@@ -185,7 +185,7 @@ class FakeMdnsResponderAdapter final : public mdns::MdnsResponderAdapter {
   bool running_ = false;
   LifetimeObserver* observer_ = nullptr;
 
-  std::map<platform::UdpSocket*, InterfaceQueries> queries_;
+  std::map<platform::Socket*, InterfaceQueries> queries_;
   // NOTE: One of many simplifications here is that there is no cache.  This
   // means that calling StartQuery, StopQuery, StartQuery will only return an
   // event the first time, unless the test also adds the event a second time.

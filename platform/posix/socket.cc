@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "platform/posix/udp_socket.h"
+#include "platform/posix/socket.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -18,7 +18,6 @@
 #include "absl/types/optional.h"
 #include "osp_base/error.h"
 #include "platform/api/logging.h"
-#include "platform/posix/udp_socket.h"
 
 namespace openscreen {
 namespace platform {
@@ -34,8 +33,26 @@ static_assert(IsPowerOf2(alignof(struct cmsghdr)),
 using IPv4NetworkInterfaceIndex = decltype(ip_mreqn().imr_ifindex);
 using IPv6NetworkInterfaceIndex = decltype(ipv6_mreq().ipv6mr_interface);
 
-ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
-  int fd = socket(domain, SOCK_DGRAM, 0);
+int GetAsDomain(Socket::Version version) {
+  switch (version) {
+    case Socket::Version::kV4:
+      return AF_INET;
+    case Socket::Version::kV6:
+      return AF_INET6;
+  }
+}
+
+int GetAsSockType(Socket::Type type) {
+  switch (type) {
+    case Socket::Type::Udp:
+      return SOCK_DGRAM;
+    case Socket::Type::Tcp:
+      return SOCK_STREAM;
+  }
+}
+
+ErrorOr<int> CreateNonBlockingSocket(int domain, int type) {
+  int fd = socket(domain, type, 0);
   if (fd == -1) {
     return Error(Error::Code::kInitializationFailure, strerror(errno));
   }
@@ -50,47 +67,46 @@ ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
 
 }  // namespace
 
-UdpSocket::UdpSocket() = default;
-UdpSocket::~UdpSocket() = default;
+Socket::Socket(std::string id, Delegate* delegate)
+    : id_(id), delegate_(delegate) {}
+Socket::~Socket() = default;
 
-UdpSocketPosix::UdpSocketPosix(int fd, UdpSocket::Version version)
-    : fd(fd), version(version) {}
+SocketPosix::SocketPosix(int fd,
+                         Socket::Version version,
+                         std::string id,
+                         Socket::Delegate* delegate)
+    : fd(fd), version(version), Socket(id, delegate) {}
 
 // static
-ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(UdpSocket::Version version) {
-  int domain;
-  switch (version) {
-    case Version::kV4:
-      domain = AF_INET;
-      break;
-    case Version::kV6:
-      domain = AF_INET6;
-      break;
-  }
-  const ErrorOr<int> fd = CreateNonBlockingUdpSocket(domain);
+ErrorOr<SocketUniquePtr> Socket::Create(Socket::Version version,
+                                        Socket::Type type,
+                                        std::string id,
+                                        Socket::Delegate* delegate) {
+  const ErrorOr<int> fd =
+      CreateNonBlockingSocket(GetAsDomain(version), GetAsSockType(type));
   if (!fd) {
     return fd.error();
   }
-  return UdpSocketUniquePtr(
-      static_cast<UdpSocket*>(new UdpSocketPosix(fd.value(), version)));
+  return SocketUniquePtr(
+      static_cast<Socket*>(new SocketPosix(fd.value(), version, id, delegate)));
 }
 
-bool UdpSocket::IsIPv4() const {
-  return UdpSocketPosix::From(this)->version == UdpSocket::Version::kV4;
+bool Socket::IsIPv4() const {
+  return SocketPosix::From(this)->version == Socket::Version::kV4;
 }
 
-bool UdpSocket::IsIPv6() const {
-  return UdpSocketPosix::From(this)->version == UdpSocket::Version::kV6;
+bool Socket::IsIPv6() const {
+  return SocketPosix::From(this)->version == Socket::Version::kV6;
 }
 
-void UdpSocketDeleter::operator()(UdpSocket* socket_api) const {
-  auto* const socket = UdpSocketPosix::From(socket_api);
+void SocketDeleter::operator()(Socket* socket_api) const {
+  auto* const socket = SocketPosix::From(socket_api);
   close(socket->fd);
   delete socket;
 }
 
-Error UdpSocket::Bind(const IPEndpoint& endpoint) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::Bind(const IPEndpoint& endpoint) {
+  auto* const socket = SocketPosix::From(this);
 
   // This is effectively a boolean passed to setsockopt() to allow a future
   // bind() on the same socket to succeed, even if the address is already in
@@ -102,7 +118,7 @@ Error UdpSocket::Bind(const IPEndpoint& endpoint) {
   }
 
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       struct sockaddr_in address;
       address.sin_family = AF_INET;
       address.sin_port = htons(endpoint.port);
@@ -115,7 +131,7 @@ Error UdpSocket::Bind(const IPEndpoint& endpoint) {
       return Error::Code::kNone;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       struct sockaddr_in6 address;
       address.sin6_family = AF_INET6;
       address.sin6_flowinfo = 0;
@@ -134,11 +150,11 @@ Error UdpSocket::Bind(const IPEndpoint& endpoint) {
   return Error::Code::kGenericPlatformError;
 }
 
-Error UdpSocket::SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
+  auto* const socket = SocketPosix::From(this);
 
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       struct ip_mreqn multicast_properties;
       // Appropriate address is set based on |imr_ifindex| when set.
       multicast_properties.imr_address.s_addr = INADDR_ANY;
@@ -153,7 +169,7 @@ Error UdpSocket::SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
       return Error::Code::kNone;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       const auto index = static_cast<IPv6NetworkInterfaceIndex>(ifindex);
       if (setsockopt(socket->fd, IPPROTO_IPV6, IPV6_MULTICAST_IF, &index,
                      sizeof(index)) == -1) {
@@ -167,12 +183,12 @@ Error UdpSocket::SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
   return Error::Code::kGenericPlatformError;
 }
 
-Error UdpSocket::JoinMulticastGroup(const IPAddress& address,
-                                    NetworkInterfaceIndex ifindex) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::JoinMulticastGroup(const IPAddress& address,
+                                 NetworkInterfaceIndex ifindex) {
+  auto* const socket = SocketPosix::From(this);
 
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       // Passed as data to setsockopt().  1 means return IP_PKTINFO control data
       // in recvmsg() calls.
       const int enable_pktinfo = 1;
@@ -197,7 +213,7 @@ Error UdpSocket::JoinMulticastGroup(const IPAddress& address,
       return Error::Code::kNone;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       // Passed as data to setsockopt().  1 means return IPV6_PKTINFO control
       // data in recvmsg() calls.
       const int enable_pktinfo = 1;
@@ -242,11 +258,11 @@ Error ChooseError(decltype(errno) posix_errno, Error::Code hard_error_code) {
 
 }  // namespace
 
-ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
-                                          size_t length,
-                                          IPEndpoint* src,
-                                          IPEndpoint* original_destination) {
-  auto* const socket = UdpSocketPosix::From(this);
+ErrorOr<size_t> Socket::ReceiveMessage(void* data,
+                                       size_t length,
+                                       IPEndpoint* src,
+                                       IPEndpoint* original_destination) {
+  auto* const socket = SocketPosix::From(this);
 
   struct iovec iov = {data, length};
   char control_buf[1024];
@@ -254,7 +270,7 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
   void* cmsg_buf = control_buf;
   std::align(alignof(struct cmsghdr), sizeof(cmsg_buf), cmsg_buf, cmsg_size);
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       struct sockaddr_in sa;
       struct msghdr msg;
       msg.msg_name = &sa;
@@ -314,7 +330,7 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
       return num_bytes_received;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       struct sockaddr_in6 sa;
       struct msghdr msg;
       msg.msg_name = &sa;
@@ -380,10 +396,10 @@ ErrorOr<size_t> UdpSocket::ReceiveMessage(void* data,
   return Error::Code::kGenericPlatformError;
 }
 
-Error UdpSocket::SendMessage(const void* data,
-                             size_t length,
-                             const IPEndpoint& dest) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::SendMessage(const void* data,
+                          size_t length,
+                          const IPEndpoint& dest) {
+  auto* const socket = SocketPosix::From(this);
 
   struct iovec iov = {const_cast<void*>(data), length};
   struct msghdr msg;
@@ -395,7 +411,7 @@ Error UdpSocket::SendMessage(const void* data,
 
   ssize_t num_bytes_sent = -2;
   switch (socket->version) {
-    case UdpSocket::Version::kV4: {
+    case Socket::Version::kV4: {
       struct sockaddr_in sa = {
           .sin_family = AF_INET,
           .sin_port = htons(dest.port),
@@ -407,7 +423,7 @@ Error UdpSocket::SendMessage(const void* data,
       break;
     }
 
-    case UdpSocket::Version::kV6: {
+    case Socket::Version::kV6: {
       struct sockaddr_in6 sa = {};
       sa.sin6_family = AF_INET6;
       sa.sin6_flowinfo = 0;
@@ -429,8 +445,8 @@ Error UdpSocket::SendMessage(const void* data,
   return Error::Code::kNone;
 }
 
-Error UdpSocket::SetDscp(UdpSocket::DscpMode state) {
-  auto* const socket = UdpSocketPosix::From(this);
+Error Socket::SetDscp(Socket::DscpMode state) {
+  auto* const socket = SocketPosix::From(this);
 
   constexpr auto kSettingLevel = IPPROTO_IP;
   uint8_t code_array[1] = {static_cast<uint8_t>(state)};

@@ -56,7 +56,7 @@ void MdnsResponderService::SetServiceConfig(
 }
 
 void MdnsResponderService::HandleNewEvents(
-    const std::vector<platform::UdpReadCallback::Packet>& data) {
+    const std::vector<platform::SocketReadCallback::Packet>& data) {
   if (!mdns_responder_)
     return;
   for (auto& packet : data) {
@@ -274,7 +274,7 @@ void MdnsResponderService::StopListening() {
   }
   network_scoped_domain_to_host_.clear();
   for (const auto& service : service_by_name_) {
-    platform::UdpSocket* const socket = service.second->ptr_socket;
+    platform::Socket* const socket = service.second->ptr_socket;
     mdns_responder_->StopSrvQuery(socket, service.first);
     mdns_responder_->StopTxtQuery(socket, service.first);
   }
@@ -366,7 +366,7 @@ bool MdnsResponderService::HandlePtrEvent(
     InstanceNameSet* modified_instance_names) {
   bool events_possible = false;
   const auto& instance_name = ptr_event.service_instance;
-  platform::UdpSocket* const socket = ptr_event.header.socket;
+  platform::Socket* const socket = ptr_event.header.socket;
   auto entry = service_by_name_.find(ptr_event.service_instance);
   switch (ptr_event.header.response_type) {
     case mdns::QueryEventHeader::Type::kAddedNoCache:
@@ -418,7 +418,7 @@ bool MdnsResponderService::HandleSrvEvent(
   bool events_possible = false;
   auto& domain_name = srv_event.domain_name;
   const auto& instance_name = srv_event.service_instance;
-  platform::UdpSocket* const socket = srv_event.header.socket;
+  platform::Socket* const socket = srv_event.header.socket;
   auto entry = service_by_name_.find(srv_event.service_instance);
   if (entry == service_by_name_.end())
     return events_possible;
@@ -505,7 +505,7 @@ bool MdnsResponderService::HandleTxtEvent(
 }
 
 bool MdnsResponderService::HandleAddressEvent(
-    platform::UdpSocket* socket,
+    platform::Socket* socket,
     mdns::QueryEventHeader::Type response_type,
     const mdns::DomainName& domain_name,
     bool a_event,
@@ -556,14 +556,14 @@ bool MdnsResponderService::HandleAaaaEvent(
 }
 
 MdnsResponderService::HostInfo* MdnsResponderService::AddOrGetHostInfo(
-    platform::UdpSocket* socket,
+    platform::Socket* socket,
     const mdns::DomainName& domain_name) {
   return &network_scoped_domain_to_host_[NetworkScopedDomainName{socket,
                                                                  domain_name}];
 }
 
 MdnsResponderService::HostInfo* MdnsResponderService::GetHostInfo(
-    platform::UdpSocket* socket,
+    platform::Socket* socket,
     const mdns::DomainName& domain_name) {
   auto kv = network_scoped_domain_to_host_.find(
       NetworkScopedDomainName{socket, domain_name});
@@ -581,7 +581,7 @@ bool MdnsResponderService::IsServiceReady(const ServiceInstance& instance,
 
 platform::NetworkInterfaceIndex
 MdnsResponderService::GetNetworkInterfaceIndexFromSocket(
-    const platform::UdpSocket* socket) const {
+    const platform::Socket* socket) const {
   auto it = std::find_if(
       bound_interfaces_.begin(), bound_interfaces_.end(),
       [socket](const MdnsPlatformService::BoundInterface& interface) {

@@ -10,7 +10,7 @@
 #include "osp/impl/mdns_responder_service.h"
 #include "osp_base/error.h"
 #include "platform/api/logging.h"
-#include "platform/api/udp_socket.h"
+#include "platform/api/socket.h"
 
 namespace openscreen {
 namespace {
@@ -36,7 +36,7 @@ class MdnsResponderAdapterImplFactory final
   }
 };
 
-Error SetUpMulticastSocket(platform::UdpSocket* socket,
+Error SetUpMulticastSocket(platform::Socket* socket,
                            platform::NetworkInterfaceIndex ifindex) {
   const IPAddress broadcast_address =
       socket->IsIPv6() ? kMulticastIPv6Address : kMulticastAddress;
@@ -153,13 +153,13 @@ InternalServices::InternalPlatformLinkage::RegisterInterfaces(
     const platform::IPSubnet& primary_subnet = addr.addresses.front();
 
     auto create_result =
-        platform::UdpSocket::Create(primary_subnet.address.version());
+        platform::Socket::Create(primary_subnet.address.version());
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create socket for interface " << index << ": "
                     << create_result.error().message();
       continue;
     }
-    platform::UdpSocketUniquePtr socket = create_result.MoveValue();
+    platform::SocketUniquePtr socket = create_result.MoveValue();
     if (!SetUpMulticastSocket(socket.get(), index).ok()) {
       continue;
     }
@@ -174,14 +174,13 @@ InternalServices::InternalPlatformLinkage::RegisterInterfaces(
 void InternalServices::InternalPlatformLinkage::DeregisterInterfaces(
     const std::vector<BoundInterface>& registered_interfaces) {
   for (const auto& interface : registered_interfaces) {
-    platform::UdpSocket* const socket = interface.socket;
+    platform::Socket* const socket = interface.socket;
     parent_->DeregisterMdnsSocket(socket);
 
-    const auto it =
-        std::find_if(open_sockets_.begin(), open_sockets_.end(),
-                     [socket](const platform::UdpSocketUniquePtr& s) {
-                       return s.get() == socket;
-                     });
+    const auto it = std::find_if(open_sockets_.begin(), open_sockets_.end(),
+                                 [socket](const platform::SocketUniquePtr& s) {
+                                   return s.get() == socket;
+                                 });
     OSP_DCHECK(it != open_sockets_.end());
     open_sockets_.erase(it);
   }
@@ -200,12 +199,12 @@ InternalServices::~InternalServices() {
   DestroyEventWaiter(mdns_waiter_);
 }
 
-void InternalServices::RegisterMdnsSocket(platform::UdpSocket* socket) {
-  platform::WatchUdpSocketReadable(mdns_waiter_, socket);
+void InternalServices::RegisterMdnsSocket(platform::Socket* socket) {
+  platform::WatchSocketReadable(mdns_waiter_, socket);
 }
 
-void InternalServices::DeregisterMdnsSocket(platform::UdpSocket* socket) {
-  platform::StopWatchingUdpSocketReadable(mdns_waiter_, socket);
+void InternalServices::DeregisterMdnsSocket(platform::Socket* socket) {
+  platform::StopWatchingSocketReadable(mdns_waiter_, socket);
 }
 
 // static
