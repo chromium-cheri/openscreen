@@ -11,7 +11,7 @@
 #include "osp/impl/quic/quic_connection_factory.h"
 #include "osp_base/ip_address.h"
 #include "platform/api/event_waiter.h"
-#include "platform/api/udp_socket.h"
+#include "platform/api/socket.h"
 #include "third_party/chromium_quic/src/base/at_exit.h"
 #include "third_party/chromium_quic/src/net/quic/quic_chromium_alarm_factory.h"
 #include "third_party/chromium_quic/src/net/third_party/quic/quartc/quartc_factory.h"
@@ -43,13 +43,13 @@ class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
 
   ServerDelegate* server_delegate_ = nullptr;
 
-  std::vector<platform::UdpSocketUniquePtr> sockets_;
+  std::vector<platform::SocketUniquePtr> sockets_;
 
   platform::EventWaiterPtr waiter_;
 
   struct OpenConnection {
     QuicConnection* connection;
-    platform::UdpSocket* socket;  // References one of the owned |sockets_|.
+    platform::Socket* socket;  // References one of the owned |sockets_|.
   };
   std::map<IPEndpoint, OpenConnection, IPEndpointComparator> connections_;
 };

@@ -13,7 +13,7 @@ namespace openscreen {
 MdnsPlatformService::BoundInterface::BoundInterface(
     const platform::InterfaceInfo& interface_info,
     const platform::IPSubnet& subnet,
-    platform::UdpSocket* socket)
+    platform::Socket* socket)
     : interface_info(interface_info), subnet(subnet), socket(socket) {
   OSP_DCHECK(socket);
 }

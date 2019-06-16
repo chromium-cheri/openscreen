@@ -14,10 +14,10 @@ constexpr char kTestServiceInstance[] = "turtle";
 constexpr char kTestServiceName[] = "_foo";
 constexpr char kTestServiceProtocol[] = "_udp";
 
-platform::UdpSocket* const kDefaultSocket =
-    reinterpret_cast<platform::UdpSocket*>(static_cast<uintptr_t>(8));
-platform::UdpSocket* const kSecondSocket =
-    reinterpret_cast<platform::UdpSocket*>(static_cast<uintptr_t>(32));
+platform::Socket* const kDefaultSocket =
+    reinterpret_cast<platform::Socket*>(static_cast<uintptr_t>(8));
+platform::Socket* const kSecondSocket =
+    reinterpret_cast<platform::Socket*>(static_cast<uintptr_t>(32));
 
 }  // namespace
 

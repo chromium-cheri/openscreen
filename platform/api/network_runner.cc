@@ -7,8 +7,8 @@
 namespace openscreen {
 namespace platform {
 
-UdpReadCallback::Packet::Packet() = default;
-UdpReadCallback::Packet::~Packet() = default;
+SocketReadCallback::Packet::Packet() = default;
+SocketReadCallback::Packet::~Packet() = default;
 
 }  // namespace platform
 }  // namespace openscreen

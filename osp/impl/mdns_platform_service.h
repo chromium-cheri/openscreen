@@ -9,7 +9,7 @@
 
 #include "platform/api/event_waiter.h"
 #include "platform/api/network_interface.h"
-#include "platform/api/udp_socket.h"
+#include "platform/api/socket.h"
 #include "platform/base/event_loop.h"
 
 namespace openscreen {
@@ -19,7 +19,7 @@ class MdnsPlatformService {
   struct BoundInterface {
     BoundInterface(const platform::InterfaceInfo& interface_info,
                    const platform::IPSubnet& subnet,
-                   platform::UdpSocket* socket);
+                   platform::Socket* socket);
     ~BoundInterface();
 
     bool operator==(const BoundInterface& other) const;
@@ -27,7 +27,7 @@ class MdnsPlatformService {
 
     platform::InterfaceInfo interface_info;
     platform::IPSubnet subnet;
-    platform::UdpSocket* socket;
+    platform::Socket* socket;
   };
 
   virtual ~MdnsPlatformService() = default;

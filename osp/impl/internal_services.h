@@ -21,7 +21,7 @@
 #include "osp_base/macros.h"
 #include "platform/api/event_waiter.h"
 #include "platform/api/network_interface.h"
-#include "platform/api/udp_socket.h"
+#include "platform/api/socket.h"
 #include "platform/base/event_loop.h"
 
 namespace openscreen {
@@ -55,14 +55,14 @@ class InternalServices {
 
    private:
     InternalServices* const parent_;
-    std::vector<platform::UdpSocketUniquePtr> open_sockets_;
+    std::vector<platform::SocketUniquePtr> open_sockets_;
   };
 
   InternalServices();
   ~InternalServices();
 
-  void RegisterMdnsSocket(platform::UdpSocket* socket);
-  void DeregisterMdnsSocket(platform::UdpSocket* socket);
+  void RegisterMdnsSocket(platform::Socket* socket);
+  void DeregisterMdnsSocket(platform::Socket* socket);
 
   static InternalServices* ReferenceSingleton();
   static void DereferenceSingleton(void* instance);

@@ -91,10 +91,10 @@ class MockServicePublisherObserver final : public ServicePublisher::Observer {
   MOCK_METHOD1(OnMetrics, void(ServicePublisher::Metrics));
 };
 
-platform::UdpSocket* const kDefaultSocket =
-    reinterpret_cast<platform::UdpSocket*>(static_cast<uintptr_t>(16));
-platform::UdpSocket* const kSecondSocket =
-    reinterpret_cast<platform::UdpSocket*>(static_cast<uintptr_t>(24));
+platform::Socket* const kDefaultSocket =
+    reinterpret_cast<platform::Socket*>(static_cast<uintptr_t>(16));
+platform::Socket* const kSecondSocket =
+    reinterpret_cast<platform::Socket*>(static_cast<uintptr_t>(24));
 
 class MdnsResponderServiceTest : public ::testing::Test {
  protected:

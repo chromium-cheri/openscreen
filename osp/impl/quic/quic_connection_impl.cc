@@ -15,7 +15,7 @@
 
 namespace openscreen {
 
-UdpTransport::UdpTransport(platform::UdpSocket* socket,
+UdpTransport::UdpTransport(platform::Socket* socket,
                            const IPEndpoint& destination)
     : socket_(socket), destination_(destination) {
   OSP_DCHECK(socket_);
@@ -90,7 +90,7 @@ QuicConnectionImpl::QuicConnectionImpl(
 QuicConnectionImpl::~QuicConnectionImpl() = default;
 
 void QuicConnectionImpl::OnDataReceived(
-    const platform::UdpReadCallback::Packet& data) {
+    const platform::SocketReadCallback::Packet& data) {
   session_->OnTransportReceived(reinterpret_cast<const char*>(data.data()),
                                 data.length);
 }

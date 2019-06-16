@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file
 
-#ifndef PLATFORM_API_UDP_CALLBACKS_H_
-#define PLATFORM_API_UDP_CALLBACKS_H_
+#ifndef PLATFORM_API_SOCKET_CALLBACKS_H_
+#define PLATFORM_API_SOCKET_CALLBACKS_H_
 
 #include <array>
 #include <cstdint>
@@ -15,13 +15,14 @@ namespace openscreen {
 namespace platform {
 
 class NetworkRunner;
-class UdpSocket;
+class Socket;
 
-static constexpr int kUdpMaxPacketSize = 1 << 16;
+static constexpr int kMaxSocketPacketSize = 1 << 16;
 
-class UdpReadCallback {
+// TODO(jophba): unify with delegate interface in Socket.
+class SocketReadCallback {
  public:
-  struct Packet : std::array<uint8_t, kUdpMaxPacketSize> {
+  struct Packet : std::array<uint8_t, kMaxSocketPacketSize> {
     Packet();
     ~Packet();
 
@@ -31,10 +32,10 @@ class UdpReadCallback {
     // TODO(btolsch): When this gets to implementation, make sure the callback
     // is never called with a |socket| that could have been destroyed (e.g.
     // between queueing the read data and running the task).
-    UdpSocket* socket;
+    Socket* socket;
   };
 
-  virtual ~UdpReadCallback() = default;
+  virtual ~SocketReadCallback() = default;
 
   virtual void OnRead(std::unique_ptr<Packet> data,
                       NetworkRunner* network_runner) = 0;
@@ -43,4 +44,4 @@ class UdpReadCallback {
 }  // namespace platform
 }  // namespace openscreen
 
-#endif  // PLATFORM_API_UDP_CALLBACKS_H_
+#endif  // PLATFORM_API_SOCKET_CALLBACKS_H_

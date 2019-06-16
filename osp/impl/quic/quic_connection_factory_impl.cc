@@ -104,21 +104,20 @@ void QuicConnectionFactoryImpl::SetServerDelegate(
     // create/bind errors occur. Maybe return an Error immediately, and undo
     // partial progress (i.e. "unwatch" all the sockets and call
     // sockets_.clear() to close the sockets)?
-    auto create_result =
-        platform::UdpSocket::Create(endpoint.address.version());
+    auto create_result = platform::Socket::Create(endpoint.address.version());
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create socket (for " << endpoint
                     << "): " << create_result.error().message();
       continue;
     }
-    platform::UdpSocketUniquePtr server_socket = create_result.MoveValue();
+    platform::SocketUniquePtr server_socket = create_result.MoveValue();
     Error bind_result = server_socket->Bind(endpoint);
     if (!bind_result.ok()) {
       OSP_LOG_ERROR << "failed to bind socket (for " << endpoint
                     << "): " << bind_result.message();
       continue;
     }
-    platform::WatchUdpSocketReadable(waiter_, server_socket.get());
+    platform::WatchSocketReadable(waiter_, server_socket.get());
     sockets_.emplace_back(std::move(server_socket));
   }
 }
@@ -128,7 +127,7 @@ void QuicConnectionFactoryImpl::RunTasks() {
     // Ensure that |packet.socket| is one of the instances owned by
     // QuicConnectionFactoryImpl.
     OSP_DCHECK(std::find_if(sockets_.begin(), sockets_.end(),
-                            [&packet](const platform::UdpSocketUniquePtr& s) {
+                            [&packet](const platform::SocketUniquePtr& s) {
                               return s.get() == packet.socket;
                             }) != sockets_.end());
 
@@ -165,14 +164,14 @@ void QuicConnectionFactoryImpl::RunTasks() {
 std::unique_ptr<QuicConnection> QuicConnectionFactoryImpl::Connect(
     const IPEndpoint& endpoint,
     QuicConnection::Delegate* connection_delegate) {
-  auto create_result = platform::UdpSocket::Create(endpoint.address.version());
+  auto create_result = platform::Socket::Create(endpoint.address.version());
   if (!create_result) {
     OSP_LOG_ERROR << "failed to create socket: "
                   << create_result.error().message();
     // TODO(mfoltz): This method should return ErrorOr<uni_ptr<QuicConnection>>.
     return nullptr;
   }
-  platform::UdpSocketUniquePtr socket = create_result.MoveValue();
+  platform::SocketUniquePtr socket = create_result.MoveValue();
   auto transport = std::make_unique<UdpTransport>(socket.get(), endpoint);
 
   ::quic::QuartcSessionConfig session_config;
@@ -186,7 +185,7 @@ std::unique_ptr<QuicConnection> QuicConnectionFactoryImpl::Connect(
       this, connection_delegate, std::move(transport),
       quartc_factory_->CreateQuartcSession(session_config));
 
-  platform::WatchUdpSocketReadable(waiter_, socket.get());
+  platform::WatchSocketReadable(waiter_, socket.get());
 
   // TODO(btolsch): This presents a problem for multihomed receivers, which may
   // register as a different endpoint in their response.  I think QUIC is
@@ -205,7 +204,7 @@ void QuicConnectionFactoryImpl::OnConnectionClosed(QuicConnection* connection) {
         return entry.second.connection == connection;
       });
   OSP_DCHECK(entry != connections_.end());
-  platform::UdpSocket* const socket = entry->second.socket;
+  platform::Socket* const socket = entry->second.socket;
   connections_.erase(entry);
 
   // If none of the remaining |connections_| reference the socket, close/destroy
@@ -214,12 +213,11 @@ void QuicConnectionFactoryImpl::OnConnectionClosed(QuicConnection* connection) {
                    [socket](const decltype(connections_)::value_type& entry) {
                      return entry.second.socket == socket;
                    }) == connections_.end()) {
-    platform::StopWatchingUdpSocketReadable(waiter_, socket);
-    auto socket_it =
-        std::find_if(sockets_.begin(), sockets_.end(),
-                     [socket](const platform::UdpSocketUniquePtr& s) {
-                       return s.get() == socket;
-                     });
+    platform::StopWatchingSocketReadable(waiter_, socket);
+    auto socket_it = std::find_if(sockets_.begin(), sockets_.end(),
+                                  [socket](const platform::SocketUniquePtr& s) {
+                                    return s.get() == socket;
+                                  });
     OSP_DCHECK(socket_it != sockets_.end());
     sockets_.erase(socket_it);
   }
