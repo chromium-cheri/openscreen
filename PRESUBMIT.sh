@@ -50,7 +50,7 @@ if [[ "${BASH_VERSION:0:1}" -lt 4 ]]; then
   exit $fail
 fi
 
-for f in $(git diff --name-only --diff-filter=d @{u}); do
+for f in $(git diff --name-only --diff-filter=d origin/master); do
   # Skip third party files, except our custom BUILD.gns
   if [[ $f =~ third_party/[^\/]*/src ]]; then
     continue;
