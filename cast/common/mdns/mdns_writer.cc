@@ -214,6 +214,52 @@ bool MdnsWriter::WriteMdnsRecord(const MdnsRecord& record) {
   return false;
 }
 
+bool MdnsWriter::WriteMdnsQuestion(const MdnsQuestion& question) {
+  Cursor cursor(this);
+  if (WriteDomainName(question.name()) && Write<uint16_t>(question.type()) &&
+      Write<uint16_t>(question.record_class())) {
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
+bool MdnsWriter::WriteMdnsMessage(const MdnsMessage& message) {
+  Cursor cursor(this);
+  Header header;
+  header.id = message.id();
+  header.flags = message.flags();
+  header.qdcount = message.questions().size();
+  header.ancount = message.answers().size();
+  header.nscount = message.authority_records().size();
+  header.arcount = message.additional_records().size();
+  if (WriteMdnsMessageHeader(header)) {
+    for (const MdnsQuestion& question : message.questions()) {
+      if (!WriteMdnsQuestion(question)){
+        return false;
+      }
+    }
+    for (const MdnsRecord& answer : message.answers()) {
+      if (!WriteMdnsRecord(answer)){
+        return false;
+      }
+    }
+    for (const MdnsRecord& record : message.authority_records()) {
+      if (!WriteMdnsRecord(record)){
+        return false;
+      }
+    }
+    for (const MdnsRecord& record : message.additional_records()) {
+      if (!WriteMdnsRecord(record)){
+        return false;
+      }
+    }
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
 bool MdnsWriter::WriteIPAddress(const IPAddress& address) {
   uint8_t bytes[IPAddress::kV6Size];
   size_t size;
@@ -256,6 +302,17 @@ bool MdnsWriter::WriteRdata(const Rdata& rdata) {
 
   RdataWriter rdata_writer(this);
   return absl::visit(rdata_writer, rdata);
+}
+
+bool MdnsWriter::WriteMdnsMessageHeader(const Header& header) {
+  Cursor cursor(this);
+  if (Write<uint16_t>(header.id) && Write<uint16_t>(header.flags) &&
+      Write<uint16_t>(header.qdcount) && Write<uint16_t>(header.ancount) &&
+      Write<uint16_t>(header.nscount) && Write<uint16_t>(header.arcount)) {
+    cursor.Commit();
+    return true;
+  }
+  return false;
 }
 
 }  // namespace mdns
