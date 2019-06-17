@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "5917cec8_4e0b566a",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "Can you explain what this is adding to EventWaiter?  It seems like it\u0027s duplicating the existing functionality but breaking it up in a different way.  This could be related to the fact that I don\u0027t understand why item 1 in the CL description is necessary.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c990eaa1_eddfbb2b",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 2
@@ -87,6 +104,23 @@
     },
     {
       "key": {
+        "uuid": "e43508f9_52a75830",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "nit: NOTE portion is unnecessary explanation.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f0660ae_01bfaeb7",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 2
@@ -121,6 +155,24 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "1/We\u0027re trying to eliminate singletons from the code base, but it probably makes sense as we never want multiple runners per process.\n\n2/However this makes unit testing more complicated.\n\n3/Can this be named GetInstance for consistency with other Chromium code?",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6e6d991_b6aa8b96",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "FYI I believe 2 is a very large part of 1.",
+      "parentUuid": "481699f3_31752ee2",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -276,6 +328,103 @@
     },
     {
       "key": {
+        "uuid": "0aa3b0bb_894b482d",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "These weren\u0027t added previously because the platform was meant to have its own way of driving the TaskRunner it provided (e.g. because SequencedTaskRunner in Chromium doesn\u0027t have anything analogous to these).\n\nMy comment about merging NetworkRunnerImpl and TaskRunnerImpl would also make these unnecessary.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f52719b_26258d48",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "These should just be in a member initialization list: https://en.cppreference.com/w/cpp/language/initializer_list",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f7d0c17_a000ba30",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "emplace",
+      "range": {
+        "startLine": 57,
+        "startChar": 26,
+        "endLine": 57,
+        "endChar": 32
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a0fd5d6_9f627874",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "I wouldn\u0027t term this an IO failure, there was just already someone else waiting on this socket.  Maybe kAlreadyListening (though that was added for a different purpose)?",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "494e6e85_273bf664",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "emplace",
+      "range": {
+        "startLine": 70,
+        "startChar": 27,
+        "endLine": 70,
+        "endChar": 33
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3df49b5_9224c067",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -287,6 +436,23 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "A duplicate entry in the map doesn\u0027t seem like an I/O failure.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4342f3ec_cf4f4280",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "IMO just DCHECK(task_runner_)",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -408,6 +574,70 @@
     },
     {
       "key": {
+        "uuid": "c703f8b7_80a58a45",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "This could be `std::chrono::milliseconds(250)` or just `milliseconds(250)` with a using declaration somewhere.",
+      "parentUuid": "3ccbc33c_f298dcb7",
+      "range": {
+        "startLine": 142,
+        "startChar": 50,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe1bd85e_3195886b",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "for/i unnecessary, just use `while (continue_network_procesing_)`",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05942d64_eb632225",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "What service?  \"for NetworkRunnerImpl\"?",
+      "range": {
+        "startLine": 19,
+        "startChar": 39,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "059bf65d_00c9e0c2",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 2
@@ -419,6 +649,23 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "What is the lifetime relationship between this object and the UdpSocket* passed through the API takes? How will the caller know it\u0027s safe to delete a UdpSocket?",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81bdc8f2_673beda4",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "nit: unnecessary explanation IMO.",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -557,6 +804,23 @@
     },
     {
       "key": {
+        "uuid": "f9dc166b_3ff1062b",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "I\u0027d prefer a lambda over std::bind everywhere.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd49c689_f3734532",
         "filename": "platform/base/network_runner.cc",
         "patchSetId": 2
@@ -580,6 +844,40 @@
     },
     {
       "key": {
+        "uuid": "c3da526b_4b01e0ad",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "IMO there should either be a join of both threads here to preserve the blocking behavior/implication or we should rename this.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c23e231_1594c024",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "We explicitly added this warning to prevent this; it\u0027s not just the compiler being picky.  I believe the OSP solution has been to make these a raw pointer and just turn make_unique into new, letting it leak on exit.  Chromium has base::LazyInstance::Leaky [1] for this but I don\u0027t think we plan to import it (it goes a step further and only creates one on first access).\n\n[1] https://cs.chromium.org/chromium/src/base/lazy_instance.h?type\u003dcs\u0026q\u003dlazyinstance\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d132",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97e7933b_942bab1e",
         "filename": "platform/base/network_runner.h",
         "patchSetId": 2
@@ -591,6 +889,23 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "Filename should be network_runner_impl.h",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47ee63fe_80b28cda",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "IMO we wouldn\u0027t need a fake NetworkRunner (positive, also IMO) if the following things changed:\n 1. This still allowed for the clock function to be injected.\n 2. TaskRunnerImpl moved into this impl directly instead of injecting a unique_ptr\u003cTaskRunner\u003e.\n\nAlthough 1 seems reasonable by itself, it\u0027s probably useless without 2 or something similar.\n\nAt this point, we don\u0027t need a TaskRunnerImpl by itself at all anymore, because NetworkRunnerImpl will always be what\u0027s substituted for a TaskRunner.  Then, copying its implementation here would give us the ability to run tasks on the same thread that calls NetworkRunnerImpl (i.e. can sequence with unit test code), which also enables RunUntilIdleForTesting.\n\nThis probably isn\u0027t going to be a popular opinion but I want to see what others\u0027 opinions are nonetheless.  IMO allowing an arbitrary TaskRunner to be injected won\u0027t necessarily allow code re-use here because for e.g. Chromium, we still need an entirely different NetworkRunner (and starting a new thread to run SequencedTaskRunner isn\u0027t what we want/possible anyway).  Also, the current singleton impl means we\u0027re locked into TaskRunnerImpl that way as well anyway.",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -668,6 +983,30 @@
     },
     {
       "key": {
+        "uuid": "2b4d7b06_a2ef0579",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "This could be private by declaring both NetworkRunner and std::make_unique (or using std::unique_ptr(new ...) work-around) as friends.",
+      "parentUuid": "7b4deeae_87f2fe71",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4290b918_ef65614c",
         "filename": "platform/base/network_runner.h",
         "patchSetId": 2
@@ -696,6 +1035,23 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "instance\u0027s",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "392b87a9_6a47fd3d",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-17T23:59:32Z",
+      "side": 1,
+      "message": "rv \u003d\u003d 0 is a timeout, not an IO failure.  That is also a bug in the current WaitForEvents; at one point it blocked forever, and in that case the error code is correct.",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
