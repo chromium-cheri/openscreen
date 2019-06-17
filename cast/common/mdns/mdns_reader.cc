@@ -210,7 +210,65 @@ bool MdnsReader::ReadMdnsRecord(MdnsRecord* out) {
   return false;
 }
 
+bool MdnsReader::ReadMdnsQuestion(MdnsQuestion* out) {
+  OSP_DCHECK(out);
+  Cursor cursor(this);
+  DomainName name;
+  uint16_t type;
+  uint16_t record_class;
+  if (ReadDomainName(&name) && Read<uint16_t>(&type) &&
+      Read<uint16_t>(&record_class)) {
+    *out = MdnsQuestion(std::move(name), type, record_class);
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
+bool MdnsReader::ReadMdnsMessage(MdnsMessage* out) {
+  OSP_DCHECK(out);
+  Cursor cursor(this);
+  Header header;
+  if (ReadMdnsMessageHeader(&header)) {
+    MdnsMessage message(header.id, header.flags);
+    // TODO(yakimakha): would be great to reserve space in internal collections
+    for (uint16_t i = 0; i < header.qdcount; ++i) {
+      MdnsQuestion question;
+      if (!ReadMdnsQuestion(&question)) {
+        return false;
+      }
+      message.AddQuestion(std::move(question));
+    }
+    for (uint16_t i = 0; i < header.ancount; ++i) {
+      MdnsRecord answer;
+      if (!ReadMdnsRecord(&answer)) {
+        return false;
+      }
+      message.AddAnswer(std::move(answer));
+    }
+    for (uint16_t i = 0; i < header.nscount; ++i) {
+      MdnsRecord record;
+      if (!ReadMdnsRecord(&record)) {
+        return false;
+      }
+      message.AddAuthorityRecord(std::move(record));
+    }
+    for (uint16_t i = 0; i < header.arcount; ++i) {
+      MdnsRecord record;
+      if (!ReadMdnsRecord(&record)) {
+        return false;
+      }
+      message.AddAdditionalRecord(std::move(record));
+    }
+    *out = std::move(message);
+    cursor.Commit();
+    return true;
+  }
+  return false;
+}
+
 bool MdnsReader::ReadIPAddress(IPAddress::Version version, IPAddress* out) {
+  OSP_DCHECK(out);
   size_t ipaddress_size = (version == IPAddress::Version::kV6)
                               ? IPAddress::kV6Size
                               : IPAddress::kV4Size;
@@ -223,6 +281,7 @@ bool MdnsReader::ReadIPAddress(IPAddress::Version version, IPAddress* out) {
 }
 
 bool MdnsReader::ReadRdata(uint16_t type, Rdata* out) {
+  OSP_DCHECK(out);
   switch (type) {
     case kTypeSRV: {
       SrvRecordRdata srv_rdata;
@@ -273,6 +332,18 @@ bool MdnsReader::ReadRdata(uint16_t type, Rdata* out) {
       return false;
     }
   }
+}
+
+bool MdnsReader::ReadMdnsMessageHeader(Header* out) {
+  OSP_DCHECK(out);
+  Cursor cursor(this);
+  if (Read<uint16_t>(&out->id) && Read<uint16_t>(&out->flags) &&
+      Read<uint16_t>(&out->qdcount) && Read<uint16_t>(&out->ancount) &&
+      Read<uint16_t>(&out->nscount) && Read<uint16_t>(&out->arcount)) {
+    cursor.Commit();
+    return true;
+  }
+  return false;
 }
 
 }  // namespace mdns
