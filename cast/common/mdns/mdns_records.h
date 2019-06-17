@@ -273,10 +273,80 @@ class MdnsRecord {
   DomainName name_;
   uint16_t type_ = 0;
   uint16_t record_class_ = 0;
-  uint32_t ttl_ = 0;
+  uint32_t ttl_ = kDefaultRecordTTL;
   // Default-constructed Rdata contains default-constructed RawRecordRdata
   // as it is the first alternative type and it is default-constructible.
   Rdata rdata_;
+};
+
+class MdnsQuestion {
+ public:
+  MdnsQuestion() = default;
+  MdnsQuestion(DomainName name,
+             uint16_t type,
+             uint16_t record_class);
+  MdnsQuestion(const MdnsQuestion& other) = default;
+  MdnsQuestion(MdnsQuestion&& other) noexcept = default;
+  ~MdnsQuestion() = default;
+
+  MdnsQuestion& operator=(const MdnsQuestion& other) = default;
+  MdnsQuestion& operator=(MdnsQuestion&& other) noexcept = default;
+
+  bool operator==(const MdnsQuestion& other) const;
+  bool operator!=(const MdnsQuestion& other) const;
+
+  size_t max_wire_size() const;
+  const DomainName& name() const { return name_; }
+  uint16_t type() const { return type_; }
+  uint16_t record_class() const { return record_class_; }
+
+ private:
+  void CopyFrom(const MdnsQuestion& other);
+
+  DomainName name_;
+  uint16_t type_;
+  uint16_t record_class_;
+};
+
+class MdnsMessage {
+ public:
+  MdnsMessage() = default;
+  MdnsMessage(uint16_t id, uint16_t flags);
+  MdnsMessage(const MdnsMessage& other) = default;
+  MdnsMessage(MdnsMessage&& other) noexcept = default;
+  ~MdnsMessage() = default;
+
+  MdnsMessage& operator=(const MdnsMessage& other) = default;
+  MdnsMessage& operator=(MdnsMessage&& other) noexcept = default;
+
+  bool operator==(const MdnsMessage& other) const;
+  bool operator!=(const MdnsMessage& other) const;
+
+  void ClearRecords();
+  void AddQuestion(MdnsQuestion question);
+  void AddAnswer(MdnsRecord record);
+  void AddAuthorityRecord(MdnsRecord record);
+  void AddAdditionalRecord(MdnsRecord record);
+
+  size_t max_wire_size() const;
+  uint16_t id() const { return id_; }
+  uint16_t flags() const { return flags_; }
+  const std::vector<MdnsQuestion>& questions() const { return questions_; }
+  const std::vector<MdnsRecord>& answers() const { return answers_; }
+  const std::vector<MdnsRecord>& authority_records() const {
+    return authority_records_;
+  }
+  const std::vector<MdnsRecord>& additional_records() const {
+    return additional_records_;
+  }
+
+ private:
+  uint16_t id_ = 0;
+  uint16_t flags_ = 0;
+  std::vector<MdnsQuestion> questions_;
+  std::vector<MdnsRecord> answers_;
+  std::vector<MdnsRecord> authority_records_;
+  std::vector<MdnsRecord> additional_records_;
 };
 
 }  // namespace mdns

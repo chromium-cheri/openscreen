@@ -31,10 +31,15 @@ class MdnsReader : public openscreen::BigEndianReader {
   // The correct type of RDATA to be read is determined by the type
   // specified in the record.
   bool ReadMdnsRecord(MdnsRecord* out);
+  bool ReadMdnsQuestion(MdnsQuestion* out);
+  // This method reads multiple mDNS questions and records that are a part of
+  // a mDNS message being read
+  bool ReadMdnsMessage(MdnsMessage* out);
 
-private:
+ private:
   bool ReadIPAddress(IPAddress::Version version, IPAddress* out);
   bool ReadRdata(uint16_t type, Rdata* out);
+  bool ReadMdnsMessageHeader(Header* out);
 };
 
 }  // namespace mdns
