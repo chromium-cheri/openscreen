@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f3384ab1_f195d60a",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "In the move constructor, there is no pre-existing CancelableFunctor object. Its memory is being initialized for the first time. So, nothing exists to be canceled.",
+      "parentUuid": "22e64f75_2d14bb6f",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 13
+      },
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b62d7e83_3e19ad12",
         "filename": "osp_base/alarm.cc",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2019-06-08T05:13:16Z",
       "side": 1,
       "message": "I think this would be slightly more readable like this:\n\n// If there is no task in the TaskRunner, schedule one\n// If there is but it would fire too late, cancel it and schedule a new one.\nif (!pending_fire_) {\n  Schedule(now_function_(), alarm_time);\n} else if (next_fire_time_ \u003e alarm_time) {\n  pending_fire_-\u003eCancel();\n  Schedule(now_function_(), alarm_time);\n}",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5454bb1_1b35e3e6",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "I thought about this one for a while, and finally have to disagree. IMHO, I actually think my version is the more readable one:\n\n1. There is a clearly-marked \"exceptional case\" early-exit point with the early return. All other cases are going to flow to the end of the method, ending up with a Schedule().\n\n2. All use of |pending_fire_| is scoped within the if-statement that null-checks it. Feels safer. Your solution uses |pending_fire_| only in the else-if clause, which structurally looks separate from where the null-check happens (i.e., there is more mental effort to realize |pending_fire_| is not null there).\n\nWDYT?",
+      "parentUuid": "b62d7e83_3e19ad12",
       "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "06b8d0d2_47c8af29",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d85c46a7_132384e1",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e4ffa2b_aeecad5b",
         "filename": "osp_base/alarm.h",
         "patchSetId": 2
@@ -70,6 +130,24 @@
       "writtenOn": "2019-06-08T05:13:16Z",
       "side": 1,
       "message": "Since the comment basically describes this as reschedulable Task, why not call it ReschedulableTask?  Or, since you can change the task as well as the time, perhaps AdjustableTask.",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9098ffb_dea0c837",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "It\u0027s not a Task. It\u0027s a \"manager\" of when client-provided Tasks will execute. And, it\u0027s meant to be re-used multiple times, not just one time for one Task.\n\nTimer would be a more-accurate name, since that\u0027s a pretty core CS concept (w.r.t. setting timer interrupts in CPUs) and describes what this does. I chose not to call it that out of worries people would think of it as the same thing as Chromium\u0027s base::Timer (although they are very similar).\n\nAlarm seemed to me to be a close second, especially since the API is to schedule a Task to run after a specific point-in-time. I\u0027d prefer to keep the name as-is.\n\nWDYT?",
+      "parentUuid": "2e4ffa2b_aeecad5b",
       "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -111,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "60faaa39_9969b4cf",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5ee94f_1f523d71",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19ba1bb3_9e381ee1",
         "filename": "osp_base/alarm.h",
         "patchSetId": 2
@@ -125,6 +221,24 @@
       "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8155eb3c_9607fcf5",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19ba1bb3_9e381ee1",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +259,24 @@
     },
     {
       "key": {
+        "uuid": "2ba2a08e_5397ab6d",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02629fd2_266d1a50",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4caa3c3d_be4e75ac",
         "filename": "osp_base/alarm.h",
         "patchSetId": 2
@@ -156,6 +288,24 @@
       "writtenOn": "2019-06-08T05:13:16Z",
       "side": 1,
       "message": "It seems like this should be called CancelableWrapper.",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90a12284_5266b295",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "I\u0027m going to disagree with you on this one: What would calling Cancel() on a wrapper mean? Unwrap?\n\nCould you explain what is wrong with the naming I\u0027m using here?",
+      "parentUuid": "4caa3c3d_be4e75ac",
       "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -176,6 +326,24 @@
       "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7faa4cbb_7151674c",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20f65e2d_72983203",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +370,30 @@
     },
     {
       "key": {
+        "uuid": "0c923afd_647707cb",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Yes. It also makes this class non-movable.",
+      "parentUuid": "2d234874_cca8716a",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 37
+      },
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1b3ddb8_7b3ac916",
         "filename": "osp_base/alarm.h",
         "patchSetId": 2
@@ -219,6 +411,24 @@
     },
     {
       "key": {
+        "uuid": "1a34e379_bc621f75",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done. scheduled_task_",
+      "parentUuid": "f1b3ddb8_7b3ac916",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "777fd237_ab2d8cc5",
         "filename": "osp_base/alarm.h",
         "patchSetId": 2
@@ -233,6 +443,24 @@
       "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5fe5f99_981ef177",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "777fd237_ab2d8cc5",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -259,6 +487,30 @@
     },
     {
       "key": {
+        "uuid": "a1bf6eeb_4d6cf2ba",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3bd1d7b_64993f38",
+      "range": {
+        "startLine": 84,
+        "startChar": 49,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95d6dd30_b33d180a",
         "filename": "osp_base/alarm.h",
         "patchSetId": 2
@@ -273,6 +525,24 @@
       "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "443c2310_6b84417c",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T00:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95d6dd30_b33d180a",
+      "revId": "c73115bcfa75a3f90c8d02163d15f28c20d4c26f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
