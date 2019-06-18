@@ -75,9 +75,11 @@ bool MdnsReader::ReadDomainName(DomainName* out) {
       if (position + label_length >= end()) {
         return false;
       }
-      absl::string_view label(reinterpret_cast<const char*>(position), label_length);
-      domain_name_length += label_length + 1; // including the length byte
-      if (!IsValidDomainLabel(label) || domain_name_length > kMaxDomainNameLength) {
+      absl::string_view label(reinterpret_cast<const char*>(position),
+                              label_length);
+      domain_name_length += label_length + 1;  // including the length byte
+      if (!IsValidDomainLabel(label) ||
+          domain_name_length > kMaxDomainNameLength) {
         return false;
       }
       labels.push_back(label);

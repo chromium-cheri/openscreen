@@ -33,7 +33,7 @@ class MdnsReader : public openscreen::BigEndianReader {
   bool ReadMdnsRecord(MdnsRecord* out);
   bool ReadMdnsQuestion(MdnsQuestion* out);
 
-private:
+ private:
   bool ReadIPAddress(IPAddress::Version version, IPAddress* out);
   bool ReadRdata(uint16_t type, Rdata* out);
 };
