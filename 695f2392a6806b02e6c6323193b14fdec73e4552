@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "16e402b8_89ddbdfa",
+        "filename": "platform/api/power_save_blocker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T22:47:22Z",
+      "side": 1,
+      "message": "Suggestion: Add \"Scoped\" as a prefix, to reflect the lock/unlock behavior being bound to the scope of the object (common Chromium naming thing).",
+      "parentUuid": "a873be49_97347867",
+      "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f18032a_479b9a61",
         "filename": "platform/base/power_manager.cc",
         "patchSetId": 2
@@ -53,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "43673bc6_65181271",
+        "filename": "platform/base/power_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T22:47:22Z",
+      "side": 1,
+      "message": "style: Globals should have \"g_\" prefix (and not \"_\" suffix).  ...unless you make them class static members...\n\nAlso, suggest putting these in an anonymous namespace.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 54
+      },
+      "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc7a15a1_e39ae56a",
         "filename": "platform/base/power_manager.cc",
         "patchSetId": 2
@@ -64,6 +105,52 @@
       "writtenOn": "2019-06-13T20:53:52Z",
       "side": 1,
       "message": "Is this to run a destructor at process exit time?\nI\u0027m not sure what guarantees can be made that they will execute.",
+      "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f3aa454_be45bcbf",
+        "filename": "platform/base/power_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T22:47:22Z",
+      "side": 1,
+      "message": "Since we\u0027re dealing with globals anyway, how about just make them private static members of PowerSaveBlocker?\n\nSide note: It may be best to have the ref-counting handled by the standalone/embedder impls, and not have a PowerManager at all. In Chromium, I think it does its own internal ref-counting to de-dupe multiple of the same \"power save blocks\" from the various product features.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b090c9_3c9e611d",
+        "filename": "platform/base/power_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T22:47:22Z",
+      "side": 1,
+      "message": "Do we need these at all? Seems like client code should just own the PowerSaveBlocker, creating/destroying it at the right times.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 32
+      },
       "revId": "695f2392a6806b02e6c6323193b14fdec73e4552",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
