@@ -32,10 +32,37 @@ class MdnsReader : public openscreen::BigEndianReader {
   // specified in the record.
   bool ReadMdnsRecord(MdnsRecord* out);
   bool ReadMdnsQuestion(MdnsQuestion* out);
+  // This method reads multiple mDNS questions and records that are a part of
+  // a mDNS message being read
+  bool ReadMdnsMessage(MdnsMessage* out);
 
-private:
+ private:
   bool ReadIPAddress(IPAddress::Version version, IPAddress* out);
   bool ReadRdata(uint16_t type, Rdata* out);
+  bool ReadMdnsMessageHeader(Header* out);
+
+  template <class CountType, class ItemType>
+  bool ReadCollection(CountType count, std::vector<ItemType>* out) {
+    Cursor cursor(this);
+    out->reserve(count);
+    for (CountType i = 0; i < count; ++i) {
+      ItemType entry;
+      if (!ReadCollectionItem(&entry)) {
+        return false;
+      }
+      out->emplace_back(std::move(entry));
+    }
+    cursor.Commit();
+    return true;
+  }
+
+  // Forwarding helpers for ReadCollection
+  inline bool ReadCollectionItem(MdnsRecord* out) {
+    return ReadMdnsRecord(out);
+  }
+  inline bool ReadCollectionItem(MdnsQuestion* out) {
+    return ReadMdnsQuestion(out);
+  }
 };
 
 }  // namespace mdns
