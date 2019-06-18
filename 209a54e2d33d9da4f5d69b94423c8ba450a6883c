@@ -16,6 +16,24 @@
       "revId": "209a54e2d33d9da4f5d69b94423c8ba450a6883c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aea59bf0_cb85cf01",
+        "filename": "PRESUBMIT.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-18T20:41:00Z",
+      "side": 1,
+      "message": "No, there\u0027s no CIPD package for clang-format AFAIK; it\u0027s still downloaded from storage.googleapis.com with a checked-in SHA1 in Chromium as well.\n\nThe gn that\u0027s installed in the root directory is just a hard link to the CIPD package one in buildtools/\u003cplatform\u003e/.  Our bot recipe doesn\u0027t use this hard link though, so it\u0027s purely for developer convenience.  Would you prefer to remove it?",
+      "parentUuid": "fc85ded1_60891909",
+      "revId": "209a54e2d33d9da4f5d69b94423c8ba450a6883c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
