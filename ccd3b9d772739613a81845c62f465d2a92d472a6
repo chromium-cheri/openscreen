@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cabfb6a4_faa7ecee",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:16:15Z",
+      "side": 1,
+      "message": "It might be good to note that queued_fire_ will be nullptr after Cancel() returns.",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3bbdac2_1940880c",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:16:15Z",
+      "side": 1,
+      "message": "Is it expected that task_runner_ will be bound to a different thread than the one that instantiated the Alarm and scheduled the tasks?  Is it safe to access Alarm members in that scenario?",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef0d24e5_def8196d",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:16:15Z",
+      "side": 1,
+      "message": "nit: s/If/if/",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4180cf0_103e9e35",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:16:15Z",
+      "side": 1,
+      "message": "nit: callback",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "404b6a2e_fecc3b42",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:16:15Z",
+      "side": 1,
+      "message": "Perhaps note that functor should be move-able.  I don\u0027t believe that callers will want the Alarm to copy functor, but I could be wrong.  For bonus points, have this function take Functor\u0026\u0026.",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ada1f94_73376b9e",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:16:15Z",
+      "side": 1,
+      "message": "What if the Task is currently executing, or has already executed?",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cebae2f_919c3e68",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:16:15Z",
+      "side": 1,
+      "message": "What if the task is currently executing?",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a5218e_8cc834ea",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:16:15Z",
+      "side": 1,
+      "message": "Task\u0026\u0026?\n\nNit: I think names shortened by using-expressions are discouraged in public APIs, but I\u0027m not sure if this is spelled out or enforced.  I don\u0027t feel that strongly about it in a small codebase like OSP.",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
