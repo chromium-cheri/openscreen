@@ -8,9 +8,10 @@
 #  - all header files have appropriate include guards.
 #  - all GN files are formatted with `gn format`.
 fail=0
+clang_format_path=$(dirname $(which clang-format))
 
 function check_clang_format() {
-  if ! cmp -s <(clang-format -style=file "$1") "$1"; then
+  if ! cmp -s <($clang_format_path/clang-format -style=file "$1") "$1"; then
     echo "Needs format: $1"
     fail=1
   fi
@@ -50,7 +51,14 @@ if [[ "${BASH_VERSION:0:1}" -lt 4 ]]; then
   exit $fail
 fi
 
-for f in $(git diff --name-only --diff-filter=d @{u}); do
+if [[ -z "$clang_format_path" ]]; then
+  clang_format_path="."
+  if [[ ! -e ./clang-format ]]; then
+    tools/install-build-tools.sh
+  fi
+fi
+
+for f in $(git diff --name-only --diff-filter=d origin/master); do
   # Skip third party files, except our custom BUILD.gns
   if [[ $f =~ third_party/[^\/]*/src ]]; then
     continue;
