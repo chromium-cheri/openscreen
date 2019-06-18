@@ -2,6 +2,142 @@
   "comments": [
     {
       "key": {
+        "uuid": "46d493e9_f74f43ff",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Might make this more clear with:\n\nt_seconds \u003d ...\nnow_seconds \u003d ...\nnext_seconds \u003d ...\nnext_millis \u003d next_seconds * 1000\nreturn next_millis",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c938d5_164319f8",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Why does the NetworkRunner need a singleton instead of just creating a new NetworkRunner here and letting the existing global thing be the singleton, and have that own the NetworkRunner?",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dde5554_a93ed26f",
+        "filename": "osp/impl/internal_services.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Is this owned?  If so, should we use a unique_ptr?  If not, we need to define the lifetime.",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03e54aca_35757aa4",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Each method could just have something like:\n\nif (!task_queue_-\u003eIsCurrent()) {\n  task_queue_-\u003ePost([...] this-\u003eThisMethod(...));\n  return;\n}\n\nSee an example in WebRTC:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/call/call.cc?type\u003dcs\u0026q\u003dIsCurrent+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026g\u003d0\u0026l\u003d1184\n\n\nMight be cleaner than this",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bdbeb95_8711e494",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Why does these have to be protected?",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9aff328_a972a4af",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Needs comment about what the lifetime is when it\u0027s passed in.",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "410669cd_01b898ed",
+        "filename": "osp/impl/protocol_connection_client_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Seems like the NetworkRunner should be passed into ProtocolConnectionClientFactory::Create.",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4ae588a_9d62a1fd",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Could use comment. What does it do?",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbf2f769_1ae4c718",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 2
@@ -25,6 +161,74 @@
     },
     {
       "key": {
+        "uuid": "5f96997d_6f428e00",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "It seems like just calling this here would make more sense:\n\n  network_runner_-\u003ePostRepeatedTask(QuicServer::CleanConnections,\n                                    platform::Clock::duration(500));\n\n\nThere ought to be another way to make the tests avoid this (like a frequency setting that\u0027s so big for unit tests that it never happens).",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3cc0fa_e49dc857",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Magic number 500 is repeated twice.  It could use a named constant.",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b28e724a_e8b4f605",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "What do we expect callers to do with an error?  What could you do?  It seems like we shouldn\u0027t return an error.",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52090107_85106e15",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "Why not just let the callback post itself again?  I\u0027d like to keep the TaskRunner interface as small as possible.",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4fe68a5_04196acb",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -42,6 +246,23 @@
         "endLine": 73,
         "endChar": 0
       },
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ddc9f6c_503e9e50",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:54:57Z",
+      "side": 1,
+      "message": "I feel like these methods should only be available on concrete impls.  I don\u0027t see why the interface needs these methods.  Only code that knows what concrete impl is has would need to call these (I think).",
       "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
