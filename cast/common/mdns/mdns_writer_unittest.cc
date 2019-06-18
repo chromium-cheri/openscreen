@@ -12,7 +12,7 @@
 namespace cast {
 namespace mdns {
 
-TEST(MdnsWriterTest, WriteDomainName) {
+TEST(MdnsWriterTest, Write) {
   // clang-format off
   constexpr uint8_t kExpectedResult[] = {
     0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
@@ -22,12 +22,12 @@ TEST(MdnsWriterTest, WriteDomainName) {
   // clang-format on
   uint8_t result[sizeof(kExpectedResult)];
   MdnsWriter writer(result, sizeof(kExpectedResult));
-  ASSERT_TRUE(writer.WriteDomainName(DomainName{"testing", "local"}));
+  ASSERT_TRUE(writer.Write(DomainName{"testing", "local"}));
   EXPECT_EQ(0UL, writer.remaining());
   EXPECT_EQ(0, memcmp(kExpectedResult, result, sizeof(result)));
 }
 
-TEST(MdnsWriterTest, WriteDomainName_CompressedMessage) {
+TEST(MdnsWriterTest, Write_CompressedMessage) {
   // clang-format off
   constexpr uint8_t kExpectedResultCompressed[] = {
     0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
@@ -42,16 +42,16 @@ TEST(MdnsWriterTest, WriteDomainName_CompressedMessage) {
   // clang-format on
   uint8_t result[sizeof(kExpectedResultCompressed)];
   MdnsWriter writer(result, sizeof(kExpectedResultCompressed));
-  ASSERT_TRUE(writer.WriteDomainName(DomainName{"testing", "local"}));
-  ASSERT_TRUE(writer.WriteDomainName(DomainName{"prefix", "local"}));
-  ASSERT_TRUE(writer.WriteDomainName(DomainName{"new", "prefix", "local"}));
-  ASSERT_TRUE(writer.WriteDomainName(DomainName{"prefix", "local"}));
+  ASSERT_TRUE(writer.Write(DomainName{"testing", "local"}));
+  ASSERT_TRUE(writer.Write(DomainName{"prefix", "local"}));
+  ASSERT_TRUE(writer.Write(DomainName{"new", "prefix", "local"}));
+  ASSERT_TRUE(writer.Write(DomainName{"prefix", "local"}));
   EXPECT_EQ(0UL, writer.remaining());
   EXPECT_THAT(std::vector<uint8_t>(result, result + sizeof(result)),
               testing::ElementsAreArray(kExpectedResultCompressed));
 }
 
-TEST(MdnsWriterTest, WriteDomainName_NotEnoughSpace) {
+TEST(MdnsWriterTest, Write_NotEnoughSpace) {
   // clang-format off
   constexpr uint8_t kExpectedResultCompressed[] = {
     0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
@@ -64,17 +64,17 @@ TEST(MdnsWriterTest, WriteDomainName_NotEnoughSpace) {
   // clang-format on
   uint8_t result[sizeof(kExpectedResultCompressed)];
   MdnsWriter writer(result, sizeof(kExpectedResultCompressed));
-  ASSERT_TRUE(writer.WriteDomainName(DomainName{"testing", "local"}));
+  ASSERT_TRUE(writer.Write(DomainName{"testing", "local"}));
   // Not enough space to write this domain name. Failure to write it must not
   // affect correct successful write of the next domain name.
-  ASSERT_FALSE(writer.WriteDomainName(DomainName{"a", "different", "domain"}));
-  ASSERT_TRUE(writer.WriteDomainName(DomainName{"different", "domain"}));
+  ASSERT_FALSE(writer.Write(DomainName{"a", "different", "domain"}));
+  ASSERT_TRUE(writer.Write(DomainName{"different", "domain"}));
   EXPECT_EQ(0UL, writer.remaining());
   EXPECT_THAT(std::vector<uint8_t>(result, result + sizeof(result)),
               testing::ElementsAreArray(kExpectedResultCompressed));
 }
 
-TEST(MdnsWriterTest, WriteDomainName_Long) {
+TEST(MdnsWriterTest, Write_Long) {
   constexpr char kLongLabel[] =
       "12345678901234567890123456789012345678901234567890";
   // clang-format off
@@ -101,22 +101,22 @@ TEST(MdnsWriterTest, WriteDomainName_Long) {
   DomainName name{kLongLabel, kLongLabel, kLongLabel, kLongLabel};
   uint8_t result[sizeof(kExpectedResult)];
   MdnsWriter writer(result, sizeof(kExpectedResult));
-  ASSERT_TRUE(writer.WriteDomainName(name));
+  ASSERT_TRUE(writer.Write(name));
   EXPECT_EQ(0UL, writer.remaining());
   EXPECT_EQ(0, memcmp(kExpectedResult, result, sizeof(result)));
 }
 
-TEST(MdnsWriterTest, WriteDomainName_Empty) {
+TEST(MdnsWriterTest, Write_Empty) {
   DomainName name;
   uint8_t result[256];
   MdnsWriter writer(result, sizeof(result));
-  EXPECT_FALSE(writer.WriteDomainName(name));
+  EXPECT_FALSE(writer.Write(name));
   // The writer should not have moved its internal pointer when it fails to
   // write. It should fail without any side effects.
   EXPECT_EQ(0u, writer.offset());
 }
 
-TEST(MdnsWriterTest, WriteDomainName_NoCompressionForBigOffsets) {
+TEST(MdnsWriterTest, Write_NoCompressionForBigOffsets) {
   // clang-format off
   constexpr uint8_t kExpectedResultCompressed[] = {
     0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
@@ -136,8 +136,8 @@ TEST(MdnsWriterTest, WriteDomainName_NoCompressionForBigOffsets) {
   {
     MdnsWriter writer(buffer.data(), buffer.size());
     writer.Skip(0x4000);
-    ASSERT_TRUE(writer.WriteDomainName(name));
-    ASSERT_TRUE(writer.WriteDomainName(name));
+    ASSERT_TRUE(writer.Write(name));
+    ASSERT_TRUE(writer.Write(name));
     EXPECT_EQ(0UL, writer.remaining());
   }
   buffer.erase(buffer.begin(), buffer.begin() + 0x4000);
