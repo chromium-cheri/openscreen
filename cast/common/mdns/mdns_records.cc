@@ -67,8 +67,8 @@ SrvRecordRdata::SrvRecordRdata(uint16_t priority,
       target_(std::move(target)) {}
 
 bool SrvRecordRdata::operator==(const SrvRecordRdata& rhs) const {
-  return (priority_ == rhs.priority_) && (weight_ == rhs.weight_) &&
-         (port_ == rhs.port_) && (target_ == rhs.target_);
+  return priority_ == rhs.priority_ && weight_ == rhs.weight_ &&
+         port_ == rhs.port_ && target_ == rhs.target_;
 }
 
 bool SrvRecordRdata::operator!=(const SrvRecordRdata& rhs) const {
@@ -203,6 +203,65 @@ bool MdnsQuestion::operator!=(const MdnsQuestion& rhs) const {
 
 size_t MdnsQuestion::max_wire_size() const {
   return name_.max_wire_size() + sizeof(type_) + sizeof(record_class_);
+}
+
+MdnsMessage::MdnsMessage(uint16_t id, uint16_t flags)
+    : id_(id), flags_(flags) {}
+
+bool MdnsMessage::operator==(const MdnsMessage& rhs) const {
+  return id_ == rhs.id_ && flags_ == rhs.flags_ &&
+         questions_ == rhs.questions_ && answers_ == rhs.answers_ &&
+         authority_records_ == rhs.authority_records_ &&
+         additional_records_ == rhs.additional_records_;
+}
+
+bool MdnsMessage::operator!=(const MdnsMessage& rhs) const {
+  return !(*this == rhs);
+}
+
+void MdnsMessage::ClearRecords() {
+  questions_.clear();
+  answers_.clear();
+  authority_records_.clear();
+  additional_records_.clear();
+}
+
+void MdnsMessage::AddQuestion(MdnsQuestion question) {
+  OSP_DCHECK(questions_.size() < std::numeric_limits<uint16_t>::max());
+  questions_.emplace_back(std::move(question));
+}
+
+void MdnsMessage::AddAnswer(MdnsRecord record) {
+  OSP_DCHECK(answers_.size() < std::numeric_limits<uint16_t>::max());
+  answers_.emplace_back(std::move(record));
+}
+
+void MdnsMessage::AddAuthorityRecord(MdnsRecord record) {
+  OSP_DCHECK(authority_records_.size() < std::numeric_limits<uint16_t>::max());
+  authority_records_.emplace_back(std::move(record));
+}
+
+void MdnsMessage::AddAdditionalRecord(MdnsRecord record) {
+  OSP_DCHECK(additional_records_.size() < std::numeric_limits<uint16_t>::max());
+  additional_records_.emplace_back(std::move(record));
+}
+
+size_t MdnsMessage::max_wire_size() const {
+  // The mDNS header is 12 bytes long (RFC 1035, section 4).
+  size_t wire_size = sizeof(Header);
+  for (const MdnsQuestion& question : questions_) {
+    wire_size += question.max_wire_size();
+  }
+  for (const MdnsRecord& answer : answers_) {
+    wire_size += answer.max_wire_size();
+  }
+  for (const MdnsRecord& record : authority_records_) {
+    wire_size += record.max_wire_size();
+  }
+  for (const MdnsRecord& record : additional_records_) {
+    wire_size += record.max_wire_size();
+  }
+  return wire_size;
 }
 
 }  // namespace mdns
