@@ -173,9 +173,7 @@ bool MdnsRecord::operator!=(const MdnsRecord& rhs) const {
 }
 
 size_t MdnsRecord::max_wire_size() const {
-  auto wire_size_visitor = [](auto&& arg) {
-    return arg.max_wire_size();
-  };
+  auto wire_size_visitor = [](auto&& arg) { return arg.max_wire_size(); };
   return name_.max_wire_size() + sizeof(type_) + sizeof(record_class_) +
          sizeof(ttl_) + absl::visit(wire_size_visitor, rdata_);
 }
