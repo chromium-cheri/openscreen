@@ -277,6 +277,30 @@
     },
     {
       "key": {
+        "uuid": "91a528e6_826754d5",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:50:59Z",
+      "side": 1,
+      "message": "Resolving as I\u0027m not asking for any changes here.",
+      "parentUuid": "cde82c6a_d5a348f9",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "879c5650_2f09fe22",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -493,6 +517,24 @@
     },
     {
       "key": {
+        "uuid": "186f30a3_175951f2",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:50:59Z",
+      "side": 1,
+      "message": "As we discussed, making Wait() a private API to the network loop should avoid re-entrancy problems (if it isn\u0027t already).",
+      "parentUuid": "62330a6a_80adffb5",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2739c57_83a2992d",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -510,6 +552,24 @@
     },
     {
       "key": {
+        "uuid": "63005417_8b230913",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:50:59Z",
+      "side": 1,
+      "message": "As we discussed, this is an OK tradeoff and we don\u0027t think callers will see unexpected behavior; but I would like a note explaining the outcomes when a caller adds/removes/swaps a callback mid-Wait.",
+      "parentUuid": "d2739c57_83a2992d",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db41c6f1_57e1a9c5",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -521,6 +581,24 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "How about a ReadPacketTask class that takes the packet and is passed to PostTask, rather than using multiple std::function wrappers?",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e1e0292_9ae6422a",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:50:59Z",
+      "side": 1,
+      "message": "I think this comment still applies.  A re-usable Task implementation would seem clearer and simpler than allocating std::function on the stack each time.",
+      "parentUuid": "db41c6f1_57e1a9c5",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -586,6 +664,30 @@
       "side": 1,
       "message": "This could be `std::chrono::milliseconds(250)` or just `milliseconds(250)` with a using declaration somewhere.",
       "parentUuid": "3ccbc33c_f298dcb7",
+      "range": {
+        "startLine": 142,
+        "startChar": 50,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b76a0ef2_d87b08bc",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:50:59Z",
+      "side": 1,
+      "message": "std::chrono::milliseconds(250) sounds good to me.",
+      "parentUuid": "c703f8b7_80a58a45",
       "range": {
         "startLine": 142,
         "startChar": 50,
@@ -770,6 +872,30 @@
     },
     {
       "key": {
+        "uuid": "6e27b296_4ec80efd",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:50:59Z",
+      "side": 1,
+      "message": "Unless others object, please add a TODO(issue/XX) here to re-evaluate Write callbacks part of the NetworkLoop API at a later time.",
+      "parentUuid": "7461ea15_44fc4cd0",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d984e3ca_73b4d8c1",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 2
@@ -784,6 +910,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2006e4b_1a2a012b",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-18T22:50:59Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly about this since they have be iterated separately through the EventWaiter.",
+      "parentUuid": "d984e3ca_73b4d8c1",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
