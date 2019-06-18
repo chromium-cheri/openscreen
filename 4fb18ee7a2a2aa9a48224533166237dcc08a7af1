@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "f8a0adaf_a49d31ed",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:04:33Z",
+      "side": 1,
+      "message": "Please add to the comment the justification (hot path perf)",
+      "parentUuid": "c8184832_5648b351",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e4d969e_2a1f6930",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 3
@@ -188,6 +206,24 @@
       "side": 1,
       "message": "\u003e We ignore all out of order RTCP packets?  That seems like it will be a frequent occurrence and we\u0027ll be throwing away a lot of data (like PLIs!).  Are we sure we want to do this?\n\nYes, yes, and yes. :) This is existing behavior (in the Chromium/Chromecast implementation), and is accounted for in the protocol design. RTCP packets are sent at regular intervals, so \"current state\" is \"eventually communicated.\"\n\n\u003e It seems bad that an out-of-order receiver report would cause you to miss a PLI.\n\nThis would not cause the Sender to miss a PLI: The Receiver sets the PLI when the problem starts, and then also re-sends the PLI with *every* compound RTCP packet until the problem is totally rectified. The problem cannot be rectified until the Sender sees one of the PLIs and sends a key frame.\n\nThere are similar reasons why other types of RTCP packets are \"droppable\" and/or safe to ignore when out-of-order; and everything still works. It is actually much more harmful to process RTCP packets out-of-order than to drop some of them. Also, note that I\u0027m not trying to argue that this is all the best protocol design. It\u0027d be easier to discuss the details of all this face-to-face, if you\u0027re curious.",
       "parentUuid": "63f4127e_f625e364",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed65373a_1dd84cdb",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:04:33Z",
+      "side": 1,
+      "message": "Could you write some kind of \"this might not look right, but here\u0027s why it\u0027s right\" type comment along the lines of what you just said here?",
+      "parentUuid": "4d3fea8a_7621cddf",
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -491,6 +527,24 @@
     },
     {
       "key": {
+        "uuid": "a6867f05_76c4676d",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:04:33Z",
+      "side": 1,
+      "message": "?",
+      "parentUuid": "73a83423_4d75e8cc",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de65d0f9_b9b92102",
         "filename": "streaming/cast/compound_rtcp_parser.h",
         "patchSetId": 3
@@ -505,6 +559,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08780697_af7fb7a2",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-18T18:04:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de65d0f9_b9b92102",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
