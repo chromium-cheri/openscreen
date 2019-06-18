@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "584a3cd3_322beae4",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7cb4d4a_24ba304b",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e87940b7_c12ae33e",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c8184832_5648b351",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Since the comparator is a hot code path, and modular arithmetic isn\u0027t such a difficult concept to grasp, I believe my existing solution is far superior to adding branching. I\u0027ll add a code comment to make the \"subtle\" thing not subtle.",
+      "parentUuid": "e87940b7_c12ae33e",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e4d969e_2a1f6930",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83800d59_a6319355",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "std::unique() would only account for case #1, and not case #2 (see code comment L40-45).",
+      "parentUuid": "3e4d969e_2a1f6930",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "502cc8bd_9f32f262",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3da1bf1b_9a49cc12",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63f4127e_f625e364",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 3
@@ -101,6 +173,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d3fea8a_7621cddf",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "\u003e We ignore all out of order RTCP packets?  That seems like it will be a frequent occurrence and we\u0027ll be throwing away a lot of data (like PLIs!).  Are we sure we want to do this?\n\nYes, yes, and yes. :) This is existing behavior (in the Chromium/Chromecast implementation), and is accounted for in the protocol design. RTCP packets are sent at regular intervals, so \"current state\" is \"eventually communicated.\"\n\n\u003e It seems bad that an out-of-order receiver report would cause you to miss a PLI.\n\nThis would not cause the Sender to miss a PLI: The Receiver sets the PLI when the problem starts, and then also re-sends the PLI with *every* compound RTCP packet until the problem is totally rectified. The problem cannot be rectified until the Sender sees one of the PLIs and sends a key frame.\n\nThere are similar reasons why other types of RTCP packets are \"droppable\" and/or safe to ignore when out-of-order; and everything still works. It is actually much more harmful to process RTCP packets out-of-order than to drop some of them. Also, note that I\u0027m not trying to argue that this is all the best protocol design. It\u0027d be easier to discuss the details of all this face-to-face, if you\u0027re curious.",
+      "parentUuid": "63f4127e_f625e364",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "79e35867_95662050",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "956fb473_c62d421c",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04957f58_b701fc52",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 3
@@ -135,6 +243,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c94229b_557edab6",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "It\u0027s a matter of personal taste, I guess.",
+      "parentUuid": "04957f58_b701fc52",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +281,24 @@
     },
     {
       "key": {
+        "uuid": "e7409ccd_c2fd4bf3",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "FWIW, this was brought-over from existing behavior https://cs.chromium.org/chromium/src/media/cast/net/rtcp/rtcp_utility.cc?rcl\u003d4147fbb9d859dbae2e9be52fbbddeac54d0c557c\u0026l\u003d296\n\nDone, as you suggested.",
+      "parentUuid": "5f7e2d0f_57ce16ec",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43d421ab_c112444e",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 3
@@ -169,6 +313,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42b86b56_8a5bf754",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43d421ab_c112444e",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "c1dcc639_51d205fb",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Added code comment. This is explained in the wire format documentation in rtp_defines.h (search for \"Plus two\")",
+      "parentUuid": "41811a9a_7f1922db",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "190e4635_f8125a6c",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 3
@@ -203,6 +383,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "505075a6_2150b6f3",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "No, I can\u0027t! :) Because it\u0027s subtly different in a few ways... Believe me, I wanted to.",
+      "parentUuid": "190e4635_f8125a6c",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +421,24 @@
     },
     {
       "key": {
+        "uuid": "f2567abf_e6c801f1",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Not sure what you mean. Can you explain further?",
+      "parentUuid": "022e0a9a_9b411605",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed9f63cb_d7603d7d",
         "filename": "streaming/cast/compound_rtcp_parser.cc",
         "patchSetId": 3
@@ -237,6 +453,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12ff9d4e_6d3f19ac",
+        "filename": "streaming/cast/compound_rtcp_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "\u003e Doesn\u0027t the shortcut of the \"\u0026\u0026\" operator screw this up?\n\nNo. You are right that the short-circuit will leave the position of |in| somewhere in the middle of things (i.e., not pointing just after the 2nd SSRC), but there are no more reads after this. In other words, it doesn\u0027t matter whether the position is \"clean.\" Note that the |in| argument is being passed by value, so the position of |in| will not have any harmful effects outside this method.\n\n\u003e Should you add a unit test for this?\n\nGood idea. Done.\n\n\u003e Also, it seems like it would be more readable as: ...\n\nIt\u0027s a matter of personal taste, I guess.",
+      "parentUuid": "ed9f63cb_d7603d7d",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +525,24 @@
     },
     {
       "key": {
+        "uuid": "dfe34b59_4ac4f0a1",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "On the builder/writer side, a change in these values will occur at different times (i.e., different code paths cause them to change). However, they will be bundled together in the same RTCP feedback report (they are 2 bytes away from each other).",
+      "parentUuid": "e551bf9d_5cb3874d",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f4aa20f_409d7fa0",
         "filename": "streaming/cast/compound_rtcp_parser.h",
         "patchSetId": 3
@@ -305,6 +557,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1933483c_24593569",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "No. We had a long discussion about this in the last RTCP CL. :)\n\ntl;dr: Nothing actionable on bad input, and nothing actionable when propagating it up to the end-user. Additional Error codes/strings are only useful when debugging serialization/parsing in-house; and we can instrument that on an as/if-needed basis.",
+      "parentUuid": "7f4aa20f_409d7fa0",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +595,24 @@
     },
     {
       "key": {
+        "uuid": "f4a05809_3f786212",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "224fa394_bd10ffe8",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63ce6480_14ba9586",
         "filename": "streaming/cast/compound_rtcp_parser.h",
         "patchSetId": 3
@@ -342,6 +630,24 @@
     },
     {
       "key": {
+        "uuid": "1cd5c865_bae1c1a7",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63ce6480_14ba9586",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4270b58_c4184511",
         "filename": "streaming/cast/compound_rtcp_parser.h",
         "patchSetId": 3
@@ -356,6 +662,24 @@
       "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ea834ff_f93f4055",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "It is: Its default constructor makes it a \"null\" value (FrameId::is_null() returns true).",
+      "parentUuid": "a4270b58_c4184511",
+      "revId": "4fb18ee7a2a2aa9a48224533166237dcc08a7af1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

@@ -1673,6 +1673,24 @@
     },
     {
       "key": {
+        "uuid": "04c22987_40363692",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "No. A delegate is a class that implements part/all the functionality of another class. Callback would be okay, but that infers it is something passed in to each call to Parse(). Client is a common naming pattern I\u0027ve seen in Chromium code in these kinds of situations, so I went with it here.",
+      "parentUuid": "875c99f5_7c564a8f",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5034478_a9935f46",
         "filename": "streaming/cast/compound_rtcp_parser.h",
         "patchSetId": 1
@@ -1687,6 +1705,24 @@
       "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1283dd5_3cd2645b",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "Deleted that part of the comment. What I meant by it is being explained in the Client class-level comment more clearly.",
+      "parentUuid": "e5034478_a9935f46",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -1707,6 +1743,24 @@
     },
     {
       "key": {
+        "uuid": "c0db6b35_c479f7ff",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "\u003e What does Advanced mean?  Why not just OnReceiverReferenceTime?\n\nI could have called this OnReceiverReferenceTimeChanged() or just OnReceiverReferenceTime(), but this is specifically calling-out that the value should be monotonically increasing each time.\n\n\u003e And why is OnReceiver needed for everything?  Why not OnReferenceTiem?\n\nAs this is an interface, I wanted to improve the readability of whatever class(es) implement this, to distinguish the events coming from the receiver versus other, local events that are occurring.",
+      "parentUuid": "d6a7c33d_fca0e10f",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "892d797e_614ac241",
         "filename": "streaming/cast/compound_rtcp_parser.h",
         "patchSetId": 1
@@ -1721,6 +1775,24 @@
       "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66db512a_cf84edd7",
+        "filename": "streaming/cast/compound_rtcp_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-18T03:50:27Z",
+      "side": 1,
+      "message": "See my above comment regarding why the \"OnReceiver\" prefix is being used for all of these.\n\nThat said, I thought a bit about the wording, and changed it to OnReceiverIndicatesPictureLoss(). This is because the receiver may repeatedly send PLIs while the condition persists on its end.",
+      "parentUuid": "892d797e_614ac241",
+      "revId": "3bcad82c1e1f18492c05cc7bf473987d363d730c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
