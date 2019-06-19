@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bec279d2_91804662",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-19T00:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cabfb6a4_faa7ecee",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3bbdac2_1940880c",
         "filename": "osp_base/alarm.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1879c91_3591a84b",
+        "filename": "osp_base/alarm.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-19T00:34:14Z",
+      "side": 1,
+      "message": "All the usual OpenScreen sequential task runner restrictions still apply. So, there should be no concurrency concerns.",
+      "parentUuid": "a3bbdac2_1940880c",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "689d31ba_00cd52e0",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-19T00:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef0d24e5_def8196d",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4180cf0_103e9e35",
         "filename": "osp_base/alarm.h",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a928217e_064cea69",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-19T00:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4180cf0_103e9e35",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "f64bd2b2_2d0d6ecd",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-19T00:34:14Z",
+      "side": 1,
+      "message": "I think it\u0027s okay in many common situations if the functor argument is copied: For example, there could be cases where it may be nothing more than a raw function pointer, or an object consisting of nothing more than a method pointer paired with a raw \"this\" pointer.\n\nFor more complex use cases, I agree with you that we should encourage use of std::move() in calling code. However, rather than make the argument Functor\u0026\u0026, we can enforce the use of move-only in this situation by making sure the objects to be bound are defined as move-only. Then, when they are bound, say, with std::bind(), the result can only be a move-only functor. With this, calls like this will compile successfully:\n\n  Schedule(std::bind(\u0026Foo::DoIt, std::move(move_only_thing)), exec_time);\n  // OK: std::bind() returns a non-copyable, move-only functor, which\n  // is exactly what we want. :)\n\n...but calls like this (that would copy-construct) will be rejected:\n\n  Schedule(std::bind(\u0026Foo::DoIt, move_only_thing)), exec_time);\n  // COMPILE ERROR: Cannot call std::bind() because there\u0027s no copy\n  // ctor for move_only_thing.",
+      "parentUuid": "b146f9de_ede958fd",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ada1f94_73376b9e",
         "filename": "osp_base/alarm.h",
         "patchSetId": 3
@@ -119,6 +209,24 @@
       "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc8e2e8_1ae01989",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-19T00:34:14Z",
+      "side": 1,
+      "message": "The assumption is a single-threaded/sequential task runner. So, the only possible case is re-entrancy (i.e., a scheduled task runs which itself calls Schedule() again). That\u0027s documented in the class-level comments, and the impl explicitly addresses this in Alarm::TryInvoke().",
+      "parentUuid": "4ada1f94_73376b9e",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +247,24 @@
     },
     {
       "key": {
+        "uuid": "211c5a95_f8f38c71",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-19T00:34:14Z",
+      "side": 1,
+      "message": "Re-entrant calls are fine, accounted for (see my response to your last comment).",
+      "parentUuid": "7cebae2f_919c3e68",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4a5218e_8cc834ea",
         "filename": "osp_base/alarm.h",
         "patchSetId": 3
@@ -153,6 +279,24 @@
       "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d739423_9caf8169",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-19T00:34:14Z",
+      "side": 1,
+      "message": "Done. Removed the name-shortener since it didn\u0027t significantly impact many LOC, formatting, etc.",
+      "parentUuid": "f4a5218e_8cc834ea",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
