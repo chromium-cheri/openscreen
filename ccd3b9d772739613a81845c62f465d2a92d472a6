@@ -195,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "d6bceb97_f322fedd",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-19T19:30:18Z",
+      "side": 1,
+      "message": "OK, but allowing copy-able callbacks punts the issue to the correct usage of std::bind, which is banned in Chromium.\n\nhttps://groups.google.com/a/chromium.org/forum/#!topic/cxx/SoEj7oIDNuA\n\nWe could write our own bind wrapper that generates move-only callbacks and checks its arguments.",
+      "parentUuid": "f64bd2b2_2d0d6ecd",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ada1f94_73376b9e",
         "filename": "osp_base/alarm.h",
         "patchSetId": 3
@@ -227,6 +245,24 @@
       "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3794507_2256e5e4",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-19T19:30:18Z",
+      "side": 1,
+      "message": "So the assumption is that the this class is used only from the same thread that is bound to task_runner; please make that explicit in the class-level comments.",
+      "parentUuid": "fbc8e2e8_1ae01989",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
