@@ -12,7 +12,6 @@
 #include <vector>
 
 #include "openssl/aes.h"
-#include "osp_base/macros.h"
 #include "streaming/cast/encoded_frame.h"
 
 namespace openscreen {
@@ -24,14 +23,12 @@ namespace cast_streaming {
 // between EncryptedFrames and EncodedFrames.
 struct EncryptedFrame : public EncodedFrame {
   ~EncryptedFrame();
-  EncryptedFrame(EncryptedFrame&&) MAYBE_NOEXCEPT;
-  EncryptedFrame& operator=(EncryptedFrame&&) MAYBE_NOEXCEPT;
+  EncryptedFrame(EncryptedFrame&&) noexcept;
+  EncryptedFrame& operator=(EncryptedFrame&&) noexcept;
 
  private:
   friend class FrameCrypto;
   EncryptedFrame();
-
-  OSP_DISALLOW_COPY_AND_ASSIGN(EncryptedFrame);
 };
 
 // Encrypts EncodedFrames before sending, or decrypts EncryptedFrames that have

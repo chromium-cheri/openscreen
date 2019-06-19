@@ -18,9 +18,8 @@ namespace cast_streaming {
 EncryptedFrame::EncryptedFrame() = default;
 EncryptedFrame::~EncryptedFrame() = default;
 
-EncryptedFrame::EncryptedFrame(EncryptedFrame&&) MAYBE_NOEXCEPT = default;
-EncryptedFrame& EncryptedFrame::operator=(EncryptedFrame&&)
-    MAYBE_NOEXCEPT = default;
+EncryptedFrame::EncryptedFrame(EncryptedFrame&&) noexcept = default;
+EncryptedFrame& EncryptedFrame::operator=(EncryptedFrame&&) noexcept = default;
 
 FrameCrypto::FrameCrypto(const std::array<uint8_t, 16>& aes_key,
                          const std::array<uint8_t, 16>& cast_iv_mask)

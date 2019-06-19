@@ -42,10 +42,8 @@ class Clock {
                 "time_point is not trivially copyable");
 };
 
-// Convenience, for injecting Clocks into classes. Note: The 'noexcept' keyword
-// is dropped here to avoid a well-known Clang compiler warning (about an
-// upcoming C++20 ABI change).
-using ClockNowFunctionPtr = Clock::time_point (*)();
+// Convenience, for injecting Clocks into classes.
+using ClockNowFunctionPtr = decltype(&Clock::now);
 
 // Returns the number of seconds since UNIX epoch (1 Jan 1970, midnight)
 // according to the wall clock, which is subject to adjustments (e.g., via

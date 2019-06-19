@@ -10,8 +10,8 @@ namespace cast_streaming {
 EncodedFrame::EncodedFrame() = default;
 EncodedFrame::~EncodedFrame() = default;
 
-EncodedFrame::EncodedFrame(EncodedFrame&&) MAYBE_NOEXCEPT = default;
-EncodedFrame& EncodedFrame::operator=(EncodedFrame&&) MAYBE_NOEXCEPT = default;
+EncodedFrame::EncodedFrame(EncodedFrame&&) noexcept = default;
+EncodedFrame& EncodedFrame::operator=(EncodedFrame&&) noexcept = default;
 
 void EncodedFrame::CopyMetadataTo(EncodedFrame* dest) const {
   dest->dependency = this->dependency;

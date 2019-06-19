@@ -71,6 +71,11 @@ config("openscreen_code") {
 
   if (is_gcc) {
     cflags += [ "-Wno-maybe-uninitialized" ]
+
+    # Ignore warnings about C++17 ABI changes w.r.t. use of noexcept in function
+    # signatures. This is not relevant to our build since the same compiler is
+    # used to build all C++ modules.
+    cflags_cc += [ "-Wno-noexcept-type" ]
   }
 
   if (is_clang) {
@@ -93,6 +98,11 @@ config("openscreen_code") {
     # things are in violation of Chromium C++ Don'ts.
     cflags_cc += [ "-Wexit-time-destructors" ]
     cflags_objcc += [ "-Wexit-time-destructors" ]
+
+    # Ignore warnings about C++17 ABI changes w.r.t. use of noexcept in function
+    # signatures. This is not relevant to our build since the same compiler is
+    # used to build all C++ modules.
+    cflags_cc += [ "-Wno-c++17-compat-mangling" ]
 
     ldflags += [ "-fcolor-diagnostics" ]
   }

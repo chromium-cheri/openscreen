@@ -10,7 +10,6 @@
 #include <chrono>
 #include <vector>
 
-#include "osp_base/macros.h"
 #include "platform/api/time.h"
 #include "streaming/cast/frame_id.h"
 #include "streaming/cast/rtp_time.h"
@@ -42,8 +41,8 @@ struct EncodedFrame {
   EncodedFrame();
   ~EncodedFrame();
 
-  EncodedFrame(EncodedFrame&&) MAYBE_NOEXCEPT;
-  EncodedFrame& operator=(EncodedFrame&&) MAYBE_NOEXCEPT;
+  EncodedFrame(EncodedFrame&&) noexcept;
+  EncodedFrame& operator=(EncodedFrame&&) noexcept;
 
   // Copies all members except |data| to |dest|. Does not modify |dest->data|.
   void CopyMetadataTo(EncodedFrame* dest) const;
@@ -82,8 +81,6 @@ struct EncodedFrame {
 
   // The encoded signal data.
   std::vector<uint8_t> data;
-
-  OSP_DISALLOW_COPY_AND_ASSIGN(EncodedFrame);
 };
 
 }  // namespace cast_streaming
