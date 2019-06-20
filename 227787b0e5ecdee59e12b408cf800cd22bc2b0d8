@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "852099c7_5923d5e2",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "For some reason I can\u0027t figure out, this doesn\u0027t seem to be making the Wait loop stop. I\u0027ve verified that the atomic_bool does get flipped in the RequestStopSoon(...) function, but the loop doesn\u0027t exit. Does anyone know what could be causing this?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 35
+      },
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

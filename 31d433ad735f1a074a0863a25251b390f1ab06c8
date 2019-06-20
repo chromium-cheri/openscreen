@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "81db94e8_aec6d196",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd3c4bbd_7e6b587d",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ab5315f_27f58979",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 2
@@ -53,6 +71,42 @@
     },
     {
       "key": {
+        "uuid": "3d85f609_9fd13929",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "This is intended to wrap an FD_SET, since that\u0027s platform specific. I\u0027ve moved it to a public class of EventWaiter though (it can\u0027t be private because NetworkLoop needs it too so it can be passed to WaitForEvents(...))",
+      "parentUuid": "2ab5315f_27f58979",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20b54d95_96ca3dee",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "The existing parts of EventWaiter (everything I didn\u0027t add) will be deleted in the follow-up CL. It has been left here now to allow code outside of the platform layer to function without refactors as done in the original CL. Those changes will come in the follow up CL, or see the larger parent CL this was taken from for further context.\n\nThe reason to make EventWaiter only platform-specific is so that the wait method could be pulled up to the NetworkLoop layer. This has 2 benefits:\n1) Less code duplication between platforms\n2) Only 1 list of watched sockets is maintained instead of 2 (the previous one in EventWaiter and the new mapping \u003csocket -\u003e callback\u003e in NetworkLoop)\n3) Wait code could be moved up to the NetworkLoop layer for more efficient thread synchronization, based on feedback from @pthatcher and @mfoltz",
+      "parentUuid": "5917cec8_4e0b566a",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c990eaa1_eddfbb2b",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "860e7194_f222ce01",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c990eaa1_eddfbb2b",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "0dc5907c_0aa6556f",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e85d70c2_a278c046",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90d5e60d_7b0a5b55",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "Are these passed by pointers to allow the caller to pass nullptr?\nCan you please document that, or change to const ref if possible?",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4200f59d_8844cf43",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "I went with pointers because const refs are not possible\nOn posix, WaitForEvents changes the contents of the FD_SET underlying the SocketHandler objects, so const refs aren\u0027t valid\n\nI\u0027ve added OSP_CHECK calls for nullptrs since they are invalid, and added documentation as such\n\nIf you prefer, I can instead update the code to treat a nullptr as an empty set",
+      "parentUuid": "90d5e60d_7b0a5b55",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -118,6 +226,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48372b1f_7ca9db4c",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e43508f9_52a75830",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -179,6 +305,48 @@
     },
     {
       "key": {
+        "uuid": "8c4346c8_f5a2fa34",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "For UT purposes, I define a fake_network_runner in platform/test. This is part of the follow up CL. Allowing the use of this is why all of my changes throughout this and the follow up CL allow for dependency injection :)\n\nrenamed to GetInstance though",
+      "parentUuid": "a6e6d991_b6aa8b96",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06cb43fd_5588de34",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f0660ae_01bfaeb7",
+      "range": {
+        "startLine": 41,
+        "startChar": 24,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90526ace_9174b72e",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -190,6 +358,24 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "s/function/delay_function/\n\nPlease document that the delay function returns microseconds, or zero to post the next task without delay.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c2eb521_2b9359c3",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "I\u0027ve moved this class to private since it\u0027s only used internally, and the caller should never know about it\n\nAdded documentation to clarify how it works. Waiting on naming change since the effect doesn\u0027t exactly match what you\u0027ve described, so let me know if you would still like this change. Additionally, the return type has been changed to a delay based on below comment.",
+      "parentUuid": "90526ace_9174b72e",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -213,6 +399,24 @@
     },
     {
       "key": {
+        "uuid": "d7c01c86_d904d89d",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Good idea - updating to that",
+      "parentUuid": "6ff58318_d3dbe041",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84733dea_2d160269",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -227,6 +431,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "066acea9_beaeec0b",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84733dea_2d160269",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +523,30 @@
     },
     {
       "key": {
+        "uuid": "ee87e2b8_df76fcd8",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cde82c6a_d5a348f9",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "879c5650_2f09fe22",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -312,6 +558,24 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "What is a \"packaged task\"?",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12d63141_3c702688",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "The commonly used Post methods take in any functor (using a template), then \u0027package\u0027 it into a std::packaged_task\u003cvoid() noexcept\u003e. It\u0027s essentially a std::function\u003cvoid()\u003e that can only run once. The change was made because we were having issues posting tasks which were move-only",
+      "parentUuid": "879c5650_2f09fe22",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -335,6 +599,24 @@
     },
     {
       "key": {
+        "uuid": "44850eaf_9e15b87b",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa92fefc_4b10950d",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7edb6e5_e9f213a4",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -346,6 +628,24 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "Or will Chromium provide its own .cc for this class?  That is normally how embedders override platform implementations.\n\nThe comments above mention TaskRunnerFactory, but I don\u0027t see that in the source code.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff6f1cf9_293f881e",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "The above comment is referring to a Chromium Task Runner implementation in osp/impl/quic/quic_connection_factory_impl.cc which wraps our existing TaskRunner and is required for Chromium QUIC - see the larger CL this one came from for more information. I\u0027ve removed this comment since I believe it to be confusing, but can add it back in if requested.\n\nI have updated the above comment. That class was removed as part of a previous CL to add the NetworkRunner interface.",
+      "parentUuid": "f7edb6e5_e9f213a4",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -369,6 +669,24 @@
     },
     {
       "key": {
+        "uuid": "98aa32de_4f3d8e63",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "This is exposed for a couple reasons:\n1) In the follow-up change, we are required to wrap our TaskRunner as a Chromium TaskRunner again (Chromium QUIC requires it), and this method is exposed for that purpose. See the larger CL this was pulled out of for more details (specifically osp/impl/quic/quic_connection_factory_impl.cc)\n2) In the new iteration, We allow the embedder to inject in a Task Runner of their choice into the Network Runner. Since we do not know the type of Task Runner any longer, we cannot make such assumptions here and need to be able to initialize the Task Runner without that information (if initialization is needed). This method allows for such initialization\n\n@pthatcher has expressed a similar view of removing this, and I can do so if that is the consensus, but I would prefer to allow for further discussion before making this change.",
+      "parentUuid": "0aa3b0bb_894b482d",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f52719b_26258d48",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -383,6 +701,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "462e52b3_64788930",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f52719b_26258d48",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -409,6 +745,30 @@
     },
     {
       "key": {
+        "uuid": "a1e49023_601bff09",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f7d0c17_a000ba30",
+      "range": {
+        "startLine": 57,
+        "startChar": 26,
+        "endLine": 57,
+        "endChar": 32
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a0fd5d6_9f627874",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -423,6 +783,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "991bb211_8a8df1df",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Updated to kAlreadyListening;",
+      "parentUuid": "7a0fd5d6_9f627874",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -449,6 +827,30 @@
     },
     {
       "key": {
+        "uuid": "34c302a0_7ba4ef3e",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "494e6e85_273bf664",
+      "range": {
+        "startLine": 70,
+        "startChar": 27,
+        "endLine": 70,
+        "endChar": 33
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3df49b5_9224c067",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -463,6 +865,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e8a6ab3_1bd15d61",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Updated to kAlreadyListening",
+      "parentUuid": "d3df49b5_9224c067",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -483,6 +903,24 @@
     },
     {
       "key": {
+        "uuid": "1218ff72_b0335ad2",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Updated to CHECK rather than DCHECK since we need it to fail in release builds as well",
+      "parentUuid": "4342f3ec_cf4f4280",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68a76ad9_b01891b2",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -497,6 +935,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f291ba3_c1ae9724",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68a76ad9_b01891b2",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -535,6 +991,24 @@
     },
     {
       "key": {
+        "uuid": "55f9de5e_6443e039",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Discussed offline",
+      "parentUuid": "62330a6a_80adffb5",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2739c57_83a2992d",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -570,6 +1044,24 @@
     },
     {
       "key": {
+        "uuid": "d9c67d78_0883053d",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Adding a NOTE here and to the Add/remove methods and to the wait method",
+      "parentUuid": "d2739c57_83a2992d",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db41c6f1_57e1a9c5",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -599,6 +1091,24 @@
       "side": 1,
       "message": "I think this comment still applies.  A re-usable Task implementation would seem clearer and simpler than allocating std::function on the stack each time.",
       "parentUuid": "db41c6f1_57e1a9c5",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6d291f5_bb91d8bc",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Discussed offline. Tried to change to a direct use of std::bind (move-only lambdas not supported until C++14) which looks like \u0027auto task \u003d std::bind(read.second, std::move(read_packet))\u0027, but this fails as a compilation error:\nerror: no type named \u0027type\u0027 in \u0027std::result_of\u003cstd::_Bind\u003cstd::function\u003cvoid (std::unique_ptr\u003copenscreen::platform::UdpReadCallback::Packet, std::default_delete\u003copenscreen::platform::UdpReadCallback::Packet\u003e \u003e)\u003e (std::unique_ptr\u003copenscreen::platform::UdpReadCallback::Packet, std::default_delete\u003copenscreen::platform::UdpReadCallback::Packet\u003e \u003e)\u003e \u0026()\u003e\u0027\n\nBased on the provided stack trace, the error is in TaskRunner:\n../../platform/api/task_runner.h:34:22: note: in instantiation of function template specialization \u0027std::packaged_task\u003cvoid ()\u003e::packaged_task\u003cstd::_Bind\u003cstd::function\u003cvoid (std::unique_ptr\u003copenscreen::platform::UdpReadCallback::Packet, std::default_delete\u003copenscreen::platform::UdpReadCallback::Packet\u003e \u003e)\u003e (std::unique_ptr\u003copenscreen::platform::UdpReadCallback::Packet, std::default_delete\u003copenscreen::platform::UdpReadCallback::Packet\u003e \u003e)\u003e, void\u003e\u0027 requested here\n    PostPackagedTask(Task(std::move(f)));\n\nThis might be fixable eventually, but I expect it should be as part of another CL",
+      "parentUuid": "5e1e0292_9ae6422a",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -700,6 +1210,30 @@
     },
     {
       "key": {
+        "uuid": "579c9e84_153516de",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c703f8b7_80a58a45",
+      "range": {
+        "startLine": 142,
+        "startChar": 50,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe1bd85e_3195886b",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2
@@ -714,6 +1248,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e84365b_ce317ec0",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe1bd85e_3195886b",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -740,6 +1292,30 @@
     },
     {
       "key": {
+        "uuid": "4893f0ed_12c843df",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05942d64_eb632225",
+      "range": {
+        "startLine": 19,
+        "startChar": 39,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "059bf65d_00c9e0c2",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 2
@@ -754,6 +1330,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d98f23_55440916",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Discussed offline. Adding a callback to UDP Socket for deletion from NetworkLoop as discussed.",
+      "parentUuid": "059bf65d_00c9e0c2",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -774,6 +1368,24 @@
     },
     {
       "key": {
+        "uuid": "b5e0c4e3_5e11545a",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81bdc8f2_673beda4",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb6a1437_c3d59591",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 2
@@ -785,6 +1397,24 @@
       "writtenOn": "2019-06-14T22:08:05Z",
       "side": 1,
       "message": "Can this be passed in the constructor?\nCan NetworkLoop just call NetworkRunner::GetSingleton() in its ctor?",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0e102ad_214059a1",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Discussed offline. Updated code to allow the NetworkRunner to swap which TaskRunner is used, so this section has changed. PTAL again",
+      "parentUuid": "bb6a1437_c3d59591",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -808,6 +1438,24 @@
     },
     {
       "key": {
+        "uuid": "8dab10fe_4b130cdd",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Discussed offline. Updated this section to make the Task Runner inject-able by the embedder, so PTAL again",
+      "parentUuid": "0a593e59_99e87192",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "884ab76f_94f62bf7",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 2
@@ -822,6 +1470,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28871a16_bd5318f3",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Renamed to WaitUntilWritable",
+      "parentUuid": "884ab76f_94f62bf7",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -896,6 +1562,30 @@
     },
     {
       "key": {
+        "uuid": "03354fb6_0a8fceed",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7461ea15_44fc4cd0",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d984e3ca_73b4d8c1",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 2
@@ -931,6 +1621,24 @@
     },
     {
       "key": {
+        "uuid": "5a888283_f8dd2478",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "The reason I kept them separate is because we need to add the Read callbacks to the Read SocketHandler each iteration through this loop, and separately for Write. \nThese could be combined, but it would complicate this operation.\n\nresolving since you don\u0027t have a strong opinion on this one",
+      "parentUuid": "d984e3ca_73b4d8c1",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f138c5c_b34dde4c",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 2
@@ -948,6 +1656,24 @@
     },
     {
       "key": {
+        "uuid": "9dbd9d89_62aa04a4",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f138c5c_b34dde4c",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9dc166b_3ff1062b",
         "filename": "platform/base/network_runner.cc",
         "patchSetId": 2
@@ -962,6 +1688,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd29b217_b9313bdf",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Updating to use lambdas throughout this CL",
+      "parentUuid": "f9dc166b_3ff1062b",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -988,6 +1732,30 @@
     },
     {
       "key": {
+        "uuid": "73d9db6c_dfe24efc",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd49c689_f3734532",
+      "range": {
+        "startLine": 43,
+        "startChar": 16,
+        "endLine": 43,
+        "endChar": 33
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3da526b_4b01e0ad",
         "filename": "platform/base/network_runner.cc",
         "patchSetId": 2
@@ -999,6 +1767,24 @@
       "writtenOn": "2019-06-17T23:59:32Z",
       "side": 1,
       "message": "IMO there should either be a join of both threads here to preserve the blocking behavior/implication or we should rename this.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f703b5c_761b714d",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Based on discussions with Mark, I\u0027ve added a boolean parameter to determine whether the task runner should run on the current thread or on a new thread. PTAL again now that this change is in",
+      "parentUuid": "c3da526b_4b01e0ad",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -1022,6 +1808,24 @@
     },
     {
       "key": {
+        "uuid": "f16d9a84_3215a48c",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Good to know - thank you! Updated to use a pointer instead of unique_ptr",
+      "parentUuid": "9c23e231_1594c024",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97e7933b_942bab1e",
         "filename": "platform/base/network_runner.h",
         "patchSetId": 2
@@ -1039,6 +1843,24 @@
     },
     {
       "key": {
+        "uuid": "2233b893_4165553c",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97e7933b_942bab1e",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47ee63fe_80b28cda",
         "filename": "platform/base/network_runner.h",
         "patchSetId": 2
@@ -1050,6 +1872,24 @@
       "writtenOn": "2019-06-17T23:59:32Z",
       "side": 1,
       "message": "IMO we wouldn\u0027t need a fake NetworkRunner (positive, also IMO) if the following things changed:\n 1. This still allowed for the clock function to be injected.\n 2. TaskRunnerImpl moved into this impl directly instead of injecting a unique_ptr\u003cTaskRunner\u003e.\n\nAlthough 1 seems reasonable by itself, it\u0027s probably useless without 2 or something similar.\n\nAt this point, we don\u0027t need a TaskRunnerImpl by itself at all anymore, because NetworkRunnerImpl will always be what\u0027s substituted for a TaskRunner.  Then, copying its implementation here would give us the ability to run tasks on the same thread that calls NetworkRunnerImpl (i.e. can sequence with unit test code), which also enables RunUntilIdleForTesting.\n\nThis probably isn\u0027t going to be a popular opinion but I want to see what others\u0027 opinions are nonetheless.  IMO allowing an arbitrary TaskRunner to be injected won\u0027t necessarily allow code re-use here because for e.g. Chromium, we still need an entirely different NetworkRunner (and starting a new thread to run SequencedTaskRunner isn\u0027t what we want/possible anyway).  Also, the current singleton impl means we\u0027re locked into TaskRunnerImpl that way as well anyway.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8df7fedb_56abd7c9",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "The biggest reason I would prefer to keep the two separate is to encapsulate all TaskRunner and Networking code in their own locations, where they don\u0027t need to know about each other.\n\nRegarding swapping in an arbitrary Task Runner, @Mfoltz has asked me to add support for this. It should be in the new iteration of this CL\n\nWhat does everyone else think?",
+      "parentUuid": "47ee63fe_80b28cda",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -1151,6 +1991,30 @@
     },
     {
       "key": {
+        "uuid": "ebf5a968_c522daf1",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Updated based on Mark\u0027s suggestion. Thank you everyone for the ideas!",
+      "parentUuid": "2b4d7b06_a2ef0579",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4290b918_ef65614c",
         "filename": "platform/base/network_runner.h",
         "patchSetId": 2
@@ -1165,6 +2029,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d6105e3_eff351b7",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Updated. This was originally public to allow the NetworkRunner to access NetworkRunnerImpl\u0027s singleton object, but the suggestion above fixed this.",
+      "parentUuid": "4290b918_ef65614c",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -1185,6 +2067,24 @@
     },
     {
       "key": {
+        "uuid": "e5fb52f2_fc17ab3e",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "929e8df1_90a5ba25",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "392b87a9_6a47fd3d",
         "filename": "platform/posix/event_waiter.cc",
         "patchSetId": 2
@@ -1199,6 +2099,42 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fefead6a_7038a306",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Updated to return a new Error::Code::kTimeout",
+      "parentUuid": "392b87a9_6a47fd3d",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2a50249_a2c60123",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:42:58Z",
+      "side": 1,
+      "message": "Updated to return a new Error::Code::kTimeout",
+      "parentUuid": "392b87a9_6a47fd3d",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
