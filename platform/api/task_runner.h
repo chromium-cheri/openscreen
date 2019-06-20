@@ -7,6 +7,7 @@
 
 #include <future>
 
+#include "absl/types/optional.h"
 #include "platform/api/time.h"
 
 namespace openscreen {
@@ -14,13 +15,12 @@ namespace platform {
 
 // A thread-safe API surface that allows for posting tasks. The underlying
 // implementation may be single or multi-threaded, and all complication should
-// be handled by either the implementation class or the TaskRunnerFactory
-// method. It is the expectation of this API that the underlying impl gives
-// the following guarantees:
+// be handled by the implementation class. It is the expectation of this API
+// that the underlying impl gives the following guarantees:
 // (1) Tasks shall not overlap in time/CPU.
 // (2) Tasks shall run sequentially, e.g. posting task A then B implies
 //     that A shall run before B.
-// NOTE: we do not make any assumptions about what thread tasks shall run on.
+// NOTE: We do not make any assumptions about what thread tasks shall run on.
 class TaskRunner {
  public:
   using Task = std::packaged_task<void() noexcept>;
@@ -43,11 +43,57 @@ class TaskRunner {
     PostPackagedTaskWithDelay(Task(std::move(f)), delay);
   }
 
+  // Posts a delayed task that will run repeatedly. The result of the function
+  // object will determine if the task should be reposted, in that it will be
+  // reposted if and only if the result is nonzero.
+  // NOTE: Because the same object is used for repeated execution, a function
+  // must be used rather than an arbitrary Functor as above.
+  inline void PostRepeatedTask(
+      std::function<absl::optional<Clock::duration>()> function,
+      Clock::duration delay = Clock::duration(0)) {
+    PostTaskWithDelay(RepeatingFunction(this, function), delay);
+  }
+
   // Implementations should provide the behavior explained in the comments above
   // for PostTask[WithDelay](). Client code may also call these directly when
   // passing an existing Task object.
   virtual void PostPackagedTask(Task task) = 0;
   virtual void PostPackagedTaskWithDelay(Task task, Clock::duration delay) = 0;
+
+  // Tasks will only be executed if RunUntilStopped has been called, and
+  // RequestStopSoon has not. If the is_async parameter is set to true, a new
+  // thread will be created to execute tasks on. Else, calling
+  // "RunUntilStopped()" will block whatever thread you are calling it on.
+  virtual void RunUntilStopped(bool is_async = true) = 0;
+
+  // Thread-safe method for requesting the TaskRunnerImpl to stop running. This
+  // sets a flag that will get checked in the run loop, typically after
+  // completing the current task.
+  virtual void RequestStopSoon() = 0;
+
+ private:
+  // Class used to post the same task more than once.
+  class RepeatingFunction {
+   public:
+    // Creates a new task that will be posted repeatedly to the task runner. If
+    // the function returns a valid Clock::duration, it will be reposted with
+    // that delay, and will not be reposted if absl::nullopt is instead
+    // returned.
+    RepeatingFunction(TaskRunner* task_runner,
+                      std::function<absl::optional<Clock::duration>()> function)
+        : task_runner_(task_runner), function_(function) {}
+
+    void operator()() {
+      absl::optional<Clock::duration> delay = function_();
+      if (delay.has_value()) {
+        task_runner_->PostRepeatedTask(function_, delay.value());
+      }
+    }
+
+   private:
+    TaskRunner* task_runner_;
+    std::function<absl::optional<Clock::duration>()> function_;
+  };
 };
 
 }  // namespace platform

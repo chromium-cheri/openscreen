@@ -19,6 +19,7 @@ source_set("platform") {
     "api/time.h",
     "api/tls_socket.h",
     "api/tls_socket_creds.h",
+    "api/udp_socket.cc",
     "api/udp_socket.h",
     "api/upd_callbacks.h",
     "base/time.cc",
@@ -37,6 +38,10 @@ source_set("platform") {
     sources += [
       "base/event_loop.cc",
       "base/event_loop.h",
+      "base/network_loop.h",
+      "base/network_loop.cc",
+      "base/network_runner_impl.h",
+      "base/network_runner_impl.cc",
       "base/task_runner_impl.cc",
       "base/task_runner_impl.h",
     ]
@@ -55,6 +60,7 @@ source_set("platform") {
     if (is_posix) {
       sources += [
         "posix/event_waiter.cc",
+        "posix/event_waiter.h",
         "posix/udp_socket.cc",
         "posix/udp_socket.h",
       ]
@@ -70,7 +76,7 @@ source_set("test") {
   testonly = true
   sources = [
     "test/fake_clock.cc",
-    "test/fake_clock.h",
+    "test/fake_clock.h"
   ]
 
   configs += [ "../build:allow_build_from_embedder" ]
@@ -102,6 +108,7 @@ source_set("platform_unittests") {
 
   sources = [
     "api/time_unittest.cc",
+    "api/udp_socket_unittest.cc",
   ]
 
   # The unit tests in base/ assume the standalone implementation is being used.
@@ -110,11 +117,19 @@ source_set("platform_unittests") {
     sources += [
       "base/task_runner_impl_unittest.cc",
       "base/time_unittest.cc",
+      "base/network_loop_unittest.cc",
+      "base/network_runner_impl_unittest.cc",
+    ]
+  }
+  if (!build_with_chromium && is_posix) {
+    sources += [
+      "posix/event_waiter_unittest.cc",
     ]
   }
 
   deps = [
     ":platform",
+    "../third_party/googletest:gmock",
     "../third_party/googletest:gtest",
   ]
 

@@ -35,8 +35,8 @@ class NetworkRunner : public TaskRunner {
  public:
   using TaskRunner::Task;
 
-  static std::unique_ptr<NetworkRunner> Create(
-      platform::ClockNowFunctionPtr now_function);
+  // Returns the singleton instance of the NetworkRunner.
+  static NetworkRunner* GetInstance();
 
   ~NetworkRunner() override = default;
 
@@ -50,7 +50,14 @@ class NetworkRunner : public TaskRunner {
                                UdpReadCallback* callback) = 0;
 
   // Cancels any pending wait on reading |socket|.
-  virtual void CancelRead(UdpSocket* socket) = 0;
+  virtual Error CancelRead(UdpSocket* socket) = 0;
+
+  // Sets the task runner factory used to create a task runner for this network
+  // runner instance.
+  // NOTE: The created Task Runner will be owned by this Network Runner
+  // instance.
+  virtual Error SetTaskRunnerFactory(
+      std::function<TaskRunner*()> task_runner_factory) = 0;
 };
 
 }  // namespace platform

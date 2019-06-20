@@ -77,6 +77,8 @@ class Error {
 
     kJsonParseError,
     kJsonWriteError,
+
+    kTimeout,
   };
 
   Error();

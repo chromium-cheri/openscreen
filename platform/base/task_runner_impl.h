@@ -52,6 +52,9 @@ class TaskRunnerImpl final : public TaskRunner {
       TaskWaiter* event_waiter = nullptr,
       Clock::duration waiter_timeout = std::chrono::milliseconds(100));
 
+  static std::unique_ptr<TaskRunner> Create(
+      platform::ClockNowFunctionPtr now_function);
+
   // TaskRunner overrides
   ~TaskRunnerImpl() final;
   void PostPackagedTask(Task task) final;
@@ -61,7 +64,7 @@ class TaskRunnerImpl final : public TaskRunner {
   // RequestStopSoon has not. Important note: TaskRunner does NOT do any
   // threading, so calling "RunUntilStopped()" will block whatever thread you
   // are calling it on.
-  void RunUntilStopped();
+  void RunUntilStopped(bool is_async);
 
   // Thread-safe method for requesting the TaskRunner to stop running. This sets
   // a flag that will get checked in the run loop, typically after completing
@@ -105,6 +108,10 @@ class TaskRunnerImpl final : public TaskRunner {
   // Atomic so that we can perform atomic exchanges.
   std::atomic_bool is_running_;
 
+  // Represents whether the task runner is running in synchronous or
+  // asynchronous mode.
+  bool async_mode_;
+
   // This mutex is used for |tasks_| and |delayed_tasks_|, and also for
   // notifying the run loop to wake up when it is waiting for a task to be added
   // to the queue in |run_loop_wakeup_|.
@@ -123,6 +130,11 @@ class TaskRunnerImpl final : public TaskRunner {
   // vector, use an A/B vector-swap mechanism. |running_tasks_| starts out
   // empty, and is swapped with |tasks_| when it is time to run the Tasks.
   std::vector<Task> running_tasks_;
+
+  // Thread on which to run the task runner if it is running in async mode.
+  std::unique_ptr<std::thread> thread_;
+
+  OSP_DISALLOW_COPY_AND_ASSIGN(TaskRunnerImpl);
 };
 }  // namespace platform
 }  // namespace openscreen

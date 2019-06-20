@@ -19,6 +19,12 @@ TaskRunnerImpl::TaskRunnerImpl(platform::ClockNowFunctionPtr now_function,
 
 TaskRunnerImpl::~TaskRunnerImpl() = default;
 
+// static
+std::unique_ptr<TaskRunner> TaskRunnerImpl::Create(
+    platform::ClockNowFunctionPtr now_function) {
+  return std::unique_ptr<TaskRunner>(new TaskRunnerImpl(now_function));
+}
+
 void TaskRunnerImpl::PostPackagedTask(Task task) {
   std::lock_guard<std::mutex> lock(task_mutex_);
   tasks_.push_back(std::move(task));
@@ -41,11 +47,17 @@ void TaskRunnerImpl::PostPackagedTaskWithDelay(Task task,
   }
 }
 
-void TaskRunnerImpl::RunUntilStopped() {
+void TaskRunnerImpl::RunUntilStopped(bool is_async) {
   const bool was_running = is_running_.exchange(true);
+  async_mode_ = is_async;
   OSP_CHECK(!was_running);
 
-  RunTasksUntilStopped();
+  if (!is_async) {
+    RunTasksUntilStopped();
+  } else {
+    thread_ = std::make_unique<std::thread>(
+        [this]() { this->RunTasksUntilStopped(); });
+  }
 }
 
 void TaskRunnerImpl::RequestStopSoon() {
@@ -58,6 +70,10 @@ void TaskRunnerImpl::RequestStopSoon() {
     } else {
       std::lock_guard<std::mutex> lock(task_mutex_);
       run_loop_wakeup_.notify_one();
+    }
+
+    if (async_mode_) {
+      thread_->join();
     }
   }
 }

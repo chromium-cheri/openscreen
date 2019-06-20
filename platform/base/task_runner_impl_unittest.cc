@@ -7,6 +7,7 @@
 #include <atomic>
 #include <thread>  // NOLINT
 
+#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
 #include "platform/base/task_runner_impl.h"
@@ -17,6 +18,7 @@ namespace platform {
 namespace {
 
 using std::chrono::milliseconds;
+using namespace ::testing;
 
 const auto kTaskRunnerSleepTime = milliseconds(1);
 constexpr Clock::duration kWaitTimeout = milliseconds(1000);
@@ -87,7 +89,7 @@ TEST(TaskRunnerImplTest, TaskRunnerExecutesTask) {
   FakeClock fake_clock{platform::Clock::time_point(milliseconds(1337))};
   auto runner = std::make_unique<TaskRunnerImpl>(&fake_clock.now);
 
-  std::thread t([&runner] { runner.get()->RunUntilStopped(); });
+  runner.get()->RunUntilStopped(true);
 
   std::string ran_tasks = "";
   const auto task = [&ran_tasks] { ran_tasks += "1"; };
@@ -99,14 +101,13 @@ TEST(TaskRunnerImplTest, TaskRunnerExecutesTask) {
   EXPECT_EQ(ran_tasks, "1");
 
   runner.get()->RequestStopSoon();
-  t.join();
 }
 
 TEST(TaskRunnerImplTest, TaskRunnerRunsDelayedTasksInOrder) {
   FakeClock fake_clock{platform::Clock::time_point(milliseconds(1337))};
   TaskRunnerImpl runner(&fake_clock.now);
 
-  std::thread t([&runner] { runner.RunUntilStopped(); });
+  runner.RunUntilStopped(true);
 
   std::string ran_tasks = "";
 
@@ -127,7 +128,6 @@ TEST(TaskRunnerImplTest, TaskRunnerRunsDelayedTasksInOrder) {
   EXPECT_EQ(ran_tasks, "12");
 
   runner.RequestStopSoon();
-  t.join();
 }
 
 TEST(TaskRunnerImplTest, SingleThreadedTaskRunnerRunsSequentially) {
@@ -163,7 +163,7 @@ TEST(TaskRunnerImplTest, TaskRunnerCanStopRunning) {
   runner.PostTask(task_one);
   EXPECT_EQ(ran_tasks, "");
 
-  std::thread start_thread([&runner] { runner.RunUntilStopped(); });
+  runner.RunUntilStopped(true);
 
   WaitUntilCondition([&ran_tasks] { return !ran_tasks.empty(); });
   EXPECT_EQ(ran_tasks, "1");
@@ -174,8 +174,6 @@ TEST(TaskRunnerImplTest, TaskRunnerCanStopRunning) {
   runner.RequestStopSoon();
   runner.PostTask(task_two);
   EXPECT_EQ(ran_tasks, "1");
-
-  start_thread.join();
 }
 
 TEST(TaskRunnerImplTest, StoppingDoesNotDeleteTasks) {
@@ -235,7 +233,7 @@ TEST(TaskRunnerImplTest, TaskRunnerUsesEventWaiter) {
 
   int x = 0;
   std::thread t([&runner, &x] {
-    runner.get()->RunUntilStopped();
+    runner.get()->RunUntilStopped(false);
     x = 1;
   });
 
@@ -261,7 +259,7 @@ TEST(TaskRunnerImplTest, WakesEventWaiterOnPostTask) {
       TaskRunnerWithWaiterFactory::Create(Clock::now);
 
   int x = 0;
-  std::thread t([&runner] { runner.get()->RunUntilStopped(); });
+  std::thread t([&runner] { runner.get()->RunUntilStopped(false); });
 
   const Clock::time_point start1 = Clock::now();
   FakeTaskWaiter* fake_waiter = TaskRunnerWithWaiterFactory::fake_waiter.get();
@@ -279,6 +277,44 @@ TEST(TaskRunnerImplTest, WakesEventWaiterOnPostTask) {
 
   fake_waiter->WakeUpAndStop();
   t.join();
+}
+
+class RepeatedClass {
+ public:
+  RepeatedClass() { execution_count = 0; }
+
+  MOCK_METHOD0(Repeat, absl::optional<Clock::duration>());
+
+  absl::optional<Clock::duration> DoCall() {
+    auto result = Repeat();
+    execution_count++;
+    return result;
+  }
+
+  int execution_count;
+};
+
+TEST(TaskRunnerImplTest, RepeatingFunctionCalledRepeatedly) {
+  std::unique_ptr<TaskRunnerImpl> runner =
+      TaskRunnerWithWaiterFactory::Create(Clock::now);
+
+  runner.get()->RunUntilStopped(true);
+
+  RepeatedClass c;
+  EXPECT_CALL(c, Repeat())
+      .Times(3)
+      .WillOnce(Return(Clock::duration(0)))
+      .WillOnce(Return(Clock::duration(1)))
+      .WillOnce(Return(absl::nullopt));
+
+  runner->PostRepeatedTask([&c]() { return c.DoCall(); });
+  const Clock::time_point start2 = Clock::now();
+  while ((Clock::now() - start2) < kWaitTimeout && c.execution_count < 3) {
+    std::this_thread::sleep_for(kTaskRunnerSleepTime);
+  }
+  ASSERT_EQ(c.execution_count, 3);
+
+  runner->RequestStopSoon();
 }
 
 }  // namespace platform
