@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "41791d34_467e34c7",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:47:59Z",
+      "side": 1,
+      "message": "The only (current) case for a cancel read error is if the socket isn\u0027t actually being watched. So this could be used to signal we\u0027ve gotten into an error state, and can be checked with a OSP_DCHECK or similar was my intention. Same with adding a Read callback",
+      "parentUuid": "b28e724a_e8b4f605",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52090107_85106e15",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -223,6 +241,24 @@
       "writtenOn": "2019-06-18T18:54:57Z",
       "side": 1,
       "message": "Why not just let the callback post itself again?  I\u0027d like to keep the TaskRunner interface as small as possible.",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19851eac_ef5b200e",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:47:59Z",
+      "side": 1,
+      "message": "The only way I came up with to remove this was to add code everywhere that involves recursive lambdas, which are complex enough I wanted to centralize the code in one place\n\nIf you have a simple way to implement this, I would much prefer it to this one - What are your thoughts?",
+      "parentUuid": "52090107_85106e15",
       "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -263,6 +299,24 @@
       "writtenOn": "2019-06-18T18:54:57Z",
       "side": 1,
       "message": "I feel like these methods should only be available on concrete impls.  I don\u0027t see why the interface needs these methods.  Only code that knows what concrete impl is has would need to call these (I think).",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "799bb9e2_b2b5fc06",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-20T20:47:59Z",
+      "side": 1,
+      "message": "This is being discussed in the Part 1 CL as-well - if there is a consensus for removing it, I am happy to. My reasoning for adding it:\n1) Elsewhere in this CL, we are required to wrap our TaskRunner as a Chromium TaskRunner again (Chromium QUIC requires it), and this method is exposed for that purpose. See osp/impl/quic/quic_connection_factory_impl.cc for more details.\n2) In the new iteration of Part 1, We allow the embedder to inject in a Task Runner of their choice into the Network Runner. Since we do not know the type of Task Runner any longer, we cannot make such assumptions here and need to be able to initialize the Task Runner without that information (if initialization is needed). I\u0027ve added this method as a requirement to allow for such initialization\n\nI am happy to make the change as long as these issues are considered, so I will wait for a bit further discussion on Part 1 now that I\u0027ve outlined my reasoning :)",
+      "parentUuid": "8ddc9f6c_503e9e50",
       "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
