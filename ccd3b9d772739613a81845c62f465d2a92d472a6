@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "f55d6622_e46e0914",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-21T00:26:34Z",
+      "side": 1,
+      "message": "\u003e std::bind, which is banned in Chromium.\n\nstd::bind is only banned in Chromium because they have had their own base::OnceClosure and base::RepeatableClosure since before C++11. It\u0027s far easier to use than std::bind(), IMHO. The banning is because they didn\u0027t want to start mixing another \"closure\" mechanism in the code base, which would be confusing.\n\nWe have the opposite issue: starting from C++14, don\u0027t have our own library, etc. So, I don\u0027t think the Chromium ban should apply to OpenScreen code.\n\n\u003e We could write our own bind wrapper that generates move-only callbacks and checks its arguments.\n\nThat\u0027s Chromium\u0027s base::OnceCallback (1000\u0027s of lines of rather complex, template-heavy code). FWIW, std::bind() generates move-only functions if any bound arguments are move-only. So, I don\u0027t see that there\u0027s any issue here.",
+      "parentUuid": "d6bceb97_f322fedd",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ada1f94_73376b9e",
         "filename": "osp_base/alarm.h",
         "patchSetId": 3
@@ -263,6 +281,24 @@
       "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9861a691_61e752b1",
+        "filename": "osp_base/alarm.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-21T00:26:34Z",
+      "side": 1,
+      "message": "We had agreed a few months back that nearly 100% of the code in OpenScreen is going to be single-threaded. I didn\u0027t add the class-level comment about this because then we should be doing in every header file. Instead, I\u0027d suggest we just make this clear in our top-level documentation (i.e., have a general rule, and only comment the code that violates that rule).",
+      "parentUuid": "a3794507_2256e5e4",
+      "revId": "ccd3b9d772739613a81845c62f465d2a92d472a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
