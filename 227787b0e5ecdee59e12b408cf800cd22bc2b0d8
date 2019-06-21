@@ -2,6 +2,397 @@
   "comments": [
     {
       "key": {
+        "uuid": "7116cbe3_b777935f",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I think we should call this NetworkWaiter.  And it needs a class-level comment.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb5e3823_86568f16",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "First, I think we should get rid of writes and only focus on reads.\n\nSecond, I think we should call this something like for AwaitSocketsReadble.\n\nThird (nit), I think the timeout should be the last argument.\n\nFourth, I think we could simplify this in one of two ways.  Either:\n\nA.  std::vector\u003cUdpSocket*\u003e AwaitSocketsReadable(const std::vector\u003cUdpSocket*\u003e\u0026 sockets, Clock::duration timeout)\n\nB.  AddSocket(UdpSocket*), RemoveSocket(UdpSocket*), std::vector\u003cUdpSocket*\u003e AwaitSocketsReadable(Clock::duration timeout)\n\nBut either way, you tell it which sockets to watch and then it tells you which sockets changed, with fewer objects and methods.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d894ff5f_a7547ed9",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I\u0027m still not a fan of a singleton here.  Why can\u0027t we just have a Create() method and let higher-level code decide if it wants a global thing?",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87c3f65f_a0eb1b26",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I don\u0027t think this should return an error.  Maybe have it return a bool indicating that the read was cancelled or whether it was a no-op.  Having a generic error means callers have to deal with the error, but with a generic error if you have to assume the cancel failed.  But then what do you do?  Cancel shouldn\u0027t fail.  It should either succeed or be a no-op.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dffde266_744590e4",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Why not just pass in a TaskRunner?  Why bother with the abstraction of a factory?   Then you could pass it as a unique_ptr and not need this NOTE.  \n\nAlso, please comment what happens if you don\u0027t call this (I\u0027m assuming it uses a default).\n\nAnd... maybe it just makes more sense to pass it into Create() since you can\u0027t change the TaskRunner in the middle of using the NetworkRunner.  \n\nActually.... maybe it\u0027s best not to have this at all.... see below.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f487f32_a794c66f",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I don\u0027t think we should both with this method.  If someone needs it, just let them \nuse PostTask(RepeatingFunction(...)) (make RepeatingFunction public).",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7dc5652_fefb4756",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "It seems like we only need this here in order to allow the NetworkRunner to use it.  But it pollutes the TaskRunner interface.  I think it would be better if we found a different way.\n\nFor example, the NetworkRunner could know which concrete type it\u0027s working with.  Just have it use a TaskRunnerImpl.  \n\nI\u0027m not sure it\u0027s worth testing the NetworkRunner with a fake TaskRunner.  I think we should just test a NetworkRunner as whole as it would be used by a normal user (with a TaskRunnerImpl inside).  If that\u0027s not good enough for our tests, there are other tricks we could play (like templatize NetworkRunner or subclass TaskRunnerImpl).  But either way, I\u0027d like to avoid polluting the TaskRunner interface.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31eb5a05_1f2b7a42",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Rather than have an async bool, I think it would be better to split it into two methods:\n\nRunUntilStopped()  // Sync\nStart()  // Async",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d09902_0f8dd959",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Callbacks like this are tricky because you don\u0027t know what thread they will be called on.  I think it might be better to figure out if we can avoid it.  If the only reason is to CancelRead, why don\u0027t we just require callers to call CancelRead before deleting a UdpSocket?  It seems like we need to have CancelRead be good practice anyway, and that\u0027s what we seem to do in the big comment.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43a48c77_78c0aec3",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "How is this different than a std::bind or a lambda?",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a30bff14_0795505b",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "We\u0027re going to do all this clear+add every 50-250ms?  Seems excessive.  I think we could improve this by modeling it around AwaitReadableSockets.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06b35d40_e01407e7",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "This seems kind of long if it blocks the first read and the stopping.  Maybe 50ms would make more sense.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fc348aa_ef5fc1a8",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I think we should call this NetworkReader and remove all the write things.  Also, the class-level comments could use some improvement.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8b4a7b0_44908ae3",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Since you can\u0027t change it mid-use, why not pass it into Create() instead?  Also, we need to comment about the lifetime.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8db8a7e8_26b2fd7b",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Will you get an Error if you try to do the same socket twice, or will it replace the first one?",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "424fb5df_db9beeb8",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "No one reading this will know what that means.  Perhaps it would be better to say that the first read may delayed up to X milliseconds.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ef396a_62ba0d42",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I\u0027m not sure the NOTE is even needed.  Just say no callbacks will be fired, even if a pending read occurs.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b18578_dad31c79",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "As mentioned, please remote write things.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d789e669_53601dcd",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of testing every single layer of the stack here and allowing mocks to be injected at all levels.  I think we should just test the NetworkRunner as a whole and leave the implementation details opaque, even to tests.  That will lead to more simple code and tests that are won\u0027t break if we do a refactoring (which is half the point of unit tests: to be able to refactor).\n\nAlso: I think we can get rid of passing in these read_handler and write_handler if we use the AwaitSocketsReadable method I mentioned previously.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d6e09ac_6c10d9cc",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Perhaps call it ReadFromSocket.  Make it clear this does not block.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44af607d_a5e57eb0",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "This NOTE is duplicate with the previous one.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfb99aa6_9deea333",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "This should have \"Read\" in the name.  Perhaps \"WaitAndRead\" or maybe just \"Read\".\n\nAlso, we need to specify when an Error can occur and what that means: should one call WaitAndRead again?  Or is it terminal and this NetworkRead is dead?",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bde4b47_da5560bf",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Please put the \"\u003d false\" in the class definition.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "852099c7_5923d5e2",
         "filename": "platform/base/network_runner_impl.cc",
         "patchSetId": 3
@@ -46,6 +437,125 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8da895fe_c0c47772",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Seems like a lot of complexity to be able to set the TaskRunner when it seems much more easy to pass it into Create() (and not have GetInstance).",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04a8d88_8ce9664e",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "What\u0027s with the magic \"+1\"?  Could use a comment.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d455195_79bceb60",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I think it would be better to collapse this into 1 layer of abstraction with a NetworkWaiterPosix",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "414be899_84f25776",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Seems like something that should go where we define Clock or put in util/ or somewhere else.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6a87a3f_70563b0d",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Should we set_, and should be private.  This is a class, not a struct.\n\nAlso, \"fds_\" would be a better name.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d56e47ad_005f8e61",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "max_fd_",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65350408_39221929",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "override?",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

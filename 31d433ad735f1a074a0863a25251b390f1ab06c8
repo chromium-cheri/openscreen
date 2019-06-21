@@ -347,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "244a4c34_0fb53d05",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of singletons.  \n\nAll the code we will be testing should take a NetworkRunner* as a parameter, so why can\u0027t a test simply create one and then pass it in?  Why the need for code being tested to access it via GetSingleton?\n\nI can understand if we have a global Context object that has a NetworkRunner, but then it could also have other things as well (like a clock).  If we\u0027re going to do the \"get the singleton\" thing, I feel like it should be in one place (like a Context) and not in every placed (NetworkRunner, clock, maybe file system some day, etc).",
+      "parentUuid": "a6e6d991_b6aa8b96",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90526ace_9174b72e",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -1709,6 +1727,24 @@
     },
     {
       "key": {
+        "uuid": "a783a370_43861ab4",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "Same here.",
+      "parentUuid": "f9dc166b_3ff1062b",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd49c689_f3734532",
         "filename": "platform/base/network_runner.cc",
         "patchSetId": 2
@@ -1791,6 +1827,24 @@
     },
     {
       "key": {
+        "uuid": "8b4c11b4_b80afc1d",
+        "filename": "platform/base/network_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "+1\n\nActually... I don\u0027t think we need to threads for this.  We could do this instead:\n\nnetwork_thread_ \u003d std::make_unique\u003cstd::thread\u003e(\n      std::bind(\u0026NetworkLoop::RunUntilStopped, network_loop_.get()));\ntask_runner_-\u003eRunUntilStopped();\nnetwork_thread_-\u003eJoin();",
+      "parentUuid": "c3da526b_4b01e0ad",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c23e231_1594c024",
         "filename": "platform/base/network_runner.cc",
         "patchSetId": 2
@@ -1858,6 +1912,23 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38386056_e46e082a",
+        "filename": "platform/base/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-21T17:00:55Z",
+      "side": 1,
+      "message": "I think we need a comment explaining that this is the 2-thread approach, perhaps with some documentation about what that means.",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
