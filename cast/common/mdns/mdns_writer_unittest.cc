@@ -12,6 +12,19 @@
 namespace cast {
 namespace mdns {
 
+namespace {
+
+template <class T>
+void TestWriteEntry(const uint8_t* data, size_t size, const T& entry) {
+  std::vector<uint8_t> buffer(size);
+  MdnsWriter writer(buffer.data(), buffer.size());
+  EXPECT_TRUE(writer.Write(entry));
+  EXPECT_EQ(writer.remaining(), UINT64_C(0));
+  EXPECT_THAT(buffer, testing::ElementsAreArray(data, data + size));
+}
+
+}  // namespace
+
 TEST(MdnsWriterTest, WriteDomainName) {
   // clang-format off
   constexpr uint8_t kExpectedResult[] = {
@@ -142,6 +155,184 @@ TEST(MdnsWriterTest, WriteDomainName_NoCompressionForBigOffsets) {
   }
   buffer.erase(buffer.begin(), buffer.begin() + 0x4000);
   EXPECT_THAT(buffer, testing::ElementsAreArray(kExpectedResultCompressed));
+}
+
+TEST(MdnsWriterTest, WriteRawRecordRdata) {
+  // clang-format off
+  constexpr uint8_t kExpectedRdata[] = {
+      0x00, 0x08,  // RDLENGTH = 8 bytes
+      0x05, 'c', 'n', 'a', 'm', 'e', 0xc0, 0x00,
+  };
+  // clang-format on
+  TestWriteEntry(
+      kExpectedRdata, sizeof(kExpectedRdata),
+      RawRecordRdata(kExpectedRdata + 2, sizeof(kExpectedRdata) - 2));
+}
+
+TEST(MdnsWriterTest, WriteSrvRecordRdata) {
+  constexpr uint8_t kExpectedRdata[] = {
+      0x00, 0x15,  // RDLENGTH = 21
+      0x00, 0x05,  // PRIORITY = 5
+      0x00, 0x06,  // WEIGHT = 6
+      0x1f, 0x49,  // PORT = 8009
+      0x07, 't',  'e', 's', 't', 'i', 'n',  'g',
+      0x05, 'l',  'o', 'c', 'a', 'l', 0x00,
+  };
+  TestWriteEntry(kExpectedRdata, sizeof(kExpectedRdata),
+                 SrvRecordRdata(5, 6, 8009, DomainName{"testing", "local"}));
+}
+
+TEST(MdnsWriterTest, WriteARecordRdata) {
+  constexpr uint8_t kExpectedRdata[] = {
+      0x00, 0x4,               // RDLENGTH = 4
+      0x08, 0x08, 0x08, 0x08,  // ADDRESS = 8.8.8.8
+  };
+  TestWriteEntry(kExpectedRdata, sizeof(kExpectedRdata),
+                 ARecordRdata(IPAddress{8, 8, 8, 8}));
+}
+
+TEST(MdnsWriterTest, WriteAAAARecordRdata) {
+  // clang-format off
+  constexpr uint8_t kExpectedRdata[] = {
+      0x00, 0x10,  // RDLENGTH = 16
+      // ADDRESS = FE80:0000:0000:0000:0202:B3FF:FE1E:8329
+      0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x02, 0x02, 0xb3, 0xff, 0xfe, 0x1e, 0x83, 0x29,
+  };
+  // clang-format on
+  TestWriteEntry(
+      kExpectedRdata, sizeof(kExpectedRdata),
+      AAAARecordRdata(IPAddress(IPAddress::Version::kV6, kExpectedRdata + 2)));
+}
+
+TEST(MdnsWriterTest, WritePtrRecordRdata) {
+  // clang-format off
+  constexpr uint8_t kExpectedRdata[] = {
+      0x00, 0x18,  // RDLENGTH = 24
+      0x08, 'm', 'y', 'd', 'e', 'v', 'i', 'c', 'e',
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a',  'l',
+      0x00,
+  };
+  // clang-format on
+  TestWriteEntry(kExpectedRdata, sizeof(kExpectedRdata),
+                 PtrRecordRdata(DomainName{"mydevice", "testing", "local"}));
+}
+
+TEST(MdnsWriterTest, WriteTxtRecordRdata) {
+  // clang-format off
+  constexpr uint8_t kExpectedRdata[] = {
+      0x00, 0x0C,  // RDLENGTH = 12
+      0x05, 'f', 'o', 'o', '=', '1',
+      0x05, 'b', 'a', 'r', '=', '2',
+  };
+  // clang-format on
+  TestWriteEntry(kExpectedRdata, sizeof(kExpectedRdata),
+                 TxtRecordRdata{"foo=1", "bar=2"});
+}
+
+TEST(MdnsWriterTest, WriteEmptyTxtRecordRdata) {
+  constexpr uint8_t kExpectedRdata[] = {
+      0x00, 0x01,  // RDLENGTH = 1
+      0x00,        // empty string
+  };
+  TestWriteEntry(kExpectedRdata, sizeof(kExpectedRdata), TxtRecordRdata());
+}
+
+TEST(MdnsWriterTest, WriteMdnsRecord_ARecordRdata) {
+  // clang-format off
+  const uint8_t kExpectedResult[] = {
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x01,              // TYPE = A (1)
+      0x80, 0x01,              // CLASS = IN (1) | CACHE_FLUSH_BIT
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x04,              // RDLENGTH = 4 bytes
+      0xac, 0x00, 0x00, 0x01,  // 172.0.0.1
+  };
+  // clang-format on
+  TestWriteEntry(kExpectedResult, sizeof(kExpectedResult),
+                 MdnsRecord(DomainName{"testing", "local"}, kTypeA,
+                            kClassIN | kCacheFlushBit, 120,
+                            ARecordRdata(IPAddress{172, 0, 0, 1})));
+}
+
+TEST(MdnsWriterTest, WriteMdnsRecord_PtrRecordRdata) {
+  // clang-format off
+  const uint8_t kExpectedResult[] = {
+      0x08, '_', 's', 'e', 'r', 'v', 'i', 'c', 'e',
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x0c,              // TYPE = PTR (12)
+      0x00, 0x01,              // CLASS = IN (1)
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x02,              // RDLENGTH = 2 bytes
+      0xc0, 0x09,              // Domain name label pointer to byte
+  };
+  // clang-format on
+  TestWriteEntry(
+      kExpectedResult, sizeof(kExpectedResult),
+      MdnsRecord(DomainName{"_service", "testing", "local"}, kTypePTR, kClassIN,
+                 120, PtrRecordRdata(DomainName{"testing", "local"})));
+}
+
+TEST(MdnsWriterTest, WriteMdnsQuestion) {
+  // clang-format off
+  const uint8_t kExpectedResult[] = {
+      0x04, 'w', 'i', 'r', 'e',
+      0x06, 'f', 'o', 'r', 'm', 'a', 't',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x0c,  // TYPE = PTR (12)
+      0x80, 0x01,  // CLASS = IN (1) | UNICAST_BIT
+  };
+  // clang-format on
+  TestWriteEntry(kExpectedResult, sizeof(kExpectedResult),
+                 MdnsQuestion(DomainName{"wire", "format", "local"}, kTypePTR,
+                              kClassIN | kUnicastResponseBit));
+}
+
+TEST(MdnsWriterTest, WriteMdnsMessage) {
+  // clang-format off
+  const uint8_t kExpectedMessage[] = {
+      0x00, 0x01,  // ID = 1
+      0x04, 0x00,  // FLAGS = AA
+      0x00, 0x01,  // Question count
+      0x00, 0x00,  // Answer count
+      0x00, 0x01,  // Authority count
+      0x00, 0x00,  // Additional count
+      // Question
+      0x08, 'q', 'u', 'e', 's', 't', 'i', 'o', 'n',
+      0x00,
+      0x00, 0x0c,  // TYPE = PTR (12)
+      0x00, 0x01,  // CLASS = IN (1)
+      // Authority Record
+      0x04, 'a', 'u', 't', 'h',
+      0x00,
+      0x00, 0x10,              // TYPE = TXT (16)
+      0x00, 0x01,              // CLASS = IN (1)
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x0c,              // RDLENGTH = 12 bytes
+      0x05, 'f', 'o', 'o', '=', '1',
+      0x05, 'b', 'a', 'r', '=', '2',
+  };
+  // clang-format on
+  MdnsQuestion question(DomainName{"question"}, kTypePTR, kClassIN);
+
+  MdnsRecord auth_record(DomainName{"auth"}, kTypeTXT, kClassIN, 120,
+                         TxtRecordRdata{"foo=1", "bar=2"});
+
+  MdnsMessage message(1, 0x0400);
+  message.AddQuestion(question);
+  message.AddAuthorityRecord(auth_record);
+
+  std::vector<uint8_t> buffer(sizeof(kExpectedMessage));
+  MdnsWriter writer(buffer.data(), buffer.size());
+  EXPECT_TRUE(writer.Write(message));
+  EXPECT_EQ(writer.remaining(), UINT64_C(0));
+  EXPECT_THAT(buffer, testing::ElementsAreArray(kExpectedMessage));
 }
 
 }  // namespace mdns

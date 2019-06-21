@@ -12,6 +12,20 @@
 namespace cast {
 namespace mdns {
 
+namespace {
+
+template <class T>
+void TestReadEntry(const uint8_t* data, size_t size, const T& expected) {
+  MdnsReader reader(data, size);
+  T entry;
+  EXPECT_TRUE(reader.Read(&entry));
+  EXPECT_EQ(entry, expected);
+  EXPECT_EQ(reader.remaining(), UINT64_C(0));
+  ;
+}
+
+}  // namespace
+
 TEST(MdnsReaderTest, ReadDomainName) {
   constexpr uint8_t kMessage[] = {
       // First name
@@ -47,10 +61,7 @@ TEST(MdnsReaderTest, ReadDomainName) {
 
 TEST(MdnsReaderTest, ReadDomainName_Empty) {
   constexpr uint8_t kDomainName[] = {0x00};
-  MdnsReader reader(kDomainName, sizeof(kDomainName));
-  DomainName name;
-  EXPECT_TRUE(reader.Read(&name));
-  EXPECT_EQ(0UL, reader.remaining());
+  TestReadEntry(kDomainName, sizeof(kDomainName), DomainName());
 }
 
 // In the tests below there should be no side effects for failing to read a
@@ -109,6 +120,342 @@ TEST(MdnsReaderTest, ReadDomainName_CircularCompression) {
   DomainName name;
   EXPECT_FALSE(reader.Read(&name));
   EXPECT_EQ(0u, reader.offset());
+}
+
+TEST(MdnsReaderTest, ReadRawRecordRdata) {
+  // clang-format off
+  constexpr uint8_t kRawRecordRdata[] = {
+      0x00, 0x08,  // RDLENGTH = 8 bytes
+      0x05, 'c', 'n', 'a', 'm', 'e', 0xc0, 0x00,
+  };
+  // clang-format on
+  TestReadEntry(
+      kRawRecordRdata, sizeof(kRawRecordRdata),
+      RawRecordRdata(kRawRecordRdata + 2, sizeof(kRawRecordRdata) - 2));
+}
+
+TEST(MdnsReaderTest, ReadSrvRecordRdata) {
+  // clang-format off
+  constexpr uint8_t kSrvRecordRdata[] = {
+      0x00, 0x15,  // RDLENGTH = 21
+      0x00, 0x05,  // PRIORITY = 5
+      0x00, 0x06,  // WEIGHT = 6
+      0x1f, 0x49,  // PORT = 8009
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l', 0x00,
+  };
+  // clang-format on
+  TestReadEntry(kSrvRecordRdata, sizeof(kSrvRecordRdata),
+                SrvRecordRdata(5, 6, 8009, DomainName{"testing", "local"}));
+}
+
+TEST(MdnsReaderTest, ReadARecordRdata) {
+  constexpr uint8_t kARecordRdata[] = {
+      0x00, 0x4,               // RDLENGTH = 4
+      0x08, 0x08, 0x08, 0x08,  // ADDRESS = 8.8.8.8
+  };
+  TestReadEntry(kARecordRdata, sizeof(kARecordRdata),
+                ARecordRdata(IPAddress{8, 8, 8, 8}));
+}
+
+TEST(MdnsReaderTest, ReadAAAARecordRdata) {
+  // clang-format off
+  constexpr uint8_t kAAAARecordRdata[] = {
+      0x00, 0x10,  // RDLENGTH = 16
+      // ADDRESS = FE80:0000:0000:0000:0202:B3FF:FE1E:8329
+      0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x02, 0x02, 0xb3, 0xff, 0xfe, 0x1e, 0x83, 0x29,
+  };
+  // clang-format on
+  TestReadEntry(kAAAARecordRdata, sizeof(kAAAARecordRdata),
+                AAAARecordRdata(IPAddress{0xfe, 0x80, 0x00, 0x00, 0x00, 0x00,
+                                          0x00, 0x00, 0x02, 0x02, 0xb3, 0xff,
+                                          0xfe, 0x1e, 0x83, 0x29}));
+}
+
+TEST(MdnsReaderTest, ReadPtrRecordRdata) {
+  // clang-format off
+  constexpr uint8_t kPtrRecordRdata[] = {
+      0x00, 0x18,  // RDLENGTH = 24
+      0x08, 'm', 'y', 'd', 'e', 'v', 'i', 'c', 'e',
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a',  'l',
+      0x00,
+  };
+  // clang-format on
+  TestReadEntry(kPtrRecordRdata, sizeof(kPtrRecordRdata),
+                PtrRecordRdata(DomainName{"mydevice", "testing", "local"}));
+}
+
+TEST(MdnsReaderTest, ReadTxtRecordRdata) {
+  // clang-format off
+  constexpr uint8_t kTxtRecordRdata[] = {
+      0x00, 0x0C,  // RDLENGTH = 12
+      0x05, 'f', 'o', 'o', '=', '1',
+      0x05, 'b', 'a', 'r', '=', '2',
+  };
+  // clang-format on
+  TestReadEntry(kTxtRecordRdata, sizeof(kTxtRecordRdata),
+                TxtRecordRdata{"foo=1", "bar=2"});
+}
+
+TEST(MdnsReaderTest, ReadEmptyTxtRecordRdata) {
+  constexpr uint8_t kTxtRecordRdata[] = {
+      0x00, 0x01,  // RDLENGTH = 1
+      0x00,        // empty string
+  };
+  TestReadEntry(kTxtRecordRdata, sizeof(kTxtRecordRdata), TxtRecordRdata());
+}
+
+TEST(MdnsReaderTest, ReadMdnsRecord_ARecordRdata) {
+  // clang-format off
+  const uint8_t kTestRecord[] = {
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x01,              // TYPE = A (1)
+      0x80, 0x01,              // CLASS = IN (1) | CACHE_FLUSH_BIT
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x04,              // RDLENGTH = 4 bytes
+      0x08, 0x08, 0x08, 0x08,  // RDATA = 8.8.8.8
+  };
+  // clang-format on
+  TestReadEntry(kTestRecord, sizeof(kTestRecord),
+                MdnsRecord(DomainName{"testing", "local"}, kTypeA,
+                           kClassIN | kCacheFlushBit, 120,
+                           ARecordRdata(IPAddress{8, 8, 8, 8})));
+}
+
+TEST(MdnsReaderTest, ReadMdnsRecord_UnknownRecordType) {
+  // clang-format off
+  const uint8_t kTestRecord[] = {
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x05,              // TYPE = CNAME (5)
+      0x80, 0x01,              // CLASS = IN (1) | CACHE_FLUSH_BIT
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x08,              // RDLENGTH = 8 bytes
+      0x05, 'c', 'n', 'a', 'm', 'e', 0xc0, 0x00,
+  };
+  const uint8_t kCnameRdata[] = {
+      0x05, 'c', 'n', 'a', 'm', 'e', 0xc0, 0x00,
+  };
+  // clang-format on
+  TestReadEntry(kTestRecord, sizeof(kTestRecord),
+                MdnsRecord(DomainName{"testing", "local"}, kTypeCNAME,
+                           kClassIN | kCacheFlushBit, 120,
+                           RawRecordRdata(kCnameRdata, sizeof(kCnameRdata))));
+}
+
+TEST(MdnsReaderTest, ReadMdnsRecord_CompressedNames) {
+  // clang-format off
+  const uint8_t kTestRecord[] = {
+      // First message
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x0c,              // TYPE = PTR (12)
+      0x00, 0x01,              // CLASS = IN (1)
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x06,              // RDLENGTH = 6 bytes
+      0x03, 'p',  't',  'r',
+      0xc0, 0x00,              // Domain name label pointer to byte 0
+      // Second message
+      0x03, 'o', 'n', 'e',
+      0x03, 't', 'w', 'o',
+      0xc0, 0x00,              // Domain name label pointer to byte 0
+      0x00, 0x01,              // TYPE = A (1)
+      0x80, 0x01,              // CLASS = IN (1) | CACHE_FLUSH_BIT
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x04,              // RDLENGTH = 4 bytes
+      0x08, 0x08, 0x08, 0x08,  // RDATA = 8.8.8.8
+  };
+  // clang-format on
+  MdnsReader reader(kTestRecord, sizeof(kTestRecord));
+
+  MdnsRecord record;
+  EXPECT_TRUE(reader.Read(&record));
+  EXPECT_EQ(record,
+            MdnsRecord(DomainName{"testing", "local"}, kTypePTR, kClassIN, 120,
+                       PtrRecordRdata(DomainName{"ptr", "testing", "local"})));
+  EXPECT_TRUE(reader.Read(&record));
+  EXPECT_EQ(record, MdnsRecord(DomainName{"one", "two", "testing", "local"},
+                               kTypeA, kClassIN | kCacheFlushBit, 120,
+                               ARecordRdata(IPAddress{8, 8, 8, 8})));
+}
+
+TEST(MdnsReaderTest, ReadMdnsRecord_MissingRdata) {
+  // clang-format off
+  const uint8_t kTestRecord[] = {
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x01,              // TYPE = A (1)
+      0x00, 0x01,              // CLASS = IN (1)
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x04,              // RDLENGTH = 4 bytes
+                               // Missing RDATA
+  };
+  // clang-format on
+  MdnsReader reader(kTestRecord, sizeof(kTestRecord));
+  MdnsRecord record;
+  EXPECT_FALSE(reader.Read(&record));
+}
+
+TEST(MdnsReaderTest, ReadMdnsRecord_InvalidHostName) {
+  // clang-format off
+  const uint8_t kTestRecord[] = {
+      // Invalid NAME: length byte too short
+      0x03, 'i', 'n', 'v', 'a', 'l', 'i', 'd',
+      0x00,
+      0x00, 0x01,              // TYPE = A (1)
+      0x00, 0x01,              // CLASS = IN (1)
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x04,              // RDLENGTH = 4 bytes
+      0x08, 0x08, 0x08, 0x08,  // RDATA = 8.8.8.8
+  };
+  // clang-format on
+  MdnsReader reader(kTestRecord, sizeof(kTestRecord));
+  MdnsRecord record;
+  EXPECT_FALSE(reader.Read(&record));
+}
+
+TEST(MdnsReaderTest, ReadMdnsQuestion) {
+  // clang-format off
+  const uint8_t kTestQuestion[] = {
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x01,  // TYPE = A (1)
+      0x80, 0x01,  // CLASS = IN (1) | UNICAST_BIT
+  };
+  // clang-format on
+  TestReadEntry(kTestQuestion, sizeof(kTestQuestion),
+                MdnsQuestion(DomainName{"testing", "local"}, kTypeA,
+                             kClassIN | kUnicastResponseBit));
+}
+
+TEST(MdnsReaderTest, ReadMdnsQuestion_CompressedNames) {
+  // clang-format off
+  const uint8_t kTestQuestions[] = {
+      // First Question
+      0x05, 'f', 'i', 'r', 's', 't',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x01,  // TYPE = A (1)
+      0x80, 0x01,  // CLASS = IN (1) | UNICAST_BIT
+      // Second Question
+      0x06, 's', 'e', 'c', 'o', 'n', 'd',
+      0xc0, 0x06,  // Domain name label pointer
+      0x00, 0x0c,  // TYPE = PTR (12)
+      0x00, 0x01,  // CLASS = IN (1)
+  };
+  // clang-format on
+  MdnsReader reader(kTestQuestions, sizeof(kTestQuestions));
+  MdnsQuestion question;
+  EXPECT_TRUE(reader.Read(&question));
+  EXPECT_EQ(question, MdnsQuestion(DomainName{"first", "local"}, kTypeA,
+                                   kClassIN | kUnicastResponseBit));
+  EXPECT_TRUE(reader.Read(&question));
+  EXPECT_EQ(question,
+            MdnsQuestion(DomainName{"second", "local"}, kTypePTR, kClassIN));
+  EXPECT_EQ(reader.remaining(), UINT64_C(0));
+}
+
+TEST(MdnsReaderTest, ReadMdnsQuestion_InvalidHostName) {
+  // clang-format off
+  const uint8_t kTestQuestion[] = {
+      // Invalid NAME: length byte too short
+      0x03, 'i', 'n', 'v', 'a', 'l', 'i', 'd',
+      0x00,
+      0x00, 0x01,  // TYPE = A (1)
+      0x00, 0x01,  // CLASS = IN (1)
+  };
+  // clang-format on
+  MdnsReader reader(kTestQuestion, sizeof(kTestQuestion));
+  MdnsQuestion question;
+  EXPECT_FALSE(reader.Read(&question));
+}
+
+TEST(MdnsReaderTest, ReadMdnsMessage) {
+  // clang-format off
+  const uint8_t kTestMessage[] = {
+      // Header
+      0x00, 0x01,  // ID = 1
+      0x84, 0x00,  // FLAGS = AA | RESPONSE
+      0x00, 0x00,  // Questions = 0
+      0x00, 0x01,  // Answers = 1
+      0x00, 0x00,  // Authority = 0
+      0x00, 0x01,  // Additional = 1
+      // Record 1
+      0x07, 'r', 'e', 'c', 'o', 'r', 'd', '1',
+      0x00,
+      0x00, 0x0c,              // TYPE = PTR (12)
+      0x00, 0x01,              // CLASS = IN (1)
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x0f,              // RDLENGTH = 15 bytes
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      // Record 2
+      0x07, 'r', 'e', 'c', 'o', 'r', 'd', '2',
+      0x00,
+      0x00, 0x01,              // TYPE = A (1)
+      0x00, 0x01,              // CLASS = IN (1)
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x04,              // RDLENGTH = 4 bytes
+      0xac, 0x00, 0x00, 0x01,  // 172.0.0.1
+  };
+  // clang-format on
+
+  MdnsRecord record1(DomainName{"record1"}, kTypePTR, kClassIN, 120,
+                     PtrRecordRdata(DomainName{"testing", "local"}));
+  MdnsRecord record2(DomainName{"record2"}, kTypeA, kClassIN, 120,
+                     ARecordRdata(IPAddress{172, 0, 0, 1}));
+  MdnsMessage message(
+      1, 0x8400, std::vector<MdnsQuestion>{}, std::vector<MdnsRecord>{record1},
+      std::vector<MdnsRecord>{}, std::vector<MdnsRecord>{record2});
+  TestReadEntry(kTestMessage, sizeof(kTestMessage), message);
+}
+
+TEST(MdnsReaderTest, ReadMdnsMessage_InvalidRecordCounts) {
+  // clang-format off
+  const uint8_t kInvalidMessage1[] = {
+      0x00, 0x00,  // ID = 0
+      0x00, 0x00,  // FLAGS = 0
+      0x00, 0x01,  // Questions = 1
+      0x00, 0x01,  // Answers = 1
+      0x00, 0x00,  // Authority = 0
+      0x00, 0x00,  // Additional = 0
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x0c,  // TYPE = PTR (12)
+      0x00, 0x01,  // CLASS = IN (1)
+      // NOTE: Missing answer record
+  };
+  const uint8_t kInvalidMessage2[] = {
+      0x00, 0x00,  // ID = 0
+      0x00, 0x00,  // FLAGS = 0
+      0x00, 0x00,  // Questions = 0
+      0x00, 0x00,  // Answers = 0
+      0x00, 0x00,  // Authority = 0
+      0x00, 0x02,  // Additional = 2
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x0c,              // TYPE = PTR (12)
+      0x00, 0x01,              // CLASS = IN (1)
+      0x00, 0x00, 0x00, 0x78,  // TTL = 120 seconds
+      0x00, 0x00,              // RDLENGTH = 0
+      // NOTE: Only 1 answer record is given.
+  };
+  // clang-format on
+  MdnsMessage message;
+  MdnsReader reader1(kInvalidMessage1, sizeof(kInvalidMessage1));
+  EXPECT_FALSE(reader1.Read(&message));
+  MdnsReader reader2(kInvalidMessage2, sizeof(kInvalidMessage2));
+  EXPECT_FALSE(reader2.Read(&message));
 }
 
 }  // namespace mdns
