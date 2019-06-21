@@ -83,8 +83,8 @@ class Controller final : public ServiceListener::Observer {
     uint64_t request_id_;
   };
 
-  // TODO(issue/31): Remove singletons in the embedder API and protocol
-  // implementation layers
+  // TODO(crbug.com/openscreen/31): Remove singletons in the embedder API and
+  // protocol implementation layers
   void Init();
   void Deinit();
 
@@ -106,10 +106,10 @@ class Controller final : public ServiceListener::Observer {
                                    RequestDelegate* delegate,
                                    Connection::Delegate* conn_delegate);
 
-  // TODO(issue/31): Remove singletons in the embedder API and protocol
-  // implementation layers. Esp. for any case where we need to segregate
-  // information on the receiver for privacy reasons (e.g. receiver status only
-  // shows title/description to original controlling context)?
+  // TODO(crbug.com/openscreen/31): Remove singletons in the embedder API and
+  // protocol implementation layers. Esp. for any case where we need to
+  // segregate information on the receiver for privacy reasons (e.g. receiver
+  // status only shows title/description to original controlling context)?
   ConnectRequest ReconnectPresentation(const std::vector<std::string>& urls,
                                        const std::string& presentation_id,
                                        const std::string& service_id,

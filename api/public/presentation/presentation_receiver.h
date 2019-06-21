@@ -59,8 +59,8 @@ class ReceiverDelegate {
 
 class Receiver final : public MessageDemuxer::MessageCallback {
  public:
-  // TODO(issue/31): Remove singletons in the embedder API and protocol
-  // implementation layers
+  // TODO(crbug.com/openscreen/31): Remove singletons in the embedder API and
+  // protocol implementation layers
   static Receiver* Get();
   void Init();
   void Deinit();

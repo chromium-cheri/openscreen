@@ -17,7 +17,7 @@
 #include "platform/api/logging.h"
 #include "third_party/abseil/src/absl/strings/string_view.h"
 
-// TODO(issue/27): Address TODOs in this file
+// TODO(crbug.com/openscreen/27): Address TODOs in this file.
 namespace openscreen {
 namespace presentation {
 

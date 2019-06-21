@@ -17,7 +17,8 @@ config("gmock_config") {
   visibility = [ ":*" ]
 
   cflags_cc = [
-    # issue/15: GMock does not support the override keyword.
+    # NOTE(crbug.com/openscreen/15): GMock does not support the override
+    # keyword.
     "-Wno-inconsistent-missing-override",
   ]
   if (is_clang) {
