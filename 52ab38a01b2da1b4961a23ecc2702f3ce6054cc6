@@ -230,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "1b55a89d_5f4a8f93",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-24T20:36:39Z",
+      "side": 1,
+      "message": "IMO the DCHECK should just go directly in ReadRepeatedly and CancelRead in that case.",
+      "parentUuid": "41791d34_467e34c7",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52090107_85106e15",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -259,6 +277,24 @@
       "side": 1,
       "message": "The only way I came up with to remove this was to add code everywhere that involves recursive lambdas, which are complex enough I wanted to centralize the code in one place\n\nIf you have a simple way to implement this, I would much prefer it to this one - What are your thoughts?",
       "parentUuid": "52090107_85106e15",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ca7c692_04605c5f",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-24T20:36:39Z",
+      "side": 1,
+      "message": "If we keep this, it should be: std::function\u003cClock::duration\u003e()\u003e; the units are completely unclear ATM.",
+      "parentUuid": "19851eac_ef5b200e",
       "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
