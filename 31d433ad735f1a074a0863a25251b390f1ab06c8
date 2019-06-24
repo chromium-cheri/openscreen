@@ -107,6 +107,42 @@
     },
     {
       "key": {
+        "uuid": "9a1c4e47_deaf7e63",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-24T18:00:46Z",
+      "side": 1,
+      "message": "We don\u0027t want 2 lists of callbacks, which is another reason to bind them to the UdpSocket itself.",
+      "parentUuid": "20b54d95_96ca3dee",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2b5829f_dee16922",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-24T18:00:46Z",
+      "side": 1,
+      "message": "I think it makes sense to have an object for managing an FD_SET.  However I\u0027m not sure it should be part of the platform API (the part the OS implements), since it\u0027s really part of the network loop implementation, and the OS-specific piece is captured in the declarations below for {Watch,Stop}UdpSocket{Readable,Writable}.  So I think this would fit better as helper class of the NetworkLoop, or maybe put into platform/impl in the new platform/ folder structure if it needs to be used by multiple classes.",
+      "parentUuid": "3d85f609_9fd13929",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c990eaa1_eddfbb2b",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 2
@@ -206,6 +242,24 @@
       "side": 1,
       "message": "I went with pointers because const refs are not possible\nOn posix, WaitForEvents changes the contents of the FD_SET underlying the SocketHandler objects, so const refs aren\u0027t valid\n\nI\u0027ve added OSP_CHECK calls for nullptrs since they are invalid, and added documentation as such\n\nIf you prefer, I can instead update the code to treat a nullptr as an empty set",
       "parentUuid": "90d5e60d_7b0a5b55",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c845a2fa_6514218f",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-24T18:00:46Z",
+      "side": 1,
+      "message": "Ok, just please document how the caller should do if they only want reads and not writes (or vice versa).  I would prefer passing nullptr to avoid having to allocate an empty object for this case.",
+      "parentUuid": "4200f59d_8844cf43",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -365,6 +419,24 @@
     },
     {
       "key": {
+        "uuid": "ce3074d6_9f611a7f",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-24T18:00:46Z",
+      "side": 1,
+      "message": "We have an open issue to collect all of the \"global things\" into a set of context objects, maybe one per process, one per thread and one per client/profile in the embedder.\n\nhttps://crbug.com/openscreen/31\n\nIf we *really* need the singleton here, then please add a TODO referencing that issue so we can find where we need to fix code to use the context object later.",
+      "parentUuid": "244a4c34_0fb53d05",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90526ace_9174b72e",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -397,6 +469,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88f70017_03913fbf",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-24T18:00:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5c2eb521_2b9359c3",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -600,6 +690,24 @@
     },
     {
       "key": {
+        "uuid": "01ef6c4a_0cc37f92",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-24T18:00:46Z",
+      "side": 1,
+      "message": "Thanks, I wasn\u0027t familair with std::packaged_task (which appears to be the std:: flavor of base::OnceClosure).",
+      "parentUuid": "12d63141_3c702688",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa92fefc_4b10950d",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 2
@@ -667,6 +775,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc51d95e_1e0d6b9d",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-24T18:00:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ff6f1cf9_293f881e",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
