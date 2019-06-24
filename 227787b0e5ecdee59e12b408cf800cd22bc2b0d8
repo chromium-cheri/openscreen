@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b67f5890_3b4a4598",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Updating to NetworkWaiter and pulling it out to its own file",
+      "parentUuid": "7116cbe3_b777935f",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb5e3823_86568f16",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c18f4a45_6ec09a52",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Removing write operations\n\nUpdating name\n\nUpdating parameter order\n\nUpdating to A to avoid maintaining the list of watched sockets in 2 places, but changing to return type ErrorOr\u003cstd::vector\u003cUdpSocket*\u003e\u003e so that errors can be bubbled up",
+      "parentUuid": "eb5e3823_86568f16",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "85685609_b0b6f89a",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Discussed this in person, and for now the best option seems to be removing the static method entirely and instead relying on the class-specific create method",
+      "parentUuid": "d894ff5f_a7547ed9",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87c3f65f_a0eb1b26",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ae1908_5fc9a2db",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "My original thought was that we could have a DCHECK / CHECK for success to ensure that the state is as expected, but you\u0027re correct that a bool provides the same amount of information so I see no reason not to change it. Updated.",
+      "parentUuid": "87c3f65f_a0eb1b26",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "3f80085e_6ad71d04",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "This was required so that we could have a parameter-less static Create/GetInstance method while still allowing the embedder to inject in their own TaskRunner if they chose to use our NetworkRunner.\n\nAfter removing these static methods, it is now safe to remove",
+      "parentUuid": "dffde266_744590e4",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f487f32_a794c66f",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a13a078_70a7a114",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Discussed offline. Moving class back out of TaskRunner but still in the same file\n\nOnce the platform/util directory is created, it will move to there - and added a TODO to reflect this",
+      "parentUuid": "9f487f32_a794c66f",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "388bb1a3_38187e61",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "The reason this was here is that we want to support embedders injecting in their own task runner, which was very difficult to support while at the same time requiring that the TaskRunner was already running when we started using it - adding this to the TaskRunner interface was the simplest solution\n\nNow that we\u0027ve removed the static GetInstance/Create method (based on in person discussion), this should be safe to remove",
+      "parentUuid": "f7dc5652_fefb4756",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31eb5a05_1f2b7a42",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 3
@@ -135,6 +261,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d90e6e_9d035f66",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "The async versions have all been removed",
+      "parentUuid": "31eb5a05_1f2b7a42",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "8f4937c0_45f2b86f",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Discussed offline with @ptahtcher and @mfoltz and resolved that this is fine",
+      "parentUuid": "f2d09902_0f8dd959",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43a48c77_78c0aec3",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 3
@@ -169,6 +331,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c99fe87_00829e8b",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "This is discussed more in-depth in the previous iteration, but there is an issue adding a task with move-only parameters to our TaskRunner. This is the cleanest way I could come up with to work around that issue.",
+      "parentUuid": "43a48c77_78c0aec3",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "9f523036_35c44ea2",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "I\u0027ve moved all of this complexity to the EventWaiter class and updated this method\u0027s signature based on other comments. Much of this complexity cannot be avoided, though, due to how the underlying FD_SET works. PTAL at the network_waiter class and let me know what you think",
+      "parentUuid": "a30bff14_0795505b",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06b35d40_e01407e7",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 3
@@ -203,6 +401,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a3888de_ebb6bb02",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06b35d40_e01407e7",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "9a89208c_79599a58",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fc348aa_ef5fc1a8",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8b4a7b0_44908ae3",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 3
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "6fdeb3f7_f6cd4b1b",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "The reason this can\u0027t be passed in the constructor had to do with supporting the static constructor in previous iterations. Now that it\u0027s been removed, I\u0027ve removed this method and added it to the constructor.",
+      "parentUuid": "e8b4a7b0_44908ae3",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8db8a7e8_26b2fd7b",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 3
@@ -251,6 +503,24 @@
       "writtenOn": "2019-06-21T17:00:55Z",
       "side": 1,
       "message": "Will you get an Error if you try to do the same socket twice, or will it replace the first one?",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59c9aae0_d350aac1",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "As of now, the second one will not be applied. I only went with this approach due to a comment left one one of the CLs leading up to this - I actually feel that allowing replacement makes for a nicer API though. Thoughts?\n\nI\u0027ve added a comment to document this",
+      "parentUuid": "8db8a7e8_26b2fd7b",
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "44d8c413_45ef70f7",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Good point. Updated.",
+      "parentUuid": "424fb5df_db9beeb8",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1ef396a_62ba0d42",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 3
@@ -288,6 +576,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef2c319_0d6a4ed0",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Updated to \"Following this call, any already pending reads will proceed but their associated callbacks will not fire.\"",
+      "parentUuid": "e1ef396a_62ba0d42",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -308,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "a7f2e6de_96b5ad63",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4b18578_dad31c79",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d789e669_53601dcd",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 3
@@ -322,6 +646,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "992b51b7_067f81c0",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Updated to new NetworkWaiter approach as described elsewhere in this CL iteration",
+      "parentUuid": "d789e669_53601dcd",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -342,6 +684,24 @@
     },
     {
       "key": {
+        "uuid": "a413b32b_a8bb5b4a",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Updated name and comment",
+      "parentUuid": "3d6e09ac_6c10d9cc",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44af607d_a5e57eb0",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 3
@@ -353,6 +713,24 @@
       "writtenOn": "2019-06-21T17:00:55Z",
       "side": 1,
       "message": "This NOTE is duplicate with the previous one.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa844643_3f8523da",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "I had actually left this duplicate note here intentionally - I know if I am trying to figure out how a method works and the comments don\u0027t explain it, I will sooner look to the implementation code than to other methods in the class, so I am trying to provide as much information here as possible\n\nIf you have a strong preference I can pull it out, but I am in favor of the extra documentation.",
+      "parentUuid": "44af607d_a5e57eb0",
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -376,6 +754,24 @@
     },
     {
       "key": {
+        "uuid": "45c68ac9_530b22c0",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Updated name and comments.",
+      "parentUuid": "bfb99aa6_9deea333",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bde4b47_da5560bf",
         "filename": "platform/base/network_runner_impl.cc",
         "patchSetId": 3
@@ -387,6 +783,24 @@
       "writtenOn": "2019-06-21T17:00:55Z",
       "side": 1,
       "message": "Please put the \"\u003d false\" in the class definition.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23ebd280_76e67640",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "removed this boolean as part of removing the task runner factory\n\nFor future reference, why is this one in the class definition as opposed to initializer list?",
+      "parentUuid": "7bde4b47_da5560bf",
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -457,6 +871,24 @@
     },
     {
       "key": {
+        "uuid": "85243891_236964d9",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Discussed offline. Decided on removing the static Create/GetInstace method to allow for a simpler class structure",
+      "parentUuid": "8da895fe_c0c47772",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e04a8d88_8ce9664e",
         "filename": "platform/posix/event_waiter.cc",
         "patchSetId": 3
@@ -468,6 +900,47 @@
       "writtenOn": "2019-06-21T17:00:55Z",
       "side": 1,
       "message": "What\u0027s with the magic \"+1\"?  Could use a comment.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b310102c_2fc39f21",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Added comment that it is \u0027by convention\u0027 and link to the documentation",
+      "parentUuid": "e04a8d88_8ce9664e",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1a4db7e_6475cab5",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "After thinking a bit more, I think returning Error::Code::kAgain would make more sense here than introducing a new error code. I\u0027ve updated this for the newest iteration, so let me know if you see any issue with this",
+      "range": {
+        "startLine": 160,
+        "startChar": 11,
+        "endLine": 160,
+        "endChar": 33
+      },
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -491,6 +964,24 @@
     },
     {
       "key": {
+        "uuid": "769eded5_4dc51e3e",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Removed SocketHandlerPosix as it is no longer needed with the new method signature for WaitForChanges / AwaitSocketsReadable",
+      "parentUuid": "1d455195_79bceb60",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "414be899_84f25776",
         "filename": "platform/posix/event_waiter.h",
         "patchSetId": 3
@@ -502,6 +993,24 @@
       "writtenOn": "2019-06-21T17:00:55Z",
       "side": 1,
       "message": "Seems like something that should go where we define Clock or put in util/ or somewhere else.",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a76b823_0890879d",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "I\u0027ve left this as a static method in NetworkWaiterPosix for now\n- The reason I\u0027m against putting this in a util class or in Clock is that \u0027struct timeval\u0027 is a platform-specific C library, so we would need a posix-only util class to support it\n- The reason I didn\u0027t make it a method in an anonymous namespace is because Unit Tests needs access to it",
+      "parentUuid": "414be899_84f25776",
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -525,6 +1034,24 @@
     },
     {
       "key": {
+        "uuid": "b7675d02_06ccb48a",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Moved this into NetworkWaiter, and made private. Went with \"read_handles_\" to be specific",
+      "parentUuid": "d6a87a3f_70563b0d",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d56e47ad_005f8e61",
         "filename": "platform/posix/event_waiter.h",
         "patchSetId": 3
@@ -542,6 +1069,24 @@
     },
     {
       "key": {
+        "uuid": "e18a6281_19f015b6",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "class has been removed",
+      "parentUuid": "d56e47ad_005f8e61",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65350408_39221929",
         "filename": "platform/posix/event_waiter.h",
         "patchSetId": 3
@@ -556,6 +1101,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd227d74_e2beb0de",
+        "filename": "platform/posix/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65350408_39221929",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

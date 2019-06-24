@@ -143,6 +143,42 @@
     },
     {
       "key": {
+        "uuid": "048c0d08_76c72eed",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Based on one of Peter\u0027s suggestion, this class has been removed entirely. PTAL when you can to see what you think of the new approach.",
+      "parentUuid": "e2b5829f_dee16922",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc045305_db494034",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "PTAL again - the current approach ensures that only 1 list of callbacks is maintained, especially since @pthatcher asked me to remove the Write callbacks from the current CL",
+      "parentUuid": "9a1c4e47_deaf7e63",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c990eaa1_eddfbb2b",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 2
@@ -260,6 +296,24 @@
       "side": 1,
       "message": "Ok, just please document how the caller should do if they only want reads and not writes (or vice versa).  I would prefer passing nullptr to avoid having to allocate an empty object for this case.",
       "parentUuid": "4200f59d_8844cf43",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aa9e515_f110b739",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "This interface has been updated to instead use const refs as suggested. The new interface is:\nErrorOr\u003cstd::vector\u003cUdpSocket*\u003e\u003e NetworkWaiterPosix::AwaitSocketsReadable(\n    const std::vector\u003cUdpSocket*\u003e\u0026 sockets, const Clock::duration\u0026 timeout) {\n\nPTAL at new approach",
+      "parentUuid": "c845a2fa_6514218f",
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -434,6 +488,24 @@
       "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "337298c8_41de6856",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-24T20:24:37Z",
+      "side": 1,
+      "message": "Based on discussions with @pthatcher, the Singleon in the platform layer has been removed\n\nWe will still need a singleton, but that assumption will be examined more closely in the follow-up CL, so I will wait and create a TODO at that point if we do decide to go that route",
+      "parentUuid": "ce3074d6_9f611a7f",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
