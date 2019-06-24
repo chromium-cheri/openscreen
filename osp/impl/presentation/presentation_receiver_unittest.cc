@@ -24,6 +24,7 @@ namespace {
 
 using ::testing::_;
 using ::testing::Invoke;
+using ::testing::NiceMock;
 
 class MockConnectRequest final
     : public ProtocolConnectionClient::ConnectionRequestCallback {
@@ -170,7 +171,7 @@ TEST_F(PresentationReceiverTest, StartPresentation) {
   EXPECT_EQ(presentation_id, info.id);
   EXPECT_EQ(url1_, info.url);
 
-  MockConnectionDelegate null_connection_delegate;
+  NiceMock<MockConnectionDelegate> null_connection_delegate;
   Connection connection(Connection::PresentationInfo{presentation_id, url1_},
                         &null_connection_delegate, Receiver::Get());
   Receiver::Get()->OnPresentationStarted(presentation_id, &connection,
