@@ -37,6 +37,52 @@
     },
     {
       "key": {
+        "uuid": "8f9b4d88_a4d775df",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-24T21:19:56Z",
+      "side": 1,
+      "message": "Instead of introducing the \"Factory pattern,\" will a simple constructor work here?\n\nPlease also consider this in all the other places in this CL...",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 51
+      },
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da07b58a_0688d44b",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-24T21:19:56Z",
+      "side": 1,
+      "message": "Comments about code comments in this CL:\n\n1. No need to add code comments about how the language works. (e.g., No need for \"dtor needed to support delete call...\")\n\n2. Method comments should usually explain the who/what/where/why/when/how around the call/return. Of course, you\u0027ll want to omit what is obvious and could just make the explanation overly complex. For example, for IsChanged(), I\u0027d suggest something like:\n\n  // Returns true if the |socket| has messages ready for retrieval,\n  // or is ready to send messages. This is called after the client\n  // has encountered an \u0027EAGAIN\u0027 result when receiving/sending, to\n  // determine whether to resume.\"\n\n3. Generally speaking, interface comments are much more important than the impl ones. In fact, you can often omit method comments in the impl, since the interface comments should cover the \"API contract\" adequately.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 72
+      },
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb5e3823_86568f16",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -69,6 +115,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3cac00d_25dd72aa",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-24T21:19:56Z",
+      "side": 1,
+      "message": "Also: Sometimes client code only cares about waiting on reads and not writes, so it makes sense for the read APIs to be separate from the write ones.",
+      "parentUuid": "eb5e3823_86568f16",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -107,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "64604a90_4f4e08e1",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-24T21:19:56Z",
+      "side": 1,
+      "message": "Keep in mind, as a library, it is almost never acceptable for us to use singletons (i.e., in the sense of create and never destroy). Embedding applications (especially in low-resource situations) depend on the library fully cleaning-up after itself.",
+      "parentUuid": "d894ff5f_a7547ed9",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87c3f65f_a0eb1b26",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 3
@@ -142,6 +224,24 @@
     },
     {
       "key": {
+        "uuid": "ee900bfd_bd5ed116",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-24T21:19:56Z",
+      "side": 1,
+      "message": "Whenever I see us write code returning Error, I think we should also use [[nodiscard]] since it would be bad to ever ignore this special type of return value; especially considering the significant overhead (40 bytes does not fit in a CPU register), extra logic needed (extra branching, heap-allocated string generation, etc. in the method impl), and programmer effort to support its use.\n\nAbstractly, deciding whether to use Error (or [[nodiscard]]) helps to think about what the API contract should be here: Is it common for a caller to safely ignore the return value? What actions should the caller take on the return value?",
+      "parentUuid": "87c3f65f_a0eb1b26",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dffde266_744590e4",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 3
@@ -174,6 +274,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dbd5d50_d2483ab8",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-24T21:19:56Z",
+      "side": 1,
+      "message": "+1, and pass it in the ctor instead of a separate SetTaskRunner() method. Fewer moving parts and fewer assumptions are needed in the impl. :)",
+      "parentUuid": "dffde266_744590e4",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
