@@ -34,10 +34,6 @@ namespace platform {
 class NetworkRunner : public TaskRunner {
  public:
   using TaskRunner::Task;
-
-  static std::unique_ptr<NetworkRunner> Create(
-      platform::ClockNowFunctionPtr now_function);
-
   ~NetworkRunner() override = default;
 
   // Waits for |socket| to be readable and then posts and then runs |callback|
@@ -49,8 +45,9 @@ class NetworkRunner : public TaskRunner {
   virtual Error ReadRepeatedly(UdpSocket* socket,
                                UdpReadCallback* callback) = 0;
 
-  // Cancels any pending wait on reading |socket|.
-  virtual void CancelRead(UdpSocket* socket) = 0;
+  // Cancels any pending wait on reading |socket|. Returns true if the operation
+  // was successful, false otherwise.
+  virtual bool CancelRead(UdpSocket* socket) = 0;
 };
 
 }  // namespace platform

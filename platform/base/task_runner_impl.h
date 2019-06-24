@@ -52,6 +52,9 @@ class TaskRunnerImpl final : public TaskRunner {
       TaskWaiter* event_waiter = nullptr,
       Clock::duration waiter_timeout = std::chrono::milliseconds(100));
 
+  static std::unique_ptr<TaskRunner> Create(
+      platform::ClockNowFunctionPtr now_function);
+
   // TaskRunner overrides
   ~TaskRunnerImpl() final;
   void PostPackagedTask(Task task) final;
@@ -123,6 +126,8 @@ class TaskRunnerImpl final : public TaskRunner {
   // vector, use an A/B vector-swap mechanism. |running_tasks_| starts out
   // empty, and is swapped with |tasks_| when it is time to run the Tasks.
   std::vector<Task> running_tasks_;
+
+  OSP_DISALLOW_COPY_AND_ASSIGN(TaskRunnerImpl);
 };
 }  // namespace platform
 }  // namespace openscreen
