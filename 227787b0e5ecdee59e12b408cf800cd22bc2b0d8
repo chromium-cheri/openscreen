@@ -470,6 +470,24 @@
     },
     {
       "key": {
+        "uuid": "9c312063_bbcd2f8f",
+        "filename": "platform/base/network_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-24T23:06:19Z",
+      "side": 1,
+      "message": "What\u0027s the state of C++14 again?  Can we use https://en.wikipedia.org/wiki/C%2B%2B14#Lambda_capture_expressions\n\n?",
+      "parentUuid": "2c99fe87_00829e8b",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a30bff14_0795505b",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 3
@@ -639,6 +657,24 @@
       "side": 1,
       "message": "As of now, the second one will not be applied. I only went with this approach due to a comment left one one of the CLs leading up to this - I actually feel that allowing replacement makes for a nicer API though. Thoughts?\n\nI\u0027ve added a comment to document this",
       "parentUuid": "8db8a7e8_26b2fd7b",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f27eec4_c63ee29c",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-24T23:06:19Z",
+      "side": 1,
+      "message": "I\u0027m fine failing if there is already one there.  Then you know when you\u0027re doing it on accident.  If doing it on purpose, you could always call CancelRead first.",
+      "parentUuid": "59c9aae0_d350aac1",
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -919,6 +955,24 @@
       "side": 1,
       "message": "removed this boolean as part of removing the task runner factory\n\nFor future reference, why is this one in the class definition as opposed to initializer list?",
       "parentUuid": "7bde4b47_da5560bf",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56e937df_e5c77e5e",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-06-24T23:06:19Z",
+      "side": 1,
+      "message": "Because it\u0027s easier to make sure you initialized it.  It\u0027s easier to forget and miss in code review if it\u0027s in 2 places.  Plus, it\u0027s shorter and easier to read.",
+      "parentUuid": "23ebd280_76e67640",
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
