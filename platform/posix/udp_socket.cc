@@ -50,9 +50,6 @@ ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
 
 }  // namespace
 
-UdpSocket::UdpSocket() = default;
-UdpSocket::~UdpSocket() = default;
-
 UdpSocketPosix::UdpSocketPosix(int fd, UdpSocket::Version version)
     : fd(fd), version(version) {}
 
