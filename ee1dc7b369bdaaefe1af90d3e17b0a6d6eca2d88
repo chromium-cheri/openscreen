@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "59b012d2_25ebb2cb",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "This is intended to be run on a separate thread by the caller. This is already an expectation we have for the Task Runner, so it seems reasonable to rely on the same expectation here\n\nAdditionally, this allows the caller to use their own threading implementation, rather than requiring them to use std::thread",
+      "parentUuid": "83d3cf65_b552a71e",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9637b9e1_96663bc4",
         "filename": "platform/base/network_runner_impl.cc",
         "patchSetId": 5
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "6ee84d88_23c36255",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "Here we are using an arbitrary Task Runner, so the caller can swap their own in. \n\nAn arbitrary Task Runner doesn\u0027t support any Run() or Stop methods (see discussion in iteration 3 of this CL for further context), so the only remaining option is to expect the caller to Start and stop the task runner manually\nThe header file documents that the Task Runner provided to the NetworkRunner must already be running.",
+      "parentUuid": "9637b9e1_96663bc4",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ac6315b_335aad63",
         "filename": "platform/posix/network_waiter.h",
         "patchSetId": 5
@@ -64,6 +100,24 @@
       "writtenOn": "2019-06-25T00:15:12Z",
       "side": 1,
       "message": "This doesn\u0027t warrant an object.  The only state is |read_handles_| which is reset on every call to AwaitSocketsReadable.",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c31cb38_bc55768b",
+        "filename": "platform/posix/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "The reason to make it an object instead of a single method is that dependency injection can be used to swap out the lower-level method for testing purposes\n\nI\u0027d also be happy to instead provide a std::function\u003cErrorOr\u003cstd::vector\u003cUdpSocket*\u003e\u003e(std::vector\u003cUdpSocket*\u003e, Clock::duration)\u003e to the classes that need this, but this feels overly complex to me, and introduces a new pattern not already present in OSP, so I\u0027d prefer not to go this route if possible\n\nthoughts?",
+      "parentUuid": "8ac6315b_335aad63",
       "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true

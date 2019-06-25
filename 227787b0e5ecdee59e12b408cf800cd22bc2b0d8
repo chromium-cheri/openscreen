@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "db6b9de4_6ec4efcc",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "This Factory has been removed in the most recent iteration. PTAL and let me know what you think.\nOriginally, this was here so that we could both support a parameter-less Create/GetInstance() method (so implementer weren\u0027t required to code a separate Task Runner) and at the same time allow them to swap out the Task Runner for one they wrote. Since removing the static Create method, it was possible to remove this\n\nThe reason I use static factory methods throughout this CL is so that platform specific implementations (or classes with those dependencies) can declare the factory method at the same time as the platform specific implementation. Then, the higher-level code doesn\u0027t need to know anything platform specific.\nI actually copied the pattern from our platform/posix/udp_socket class that you write since I thought it was really clever :)\n\nLeaving comment open so I remember to go back and look over other factories tomorrow",
+      "parentUuid": "8f9b4d88_a4d775df",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 51
+      },
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da07b58a_0688d44b",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -136,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "99f18d95_e5929d87",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "Long term, we may need to combine the READ and WRITE operations, assuming that the Select(...) command is needed for both. It\u0027s a blocking command, so keeping the two separate will result in an extra thread to call Select(reads) and Select(writes) separately\n\nSince we\u0027re currently unsure we will need to use Select for writes, @pthatcher and I decided to remove writes from this CL. PTAL at the most recent iteration which has no writes.",
+      "parentUuid": "c3cac00d_25dd72aa",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d894ff5f_a7547ed9",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 3
@@ -186,6 +228,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "970b2ad3_9b683a33",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "The singleton has been removed from the platform layer :)\n\nWe will still likely need to declare one at a higher level (ie in the NetworkService where our other Singletons live), but that\u0027s a bridge we can cross next CL",
+      "parentUuid": "64604a90_4f4e08e1",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -292,6 +352,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7694b666_22ee34f8",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "The SetTaskRunner method has been removed in the most recent iteration. PTAL",
+      "parentUuid": "3dbd5d50_d2483ab8",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -681,6 +759,24 @@
     },
     {
       "key": {
+        "uuid": "aaf5677e_a858ce78",
+        "filename": "platform/base/network_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4f27eec4_c63ee29c",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "424fb5df_db9beeb8",
         "filename": "platform/base/network_loop.h",
         "patchSetId": 3
@@ -976,6 +1072,24 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0e9760e_b6a4e1ae",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T01:16:53Z",
+      "side": 1,
+      "message": "Makes sense. Thank you!",
+      "parentUuid": "56e937df_e5c77e5e",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
