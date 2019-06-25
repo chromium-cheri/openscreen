@@ -903,6 +903,24 @@
     },
     {
       "key": {
+        "uuid": "a475f5bf_092dab8d",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T00:15:12Z",
+      "side": 1,
+      "message": "1 doesn\u0027t seem to be a reason here?  I can\u0027t find either being used in quic_connection_factory_impl.cc where you mentioned.  Chromium\u0027s base::TaskRunner doesn\u0027t have these methods, so Chromium QUIC shouldn\u0027t be able to depend on them.\n\nFor 2, the \"initialization\" of RunUntilStopped isn\u0027t used in the current patch (PS5), though maybe you intended to add it to NetworkRunnerImpl where I also commented.",
+      "parentUuid": "98aa32de_4f3d8e63",
+      "revId": "31d433ad735f1a074a0863a25251b390f1ab06c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f52719b_26258d48",
         "filename": "platform/base/network_loop.cc",
         "patchSetId": 2

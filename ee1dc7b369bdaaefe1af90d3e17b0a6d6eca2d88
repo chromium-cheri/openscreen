@@ -16,6 +16,57 @@
       "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83d3cf65_b552a71e",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T00:15:12Z",
+      "side": 1,
+      "message": "This needs its own std::thread now that it\u0027s been removed from NetworkRunnerImpl.",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9637b9e1_96663bc4",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T00:15:12Z",
+      "side": 1,
+      "message": "Why isn\u0027t task_runner_ also started/stopped here like network_loop_?",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ac6315b_335aad63",
+        "filename": "platform/posix/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T00:15:12Z",
+      "side": 1,
+      "message": "This doesn\u0027t warrant an object.  The only state is |read_handles_| which is reset on every call to AwaitSocketsReadable.",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
