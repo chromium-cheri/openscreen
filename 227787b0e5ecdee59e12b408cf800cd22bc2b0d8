@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "89a4549c_67d5f377",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T18:45:20Z",
+      "side": 1,
+      "message": "Re-examined the factories throughout this CL. The ones I found in the newest iteration are:\n1. NetworkRunnerImpl::Create(...)\n2. NetworkReader::Create(...)\n3. TaskRunnerImpl::Create(...)\n4. NetworkWaiter::Create()\n5. RepeatingFunction::Post(...)\n\n4 is useful because it hides platform weirdness, the same as the UdpSocket factory method\n2 Hides the weirdness introduced by 4. Removing this would allow dependency injection in a way we don\u0027t necessarily want it.\n5 masks that the same parameter (the task runner) is needed multiple times when creating and posting a RepeatingFunction\n\nI could remove 1 and 3 if necessary, but this seemed to align with the approach we\u0027ve taken elsewhere in our library to create unique_ptr objects. Thoughts?",
+      "parentUuid": "db6b9de4_6ec4efcc",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 51
+      },
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da07b58a_0688d44b",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
@@ -104,6 +128,30 @@
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45aaded4_3cecf3b5",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T18:45:20Z",
+      "side": 1,
+      "message": "Updated comments throughout the latest CL iteration. PTAL and let me know what you think\n\nresolving here, so please open a new comment if you see any code commenting issues",
+      "parentUuid": "da07b58a_0688d44b",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 72
+      },
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -296,6 +344,24 @@
       "side": 1,
       "message": "Whenever I see us write code returning Error, I think we should also use [[nodiscard]] since it would be bad to ever ignore this special type of return value; especially considering the significant overhead (40 bytes does not fit in a CPU register), extra logic needed (extra branching, heap-allocated string generation, etc. in the method impl), and programmer effort to support its use.\n\nAbstractly, deciding whether to use Error (or [[nodiscard]]) helps to think about what the API contract should be here: Is it common for a caller to safely ignore the return value? What actions should the caller take on the return value?",
       "parentUuid": "87c3f65f_a0eb1b26",
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4de5e5f8_10329896",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-25T18:45:20Z",
+      "side": 1,
+      "message": "The CancelRead has been updated to a bool\n\nI am in favor of including [[nodiscard]] on ReadRepeatedly. What does everyone else think?",
+      "parentUuid": "ee900bfd_bd5ed116",
       "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
