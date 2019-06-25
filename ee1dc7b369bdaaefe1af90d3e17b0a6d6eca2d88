@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "41846275_dfb8a30f",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T21:37:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "59b012d2_25ebb2cb",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9637b9e1_96663bc4",
         "filename": "platform/base/network_runner_impl.cc",
         "patchSetId": 5
@@ -107,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "4c1bdeac_0cee0239",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T21:37:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6ee84d88_23c36255",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ac6315b_335aad63",
         "filename": "platform/posix/network_waiter.h",
         "patchSetId": 5
@@ -136,6 +172,24 @@
       "side": 1,
       "message": "The reason to make it an object instead of a single method is that dependency injection can be used to swap out the lower-level method for testing purposes\n\nI\u0027d also be happy to instead provide a std::function\u003cErrorOr\u003cstd::vector\u003cUdpSocket*\u003e\u003e(std::vector\u003cUdpSocket*\u003e, Clock::duration)\u003e to the classes that need this, but this feels overly complex to me, and introduces a new pattern not already present in OSP, so I\u0027d prefer not to go this route if possible\n\nthoughts?",
       "parentUuid": "8ac6315b_335aad63",
+      "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e11e8829_1da48042",
+        "filename": "platform/posix/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T21:37:28Z",
+      "side": 1,
+      "message": "At least remove |read_handles_| as a member then IMO.",
+      "parentUuid": "0c31cb38_bc55768b",
       "revId": "ee1dc7b369bdaaefe1af90d3e17b0a6d6eca2d88",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true

@@ -71,6 +71,40 @@
     },
     {
       "key": {
+        "uuid": "71a924d8_b1a1bf76",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T21:37:28Z",
+      "side": 1,
+      "message": "I don\u0027t see a reason this couldn\u0027t just be a constructor that defaults |waiter| to NetworkWaiter::Create?",
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc4d8c7f_c087dcb6",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T21:37:28Z",
+      "side": 1,
+      "message": "Same comment about this just being an overloaded constructor.",
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e5496fe_89cb324a",
         "filename": "platform/base/network_runner_impl.cc",
         "patchSetId": 6
@@ -117,6 +151,23 @@
     },
     {
       "key": {
+        "uuid": "71110bd0_71b726b0",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T21:37:28Z",
+      "side": 1,
+      "message": "I think this can have a top-level final and protected-\u003eprivate now that RunUntilStopped+RequestStopSoon aren\u0027t virtual.",
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2ef8fcf_883c672c",
         "filename": "platform/base/network_runner_impl.h",
         "patchSetId": 6
@@ -157,6 +208,23 @@
         "endLine": 57,
         "endChar": 43
       },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c3ce13d_7455b2bb",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T21:37:28Z",
+      "side": 1,
+      "message": "This constructor is public, so callers could just std::make_unique\u003cTaskRunnerImpl\u003e(now_function).",
       "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true

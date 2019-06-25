@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "5ebf2378_7dcb0519",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-06-25T21:37:28Z",
+      "side": 1,
+      "message": "IMO 5 is more of a \"helper\" than a factory and seems fine (putting the PostTask in a ctor seems a little weird).\n\n4 is different from UdpSocket::Create in that UdpSocket::Create might return an error, which constructors cannot since we don\u0027t use exceptions.  4, however, is necessary because NetworkWaiter actually has virtual methods and uses a different implementation in tests, so the ctor can\u0027t just jump to the NetworkWaiterPosix ctor (UdpSocket could, but doesn\u0027t).",
+      "parentUuid": "89a4549c_67d5f377",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 51
+      },
+      "revId": "227787b0e5ecdee59e12b408cf800cd22bc2b0d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da07b58a_0688d44b",
         "filename": "platform/api/event_waiter.h",
         "patchSetId": 3
