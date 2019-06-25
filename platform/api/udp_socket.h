@@ -6,6 +6,7 @@
 #define PLATFORM_API_UDP_SOCKET_H_
 
 #include <cstdint>
+#include <functional>
 #include <memory>
 
 #include "osp_base/error.h"
@@ -96,11 +97,17 @@ class UdpSocket {
   // Sets the DSCP value to use for all messages sent from this socket.
   Error SetDscp(DscpMode state);
 
- protected:
-  UdpSocket();
+  // Sets the callback that should be called upon deletion of this socket.
+  void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
+
   ~UdpSocket();
 
+ protected:
+  UdpSocket();
+
  private:
+  std::function<void(UdpSocket*)> deletion_callback_;
+
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
 };
 
