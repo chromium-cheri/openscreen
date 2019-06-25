@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d901e86c_365fdc17",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "+1",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71674c6b_84667360",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "Would it make sense to have a collection of deletion callbacks?\nUsually things like these allow for multiple callbacks, e.g. all of C# and .NET events for example.",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 69
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "929889af_f71ef166",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "Maybe change this to check that is was executed just once as well?",
+      "range": {
+        "startLine": 29,
+        "startChar": 45,
+        "endLine": 31,
+        "endChar": 4
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e5496fe_89cb324a",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "Name this type via using or typedef",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 63
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8b14833_9faf1d43",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "Why do you capture it here by reference? This seems dangerous since network_loop_-\u003eReadRepeatedly puts it into read_callbacks_, and callback function parameter here is gone after this function ends.",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2ef8fcf_883c672c",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "Maybe just mark the entire NetworkRunnerImpl as final?",
+      "range": {
+        "startLine": 27,
+        "startChar": 69,
+        "endLine": 27,
+        "endChar": 74
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a205af7_f513a6be",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "This means it requires its own TaskRunner, is this intentional?\nAlso why does it contain task runner if it inherits from one through NetworkRunner?",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ef7c3a_64bdd169",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "Maybe something like this?\n\nusing std::chrono;\nseconds s \u003d duration_cast\u003cseconds\u003e(timeout);\nmicroseconds us \u003d duration_cast\u003cmicroseconds\u003e(timeout -  seconds);\nreturn timeval{s.count(), us.count()};",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce8d9f03_cf50baee",
+        "filename": "platform/posix/network_waiter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-25T21:15:33Z",
+      "side": 1,
+      "message": "It looks like this function doesn\u0027t have to be a member of this class, public and static. Maybe just put it into an anonymous namespace in .cc?\n\nI see that you are testing it in unit tests, but that\u0027s testing a specific detail of an implementation and not the public interface as recommended.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 66
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
