@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ed199a8_ca4a786f",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T19:52:07Z",
+      "side": 1,
+      "message": "Should be constexpr everywhere, fixed",
+      "parentUuid": "561d5fd1_71533815",
+      "range": {
+        "startLine": 367,
+        "startChar": 2,
+        "endLine": 367,
+        "endChar": 7
+      },
+      "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "779bb4d7_daf3fc6a",
         "filename": "cast/common/mdns/mdns_records.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fea82682_dd073f4d",
+        "filename": "cast/common/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T19:52:07Z",
+      "side": 1,
+      "message": "I need to have the same name for all of them for use in templates and one of those is non-trivial with absl::variant lambda visitor. Made all of them out-of-line and renamed to MaxWireSize",
+      "parentUuid": "779bb4d7_daf3fc6a",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 31
+      },
+      "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "85056f35_7afd8832",
+        "filename": "cast/common/mdns/mdns_records_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T19:52:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e05efab6_49da3adb",
+      "range": {
+        "startLine": 262,
+        "startChar": 55,
+        "endLine": 262,
+        "endChar": 57
+      },
+      "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7966a7f_5f024cbc",
         "filename": "cast/common/mdns/mdns_writer_unittest.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3704d27_2be29e9b",
+        "filename": "cast/common/mdns/mdns_writer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T19:52:07Z",
+      "side": 1,
+      "message": "Nah, I\u0027d need to cast pointer type from char* to uint8_t* to pass to MdnsReader/MdnsWriter :)",
+      "parentUuid": "c7966a7f_5f024cbc",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
