@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "561d5fd1_71533815",
+        "filename": "cast/common/mdns/mdns_reader_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-26T00:11:24Z",
+      "side": 1,
+      "message": "Some of the unit tests use constexpr here instead of const. Is that on-purpose?\n\n(There are other \"const\" ones in the other tests, below. Not sure if you meant to make them all constexpr, or all of them const, or other...)",
+      "range": {
+        "startLine": 367,
+        "startChar": 2,
+        "endLine": 367,
+        "endChar": 7
+      },
+      "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "779bb4d7_daf3fc6a",
+        "filename": "cast/common/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-26T00:11:24Z",
+      "side": 1,
+      "message": "style nit: Inlined accessors use the_lower_case_with_underscores() style, but if these aren\u0027t inlined anymore, they would need to use TheCapitalizedWords() style. Given what these were updated to, IMHO, you could keep them inlined. Up to you...",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 31
+      },
+      "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05efab6_49da3adb",
+        "filename": "cast/common/mdns/mdns_records_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-26T00:11:24Z",
+      "side": 1,
+      "message": "Don\u0027t forget \"P\u003dIV\"! :)",
+      "range": {
+        "startLine": 262,
+        "startChar": 55,
+        "endLine": 262,
+        "endChar": 57
+      },
+      "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7966a7f_5f024cbc",
+        "filename": "cast/common/mdns/mdns_writer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-26T00:11:24Z",
+      "side": 1,
+      "message": "Maybe this should be std::string...\n\n*ducks* :)\n\nj/k",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "eb71639c061e52bb63185dafe8de88549929bfec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
