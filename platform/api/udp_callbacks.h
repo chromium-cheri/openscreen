@@ -22,8 +22,8 @@ static constexpr int kUdpMaxPacketSize = 1 << 16;
 class UdpReadCallback {
  public:
   struct Packet : std::array<uint8_t, kUdpMaxPacketSize> {
-    Packet();
-    ~Packet();
+    Packet() = default;
+    ~Packet() = default;
 
     IPEndpoint source;
     IPEndpoint original_destination;
