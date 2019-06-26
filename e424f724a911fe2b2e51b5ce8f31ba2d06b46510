@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f6a65294_d3411dcf",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T20:04:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fd841e82_eb340fdf",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71674c6b_84667360",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 6
@@ -93,6 +117,30 @@
       "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dae9f50_8d422f6b",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T20:04:21Z",
+      "side": 1,
+      "message": "Ok, makes sense",
+      "parentUuid": "bf64f126_c7a9fc0d",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 69
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -436,6 +484,30 @@
     },
     {
       "key": {
+        "uuid": "b9ba2643_54fa396f",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T20:04:21Z",
+      "side": 1,
+      "message": "Looks to me that it adds an extra layer of indirection when compiler could have taken care of that with NetworkRunner inheriting and overriding (if needed) TaskRunner and NetworkReader.\n\nIf someone were to implement their own, they could easily substitute the any derived class as long as it implements TaskRunner and NetworkReader interfaces.",
+      "parentUuid": "a297f1e2_51182675",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c3ce13d_7455b2bb",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 6
@@ -518,6 +590,30 @@
     },
     {
       "key": {
+        "uuid": "aff1e52b_f6af81da",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T20:04:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d228d87b_bea93336",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce8d9f03_cf50baee",
         "filename": "platform/posix/network_waiter.h",
         "patchSetId": 6
@@ -553,6 +649,30 @@
       "side": 1,
       "message": "I\u0027d argue that, in this case, testing the implementation is useful\nThere is no easy way to test that a delay waits at least X milliseconds, so it\u0027s useful to instead check where that delay comes from\n\nAdditionally, this method should really live in the platform/clock utility class - it unfortunately can\u0027t because it\u0027s posix specific though :( So I think of this more as testing a utility method than I do testing the implementation\n\nThoughts?",
       "parentUuid": "ce8d9f03_cf50baee",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 66
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88249865_b0009c74",
+        "filename": "platform/posix/network_waiter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T20:04:21Z",
+      "side": 1,
+      "message": "I\u0027d love to see this moved and tested elsewhere, could you please put a TODO: for this?",
+      "parentUuid": "53adf01a_1846eacc",
       "range": {
         "startLine": 28,
         "startChar": 2,
