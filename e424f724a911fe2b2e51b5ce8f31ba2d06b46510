@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fd841e82_eb340fdf",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Planning to get this in once @miu\u0027s directory structure changes go in :) - Either later or as a part of this CL if that happens first",
+      "parentUuid": "d901e86c_365fdc17",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71674c6b_84667360",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-25T21:15:33Z",
       "side": 1,
       "message": "Would it make sense to have a collection of deletion callbacks?\nUsually things like these allow for multiple callbacks, e.g. all of C# and .NET events for example.",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 69
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf64f126_c7a9fc0d",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Right now, we only have a single place we could use this callback\n\nLong term, if more reasons for callbacks arise, it might be worth re-examining the pattern used here (ie: callers don\u0027t expect a \u0027delete\u0027 call to be time consuming, but executing many callbacks may be), and then we can decide whether to extend this pattern to support multiple callbacks or if a different pattern is needed. What do you think?",
+      "parentUuid": "71674c6b_84667360",
       "range": {
         "startLine": 101,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "23ede0bd_da801af8",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Good idea. Updated",
+      "parentUuid": "929889af_f71ef166",
+      "range": {
+        "startLine": 29,
+        "startChar": 45,
+        "endLine": 31,
+        "endChar": 4
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71a924d8_b1a1bf76",
         "filename": "platform/base/network_reader.cc",
         "patchSetId": 6
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "85306c11_3b53055f",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Only added this since having a factory method seemed to be the pattern we were following. Removing this method",
+      "parentUuid": "71a924d8_b1a1bf76",
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc4d8c7f_c087dcb6",
         "filename": "platform/base/network_runner_impl.cc",
         "patchSetId": 6
@@ -102,6 +192,24 @@
       "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5565673e_a2926dfa",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc4d8c7f_c087dcb6",
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "b1c09eed_a967825e",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e5496fe_89cb324a",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 63
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8b14833_9faf1d43",
         "filename": "platform/base/network_runner_impl.cc",
         "patchSetId": 6
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "aaa7a68e_382e2c5f",
+        "filename": "platform/base/network_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Good point. Updating to capture by value",
+      "parentUuid": "b8b14833_9faf1d43",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71110bd0_71b726b0",
         "filename": "platform/base/network_runner_impl.h",
         "patchSetId": 6
@@ -165,6 +321,24 @@
       "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19ebe8c5_83b6a976",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71110bd0_71b726b0",
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "0f621ac8_00734649",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2ef8fcf_883c672c",
+      "range": {
+        "startLine": 27,
+        "startChar": 69,
+        "endLine": 27,
+        "endChar": 74
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a205af7_f513a6be",
         "filename": "platform/base/network_runner_impl.h",
         "patchSetId": 6
@@ -202,6 +400,30 @@
       "writtenOn": "2019-06-25T21:15:33Z",
       "side": 1,
       "message": "This means it requires its own TaskRunner, is this intentional?\nAlso why does it contain task runner if it inherits from one through NetworkRunner?",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a297f1e2_51182675",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "This was an intentional decision\n\nThe idea is that NetworkRunner will pass all of the TaskRunner methods to a different taskRunner implementation, and all NetworkReader methods to a NetworkReader\nThen, all operations can be encapsulated and kept separate, and all this class is responsible for is owning both and ensuring that the two are properly associated with each other.",
+      "parentUuid": "2a205af7_f513a6be",
       "range": {
         "startLine": 57,
         "startChar": 2,
@@ -231,6 +453,24 @@
     },
     {
       "key": {
+        "uuid": "f621fc56_71a73818",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c3ce13d_7455b2bb",
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5ef7c3a_64bdd169",
         "filename": "platform/posix/network_waiter.cc",
         "patchSetId": 6
@@ -254,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "d228d87b_bea93336",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "I see that this works, but I feel that the \"timeout -  seconds\" call is a bit weird to me\n\nIf you have a strong opinion I can update this, but I feel my version is more readable",
+      "parentUuid": "a5ef7c3a_64bdd169",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 77,
+        "endChar": 12
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce8d9f03_cf50baee",
         "filename": "platform/posix/network_waiter.h",
         "patchSetId": 6
@@ -265,6 +529,30 @@
       "writtenOn": "2019-06-25T21:15:33Z",
       "side": 1,
       "message": "It looks like this function doesn\u0027t have to be a member of this class, public and static. Maybe just put it into an anonymous namespace in .cc?\n\nI see that you are testing it in unit tests, but that\u0027s testing a specific detail of an implementation and not the public interface as recommended.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 66
+      },
+      "revId": "e424f724a911fe2b2e51b5ce8f31ba2d06b46510",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53adf01a_1846eacc",
+        "filename": "platform/posix/network_waiter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T06:11:55Z",
+      "side": 1,
+      "message": "I\u0027d argue that, in this case, testing the implementation is useful\nThere is no easy way to test that a delay waits at least X milliseconds, so it\u0027s useful to instead check where that delay comes from\n\nAdditionally, this method should really live in the platform/clock utility class - it unfortunately can\u0027t because it\u0027s posix specific though :( So I think of this more as testing a utility method than I do testing the implementation\n\nThoughts?",
+      "parentUuid": "ce8d9f03_cf50baee",
       "range": {
         "startLine": 28,
         "startChar": 2,
