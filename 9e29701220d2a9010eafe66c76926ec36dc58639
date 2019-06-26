@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc1098f4_9440cdc1",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "nit: style guide recommends simply uint64_t it \u003d 1; in this case",
+      "range": {
+        "startLine": 382,
+        "startChar": 2,
+        "endLine": 382,
+        "endChar": 28
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32d81d0e_172b51cc",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "Why +2?\nAlso, you can make it a for-loop\nfor (uint64_t it \u003d 1; ; it +\u003d2)",
+      "range": {
+        "startLine": 420,
+        "startChar": 4,
+        "endLine": 420,
+        "endChar": 12
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d79e6832_bf733fd3",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 488,
+        "startChar": 2,
+        "endLine": 488,
+        "endChar": 28
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88cff125_29bbd46d",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 502,
+        "startChar": 4,
+        "endLine": 502,
+        "endChar": 12
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43a6a671_aeaa085c",
+        "filename": "osp_base/error.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "I still think this one should not be defined at all as it\u0027s not clear if it puts Value into ostream or not. What this operator does is essentially equivalent to putting Error into ostream.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 0
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddb174f5_74a99a02",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "Looks unused in this class template. Is it needed for some disambiguation?",
+      "range": {
+        "startLine": 99,
+        "startChar": 10,
+        "endLine": 99,
+        "endChar": 24
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8274100_c75a8b53",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "Looks like this one can be an argument to the constructor, not a part of the type. Unlike TFileSize and TNameSize, nothing in the type depends on this.",
+      "range": {
+        "startLine": 144,
+        "startChar": 10,
+        "endLine": 144,
+        "endChar": 24
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cad97e7e_ee740768",
+        "filename": "platform/api/time.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "I know I\u0027ve asked to add \"ms\" units, but it\u0027s microseconds, not milliseconds. Sorry :)\nSo probably \"us\", I guess.",
+      "range": {
+        "startLine": 47,
+        "startChar": 50,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7620942_8acb614a",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "If I understand correctly what happens here, this is going to be brutal on the compile time and possibly on the binary size, as this means a different quite real non-empty new type for every combination of line number, file name and name.\n\n__FILE__ and __LINE__ for all intents and purposes are pre-defined const char arrays that are available all the time at their respective const char* pointers.\nUnlike name, we shouldn\u0027t need to copy these.",
+      "range": {
+        "startLine": 62,
+        "startChar": 20,
+        "endLine": 64,
+        "endChar": 52
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a49e906b_0138dd17",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "I\u0027m not convinced we need a class here instead of a simple function call to LogAsyncStart.\nWith TRACE_SCOPED having a class and logging in the destructor solves the scope problem. What does having a class here achieve that a direct function call does not do?",
+      "range": {
+        "startLine": 75,
+        "startChar": 52,
+        "endLine": 75,
+        "endChar": 75
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c471762_403da2d3",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "This always goes to default_trace_platform_, while TRACE_ASYNC_START might go to a different platform.",
+      "range": {
+        "startLine": 83,
+        "startChar": 51,
+        "endLine": 83,
+        "endChar": 64
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c9e178a_db3706ed",
+        "filename": "platform/base/logging.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "Each call to str() makes a copy of what\u0027s inside string stream",
+      "range": {
+        "startLine": 45,
+        "startChar": 45,
+        "endLine": 45,
+        "endChar": 78
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13006ecd_521760c3",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "I like how it adds metadata here, very neat.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 39
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6743a00_08194d8d",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "This is always true for a valid category.\nAlso kAllLogCategoriesMask is the same as TraceCategory::Any",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "008f11fb_5e141c22",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-26T21:36:33Z",
+      "side": 1,
+      "message": "Is just trace_id enough here to match this to async trace start?",
+      "range": {
+        "startLine": 64,
+        "startChar": 50,
+        "endLine": 64,
+        "endChar": 58
+      },
+      "revId": "9e29701220d2a9010eafe66c76926ec36dc58639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
