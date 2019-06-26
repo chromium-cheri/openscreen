@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9b1eb91e_4a133114",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Good catch",
+      "parentUuid": "219b6182_82524979",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fd53818_84f4c692",
         "filename": "docs/trace_logging.md",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9dc722ab_86ee64f2",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Good point. Updating text to state this is the default implementation",
+      "parentUuid": "2fd53818_84f4c692",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "651f1640_94325534",
         "filename": "osp/demo/demo.cc",
         "patchSetId": 5
@@ -47,6 +83,24 @@
       "writtenOn": "2019-06-05T23:57:38Z",
       "side": 1,
       "message": "Is the conversion from while(true) just so we could include a counter with the trace? Is there an advantage to just keeping a separate counter variable for this?  Minor style issue as there are never going to be 1 \u003c\u003c 60 loops executed.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56942914_9a8c0ece",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "I\u0027d originally started with 1\u003c\u003c60 to ensure that the counts were different for both loops. Though I\u0027ve switched now to do even and odd for them, since that wasn\u0027t clear.\n\nAlso, updated to use a separate counter for clearer code\n\nThe reason for keeping this counter at all is to manually set the TraceId\n\nNote that this will likely be removed soon - once this change and my Networking changes are both in, I plan to add TraceLogs throughout the modified Demo code",
+      "parentUuid": "651f1640_94325534",
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "7ad00b6a_9c0e9fe6",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Updated similarly.",
+      "parentUuid": "2cc62ceb_d053d0a9",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "913bee61_250f4666",
         "filename": "osp/impl/presentation/presentation_connection.cc",
         "patchSetId": 5
@@ -84,6 +156,24 @@
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c342c3dd_bf4c44a6",
+        "filename": "osp/impl/presentation/presentation_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "913bee61_250f4666",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "367ef6f3_ddba5fbd",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Updated\n\nI\u0027ll do my best to pay better attention to this going forward",
+      "parentUuid": "4405b40d_ef5bf49c",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3e9b38a_4dce38ed",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -118,6 +226,24 @@
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b0cee1_b875046c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Good to know - thank you for the explanation",
+      "parentUuid": "a3e9b38a_4dce38ed",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "e4f2869d_9185481a",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ba5a111_086e9c1d",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64bf4ad7_53b3c16d",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "cceb28b1_3dbcff2d",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Updated!",
+      "parentUuid": "64bf4ad7_53b3c16d",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4910641_e7855c6f",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -166,6 +328,24 @@
       "writtenOn": "2019-06-05T23:57:38Z",
       "side": 1,
       "message": "Class variables (including statics) need a trailing underscore\n\nhttps://google.github.io/styleguide/cppguide.html#Variable_Names\n\nAlso this needs to be initialized to nullptr",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d26fe0_dea08bc6",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Updated name, and similar throughout the file. Somehow I\u0027d missed that this was also true for static variables.\n\nThe variable is initialized by the embedder, through the TRACE_SET_DEFAULT_PLATFORM(...) macro exposed in trace_logging_platform.h",
+      "parentUuid": "f4910641_e7855c6f",
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "ca1f8959_28d0b0a6",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "The main reason for the distinction is that we need to create TraceBase objects as part of macros when Tracing is disabled, and having TraceBase be an empty object provides the best perf.",
+      "parentUuid": "570599b1_fc940266",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56d8a501_5be2af28",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "db5f0da4_16cc911a",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56d8a501_5be2af28",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a2e2199_64b073b3",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -217,6 +433,24 @@
       "writtenOn": "2019-06-05T23:57:38Z",
       "side": 1,
       "message": "The convention is that ctors are declared first, followed by dtors, then assignment operators.\n\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order\n\nI\u0027ve usually seen this followed, even for delete\u0027d operators.",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11a68ab_a6e2e94c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Switched all of these out for OSP_DISALLOW_COPY_AND_ASSIGN(...) instead, since that seems clearer\n\nI placed this at the end of the private section since this is the convention I\u0027ve seen used throughout our other files. If this is an issue let me know and I can move it",
+      "parentUuid": "5a2e2199_64b073b3",
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "e7f8b3ba_650b962f",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Updated to `LIFO`",
+      "parentUuid": "fc54e1fa_0ecb942b",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6a25ce8_87d11de1",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -251,6 +503,24 @@
       "writtenOn": "2019-06-05T23:57:38Z",
       "side": 1,
       "message": "I assume you\u0027re pushing and popping off the back?\n\nDid you consider a std::deque, which is always constant time, but has more pointer overhead?\n\nstd::vector always grows.  Is there a cap on the stack depth? Do you call shrink_to_fit() at any point?",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97bc83c5_da2ae59f",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Based on what I have read online, the perf of vector is better than dequeue when only inserting/deleting at the end. There is some test measurements documented here to support that: https://www.codeproject.com/Articles/1185449/Performance-of-a-Circular-Buffer-vs-Vector-Deque-a\n\nIt looks like a circular buffer would be fastest, but until we add that implementation to OSP, a vector is the best option we have\n\nAs far as a cap on stack depth, I don\u0027t currently have one set - If the library is being used as intended, the size of the stack should never grow beyond relatively low values:\n- When using synchronous traces, the depth of the stack should always be the same when entering and leaving any given function. Therefore, the maximum depth of the stack should be the maximum call stack in C++, which is bounded.\n- If using asynchronous traces, we expect all starts to be matched with an end. If this is the case, then the call stack should not exceed a bounded size\n\nFor this reason, I intentionally don\u0027t call shrink_to_fit() - since our code paths all are expected to get hit multiple times, I would expect the same vector entries to get re-used, so calling shrink_to_fit() would mean we need to spend time de-allocating and re-allocating that space\n\nIf I am looking at this wrong, please grab me in person to chat or ping me, since that is likely faster that going back-and-forth here",
+      "parentUuid": "a6a25ce8_87d11de1",
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "3b7db69b_7a45a5da",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "These are methods of a template class, so they can\u0027t be defined out-of-line\n\nI\u0027ve removed use of `this` from here, though below in SynchronousTraceLogger and AsynchronousTraceLogger destructors it is needed for compilation to succeed",
+      "parentUuid": "fdc1456e_514fa1f7",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dce87e9d_7d985c6c",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -288,6 +576,24 @@
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7c15557_eec5649c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dce87e9d_7d985c6c",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -308,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "5a08ebb1_4b91bdde",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Moved initialization here instead of in the Initialize(...) method",
+      "parentUuid": "68349431_5380a08b",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3833a779_2fbe44cf",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -322,6 +646,24 @@
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b75a2281_f47745e4",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Updated to use initializer list.",
+      "parentUuid": "3833a779_2fbe44cf",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -342,6 +684,24 @@
     },
     {
       "key": {
+        "uuid": "cd5a238a_a1ff0fe8",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "549de16e_e6a437f7",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b62a02be_30b5ec6f",
         "filename": "platform/api/time.h",
         "patchSetId": 5
@@ -353,6 +713,24 @@
       "writtenOn": "2019-06-05T23:57:38Z",
       "side": 1,
       "message": "What is a \"bogotick\"? :-)",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7569df39_92e7d521",
+        "filename": "platform/api/time.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "@miu asked me to use this instead of milliseconds to represent the distinction between a timespan and a time as Chromium takes this approach\n\nI also have a preference for using ms, so I will start an email thread to discuss this one. For the time being I\u0027ve changed this back to ms",
+      "parentUuid": "b62a02be_30b5ec6f",
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -376,6 +754,24 @@
     },
     {
       "key": {
+        "uuid": "8ec76eb3_bef8e8ad",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Opened an issue and added a TODO",
+      "parentUuid": "6b4aec37_771caff7",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f28c0218_34eccf23",
         "filename": "platform/api/trace_logging_platform.h",
         "patchSetId": 5
@@ -393,6 +789,24 @@
     },
     {
       "key": {
+        "uuid": "be56faf9_9ceb4c7b",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Since we are here setting the initial value of default_trace_platform, we get these checks for free by the compiler\n\nThe specific failure looks like:\n../../platform/base/trace_logging_platform.cc:66:1: error: redefinition of \u0027default_trace_platform_\u0027\nTRACE_SET_DEFAULT_PLATFORM(new TextTraceLoggingPlatform);\n^\n../../platform/api/trace_logging_platform.h:18:46: note: expanded from macro \u0027TRACE_SET_DEFAULT_PLATFORM\u0027\n  TraceLoggingPlatform* internal::TraceBase::default_trace_platform_ \u003d platform;\n                                             ^\n../../platform/base/trace_logging_platform.cc:65:1: note: previous definition is here\nTRACE_SET_DEFAULT_PLATFORM(new TextTraceLoggingPlatform);\n^\n../../platform/api/trace_logging_platform.h:18:46: note: expanded from macro \u0027TRACE_SET_DEFAULT_PLATFORM\u0027\n  TraceLoggingPlatform* internal::TraceBase::default_trace_platform_ \u003d platform;",
+      "parentUuid": "f28c0218_34eccf23",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef9fdf4e_84773540",
         "filename": "platform/api/trace_logging_types.h",
         "patchSetId": 5
@@ -404,6 +818,24 @@
       "writtenOn": "2019-06-05T23:57:38Z",
       "side": 1,
       "message": "enum class TraceCategory : uint64_t { ?",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db7b0b58_870e8529",
+        "filename": "platform/api/trace_logging_types.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "This is actually what I had originally\n\n@miu pointed out that if we used an old-style enum inside a struct, rather than an enum class, we wouldn\u0027t need to define | and \u0026 operators for all of the bitflags and would instead get them for free. I think this approach ends up cleaner, but I can change it back if you have a strong opinion",
+      "parentUuid": "ef9fdf4e_84773540",
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -427,6 +859,24 @@
     },
     {
       "key": {
+        "uuid": "a94f4894_6adac0e6",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "Good catch!",
+      "parentUuid": "7fab8756_e20f0a66",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "323eeb60_c893ab55",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 5
@@ -438,6 +888,24 @@
       "writtenOn": "2019-06-05T23:57:38Z",
       "side": 1,
       "message": "Nit: Prefer \u003d default",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77c400fd_c4ae0e91",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "The compiler actually isn\u0027t letting me set this because it\u0027s not the default constructor",
+      "parentUuid": "323eeb60_c893ab55",
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -458,6 +926,24 @@
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce803c7d_1cbb5a4d",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-26T05:25:58Z",
+      "side": 1,
+      "message": "I actually didn\u0027t realize these were optional on a `new` declaration - removed.",
+      "parentUuid": "f0654206_24e7632f",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
