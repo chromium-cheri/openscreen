@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "aa181575_9a189ff7",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T22:50:45Z",
+      "side": 1,
+      "message": "I think TRACE_SET_RESULT is going to be more frequently used than TRACE_SET_HIERARCHY, so I\u0027d prefer saving a virtual call in this case, but it\u0027s up to you.",
+      "parentUuid": "01259d6e_e88ed73c",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 16
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f43854fb_0b6527fa",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 7
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "ff11f03e_03bc6e82",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T22:50:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "af637761_6f871548",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 157,
+        "endChar": 55
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b436d34_70c42ff6",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 7
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "I feel having a separate class makes the code more readable\nAdditionally, I prefer to avoid default implementations on abstract base classes when possible - I\u0027ve found it leads to more bugs when refactoring\n\nIf there are negative implications, I can pull this out. But I prefer to leave it if possible",
       "parentUuid": "7b436d34_70c42ff6",
+      "range": {
+        "startLine": 184,
+        "startChar": 6,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa385a9_72a35da2",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T22:50:45Z",
+      "side": 1,
+      "message": "There are no negative implications as far as I can tell, so feel free to leave it as is.\n\nHowever, I disagree on this one, since you have to forward declare TraceIdSetter to have a field of a derived class type in the base class, I think it\u0027s quite complicated.\n\nInterestingly, it works, even though it\u0027s a non-pointer field, I guess the fact that it\u0027s static and does not actually belong to an instance of the class allows this to work.",
+      "parentUuid": "2177e10a_aa8434b9",
       "range": {
         "startLine": 184,
         "startChar": 6,
@@ -366,6 +438,30 @@
       "side": 1,
       "message": "You\u0027re correct that the return value is not used, but the ternary operator does not function without a return type :(\n\nI personally prefer that Macros are expressions rather than statements, since I\u0027ve found this forces good coding practices (ie - with the code snipped you have above, code would compile without a semicolon at the end of the macro call)\nFrom what I can tell, this is personal preference, but if it\u0027s any issue beyond that I am happy to change it",
       "parentUuid": "686ffb44_00e4bf9d",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3519755_fb9c682a",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T22:50:45Z",
+      "side": 1,
+      "message": "A typical way to enforce a semicolon after a macro is to define a macro as\ndo { stuff } while (false)\n\nWhile it does look silly, it\u0027s completely localized to the macro itself, doesn\u0027t have any performance cost associated with it and does not require a function in some other class to return an ultimately unused value that produces a warning that has to be suppressed.",
+      "parentUuid": "ed780900_6d2d5560",
       "range": {
         "startLine": 31,
         "startChar": 2,
