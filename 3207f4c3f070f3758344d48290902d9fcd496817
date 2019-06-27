@@ -2,6 +2,190 @@
   "comments": [
     {
       "key": {
+        "uuid": "c794848a_12b7297a",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "Maybe make it std::stack to enforce the intended use?",
+      "range": {
+        "startLine": 91,
+        "startChar": 22,
+        "endLine": 91,
+        "endChar": 65
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c11b48_49adf872",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "I wonder if it would make sense to have Error in ScopedTraceOperation, that would achieve two things:\n- no need to have a virtual method for SetTraceResult\n- guarantee that no matter when SetResult is called, the error is not going to be lost, e.g. if TRACE_SET_RESULT was called after TRACE_SET_HIERARCHY right now the error is lost",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 16
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f43854fb_0b6527fa",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "nit: maybe rename the field to platform_override_ or something like that? This would hint that most likely the value is nullptr, unless it\u0027s a special case (e.g. unit tests)",
+      "range": {
+        "startLine": 132,
+        "startChar": 2,
+        "endLine": 132,
+        "endChar": 44
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c354e58c_89505ed4",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "These simply forward arguments to a base class constructor.\n\nSuggestion:\n1) Add a constructor to TraceLoggerBase\nTraceLoggerBase(const char* name, const char* file, uint32_t line, TraceCategory::Value category, TraceIdHierarchy ids);\n2) In derived classes SynchronousTraceLogger and AsynchronousTraceLogger add line\nusing TraceLoggerBase::TraceLoggerBase;\n\nThis will eliminate the need for defining constructors in SynchronousTraceLogger and AsynchronousTraceLogger and remove some code duplication.",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 47
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d232516_9df3c196",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "nit: you don\u0027t have to put this in derived classes if base class specifies this.",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 157,
+        "endChar": 55
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b436d34_70c42ff6",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "Since the only thing this class does is publicly expose a constructor of ScopedTraceOperation, why not just have a public constructor on ScopedTraceOperation and a default implementation of SetTraceResult that returns false?",
+      "range": {
+        "startLine": 184,
+        "startChar": 6,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e30b64b_cb39bf20",
+        "filename": "platform/api/time.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "nit: these can be in the same string, otherwise it makes sense to make these characters using \u0027\u0027 instead of \"\"",
+      "range": {
+        "startLine": 47,
+        "startChar": 48,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "686ffb44_00e4bf9d",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "I don\u0027t see return value of TRACE_SET_RESULT or SetResult used anywhere. Do we need it at all?\nIs it actionable? What does calling code do if it sees that setting trace result has failed? Does calling code care?\n\nIf we don\u0027t need it, then this can be\nif (IsLoggingEnabled(TraceCategory::Value::Any)) {\n  ScopedTraceOperation::SetResult(result);\n}",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1094932f_3d0c0443",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 7
@@ -18,6 +202,29 @@
         "startChar": 16,
         "endLine": 61,
         "endChar": 77
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a7c2bc1_28d2377c",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-06-27T20:29:25Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 42,
+        "startChar": 65,
+        "endLine": 43,
+        "endChar": 18
       },
       "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
