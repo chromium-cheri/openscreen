@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "013b7c3a_2110f37f",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "Good idea. Updating to std::stack (Backed by a std::Vector still since that seems to have best perf)",
+      "parentUuid": "c794848a_12b7297a",
+      "range": {
+        "startLine": 91,
+        "startChar": 22,
+        "endLine": 91,
+        "endChar": 65
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85c11b48_49adf872",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-27T20:29:25Z",
       "side": 1,
       "message": "I wonder if it would make sense to have Error in ScopedTraceOperation, that would achieve two things:\n- no need to have a virtual method for SetTraceResult\n- guarantee that no matter when SetResult is called, the error is not going to be lost, e.g. if TRACE_SET_RESULT was called after TRACE_SET_HIERARCHY right now the error is lost",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 16
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01259d6e_e88ed73c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "The only object that can actually use the Error is ScopedTraceOperation\nEven if TraceIdSetter (object from TRACE_SET_HIERARCHY) had access to this error because it\u0027s stored in the base class, it would just disappear when the object was destroyed since this object never does any logging\n\nThe reason I avoided this is because it increases the size of the TraceIdSetter object without providing any benefit I could think of, but you\u0027re right that doing this would avoid a virtual call\n\nWhich do you think is the bigger benefit? I am happy to go either route",
+      "parentUuid": "85c11b48_49adf872",
       "range": {
         "startLine": 115,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d380a101_b5e0aa9d",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "Good idea. Updated",
+      "parentUuid": "f43854fb_0b6527fa",
+      "range": {
+        "startLine": 132,
+        "startChar": 2,
+        "endLine": 132,
+        "endChar": 44
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c354e58c_89505ed4",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "65be43b1_ddc42587",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "This is such a cool trick!\n\nI would have preferred to avoid 1, but getting to remove 4 boilerplate constructors is too big of a benefit! Very cool, thank you!",
+      "parentUuid": "c354e58c_89505ed4",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 47
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d232516_9df3c196",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 7
@@ -105,6 +201,30 @@
       "writtenOn": "2019-06-27T20:29:25Z",
       "side": 1,
       "message": "nit: you don\u0027t have to put this in derived classes if base class specifies this.",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 157,
+        "endChar": 55
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af637761_6f871548",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "I prefer to specify this everywhere, so someone looking through the code can more easily tell that it applies. Otherwise, it\u0027s easy to miss - especially with a long inheritance chain like these classes have",
+      "parentUuid": "6d232516_9df3c196",
       "range": {
         "startLine": 157,
         "startChar": 2,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "2177e10a_aa8434b9",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "I feel having a separate class makes the code more readable\nAdditionally, I prefer to avoid default implementations on abstract base classes when possible - I\u0027ve found it leads to more bugs when refactoring\n\nIf there are negative implications, I can pull this out. But I prefer to leave it if possible",
+      "parentUuid": "7b436d34_70c42ff6",
+      "range": {
+        "startLine": 184,
+        "startChar": 6,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e30b64b_cb39bf20",
         "filename": "platform/api/time.h",
         "patchSetId": 7
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "0594c09b_d34f28c9",
+        "filename": "platform/api/time.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "I was hoping to leave the special character sequence on its own, since looking at it, I would never know if the sequence is \u0027\\u03BC\u0027 or \u0027\\u03BCs\u0027\n\nAs I\u0027m writing this comment, it\u0027s pretty clear to me I need to define a constant to explain what this character sequence means. Updating to do that, so PTAL again and let me know what you think",
+      "parentUuid": "0e30b64b_cb39bf20",
+      "range": {
+        "startLine": 47,
+        "startChar": 48,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "686ffb44_00e4bf9d",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 7
@@ -174,6 +342,30 @@
       "writtenOn": "2019-06-27T20:29:25Z",
       "side": 1,
       "message": "I don\u0027t see return value of TRACE_SET_RESULT or SetResult used anywhere. Do we need it at all?\nIs it actionable? What does calling code do if it sees that setting trace result has failed? Does calling code care?\n\nIf we don\u0027t need it, then this can be\nif (IsLoggingEnabled(TraceCategory::Value::Any)) {\n  ScopedTraceOperation::SetResult(result);\n}",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed780900_6d2d5560",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "You\u0027re correct that the return value is not used, but the ternary operator does not function without a return type :(\n\nI personally prefer that Macros are expressions rather than statements, since I\u0027ve found this forces good coding practices (ie - with the code snipped you have above, code would compile without a semicolon at the end of the macro call)\nFrom what I can tell, this is personal preference, but if it\u0027s any issue beyond that I am happy to change it",
+      "parentUuid": "686ffb44_00e4bf9d",
       "range": {
         "startLine": 31,
         "startChar": 2,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "b93b28c8_d5feadd2",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1094932f_3d0c0443",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 77
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a7c2bc1_28d2377c",
         "filename": "platform/base/trace_logging_platform.cc",
         "patchSetId": 7
@@ -229,6 +445,30 @@
       "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb8df8af_da7763d2",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-27T22:09:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a7c2bc1_28d2377c",
+      "range": {
+        "startLine": 42,
+        "startChar": 65,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
