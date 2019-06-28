@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ca6e35b_9b7227ba",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T22:16:12Z",
+      "side": 1,
+      "message": "You\u0027ll need to wrap Task in TaskWithMetadata here and elsewhere since you updated the member declarations",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05abf8db_dfc193ca",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T22:16:12Z",
+      "side": 1,
+      "message": "Nit: metadata",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8cbb423_77c3df23",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T22:16:12Z",
+      "side": 1,
+      "message": "Can you fix the IWYU in the .cc to include \u003cutility\u003e and \u003cmutex\u003e?\nI don\u0027t see any usage of std::condition_variable.",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7916cb47_8d500eb6",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T22:16:12Z",
+      "side": 1,
+      "message": "Mark explicit per style guide",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
