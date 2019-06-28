@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "c6aafd0d_ba07228e",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T17:05:00Z",
+      "side": 1,
+      "message": "I actually don\u0027t think that\u0027s true\n\nTRACE_SET_HIERARCHY is used every time a task is pulled off the TaskQueue, and I suspect we won\u0027t be tracing every task, so it should be less traces than SET calls",
+      "parentUuid": "aa181575_9a189ff7",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 16
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f43854fb_0b6527fa",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 7
@@ -356,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "15e7ea43_0b3e4984",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T17:05:00Z",
+      "side": 1,
+      "message": "Good point. Reworked the above to remove the forward declaration, so now this should be the simpler approach.",
+      "parentUuid": "9fa385a9_72a35da2",
+      "range": {
+        "startLine": 184,
+        "startChar": 6,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e30b64b_cb39bf20",
         "filename": "platform/api/time.h",
         "patchSetId": 7
@@ -471,6 +519,30 @@
       "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d2d2e3_caba4a3e",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T17:05:00Z",
+      "side": 1,
+      "message": "Good idea. Updating to do the `do{} while(false)`",
+      "parentUuid": "f3519755_fb9c682a",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "3207f4c3f070f3758344d48290902d9fcd496817",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
