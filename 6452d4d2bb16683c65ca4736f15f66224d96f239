@@ -76,6 +76,29 @@
     },
     {
       "key": {
+        "uuid": "b2fba604_d8fb950f",
+        "filename": "platform/posix/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-28T22:28:41Z",
+      "side": 1,
+      "message": "Consider using \"final\" instead of \"override\" throughout this subclass. IIRC, it can help the linker realize when methods don\u0027t actually need to be virtual in the final output.",
+      "range": {
+        "startLine": 16,
+        "startChar": 20,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "985d6704_1a063c64",
         "filename": "platform/test/fake_udp_socket.h",
         "patchSetId": 1
@@ -87,6 +110,24 @@
       "writtenOn": "2019-06-28T21:33:26Z",
       "side": 1,
       "message": "Nit: Prefer naming this MockUdpSocket. \n\nThis is a true mock, i.e. an object that only supports verifying expectations.\n\nVersus a fake, which has an implementation that returns fixed or manually set results\nand avoids calling any dependencies.",
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73215d14_fff34229",
+        "filename": "platform/test/fake_udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-28T22:28:41Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "985d6704_1a063c64",
       "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
