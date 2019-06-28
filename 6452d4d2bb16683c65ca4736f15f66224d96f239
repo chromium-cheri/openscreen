@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "08c4a0f1_707a20e6",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T21:33:26Z",
+      "side": 1,
+      "message": "This is just the same as overriding the dtor.",
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1c33752_6270e0f9",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T21:33:26Z",
+      "side": 1,
+      "message": "There\u0027s a public virtual dtor, so not sure why this callback is necessary.",
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b909ab_294efa7f",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T21:33:26Z",
+      "side": 1,
+      "message": "The class is almost pure virtual so there shouldn\u0027t need to be any unit tests for it.",
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a62d0085_31ea03cf",
         "filename": "platform/posix/event_waiter.cc",
         "patchSetId": 1
@@ -19,6 +70,23 @@
         "endLine": 14,
         "endChar": 38
       },
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "985d6704_1a063c64",
+        "filename": "platform/test/fake_udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T21:33:26Z",
+      "side": 1,
+      "message": "Nit: Prefer naming this MockUdpSocket. \n\nThis is a true mock, i.e. an object that only supports verifying expectations.\n\nVersus a fake, which has an implementation that returns fixed or manually set results\nand avoids calling any dependencies.",
       "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
