@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "8bac0762_15c563a1",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T04:43:59Z",
+      "side": 1,
+      "message": "Ok, please add comments near the +2 increments explaining that this is to generate unique trace IDs.",
+      "parentUuid": "56942914_9a8c0ece",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cc62ceb_d053d0a9",
         "filename": "osp/demo/demo.cc",
         "patchSetId": 5
@@ -352,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "3fe55ffe_81fff5f9",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T04:43:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "06d26fe0_dea08bc6",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "570599b1_fc940266",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -384,6 +420,24 @@
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be577d37_4c930af1",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T04:43:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ca1f8959_28d0b0a6",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -457,6 +511,24 @@
     },
     {
       "key": {
+        "uuid": "d1636b7b_c3f217d6",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T04:43:59Z",
+      "side": 1,
+      "message": "Looks good to me!",
+      "parentUuid": "a11a68ab_a6e2e94c",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc54e1fa_0ecb942b",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 5
@@ -524,6 +596,24 @@
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2cd445c_aa2ff487",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T04:43:59Z",
+      "side": 1,
+      "message": "std::vector sounds like the right tradeoff here, although I though that we were going to port in a circular buffer into osp_base at some point.  Feel free to leave a NOTE summarizing your reasoning above and mentioning that a circular buffer may offer improvements in the future.\n\nRegarding shrink_to_fit, it\u0027s not a priority to optimize for this case, but I would consider adding a OSP_DCHECK that the stack doesn\u0027t exceed some size that would accommodate all normal usage (256? 1024?)  Just in case there is some recursive routine gone wild that blows it up.",
+      "parentUuid": "97bc83c5_da2ae59f",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -737,6 +827,24 @@
     },
     {
       "key": {
+        "uuid": "ea9d9cfe_b6fe1eda",
+        "filename": "platform/api/time.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T04:43:59Z",
+      "side": 1,
+      "message": "I think we sorted this out, can you add a comment explaining what the microseconds symbol is?\nNot all console fonts may display unicode glyphs correctly, so check against yours to see if it looks OK.  Just \"millis\" would seem more straightforward to me.",
+      "parentUuid": "7569df39_92e7d521",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b4aec37_771caff7",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 5
@@ -801,6 +909,24 @@
       "side": 1,
       "message": "Since we are here setting the initial value of default_trace_platform, we get these checks for free by the compiler\n\nThe specific failure looks like:\n../../platform/base/trace_logging_platform.cc:66:1: error: redefinition of \u0027default_trace_platform_\u0027\nTRACE_SET_DEFAULT_PLATFORM(new TextTraceLoggingPlatform);\n^\n../../platform/api/trace_logging_platform.h:18:46: note: expanded from macro \u0027TRACE_SET_DEFAULT_PLATFORM\u0027\n  TraceLoggingPlatform* internal::TraceBase::default_trace_platform_ \u003d platform;\n                                             ^\n../../platform/base/trace_logging_platform.cc:65:1: note: previous definition is here\nTRACE_SET_DEFAULT_PLATFORM(new TextTraceLoggingPlatform);\n^\n../../platform/api/trace_logging_platform.h:18:46: note: expanded from macro \u0027TRACE_SET_DEFAULT_PLATFORM\u0027\n  TraceLoggingPlatform* internal::TraceBase::default_trace_platform_ \u003d platform;",
       "parentUuid": "f28c0218_34eccf23",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "819abb7d_7511c6be",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T04:43:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "be56faf9_9ceb4c7b",
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -909,6 +1035,24 @@
       "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d5d8deb_2b604041",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-06-28T04:43:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "77c400fd_c4ae0e91",
+      "revId": "843ed3b9d55c4e197d08d50da09c41ef10bd79f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
