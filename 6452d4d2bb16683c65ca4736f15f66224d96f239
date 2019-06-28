@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "09f8c01e_fda3ae40",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T23:27:07Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "08c4a0f1_707a20e6",
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1c33752_6270e0f9",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2f9ae107_e8a49683",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T23:27:07Z",
+      "side": 1,
+      "message": "Discussed offline. This is to allow for the NetworkRunner to be an observer in parallel Networking Part 1 CL.\n\nAdding comment to explain this",
+      "parentUuid": "b1c33752_6270e0f9",
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1b909ab_294efa7f",
         "filename": "platform/api/udp_socket_unittest.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2019-06-28T21:33:26Z",
       "side": 1,
       "message": "The class is almost pure virtual so there shouldn\u0027t need to be any unit tests for it.",
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81bbf671_70b53b1a",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T23:27:07Z",
+      "side": 1,
+      "message": "The unit test here is only to validate that the deletion callback functions as intended, and that there isn\u0027t a runtime error when it is unset\n\nSince we decided offline to leave that in, these UTs should be left in to validate its functionality.",
+      "parentUuid": "e1b909ab_294efa7f",
       "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "3c9fccda_a711ed19",
+        "filename": "platform/posix/event_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T23:27:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a62d0085_31ea03cf",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2fba604_d8fb950f",
         "filename": "platform/posix/udp_socket.h",
         "patchSetId": 1
@@ -96,6 +174,30 @@
       "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8612c6b9_e92eceed",
+        "filename": "platform/posix/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T23:27:07Z",
+      "side": 1,
+      "message": "Good idea. Updating.",
+      "parentUuid": "b2fba604_d8fb950f",
+      "range": {
+        "startLine": 16,
+        "startChar": 20,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -131,6 +233,24 @@
       "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac55806a_c0397c70",
+        "filename": "platform/test/fake_udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-06-28T23:27:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73215d14_fff34229",
+      "revId": "6452d4d2bb16683c65ca4736f15f66224d96f239",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
