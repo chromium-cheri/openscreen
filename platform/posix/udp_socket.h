@@ -23,6 +23,10 @@ struct UdpSocketPosix : public UdpSocket {
   static UdpSocketPosix* From(UdpSocket* socket) {
     return static_cast<UdpSocketPosix*>(socket);
   }
+
+  static const UdpSocketPosix& From(const UdpSocket& socket) {
+    return static_cast<const UdpSocketPosix&>(socket);
+  }
 };
 
 }  // namespace platform
