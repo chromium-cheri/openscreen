@@ -2,6 +2,236 @@
   "comments": [
     {
       "key": {
+        "uuid": "27fc8665_2c33c7c2",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "I think the platform/base ones should be platform/api, and vice versa (base on the file listing I see in this change).\n\nAlso, I think it would be helpful to distinguish that this information is just FYI for platform implementors (maybe move this to the bottom of the file, alongside the other info for \"Embedder-Specific Tracing Implementations\"). The one file that should be included in OpenScreen code is mentioned in the \"Imports\" section before all this.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "526a741a_91c7e039",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "This didn\u0027t render in gitiles correctly for some reason.\n\nhttps://chromium.googlesource.com/openscreen/+/refs/changes/37/1612337/11/docs/trace_logging.md",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 59
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f64a6428_93b23ce3",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "Is there a way to supply user-provided properties associated with a trace? For example, a common use case might be to trace the sending of a video frame over the network, and we\u0027d want to tag that trace with the frame_id since there will be multiple frames in-flight at the same time. Likewise, when the operation is complete, it\u0027d be very useful to attach things like \"packet retransmit count\" to the trace.",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 119,
+        "endChar": 36
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b862f82_09a7bc54",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "I keep interpreting this as \"the id will come from TRACE_ASYNC_START(...)\". Meaning, code might look like:\n\n  const auto trace_id \u003d TRACE_ASYNC_START(TraceCategory::CastStreamingSender, \"Start Sending Frame\");\n  ...start sending the frame...\n\n  ...stuff happens, and in another call stack:\n\n  ...just finished sending the frame...\n  TRACE_ASYNC_END(TraceCategory::CastStreamingSender, trace_id, Error::Code::kOk);\n\nHowever, looking at the code it doesn\u0027t work that way. So, I\u0027m a bit confused how this is supposed to work. Perhaps clarify the documentation here and provide an async use case example? Or, maybe the TRACE_ASYNC_START() macro should be changed to return the new trace id?",
+      "range": {
+        "startLine": 145,
+        "startChar": 62,
+        "endLine": 146,
+        "endChar": 51
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0f06d70_a5072e48",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "nit: The ending of this sentence was a little confusing to read. How about:\n\n  ...ASYNC_TRACE_START call, and result is the same as TRACE_SET_RESULT\u0027s argument.",
+      "range": {
+        "startLine": 146,
+        "startChar": 53,
+        "endLine": 147,
+        "endChar": 14
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3b2015f_97a32fc0",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "I can\u0027t think of when we would ever do this.\n\nTo avoid crossing thread boundaries, we could require that all TRACE_ASYNC_BEGIN/END are called in the same sequence (e.g., the same thread).\n\nMachine boundaries: Since OpenScreen may be talking to other software implementations (i.e., not an OpenScreen library on the other end), I don\u0027t think we should ever attempt to carry tracing state across machine boundaries.\n\nWDYT? If we don\u0027t need this, we probably also don\u0027t need the TraceIdHierarchy struct since it would not be common to ever need to pass the three ids around in user code.",
+      "range": {
+        "startLine": 159,
+        "startChar": 71,
+        "endLine": 160,
+        "endChar": 57
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ddeaace_60df6b07",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "nit: It\u0027s not a function call. Maybe call this the TRACE_SET_DEFAULT_PLATFORM definition macro, and adjust the text below?\n\nThough, there\u0027s an issue with what this macro does (see later comment).",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 8
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b614e3bd_d6ac895b",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "s/api/base/",
+      "range": {
+        "startLine": 197,
+        "startChar": 9,
+        "endLine": 197,
+        "endChar": 12
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b0c1ba7_c288e5ff",
+        "filename": "osp/impl/presentation/presentation_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "nit: This should probably be ostringstream (output only). It may or may not make a difference, but the \"extraction\" operators from stringstream aren\u0027t used here.",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 21
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09db51b_170becbf",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "Can this just be ScopedTraceOperation instead of std::unique_ptr\u003cScopedTraceOperation\u003e?\n\nI realize that would make this a globally initialized non-POD type, which is banned, but... Basically, a normal global would be initialized at program start time before entering main(); and Chromium doesn\u0027t want those because they hurt start-up time. However, this is thread_local, which means it is initialized on-demand. So, as a lazy-initialized value, maybe this is okay?\n\nA [better?] alternative would be to use the Chromium-blessed way to do lazy-initialized globals. Something like:\n\nScopedTraceOperation* GetRootNode() {\n  thread_local static TraceIdSetter root_node(TraceIdHierarchy::Empty());\n  return \u0026root_node_;\n}\n\n...and similarly with traces_.\n\nActually, is root_node_ constant? If it never changes, then even better:\n\nconst ScopedTraceOperation* GetRootNode() {\n  thread_local static const ...",
+      "range": {
+        "startLine": 63,
+        "startChar": 13,
+        "endLine": 63,
+        "endChar": 50
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b5912fe_f3a6c790",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 11
@@ -25,6 +255,75 @@
     },
     {
       "key": {
+        "uuid": "9f618ca6_908f6da2",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "Challenge accepted! :)\n\nIt turns out a void-return function *can* be used in a ternary expression: https://godbolt.org/z/uDcbuY Note that both compile to the exact same thing.\n\nIt\u0027s up to you if you want to change this. Pro: You don\u0027t need the extra comments explaining the \"return bool\" here. Con: The macro gets slightly more complicated.",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 34,
+        "endChar": 46
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c1bcc85_5354eb5c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "Looks like this comment needs updating. I don\u0027t see a TraceLogging class anymore, nor any templated code.",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 32
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a1c6cf2_1147707b",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "IMHO, you should define these four static methods here, and let the compiler decide whether to inline them. They are simple accessors, which makes this acceptable under the style guide. For example, \"traces_.top()-\u003etrace_id_\" is probably just 1-2 instructions, cheaper than a full function call.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 37
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e060bc42_08b231bd",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 11
@@ -41,6 +340,328 @@
         "startChar": 10,
         "endLine": 73,
         "endChar": 14
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9cdfd8d_9f259dee",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "I read this and thought, \"Wait. Didn\u0027t we just declare a SetResult().\" I see one is static and one is not.\n\nSuggestions (one or the other):\n\n1. Move the non-static one to \"protected.\"\n\n2. C++ style: Non-static functions must come before static ones (which means this should be moved up, to just after the dtor line).",
+      "range": {
+        "startLine": 73,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afa2526f_d22cdb81",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "nit: Be consistent when ordering things that are passed around together. Meaning: Swap root_id_ and parent_id_, to match the ctor.",
+      "range": {
+        "startLine": 82,
+        "startChar": 1,
+        "endLine": 84,
+        "endChar": 21
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e52fc25_f2f352f6",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "In all the macros, category is paired with name, and comes just before it. Suggest making it that way here, and in the order of data members in this class, for consistency.",
+      "range": {
+        "startLine": 112,
+        "startChar": 18,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed1da39_d5ecd402",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "Should this be Error::Code instead of Error? The latter is a bit of significant overhead (to include a string message). I\u0027m thinking client code should just log the error string (within the scope of the trace), and then just call SetResult(error_code). Then, in cases where the string isn\u0027t being used, we don\u0027t have to pay for it.",
+      "range": {
+        "startLine": 131,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 16
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5181215d_63335654",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "s/final/override/",
+      "range": {
+        "startLine": 157,
+        "startChar": 36,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b433cad_afd8270e",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "s/final/override/ here too",
+      "range": {
+        "startLine": 167,
+        "startChar": 37,
+        "endLine": 167,
+        "endChar": 45
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a56f7f2_026db5f0",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "Chromium-style nit: Declare the final dtor for this class, and define it as \"default\" in the .cc file. This will cause the compiler to code-gen the vtable in one place, and make things much easier for the linker.",
+      "range": {
+        "startLine": 177,
+        "startChar": 11,
+        "endLine": 177,
+        "endChar": 24
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6735e37f_28bca417",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "I think, if you just make sure they are all used in a \"typical\" way in the unit test code, then that would be sufficient to confirm they are being expanded, compiling, and WAI.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 66
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dafc055_c9cce00a",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "This will need to move to a new platform/api/trace_logging_platform.cc file. See comment at the end of platform/base/trace_logging_platform.cc.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 80
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52f10113_3fca5b11",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "For this interface, we should have a virtual dtor declared here, and defined in a platform/api/trace_logging_platform.cc.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "443dcce4_22efe0c4",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "See comment at docs/trace_logging.md:119. If we were to provide identifying properties associated with traces (e.g., Chromium tracing allows this), we\u0027d have to account for that in the methods here. OTOH, that could be accomplished by adding a Variant\u003cint,float,char*\u003e... argument at the end here (and the other two methods).",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e02ca19b_f3cade12",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "nit: IsTraceLoggingEnabled(), since this sounds a lot like a function that would be in platform/api/logging.h--a different type of logging.",
+      "range": {
+        "startLine": 50,
+        "startChar": 5,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b5593f_acd8a5fc",
+        "filename": "platform/api/trace_logging_types.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "See comments in docs/trace_logging.md. I can\u0027t think of a use case for needing this in user code. Also, since it adds extra code paths that do identical things (i.e., extra ctors), I\u0027m still suggesting we remove it.",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4295de6a_2cb7cff9",
+        "filename": "platform/base/logging.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "s/stringstream/ostringstream/",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 19
       },
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
@@ -110,6 +731,29 @@
       "writtenOn": "2019-06-28T22:16:12Z",
       "side": 1,
       "message": "Mark explicit per style guide",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75977aac_ee1caa14",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:07:06Z",
+      "side": 1,
+      "message": "style: This is a global initializer, which is banned for non-POD types. The solution to this is require the embedder call some kind of global SetTraceLoggingPlatform() function to set the pointer, before it uses the rest of the OpenScreen library.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 57
+      },
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
