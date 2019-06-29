@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4bfc5b3_98f2f172",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-06-29T02:17:06Z",
+      "side": 1,
+      "message": "1. Naming: Not requiring you change this, but just mentioning my personal style here: I usually name value converters ToXYZ(). So, ToDnsClass() here.\n\n2. Functionally: Should this be validating untrusted inputs? Or, is the entire impl meant to ignore unknown values (e.g., nothing happens in switch statements)?\n\n3. Likewise, should there be a GetDnsType() function too? (I noticed you were just static_cast\u003c\u003e\u0027ing it in client-side code.)",
+      "range": {
+        "startLine": 313,
+        "startChar": 19,
+        "endLine": 313,
+        "endChar": 30
+      },
+      "revId": "b471c61e55cf3cfe17a54dc54a9874636a7baa41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
