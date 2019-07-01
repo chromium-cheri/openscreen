@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e64b9baf_4381507f",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-01T18:17:30Z",
+      "side": 1,
+      "message": "I still don\u0027t quite follow why you didn\u0027t remove the socket from read_callbacks_ in CancelRead.  The only place where you insert into sockets_to_unwatch_ is there, and there is no way you\u0027ll fire a callback for a cancelled socket since it is removed before the call to AwaitSocketsReadable.",
+      "revId": "dc9029b83304b8ce85a05473f7ae22870a2b70ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdfb6b03_91974f2b",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-01T18:17:30Z",
+      "side": 1,
+      "message": "If you remove from read_callbacks_ in CancelRead, then this extra loop shouldn\u0027t be necessary: the lookup below for mapped_socket will prevent the deleted socket from being used.",
+      "revId": "dc9029b83304b8ce85a05473f7ae22870a2b70ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
