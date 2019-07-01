@@ -22,6 +22,30 @@
       "revId": "b471c61e55cf3cfe17a54dc54a9874636a7baa41",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6ad9d0f_ed5a65e5",
+        "filename": "cast/common/mdns/mdns_constants.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-01T17:26:27Z",
+      "side": 1,
+      "message": "1) DnsClass shares its uint16_t with cache flush bit in records and unicast response bit in questions. This is why I called the method Get, since it\u0027s not just a type conversion.\n2) For DnsType, if the value is not recognized, we just treat it as valid, but unsupported; and it goes into RawRecordRdata as long as length field is correct.\nFor DnsClass, so far everywhere I\u0027ve seen it\u0027s assumed that the class is IN for Internet. I\u0027m reading RFCs to figure out what to do if we somehow get records with a different class. There will be a separate patch for this.\n3) I didn\u0027t want to add an extra level of indirection to wrap a static_cast, but I don\u0027t feel strongly about that.",
+      "parentUuid": "c4bfc5b3_98f2f172",
+      "range": {
+        "startLine": 313,
+        "startChar": 19,
+        "endLine": 313,
+        "endChar": 30
+      },
+      "revId": "b471c61e55cf3cfe17a54dc54a9874636a7baa41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
