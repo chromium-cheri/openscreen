@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af8bbccd_711625d9",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-01T20:10:10Z",
+      "side": 1,
+      "message": "You\u0027re right, this doesn\u0027t actually fix the issues I was worried about. Took another look and have changed the code back to how it was previously, where the read_callbacks_ entry is removed in CancelRead\n\nI\u0027ve updated with a condition-variable approach as discussed offline. Let me know if this seems to solve the issue better, at least for the short term until sockets can be reworked in a separate change",
+      "parentUuid": "e64b9baf_4381507f",
+      "revId": "dc9029b83304b8ce85a05473f7ae22870a2b70ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdfb6b03_91974f2b",
         "filename": "platform/base/network_reader.cc",
         "patchSetId": 11
@@ -33,6 +51,24 @@
       "revId": "dc9029b83304b8ce85a05473f7ae22870a2b70ee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "182acffc_8ee02560",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-01T20:10:10Z",
+      "side": 1,
+      "message": "Reverted this section to how it was previously.",
+      "parentUuid": "cdfb6b03_91974f2b",
+      "revId": "dc9029b83304b8ce85a05473f7ae22870a2b70ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
