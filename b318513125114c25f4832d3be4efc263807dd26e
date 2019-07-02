@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "625914ea_30bb56e6",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Updated\n\nAlso, good idea. Added an explanation about this after the list as well as moved it as suggested",
+      "parentUuid": "27fc8665_2c33c7c2",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "526a741a_91c7e039",
         "filename": "docs/trace_logging.md",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-29T02:07:06Z",
       "side": 1,
       "message": "This didn\u0027t render in gitiles correctly for some reason.\n\nhttps://chromium.googlesource.com/openscreen/+/refs/changes/37/1612337/11/docs/trace_logging.md",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 59
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75436b21_1a845b66",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Oh wow I didn\u0027t realize I could open it this way. So much easier!\n\nI\u0027ve modified this section. I can\u0027t reproduce this formatting error on any online renderer I\u0027ve found, so I modified the section and I\u0027m hoping the new version works - I suspect the issue is in the Chromium .md renderer\n\nLeaving this comment open until I can confirm I\u0027ve fixed the issue",
+      "parentUuid": "526a741a_91c7e039",
       "range": {
         "startLine": 66,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2526ba7c_c36c0a83",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "I am currently planning this as follow up work, since it isn\u0027t needed to get v1 trace logging working (and it will add a bunch more code to an already very large CL)\n\nI\u0027ve added a TODO to the top-level tracing file for myself for this, and plan to take it up once the Networking changes are all in",
+      "parentUuid": "f64a6428_93b23ce3",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 119,
+        "endChar": 36
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b862f82_09a7bc54",
         "filename": "docs/trace_logging.md",
         "patchSetId": 11
@@ -82,6 +154,30 @@
       "writtenOn": "2019-06-29T02:07:06Z",
       "side": 1,
       "message": "I keep interpreting this as \"the id will come from TRACE_ASYNC_START(...)\". Meaning, code might look like:\n\n  const auto trace_id \u003d TRACE_ASYNC_START(TraceCategory::CastStreamingSender, \"Start Sending Frame\");\n  ...start sending the frame...\n\n  ...stuff happens, and in another call stack:\n\n  ...just finished sending the frame...\n  TRACE_ASYNC_END(TraceCategory::CastStreamingSender, trace_id, Error::Code::kOk);\n\nHowever, looking at the code it doesn\u0027t work that way. So, I\u0027m a bit confused how this is supposed to work. Perhaps clarify the documentation here and provide an async use case example? Or, maybe the TRACE_ASYNC_START() macro should be changed to return the new trace id?",
+      "range": {
+        "startLine": 145,
+        "startChar": 62,
+        "endLine": 146,
+        "endChar": 51
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc330b0_850faf2d",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "TRACE_ASYNC_START can\u0027t return the ID since it needs to return the tracing object\nI\u0027ve added a n \"Example Code\" section to show how these can be used in practice. PTAL and let me know if this answers your questions",
+      "parentUuid": "7b862f82_09a7bc54",
       "range": {
         "startLine": 145,
         "startChar": 62,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "4e2cf74f_1a558ba9",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Good idea. Updated",
+      "parentUuid": "f0f06d70_a5072e48",
+      "range": {
+        "startLine": 146,
+        "startChar": 53,
+        "endLine": 147,
+        "endChar": 14
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3b2015f_97a32fc0",
         "filename": "docs/trace_logging.md",
         "patchSetId": 11
@@ -128,6 +248,30 @@
       "writtenOn": "2019-06-29T02:07:06Z",
       "side": 1,
       "message": "I can\u0027t think of when we would ever do this.\n\nTo avoid crossing thread boundaries, we could require that all TRACE_ASYNC_BEGIN/END are called in the same sequence (e.g., the same thread).\n\nMachine boundaries: Since OpenScreen may be talking to other software implementations (i.e., not an OpenScreen library on the other end), I don\u0027t think we should ever attempt to carry tracing state across machine boundaries.\n\nWDYT? If we don\u0027t need this, we probably also don\u0027t need the TraceIdHierarchy struct since it would not be common to ever need to pass the three ids around in user code.",
+      "range": {
+        "startLine": 159,
+        "startChar": 71,
+        "endLine": 160,
+        "endChar": 57
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e316adf4_721eaae8",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "The idea for machine boundaries would be to add this when we know both ends are using OpenScreen - ie sending Chromium to our library. This would allow us to understand data flow between devices more easily. I agree we may not want this, though we already get it for free by supporting functions that cross thread boundaries\n\nCrossing Thread boundaries is unavoidable - currently this is required to set the Trace Hierarchy when we pull a call off the TaskRunner stack. See platform/base/task_runner_impl for more info",
+      "parentUuid": "d3b2015f_97a32fc0",
       "range": {
         "startLine": 159,
         "startChar": 71,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5f8f515f_8fc6de11",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Updating to reflect the new way to set the default platform",
+      "parentUuid": "2ddeaace_60df6b07",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 8
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b614e3bd_d6ac895b",
         "filename": "docs/trace_logging.md",
         "patchSetId": 11
@@ -183,6 +351,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ebc55d9_97dfdff0",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b614e3bd_d6ac895b",
+      "range": {
+        "startLine": 197,
+        "startChar": 9,
+        "endLine": 197,
+        "endChar": 12
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "d789ae5b_f34b79ae",
+        "filename": "osp/impl/presentation/presentation_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b0c1ba7_c288e5ff",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 21
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a09db51b_170becbf",
         "filename": "platform/api/internal/trace_logging_internal.cc",
         "patchSetId": 11
@@ -220,6 +436,30 @@
       "writtenOn": "2019-06-29T02:07:06Z",
       "side": 1,
       "message": "Can this just be ScopedTraceOperation instead of std::unique_ptr\u003cScopedTraceOperation\u003e?\n\nI realize that would make this a globally initialized non-POD type, which is banned, but... Basically, a normal global would be initialized at program start time before entering main(); and Chromium doesn\u0027t want those because they hurt start-up time. However, this is thread_local, which means it is initialized on-demand. So, as a lazy-initialized value, maybe this is okay?\n\nA [better?] alternative would be to use the Chromium-blessed way to do lazy-initialized globals. Something like:\n\nScopedTraceOperation* GetRootNode() {\n  thread_local static TraceIdSetter root_node(TraceIdHierarchy::Empty());\n  return \u0026root_node_;\n}\n\n...and similarly with traces_.\n\nActually, is root_node_ constant? If it never changes, then even better:\n\nconst ScopedTraceOperation* GetRootNode() {\n  thread_local static const ...",
+      "range": {
+        "startLine": 63,
+        "startChar": 13,
+        "endLine": 63,
+        "endChar": 50
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90367512_23fbb362",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "I like the idea of this approach, but it\u0027s giving me runtime failures for an unknown reason \n\nFound in the style guide: \"Dynamic initialization of nonlocal variables is discouraged [...] However, we do permit it if no aspect of the program depends on the sequencing of this initialization with respect to all other initializations. Under those restrictions, the ordering of the initialization does not make an observable difference.\"\n\nThis is the case here, so I\u0027ve updated the code to use dynamic initialization of a pointer that will never be deleted (as suggested in the style guide)\n\nIf you have a strong opinion, I can rewrite this to use a constant-length array, but given that we already plan to swap this out for a circular buffer once we support it, I am not sure it would be worth the effort.",
+      "parentUuid": "a09db51b_170becbf",
       "range": {
         "startLine": 63,
         "startChar": 13,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "defc7f7e_0793c335",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Good catch. removed",
+      "parentUuid": "1b5912fe_f3a6c790",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 20
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f618ca6_908f6da2",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 11
@@ -275,6 +539,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "745ee6eb_18b1dfcc",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "I\u0027d prefer to leave this one as-is, though I\u0027ve updated the comment accordingly\nThe syntax used by your example is a bit unusual, and it would make reading the code more difficult\n\nThis is really cool though! I\u0027ll have to keep this in mind for future similar uses.",
+      "parentUuid": "9f618ca6_908f6da2",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 34,
+        "endChar": 46
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "f4e8c3fb_90e199e1",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Updated comment to be clearer",
+      "parentUuid": "3c1bcc85_5354eb5c",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 32
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a1c6cf2_1147707b",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 11
@@ -321,6 +633,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "816c2290_c19d148f",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Good idea. Defining them here",
+      "parentUuid": "5a1c6cf2_1147707b",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 37
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -370,6 +706,54 @@
     },
     {
       "key": {
+        "uuid": "61944581_eabb3ba3",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Updated to `void`.",
+      "parentUuid": "e060bc42_08b231bd",
+      "range": {
+        "startLine": 73,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 14
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "528c8aff_ed4bea7d",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Good idea - moving to protected.",
+      "parentUuid": "b9cdfd8d_9f259dee",
+      "range": {
+        "startLine": 73,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afa2526f_d22cdb81",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 11
@@ -390,6 +774,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163a096a_fc83d266",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afa2526f_d22cdb81",
+      "range": {
+        "startLine": 82,
+        "startChar": 1,
+        "endLine": 84,
+        "endChar": 21
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -416,6 +824,30 @@
     },
     {
       "key": {
+        "uuid": "000a2186_27a619d4",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e52fc25_f2f352f6",
+      "range": {
+        "startLine": 112,
+        "startChar": 18,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ed1da39_d5ecd402",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 11
@@ -436,6 +868,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48ae6045_f8819832",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Good idea. Updating to Error::Code instead of error",
+      "parentUuid": "5ed1da39_d5ecd402",
+      "range": {
+        "startLine": 131,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 16
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -462,6 +918,30 @@
     },
     {
       "key": {
+        "uuid": "8b8beffb_1194973a",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "In UnitTest code I extend this class, so I can\u0027t make it final\n\nNeed to extend it so I can swap out the platform_override_, since UTs don\u0027t work otherwise",
+      "parentUuid": "5181215d_63335654",
+      "range": {
+        "startLine": 157,
+        "startChar": 36,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b433cad_afd8270e",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 11
@@ -482,6 +962,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64368869_ba542dce",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "In UnitTest code I extend this class, so I can\u0027t make it final\n\nNeed to extend it so I can swap out the platform_override_, since UTs don\u0027t work otherwise",
+      "parentUuid": "0b433cad_afd8270e",
+      "range": {
+        "startLine": 167,
+        "startChar": 37,
+        "endLine": 167,
+        "endChar": 45
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -508,6 +1012,30 @@
     },
     {
       "key": {
+        "uuid": "f2c6f1fc_aa4fa22d",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a56f7f2_026db5f0",
+      "range": {
+        "startLine": 177,
+        "startChar": 11,
+        "endLine": 177,
+        "endChar": 24
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6735e37f_28bca417",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 11
@@ -519,6 +1047,30 @@
       "writtenOn": "2019-06-29T02:07:06Z",
       "side": 1,
       "message": "I think, if you just make sure they are all used in a \"typical\" way in the unit test code, then that would be sufficient to confirm they are being expanded, compiling, and WAI.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 66
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f863a1a_858ec14f",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Unfortunately, I can\u0027t use them in the \u0027typical\u0027 way, in that I can\u0027t use the Macro calls\n\nThe platform layer used by default writes to OSP_LOG, so I need to extend the trace macros.\nI have some UTs which emulate the \u0027typical\u0027 way they are used, but also want to test that everything writes to the platform layer as expected",
+      "parentUuid": "6735e37f_28bca417",
       "range": {
         "startLine": 33,
         "startChar": 0,
@@ -554,6 +1106,30 @@
     },
     {
       "key": {
+        "uuid": "639a99e0_8896480f",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Updated to a static method for initialization instead. See other comment for further info",
+      "parentUuid": "0dafc055_c9cce00a",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 80
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52f10113_3fca5b11",
         "filename": "platform/api/trace_logging_platform.h",
         "patchSetId": 11
@@ -574,6 +1150,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98badc1c_ed48b170",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52f10113_3fca5b11",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -600,6 +1200,30 @@
     },
     {
       "key": {
+        "uuid": "bf365645_0340a0ad",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Support for user-provided parameters will be done in a follow-up CL",
+      "parentUuid": "443dcce4_22efe0c4",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e02ca19b_f3cade12",
         "filename": "platform/api/trace_logging_platform.h",
         "patchSetId": 11
@@ -623,6 +1247,30 @@
     },
     {
       "key": {
+        "uuid": "2e0e522c_15c3208c",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Good idea. Done",
+      "parentUuid": "e02ca19b_f3cade12",
+      "range": {
+        "startLine": 50,
+        "startChar": 5,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6b5593f_acd8a5fc",
         "filename": "platform/api/trace_logging_types.h",
         "patchSetId": 11
@@ -634,6 +1282,30 @@
       "writtenOn": "2019-06-29T02:07:06Z",
       "side": 1,
       "message": "See comments in docs/trace_logging.md. I can\u0027t think of a use case for needing this in user code. Also, since it adds extra code paths that do identical things (i.e., extra ctors), I\u0027m still suggesting we remove it.",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0eba071_b3df4b5e",
+        "filename": "platform/api/trace_logging_types.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "This method is used for easily setting the Trace IDs when we cross thread boundaries. Currently, this is only done on the task runner, but doing without this will make code more complex\n\nPTAL at platform/base/task_runner_impl.cc and let me know if you have a different opinion",
+      "parentUuid": "b6b5593f_acd8a5fc",
       "range": {
         "startLine": 25,
         "startChar": 7,
@@ -669,6 +1341,30 @@
     },
     {
       "key": {
+        "uuid": "bfb4a69b_48f680c3",
+        "filename": "platform/base/logging.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4295de6a_2cb7cff9",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ca6e35b_9b7227ba",
         "filename": "platform/base/task_runner_impl.cc",
         "patchSetId": 11
@@ -683,6 +1379,24 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4cf0bd0_666bb694",
+        "filename": "platform/base/task_runner_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ca6e35b_9b7227ba",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -703,6 +1417,24 @@
     },
     {
       "key": {
+        "uuid": "0756b10d_3f43ab76",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05abf8db_dfc193ca",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8cbb423_77c3df23",
         "filename": "platform/base/task_runner_impl.h",
         "patchSetId": 11
@@ -717,6 +1449,24 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7209735_1d76d055",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Added those imports to the .cc\n\ncondition_variable is defined on line 135 in this file and used throughout the cc",
+      "parentUuid": "a8cbb423_77c3df23",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -737,6 +1487,24 @@
     },
     {
       "key": {
+        "uuid": "05fbbd00_d0c2f5d2",
+        "filename": "platform/base/task_runner_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "Discussed offline. Will make explciit for now and re-evaluate when we add the ability to compile-out TraceLogging calls",
+      "parentUuid": "7916cb47_8d500eb6",
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75977aac_ee1caa14",
         "filename": "platform/base/trace_logging_platform.cc",
         "patchSetId": 11
@@ -748,6 +1516,30 @@
       "writtenOn": "2019-06-29T02:07:06Z",
       "side": 1,
       "message": "style: This is a global initializer, which is banned for non-POD types. The solution to this is require the embedder call some kind of global SetTraceLoggingPlatform() function to set the pointer, before it uses the rest of the OpenScreen library.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 57
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff7bebf_f1830830",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-02T20:39:21Z",
+      "side": 1,
+      "message": "I\u0027m really trying to avoid that kind of global SetTraceLoggingPlatform() function\n\nFound in the style guide: \"Dynamic initialization of nonlocal variables is discouraged [...] However, we do permit it if no aspect of the program depends on the sequencing of this initialization with respect to all other initializations. Under those restrictions, the ordering of the initialization does not make an observable difference.\"\n\nThis is the case here, so I\u0027ve updated the code to use dynamic initialization of a pointer that will never be deleted (as suggested in the style guide)\n\nUpdating this to instead require the embedder to define a function to create the TraceLoggingPlatform similar to defining IsLoggingEnabled. PTAL",
+      "parentUuid": "75977aac_ee1caa14",
       "range": {
         "startLine": 70,
         "startChar": 0,
