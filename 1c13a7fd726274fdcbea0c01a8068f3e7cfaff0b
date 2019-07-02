@@ -2,6 +2,207 @@
   "comments": [
     {
       "key": {
+        "uuid": "926d6f04_0bcf4ba4",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Seeing EventWaiterPtr in code is going to make readers think this is some kind of smart pointer, not the raw pointer that it actually is, whose scoping/semantics are very different.\n\nThus, instead of aliasing the raw pointer, how about aliasing the concrete type:\n\n  using EventWaiter \u003d EventWaiterPrivate;\n\nThen, code should use EventWaiter* instead of EventWaiterPtr.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c36cdbd_47bfeb56",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Suggest void instead of bool for the return type here. Two possibilities:\n\nCase 1: The client-side code expected the socket was being watched: In this case, what should client-side code do if CancelRead() returns false? That would indicate a logic flaw in the program, right? And maybe the program should be forcibly crashed because its state is proved to be bad? Thus, an alternative to returning bool would be to return void, but have a DCHECK(was_watching) within CancelRead().\n\nCase 2: The client-side code isn\u0027t sure if the watching is happening, but wants to ensure it has stopped. In this case, it would be reasonable for CancelRead() to just be a no-op if there wasn\u0027t any watching going on. The client-side code wouldn\u0027t be taking any action on the bool return value so, again, just return void.",
+      "range": {
+        "startLine": 50,
+        "startChar": 51,
+        "endLine": 52,
+        "endChar": 41
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a77681f7_9026252f",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "nit: Generally, try to avoid using \"we\" in code comments. Suggest wording this sentence as something like: \"It is perfectly valid for the TaskRunner to use different threads to run tasks, while still adhering to the two rules above; just that it is not valid for any two tasks to run concurrently.\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 9,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28d5c9f6_bd87b2e8",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "I\u0027m wondering why we need this?\n\nThe function this wraps will have logic to decide whether to return nullopt, or some delay value. So, rather than return anything, it could decide whether to post another delayed task to run itself again.\n\nGenerally speaking, we should try to keep the platform/api code as small as possible. Any application logic or \"utility\" classes can exist elsewhere, outside of platform/. (e.g., This class is similar to osp_base/alarm.h in this respect.)",
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3992541a_a5045e12",
+        "filename": "platform/api/udp_callbacks.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Style guide: This file contains one class called UdpReadCallback. So, let\u0027s name the file the same as the class. (Otherwise, it\u0027s harder for future maintainers to find the code.)",
+      "range": {
+        "startLine": 5,
+        "startChar": 21,
+        "endLine": 5,
+        "endChar": 37
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcae7fb1_73c51af0",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "This worries me a lot. The client code calling ReadRepeatedly() should make the guarantee that the UdpSocket* remains valid until CancelRead() is called. Then you wouldn\u0027t need this extra UdpSocket deletion callback mechanism.\n\nGenerally, if a dependency is provided from A to B, where A remains the owner, then A is supposed to guarantee its lifetime until B no longer has any references to the object. Otherwise, the object graph becomes difficult to reason about and manage.\n\nNote: See comment in platform/posix/network_waiter.h regarding interrupting the wait. CancelRead() should remove references to the UdpSocket* (read_callbacks_, etc.) and then interrupt the wait.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 80
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac04f8e_3ffdb59a",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Sounds like you might be talking about buffer pooling here. That may or may not be necessary, but I wouldn\u0027t worry about it until after profiling non-performant code. :)",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 72
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a14cc340_942fdf9f",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "See comment in platform/posix/network_waiter.h. This will allow you to remove the arbitrary timeout in WaitAndRead(), and then this impl will be able to instantly respond (no 50ms delay) to both starting and stopping repeated reads. (Also, in the header file for network reader, you can eliminate all the warning comments about a \"50ms delay.\")",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 58
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1df7a366_e1f28857",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "The return value of WaitAndRead() is Error, and this is being ignored here. Should WaitAndRead() return Error, or should there be recovery logic here?",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 15
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca9933ad_d473603c",
         "filename": "platform/base/network_reader.cc",
         "patchSetId": 12
@@ -13,6 +214,190 @@
       "writtenOn": "2019-07-01T22:52:50Z",
       "side": 1,
       "message": "Please document that this code is being used to block a thread from deleting |socket| until a safe point in the WaitAndRead loop (via notifying the condition variable).",
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "199b657a_7c1e0408",
+        "filename": "platform/base/network_reader.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Need \u0027explicit\u0027 keyword here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f428d88_deb3ccb2",
+        "filename": "platform/base/network_reader.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "s/already pending/pending/",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca070887_3398e811",
+        "filename": "platform/base/network_reader.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "remove extra space",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4e94f13_2ed65ed0",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Seems like we can just delete this whole class. It doesn\u0027t seems to add any functionality, IIUC.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad20e485_8a058e43",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Here, this downcast is dangerous. We can\u0027t know that the |socket| is a UdpSocketPosix, since it could be a FakeUdpSocket or MockUdpSocket. Furthermore, the style guide bans RTTI: https://google.github.io/styleguide/cppguide.html#Run-Time_Type_Information__RTTI_ That means, you\u0027d have to add something like a \"IsUdpSocketPosixInstance()\" method in the interface class to detect this at runtime...which would get messy.\n\nIt seems that virtualizing any of our platform API that controls access to OS resources is turning out to be a giant problem. For comparison, I took a look at how Chromium deals with these things; and it turns out that it doesn\u0027t do any virtualization (or otherwise account for unit testing) in its networking stack. Ex: https://cs.chromium.org/chromium/src/net/socket/udp_socket.h\n\nSo, how *do* they support unit testing? It\u0027s all done at a higher level. There are upstream-of-the-platform-API modules that know how to switch between using an actual platform socket versus a fake one. So, for example, in OpenScreen code I could create a \"PacketSender\" class that I call Send(packet) on, and it knows when to send to a real UdpSocket versus a FakeUdpSocket (based on how it is configured at runtime).\n\nIn summary, I\u0027m convinced we don\u0027t need nor want any of our platform API/impl to be concerned with supporting unit testing. For the same reasons, I think we should revert the recent UdpSocket change that started us going in this direction. I\u0027m also wondering if starting platform/test was a mistake, and should be moved to a top-level test/ dir, since those are all \"utilities\" classes.\n\nWDYT?",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 63
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00726106_66f3be35",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "We have a Create() function that just calls the ctor, which makes me question why there is a separate interface+impl class.\n\nRather than have the separate NetworkWaiter interface + NetworkWaiterPosix subclass, how about just having a single NetworkWaiter class (without the virtual methods) and set up the BUILD.gn to build+link just posix/network_waiter.cc (or mac/network_waiter.cc, etc...) for the class\u0027s implementation? With that, then, a plain \u0027ol constructor can be used.",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 66
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919efab4_681d2f77",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Suggestion: Let std::chrono do the math:\n\n  const auto whole_seconds \u003d std::chrono::duration_cast\u003cstd::chrono::seconds\u003e(timeout);\n  tv.tv_sec \u003d whole_seconds.count();\n  tv.tv_usec \u003d std::chrono::duration_cast\u003cstd::chrono::microseconds\u003e(timeout - whole_seconds).count();",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 49
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "256a37b5_ef6a098f",
+        "filename": "platform/posix/network_waiter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-02T23:34:28Z",
+      "side": 1,
+      "message": "Instead of a timeout, make this wait indefinitely.\n\nThen, add a separate Interrupt() method (thread-safe!) that is called when AwaitSocketsReadable() should return immediately.\n\nThe mechanism: Internally, the select() call waits on the UdpSocket\u0027s FD, but *also* the FD for a separate pipe (owned privately by NetworkWaiterPosix). Calling Interrupt() means sending a byte to the pipe, which will cause the select() to return on the other thread immediately. Peter can help you more with this trick...he\u0027s done it before. :)",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 36
+      },
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
