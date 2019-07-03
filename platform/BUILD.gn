@@ -8,6 +8,8 @@ source_set("platform") {
   sources = [
     "api/event_waiter.cc",
     "api/event_waiter.h",
+    "api/internal/trace_logging_internal.cc",
+    "api/internal/trace_logging_internal.h",
     "api/logging.h",
     "api/logging_util.cc",
     "api/network_interface.cc",
@@ -19,6 +21,10 @@ source_set("platform") {
     "api/time.h",
     "api/tls_socket.h",
     "api/tls_socket_creds.h",
+    "api/trace_logging.h",
+    "api/trace_logging_platform.cc",
+    "api/trace_logging_platform.h",
+    "api/trace_logging_types.h",
     "api/udp_socket.cc",
     "api/udp_socket.h",
     "api/upd_read_callback.h",
@@ -47,6 +53,7 @@ source_set("platform") {
       "base/network_runner_impl.h",
       "base/task_runner_impl.cc",
       "base/task_runner_impl.h",
+      "base/trace_logging_platform.cc",
     ]
 
     if (is_linux) {
@@ -116,6 +123,7 @@ source_set("platform_unittests") {
   testonly = true
 
   sources = [
+    "api/internal/trace_logging_unittest.cc",
     "api/time_unittest.cc",
     "api/udp_socket_unittest.cc",
     "base/ssl_context_unittest.cc",
