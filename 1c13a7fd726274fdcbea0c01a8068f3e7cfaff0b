@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8cadabab_6a735c61",
+        "filename": "platform/api/event_waiter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "This already existed in the current repo. In the follow-up CL this will be removed, but it is left in here so that code outside the platform layer doesn\u0027t need to be changed",
+      "parentUuid": "926d6f04_0bcf4ba4",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c36cdbd_47bfeb56",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 12
@@ -69,6 +93,30 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e310edda_851104ff",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "For now, I\u0027ve updated this to a TODO. I will plan to change this as part of my Networking Part 2 CL, since that will give more context as to what option is more likely.",
+      "parentUuid": "9c36cdbd_47bfeb56",
+      "range": {
+        "startLine": 50,
+        "startChar": 51,
+        "endLine": 52,
+        "endChar": 41
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "541b503c_cb5d27eb",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Ended up removing the line entirely since it\u0027s no longer relevant",
+      "parentUuid": "a77681f7_9026252f",
+      "range": {
+        "startLine": 23,
+        "startChar": 9,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28d5c9f6_bd87b2e8",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 12
@@ -109,6 +181,24 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf1c46c5_010cd90e",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "The reason this is needed is because having a function add itself to the task runner is actually rather complex. Especially when the function doesn\u0027t have knowledge of the task runner, as was the case where this was frequently used - see the larger CL this one came from for further information\n\nIf in the follow-up CL you don\u0027t think this is useful, I can pull it out\n\nAs far as moving it outside the platform/ folder, I have left a TODO on this for myself. I am planning on waiting until your restructuring gets in\n\n\nAd discussed offline, adding a TODO to re-work the Task Runner pointer once we support weak pointers.",
+      "parentUuid": "28d5c9f6_bd87b2e8",
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -135,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "06839870_73ea5df2",
+        "filename": "platform/api/udp_callbacks.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3992541a_a5045e12",
+      "range": {
+        "startLine": 5,
+        "startChar": 21,
+        "endLine": 5,
+        "endChar": 37
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcae7fb1_73c51af0",
         "filename": "platform/base/network_reader.cc",
         "patchSetId": 12
@@ -155,6 +269,30 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f4bba05_74e1a0e7",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Mark and I both agree there is further work to be done in this area\n\nThe solution here is meant as a temporary solution until a longer-term approach can be designed and agreed upon - a few options have been discussed and it will likely require a design review to decide upon the correct option.\n\nAdded a TODO to discuss this with the team",
+      "parentUuid": "bcae7fb1_73c51af0",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 80
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -181,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "a2f43fb9_bc34e971",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eac04f8e_3ffdb59a",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 72
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a14cc340_942fdf9f",
         "filename": "platform/base/network_reader.cc",
         "patchSetId": 12
@@ -201,6 +363,30 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d03488b_e879f6b3",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "The approach you discuss there was actually one of the alternative designs we considered at the beginning. I originally included code to this effect in the CL, but Mark and Peter asked me to remove it\n\nIf we want this code later, it can be added back in. But for the time being I think we should leave it as-is until the team reached consensus.",
+      "parentUuid": "a14cc340_942fdf9f",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 58
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -227,6 +413,30 @@
     },
     {
       "key": {
+        "uuid": "ad120379_e854c7f4",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "I plan to use the error for logging purposes once both this and TraceLogging are in",
+      "parentUuid": "1df7a366_e1f28857",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 15
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca9933ad_d473603c",
         "filename": "platform/base/network_reader.cc",
         "patchSetId": 12
@@ -241,6 +451,24 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5350c3ec_32dbcbda",
+        "filename": "platform/base/network_reader.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca9933ad_d473603c",
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -267,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "cf8f3ef3_ce9d805e",
+        "filename": "platform/base/network_reader.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Good catch",
+      "parentUuid": "199b657a_7c1e0408",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f428d88_deb3ccb2",
         "filename": "platform/base/network_reader.h",
         "patchSetId": 12
@@ -287,6 +539,30 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8f67ec8_79768290",
+        "filename": "platform/base/network_reader.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f428d88_deb3ccb2",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -313,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "95046c7a_60d405c8",
+        "filename": "platform/base/network_reader.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca070887_3398e811",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4e94f13_2ed65ed0",
         "filename": "platform/base/network_runner_impl.h",
         "patchSetId": 12
@@ -333,6 +633,53 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f98c37bf_c4c3edf0",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Discussed offline",
+      "parentUuid": "a4e94f13_2ed65ed0",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c448888_3e2ac8b1",
+        "filename": "platform/base/network_runner_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Explicit",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +706,30 @@
     },
     {
       "key": {
+        "uuid": "8ddbaada_0ee0ba24",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Currently, there is no way to UnitTest this method, since it relies on real system calls which cannot be mocked. For that reason, it didn\u0027t make sense to me to support such fake/mock objects, since they have no way of performing the method. Additionally, this method should never be called from another layer\u0027s UTs because the class should be mocked\n\nIf we wan to go this route in future we can, but that is outside the scope of this CL",
+      "parentUuid": "ad20e485_8a058e43",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 63
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00726106_66f3be35",
         "filename": "platform/posix/network_waiter.cc",
         "patchSetId": 12
@@ -379,6 +750,30 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "340894c2_82558b81",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "This separate interface is needed to allow for Unit Testing layers which need the NetworkWaiter. Without this, it\u0027s impossible to UT higher layers depending on the NetworkWaiter",
+      "parentUuid": "00726106_66f3be35",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 66
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -405,6 +800,30 @@
     },
     {
       "key": {
+        "uuid": "784674c3_50375394",
+        "filename": "platform/posix/network_waiter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "Good idea. Updating",
+      "parentUuid": "919efab4_681d2f77",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 49
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "256a37b5_ef6a098f",
         "filename": "platform/posix/network_waiter.h",
         "patchSetId": 12
@@ -425,6 +844,30 @@
       "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12ba012e_cf2026bc",
+        "filename": "platform/posix/network_waiter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T01:47:00Z",
+      "side": 1,
+      "message": "This approach was actually one of the alternative designs we considered at the beginning. I originally included code to this effect in the CL, but Mark and Peter asked me to remove it\n\nIf we want this code later, it can be added back in. But for the time being I think we should leave it as-is until the team reached consensus.",
+      "parentUuid": "256a37b5_ef6a098f",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "1c13a7fd726274fdcbea0c01a8068f3e7cfaff0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
