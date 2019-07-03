@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bfed47a_9f52bf3a",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-03T23:54:32Z",
+      "side": 1,
+      "message": "planning to make this use an object with an exit-time destructor and error suppression, with a TODO for myself, pending the code change Mark mentioned in team chat:\n\n\"there are two ways to do this, the old way (which works well) is deprecated, and the new way has a bug/workaround.\nbase/lazy_instance.h vs. base/no_desctructor.h in Chromium.\nSo we can pick which way we like and implement a simpler version/macro.\"",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 1
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
