@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0ed5ed3_c9c9b5c4",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "nit: Capitalize the \u0027a\u0027",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 1
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1582158_9ce2bd81",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "nit: I would describe this as \"internal infrastructure backing the externally-facing macros.\"",
+      "range": {
+        "startLine": 209,
+        "startChar": 49,
+        "endLine": 210,
+        "endChar": 22
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eb86098_4feba86b",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "|push_to_stack| is only true when traces-\u003eempty() is true. So, we don\u0027t actually need this argument. Then, we also don\u0027t need the CreateStackRootNode() helper function.\n\n...and there\u0027s more! (See later comment.)",
+      "range": {
+        "startLine": 17,
+        "startChar": 43,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0670c529_9dcef49e",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "I think I see why you were getting runtime errors when trying to remove the std::unique_ptr here. You have a chicken-and-egg problem: |root_node| wants to add itself to |traces|, which hasn\u0027t been constructed yet. Also, the ScopedTraceOperaton ctor is re-entrantly calling GetTraceStack() while already within GetTraceStack()\u0027s compiler-generated auto-initialization routine.\n\nIn other words, the call stack looks like this:\n\n  GetTraceStack()  \u003c-- INVALID: re-entrant here!\n  ScopedTraceOperation::ScopedTraceOperation()  \u003c-- base class ctor\n  TraceIdSetter::TraceIdSetter()  \u003c-- ctor\n  TraceIdSetter::CreateStackRootNode()  \u003c-- called by root_node static init\u0027er code\n  GetTraceStack()   \u003c-- first call on the current thread\n\nSo, the code as-is just happens to work because of the way the compiler generated the initialization code. It\u0027s not good to rely on \"compiler-specific behavior\" that could change out from underneath us at any point.\n\nMy proposal (TraceStack only exists while 1+ instances of ScopedTraceOperation exist):\n\n1. Delete the GetTraceStack() method, including everything inside and surrounding #pragma foo.\n\n2a. Add a static thread_local member to the private section of ScopedTraceOperation in trace_logging_internal.h:\n\n   private:\n     static thread_local TraceStack* stack_;\n\n2b. Add the definition to trace_logging_internal.cc (default-assigns nullptr):\n\n   // static thread_local\n   ScopedTraceOperation::TraceStack* ScopedTraceOperation::stack_ \u003d nullptr;\n\n3. Replace all callers of GetTraceStack() with just using the stack_ member directly (i.e., the inline accessors).\n\n4. Auto-construct and auto-destruct stack_ in the ScopedTraceOperation ctor and dtor. Meaning:\n\n  ScopedTraceOperation::ScopedTraceOperation(trace_id, parent_id, root_id)\n    : trace_id_(trace_id), parent_id_(parent_id), root_id_(root_id) {\n    if (stack_) {\n      if (trace_id_ \u003d\u003d kUnsetTraceId) {\n        trace_id_ \u003d trace_id_counter_.fetch_add(1);\n      }\n      if (parent_id_ \u003d\u003d kUnsetTraceId) {\n        parent_id_ \u003d stack_-\u003etop()-\u003etrace_id;\n      }\n      if (root_id_ \u003d\u003d kUnsetTraceId) {\n        root_id_ \u003d stack_-\u003etop()-\u003eroot_id;\n      }\n    } else {\n      stack_ \u003d new TraceStack();\n    }\n    stack_-\u003epush(this);\n    OSP_DCHECK_LT(stack_-\u003esize(), size_t{1024});\n  }\n\n  ScopedTraceOperation::~ScopedTraceOperation() {\n    OSP_DCHECK(stack_ \u0026\u0026 !stack_-\u003eempty());\n    OSP_DCHECK_EQ(stack_-\u003etop(), this);\n    stack_-\u003epop();\n    if (stack_-\u003eempty()) {\n      delete stack_;\n      stack_ \u003d nullptr;\n    }\n  }\n\nThe above solves all of the issues we\u0027ve been discussing throughout all the patch sets: No more leaking objects. No more at-exit destructors. No more function calls to access a global singleton. No more re-entrant calls to static initializer/at-exit-destructor code.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 17
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ba6321e_2e7a2b9c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "style: Since all the public member functions are inlined now, they should all use lowercase_with_underscores() style.",
+      "range": {
+        "startLine": 55,
+        "startChar": 17,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1bfc9d4_e1071990",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "nit: Argument should be \"const Error\u0026 error\" since the Error shouldn\u0027t be copied entirely just so we can get at the code inside.",
+      "range": {
+        "startLine": 64,
+        "startChar": 24,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72038f2a_4601cfcd",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "nit: Remove extra whitespace line.",
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b26fc695_72069c88",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "naming: +1 to Max\u0027s comment here. It\u0027s not really an allocator (the Create() function is the allocator). It\u0027s also not really an owner of the object. Suggestion: Local\u003cT\u003e",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 30
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24540f3c_2f56deb3",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "There\u0027s no need to mock the SyncTraceLogger or AsyncTraceLogger. If you install a MockLoggingPlatform, then you want the tests to execute all the *real* code from where the client calls into the public interface macros. Just examine what gets delivered to LogTrace/LogAsyncStart/LogAsyncEnd to confirm the functionality. :)\n\nThen, SyncTraceLogger and AsyncTraceLogger methods can be final instead of override (per earlier code review comment).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 2
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87358aaf_9426d179",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "The clock ticks are microseconds, not milliseconds.\n\nIn general, resist the urge to roll your own time math and/or do unit conversions. So, the code here should be something like:\n\n  template \u003cstd::chrono::milliseconds kMinElapsed\u003e\n  void ValidateTraceTimestampDiff(...) {\n    const auto elapsed \u003d std::chrono::duration_cast\u003cstd::chrono::milliseconds\u003e(\n                             end_time - start_time);\n    EXPECT_LE(kMinElapsed, elapsed);\n  }",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 45
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab9a8c89_bd36313d",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "Unit test code is often the go-to place for usage examples for those that want to call library code. Let\u0027s rewrite these as actual usage examples that demonstrate things are working in terms of calling into the public interface. The goal is to get as reasonably close to 100% code coverage of the implementation as possible by only using the public interface.\n\nThis is related to an earlier code review comment I made about having your unit test code validate that the public-facing macros will work in client-side code and compile/execute correctly...",
+      "range": {
+        "startLine": 174,
+        "startChar": 17,
+        "endLine": 175,
+        "endChar": 76
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18120e7a_76754fd6",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "nit: constexpr std::chrono::milliseconds kDelay{50};\n\n(and in the other test...)",
+      "range": {
+        "startLine": 199,
+        "startChar": 2,
+        "endLine": 199,
+        "endChar": 38
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d46bab0a_01263445",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "Consideration: It kind of feels like a lot of the macros in this file are really \"internal\" things, and maybe should be moved to trace_logging_internal.h, to avoid confusing users that want to see the \"public interface.\" Specifically, I\u0027m taking about the macros that are declared with \"internal\" in their name, not about the \"public interface\" macros whose body calls into the internal stuff. So, by this description, the stuff I\u0027ve highlighted here might be moved to trace_logging_internal.h, as well as some of the helper macros below (like TRACE_SCOPED_INTERNAL or TRACE_ASYNC_START_INTERNAL).\n\nEntirely up to you. My personal opinion is that it would help to keep this file easy-to-read, for those writing code that uses tracing, if a lot of the \"internal\" details were not intertwined.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

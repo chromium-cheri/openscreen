@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e991db68_c369ee5a",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "Looks fixed to me as of PS19.",
+      "parentUuid": "75436b21_1a845b66",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 59
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f64a6428_93b23ce3",
         "filename": "docs/trace_logging.md",
         "patchSetId": 11
@@ -140,6 +164,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34c24716_68e8b393",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "It\u0027s fine to do this in a later CL. My two feature requests are to have something functionality similar to:\n\n1. TRACE[_ASYNC]_STARTN (metrics \"tagged onto\" the trace event):  https://cs.chromium.org/chromium/src/base/trace_event/common/trace_event_common.h?rcl\u003d2f0b4633c07378822d62cbf46d39f97939114d17\u0026l\u003d205\n\n2. TRACE_COUNTERN (tracks a global counter, accumulator, token bucket, etc.): https://cs.chromium.org/chromium/src/base/trace_event/common/trace_event_common.h?rcl\u003d2f0b4633c07378822d62cbf46d39f97939114d17\u0026l\u003d419\n\nThese will be important in diagnosing behaviors in a live Cast Streaming system.",
+      "parentUuid": "2526ba7c_c36c0a83",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 119,
+        "endChar": 36
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "The idea for machine boundaries would be to add this when we know both ends are using OpenScreen - ie sending Chromium to our library. This would allow us to understand data flow between devices more easily. I agree we may not want this, though we already get it for free by supporting functions that cross thread boundaries\n\nCrossing Thread boundaries is unavoidable - currently this is required to set the Trace Hierarchy when we pull a call off the TaskRunner stack. See platform/base/task_runner_impl for more info",
       "parentUuid": "d3b2015f_97a32fc0",
+      "range": {
+        "startLine": 159,
+        "startChar": 71,
+        "endLine": 160,
+        "endChar": 57
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c61ea10d_7dea5435",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "Ok. Question: In my code, will I be able to arbitrarily set the hierarchy? I\u0027m thinking it would be useful in the case of Cast Streaming: We have multiple frames in-flight at one time, and it might be useful to arbitrarily switch over to Frame 10\u0027s hierarchy while processing things specific to Frame 10; and then switch over to Frame 12\u0027s hierarchy when doing its stuff. The switching might occur in the same call stack for a single task, or in the same local scope inside one function call.",
+      "parentUuid": "e316adf4_721eaae8",
       "range": {
         "startLine": 159,
         "startChar": 71,
@@ -517,6 +589,30 @@
       "revId": "b318513125114c25f4832d3be4efc263807dd26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3943bab_cffde6ab",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-04T03:30:35Z",
+      "side": 1,
+      "message": "Discussed offline. I think we\u0027re okay here w.r.t. using thread_local because the same thread only has one call stack, and if two task runners are running on the same thread, the call stack will fully unwind from one runner before the other runner can engage.",
+      "parentUuid": "d58c92fc_361b1026",
+      "range": {
+        "startLine": 63,
+        "startChar": 13,
+        "endLine": 63,
+        "endChar": 50
+      },
+      "revId": "b318513125114c25f4832d3be4efc263807dd26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
