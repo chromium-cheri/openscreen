@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dcd0c480_4ee4fd3b",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "I prefer to specify both - thread_local is pretty unusual to use, so having both will make it clear to people that this acts like a static variable, so it should improve readability",
+      "parentUuid": "703a64e1_dd92a1cf",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 21
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c5dea90_557cab15",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 18
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "80b79f79_3e3c1ee1",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c5dea90_557cab15",
+      "range": {
+        "startLine": 185,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 10
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f3f5fa5_8f02cb30",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 18
@@ -59,6 +107,30 @@
       "writtenOn": "2019-07-04T00:09:10Z",
       "side": 1,
       "message": "UniqueStackPtr? Could be useful elsewhere eventually.",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 30
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff8fa30d_0e0955b6",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "For now, I\u0027m going to move this to the private section. If it\u0027s needed elsewhere, we can rename it later",
+      "parentUuid": "3f3f5fa5_8f02cb30",
       "range": {
         "startLine": 207,
         "startChar": 8,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "59b6f0bb_fdc521fb",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "updating to tracing_storage\n\nname collision shouldn\u0027t be a problem since TRACE_INTERNAL_CONCAT_CONST concatenates it with the line number of the caller",
+      "parentUuid": "0d5069b6_d79e65e7",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 18
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8b5ad51_29923f2d",
         "filename": "platform/base/trace_logging_platform.cc",
         "patchSetId": 18
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6b6c952e_d2a8e44f",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "I\u0027ve updated this to use a unique_ptr with std::make_unique(), so this won\u0027t be an issue now :)",
+      "parentUuid": "b8b5ad51_29923f2d",
+      "range": {
+        "startLine": 72,
+        "startChar": 42,
+        "endLine": 72,
+        "endChar": 70
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bfed47a_9f52bf3a",
         "filename": "platform/base/trace_logging_platform.cc",
         "patchSetId": 18
@@ -137,6 +257,30 @@
       "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9332f78a_7872a28e",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bfed47a_9f52bf3a",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 1
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

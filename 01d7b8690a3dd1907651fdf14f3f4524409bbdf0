@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b3daeb99_2fa74f07",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0ed5ed3_c9c9b5c4",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 1
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1582158_9ce2bd81",
         "filename": "docs/trace_logging.md",
         "patchSetId": 19
@@ -45,6 +69,30 @@
       "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d96559c_74cffeea",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1582158_9ce2bd81",
+      "range": {
+        "startLine": 209,
+        "startChar": 49,
+        "endLine": 210,
+        "endChar": 22
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "a860d790_729a70e2",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "I still don\u0027t see how the approach I have currently has the issue you described. \nFrom what I can see, the call stack would be:\n\n  ScopedTraceOperation::ScopedTraceOperation(push_to_stack \u003d false)  \u003c-- base class ctor\n  TraceIdSetter::TraceIdSetter(push_to_stack \u003d false)  \u003c-- ctor\n  TraceIdSetter::CreateStackRootNode()  \u003c-- called by root_node static init\u0027er code\n  GetTraceStack()   \u003c-- first call on the current thread\n\nThe top GetStackTrace() would never be called, since CreateStackRootNode() sets all all ids are kUnsetTraceId, and since push_to_stack \u003d false\n\nHow the code was in past did have the issue you described, with the code as currently written shouldn\u0027t have this problem. Please let me know if I\u0027m missing anything\n\nAdditionally, the changes 1-3 that you described are actually undoing changes you\u0027ve asked me to make during the last iteration of the review. Unless there are issues I am missing here, I\u0027d prefer to leave this as a TODO for after the code is checked in",
+      "parentUuid": "0670c529_9dcef49e",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 17
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ba6321e_2e7a2b9c",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 19
@@ -114,6 +186,30 @@
       "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfee8056_d3521b4c",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ba6321e_2e7a2b9c",
+      "range": {
+        "startLine": 55,
+        "startChar": 17,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "953f845d_fb0b480e",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "good catch. Updated",
+      "parentUuid": "b1bfc9d4_e1071990",
+      "range": {
+        "startLine": 64,
+        "startChar": 24,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72038f2a_4601cfcd",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 19
@@ -154,6 +274,24 @@
       "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70abbb14_1f2309b0",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72038f2a_4601cfcd",
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "e9749457_bbf70417",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Updating name to TraceInstanceWrapper for now\n\nSince this is private now, it only matters for these few lines. The issue can be re-visited if the type ever gets exposed outside this class.",
+      "parentUuid": "b26fc695_72069c88",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 30
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24540f3c_2f56deb3",
         "filename": "platform/api/internal/trace_logging_unittest.cc",
         "patchSetId": 19
@@ -191,6 +353,30 @@
       "writtenOn": "2019-07-04T03:30:35Z",
       "side": 1,
       "message": "There\u0027s no need to mock the SyncTraceLogger or AsyncTraceLogger. If you install a MockLoggingPlatform, then you want the tests to execute all the *real* code from where the client calls into the public interface macros. Just examine what gets delivered to LogTrace/LogAsyncStart/LogAsyncEnd to confirm the functionality. :)\n\nThen, SyncTraceLogger and AsyncTraceLogger methods can be final instead of override (per earlier code review comment).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 2
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28c77014_5c53baaf",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Installing a mock platform isn\u0027t possible with how the code is currently written. Since this would involve rewriting the platform layer as well as the UTs, I\u0027d prefer to leave this as a TODO for once it\u0027s in (probably immediately following the check0in as a separate CL)",
+      "parentUuid": "24540f3c_2f56deb3",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -226,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "f0e256ee_9fc1ea96",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "using std::chrono::milliseconds as a template argument leads to a compilation error - that\u0027s why I had to go with an int :(\n\nUpdating the logic within the method though",
+      "parentUuid": "87358aaf_9426d179",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 45
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab9a8c89_bd36313d",
         "filename": "platform/api/internal/trace_logging_unittest.cc",
         "patchSetId": 19
@@ -246,6 +456,30 @@
       "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666f8587_f21ce3c0",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "See above comment",
+      "parentUuid": "ab9a8c89_bd36313d",
+      "range": {
+        "startLine": 174,
+        "startChar": 17,
+        "endLine": 175,
+        "endChar": 76
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "380da0cb_da342fe4",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Leaving as-is because the template parameter needs to be a unit64_t",
+      "parentUuid": "18120e7a_76754fd6",
+      "range": {
+        "startLine": 199,
+        "startChar": 2,
+        "endLine": 199,
+        "endChar": 38
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d46bab0a_01263445",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 19
@@ -292,6 +550,30 @@
       "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2a750b7_0560cbbe",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-04T19:34:57Z",
+      "side": 1,
+      "message": "Good idea - this file has slowly gotten more complex. Moving internal parts to a new internal header file",
+      "parentUuid": "d46bab0a_01263445",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
