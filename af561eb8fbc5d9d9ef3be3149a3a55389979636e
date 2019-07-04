@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "703a64e1_dd92a1cf",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-04T00:09:10Z",
+      "side": 1,
+      "message": "nit: Can be just thread_local for function variables",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 21
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c5dea90_557cab15",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-04T00:09:10Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t have to be explicit since it now has two arguments",
+      "range": {
+        "startLine": 185,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 10
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f3f5fa5_8f02cb30",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-04T00:09:10Z",
+      "side": 1,
+      "message": "UniqueStackPtr? Could be useful elsewhere eventually.",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 30
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d5069b6_d79e65e7",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-04T00:09:10Z",
+      "side": 1,
+      "message": "nit: Less generic name might help in case of a compiler error somewhere and reduces chances of collision, maybe trace_logging_temp_storage?",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 18
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8b5ad51_29923f2d",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-04T00:09:10Z",
+      "side": 1,
+      "message": "nit: It feels safer to me to always value initialize like new TextTraceLoggingPlatform();. Then, the instance is always initialized no matter the type",
+      "range": {
+        "startLine": 72,
+        "startChar": 42,
+        "endLine": 72,
+        "endChar": 70
+      },
+      "revId": "af561eb8fbc5d9d9ef3be3149a3a55389979636e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1bfed47a_9f52bf3a",
         "filename": "platform/base/trace_logging_platform.cc",
         "patchSetId": 18
