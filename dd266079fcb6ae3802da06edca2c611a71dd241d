@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ca858a5_353c9d5a",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "Up to you whether to keep, but FYI controller and receiver never run together in this demo.",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa8707e_e4b801cf",
+        "filename": "osp_base/error.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "Error::Code itself is an integer and doesn\u0027t warrant being passed by reference.",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 61
+      },
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac813ef_f730394b",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "Indeed, it\u0027s not expensive, but again, what does running these destructors buy us?  What would be the harm in leaking these as raw pointers instead?",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98d1a7a3_ddebe8cf",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "This should just be a free function IMHO, but maybe if the macro using it below is fixed there\u0027ll be a reason for it to stay.",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce4fb4a4_ca1e2d06",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "TraceIdHierarchy here and in arguments?",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5cb6b6a_38a4b942",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "AFAIK this shouldn\u0027t work, and it appears to be unused/untested which supports that theory.",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc66f30_4547fc9e",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "This wouldn\u0027t have to return bool if you just wrote `... ? (TraceAsyncEnd(...), true) : false`, but maybe you knew that and the comment about making the macro cleaner refers to this getting messy with line wraps?",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f541ffc1_08f90f09",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "Is this for \u0027#ifndef\u0027 indentation?  IMHO not necessary if so.",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b3df6d7_acc2d23b",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-08T23:44:52Z",
+      "side": 1,
+      "message": "You already have TraceCategory::Value::Any.",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
