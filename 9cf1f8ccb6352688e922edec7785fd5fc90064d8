@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e07f0e8_76e58b05",
+        "filename": "platform/api/scoped_wake_lock.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-08T17:58:40Z",
+      "side": 1,
+      "message": "Nit: prefer \u003d default here and elsewhere in the patch.",
+      "revId": "9cf1f8ccb6352688e922edec7785fd5fc90064d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eb54733_709cf5ee",
+        "filename": "platform/api/scoped_wake_lock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-08T17:58:40Z",
+      "side": 1,
+      "message": "Nit: Ensures",
+      "revId": "9cf1f8ccb6352688e922edec7785fd5fc90064d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aad64d2_a22bd689",
+        "filename": "platform/api/scoped_wake_lock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-08T17:58:40Z",
+      "side": 1,
+      "message": "If you want to force the lock to be always scoped lexically (within a code block) then set the dtor as protected.\n\nIf you want the lock to be passed around, I would define it as move-only.  But then it\u0027s not a purely \"scoped\" object.",
+      "revId": "9cf1f8ccb6352688e922edec7785fd5fc90064d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8204a434_c874f993",
+        "filename": "platform/posix/scoped_wake_lock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-08T17:58:40Z",
+      "side": 1,
+      "message": "This comment is redundant with the one in scoped_wake_lock.h and it\u0027s clear from context that this is the posix implementation.  So I would just remove it.",
+      "revId": "9cf1f8ccb6352688e922edec7785fd5fc90064d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18db732_3735c027",
+        "filename": "platform/posix/scoped_wake_lock.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-08T17:58:40Z",
+      "side": 1,
+      "message": "Mark with virtual and override keywords.",
+      "revId": "9cf1f8ccb6352688e922edec7785fd5fc90064d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
