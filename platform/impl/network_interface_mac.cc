@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "platform/api/network_interface.h"
-
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_media.h>
@@ -11,6 +9,8 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+
+#include "platform/api/network_interface.h"
 
 // net/if.h must be included before this.
 #include <ifaddrs.h>
