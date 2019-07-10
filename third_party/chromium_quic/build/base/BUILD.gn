@@ -13,7 +13,16 @@ config("base_config") {
       "-Wno-c++11-narrowing",
       "-Wno-deprecated-declarations",
     ]
+
+    cflags = [
+      "-Wno-c++98-compat-extra-semi",
+      "-Wno-extra-semi",
+    ]
+
     if (is_mac) {
+      # Necessary since trybots have an old version of clang.
+      cflags += [ "-Wunknown-warning-option" ]
+
       cflags_objcc += [ "-Wno-deprecated-declarations" ]
     }
   }
