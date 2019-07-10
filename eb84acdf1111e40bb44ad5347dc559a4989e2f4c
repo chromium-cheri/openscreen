@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4c63e16_d80efb5b",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-10T22:40:52Z",
+      "side": 1,
+      "message": "Can this TODO be done now, or are there additional changes required?",
+      "revId": "eb84acdf1111e40bb44ad5347dc559a4989e2f4c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c490cb6a_b9c9cc74",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-10T22:40:52Z",
+      "side": 1,
+      "message": "I wonder if we want to be more selective with where we allow third party libraries to be included.  For example, should openssl only be used from platform/impl and util/crypto?",
+      "revId": "eb84acdf1111e40bb44ad5347dc559a4989e2f4c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb3dc146_f427895f",
+        "filename": "platform/api/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-10T22:40:52Z",
+      "side": 1,
+      "message": "Is platform/base allowed to depend on platform/api or platform/impl?  I would prefer \"no\", in which case we should add a more restrictive DEPS in platform/base.",
+      "revId": "eb84acdf1111e40bb44ad5347dc559a4989e2f4c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e8ac30_cbd52b92",
+        "filename": "platform/impl/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-10T22:40:52Z",
+      "side": 1,
+      "message": "Nit: extra space",
+      "revId": "eb84acdf1111e40bb44ad5347dc559a4989e2f4c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6181e5a2_5898ceec",
+        "filename": "platform/impl/task_runner_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-10T22:40:52Z",
+      "side": 1,
+      "message": "Duplicate #include",
+      "revId": "eb84acdf1111e40bb44ad5347dc559a4989e2f4c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41c23472_82652ac7",
+        "filename": "util/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-10T22:40:52Z",
+      "side": 1,
+      "message": "Should +json go into util/json/DEPS, thus requiring that all jsoncpp wrappers live there?",
+      "revId": "eb84acdf1111e40bb44ad5347dc559a4989e2f4c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
