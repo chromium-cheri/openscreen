@@ -77,4 +77,7 @@ for f in $(git diff --name-only --diff-filter=d origin/master); do
   fi
 done
 
+python buildtools/checkdeps/checkdeps.py
+fail=$?
+
 exit $fail
