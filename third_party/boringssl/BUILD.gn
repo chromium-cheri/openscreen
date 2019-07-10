@@ -28,7 +28,17 @@ if (build_with_chromium) {
       "BORINGSSL_NO_STATIC_INITIALIZER",
       "OPENSSL_SMALL",
     ]
-    cflags_c = [ "-std=c99" ]
+    cflags_c = [
+      "-std=c99",
+      "-Wno-extra-semi",
+      "-Wno-c++98-compat-extra-semi",
+    ]
+
+    cflags_cc = [
+      "-Wno-extra-semi",
+      "-Wno-c++98-compat-extra-semi",
+    ]
+
     defines += [ "_XOPEN_SOURCE=700" ]
   }
 
