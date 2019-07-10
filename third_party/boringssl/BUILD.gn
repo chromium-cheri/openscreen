@@ -28,7 +28,20 @@ if (build_with_chromium) {
       "BORINGSSL_NO_STATIC_INITIALIZER",
       "OPENSSL_SMALL",
     ]
-    cflags_c = [ "-std=c99" ]
+    cflags_c = [
+      "-std=c99",
+    ]
+
+    cflags = [
+      "-Wno-c++98-compat-extra-semi",
+      "-Wno-extra-semi",
+    ]
+
+    if (is_mac) {
+      # Necessary since trybots have an old version of clang.
+      cflags += [ "-Wunknown-warning-option" ]
+    }
+
     defines += [ "_XOPEN_SOURCE=700" ]
   }
 
