@@ -115,10 +115,9 @@ recursedeps = [
 # once OSP code is moved into osp/.
 include_rules = [
     '+osp',
-    '+osp_base',
+    '+util',
     '+platform',
     '+third_party',
-
 
     # Don't include abseil from the root so the path can change via include_dirs
     # rules when in Chromium.
