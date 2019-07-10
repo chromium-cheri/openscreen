@@ -115,7 +115,7 @@ recursedeps = [
 # once OSP code is moved into osp/.
 include_rules = [
     '+osp',
-    '+osp_base',
+    '+util',
     '+platform',
     '+third_party',
 
