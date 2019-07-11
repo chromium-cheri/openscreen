@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0373e745_7d8c2384",
+        "filename": "build/config/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-11T01:05:42Z",
+      "side": 1,
+      "message": "Apparently not, since turning them on causes additional errors.",
+      "parentUuid": "44492c49_0bc85653",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 95,
+        "endChar": 21
+      },
+      "revId": "f20791fc7bf3f85f1981fc695411b7ab03912d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbc62ee7_81a17e32",
         "filename": "util/big_endian_unittest.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "650355ba_b2643ca5",
+        "filename": "util/big_endian_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-11T01:05:42Z",
+      "side": 1,
+      "message": "The sign-compare check complains about comparing unsigned int (size_t) (reader.length()) versus signed int (64). This change makes 64 an unsigned int, removing the warning.",
+      "parentUuid": "fbc62ee7_81a17e32",
+      "range": {
+        "startLine": 108,
+        "startChar": 2,
+        "endLine": 110,
+        "endChar": 34
+      },
+      "revId": "f20791fc7bf3f85f1981fc695411b7ab03912d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5c965a2_0528bc8e",
         "filename": "util/json/json_reader_unittest.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "f20791fc7bf3f85f1981fc695411b7ab03912d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97e0d953_3c5a6082",
+        "filename": "util/json/json_reader_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-11T01:05:42Z",
+      "side": 1,
+      "message": "I think 0u is cleaner syntax, but I could be convinced.",
+      "parentUuid": "c5c965a2_0528bc8e",
+      "range": {
+        "startLine": 38,
+        "startChar": 52,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "f20791fc7bf3f85f1981fc695411b7ab03912d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

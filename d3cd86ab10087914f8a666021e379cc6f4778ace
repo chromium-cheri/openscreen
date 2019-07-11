@@ -22,6 +22,30 @@
       "revId": "d3cd86ab10087914f8a666021e379cc6f4778ace",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8901b248_fe196328",
+        "filename": "util/big_endian_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-11T01:05:42Z",
+      "side": 0,
+      "message": "Error comparing unsigned int to int.\n\nBasically -Wsign-compare causes any comparison between signed and unsigned to issue a warning. Chromium won\u0027t compile against us without this change.",
+      "parentUuid": "36f2fce0_7425eda7",
+      "range": {
+        "startLine": 108,
+        "startChar": 2,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "d3cd86ab10087914f8a666021e379cc6f4778ace",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
