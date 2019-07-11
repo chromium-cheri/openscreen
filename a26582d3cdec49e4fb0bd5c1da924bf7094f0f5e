@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6aff3767_e95ca846",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-11T01:11:50Z",
+      "side": 1,
+      "message": "I think we can delete this line now? Dependencies should be one-way (util can dep on platform, not the other way around).",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 46
+      },
+      "revId": "a26582d3cdec49e4fb0bd5c1da924bf7094f0f5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5df55bf5_eda621f8",
+        "filename": "platform/api/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-11T01:11:50Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed since all files in the same dir are always, by default, allowed to #include each other.",
+      "range": {
+        "startLine": 6,
+        "startChar": 5,
+        "endLine": 6,
+        "endChar": 20
+      },
+      "revId": "a26582d3cdec49e4fb0bd5c1da924bf7094f0f5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "562db70e_732fdbc1",
+        "filename": "platform/api/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-11T01:11:50Z",
+      "side": 1,
+      "message": "Is JSON used anywhere in platform/api?",
+      "range": {
+        "startLine": 8,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 12
+      },
+      "revId": "a26582d3cdec49e4fb0bd5c1da924bf7094f0f5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa7e7fd_faf77429",
+        "filename": "platform/api/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-11T01:11:50Z",
+      "side": 1,
+      "message": "ditto: Seems openssl isn\u0027t used anywhere in platform/api.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "a26582d3cdec49e4fb0bd5c1da924bf7094f0f5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f7b17a8_84337a94",
+        "filename": "util/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-11T01:11:50Z",
+      "side": 1,
+      "message": "This last sentence is misleading. At least, to me, it reads like it contradicts the first sentence. I suggest omitting it.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 44
+      },
+      "revId": "a26582d3cdec49e4fb0bd5c1da924bf7094f0f5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5635ead6_a2fa2afa",
+        "filename": "util/crypto/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-11T01:11:50Z",
+      "side": 1,
+      "message": "Don\u0027t need this line, since util/DEPS already includes it for all subdirs.",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 20
+      },
+      "revId": "a26582d3cdec49e4fb0bd5c1da924bf7094f0f5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00f42f31_b366205a",
+        "filename": "util/json/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-11T01:11:50Z",
+      "side": 1,
+      "message": "here too: Don\u0027t need this line, since util/DEPS already includes it for all subdirs.",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 20
+      },
+      "revId": "a26582d3cdec49e4fb0bd5c1da924bf7094f0f5e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
