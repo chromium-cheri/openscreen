@@ -1,0 +1,242 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dafce19_0693f8fa",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Consider breaking up into multiple lines. Bit math is always super annoying, so more explicit steps could be helpful. Logic looks right though.\n\nbegin \u003d 1, end \u003d 4\n\n0b1 \u003c\u003c (3) \u003d 0b1000\n0b1000 - 1 \u003d 0b111\n0b111 \u003c\u003c 1 \u003d 0b1110\n\nbegin \u003d 0, end \u003d 4\n\n0b1 \u003c\u003c (4) \u003d 0b10000\n0b10000 - 1 \u003d 0b1111\n0b1111 \u003c\u003c 0 \u003d 0b1111",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4c413e_0ec01d06",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Do we still prefer trivial default values in the class definition header, or do we want it here?",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28997402_e8b39518",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "is setting size_ necessary, or is it covered by the *this operator?",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3709b5a4_441d2f9b",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Consider doing it anyway, since if someone messes it up a nullptr access is probably more obvious?",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6eef633_317a86a6",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Nit: consider auto i",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9533c675_4af9cea3",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Do we have any build bots that would test this code? My guess is that it\u0027s completely untested until we ship on Windows?",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aad618c1_a1e12222",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "If it\u0027s not resizable, to match the STL why not YetAnotherBitArray, not YetAnotherBitVector?",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360490f5_e32142d6",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "So, Fill is an enum where SET \u003d true, CLEARED \u003d false. Given that this is explicitly a bit array, why not just (int size, bool initial_value)?",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f2d795f_7195beb7",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Why int over size_t?",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374b45e9_22272221",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Nit: Prefer clear over unset.",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d7d4efe_45e77633",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "This works due to integer math always truncating with no rounding, right? I would probably prefer a comment here, although your math is def right.\n\nsize \u003d 64\nkBitsPerInteger \u003d 32\n\n95 / 32 \u003d 2\n\nsize \u003d 63\n\n94 / 32 \u003d 2\n\nsize \u003d 65\n\n96 / 32 \u003d 3",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67448e82_328a66fb",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Probably overkill, but consider splitting the integer and array implementations into two subclasses, since there is very little duplicate logic for most of the methods--you basically have two separate implementations of like 75% or more of the code.",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b572aec6_0b6b7f9c",
+        "filename": "util/yet_another_bit_vector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Probably premature optimization, but consider just finding the indices of the first and last primes and using absl\u0027s span:\n\nhttps://github.com/abseil/abseil-cpp/blob/master/absl/types/span.h\n\nAvoiding unnecessary copies and exponential resizes.",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7523b4d8_110fa204",
+        "filename": "util/yet_another_bit_vector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-15T20:19:32Z",
+      "side": 1,
+      "message": "Why 8 here? Number of bits in a byte, or because pattern is always 8 bits? Probably good to extract a constant, so it\u0027s less likely to get messed up later. Or something like:\n\n    sizeof(pattern) * CHAR_BIT",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
