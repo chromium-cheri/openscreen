@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "3036099b_f0bb2c15",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-15T23:58:18Z",
+      "side": 1,
+      "message": "I think it would be nicer to have this implemented directly, but I don\u0027t feel strongly about this one.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "28997402_e8b39518",
         "filename": "util/yet_another_bit_vector.cc",
         "patchSetId": 1
@@ -70,6 +93,29 @@
     },
     {
       "key": {
+        "uuid": "fc437394_ae2acdec",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-15T23:58:18Z",
+      "side": 1,
+      "message": "Could you please add a comment that you leave bits in the last integer outside the range unset so that shifts and find work?",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 104,
+        "endChar": 3
+      },
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6eef633_317a86a6",
         "filename": "util/yet_another_bit_vector.cc",
         "patchSetId": 1
@@ -81,6 +127,75 @@
       "writtenOn": "2019-07-15T20:19:32Z",
       "side": 1,
       "message": "Nit: consider auto i",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44b1981d_a2320236",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-15T23:58:18Z",
+      "side": 1,
+      "message": "Even though it\u0027s a constexpr, I still suggest moving this out of the loop.",
+      "range": {
+        "startLine": 141,
+        "startChar": 30,
+        "endLine": 141,
+        "endChar": 51
+      },
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cadf675f_e40c58bf",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-15T23:58:18Z",
+      "side": 1,
+      "message": "It\u0027s probably cheaper to always shift, than it is to branch",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 5
+      },
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a763fab9_2e11a5fd",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-15T23:58:18Z",
+      "side": 1,
+      "message": "Maybe like this?\n\nconst uint64_t* const last \u003d \u0026bits_.as_array[array_size()];\nfor (const uint64_t* p \u003d bits_.as_array; p \u003c last; ++p) {\n  if (*p !\u003d 0) {\n    return ((p - bits_.as_array) * kBitsPerInteger) + CountTrailingZeros(*p);\n  }\n}\nreturn size_;",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 5
+      },
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -138,6 +253,29 @@
     },
     {
       "key": {
+        "uuid": "2a127dca_90b375d4",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-15T23:58:18Z",
+      "side": 1,
+      "message": "Could you please explicitly delete copy constructor and copy-assignment operator?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f2d795f_7195beb7",
         "filename": "util/yet_another_bit_vector.h",
         "patchSetId": 1
@@ -166,6 +304,29 @@
       "writtenOn": "2019-07-15T20:19:32Z",
       "side": 1,
       "message": "Nit: Prefer clear over unset.",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb7497f_3cc42100",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-15T23:58:18Z",
+      "side": 1,
+      "message": "Maybe also accept Fill for consistency?",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 29
+      },
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
