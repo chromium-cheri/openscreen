@@ -61,7 +61,7 @@ void MdnsResponderService::HandleNewEvents(
     return;
   for (auto& packet : data) {
     mdns_responder_->OnDataReceived(packet.source, packet.original_destination,
-                                    packet.data(), packet.length,
+                                    packet.data(), packet.size(),
                                     packet.socket);
   }
   mdns_responder_->RunTasks();

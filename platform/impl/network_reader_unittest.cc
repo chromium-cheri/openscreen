@@ -61,16 +61,14 @@ class TestingNetworkWaiter final : public NetworkReader {
   // callable only.
   Error WaitTesting(Clock::duration timeout) { return WaitAndRead(timeout); }
 
-  MOCK_METHOD1(
-      ReadFromSocket,
-      ErrorOr<std::unique_ptr<UdpReadCallback::Packet>>(UdpSocket* socket));
+  MOCK_METHOD1(ReadFromSocket,
+               ErrorOr<UdpReadCallback::Packet>(UdpSocket* socket));
 };
 
 class MockCallbacks {
  public:
-  std::function<void(std::unique_ptr<UdpReadCallback::Packet>)>
-  GetReadCallback() {
-    return [this](std::unique_ptr<UdpReadCallback::Packet> packet) {
+  std::function<void(UdpReadCallback::Packet)> GetReadCallback() {
+    return [this](UdpReadCallback::Packet packet) {
       this->ReadCallback(std::move(packet));
     };
   }
@@ -79,9 +77,7 @@ class MockCallbacks {
     return [this]() { this->WriteCallback(); };
   }
 
-  void ReadCallback(std::unique_ptr<UdpReadCallback::Packet> packet) {
-    ReadCallbackInternal();
-  }
+  void ReadCallback(UdpReadCallback::Packet packet) { ReadCallbackInternal(); }
 
   MOCK_METHOD0(ReadCallbackInternal, void());
   MOCK_METHOD0(WriteCallback, void());
@@ -194,7 +190,7 @@ TEST(NetworkReaderTest, WaitSuccessfullyCalledOnAllWatchedSockets) {
   TestingNetworkWaiter network_waiter(std::move(mock_waiter),
                                       task_runner.get());
   auto timeout = Clock::duration(0);
-  auto packet = std::make_unique<UdpReadCallback::Packet>();
+  UdpReadCallback::Packet packet;
   MockCallbacks callbacks;
 
   network_waiter.ReadRepeatedly(socket.get(), callbacks.GetReadCallback());
@@ -222,7 +218,7 @@ TEST(NetworkReaderTest, WaitSuccessfulReadAndCallCallback) {
   TestingNetworkWaiter network_waiter(std::move(mock_waiter),
                                       task_runner.get());
   auto timeout = Clock::duration(0);
-  auto packet = std::make_unique<UdpReadCallback::Packet>();
+  UdpReadCallback::Packet packet;
   MockCallbacks callbacks;
 
   network_waiter.ReadRepeatedly(socket.get(), callbacks.GetReadCallback());
@@ -251,7 +247,6 @@ TEST(NetworkReaderTest, WaitFailsIfReadingSocketFails) {
   TestingNetworkWaiter network_waiter(std::move(mock_waiter),
                                       task_runner.get());
   auto timeout = Clock::duration(0);
-  auto packet = std::make_unique<UdpReadCallback::Packet>();
   MockCallbacks callbacks;
 
   network_waiter.ReadRepeatedly(socket.get(), callbacks.GetReadCallback());

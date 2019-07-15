@@ -92,7 +92,7 @@ QuicConnectionImpl::~QuicConnectionImpl() = default;
 void QuicConnectionImpl::OnDataReceived(
     const platform::UdpReadCallback::Packet& data) {
   session_->OnTransportReceived(reinterpret_cast<const char*>(data.data()),
-                                data.length);
+                                data.size());
 }
 
 std::unique_ptr<QuicStream> QuicConnectionImpl::MakeOutgoingStream(

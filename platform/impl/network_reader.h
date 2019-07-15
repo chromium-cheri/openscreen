@@ -23,8 +23,7 @@ namespace platform {
 class NetworkReader {
  public:
   // Create a type for readability
-  using Callback =
-      std::function<void(std::unique_ptr<UdpReadCallback::Packet>)>;
+  using Callback = std::function<void(UdpReadCallback::Packet)>;
 
   // Creates a new instance of this object.
   // NOTE: The provided TaskRunner must be running and must live for the
@@ -64,8 +63,7 @@ class NetworkReader {
   // Method to read data from a socket. This method will not block, but is only
   // expected to be called by WaitAndRead when it detects that a socket has
   // data waiting to be read.
-  virtual ErrorOr<std::unique_ptr<UdpReadCallback::Packet>> ReadFromSocket(
-      UdpSocket* socket);
+  virtual ErrorOr<UdpReadCallback::Packet> ReadFromSocket(UdpSocket* socket);
 
   // Waits for any writes to occur or for timeout to pass, whichever is sooner.
   // If an error occurs when calling WaitAndRead, then no callbacks will have
