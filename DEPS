@@ -63,6 +63,20 @@ deps = {
         'condition': 'checkout_mac',
     },
 
+    'third_party/protobuf/src': {
+        'url': Var('chromium_git') +
+            '/external/github.com/protocolbuffers/protobuf.git' +
+            '@' + '09745575a923640154bcf307fba8aedff47f240a', # version 3.8.0
+        'condition': 'not build_with_chromium',
+    },
+
+    'third_party/zlib/src': {
+        'url': Var('github') +
+            '/madler/zlib.git' +
+            '@' + 'cacf7f1d4e3d44d871b605da3b647f07d718623f', # version 1.2.11
+        'condition': 'not build_with_chromium',
+    },
+
     'third_party/jsoncpp/src': {
         'url': Var('chromium_git') +
             '/external/github.com/open-source-parsers/jsoncpp.git' +
@@ -106,6 +120,17 @@ deps = {
         'condition': 'not build_with_chromium',
     },
 }
+
+# hooks = [
+#   {
+#     'name': 'protobuf_submodules',
+#     'pattern': '.',
+#     'action': [
+#       'python',
+#       'third_party/protobuf/update_submodules.py',
+#     ],
+#   }
+# ]
 
 recursedeps = [
     'third_party/chromium_quic/src',
