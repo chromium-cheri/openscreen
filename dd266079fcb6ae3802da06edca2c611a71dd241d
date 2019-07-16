@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0430776c_26aa5d69",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "I prefer to have them be independent sequences even if they will not output to the same file",
+      "parentUuid": "8ca858a5_353c9d5a",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfa8707e_e4b801cf",
         "filename": "osp_base/error.cc",
         "patchSetId": 20
@@ -30,6 +48,30 @@
       "writtenOn": "2019-07-08T23:44:52Z",
       "side": 1,
       "message": "Error::Code itself is an integer and doesn\u0027t warrant being passed by reference.",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 61
+      },
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bc31674_b89cc227",
+        "filename": "osp_base/error.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "This causes compilation failure: \"use of overloaded operator \u0027\u003c\u003c\u0027 is ambiguous (with operand types \u0027std::ostream\u0027 (aka \u0027basic_ostream\u003cchar\u003e\u0027) and \u0027openscreen::Error::Code\u0027)\"\n\nThoughts?",
+      "parentUuid": "cfa8707e_e4b801cf",
       "range": {
         "startLine": 33,
         "startChar": 43,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "00cd5f20_d9764d39",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "We currently do not support safely leaking any pointers in OSP\nDoing so causes failures in our buildbots, so this is the only option until we fully support safely leaking pointers in a way supported by the Leak Sanitizer\n\nI\u0027ve added a TODO for myself to remove this once support is added though",
+      "parentUuid": "eac813ef_f730394b",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98d1a7a3_ddebe8cf",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 20
@@ -70,6 +130,24 @@
       "writtenOn": "2019-07-08T23:44:52Z",
       "side": 1,
       "message": "This should just be a free function IMHO, but maybe if the macro using it below is fixed there\u0027ll be a reason for it to stay.",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a829f85_2892e95b",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "The static keyword was removed somewhere during the refactoring. This has been corrected and a UT to validate its functioning added\n\nI prefer a static function to free function for personal style reasons, unless there is any perf benefit to a free function",
+      "parentUuid": "98d1a7a3_ddebe8cf",
       "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "9d7cabb9_f8051beb",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "TraceIdHierarchy is not used internally to the TraceLogging (only as a way to provide parameters) because adding ht extra layer of indirection only adds complexity without actually providing any benefit",
+      "parentUuid": "ce4fb4a4_ca1e2d06",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5cb6b6a_38a4b942",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 20
@@ -104,6 +200,24 @@
       "writtenOn": "2019-07-08T23:44:52Z",
       "side": 1,
       "message": "AFAIK this shouldn\u0027t work, and it appears to be unused/untested which supports that theory.",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a417072_8c440a52",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "I\u0027ve updated the platform layer and the UTs based on a suggestion from Yuri, and included UTs for this section as-well. PTAL again",
+      "parentUuid": "c5cb6b6a_38a4b942",
       "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "0527f681_28ae7b8a",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "I\u0027m attempting to avoid the syntax provided there (Yuri suggested similar). It is possible to avoid returning a bool, but the trade off in readability doesn\u0027t seem worth it\n\nAccording to the C++ spec it\u0027s actually possible to use the ternary operator with void return values as-well, but I\u0027m avoiding that as well - both approaches wouldn\u0027t be clear to me if I ran across it in someone else\u0027s code",
+      "parentUuid": "9bc66f30_4547fc9e",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f541ffc1_08f90f09",
         "filename": "platform/base/trace_logging_platform.cc",
         "patchSetId": 20
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "125becea_264a0d65",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "I will remove it then :)",
+      "parentUuid": "f541ffc1_08f90f09",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b3df6d7_acc2d23b",
         "filename": "platform/base/trace_logging_platform.cc",
         "patchSetId": 20
@@ -158,6 +308,24 @@
       "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36c30510_57d0e9a7",
+        "filename": "platform/base/trace_logging_platform.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-16T23:38:57Z",
+      "side": 1,
+      "message": "I am purposely not using TraceCategory::Value::Any here. I don\u0027t want to tie this function to a TraceCategory value intended to be used in a slightly different way",
+      "parentUuid": "7b3df6d7_acc2d23b",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
