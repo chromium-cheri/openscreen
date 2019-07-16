@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "4239fbe7_6dce732e",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T20:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86b2b937_d9509a49",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28997402_e8b39518",
         "filename": "util/yet_another_bit_vector.cc",
         "patchSetId": 1
@@ -633,6 +657,30 @@
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c66a5952_e2fa607a",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T20:37:15Z",
+      "side": 1,
+      "message": "Looks like it\u0027s optional: \"Explicitly declaring or deleting all four copy/move operations is permitted, but not required.\"\n\nI didn\u0027t want to explicitly prohibit copying. It\u0027s just functionality I didn\u0027t need, and so I didn\u0027t implement it. I\u0027ll delete the copy ctor explicitly and add a code comment to mention that.",
+      "parentUuid": "c0b953f4_216680d1",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
