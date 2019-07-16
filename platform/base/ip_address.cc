@@ -35,6 +35,8 @@ IPAddress::IPAddress(Version version, const uint8_t* b) : version_(version) {
 }
 IPAddress::IPAddress(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4)
     : version_(Version::kV4), bytes_{{b1, b2, b3, b4}} {}
+IPAddress::IPAddress(uint32_t bytes)
+    : IPAddress(Version::kV4, reinterpret_cast<const uint8_t*>(&bytes)) {}
 IPAddress::IPAddress(const std::array<uint8_t, 16>& bytes)
     : version_(Version::kV6), bytes_(bytes) {}
 IPAddress::IPAddress(const uint8_t (&b)[16])
