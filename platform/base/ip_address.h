@@ -32,8 +32,9 @@ class IPAddress {
   IPAddress();
   explicit IPAddress(const std::array<uint8_t, 4>& bytes);
   explicit IPAddress(const uint8_t (&b)[4]);
-  explicit IPAddress(Version version, const uint8_t* b);
+  IPAddress(Version version, const uint8_t* b);
   IPAddress(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4);
+  explicit IPAddress(uint32_t bytes);
 
   explicit IPAddress(const std::array<uint8_t, 16>& bytes);
   explicit IPAddress(const uint8_t (&b)[16]);

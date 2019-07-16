@@ -31,12 +31,16 @@ TEST(IPAddressTest, V4Constructors) {
   address4.CopyToV4(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({6, 5, 7, 9}));
 
-  IPAddress address5(address4);
+  IPAddress address5(0x08070605);
   address5.CopyToV4(bytes);
-  EXPECT_THAT(bytes, ElementsAreArray({6, 5, 7, 9}));
+  EXPECT_THAT(bytes, ElementsAreArray({5, 6, 7, 8}));
 
-  address5 = address1;
-  address5.CopyToV4(bytes);
+  IPAddress address6(address5);
+  address6.CopyToV4(bytes);
+  EXPECT_THAT(bytes, ElementsAreArray({5, 6, 7, 8}));
+
+  address6 = address1;
+  address6.CopyToV4(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({1, 2, 3, 4}));
 }
 
