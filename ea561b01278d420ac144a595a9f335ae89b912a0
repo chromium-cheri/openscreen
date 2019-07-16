@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4632c31_8ef55440",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dafce19_0693f8fa",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac4c413e_0ec01d06",
         "filename": "util/yet_another_bit_vector.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da56db2b_04127640",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "The style guide doesn\u0027t dictate a preference, IIRC.\n\nI took another look at this, and decided to do all in the .cc file because the initialization is different between each of the three ctors.",
+      "parentUuid": "ac4c413e_0ec01d06",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "b7a9b53b_27cc8d82",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "I meant to redo this move ctor (most of operator\u003d() is superfluous).",
+      "parentUuid": "28997402_e8b39518",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3709b5a4_441d2f9b",
         "filename": "util/yet_another_bit_vector.cc",
         "patchSetId": 1
@@ -90,6 +144,24 @@
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "551e2666_4773a894",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3709b5a4_441d2f9b",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -130,6 +202,24 @@
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c56da190_a13c5a2b",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "\"auto\" is mainly a readability aid (when not doing template-y things). IMHO, the actual type \"int\" is much more readable than \"auto\" here.",
+      "parentUuid": "e6eef633_317a86a6",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +309,24 @@
     },
     {
       "key": {
+        "uuid": "f956ded0_fdfb8830",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "I had manually commented-out the preprocessor stuff to check that it compiles and passes all unit tests. We\u0027re all good here! :)\n\nNote: This won\u0027t be used on Windows, either, unless you\u0027re talking about non-Chromium Windows builds. (Chromium uses Clang for its Windows builds.)",
+      "parentUuid": "9533c675_4af9cea3",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aad618c1_a1e12222",
         "filename": "util/yet_another_bit_vector.h",
         "patchSetId": 1
@@ -236,6 +344,24 @@
     },
     {
       "key": {
+        "uuid": "e60ff270_437f74c5",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "It\u0027s resizable, just that I don\u0027t provide a push_back() impl. \"Array\" sounded more like \"fixed size\" to me than \"Vector.\"",
+      "parentUuid": "aad618c1_a1e12222",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "360490f5_e32142d6",
         "filename": "util/yet_another_bit_vector.h",
         "patchSetId": 1
@@ -250,6 +376,24 @@
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "135d8d1b_4e29878c",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "At the call site, a reader would have to ask, \"what is this bool argument for?\" By making it an enum, we\u0027re providing a named constant that says it all.",
+      "parentUuid": "360490f5_e32142d6",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -293,6 +437,24 @@
     },
     {
       "key": {
+        "uuid": "4e8cdbb1_b8382376",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "Google C++ style highly recommends signed ints over unsigned. Since I\u0027m not interfacing with any library that wants a size_t, I can go with their recommendation and do not need excessive signed-to-unsigned type casting everywhere.\n\nGenerally, size_t shouldn\u0027t be used unless it simplifies interfacing with system libraries. It\u0027s a dark stain on the C++ language. ;)",
+      "parentUuid": "0f2d795f_7195beb7",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "374b45e9_22272221",
         "filename": "util/yet_another_bit_vector.h",
         "patchSetId": 1
@@ -307,6 +469,24 @@
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e19144_fe76d6b0",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "374b45e9_22272221",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -350,6 +530,24 @@
     },
     {
       "key": {
+        "uuid": "cd8beaa9_dc1afe98",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "Added comment.\n\nAs a TODO, I plan on a clean-up CL to factor-out this math expression as a helper function in our new util/ directory. I\u0027ve used this like 4-5 times in the streaming code, and don\u0027t want to keep having to add comments, etc. everywhere about it. :)",
+      "parentUuid": "1d7d4efe_45e77633",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67448e82_328a66fb",
         "filename": "util/yet_another_bit_vector.h",
         "patchSetId": 1
@@ -364,6 +562,24 @@
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bd56003_aa9000b6",
+        "filename": "util/yet_another_bit_vector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "I had considered this, but I decided not to go that route. There would still be all the \"switching\" if-statements to call into one class or the other. (Assumption: We don\u0027t want the overhead of virtual methods for this \"hot path\" code.)",
+      "parentUuid": "67448e82_328a66fb",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -384,6 +600,24 @@
     },
     {
       "key": {
+        "uuid": "f3feae05_694c4010",
+        "filename": "util/yet_another_bit_vector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b572aec6_0b6b7f9c",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7523b4d8_110fa204",
         "filename": "util/yet_another_bit_vector_unittest.cc",
         "patchSetId": 1
@@ -398,6 +632,24 @@
       "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba09cb60_002140ef",
+        "filename": "util/yet_another_bit_vector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-16T01:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7523b4d8_110fa204",
+      "revId": "ea561b01278d420ac144a595a9f335ae89b912a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
