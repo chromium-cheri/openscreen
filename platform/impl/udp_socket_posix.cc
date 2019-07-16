@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
+#include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -228,134 +229,116 @@ Error ChooseError(decltype(errno) posix_errno, Error::Code hard_error_code) {
 
 }  // namespace
 
-ErrorOr<size_t> UdpSocketPosix::ReceiveMessage(
-    void* data,
-    size_t length,
-    IPEndpoint* src,
-    IPEndpoint* original_destination) {
-  struct iovec iov = {data, length};
-  char control_buf[1024];
-  size_t cmsg_size = sizeof(control_buf) - sizeof(struct cmsghdr) + 1;
-  void* cmsg_buf = control_buf;
-  std::align(alignof(struct cmsghdr), sizeof(cmsg_buf), cmsg_buf, cmsg_size);
+ErrorOr<UdpPacket> UdpSocketPosix::ReceiveMessage() {
+  int bytes_available = 0;
+  if (ioctl(fd_, FIONREAD, &bytes_available) == -1) {
+    return ChooseError(errno, Error::Code::kSocketReadFailure);
+  }
+
+  UdpPacket packet(bytes_available);
+  packet.socket = this;
+
+  msghdr msg;
+  iovec iov = {packet.data(), packet.size()};
+  msg.msg_iov = &iov;
+  msg.msg_iovlen = 1;
+  alignas(alignof(cmsghdr)) uint8_t control_buffer[1024];
+  msg.msg_control = control_buffer;
+  msg.msg_controllen = sizeof(control_buffer);
+  msg.msg_flags = 0;
+
   switch (version_) {
     case UdpSocket::Version::kV4: {
-      struct sockaddr_in sa;
-      struct msghdr msg;
+      sockaddr_in sa;
       msg.msg_name = &sa;
       msg.msg_namelen = sizeof(sa);
-      msg.msg_iov = &iov;
-      msg.msg_iovlen = 1;
-      msg.msg_control = cmsg_buf;
-      msg.msg_controllen = cmsg_size;
-      msg.msg_flags = 0;
 
-      ssize_t num_bytes_received = recvmsg(fd_, &msg, 0);
-      if (num_bytes_received == -1) {
+      ssize_t bytes_received = recvmsg(fd_, &msg, 0);
+      if (bytes_received == -1) {
         return ChooseError(errno, Error::Code::kSocketReadFailure);
       }
-      OSP_DCHECK_GE(num_bytes_received, 0);
 
-      if (src) {
-        src->address =
-            IPAddress(IPAddress::Version::kV4,
-                      reinterpret_cast<const uint8_t*>(&sa.sin_addr.s_addr));
-        src->port = ntohs(sa.sin_port);
-      }
+      OSP_DCHECK_GE(bytes_received, 0);
+      OSP_DCHECK_EQ(bytes_received, bytes_available);
+
+      packet.source.address =
+          IPAddress(IPAddress::Version::kV4,
+                    reinterpret_cast<const uint8_t*>(&sa.sin_addr.s_addr));
+      packet.source.port = ntohs(sa.sin_port);
 
       // For multicast sockets, the packet's original destination address may be
       // the host address (since we called bind()) but it may also be a
       // multicast address.  This may be relevant for handling multicast data;
       // specifically, mDNSResponder requires this information to work properly.
-      if (original_destination) {
-        *original_destination = IPEndpoint{{}, 0};
-        if ((msg.msg_flags & MSG_CTRUNC) == 0) {
-          for (struct cmsghdr* cmh = CMSG_FIRSTHDR(&msg); cmh;
-               cmh = CMSG_NXTHDR(&msg, cmh)) {
-            if (cmh->cmsg_level != IPPROTO_IP || cmh->cmsg_type != IP_PKTINFO)
-              continue;
 
-            struct sockaddr_in addr;
-            socklen_t addr_len = sizeof(addr);
-            if (getsockname(fd_, reinterpret_cast<struct sockaddr*>(&addr),
-                            &addr_len) == -1) {
-              break;
-            }
-            // |original_destination->port| will be 0 if this line isn't
-            // reached.
-            original_destination->port = ntohs(addr.sin_port);
+      // re-use sockaddr_in sa here
+      socklen_t sa_len = sizeof(sa);
+      if (getsockname(fd_, reinterpret_cast<sockaddr*>(&sa), &sa_len) == -1) {
+        return packet;
+      }
 
-            struct in_pktinfo* pktinfo =
-                reinterpret_cast<struct in_pktinfo*>(CMSG_DATA(cmh));
-            original_destination->address =
-                IPAddress(IPAddress::Version::kV4,
-                          reinterpret_cast<const uint8_t*>(&pktinfo->ipi_addr));
-            break;
-          }
+      if ((msg.msg_flags & MSG_CTRUNC) != 0) {
+        return packet;
+      }
+
+      for (cmsghdr* cmh = CMSG_FIRSTHDR(&msg); cmh;
+           cmh = CMSG_NXTHDR(&msg, cmh)) {
+        if (cmh->cmsg_level == IPPROTO_IP && cmh->cmsg_type == IP_PKTINFO) {
+          in_pktinfo* pktinfo = reinterpret_cast<in_pktinfo*>(CMSG_DATA(cmh));
+          packet.original_destination.address =
+              IPAddress(IPAddress::Version::kV4,
+                        reinterpret_cast<const uint8_t*>(&pktinfo->ipi_addr));
+          packet.original_destination.port = ntohs(sa.sin_port);
+          break;
         }
       }
 
-      return num_bytes_received;
+      return packet;
     }
 
     case UdpSocket::Version::kV6: {
-      struct sockaddr_in6 sa;
-      struct msghdr msg;
+      sockaddr_in6 sa;
       msg.msg_name = &sa;
       msg.msg_namelen = sizeof(sa);
-      msg.msg_iov = &iov;
-      msg.msg_iovlen = 1;
-      msg.msg_control = cmsg_buf;
-      msg.msg_controllen = cmsg_size;
-      msg.msg_flags = 0;
 
-      ssize_t num_bytes_received = recvmsg(fd_, &msg, 0);
-      if (num_bytes_received == -1) {
+      ssize_t bytes_received = recvmsg(fd_, &msg, 0);
+      if (bytes_received == -1) {
         return ChooseError(errno, Error::Code::kSocketReadFailure);
       }
-      OSP_DCHECK_GE(num_bytes_received, 0);
 
-      if (src) {
-        src->address =
-            IPAddress(IPAddress::Version::kV6,
-                      reinterpret_cast<const uint8_t*>(&sa.sin6_addr.s6_addr));
-        src->port = ntohs(sa.sin6_port);
-      }
+      OSP_DCHECK_GE(bytes_received, 0);
+      OSP_DCHECK_EQ(bytes_received, bytes_available);
+
+      packet.source.address = IPAddress(sa.sin6_addr.s6_addr);
+      packet.source.port = ntohs(sa.sin6_port);
 
       // For multicast sockets, the packet's original destination address may be
       // the host address (since we called bind()) but it may also be a
       // multicast address.  This may be relevant for handling multicast data;
       // specifically, mDNSResponder requires this information to work properly.
-      if (original_destination) {
-        *original_destination = IPEndpoint{{}, 0};
-        if ((msg.msg_flags & MSG_CTRUNC) == 0) {
-          for (struct cmsghdr* cmh = CMSG_FIRSTHDR(&msg); cmh;
-               cmh = CMSG_NXTHDR(&msg, cmh)) {
-            if (cmh->cmsg_level != IPPROTO_IPV6 ||
-                cmh->cmsg_type != IPV6_PKTINFO) {
-              continue;
-            }
-            struct sockaddr_in6 addr;
-            socklen_t addr_len = sizeof(addr);
-            if (getsockname(fd_, reinterpret_cast<struct sockaddr*>(&addr),
-                            &addr_len) == -1) {
-              break;
-            }
-            // |original_destination->port| will be 0 if this line isn't
-            // reached.
-            original_destination->port = ntohs(addr.sin6_port);
 
-            struct in6_pktinfo* pktinfo =
-                reinterpret_cast<struct in6_pktinfo*>(CMSG_DATA(cmh));
-            original_destination->address = IPAddress(
-                IPAddress::Version::kV6,
-                reinterpret_cast<const uint8_t*>(&pktinfo->ipi6_addr));
-            break;
-          }
+      // re-use sockaddr_in6 sa here
+      socklen_t sa_len = sizeof(sa);
+      if (getsockname(fd_, reinterpret_cast<sockaddr*>(&sa), &sa_len) != -1) {
+        return packet;
+      }
+
+      if ((msg.msg_flags & MSG_CTRUNC) != 0) {
+        return packet;
+      }
+
+      for (cmsghdr* cmh = CMSG_FIRSTHDR(&msg); cmh;
+           cmh = CMSG_NXTHDR(&msg, cmh)) {
+        if (cmh->cmsg_level == IPPROTO_IPV6 && cmh->cmsg_type == IPV6_PKTINFO) {
+          in6_pktinfo* pktinfo = reinterpret_cast<in6_pktinfo*>(CMSG_DATA(cmh));
+          packet.original_destination.address =
+              IPAddress(pktinfo->ipi6_addr.s6_addr);
+          packet.original_destination.port = ntohs(sa.sin6_port);
+          break;
         }
       }
 
-      return num_bytes_received;
+      return packet;
     }
   }
 
