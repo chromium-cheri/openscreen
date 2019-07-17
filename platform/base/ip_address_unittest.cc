@@ -9,6 +9,11 @@
 #include "platform/base/error.h"
 
 namespace openscreen {
+namespace {
+
+int* foo = new int;
+
+}  // namespace
 
 using ::testing::ElementsAreArray;
 
