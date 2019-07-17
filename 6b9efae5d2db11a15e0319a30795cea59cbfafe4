@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50a4eb26_874d342f",
+        "filename": "util/integer_division_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-17T21:15:28Z",
+      "side": 1,
+      "message": "Is working, or just tested elsewhere? Is an assumption needed?",
+      "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea43e906_17cf17b5",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-17T21:15:28Z",
+      "side": 1,
+      "message": "I think this is overengineered, considering we only clamp at To::min() and To::max()\n\nWhy not replace this whole method with this:\n\nconstexpr To saturate_cast(From from) {\n  static_assert(std::numeric_limits\u003cFrom\u003e::is_integer \u0026\u0026\n                    std::numeric_limits\u003cTo\u003e::is_integer,\n                \"Float (or non-integer) saturation not currently implemented.\");\n  \n  // Need to clamp values from From{min, max} -\u003e To{min, max}\n  if (from \u003e\u003d std::numeric_limits\u003cTo\u003e::max()) {\n    return std::numeric_limits\u003cTo\u003e::max();\n  }\n\n  if (from \u003c\u003d std::numeric_limits\u003cTo\u003e::min()) {\n    return std::numeric_limits\u003cTo\u003e::min();\n  }\n\n  return static_cast\u003cTo\u003e(from);",
+      "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ea3dcd0_1c3a9cf5",
+        "filename": "util/saturate_cast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-17T21:15:28Z",
+      "side": 1,
+      "message": "I would suggest refactoring this to check 0 in each case. For fancy points, have lists of actual and expected and compare that way?",
+      "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
