@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef6acbc1_3cc9e1ac",
+        "filename": "platform/impl/event_loop.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-17T23:14:56Z",
+      "side": 1,
+      "message": "naming nit: Call this \"packets\" instead of data?",
+      "range": {
+        "startLine": 16,
+        "startChar": 25,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "92e4b0dea15fe485dc1ddec7f5ea457ddae5cc18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b00216be_9d39c5f5",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-17T23:14:56Z",
+      "side": 1,
+      "message": "IMHO, we can delete the ReadFromSocket() method. All it does is call socket-\u003eReceiveMessage(), which the caller(s) could just do instead.\n\nIf we add buffer pooling in the future (if ever), we can put this back.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 1
+      },
+      "revId": "92e4b0dea15fe485dc1ddec7f5ea457ddae5cc18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eefbe058_66af3445",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-17T23:14:56Z",
+      "side": 1,
+      "message": "Did you mean to remove this comment? Otherwise, I\u0027m not sure what it means and could use more context.",
+      "range": {
+        "startLine": 298,
+        "startChar": 2,
+        "endLine": 298,
+        "endChar": 32
+      },
+      "revId": "92e4b0dea15fe485dc1ddec7f5ea457ddae5cc18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4fb052e_ffbaeefd",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-17T23:14:56Z",
+      "side": 1,
+      "message": "This ioctl() works differently on non-Linux platforms (such as Mac): https://stackoverflow.com/questions/9278189/how-do-i-get-amount-of-queued-data-for-udp-socket/9296481#9296481 It returns the total amount of pending data, not just that of the next datagram.\n\nFrom the link above, they suggest \"call recvfrom() with the MSG_PEEK flag.\" Since MSG_PEEK doesn\u0027t actually write to a buffer, you can provide something like 0xdeadbeef as the address with a 64 KB size to detect the actual size.\n\nOtherwise, you\u0027ll need to just allocate 64 KB and truncate (resize()) the vector after finding out exactly how much of it was filled.\n\nActually, whether you allocate 64 KB or a specific amount (according to the \"peek\"), you probably should check whether to truncate the vector anyway: just in case the platform says \"I have N bytes available\" and then only gives you N minus 42 bytes for some odd reason.",
+      "range": {
+        "startLine": 319,
+        "startChar": 6,
+        "endLine": 319,
+        "endChar": 44
+      },
+      "revId": "92e4b0dea15fe485dc1ddec7f5ea457ddae5cc18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
