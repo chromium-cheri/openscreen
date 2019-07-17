@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "1a63c7e4_85047464",
+        "filename": "osp_base/error.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-17T03:34:23Z",
+      "side": 1,
+      "message": "Hm, I think because Error can be implicitly constructed from Error::Code, the compiler _could_ also call the below operator\u003c\u003c().  I\u0027m not positive why this doesn\u0027t confuse it, something about precedence I guess.  Fine to leave it then.",
+      "parentUuid": "6bc31674_b89cc227",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 61
+      },
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eac813ef_f730394b",
         "filename": "platform/api/internal/trace_logging_internal.cc",
         "patchSetId": 20
