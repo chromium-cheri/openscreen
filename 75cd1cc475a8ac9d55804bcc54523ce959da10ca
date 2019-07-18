@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8a33d94_66ea2fcc",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T20:46:27Z",
+      "side": 1,
+      "message": "What is the use case for the default constructor (which I assume sets size \u003d 0)?\n\nIf we do need it, it personally feels more explicit to me to change this to:\nUdpPacket() : UdpPacket(size_t{0})\nbut I think it\u0027s fine either way",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 24
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16e0a005_a6073798",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T20:46:27Z",
+      "side": 1,
+      "message": "should we also check size \u003e 0? Or is that a valid use case?",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "962f85ee_0f8dfb81",
+        "filename": "platform/api/udp_read_callback.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T20:46:27Z",
+      "side": 1,
+      "message": "We should probably pass a unique_ptr. That way, ownership can transfer to the called method, plus we don\u0027t need to worry about move/copy of the UdpPacket object\n\nAlternatively, a const ref would work too. Plus we never expect the called method to modify the UdpPacket object\n\nThoughts?",
+      "range": {
+        "startLine": 18,
+        "startChar": 22,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d85f953_8e2d02a4",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T20:46:27Z",
+      "side": 1,
+      "message": "The only reason this class is needed is because unique_ptr is move-only. If we aren\u0027t using unique_ptr anymore, this may not be needed",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 26
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e9f95a_55458730",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T20:46:27Z",
+      "side": 1,
+      "message": "pointer instead of object. Or maybe a const ref?",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f77cf72_52beaf27",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T20:46:27Z",
+      "side": 1,
+      "message": "I really like moving knowledge of the UdpPacket object to this layer! It feels much cleaner!",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 53
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4c157e9_fd2feddd",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T20:46:27Z",
+      "side": 1,
+      "message": "You could probably simplify this code further if you make the ReceiveMessageInternal template based on UdpSocket::Version instead of a class (since both current paremeters are implied by the version), plus the meaning would be clearer\n\nPlus this would let you eliminate the switch statement entirely",
+      "range": {
+        "startLine": 326,
+        "startChar": 51,
+        "endLine": 326,
+        "endChar": 61
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
