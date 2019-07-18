@@ -56,12 +56,12 @@ void MdnsResponderService::SetServiceConfig(
 }
 
 void MdnsResponderService::HandleNewEvents(
-    const std::vector<platform::UdpReadCallback::Packet>& data) {
+    const std::vector<platform::UdpPacket>& packets) {
   if (!mdns_responder_)
     return;
-  for (auto& packet : data) {
+  for (auto& packet : packets) {
     mdns_responder_->OnDataReceived(packet.source, packet.original_destination,
-                                    packet.data(), packet.length,
+                                    packet.data(), packet.size(),
                                     packet.socket);
   }
   mdns_responder_->RunTasks();

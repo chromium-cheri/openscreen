@@ -15,16 +15,15 @@ namespace {
 
 class ReadCallbackExecutor {
  public:
-  ReadCallbackExecutor(std::unique_ptr<UdpReadCallback::Packet> data,
-                       NetworkReader::Callback function)
+  ReadCallbackExecutor(UdpPacket packet, NetworkReader::Callback function)
       : function_(function) {
-    data_ = std::move(data);
+    packet_ = std::move(packet);
   }
 
-  void operator()() { function_(std::move(data_)); }
+  void operator()() { function_(std::move(packet_)); }
 
  private:
-  std::unique_ptr<UdpReadCallback::Packet> data_;
+  UdpPacket packet_;
   NetworkReader::Callback function_;
 };
 
@@ -85,8 +84,7 @@ Error NetworkReader::WaitAndRead(Clock::duration timeout) {
         continue;
       }
 
-      ErrorOr<std::unique_ptr<UdpReadCallback::Packet>> read_packet =
-          ReadFromSocket(mapped_socket->first);
+      ErrorOr<UdpPacket> read_packet = mapped_socket->first->ReceiveMessage();
       if (read_packet.is_error()) {
         error = read_packet.error();
         continue;
@@ -100,22 +98,6 @@ Error NetworkReader::WaitAndRead(Clock::duration timeout) {
   }
 
   return error;
-}
-
-ErrorOr<std::unique_ptr<UdpReadCallback::Packet>> NetworkReader::ReadFromSocket(
-    UdpSocket* socket) {
-  // TODO(rwkeane): Use circular buffer in Socket instead of new packet.
-  auto data = std::make_unique<UdpReadCallback::Packet>();
-  ErrorOr<size_t> read_bytes = socket->ReceiveMessage(
-      &(*data)[0], data->size(), &data->source, &data->original_destination);
-  if (read_bytes.is_error()) {
-    return read_bytes.error();
-  }
-
-  data->socket = socket;
-  data->length = read_bytes.value();
-
-  return data;
 }
 
 void NetworkReader::RunUntilStopped() {
