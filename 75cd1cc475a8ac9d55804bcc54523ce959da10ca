@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e18211ac_746ca39f",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-18T21:48:26Z",
+      "side": 1,
+      "message": "ErrorOr requires objects having a default constructor. Can\u0027t use it in ErrorOr\u003cUdpPacket\u003e otherwise. Agreed on calling constructor with the size of 0.",
+      "parentUuid": "e8a33d94_66ea2fcc",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 24
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16e0a005_a6073798",
         "filename": "platform/api/udp_packet.h",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08b4ba6b_20a3ded1",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-18T21:48:26Z",
+      "side": 1,
+      "message": "size \u003d 0 is technically correct, a packet with an empty payload still has sender\u0027s identity and other auxiliary data.",
+      "parentUuid": "16e0a005_a6073798",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bcd14e71_3db16642",
+        "filename": "platform/api/udp_read_callback.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-18T21:48:26Z",
+      "side": 1,
+      "message": "Passing by value or move transfers ownership.\n\nI\u0027m strongly against unique_ptr in this case for a number of reasons:\n1) unique_ptr is primarily to guarantee that resources do not leak, i.e. object is destroyed correctly and memory and any other resources are freed. UdpPacket is copyable and movable type that does not leak resources. Implementation of OnRead receives a UdpPacket with it\u0027s lifetime limited to the scope of the function, same as with unique_ptr. Using unique_ptr adds an extra level of indirection here but does not buy us anything.\n2) It\u0027s better to not put an unnecessary restriction on what implementer of UdpReadCallback can or cannot do with the Packet in OnRead method, I\u0027m against const reference for this reason as well.\n3) Caller of OnRead can decide if they want to move or copy packet into OnRead, With unique_ptr caller is always forced to move. In addition to that, in a hypothetical situation where caller might want to call OnRead on multiple UdpReadCallback objects, unique_ptr would make call sites quite clumsy with all the extra steps needed to create copies of unique_ptr.",
+      "parentUuid": "962f85ee_0f8dfb81",
+      "range": {
+        "startLine": 18,
+        "startChar": 22,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d85f953_8e2d02a4",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ed40b7a0_b1a70603",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-18T21:48:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d85f953_8e2d02a4",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 26
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96e9f95a_55458730",
         "filename": "platform/impl/network_reader.h",
         "patchSetId": 8
@@ -114,6 +210,30 @@
       "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39fd7587_2a1dfa08",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-18T21:48:26Z",
+      "side": 1,
+      "message": "Similar reasoning. Before the change ownership was transferred by move of a unique_ptr, now ownership is transferred by move of UdpPacket directly. Both callee (implementation of Callback) and caller can do as they please with UdpPacket on their sides.",
+      "parentUuid": "96e9f95a_55458730",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -160,6 +280,30 @@
       "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0dd211e_b3a80009",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-18T21:48:26Z",
+      "side": 1,
+      "message": "Unfortunately, I still need the switch to pick between ReceiveMessageInternal\u003cVersion::kV4\u003e and ReceiveMessageInternal\u003cVersion::kV6\u003e",
+      "parentUuid": "f4c157e9_fd2feddd",
+      "range": {
+        "startLine": 326,
+        "startChar": 51,
+        "endLine": 326,
+        "endChar": 61
+      },
+      "revId": "75cd1cc475a8ac9d55804bcc54523ce959da10ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
