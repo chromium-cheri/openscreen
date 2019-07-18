@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01313644_e3858c65",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-18T22:56:27Z",
+      "side": 0,
+      "message": "There are only two places in this function with signed vs unsigned comparison.\nThis is the first place.\nIt should be:\nif (static_cast\u003cstd::make_unsigned\u003cFrom\u003e\u003e(from) \u003e\u003d std::numeric_limits\u003cTo\u003e::max())\ni.e. put positive from value into matching unsigned type, guaranteed to fit, then compare unsigned with unsigned.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "5e3f010238f609de1524f38887b0bb778e7c5deb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37803de7_94fe01d5",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-18T22:56:27Z",
+      "side": 0,
+      "message": "This is the second place where the comparison is done.\nIt should be:\nif (from \u003e\u003d static_cast\u003cstd::make_unsigned\u003cTo\u003e\u003e(std::numeric_limits\u003cTo\u003e::max()))\ni.e. put max of signed type To into a matching unsigned type, guaranteed to fit, then compare unsigned with unsigned.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "5e3f010238f609de1524f38887b0bb778e7c5deb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
