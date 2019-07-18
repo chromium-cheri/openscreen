@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a10a737_f2616e21",
+        "filename": "util/integer_division.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T01:49:43Z",
+      "side": 1,
+      "message": "No. According to the comment, \"any integer-like\" type for inputs. The auto return value is because the return type may depend on how the math operators are defined for the input type.",
+      "parentUuid": "f117f87d_f4b8fbf6",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 61
+      },
+      "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50a4eb26_874d342f",
         "filename": "util/integer_division_unittest.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e45bf291_e0d37bee",
+        "filename": "util/integer_division_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T01:49:43Z",
+      "side": 1,
+      "message": "Expanded the code comment to explain the other unit tests are meant to confirm that it\u0027s working.",
+      "parentUuid": "50a4eb26_874d342f",
+      "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "f3516a56_c35c90c8",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T01:49:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d0ec094_a868fe84",
+      "range": {
+        "startLine": 19,
+        "startChar": 17,
+        "endLine": 19,
+        "endChar": 77
+      },
+      "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea43e906_17cf17b5",
         "filename": "util/saturate_cast.h",
         "patchSetId": 1
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "4ce97dbd_6644ce34",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T01:49:43Z",
+      "side": 1,
+      "message": "Actually, it\u0027s not. What I didn\u0027t do well here was explain the C++ type promotion strategy when it does comparisons between signed vs unsigned numbers. I explained things a bit more here, wrote some more unit tests to cover more cases...and then fixed a bug revealed by the additional tests. :)",
+      "parentUuid": "ea43e906_17cf17b5",
+      "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ea3dcd0_1c3a9cf5",
         "filename": "util/saturate_cast_unittest.cc",
         "patchSetId": 1
@@ -96,6 +180,24 @@
       "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fd865f3_b59226e0",
+        "filename": "util/saturate_cast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T01:49:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ea3dcd0_1c3a9cf5",
+      "revId": "6b9efae5d2db11a15e0319a30795cea59cbfafe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
