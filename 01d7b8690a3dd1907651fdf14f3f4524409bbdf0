@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d3f36095_f4d252d3",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T22:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eb86098_4feba86b",
+      "range": {
+        "startLine": 17,
+        "startChar": 43,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0670c529_9dcef49e",
         "filename": "platform/api/internal/trace_logging_internal.cc",
         "patchSetId": 19
@@ -187,6 +211,30 @@
       "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc62f5c_f7459db8",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T22:58:25Z",
+      "side": 1,
+      "message": "Updated to an approach similar to what\u0027s described\nMainly made a few changes to take advantage of recursion and had to special-case the Getters in ScopedTraceOperation to account for if the traces_ stack is ever empty\n\nAlso added UTs for these edge cases.",
+      "parentUuid": "839e707c_3b4fe594",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 17
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -434,6 +482,30 @@
       "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a3f4a29_e26d9957",
+        "filename": "platform/api/internal/trace_logging_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T22:58:25Z",
+      "side": 1,
+      "message": "In the most recent iteration, this is being done. I had meant I wanted to leave it as a TODO if I could get this in before my trip last week\n\nI\u0027ve updated the test code to remove the requirement for the fake platform and then removed that from code. Good idea to pull it out now that it\u0027s not needed",
+      "parentUuid": "e7c06710_21c444aa",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 2
+      },
+      "revId": "01d7b8690a3dd1907651fdf14f3f4524409bbdf0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
