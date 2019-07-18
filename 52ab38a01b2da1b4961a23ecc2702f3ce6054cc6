@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e6c37ee2_2ffb0f5e",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "See new CL",
+      "parentUuid": "46d493e9_f74f43ff",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70c938d5_164319f8",
         "filename": "osp/impl/internal_services.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f54fec4c_e6860509",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "Singleton has been removed in new CL",
+      "parentUuid": "70c938d5_164319f8",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6be77735_699036bb",
+        "filename": "osp/impl/internal_services.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "Defined the lifetime",
+      "parentUuid": "5dde5554_a93ed26f",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03e54aca_35757aa4",
         "filename": "osp/impl/mdns_responder_service.h",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "f75b4887_0272dd28",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "I actually find the current approach much clearer - using this approach involves keeping track of the current thread and adds other complexity that embedders would need to worry about when writing their own implementations\nMy approach avoids this complexity - plus the difficulty iof having double methods is hidden from the caller since the internal version is private\n\nLets discuss this further in person if you still strongly prefer the approach described above",
+      "parentUuid": "03e54aca_35757aa4",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bdbeb95_8711e494",
         "filename": "osp/impl/mdns_responder_service.h",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2019-06-18T18:54:57Z",
       "side": 1,
       "message": "Why does these have to be protected?",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b515ca5_09beefee",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "The UnitTests need access via a child class",
+      "parentUuid": "0bdbeb95_8711e494",
       "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "2245fc26_0df21cba",
+        "filename": "osp/impl/protocol_connection_client_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "PTAL at new CL. I avoid using a singleton by passing around the NetworkRunner as described",
+      "parentUuid": "410669cd_01b898ed",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4ae588a_9d62a1fd",
         "filename": "osp/impl/quic/quic_client.h",
         "patchSetId": 2
@@ -135,6 +243,24 @@
       "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5495a533_ae41e32b",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4ae588a_9d62a1fd",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +304,24 @@
     },
     {
       "key": {
+        "uuid": "f36da2d2_0a85ac12",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "This class doesn\u0027t currently know about the Task Runner - I used this indirection to avoid needing to give it that knowledge, not for UT purposes",
+      "parentUuid": "5f96997d_6f428e00",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4a3cc0fa_e49dc857",
         "filename": "osp/impl/quic/quic_server.cc",
         "patchSetId": 2
@@ -192,6 +336,24 @@
       "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6932d26b_c30a64ba",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-18T18:47:01Z",
+      "side": 1,
+      "message": "PTAL again - it might be clearer in the new CL",
+      "parentUuid": "4a3cc0fa_e49dc857",
+      "revId": "52ab38a01b2da1b4961a23ecc2702f3ce6054cc6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
