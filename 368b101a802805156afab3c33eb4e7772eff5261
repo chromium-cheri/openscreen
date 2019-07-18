@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "799f8ef2_28697048",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T00:20:37Z",
+      "side": 1,
+      "message": "nit: I suppose leaking this object is okay. However, just so we don\u0027t encourage users of the library to write code like this, consider changing this to:\n\n  openscreen::platform::TextTraceLoggingPlatform text_logging_platform;\n  TRACE_SET_DEFAULT_PLATFORM(\u0026text_logging_platform);",
+      "range": {
+        "startLine": 610,
+        "startChar": 0,
+        "endLine": 612,
+        "endChar": 0
+      },
+      "revId": "368b101a802805156afab3c33eb4e7772eff5261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d3d6cf_6c493dc7",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T00:20:37Z",
+      "side": 1,
+      "message": "Suggestion: Remove this since tests could just call SetDefaultTracingPlatform() instead of having this separate override pointer. It would simplify a lot of code (e.g., multiple copies of a ternary expression to check this before calling GetDefaultTracingPlatform() in the XYZTraceLogger destructors).",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 53
+      },
+      "revId": "368b101a802805156afab3c33eb4e7772eff5261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "621a6df0_a183b707",
+        "filename": "platform/api/trace_logging_platform.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T00:20:37Z",
+      "side": 1,
+      "message": "c++ style: As a class member, this should have a trailing underscore char in its name.",
+      "range": {
+        "startLine": 60,
+        "startChar": 31,
+        "endLine": 60,
+        "endChar": 47
+      },
+      "revId": "368b101a802805156afab3c33eb4e7772eff5261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e4b087_0a753f89",
+        "filename": "platform/base/text_trace_logging_platform.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T00:20:37Z",
+      "side": 1,
+      "message": "c++ style: Please add the \"override\" or \"final\" keyword at the end of these three method decls.",
+      "range": {
+        "startLine": 27,
+        "startChar": 34,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "368b101a802805156afab3c33eb4e7772eff5261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

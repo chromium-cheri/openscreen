@@ -197,6 +197,24 @@
     },
     {
       "key": {
+        "uuid": "9f667bba_e93adf8f",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T00:20:37Z",
+      "side": 1,
+      "message": "IIRC, yes, we do check for leaks: ASAN is [supposed to be] turned on in the Linux Clang debug build.\n\nWe shouldn\u0027t use static initializers if we don\u0027t have to. I\u0027ve proposed a simple solution to all this that would let the global TraceStack be auto-created/destroyed by the first/last ScopedTraceOperation. Then, all of the issues here go away completely.",
+      "parentUuid": "53d576a6_d82a73c4",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98d1a7a3_ddebe8cf",
         "filename": "platform/api/internal/trace_logging_internal.h",
         "patchSetId": 20
@@ -331,6 +349,24 @@
       "side": 1,
       "message": "I\u0027m attempting to avoid the syntax provided there (Yuri suggested similar). It is possible to avoid returning a bool, but the trade off in readability doesn\u0027t seem worth it\n\nAccording to the C++ spec it\u0027s actually possible to use the ternary operator with void return values as-well, but I\u0027m avoiding that as well - both approaches wouldn\u0027t be clear to me if I ran across it in someone else\u0027s code",
       "parentUuid": "9bc66f30_4547fc9e",
+      "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18fe50fe_3eb60cee",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-07-18T00:20:37Z",
+      "side": 1,
+      "message": "Just to give this some closure: It seems that this is an issue of personal style. While I made the same suggestion, I\u0027m perfectly happy with the way Ryan has it as well. In C++, there are so many very-different ways of doing the same thing; so, there\u0027s bound to be lots of variations in solutions.",
+      "parentUuid": "0527f681_28ae7b8a",
       "revId": "dd266079fcb6ae3802da06edca2c611a71dd241d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
