@@ -8,6 +8,7 @@
 #include <memory>
 
 #include "osp/public/protocol_connection_client.h"
+#include "platform/api/network_runner.h"
 
 namespace openscreen {
 
@@ -15,7 +16,8 @@ class ProtocolConnectionClientFactory {
  public:
   static std::unique_ptr<ProtocolConnectionClient> Create(
       MessageDemuxer* demuxer,
-      ProtocolConnectionServiceObserver* observer);
+      ProtocolConnectionServiceObserver* observer,
+      platform::NetworkRunner* network_runner);
 };
 
 }  // namespace openscreen

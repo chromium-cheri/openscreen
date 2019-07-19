@@ -128,6 +128,11 @@ void NetworkReader::RunUntilStopped() {
   }
 }
 
+void NetworkReader::BlockUntilRunning() {
+  while (!is_running_.load()) {
+  }
+}
+
 void NetworkReader::RequestStopSoon() {
   is_running_.store(false);
 }
