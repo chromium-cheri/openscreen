@@ -28,8 +28,11 @@
 #include "osp/public/service_publisher.h"
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
+#include "platform/api/network_runner.h"
 #include "platform/api/time.h"
 #include "platform/api/trace_logging.h"
+#include "platform/impl/network_runner.h"
+#include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 
@@ -345,12 +348,10 @@ struct CommandWaitResult {
 };
 
 CommandWaitResult WaitForCommand(pollfd* pollfd) {
-  NetworkServiceManager* network_service = NetworkServiceManager::Get();
   while (poll(pollfd, 1, 10) >= 0) {
     if (g_done) {
       return {true};
     }
-    network_service->RunEventLoopOnce();
 
     if (pollfd->revents == 0) {
       continue;
@@ -427,16 +428,29 @@ void RunControllerPollLoop(presentation::Controller* controller) {
 void ListenerDemo() {
   SignalThings();
 
+  auto task_runner = std::make_unique<openscreen::platform::TaskRunnerImpl>(
+      openscreen::platform::Clock::now);
+  std::thread task_runner_thread(
+      [runner = task_runner.get()]() { runner->RunUntilStopped(); });
+  auto network_runner =
+      std::make_unique<openscreen::platform::NetworkRunnerImpl>(
+          std::move(task_runner));
+  std::thread network_runner_thread(
+      [runner = network_runner.get()]() { runner->RunUntilStopped(); });
+
+  task_runner->BlockUntilRunning();
+  network_runner->BlockUntilRunning();
+
   ListenerObserver listener_observer;
   MdnsServiceListenerConfig listener_config;
-  auto mdns_listener =
-      MdnsServiceListenerFactory::Create(listener_config, &listener_observer);
+  auto mdns_listener = MdnsServiceListenerFactory::Create(
+      listener_config, &listener_observer, network_runner.get());
 
   MessageDemuxer demuxer(platform::Clock::now,
                          MessageDemuxer::kDefaultBufferLimit);
   ConnectionClientObserver client_observer;
-  auto connection_client =
-      ProtocolConnectionClientFactory::Create(&demuxer, &client_observer);
+  auto connection_client = ProtocolConnectionClientFactory::Create(
+      &demuxer, &client_observer, network_runner.get());
 
   auto* network_service = NetworkServiceManager::Create(
       std::move(mdns_listener), nullptr, std::move(connection_client), nullptr);
@@ -450,6 +464,11 @@ void ListenerDemo() {
 
   network_service->GetMdnsServiceListener()->Stop();
   network_service->GetProtocolConnectionClient()->Stop();
+
+  network_runner->RequestStopSoon();
+  task_runner->RequestStopSoon();
+  network_runner_thread.join();
+  task_runner_thread.join();
 
   controller.reset();
 
@@ -518,6 +537,16 @@ void PublisherDemo(absl::string_view friendly_name) {
 
   constexpr uint16_t server_port = 6667;
 
+  auto task_runner = std::make_unique<openscreen::platform::TaskRunnerImpl>(
+      openscreen::platform::Clock::now);
+  std::thread task_runner_thread(
+      [runner = task_runner.get()]() { runner->RunUntilStopped(); });
+  auto network_runner =
+      std::make_unique<openscreen::platform::NetworkRunnerImpl>(
+          std::move(task_runner));
+  std::thread network_runner_thread(
+      [runner = network_runner.get()]() { runner->RunUntilStopped(); });
+
   PublisherObserver publisher_observer;
   // TODO(btolsch): aggregate initialization probably better?
   ServicePublisher::Config publisher_config;
@@ -527,7 +556,7 @@ void PublisherDemo(absl::string_view friendly_name) {
   publisher_config.connection_server_port = server_port;
 
   auto mdns_publisher = MdnsServicePublisherFactory::Create(
-      publisher_config, &publisher_observer);
+      publisher_config, &publisher_observer, network_runner.get());
 
   ServerConfig server_config;
   std::vector<platform::InterfaceAddresses> interfaces =
@@ -541,10 +570,14 @@ void PublisherDemo(absl::string_view friendly_name) {
                          MessageDemuxer::kDefaultBufferLimit);
   ConnectionServerObserver server_observer;
   auto connection_server = ProtocolConnectionServerFactory::Create(
-      server_config, &demuxer, &server_observer);
+      server_config, &demuxer, &server_observer, network_runner.get());
+
   auto* network_service =
       NetworkServiceManager::Create(nullptr, std::move(mdns_publisher), nullptr,
                                     std::move(connection_server));
+
+  task_runner->BlockUntilRunning();
+  network_runner->BlockUntilRunning();
 
   ReceiverDelegate receiver_delegate;
   presentation::Receiver::Get()->Init();
@@ -555,6 +588,11 @@ void PublisherDemo(absl::string_view friendly_name) {
   pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
 
   RunReceiverPollLoop(stdin_pollfd, network_service, receiver_delegate);
+
+  network_runner->RequestStopSoon();
+  task_runner->RequestStopSoon();
+  network_runner_thread.join();
+  task_runner_thread.join();
 
   receiver_delegate.connection.reset();
   CleanupPublisherDemo(network_service);
