@@ -64,6 +64,9 @@ class TaskRunnerImpl final : public TaskRunner {
   // are calling it on.
   void RunUntilStopped();
 
+  // Blocks the current thread until this TaskRunner is running.
+  void BlockUntilRunning();
+
   // Thread-safe method for requesting the TaskRunner to stop running. This sets
   // a flag that will get checked in the run loop, typically after completing
   // the current task.
