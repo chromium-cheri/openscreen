@@ -43,6 +43,9 @@ class NetworkRunnerImpl final : public NetworkRunner {
   // method is called, and will block the current thread until this time.
   void RunUntilStopped();
 
+  // Blocks the current thread until the NetworkRunner is running.
+  void BlockUntilRunning();
+
   // Stops this instance from processing network events and causes the
   // RunUntilStopped(...) method to exit.
   void RequestStopSoon();
@@ -59,9 +62,6 @@ class NetworkRunnerImpl final : public NetworkRunner {
   std::unique_ptr<TaskRunner> task_runner_;
 
  private:
-  // Atomic so that we can perform atomic exchanges.
-  std::atomic_bool is_running_;
-
   OSP_DISALLOW_COPY_AND_ASSIGN(NetworkRunnerImpl);
 };
 
