@@ -52,6 +52,9 @@ class NetworkReader {
   // is called.
   void RunUntilStopped();
 
+  // Blocks the current thread until the NetworkReader is running.
+  void BlockUntilRunning();
+
   // Signals for the RunUntilStopped loop to cease running.
   void RequestStopSoon();
 

@@ -6,8 +6,6 @@ import("//build_overrides/build.gni")
 
 source_set("platform") {
   sources = [
-    "api/event_waiter.cc",
-    "api/event_waiter.h",
     "api/internal/trace_logging_internal.cc",
     "api/internal/trace_logging_internal.h",
     "api/internal/trace_logging_macros_internal.h",
@@ -52,8 +50,6 @@ source_set("platform") {
 
   if (!build_with_chromium) {
     sources += [
-      "impl/event_loop.cc",
-      "impl/event_loop.h",
       "impl/network_reader.cc",
       "impl/network_reader.h",
       "impl/network_runner.cc",
@@ -77,7 +73,6 @@ source_set("platform") {
 
     if (is_posix) {
       sources += [
-        "impl/event_waiter_posix.cc",
         "impl/network_waiter_posix.cc",
         "impl/network_waiter_posix.h",
         "impl/scoped_pipe.h",
@@ -99,6 +94,8 @@ source_set("test") {
   sources = [
     "test/fake_clock.cc",
     "test/fake_clock.h",
+    "test/fake_network_runner.cc",
+    "test/fake_network_runner.h",
     "test/fake_task_runner.cc",
     "test/fake_task_runner.h",
     "test/mock_udp_socket.cc",
