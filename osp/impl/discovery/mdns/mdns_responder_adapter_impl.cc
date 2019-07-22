@@ -293,45 +293,51 @@ Error MdnsResponderAdapterImpl::DeregisterInterface(
   responder_interface_info_.erase(info_it);
   return Error::None();
 }
-
-void MdnsResponderAdapterImpl::OnDataReceived(
-    const IPEndpoint& source,
-    const IPEndpoint& original_destination,
-    const uint8_t* data,
-    size_t length,
-    platform::UdpSocket* receiving_socket) {
+void MdnsResponderAdapterImpl::OnRead(std::unique_ptr<Packet> packet,
+                                      platform::NetworkRunner* network_runner) {
   mDNSAddr src;
-  if (source.address.IsV4()) {
+  if (packet->source.address.IsV4()) {
     src.type = mDNSAddrType_IPv4;
-    source.address.CopyToV4(src.ip.v4.b);
+    packet->source.address.CopyToV4(src.ip.v4.b);
   } else {
     src.type = mDNSAddrType_IPv6;
-    source.address.CopyToV6(src.ip.v6.b);
+    packet->source.address.CopyToV6(src.ip.v6.b);
   }
   mDNSIPPort srcport;
-  AssignMdnsPort(&srcport, source.port);
+  AssignMdnsPort(&srcport, packet->source.port);
 
   mDNSAddr dst;
-  if (source.address.IsV4()) {
+  if (packet->source.address.IsV4()) {
     dst.type = mDNSAddrType_IPv4;
-    original_destination.address.CopyToV4(dst.ip.v4.b);
+    packet->original_destination.address.CopyToV4(dst.ip.v4.b);
   } else {
     dst.type = mDNSAddrType_IPv6;
-    original_destination.address.CopyToV6(dst.ip.v6.b);
+    packet->original_destination.address.CopyToV6(dst.ip.v6.b);
   }
   mDNSIPPort dstport;
-  AssignMdnsPort(&dstport, original_destination.port);
+  AssignMdnsPort(&dstport, packet->original_destination.port);
 
-  mDNSCoreReceive(&mdns_, const_cast<uint8_t*>(data), data + length, &src,
-                  srcport, &dst, dstport,
-                  reinterpret_cast<mDNSInterfaceID>(receiving_socket));
+  auto* packet_data = packet->data();
+  mDNSCoreReceive(&mdns_, const_cast<uint8_t*>(packet_data),
+                  packet_data + packet->length, &src, srcport, &dst, dstport,
+                  reinterpret_cast<mDNSInterfaceID>(packet->socket));
 }
 
-int MdnsResponderAdapterImpl::RunTasks() {
-  const auto t = mDNS_Execute(&mdns_);
-  const auto now = mDNSPlatformRawTime();
-  const auto next = t - now;
-  return next;
+absl::optional<platform::Clock::duration> MdnsResponderAdapterImpl::RunTasks() {
+  mDNS_Execute(&mdns_);
+
+  // The mDNS_Execute under some conditions will return the time at which this
+  // method must be called again, so mDNS_Execute(...) - mDNSPlatformRawTime()
+  // under those conditions will tell how long to wait before calling again.
+  // This value must be changable based on when this same method is called for
+  // other reasons, though, so it's far simpler to just call it once every
+  // second.
+  // TODO(rwkeane): More accurately determine when the next run of this method
+  // should be.
+  const auto seconds_before_next_run = 1;
+
+  // Return as a duration.
+  return std::chrono::seconds(seconds_before_next_run);
 }
 
 std::vector<PtrEvent> MdnsResponderAdapterImpl::TakePtrResponses() {
