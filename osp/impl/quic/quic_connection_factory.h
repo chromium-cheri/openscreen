@@ -15,7 +15,7 @@ namespace openscreen {
 
 // This interface provides a way to make new QUIC connections to endpoints.  It
 // also provides a way to receive incoming QUIC connections (as a server).
-class QuicConnectionFactory {
+class QuicConnectionFactory : public platform::UdpReadCallback {
  public:
   class ServerDelegate {
    public:
@@ -34,9 +34,9 @@ class QuicConnectionFactory {
   virtual void SetServerDelegate(ServerDelegate* delegate,
                                  const std::vector<IPEndpoint>& endpoints) = 0;
 
-  // Listen for incoming network packets on both client and server sockets and
-  // dispatch any results.
-  virtual void RunTasks() = 0;
+  virtual void ScheduleCleanUp(
+      std::function<absl::optional<platform::Clock::duration>()>
+          clean_up_function) = 0;
 
   virtual std::unique_ptr<QuicConnection> Connect(
       const IPEndpoint& endpoint,

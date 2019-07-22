@@ -50,10 +50,15 @@ TEST(MdnsResponderAdapterImplTest, ExampleData) {
 
   auto mdns_adapter = std::unique_ptr<mdns::MdnsResponderAdapter>(
       new mdns::MdnsResponderAdapterImpl);
+  auto packet = std::make_unique<platform::UdpReadCallback::Packet>();
+  packet->source = {{192, 168, 0, 2}, 6556};
+  packet->original_destination = mdns_endpoint;
+  std::copy(std::begin(data), std::end(data), packet->begin());
+  packet->length = sizeof(data);
+  packet->socket = nullptr;
   mdns_adapter->Init();
   mdns_adapter->StartPtrQuery(0, openscreen_service);
-  mdns_adapter->OnDataReceived({{192, 168, 0, 2}, 6556}, mdns_endpoint, data,
-                               sizeof(data), 0);
+  mdns_adapter->OnRead(std::move(packet), nullptr);
   mdns_adapter->RunTasks();
 
   auto ptr = mdns_adapter->TakePtrResponses();
