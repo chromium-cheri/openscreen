@@ -16,6 +16,7 @@
 #include "osp/public/network_service_manager.h"
 #include "osp/public/presentation/presentation_controller.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_network_runner.h"
 
 namespace openscreen {
 namespace presentation {
@@ -76,7 +77,8 @@ class ConnectionTest : public ::testing::Test {
 
   platform::FakeClock fake_clock_{
       platform::Clock::time_point(std::chrono::milliseconds(1298424))};
-  FakeQuicBridge quic_bridge_{platform::FakeClock::now};
+  platform::FakeNetworkRunner network_runner_;
+  FakeQuicBridge quic_bridge_{&network_runner_, platform::FakeClock::now};
   ConnectionManager controller_connection_manager_{
       quic_bridge_.controller_demuxer.get()};
   ConnectionManager receiver_connection_manager_{
