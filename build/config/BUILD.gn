@@ -44,6 +44,9 @@ config("no_exceptions") {
     "-fno-unwind-tables",
     "-fno-asynchronous-unwind-tables",
   ]
+  if (is_gcc) {
+    cflags_cc += [ "-Wno-noexcept-type" ]
+  }
 
   cflags_objcc = [
     "-fno-exceptions",
