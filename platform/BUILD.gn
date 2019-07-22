@@ -32,7 +32,6 @@ source_set("platform") {
     "base/location.h",
     "impl/ssl_context.cc",
     "impl/ssl_context.h",
-    "impl/time.cc",
   ]
 
   public_deps = [
@@ -53,6 +52,7 @@ source_set("platform") {
       "impl/network_runner.h",
       "impl/task_runner.cc",
       "impl/task_runner.h",
+      "impl/time.cc",
     ]
 
     if (is_linux) {
