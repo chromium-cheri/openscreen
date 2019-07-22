@@ -5,14 +5,16 @@
 #include "osp/public/mdns_service_listener_factory.h"
 
 #include "osp/impl/internal_services.h"
+#include "platform/api/network_runner.h"
 
 namespace openscreen {
 
 // static
 std::unique_ptr<ServiceListener> MdnsServiceListenerFactory::Create(
     const MdnsServiceListenerConfig& config,
-    ServiceListener::Observer* observer) {
-  return InternalServices::CreateListener(config, observer);
+    ServiceListener::Observer* observer,
+    platform::NetworkRunner* network_runner) {
+  return InternalServices::CreateListener(config, observer, network_runner);
 }
 
 }  // namespace openscreen
