@@ -74,8 +74,11 @@ class QuicConnectionImpl final : public QuicConnection,
 
   ~QuicConnectionImpl() override;
 
+  // UdpReadCallback overrides.
+  void OnRead(std::unique_ptr<Packet> data,
+              platform::NetworkRunner* network_runner) override;
+
   // QuicConnection overrides.
-  void OnDataReceived(const platform::UdpReadCallback::Packet& data) override;
   std::unique_ptr<QuicStream> MakeOutgoingStream(
       QuicStream::Delegate* delegate) override;
   void Close() override;
