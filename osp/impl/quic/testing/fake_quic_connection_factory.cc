@@ -5,6 +5,7 @@
 #include "osp/impl/quic/testing/fake_quic_connection_factory.h"
 
 #include <algorithm>
+#include <iostream>
 #include <memory>
 
 #include "platform/api/logging.h"
@@ -51,13 +52,17 @@ void FakeQuicConnectionFactoryBridge::SetServerDelegate(
   receiver_endpoint_ = endpoint;
 }
 
-void FakeQuicConnectionFactoryBridge::RunTasks() {
-  idle_ = true;
+void FakeQuicConnectionFactoryBridge::RunTasks(bool is_client) {
   if (!connections_.controller || !connections_.receiver)
     return;
 
   if (connections_pending_) {
     idle_ = false;
+    if (is_client) {
+      client_idle_ = false;
+    } else {
+      server_idle_ = false;
+    }
     connections_.receiver->delegate()->OnCryptoHandshakeComplete(
         connections_.receiver->id());
     connections_.controller->delegate()->OnCryptoHandshakeComplete(
@@ -124,6 +129,12 @@ void FakeQuicConnectionFactoryBridge::RunTasks() {
       ++stream_it_pair.second;
     }
   }
+
+  if (is_client) {
+    client_idle_ = idle_;
+  } else {
+    server_idle_ = idle_;
+  }
 }
 
 std::unique_ptr<QuicConnection> FakeQuicConnectionFactoryBridge::Connect(
@@ -158,14 +169,25 @@ void FakeClientQuicConnectionFactory::SetServerDelegate(
   OSP_DCHECK(false) << "don't call SetServerDelegate from QuicClient side";
 }
 
-void FakeClientQuicConnectionFactory::RunTasks() {
-  bridge_->RunTasks();
+void FakeClientQuicConnectionFactory::OnRead(
+    std::unique_ptr<Packet> data,
+    platform::NetworkRunner* network_runner) {
+  bridge_->RunTasks(true);
+  idle_ = bridge_->client_idle();
 }
 
 std::unique_ptr<QuicConnection> FakeClientQuicConnectionFactory::Connect(
     const IPEndpoint& endpoint,
     QuicConnection::Delegate* connection_delegate) {
   return bridge_->Connect(endpoint, connection_delegate);
+}
+
+void FakeClientQuicConnectionFactory::ScheduleCleanUp(
+    std::function<absl::optional<platform::Clock::duration>()>
+        clean_up_function) {
+  // Cleanup isn't needed by the tests, since it just ensures closed connections
+  // are deleted to avoid wasting system resources. Instead, in Unit Tests,
+  // leave this as a NoOp.
 }
 
 FakeServerQuicConnectionFactory::FakeServerQuicConnectionFactory(
@@ -184,8 +206,11 @@ void FakeServerQuicConnectionFactory::SetServerDelegate(
                              endpoints.empty() ? IPEndpoint{} : endpoints[0]);
 }
 
-void FakeServerQuicConnectionFactory::RunTasks() {
-  bridge_->RunTasks();
+void FakeServerQuicConnectionFactory::OnRead(
+    std::unique_ptr<Packet> data,
+    platform::NetworkRunner* network_runner) {
+  bridge_->RunTasks(false);
+  idle_ = bridge_->server_idle();
 }
 
 std::unique_ptr<QuicConnection> FakeServerQuicConnectionFactory::Connect(
@@ -193,6 +218,14 @@ std::unique_ptr<QuicConnection> FakeServerQuicConnectionFactory::Connect(
     QuicConnection::Delegate* connection_delegate) {
   OSP_DCHECK(false) << "don't call Connect() from QuicServer side";
   return nullptr;
+}
+
+void FakeServerQuicConnectionFactory::ScheduleCleanUp(
+    std::function<absl::optional<platform::Clock::duration>()>
+        clean_up_function) {
+  // Cleanup isn't needed by the tests, since it just ensures closed connections
+  // are deleted to avoid wasting system resources. Instead, in Unit Tests,
+  // leave this as a NoOp.
 }
 
 }  // namespace openscreen
