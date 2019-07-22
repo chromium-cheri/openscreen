@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3658dd8a_558a5bef",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "My interpretation of the style guide is that types using inheritance should be declared as classes.\n\nhttps://google.github.io/styleguide/cppguide.html#Structs_vs._Classes",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59537c91_b2fd976b",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "I think this is referring to the issue we were dealing with when implementing the network reader, i.e. what to do with pending read requests when the socket is destroyed.\n\nCan you update the comment to make sure it\u0027s clear which callback/task is being referred to here?",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a44f215d_fb21b99e",
+        "filename": "platform/impl/event_loop.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "Can this be sized to receive events.udp_readable_events number of packets?",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "520c8ee9_a657ff87",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "Nit: My preferred style for inline lambda expressions is capture variables, then have expressions that use those variables in the body of the lambda, versus binding arguments to the lambda with capture initialization.  It\u0027s a little more concise in my opinion.\n\nI don\u0027t feel strongly though.",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b3eb9e1_96ac7506",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "MoveValue() should return an rvalue reference, which hopefully is also the type of |arg|?  So std::move here should not be required.",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7474e3d_2b853483",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "Would this work?\n\nPostTask([\u0026, read_packet, mapped_socket] {(mapped_socket-\u003esecond)(read_packet.MoveValue())});",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df97f7c2_80177161",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "Is there a static assertion that sizeof(sa.sin_addr.s_addr) \u003d\u003d IPAddress::kV4Size ?",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cba5147_e6ba076d",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8394837f_1af13f16",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-22T21:37:54Z",
+      "side": 1,
+      "message": "Should we update this API to also take a UdpPacket (in a different patch)?",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
