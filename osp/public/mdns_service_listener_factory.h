@@ -8,6 +8,7 @@
 #include <memory>
 
 #include "osp/public/service_listener.h"
+#include "platform/api/network_runner.h"
 
 namespace openscreen {
 
@@ -20,7 +21,8 @@ class MdnsServiceListenerFactory {
  public:
   static std::unique_ptr<ServiceListener> Create(
       const MdnsServiceListenerConfig& config,
-      ServiceListener::Observer* observer);
+      ServiceListener::Observer* observer,
+      platform::NetworkRunner* network_runner);
 };
 
 }  // namespace openscreen

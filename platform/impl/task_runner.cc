@@ -4,6 +4,8 @@
 
 #include "platform/impl/task_runner.h"
 
+#include <thread>
+
 #include "platform/api/logging.h"
 
 namespace openscreen {
@@ -54,6 +56,11 @@ void TaskRunnerImpl::RunUntilStopped() {
   OSP_CHECK(!was_running);
 
   RunTasksUntilStopped();
+}
+
+void TaskRunnerImpl::BlockUntilRunning() {
+  // TODO(rwkeane): Fix this so it doesn't segfault.
+  // while (!is_running_.load()) {}
 }
 
 void TaskRunnerImpl::RequestStopSoon() {
