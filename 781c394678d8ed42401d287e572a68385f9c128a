@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "46697993_b8cd18c4",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3658dd8a_558a5bef",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59537c91_b2fd976b",
         "filename": "platform/api/udp_packet.h",
         "patchSetId": 11
@@ -33,6 +51,24 @@
       "revId": "781c394678d8ed42401d287e572a68385f9c128a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1fdb448_011b290f",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "Moved the comment back to udp_read_callback where it belongs and updated the text.",
+      "parentUuid": "59537c91_b2fd976b",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "32d0b5f0_2cc5ec21",
+        "filename": "platform/impl/event_loop.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a44f215d_fb21b99e",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "520c8ee9_a657ff87",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 11
@@ -67,6 +121,24 @@
       "revId": "781c394678d8ed42401d287e572a68385f9c128a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b4f55c_ea935636",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "I agree with this overall.\nIn this particular case I\u0027ve done it this way to avoid any extra copies of the UdpPacket and explicitly transfer ownership into the lambda (and subsequently a Task) here. To achieve that I have to use generic lambda capture syntax to do a capture-by-move of the UdpPacket.",
+      "parentUuid": "520c8ee9_a657ff87",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "33c07060_c09be903",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "Type of arg is UdpPacket, it\u0027s move constructed on capture.",
+      "parentUuid": "2b3eb9e1_96ac7506",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7474e3d_2b853483",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 11
@@ -101,6 +191,24 @@
       "revId": "781c394678d8ed42401d287e572a68385f9c128a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c11d6f6_e7ae818f",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "This would mean read_packet has to be captured by copy, but ErrorOr\u003cUdpPacket\u003e has implicitly deleted copy constructor, so this doesn\u0027t compile",
+      "parentUuid": "d7474e3d_2b853483",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "876c5482_e422248f",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df97f7c2_80177161",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cba5147_e6ba076d",
         "filename": "platform/impl/udp_socket_posix.cc",
         "patchSetId": 11
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "024bfaeb_071c78ca",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cba5147_e6ba076d",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8394837f_1af13f16",
         "filename": "platform/impl/udp_socket_posix.cc",
         "patchSetId": 11
@@ -152,6 +296,24 @@
       "revId": "781c394678d8ed42401d287e572a68385f9c128a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4558395_88a76ad1",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-23T00:22:18Z",
+      "side": 1,
+      "message": "We can do this for consistency, or we can add an overload here that accepts a UdpPacket. In a couple call sites constructing a UdpPacket would be inefficient. I\u0027ll put a TODO here.",
+      "parentUuid": "8394837f_1af13f16",
+      "revId": "781c394678d8ed42401d287e572a68385f9c128a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
