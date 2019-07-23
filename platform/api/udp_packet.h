@@ -6,6 +6,7 @@
 #define PLATFORM_API_UDP_PACKET_H_
 
 #include <vector>
+#include <utility>
 
 #include "platform/api/logging.h"
 #include "platform/base/ip_address.h"
@@ -21,8 +22,9 @@ class UdpPacket : public std::vector<uint8_t> {
  public:
   explicit UdpPacket(size_t size) : std::vector<uint8_t>(size) {
     OSP_DCHECK(size <= kUdpMaxPacketSize);
-  };
-  UdpPacket() : UdpPacket(0){};
+  }
+
+  UdpPacket() : UdpPacket(0){}
 
   const IPEndpoint& source() const { return source_; }
   void set_source(IPEndpoint endpoint) { source_ = std::move(endpoint); }
