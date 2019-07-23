@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33854a84_c22cbf7c",
+        "filename": "tools/cddl/stubs.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1233199
+      },
+      "writtenOn": "2019-07-23T19:38:47Z",
+      "side": 1,
+      "message": "I think we\u0027ve gone back and forth on this, but we either need to:\n\n(1) Have the CDDL codegen be entirely self contained and not rely on any libraries in OSP\n(2) Allow the embedder to compile the library in layers where the platform is compiled first, followed by cddl, then the protocol code.\n \nOtherwise we run into these dependency inversion issues (embedder -\u003e protocol -\u003e cddl -\u003e platform -\u003e embedder).\n\nWhat do you think?",
+      "revId": "1f7b2a6987f671785d19f64e334e4360836b2ebd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
