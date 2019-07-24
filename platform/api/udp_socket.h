@@ -54,57 +54,64 @@ class UdpSocket {
     kLowPriority = 0x20
   };
 
+  enum class BindState {
+    // If a socket hasn't been bound yet, whether it is IPv4 or IPv6 is
+    // undefined.
+    kUnbound = 0,
+    kIsIPv4,
+    kIsIPv6
+  };
+
+  // Many embedders only have access to asynchronous operations on UDPSockets,
+  // even if the operating system provides synchronous operations.
+  class Delegate {
+   public:
+    virtual void OnBindError(UdpSocket* socket, Error::Code code) = 0;
+    virtual void OnSetMulticastError(UdpSocket* socket, Error::Code code) = 0;
+    virtual void OnJoinMulticastError(UdpSocket* socket, Error::Code code) = 0;
+    virtual void OnSendMessageError(UdpSocket* socket, Error::Code code) = 0;
+    virtual void OnSetDscpError(UdpSocket* socket, Error::Code code) = 0;
+
+    virtual void OnDeletion(UdpSocket* socket) = 0;
+    virtual void OnMessage(UdpSocket* socket, UdpPacket message) = 0;
+  };
+
   using Version = IPAddress::Version;
 
   // Creates a new, scoped UdpSocket within the IPv4 or IPv6 family. This method
   // must be defined in the platform-level implementation.
   static ErrorOr<UdpSocketUniquePtr> Create(Version version);
 
-  // Returns true if |socket| belongs to the IPv4/IPv6 address family.
-  virtual bool IsIPv4() const = 0;
-  virtual bool IsIPv6() const = 0;
+  // Returns version binding state (e.g. IPv4 or unbound).
+  virtual BindState GetState() const = 0;
 
   // Sets the socket for address reuse, binds to the address/port.
-  virtual Error Bind(const IPEndpoint& local_endpoint) = 0;
+  virtual void Bind(const IPEndpoint& local_endpoint) = 0;
 
   // Sets the device to use for outgoing multicast packets on the socket.
-  virtual Error SetMulticastOutboundInterface(
+  virtual void SetMulticastOutboundInterface(
       NetworkInterfaceIndex ifindex) = 0;
 
   // Joins to the multicast group at the given address, using the specified
   // interface.
-  virtual Error JoinMulticastGroup(const IPAddress& address,
+  virtual void JoinMulticastGroup(const IPAddress& address,
                                    NetworkInterfaceIndex ifindex) = 0;
-
-  // Performs a non-blocking read on the socket, returning the number of bytes
-  // received. Note that a non-Error return value of 0 is a valid result,
-  // indicating an empty message has been received. Also note that
-  // Error::Code::kAgain might be returned if there is no message currently
-  // ready for receive, which can be expected during normal operation.
-  virtual ErrorOr<UdpPacket> ReceiveMessage() = 0;
 
   // Sends a message and returns the number of bytes sent, on success.
   // Error::Code::kAgain might be returned to indicate the operation would
   // block, which can be expected during normal operation.
-  virtual Error SendMessage(const void* data,
+  virtual void SendMessage(const void* data,
                             size_t length,
                             const IPEndpoint& dest) = 0;
 
   // Sets the DSCP value to use for all messages sent from this socket.
-  virtual Error SetDscp(DscpMode state) = 0;
-
-  // Sets the callback that should be called upon deletion of this socket. This
-  // allows other objects to observe the socket's destructor and act when it is
-  // called.
-  void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
+  virtual void SetDscp(DscpMode state) = 0;
 
  protected:
   UdpSocket();
 
  private:
-  // This callback allows other objects to observe the socket's destructor and
-  // act when it is called.
-  std::function<void(UdpSocket*)> deletion_callback_;
+  Delegate* delegate_ = nullptr;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
 };
