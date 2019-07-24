@@ -16,6 +16,24 @@
       "revId": "a155319dc5e4f8fb3a605b8ae73373f78d88ec0a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36c03fc4_dbb6d2e1",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-24T20:57:45Z",
+      "side": 1,
+      "message": "The issue is that TRACE_HIERARCHY and other methods call openscreen::platform::IsTraceLoggingEnabled. Since in Chromium this method always returns false, macros that depend on it return empty/nullptr instead.",
+      "parentUuid": "1b2a9d18_68a1b05a",
+      "revId": "a155319dc5e4f8fb3a605b8ae73373f78d88ec0a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
