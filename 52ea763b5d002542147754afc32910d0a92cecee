@@ -1,0 +1,310 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c66ce365_99580ce9",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Similar to the other CL that does this, is this a C++11 thing or a C++14 thing?  And if C++14, are we allowed to have that code pulled into Chromium?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b3a9332_2ce4a09c",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we have a factory that produces the 2 thread NetworkRunner like this?  It seems like code we don\u0027t want to duplicate.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaacf3ec_fcaefe27",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Yep, avoiding duplication here would be good.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebb44c62_945498be",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Needing to call this here seems rather clumsy and easy to get wrong.  Can we do better?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d66df36_f82d2c35",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "This also seems like a clumsy way of stopping that\u0027s easy to get wrong.  Could the factory return something that\u0027s easy to stop properly?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c3bece7_7c00f9cc",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "3 times duplicated!  We ought to make the NetworkRunner easier to create, start, and stop.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b3fa4eb_a86fdcf9",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t understand why we can\u0027t have the behavior be correct here (just do the TODO now).",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "122dd2ea_1c9db5f9",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "I think it\u0027s cleaner to do something like this:\n\nif (!network_runner_-\u003eIsCurrent()) {\n  network_runner_-\u003ePostTask(\n      std::bind(\u0026MdnsResponderService::StartListenerInternal, this));\n  return\n}\n\n... code from StartListenerInternal ...\n\nThen you do don\u0027t need all the internal methods.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d366a581_f089ac22",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Why?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9e3cee7_0316ae7c",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Can\u0027t the unit tests just override the original public method?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eab43be_5de3167c",
+        "filename": "osp/impl/quic/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "This looks like weird comment formatting (no space after \"#\")",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70d67d3e_833655d3",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "This could use a comment explaining its purpose.\n\nAnd \"Executor\" is a strange name.  Maybe OnceClosureWrapper?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff9e0704_7b6d497d",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Why does it need a NetworkRunner instead of a TaskRunner?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f52c6258_6ea244fd",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "This is kind of weird.  It schedules anything.  And by just passing something to network_runner_.  Why not just expose task_runner() and let the one place we call this do:\n\nplatform::RepeatingFunction::Post(connection_factory_-\u003etask_runner(), clean_up_function).\n\nOr, better yet, just pass the task_runner into the once place that needs it.\n\n\nI see you also use that for unit tests not doing clean up, but I don\u0027t see it being a problem to execute the cleanup code when in a unit test.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33731990_0fa179b7",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "How was this picked?  And shouldn\u0027t this be a named constant?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57e96195_d948454d",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "A hot loop?  Yikes",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c41b23c_38e3ae6d",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "Why do we need this?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7334eaa_b5b80d66",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:56:52Z",
+      "side": 1,
+      "message": "This looks bad.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
