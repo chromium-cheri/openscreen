@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ddc70bb8_203c847c",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "This is allowed, but I\u0027m not sure the default arguments are strictly necessary, since we just need the task_runner pointer to be captured in the lambda.",
+      "parentUuid": "c66ce365_99580ce9",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b3a9332_2ce4a09c",
         "filename": "osp/demo/demo.cc",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2019-07-24T15:56:52Z",
       "side": 1,
       "message": "Shouldn\u0027t we have a factory that produces the 2 thread NetworkRunner like this?  It seems like code we don\u0027t want to duplicate.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c8d8923_7496e9d2",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "Actually getting the task runners to run is ultimately up to the embedder, but I think a utility object to create and manage the task runners with std::thread would make sense in platform/impl.  This code probably be useful for integration testing and other standalone uses of OSP.\n\nAlso, as Peter points out, this would help simplify some duplicated code below.",
+      "parentUuid": "2b3a9332_2ce4a09c",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -104,6 +140,57 @@
     },
     {
       "key": {
+        "uuid": "ed9c135b_adb027a0",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "I think absl::optional is semantically the correct thing to do.\n\nBut sometimes just returning 0 (or nullptr) as an alternative value is okay, saves typing and object allocation.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fa36d63_ea02192e",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "network_runner isn\u0027t used in this method (and didn\u0027t seem to be used in the other patch I just reviewed).  I wonder if it\u0027s necessary to pass it to every call to OnRead.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90bf1682_eac89408",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "Can you explain why the previous logic can\u0027t just be re-used here (converting |next| to a platform::Clock::duration)?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b3fa4eb_a86fdcf9",
         "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 6
@@ -115,6 +202,23 @@
       "writtenOn": "2019-07-24T15:56:52Z",
       "side": 1,
       "message": "Sorry, I didn\u0027t understand why we can\u0027t have the behavior be correct here (just do the TODO now).",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd7449a_59e35470",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "This class needs some more thinking regarding the threading model. Your patch changes it to create and use the MdnsResponder on the network_runner thread, however, you\u0027re creating one on the current thread here.\n\n1) I would remove this call and always create the responder on the network runner thread in StartInternal() or StartAndSuspendInternal().\n\n2) The calls to update the state of the publisher and listener should happen on the same thread that calls the public API, since that is how the state of the mDNS listener/publisher gets communicated to the embedder.  It looks like the state changes happen independently of the completion of the network runner tasks, so that shouldn\u0027t be too difficult.",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -189,6 +293,57 @@
     },
     {
       "key": {
+        "uuid": "3777b2f9_5ac32f7b",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "Similar comment about returning a plain value instead of absl::optional.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a5ad71_f8acae9a",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "Cleanup() ?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27e2299f_52ecfeee",
+        "filename": "osp/impl/quic/quic_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "Not referenced in this file AFAICT",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70d67d3e_833655d3",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 6
@@ -251,6 +406,57 @@
       "writtenOn": "2019-07-24T15:56:52Z",
       "side": 1,
       "message": "How was this picked?  And shouldn\u0027t this be a named constant?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d47ba0bd_1ad2335c",
+        "filename": "osp/public/mdns_service_listener_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "All the headers that just use NeworkRunner* don\u0027t need to #include network_runner.h.  \n\nInstead just forward declare the name:\n\nnamespace openscreen {\nnamespace platform {\nclass NetworkRunner;\n}\n}",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0121fb0c_5394a5f3",
+        "filename": "osp/public/message_demuxer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "Remove extra comment",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1f2785_fd3f305b",
+        "filename": "osp/public/network_service_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T22:11:40Z",
+      "side": 1,
+      "message": "Not used?",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
