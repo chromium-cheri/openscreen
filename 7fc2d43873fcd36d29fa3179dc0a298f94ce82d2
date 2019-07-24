@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ce55e36_f85aa9d1",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:20:33Z",
+      "side": 1,
+      "message": "Would prefer an early return here.",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b8e5028_7fd9c3c5",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:20:33Z",
+      "side": 1,
+      "message": "Might be more clear as:\n\nbool is_repsonse \u003d (message.flags() \u0026 kFlagResponse) !\u003d 0;\nif (is_response) {\n ... \n} else {\n ...\n}",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee361214_6423c9cf",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:20:33Z",
+      "side": 1,
+      "message": "We should probably comment on lifetimes.  I assume these all need to outlive MdnsReceiver, but it\u0027s good to document.",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "456abbe7_daf58580",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:20:33Z",
+      "side": 1,
+      "message": "It appears you can start/stop/start/stop.  Is that correct?  If so, we should document it.  If not, we should document it.  \n\nI\u0027d recommend considering only being allowed to Start/Stop once, which means having three states (init, started, stopped).",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f61aee0d_34dfe9b9",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-24T15:20:33Z",
+      "side": 1,
+      "message": "Start() and Stop()?",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
