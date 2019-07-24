@@ -4,19 +4,17 @@
 
 #include "platform/api/udp_socket.h"
 
+#include "platform/api/logging.h"
+
 namespace openscreen {
 namespace platform {
 
-UdpSocket::UdpSocket() {
-  deletion_callback_ = [](UdpSocket* socket) {};
+UdpSocket::UdpSocket(const Observer* observer) : observer_(observer) {
+  OSP_DCHECK(observer_ != nullptr);
 }
 
 UdpSocket::~UdpSocket() {
-  deletion_callback_(this);
-}
-
-void UdpSocket::SetDeletionCallback(std::function<void(UdpSocket*)> callback) {
-  deletion_callback_ = callback;
+  observer_->OnDestroyed(this);
 }
 
 }  // namespace platform
