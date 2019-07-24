@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <vector>
 
 #include "platform/api/network_interface.h"
 #include "platform/api/udp_read_callback.h"
@@ -54,6 +55,23 @@ class UdpSocket {
     kLowPriority = 0x20
   };
 
+  // Many embedders only have access to asynchronous operations on UDPSockets,
+  // even if the operating system provides synchronous operations.
+  class Observer {
+   public:
+    virtual void OnBindComplete(const UdpSocket* socket, Error error) = 0;
+    virtual void OnSetMulticastComplete(const UdpSocket* socket,
+                                        Error error) = 0;
+    virtual void OnJoinMulticastComplete(const UdpSocket* socket,
+                                         Error error) = 0;
+    virtual void OnSendMessageComplete(const UdpSocket* socket,
+                                       Error error) = 0;
+    virtual void OnSetDscpComplete(const UdpSocket* socket, Error error) = 0;
+
+    virtual void OnDestroyed(const UdpSocket* socket) = 0;
+    virtual void OnMessage(const UdpSocket* socket, UdpPacket message) = 0;
+  };
+
   using Version = IPAddress::Version;
 
   // Creates a new, scoped UdpSocket within the IPv4 or IPv6 family. This method
@@ -76,13 +94,6 @@ class UdpSocket {
   virtual Error JoinMulticastGroup(const IPAddress& address,
                                    NetworkInterfaceIndex ifindex) = 0;
 
-  // Performs a non-blocking read on the socket, returning the number of bytes
-  // received. Note that a non-Error return value of 0 is a valid result,
-  // indicating an empty message has been received. Also note that
-  // Error::Code::kAgain might be returned if there is no message currently
-  // ready for receive, which can be expected during normal operation.
-  virtual ErrorOr<UdpPacket> ReceiveMessage() = 0;
-
   // Sends a message and returns the number of bytes sent, on success.
   // Error::Code::kAgain might be returned to indicate the operation would
   // block, which can be expected during normal operation.
@@ -93,18 +104,14 @@ class UdpSocket {
   // Sets the DSCP value to use for all messages sent from this socket.
   virtual Error SetDscp(DscpMode state) = 0;
 
-  // Sets the callback that should be called upon deletion of this socket. This
-  // allows other objects to observe the socket's destructor and act when it is
-  // called.
-  void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
+  virtual void AddObserver(const Observer* observer);
+  virtual void RemoveObserver(const Observer* observer);
 
  protected:
   UdpSocket();
 
  private:
-  // This callback allows other objects to observe the socket's destructor and
-  // act when it is called.
-  std::function<void(UdpSocket*)> deletion_callback_;
+  std::vector<const Observer*> observer_list_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
 };
