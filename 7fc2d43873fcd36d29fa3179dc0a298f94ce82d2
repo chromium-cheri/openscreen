@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "6e69f692_7fd8aa21",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T16:47:33Z",
+      "side": 1,
+      "message": "OSP_DCHECK(socket_) should be equivalent and shorter.",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6834c57_534713cf",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T16:47:33Z",
+      "side": 1,
+      "message": "It\u0027s a little weird to return a generic error here (kNotRunning) versus an error directly from the network_runner_, as above in Start().  How hard would it be to update CancelRead() to return an Error?",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ce55e36_f85aa9d1",
         "filename": "cast/common/mdns/mdns_receiver.cc",
         "patchSetId": 2
@@ -70,6 +104,23 @@
     },
     {
       "key": {
+        "uuid": "2d043ef5_52226dba",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T16:47:33Z",
+      "side": 1,
+      "message": "- The OSP public API uses Start()/Stop() to change the state of network services, would prefer these names be consistent.\n\n- Are these synchronous or async operations?\n\n- Please add some behavior documentation including:\n\nWhat are the returned error codes\nStop() before starting\nStart() called twice in a row\nStop() called twice in a row",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f61aee0d_34dfe9b9",
         "filename": "cast/common/mdns/mdns_receiver.h",
         "patchSetId": 2
@@ -87,6 +138,23 @@
     },
     {
       "key": {
+        "uuid": "276cb7de_fd2756ef",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T16:47:33Z",
+      "side": 1,
+      "message": "Add a GetState() public method?  Or is this intentionally internal?",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4baf73e0_12c8e07f",
         "filename": "cast/common/mdns/mdns_receiver.h",
         "patchSetId": 2
@@ -98,6 +166,57 @@
       "writtenOn": "2019-07-24T16:33:31Z",
       "side": 1,
       "message": "sytle: need \u0027k\u0027 prefix\n\nhttps://google.github.io/styleguide/cppguide.html#Enumerator_Names",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fef92196_c4fb4939",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T16:47:33Z",
+      "side": 1,
+      "message": "Prefer kRunning / kStopped for consistency with OSP APIs.",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b407bff_f0b26e1d",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T16:47:33Z",
+      "side": 1,
+      "message": "Please declare pointers that don\u0027t change over the lifetime of |this| as *const.",
+      "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afad826e_18b4021c",
+        "filename": "cast/common/mdns/mdns_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-24T16:47:33Z",
+      "side": 1,
+      "message": "It would be good to start putting useful mocks into testing/ folders alongside the APIs they are mocking.",
       "revId": "7fc2d43873fcd36d29fa3179dc0a298f94ce82d2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
