@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cece39a0_654b953f",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of using default boolean arguments essentially to do method dispatch (choose which implementation).  Was there an issue with the previous approach that declared Internal versions of these methods for execution on the task runner?",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c61ae3e4_7a2fc28a",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "Please document this argument and note lifetime (the task runner must outlive the QuicClient).",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "be58fe1a_07ad981f",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "Using \u0027auto\u0027 here hides the fact it\u0027s returning a unique_ptr (thus transferring ownership).\nCan you use an explicit type here?",
+      "revId": "1c75081e9313618b03484cec362efc7a77af51dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da3778e_a967f834",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "Is this returning a NetworkRunner pointer?  Or the factory itself?",
+      "revId": "1c75081e9313618b03484cec362efc7a77af51dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8295b5a_9dc712dd",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "nit: constexpr",
+      "revId": "1c75081e9313618b03484cec362efc7a77af51dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "342b0ab1_24a67ef6",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 7

@@ -318,6 +318,24 @@
     },
     {
       "key": {
+        "uuid": "07b440c4_4c82569e",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "OK.  One thing we could do is make UdpReadCallback have OnRead(packet) and OnRead(packet, runner) and allow implementations to choose which one they need.  But not a very high priority really.",
+      "parentUuid": "00494f6c_ad9f59a9",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90bf1682_eac89408",
         "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 6
@@ -424,6 +442,24 @@
     },
     {
       "key": {
+        "uuid": "6651a56e_103e84c6",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "OK.  It seems like we can\u0027t trust the result of mDNS_Execute, so this workaround is probably good enough to ensure correct behavior until we can swap in our native mDNS implementation.",
+      "parentUuid": "df5a4732_fae669aa",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcd7449a_59e35470",
         "filename": "osp/impl/mdns_responder_service.cc",
         "patchSetId": 6
@@ -474,6 +510,24 @@
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e374478_75603c67",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "Do we need to construct the mdns_responder_ here?  Since mdns_responder_ is not threadsafe, there\u0027s a risk that it could accidentally be called in code that runs outside of a task runner task.  I would rather that construction and access be done in code that only runs on the task runner.",
+      "parentUuid": "38931428_3fed9c3a",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -548,6 +602,24 @@
     },
     {
       "key": {
+        "uuid": "6dd9dc4c_17e33e40",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "I don\u0027t see why we can\u0027t just define private APIs to be the target of the task runner \"trampoline\" as was done in the earlier patch.  Implementing two different methods under the same declaration with a boolean is an anti-pattern.\n\nhttps://martinfowler.com/bliki/FlagArgument.html\n\nMoreover, the flag argument has propagated to other layers and APIs, when it is really an implementation detail of this class.",
+      "parentUuid": "569724b5_914478e8",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d366a581_f089ac22",
         "filename": "osp/impl/mdns_responder_service.h",
         "patchSetId": 6
@@ -612,6 +684,24 @@
       "side": 1,
       "message": "This is actually what is done - the overrides used in the UTs directly call these internal methods instead of relying on the task runner to run them. To do this, the UTs need access to the internal methods to call them",
       "parentUuid": "f9e3cee7_0316ae7c",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4343aaa9_267d73c7",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:33:04Z",
+      "side": 1,
+      "message": "Can you make the UT a friend of this class so they can remain private?",
+      "parentUuid": "9123df25_d43f551d",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
