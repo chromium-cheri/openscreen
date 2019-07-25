@@ -23,8 +23,8 @@ class UdpPacket : public std::vector<uint8_t> {
   explicit UdpPacket(size_t size) : std::vector<uint8_t>(size) {
     OSP_DCHECK(size <= kUdpMaxPacketSize);
   }
-
   UdpPacket() : UdpPacket(0) {}
+  UdpPacket(UdpPacket&& other) = default;
 
   const IPEndpoint& source() const { return source_; }
   void set_source(IPEndpoint endpoint) { source_ = std::move(endpoint); }

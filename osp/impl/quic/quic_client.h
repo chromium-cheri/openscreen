@@ -44,7 +44,6 @@ class QuicClient final : public ProtocolConnectionClient,
   // ProtocolConnectionClient overrides.
   bool Start() override;
   bool Stop() override;
-  void RunTasks() override;
   ConnectRequest Connect(const IPEndpoint& endpoint,
                          ConnectionRequestCallback* request) override;
   std::unique_ptr<ProtocolConnection> CreateProtocolConnection(
@@ -89,6 +88,10 @@ class QuicClient final : public ProtocolConnectionClient,
       uint64_t endpoint_id);
 
   void CancelConnectRequest(uint64_t request_id) override;
+
+  // Deletes dead QUIC connections then returns the time interval before this
+  // method should be run again.
+  absl::optional<platform::Clock::duration> Cleanup();
 
   std::unique_ptr<QuicConnectionFactory> connection_factory_;
 

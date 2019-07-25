@@ -4,9 +4,12 @@
 
 #include "osp/impl/quic/quic_server.h"
 
+#include <functional>
 #include <memory>
 
+#include "absl/types/optional.h"
 #include "platform/api/logging.h"
+#include "platform/api/time.h"
 
 namespace openscreen {
 
@@ -17,7 +20,9 @@ QuicServer::QuicServer(
     ProtocolConnectionServer::Observer* observer)
     : ProtocolConnectionServer(demuxer, observer),
       connection_endpoints_(config.connection_endpoints),
-      connection_factory_(std::move(connection_factory)) {}
+      connection_factory_(std::move(connection_factory)) {
+  connection_factory_->ScheduleCleanUp(std::bind(&QuicServer::Cleanup, this));
+}
 
 QuicServer::~QuicServer() {
   CloseAllConnections();
@@ -59,9 +64,7 @@ bool QuicServer::Resume() {
   return true;
 }
 
-void QuicServer::RunTasks() {
-  if (state_ == State::kRunning)
-    connection_factory_->RunTasks();
+absl::optional<platform::Clock::duration> QuicServer::Cleanup() {
   for (auto& entry : connections_)
     entry.second.delegate->DestroyClosedStreams();
 
@@ -69,15 +72,22 @@ void QuicServer::RunTasks() {
     connections_.erase(entry);
 
   delete_connections_.clear();
+
+  return state_ == State::kStopped
+             ? absl::optional<platform::Clock::duration>(absl::nullopt)
+             : absl::optional<platform::Clock::duration>(
+                   std::chrono::milliseconds(500));
 }
 
 std::unique_ptr<ProtocolConnection> QuicServer::CreateProtocolConnection(
     uint64_t endpoint_id) {
-  if (state_ != State::kRunning)
+  if (state_ != State::kRunning) {
     return nullptr;
+  }
   auto connection_entry = connections_.find(endpoint_id);
-  if (connection_entry == connections_.end())
+  if (connection_entry == connections_.end()) {
     return nullptr;
+  }
   return QuicProtocolConnection::FromExisting(
       this, connection_entry->second.connection.get(),
       connection_entry->second.delegate.get(), endpoint_id);
