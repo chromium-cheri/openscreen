@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d7356fe6_50ea6428",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "I\u0027m actually not sure if this is C++11 or C++14 (relatively sure it\u0027s C++11), but the Chromium style guide allows for C++14 lambda captures, so we are good either way\n\nRegardless, this was removed as part of adding the NetworkRunnerFactory",
+      "parentUuid": "c66ce365_99580ce9",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b3a9332_2ce4a09c",
         "filename": "osp/demo/demo.cc",
         "patchSetId": 6
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "56a46afa_4a53e92f",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "My original thought was that by having this outside of a factory method, we avoid making assumptions about the threading model that embedders will use. This way, they can use C++11 threads (as done here), pthreads, or whatever other library they already have working on their system\n\nAfter talking with Mark, I realized we could have a separate platform class to create this, which embedders could override if they don\u0027t want C++11 threads\n\nPTAL @ new approach",
+      "parentUuid": "2b3a9332_2ce4a09c",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aaacf3ec_fcaefe27",
         "filename": "osp/demo/demo.cc",
         "patchSetId": 6
@@ -86,6 +122,24 @@
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e75f46cb_28198cce",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaacf3ec_fcaefe27",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "4adadc44_591caf83",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "This has been removed",
+      "parentUuid": "ebb44c62_945498be",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d66df36_f82d2c35",
         "filename": "osp/demo/demo.cc",
         "patchSetId": 6
@@ -120,6 +192,24 @@
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83b36738_932c73a5",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "The new factory method solves this problem",
+      "parentUuid": "7d66df36_f82d2c35",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "99ff0039_9cb52d82",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "PTAL @ new approach",
+      "parentUuid": "6c3bece7_7c00f9cc",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed9c135b_adb027a0",
         "filename": "osp/impl/discovery/mdns/mdns_responder_adapter.h",
         "patchSetId": 6
@@ -157,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "71133534_18313fd3",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Discussed offline\nBecause std::chrono::duration is already and object and not a primitive, we don\u0027t save anything by avoiding absl::optional\u003c...\u003e",
+      "parentUuid": "ed9c135b_adb027a0",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fa36d63_ea02192e",
         "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 6
@@ -168,6 +294,24 @@
       "writtenOn": "2019-07-24T22:11:40Z",
       "side": 1,
       "message": "network_runner isn\u0027t used in this method (and didn\u0027t seem to be used in the other patch I just reviewed).  I wonder if it\u0027s necessary to pass it to every call to OnRead.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00494f6c_ad9f59a9",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "The reason we were passing it around everywhere is for the case when a callback wants to de-register itself from the Network Runner. I agree it\u0027s not used anywhere right now, but that seems like a common enough use case that I think it\u0027s worth leaving",
+      "parentUuid": "7fa36d63_ea02192e",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -191,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "8cc28c57_601ed58c",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "see below comment - closing this thread so we can have one shared comment thread for this issue",
+      "parentUuid": "90bf1682_eac89408",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b3fa4eb_a86fdcf9",
         "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
         "patchSetId": 6
@@ -202,6 +364,24 @@
       "writtenOn": "2019-07-24T15:56:52Z",
       "side": 1,
       "message": "Sorry, I didn\u0027t understand why we can\u0027t have the behavior be correct here (just do the TODO now).",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb90e316_ef3d421b",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Using mark\u0027s suggestion (convert next to a timespan) doesn\u0027t work as expected. I tried this in the demo, and under some cases (about 25% of demo runs, never determined what exactly the conditions were), next would be set to an unreasonably large number (in the order of multiple days). \n\nFrom the mDNS documentation: \"it is the responsibility [...] to set the timer according to the m-\u003eNextScheduledEvent value, and then when the timer fires, the timer callback function should call mDNS_Execute()\" - for more details see third_party/mDNSResponder/src/mDNSCore/mDNS.c : 3390 \n\nTogether, I understand these to mean that the mdns library code doesn\u0027t expect we need mDNS_Execute called again by the task runner, only in the other special cases it calls out in documentation (which we currently do correctly). In our code, when we call mDNS_Execute again outside of the task runner, the result is currently discarded. What we would need to do is reach into the Task Runner\u0027s task and update how long before the task runs again. That would require some large refactoring and changes.\n\nAdditionally, beyond this, the mDNS code documents that there are cases where the return value for mDNS_Execute should be ignored because it may be stale - since it wasn\u0027t already complex enough\n\nIn the long term this might be worth doing, but since we are already planning on changing the underlying mDNS library, this issue might solve itself.",
+      "parentUuid": "6b3fa4eb_a86fdcf9",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -225,6 +405,24 @@
     },
     {
       "key": {
+        "uuid": "0516f865_3ac2c4af",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Discussed offline\n\n#1 isn\u0027t an issue as long as we are only accessing it from the correct thread\n\n#2 primarily deals with the possibility that the state will not be communicated correctly between threads. This can be worked around by making the state an atomic variable\n\nI\u0027m having some issues with this fix, so I will work on it after pushing the new iteration. Leaving this comment open pending that change.",
+      "parentUuid": "fcd7449a_59e35470",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "122dd2ea_1c9db5f9",
         "filename": "osp/impl/mdns_responder_service.cc",
         "patchSetId": 6
@@ -236,6 +434,24 @@
       "writtenOn": "2019-07-24T15:56:52Z",
       "side": 1,
       "message": "I think it\u0027s cleaner to do something like this:\n\nif (!network_runner_-\u003eIsCurrent()) {\n  network_runner_-\u003ePostTask(\n      std::bind(\u0026MdnsResponderService::StartListenerInternal, this));\n  return\n}\n\n... code from StartListenerInternal ...\n\nThen you do don\u0027t need all the internal methods.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a991e44d_47b2da00",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "It\u0027s possible I am misunderstanding, but I am interpreting IsCurrent() above to check the currently running thread\n\nIssues I see with this approach / why I originally avoided it are:\n1) It prevents embedders from using some asynchronous approaches or potentially even threading libraries. ie, C# provides Tasks, which are asynchronous primitives that execute code on any thread in a thread pool shared among the entire application, and under some conditions tasks can switch between threads. In this case, there is no easy way to check if a given thread is doing NetworkRunner work or other work.\n2) It requires multi-threaded embedders use a specific threading library (specifically C++11 threads) since our MdnsResponderService and NetworkRunner code will have to check the current thread\n\nOne solution to at least #2 would be to write a separate platform utility class to provide a GetCurrentThreadId() call - #1 still seems like a problem to me though.\n\nThoughts?",
+      "parentUuid": "122dd2ea_1c9db5f9",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -259,6 +475,24 @@
     },
     {
       "key": {
+        "uuid": "1f7564d8_d171bafd",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "If any of the internal methods call one of the public methods, it will then push a new task to the task runner instead of calling it immediately. I want to ensure I didn\u0027t miss any such methods, plus ideally add a mechanism inside this class to catch that (still trying to determine the best such mechanism though), but this seems outside the scope of this CL\n\nIf I end up reworking this class as mentioned in a below comment, then this will become obsolete",
+      "parentUuid": "d366a581_f089ac22",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9e3cee7_0316ae7c",
         "filename": "osp/impl/mdns_responder_service.h",
         "patchSetId": 6
@@ -270,6 +504,24 @@
       "writtenOn": "2019-07-24T15:56:52Z",
       "side": 1,
       "message": "Can\u0027t the unit tests just override the original public method?",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9123df25_d43f551d",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "This is actually what is done - the overrides used in the UTs directly call these internal methods instead of relying on the task runner to run them. To do this, the UTs need access to the internal methods to call them",
+      "parentUuid": "f9e3cee7_0316ae7c",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -293,6 +545,24 @@
     },
     {
       "key": {
+        "uuid": "dd985eff_2faceda6",
+        "filename": "osp/impl/quic/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Weird that our presubmit script didn\u0027t catch this. Fixed",
+      "parentUuid": "6eab43be_5de3167c",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3777b2f9_5ac32f7b",
         "filename": "osp/impl/quic/quic_client.cc",
         "patchSetId": 6
@@ -307,6 +577,24 @@
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc8f50b8_edee451c",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Discussed offline\nBecause std::chrono::duration is already and object and not a primitive, we don\u0027t save anything by avoiding absl::optional\u003c...\u003e",
+      "parentUuid": "3777b2f9_5ac32f7b",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -327,6 +615,24 @@
     },
     {
       "key": {
+        "uuid": "a5590f21_6fda6c95",
+        "filename": "osp/impl/quic/quic_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54a5ad71_f8acae9a",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27e2299f_52ecfeee",
         "filename": "osp/impl/quic/quic_connection.h",
         "patchSetId": 6
@@ -341,6 +647,24 @@
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9667074_42901a2f",
+        "filename": "osp/impl/quic/quic_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27e2299f_52ecfeee",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -361,6 +685,24 @@
     },
     {
       "key": {
+        "uuid": "d1e3c868_666a9fb3",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70d67d3e_833655d3",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff9e0704_7b6d497d",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 6
@@ -378,6 +720,24 @@
     },
     {
       "key": {
+        "uuid": "aa70cd44_a4eb8098",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Good point, it doesn\u0027t. Updated",
+      "parentUuid": "ff9e0704_7b6d497d",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f52c6258_6ea244fd",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 6
@@ -389,6 +749,24 @@
       "writtenOn": "2019-07-24T15:56:52Z",
       "side": 1,
       "message": "This is kind of weird.  It schedules anything.  And by just passing something to network_runner_.  Why not just expose task_runner() and let the one place we call this do:\n\nplatform::RepeatingFunction::Post(connection_factory_-\u003etask_runner(), clean_up_function).\n\nOr, better yet, just pass the task_runner into the once place that needs it.\n\n\nI see you also use that for unit tests not doing clean up, but I don\u0027t see it being a problem to execute the cleanup code when in a unit test.",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d528b8_482b06a7",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "This would require exposing task_runner as public rather than keeping it an internal variable, which my intuition says would encourage misuse in future\n\nAlternatively, passing TaskRunner to QuicServer and QuicClient (where this method is called from) would involve exposing it to 2 other objects that don\u0027t actually need it and, in fact, only ever need to schedule one task at startup.\nIf you have a strong opinion, I am happy to change to this approach. It just feels weird to pass the task runner to objects we expect will never use it",
+      "parentUuid": "f52c6258_6ea244fd",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -412,6 +790,24 @@
     },
     {
       "key": {
+        "uuid": "0d1b065e_a4dbfc50",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "I could update it to a named constant if you prefer - lets settle the other part of the question first though since it will affect naming\n\nI believe that this constant was chosen based on information I read in the QUIC library, but I can\u0027t find it now that I am looking again so it\u0027s possible I imagined it. Do you suggest a different constant?",
+      "parentUuid": "33731990_0fa179b7",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d47ba0bd_1ad2335c",
         "filename": "osp/public/mdns_service_listener_factory.h",
         "patchSetId": 6
@@ -429,6 +825,24 @@
     },
     {
       "key": {
+        "uuid": "f079904d_61b3f90a",
+        "filename": "osp/public/mdns_service_listener_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d47ba0bd_1ad2335c",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0121fb0c_5394a5f3",
         "filename": "osp/public/message_demuxer.h",
         "patchSetId": 6
@@ -440,6 +854,24 @@
       "writtenOn": "2019-07-24T22:11:40Z",
       "side": 1,
       "message": "Remove extra comment",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afbe38fa_05162d04",
+        "filename": "osp/public/message_demuxer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "I actually left this in intentionally - this code was a bit difficult to parse when I was trying to understand what it did. I can remove it if this seems unhelpful though",
+      "parentUuid": "0121fb0c_5394a5f3",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -463,6 +895,24 @@
     },
     {
       "key": {
+        "uuid": "7470bcdd_65004a9f",
+        "filename": "osp/public/network_service_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df1f2785_fd3f305b",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57e96195_d948454d",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 6
@@ -477,6 +927,24 @@
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e848b272_966235bd",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "This hot loop should not execute for very long - just long enough for the thread where we called NetworkRunner::RunUntilStopped to start running (since this bool is flipped as the first line of that method)\n\nThis has been removed though, since it\u0027s no longer needed",
+      "parentUuid": "57e96195_d948454d",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -497,6 +965,24 @@
     },
     {
       "key": {
+        "uuid": "d3dc3b2d_7dd5843a",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "This was originally needed to fix a race condition related to startup of our library, but it turns out I fixed the root cause while fixing other bugs :) Removed this from everywhere its used",
+      "parentUuid": "6c41b23c_38e3ae6d",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7334eaa_b5b80d66",
         "filename": "platform/impl/task_runner.cc",
         "patchSetId": 6
@@ -511,6 +997,24 @@
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "359ee653_c40e3fa2",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T00:22:07Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "c7334eaa_b5b80d66",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
