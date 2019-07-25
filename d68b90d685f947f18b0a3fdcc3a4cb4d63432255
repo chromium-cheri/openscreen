@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "308029ed_5e0715e8",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T18:39:05Z",
+      "side": 1,
+      "message": "I think you just actually need the local address.  With the suggestion I made in the other patch, you\u0027ll know on construction.",
+      "revId": "d68b90d685f947f18b0a3fdcc3a4cb4d63432255",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b156cf40_f69b4006",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T18:39:05Z",
+      "side": 1,
+      "message": "Can we re-use openscreen::platform::IPAddress::Version?",
+      "revId": "d68b90d685f947f18b0a3fdcc3a4cb4d63432255",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0a9c948_53b2b217",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T18:39:05Z",
+      "side": 1,
+      "message": "Naming: I use \"delegates\" for classes responsible for implementation.  Since this API is to notify another object about changes, I would name it Observer or Callbacks.",
+      "revId": "d68b90d685f947f18b0a3fdcc3a4cb4d63432255",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe90501_bb39ef3a",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T18:39:05Z",
+      "side": 1,
+      "message": "It seems like we could call these on all async operations (successful or otherwise).\nMaybe OnBindComplete or OnBindResult then?",
+      "revId": "d68b90d685f947f18b0a3fdcc3a4cb4d63432255",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7790699_811ef116",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T18:39:05Z",
+      "side": 1,
+      "message": "Also, using Error instead of Error::Code is more flexible (allows a message to be passed from the underlying platform).\n\nAside: OS-level socket errors are returned as integers, with some way to convert to a string.\nWe could figure out a way to map those into our error code space, add a system errno to our Error, or just stick them into the Error message.  I vote for the last option until there\u0027s a need to get fancy.",
+      "revId": "d68b90d685f947f18b0a3fdcc3a4cb4d63432255",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374caa0a_ff13ffad",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T18:39:05Z",
+      "side": 1,
+      "message": "Bikeshed: OnDestroyed is more common in Chromium.",
+      "revId": "d68b90d685f947f18b0a3fdcc3a4cb4d63432255",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2efb847_0eb8ea2f",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T18:39:05Z",
+      "side": 1,
+      "message": "Would there be harm in returning Error for the synchronous case?  But we need a special value to indicate that it is async, and I would rather not wrap everything in optional.",
+      "revId": "d68b90d685f947f18b0a3fdcc3a4cb4d63432255",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "241d9855_21e0703e",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T18:39:05Z",
+      "side": 1,
+      "message": "Is the socket useful without this (since you need one to receive messages)?\nMaybe this should be set in the ctor (and declared const pointer).",
+      "revId": "d68b90d685f947f18b0a3fdcc3a4cb4d63432255",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
