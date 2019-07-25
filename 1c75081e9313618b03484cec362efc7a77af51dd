@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "342b0ab1_24a67ef6",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-25T17:03:25Z",
+      "side": 1,
+      "message": "I like the abstraction as it\u0027s used very good, but I find the naming curious.  It\u0027s not a factory in the sense that it creates something that you own.  Instead, it owns something you can get to.  And when you\u0027re done with the thing it owns, you delete the factory and not the thing. \n\nWouldn\u0027t it be better to make have a create method that returns a std::unique_ptr\u003cNetworkRunner\u003e  that wraps all the running of threads and deletes things when you delete it?",
+      "revId": "1c75081e9313618b03484cec362efc7a77af51dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

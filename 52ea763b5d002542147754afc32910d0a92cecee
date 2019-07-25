@@ -388,6 +388,24 @@
     },
     {
       "key": {
+        "uuid": "b144af29_170a2759",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-25T17:03:25Z",
+      "side": 1,
+      "message": "OK, I think I understand a little better, but not entirely.  Could you at least leave a bigger comment similar to what you just wrote there?",
+      "parentUuid": "eb90e316_ef3d421b",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcd7449a_59e35470",
         "filename": "osp/impl/mdns_responder_service.cc",
         "patchSetId": 6
@@ -452,6 +470,24 @@
       "side": 1,
       "message": "It\u0027s possible I am misunderstanding, but I am interpreting IsCurrent() above to check the currently running thread\n\nIssues I see with this approach / why I originally avoided it are:\n1) It prevents embedders from using some asynchronous approaches or potentially even threading libraries. ie, C# provides Tasks, which are asynchronous primitives that execute code on any thread in a thread pool shared among the entire application, and under some conditions tasks can switch between threads. In this case, there is no easy way to check if a given thread is doing NetworkRunner work or other work.\n2) It requires multi-threaded embedders use a specific threading library (specifically C++11 threads) since our MdnsResponderService and NetworkRunner code will have to check the current thread\n\nOne solution to at least #2 would be to write a separate platform utility class to provide a GetCurrentThreadId() call - #1 still seems like a problem to me though.\n\nThoughts?",
       "parentUuid": "122dd2ea_1c9db5f9",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7d4d375_1db8436d",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-25T17:03:25Z",
+      "side": 1,
+      "message": "Perhaps calling it IsCurrent isn\u0027t good.  The semantics we need are more like AlreadyBeingRunAsTaskInThisTaskRunner() (although obviously as a shorter name).  The whole point is to just avoid an infinite loop of posting tasks while also avoiding having to have two versions of every method.  \n\nIt does have the downside that we\u0027d need to add another method to the TaskRunner, though. \n\nCould we accomplish the same thing by adding a final optional variable to these methods called something like \"skip_task_runner \u003d false\".\n\nThen we\u0027d have:\n\nif (!skip_task_runner) {\n  skip_task_runner \u003d true;\n  network_runner_-\u003ePostTask(\n      std::bind(\u0026MdnsResponderService::StartListenerInternal, this, skip_task_runner));\n  return;\n}\n\n... code from MdnsResponderService::StartListenerInternal ...\n\n\nWhat do you think?",
+      "parentUuid": "a991e44d_47b2da00",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -703,6 +739,24 @@
     },
     {
       "key": {
+        "uuid": "0fae5f31_eb1fc69c",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-25T17:03:25Z",
+      "side": 1,
+      "message": "Still could use a comment.",
+      "parentUuid": "d1e3c868_666a9fb3",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff9e0704_7b6d497d",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 6
@@ -773,6 +827,24 @@
     },
     {
       "key": {
+        "uuid": "b4237116_a485b84e",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-25T17:03:25Z",
+      "side": 1,
+      "message": "I think passing a TaskRunner to QuicServer and QuicClient is better than having the QuiccConnectionFactoryImpl act like a proxy TaskRunner.",
+      "parentUuid": "c0d528b8_482b06a7",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33731990_0fa179b7",
         "filename": "osp/impl/quic/quic_server.cc",
         "patchSetId": 6
@@ -802,6 +874,24 @@
       "side": 1,
       "message": "I could update it to a named constant if you prefer - lets settle the other part of the question first though since it will affect naming\n\nI believe that this constant was chosen based on information I read in the QUIC library, but I can\u0027t find it now that I am looking again so it\u0027s possible I imagined it. Do you suggest a different constant?",
       "parentUuid": "33731990_0fa179b7",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "396ba570_a24c3d5c",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-25T17:03:25Z",
+      "side": 1,
+      "message": "If it\u0027s just trying to avoid memory leaking, 2hz seems really frequent.  We could probably have it be 10x less often.",
+      "parentUuid": "0d1b065e_a4dbfc50",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
