@@ -121,6 +121,27 @@ constexpr bool kDefaultSupportSiteLocalGroup = true;
 //  |                    ARCOUNT                    |
 //  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
+// TODO(yakimakha): Here and below consider converting constants to members of
+// enum classes.
+
+enum class Opcode : uint8_t {
+  kQUERY = 0,
+  kIQUERY = 1,
+  kSTATUS = 2,
+  kUNASSIGNED = 3,
+  kNOTIFY = 4,
+  kUPDATE = 5,
+};
+
+enum class Rcode : uint8_t {
+  kNOERROR = 0,
+  kFORMERR = 1,
+  kSERVFAIL = 2,
+  kNXDOMAIN = 3,
+  kNOTIMP = 4,
+  kREFUSED = 5,
+};
+
 // On-the-wire header. All uint16_t are in network order.
 struct Header {
   uint16_t id;
@@ -131,19 +152,25 @@ struct Header {
   uint16_t additional_record_count;
 };
 
-// TODO(mayaki): Here and below consider converting constants to members of
-// enum classes.
+static_assert(sizeof(Header) == 12, "Size of mDNS header must be 12 bytes.");
 
-// DNS Header flags. All flags are formatted to mask directly onto FLAG header
-// field in network-byte order.
+enum class MessageType {
+  Query = 0,
+  Response = 1,
+};
+
+// DNS Header flags used by mDNS.
 constexpr uint16_t kFlagResponse = 0x8000;
 constexpr uint16_t kFlagAA = 0x0400;
 constexpr uint16_t kFlagTC = 0x0200;
-constexpr uint16_t kFlagRD = 0x0100;
-constexpr uint16_t kFlagRA = 0x0080;
-constexpr uint16_t kFlagZ = 0x0040;  // Unused field
-constexpr uint16_t kFlagAD = 0x0020;
-constexpr uint16_t kFlagCD = 0x0010;
+
+constexpr MessageType GetMessageType(uint16_t flags) {
+  return (flags & kFlagResponse) ? MessageType::Response : MessageType::Query;
+}
+
+constexpr uint16_t MakeFlags(MessageType type) {
+  return (type == MessageType::Response) ? (kFlagResponse | kFlagAA) : 0;
+}
 
 // DNS Header OPCODE mask and values. The mask is formatted to mask directly
 // onto FLAG header field in network-byte order. The values are formatted after
