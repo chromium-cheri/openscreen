@@ -33,6 +33,57 @@
       "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6758398_acc698cd",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:46:54Z",
+      "side": 1,
+      "message": "If clients need to call Create() to get an instance, can you make this protected?",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "191da7d5_708c4f05",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:46:54Z",
+      "side": 1,
+      "message": "Can you document that platforms need to implement this method if they want to use the NetworkRunnerFactory?",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92bebb7f_c5626528",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-25T20:46:54Z",
+      "side": 1,
+      "message": "I would add an instance method to actually create the network runner (rather than having it as a a side effect of instantiating the factory).  So you would have:\n\nNetworkRunnerFactory* factory \u003d NetworkRunnerFactory::Create();\nfactory-\u003eCreateNetworkRunner();\nNetworkRunner* runner \u003d factory-\u003eGet();  // as many times as you want\n\nOr you could have a different place to store a network runner for future use, since I believe it\u0027s going to be a process-level singleton.  It\u0027s also cleaner for a factory to not have to own the objects it creates.\n\nNetworkRunnerFactory* factory \u003d NetworkRunnerFactory::Create();\nNetworkRunner* runner \u003d factory-\u003eCreateNetworkRunner();\nNetworkRunner::SetInstance(runner);\n\n...\n\nNetworkRunner* runner \u003d NetworkRunner::GetInstance();\n\nMake sense?",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
