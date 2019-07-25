@@ -237,8 +237,9 @@ bool MdnsReader::Read(MdnsMessage* out) {
       Read(header.answer_count, &answers) &&
       Read(header.authority_record_count, &authority_records) &&
       Read(header.additional_record_count, &additional_records)) {
-    *out = MdnsMessage(header.id, header.flags, questions, answers,
-                       authority_records, additional_records);
+    // TODO(yakimakha): Add code to skip messages with non-RFC-compliant flags.
+    *out = MdnsMessage(header.id, GetMessageType(header.flags), questions,
+                       answers, authority_records, additional_records);
     cursor.Commit();
     return true;
   }
