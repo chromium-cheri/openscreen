@@ -16,6 +16,24 @@
       "revId": "1c75081e9313618b03484cec362efc7a77af51dd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f15e8a8_15387e23",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-25T19:59:45Z",
+      "side": 1,
+      "message": "I really like the approach of having a UniquePtr with a custom action for delete, but the issue with this is that (based on what I\u0027m reading in the documentation) a unique_ptr deletion object must be constructable with an empty constructor. This means that there is no way to provide it with the required std::thread objects, or the TaskRunnerImpl object that will need to also be stopped.\n\nThe method that gets called for a delete is: void operator()(NetworkRunner* ptr)\nso we could do something hacky like keeping a map of pointer -\u003e properties we care about as a static map inside of the factory class that creates it. But this seems even weirder than the current approach. I\u0027m not against it though\n\nThoughts?\n\nIf we do need to use this class instead of a unique_ptr\u003c...\u003e, what would you recommend for naming? I agree factory isn\u0027t quite right, but I can\u0027t think of a better name",
+      "parentUuid": "342b0ab1_24a67ef6",
+      "revId": "1c75081e9313618b03484cec362efc7a77af51dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
