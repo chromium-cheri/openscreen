@@ -12,6 +12,7 @@
 namespace openscreen {
 namespace {
 
+using ::testing::_;
 using ::testing::Expectation;
 using ::testing::NiceMock;
 
@@ -37,12 +38,12 @@ class MockMdnsDelegate : public ServicePublisherImpl::Delegate {
 
   using ServicePublisherImpl::Delegate::SetState;
 
-  MOCK_METHOD0(StartPublisher, void());
-  MOCK_METHOD0(StartAndSuspendPublisher, void());
-  MOCK_METHOD0(StopPublisher, void());
-  MOCK_METHOD0(SuspendPublisher, void());
-  MOCK_METHOD0(ResumePublisher, void());
-  MOCK_METHOD0(RunTasksPublisher, void());
+  MOCK_METHOD1(StartPublisher, void(bool));
+  MOCK_METHOD1(StartAndSuspendPublisher, void(bool));
+  MOCK_METHOD1(StopPublisher, void(bool));
+  MOCK_METHOD1(SuspendPublisher, void(bool));
+  MOCK_METHOD1(ResumePublisher, void(bool));
+  MOCK_METHOD1(RunTasksPublisher, void(bool));
 };
 
 class ServicePublisherImplTest : public ::testing::Test {
@@ -61,7 +62,7 @@ class ServicePublisherImplTest : public ::testing::Test {
 TEST_F(ServicePublisherImplTest, NormalStartStop) {
   ASSERT_EQ(State::kStopped, service_publisher_->state());
 
-  EXPECT_CALL(mock_delegate_, StartPublisher());
+  EXPECT_CALL(mock_delegate_, StartPublisher(_));
   EXPECT_TRUE(service_publisher_->Start());
   EXPECT_FALSE(service_publisher_->Start());
   EXPECT_EQ(State::kStarting, service_publisher_->state());
@@ -69,7 +70,7 @@ TEST_F(ServicePublisherImplTest, NormalStartStop) {
   mock_delegate_.SetState(State::kRunning);
   EXPECT_EQ(State::kRunning, service_publisher_->state());
 
-  EXPECT_CALL(mock_delegate_, StopPublisher());
+  EXPECT_CALL(mock_delegate_, StopPublisher(_));
   EXPECT_TRUE(service_publisher_->Stop());
   EXPECT_FALSE(service_publisher_->Stop());
   EXPECT_EQ(State::kStopping, service_publisher_->state());
@@ -79,11 +80,11 @@ TEST_F(ServicePublisherImplTest, NormalStartStop) {
 }
 
 TEST_F(ServicePublisherImplTest, StopBeforeRunning) {
-  EXPECT_CALL(mock_delegate_, StartPublisher());
+  EXPECT_CALL(mock_delegate_, StartPublisher(_));
   EXPECT_TRUE(service_publisher_->Start());
   EXPECT_EQ(State::kStarting, service_publisher_->state());
 
-  EXPECT_CALL(mock_delegate_, StopPublisher());
+  EXPECT_CALL(mock_delegate_, StopPublisher(_));
   EXPECT_TRUE(service_publisher_->Stop());
   EXPECT_FALSE(service_publisher_->Stop());
   EXPECT_EQ(State::kStopping, service_publisher_->state());
@@ -93,8 +94,8 @@ TEST_F(ServicePublisherImplTest, StopBeforeRunning) {
 }
 
 TEST_F(ServicePublisherImplTest, StartSuspended) {
-  EXPECT_CALL(mock_delegate_, StartAndSuspendPublisher());
-  EXPECT_CALL(mock_delegate_, StartPublisher()).Times(0);
+  EXPECT_CALL(mock_delegate_, StartAndSuspendPublisher(_));
+  EXPECT_CALL(mock_delegate_, StartPublisher(_)).Times(0);
   EXPECT_TRUE(service_publisher_->StartAndSuspend());
   EXPECT_FALSE(service_publisher_->Start());
   EXPECT_EQ(State::kStarting, service_publisher_->state());
@@ -107,8 +108,8 @@ TEST_F(ServicePublisherImplTest, SuspendAndResume) {
   EXPECT_TRUE(service_publisher_->Start());
   mock_delegate_.SetState(State::kRunning);
 
-  EXPECT_CALL(mock_delegate_, ResumePublisher()).Times(0);
-  EXPECT_CALL(mock_delegate_, SuspendPublisher()).Times(2);
+  EXPECT_CALL(mock_delegate_, ResumePublisher(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, SuspendPublisher(_)).Times(2);
   EXPECT_FALSE(service_publisher_->Resume());
   EXPECT_TRUE(service_publisher_->Suspend());
   EXPECT_TRUE(service_publisher_->Suspend());
@@ -116,9 +117,9 @@ TEST_F(ServicePublisherImplTest, SuspendAndResume) {
   mock_delegate_.SetState(State::kSuspended);
   EXPECT_EQ(State::kSuspended, service_publisher_->state());
 
-  EXPECT_CALL(mock_delegate_, StartPublisher()).Times(0);
-  EXPECT_CALL(mock_delegate_, SuspendPublisher()).Times(0);
-  EXPECT_CALL(mock_delegate_, ResumePublisher()).Times(2);
+  EXPECT_CALL(mock_delegate_, StartPublisher(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, SuspendPublisher(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, ResumePublisher(_)).Times(2);
   EXPECT_FALSE(service_publisher_->Start());
   EXPECT_FALSE(service_publisher_->Suspend());
   EXPECT_TRUE(service_publisher_->Resume());
@@ -127,7 +128,7 @@ TEST_F(ServicePublisherImplTest, SuspendAndResume) {
   mock_delegate_.SetState(State::kRunning);
   EXPECT_EQ(State::kRunning, service_publisher_->state());
 
-  EXPECT_CALL(mock_delegate_, ResumePublisher()).Times(0);
+  EXPECT_CALL(mock_delegate_, ResumePublisher(_)).Times(0);
   EXPECT_FALSE(service_publisher_->Resume());
 }
 

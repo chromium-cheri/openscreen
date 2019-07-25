@@ -8,11 +8,17 @@
 
 namespace openscreen {
 
+// Forward declaration to avoid an import.
+namespace platform {
+class NetworkRunner;
+}  // namespace platform
+
 // static
 std::unique_ptr<ServiceListener> MdnsServiceListenerFactory::Create(
     const MdnsServiceListenerConfig& config,
-    ServiceListener::Observer* observer) {
-  return InternalServices::CreateListener(config, observer);
+    ServiceListener::Observer* observer,
+    platform::NetworkRunner* network_runner) {
+  return InternalServices::CreateListener(config, observer, network_runner);
 }
 
 }  // namespace openscreen

@@ -59,9 +59,6 @@ class NetworkRunnerImpl final : public NetworkRunner {
   std::unique_ptr<TaskRunner> task_runner_;
 
  private:
-  // Atomic so that we can perform atomic exchanges.
-  std::atomic_bool is_running_;
-
   OSP_DISALLOW_COPY_AND_ASSIGN(NetworkRunnerImpl);
 };
 

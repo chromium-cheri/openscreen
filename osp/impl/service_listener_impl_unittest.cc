@@ -48,13 +48,13 @@ class MockMdnsDelegate : public ServiceListenerImpl::Delegate {
 
   using ServiceListenerImpl::Delegate::SetState;
 
-  MOCK_METHOD0(StartListener, void());
-  MOCK_METHOD0(StartAndSuspendListener, void());
-  MOCK_METHOD0(StopListener, void());
-  MOCK_METHOD0(SuspendListener, void());
-  MOCK_METHOD0(ResumeListener, void());
-  MOCK_METHOD1(SearchNow, void(State));
-  MOCK_METHOD0(RunTasksListener, void());
+  MOCK_METHOD1(StartListener, void(bool));
+  MOCK_METHOD1(StartAndSuspendListener, void(bool));
+  MOCK_METHOD1(StopListener, void(bool));
+  MOCK_METHOD1(SuspendListener, void(bool));
+  MOCK_METHOD1(ResumeListener, void(bool));
+  MOCK_METHOD2(SearchNow, void(State, bool));
+  MOCK_METHOD1(RunTasksListener, void(bool));
 };
 
 }  // namespace
@@ -74,7 +74,7 @@ class ServiceListenerImplTest : public ::testing::Test {
 TEST_F(ServiceListenerImplTest, NormalStartStop) {
   ASSERT_EQ(State::kStopped, service_listener_->state());
 
-  EXPECT_CALL(mock_delegate_, StartListener());
+  EXPECT_CALL(mock_delegate_, StartListener(_));
   EXPECT_TRUE(service_listener_->Start());
   EXPECT_FALSE(service_listener_->Start());
   EXPECT_EQ(State::kStarting, service_listener_->state());
@@ -82,7 +82,7 @@ TEST_F(ServiceListenerImplTest, NormalStartStop) {
   mock_delegate_.SetState(State::kRunning);
   EXPECT_EQ(State::kRunning, service_listener_->state());
 
-  EXPECT_CALL(mock_delegate_, StopListener());
+  EXPECT_CALL(mock_delegate_, StopListener(_));
   EXPECT_TRUE(service_listener_->Stop());
   EXPECT_FALSE(service_listener_->Stop());
   EXPECT_EQ(State::kStopping, service_listener_->state());
@@ -92,11 +92,11 @@ TEST_F(ServiceListenerImplTest, NormalStartStop) {
 }
 
 TEST_F(ServiceListenerImplTest, StopBeforeRunning) {
-  EXPECT_CALL(mock_delegate_, StartListener());
+  EXPECT_CALL(mock_delegate_, StartListener(_));
   EXPECT_TRUE(service_listener_->Start());
   EXPECT_EQ(State::kStarting, service_listener_->state());
 
-  EXPECT_CALL(mock_delegate_, StopListener());
+  EXPECT_CALL(mock_delegate_, StopListener(_));
   EXPECT_TRUE(service_listener_->Stop());
   EXPECT_FALSE(service_listener_->Stop());
   EXPECT_EQ(State::kStopping, service_listener_->state());
@@ -106,8 +106,8 @@ TEST_F(ServiceListenerImplTest, StopBeforeRunning) {
 }
 
 TEST_F(ServiceListenerImplTest, StartSuspended) {
-  EXPECT_CALL(mock_delegate_, StartAndSuspendListener());
-  EXPECT_CALL(mock_delegate_, StartListener()).Times(0);
+  EXPECT_CALL(mock_delegate_, StartAndSuspendListener(_));
+  EXPECT_CALL(mock_delegate_, StartListener(_)).Times(0);
   EXPECT_TRUE(service_listener_->StartAndSuspend());
   EXPECT_FALSE(service_listener_->Start());
   EXPECT_EQ(State::kStarting, service_listener_->state());
@@ -117,8 +117,8 @@ TEST_F(ServiceListenerImplTest, StartSuspended) {
 }
 
 TEST_F(ServiceListenerImplTest, SuspendWhileStarting) {
-  EXPECT_CALL(mock_delegate_, StartListener()).Times(1);
-  EXPECT_CALL(mock_delegate_, SuspendListener()).Times(1);
+  EXPECT_CALL(mock_delegate_, StartListener(_)).Times(1);
+  EXPECT_CALL(mock_delegate_, SuspendListener(_)).Times(1);
   EXPECT_TRUE(service_listener_->Start());
   EXPECT_TRUE(service_listener_->Suspend());
   EXPECT_EQ(State::kStarting, service_listener_->state());
@@ -131,8 +131,8 @@ TEST_F(ServiceListenerImplTest, SuspendAndResume) {
   EXPECT_TRUE(service_listener_->Start());
   mock_delegate_.SetState(State::kRunning);
 
-  EXPECT_CALL(mock_delegate_, ResumeListener()).Times(0);
-  EXPECT_CALL(mock_delegate_, SuspendListener()).Times(2);
+  EXPECT_CALL(mock_delegate_, ResumeListener(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, SuspendListener(_)).Times(2);
   EXPECT_FALSE(service_listener_->Resume());
   EXPECT_TRUE(service_listener_->Suspend());
   EXPECT_TRUE(service_listener_->Suspend());
@@ -140,9 +140,9 @@ TEST_F(ServiceListenerImplTest, SuspendAndResume) {
   mock_delegate_.SetState(State::kSuspended);
   EXPECT_EQ(State::kSuspended, service_listener_->state());
 
-  EXPECT_CALL(mock_delegate_, StartListener()).Times(0);
-  EXPECT_CALL(mock_delegate_, SuspendListener()).Times(0);
-  EXPECT_CALL(mock_delegate_, ResumeListener()).Times(2);
+  EXPECT_CALL(mock_delegate_, StartListener(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, SuspendListener(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, ResumeListener(_)).Times(2);
   EXPECT_FALSE(service_listener_->Start());
   EXPECT_FALSE(service_listener_->Suspend());
   EXPECT_TRUE(service_listener_->Resume());
@@ -151,24 +151,24 @@ TEST_F(ServiceListenerImplTest, SuspendAndResume) {
   mock_delegate_.SetState(State::kRunning);
   EXPECT_EQ(State::kRunning, service_listener_->state());
 
-  EXPECT_CALL(mock_delegate_, ResumeListener()).Times(0);
+  EXPECT_CALL(mock_delegate_, ResumeListener(_)).Times(0);
   EXPECT_FALSE(service_listener_->Resume());
 }
 
 TEST_F(ServiceListenerImplTest, SearchWhileRunning) {
-  EXPECT_CALL(mock_delegate_, SearchNow(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, SearchNow(_, _)).Times(0);
   EXPECT_FALSE(service_listener_->SearchNow());
   EXPECT_TRUE(service_listener_->Start());
   mock_delegate_.SetState(State::kRunning);
 
-  EXPECT_CALL(mock_delegate_, SearchNow(State::kRunning)).Times(2);
+  EXPECT_CALL(mock_delegate_, SearchNow(State::kRunning, _)).Times(2);
   EXPECT_TRUE(service_listener_->SearchNow());
   EXPECT_TRUE(service_listener_->SearchNow());
 
   mock_delegate_.SetState(State::kSearching);
   EXPECT_EQ(State::kSearching, service_listener_->state());
 
-  EXPECT_CALL(mock_delegate_, SearchNow(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, SearchNow(_, _)).Times(0);
   EXPECT_FALSE(service_listener_->SearchNow());
 
   mock_delegate_.SetState(State::kRunning);
@@ -176,14 +176,14 @@ TEST_F(ServiceListenerImplTest, SearchWhileRunning) {
 }
 
 TEST_F(ServiceListenerImplTest, SearchWhileSuspended) {
-  EXPECT_CALL(mock_delegate_, SearchNow(_)).Times(0);
+  EXPECT_CALL(mock_delegate_, SearchNow(_, _)).Times(0);
   EXPECT_FALSE(service_listener_->SearchNow());
   EXPECT_TRUE(service_listener_->Start());
   mock_delegate_.SetState(State::kRunning);
   EXPECT_TRUE(service_listener_->Suspend());
   mock_delegate_.SetState(State::kSuspended);
 
-  EXPECT_CALL(mock_delegate_, SearchNow(State::kSuspended)).Times(2);
+  EXPECT_CALL(mock_delegate_, SearchNow(State::kSuspended, _)).Times(2);
   EXPECT_TRUE(service_listener_->SearchNow());
   EXPECT_TRUE(service_listener_->SearchNow());
 
@@ -200,7 +200,7 @@ TEST_F(ServiceListenerImplTest, StopWhileSearching) {
   EXPECT_TRUE(service_listener_->SearchNow());
   mock_delegate_.SetState(State::kSearching);
 
-  EXPECT_CALL(mock_delegate_, StopListener());
+  EXPECT_CALL(mock_delegate_, StopListener(_));
   EXPECT_TRUE(service_listener_->Stop());
   EXPECT_FALSE(service_listener_->Stop());
   EXPECT_EQ(State::kStopping, service_listener_->state());
@@ -217,7 +217,7 @@ TEST_F(ServiceListenerImplTest, ResumeWhileSearching) {
   EXPECT_TRUE(service_listener_->SearchNow());
   mock_delegate_.SetState(State::kSearching);
 
-  EXPECT_CALL(mock_delegate_, ResumeListener()).Times(2);
+  EXPECT_CALL(mock_delegate_, ResumeListener(_)).Times(2);
   EXPECT_TRUE(service_listener_->Resume());
   EXPECT_TRUE(service_listener_->Resume());
 
@@ -231,7 +231,7 @@ TEST_F(ServiceListenerImplTest, SuspendWhileSearching) {
   EXPECT_TRUE(service_listener_->SearchNow());
   mock_delegate_.SetState(State::kSearching);
 
-  EXPECT_CALL(mock_delegate_, SuspendListener()).Times(2);
+  EXPECT_CALL(mock_delegate_, SuspendListener(_)).Times(2);
   EXPECT_TRUE(service_listener_->Suspend());
   EXPECT_TRUE(service_listener_->Suspend());
 

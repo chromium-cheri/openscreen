@@ -25,13 +25,13 @@ class ServiceListenerImpl final : public ServiceListener,
 
     void SetListenerImpl(ServiceListenerImpl* listener);
 
-    virtual void StartListener() = 0;
-    virtual void StartAndSuspendListener() = 0;
-    virtual void StopListener() = 0;
-    virtual void SuspendListener() = 0;
-    virtual void ResumeListener() = 0;
-    virtual void SearchNow(State from) = 0;
-    virtual void RunTasksListener() = 0;
+    virtual void StartListener(bool running_on_task_runner = false) = 0;
+    virtual void StartAndSuspendListener(
+        bool running_on_task_runner = false) = 0;
+    virtual void StopListener(bool running_on_task_runner = false) = 0;
+    virtual void SuspendListener(bool running_on_task_runner = false) = 0;
+    virtual void ResumeListener(bool running_on_task_runner = false) = 0;
+    virtual void SearchNow(State from, bool running_on_task_runner = false) = 0;
 
    protected:
     void SetState(State state) { listener_->SetState(state); }
@@ -59,8 +59,6 @@ class ServiceListenerImpl final : public ServiceListener,
   bool Suspend() override;
   bool Resume() override;
   bool SearchNow() override;
-
-  void RunTasks() override;
 
   void AddObserver(Observer* observer) override;
   void RemoveObserver(Observer* observer) override;
