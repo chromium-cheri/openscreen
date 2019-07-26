@@ -100,7 +100,7 @@ std::vector<platform::UdpSocketUniquePtr> SetUpMulticastSockets(
   std::vector<platform::UdpSocketUniquePtr> sockets;
   for (const auto ifindex : index_list) {
     auto create_result =
-        platform::UdpSocket::Create(platform::UdpSocket::Version::kV4);
+        platform::UdpSocket::Create({{}, 5353});
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create IPv4 socket for interface " << ifindex
                     << ": " << create_result.error().message();
@@ -123,7 +123,7 @@ std::vector<platform::UdpSocketUniquePtr> SetUpMulticastSockets(
       continue;
     }
 
-    result = socket->Bind({{}, 5353});
+    result = socket->Bind();
     if (!result.ok()) {
       OSP_LOG_ERROR << "bind failed for interface " << ifindex << ": "
                     << result.message();

@@ -77,14 +77,14 @@ ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(UdpSocket::Version version) {
 }
 
 bool UdpSocketPosix::IsIPv4() const {
-  return version_ == UdpSocket::Version::kV4;
+  return local_endpoint_.address.IsV4();
 }
 
 bool UdpSocketPosix::IsIPv6() const {
-  return version_ == UdpSocket::Version::kV6;
+  return local_endpoint_.address.IsV6();
 }
 
-Error UdpSocketPosix::Bind(const IPEndpoint& endpoint) {
+Error UdpSocketPosix::Bind() {
   // This is effectively a boolean passed to setsockopt() to allow a future
   // bind() on the same socket to succeed, even if the address is already in
   // use. This is pretty much universally the desired behavior.
@@ -94,33 +94,29 @@ Error UdpSocketPosix::Bind(const IPEndpoint& endpoint) {
     return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
   }
 
-  switch (version_) {
-    case UdpSocket::Version::kV4: {
+  if (local_endpoint_.address.IsV4()) {
       struct sockaddr_in address;
       address.sin_family = AF_INET;
-      address.sin_port = htons(endpoint.port);
-      endpoint.address.CopyToV4(
+      address.sin_port = htons(local_endpoint_.port);
+      local_endpoint_.address.CopyToV4(
           reinterpret_cast<uint8_t*>(&address.sin_addr.s_addr));
       if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
                sizeof(address)) == -1) {
         return Error(Error::Code::kSocketBindFailure, strerror(errno));
       }
       return Error::Code::kNone;
-    }
-
-    case UdpSocket::Version::kV6: {
+  } else if (local_endpoint_.address.IsV6()) {
       struct sockaddr_in6 address;
       address.sin6_family = AF_INET6;
       address.sin6_flowinfo = 0;
-      address.sin6_port = htons(endpoint.port);
-      endpoint.address.CopyToV6(reinterpret_cast<uint8_t*>(&address.sin6_addr));
+      address.sin6_port = htons(local_endpoint_.port);
+      local_endpoint_.address.CopyToV6(reinterpret_cast<uint8_t*>(&address.sin6_addr));
       address.sin6_scope_id = 0;
       if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
                sizeof(address)) == -1) {
         return Error(Error::Code::kSocketBindFailure, strerror(errno));
       }
       return Error::Code::kNone;
-    }
   }
 
   OSP_NOTREACHED();

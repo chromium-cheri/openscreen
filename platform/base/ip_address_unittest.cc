@@ -22,6 +22,7 @@ TEST(IPAddressTest, V4Constructors) {
   IPAddress address2(x);
   address2.CopyToV4(bytes);
   EXPECT_THAT(bytes, ElementsAreArray(x));
+  EXPECT_THAT(address2.get_bytes(), ElementsAreArray(x));
 
   IPAddress address3(IPAddress::Version::kV4, &x[0]);
   address3.CopyToV4(bytes);
