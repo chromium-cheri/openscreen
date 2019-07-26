@@ -4,6 +4,8 @@
 
 #include "platform/impl/text_trace_logging_platform.h"
 
+#include <sstream>
+
 #include "platform/api/logging.h"
 
 namespace openscreen {
@@ -22,35 +24,54 @@ bool IsTraceLoggingEnabled(TraceCategory::Value category) {
 TextTraceLoggingPlatform::TextTraceLoggingPlatform() = default;
 TextTraceLoggingPlatform::~TextTraceLoggingPlatform() = default;
 
-void TextTraceLoggingPlatform::LogTrace(const char* name,
-                                        const uint32_t line,
-                                        const char* file,
-                                        Clock::time_point start_time,
-                                        Clock::time_point end_time,
-                                        TraceId trace_id,
-                                        TraceId parent_id,
-                                        TraceId root_id,
-                                        Error::Code error) {
+void TextTraceLoggingPlatform::LogTrace(
+    const char* name,
+    const uint32_t line,
+    const char* file,
+    Clock::time_point start_time,
+    Clock::time_point end_time,
+    TraceIdHierarchy ids,
+    Error::Code error,
+    absl::optional<UserDefinedArgument> arg1,
+    absl::optional<UserDefinedArgument> arg2) {
   auto total_runtime = std::chrono::duration_cast<std::chrono::microseconds>(
                            end_time - start_time)
                            .count();
   constexpr auto microseconds_symbol = "\u03BCs";  // Greek Mu + 's'
-  OSP_LOG << "TRACE [" << std::hex << root_id << ":" << parent_id << ":"
-          << trace_id << "] (" << std::dec << total_runtime
-          << microseconds_symbol << ") " << name << "<" << file << ":" << line
-          << "> " << error;
+  std::stringstream ss;
+  ss << "TRACE [" << std::hex << ids.root << ":" << ids.parent << ":"
+     << ids.current << "] (" << std::dec << total_runtime << microseconds_symbol
+     << ") " << name << "<" << file << ":" << line << "> " << error;
+  if (arg1 != absl::nullopt) {
+    ss << " ~ ARGS: " << arg1.value().name << " = " << arg1.value().value;
+    if (arg2 != absl::nullopt) {
+      ss << ", " << arg2.value().name << " = " << arg2.value().value;
+    }
+  }
+
+  OSP_LOG << ss.str();
 }
 
-void TextTraceLoggingPlatform::LogAsyncStart(const char* name,
-                                             const uint32_t line,
-                                             const char* file,
-                                             Clock::time_point timestamp,
-                                             TraceId trace_id,
-                                             TraceId parent_id,
-                                             TraceId root_id) {
-  OSP_LOG << "ASYNC TRACE START [" << std::hex << root_id << ":" << parent_id
-          << ":" << trace_id << std::dec << "] (" << timestamp << ") " << name
-          << "<" << file << ":" << line << ">";
+void TextTraceLoggingPlatform::LogAsyncStart(
+    const char* name,
+    const uint32_t line,
+    const char* file,
+    Clock::time_point timestamp,
+    TraceIdHierarchy ids,
+    absl::optional<UserDefinedArgument> arg1,
+    absl::optional<UserDefinedArgument> arg2) {
+  std::stringstream ss;
+  ss << "ASYNC TRACE START [" << std::hex << ids.root << ":" << ids.parent
+     << ":" << ids.current << std::dec << "] (" << timestamp << ") " << name
+     << "<" << file << ":" << line << ">";
+  if (arg1 != absl::nullopt) {
+    ss << " ~ ARGS: " << arg1.value().name << " = " << arg1.value().value;
+    if (arg2 != absl::nullopt) {
+      ss << ", " << arg2.value().name << " = " << arg2.value().value;
+    }
+  }
+
+  OSP_LOG << ss.str();
 }
 
 void TextTraceLoggingPlatform::LogAsyncEnd(const uint32_t line,

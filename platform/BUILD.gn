@@ -8,6 +8,7 @@ source_set("platform") {
   sources = [
     "api/event_waiter.cc",
     "api/event_waiter.h",
+    "api/internal/trace_logging_creation_helper.h",
     "api/internal/trace_logging_internal.cc",
     "api/internal/trace_logging_internal.h",
     "api/internal/trace_logging_macros_internal.h",
@@ -104,6 +105,7 @@ source_set("test") {
     "test/fake_task_runner.h",
     "test/mock_udp_socket.cc",
     "test/mock_udp_socket.h",
+    "test/trace_logging_helpers.h",
   ]
 
   configs += [ "../build:allow_build_from_embedder" ]
@@ -135,6 +137,7 @@ source_set("platform_unittests") {
   testonly = true
 
   sources = [
+    "api/internal/trace_logging_creation_helper_unittest.cc",
     "api/internal/trace_logging_internal_unittest.cc",
     "api/time_unittest.cc",
     "api/trace_logging_unittest.cc",
