@@ -50,41 +50,39 @@ ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
 
 }  // namespace
 
-UdpSocketPosix::UdpSocketPosix(int fd, UdpSocket::Version version)
-    : fd_(fd), version_(version) {}
+UdpSocketPosix::UdpSocketPosix(int fd, const IPEndpoint& local_endpoint)
+    : fd_(fd), local_endpoint_(local_endpoint) {}
 
 UdpSocketPosix::~UdpSocketPosix() {
   close(fd_);
 }
 
 // static
-ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(UdpSocket::Version version) {
-  int domain;
-  switch (version) {
-    case Version::kV4:
-      domain = AF_INET;
-      break;
-    case Version::kV6:
-      domain = AF_INET6;
-      break;
+ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(const IPEndpoint& endpoint) {
+  int domain = AF_UNSPEC;
+  if (endpoint.address.IsV4()) {
+    domain = AF_INET;
+  } else if (endpoint.address.IsV6()) {
+    domain = AF_INET6;
   }
+
   const ErrorOr<int> fd = CreateNonBlockingUdpSocket(domain);
   if (!fd) {
     return fd.error();
   }
   return UdpSocketUniquePtr(
-      static_cast<UdpSocket*>(new UdpSocketPosix(fd.value(), version)));
+      static_cast<UdpSocket*>(new UdpSocketPosix(fd.value(), endpoint)));
 }
 
 bool UdpSocketPosix::IsIPv4() const {
-  return version_ == UdpSocket::Version::kV4;
+  return local_endpoint_.address.IsV4();
 }
 
 bool UdpSocketPosix::IsIPv6() const {
-  return version_ == UdpSocket::Version::kV6;
+  return local_endpoint_.address.IsV6();
 }
 
-Error UdpSocketPosix::Bind(const IPEndpoint& endpoint) {
+Error UdpSocketPosix::Bind() {
   // This is effectively a boolean passed to setsockopt() to allow a future
   // bind() on the same socket to succeed, even if the address is already in
   // use. This is pretty much universally the desired behavior.
@@ -94,33 +92,30 @@ Error UdpSocketPosix::Bind(const IPEndpoint& endpoint) {
     return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
   }
 
-  switch (version_) {
-    case UdpSocket::Version::kV4: {
-      struct sockaddr_in address;
-      address.sin_family = AF_INET;
-      address.sin_port = htons(endpoint.port);
-      endpoint.address.CopyToV4(
-          reinterpret_cast<uint8_t*>(&address.sin_addr.s_addr));
-      if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
-               sizeof(address)) == -1) {
-        return Error(Error::Code::kSocketBindFailure, strerror(errno));
-      }
-      return Error::Code::kNone;
+  if (local_endpoint_.address.IsV4()) {
+    struct sockaddr_in address;
+    address.sin_family = AF_INET;
+    address.sin_port = htons(local_endpoint_.port);
+    local_endpoint_.address.CopyToV4(
+        reinterpret_cast<uint8_t*>(&address.sin_addr.s_addr));
+    if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
+             sizeof(address)) == -1) {
+      return Error(Error::Code::kSocketBindFailure, strerror(errno));
     }
-
-    case UdpSocket::Version::kV6: {
-      struct sockaddr_in6 address;
-      address.sin6_family = AF_INET6;
-      address.sin6_flowinfo = 0;
-      address.sin6_port = htons(endpoint.port);
-      endpoint.address.CopyToV6(reinterpret_cast<uint8_t*>(&address.sin6_addr));
-      address.sin6_scope_id = 0;
-      if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
-               sizeof(address)) == -1) {
-        return Error(Error::Code::kSocketBindFailure, strerror(errno));
-      }
-      return Error::Code::kNone;
+    return Error::Code::kNone;
+  } else if (local_endpoint_.address.IsV6()) {
+    struct sockaddr_in6 address;
+    address.sin6_family = AF_INET6;
+    address.sin6_flowinfo = 0;
+    address.sin6_port = htons(local_endpoint_.port);
+    local_endpoint_.address.CopyToV6(
+        reinterpret_cast<uint8_t*>(&address.sin6_addr));
+    address.sin6_scope_id = 0;
+    if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
+             sizeof(address)) == -1) {
+      return Error(Error::Code::kSocketBindFailure, strerror(errno));
     }
+    return Error::Code::kNone;
   }
 
   OSP_NOTREACHED();
@@ -129,29 +124,25 @@ Error UdpSocketPosix::Bind(const IPEndpoint& endpoint) {
 
 Error UdpSocketPosix::SetMulticastOutboundInterface(
     NetworkInterfaceIndex ifindex) {
-  switch (version_) {
-    case UdpSocket::Version::kV4: {
-      struct ip_mreqn multicast_properties;
-      // Appropriate address is set based on |imr_ifindex| when set.
-      multicast_properties.imr_address.s_addr = INADDR_ANY;
-      multicast_properties.imr_multiaddr.s_addr = INADDR_ANY;
-      multicast_properties.imr_ifindex =
-          static_cast<IPv4NetworkInterfaceIndex>(ifindex);
-      if (setsockopt(fd_, IPPROTO_IP, IP_MULTICAST_IF, &multicast_properties,
-                     sizeof(multicast_properties)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
-      }
-      return Error::Code::kNone;
+  if (local_endpoint_.address.IsV4()) {
+    struct ip_mreqn multicast_properties;
+    // Appropriate address is set based on |imr_ifindex| when set.
+    multicast_properties.imr_address.s_addr = INADDR_ANY;
+    multicast_properties.imr_multiaddr.s_addr = INADDR_ANY;
+    multicast_properties.imr_ifindex =
+        static_cast<IPv4NetworkInterfaceIndex>(ifindex);
+    if (setsockopt(fd_, IPPROTO_IP, IP_MULTICAST_IF, &multicast_properties,
+                   sizeof(multicast_properties)) == -1) {
+      return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
     }
-
-    case UdpSocket::Version::kV6: {
-      const auto index = static_cast<IPv6NetworkInterfaceIndex>(ifindex);
-      if (setsockopt(fd_, IPPROTO_IPV6, IPV6_MULTICAST_IF, &index,
-                     sizeof(index)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
-      }
-      return Error::Code::kNone;
+    return Error::Code::kNone;
+  } else if (local_endpoint_.address.IsV6()) {
+    const auto index = static_cast<IPv6NetworkInterfaceIndex>(ifindex);
+    if (setsockopt(fd_, IPPROTO_IPV6, IPV6_MULTICAST_IF, &index,
+                   sizeof(index)) == -1) {
+      return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
     }
+    return Error::Code::kNone;
   }
 
   OSP_NOTREACHED();
@@ -160,55 +151,51 @@ Error UdpSocketPosix::SetMulticastOutboundInterface(
 
 Error UdpSocketPosix::JoinMulticastGroup(const IPAddress& address,
                                          NetworkInterfaceIndex ifindex) {
-  switch (version_) {
-    case UdpSocket::Version::kV4: {
-      // Passed as data to setsockopt().  1 means return IP_PKTINFO control data
-      // in recvmsg() calls.
-      const int enable_pktinfo = 1;
-      if (setsockopt(fd_, IPPROTO_IP, IP_PKTINFO, &enable_pktinfo,
-                     sizeof(enable_pktinfo)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
-      }
-      struct ip_mreqn multicast_properties;
-      // Appropriate address is set based on |imr_ifindex| when set.
-      multicast_properties.imr_address.s_addr = INADDR_ANY;
-      multicast_properties.imr_ifindex =
-          static_cast<IPv4NetworkInterfaceIndex>(ifindex);
-      static_assert(sizeof(multicast_properties.imr_multiaddr) == 4u,
-                    "IPv4 address requires exactly 4 bytes");
-      address.CopyToV4(
-          reinterpret_cast<uint8_t*>(&multicast_properties.imr_multiaddr));
-      if (setsockopt(fd_, IPPROTO_IP, IP_ADD_MEMBERSHIP, &multicast_properties,
-                     sizeof(multicast_properties)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
-      }
-      return Error::Code::kNone;
+  if (local_endpoint_.address.IsV4()) {
+    // Passed as data to setsockopt().  1 means return IP_PKTINFO control data
+    // in recvmsg() calls.
+    const int enable_pktinfo = 1;
+    if (setsockopt(fd_, IPPROTO_IP, IP_PKTINFO, &enable_pktinfo,
+                   sizeof(enable_pktinfo)) == -1) {
+      return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
     }
-
-    case UdpSocket::Version::kV6: {
-      // Passed as data to setsockopt().  1 means return IPV6_PKTINFO control
-      // data in recvmsg() calls.
-      const int enable_pktinfo = 1;
-      if (setsockopt(fd_, IPPROTO_IPV6, IPV6_RECVPKTINFO, &enable_pktinfo,
-                     sizeof(enable_pktinfo)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
-      }
-      struct ipv6_mreq multicast_properties = {
-          {/* filled-in below */},
-          static_cast<IPv6NetworkInterfaceIndex>(ifindex),
-      };
-      static_assert(sizeof(multicast_properties.ipv6mr_multiaddr) == 16u,
-                    "IPv6 address requires exactly 16 bytes");
-      address.CopyToV6(
-          reinterpret_cast<uint8_t*>(&multicast_properties.ipv6mr_multiaddr));
-      // Portability note: All platforms support IPV6_JOIN_GROUP, which is
-      // synonymous with IPV6_ADD_MEMBERSHIP.
-      if (setsockopt(fd_, IPPROTO_IPV6, IPV6_JOIN_GROUP, &multicast_properties,
-                     sizeof(multicast_properties)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
-      }
-      return Error::Code::kNone;
+    struct ip_mreqn multicast_properties;
+    // Appropriate address is set based on |imr_ifindex| when set.
+    multicast_properties.imr_address.s_addr = INADDR_ANY;
+    multicast_properties.imr_ifindex =
+        static_cast<IPv4NetworkInterfaceIndex>(ifindex);
+    static_assert(sizeof(multicast_properties.imr_multiaddr) == 4u,
+                  "IPv4 address requires exactly 4 bytes");
+    address.CopyToV4(
+        reinterpret_cast<uint8_t*>(&multicast_properties.imr_multiaddr));
+    if (setsockopt(fd_, IPPROTO_IP, IP_ADD_MEMBERSHIP, &multicast_properties,
+                   sizeof(multicast_properties)) == -1) {
+      return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
     }
+    return Error::Code::kNone;
+  } else if (local_endpoint_.address.IsV6()) {
+    // Passed as data to setsockopt().  1 means return IPV6_PKTINFO control
+    // data in recvmsg() calls.
+    const int enable_pktinfo = 1;
+    if (setsockopt(fd_, IPPROTO_IPV6, IPV6_RECVPKTINFO, &enable_pktinfo,
+                   sizeof(enable_pktinfo)) == -1) {
+      return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+    }
+    struct ipv6_mreq multicast_properties = {
+        {/* filled-in below */},
+        static_cast<IPv6NetworkInterfaceIndex>(ifindex),
+    };
+    static_assert(sizeof(multicast_properties.ipv6mr_multiaddr) == 16u,
+                  "IPv6 address requires exactly 16 bytes");
+    address.CopyToV6(
+        reinterpret_cast<uint8_t*>(&multicast_properties.ipv6mr_multiaddr));
+    // Portability note: All platforms support IPV6_JOIN_GROUP, which is
+    // synonymous with IPV6_ADD_MEMBERSHIP.
+    if (setsockopt(fd_, IPPROTO_IPV6, IPV6_JOIN_GROUP, &multicast_properties,
+                   sizeof(multicast_properties)) == -1) {
+      return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+    }
+    return Error::Code::kNone;
   }
 
   OSP_NOTREACHED();
@@ -328,19 +315,14 @@ ErrorOr<UdpPacket> UdpSocketPosix::ReceiveMessage() {
   UdpPacket packet(bytes_available);
   packet.set_socket(this);
   Error result = Error::Code::kGenericPlatformError;
-  switch (version_) {
-    case UdpSocket::Version::kV4: {
-      result = ReceiveMessageInternal<sockaddr_in, in_pktinfo>(fd_, &packet);
-      break;
-    }
-    case UdpSocket::Version::kV6: {
-      result = ReceiveMessageInternal<sockaddr_in6, in6_pktinfo>(fd_, &packet);
-      break;
-    }
-    default: {
-      OSP_NOTREACHED();
-    }
+  if (local_endpoint_.address.IsV4()) {
+    result = ReceiveMessageInternal<sockaddr_in, in_pktinfo>(fd_, &packet);
+  } else if (local_endpoint_.address.IsV6()) {
+    result = ReceiveMessageInternal<sockaddr_in6, in6_pktinfo>(fd_, &packet);
+  } else {
+    OSP_NOTREACHED();
   }
+
   return result.ok() ? ErrorOr<UdpPacket>(std::move(packet))
                      : ErrorOr<UdpPacket>(std::move(result));
 }
@@ -359,31 +341,25 @@ Error UdpSocketPosix::SendMessage(const void* data,
   msg.msg_flags = 0;
 
   ssize_t num_bytes_sent = -2;
-  switch (version_) {
-    case UdpSocket::Version::kV4: {
-      struct sockaddr_in sa = {
-          .sin_family = AF_INET,
-          .sin_port = htons(dest.port),
-      };
-      dest.address.CopyToV4(reinterpret_cast<uint8_t*>(&sa.sin_addr.s_addr));
-      msg.msg_name = &sa;
-      msg.msg_namelen = sizeof(sa);
-      num_bytes_sent = sendmsg(fd_, &msg, 0);
-      break;
-    }
-
-    case UdpSocket::Version::kV6: {
-      struct sockaddr_in6 sa = {};
-      sa.sin6_family = AF_INET6;
-      sa.sin6_flowinfo = 0;
-      sa.sin6_scope_id = 0;
-      sa.sin6_port = htons(dest.port);
-      dest.address.CopyToV6(reinterpret_cast<uint8_t*>(&sa.sin6_addr.s6_addr));
-      msg.msg_name = &sa;
-      msg.msg_namelen = sizeof(sa);
-      num_bytes_sent = sendmsg(fd_, &msg, 0);
-      break;
-    }
+  if (local_endpoint_.address.IsV4()) {
+    struct sockaddr_in sa = {
+        .sin_family = AF_INET,
+        .sin_port = htons(dest.port),
+    };
+    dest.address.CopyToV4(reinterpret_cast<uint8_t*>(&sa.sin_addr.s_addr));
+    msg.msg_name = &sa;
+    msg.msg_namelen = sizeof(sa);
+    num_bytes_sent = sendmsg(fd_, &msg, 0);
+  } else if (local_endpoint_.address.IsV6()) {
+    struct sockaddr_in6 sa = {};
+    sa.sin6_family = AF_INET6;
+    sa.sin6_flowinfo = 0;
+    sa.sin6_scope_id = 0;
+    sa.sin6_port = htons(dest.port);
+    dest.address.CopyToV6(reinterpret_cast<uint8_t*>(&sa.sin6_addr.s6_addr));
+    msg.msg_name = &sa;
+    msg.msg_namelen = sizeof(sa);
+    num_bytes_sent = sendmsg(fd_, &msg, 0);
   }
 
   if (num_bytes_sent == -1) {
