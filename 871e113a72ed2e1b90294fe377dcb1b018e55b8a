@@ -1,0 +1,639 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de0a5757_043848f2",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: packet.reserve(sizeof(data))",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7bd641c_0c80e8e5",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "Why was this added?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "677a3fab_dc6b1182",
+        "filename": "osp/impl/internal_services.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: unnecessary here and elsewhere",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7565be9c_522f215d",
+        "filename": "osp/impl/internal_services.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "NetworkRunner* const",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1cf5ae_0cb4ed96",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: lambda over std::bind here and below",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3559a432_6a9c707c",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "remove explicit",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75315ce1_b4bd0d22",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "NetworkRunner* const",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2debd698_954963c8",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "If this is a friend, nothing needs to be made protected and simplifies the unit test wrapper issue below.  Although, admittedly, it usually makes more sense to use protected over friend for subclasses.",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "899d4cc3_d22b20be",
+        "filename": "osp/impl/mdns_responder_service_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "Other possibilities for eliminating this class:\n - Can the tests just run FakeNetworkRunner::RunTasksUntilIdle as necessary to make these methods appear synchronous?\n - What about an alternate \"SyncNetworkRunner\" that runs non-delayed tasks synchronously and pass that to a base MdnsResponderService?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "850638b4_617f654b",
+        "filename": "osp/impl/mdns_responder_service_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "Why is this here?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95cd4ec5_651ce717",
+        "filename": "osp/impl/mdns_responder_service_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "This is a consequence of moving mdns_responder_ above mdns_responder_factory_ in MdnsResponderService.  IMHO the simpler solution is to just put the protected section in the same place.\n\nAdditionally, _if_ Service{Listener,Publisher} methods didn\u0027t need to be async, I think you wouldn\u0027t need TestingMdnsResponderService at all and mdns_responder_ wouldn\u0027t need to be protected.  A lot of if\u0027s though...",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c77801c8_58871ef4",
+        "filename": "osp/impl/mdns_responder_service_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: IMO \"WithoutSegFault\" is usually implied :P but also Start isn\u0027t really what was segfaulting?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ad8f44_aafc4d29",
+        "filename": "osp/impl/quic/quic_client_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "Why convert these to unique_ptrs here and elsewhere?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8272770_d61396c4",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: member init list",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e482a2_5b82ca4f",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "explicit",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66645b3e_9d6bb971",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "TaskRunner* const",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02823737_817b2200",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "s/cosn/cons/, although IMO comment is unnecessary.",
+      "range": {
+        "startLine": 57,
+        "startChar": 31,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a680aacb_c25dedaa",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "NetworkRunner* const",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc79ba75_dca91c54",
+        "filename": "osp/impl/quic/testing/quic_test_support.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "Why not pass network_runner here and remove the nullptr check in QuicClient/QuicServer?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5df83f11_4e4f1387",
+        "filename": "osp/impl/quic/testing/quic_test_support.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: lambda over std::bind",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "251387d3_f648bb56",
+        "filename": "osp/impl/quic/testing/quic_test_support.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "remove explicit",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6136ad15_d2deb23b",
+        "filename": "osp/impl/quic/testing/quic_test_support.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "FakeNetworkRunner* const and nit: add newline above",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe689ca0_cb327e90",
+        "filename": "osp/public/mdns_service_listener_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: forward declare instead here and in other factory .h/.cc where possible",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc027b54_947d7b57",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "Maybe change this to \"Creates the NetworkRunner ...\" and add that it must only be called once?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac830f0_518c5264",
+        "filename": "platform/impl/network_runner.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: these could still be in the member init list, furthermore network_loop could just be defaulted to nullptr instead of having the single argument constructor.",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa0f9f0_96afd01f",
+        "filename": "platform/impl/network_runner_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "#include \u003cthread\u003e",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4479bf4_faa46938",
+        "filename": "platform/impl/network_runner_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: why not create this in CreateNetworkRunner?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2f9905f_461e43a3",
+        "filename": "platform/impl/network_runner_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "Why use a local here and not just network_runner_?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52448c46_b666b137",
+        "filename": "platform/impl/network_runner_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "Why use a deque if it\u0027s just these two tasks?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5537f34_9fc75e2b",
+        "filename": "platform/impl/network_runner_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "final",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "999a13c0_eea0c36c",
+        "filename": "platform/impl/network_runner_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "explicit",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8edaa730_9a6aa032",
+        "filename": "platform/impl/network_runner_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: OSP_CHECK is unnecessary IMHO because the caller could OSP_(D)CHECK on the pointer or just crash on use.",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fbec927_73d803e5",
+        "filename": "platform/impl/network_runner_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "is_created_ is redundant with the network_runner_ pointer itself.",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e891eb83_3f67d44f",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "What was this added for?",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "828a7aad_e52fcb01",
+        "filename": "platform/test/fake_network_runner.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nit: PostTask(lambda) over std::bind+functor",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55ec1f5b_d09a95c0",
+        "filename": "platform/test/fake_network_runner.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "nits: move comment above ReadRepeatedly, mark destructor override, mark class final.",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abc4a991_b9b9ff5c",
+        "filename": "platform/test/mock_udp_socket.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-26T22:20:25Z",
+      "side": 1,
+      "message": "explicit",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
