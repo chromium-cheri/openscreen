@@ -531,6 +531,24 @@
     },
     {
       "key": {
+        "uuid": "1dcdfe28_a93e554a",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T18:01:38Z",
+      "side": 1,
+      "message": "Removed this initialization - we already have the same check in StartListenerInternal and StartPublisherInternal",
+      "parentUuid": "7e374478_75603c67",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "122dd2ea_1c9db5f9",
         "filename": "osp/impl/mdns_responder_service.cc",
         "patchSetId": 6
@@ -620,6 +638,24 @@
     },
     {
       "key": {
+        "uuid": "7a4bafbb_c3e9a594",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T18:01:38Z",
+      "side": 1,
+      "message": "Discussed over email and reverted to the previous approach",
+      "parentUuid": "6dd9dc4c_17e33e40",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d366a581_f089ac22",
         "filename": "osp/impl/mdns_responder_service.h",
         "patchSetId": 6
@@ -702,6 +738,24 @@
       "side": 1,
       "message": "Can you make the UT a friend of this class so they can remain private?",
       "parentUuid": "9123df25_d43f551d",
+      "revId": "52ea763b5d002542147754afc32910d0a92cecee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11bdf0c9_0346f20e",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T18:01:38Z",
+      "side": 1,
+      "message": "Updated to private + friend declaration\n\nIt feels a bit weird to forward declare a testing class in real code, but if you\u0027re okay with it I see no problem",
+      "parentUuid": "4343aaa9_267d73c7",
       "revId": "52ea763b5d002542147754afc32910d0a92cecee",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true

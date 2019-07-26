@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e7632319_30e8cfc9",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T18:01:38Z",
+      "side": 1,
+      "message": "Discussed over email thread. Reverting this change back to the \u0027internal\u0027 versions of all methods.",
+      "parentUuid": "cece39a0_654b953f",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c61ae3e4_7a2fc28a",
         "filename": "osp/impl/quic/quic_client.cc",
         "patchSetId": 8
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "270a7cce_43b01ad0",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T18:01:38Z",
+      "side": 1,
+      "message": "unique_ptr gives a compilation error when this is protected:\n\n/usr/lib/gcc/x86_64-linux-gnu/8.0.1/../../../../include/c++/8.0.1/bits/unique_ptr.h:81:9: error: calling a protected destructor of class \u0027openscreen::platform::NetworkRunnerFactory\u0027\n        delete __ptr;\n               ^\n/usr/lib/gcc/x86_64-linux-gnu/8.0.1/../../../../include/c++/8.0.1/bits/unique_ptr.h:274:4: note: in instantiation of member function \u0027std::default_delete\u003copenscreen::platform::NetworkRunnerFactory\u003e::operator()\u0027 requested here\n          get_deleter()(__ptr);\n          ^\n../../platform/impl/network_runner_factory.cc:56:10: note: in instantiation of member function \u0027std::unique_ptr\u003copenscreen::platform::NetworkRunnerFactory, std::default_delete\u003copenscreen::platform::NetworkRunnerFactory\u003e \u003e::~unique_ptr\u0027 requested here\n  return std::make_unique\u003cNetworkRunnerFactoryImpl\u003e();\n         ^\n../../platform/api/network_runner_factory.h:28:11: note: declared protected here\n  virtual ~NetworkRunnerFactory() \u003d default;",
+      "parentUuid": "f6758398_acc698cd",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "191da7d5_708c4f05",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 8
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "09bea0aa_f964ebc0",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T18:01:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "191da7d5_708c4f05",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92bebb7f_c5626528",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 8
@@ -81,6 +135,24 @@
       "writtenOn": "2019-07-25T20:46:54Z",
       "side": 1,
       "message": "I would add an instance method to actually create the network runner (rather than having it as a a side effect of instantiating the factory).  So you would have:\n\nNetworkRunnerFactory* factory \u003d NetworkRunnerFactory::Create();\nfactory-\u003eCreateNetworkRunner();\nNetworkRunner* runner \u003d factory-\u003eGet();  // as many times as you want\n\nOr you could have a different place to store a network runner for future use, since I believe it\u0027s going to be a process-level singleton.  It\u0027s also cleaner for a factory to not have to own the objects it creates.\n\nNetworkRunnerFactory* factory \u003d NetworkRunnerFactory::Create();\nNetworkRunner* runner \u003d factory-\u003eCreateNetworkRunner();\nNetworkRunner::SetInstance(runner);\n\n...\n\nNetworkRunner* runner \u003d NetworkRunner::GetInstance();\n\nMake sense?",
+      "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3da88d2c_1d7a5628",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T18:01:38Z",
+      "side": 1,
+      "message": "For now, I would prefer to avoid the singleton approach. I initially tried to include this in my previous CL and there was a lot of pushback against it. If this is important, I can create a follow-up CL with this change, but I would prefer not to hold this CL up on it since I expect there will be more pushback\n\nUpdating to include a separate creation method though",
+      "parentUuid": "92bebb7f_c5626528",
       "revId": "fb392ae0b72c27cf7eaab0fc479f7998b8ab21e9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
