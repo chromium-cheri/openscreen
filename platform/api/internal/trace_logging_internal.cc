@@ -81,7 +81,7 @@ std::atomic<std::uint64_t> ScopedTraceOperation::trace_id_counter_{
 TraceLoggerBase::TraceLoggerBase(TraceCategory::Value category,
                                  const char* name,
                                  const char* file,
-                                 uint32_t line,
+                                 int line,
                                  TraceId current,
                                  TraceId parent,
                                  TraceId root)
@@ -96,7 +96,7 @@ TraceLoggerBase::TraceLoggerBase(TraceCategory::Value category,
 TraceLoggerBase::TraceLoggerBase(TraceCategory::Value category,
                                  const char* name,
                                  const char* file,
-                                 uint32_t line,
+                                 int line,
                                  TraceIdHierarchy ids)
     : TraceLoggerBase(category,
                       name,
@@ -107,34 +107,25 @@ TraceLoggerBase::TraceLoggerBase(TraceCategory::Value category,
                       ids.root) {}
 
 SynchronousTraceLogger::~SynchronousTraceLogger() {
-  // If this object has an instance variable platform, use that. Otherwise,
-  // use the static variable for the shared class. In practice, the instance
-  // variable should only be set when testing, so branch prediction will
-  // always pick the correct path in production code and it should be of
-  // negligable cost.
   auto* current_platform = TraceLoggingPlatform::GetDefaultTracingPlatform();
   if (current_platform == nullptr) {
     return;
   }
   auto end_time = Clock::now();
   current_platform->LogTrace(this->name_, this->line_number_, this->file_name_,
-                             this->start_time_, end_time, this->trace_id_,
-                             this->parent_id_, this->root_id_, this->result_);
+                             this->start_time_, end_time, this->hierarchy_ids(),
+                             this->result_, this->platform_arg1(),
+                             this->platform_arg2());
 }
 
 AsynchronousTraceLogger::~AsynchronousTraceLogger() {
-  // If this object has an instance variable platform, use that. Otherwise,
-  // use the static variable for the shared class. In practice, the instance
-  // variable should only be set when testing, so branch prediction will
-  // always pick the correct path in production code and it should be of
-  // negligable cost.
   auto* current_platform = TraceLoggingPlatform::GetDefaultTracingPlatform();
   if (current_platform == nullptr) {
     return;
   }
   current_platform->LogAsyncStart(
       this->name_, this->line_number_, this->file_name_, this->start_time_,
-      this->trace_id_, this->parent_id_, this->root_id_);
+      this->hierarchy_ids(), this->platform_arg1(), this->platform_arg2());
 }
 
 TraceIdSetter::~TraceIdSetter() = default;
