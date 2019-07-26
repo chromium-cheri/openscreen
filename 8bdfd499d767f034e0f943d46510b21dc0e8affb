@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "028dd2cf_10aa42b3",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T22:02:36Z",
+      "side": 0,
+      "message": "I think this method will still be needed - probably as a private method instead of public one",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 50
+      },
+      "revId": "8bdfd499d767f034e0f943d46510b21dc0e8affb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6ebb9f_299507e8",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T22:02:36Z",
+      "side": 0,
+      "message": "This may still be needed for now - TBD Depending on your design\n\nThe purpose of this method is to de-register the UDP Socket from the Networkunner when it gets deleted, and ensure that the NetworkRunner doesn\u0027t segfault if it is deleted at the wrong time",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "8bdfd499d767f034e0f943d46510b21dc0e8affb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

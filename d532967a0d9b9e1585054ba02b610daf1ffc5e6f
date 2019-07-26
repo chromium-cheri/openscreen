@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d2eaf54_135c8434",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T22:02:36Z",
+      "side": 1,
+      "message": "What is the current use case for most of these functions? I assume you are porting it from Chromium, but adding code to support all of these when we only need OnMessage so far seems like a lot of unnecessary effort",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 71
+      },
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e346f0c_21971ebe",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T22:02:36Z",
+      "side": 1,
+      "message": "Is the idea here that the OnMessage would be called when a socket message arrives, instead of a callback in the NetworkRunner?\n\nWhen you\u0027re in the office, I\u0027d like to discuss this in person - I\u0027m not against the idea, but want to have a better understanding of what you have in mind and why we want this, and how the NetworkRunner will integrate with this (preferably before getting this patch in)",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 4
+      },
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b46bac_d0b9ea02",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-26T22:02:36Z",
+      "side": 1,
+      "message": "Do we only want to allow exactly one observer per socket? I can imagine cases where multiple would be useful\n\nAdditionally, do we not want to allow the user to swap out the observer? Currently, they would need to entirely re-create the socket",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
