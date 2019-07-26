@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "4dd270c8_5fa5a2fd",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-26T22:52:19Z",
+      "side": 1,
+      "message": "If this is a true observer, then pass the socket as const ref, so the observer can\u0027t mutate the socket.",
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d2eaf54_135c8434",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 2
@@ -13,6 +30,30 @@
       "writtenOn": "2019-07-26T22:02:36Z",
       "side": 1,
       "message": "What is the current use case for most of these functions? I assume you are porting it from Chromium, but adding code to support all of these when we only need OnMessage so far seems like a lot of unnecessary effort",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 71
+      },
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42820c3c_27406c8c",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-26T22:52:19Z",
+      "side": 1,
+      "message": "I think all of the NetworkService APIs in Chromium are async.",
+      "parentUuid": "7d2eaf54_135c8434",
       "range": {
         "startLine": 61,
         "startChar": 0,
@@ -59,6 +100,30 @@
       "writtenOn": "2019-07-26T22:02:36Z",
       "side": 1,
       "message": "Do we only want to allow exactly one observer per socket? I can imagine cases where multiple would be useful\n\nAdditionally, do we not want to allow the user to swap out the observer? Currently, they would need to entirely re-create the socket",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b6fad9_edfa4bc0",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-26T22:52:19Z",
+      "side": 1,
+      "message": "I think it depends on the use case.  If the observer is just be used to report error cases, then it should be easy to convert it to an observer list if we need more than one for some reason.\n\nIf it\u0027s used by the client to drive a state machine (Bind()-\u003eJoin()-\u003eSend() etc.) then there should be exactly one per socket, and it would be better named ::Callbacks.",
+      "parentUuid": "a7b46bac_d0b9ea02",
       "range": {
         "startLine": 104,
         "startChar": 0,
