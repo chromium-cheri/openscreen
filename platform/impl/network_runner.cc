@@ -13,14 +13,16 @@ namespace openscreen {
 namespace platform {
 
 NetworkRunnerImpl::NetworkRunnerImpl(std::unique_ptr<TaskRunner> task_runner)
-    : NetworkRunnerImpl(std::move(task_runner),
-                        std::make_unique<NetworkReader>(task_runner.get())) {}
+    : NetworkRunnerImpl(std::move(task_runner), nullptr) {}
 
 NetworkRunnerImpl::NetworkRunnerImpl(
     std::unique_ptr<TaskRunner> task_runner,
-    std::unique_ptr<NetworkReader> network_loop)
-    : network_loop_(std::move(network_loop)),
-      task_runner_(std::move(task_runner)){};
+    std::unique_ptr<NetworkReader> network_loop) {
+  network_loop_ = network_loop != nullptr
+                      ? std::move(network_loop)
+                      : std::make_unique<NetworkReader>(task_runner.get());
+  task_runner_ = std::move(task_runner);
+}
 
 Error NetworkRunnerImpl::ReadRepeatedly(UdpSocket* socket,
                                         UdpReadCallback* callback) {
@@ -44,15 +46,10 @@ void NetworkRunnerImpl::PostPackagedTaskWithDelay(Task task,
 }
 
 void NetworkRunnerImpl::RunUntilStopped() {
-  const bool was_running = is_running_.exchange(true);
-  OSP_CHECK(!was_running);
-
   network_loop_->RunUntilStopped();
 }
 
 void NetworkRunnerImpl::RequestStopSoon() {
-  is_running_.exchange(false);
-
   network_loop_->RequestStopSoon();
 }
 

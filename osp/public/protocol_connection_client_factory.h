@@ -11,11 +11,17 @@
 
 namespace openscreen {
 
+// forward declaration to avoid an import.
+namespace platform {
+class NetworkRunner;
+}  // namespace platform
+
 class ProtocolConnectionClientFactory {
  public:
   static std::unique_ptr<ProtocolConnectionClient> Create(
       MessageDemuxer* demuxer,
-      ProtocolConnectionServiceObserver* observer);
+      ProtocolConnectionServiceObserver* observer,
+      platform::NetworkRunner* network_runner);
 };
 
 }  // namespace openscreen
