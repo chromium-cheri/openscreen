@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 #include <chrono>
-#include <iostream>
 #include <thread>
 
 #include "absl/types/optional.h"
@@ -13,70 +12,57 @@
 #define TRACE_FORCE_ENABLE true
 
 #include "platform/api/trace_logging.h"
+#include "platform/test/trace_logging_helpers.h"
 
 // TODO(issue/52): Remove duplicate code from trace logging+internal unit tests
 namespace openscreen {
 namespace platform {
+namespace {
+constexpr TraceHierarchyParts kAllParts = static_cast<TraceHierarchyParts>(
+    TraceHierarchyParts::kRoot | TraceHierarchyParts::kParent |
+    TraceHierarchyParts::kCurrent);
+constexpr TraceHierarchyParts kParentAndRoot = static_cast<TraceHierarchyParts>(
+    TraceHierarchyParts::kRoot | TraceHierarchyParts::kParent);
+constexpr TraceId kEmptyId = TraceId{0};
+}  // namespace
 
 using ::testing::_;
 using ::testing::DoAll;
 using ::testing::Invoke;
+using namespace std::placeholders;
 
-class MockLoggingPlatform : public TraceLoggingPlatform {
- public:
-  MOCK_METHOD9(LogTrace,
-               void(const char*,
-                    const uint32_t,
-                    const char* file,
-                    Clock::time_point,
-                    Clock::time_point,
-                    TraceId,
-                    TraceId,
-                    TraceId,
-                    Error::Code));
-  MOCK_METHOD7(LogAsyncStart,
-               void(const char*,
-                    const uint32_t,
-                    const char* file,
-                    Clock::time_point,
-                    TraceId,
-                    TraceId,
-                    TraceId));
-  MOCK_METHOD5(LogAsyncEnd,
-               void(const uint32_t,
-                    const char* file,
-                    Clock::time_point,
-                    TraceId,
-                    Error::Code));
-};
+void ValidateUserArgument(const char* name,
+                          const uint32_t line,
+                          const char* file,
+                          Clock::time_point start_time,
+                          Clock::time_point end_time,
+                          TraceIdHierarchy ids,
+                          Error error,
+                          absl::optional<UserDefinedArgument> arg1,
+                          absl::optional<UserDefinedArgument> arg2,
+                          ArgumentId which_arg,
+                          const char* arg_name,
+                          const char* arg_value) {
+  absl::optional<UserDefinedArgument>* arg =
+      which_arg == ArgumentId::kFirst ? &arg1 : &arg2;
 
-// Methods to validate the results of platform-layer calls.
-template <uint64_t milliseconds>
-void ValidateTraceTimestampDiff(const char* name,
-                                const uint32_t line,
-                                const char* file,
-                                Clock::time_point start_time,
-                                Clock::time_point end_time,
-                                TraceId trace_id,
-                                TraceId parent_id,
-                                TraceId root_id,
-                                Error error) {
-  const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
-      end_time - start_time);
-  EXPECT_GE(static_cast<uint64_t>(elapsed.count()), milliseconds);
+  EXPECT_TRUE(arg->has_value());
+  ASSERT_STREQ(arg_name, arg->value().name);
+  ASSERT_STREQ(arg_value, arg->value().value);
 }
 
-template <Error::Code result>
-void ValidateTraceErrorCode(const char* name,
-                            const uint32_t line,
-                            const char* file,
-                            Clock::time_point start_time,
-                            Clock::time_point end_time,
-                            TraceId trace_id,
-                            TraceId parent_id,
-                            TraceId root_id,
-                            Error error) {
-  EXPECT_EQ(error.code(), result);
+std::function<void(const char*,
+                   const uint32_t,
+                   const char*,
+                   Clock::time_point,
+                   Clock::time_point,
+                   TraceIdHierarchy,
+                   Error,
+                   absl::optional<UserDefinedArgument>,
+                   absl::optional<UserDefinedArgument>)>
+GetCheckUserArgFunc(ArgumentId which_arg, const char* name, const char* value) {
+  return std::bind(ValidateUserArgument, _1, _2, _3, _4, _5, _6, _7, _8, _9,
+                   which_arg, name, value);
 }
 
 TEST(TraceLoggingTest, MacroCallScopedDoesntSegFault) {
@@ -156,8 +142,11 @@ TEST(TraceLoggingTest, ExpectCreationWithIdsToWork) {
   constexpr TraceId root = 0x84;
   MockLoggingPlatform platform;
   TRACE_SET_DEFAULT_PLATFORM(&platform);
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, current, parent, root, _))
-      .WillOnce(Invoke(ValidateTraceErrorCode<Error::Code::kNone>));
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(
+          DoAll(Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
+                Invoke(ValidateTraceIdHierarchyOnSyncTrace<current, parent,
+                                                           root, kAllParts>)));
 
   {
     TraceIdHierarchy h = {current, parent, root};
@@ -179,10 +168,15 @@ TEST(TraceLoggingTest, ExpectHirearchyToBeApplied) {
   constexpr TraceId root = 0x84;
   MockLoggingPlatform platform;
   TRACE_SET_DEFAULT_PLATFORM(&platform);
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, current, root, _))
-      .WillOnce(Invoke(ValidateTraceErrorCode<Error::Code::kNone>));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, current, parent, root, _))
-      .WillOnce(Invoke(ValidateTraceErrorCode<Error::Code::kNone>));
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(
+          Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
+          Invoke(ValidateTraceIdHierarchyOnSyncTrace<kEmptyId, current, root,
+                                                     kParentAndRoot>)))
+      .WillOnce(
+          DoAll(Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
+                Invoke(ValidateTraceIdHierarchyOnSyncTrace<current, parent,
+                                                           root, kAllParts>)));
 
   {
     TraceIdHierarchy h = {current, parent, root};
@@ -206,8 +200,11 @@ TEST(TraceLoggingTest, ExpectHirearchyToEndAfterScopeWhenSetWithSetter) {
   constexpr TraceId root = 0x84;
   MockLoggingPlatform platform;
   TRACE_SET_DEFAULT_PLATFORM(&platform);
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, current, root, _))
-      .WillOnce(Invoke(ValidateTraceErrorCode<Error::Code::kNone>));
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(
+          Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
+          Invoke(ValidateTraceIdHierarchyOnSyncTrace<kEmptyId, current, root,
+                                                     kParentAndRoot>)));
 
   {
     TraceIdHierarchy ids = {current, parent, root};
@@ -233,10 +230,15 @@ TEST(TraceLoggingTest, ExpectHirearchyToEndAfterScope) {
   constexpr TraceId root = 0x84;
   MockLoggingPlatform platform;
   TRACE_SET_DEFAULT_PLATFORM(&platform);
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, current, root, _))
-      .WillOnce(Invoke(ValidateTraceErrorCode<Error::Code::kNone>));
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, current, parent, root, _))
-      .WillOnce(Invoke(ValidateTraceErrorCode<Error::Code::kNone>));
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(
+          Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
+          Invoke(ValidateTraceIdHierarchyOnSyncTrace<kEmptyId, current, root,
+                                                     kParentAndRoot>)))
+      .WillOnce(
+          DoAll(Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
+                Invoke(ValidateTraceIdHierarchyOnSyncTrace<current, parent,
+                                                           root, kAllParts>)));
 
   {
     TraceIdHierarchy ids = {current, parent, root};
@@ -262,8 +264,11 @@ TEST(TraceLoggingTest, ExpectSetHierarchyToApply) {
   constexpr TraceId root = 0x84;
   MockLoggingPlatform platform;
   TRACE_SET_DEFAULT_PLATFORM(&platform);
-  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, current, root, _))
-      .WillOnce(Invoke(ValidateTraceErrorCode<Error::Code::kNone>));
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(
+          Invoke(ValidateTraceErrorCode<Error::Code::kNone>),
+          Invoke(ValidateTraceIdHierarchyOnSyncTrace<kEmptyId, current, root,
+                                                     kParentAndRoot>)));
 
   {
     TraceIdHierarchy ids = {current, parent, root};
@@ -281,6 +286,75 @@ TEST(TraceLoggingTest, ExpectSetHierarchyToApply) {
   }
 }
 
+TEST(TraceLoggingTest, ExpectUserArgsNotPresentWhenNotProvided) {
+  MockLoggingPlatform platform;
+  TRACE_SET_DEFAULT_PLATFORM(&platform);
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(Invoke(ValidateUserArgumentEmpty<ArgumentId::kFirst>),
+                      Invoke(ValidateUserArgumentEmpty<ArgumentId::kSecond>)));
+
+  { TRACE_SCOPED(TraceCategory::Value::Any, "Name"); }
+}
+
+TEST(TraceLoggingTest, ExpectUserArgsValidString) {
+  const char* arg_name = "string";
+  const char* arg_value = "value";
+  MockLoggingPlatform platform;
+  TRACE_SET_DEFAULT_PLATFORM(&platform);
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(
+          Invoke(GetCheckUserArgFunc(ArgumentId::kFirst, arg_name, arg_value)),
+          Invoke(ValidateUserArgumentEmpty<ArgumentId::kSecond>)));
+  { TRACE_SCOPED(TraceCategory::Value::Any, "Name", arg_name, arg_value); }
+}
+
+TEST(TraceLoggingTest, ExpectUserArgsValidInt) {
+  constexpr const char* arg_name = "integer";
+  constexpr const char* arg_value = "1";
+  MockLoggingPlatform platform;
+  TRACE_SET_DEFAULT_PLATFORM(&platform);
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(
+          Invoke(GetCheckUserArgFunc(ArgumentId::kFirst, arg_name, arg_value)),
+          Invoke(ValidateUserArgumentEmpty<ArgumentId::kSecond>)));
+  { TRACE_SCOPED(TraceCategory::Value::Any, "Name", arg_name, 1); }
+}
+
+TEST(TraceLoggingTest, ExpectUserArgsValidFunction) {
+  constexpr const char* arg_name = "function";
+  constexpr const char* arg_value = "3";
+  MockLoggingPlatform platform;
+  TRACE_SET_DEFAULT_PLATFORM(&platform);
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(
+          Invoke(GetCheckUserArgFunc(ArgumentId::kFirst, arg_name, arg_value)),
+          Invoke(ValidateUserArgumentEmpty<ArgumentId::kSecond>)));
+  {
+    int value = 1;
+    std::function<int()> func = [&value]() { return value; };
+    TRACE_SCOPED(TraceCategory::Value::Any, "Name", arg_name, func);
+    value += 2;
+  }
+}
+
+TEST(TraceLoggingTest, ExpectBothUserArgsValid) {
+  constexpr const char* arg_name = "string";
+  constexpr const char* arg_value = "value";
+  constexpr const char* arg_name2 = "string2";
+  constexpr const char* arg_value2 = "value2";
+  MockLoggingPlatform platform;
+  TRACE_SET_DEFAULT_PLATFORM(&platform);
+  EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(
+          Invoke(GetCheckUserArgFunc(ArgumentId::kFirst, arg_name, arg_value)),
+          Invoke(GetCheckUserArgFunc(ArgumentId::kSecond, arg_name2,
+                                     arg_value2))));
+  {
+    TRACE_SCOPED(TraceCategory::Value::Any, "Name", arg_name, arg_value,
+                 arg_name2, arg_value2);
+  }
+}
+
 TEST(TraceLoggingTest, CheckTraceAsyncStartLogsCorrectly) {
   MockLoggingPlatform platform;
   TRACE_SET_DEFAULT_PLATFORM(&platform);
@@ -295,7 +369,10 @@ TEST(TraceLoggingTest, CheckTraceAsyncStartSetsHierarchy) {
   constexpr TraceId root = 84;
   MockLoggingPlatform platform;
   TRACE_SET_DEFAULT_PLATFORM(&platform);
-  EXPECT_CALL(platform, LogAsyncStart(_, _, _, _, _, current, root)).Times(1);
+  EXPECT_CALL(platform, LogAsyncStart(_, _, _, _, _, _, _))
+      .WillOnce(
+          Invoke(ValidateTraceIdHierarchyOnAsyncTrace<kEmptyId, current, root,
+                                                      kParentAndRoot>));
 
   {
     TraceIdHierarchy ids = {current, parent, root};
