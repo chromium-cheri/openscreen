@@ -10,6 +10,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/api/trace_logging.h"
+#include "platform/test/trace_logging_helpers.h"
 
 namespace openscreen {
 namespace platform {
@@ -18,63 +19,6 @@ namespace internal {
 using ::testing::_;
 using ::testing::Invoke;
 
-class MockLoggingPlatform : public TraceLoggingPlatform {
- public:
-  MOCK_METHOD9(LogTrace,
-               void(const char*,
-                    const uint32_t,
-                    const char* file,
-                    Clock::time_point,
-                    Clock::time_point,
-                    TraceId,
-                    TraceId,
-                    TraceId,
-                    Error::Code));
-  MOCK_METHOD7(LogAsyncStart,
-               void(const char*,
-                    const uint32_t,
-                    const char* file,
-                    Clock::time_point,
-                    TraceId,
-                    TraceId,
-                    TraceId));
-  MOCK_METHOD5(LogAsyncEnd,
-               void(const uint32_t,
-                    const char* file,
-                    Clock::time_point,
-                    TraceId,
-                    Error::Code));
-};
-
-// Methods to validate the results of platform-layer calls.
-template <uint64_t milliseconds>
-void ValidateTraceTimestampDiff(const char* name,
-                                const uint32_t line,
-                                const char* file,
-                                Clock::time_point start_time,
-                                Clock::time_point end_time,
-                                TraceId trace_id,
-                                TraceId parent_id,
-                                TraceId root_id,
-                                Error error) {
-  const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
-      end_time - start_time);
-  EXPECT_GE(elapsed.count(), milliseconds);
-}
-
-template <Error::Code result>
-void ValidateTraceErrorCode(const char* name,
-                            const uint32_t line,
-                            const char* file,
-                            Clock::time_point start_time,
-                            Clock::time_point end_time,
-                            TraceId trace_id,
-                            TraceId parent_id,
-                            TraceId root_id,
-                            Error error) {
-  EXPECT_EQ(error.code(), result);
-}
-
 // These tests validate that parameters are passed correctly by using the Trace
 // Internals.
 constexpr TraceCategory::Value category =
@@ -82,7 +26,7 @@ constexpr TraceCategory::Value category =
 constexpr uint32_t line = 10;
 
 TEST(TraceLoggingInternalTest, CreatingNoTraceObjectValid) {
-  TraceInstanceHelper<SynchronousTraceLogger>::Empty();
+  TraceCreationHelper<SynchronousTraceLogger>::Empty();
 }
 
 TEST(TraceLoggingInternalTest, TestMacroStyleInitializationTrue) {
@@ -95,10 +39,9 @@ TEST(TraceLoggingInternalTest, TestMacroStyleInitializationTrue) {
                       Invoke(ValidateTraceErrorCode<Error::Code::kNone>)));
 
   {
-    uint8_t temp[sizeof(SynchronousTraceLogger)];
-    auto ptr = true ? TraceInstanceHelper<SynchronousTraceLogger>::Create(
-                          temp, category, "Name", __FILE__, line)
-                    : TraceInstanceHelper<SynchronousTraceLogger>::Empty();
+    auto ptr = true ? TraceCreationHelper<SynchronousTraceLogger>::Create(
+                          category, "Name", __FILE__, line)
+                    : TraceCreationHelper<SynchronousTraceLogger>::Empty();
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_in_ms));
     auto ids = ScopedTraceOperation::hierarchy();
     EXPECT_NE(ids.current, kEmptyTraceId);
@@ -115,10 +58,9 @@ TEST(TraceLoggingInternalTest, TestMacroStyleInitializationFalse) {
   EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _, _, _)).Times(0);
 
   {
-    uint8_t temp[sizeof(SynchronousTraceLogger)];
-    auto ptr = false ? TraceInstanceHelper<SynchronousTraceLogger>::Create(
-                           temp, category, "Name", __FILE__, line)
-                     : TraceInstanceHelper<SynchronousTraceLogger>::Empty();
+    auto ptr = false ? TraceCreationHelper<SynchronousTraceLogger>::Create(
+                           category, "Name", __FILE__, line)
+                     : TraceCreationHelper<SynchronousTraceLogger>::Empty();
     auto ids = ScopedTraceOperation::hierarchy();
     EXPECT_EQ(ids.current, kEmptyTraceId);
     EXPECT_EQ(ids.parent, kEmptyTraceId);

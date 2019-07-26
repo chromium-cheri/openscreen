@@ -21,18 +21,18 @@ class TextTraceLoggingPlatform : public TraceLoggingPlatform {
                 const char* file,
                 Clock::time_point start_time,
                 Clock::time_point end_time,
-                TraceId trace_id,
-                TraceId parent_id,
-                TraceId root_id,
-                Error::Code error) override;
+                TraceIdHierarchy ids,
+                Error::Code error,
+                absl::optional<UserDefinedArgument> arg1,
+                absl::optional<UserDefinedArgument> arg2) override;
 
   void LogAsyncStart(const char* name,
                      const uint32_t line,
                      const char* file,
                      Clock::time_point timestamp,
-                     TraceId trace_id,
-                     TraceId parent_id,
-                     TraceId root_id) override;
+                     TraceIdHierarchy ids,
+                     absl::optional<UserDefinedArgument> arg1,
+                     absl::optional<UserDefinedArgument> arg2) override;
 
   void LogAsyncEnd(const uint32_t line,
                    const char* file,
