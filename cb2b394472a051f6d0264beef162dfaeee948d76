@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "782d9953_6f54828f",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Maybe put this into anonymous namespace or move into VerifyPublicKeyLength?",
+      "range": {
+        "startLine": 38,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "312f11da_09ac9eef",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Is it possible to get rid of this singleton?",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 3
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62eb9798_af5cf5ad",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Should be able to replace this entire method with a call to EVP_DigestVerify",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc76ab08_3fbbfcb3",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Since this returns a const data span pointing to static data, might as well have a static variable of ConstDataSpan type, although creating a span is very cheap anyway.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 1
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873cd7b3_95a79fda",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Maybe like this?\nbool times_valid \u003d ToGeneralizedTime(not_before_asn1, \u0026not_before) \u0026\u0026 ToGeneralizedTime(not_after_asn1, \u0026not_after);",
+      "range": {
+        "startLine": 252,
+        "startChar": 2,
+        "endLine": 254,
+        "endChar": 77
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea8938f4_a3c13370",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Could you please break this up into smaller functions? It\u0027s just shy of 300 lines long",
+      "range": {
+        "startLine": 285,
+        "startChar": 14,
+        "endLine": 285,
+        "endChar": 51
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3658c638_05532c50",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "What does this mean?",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 56
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a685a4a_384524c5",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Construct string with desired length instead of construct + resize?",
+      "range": {
+        "startLine": 564,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 51
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53185e35_8d825072",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "prefix with k and use camel casing here and in other enums",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b54860ef_d4a5fe39",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Add these to Error::Code?",
+      "range": {
+        "startLine": 36,
+        "startChar": 11,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee235e88_19a9a269",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Maybe use absl::span instead?",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 20
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc61670_abbbea7d",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Can we use absl::Time instead?\nhttps://abseil.io/docs/cpp/guides/time",
+      "range": {
+        "startLine": 80,
+        "startChar": 7,
+        "endLine": 80,
+        "endChar": 22
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7573dfb_5b5b1d9a",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "nit: Somewhat more verbose TODO",
+      "range": {
+        "startLine": 156,
+        "startChar": 18,
+        "endLine": 156,
+        "endChar": 32
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ddb24d0_06083f62",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-26T23:14:51Z",
+      "side": 1,
+      "message": "Why is this in a separate header?",
+      "range": {
+        "startLine": 15,
+        "startChar": 7,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "cb2b394472a051f6d0264beef162dfaeee948d76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
