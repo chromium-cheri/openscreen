@@ -17,6 +17,11 @@ namespace platform {
   openscreen::platform::TraceLoggingPlatform::SetDefaultTraceLoggingPlatform( \
       new_platform)
 
+struct UserDefinedArgument {
+  const char* name;
+  const char* value;
+};
+
 // Platform API base class. The platform will be an extension of this
 // method, with an instantiation of that class being provided to the below
 // TracePlatformWrapper class.
@@ -35,19 +40,19 @@ class TraceLoggingPlatform {
                         const char* file,
                         Clock::time_point start_time,
                         Clock::time_point end_time,
-                        TraceId trace_id,
-                        TraceId parent_id,
-                        TraceId root_id,
-                        Error::Code error) = 0;
+                        TraceIdHierarchy ids,
+                        Error::Code error,
+                        absl::optional<UserDefinedArgument> arg1,
+                        absl::optional<UserDefinedArgument> arg2) = 0;
 
   // Log an asynchronous trace start.
   virtual void LogAsyncStart(const char* name,
                              const uint32_t line,
                              const char* file,
                              Clock::time_point timestamp,
-                             TraceId trace_id,
-                             TraceId parent_id,
-                             TraceId root_id) = 0;
+                             TraceIdHierarchy ids,
+                             absl::optional<UserDefinedArgument> arg1,
+                             absl::optional<UserDefinedArgument> arg2) = 0;
 
   // Log an asynchronous trace end.
   virtual void LogAsyncEnd(const uint32_t line,

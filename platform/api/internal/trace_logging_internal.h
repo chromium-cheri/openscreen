@@ -10,6 +10,8 @@
 #include <stack>
 #include <vector>
 
+#include "platform/api/internal/trace_logging_creation_helper.h"
+#include "platform/api/logging.h"
 #include "platform/api/time.h"
 #include "platform/api/trace_logging_platform.h"
 #include "platform/api/trace_logging_types.h"
@@ -58,12 +60,10 @@ class ScopedTraceOperation : public TraceBase {
 
   static TraceIdHierarchy hierarchy() {
     if (traces_ == nullptr) {
-      return {kEmptyTraceId, kEmptyTraceId, kEmptyTraceId};
+      return TraceIdHierarchy::Empty();
     }
 
-    auto* top_of_stack = traces_->top();
-    return {top_of_stack->trace_id_, top_of_stack->parent_id_,
-            top_of_stack->root_id_};
+    return traces_->top()->hierarchy_ids();
   }
 
   // Static method to set the result of the most recent trace.
@@ -92,6 +92,8 @@ class ScopedTraceOperation : public TraceBase {
   TraceId parent_id_;
   TraceId root_id_;
 
+  TraceIdHierarchy hierarchy_ids() { return {trace_id_, parent_id_, root_id_}; }
+
  private:
   // NOTE: A std::vector is used for backing the stack because it provides the
   // best perf. Further perf improvement could be achieved later by swapping
@@ -118,7 +120,7 @@ class TraceLoggerBase : public ScopedTraceOperation {
   TraceLoggerBase(TraceCategory::Value category,
                   const char* name,
                   const char* file,
-                  uint32_t line,
+                  int line,
                   TraceId current = kUnsetTraceId,
                   TraceId parent = kUnsetTraceId,
                   TraceId root = kUnsetTraceId);
@@ -126,12 +128,17 @@ class TraceLoggerBase : public ScopedTraceOperation {
   TraceLoggerBase(TraceCategory::Value category,
                   const char* name,
                   const char* file,
-                  uint32_t line,
+                  int line,
                   TraceIdHierarchy ids);
+
+  ~TraceLoggerBase() override {
+    // Check arg2 only empty if arg1 also empty.
+    OSP_DCHECK(arg2_.is_empty() || !arg1_.is_empty());
+  }
 
  protected:
   // Set the result.
-  void SetTraceResult(Error::Code error) { result_ = error; }
+  void SetTraceResult(Error::Code error) override { result_ = error; }
 
   // Timestamp for when the object was created.
   Clock::time_point start_time_;
@@ -146,12 +153,34 @@ class TraceLoggerBase : public ScopedTraceOperation {
   const char* file_name_;
 
   // Line number the log was generated from.
-  uint32_t line_number_;
+  int line_number_;
 
   // Category of this trace log.
   TraceCategory::Value category_;
 
+  // User provided arguments.
+  UserArgument arg1_;
+  UserArgument arg2_;
+
+  // Conversion functions to get the platform-layer representation of user args.
+  inline absl::optional<UserDefinedArgument> platform_arg1() {
+    return ToPlatformArg(arg1_);
+  }
+  inline absl::optional<UserDefinedArgument> platform_arg2() {
+    return ToPlatformArg(arg2_);
+  }
+
  private:
+  inline absl::optional<UserDefinedArgument> ToPlatformArg(
+      const UserArgument& arg) {
+    auto result =
+        arg.is_empty()
+            ? static_cast<absl::optional<UserDefinedArgument>>(absl::nullopt)
+            : static_cast<absl::optional<UserDefinedArgument>>(
+                  UserDefinedArgument{arg->name(), arg->value()});
+    return result;
+  }
+
   OSP_DISALLOW_COPY_AND_ASSIGN(TraceLoggerBase);
 };
 
@@ -163,6 +192,10 @@ class SynchronousTraceLogger : public TraceLoggerBase {
 
  private:
   OSP_DISALLOW_COPY_AND_ASSIGN(SynchronousTraceLogger);
+
+  // Declare TraceCreationHelper a friend so that it can set user arguments
+  // without relying on a constructor or public accessor methods.
+  friend class TraceCreationHelper<SynchronousTraceLogger>;
 };
 
 class AsynchronousTraceLogger : public TraceLoggerBase {
@@ -173,6 +206,10 @@ class AsynchronousTraceLogger : public TraceLoggerBase {
 
  private:
   OSP_DISALLOW_COPY_AND_ASSIGN(AsynchronousTraceLogger);
+
+  // Declare TraceCreationHelper a friend so that it can set user arguments
+  // without relying on a constructor or public accessor methods.
+  friend class TraceCreationHelper<AsynchronousTraceLogger>;
 };
 
 // Inserts a fake element into the ScopedTraceOperation stack to set
@@ -192,27 +229,6 @@ class TraceIdSetter : public ScopedTraceOperation {
   void SetTraceResult(Error::Code error) {}
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TraceIdSetter);
-};
-
-// This helper object allows us to delete objects allocated on the stack in a
-// unique_ptr.
-template <class T>
-class TraceInstanceHelper {
- private:
-  class TraceBaseStackDeleter {
-   public:
-    void operator()(T* ptr) { ptr->~T(); }
-  };
-
-  using TraceInstanceWrapper = std::unique_ptr<T, TraceBaseStackDeleter>;
-
- public:
-  template <typename... Args>
-  static TraceInstanceWrapper Create(uint8_t storage[sizeof(T)], Args... args) {
-    return TraceInstanceWrapper(new (storage) T(std::forward<Args&&>(args)...));
-  }
-
-  static TraceInstanceWrapper Empty() { return TraceInstanceWrapper(); }
 };
 
 }  // namespace internal
