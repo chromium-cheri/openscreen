@@ -9,19 +9,24 @@
 namespace cast {
 namespace mdns {
 
-MdnsReceiver::MdnsReceiver(UdpSocket* socket,
-                           NetworkRunner* network_runner,
-                           Delegate* delegate)
-    : socket_(socket), network_runner_(network_runner), delegate_(delegate) {
+MdnsReceiver::MdnsReceiver(UdpSocket* socket, NetworkRunner* network_runner)
+    : socket_(socket), network_runner_(network_runner) {
   OSP_DCHECK(socket_);
   OSP_DCHECK(network_runner_);
-  OSP_DCHECK(delegate_);
 }
 
 MdnsReceiver::~MdnsReceiver() {
   if (state_ == State::kRunning) {
     Stop();
   }
+}
+
+void MdnsReceiver::SetQueryDelegate(Delegate* delegate) {
+  query_delegate_ = delegate;
+}
+
+void MdnsReceiver::SetResponseDelegate(Delegate* delegate) {
+  response_delegate_ = delegate;
 }
 
 Error MdnsReceiver::Start() {
@@ -52,10 +57,13 @@ void MdnsReceiver::OnRead(UdpPacket packet, NetworkRunner* network_runner) {
   if (!reader.Read(&message)) {
     return;
   }
-  if (message.type() == MessageType::Response) {
-    delegate_->OnResponseReceived(message, packet.source());
-  } else {
-    delegate_->OnQueryReceived(message, packet.source());
+  // Read delegate pointer into a local variable so it's value is not changed
+  // between checking for nullptr and calling the callback
+  Delegate* delegate = (message.type() == MessageType::Response)
+                           ? response_delegate_
+                           : query_delegate_;
+  if (delegate) {
+    delegate->OnMessageReceived(message, packet.source());
   }
 }
 
