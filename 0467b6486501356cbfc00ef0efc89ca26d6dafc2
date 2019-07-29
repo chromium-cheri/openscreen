@@ -68,6 +68,29 @@
       "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a196889_cb5a3a0e",
+        "filename": "cast/common/certificate/eureka_root_ca_der-inc.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T22:43:35Z",
+      "side": 1,
+      "message": "Is there a certificate rotation story for the Eureka Root CA? \n\nIf so: A Hard-coded value seems difficult to update when the Root CA is rotated. Can we read from the local machine\u0027s cert store (not sure if that\u0027s a thing in posix) or from a separate file we could update separately from the code?\n\nIf not: Do we have security sign off for never rotating this cert? My intuition / previous work with certs is telling me that never rotating a cert is insecure",
+      "range": {
+        "startLine": 68,
+        "startChar": 20,
+        "endLine": 68,
+        "endChar": 36
+      },
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
