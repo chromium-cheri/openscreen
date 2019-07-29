@@ -586,6 +586,24 @@
     },
     {
       "key": {
+        "uuid": "30bdc42c_949409cc",
+        "filename": "osp/impl/quic/quic_client_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-29T22:41:18Z",
+      "side": 1,
+      "message": "Member initialization is strict in C++ and not processor-specific.\n\nI guess we could debate whether declaration order \u003d\u003d initialization order is weird, but it\u0027s pretty common in C++ IMHO.  I guess I don\u0027t feel that strongly.",
+      "parentUuid": "5622668f_7f035370",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8272770_d61396c4",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 9
@@ -808,6 +826,24 @@
     },
     {
       "key": {
+        "uuid": "50e41ecc_d00d1f9b",
+        "filename": "osp/impl/quic/testing/quic_test_support.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-29T22:41:18Z",
+      "side": 1,
+      "message": "The TODO is fine if FakeNetworkRunner doesn\u0027t support delayed tasks for now.  Please also add a TODO/comment on FakeNetworkRunner\u0027s PostPackagedTaskWithDelay noting that it doesn\u0027t respect |delay| for now.",
+      "parentUuid": "ec8132cc_b3c9217a",
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5df83f11_4e4f1387",
         "filename": "osp/impl/quic/testing/quic_test_support.cc",
         "patchSetId": 9
@@ -983,6 +1019,30 @@
       "side": 1,
       "message": "Since the copy constructor of atomic\u003c...\u003e has been deleted, there is no easy way to initialize it here",
       "parentUuid": "de32ff97_ecf21baa",
+      "range": {
+        "startLine": 23,
+        "startChar": 37,
+        "endLine": 23,
+        "endChar": 60
+      },
+      "revId": "871e113a72ed2e1b90294fe377dcb1b018e55b8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6740703_43030a32",
+        "filename": "osp/public/service_listener.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-29T22:41:18Z",
+      "side": 1,
+      "message": "I think state_{State::kStopped} should work in the header file, but not required IMHO.",
+      "parentUuid": "04a53104_af93878a",
       "range": {
         "startLine": 23,
         "startChar": 37,
