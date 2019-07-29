@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "442d645a_bce43c16",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:59:16Z",
+      "side": 1,
+      "message": "If we support AddObserver and RemoveObserver, it makes sense to support UdpSockets with no observers. Is there any reason not to provide an empty constructor for this case?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "4fd9395fc1c3d42abe170b16dc93bf667fd99f32",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2180105c_a3755afc",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:59:16Z",
+      "side": 1,
+      "message": "I think you forgot to update this file to use the new observer_list_ approach :)",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "4fd9395fc1c3d42abe170b16dc93bf667fd99f32",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

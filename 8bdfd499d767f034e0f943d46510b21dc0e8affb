@@ -93,6 +93,30 @@
       "revId": "8bdfd499d767f034e0f943d46510b21dc0e8affb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f71d8f6_1028b3d2",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:59:16Z",
+      "side": 0,
+      "message": "The specific edge case this was fixing was:\n\nthread NetworkWaiter calls Read(), which takes in a list of sockets\nthread 2 deletes a socket\nthread 1 proceeds, not knowing one of its sockets is an invalid reference. When it calls GetFd() on the deleted socket, it segfaults\n\nAs long as this edge case is accounted for, I see no problem deleting this method",
+      "parentUuid": "5a8e4c48_ba9fafab",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "8bdfd499d767f034e0f943d46510b21dc0e8affb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
