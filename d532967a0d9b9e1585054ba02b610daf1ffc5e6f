@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "13b2b411_e1c7e2f9",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-29T21:20:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3012138d_11b98f00",
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d2eaf54_135c8434",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 2
@@ -84,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "37d34dd3_41317791",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-29T21:20:46Z",
+      "side": 1,
+      "message": "This is the only way to report async errors.",
+      "parentUuid": "42820c3c_27406c8c",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 71
+      },
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e346f0c_21971ebe",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 2
@@ -104,6 +146,30 @@
       "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca9811aa_11cdd019",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-29T21:20:46Z",
+      "side": 1,
+      "message": "The NetworkRunner is an implementation detail--I don\u0027t think we want embedders to be forced to use a NetworkRunner. Certainly in Chromium at least--since the Network code runs in a separate process and provides async callbacks, having to implement a NetworkRunner and use it doesn\u0027t really make sense.\n\nThe Posix UDPSocket is more than welcome to use the NetworkRunner, however the NetworkRunner should then call OnMessage on the Observer.",
+      "parentUuid": "1e346f0c_21971ebe",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 4
+      },
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +217,30 @@
       "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bea5736_13b42737",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-29T21:20:46Z",
+      "side": 1,
+      "message": "Callbacks makes more sense to me, I\u0027ll move to that.",
+      "parentUuid": "e9b6fad9_edfa4bc0",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "d532967a0d9b9e1585054ba02b610daf1ffc5e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

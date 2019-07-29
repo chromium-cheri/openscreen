@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9d0a29dd_83c2b0b6",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-29T21:20:46Z",
+      "side": 0,
+      "message": "It will be an implementation detail of the Posix udp socket, since this public API shouldn\u0027t have any private methods.",
+      "parentUuid": "028dd2cf_10aa42b3",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 50
+      },
+      "revId": "8bdfd499d767f034e0f943d46510b21dc0e8affb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef6ebb9f_299507e8",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8bdfd499d767f034e0f943d46510b21dc0e8affb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a8e4c48_ba9fafab",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-07-29T21:20:46Z",
+      "side": 0,
+      "message": "Moving forward, the NetworkRunner should be an implementation detail not exposed outside of the platform through this UdpSocket API. The SetDeletionCallback, if needed, should only be on UdpSocketPosix.",
+      "parentUuid": "ef6ebb9f_299507e8",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "8bdfd499d767f034e0f943d46510b21dc0e8affb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
