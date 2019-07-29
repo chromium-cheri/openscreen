@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e72415d6_7bd8dd8a",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T22:22:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f034b6d5_7b59cd3f",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cc4fdd4_23b0544c",
         "filename": "platform/BUILD.gn",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4f9d3545_0f2bbedc",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T22:22:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cc4fdd4_23b0544c",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "972c14de_00dc1893",
         "filename": "platform/api/internal/trace_logging_macros_internal.h",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-07-29T21:49:11Z",
       "side": 1,
       "message": "Is TRACE_COMPILE_OUT necessary, or can code that includes this file can just use !ENABLE_TRACE_LOGGING?",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b085341f_314849ca",
+        "filename": "platform/api/internal/trace_logging_macros_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T22:22:39Z",
+      "side": 1,
+      "message": "Updated name to TRACE_FORCE_DISABLE\n\nIt\u0027s necessary because I don\u0027t want the trace logging macros compiled out when TRACE_FORCE_ENABLE is defined (for Unit Tests)\n\nThe current approach has TRACE_FORCE_DISABLE \u003d !ENABLE_TRACE_LOGGING \u0026\u0026 !TRACE_FORCE_ENABLE",
+      "parentUuid": "972c14de_00dc1893",
       "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "ef4e63c0_5a19eccb",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T22:22:39Z",
+      "side": 1,
+      "message": "Updated to   `// TRACE_FORCE_DISABLE defined`   for clarity",
+      "parentUuid": "79369664_2bcba454",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5095cb6_803189e0",
         "filename": "platform/api/trace_logging.h",
         "patchSetId": 2
@@ -84,6 +156,24 @@
       "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4db313a_2401c4f8",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T22:22:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5095cb6_803189e0",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "ef6e5635_f7004a80",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T22:22:39Z",
+      "side": 1,
+      "message": "Updated to    `// TRACE_FORCE_DISABLE defined\"    to be explicit",
+      "parentUuid": "eca8b760_da17e347",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86f4c959_c1d9e73c",
         "filename": "platform/impl/task_runner.h",
         "patchSetId": 2
@@ -118,6 +226,24 @@
       "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50f32db7_d4f7e160",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T22:22:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86f4c959_c1d9e73c",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
