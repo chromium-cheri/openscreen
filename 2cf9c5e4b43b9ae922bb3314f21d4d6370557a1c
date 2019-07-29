@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f034b6d5_7b59cd3f",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-29T21:49:11Z",
+      "side": 1,
+      "message": "I\u0027d prefer this be named enable_trace_logging (and the sense reversed) to avoid double negatives.",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cc4fdd4_23b0544c",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-29T21:49:11Z",
+      "side": 1,
+      "message": "Prefer ENABLE_TRACE_LOGGING: it\u0027s simper to have the #define to be named the same as the GN config.",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "972c14de_00dc1893",
+        "filename": "platform/api/internal/trace_logging_macros_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-29T21:49:11Z",
+      "side": 1,
+      "message": "Is TRACE_COMPILE_OUT necessary, or can code that includes this file can just use !ENABLE_TRACE_LOGGING?",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79369664_2bcba454",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-29T21:49:11Z",
+      "side": 1,
+      "message": "// !ENABLE_TRACE_LOGGING",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5095cb6_803189e0",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-29T21:49:11Z",
+      "side": 1,
+      "message": "// ENABLE_TRACE_LOGGING",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eca8b760_da17e347",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-29T21:49:11Z",
+      "side": 1,
+      "message": "// !ENABLE_TRACE_LOGGING",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86f4c959_c1d9e73c",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-07-29T21:49:11Z",
+      "side": 1,
+      "message": "Chromium style is to put the conditional expression after #endif in a comment, e.g.\n\n#endif  // ENABLE_TRACE_LOGGING",
+      "revId": "2cf9c5e4b43b9ae922bb3314f21d4d6370557a1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
