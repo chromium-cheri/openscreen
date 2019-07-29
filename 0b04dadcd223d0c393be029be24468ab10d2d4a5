@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d387599a_aa643c28",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:45:30Z",
+      "side": 1,
+      "message": "That\u0027s a clever approach, but I like the idea of being explicit here - I find this to be clearer, which is more important than efficient for UnitTests",
+      "parentUuid": "cf595116_0c9e76ba",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 69
+      },
+      "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8709701_ce9e9eae",
         "filename": "osp/impl/quic/quic_connection_factory.h",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd60531e_6c6e99a2",
+        "filename": "osp/impl/quic/quic_connection_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:45:30Z",
+      "side": 1,
+      "message": "All code which wanted to run code on socket reads need to inherit from UdpReadCallback - so it\u0027s essentially replacing the RunTasks method\n\nI agree this is a bit weird, but refactoring the existing code is outside the scope of this CL",
+      "parentUuid": "e8709701_ce9e9eae",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 62
+      },
+      "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7517cca5_0a9331dd",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:45:30Z",
+      "side": 1,
+      "message": "Good catch! Updated",
+      "parentUuid": "2957a7e1_195054b0",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13da9d9d_3f664178",
         "filename": "platform/api/network_runner_factory.h",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d39193c9_e0714fa8",
+        "filename": "platform/api/network_runner_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:45:30Z",
+      "side": 1,
+      "message": "Name updated to \u0027LifetimeManager\u0027 instead of \u0027factory\u0027 - let me know if you have thoughts on a better name though :)\n\nSee discussion on iteration 7 for more details why this behaves in this way",
+      "parentUuid": "13da9d9d_3f664178",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6cdca624_af21291f",
+        "filename": "platform/api/udp_packet.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1b533f9_6039a733",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe8097b4_2fdf071b",
         "filename": "platform/impl/network_runner_factory.h",
         "patchSetId": 10
@@ -137,6 +257,30 @@
       "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8256ac64_18bfe603",
+        "filename": "platform/impl/network_runner_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-29T21:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe8097b4_2fdf071b",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "0b04dadcd223d0c393be029be24468ab10d2d4a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
