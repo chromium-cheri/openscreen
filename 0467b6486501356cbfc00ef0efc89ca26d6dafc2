@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0f98e748_894baed8",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-30T21:39:57Z",
+      "side": 1,
+      "message": "I should have explained better, I meant negating the if condition to push the code to the left and reduce nesting.\n\nif (basic_constraints_index \u003d\u003d -1) {\n  return CastCertError::kErrCertsVerifyGeneric;\n}\n\nif (!basic_constraints || !basic_constraints-\u003eca) {\n  return CastCertError::kErrCertsVerifyGeneric;\n}",
+      "parentUuid": "9b035b32_52c854a3",
+      "range": {
+        "startLine": 303,
+        "startChar": 1,
+        "endLine": 308,
+        "endChar": 3
+      },
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b8d1d5d_dab802b6",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 5
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "We also need to ensure the hash function is \u003e\u003d sha1 though, so we still need to check these 5 cases.",
       "parentUuid": "3b8d1d5d_dab802b6",
+      "range": {
+        "startLine": 328,
+        "startChar": 4,
+        "endLine": 345,
+        "endChar": 5
+      },
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fbbb1ef_a36bebbf",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-30T21:39:57Z",
+      "side": 1,
+      "message": "I can\u0027t get rid of the feeling that there\u0027s a much easier way to do perform substantial parts of this entire process (not just this part) by calling some very high-level bssl functions.",
+      "parentUuid": "5065c69f_443ff6d4",
       "range": {
         "startLine": 328,
         "startChar": 4,
