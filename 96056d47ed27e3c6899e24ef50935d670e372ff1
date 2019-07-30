@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5215822f_bf7f13de",
+        "filename": "platform/api/internal/trace_logging_macros_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-30T23:02:00Z",
+      "side": 1,
+      "message": "I feel this #define situation would be a lot simpler if trace_logging_unittest.cc could just define its own IsTraceLoggingEnabled instead of getting around it with macros here.  This may have been discussed before but I feel it\u0027s worth reconsidering since this change would make the situation more complicated.",
+      "revId": "96056d47ed27e3c6899e24ef50935d670e372ff1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c09ec72_cadba243",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-30T23:02:00Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly either way, but are you only inlining to avoid another ifndef block in the .cc or was something else happening?",
+      "revId": "96056d47ed27e3c6899e24ef50935d670e372ff1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
