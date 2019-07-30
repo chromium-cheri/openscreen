@@ -6,6 +6,7 @@ import("//build_overrides/build.gni")
 
 source_set("platform") {
   sources = [
+    "api/internal/trace_logging_creation_helper.h",
     "api/internal/trace_logging_internal.cc",
     "api/internal/trace_logging_internal.h",
     "api/internal/trace_logging_macros_internal.h",
@@ -135,6 +136,7 @@ source_set("platform_unittests") {
   testonly = true
 
   sources = [
+    "api/internal/trace_logging_creation_helper_unittest.cc",
     "api/internal/trace_logging_internal_unittest.cc",
     "api/time_unittest.cc",
     "api/trace_logging_unittest.cc",
