@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4bedf04_34e466ac",
+        "filename": "platform/api/internal/trace_logging_macros_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-30T23:46:23Z",
+      "side": 1,
+      "message": "The reason this isn\u0027t currently supported is because calling a static method for IsLoggingEnabled(...) is faster than calling an instance level method of the platform. If we updated IsLoggingEnabled to be a platform method, this problem would be solved, but there would also be a perf cost.\n\nI am all for changing to a platform instance call though - I actually think that API would make more sense. What do you both think?",
+      "parentUuid": "5215822f_bf7f13de",
+      "revId": "96056d47ed27e3c6899e24ef50935d670e372ff1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c09ec72_cadba243",
         "filename": "platform/impl/task_runner.h",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-07-30T23:02:00Z",
       "side": 1,
       "message": "I don\u0027t feel strongly either way, but are you only inlining to avoid another ifndef block in the .cc or was something else happening?",
+      "revId": "96056d47ed27e3c6899e24ef50935d670e372ff1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a20bccc6_693c22dc",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-30T23:46:23Z",
+      "side": 1,
+      "message": "Yeah - I am trying to avoid the extra #ifndef",
+      "parentUuid": "2c09ec72_cadba243",
       "revId": "96056d47ed27e3c6899e24ef50935d670e372ff1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
