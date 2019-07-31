@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea219908_0397eebf",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "\"this\" is a pointer, it\u0027s size is the size of the pointer, which is 8 bytes on x64.",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ef1733d_1d0e6596",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "This requires that the type is copy-constructible, if I understand correctly.",
+      "range": {
+        "startLine": 46,
+        "startChar": 44,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "680476d6_51bb7cf9",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "Depending on what types we actually want to support (i.e. user defined types vs built-in only) you might be able to use std::to_string or absl equivalent.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abf2792b_c7d11614",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "It should be possible to defer to-string here until the arguments are actually written by saving the T itself. This wouldn\u0027t skew the timing information as much.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 29
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e18b53_f6eb3dd5",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "How do I log a pointer value if it\u0027s going to de-reference and to-string it?\n\nI think it should a responsibility of a caller to de-reference pointers when passing them as arguments to trace logging.\n\nAlso, having something as nullptr is perfectly valid, but that would cause a crash here due to de-referencing.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 2
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "571f4dc5_2d6b5ba5",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "This is quite unconventional. What problem does this solve? Why is it limited to parameter-less functions only? Why does it execute a function? Why only once?",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 56
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "446acdff_774216b8",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "Would you mind having this in a separate CL? This is a complicated topic and we can an an implementation in a separate file without affecting the rest of the code and then start using it in subsequent CLs.",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 157,
+        "endChar": 27
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd7067ef_42aeb820",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "You really don\u0027t need a unique_ptr anymore, since you already have a class that has the aligned storage allocated on stack. You can call the virtual destructor of Child in the destructor of this class.",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 63
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "584d76b2_d7f79d46",
+        "filename": "platform/api/internal/trace_logging_creation_helper_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-07-31T20:05:23Z",
+      "side": 1,
+      "message": "Why not simply capture value by reference, e.g. [\u0026value]",
+      "range": {
+        "startLine": 47,
+        "startChar": 31,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
