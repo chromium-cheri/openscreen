@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "10f47f21_b085ca72",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-31T00:39:08Z",
+      "side": 1,
+      "message": "Ah, of course.  I think the former loop structure just confused me.",
+      "parentUuid": "0f98e748_894baed8",
+      "range": {
+        "startLine": 303,
+        "startChar": 1,
+        "endLine": 308,
+        "endChar": 3
+      },
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b8d1d5d_dab802b6",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 5
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I can\u0027t get rid of the feeling that there\u0027s a much easier way to do perform substantial parts of this entire process (not just this part) by calling some very high-level bssl functions.",
       "parentUuid": "5065c69f_443ff6d4",
+      "range": {
+        "startLine": 328,
+        "startChar": 4,
+        "endLine": 345,
+        "endChar": 5
+      },
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d4e3f6d_758a9601",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-31T00:39:08Z",
+      "side": 1,
+      "message": "Well, there may be but it\u0027s not completely straightforward.\n\nX509_verify_cert() will verify a complete chain.  However:\n 1. If we let it do the path-finding as well, I\u0027m not sure how we get the successful path back.  This might not be important except...\n 2. It doesn\u0027t seem to check the pathlenConstraint extension correctly (it seems to skip it on the root cert, which is exactly where we want it).\n 3. We also need to be able to override certificate expiration checking on the root (well, need may be a strong word since current certs are good til 2032 or later and hopefully something else is figured out by then) and that doesn\u0027t seem trivial with the particular callback interface openssl gives us.\n\nRight now I feel this route will still be easier, but I\u0027m happy to discuss/elaborate-on the X509_verify_cert further if anyone feels strongly.",
+      "parentUuid": "5fbbb1ef_a36bebbf",
       "range": {
         "startLine": 328,
         "startChar": 4,
