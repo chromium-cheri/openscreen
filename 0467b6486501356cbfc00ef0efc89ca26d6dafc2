@@ -2,6 +2,261 @@
   "comments": [
     {
       "key": {
+        "uuid": "7d67b128_9e0f4da6",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "This could use a comment explaining what it is, along with comments on the members.  Like where are the indeces pointing?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a2c1456_3dc03527",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "_index?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de6a268c_0af42891",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Would be nice to comment that this is for passing into ASN1_BIT_STRING_get_bit(key_usage, KeyUsageBits)",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cdaf7bb_5c56533c",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Some comment or reference to what these mean would be nice.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd8032ae_35f6c7c6",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Could we use type aliases to give these things better type names?  \n\nEVP_MD \u003d\u003e SslDigest\nEVP_PKEY \u003d\u003e SslPublicKey \nEVP_MD_CTX \u003d\u003e SslDigestContext\nX509 \u003d\u003e SslCertificate\nX509_NAME \u003d\u003e SslCertificateName\nASN1_GENERALIZEDTIME \u003d\u003e SslSerializedTime\nX509_EXTENSION \u003d\u003e SslCertificateExtension\nASN1_BIT_STRING \u003d\u003e SslCertificateBitString\nBASIC_CONSTRAINTS \u003d\u003e SslCertificateBasicConstraints\n\n\nAnd so on.  It would make things a lot easier to read.\n\nEven better would be if you could wrap the ones with getter functions to have methods, like ssl_cert.public_key() instead of X509_get_pubkey(ssl_cert).",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb906fb6_4e2d4397",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this info be propagated back through the callers of this function to the public methods so external callers will know?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9afbd08_60459054",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "If we only need the public key, why not take that as an argument instead of the entire cert?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d107a4_62f43188",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Lower down, I suggest a CreateDigest function.  That would be useful here as well.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d691197b_2bf51382",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "I\u0027d feel more comfortable passing in a const ref to a std::vector with the start index and stop index.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d60dee65_9e5f01f2",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "ParseAsn1GeneralizedTime?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f80e91_3c4e14a9",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "A simple Asn1TimeDigit(time, index) helper method would make this a bit more readable.\n\nOr better yet an Asn1TimeDoubleDigit(time, index) would be even better.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13fab8f8_5e255621",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "An IsLeapYear and a DaysPerMonth helper function might be nice here.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c60be514_53f18479",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "IsDateTimeBefore?\n\nOr just add operator\u003c to the struct?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c135e4e_62e4d148",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Could much of the following big chunk of code be broken into a GetCertBasicConstraints function like the GetKeyUsage function above?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb63d80f_96ae0237",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Why are these not early returns?  All the remaining code checks that error \u003d\u003d CastCertError::kNone.  An early return would be much more readable, especially if the if/else were reversed.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c20d16aa_f2696689",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 5
@@ -94,6 +349,57 @@
       "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5453da5a_7a948856",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Would this be more clear as something like this?\n\nbool is_root \u003d (i \u003d\u003d step_index);\n// Root does not need to have cert time verified\nif (!is_root \u0026\u0026 !VerifyCertTime(issuer, time, \u0026error))) {\n}",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa8e83b4_b3017598",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Again, why not an early return (on all of these breaks)",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc6052aa_e05b8f31",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "But then it just breaks out of the loop anyway, right?  So what \"continue\" and not \"break\" (or return)?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -192,6 +498,74 @@
     },
     {
       "key": {
+        "uuid": "f67d7605_b1324a7a",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Could it make sense to have a CreateDigest method that we could have be like this:\n\nconst EVP_MD* digest \u003d CreateDigest(subject-\u003esig_alg-\u003ealgorithm)\n\n?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e16afa_ada8f0f2",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "This impl is so complicated.  It seriously needs a comment explaining how it works, and perhaps some helper methods to pull out and simply this code.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c7d7b87_8dd0041e",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "does \"for (auto der_cert : der_certs)\" not work?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93208e01_dab40219",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Would it make more sense to have a ParseDer function that you just call in more than one place?\n\ntarget_cert \u003d ParseDer(der_certs[0]);\nif (!target_cert) {\n  return CastCertError::kErrCertsParse;\n}\nfor (size_t i \u003d 1; i \u003c certs.size(); ++i) {\n  intermediate_certs.emplace_back(ParseDer(der_certs[i]));\n  if (!intermediate_certs.back()) {\n    return CastCertError::kErrCertsParse;\n  }\n}",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fad8d132_46a1e8ad",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 5
@@ -236,6 +610,261 @@
       "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5f21237_ac42cc26",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Why +2?  Could use a comment or named constant.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2288df_c008dee1",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "The path is in reverse order?  That could be worth documenting.  In fact, you might consider making CertPath data type to go along with your CertPathStep data type.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7115a1e2_b51dd221",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "A comment explaining what \"hit_trust\" would be nice, or a name that is more descriptive.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d549c3ea_0e2944e6",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "A comment explaining what \"step_index\" means would be nice.\n\nOr perhaps this would be better:\n\nCertPathStep\u0026 current_step \u003d path[path.size() - 1].",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c64f0ad2_4e10ac09",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "If getting the issuer name from the path head is called the \"target\" issuer name, should we call the path head \"target\" instead?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ed4ced8_3b1bba69",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "This could use a comment explaining what it means.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "094ddb33_66ab6d3a",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Does a nice C++11 for loop not work?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6757d87f_07668bd7",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Maybe \"trust_store_cert\" would be more clear.  Lots of things around here are called \"cert\"!",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d827fc62_cd18a18e",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "And trusted_store_cert_name.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873feb0c_53f74b07",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "It might be helpful to readers to comment somewhere the definition of CRL.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f7d1d0b_62932dae",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "kUnrestricted?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c836d6cb_f5546063",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "DateTime?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d81151c6_a2e05543",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "I\u0027m confused because it\u0027s not a unix timestamp.  It\u0027s more like a DateTime struct.",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39363217_cd3dcbfb",
+        "filename": "cast/common/certificate/cast_cert_validator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "der_certs?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "592751fa_e75f920e",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-07-31T21:56:13Z",
+      "side": 1,
+      "message": "Do we know what the word \"internal\" means in this context?",
+      "revId": "0467b6486501356cbfc00ef0efc89ca26d6dafc2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
