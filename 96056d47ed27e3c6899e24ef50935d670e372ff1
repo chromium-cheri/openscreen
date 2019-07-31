@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "79b7c84a_9e0dae7c",
+        "filename": "platform/api/internal/trace_logging_macros_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-31T00:51:43Z",
+      "side": 1,
+      "message": "Well, my suggestion was to literally put `void IsTraceLoggingEnabled(TraceCategory::Value) { return true; }` in trace_logging_unittest.cc because nothing else in that exe defines/needs it, not necessarily to move it to the platform interface (i.e. make it virtual).  IMHO it\u0027s at least as valid as the macro solution, but I don\u0027t feel that strongly after thinking about it some more.  I\u0027ll leave it up to you.",
+      "parentUuid": "c4bedf04_34e466ac",
+      "revId": "96056d47ed27e3c6899e24ef50935d670e372ff1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c09ec72_cadba243",
         "filename": "platform/impl/task_runner.h",
         "patchSetId": 3
@@ -69,6 +87,24 @@
       "revId": "96056d47ed27e3c6899e24ef50935d670e372ff1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34800c4f_b34578e0",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-07-31T00:51:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a20bccc6_693c22dc",
+      "revId": "96056d47ed27e3c6899e24ef50935d670e372ff1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
