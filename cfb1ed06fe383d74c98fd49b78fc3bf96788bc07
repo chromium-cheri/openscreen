@@ -140,6 +140,30 @@
     },
     {
       "key": {
+        "uuid": "86eee852_f0b5c54c",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-07-31T20:13:41Z",
+      "side": 1,
+      "message": "This is a problem that I ran into when previously writing a TraceLogging library - we want to log a user argument, but the value of the function isn\u0027t known until part-way-through its execution. ie:\n\nint x \u003d 0;\n{\n  TRACE_SCOPED(..., [val \u003d \u0026x]() { return *val; });\n  int x \u003d DoSomeOperation(...)\n}\n\nIn the above case, there is no way to log x if a function-style input isn\u0027t provided. Additionally, without delayed evaluation of the function, the value of DoSomeOperation(...) could not be captured. It\u0027s only executed once because this is essentially lazy evaluation of the value to log.\n\nSee the UnitTest for a functional example",
+      "parentUuid": "571f4dc5_2d6b5ba5",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 56
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "446acdff_774216b8",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
