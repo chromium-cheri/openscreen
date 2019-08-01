@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c06888e_fc5a7a90",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "I know this might sound crazy, but in that case \"1 + intermediate_certs.size() + 1\" would be slightly more readable.",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be1a13e1_caa080a4",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Should this be called path_index?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d602801_0b3443be",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Perhaps path_cert_in_trust_store?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c58883a5_65af0cd0",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "What does the current code do?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "786cfb74_61389d6c",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Can you leave a comment explaining why we\u0027re checking that the trusted cert is *not* in the path?  At first glance, it seems backwards.",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e5a05f1_92df00d0",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Could this loop be broken out into its own function?  Something like \n\nif (FindCert(trust_store, trust_store_index, path, step_index, \u0026trust_store_index)) {\n  path_cert_in_trust_store \u003d true;  \n  next_issuer \u003d trust_store-\u003ecerts[trust_store_index].get();\n\n  CertPathStep\u0026 next_step \u003d path[--step_index];\n  next_step.cert \u003d next_issuer;\n  next_step.trust_store_index \u003d trust_store_index + 1;\n  next_step.intermediate_cert_index \u003d 0;\n}",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d00e0f_b9ecfcdb",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Similarly here:\n\nif (FindCert(intermediate_certs, intermediate_cert_index, path, step_index, \u0026intermediate_cert_index)) { \n  next_issuer \u003d intermediate_certs[trust_store_index].get();\n\n  CertPathStep\u0026 next_step \u003d path[--step_index];\n  next_step.cert \u003d next_issuer;\n  next_step.trust_store_index \u003d trust_store-\u003ecerts.size();\n  next_step.intermediate_cert_index \u003d intermediate_cert_index + 1;\n}",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d7658a2_2284a506",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Could you make a first_index \u003d path.size() - 1, perhaps up where step_index is defined (could even have \"step_index \u003d first_index\" to initialize it).  That could make this more readable.\n\nAnd should we have a comment explaining that this is when we backtrack back up to the beginning?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328703a4_ec11444e",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Should this be called \"last_step\"?\n\nAnd should we have a comment about how this is where we back track?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3e6ba8_40a2aa73",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "This might be more clear as:\n\nif (!next_issuer \u0026\u0026 step_index \u003e first_index) {\n  CertPathStep\u0026 bad_step \u003d path[step_index++];\n  trust_store_index \u003d bad_step.trust_store_index;\n  intermediate_cert_index \u003d bad_step.intermediate_cert_index; \n  continue; \n}\n\nif (!next_issuer \u0026\u0026 step_index \u003d\u003d first_index) {\n  if (last_error !\u003d CastCertError::kNone) {\n    return last_error;\n  }\n  return CastCertError::kErrCertsVerifyGeneric;\n}\n\n\nActually, I think we could move that last if statement down to below \" if (hit_trust) { ... } \" and de-dupe with the later \"if (last_error !\u003d CastCertError::kNone) { return last_error; }\"",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40826714_5bbad266",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "When are we going to do these things?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b661ad84_1d42af1b",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Why not verify the certificate up when we do \"hit_trust \u003d true;\" instead of getting all the way down here?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe01e64e_5d92c39b",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "There\u0027s a \"if (last_error !\u003d CastCertError::kNone) { return last_error;}\" below.  So isn\u0027t this the same as \"return last_error\" here?  Or did you mean to put a \"continue\" here?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1306ff6_d979acc0",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "Woh.  Where in the world does that policy come from?",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17a2d1a3_ae50b56e",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "This could use a GetCertificatePolicies helper function like we have a GetKeyUsage.",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e376ca_6107f828",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "This could use some kind of HasPolicyOid(policies, AudioOnlyPolicyOid()) helper function.  That would make this more readable.",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6df1ec6_d2a5641c",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-01T20:11:15Z",
+      "side": 1,
+      "message": "In fact, this whole thing could use a HasAudioOnlyPolicy(cert) helper method to contain most of this.",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
