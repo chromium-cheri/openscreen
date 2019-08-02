@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "358a8887_af07d998",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c06888e_fc5a7a90",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be1a13e1_caa080a4",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "789e1b94_5955c4ac",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be1a13e1_caa080a4",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "eac08156_2fd7f6c6",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d602801_0b3443be",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c58883a5_65af0cd0",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be78230e_a1221981",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "X509_NAME_cmp is actually fine, removing this now rather than later.",
+      "parentUuid": "c58883a5_65af0cd0",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "129bd022_b3a7f474",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Why would you add a cert that\u0027s already in the path?  This prevents cycles or infinitely adding self-issued certs.  It\u0027s actually not necessary in the |trust_store| case though, since this always terminates path building.",
+      "parentUuid": "786cfb74_61389d6c",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e5a05f1_92df00d0",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -101,6 +191,24 @@
       "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0116fb3_df5ae990",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Since CertInPath isn\u0027t needed here anymore, the two loops don\u0027t collapse nicely.",
+      "parentUuid": "4e5a05f1_92df00d0",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "233210a7_72e23cc4",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "parentUuid": "c1d00e0f_b9ecfcdb",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7658a2_2284a506",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -135,6 +261,24 @@
       "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b56211f8_8a9f524d",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "This is not backtracking, this is returning because we ran out of paths to try.\n\nAdded first_index var.",
+      "parentUuid": "6d7658a2_2284a506",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "7cddb3bc_f66b43f8",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Done but I don\u0027t think this needs a comment.",
+      "parentUuid": "328703a4_ec11444e",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac3e6ba8_40a2aa73",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -169,6 +331,24 @@
       "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5319e098_92f43825",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "I disagree that duplicating the condition is more clear.\n\nAs for moving the second case to de-dupe... the latter is outside the loop, so we\u0027d still need a break, which is IMO less clear (break to hit a different if that returns you) than just returning immediately.",
+      "parentUuid": "ac3e6ba8_40a2aa73",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "4b1ac663_1671f4cb",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Next follow-up CL for everything but revocation, then revocation.",
+      "parentUuid": "40826714_5bbad266",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b661ad84_1d42af1b",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -203,6 +401,24 @@
       "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f1faa5f_18d3ab71",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Mostly because we can\u0027t double-break easily.",
+      "parentUuid": "b661ad84_1d42af1b",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "3874a3f4_1a1ac2a6",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "This isn\u0027t returning, it\u0027s taking one step back in the path.",
+      "parentUuid": "fe01e64e_5d92c39b",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1306ff6_d979acc0",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -237,6 +471,24 @@
       "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33779a83_79106131",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Up to 11129 is a \"private enterprise\" OID path.  I can\u0027t find any immediate references to the 2.5.2 part though.",
+      "parentUuid": "c1306ff6_d979acc0",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "a1f4ac6c_930a0462",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "This is only done once so I\u0027d rather leave it.",
+      "parentUuid": "17a2d1a3_ae50b56e",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9e376ca_6107f828",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "ad3e0726_553686f7",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Added a block comment instead of moving.",
+      "parentUuid": "a9e376ca_6107f828",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6df1ec6_d2a5641c",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 8
@@ -288,6 +576,24 @@
       "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9da22e3_46461c5b",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-02T19:59:30Z",
+      "side": 1,
+      "message": "Moved this back into its own function.",
+      "parentUuid": "b6df1ec6_d2a5641c",
+      "revId": "fdbcfd1a9065eb0f8465e9b99b8d574c364ca6ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
