@@ -79,8 +79,7 @@ void ValidateTraceErrorCode(const char* name,
 
 // These tests validate that parameters are passed correctly by using the Trace
 // Internals.
-constexpr TraceCategory::Value category =
-    TraceCategory::Value::CastPlatformLayer;
+constexpr TraceCategory::Value category = TraceCategory::mDNS;
 constexpr uint32_t line = 10;
 
 TEST(TraceLoggingInternalTest, CreatingNoTraceObjectValid) {
