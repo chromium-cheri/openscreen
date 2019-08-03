@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "efd8d195_e288b30e",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-03T00:33:13Z",
+      "side": 1,
+      "message": "Good catch. Was going to move this to the child classes until I realized that they actually already had set space requirements\n\nIn a future CL I hope to make them use char[] arrays instead of strings so they can be fully allocated on the stack, but until then I will avoid worrying about it",
+      "parentUuid": "ea219908_0397eebf",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ef1733d_1d0e6596",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-31T20:05:23Z",
       "side": 1,
       "message": "This requires that the type is copy-constructible, if I understand correctly.",
+      "range": {
+        "startLine": 46,
+        "startChar": 44,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea8dbde5_d0400f6f",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-03T00:33:13Z",
+      "side": 1,
+      "message": "This was an intentional decision. Passing primitives by value is far faster than by reference (at least according to what I read online), and I expect that is going to be the main use of this call\n\nIf we want to support pass-by reference, I can add a SFINAE check for std::is_fundemental\u003cT\u003e and another template definition to handle passing of references. I am attempting to optimize for perf in the regular case here though\n(writing to a local char[] instead of a string will come at a later point)\n\nThoughts?",
+      "parentUuid": "9ef1733d_1d0e6596",
       "range": {
         "startLine": 46,
         "startChar": 44,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "facd32fe_558370fc",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-03T00:33:13Z",
+      "side": 1,
+      "message": "I like this idea, but it depends on how the library will be used\n\n@miu, what do you think?",
+      "parentUuid": "680476d6_51bb7cf9",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abf2792b_c7d11614",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d96f7905_352ca4d3",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-03T00:33:13Z",
+      "side": 1,
+      "message": "That\u0027s fair. Updating to use the same approach as a function below",
+      "parentUuid": "abf2792b_c7d11614",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 29
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48e18b53_f6eb3dd5",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "627f7c34_1075d682",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-03T00:33:13Z",
+      "side": 1,
+      "message": "Good points for all of those\n\nUpdating this to log the pointer address for now and added another template option for nullptr",
+      "parentUuid": "48e18b53_f6eb3dd5",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 2
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "7f94a037_03c2caaf",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-03T00:33:13Z",
+      "side": 1,
+      "message": "I will plan to split this into a separate CL on Monday",
+      "parentUuid": "446acdff_774216b8",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 157,
+        "endChar": 27
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd7067ef_42aeb820",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -198,6 +342,30 @@
       "writtenOn": "2019-07-31T20:05:23Z",
       "side": 1,
       "message": "You really don\u0027t need a unique_ptr anymore, since you already have a class that has the aligned storage allocated on stack. You can call the virtual destructor of Child in the destructor of this class.",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 63
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4086191d_ad225ca0",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-03T00:33:13Z",
+      "side": 1,
+      "message": "I find it more readable to use the unique_ptr, but if you have a strong preference I can change it :)",
+      "parentUuid": "fd7067ef_42aeb820",
       "range": {
         "startLine": 196,
         "startChar": 2,
@@ -230,6 +398,30 @@
       "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8592304f_0eca1d08",
+        "filename": "platform/api/internal/trace_logging_creation_helper_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-03T00:33:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "584d76b2_d7f79d46",
+      "range": {
+        "startLine": 47,
+        "startChar": 31,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "cfb1ed06fe383d74c98fd49b78fc3bf96788bc07",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
