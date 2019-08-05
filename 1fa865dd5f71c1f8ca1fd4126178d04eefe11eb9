@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "055e4f25_09f4934d",
+        "filename": "osp/impl/presentation/presentation_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T16:59:56Z",
+      "side": 1,
+      "message": "I could see this being worth adding in future, but it would be enough extra code that it should at least be a separate CL though",
+      "parentUuid": "9917d19b_744c14d3",
+      "range": {
+        "startLine": 138,
+        "startChar": 6,
+        "endLine": 138,
+        "endChar": 46
+      },
+      "revId": "1fa865dd5f71c1f8ca1fd4126178d04eefe11eb9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "056814e6_eccecab3",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d563dc28_9d4bcedb",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T16:59:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "056814e6_eccecab3",
+      "range": {
+        "startLine": 112,
+        "startChar": 30,
+        "endLine": 112,
+        "endChar": 34
+      },
+      "revId": "1fa865dd5f71c1f8ca1fd4126178d04eefe11eb9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b5b326c_b8fb49e6",
         "filename": "osp/impl/quic/quic_connection_impl.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-08-02T23:14:20Z",
       "side": 1,
       "message": "Do we have built-in __FUNCTION__ macro shortcut?",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "1fa865dd5f71c1f8ca1fd4126178d04eefe11eb9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c2312f2_92c88be1",
+        "filename": "osp/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T16:59:56Z",
+      "side": 1,
+      "message": "There is a built in __func__, but that only gives the name of the function, not the class. I\u0027ve thought about parsing __file__ and extracting the file name from the full path, but this would have perf impact so I\u0027ve avoided it so far\n\nAlternatively, there is a __PRETTY_FUNCTION__ macro we could use, but it\u0027s compiler specific\nI\u0027ve thought about combining the 2 approaches and hiding the difference behind a macro, but not sure if it\u0027s worth doing\n\nThoughts?",
+      "parentUuid": "3b5b326c_b8fb49e6",
       "range": {
         "startLine": 55,
         "startChar": 36,
