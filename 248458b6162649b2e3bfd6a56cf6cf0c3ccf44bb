@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6c8b1e_b8f952ec",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T22:22:05Z",
+      "side": 1,
+      "message": "There are a lot of different checks happening in this one method. It would improve readability to split this into a few different functions",
+      "range": {
+        "startLine": 296,
+        "startChar": 14,
+        "endLine": 296,
+        "endChar": 36
+      },
+      "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f8822f8_f56f4157",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T22:22:05Z",
+      "side": 1,
+      "message": "won\u0027t this segfault if GetBasicConstraints(...) returns a nullptr?",
+      "range": {
+        "startLine": 303,
+        "startChar": 6,
+        "endLine": 303,
+        "endChar": 32
+      },
+      "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c271d9fd_0ea60941",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T22:22:05Z",
+      "side": 1,
+      "message": "Is this because we don\u0027t rotate the root cert?",
+      "range": {
+        "startLine": 323,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 71
+      },
+      "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df10a20_139f2ee7",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T22:22:05Z",
+      "side": 1,
+      "message": "It seems like there are a lot of different cases that return this error. We might want to add OSP_LOG statements so we can tell what the failure case is, at least for testing purposes",
+      "range": {
+        "startLine": 351,
+        "startChar": 28,
+        "endLine": 351,
+        "endChar": 50
+      },
+      "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
