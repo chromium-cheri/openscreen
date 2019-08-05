@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "ceb24f93_035cdaea",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T19:01:34Z",
+      "side": 1,
+      "message": "Just personal preference. I am accessing the TraceId elements frequently in logging code, and I find the code to be more readable without the extra level of indirection",
+      "parentUuid": "2ec6d04d_d2becf2c",
+      "range": {
+        "startLine": 94,
+        "startChar": 19,
+        "endLine": 94,
+        "endChar": 32
+      },
+      "revId": "f8cb1a1e1cf2e86bd4324904f20fd3eb3be1ffbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "039c0b34_5d5243b3",
         "filename": "platform/api/trace_logging_types.h",
         "patchSetId": 1
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "You might be able to use testing::WithArgs to not have functions with 5 or 7 arguments and only check the arguments you need.",
       "parentUuid": "ee29001e_1d932dde",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "f8cb1a1e1cf2e86bd4324904f20fd3eb3be1ffbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31ccf9d8_cc31aab1",
+        "filename": "platform/test/trace_logging_helpers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-05T19:01:34Z",
+      "side": 1,
+      "message": "If you have a strong opinion, I can make this change\n\nBased on code examples I\u0027ve found, it looks like this would make the code in the UTs more complicated while making code in this class simpler\nSince the code in this class is easily understandable and instead just takes a few extra parameters, I prefer to leave it as-is",
+      "parentUuid": "c2d19ddb_0fc149e9",
       "range": {
         "startLine": 43,
         "startChar": 5,
