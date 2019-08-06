@@ -140,6 +140,30 @@
       "revId": "1fa865dd5f71c1f8ca1fd4126178d04eefe11eb9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "237f53ca_609b5a69",
+        "filename": "osp/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-06T04:05:54Z",
+      "side": 1,
+      "message": "MSVC has __FUNCSIG__ that\u0027s quite similar to __PRETTY_FUNCTION__\nSo, maybe hide it behind a platform abstraction macro based on compiler used?\n\nI\u0027d say that definitely beats copying function name by hand and not forgetting to update it when the code changes, also allows for using inside other macros in the future (tm)",
+      "parentUuid": "6c2312f2_92c88be1",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "1fa865dd5f71c1f8ca1fd4126178d04eefe11eb9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
