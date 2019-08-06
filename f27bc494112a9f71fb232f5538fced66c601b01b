@@ -2,6 +2,236 @@
   "comments": [
     {
       "key": {
+        "uuid": "f26a45c1_14da73b2",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "It would be good to mention that this helper is implementing the desired behavior of how the compiler should handle the lifetimes of anonymous objects when they are created within ternary expressions (because compilers differ in their handling when using direct language-provided syntax). The comment could include a code sample like this:\n\n  const auto\u0026 obj_on_the_stack \u003d condition ? Foo(args) : Foo::Empty();\n\n...along with what behavior was wanted, and what some compilers did instead that was wrong; and that the C++ spec leaves this as undefined behavior.",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 13
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91e11971_c52fdbdc",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "I could be misunderstanding something, but it seems that this class is the storage for an instance of Parent, and provides a custom unique_ptr template instantiation to call the stored object\u0027s destructor when out-of-scope.",
+      "range": {
+        "startLine": 31,
+        "startChar": 64,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "704e2f82_0959e176",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "Seems like we don\u0027t need this template parameter.\n\nAlso, |size| is only used twice. So, how about just using sizeof(Parent) in those places?",
+      "range": {
+        "startLine": 35,
+        "startChar": 24,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "914d31fd_9a7e1254",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "naming: Parent of what? Maybe this should just be a generic |T|?",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a2e6298_295ff72b",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "naming: \"Wrapper\" usually indicates an object that acts as a \"shell\" or \"facade\" around some other object. Here, this object is all about the storage of an instance of T and deleting it when going out-of-scope. So, maybe call it something like ScopedStackStorage?",
+      "range": {
+        "startLine": 36,
+        "startChar": 20,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac67ac92_8eba5ca5",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "This seems dangerous, since it implies the object in |storage_| can change locations in memory during its lifetime. You should explicitly do the move operation:\n\n  UniquePtrStackWrapper(UniquePtrStackWrapper\u0026\u0026 other)\n      : is_initialized_(other.is_initialized_) {\n    if (other.is_initialized_) {\n      new (storage_) T(std::move(reinterpret_cast\u003cT\u0026\u003e(other.storage_)));\n      other.is_initialized_ \u003d false;\n    }\n  }\n\n  ...\n  bool is_initialized_;  // instead of the std::unique_ptr member",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "260cff3a_6bc749c4",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "Don\u0027t need this (see comment about template param above).",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "021fbbf7_3ee75134",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "Instead of 32, how about alignof(T)?",
+      "range": {
+        "startLine": 74,
+        "startChar": 10,
+        "endLine": 74,
+        "endChar": 12
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c720f05_a8dcd938",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "Is the unique_ptr needed? Meaning, why not just explicitly call the destructor of T from the destructor of this class? Then you don\u0027t need the unique_ptr nor the custom deleter functor.\n\n  ~UniquePtrStackWrapper() {\n    if (is_initialized_) {\n      reinterpret_cast\u003cT*\u003e(\u0026storage_)-\u003e~T();\n    }\n  }\n\nLikewise, Create() and Assign() could be removed and replaced with a ctor and an emplace() method.",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65b27086_cd49dac4",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-06T22:28:35Z",
+      "side": 1,
+      "message": "How? It seems to me that client code that does:\n\n  TraceCreationHelper\u003cFooType\u003e::Create(args)\n\nCan just do:\n\n  UniquePtrStackWrapper\u003cFooType\u003e::Create(args)",
+      "range": {
+        "startLine": 80,
+        "startChar": 3,
+        "endLine": 82,
+        "endChar": 18
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "325b2583_0b9e92cc",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
