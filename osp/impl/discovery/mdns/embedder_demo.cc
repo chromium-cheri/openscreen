@@ -99,10 +99,12 @@ void SignalThings() {
 }
 
 std::vector<platform::UdpSocketUniquePtr> SetUpMulticastSockets(
+    platform::NetworkRunner* network_runner,
     const std::vector<platform::NetworkInterfaceIndex>& index_list) {
   std::vector<platform::UdpSocketUniquePtr> sockets;
   for (const auto ifindex : index_list) {
-    auto create_result = platform::UdpSocket::Create(IPEndpoint{{}, 5353});
+    auto create_result =
+        platform::UdpSocket::Create(network_runner, IPEndpoint{{}, 5353});
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create IPv4 socket for interface " << ifindex
                     << ": " << create_result.error().message();
@@ -266,7 +268,7 @@ void BrowseDemo(platform::NetworkRunner* network_runner,
       index_list.push_back(interface.info.index);
   }
 
-  auto sockets = SetUpMulticastSockets(index_list);
+  auto sockets = SetUpMulticastSockets(network_runner, index_list);
   // The code below assumes the elements in |sockets| is in exact 1:1
   // correspondence with the elements in |index_list|. Crash the demo if any
   // sockets are missing (i.e., failed to be set up).
