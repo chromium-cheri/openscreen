@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5066a29_76d7369a",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-06T02:09:42Z",
+      "side": 1,
+      "message": "I added more comments and spacing, but I\u0027m inclined to leave most of it here since it\u0027s only used once.",
+      "parentUuid": "9a6c8b1e_b8f952ec",
+      "range": {
+        "startLine": 296,
+        "startChar": 14,
+        "endLine": 296,
+        "endChar": 36
+      },
+      "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f8822f8_f56f4157",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc717dc1_63532d76",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-06T02:09:42Z",
+      "side": 1,
+      "message": "Yes, accidentally dropped a check here.  Fixed.",
+      "parentUuid": "4f8822f8_f56f4157",
+      "range": {
+        "startLine": 303,
+        "startChar": 6,
+        "endLine": 303,
+        "endChar": 32
+      },
+      "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bd8b9043_3e523340",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-06T02:09:42Z",
+      "side": 1,
+      "message": "No, and this is standard behavior from RFC 5280.  Most certificate checks aren\u0027t supposed to apply to the trust anchor.\n\nhttps://tools.ietf.org/html/rfc5280#section-6.1.1",
+      "parentUuid": "c271d9fd_0ea60941",
+      "range": {
+        "startLine": 323,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 71
+      },
+      "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7df10a20_139f2ee7",
         "filename": "cast/common/certificate/cast_cert_validator.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71eb3c7a_dc870a76",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-06T02:09:42Z",
+      "side": 1,
+      "message": "I don\u0027t really want to add such widespread speculative logging.  Something like certificate verification should be easily reproducible with the same data, so I don\u0027t think debugging will be an issue.\n\nIf we need more client-facing information in the future, we can make more specific error codes.",
+      "parentUuid": "7df10a20_139f2ee7",
+      "range": {
+        "startLine": 351,
+        "startChar": 28,
+        "endLine": 351,
+        "endChar": 50
+      },
+      "revId": "248458b6162649b2e3bfd6a56cf6cf0c3ccf44bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
