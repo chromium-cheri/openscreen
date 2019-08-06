@@ -128,8 +128,7 @@ int RtpPacketizer::ComputeNumberOfPackets(const EncryptedFrame& frame) const {
   num_packets = std::max(1, num_packets);
 
   // Ensure that the entire range of FramePacketIds can be represented.
-  OSP_DCHECK_LE(num_packets, int{kMaxAllowedFramePacketId});
-  return num_packets;
+  return num_packets <= int{kMaxAllowedFramePacketId} ? num_packets : -1;
 }
 
 }  // namespace cast_streaming
