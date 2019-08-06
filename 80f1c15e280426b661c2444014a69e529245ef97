@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4e50257_8c0fccba",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-06T03:57:22Z",
+      "side": 1,
+      "message": "Add DCHECKs that begin and count are reasonable?",
+      "range": {
+        "startLine": 18,
+        "startChar": 19,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "80f1c15e280426b661c2444014a69e529245ef97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ca3657_b21ad3f9",
+        "filename": "util/yet_another_bit_vector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-06T03:57:22Z",
+      "side": 1,
+      "message": "Maybe like this? Gets rid of piggybacking on underflow and a weird long name constant kPowerOfTwoLargerThanUint64Max\n\nconst uint64_t bits_to_set \u003d\n  (count \u003e\u003d std::numeric_limits\u003cuint64_t\u003e::digits)\n  ? std::numeric_limits\u003cuint64_t\u003e::max()\n  : (uint64_t{1} \u003c\u003c count) - 1;",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "revId": "80f1c15e280426b661c2444014a69e529245ef97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
