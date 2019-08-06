@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "platform/api/network_interface.h"
+#include "platform/api/udp_packet.h"
 #include "platform/api/udp_read_callback.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
@@ -35,6 +36,9 @@ using UdpSocketUniquePtr = std::unique_ptr<UdpSocket>;
 // pure waste). However, UdpSocket can be subclassed to include all extra
 // private state, such as OS-specific handles. See UdpSocketPosix for a
 // reference implementation.
+class NetworkRunner;
+class UdpReadCallback;
+
 class UdpSocket {
  public:
   virtual ~UdpSocket();
@@ -58,7 +62,9 @@ class UdpSocket {
 
   // Creates a new, scoped UdpSocket within the IPv4 or IPv6 family. This method
   // must be defined in the platform-level implementation.
-  static ErrorOr<UdpSocketUniquePtr> Create(const IPEndpoint& endpoint);
+  // NOTE: The NetworkRunner provided must outlive the resulting socket.
+  static ErrorOr<UdpSocketUniquePtr> Create(NetworkRunner* network_runner,
+                                            const IPEndpoint& endpoint);
 
   // Returns true if |socket| belongs to the IPv4/IPv6 address family.
   virtual bool IsIPv4() const = 0;
@@ -76,12 +82,12 @@ class UdpSocket {
   virtual Error JoinMulticastGroup(const IPAddress& address,
                                    NetworkInterfaceIndex ifindex) = 0;
 
-  // Performs a non-blocking read on the socket, returning the number of bytes
-  // received. Note that a non-Error return value of 0 is a valid result,
-  // indicating an empty message has been received. Also note that
+  // Performs a non-blocking read on the socket, returning an error if one
+  // occurs and applying the read data to the socket's callback and pushing
+  // the result to the socket's task runner otherwise. Also note that
   // Error::Code::kAgain might be returned if there is no message currently
   // ready for receive, which can be expected during normal operation.
-  virtual ErrorOr<UdpPacket> ReceiveMessage() = 0;
+  virtual Error ReceiveMessage() = 0;
 
   // Sends a message and returns the number of bytes sent, on success.
   // Error::Code::kAgain might be returned to indicate the operation would
@@ -93,20 +99,27 @@ class UdpSocket {
   // Sets the DSCP value to use for all messages sent from this socket.
   virtual Error SetDscp(DscpMode state) = 0;
 
-  // Sets the callback that should be called upon deletion of this socket. This
-  // allows other objects to observe the socket's destructor and act when it is
-  // called.
-  void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
-
  protected:
-  UdpSocket();
+  UdpSocket(NetworkRunner* network_runner);
+
+  // Posts the read data to the network runner.
+  // NOTE: If no read_callback_ is set, the packet will be dropped.
+  virtual void PostReadData(UdpPacket packet);
+
+  Error set_read_callback(UdpReadCallback* callback);
+
+  Error clear_read_callback();
 
  private:
-  // This callback allows other objects to observe the socket's destructor and
-  // act when it is called.
-  std::function<void(UdpSocket*)> deletion_callback_;
+  // This callback gets called when new data is read by the socket
+  UdpReadCallback* read_callback_ = nullptr;
+
+  // NetworkRunner to which callbacks for this class should be passed.
+  NetworkRunner* network_runner_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
+
+  friend class NetworkRunner;
 };
 
 }  // namespace platform

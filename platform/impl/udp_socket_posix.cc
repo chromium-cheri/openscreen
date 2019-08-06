@@ -50,8 +50,10 @@ ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
 
 }  // namespace
 
-UdpSocketPosix::UdpSocketPosix(int fd, const IPEndpoint& local_endpoint)
-    : fd_(fd), local_endpoint_(local_endpoint) {
+UdpSocketPosix::UdpSocketPosix(NetworkRunner* network_runner,
+                               int fd,
+                               const IPEndpoint& local_endpoint)
+    : UdpSocket(network_runner), fd_(fd), local_endpoint_(local_endpoint) {
   OSP_DCHECK_NE(IPEndpoint{}, local_endpoint_);
   OSP_DCHECK(local_endpoint_.address.IsV4() || local_endpoint_.address.IsV6());
 }
@@ -61,7 +63,8 @@ UdpSocketPosix::~UdpSocketPosix() {
 }
 
 // static
-ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(const IPEndpoint& endpoint) {
+ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(NetworkRunner* network_runner,
+                                              const IPEndpoint& endpoint) {
   int domain;
   switch (endpoint.address.version()) {
     case Version::kV4:
@@ -75,8 +78,8 @@ ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(const IPEndpoint& endpoint) {
   if (!fd) {
     return fd.error();
   }
-  return UdpSocketUniquePtr(
-      static_cast<UdpSocket*>(new UdpSocketPosix(fd.value(), endpoint)));
+  return UdpSocketUniquePtr(static_cast<UdpSocket*>(
+      new UdpSocketPosix(network_runner, fd.value(), endpoint)));
 }
 
 bool UdpSocketPosix::IsIPv4() const {
@@ -324,7 +327,7 @@ Error ReceiveMessageInternal(int fd, UdpPacket* packet) {
 
 }  // namespace
 
-ErrorOr<UdpPacket> UdpSocketPosix::ReceiveMessage() {
+Error UdpSocketPosix::ReceiveMessage() {
   ssize_t bytes_available = recv(fd_, nullptr, 0, MSG_PEEK | MSG_TRUNC);
   if (bytes_available == -1) {
     return ChooseError(errno, Error::Code::kSocketReadFailure);
@@ -345,8 +348,12 @@ ErrorOr<UdpPacket> UdpSocketPosix::ReceiveMessage() {
       OSP_NOTREACHED();
     }
   }
-  return result.ok() ? ErrorOr<UdpPacket>(std::move(packet))
-                     : ErrorOr<UdpPacket>(std::move(result));
+  if (!result.ok()) {
+    return result;
+  }
+
+  PostReadData(std::move(packet));
+  return Error::None();
 }
 
 // TODO(yakimakha): Consider changing the interface to accept UdpPacket as
