@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b90d154_78daa12a",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-06T23:19:23Z",
+      "side": 1,
+      "message": "Since this requires a NetworkRunner, what does everyone think about making it private and only calling it from NetworkRunner. Then it would be:\n\nNetworkRunner::CreateUdpSocket(const IPEndpoint\u0026 endpoint) {\n  UdpSocket::Create(this, endpoint);\n}",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 72
+      },
+      "revId": "9e1fd1bc4addeba009aa50617ad45949cdac6d75",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0a9f51f_016d1f73",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-06T23:19:23Z",
+      "side": 1,
+      "message": "This can be accomplished with the same hack used by WebRTC (fake socket which we read/write from locally), but it\u0027s a big enough change that it deserves its own CL",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 48
+      },
+      "revId": "9e1fd1bc4addeba009aa50617ad45949cdac6d75",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
