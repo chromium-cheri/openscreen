@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "06d7551b_24ef411f",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "Updated comment. PTAL and let me know your thoughts.",
+      "parentUuid": "f26a45c1_14da73b2",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 13
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91e11971_c52fdbdc",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88325a6f_67963e0c",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "That\u0027s accurate. The description has been updated since there is no longer a unqiue_ptr, and I\u0027ve made it reflect this more accurately",
+      "parentUuid": "91e11971_c52fdbdc",
+      "range": {
+        "startLine": 31,
+        "startChar": 64,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "4d3aa3cf_02a527a3",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "Parent was referring to the relationship with \u0027Child\u0027 in the below template methods. Even with that there, though, I think you\u0027re right about updating this top-level template parameter to something more generic",
+      "parentUuid": "914d31fd_9a7e1254",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40267039_64272756",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "Size is needed in the follow up CL so that we can avoid leaking the template parameters into classes that use User-Provided args. PTAL for further context: https://chromium-review.googlesource.com/c/openscreen/+/1726712",
+      "parentUuid": "704e2f82_0959e176",
+      "range": {
+        "startLine": 35,
+        "startChar": 24,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a2e6298_295ff72b",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a1a171e1_d904187d",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a2e6298_295ff72b",
+      "range": {
+        "startLine": 36,
+        "startChar": 20,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac67ac92_8eba5ca5",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2019-08-06T22:28:35Z",
       "side": 1,
       "message": "This seems dangerous, since it implies the object in |storage_| can change locations in memory during its lifetime. You should explicitly do the move operation:\n\n  UniquePtrStackWrapper(UniquePtrStackWrapper\u0026\u0026 other)\n      : is_initialized_(other.is_initialized_) {\n    if (other.is_initialized_) {\n      new (storage_) T(std::move(reinterpret_cast\u003cT\u0026\u003e(other.storage_)));\n      other.is_initialized_ \u003d false;\n    }\n  }\n\n  ...\n  bool is_initialized_;  // instead of the std::unique_ptr member",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3bb0b2f_052c0044",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "Good catch!\nI don\u0027t think I want to call new again though - I updated this to instead be a memcpy(...) so that the state of `other` isn\u0027t lost or modified (plus I\u0027d suspect it\u0027s faster)",
+      "parentUuid": "ac67ac92_8eba5ca5",
       "range": {
         "startLine": 39,
         "startChar": 2,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "769f1d89_43ad0487",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "260cff3a_6bc749c4",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "021fbbf7_3ee75134",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -183,6 +351,30 @@
       "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "274708b9_b71b1b4a",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "021fbbf7_3ee75134",
+      "range": {
+        "startLine": 74,
+        "startChar": 10,
+        "endLine": 74,
+        "endChar": 12
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "e10a19e7_964a8726",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "Create and Assign are needed for the follow up CL, since they work on subtypes of T rather than just T itself. Since we need the template arguments, also, it\u0027s much easier to have a static method than to have a constructor\n\nMax had the same comment about the unique_ptr - Updating to this since you both agree",
+      "parentUuid": "5c720f05_a8dcd938",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65b27086_cd49dac4",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 2
@@ -220,6 +436,30 @@
       "writtenOn": "2019-08-06T22:28:35Z",
       "side": 1,
       "message": "How? It seems to me that client code that does:\n\n  TraceCreationHelper\u003cFooType\u003e::Create(args)\n\nCan just do:\n\n  UniquePtrStackWrapper\u003cFooType\u003e::Create(args)",
+      "range": {
+        "startLine": 80,
+        "startChar": 3,
+        "endLine": 82,
+        "endChar": 18
+      },
+      "revId": "f27bc494112a9f71fb232f5538fced66c601b01b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38dfacf4_34848716",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-07T01:11:09Z",
+      "side": 1,
+      "message": "If it\u0027s called as part of a function, the template parameter FooType can be deduced.\nAlso, in the follow-up CL, there are multiple flavors of TraceCreationHelper::Create(...) to allow for user-provided arguments, some of which do more than just a single call. This class abstracts away the differences between them",
+      "parentUuid": "65b27086_cd49dac4",
       "range": {
         "startLine": 80,
         "startChar": 3,
