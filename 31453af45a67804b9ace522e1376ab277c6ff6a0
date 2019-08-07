@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50fe2974_14d9e929",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-07T19:43:02Z",
+      "side": 1,
+      "message": "Would it be hard to add a test where address is a valid address, not 0.0.0.0, but port is 0?",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 42,
+        "endChar": 62
+      },
+      "revId": "31453af45a67804b9ace522e1376ab277c6ff6a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91b781b0_9357f919",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-07T19:43:02Z",
+      "side": 1,
+      "message": "One can pass an endpoint with address 0.0.0.0 and port 1337 for example.\nThe code below would still work, but maybe it makes sense to DCHECK for that in the Create method.",
+      "range": {
+        "startLine": 90,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 34
+      },
+      "revId": "31453af45a67804b9ace522e1376ab277c6ff6a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
