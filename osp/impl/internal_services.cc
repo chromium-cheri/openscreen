@@ -41,21 +41,26 @@ Error SetUpMulticastSocket(platform::UdpSocket* socket,
   const IPAddress broadcast_address =
       socket->IsIPv6() ? kMulticastIPv6Address : kMulticastAddress;
 
-  Error result = socket->JoinMulticastGroup(broadcast_address, ifindex);
+  Error result;
+  auto callback = [&result](Error error, platform::UdpSocket* socket) mutable {
+    result = error;
+  };
+
+  socket->JoinMulticastGroup(callback, broadcast_address, ifindex).wait();
   if (!result.ok()) {
     OSP_LOG_ERROR << "join multicast group failed for interface " << ifindex
                   << ": " << result.message();
     return result;
   }
 
-  result = socket->SetMulticastOutboundInterface(ifindex);
+  socket->SetMulticastOutboundInterface(callback, ifindex).wait();
   if (!result.ok()) {
     OSP_LOG_ERROR << "set multicast outbound interface failed for interface "
                   << ifindex << ": " << result.message();
     return result;
   }
 
-  result = socket->Bind();
+  socket->Bind(callback).wait();
   if (!result.ok()) {
     OSP_LOG_ERROR << "bind failed for interface " << ifindex << ": "
                   << result.message();
@@ -147,8 +152,8 @@ InternalServices::InternalPlatformLinkage::RegisterInterfaces(
     // Pick any address for the given interface.
     const platform::IPSubnet& primary_subnet = addr.addresses.front();
 
-    auto create_result =
-        platform::UdpSocket::Create(IPEndpoint{{}, kMulticastListeningPort});
+    auto create_result = platform::UdpSocket::Create(
+        parent_->network_runner_, IPEndpoint{{}, kMulticastListeningPort});
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create socket for interface " << index << ": "
                     << create_result.error().message();

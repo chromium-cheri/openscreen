@@ -7,6 +7,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <future>
 #include <memory>
 
 #include "platform/api/network_interface.h"
@@ -19,6 +20,7 @@ namespace openscreen {
 namespace platform {
 
 class UdpSocket;
+class NetworkRunner;
 
 using UdpSocketUniquePtr = std::unique_ptr<UdpSocket>;
 
@@ -54,27 +56,33 @@ class UdpSocket {
     kLowPriority = 0x20
   };
 
+  using Callback = std::function<void(Error, UdpSocket*)>;
+
   using Version = IPAddress::Version;
 
   // Creates a new, scoped UdpSocket within the IPv4 or IPv6 family. This method
   // must be defined in the platform-level implementation.
-  static ErrorOr<UdpSocketUniquePtr> Create(const IPEndpoint& endpoint);
+  static ErrorOr<UdpSocketUniquePtr> Create(NetworkRunner* network_runner,
+                                            const IPEndpoint& endpoint);
 
   // Returns true if |socket| belongs to the IPv4/IPv6 address family.
   virtual bool IsIPv4() const = 0;
   virtual bool IsIPv6() const = 0;
 
   // Binds to the address specified in the constructor.
-  virtual Error Bind() = 0;
+  virtual std::future<void> Bind(Callback callback) = 0;
 
   // Sets the device to use for outgoing multicast packets on the socket.
-  virtual Error SetMulticastOutboundInterface(
+  virtual std::future<void> SetMulticastOutboundInterface(
+      Callback callback,
       NetworkInterfaceIndex ifindex) = 0;
 
   // Joins to the multicast group at the given address, using the specified
   // interface.
-  virtual Error JoinMulticastGroup(const IPAddress& address,
-                                   NetworkInterfaceIndex ifindex) = 0;
+  virtual std::future<void> JoinMulticastGroup(
+      Callback callback,
+      const IPAddress& address,
+      NetworkInterfaceIndex ifindex) = 0;
 
   // Performs a non-blocking read on the socket, returning the number of bytes
   // received. Note that a non-Error return value of 0 is a valid result,
@@ -91,7 +99,7 @@ class UdpSocket {
                             const IPEndpoint& dest) = 0;
 
   // Sets the DSCP value to use for all messages sent from this socket.
-  virtual Error SetDscp(DscpMode state) = 0;
+  virtual std::future<void> SetDscp(Callback callback, DscpMode state) = 0;
 
   // Sets the callback that should be called upon deletion of this socket. This
   // allows other objects to observe the socket's destructor and act when it is
@@ -99,12 +107,17 @@ class UdpSocket {
   void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
 
  protected:
-  UdpSocket();
+  UdpSocket(NetworkRunner* network_runner);
+
+  // Posts the provided callback to this instance's network runner.
+  std::future<void> PostCallback(Callback callback, Error result);
 
  private:
   // This callback allows other objects to observe the socket's destructor and
   // act when it is called.
   std::function<void(UdpSocket*)> deletion_callback_;
+
+  NetworkRunner* network_runner_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
 };

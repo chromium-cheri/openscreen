@@ -6,10 +6,10 @@
 #define PLATFORM_TEST_MOCK_UDP_SOCKET_H_
 
 #include <algorithm>
+#include <future>
 #include <memory>
 
 #include "gmock/gmock.h"
-#include "platform/api/logging.h"
 #include "platform/api/udp_socket.h"
 
 namespace openscreen {
@@ -17,19 +17,23 @@ namespace platform {
 
 class MockUdpSocket : public UdpSocket {
  public:
-  explicit MockUdpSocket(Version version = Version::kV4);
+  explicit MockUdpSocket(NetworkRunner* network_runner,
+                         Version version = Version::kV4);
   ~MockUdpSocket() override = default;
 
   bool IsIPv4() const override;
   bool IsIPv6() const override;
 
-  MOCK_METHOD0(Bind, Error());
-  MOCK_METHOD1(SetMulticastOutboundInterface, Error(NetworkInterfaceIndex));
-  MOCK_METHOD2(JoinMulticastGroup,
-               Error(const IPAddress&, NetworkInterfaceIndex));
+  MOCK_METHOD1(Bind, std::future<void>(Callback));
+  MOCK_METHOD2(SetMulticastOutboundInterface,
+               std::future<void>(Callback, NetworkInterfaceIndex));
+  MOCK_METHOD3(JoinMulticastGroup,
+               std::future<void>(Callback,
+                                 const IPAddress&,
+                                 NetworkInterfaceIndex));
+  MOCK_METHOD2(SetDscp, std::future<void>(Callback, DscpMode));
   MOCK_METHOD0(ReceiveMessage, ErrorOr<UdpPacket>());
   MOCK_METHOD3(SendMessage, Error(const void*, size_t, const IPEndpoint&));
-  MOCK_METHOD1(SetDscp, Error(DscpMode));
 
  private:
   Version version_;
