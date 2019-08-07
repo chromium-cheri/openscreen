@@ -50,8 +50,10 @@ ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
 
 }  // namespace
 
-UdpSocketPosix::UdpSocketPosix(int fd, const IPEndpoint& local_endpoint)
-    : fd_(fd), local_endpoint_(local_endpoint) {
+UdpSocketPosix::UdpSocketPosix(NetworkRunner* network_runner,
+                               int fd,
+                               const IPEndpoint& local_endpoint)
+    : UdpSocket(network_runner), fd_(fd), local_endpoint_(local_endpoint) {
   OSP_DCHECK_NE(IPEndpoint{}, local_endpoint_);
   OSP_DCHECK(local_endpoint_.address.IsV4() || local_endpoint_.address.IsV6());
 }
@@ -61,7 +63,8 @@ UdpSocketPosix::~UdpSocketPosix() {
 }
 
 // static
-ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(const IPEndpoint& endpoint) {
+ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(NetworkRunner* network_runner,
+                                              const IPEndpoint& endpoint) {
   int domain;
   switch (endpoint.address.version()) {
     case Version::kV4:
@@ -75,8 +78,8 @@ ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(const IPEndpoint& endpoint) {
   if (!fd) {
     return fd.error();
   }
-  return UdpSocketUniquePtr(
-      static_cast<UdpSocket*>(new UdpSocketPosix(fd.value(), endpoint)));
+  return UdpSocketUniquePtr(static_cast<UdpSocket*>(
+      new UdpSocketPosix(network_runner, fd.value(), endpoint)));
 }
 
 bool UdpSocketPosix::IsIPv4() const {
@@ -87,14 +90,16 @@ bool UdpSocketPosix::IsIPv6() const {
   return local_endpoint_.address.IsV6();
 }
 
-Error UdpSocketPosix::Bind() {
+std::future<void> UdpSocketPosix::Bind(Callback callback) {
   // This is effectively a boolean passed to setsockopt() to allow a future
   // bind() on the same socket to succeed, even if the address is already in
   // use. This is pretty much universally the desired behavior.
   const int reuse_addr = 1;
   if (setsockopt(fd_, SOL_SOCKET, SO_REUSEADDR, &reuse_addr,
                  sizeof(reuse_addr)) == -1) {
-    return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+    return PostCallback(
+        callback,
+        Error(Error::Code::kSocketOptionSettingFailure, strerror(errno)));
   }
 
   switch (local_endpoint_.address.version()) {
@@ -106,9 +111,11 @@ Error UdpSocketPosix::Bind() {
           reinterpret_cast<uint8_t*>(&address.sin_addr.s_addr));
       if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
                sizeof(address)) == -1) {
-        return Error(Error::Code::kSocketBindFailure, strerror(errno));
+        return PostCallback(
+            callback, Error(Error::Code::kSocketBindFailure, strerror(errno)));
       }
-      return Error::Code::kNone;
+
+      return PostCallback(callback, Error::Code::kNone);
     }
 
     case UdpSocket::Version::kV6: {
@@ -121,17 +128,20 @@ Error UdpSocketPosix::Bind() {
       address.sin6_scope_id = 0;
       if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
                sizeof(address)) == -1) {
-        return Error(Error::Code::kSocketBindFailure, strerror(errno));
+        return PostCallback(
+            callback, Error(Error::Code::kSocketBindFailure, strerror(errno)));
       }
-      return Error::Code::kNone;
+
+      return PostCallback(callback, Error::Code::kNone);
     }
   }
 
   OSP_NOTREACHED();
-  return Error::Code::kGenericPlatformError;
+  return PostCallback(callback, Error::Code::kGenericPlatformError);
 }
 
-Error UdpSocketPosix::SetMulticastOutboundInterface(
+std::future<void> UdpSocketPosix::SetMulticastOutboundInterface(
+    Callback callback,
     NetworkInterfaceIndex ifindex) {
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
@@ -143,27 +153,33 @@ Error UdpSocketPosix::SetMulticastOutboundInterface(
           static_cast<IPv4NetworkInterfaceIndex>(ifindex);
       if (setsockopt(fd_, IPPROTO_IP, IP_MULTICAST_IF, &multicast_properties,
                      sizeof(multicast_properties)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+        return PostCallback(
+            callback,
+            Error(Error::Code::kSocketOptionSettingFailure, strerror(errno)));
       }
-      return Error::Code::kNone;
+      return PostCallback(callback, Error::Code::kNone);
     }
 
     case UdpSocket::Version::kV6: {
       const auto index = static_cast<IPv6NetworkInterfaceIndex>(ifindex);
       if (setsockopt(fd_, IPPROTO_IPV6, IPV6_MULTICAST_IF, &index,
                      sizeof(index)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+        return PostCallback(
+            callback,
+            Error(Error::Code::kSocketOptionSettingFailure, strerror(errno)));
       }
-      return Error::Code::kNone;
+      return PostCallback(callback, Error::Code::kNone);
     }
   }
 
   OSP_NOTREACHED();
-  return Error::Code::kGenericPlatformError;
+  return PostCallback(callback, Error::Code::kGenericPlatformError);
 }
 
-Error UdpSocketPosix::JoinMulticastGroup(const IPAddress& address,
-                                         NetworkInterfaceIndex ifindex) {
+std::future<void> UdpSocketPosix::JoinMulticastGroup(
+    Callback callback,
+    const IPAddress& address,
+    NetworkInterfaceIndex ifindex) {
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
       // Passed as data to setsockopt().  1 means return IP_PKTINFO control data
@@ -171,7 +187,9 @@ Error UdpSocketPosix::JoinMulticastGroup(const IPAddress& address,
       const int enable_pktinfo = 1;
       if (setsockopt(fd_, IPPROTO_IP, IP_PKTINFO, &enable_pktinfo,
                      sizeof(enable_pktinfo)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+        return PostCallback(
+            callback,
+            Error(Error::Code::kSocketOptionSettingFailure, strerror(errno)));
       }
       struct ip_mreqn multicast_properties;
       // Appropriate address is set based on |imr_ifindex| when set.
@@ -184,9 +202,12 @@ Error UdpSocketPosix::JoinMulticastGroup(const IPAddress& address,
           reinterpret_cast<uint8_t*>(&multicast_properties.imr_multiaddr));
       if (setsockopt(fd_, IPPROTO_IP, IP_ADD_MEMBERSHIP, &multicast_properties,
                      sizeof(multicast_properties)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+        return PostCallback(
+            callback,
+            Error(Error::Code::kSocketOptionSettingFailure, strerror(errno)));
       }
-      return Error::Code::kNone;
+
+      return PostCallback(callback, Error::Code::kNone);
     }
 
     case UdpSocket::Version::kV6: {
@@ -195,7 +216,9 @@ Error UdpSocketPosix::JoinMulticastGroup(const IPAddress& address,
       const int enable_pktinfo = 1;
       if (setsockopt(fd_, IPPROTO_IPV6, IPV6_RECVPKTINFO, &enable_pktinfo,
                      sizeof(enable_pktinfo)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+        return PostCallback(
+            callback,
+            Error(Error::Code::kSocketOptionSettingFailure, strerror(errno)));
       }
       struct ipv6_mreq multicast_properties = {
           {/* filled-in below */},
@@ -209,14 +232,37 @@ Error UdpSocketPosix::JoinMulticastGroup(const IPAddress& address,
       // synonymous with IPV6_ADD_MEMBERSHIP.
       if (setsockopt(fd_, IPPROTO_IPV6, IPV6_JOIN_GROUP, &multicast_properties,
                      sizeof(multicast_properties)) == -1) {
-        return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+        return PostCallback(
+            callback,
+            Error(Error::Code::kSocketOptionSettingFailure, strerror(errno)));
       }
-      return Error::Code::kNone;
+      return PostCallback(callback, Error::Code::kNone);
     }
   }
 
   OSP_NOTREACHED();
-  return Error::Code::kGenericPlatformError;
+  PostCallback(callback, Error::Code::kGenericPlatformError);
+}
+
+std::future<void> UdpSocketPosix::SetDscp(Callback callback,
+                                          UdpSocket::DscpMode state) {
+  constexpr auto kSettingLevel = IPPROTO_IP;
+  uint8_t code_array[1] = {static_cast<uint8_t>(state)};
+  auto code =
+      setsockopt(fd_, kSettingLevel, IP_TOS, code_array, sizeof(uint8_t));
+
+  if (code == EBADF || code == ENOTSOCK || code == EFAULT) {
+    OSP_VLOG << "BAD SOCKET PROVIDED. CODE: " << code;
+    return PostCallback(callback, Error::Code::kSocketOptionSettingFailure);
+  } else if (code == EINVAL) {
+    OSP_VLOG << "INVALID DSCP INFO PROVIDED";
+    return PostCallback(callback, Error::Code::kSocketOptionSettingFailure);
+  } else if (code == ENOPROTOOPT) {
+    OSP_VLOG << "INVALID DSCP SETTING LEVEL PROVIDED: " << kSettingLevel;
+    return PostCallback(callback, Error::Code::kSocketOptionSettingFailure);
+  }
+
+  return PostCallback(callback, Error::Code::kNone);
 }
 
 namespace {
@@ -395,26 +441,6 @@ Error UdpSocketPosix::SendMessage(const void* data,
   }
   // Sanity-check: UDP datagram sendmsg() is all or nothing.
   OSP_DCHECK_EQ(static_cast<size_t>(num_bytes_sent), length);
-  return Error::Code::kNone;
-}
-
-Error UdpSocketPosix::SetDscp(UdpSocket::DscpMode state) {
-  constexpr auto kSettingLevel = IPPROTO_IP;
-  uint8_t code_array[1] = {static_cast<uint8_t>(state)};
-  auto code =
-      setsockopt(fd_, kSettingLevel, IP_TOS, code_array, sizeof(uint8_t));
-
-  if (code == EBADF || code == ENOTSOCK || code == EFAULT) {
-    OSP_VLOG << "BAD SOCKET PROVIDED. CODE: " << code;
-    return Error::Code::kSocketOptionSettingFailure;
-  } else if (code == EINVAL) {
-    OSP_VLOG << "INVALID DSCP INFO PROVIDED";
-    return Error::Code::kSocketOptionSettingFailure;
-  } else if (code == ENOPROTOOPT) {
-    OSP_VLOG << "INVALID DSCP SETTING LEVEL PROVIDED: " << kSettingLevel;
-    return Error::Code::kSocketOptionSettingFailure;
-  }
-
   return Error::Code::kNone;
 }
 

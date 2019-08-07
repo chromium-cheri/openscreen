@@ -5,6 +5,7 @@
 #include "platform/api/udp_socket.h"
 
 #include "gtest/gtest.h"
+#include "platform/test/fake_network_runner.h"
 #include "platform/test/mock_udp_socket.h"
 
 namespace openscreen {
@@ -15,12 +16,16 @@ namespace platform {
 // which will then crash the running code. This test ensures that deleting a
 // new, unmodified UDP Socket object doesn't hit this edge case.
 TEST(UdpSocketTest, TestDeletionWithoutCallbackSet) {
-  UdpSocket* socket = new MockUdpSocket(UdpSocket::Version::kV4);
+  FakeNetworkRunner network_runner;
+  UdpSocket* socket =
+      new MockUdpSocket(&network_runner, UdpSocket::Version::kV4);
   delete socket;
 }
 
 TEST(UdpSocketTest, TestCallbackCalledOnDeletion) {
-  UdpSocket* socket = new MockUdpSocket(UdpSocket::Version::kV4);
+  FakeNetworkRunner network_runner;
+  UdpSocket* socket =
+      new MockUdpSocket(&network_runner, UdpSocket::Version::kV4);
   int call_count = 0;
   std::function<void(UdpSocket*)> callback = [&call_count](UdpSocket* socket) {
     call_count++;

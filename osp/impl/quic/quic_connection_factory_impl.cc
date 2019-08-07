@@ -87,14 +87,19 @@ void QuicConnectionFactoryImpl::SetServerDelegate(
     // create/bind errors occur. Maybe return an Error immediately, and undo
     // partial progress (i.e. "unwatch" all the sockets and call
     // sockets_.clear() to close the sockets)?
-    auto create_result = platform::UdpSocket::Create(endpoint);
+    auto create_result = platform::UdpSocket::Create(network_runner_, endpoint);
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create socket (for " << endpoint
                     << "): " << create_result.error().message();
       continue;
     }
     platform::UdpSocketUniquePtr server_socket = create_result.MoveValue();
-    Error bind_result = server_socket->Bind();
+    Error bind_result;
+    auto callback = [&bind_result](Error error,
+                                   platform::UdpSocket* socket) mutable {
+      bind_result = error;
+    };
+    server_socket->Bind(callback).wait();
     if (!bind_result.ok()) {
       OSP_LOG_ERROR << "failed to bind socket (for " << endpoint
                     << "): " << bind_result.message();
@@ -148,7 +153,7 @@ void QuicConnectionFactoryImpl::OnRead(
 std::unique_ptr<QuicConnection> QuicConnectionFactoryImpl::Connect(
     const IPEndpoint& endpoint,
     QuicConnection::Delegate* connection_delegate) {
-  auto create_result = platform::UdpSocket::Create(endpoint);
+  auto create_result = platform::UdpSocket::Create(network_runner_, endpoint);
   if (!create_result) {
     OSP_LOG_ERROR << "failed to create socket: "
                   << create_result.error().message();

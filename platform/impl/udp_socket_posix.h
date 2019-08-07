@@ -5,6 +5,8 @@
 #ifndef PLATFORM_IMPL_UDP_SOCKET_POSIX_H_
 #define PLATFORM_IMPL_UDP_SOCKET_POSIX_H_
 
+#include <future>
+
 #include "platform/api/udp_socket.h"
 
 namespace openscreen {
@@ -12,21 +14,26 @@ namespace platform {
 
 struct UdpSocketPosix : public UdpSocket {
  public:
-  UdpSocketPosix(int fd, const IPEndpoint& local_endpoint);
+  UdpSocketPosix(NetworkRunner* network_runner,
+                 int fd,
+                 const IPEndpoint& local_endpoint);
   ~UdpSocketPosix() final;
 
   // Implementations of UdpSocket methods.
   bool IsIPv4() const final;
   bool IsIPv6() const final;
-  Error Bind() final;
-  Error SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) final;
-  Error JoinMulticastGroup(const IPAddress& address,
-                           NetworkInterfaceIndex ifindex) final;
+  std::future<void> Bind(Callback callback) final;
+  std::future<void> SetMulticastOutboundInterface(
+      Callback callback,
+      NetworkInterfaceIndex ifindex) final;
+  std::future<void> JoinMulticastGroup(Callback callback,
+                                       const IPAddress& address,
+                                       NetworkInterfaceIndex ifindex) final;
   ErrorOr<UdpPacket> ReceiveMessage() final;
   Error SendMessage(const void* data,
                     size_t length,
                     const IPEndpoint& dest) final;
-  Error SetDscp(DscpMode state) final;
+  std::future<void> SetDscp(Callback callback, DscpMode state) final;
 
   int GetFd() const { return fd_; }
 
