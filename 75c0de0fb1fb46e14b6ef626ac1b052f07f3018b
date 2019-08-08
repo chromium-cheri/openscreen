@@ -577,6 +577,24 @@
       "revId": "75c0de0fb1fb46e14b6ef626ac1b052f07f3018b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da3808b0_a0345844",
+        "filename": "cast/common/certificate/cast_cert_validator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-08T18:42:19Z",
+      "side": 1,
+      "message": "\u003e If this is hard-coded, once we have users of our library, its going to become a huge headache to get everyone to update to the \u0027new\u0027 library version when we remember this exists and will cause failures. Especially if we have any breaking changes between versions at all.\n\nI\u0027m not seeing how this makes upgrading anything in the future difficult or breaking.  These certs could\u0027ve been for 1980 and the test is still valid, it\u0027s just easier to create it for present day in the openssl command line.  This is all test data.  Can you explain exactly _what_ would hypothetically break in the future and why?",
+      "parentUuid": "4dca19ce_ad9f9f57",
+      "revId": "75c0de0fb1fb46e14b6ef626ac1b052f07f3018b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
