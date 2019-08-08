@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "31325f4f_43def6d8",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-08T00:38:13Z",
+      "side": 1,
+      "message": "Zero is not an empty address nor an invalid address. It\u0027s a standard IP address meaning \"ANY\" (a wildcard, basically). For binding, it semantically means \"bind to all network interfaces that can receive IP traffic.\"\n\nFWIW, the no-arg ctor of IPAddress creates an IPv4 ANY address, so I don\u0027t think we need to add a separate named constant. I was just calling-out, in the unittests, the difference between the IPv4 and IPv6 tests.",
+      "parentUuid": "4c5c12b1_0b9d89b0",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "31453af45a67804b9ace522e1376ab277c6ff6a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50fe2974_14d9e929",
         "filename": "platform/api/udp_socket_unittest.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a6af3226_a7df8b88",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-08T00:38:13Z",
+      "side": 1,
+      "message": "We would have to query the platform for a valid local interface address. FWIW, I think this test is sufficient to test our code since we\u0027re mainly interested in knowing whether UdpSocketPosix::local_endpoint_ was successfully updated via the code paths I added.",
+      "parentUuid": "50fe2974_14d9e929",
+      "range": {
+        "startLine": 42,
+        "startChar": 24,
+        "endLine": 42,
+        "endChar": 62
+      },
+      "revId": "31453af45a67804b9ace522e1376ab277c6ff6a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91b781b0_9357f919",
         "filename": "platform/impl/udp_socket_posix.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-08-07T19:43:02Z",
       "side": 1,
       "message": "One can pass an endpoint with address 0.0.0.0 and port 1337 for example.\nThe code below would still work, but maybe it makes sense to DCHECK for that in the Create method.",
+      "range": {
+        "startLine": 90,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 34
+      },
+      "revId": "31453af45a67804b9ace522e1376ab277c6ff6a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21dc1707_74d55ca9",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-08T00:38:13Z",
+      "side": 1,
+      "message": "I don\u0027t understand: Why would that be an invalid endpoint? You\u0027d be asking the operating system to bind to all interfaces on port 1337, which sounds like a reasonable use case. (Note: The OS is not supposed to change the IP address, just the port.)",
+      "parentUuid": "91b781b0_9357f919",
       "range": {
         "startLine": 90,
         "startChar": 2,
