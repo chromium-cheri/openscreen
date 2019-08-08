@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea387b62_1fdbb8e0",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-08T21:47:28Z",
+      "side": 1,
+      "message": "After substantial changes that you\u0027ve made there\u0027s one thing that\u0027s quite easy to spot here.\n\nYou always allocate enough space on stack for SynchronousTraceLogger + is_initialized field, and then possibly construct SynchronousTraceLogger or use a dummy in that space.\n\nIf you\n1) move is_initialized into SynchronousTraceLogger (or one of the base classes)\n2) add a constructor with an empty parameters list (i.e. SynchronousTraceLogger()) that sets is_initialized to false.\n\nThen SynchronousTraceLogger can be it\u0027s own uninitialized dummy when trace logging is off.\n\nYou don\u0027t need TraceCreationHelper, don\u0027t need ScopedStackStorage, and as far as I can tell, don\u0027t even need a virtual destructor.\n\nThis applies to other places where TraceCreationHelper is used.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 64
+      },
+      "revId": "239634135f4a37039bcf1b5546b4ed7c016c5f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
