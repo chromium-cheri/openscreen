@@ -46,6 +46,30 @@
       "revId": "239634135f4a37039bcf1b5546b4ed7c016c5f5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "042c5e26_243f7f19",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-08T22:07:48Z",
+      "side": 1,
+      "message": "1) It would not\n\nconst auto TRACE_INTERNAL_UNIQUE_VAR_NAME(trace_ref_) \u003d TRACE_IS_ENABLED(category) ? SynchronousTraceLogger(category, name, __FILE__, __LINE__, ##__VA_ARGS__) : SynchronousTraceLogger();\n\n2) That would be a lot of code to put into CR comments, but if you define \"no-op\" constructors in base classes, then calling SynchronousTraceLogger() wouldn\u0027t do anything except setting is_initialized to false.\nAs for the calls to the virtual methods - you incur them anyway when you call those methods.\n\nYour scoped local variable does not have to be of the base type, it can be SynchronousTraceLogger, which means you don\u0027t actually need virtual methods.\n\n\u003eIf this weren\u0027t a place we needed the absolute maximum speed possible\nAnd yet there are virtual functions and a virtual destructor, when it\u0027s possible to reduce code duplication by using static polymorphism.",
+      "parentUuid": "fcaa55b9_7e6e3b81",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 64
+      },
+      "revId": "239634135f4a37039bcf1b5546b4ed7c016c5f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
