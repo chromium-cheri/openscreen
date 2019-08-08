@@ -559,6 +559,24 @@
       "revId": "75c0de0fb1fb46e14b6ef626ac1b052f07f3018b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dca19ce_ad9f9f57",
+        "filename": "cast/common/certificate/cast_cert_validator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-08T16:29:45Z",
+      "side": 1,
+      "message": "Is there a reason to had-code this instead of pulling it from the cert or validating it in some other way?\n\nIf this is hard-coded, once we have users of our library, its going to become a huge headache to get everyone to update to the \u0027new\u0027 library version when we remember this exists and will cause failures. Especially if we have any breaking changes between versions at all.\n\nThough, if I am understanding correctly, the same issue exists for cert rotation - so it might be worth filing a bug and investigating a different way to solve this problem as a follow up CL. I\u0027ve had to solve a lot of similar cert rotation issues in my previous job, so I\u0027d be happy to sync on the tricks I\u0027ve learned",
+      "parentUuid": "a1f7818d_e143689f",
+      "revId": "75c0de0fb1fb46e14b6ef626ac1b052f07f3018b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
