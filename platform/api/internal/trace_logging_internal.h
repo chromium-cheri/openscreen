@@ -10,6 +10,7 @@
 #include <stack>
 #include <vector>
 
+#include "platform/api/internal/trace_logging_creation_helper.h"
 #include "platform/api/logging.h"
 #include "platform/api/time.h"
 #include "platform/api/trace_logging_platform.h"
@@ -193,27 +194,6 @@ class TraceIdSetter : public ScopedTraceOperation {
   void SetTraceResult(Error::Code error) {}
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TraceIdSetter);
-};
-
-// This helper object allows us to delete objects allocated on the stack in a
-// unique_ptr.
-template <class T>
-class TraceInstanceHelper {
- private:
-  class TraceBaseStackDeleter {
-   public:
-    void operator()(T* ptr) { ptr->~T(); }
-  };
-
-  using TraceInstanceWrapper = std::unique_ptr<T, TraceBaseStackDeleter>;
-
- public:
-  template <typename... Args>
-  static TraceInstanceWrapper Create(uint8_t storage[sizeof(T)], Args... args) {
-    return TraceInstanceWrapper(new (storage) T(std::forward<Args&&>(args)...));
-  }
-
-  static TraceInstanceWrapper Empty() { return TraceInstanceWrapper(); }
 };
 
 }  // namespace internal
