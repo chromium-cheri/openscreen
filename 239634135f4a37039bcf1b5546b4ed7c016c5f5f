@@ -70,6 +70,30 @@
       "revId": "239634135f4a37039bcf1b5546b4ed7c016c5f5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b11e033_f98a2a03",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-08T22:23:42Z",
+      "side": 1,
+      "message": "Let\u0027s discuss this offline when I\u0027m in tomorrow\n\nA No-Op constructor would still make virtual calls to the parent classes. As would the destructor. None of these calls happen with the current approach when tracing is disabled since we are just using an empty array (TraceCretionHelper::Empty() just calls the empty constructor on ScopetStackStorage), which is the case we need to be the absolute fastest\n\nWe do need virtual methods for SynchronousTraceLogger, since we are pushing pointers to the shared traces_ stack. We could probably get around this with additional layers of indirection, but I feel that doing so would be needlessly complex\n\nThe additional benefit of this approach is that the tracing code is isolated from how it\u0027s stored. Tying the two together, as you are suggesting, will complicate the tracing code and decrease readability. With this approach, the two halves can be modified and tested separately without concern of one affecting the other\n\nBeyond this, It is worth considering that the ScopedStackStoprage class is also needed to support User Provided Arguments (see the follow up CL). So removing the dependency in this one place would not decrease complexity.",
+      "parentUuid": "042c5e26_243f7f19",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 64
+      },
+      "revId": "239634135f4a37039bcf1b5546b4ed7c016c5f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
