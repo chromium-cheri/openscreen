@@ -22,6 +22,30 @@
       "revId": "239634135f4a37039bcf1b5546b4ed7c016c5f5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcaa55b9_7e6e3b81",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-08T21:54:25Z",
+      "side": 1,
+      "message": "I discussed this with Yuri as well. Some of the downsides of this approach are:\n1) With the current approach, the parameters to the TRACE_SCOPED(...) call are only evaluated if TraceLogging is enabled. Else, it\u0027s just a stack allocation which only moves the stack pointer - effectively a no-op\n2) The approach you\u0027re suggesting would still incur costs associated with calling virtual methods/constructors/etc. It may not actually end up doing anything, but there are more than a few extra calls\n\nIf this weren\u0027t a place we needed the absolute maximum speed possible, I\u0027d agree. But the approach taken here is helpful in minimizing the amount of time taken when tracing isn\u0027t enabled - no extra calls, parameters aren\u0027\u0027t evaluated, just IsTracingEnabled() and moving the stack pointer\n\nThe virtual destructor I need for other reasons - the constructor and destructor of the base class are where pushes to the traces_ stack occur, in the base class.",
+      "parentUuid": "ea387b62_1fdbb8e0",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 64
+      },
+      "revId": "239634135f4a37039bcf1b5546b4ed7c016c5f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
