@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9da8c778_63ab0bae",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-08T20:42:01Z",
+      "side": 1,
+      "message": "The move operator is needed. Part of the original issue is that we have non-copyable non-movable types - having a move operator solves that problem\n\nAdding an assignment operator now",
+      "parentUuid": "bf1056ec_2691164e",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 48
+      },
+      "revId": "c2172e1972416cc51b9e214a54b8f1d60b6660a2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0918a3b3_26cd3cc6",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-08-07T18:02:41Z",
       "side": 1,
       "message": "is_initialized() ?",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 61,
+        "endChar": 15
+      },
+      "revId": "c2172e1972416cc51b9e214a54b8f1d60b6660a2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6016e387_65854118",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-08T20:42:01Z",
+      "side": 1,
+      "message": "I prefer is_empty - is_initialized_ is just an implementation detail of the class, and I see no reason to expose that. What are your thoughts on has_value() (to match up with absl::optional)?\n\nCan update if you have a strong opinion though",
+      "parentUuid": "0918a3b3_26cd3cc6",
       "range": {
         "startLine": 61,
         "startChar": 7,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "05610846_8ec1aceb",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-08T20:42:01Z",
+      "side": 1,
+      "message": "The issue with a variadic constructor is that we need the Child template parameter.\n\nSince there is no way to provide template arguments to a constructor, all parameters must be deduced (https://stackoverflow.com/questions/2861839/can-the-template-parameters-of-a-constructor-be-explicitly-specified), and there is no way to deduce the child class. Adding it as part of the class definition would defeat half the purpose of this class though (see follow-up CL for more info about this)\n\nAdditionally, this wouldn\u0027t fit with other C++ classes (I suspect for the same reason) - ie unique_ptr and absl::optional do not have a way to do this. for example, with unique_ptr, it would be:\n    auto* child \u003d new SubclassOfT();\n    unique_ptr\u003cT\u003e ptr(child);",
+      "parentUuid": "31dfefc7_5c12f5b3",
+      "range": {
+        "startLine": 79,
+        "startChar": 14,
+        "endLine": 79,
+        "endChar": 20
+      },
+      "revId": "c2172e1972416cc51b9e214a54b8f1d60b6660a2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "faab9d77_c355be59",
         "filename": "platform/api/internal/trace_logging_creation_helper.h",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2019-08-07T18:02:41Z",
       "side": 1,
       "message": "I\u0027d be in favor of going with stand-alone functions, I don\u0027t see why these have to be a part of the class.\nInstead of ScopedStackStorage::Create and TraceCreationHelper go with something like make_tuple, make_pair, make_unique, etc.\nSTL uses standalone functions to be able to derive template parameters.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 2
+      },
+      "revId": "c2172e1972416cc51b9e214a54b8f1d60b6660a2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7dfac2_6d637feb",
+        "filename": "platform/api/internal/trace_logging_creation_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-08T20:42:01Z",
+      "side": 1,
+      "message": "ScopedStackStorage\u003cT, size\u003e::Create\u003cChild\u003e is very helpful to have - I originally had it as a standalone function, but it made the code more complex. Some benefits are:\n- In the Create\u003cChild\u003e method, I use the template parameters from ScopedStackStorage\u003cT, size\u003e - so the standalone method would need to have 3 template parameters that are passed around\n- It would need to be a friend of ScopedStackStorage\u003cT, size\u003e anyway (which is complex since it\u0027s a template) so that the private variables can be accessed\n- Keeping it inside a method hides it from callers outside this file unless they are REALLY looking for it\n\nI could move the TraceCreationHelper methods out, but I personally find this cleaner - having a class makes it much clearer what the TraceCreationHelper::Empty() means (especially since it appears in code next to TraceCreationHelper::Create(...)), which I feel helps readability. I can change this one if its a strong opinion though, and happy to update the name of the class",
+      "parentUuid": "faab9d77_c355be59",
       "range": {
         "startLine": 99,
         "startChar": 0,
