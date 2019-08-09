@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "071da573_41cdc086",
+        "filename": "cast/common/mdns/mdns_receiver_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "My personal preference is to wait until this parameter is actually needed\nWe have a Mocked method for get_endpoint(), so all cases I can think of would be good enough with that approach\n\nIf you have a strong opinion I can update it, but it feels to me to be outside the scope of this patch",
+      "parentUuid": "b3eec705_23f11e5e",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "93c8d56a_3ce669e4",
         "filename": "platform/api/network_runner.h",
         "patchSetId": 3
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "cce86a20_e4d1c47a",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "I\u0027m under the impression we are still using it. What are everyone else\u0027s thoughts?",
+      "parentUuid": "350369e0_9a060223",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b18a9031_da6a1ecf",
         "filename": "platform/api/udp_socket.cc",
         "patchSetId": 3
@@ -64,6 +100,24 @@
       "writtenOn": "2019-08-09T19:28:00Z",
       "side": 1,
       "message": "Question about lifetimes... the network runner outlives the UdpSocket, right? Is there any reason to not pass this-\u003enetwork_runner_ instead of this in the lambda?",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3cb5a98_5a31249a",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "The reason we currently pass NetworkRunner is so that we can stop reading from a socket as part of the callback if we want\nThe UdpSocket is already part of the UdpPacket, but its network_runner_ is a private variable (and only an implementation detail of the class), so I think it\u0027s best we avoid accessing the network_runner_ through the socket\n\nIf this is something we want to change, it can be discussed separately, but this would be a large change that touches a lot of files, so it should be considered separately from this patch",
+      "parentUuid": "b18a9031_da6a1ecf",
       "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "c2e34a11_0dcd9fab",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "The reason I went with IOFailure is because we had the same failure code when this used operation was performed on NetworkRunner previously\n\nI am very open to a different (or new) error code, I just wasn\u0027t quite sure what would be a good one. Any thoughts?",
+      "parentUuid": "b8728117_0a7f6aba",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "220eb2ff_3f55404c",
         "filename": "platform/api/udp_socket_unittest.cc",
         "patchSetId": 3
@@ -98,6 +170,24 @@
       "writtenOn": "2019-08-09T19:28:00Z",
       "side": 1,
       "message": "Thoughts on uint32_t{0} versus just 0u?",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87993032_dbda58fd",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "I personally prefer this to be explicit, but it\u0027s not a strong preference. What are everyone else\u0027s thoughts?",
+      "parentUuid": "220eb2ff_3f55404c",
       "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "b9d35151_320a63f0",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "These changes sound useful, but are outside the scope of this CL",
+      "parentUuid": "1c3f202e_b15bf3fd",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d5ca2a0_0ede56c0",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 3
@@ -135,6 +243,24 @@
       "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd8423b_598b7995",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "I personally like ternaries, but a happy to change it if you think it improves readability. Updated.",
+      "parentUuid": "9d5ca2a0_0ede56c0",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +281,24 @@
     },
     {
       "key": {
+        "uuid": "3b8f25f1_523f572d",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "I actually prefer the else in this case for readability purposes - it should compile down to the same thing if I understand correctly",
+      "parentUuid": "9696dbd4_8a5f103e",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4efaa053_d2042fad",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 3
@@ -172,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "caaf223e_f207c590",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "Good catch. Updated",
+      "parentUuid": "4efaa053_d2042fad",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9909fa4f_1431ad76",
         "filename": "platform/impl/network_reader.h",
         "patchSetId": 3
@@ -186,6 +348,24 @@
       "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ac8025_52207665",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-09T23:05:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9909fa4f_1431ad76",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
