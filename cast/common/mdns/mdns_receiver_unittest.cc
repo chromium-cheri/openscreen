@@ -52,8 +52,8 @@ TEST(MdnsReceiverTest, ReceiveQuery) {
   };
   // clang-format on
 
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV4);
   MockNetworkRunner runner;
+  MockUdpSocket socket(&runner, openscreen::IPAddress::Version::kV4);
   MockMdnsReceiverDelegate delegate;
   MdnsReceiver receiver(&socket, &runner, &delegate);
 
@@ -108,8 +108,8 @@ TEST(MdnsReceiverTest, ReceiveResponse) {
   };
   // clang-format on
 
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV6);
   MockNetworkRunner runner;
+  MockUdpSocket socket(&runner, openscreen::IPAddress::Version::kV6);
   MockMdnsReceiverDelegate delegate;
   MdnsReceiver receiver(&socket, &runner, &delegate);
 

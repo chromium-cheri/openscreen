@@ -10,9 +10,15 @@
 namespace openscreen {
 namespace platform {
 
+class NetworkRunner;
+
 struct UdpSocketPosix : public UdpSocket {
  public:
-  UdpSocketPosix(int fd, const IPEndpoint& local_endpoint);
+  // Creates a new Posix UDP Socket.
+  // NOTE: The NetworkRunner provided must outlive the resulting socket.
+  UdpSocketPosix(NetworkRunner* network_runner,
+                 int fd,
+                 const IPEndpoint& local_endpoint);
   ~UdpSocketPosix() final;
 
   // Implementations of UdpSocket methods.
@@ -23,7 +29,7 @@ struct UdpSocketPosix : public UdpSocket {
   Error SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) final;
   Error JoinMulticastGroup(const IPAddress& address,
                            NetworkInterfaceIndex ifindex) final;
-  ErrorOr<UdpPacket> ReceiveMessage() final;
+  Error ReceiveMessage() final;
   Error SendMessage(const void* data,
                     size_t length,
                     const IPEndpoint& dest) final;

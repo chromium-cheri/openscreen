@@ -147,8 +147,8 @@ InternalServices::InternalPlatformLinkage::RegisterInterfaces(
     // Pick any address for the given interface.
     const platform::IPSubnet& primary_subnet = addr.addresses.front();
 
-    auto create_result =
-        platform::UdpSocket::Create(IPEndpoint{{}, kMulticastListeningPort});
+    auto create_result = platform::UdpSocket::Create(
+        parent_->network_runner_, IPEndpoint{{}, kMulticastListeningPort});
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create socket for interface " << index << ": "
                     << create_result.error().message();

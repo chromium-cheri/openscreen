@@ -13,19 +13,18 @@ namespace openscreen {
 namespace platform {
 
 NetworkRunnerImpl::NetworkRunnerImpl(std::unique_ptr<TaskRunner> task_runner)
-    : network_loop_(std::make_unique<NetworkReader>(task_runner.get())),
+    : NetworkRunner(),
+      network_loop_(std::make_unique<NetworkReader>()),
       task_runner_(std::move(task_runner)) {}
 
-Error NetworkRunnerImpl::ReadRepeatedly(UdpSocket* socket,
-                                        UdpReadCallback* callback) {
-  NetworkReader::Callback func = [callback, this](UdpPacket packet) {
-    callback->OnRead(std::move(packet), this);
-  };
-  return network_loop_->ReadRepeatedly(socket, func);
+NetworkRunnerImpl::~NetworkRunnerImpl() = default;
+
+void NetworkRunnerImpl::OnSocketCreation(UdpSocket* socket) {
+  network_loop_->WatchSocket(socket);
 }
 
-Error NetworkRunnerImpl::CancelRead(UdpSocket* socket) {
-  return network_loop_->CancelRead(socket);
+void NetworkRunnerImpl::OnSocketDeletion(UdpSocket* socket) {
+  network_loop_->UnwatchSocket(socket);
 }
 
 void NetworkRunnerImpl::PostPackagedTask(Task task) {

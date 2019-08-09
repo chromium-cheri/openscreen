@@ -4,33 +4,76 @@
 
 #include "platform/api/udp_socket.h"
 
+#include "gmock/gmock.h"
 #include "gtest/gtest.h"
-#include "platform/test/mock_udp_socket.h"
+#include "platform/test/fake_network_runner.h"
 
 namespace openscreen {
 namespace platform {
+namespace {
+class PartiallyMockedUdpSocket : public UdpSocket {
+ public:
+  explicit PartiallyMockedUdpSocket(NetworkRunner* network_runner,
+                                    Version version = Version::kV4)
+      : UdpSocket(network_runner), version_(version) {}
+  ~PartiallyMockedUdpSocket() override = default;
 
-// Under some conditions, calling a callback can result in an exception
-// "terminate called after throwing an instance of 'std::bad_function_call'"
-// which will then crash the running code. This test ensures that deleting a
-// new, unmodified UDP Socket object doesn't hit this edge case.
-TEST(UdpSocketTest, TestDeletionWithoutCallbackSet) {
-  UdpSocket* socket = new MockUdpSocket(UdpSocket::Version::kV4);
-  delete socket;
+  bool IsIPv4() const override { return version_ == UdpSocket::Version::kV4; }
+  bool IsIPv6() const override { return version_ == UdpSocket::Version::kV6; }
+
+  MOCK_METHOD0(Bind, Error());
+  MOCK_METHOD1(SetMulticastOutboundInterface, Error(NetworkInterfaceIndex));
+  MOCK_METHOD2(JoinMulticastGroup,
+               Error(const IPAddress&, NetworkInterfaceIndex));
+  MOCK_METHOD0(ReceiveMessage, Error());
+  MOCK_METHOD3(SendMessage, Error(const void*, size_t, const IPEndpoint&));
+  MOCK_METHOD1(SetDscp, Error(DscpMode));
+  MOCK_CONST_METHOD0(GetLocalEndpoint, IPEndpoint());
+
+  Error SetCallback(UdpReadCallback* callback) {
+    return set_read_callback(callback);
+  }
+  Error ClearCallback() { return clear_read_callback(); }
+
+  using UdpSocket::PostReadData;
+
+ private:
+  Version version_;
+};
+
+class FakeCallback : public UdpReadCallback {
+  void OnRead(UdpPacket packet, NetworkRunner* network_runner) override {}
+};
+}  // namespace
+
+TEST(UdpSocketTest, TestCallbackAssignment) {
+  FakeNetworkRunner network_runner;
+  PartiallyMockedUdpSocket socket(&network_runner);
+  FakeCallback callback;
+
+  EXPECT_EQ(socket.SetCallback(&callback), Error::Code::kNone);
+  EXPECT_EQ(socket.SetCallback(&callback), Error::Code::kIOFailure);
+
+  EXPECT_EQ(socket.ClearCallback(), Error::Code::kNone);
+  EXPECT_EQ(socket.ClearCallback(), Error::Code::kNotRunning);
 }
 
-TEST(UdpSocketTest, TestCallbackCalledOnDeletion) {
-  UdpSocket* socket = new MockUdpSocket(UdpSocket::Version::kV4);
-  int call_count = 0;
-  std::function<void(UdpSocket*)> callback = [&call_count](UdpSocket* socket) {
-    call_count++;
-  };
-  socket->SetDeletionCallback(callback);
+TEST(UdpSocketTest, TestCallbackOnlyCalledWhenUnset) {
+  FakeNetworkRunner network_runner;
+  PartiallyMockedUdpSocket socket(&network_runner);
 
-  EXPECT_EQ(call_count, 0);
-  delete socket;
+  EXPECT_EQ(network_runner.TaskCount(), uint32_t{0});
+  UdpPacket packet;
+  socket.PostReadData(std::move(packet));
+  EXPECT_EQ(network_runner.TaskCount(), uint32_t{0});
 
-  EXPECT_EQ(call_count, 1);
+  FakeCallback callback;
+  UdpPacket packet2;
+  socket.PostReadData(std::move(packet2));
+  EXPECT_EQ(socket.SetCallback(&callback), Error::Code::kNone);
+  EXPECT_EQ(network_runner.TaskCount(), uint32_t{0});
+
+  EXPECT_EQ(socket.ClearCallback(), Error::Code::kNone);
 }
 
 // Tests that a UdpSocket that does not specify any address or port will
@@ -38,8 +81,9 @@ TEST(UdpSocketTest, TestCallbackCalledOnDeletion) {
 // auto-assigned socket name (i.e., the local endpoint's port will not be zero).
 TEST(UdpSocketTest, ResolvesLocalEndpoint_IPv4) {
   const uint8_t kIpV4AddrAny[4] = {};
-  ErrorOr<UdpSocketUniquePtr> create_result =
-      UdpSocket::Create(IPEndpoint{IPAddress(kIpV4AddrAny), 0});
+  FakeNetworkRunner network_runner;
+  ErrorOr<UdpSocketUniquePtr> create_result = UdpSocket::Create(
+      &network_runner, IPEndpoint{IPAddress(kIpV4AddrAny), 0});
   ASSERT_TRUE(create_result) << create_result.error();
   const auto socket = create_result.MoveValue();
   const Error bind_result = socket->Bind();
@@ -53,8 +97,9 @@ TEST(UdpSocketTest, ResolvesLocalEndpoint_IPv4) {
 // auto-assigned socket name (i.e., the local endpoint's port will not be zero).
 TEST(UdpSocketTest, ResolvesLocalEndpoint_IPv6) {
   const uint8_t kIpV6AddrAny[16] = {};
-  ErrorOr<UdpSocketUniquePtr> create_result =
-      UdpSocket::Create(IPEndpoint{IPAddress(kIpV6AddrAny), 0});
+  FakeNetworkRunner network_runner;
+  ErrorOr<UdpSocketUniquePtr> create_result = UdpSocket::Create(
+      &network_runner, IPEndpoint{IPAddress(kIpV6AddrAny), 0});
   ASSERT_TRUE(create_result) << create_result.error();
   const auto socket = create_result.MoveValue();
   const Error bind_result = socket->Bind();

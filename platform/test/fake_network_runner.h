@@ -34,6 +34,8 @@ class FakeNetworkRunner final : public NetworkRunner {
 
   void PostNewPacket(UdpPacket packet);
 
+  uint32_t TaskCount() { return task_queue_.size(); }
+
  private:
   std::deque<Task> task_queue_;
   std::map<UdpSocket*, UdpReadCallback*> callbacks_;
