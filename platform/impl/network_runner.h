@@ -30,14 +30,11 @@ class NetworkRunnerImpl final : public NetworkRunner {
   // Creates a new NetworkRunnerImpl with the provided TaskRunner. Note that the
   // Task Runner is expected to be running at the time it is provided.
   explicit NetworkRunnerImpl(std::unique_ptr<TaskRunner> task_runner);
+  ~NetworkRunnerImpl() override;
 
-  Error ReadRepeatedly(UdpSocket* socket, UdpReadCallback* callback);
+  void PostPackagedTask(Task task) override;
 
-  Error CancelRead(UdpSocket* socket);
-
-  void PostPackagedTask(Task task);
-
-  void PostPackagedTaskWithDelay(Task task, Clock::duration delay);
+  void PostPackagedTaskWithDelay(Task task, Clock::duration delay) override;
 
   // This method will process Network Read Events until the RequestStopSoon(...)
   // method is called, and will block the current thread until this time.
@@ -48,6 +45,9 @@ class NetworkRunnerImpl final : public NetworkRunner {
   void RequestStopSoon();
 
  protected:
+  void OnSocketCreation(UdpSocket* socket) override;
+  void OnSocketDeletion(UdpSocket* socket) override;
+
   // Objects handling actual processing of this instance's calls.
   std::unique_ptr<NetworkReader> network_loop_;
   std::unique_ptr<TaskRunner> task_runner_;

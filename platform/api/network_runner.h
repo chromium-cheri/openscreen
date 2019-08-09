@@ -44,13 +44,28 @@ class NetworkRunner : public TaskRunner {
   // to this NetworkRunner (i.e. |callback| will be run as if PostTask were
   // called on |callback->OnRead|, modulo syntax).  This will continue to wait
   // for more packets until CancelReadAll is called on the same |socket|.
-  virtual Error ReadRepeatedly(UdpSocket* socket,
-                               UdpReadCallback* callback) = 0;
+  virtual Error ReadRepeatedly(UdpSocket* socket, UdpReadCallback* callback) {
+    return socket->set_read_callback(callback);
+  };
 
   // Cancels any pending wait on reading |socket|. Returns Error::Code::kNone if
   // the operation is successful and the socket is no longer watched, returns an
   // error otherwise.
-  virtual Error CancelRead(UdpSocket* socket) = 0;
+  virtual Error CancelRead(UdpSocket* socket) {
+    return socket->clear_read_callback();
+  };
+
+ protected:
+  NetworkRunner() = default;
+
+  // Callbacks used to help manage the lifetime of UdpSockets.
+  virtual void OnSocketCreation(UdpSocket* socket) {}
+  virtual void OnSocketDeletion(UdpSocket* socket) {}
+
+ private:
+  OSP_DISALLOW_COPY_AND_ASSIGN(NetworkRunner);
+
+  friend class UdpSocket;
 };
 
 }  // namespace platform

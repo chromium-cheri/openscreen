@@ -9,7 +9,6 @@
 #include <memory>
 
 #include "gmock/gmock.h"
-#include "platform/api/logging.h"
 #include "platform/api/udp_socket.h"
 
 namespace openscreen {
@@ -17,7 +16,8 @@ namespace platform {
 
 class MockUdpSocket : public UdpSocket {
  public:
-  explicit MockUdpSocket(Version version = Version::kV4);
+  explicit MockUdpSocket(NetworkRunner* network_runner,
+                         Version version = Version::kV4);
   ~MockUdpSocket() override = default;
 
   bool IsIPv4() const override;
@@ -28,9 +28,14 @@ class MockUdpSocket : public UdpSocket {
   MOCK_METHOD1(SetMulticastOutboundInterface, Error(NetworkInterfaceIndex));
   MOCK_METHOD2(JoinMulticastGroup,
                Error(const IPAddress&, NetworkInterfaceIndex));
-  MOCK_METHOD0(ReceiveMessage, ErrorOr<UdpPacket>());
+  MOCK_METHOD0(ReceiveMessage, Error());
   MOCK_METHOD3(SendMessage, Error(const void*, size_t, const IPEndpoint&));
   MOCK_METHOD1(SetDscp, Error(DscpMode));
+  MOCK_METHOD1(PostReadData, void(UdpPacket*));
+
+  // This level of indirection is needed because gtest doesn't correctly handle
+  // non-copyable parameter types in this case.
+  void PostReadData(UdpPacket packet) override { PostReadData(&packet); }
 
  private:
   Version version_;

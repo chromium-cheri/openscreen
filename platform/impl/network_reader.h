@@ -7,6 +7,7 @@
 
 #include <map>
 #include <mutex>  // NOLINT
+#include <unordered_set>
 
 #include "platform/api/network_runner.h"
 #include "platform/api/network_waiter.h"
@@ -26,25 +27,16 @@ class NetworkReader {
   using Callback = std::function<void(UdpPacket)>;
 
   // Creates a new instance of this object.
-  // NOTE: The provided TaskRunner must be running and must live for the
-  // duration of this instance's life.
-  explicit NetworkReader(TaskRunner* task_runner);
+  NetworkReader();
   virtual ~NetworkReader();
 
-  // Waits for |socket| to be readable and then posts a task to the currently
-  // set TaskRunner to run the provided |callback|.
-  // NOTE: Only one read callback can be registered per socket. If
-  // ReadRepeatedly is called on a socket already being watched, the new call
-  // will be ignored and an error will be returned.
-  // NOTE: The first read on any newly watched socket may be delayed up to 50
-  // ms.
-  Error ReadRepeatedly(UdpSocket* socket, Callback callback);
+  // Begins watching the provided socket for incoming data to read.
+  // NOTE: Any newly watched socket may be delayed up to 50 ms.
+  Error WatchSocket(UdpSocket* socket);
 
   // Cancels any pending wait on reading |socket|. Following this call, any
   // pending reads will proceed but their associated callbacks will not fire.
-  // This function returns Error::Code::kNone if the operation is successful and
-  // the socket is no longer watched and returns an error on failure.
-  Error CancelRead(UdpSocket* socket);
+  Error UnwatchSocket(UdpSocket* socket, bool is_deletion = true);
 
   // Runs the Wait function in a loop until the below RequestStopSoon function
   // is called.
@@ -57,7 +49,7 @@ class NetworkReader {
   // Creates a new instance of this object.
   // NOTE: The provided TaskRunner must be running and must live for the
   // duration of this instance's life.
-  NetworkReader(TaskRunner* task_runner, std::unique_ptr<NetworkWaiter> waiter);
+  explicit NetworkReader(std::unique_ptr<NetworkWaiter> waiter);
 
   // Waits for any writes to occur or for timeout to pass, whichever is sooner.
   // If an error occurs when calling WaitAndRead, then no callbacks will have
@@ -70,25 +62,12 @@ class NetworkReader {
   // not be watched until after this wait call ends.
   Error WaitAndRead(Clock::duration timeout);
 
-  // Associations between sockets and callbacks, plus the platform-level
-  // EventWaiter. Note that the EventWaiter has not been rolled into this class
-  // and the callbacks have not been pushed to the socket layer in order to
-  // keep the platform-specific code as simple as possible and maximize
-  // code reusability.
-  std::map<UdpSocket*, Callback> read_callbacks_;
+  // Set of all sockets currently watched by this NetworkReader.
+  std::unordered_set<UdpSocket*> sockets_;
 
  private:
-  // Callback to call when a socket is deleted. This method will cancel any
-  // pending wait on reading |socket| and then block until deletion is safe.
-  // TODO(rwkeane): Discuss with the team to see if this is the correct approach
-  // or what a better approach may be long-term.
-  void CancelReadForSocketDeletion(UdpSocket* socket);
-
   // Abstractions around socket handling to ensure platform independence.
   std::unique_ptr<NetworkWaiter> waiter_;
-
-  // The task runner on which all callbacks should be run
-  TaskRunner* task_runner_;
 
   // Mutex to protect against concurrent modification of socket info.
   std::mutex mutex_;
