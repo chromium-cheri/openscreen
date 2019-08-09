@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3eec705_23f11e5e",
+        "filename": "cast/common/mdns/mdns_receiver_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "Should MockUdpSocket be updated to take the endpoint in the constructor?",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93c8d56a_3ce669e4",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "What\u0027s our current team feelings on defining single line functions in the header or in the *.cc file?",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "350369e0_9a060223",
+        "filename": "platform/api/network_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "Do we still want the OSP_* copy/assign stuff? Or just define the ctor/operators directly?",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b18a9031_da6a1ecf",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "Question about lifetimes... the network runner outlives the UdpSocket, right? Is there any reason to not pass this-\u003enetwork_runner_ instead of this in the lambda?",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8728117_0a7f6aba",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "IOFailure doesn\u0027t seem super accurate, since it\u0027s a multiply set error.",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "220eb2ff_3f55404c",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "Thoughts on uint32_t{0} versus just 0u?",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3f202e_b15bf3fd",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "Consider adding tests for binding to 0.0.0.0:0 and an invalid address, e.g. 400.168.2.1:9999999",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5ca2a0_0ede56c0",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "The ternary is a little gross IMO, I would vote for a standard if statement.",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9696dbd4_8a5f103e",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "Nit: else isn\u0027t necessary since we return in the if.",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4efaa053_d2042fad",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "Consider using std::copy or similar. This could result in multiple resizes since we don\u0027t set the size of sockets.",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9909fa4f_1431ad76",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-09T19:28:00Z",
+      "side": 1,
+      "message": "Nit: typo.",
+      "revId": "1b7e97918193e8f3452093d9796ff0a34b6dbad6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
