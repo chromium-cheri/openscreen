@@ -27,7 +27,8 @@ bool TraceBase::TraceAsyncEnd(const uint32_t line,
 
 ScopedTraceOperation::ScopedTraceOperation(TraceId trace_id,
                                            TraceId parent_id,
-                                           TraceId root_id) {
+                                           TraceId root_id)
+    : result_(Error::Code::kNone), is_initialized_(true) {
   if (traces_ == nullptr) {
     // Create the stack if it doesnt' exist.
     traces_ = new TraceStack();
@@ -51,19 +52,21 @@ ScopedTraceOperation::ScopedTraceOperation(TraceId trace_id,
 }
 
 ScopedTraceOperation::~ScopedTraceOperation() {
-  OSP_CHECK(traces_ != nullptr && !traces_->empty());
-  OSP_CHECK_EQ(traces_->top(), this);
-  traces_->pop();
+  if (is_initialized_) {
+    OSP_CHECK(traces_ != nullptr && !traces_->empty());
+    OSP_CHECK_EQ(traces_->top(), this);
+    traces_->pop();
 
-  // If there's only one item left, it must be the root node. Deleting the root
-  // node will re-call this destructor and delete the traces_ stack.
-  if (traces_->size() == 1) {
-    OSP_CHECK_EQ(traces_->top(), root_node_);
-    delete root_node_;
-    root_node_ = nullptr;
-  } else if (traces_->empty()) {
-    delete traces_;
-    traces_ = nullptr;
+    // If there's only one item left, it must be the root node. Deleting the
+    // root node will re-call this destructor and delete the traces_ stack.
+    if (traces_->size() == 1) {
+      OSP_CHECK_EQ(traces_->top(), root_node_);
+      delete root_node_;
+      root_node_ = nullptr;
+    } else if (traces_->empty()) {
+      delete traces_;
+      traces_ = nullptr;
+    }
   }
 }
 
@@ -87,7 +90,6 @@ TraceLoggerBase::TraceLoggerBase(TraceCategory::Value category,
                                  TraceId root)
     : ScopedTraceOperation(current, parent, root),
       start_time_(Clock::now()),
-      result_(Error::Code::kNone),
       name_(name),
       file_name_(file),
       line_number_(line),
@@ -107,24 +109,28 @@ TraceLoggerBase::TraceLoggerBase(TraceCategory::Value category,
                       ids.root) {}
 
 SynchronousTraceLogger::~SynchronousTraceLogger() {
-  auto* current_platform = TraceLoggingPlatform::GetDefaultTracingPlatform();
-  if (current_platform == nullptr) {
-    return;
+  if (is_initialized_) {
+    auto* current_platform = TraceLoggingPlatform::GetDefaultTracingPlatform();
+    if (current_platform == nullptr) {
+      return;
+    }
+    auto end_time = Clock::now();
+    current_platform->LogTrace(this->name_, this->line_number_,
+                               this->file_name_, this->start_time_, end_time,
+                               this->to_hierarchy(), this->result_);
   }
-  auto end_time = Clock::now();
-  current_platform->LogTrace(this->name_, this->line_number_, this->file_name_,
-                             this->start_time_, end_time, this->to_hierarchy(),
-                             this->result_);
 }
 
 AsynchronousTraceLogger::~AsynchronousTraceLogger() {
-  auto* current_platform = TraceLoggingPlatform::GetDefaultTracingPlatform();
-  if (current_platform == nullptr) {
-    return;
+  if (is_initialized_) {
+    auto* current_platform = TraceLoggingPlatform::GetDefaultTracingPlatform();
+    if (current_platform == nullptr) {
+      return;
+    }
+    current_platform->LogAsyncStart(this->name_, this->line_number_,
+                                    this->file_name_, this->start_time_,
+                                    this->to_hierarchy());
   }
-  current_platform->LogAsyncStart(this->name_, this->line_number_,
-                                  this->file_name_, this->start_time_,
-                                  this->to_hierarchy());
 }
 
 TraceIdSetter::~TraceIdSetter() = default;

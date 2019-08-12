@@ -25,7 +25,7 @@ namespace internal {
 class TraceBase {
  public:
   TraceBase() = default;
-  virtual ~TraceBase() = default;
+  ~TraceBase() = default;
 
   // Traces the end of an asynchronous call.
   // NOTE: This returns a bool rather than a void because it keeps the syntax of
@@ -45,7 +45,7 @@ class ScopedTraceOperation : public TraceBase {
  public:
   // Define the destructor to remove this item from the stack when it's
   // destroyed.
-  ~ScopedTraceOperation() override;
+  ~ScopedTraceOperation();
 
   // Getters the current Trace Hierarchy. If the traces_ stack hasn't been
   // created yet, return as if the empty root node is there.
@@ -79,12 +79,15 @@ class ScopedTraceOperation : public TraceBase {
   // NOTE: this must be define in this class rather than TraceLogger so that it
   // can be called on traces.back() without a potentially unsafe cast or type
   // checking at runtime.
-  virtual void SetTraceResult(Error::Code error) = 0;
+  void SetTraceResult(Error::Code error) { result_ = error; }
 
+  ScopedTraceOperation() : is_initialized_(false){};
   // Constructor to set all trace id information.
-  ScopedTraceOperation(TraceId current_id = kUnsetTraceId,
-                       TraceId parent_id = kUnsetTraceId,
-                       TraceId root_id = kUnsetTraceId);
+  ScopedTraceOperation(TraceId current_id, TraceId parent_id, TraceId root_id);
+
+  ScopedTraceOperation(ScopedTraceOperation&& other) = default;
+  ScopedTraceOperation& operator=(ScopedTraceOperation&& other) noexcept =
+      default;
 
   // Current TraceId information.
   TraceId trace_id_;
@@ -92,6 +95,10 @@ class ScopedTraceOperation : public TraceBase {
   TraceId root_id_;
 
   TraceIdHierarchy to_hierarchy() { return {trace_id_, parent_id_, root_id_}; }
+
+  // Result of this operation.
+  Error::Code result_;
+  bool is_initialized_;
 
  private:
   // NOTE: A std::vector is used for backing the stack because it provides the
@@ -116,6 +123,7 @@ class ScopedTraceOperation : public TraceBase {
 // The class which does actual trace logging.
 class TraceLoggerBase : public ScopedTraceOperation {
  public:
+  TraceLoggerBase() : ScopedTraceOperation() {}
   TraceLoggerBase(TraceCategory::Value category,
                   const char* name,
                   const char* file,
@@ -130,15 +138,12 @@ class TraceLoggerBase : public ScopedTraceOperation {
                   uint32_t line,
                   TraceIdHierarchy ids);
 
- protected:
-  // Set the result.
-  void SetTraceResult(Error::Code error) override { result_ = error; }
+  TraceLoggerBase(TraceLoggerBase&& other) = default;
+  TraceLoggerBase& operator=(TraceLoggerBase&& other) noexcept = default;
 
+ protected:
   // Timestamp for when the object was created.
   Clock::time_point start_time_;
-
-  // Result of this operation.
-  Error::Code result_;
 
   // Name of this operation.
   const char* name_;
@@ -159,8 +164,10 @@ class TraceLoggerBase : public ScopedTraceOperation {
 class SynchronousTraceLogger : public TraceLoggerBase {
  public:
   using TraceLoggerBase::TraceLoggerBase;
-
-  virtual ~SynchronousTraceLogger() override;
+  SynchronousTraceLogger(SynchronousTraceLogger&& other) = default;
+  SynchronousTraceLogger& operator=(SynchronousTraceLogger&& other) noexcept =
+      default;
+  ~SynchronousTraceLogger();
 
  private:
   OSP_DISALLOW_COPY_AND_ASSIGN(SynchronousTraceLogger);
@@ -169,8 +176,10 @@ class SynchronousTraceLogger : public TraceLoggerBase {
 class AsynchronousTraceLogger : public TraceLoggerBase {
  public:
   using TraceLoggerBase::TraceLoggerBase;
-
-  virtual ~AsynchronousTraceLogger() override;
+  AsynchronousTraceLogger(AsynchronousTraceLogger&& other) = default;
+  AsynchronousTraceLogger& operator=(AsynchronousTraceLogger&& other) noexcept =
+      default;
+  ~AsynchronousTraceLogger();
 
  private:
   OSP_DISALLOW_COPY_AND_ASSIGN(AsynchronousTraceLogger);
@@ -180,40 +189,19 @@ class AsynchronousTraceLogger : public TraceLoggerBase {
 // the current TraceId Hierarchy manually.
 class TraceIdSetter : public ScopedTraceOperation {
  public:
+  TraceIdSetter() : ScopedTraceOperation(){};
   explicit TraceIdSetter(TraceIdHierarchy ids)
       : ScopedTraceOperation(ids.current, ids.parent, ids.root) {}
-  ~TraceIdSetter() final;
+  ~TraceIdSetter();
+  TraceIdSetter(TraceIdSetter&& other) = default;
+  TraceIdSetter& operator=(TraceIdSetter&& other) noexcept = default;
 
   // Creates a new TraceIdSetter to set the full TraceId Hierarchy to default
   // values and does not push it to the traces stack.
   static TraceIdSetter* CreateStackRootNode();
 
  private:
-  // Implement abstract method for use in Macros.
-  void SetTraceResult(Error::Code error) {}
-
   OSP_DISALLOW_COPY_AND_ASSIGN(TraceIdSetter);
-};
-
-// This helper object allows us to delete objects allocated on the stack in a
-// unique_ptr.
-template <class T>
-class TraceInstanceHelper {
- private:
-  class TraceBaseStackDeleter {
-   public:
-    void operator()(T* ptr) { ptr->~T(); }
-  };
-
-  using TraceInstanceWrapper = std::unique_ptr<T, TraceBaseStackDeleter>;
-
- public:
-  template <typename... Args>
-  static TraceInstanceWrapper Create(uint8_t storage[sizeof(T)], Args... args) {
-    return TraceInstanceWrapper(new (storage) T(std::forward<Args&&>(args)...));
-  }
-
-  static TraceInstanceWrapper Empty() { return TraceInstanceWrapper(); }
 };
 
 }  // namespace internal

@@ -33,7 +33,11 @@ namespace openscreen {
           result);                                                      \
     }                                                                   \
   } while (false)
-#define TRACE_SET_HIERARCHY(ids) TRACE_SET_HIERARCHY_INTERNAL(__LINE__, ids)
+#define TRACE_SET_HIERARCHY(ids)                                       \
+  TRACE_INTERNAL_IGNORE_UNUSED_VAR                                     \
+  const TraceIdSetter& TRACE_INTERNAL_UNIQUE_VAR_NAME(trace_ref_) =    \
+      TRACE_IS_ENABLED(TraceCategory::Value::Any) ? TraceIdSetter(ids) \
+                                                  : TraceIdSetter()
 #define TRACE_HIERARCHY                                                    \
   (TRACE_IS_ENABLED(TraceCategory::Value::Any)                             \
        ? openscreen::platform::internal::ScopedTraceOperation::hierarchy() \
@@ -48,12 +52,22 @@ namespace openscreen {
        : kEmptyTraceId)
 
 // Synchronous Trace Macro.
-#define TRACE_SCOPED(category, name, ...) \
-  TRACE_SCOPED_INTERNAL(__LINE__, category, name, ##__VA_ARGS__)
+#define TRACE_SCOPED(category, name, ...)                                    \
+  TRACE_INTERNAL_IGNORE_UNUSED_VAR                                           \
+  const SynchronousTraceLogger& TRACE_INTERNAL_UNIQUE_VAR_NAME(trace_ref_) = \
+      TRACE_IS_ENABLED(category)                                             \
+          ? SynchronousTraceLogger(category, name, __FILE__, __LINE__,       \
+                                   ##__VA_ARGS__)                            \
+          : SynchronousTraceLogger()
 
 // Asynchronous Trace Macros.
-#define TRACE_ASYNC_START(category, name, ...) \
-  TRACE_ASYNC_START_INTERNAL(__LINE__, category, name, ##__VA_ARGS__)
+#define TRACE_ASYNC_START(category, name, ...)                                \
+  TRACE_INTERNAL_IGNORE_UNUSED_VAR                                            \
+  const AsynchronousTraceLogger& TRACE_INTERNAL_UNIQUE_VAR_NAME(trace_ref_) = \
+      TRACE_IS_ENABLED(category)                                              \
+          ? AsynchronousTraceLogger(category, name, __FILE__, __LINE__,       \
+                                    ##__VA_ARGS__)                            \
+          : AsynchronousTraceLogger()
 
 #define TRACE_ASYNC_END(category, id, result)                 \
   TRACE_IS_ENABLED(category)                                  \

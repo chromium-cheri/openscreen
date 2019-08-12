@@ -27,10 +27,6 @@ constexpr TraceCategory::Value category =
     TraceCategory::Value::CastPlatformLayer;
 constexpr uint32_t line = 10;
 
-TEST(TraceLoggingInternalTest, CreatingNoTraceObjectValid) {
-  TraceInstanceHelper<SynchronousTraceLogger>::Empty();
-}
-
 TEST(TraceLoggingInternalTest, TestMacroStyleInitializationTrue) {
   constexpr uint32_t delay_in_ms = 50;
   MockLoggingPlatform platform;
@@ -41,10 +37,10 @@ TEST(TraceLoggingInternalTest, TestMacroStyleInitializationTrue) {
                       Invoke(ValidateTraceErrorCode<Error::Code::kNone>)));
 
   {
-    uint8_t temp[sizeof(SynchronousTraceLogger)];
-    auto ptr = true ? TraceInstanceHelper<SynchronousTraceLogger>::Create(
-                          temp, category, "Name", __FILE__, line)
-                    : TraceInstanceHelper<SynchronousTraceLogger>::Empty();
+    SynchronousTraceLogger ptr(category, "Name", __FILE__, line);
+    // auto ptr = true ? TraceCreationHelper<SynchronousTraceLogger>::Create(
+    //                       category, "Name", __FILE__, line)
+    //                 : TraceCreationHelper<SynchronousTraceLogger>::Empty();
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_in_ms));
     auto ids = ScopedTraceOperation::hierarchy();
     EXPECT_NE(ids.current, kEmptyTraceId);
@@ -61,10 +57,10 @@ TEST(TraceLoggingInternalTest, TestMacroStyleInitializationFalse) {
   EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _)).Times(0);
 
   {
-    uint8_t temp[sizeof(SynchronousTraceLogger)];
-    auto ptr = false ? TraceInstanceHelper<SynchronousTraceLogger>::Create(
-                           temp, category, "Name", __FILE__, line)
-                     : TraceInstanceHelper<SynchronousTraceLogger>::Empty();
+    SynchronousTraceLogger ptr;
+    // auto ptr = false ? TraceCreationHelper<SynchronousTraceLogger>::Create(
+    //                        category, "Name", __FILE__, line)
+    //                  : TraceCreationHelper<SynchronousTraceLogger>::Empty();
     auto ids = ScopedTraceOperation::hierarchy();
     EXPECT_EQ(ids.current, kEmptyTraceId);
     EXPECT_EQ(ids.parent, kEmptyTraceId);
