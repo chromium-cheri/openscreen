@@ -5,6 +5,7 @@
 #ifndef CAST_COMMON_MDNS_MDNS_RECORDS_H_
 #define CAST_COMMON_MDNS_MDNS_RECORDS_H_
 
+#include <functional>
 #include <initializer_list>
 #include <string>
 #include <vector>
@@ -21,6 +22,7 @@ namespace mdns {
 using IPAddress = openscreen::IPAddress;
 
 bool IsValidDomainLabel(absl::string_view label);
+uint16_t CreateMessageId();
 
 // Represents domain name as a collection of labels, ensures label length and
 // domain name length requirements are met.
