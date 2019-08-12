@@ -5,6 +5,7 @@
 #ifndef CAST_COMMON_MDNS_MDNS_RECORDS_H_
 #define CAST_COMMON_MDNS_MDNS_RECORDS_H_
 
+#include <functional>
 #include <initializer_list>
 #include <string>
 #include <vector>
@@ -448,6 +449,8 @@ class MdnsMessage {
   std::vector<MdnsRecord> authority_records_;
   std::vector<MdnsRecord> additional_records_;
 };
+
+uint16_t CreateMessageId();
 
 }  // namespace mdns
 }  // namespace cast
