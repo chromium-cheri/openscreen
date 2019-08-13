@@ -24,10 +24,12 @@ bool TraceBase::TraceAsyncEnd(const uint32_t line,
   current_platform->LogAsyncEnd(line, file, end_time, id, e);
   return true;
 }
+ScopedTraceOperation::ScopedTraceOperation() : is_enabled_(false) {}
 
 ScopedTraceOperation::ScopedTraceOperation(TraceId trace_id,
                                            TraceId parent_id,
-                                           TraceId root_id) {
+                                           TraceId root_id)
+    : is_enabled_(true) {
   if (traces_ == nullptr) {
     // Create the stack if it doesnt' exist.
     traces_ = new TraceStack();
@@ -50,7 +52,20 @@ ScopedTraceOperation::ScopedTraceOperation(TraceId trace_id,
   OSP_DCHECK(traces_->size() < 1024);
 }
 
+ScopedTraceOperation::ScopedTraceOperation(ScopedTraceOperation&& other) {
+  is_enabled_ = other.is_enabled_;
+  if (other.is_enabled_) {
+    trace_id_ = other.trace_id_;
+    parent_id_ = other.parent_id_;
+    root_id_ = other.root_id_;
+  }
+}
+
 ScopedTraceOperation::~ScopedTraceOperation() {
+  if (!is_enabled_) {
+    return;
+  }
+
   OSP_CHECK(traces_ != nullptr && !traces_->empty());
   OSP_CHECK_EQ(traces_->top(), this);
   traces_->pop();
@@ -67,6 +82,17 @@ ScopedTraceOperation::~ScopedTraceOperation() {
   }
 }
 
+ScopedTraceOperation& ScopedTraceOperation::operator=(
+    ScopedTraceOperation&& other) {
+  is_enabled_ = other.is_enabled_;
+  if (other.is_enabled_) {
+    trace_id_ = other.trace_id_;
+    parent_id_ = other.parent_id_;
+    root_id_ = other.root_id_;
+  }
+  return *this;
+};
+
 // static
 thread_local ScopedTraceOperation::TraceStack* ScopedTraceOperation::traces_ =
     nullptr;
@@ -77,55 +103,6 @@ thread_local ScopedTraceOperation* ScopedTraceOperation::root_node_ = nullptr;
 // static
 std::atomic<std::uint64_t> ScopedTraceOperation::trace_id_counter_{
     uint64_t{0x01} << (sizeof(TraceId) * 8 - 1)};
-
-TraceLoggerBase::TraceLoggerBase(TraceCategory::Value category,
-                                 const char* name,
-                                 const char* file,
-                                 uint32_t line,
-                                 TraceId current,
-                                 TraceId parent,
-                                 TraceId root)
-    : ScopedTraceOperation(current, parent, root),
-      start_time_(Clock::now()),
-      result_(Error::Code::kNone),
-      name_(name),
-      file_name_(file),
-      line_number_(line),
-      category_(category) {}
-
-TraceLoggerBase::TraceLoggerBase(TraceCategory::Value category,
-                                 const char* name,
-                                 const char* file,
-                                 uint32_t line,
-                                 TraceIdHierarchy ids)
-    : TraceLoggerBase(category,
-                      name,
-                      file,
-                      line,
-                      ids.current,
-                      ids.parent,
-                      ids.root) {}
-
-SynchronousTraceLogger::~SynchronousTraceLogger() {
-  auto* current_platform = TraceLoggingPlatform::GetDefaultTracingPlatform();
-  if (current_platform == nullptr) {
-    return;
-  }
-  auto end_time = Clock::now();
-  current_platform->LogTrace(this->name_, this->line_number_, this->file_name_,
-                             this->start_time_, end_time, this->to_hierarchy(),
-                             this->result_);
-}
-
-AsynchronousTraceLogger::~AsynchronousTraceLogger() {
-  auto* current_platform = TraceLoggingPlatform::GetDefaultTracingPlatform();
-  if (current_platform == nullptr) {
-    return;
-  }
-  current_platform->LogAsyncStart(this->name_, this->line_number_,
-                                  this->file_name_, this->start_time_,
-                                  this->to_hierarchy());
-}
 
 TraceIdSetter::~TraceIdSetter() = default;
 

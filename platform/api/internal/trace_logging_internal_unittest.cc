@@ -28,7 +28,7 @@ constexpr TraceCategory::Value category =
 constexpr uint32_t line = 10;
 
 TEST(TraceLoggingInternalTest, CreatingNoTraceObjectValid) {
-  TraceInstanceHelper<SynchronousTraceLogger>::Empty();
+  SynchronousTraceLogger<void, void>();
 }
 
 TEST(TraceLoggingInternalTest, TestMacroStyleInitializationTrue) {
@@ -41,10 +41,9 @@ TEST(TraceLoggingInternalTest, TestMacroStyleInitializationTrue) {
                       Invoke(ValidateTraceErrorCode<Error::Code::kNone>)));
 
   {
-    uint8_t temp[sizeof(SynchronousTraceLogger)];
-    auto ptr = true ? TraceInstanceHelper<SynchronousTraceLogger>::Create(
-                          temp, category, "Name", __FILE__, line)
-                    : TraceInstanceHelper<SynchronousTraceLogger>::Empty();
+    auto ptr = true ? SynchronousTraceLogger<void, void>(category, "Name",
+                                                         __FILE__, line)
+                    : SynchronousTraceLogger<void, void>();
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_in_ms));
     auto ids = ScopedTraceOperation::hierarchy();
     EXPECT_NE(ids.current, kEmptyTraceId);
@@ -61,10 +60,9 @@ TEST(TraceLoggingInternalTest, TestMacroStyleInitializationFalse) {
   EXPECT_CALL(platform, LogTrace(_, _, _, _, _, _, _)).Times(0);
 
   {
-    uint8_t temp[sizeof(SynchronousTraceLogger)];
-    auto ptr = false ? TraceInstanceHelper<SynchronousTraceLogger>::Create(
-                           temp, category, "Name", __FILE__, line)
-                     : TraceInstanceHelper<SynchronousTraceLogger>::Empty();
+    auto ptr = false ? SynchronousTraceLogger<void, void>(category, "Name",
+                                                          __FILE__, line)
+                     : SynchronousTraceLogger<void, void>();
     auto ids = ScopedTraceOperation::hierarchy();
     EXPECT_EQ(ids.current, kEmptyTraceId);
     EXPECT_EQ(ids.parent, kEmptyTraceId);
@@ -86,7 +84,8 @@ TEST(TraceLoggingInternalTest, ExpectParametersPassedToResult) {
   {
     TRACE_INTERNAL_IGNORE_UNUSED_VAR const TraceBase&
         TRACE_INTERNAL_UNIQUE_VAR_NAME(trace_ref) =
-            SynchronousTraceLogger{category, "Name", __FILE__, line};
+            SynchronousTraceLogger<void, void>{category, "Name", __FILE__,
+                                               line};
   }
 }
 
@@ -97,7 +96,7 @@ TEST(TraceLoggingInternalTest, CheckTraceAsyncStartLogsCorrectly) {
                                       testing::StrEq(__FILE__), _, _))
       .Times(1);
 
-  { AsynchronousTraceLogger{category, "Name", __FILE__, line}; }
+  { AsynchronousTraceLogger<void, void>{category, "Name", __FILE__, line}; }
 }
 
 TEST(TraceLoggingInternalTest, ValidateGettersValidOnEmptyStack) {

@@ -33,7 +33,12 @@ namespace openscreen {
           result);                                                      \
     }                                                                   \
   } while (false)
-#define TRACE_SET_HIERARCHY(ids) TRACE_SET_HIERARCHY_INTERNAL(__LINE__, ids)
+#define TRACE_SET_HIERARCHY(ids)                          \
+  TRACE_INTERNAL_IGNORE_UNUSED_VAR                        \
+  const auto TRACE_INTERNAL_UNIQUE_VAR_NAME(trace_ref_) = \
+      TRACE_IS_ENABLED(TraceCategory::Value::Any)         \
+          ? std::move(TraceIdSetter(ids))                 \
+          : std::move(TraceIdSetter())
 #define TRACE_HIERARCHY                                                    \
   (TRACE_IS_ENABLED(TraceCategory::Value::Any)                             \
        ? openscreen::platform::internal::ScopedTraceOperation::hierarchy() \
