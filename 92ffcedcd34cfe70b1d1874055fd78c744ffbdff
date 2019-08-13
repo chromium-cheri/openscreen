@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "7c1b9a21_786813cb",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-13T20:21:33Z",
+      "side": 1,
+      "message": "\u003e we require each platform to implement its own NetworkRunner\n\nI thought NetworkRunner was OSP-standalone only? Why not just have platforms implement UDPSocket itself?",
+      "parentUuid": "8a8e10cd_a199c977",
+      "revId": "92ffcedcd34cfe70b1d1874055fd78c744ffbdff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1f4e6ab_6c40396b",
         "filename": "platform/impl/network_runner.cc",
         "patchSetId": 4
