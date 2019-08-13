@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "540d2472_829da434",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-13T20:23:32Z",
+      "side": 1,
+      "message": "The NetworkRunner is used throughout the OSP code (and by now, I\u0027d assume the CastLib code) as a way to assign callbacks for reads. This is why the interface is in platform/api instead of platform/impl\n\nIf we move the callbacks to the UdpSockets, this could be changed as a next step",
+      "parentUuid": "7c1b9a21_786813cb",
+      "revId": "92ffcedcd34cfe70b1d1874055fd78c744ffbdff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1f4e6ab_6c40396b",
         "filename": "platform/impl/network_runner.cc",
         "patchSetId": 4
