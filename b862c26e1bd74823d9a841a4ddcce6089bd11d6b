@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c33884d_e6dceec6",
+        "filename": "platform/api/internal/trace_logging_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-13T18:23:27Z",
+      "side": 1,
+      "message": "Might be better to set other.is_enabled_ \u003d false here, so child move constructors don\u0027t have set parent field.",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 23
+      },
+      "revId": "b862c26e1bd74823d9a841a4ddcce6089bd11d6b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0129eece_334ab642",
+        "filename": "platform/api/internal/trace_logging_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-13T18:23:27Z",
+      "side": 1,
+      "message": "Maybe it\u0027s better to do it in parent.",
+      "range": {
+        "startLine": 229,
+        "startChar": 6,
+        "endLine": 229,
+        "endChar": 31
+      },
+      "revId": "b862c26e1bd74823d9a841a4ddcce6089bd11d6b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7c2eeae_5f745247",
+        "filename": "platform/api/trace_logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-13T18:23:27Z",
+      "side": 1,
+      "message": "In theory std::move shouldn\u0027t be necessary here, as this is a nameless temporary.\nMoreover, if copy constructor and copy assignment are deleted, that should force using move",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "b862c26e1bd74823d9a841a4ddcce6089bd11d6b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcbb4d97_80a255ee",
+        "filename": "platform/api/trace_logging_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-13T18:23:27Z",
+      "side": 1,
+      "message": "Very clever approach",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "b862c26e1bd74823d9a841a4ddcce6089bd11d6b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
