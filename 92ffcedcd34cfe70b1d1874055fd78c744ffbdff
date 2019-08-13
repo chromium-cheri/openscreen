@@ -34,6 +34,41 @@
       "revId": "92ffcedcd34cfe70b1d1874055fd78c744ffbdff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94c6b808_cb8a2d15",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-13T19:44:28Z",
+      "side": 1,
+      "message": "OK - but with this patch, the NetworkRunner is just another TaskRunner.  All it adds to the TaskRunner is registering and removing a read callback from the UdpSocket.\n\nSo it might be simpler to just remove the NetworkRunner entirely and have the default implementation of udp_socket add/remove itself from the network reader?\n\nIt\u0027s hard to keep track of the different objects and responsibilities as the relevant APIs seem to be in flux.  Maybe we should decide on the Chrome implementation of UdpSocket before making any further changes.",
+      "parentUuid": "4c98eaa7_1622bca1",
+      "revId": "92ffcedcd34cfe70b1d1874055fd78c744ffbdff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f4e6ab_6c40396b",
+        "filename": "platform/impl/network_runner.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-13T19:44:28Z",
+      "side": 1,
+      "message": "You don\u0027t need to explicitly invoke the no-arg constructor here.",
+      "revId": "92ffcedcd34cfe70b1d1874055fd78c744ffbdff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
