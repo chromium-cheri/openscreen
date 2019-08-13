@@ -16,6 +16,24 @@
       "revId": "92ffcedcd34cfe70b1d1874055fd78c744ffbdff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c98eaa7_1622bca1",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-13T15:29:04Z",
+      "side": 1,
+      "message": "The specific NetworkRunner implementation is platform-specific, but we require each platform to implement its own NetworkRunner - the interface is used throughout the higher layers\nie, in Chromium, this will just be a thin pass-through layer to assign socket callbacks plus a wrapper around the SingleThreadedTaskRunner\n\nChanging to an observer pattern as you suggest could work as well, but we would still need to provide a TaskRunner (which the NetworkRunner also is) so that we can call the read callbacks correctly. The reason I went with a NetworkRunner instead of TaskRunner, though is because:\n   1) It allows for direct calls to NetworkRunner instead of an observer pattern (see CL level comment for why)\n   2) This way, we can directly provide the NetworkRunner to the UdpReadCallback object, instead of needing the extra level fo indirection to bind the NetworkRunner to the provided callback before passing it to the UdpSocket for storage\n\nEither approach works though - I see no problem making a change to use an observer pattern, just wanted to discuss it further first",
+      "parentUuid": "d19b3f96_776dfaa7",
+      "revId": "92ffcedcd34cfe70b1d1874055fd78c744ffbdff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
