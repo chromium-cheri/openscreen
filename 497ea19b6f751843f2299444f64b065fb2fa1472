@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ebc4183_2c9c2cfb",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-14T22:39:07Z",
+      "side": 1,
+      "message": "s/Observer/Client",
+      "revId": "497ea19b6f751843f2299444f64b065fb2fa1472",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "807c6064_35472add",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-14T22:39:07Z",
+      "side": 1,
+      "message": "Can you list which APIs will invoke OnError?",
+      "revId": "497ea19b6f751843f2299444f64b065fb2fa1472",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c85a8486_f36253ce",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-14T22:39:07Z",
+      "side": 1,
+      "message": "Thoughts: a disadvantage to funneling all errors into a single API is that the caller has to keep track of which operation Foo was invoked last, to be able (at a minimum) to log \"Foo failed: error XXX.\"\n\nI guess we could have the implementation include the operation in the Error message, or extend this API with a NetError object with more details.  \n\nNot necessary to make any changes now.",
+      "revId": "497ea19b6f751843f2299444f64b065fb2fa1472",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00b30603_725c838c",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-14T22:39:07Z",
+      "side": 1,
+      "message": "Slightly prefer setting in the ctor, unless there\u0027s calling patterns that make it impossible\n(for example, a client that doesn\u0027t outlive the socket.)\n\n That means you can eliminate a lot of null checks in the implementation.",
+      "revId": "497ea19b6f751843f2299444f64b065fb2fa1472",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
