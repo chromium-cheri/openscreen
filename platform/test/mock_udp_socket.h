@@ -10,12 +10,12 @@
 
 #include "gmock/gmock.h"
 #include "platform/api/logging.h"
-#include "platform/api/udp_socket.h"
+#include "platform/impl/udp_socket_blocking_read.h"
 
 namespace openscreen {
 namespace platform {
 
-class MockUdpSocket : public UdpSocket {
+class MockUdpSocket : public UdpSocketBlockingRead {
  public:
   explicit MockUdpSocket(Version version = Version::kV4);
   ~MockUdpSocket() override = default;

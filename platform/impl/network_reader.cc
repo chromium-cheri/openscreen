@@ -8,6 +8,7 @@
 #include <condition_variable>
 
 #include "platform/api/logging.h"
+#include "platform/impl/udp_socket_blocking_read.h"
 
 namespace openscreen {
 namespace platform {
@@ -68,7 +69,8 @@ Error NetworkReader::WaitAndRead(Clock::duration timeout) {
         continue;
       }
 
-      ErrorOr<UdpPacket> read_packet = mapped_socket->first->ReceiveMessage();
+      auto* read_socket = UdpSocketBlockingRead::Convert(read);
+      ErrorOr<UdpPacket> read_packet = read_socket->ReceiveMessage();
       if (read_packet.is_error()) {
         error = read_packet.error();
         continue;

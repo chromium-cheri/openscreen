@@ -5,12 +5,12 @@
 #ifndef PLATFORM_IMPL_UDP_SOCKET_POSIX_H_
 #define PLATFORM_IMPL_UDP_SOCKET_POSIX_H_
 
-#include "platform/api/udp_socket.h"
+#include "platform/impl/udp_socket_blocking_read.h"
 
 namespace openscreen {
 namespace platform {
 
-struct UdpSocketPosix : public UdpSocket {
+struct UdpSocketPosix : public UdpSocketBlockingRead {
  public:
   UdpSocketPosix(int fd, const IPEndpoint& local_endpoint);
   ~UdpSocketPosix() final;
@@ -23,13 +23,15 @@ struct UdpSocketPosix : public UdpSocket {
   Error SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) final;
   Error JoinMulticastGroup(const IPAddress& address,
                            NetworkInterfaceIndex ifindex) final;
-  ErrorOr<UdpPacket> ReceiveMessage() final;
   Error SendMessage(const void* data,
                     size_t length,
                     const IPEndpoint& dest) final;
   Error SetDscp(DscpMode state) final;
 
   int GetFd() const { return fd_; }
+
+  // Implementation of UdpSocketBlockingRead methods.
+  ErrorOr<UdpPacket> ReceiveMessage() final;
 
  private:
   const int fd_;
