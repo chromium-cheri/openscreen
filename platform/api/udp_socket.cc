@@ -7,7 +7,7 @@
 namespace openscreen {
 namespace platform {
 
-UdpSocket::UdpSocket() {
+UdpSocket::UdpSocket(Client* client) : client_(client) {
   deletion_callback_ = [](UdpSocket* socket) {};
 }
 

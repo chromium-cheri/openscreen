@@ -39,6 +39,24 @@ class UdpSocket {
  public:
   virtual ~UdpSocket();
 
+  // Client for the UdpSocket class.
+  class Client {
+   public:
+    // Method called on socket configuration operations when an error occurs.
+    // These specific APIs are:
+    //   UdpSocket::Bind()
+    //   UdpSocket::SetMulticastOutboundInterface(...)
+    //   UdpSocket::JoinMulticastGroup(...)
+    //   UdpSocket::SetDscp(...)
+    virtual void OnError(UdpSocket* socket, Error error) = 0;
+
+    // Method called when an error occurs during a SendMessage call.
+    virtual void OnSendError(UdpSocket* socket, Error error) = 0;
+
+    // Method called when a packet is read.
+    virtual void OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet) = 0;
+  }
+
   // Constants used to specify how we want packets sent from this socket.
   enum class DscpMode : uint8_t {
     // Default value set by the system on creation of a new socket.
@@ -75,33 +93,25 @@ class UdpSocket {
   // local endpoint's port is zero, the operating system will automatically find
   // a free local port and bind to it. Future calls to local_endpoint() will
   // reflect the resolved port.
-  virtual Error Bind() = 0;
+  virtual void Bind() = 0;
 
   // Sets the device to use for outgoing multicast packets on the socket.
-  virtual Error SetMulticastOutboundInterface(
-      NetworkInterfaceIndex ifindex) = 0;
+  virtual void SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) = 0;
 
   // Joins to the multicast group at the given address, using the specified
   // interface.
-  virtual Error JoinMulticastGroup(const IPAddress& address,
-                                   NetworkInterfaceIndex ifindex) = 0;
-
-  // Performs a non-blocking read on the socket, returning the number of bytes
-  // received. Note that a non-Error return value of 0 is a valid result,
-  // indicating an empty message has been received. Also note that
-  // Error::Code::kAgain might be returned if there is no message currently
-  // ready for receive, which can be expected during normal operation.
-  virtual ErrorOr<UdpPacket> ReceiveMessage() = 0;
+  virtual void JoinMulticastGroup(const IPAddress& address,
+                                  NetworkInterfaceIndex ifindex) = 0;
 
   // Sends a message and returns the number of bytes sent, on success.
   // Error::Code::kAgain might be returned to indicate the operation would
   // block, which can be expected during normal operation.
-  virtual Error SendMessage(const void* data,
-                            size_t length,
-                            const IPEndpoint& dest) = 0;
+  virtual void SendMessage(const void* data,
+                           size_t length,
+                           const IPEndpoint& dest) = 0;
 
   // Sets the DSCP value to use for all messages sent from this socket.
-  virtual Error SetDscp(DscpMode state) = 0;
+  virtual void SetDscp(DscpMode state) = 0;
 
   // Sets the callback that should be called upon deletion of this socket. This
   // allows other objects to observe the socket's destructor and act when it is
@@ -109,7 +119,10 @@ class UdpSocket {
   void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
 
  protected:
-  UdpSocket();
+  UdpSocket(Client* client);
+
+  // The client to be used for socket operations.
+  Client* client_;
 
  private:
   // This callback allows other objects to observe the socket's destructor and
