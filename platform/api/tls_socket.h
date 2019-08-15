@@ -9,6 +9,7 @@
 #include <memory>
 #include <string>
 
+#include "absl/types/optional.h"
 #include "platform/api/network_interface.h"
 #include "platform/api/tls_socket_creds.h"
 #include "platform/base/error.h"
@@ -37,7 +38,15 @@ struct TlsSocketMessage {
 
 class TlsSocket {
  public:
-  class Client {
+  enum CloseReason {
+    kUnknown = 0,
+    kClosedByPeer,
+    kAbortedByPeer,
+    kInvalidMessage,
+    kTooLongInactive,
+  };
+
+ class Client {
    public:
     // Provides a unique ID for use by the TlsSocketFactory.
     virtual const std::string& GetNewSocketId() = 0;
@@ -46,7 +55,7 @@ class TlsSocket {
     virtual void OnAccepted(std::unique_ptr<TlsSocket> socket) = 0;
 
     // Called when |socket| is closed.
-    virtual void OnClosed(TlsSocket* socket) = 0;
+    virtual void OnClosed(TlsSocket* socket, CloseReason reason) = 0;
 
     // Called when |socket| experiences an error, such as a read error.
     virtual void OnError(TlsSocket* socket, Error error) = 0;
@@ -59,17 +68,6 @@ class TlsSocket {
     virtual ~Client() = default;
   };
 
-  enum CloseReason {
-    kUnknown = 0,
-    kClosedByPeer,
-    kAbortedByPeer,
-    kInvalidMessage,
-    kTooLongInactive,
-  };
-
-  // Creates a new, scoped TlsSocket within the IPv4 or IPv6 family.
-  static ErrorOr<TlsSocketUniquePtr> Create(IPAddress::Version version);
-
   // Returns true if |socket| belongs to the IPv4/IPv6 address family.
   virtual bool IsIPv4() const = 0;
   virtual bool IsIPv6() const = 0;
@@ -80,8 +78,8 @@ class TlsSocket {
   // Sends a message.
   virtual void Write(const TlsSocketMessage& message) = 0;
 
-  // Returns the unique identifier of the factory that created this socket.
-  virtual const std::string& GetFactoryId() const = 0;
+  // Returns the unique identifier of the parent server socket.
+  const std::string& GetServerSocketId() const { return parent_id_; }
 
   // Returns the unique identifier for this socket.
   const std::string& id() const { return id_; }
@@ -89,27 +87,29 @@ class TlsSocket {
  protected:
   Client* client() const { return client_; }
 
-  explicit TlsSocket(Client* client) : client_(client) {}
-  virtual ~TlsSocket() = 0;
+  TlsSocket(Client* client, const std::string& parent_id)
+  : id_(client->GetNewSocketId()), client_(client), parent_id_(parent_id) {}
+  virtual ~TlsSocket() = default;
 
  private:
   const std::string id_;
   Client* const client_;
+  const std::string& parent_id_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TlsSocket);
 };
 
 // Abstract factory class for building TlsSockets.
-class TlsSocketFactory {
+class TlsServerSocket {
  public:
-  TlsSocketFactory() = default;
-  virtual ~TlsSocketFactory() = default;
+  TlsServerSocket() = default;
+  virtual ~TlsServerSocket() = default;
 
-  // Returns a unique identifier for this Factory.
-  virtual const std::string& GetId() = 0;
+  // Returns a unique identifier for this instance.
+  virtual const std::string& GetId() const = 0;
 
-  // Gets the local address, if set, otherwise nullptr.
-  virtual IPEndpoint* GetLocalAddress() = 0;
+  // Gets the local address, if set.
+  virtual const absl::optional<IPEndpoint>& GetLocalAddress() const = 0;
 
   // Start accepting new sockets. Should call Client::OnAccepted().
   virtual void Accept() = 0;
@@ -118,13 +118,13 @@ class TlsSocketFactory {
   virtual void Stop() = 0;
 
   // Set the credentials used for communication.
-  virtual void SetCredentials(const TlsSocketCreds& creds) = 0;
+  virtual void SetCredentials(TlsSocketCreds creds) = 0;
 
  protected:
   virtual TlsSocket::Client* GetClient() const = 0;
 
  private:
-  OSP_DISALLOW_COPY_AND_ASSIGN(TlsSocketFactory);
+  OSP_DISALLOW_COPY_AND_ASSIGN(TlsServerSocket);
 };
 
 }  // namespace platform

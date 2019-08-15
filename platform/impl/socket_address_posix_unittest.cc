@@ -16,7 +16,7 @@ TEST(SocketAddressPosixTest, IPv4SocketAddressConvertsSuccessfully) {
   // sa_len is not consistent for IPv4 addresses, so we don't check it here.
   EXPECT_EQ(address.address()->sa_family, AF_INET);
 
-  const char kExpected[6] = { 0, 'P', '\n', 0, 0, 1 };
+  const char kExpected[6] = {0, 'P', '\n', 0, 0, 1};
   for (auto i = 0; i < 6; ++i) {
     EXPECT_EQ(address.address()->sa_data[i], kExpected[i]);
   }
@@ -29,7 +29,7 @@ TEST(SocketAddressPosixTest, IPv6SocketAddressConvertsSuccessfully) {
   EXPECT_EQ(address.address()->sa_len, 10);
   EXPECT_EQ(address.address()->sa_family, AF_INET6);
 
-  const char kExpected[14] = { 0, 'P', 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+  const char kExpected[14] = {0, 'P', 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8};
   EXPECT_THAT(address.address()->sa_data, testing::ElementsAreArray(kExpected));
 }
 }  // namespace platform
