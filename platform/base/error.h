@@ -53,8 +53,12 @@ class Error {
     kConnectionFailed,
 
     kSocketOptionSettingFailure,
+    kSocketAcceptFailure,
     kSocketBindFailure,
     kSocketClosedFailure,
+    kSocketConnectFailure,
+    kSocketInvalidState,
+    kSocketListenFailure,
     kSocketReadFailure,
     kSocketSendFailure,
 
