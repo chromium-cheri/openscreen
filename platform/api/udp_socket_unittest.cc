@@ -15,12 +15,14 @@ namespace platform {
 // which will then crash the running code. This test ensures that deleting a
 // new, unmodified UDP Socket object doesn't hit this edge case.
 TEST(UdpSocketTest, TestDeletionWithoutCallbackSet) {
-  UdpSocket* socket = new MockUdpSocket(UdpSocket::Version::kV4);
+  MockUdpSocket::MockClient client;
+  UdpSocket* socket = new MockUdpSocket(&client, UdpSocket::Version::kV4);
   delete socket;
 }
 
 TEST(UdpSocketTest, TestCallbackCalledOnDeletion) {
-  UdpSocket* socket = new MockUdpSocket(UdpSocket::Version::kV4);
+  MockUdpSocket::MockClient client;
+  UdpSocket* socket = new MockUdpSocket(&client, UdpSocket::Version::kV4);
   int call_count = 0;
   std::function<void(UdpSocket*)> callback = [&call_count](UdpSocket* socket) {
     call_count++;
@@ -38,8 +40,9 @@ TEST(UdpSocketTest, TestCallbackCalledOnDeletion) {
 // auto-assigned socket name (i.e., the local endpoint's port will not be zero).
 TEST(UdpSocketTest, ResolvesLocalEndpoint_IPv4) {
   const uint8_t kIpV4AddrAny[4] = {};
+  MockUdpSocket::MockClient client;
   ErrorOr<UdpSocketUniquePtr> create_result =
-      UdpSocket::Create(IPEndpoint{IPAddress(kIpV4AddrAny), 0});
+      UdpSocket::Create(&client, IPEndpoint{IPAddress(kIpV4AddrAny), 0});
   ASSERT_TRUE(create_result) << create_result.error();
   const auto socket = create_result.MoveValue();
   const Error bind_result = socket->Bind();
@@ -53,8 +56,9 @@ TEST(UdpSocketTest, ResolvesLocalEndpoint_IPv4) {
 // auto-assigned socket name (i.e., the local endpoint's port will not be zero).
 TEST(UdpSocketTest, ResolvesLocalEndpoint_IPv6) {
   const uint8_t kIpV6AddrAny[16] = {};
+  MockUdpSocket::MockClient client;
   ErrorOr<UdpSocketUniquePtr> create_result =
-      UdpSocket::Create(IPEndpoint{IPAddress(kIpV6AddrAny), 0});
+      UdpSocket::Create(&client, IPEndpoint{IPAddress(kIpV6AddrAny), 0});
   ASSERT_TRUE(create_result) << create_result.error();
   const auto socket = create_result.MoveValue();
   const Error bind_result = socket->Bind();

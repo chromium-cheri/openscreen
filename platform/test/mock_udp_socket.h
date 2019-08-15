@@ -17,7 +17,18 @@ namespace platform {
 
 class MockUdpSocket : public UdpSocket {
  public:
-  explicit MockUdpSocket(Version version = Version::kV4);
+  class MockClient : public UdpSocket::Client {
+   public:
+    MOCK_METHOD2(OnError, void(UdpSocket*, Error));
+    MOCK_METHOD2(OnSendError, void(UdpSocket*, Error));
+    MOCK_METHOD2(OnReadInternal, void(UdpSocket*, const ErrorOr<UdpPacket>&));
+
+    void OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet) override {
+      OnReadInternal(socket, packet);
+    }
+  };
+
+  MockUdpSocket(Client* client, Version version = Version::kV4);
   ~MockUdpSocket() override = default;
 
   bool IsIPv4() const override;

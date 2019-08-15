@@ -12,7 +12,7 @@ namespace platform {
 
 struct UdpSocketPosix : public UdpSocket {
  public:
-  UdpSocketPosix(int fd, const IPEndpoint& local_endpoint);
+  UdpSocketPosix(Client* client, int fd, const IPEndpoint& local_endpoint);
   ~UdpSocketPosix() final;
 
   // Implementations of UdpSocket methods.

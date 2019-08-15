@@ -82,8 +82,9 @@ TEST(NetworkReaderTest, WatchReadableSucceeds) {
       std::unique_ptr<NetworkWaiter>(new MockNetworkWaiter());
   std::unique_ptr<TaskRunner> task_runner =
       std::unique_ptr<TaskRunner>(new MockTaskRunner());
+  MockUdpSocket::MockClient client;
   std::unique_ptr<MockUdpSocket> socket =
-      std::make_unique<MockUdpSocket>(UdpSocket::Version::kV4);
+      std::make_unique<MockUdpSocket>(&client, UdpSocket::Version::kV4);
   TestingNetworkWaiter network_waiter(std::move(mock_waiter),
                                       task_runner.get());
   MockCallbacks callbacks;
@@ -112,8 +113,9 @@ TEST(NetworkReaderTest, UnwatchReadableSucceeds) {
       std::unique_ptr<NetworkWaiter>(new MockNetworkWaiter());
   std::unique_ptr<TaskRunner> task_runner =
       std::unique_ptr<TaskRunner>(new MockTaskRunner());
+  MockUdpSocket::MockClient client;
   std::unique_ptr<MockUdpSocket> socket =
-      std::make_unique<MockUdpSocket>(UdpSocket::Version::kV4);
+      std::make_unique<MockUdpSocket>(&client, UdpSocket::Version::kV4);
   TestingNetworkWaiter network_waiter(std::move(mock_waiter),
                                       task_runner.get());
   MockCallbacks callbacks;
@@ -179,8 +181,9 @@ TEST(NetworkReaderTest, WaitSuccessfullyCalledOnAllWatchedSockets) {
       std::unique_ptr<NetworkWaiter>(mock_waiter_ptr);
   std::unique_ptr<TaskRunner> task_runner =
       std::unique_ptr<TaskRunner>(new MockTaskRunner());
+  MockUdpSocket::MockClient client;
   std::unique_ptr<MockUdpSocket> socket =
-      std::make_unique<MockUdpSocket>(UdpSocket::Version::kV4);
+      std::make_unique<MockUdpSocket>(&client, UdpSocket::Version::kV4);
   TestingNetworkWaiter network_waiter(std::move(mock_waiter),
                                       task_runner.get());
   auto timeout = Clock::duration(0);
@@ -207,7 +210,8 @@ TEST(NetworkReaderTest, WaitSuccessfulReadAndCallCallback) {
       std::unique_ptr<NetworkWaiter>(mock_waiter_ptr);
   std::unique_ptr<TaskRunner> task_runner =
       std::unique_ptr<TaskRunner>(task_runner_ptr);
-  MockUdpSocket socket(UdpSocket::Version::kV4);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&client, UdpSocket::Version::kV4);
   TestingNetworkWaiter network_waiter(std::move(mock_waiter),
                                       task_runner.get());
   auto timeout = Clock::duration(0);
@@ -235,7 +239,8 @@ TEST(NetworkReaderTest, WaitFailsIfReadingSocketFails) {
       std::unique_ptr<NetworkWaiter>(mock_waiter_ptr);
   std::unique_ptr<TaskRunner> task_runner =
       std::unique_ptr<TaskRunner>(new MockTaskRunner());
-  MockUdpSocket socket(UdpSocket::Version::kV4);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&client, UdpSocket::Version::kV4);
   TestingNetworkWaiter network_waiter(std::move(mock_waiter),
                                       task_runner.get());
   auto timeout = Clock::duration(0);

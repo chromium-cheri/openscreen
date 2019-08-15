@@ -147,8 +147,8 @@ InternalServices::InternalPlatformLinkage::RegisterInterfaces(
     // Pick any address for the given interface.
     const platform::IPSubnet& primary_subnet = addr.addresses.front();
 
-    auto create_result =
-        platform::UdpSocket::Create(IPEndpoint{{}, kMulticastListeningPort});
+    auto create_result = platform::UdpSocket::Create(
+        parent_, IPEndpoint{{}, kMulticastListeningPort});
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create socket for interface " << index << ": "
                     << create_result.error().message();
@@ -222,6 +222,19 @@ void InternalServices::DereferenceSingleton(void* instance) {
     delete g_instance;
     g_instance = nullptr;
   }
+}
+
+void InternalServices::OnError(platform::UdpSocket* socket, Error error) {
+  OSP_UNIMPLEMENTED();
+}
+
+void InternalServices::OnSendError(platform::UdpSocket* socket, Error error) {
+  OSP_UNIMPLEMENTED();
+}
+
+void InternalServices::OnRead(platform::UdpSocket* socket,
+                              ErrorOr<platform::UdpPacket> packet) {
+  OSP_UNIMPLEMENTED();
 }
 
 }  // namespace openscreen
