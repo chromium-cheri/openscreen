@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f1fafb1_7847841a",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-15T22:34:24Z",
+      "side": 1,
+      "message": "I don\u0027t think the interface wrapping is completely necessary.  If the client gets an error, the platform implementation can choose to allow future operations on the socket (which will likely return errors) or shortcut and return a generic error.\n\nIn other words I would make this the responsibility of the implementation to keep the API simpler.",
+      "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8101ffcb_a6261ecc",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-15T22:34:24Z",
+      "side": 1,
+      "message": "I think I commented on this pattern in a different CL?\n\nIf all the calling code handles socket configuration errors in the same way, and there\u0027s no avenue to retry failed operations, then it\u0027s simpler to just have a single error callback.",
+      "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec24650_b4981ffa",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-15T22:34:24Z",
+      "side": 1,
+      "message": "Or CloseOnError()?",
+      "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c5376f9_30e700c7",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-15T22:34:24Z",
+      "side": 1,
+      "message": "We could allow clients to close the socket before destruction.  In this case, an error could just call Close() and set a closed_ flag.\n\nThat does add some complexity to the API.   Another solution would be to have a terminal_error_ member that is set when a socket configuration error happens.",
+      "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5137724_639ae0e2",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-15T22:34:24Z",
+      "side": 1,
+      "message": "Why is this method needed?  It doesn\u0027t seem to save much typing.",
+      "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "229eff12_d2057831",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-15T22:34:24Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
