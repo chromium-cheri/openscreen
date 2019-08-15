@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// TODO(jophba): Add comprehensive suite of unittests.
+#ifndef PLATFORM_API_TLS_CREDENTIALS_H_
+#define PLATFORM_API_TLS_CREDENTIALS_H_
 
-#ifndef PLATFORM_API_TLS_SOCKET_CREDS_H_
-#define PLATFORM_API_TLS_SOCKET_CREDS_H_
+#include <openssl/crypto.h>
 
 #include <memory>
 #include <string>
@@ -15,11 +15,11 @@
 
 namespace openscreen {
 
-struct TlsSocketCreds {
+struct TlsCredentials {
  public:
-  // TODO(jophba): add TLS certificate member.
-  // TODO(jophba): add RSA Private key member.
-  std::vector<uint8_t> tls_cert_der;
+  bssl::UniquePtr<CRYPTO_BUFFER> certificate;
+  std::vector<uint8_t> tls_certificate_der;
+  bssl::UniquePtr<EVP_PKEY> rsa_private_key;
   std::vector<uint8_t> tls_pk_sha256_hash;
 
   std::vector<uint8_t> private_key_base64;
@@ -28,4 +28,4 @@ struct TlsSocketCreds {
 
 }  // namespace openscreen
 
-#endif  // PLATFORM_API_TLS_SOCKET_CREDS_H_
+#endif  // PLATFORM_API_TLS_CREDENTIALS_H_
