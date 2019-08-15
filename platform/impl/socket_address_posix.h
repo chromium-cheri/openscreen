@@ -19,6 +19,11 @@
 namespace openscreen {
 namespace platform {
 
+// The way the sockaddr_* family works in POSIX is pretty unintuitive. The
+// sockaddr_in and sockaddr_in6 structs can be reinterpreted as type
+// sockaddr, however they don't have a common parent--the types are unrelated.
+// Our solution for this is to wrap sockaddr_in* in a union, so that our code
+// can be simplified since most platform APIs just take a sockaddr.
 union SocketAddressIn {
   struct sockaddr_in v4;
   struct sockaddr_in6 v6;
@@ -34,23 +39,34 @@ class SocketAddressPosix {
   SocketAddressPosix& operator=(SocketAddressPosix&&) = default;
 
   struct sockaddr* address() {
-    return is_v4_ ? reinterpret_cast<struct sockaddr*>(&internal_address_.v4)
-                  : reinterpret_cast<struct sockaddr*>(&internal_address_.v6);
+    switch (version_) {
+      case (IPAddress::Version::kV4):
+        return reinterpret_cast<struct sockaddr*>(&internal_address_.v4);
+      case (IPAddress::Version::kV6):
+        return reinterpret_cast<struct sockaddr*>(&internal_address_.v6);
+    }
   }
 
   const struct sockaddr* address() const {
-    return is_v4_
-               ? reinterpret_cast<const struct sockaddr*>(&internal_address_.v4)
-               : reinterpret_cast<const struct sockaddr*>(
-                     &internal_address_.v6);
+    switch (version_) {
+      case (IPAddress::Version::kV4):
+        return reinterpret_cast<const struct sockaddr*>(&internal_address_.v4);
+      case (IPAddress::Version::kV6):
+        return reinterpret_cast<const struct sockaddr*>(&internal_address_.v6);
+    }
   }
 
+  IPAddress::Version version() const { return version_; }
+
+  // Some platform APIs change the size of the sockaddr.
   void set_size(socklen_t size) { size_ = size; };
   socklen_t size() const { return size_; }
 
  private:
   SocketAddressIn internal_address_;
-  bool is_v4_;
+
+  // Currently we only support IPv4
+  IPAddress::Version version_;
   socklen_t size_;
 };
 

@@ -36,14 +36,15 @@ class StreamSocketPosix {
   // Marks the socket as passive, to receive incoming connections.
   Error Listen();
 
-  int file_descriptor() { return file_descriptor_; }
-  bool in_valid_state() { return in_valid_state_; }
+  const absl::optional<SocketAddressPosix>& address() const { return address_; }
+  int file_descriptor() const { return file_descriptor_; }
+  bool in_valid_state() const { return in_valid_state_; }
 
  private:
   StreamSocketPosix(int file_descriptor,
                     absl::optional<SocketAddressPosix> address);
 
-  // Address may be null if not in valid state.
+  // Address may be empty if not in valid state.
   absl::optional<SocketAddressPosix> address_;
   int file_descriptor_ = -1;
   bool in_valid_state_ = true;
