@@ -134,6 +134,26 @@ std::ostream& operator<<(std::ostream& os, const Error::Code& code) {
       return os << "Failure: ErrCertsPathlen";
     case Error::Code::kInsufficientBuffer:
       return os << "Failure: InsufficientBuffer";
+    case Error::Code::kParameterInvalid:
+      return os << "Failure: ParameterInvalid";
+    case Error::Code::kParameterOutOfRange:
+      return os << "Failure: ParameterOutOfRange";
+    case Error::Code::kParameterNullPointer:
+      return os << "Failure: ParameterNullPointer";
+    case Error::Code::kIndexOutOfBounds:
+      return os << "Failure: IndexOutOfBounds";
+    case Error::Code::kItemAlreadyExists:
+      return os << "Failure: ItemAlreadyExists";
+    case Error::Code::kItemNotFound:
+      return os << "Failure: ItemNotFound";
+    case Error::Code::kOperationNotSupported:
+      return os << "Failure: OperationNotSupported";
+    case Error::Code::kOperationInvalid:
+      return os << "Failure: OperationInvalid";
+    case Error::Code::kOperationCancelled:
+      return os << "Failure: OperationCancelled";
+    case Error::Code::kUnknownError:
+      return os << "Failure: UnknownError";
   }
 
   // Unused 'return' to get around failure on GCC.

@@ -78,7 +78,7 @@ class Error {
     kJsonParseError,
     kJsonWriteError,
 
-    // OpenSSL errors
+    // OpenSSL errors.
     kFileLoadFailure,
 
     // Cast certificate errors.
@@ -109,6 +109,18 @@ class Error {
     kErrCertsPathlen,
 
     kInsufficientBuffer,
+
+    // Generic errors.
+    kParameterInvalid,
+    kParameterOutOfRange,
+    kParameterNullPointer,
+    kIndexOutOfBounds,
+    kItemAlreadyExists,
+    kItemNotFound,
+    kOperationNotSupported,
+    kOperationInvalid,
+    kOperationCancelled,
+    kUnknownError,
   };
 
   Error();
