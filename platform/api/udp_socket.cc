@@ -7,7 +7,7 @@
 namespace openscreen {
 namespace platform {
 
-UdpSocket::UdpSocket() {
+UdpSocket::UdpSocket(Client* client) : client_(client) {
   deletion_callback_ = [](UdpSocket* socket) {};
 }
 
@@ -17,6 +17,42 @@ UdpSocket::~UdpSocket() {
 
 void UdpSocket::SetDeletionCallback(std::function<void(UdpSocket*)> callback) {
   deletion_callback_ = callback;
+}
+
+void Bind() {
+  if (!client_in_good_state_) {
+    return;
+  }
+  BindInternal();
+}
+
+void SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) {
+  if (!client_in_good_state_) {
+    return;
+  }
+  SetMulticastOutboundInterfaceInternal(ifindex);
+}
+
+void JoinMulticastGroup(const IPAddress& address,
+                        NetworkInterfaceIndex ifindex) {
+  if (!client_in_good_state_) {
+    return;
+  }
+  JoinMulticastGroupInternal(address, ifindex);
+}
+
+void SendMessage(const void* data, size_t length, const IPEndpoint& dest) {
+  if (!client_in_good_state_) {
+    return;
+  }
+  SendMessageInternal(data, length, dest);
+}
+
+void SetDscp(DscpMode state) {
+  if (!client_in_good_state_) {
+    return;
+  }
+  SetDscpInternal(state);
 }
 
 }  // namespace platform
