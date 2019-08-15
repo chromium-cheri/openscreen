@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c12d43e9_468ae76b",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-15T00:53:30Z",
+      "side": 1,
+      "message": "Auto is kind of confusing here, I\u0027m assuming read_socket is of type UdpSocketBlockingRead?",
+      "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16b9c381_356a969e",
+        "filename": "platform/impl/udp_socket_blocking_read.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-15T00:53:30Z",
+      "side": 1,
+      "message": "Why UdpSocketBlockingRead? Name is kind of ambiguous, maybe SynchronousUdpSocket or UdpSocketWithBlockingRead?",
+      "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
