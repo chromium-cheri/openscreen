@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b97e59cf_aec1884b",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-15T22:41:45Z",
+      "side": 1,
+      "message": "Sounds good :) If there is no reason for wrapping the API, then the approach from this CL is unneeded - I\u0027ll abandon it",
+      "parentUuid": "6f1fafb1_7847841a",
+      "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8101ffcb_a6261ecc",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-08-15T22:34:24Z",
       "side": 1,
       "message": "I think I commented on this pattern in a different CL?\n\nIf all the calling code handles socket configuration errors in the same way, and there\u0027s no avenue to retry failed operations, then it\u0027s simpler to just have a single error callback.",
+      "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f978588_70ebb7a2",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-15T22:41:45Z",
+      "side": 1,
+      "message": "This is copied from the previous CL, with a slightly different approach provided here. Wanted to run both by you to see what you and Yuri preferred before I proceeded further with one design\n\nAbandoning this CL since it\u0027s not the preferred approach",
+      "parentUuid": "8101ffcb_a6261ecc",
       "revId": "6ee3795f7a511a13e5f1aa4d520edf1d5d1c5cd0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
