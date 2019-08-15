@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "98362ebc_1363339f",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-15T23:03:00Z",
+      "side": 1,
+      "message": "Correct. Updating to remove auto.",
+      "parentUuid": "c12d43e9_468ae76b",
+      "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34849ab3_ab45443a",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-15T23:03:00Z",
+      "side": 1,
+      "message": "Done.\n\nDiscussed offline. Removed UdpSocketBlockingRead class, moved the ReceiveMessage() method into UdpSocketPosix, and created a new MockUdpSocketPosix class inside platform/impl/network_reader_unittest.cc since that\u0027s the only place this method is needed\n\nIn future, we can create a real AF_UNIX socket with loopback calls in place of the MockUdpSocketPosix, but this is outside the scope of this CL and can come at a later point\n\nClosing this comment because the relevant class has been removed. PTAL and let me know if the new approach is closer to what you had in mind.",
+      "parentUuid": "84762e88_16e4ea56",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 63
+      },
+      "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16b9c381_356a969e",
         "filename": "platform/impl/udp_socket_blocking_read.h",
         "patchSetId": 1
@@ -74,6 +116,24 @@
       "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "002568f7_7482a6ee",
+        "filename": "platform/impl/udp_socket_blocking_read.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-15T23:03:00Z",
+      "side": 1,
+      "message": "Done.\n\nMy original reasoning for this interface was so that MockUdpSocket could also implement this interface and be used for this testing. After discussing with Yuri, I agree this approach is wrong. Instead, I am moving the ReceiveMessage() method to UdpSocketPosix as you suggest, and then creating a MockUdpSocketPosix class inside NetworkReader\u0027s UnitTests (only place we need this method)\n\nIn the long term, Yuri suggests creating a real AF_UNIX socket with loopback calls in place of the MockUdpSocketPosix, but this can come at a later point.\n\nClosing this comment because the class in question has been removed. PTAL and let me know if this is closer to what you had in mind.",
+      "parentUuid": "1d3bec4e_b47c1876",
+      "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
