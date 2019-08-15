@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "84762e88_16e4ea56",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-15T20:12:36Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be a blocking read. The only reason this code is attempting to receive a datagram is because the socket was flagged by the OS.\n\nIf we don\u0027t need this here, do we need to make any of these changes/additions?",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 63
+      },
+      "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16b9c381_356a969e",
         "filename": "platform/impl/udp_socket_blocking_read.h",
         "patchSetId": 1
