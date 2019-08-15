@@ -56,6 +56,24 @@
       "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d3bec4e_b47c1876",
+        "filename": "platform/impl/udp_socket_blocking_read.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-15T22:46:38Z",
+      "side": 1,
+      "message": "This should never block - ReceiveMessage should only be called when the OS has notifies us via select that here is a datagram queued, and we are setting  O_NONBLOCK on the socket.\n\nHave we established that only posix sockets will be read in a select loop?\n\nWhat about just making ReceiveMessage part of the UdpSocketPosix implementation, and having NetworkReader only work with UdpSocketPosix, versus introducing another interface?\n\nOr do we want NetworkReader to work across posix and network service sockets?",
+      "parentUuid": "16b9c381_356a969e",
+      "revId": "55ae8182ad0db271212bbdfb7272e52e1db2007a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
