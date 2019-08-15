@@ -30,8 +30,7 @@ class MockNetworkRunner : public NetworkRunner {
 
 class MockMdnsReceiverDelegate : public MdnsReceiver::Delegate {
  public:
-  MOCK_METHOD2(OnQueryReceived, void(const MdnsMessage&, const IPEndpoint&));
-  MOCK_METHOD2(OnResponseReceived, void(const MdnsMessage&, const IPEndpoint&));
+  MOCK_METHOD2(OnMessageReceived, void(const MdnsMessage&, const IPEndpoint&));
 };
 
 TEST(MdnsReceiverTest, ReceiveQuery) {
@@ -55,7 +54,8 @@ TEST(MdnsReceiverTest, ReceiveQuery) {
   MockUdpSocket socket(openscreen::IPAddress::Version::kV4);
   MockNetworkRunner runner;
   MockMdnsReceiverDelegate delegate;
-  MdnsReceiver receiver(&socket, &runner, &delegate);
+  MdnsReceiver receiver(&socket, &runner);
+  receiver.SetQueryDelegate(&delegate);
 
   EXPECT_CALL(runner, ReadRepeatedly(&socket, _))
       .WillOnce(Return(Error::Code::kNone));
@@ -75,7 +75,7 @@ TEST(MdnsReceiverTest, ReceiveQuery) {
                  .port = kDefaultMulticastPort});
 
   // Imitate a call to OnRead from NetworkRunner by calling it manually here
-  EXPECT_CALL(delegate, OnQueryReceived(message, packet.source())).Times(1);
+  EXPECT_CALL(delegate, OnMessageReceived(message, packet.source())).Times(1);
   receiver.OnRead(std::move(packet), &runner);
 
   EXPECT_CALL(runner, CancelRead(&socket)).WillOnce(Return(Error::Code::kNone));
@@ -111,7 +111,8 @@ TEST(MdnsReceiverTest, ReceiveResponse) {
   MockUdpSocket socket(openscreen::IPAddress::Version::kV6);
   MockNetworkRunner runner;
   MockMdnsReceiverDelegate delegate;
-  MdnsReceiver receiver(&socket, &runner, &delegate);
+  MdnsReceiver receiver(&socket, &runner);
+  receiver.SetResponseDelegate(&delegate);
 
   EXPECT_CALL(runner, ReadRepeatedly(&socket, _))
       .WillOnce(Return(Error::Code::kNone));
@@ -132,7 +133,7 @@ TEST(MdnsReceiverTest, ReceiveResponse) {
                  .port = kDefaultMulticastPort});
 
   // Imitate a call to OnRead from NetworkRunner by calling it manually here
-  EXPECT_CALL(delegate, OnResponseReceived(message, packet.source())).Times(1);
+  EXPECT_CALL(delegate, OnMessageReceived(message, packet.source())).Times(1);
   receiver.OnRead(std::move(packet), &runner);
 
   EXPECT_CALL(runner, CancelRead(&socket)).WillOnce(Return(Error::Code::kNone));
