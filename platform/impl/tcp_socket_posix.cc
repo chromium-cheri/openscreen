@@ -1,8 +1,8 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "platform/impl/stream_socket_posix.h"
+#include "platform/impl/tcp_socket_posix.h"
 
 #include <fcntl.h>
 #include <netinet/in.h>
@@ -21,24 +21,24 @@ constexpr int kDefaultMaxBacklogSize = 64;
 constexpr int kInvalidFileDescriptor = -1;
 }  // namespace
 
-StreamSocketPosix::StreamSocketPosix(const IPEndpoint& local_endpoint)
+TcpSocketPosix::TcpSocketPosix(const IPEndpoint& local_endpoint)
     : address_(local_endpoint),
       file_descriptor_(kInvalidFileDescriptor),
       last_error_code_(Error::Code::kNone) {}
 
-StreamSocketPosix::StreamSocketPosix(SocketAddressPosix address,
+TcpSocketPosix::TcpSocketPosix(SocketAddressPosix address,
                                      int file_descriptor)
     : address_(address),
       file_descriptor_(file_descriptor),
       last_error_code_(Error::Code::kNone) {}
 
-StreamSocketPosix::~StreamSocketPosix() {
+TcpSocketPosix::~TcpSocketPosix() {
   if (IsOpen()) {
     Close();
   }
 }
 
-std::unique_ptr<StreamSocketPosix> StreamSocketPosix::Accept() {
+std::unique_ptr<TcpSocket> TcpSocketPosix::Accept() {
   if (!EnsureInitialized()) {
     ReportSocketClosedError();
     return nullptr;
@@ -55,11 +55,11 @@ std::unique_ptr<StreamSocketPosix> StreamSocketPosix::Accept() {
     return nullptr;
   }
 
-  return std::make_unique<StreamSocketPosix>(new_peer_address,
+  return std::make_unique<TcpSocketPosix>(new_peer_address,
                                              new_file_descriptor);
 }
 
-Error StreamSocketPosix::Bind() {
+Error TcpSocketPosix::Bind() {
   if (!EnsureInitialized()) {
     return ReportSocketClosedError();
   }
@@ -71,7 +71,7 @@ Error StreamSocketPosix::Bind() {
   return Error::None();
 }
 
-Error StreamSocketPosix::Close() {
+Error TcpSocketPosix::Close() {
   if (!EnsureInitialized()) {
     return ReportSocketClosedError();
   }
@@ -86,7 +86,7 @@ Error StreamSocketPosix::Close() {
   return Error::None();
 }
 
-Error StreamSocketPosix::Connect(const IPEndpoint& peer_endpoint) {
+Error TcpSocketPosix::Connect(const IPEndpoint& peer_endpoint) {
   if (!EnsureInitialized()) {
     return ReportSocketClosedError();
   }
@@ -100,11 +100,15 @@ Error StreamSocketPosix::Connect(const IPEndpoint& peer_endpoint) {
   return Error::None();
 }
 
-Error StreamSocketPosix::Listen() {
+int64_t TcpSocketPosix::GetFileDescriptor() const {
+  return file_descriptor_.load();
+}
+
+Error TcpSocketPosix::Listen() {
   return Listen(kDefaultMaxBacklogSize);
 }
 
-Error StreamSocketPosix::Listen(int max_backlog_size) {
+Error TcpSocketPosix::Listen(int max_backlog_size) {
   if (!EnsureInitialized()) {
     return ReportSocketClosedError();
   }
@@ -116,7 +120,7 @@ Error StreamSocketPosix::Listen(int max_backlog_size) {
   return Error::None();
 }
 
-bool StreamSocketPosix::EnsureInitialized() {
+bool TcpSocketPosix::EnsureInitialized() {
   if (!IsOpen() && (last_error_code_.load() == Error::Code::kNone)) {
     return Initialize() == Error::None();
   }
@@ -124,7 +128,7 @@ bool StreamSocketPosix::EnsureInitialized() {
   return false;
 }
 
-Error StreamSocketPosix::Initialize() {
+Error TcpSocketPosix::Initialize() {
   if (IsOpen()) {
     return Error::Code::kItemAlreadyExists;
   }
@@ -157,7 +161,7 @@ Error StreamSocketPosix::Initialize() {
   return Error::None();
 }
 
-Error StreamSocketPosix::CloseOnError(Error::Code error_code) {
+Error TcpSocketPosix::CloseOnError(Error::Code error_code) {
   last_error_code_ = error_code;
   Close();
   return error_code;
@@ -165,7 +169,7 @@ Error StreamSocketPosix::CloseOnError(Error::Code error_code) {
 
 // If is_open is false, the socket has either not been initialized
 // or has been closed, either on purpose or due to error.
-Error StreamSocketPosix::ReportSocketClosedError() {
+Error TcpSocketPosix::ReportSocketClosedError() {
   last_error_code_ = Error::Code::kSocketClosedFailure;
   return Error::Code::kSocketClosedFailure;
 }
@@ -173,7 +177,7 @@ Error StreamSocketPosix::ReportSocketClosedError() {
 // The file_descriptor_ field is initialized to an invalid value, and resets
 // to that value when closed. We can assume that if the file_descriptor_ is
 // set, we are open.
-bool StreamSocketPosix::IsOpen() {
+bool TcpSocketPosix::IsOpen() {
   return file_descriptor_ != kInvalidFileDescriptor;
 }
 }  // namespace platform
