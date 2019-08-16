@@ -6,6 +6,9 @@
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
+#include "platform/api/time.h"
+#include "platform/test/fake_clock.h"
+#include "platform/test/fake_task_runner.h"
 #include "platform/test/mock_udp_socket.h"
 
 namespace cast {
@@ -103,7 +106,11 @@ class MdnsSenderTest : public ::testing::Test {
 };
 
 TEST_F(MdnsSenderTest, SendMulticastIPv4) {
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV4);
+  openscreen::platform::FakeClock clock(openscreen::platform::Clock::now());
+  openscreen::platform::FakeTaskRunner task_runner(&clock);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&task_runner, &client,
+                       openscreen::IPAddress::Version::kV4);
   MdnsSender sender(&socket);
   EXPECT_CALL(socket, SendMessage(VoidPointerMatchesBytes(kQueryBytes),
                                   kQueryBytes.size(), ipv4_multicast_endpoint_))
@@ -112,7 +119,11 @@ TEST_F(MdnsSenderTest, SendMulticastIPv4) {
 }
 
 TEST_F(MdnsSenderTest, SendMulticastIPv6) {
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV6);
+  openscreen::platform::FakeClock clock(openscreen::platform::Clock::now());
+  openscreen::platform::FakeTaskRunner task_runner(&clock);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&task_runner, &client,
+                       openscreen::IPAddress::Version::kV6);
   MdnsSender sender(&socket);
   EXPECT_CALL(socket, SendMessage(VoidPointerMatchesBytes(kQueryBytes),
                                   kQueryBytes.size(), ipv6_multicast_endpoint_))
@@ -123,7 +134,11 @@ TEST_F(MdnsSenderTest, SendMulticastIPv6) {
 TEST_F(MdnsSenderTest, SendUnicastIPv4) {
   IPEndpoint endpoint{.address = IPAddress{192, 168, 1, 1}, .port = 31337};
 
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV4);
+  openscreen::platform::FakeClock clock(openscreen::platform::Clock::now());
+  openscreen::platform::FakeTaskRunner task_runner(&clock);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&task_runner, &client,
+                       openscreen::IPAddress::Version::kV4);
   MdnsSender sender(&socket);
   EXPECT_CALL(socket, SendMessage(VoidPointerMatchesBytes(kResponseBytes),
                                   kResponseBytes.size(), endpoint))
@@ -139,7 +154,11 @@ TEST_F(MdnsSenderTest, SendUnicastIPv6) {
   };
   IPEndpoint endpoint{.address = IPAddress(kIPv6AddressBytes), .port = 31337};
 
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV6);
+  openscreen::platform::FakeClock clock(openscreen::platform::Clock::now());
+  openscreen::platform::FakeTaskRunner task_runner(&clock);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&task_runner, &client,
+                       openscreen::IPAddress::Version::kV6);
   MdnsSender sender(&socket);
   EXPECT_CALL(socket, SendMessage(VoidPointerMatchesBytes(kResponseBytes),
                                   kResponseBytes.size(), endpoint))
@@ -154,7 +173,11 @@ TEST_F(MdnsSenderTest, MessageTooBig) {
     big_message_.AddQuestion(a_question_);
     big_message_.AddAnswer(a_record_);
   }
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV4);
+  openscreen::platform::FakeClock clock(openscreen::platform::Clock::now());
+  openscreen::platform::FakeTaskRunner task_runner(&clock);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&task_runner, &client,
+                       openscreen::IPAddress::Version::kV4);
   MdnsSender sender(&socket);
   EXPECT_CALL(socket, SendMessage(_, _, _)).Times(0);
   EXPECT_EQ(sender.SendMulticast(big_message_),
@@ -162,7 +185,11 @@ TEST_F(MdnsSenderTest, MessageTooBig) {
 }
 
 TEST_F(MdnsSenderTest, ReturnsErrorOnSocketFailure) {
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV4);
+  openscreen::platform::FakeClock clock(openscreen::platform::Clock::now());
+  openscreen::platform::FakeTaskRunner task_runner(&clock);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&task_runner, &client,
+                       openscreen::IPAddress::Version::kV4);
   MdnsSender sender(&socket);
   EXPECT_CALL(socket, SendMessage(_, _, _))
       .WillOnce(Return(Error::Code::kConnectionFailed));

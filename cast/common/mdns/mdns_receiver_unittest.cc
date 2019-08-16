@@ -7,6 +7,8 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
+#include "platform/test/fake_clock.h"
+#include "platform/test/fake_task_runner.h"
 #include "platform/test/mock_udp_socket.h"
 
 namespace cast {
@@ -52,7 +54,11 @@ TEST(MdnsReceiverTest, ReceiveQuery) {
   };
   // clang-format on
 
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV4);
+  openscreen::platform::FakeClock clock(openscreen::platform::Clock::now());
+  openscreen::platform::FakeTaskRunner task_runner(&clock);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&task_runner, &client,
+                       openscreen::IPAddress::Version::kV4);
   MockNetworkRunner runner;
   MockMdnsReceiverDelegate delegate;
   MdnsReceiver receiver(&socket, &runner, &delegate);
@@ -108,7 +114,11 @@ TEST(MdnsReceiverTest, ReceiveResponse) {
   };
   // clang-format on
 
-  MockUdpSocket socket(openscreen::IPAddress::Version::kV6);
+  openscreen::platform::FakeClock clock(openscreen::platform::Clock::now());
+  openscreen::platform::FakeTaskRunner task_runner(&clock);
+  MockUdpSocket::MockClient client;
+  MockUdpSocket socket(&task_runner, &client,
+                       openscreen::IPAddress::Version::kV6);
   MockNetworkRunner runner;
   MockMdnsReceiverDelegate delegate;
   MdnsReceiver receiver(&socket, &runner, &delegate);
