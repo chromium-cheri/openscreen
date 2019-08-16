@@ -101,10 +101,6 @@ TEST(NetworkReaderTest, WatchReadableSucceeds) {
             Error::Code::kIOFailure);
 
   EXPECT_EQ(network_waiter.IsMappedRead(socket.get()), true);
-
-  // Set deletion callback because otherwise the destructor tries to call a
-  // callback on the deleted object when it goes out of scope.
-  socket->SetDeletionCallback([](UdpSocket* socket) {});
 }
 
 TEST(NetworkReaderTest, UnwatchReadableSucceeds) {
@@ -131,10 +127,6 @@ TEST(NetworkReaderTest, UnwatchReadableSucceeds) {
 
   EXPECT_EQ(network_waiter.CancelRead(socket.get()),
             Error::Code::kOperationInvalid);
-
-  // Set deletion callback because otherwise the destructor tries to call a
-  // callback on the deleted object when it goes out of scope.
-  socket->SetDeletionCallback([](UdpSocket* socket) {});
 }
 
 TEST(NetworkReaderTest, WaitBubblesUpWaitForEventsErrors) {
@@ -196,10 +188,6 @@ TEST(NetworkReaderTest, WaitSuccessfullyCalledOnAllWatchedSockets) {
                            timeout))
       .WillOnce(Return(ByMove(std::move(Error::Code::kAgain))));
   EXPECT_EQ(network_waiter.WaitTesting(timeout), Error::Code::kAgain);
-
-  // Set deletion callback because otherwise the destructor tries to call a
-  // callback on the deleted object when it goes out of scope.
-  socket->SetDeletionCallback([](UdpSocket* socket) {});
 }
 
 TEST(NetworkReaderTest, WaitSuccessfulReadAndCallCallback) {
@@ -225,10 +213,6 @@ TEST(NetworkReaderTest, WaitSuccessfulReadAndCallCallback) {
       .WillOnce(Return(ByMove(std::move(packet))));
   EXPECT_EQ(network_waiter.WaitTesting(timeout), Error::Code::kNone);
   EXPECT_EQ(task_runner_ptr->tasks_posted, uint32_t{1});
-
-  // Set deletion callback because otherwise the destructor tries to call a
-  // callback on the deleted object when it goes out of scope.
-  socket.SetDeletionCallback([](UdpSocket* socket) {});
 }
 
 TEST(NetworkReaderTest, WaitFailsIfReadingSocketFails) {
@@ -251,10 +235,6 @@ TEST(NetworkReaderTest, WaitFailsIfReadingSocketFails) {
   EXPECT_CALL(socket, ReceiveMessage())
       .WillOnce(Return(ByMove(Error::Code::kUnknownError)));
   EXPECT_EQ(network_waiter.WaitTesting(timeout), Error::Code::kUnknownError);
-
-  // Set deletion callback because otherwise the destructor tries to call a
-  // callback on the deleted object when it goes out of scope.
-  socket.SetDeletionCallback([](UdpSocket* socket) {});
 }
 
 }  // namespace platform

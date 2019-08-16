@@ -8,16 +8,34 @@ namespace openscreen {
 namespace platform {
 
 UdpSocket::UdpSocket() {
-  deletion_callback_ = [](UdpSocket* socket) {};
+  if (lifetime_observer_) {
+    std::lock_guard<std::mutex> lock(lifetime_observer_mutex_);
+    if (lifetime_observer_) {
+      lifetime_observer_->OnCreate(this);
+    }
+  }
 }
 
 UdpSocket::~UdpSocket() {
-  deletion_callback_(this);
+  if (lifetime_observer_) {
+    std::lock_guard<std::mutex> lock(lifetime_observer_mutex_);
+    if (lifetime_observer_) {
+      lifetime_observer_->OnDestroy(this);
+    }
+  }
 }
 
-void UdpSocket::SetDeletionCallback(std::function<void(UdpSocket*)> callback) {
-  deletion_callback_ = callback;
+// static
+void UdpSocket::SetLifetimeObserver(LifetimeObserver* observer) {
+  std::lock_guard<std::mutex> lock(lifetime_observer_mutex_);
+  lifetime_observer_ = observer;
 }
+
+// static
+UdpSocket::LifetimeObserver* UdpSocket::lifetime_observer_ = nullptr;
+
+// static
+std::mutex UdpSocket::lifetime_observer_mutex_;
 
 }  // namespace platform
 }  // namespace openscreen
