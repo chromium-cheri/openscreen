@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <mutex>
 
 #include "platform/api/network_interface.h"
 #include "platform/api/udp_read_callback.h"
@@ -39,6 +40,15 @@ class UdpSocket {
  public:
   virtual ~UdpSocket();
 
+  class LifetimeObserver {
+   public:
+    // Function to call upon creation of a new UdpSocket.
+    virtual void OnCreate(UdpSocket* socket) = 0;
+
+    // Function to call upon deletion of a UdpSocket.
+    virtual void OnDestroy(UdpSocket* socket) = 0;
+  };
+
   // Constants used to specify how we want packets sent from this socket.
   enum class DscpMode : uint8_t {
     // Default value set by the system on creation of a new socket.
@@ -53,6 +63,11 @@ class UdpSocket {
     // Mode for low priority operations such as trace log data.
     kLowPriority = 0x20
   };
+
+  // The LifetimeObserver set here must exist during ANY future UdpSocket
+  // creations. When the set observer is destroyed, it is expected to call
+  // SetLifetimeObserver(nullptr) before any future socket creations.
+  static void SetLifetimeObserver(LifetimeObserver* observer);
 
   using Version = IPAddress::Version;
 
@@ -103,18 +118,12 @@ class UdpSocket {
   // Sets the DSCP value to use for all messages sent from this socket.
   virtual Error SetDscp(DscpMode state) = 0;
 
-  // Sets the callback that should be called upon deletion of this socket. This
-  // allows other objects to observe the socket's destructor and act when it is
-  // called.
-  void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
-
  protected:
   UdpSocket();
 
  private:
-  // This callback allows other objects to observe the socket's destructor and
-  // act when it is called.
-  std::function<void(UdpSocket*)> deletion_callback_;
+  static LifetimeObserver* lifetime_observer_;
+  static std::mutex lifetime_observer_mutex_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
 };
