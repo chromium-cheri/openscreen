@@ -18,6 +18,7 @@
 namespace openscreen {
 namespace platform {
 
+class TaskRunner;
 class UdpSocket;
 
 using UdpSocketUniquePtr = std::unique_ptr<UdpSocket>;
@@ -39,6 +40,26 @@ class UdpSocket {
  public:
   virtual ~UdpSocket();
 
+  // Client for the UdpSocket class.
+  class Client {
+   public:
+    virtual ~Client() = default;
+
+    // Method called on socket configuration operations when an error occurs.
+    // These specific APIs are:
+    //   UdpSocket::Bind()
+    //   UdpSocket::SetMulticastOutboundInterface(...)
+    //   UdpSocket::JoinMulticastGroup(...)
+    //   UdpSocket::SetDscp(...)
+    virtual void OnError(UdpSocket* socket, Error error) = 0;
+
+    // Method called when an error occurs during a SendMessage call.
+    virtual void OnSendError(UdpSocket* socket, Error error) = 0;
+
+    // Method called when a packet is read.
+    virtual void OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet) = 0;
+  };
+
   // Constants used to specify how we want packets sent from this socket.
   enum class DscpMode : uint8_t {
     // Default value set by the system on creation of a new socket.
@@ -59,7 +80,9 @@ class UdpSocket {
   // Creates a new, scoped UdpSocket within the IPv4 or IPv6 family.
   // |local_endpoint| may be zero (see comments for Bind()). This method must be
   // defined in the platform-level implementation.
-  static ErrorOr<UdpSocketUniquePtr> Create(const IPEndpoint& local_endpoint);
+  static ErrorOr<UdpSocketUniquePtr> Create(TaskRunner* task_runner,
+                                            Client* client,
+                                            const IPEndpoint& local_endpoint);
 
   // Returns true if |socket| belongs to the IPv4/IPv6 address family.
   virtual bool IsIPv4() const = 0;
@@ -109,7 +132,15 @@ class UdpSocket {
   void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
 
  protected:
-  UdpSocket();
+  explicit UdpSocket(TaskRunner* task_runner, Client* client);
+
+  // Client to use for callbacks.
+  // NOTE: clinet_ can be nullptr if the user does not want any callbacks (for
+  // example, in the send-only case).
+  Client* const client_;
+
+  // Task runner to use for queuing client_ callbacks.
+  TaskRunner* const task_runner_;
 
  private:
   // This callback allows other objects to observe the socket's destructor and
