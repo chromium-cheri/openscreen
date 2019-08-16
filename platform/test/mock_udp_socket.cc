@@ -7,7 +7,10 @@
 namespace openscreen {
 namespace platform {
 
-MockUdpSocket::MockUdpSocket(Version version) : version_(version) {}
+MockUdpSocket::MockUdpSocket(TaskRunner* task_runner,
+                             Client* client,
+                             Version version)
+    : UdpSocket(task_runner, client), version_(version) {}
 
 bool MockUdpSocket::IsIPv4() const {
   return version_ == UdpSocket::Version::kV4;
