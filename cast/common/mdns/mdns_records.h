@@ -5,6 +5,7 @@
 #ifndef CAST_COMMON_MDNS_MDNS_RECORDS_H_
 #define CAST_COMMON_MDNS_MDNS_RECORDS_H_
 
+#include <functional>
 #include <initializer_list>
 #include <string>
 #include <vector>
@@ -21,6 +22,7 @@ namespace mdns {
 using IPAddress = openscreen::IPAddress;
 
 bool IsValidDomainLabel(absl::string_view label);
+uint16_t CreateMessageId();
 
 // Represents domain name as a collection of labels, ensures label length and
 // domain name length requirements are met.
@@ -72,8 +74,6 @@ class DomainName {
   size_t max_wire_size_ = 1;
   std::vector<std::string> labels_;
 };
-
-std::ostream& operator<<(std::ostream& stream, const DomainName& domain_name);
 
 // Parsed represenation of the extra data in a record. Does not include standard
 // DNS record data such as TTL, Name, Type and Class. We use it to distinguish

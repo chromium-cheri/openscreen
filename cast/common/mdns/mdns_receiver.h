@@ -28,24 +28,23 @@ class MdnsReceiver : UdpReadCallback {
   class Delegate {
    public:
     virtual ~Delegate() = default;
-    virtual void OnQueryReceived(const MdnsMessage& message,
-                                 const IPEndpoint& sender) = 0;
-    virtual void OnResponseReceived(const MdnsMessage& message,
-                                    const IPEndpoint& sender) = 0;
+    virtual void OnMessageReceived(const MdnsMessage& message,
+                                   const IPEndpoint& sender) = 0;
   };
 
   // MdnsReceiver does not own |socket|, |network_runner| and |delegate|
   // and expects that the lifetime of these objects exceeds the lifetime of
   // MdnsReceiver.
-  MdnsReceiver(UdpSocket* socket,
-               NetworkRunner* network_runner,
-               Delegate* delegate);
+  MdnsReceiver(UdpSocket* socket, NetworkRunner* network_runner);
   MdnsReceiver(const MdnsReceiver& other) = delete;
   MdnsReceiver(MdnsReceiver&& other) noexcept = delete;
   ~MdnsReceiver() override;
 
   MdnsReceiver& operator=(const MdnsReceiver& other) = delete;
   MdnsReceiver& operator=(MdnsReceiver&& other) noexcept = delete;
+
+  void SetQueryDelegate(Delegate* delegate);
+  void SetResponseDelegate(Delegate* delegate);
 
   // The receiver can be started and stopped multiple times.
   // Start and Stop return Error::Code::kNone on success and return an error on
@@ -67,7 +66,8 @@ class MdnsReceiver : UdpReadCallback {
 
   UdpSocket* const socket_;
   NetworkRunner* const network_runner_;
-  Delegate* const delegate_;
+  Delegate* query_delegate_ = nullptr;
+  Delegate* response_delegate_ = nullptr;
   State state_ = State::kStopped;
 };
 
