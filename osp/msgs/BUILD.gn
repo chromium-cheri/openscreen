@@ -40,7 +40,10 @@ action("cddl_gen") {
     outputs += [ root_gen_dir + "/" + o ]
   }
 
+  cddl_label = "../../tools/cddl:cddl($host_toolchain)"
+  cddl_path = get_label_info(cddl_label, "root_out_dir") + "/cddl"
   args = [
+           "./" + rebase_path(cddl_path, root_build_dir),
            "--header",
            outputs_src[0],
            "--cc",
@@ -52,7 +55,7 @@ action("cddl_gen") {
          ] + rebase_path(sources, root_build_dir)
 
   deps = [
-    "../../tools/cddl",
+    cddl_label,
   ]
 }
 
