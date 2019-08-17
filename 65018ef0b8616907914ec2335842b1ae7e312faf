@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b069f696_609deb09",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-17T02:38:23Z",
+      "side": 1,
+      "message": "We should probably assume that all sockets passed to the NetworkReader will be UdpSocketPosix going forward.  Can you add a TODO to remove this potentially-unsafe cast?",
+      "revId": "65018ef0b8616907914ec2335842b1ae7e312faf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cc3d21b_2560b52f",
+        "filename": "platform/impl/network_reader_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-17T02:38:23Z",
+      "side": 1,
+      "message": "Can this inherit from test/mock_udp_socket.h instead of duplicating most of it?",
+      "revId": "65018ef0b8616907914ec2335842b1ae7e312faf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
