@@ -32,6 +32,18 @@ IPEndpoint MockUdpSocket::GetLocalEndpoint() const {
   return IPEndpoint{};
 }
 
+void MockUdpSocket::Bind() {
+  Error error = Error::Code::kNone;
+  if (!bind_errors_.empty()) {
+    error = bind_errors_.front();
+    bind_errors_.pop();
+  }
+
+  if (!error.ok()) {
+    client_->OnError(this, std::move(error));
+  }
+}
+
 // static
 std::unique_ptr<MockUdpSocket> MockUdpSocket::CreateDefault(
     UdpSocket::Version version) {
