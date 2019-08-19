@@ -37,6 +37,8 @@ struct UdpSocketPosix : public UdpSocket {
   int GetFd() const { return fd_; }
 
  private:
+  void Close() override;
+
   const int fd_;
 
   // Cached value of current local endpoint. This can change (e.g., when the

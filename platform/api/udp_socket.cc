@@ -24,6 +24,10 @@ void UdpSocket::SetDeletionCallback(std::function<void(UdpSocket*)> callback) {
 }
 
 void UdpSocket::OnError(Error error) {
+  if (!error.ok()) {
+    CloseIfOpen();
+  }
+
   if (!client_) {
     return;
   }
@@ -49,6 +53,12 @@ void UdpSocket::OnRead(ErrorOr<UdpPacket> read_data) {
   task_runner_->PostTask([data = std::move(read_data), this]() mutable {
     this->client_->OnRead(this, std::move(data));
   });
+}
+
+void UdpSocket::CloseIfOpen() {
+  if (!is_closed_.exchange(true)) {
+    Close();
+  }
 }
 
 }  // namespace platform
