@@ -23,5 +23,36 @@ void UdpSocket::SetDeletionCallback(std::function<void(UdpSocket*)> callback) {
   deletion_callback_ = callback;
 }
 
+void UdpSocket::OnError(Error error) {
+  if (client_ == nullptr) {
+    return;
+  }
+
+  auto callback = [e = std::move(error), this]() mutable {
+    this->client_->OnError(this, std::move(e));
+  };
+  task_runner_->PostTask(std::move(callback));
+}
+void UdpSocket::OnSendError(Error error) {
+  if (client_ == nullptr) {
+    return;
+  }
+
+  auto callback = [e = std::move(error), this]() mutable {
+    this->client_->OnSendError(this, std::move(e));
+  };
+  task_runner_->PostTask(std::move(callback));
+}
+void UdpSocket::OnRead(ErrorOr<UdpPacket> read_data) {
+  if (client_ == nullptr) {
+    return;
+  }
+
+  auto callback = [data = std::move(read_data), this]() mutable {
+    this->client_->OnRead(this, std::move(data));
+  };
+  task_runner_->PostTask(std::move(callback));
+}
+
 }  // namespace platform
 }  // namespace openscreen
