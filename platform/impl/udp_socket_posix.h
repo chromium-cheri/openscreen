@@ -24,7 +24,7 @@ struct UdpSocketPosix : public UdpSocket {
   bool IsIPv4() const final;
   bool IsIPv6() const final;
   IPEndpoint GetLocalEndpoint() const final;
-  Error Bind() final;
+  void Bind() final;
   Error SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) final;
   Error JoinMulticastGroup(const IPAddress& address,
                            NetworkInterfaceIndex ifindex) final;
