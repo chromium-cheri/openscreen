@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a78ee8ff_ea9eb035",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_platform.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:28:57Z",
+      "side": 1,
+      "message": "How does the calling code handle mStatus_TransientErr?",
+      "revId": "d1af4350c0d296365d6354967207d070f659c631",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3c30689_099ea731",
+        "filename": "osp/impl/quic/quic_connection_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:28:57Z",
+      "side": 1,
+      "message": "The upstream code for QUIC has logic to retry packet writes if one fails.\n\nSee net/quic/quic_chromium_packet_writer.cc, line 148.\n\nIf we assume writes always succeed, then the sender won\u0027t attempt to retransmit until it gets a signal from the receiver, which will hurt latency.",
+      "revId": "d1af4350c0d296365d6354967207d070f659c631",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
