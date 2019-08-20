@@ -204,6 +204,9 @@ DateTime MarchFirst2037() {
 // Chains to trust anchor:
 //   Eureka Root CA    (built-in trust store)
 TEST(VerifyCastDeviceCertTest, ChromecastGen1) {
+#if defined(__GNUC__)
+  EXPECT_TRUE(false) << "gcc version: " << __GNUC__ << "." << __GNUC_MINOR__;
+#endif
   RunTest(CastCertError::kNone, "2ZZBG9 FA8FCA3EF91A",
           CastDeviceCertPolicy::kUnrestricted,
           TEST_DATA_PREFIX "certificates/chromecast_gen1.pem", AprilFirst2016(),
