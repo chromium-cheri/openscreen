@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "2db5423e_6fe8f27c",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:29:34Z",
+      "side": 1,
+      "message": "It would make more sense to me to have this dtor call CloseIfError(OK) - it depends on whether deletion_callback_ should be run on a possibly-open or always-closed socket.",
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be4ff36c_bbcca0f5",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:29:34Z",
+      "side": 1,
+      "message": "what about kAgain?",
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8093af4_a63d03c9",
         "filename": "platform/api/udp_socket.cc",
         "patchSetId": 1
@@ -19,6 +53,40 @@
         "endLine": 29,
         "endChar": 3
       },
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c8f2e8a_413c27fd",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:29:34Z",
+      "side": 1,
+      "message": "Do you need to update this as well?",
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbc6a5c5_d558c39b",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:29:34Z",
+      "side": 1,
+      "message": "How about CloseIfError(Error error) which calls Close() if error !\u003d (kOk || kAgain)?",
       "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
