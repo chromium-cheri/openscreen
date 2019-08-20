@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a982f4f_d85c0b29",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:12:56Z",
+      "side": 1,
+      "message": "Ok to add a possibly-closed socket here?",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82878e5a_c1cf9a24",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:12:56Z",
+      "side": 1,
+      "message": "This is now always going to return true, which means that OSP will attempt MDNS on every interface (regardless of whether it was successfully bound or not).\n\nThe socket registration code should go into the OnError callback.",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21efe2a7_088d5965",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:12:56Z",
+      "side": 1,
+      "message": "How will you know if the socket was bound successfully at this point?\nThis needs to move to OnError.",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "502997be_69b2909f",
         "filename": "platform/impl/udp_socket_posix.cc",
         "patchSetId": 2
@@ -19,6 +70,23 @@
         "endLine": 141,
         "endChar": 80
       },
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb529688_e0e22747",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T17:12:56Z",
+      "side": 1,
+      "message": "Please remove debugging code before submitting here and below.",
       "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
