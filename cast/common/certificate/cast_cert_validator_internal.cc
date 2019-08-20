@@ -397,23 +397,28 @@ bool IsDateTimeBefore(const DateTime& a, const DateTime& b) {
 }
 
 bool ConvertTimeSeconds(uint64_t seconds, DateTime* time) {
-  if ((seconds >> 63)) {
-    return false;
-  }
-  // TODO(btolsch): This limits us to about 2038 on 32-bit machines.  This
-  // should be converted to a pure uint64_t function.
-  OSP_DCHECK_EQ(seconds & INT32_MAX, seconds);
-  long s = seconds;
-  struct tm* tm = gmtime(&s);
-  if (!tm) {
-    return false;
-  }
-  time->second = tm->tm_sec;
-  time->minute = tm->tm_min;
-  time->hour = tm->tm_hour;
-  time->day = tm->tm_mday;
-  time->month = tm->tm_mon + 1;
-  time->year = tm->tm_year + 1900;
+  // TODO(btolsch): better leap years
+  uint64_t quad_years = seconds / ((365 * 4 + 1) * 60 * 60 * 24);
+  seconds -= quad_years * (365 * 4 + 1) * 60 * 60 * 24;
+  uint64_t quad_mod = seconds / (365 * 60 * 60 * 24);
+  OSP_DCHECK_LT(quad_mod, 4);
+  seconds -= quad_mod * 365 * 60 * 60 * 24;
+  // TODO(btolsch): actual months
+  uint64_t months = seconds / (31 * 60 * 60 * 24);
+  seconds -= months * 31 * 60 * 60 * 24;
+  uint64_t days = seconds / (60 * 60 * 24);
+  seconds -= days * 60 * 60 * 24;
+  uint64_t hours = seconds / (60 * 60);
+  seconds -= hours * 60 * 60;
+  uint64_t minutes = seconds / 60;
+  seconds -= minutes * 60;
+
+  time->second = seconds;
+  time->minute = minutes;
+  time->hour = hours;
+  time->day = days + 1;
+  time->month = months + 1;
+  time->year = 1970 + quad_years * 4 + quad_mod;
   return true;
 }
 
