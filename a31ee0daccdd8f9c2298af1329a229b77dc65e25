@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9eb930c6_a92e0429",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T18:38:35Z",
+      "side": 1,
+      "message": "Ok, if the mDNSResponder wants to rebind the same interface in the future, then it will need to check subsequent operations for errors.  Does mDNSResponder treat read or write errors as permanent, or will it retry them endlessly?",
+      "parentUuid": "dabb7b62_b45e1201",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82878e5a_c1cf9a24",
         "filename": "osp/impl/internal_services.cc",
         "patchSetId": 2
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "32759378_8dd5329c",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T18:38:35Z",
+      "side": 1,
+      "message": "I thought OnError could be called with Error::Code::Ok.  (Maybe we should rename Error to Result, but that\u0027s different discussion).\n\nI think the socket has to be bound before it\u0027s registered; registering tells the mDNSResponder that it\u0027s ready for read/write.\n\nDeregistering the socket in the OnError callback sounds good.\n\nI assumed that all of these methods would get called on the task runner to guarantee sequencing of callbacks and allow them to modify state in the client without locks.  What threading model were you thinking of for socket clients?",
+      "parentUuid": "4bcad929_dd28a5a1",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21efe2a7_088d5965",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 2
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "This has the same issues as discussed in the above approach. \n\nHow about:\n  1) Add all newly created sockets to the sockets_ list\n  2) call server_socket-\u003eBind() (and similar configuration methods)\n  3) the OnError(...) removes from sockets_\nwith a lock around sockets_ access just to be safe\n\nThoughts?",
       "parentUuid": "21efe2a7_088d5965",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3061fd6f_c68558a8",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-20T18:38:35Z",
+      "side": 1,
+      "message": "That would work, but I would rather not have a lock around sockets_.\n\nMaybe we can land your change to close sockets on error and use that as a signal for callers to update their bookkeeping.\n\nIf the bind fails, when does the socket get removed from the network runner?",
+      "parentUuid": "bcbf3675_8cbbe44b",
       "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
