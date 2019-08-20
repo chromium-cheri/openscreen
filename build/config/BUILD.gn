@@ -18,6 +18,7 @@ declare_args() {
 
 config("compiler_defaults") {
   cflags = []
+  defines = [ "_GLIBCXX_DEBUG" ]
   if (is_posix && !is_mac) {
     cflags += [ "-fPIC" ]
   }
