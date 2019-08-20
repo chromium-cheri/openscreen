@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dabb7b62_b45e1201",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T18:17:41Z",
+      "side": 1,
+      "message": "That depends on the error-handling CL\n\nBased on Yuri\u0027s suggestion, sockets that are in a bad state (ie failed a Bind() call) will fail any future calls\n\nIf we want to maintain parity with the current code, we could make the OnError(...) code have an OSP_ASSERT(false) to crash the demo as done now, but I did not see the issue in having a different sort of failure case (which might give us more info and help debugging) as long as the failure is logged. At least since this is intended to be a test demo\n\nThoughts?",
+      "parentUuid": "1a982f4f_d85c0b29",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82878e5a_c1cf9a24",
         "filename": "osp/impl/internal_services.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4bcad929_dd28a5a1",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T18:17:41Z",
+      "side": 1,
+      "message": "My initial approach was assuming we would be adding Error Handling similar to what Yuri described during the design review - where methods called on an \"unhealthy\" socket return immediately. If we don\u0027t want to rely on this, I am happy to go with your idea\n\nThe issue with the approach you suggest is that the callback, based on the current design, is only called when an error occurs. So the registration would only be called for errors. Additionally, the same callback is used for all configuration errors, where one might be okay and another fails. The approach I see working is:\n  1) Call RegisterMdnsSocket(...) on a new socket\n  2) Then call SetUpMulticastSocket(socket.get(), index)\n  3) In the OnError callback, we call parent_-\u003eDeregisterMdnsSocket(...)\nIf we try to call RegisterMdnsSocket(...) after SetUpMulticastSocket(...), we are introducing a race condition if these methods get called on any thread aside from the task runner, which is why I have 1 before 2.\n\nIf this doesn\u0027t work, we might need to revisit the design\n\nThoughts?",
+      "parentUuid": "82878e5a_c1cf9a24",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21efe2a7_088d5965",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-08-20T17:12:56Z",
       "side": 1,
       "message": "How will you know if the socket was bound successfully at this point?\nThis needs to move to OnError.",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcbf3675_8cbbe44b",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T18:17:41Z",
+      "side": 1,
+      "message": "This has the same issues as discussed in the above approach. \n\nHow about:\n  1) Add all newly created sockets to the sockets_ list\n  2) call server_socket-\u003eBind() (and similar configuration methods)\n  3) the OnError(...) removes from sockets_\nwith a lock around sockets_ access just to be safe\n\nThoughts?",
+      "parentUuid": "21efe2a7_088d5965",
       "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -93,6 +147,48 @@
     },
     {
       "key": {
+        "uuid": "0302dca8_fae61215",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T18:17:41Z",
+      "side": 1,
+      "message": "The code to return the strerror(errno) was actually already here\n\nThe changes here were intended to be perminant, not just for testing - this way, we maintain parity on the information currently logged in the case of a bind failure (which usually includes the endpoint being called)\n\nI can remove it if you feel this info isn\u0027t useful though",
+      "parentUuid": "eb529688_e0e22747",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed5d06e_74fb0c3e",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T18:17:41Z",
+      "side": 1,
+      "message": "Good idea. Done\n\nWaiting on pushing a new iteration until some other comments are discussed, so this will show up next iteration",
+      "parentUuid": "502997be_69b2909f",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 141,
+        "endChar": 80
+      },
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c8ec3c9_49576bbd",
         "filename": "platform/test/mock_udp_socket.h",
         "patchSetId": 2
@@ -104,6 +200,30 @@
       "writtenOn": "2019-08-19T22:23:27Z",
       "side": 1,
       "message": "Would it make sense to have a common queue of errors for all methods to use, not just Bind()?",
+      "range": {
+        "startLine": 63,
+        "startChar": 20,
+        "endLine": 63,
+        "endChar": 32
+      },
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e98c714c_90356277",
+        "filename": "platform/test/mock_udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T18:17:41Z",
+      "side": 1,
+      "message": "My plan was to have a separate queue for each. In UTs, it would be much clearer if we set them individually\n\nPTAL at the Write CL though - I use a similar approach in real UTs which may show why I want this approach",
+      "parentUuid": "0c8ec3c9_49576bbd",
       "range": {
         "startLine": 63,
         "startChar": 20,
