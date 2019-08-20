@@ -29,9 +29,9 @@ struct UdpSocketPosix : public UdpSocket {
   Error JoinMulticastGroup(const IPAddress& address,
                            NetworkInterfaceIndex ifindex) final;
   ErrorOr<UdpPacket> ReceiveMessage() final;
-  Error SendMessage(const void* data,
-                    size_t length,
-                    const IPEndpoint& dest) final;
+  void SendMessage(const void* data,
+                   size_t length,
+                   const IPEndpoint& dest) final;
   Error SetDscp(DscpMode state) final;
 
   int GetFd() const { return fd_; }
