@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c5d958c_3f431140",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T17:00:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b069f696_609deb09",
+      "revId": "65018ef0b8616907914ec2335842b1ae7e312faf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cc3d21b_2560b52f",
         "filename": "platform/impl/network_reader_unittest.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-08-17T02:38:23Z",
       "side": 1,
       "message": "Can this inherit from test/mock_udp_socket.h instead of duplicating most of it?",
+      "revId": "65018ef0b8616907914ec2335842b1ae7e312faf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e00f6cb7_5b39d2bf",
+        "filename": "platform/impl/network_reader_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T17:00:14Z",
+      "side": 1,
+      "message": "I don\u0027t think it can\n\nWe also need it to be a child of UdpSocketPosix (so that the static_cast\u003cUdpSocketPosix\u003e in network_reader works), and they both have implementations for UdpSocket\u0027s virtual methods. The Chromium style Guide forbids multiple implementation inheritance, though",
+      "parentUuid": "8cc3d21b_2560b52f",
       "revId": "65018ef0b8616907914ec2335842b1ae7e312faf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
