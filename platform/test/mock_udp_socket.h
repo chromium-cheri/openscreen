@@ -52,6 +52,8 @@ class MockUdpSocket : public UdpSocket {
   MOCK_METHOD1(SetDscp, Error(DscpMode));
 
  private:
+  void Close() override {}
+
   Version version_;
   std::unique_ptr<FakeTaskRunner> task_runner_;
   std::unique_ptr<UdpSocket::Client> client_;

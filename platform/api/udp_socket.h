@@ -5,6 +5,7 @@
 #ifndef PLATFORM_API_UDP_SOCKET_H_
 #define PLATFORM_API_UDP_SOCKET_H_
 
+#include <atomic>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -141,11 +142,30 @@ class UdpSocket {
 
   // Methods to take care of posting UdpSocket::Client callbacks for client_ to
   // task_runner_.
+  // NOTE: OnError(...) will close the socket in addition toreturning the error.
   void OnError(Error error);
   void OnSendError(Error error);
   void OnRead(ErrorOr<UdpPacket> read_data);
 
+  // Wrapper around the Close() function to ensure it is only called on open
+  // sockets.
+  // NOTE: Concrete implementations of UdpSocket must call this method in their
+  // destructor.
+  void CloseIfError(const Error& error);
+
+  // Returns whether the socket is currently closed.
+  // NOTE: This must be checked before calling any operation on the socket.
+  bool is_closed() { return is_closed_.load(); }
+
  private:
+  // Closes this socket.
+  // NOTE: This method will only be called once.
+  virtual void Close() = 0;
+
+  // Atomically keeps track of if the socket is closed, so that threading
+  // across different implementations isn't a problem.
+  std::atomic_bool is_closed_{false};
+
   // This callback allows other objects to observe the socket's destructor and
   // act when it is called.
   std::function<void(UdpSocket*)> deletion_callback_;

@@ -59,6 +59,10 @@ UdpSocketPosix::UdpSocketPosix(TaskRunner* task_runner,
 }
 
 UdpSocketPosix::~UdpSocketPosix() {
+  CloseIfError(Error::Code::kSocketClosedFailure);
+}
+
+void UdpSocketPosix::Close() {
   close(fd_);
 }
 
