@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <queue>
 
 #include "gmock/gmock.h"
 #include "platform/api/logging.h"
@@ -43,7 +44,11 @@ class MockUdpSocket : public UdpSocket {
   bool IsIPv6() const override;
   IPEndpoint GetLocalEndpoint() const override;
 
-  MOCK_METHOD0(Bind, Error());
+  void QueueBindResult(Error error) { bind_errors_.push(error); }
+
+  // UdpSocket overrides
+  void Bind() override;
+
   MOCK_METHOD1(SetMulticastOutboundInterface, Error(NetworkInterfaceIndex));
   MOCK_METHOD2(JoinMulticastGroup,
                Error(const IPAddress&, NetworkInterfaceIndex));
@@ -52,6 +57,10 @@ class MockUdpSocket : public UdpSocket {
 
  private:
   Version version_;
+
+  // Queues for the response to calls above
+  std::queue<Error> bind_errors_;
+
   std::unique_ptr<FakeTaskRunner> task_runner_;
   std::unique_ptr<UdpSocket::Client> client_;
   std::unique_ptr<FakeClock> clock_;

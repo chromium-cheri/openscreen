@@ -32,7 +32,7 @@ struct UdpSocketPosix : public UdpSocket {
   bool IsIPv4() const override;
   bool IsIPv6() const override;
   IPEndpoint GetLocalEndpoint() const override;
-  Error Bind() override;
+  void Bind() override;
   Error SetMulticastOutboundInterface(NetworkInterfaceIndex ifindex) override;
   Error JoinMulticastGroup(const IPAddress& address,
                            NetworkInterfaceIndex ifindex) override;
