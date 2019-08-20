@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "36a95fa3_354a6bd1",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T21:27:39Z",
+      "side": 1,
+      "message": "I originally wanted to do this too\nWe can\u0027t call CloseIfError(...) here because Close(...) is virtual, and the child class\u0027s implementation can\u0027t be called from the base class\u0027s destructor. I\u0027m open to suggestions if you have any though\n\nAlso, based on your comment in the other CL, I\u0027ve moved the deletion callback to part of the CloseOnError(...) method",
+      "parentUuid": "2db5423e_6fe8f27c",
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be4ff36c_bbcca0f5",
         "filename": "platform/api/udp_socket.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8873586f_996a4010",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T21:27:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be4ff36c_bbcca0f5",
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8093af4_a63d03c9",
         "filename": "platform/api/udp_socket.cc",
         "patchSetId": 1
@@ -47,6 +83,30 @@
       "writtenOn": "2019-08-19T21:16:08Z",
       "side": 1,
       "message": "kAgain is an error as well, I\u0027m not sure we should close the socket automatically when an error happens.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 3
+      },
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71e363dc_639d6652",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T21:27:39Z",
+      "side": 1,
+      "message": "To your first comment: Done\n\nTo your second comment: The goal here is related to something Yuri mentioned during the design review. We want to ensure that after a socket has hit a configuration error, we don\u0027t send any further commands to the socket. That way, we can queue up commands, and if one fails the remaining commands will be dropped. The design here is based on one that Mark suggested previously in this CL: https://chromium-review.googlesource.com/c/openscreen/+/1755102/1/platform/api/udp_socket.h#123\n\nThoughts?",
+      "parentUuid": "d8093af4_a63d03c9",
       "range": {
         "startLine": 27,
         "startChar": 2,
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "b28c5bd1_81fe74bc",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T21:27:39Z",
+      "side": 1,
+      "message": "I was planning on updating code to use the new boolean as I modified the methods to use the new observer approach. ie, the start of bind would be one of (depending on your preference):\n  if (is_closed()) { return; }\n  if (is_closed()) { OnError(special_error_code); }\n\nThen, OnSendError/etc... would never get called unintentionally for unhealthy sockets",
+      "parentUuid": "6c8f2e8a_413c27fd",
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbc6a5c5_d558c39b",
         "filename": "platform/api/udp_socket.cc",
         "patchSetId": 1
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "4188017e_6d975b12",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T21:27:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbc6a5c5_d558c39b",
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ecf4c89_98ecf81b",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 1
@@ -104,6 +200,30 @@
       "writtenOn": "2019-08-19T21:16:08Z",
       "side": 1,
       "message": "Any other states? I.e. socket is created but not yet bound.",
+      "range": {
+        "startLine": 165,
+        "startChar": 2,
+        "endLine": 165,
+        "endChar": 37
+      },
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05f749ec_9a2bfb95",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T21:27:39Z",
+      "side": 1,
+      "message": "Hmm, good point. The issue I see with allowing for other states is that we then must allow callers to set the value of this variable - which I have intentionally avoided so far. \n\nThe purpose of this variable isn\u0027t to track the current state of the socket so much as if it has been force-closed due to a configuration failure (ie bind fails) - and for that reason a boolean seems sufficient. Happy to update the name though if that\u0027s an issue.\n\nWhat do you think?",
+      "parentUuid": "5ecf4c89_98ecf81b",
       "range": {
         "startLine": 165,
         "startChar": 2,
