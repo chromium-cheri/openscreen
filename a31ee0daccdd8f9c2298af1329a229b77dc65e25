@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "cbe62e2d_c80e7809",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T20:05:04Z",
+      "side": 1,
+      "message": "After thinking a bit more, I think maintaining parity might make more sense\n\nWe are currently in the process of swapping out our mDNS library, so I don\u0027t think it makes much sense to put that much time into designing around the old approach\n\nI\u0027ve changed the code to crash the demo if an error occurs (as it did before), but please let me know if you prefer the other approach and I can change back.",
+      "parentUuid": "9eb930c6_a92e0429",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82878e5a_c1cf9a24",
         "filename": "osp/impl/internal_services.cc",
         "patchSetId": 2
@@ -108,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "59181a26_7383b5d1",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T20:05:04Z",
+      "side": 1,
+      "message": "I was under the impression that the embedder would be calling this method, but looking more through the code I see I am wrong - that simplifies things a lot\n\nUpdating the code to deregister the socket when an error comes in\n\nI\u0027ll open a new comment to discuss whether we want to call OnError (or whatever we rename it to) on all responses or just errors",
+      "parentUuid": "32759378_8dd5329c",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21efe2a7_088d5965",
         "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
         "patchSetId": 2
@@ -155,6 +191,24 @@
       "side": 1,
       "message": "That would work, but I would rather not have a lock around sockets_.\n\nMaybe we can land your change to close sockets on error and use that as a signal for callers to update their bookkeeping.\n\nIf the bind fails, when does the socket get removed from the network runner?",
       "parentUuid": "bcbf3675_8cbbe44b",
+      "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "409a4d61_5bd499fa",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-20T20:05:04Z",
+      "side": 1,
+      "message": "If we can guarantee that this class\u0027s code only gets called from the Task Runner, then we won\u0027t need the lock - It looks like we don\u0027t have this guarantee currently though (the Demo calls QuickServer::Start() / QuickClient::Start() which then call QuicConnectionFactory::SetServerDelegate(...) which touches sockets_), but if not it wouldn\u0027t be hard to add by pushing to the task runner first.\nAlternatively, we could use a concurrent, non-locking hashset implementations to store sockets_ - but this would involve either taking another 3rd party dependency or re-implimenting one ourselves\n\nI like your idea though! We currently don\u0027t remove from the NetworkRunner until socket destruction (via the deletion_callback_), but it would make sense that if a socket enters an error state (ie bind fails) then it gets called.\nI\u0027ll focus on the error handling approach for now, but let me know if you\u0027d prefer one of the other options",
+      "parentUuid": "3061fd6f_c68558a8",
       "revId": "a31ee0daccdd8f9c2298af1329a229b77dc65e25",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
