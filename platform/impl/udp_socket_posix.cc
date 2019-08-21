@@ -59,6 +59,10 @@ UdpSocketPosix::UdpSocketPosix(TaskRunner* task_runner,
 }
 
 UdpSocketPosix::~UdpSocketPosix() {
+  CloseIfError(Error::Code::kSocketClosedFailure);
+}
+
+void UdpSocketPosix::Close() {
   close(fd_);
 }
 
@@ -396,6 +400,11 @@ ErrorOr<UdpPacket> UdpSocketPosix::ReceiveMessage() {
 void UdpSocketPosix::SendMessage(const void* data,
                                  size_t length,
                                  const IPEndpoint& dest) {
+  if (is_closed()) {
+    OnSendError(Error::Code::kSocketClosedFailure);
+    return;
+  }
+
   struct iovec iov = {const_cast<void*>(data), length};
   struct msghdr msg;
   msg.msg_iov = &iov;

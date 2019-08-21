@@ -15,6 +15,8 @@ MockUdpSocket::MockUdpSocket(TaskRunner* task_runner,
 // Ensure that the destructors for the unique_ptr objects are called in
 // the correct order to avoid OSP_CHECK failures.
 MockUdpSocket::~MockUdpSocket() {
+  CloseIfError(Error::Code::kSocketClosedFailure);
+
   task_runner_.reset();
   clock_.reset();
   client_.reset();
