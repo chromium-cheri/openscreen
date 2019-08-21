@@ -10,12 +10,9 @@
 namespace cast {
 namespace mdns {
 
-MdnsReceiver::MdnsReceiver(UdpSocket* socket,
-                           NetworkRunner* network_runner,
-                           Delegate* delegate)
-    : socket_(socket), network_runner_(network_runner), delegate_(delegate) {
+MdnsReceiver::MdnsReceiver(UdpSocket* socket, Delegate* delegate)
+    : socket_(socket), delegate_(delegate) {
   OSP_DCHECK(socket_);
-  OSP_DCHECK(network_runner_);
   OSP_DCHECK(delegate_);
 }
 
@@ -29,25 +26,28 @@ Error MdnsReceiver::Start() {
   if (state_ == State::kRunning) {
     return Error::Code::kNone;
   }
-  Error result = network_runner_->ReadRepeatedly(socket_, this);
-  if (result.ok()) {
-    state_ = State::kRunning;
-  }
-  return result;
+  socket_->enable_reading();
+  state_ = State::kRunning;
+  return Error::Code::kNone;
 }
 
 Error MdnsReceiver::Stop() {
   if (state_ == State::kStopped) {
     return Error::Code::kNone;
   }
-  Error result = network_runner_->CancelRead(socket_);
-  if (result.ok()) {
-    state_ = State::kStopped;
-  }
-  return result;
+  socket_->disable_reading();
+  state_ = State::kStopped;
+  return Error::Code::kNone;
 }
 
-void MdnsReceiver::OnRead(UdpPacket packet, NetworkRunner* network_runner) {
+void MdnsReceiver::OnRead(UdpSocket* socket,
+                          openscreen::ErrorOr<UdpPacket> packet_or_error) {
+  if (packet_or_error.is_error()) {
+    return;
+  }
+
+  UdpPacket packet = packet_or_error.MoveValue();
+
   TRACE_SCOPED(TraceCategory::mDNS, "MdnsReceiver::OnRead");
   MdnsReader reader(packet.data(), packet.size());
   MdnsMessage message;
@@ -59,6 +59,14 @@ void MdnsReceiver::OnRead(UdpPacket packet, NetworkRunner* network_runner) {
   } else {
     delegate_->OnQueryReceived(message, packet.source());
   }
+}
+
+void MdnsReceiver::OnError(UdpSocket* socket, Error error) {
+  OSP_UNIMPLEMENTED();
+}
+
+void MdnsReceiver::OnSendError(UdpSocket* socket, Error error) {
+  OSP_UNIMPLEMENTED();
 }
 
 }  // namespace mdns

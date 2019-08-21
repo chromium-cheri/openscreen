@@ -9,8 +9,8 @@
 namespace openscreen {
 namespace platform {
 
-UdpSocket::UdpSocket(TaskRunner* task_runner, Client* client)
-    : client_(client), task_runner_(task_runner) {
+UdpSocket::UdpSocket(TaskRunner* task_runner, Client* client, bool is_reading)
+    : is_reading_(is_reading), client_(client), task_runner_(task_runner) {
   OSP_CHECK(task_runner_);
   deletion_callback_ = [](UdpSocket* socket) {};
 }
@@ -42,7 +42,7 @@ void UdpSocket::OnSendError(Error error) {
   });
 }
 void UdpSocket::OnRead(ErrorOr<UdpPacket> read_data) {
-  if (!client_) {
+  if (!is_reading_ || !client_) {
     return;
   }
 
