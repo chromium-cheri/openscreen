@@ -13,6 +13,8 @@
 namespace openscreen {
 namespace platform {
 
+using testing::_;
+
 // Under some conditions, calling a callback can result in an exception
 // "terminate called after throwing an instance of 'std::bad_function_call'"
 // which will then crash the running code. This test ensures that deleting a
