@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad9b05bc_c9298bc6",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-21T00:37:40Z",
+      "side": 1,
+      "message": "This was written in response to my belief that gmtime() was causing the gcc crash.  gmtime_r() could also be used, but still holds the 2038 limit, so I thought I\u0027d give this a shot.  Interestingly, the gcc crash didn\u0027t actually go away, so I guess it\u0027s just a precision trade-off now.",
+      "revId": "45f9e609849534b674371346dab7296bdf01c142",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
