@@ -9,19 +9,37 @@
 namespace openscreen {
 namespace platform {
 
-UdpSocket::UdpSocket(TaskRunner* task_runner, Client* client)
-    : client_(client), task_runner_(task_runner) {
+UdpSocket::UdpSocket(TaskRunner* task_runner, Client* client, bool is_reading)
+    : client_(client), task_runner_(task_runner), is_reading_(is_reading) {
   OSP_CHECK(task_runner_);
-  deletion_callback_ = [](UdpSocket* socket) {};
+  if (lifetime_observer_) {
+    std::lock_guard<std::mutex> lock(lifetime_observer_mutex_);
+    if (lifetime_observer_) {
+      lifetime_observer_->OnCreate(this);
+    }
+  }
 }
 
 UdpSocket::~UdpSocket() {
-  deletion_callback_(this);
+  if (lifetime_observer_) {
+    std::lock_guard<std::mutex> lock(lifetime_observer_mutex_);
+    if (lifetime_observer_) {
+      lifetime_observer_->OnDestroy(this);
+    }
+  }
 }
 
-void UdpSocket::SetDeletionCallback(std::function<void(UdpSocket*)> callback) {
-  deletion_callback_ = callback;
+// static
+void UdpSocket::SetLifetimeObserver(LifetimeObserver* observer) {
+  std::lock_guard<std::mutex> lock(lifetime_observer_mutex_);
+  lifetime_observer_ = observer;
 }
+
+// static
+UdpSocket::LifetimeObserver* UdpSocket::lifetime_observer_ = nullptr;
+
+// static
+std::mutex UdpSocket::lifetime_observer_mutex_;
 
 void UdpSocket::OnError(Error error) {
   if (!client_) {
@@ -42,7 +60,7 @@ void UdpSocket::OnSendError(Error error) {
   });
 }
 void UdpSocket::OnRead(ErrorOr<UdpPacket> read_data) {
-  if (!client_) {
+  if (!is_reading_ || !client_) {
     return;
   }
 

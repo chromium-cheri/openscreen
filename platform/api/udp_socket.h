@@ -5,12 +5,14 @@
 #ifndef PLATFORM_API_UDP_SOCKET_H_
 #define PLATFORM_API_UDP_SOCKET_H_
 
+#include <atomic>
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <mutex>
 
 #include "platform/api/network_interface.h"
-#include "platform/api/udp_read_callback.h"
+#include "platform/api/udp_packet.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 #include "platform/base/macros.h"
@@ -39,6 +41,15 @@ using UdpSocketUniquePtr = std::unique_ptr<UdpSocket>;
 class UdpSocket {
  public:
   virtual ~UdpSocket();
+
+  class LifetimeObserver {
+   public:
+    // Function to call upon creation of a new UdpSocket.
+    virtual void OnCreate(UdpSocket* socket) = 0;
+
+    // Function to call upon deletion of a UdpSocket.
+    virtual void OnDestroy(UdpSocket* socket) = 0;
+  };
 
   // Client for the UdpSocket class.
   class Client {
@@ -74,6 +85,11 @@ class UdpSocket {
     // Mode for low priority operations such as trace log data.
     kLowPriority = 0x20
   };
+
+  // The LifetimeObserver set here must exist during ANY future UdpSocket
+  // creations. When the set observer is destroyed, it is expected to call
+  // SetLifetimeObserver(nullptr) before any future socket creations.
+  static void SetLifetimeObserver(LifetimeObserver* observer);
 
   using Version = IPAddress::Version;
 
@@ -122,15 +138,15 @@ class UdpSocket {
   // Sets the DSCP value to use for all messages sent from this socket.
   virtual Error SetDscp(DscpMode state) = 0;
 
-  // Sets the callback that should be called upon deletion of this socket. This
-  // allows other objects to observe the socket's destructor and act when it is
-  // called.
-  void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
+  // Controls whether this socket is reading or not.
+  void enable_reading() { is_reading_ = true; }
+  void disable_reading() { is_reading_ = false; }
+  bool is_reading() { return is_reading_.load(); }
 
  protected:
   // Creates a new UdpSocket. The provided client and task_runner must exist for
   // the duration of this socket's lifetime.
-  UdpSocket(TaskRunner* task_runner, Client* client);
+  UdpSocket(TaskRunner* task_runner, Client* client, bool is_reading = false);
 
   // Methods to take care of posting UdpSocket::Client callbacks for client_ to
   // task_runner_.
@@ -139,9 +155,8 @@ class UdpSocket {
   void OnRead(ErrorOr<UdpPacket> read_data);
 
  private:
-  // This callback allows other objects to observe the socket's destructor and
-  // act when it is called.
-  std::function<void(UdpSocket*)> deletion_callback_;
+  static LifetimeObserver* lifetime_observer_;
+  static std::mutex lifetime_observer_mutex_;
 
   // Client to use for callbacks.
   // NOTE: client_ can be nullptr if the user does not want any callbacks (for
@@ -150,6 +165,12 @@ class UdpSocket {
 
   // Task runner to use for queuing client_ callbacks.
   TaskRunner* const task_runner_;
+
+  // Determines whether the socket is currently reading
+  std::atomic_bool is_reading_;
+
+  friend class NetworkReader;
+  friend class MockUdpSocket;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
 };

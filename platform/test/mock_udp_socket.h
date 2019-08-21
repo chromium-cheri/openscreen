@@ -50,11 +50,17 @@ class MockUdpSocket : public UdpSocket {
   MOCK_METHOD3(SendMessage, Error(const void*, size_t, const IPEndpoint&));
   MOCK_METHOD1(SetDscp, Error(DscpMode));
 
+  void PostPacket(UdpPacket packet) {
+    task_runner_->PostTask([this, p = std::move(packet)]() mutable {
+      this->client_->OnRead(this, std::move(p));
+    });
+  }
+
  private:
   Version version_;
-  std::unique_ptr<FakeTaskRunner> task_runner_;
-  std::unique_ptr<UdpSocket::Client> client_;
-  std::unique_ptr<FakeClock> clock_;
+  std::unique_ptr<FakeTaskRunner> fake_task_runner_;
+  std::unique_ptr<UdpSocket::Client> fake_client_;
+  std::unique_ptr<FakeClock> fake_clock_;
 };
 
 }  // namespace platform
