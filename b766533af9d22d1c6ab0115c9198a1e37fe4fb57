@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "297c9f0c_b8585927",
+        "filename": "platform/impl/socket_address_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-21T01:42:41Z",
+      "side": 1,
+      "message": "+1.  At the very least, it can always be computed from is_v4_.",
+      "parentUuid": "cde1f8d0_add99e1b",
+      "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0aad99b8_760c7702",
         "filename": "platform/impl/socket_address_posix.h",
         "patchSetId": 6
@@ -64,6 +82,23 @@
       "writtenOn": "2019-08-19T18:09:06Z",
       "side": 1,
       "message": "This seems like an implementation detail. Declare private?",
+      "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb326b7_9cb6dd64",
+        "filename": "platform/impl/socket_address_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-21T01:42:41Z",
+      "side": 1,
+      "message": "nit: move operators don\u0027t behave differently than copy here, so I\u0027d prefer to just omit them.",
       "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -206,6 +241,23 @@
     },
     {
       "key": {
+        "uuid": "0a0b86c8_35e238d8",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-21T01:42:41Z",
+      "side": 1,
+      "message": "This parameter doesn\u0027t do anything.",
+      "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8cbbd98_2debe4e6",
         "filename": "platform/impl/stream_socket_posix.cc",
         "patchSetId": 6
@@ -240,6 +292,23 @@
     },
     {
       "key": {
+        "uuid": "b343ac51_67319c89",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-21T01:42:41Z",
+      "side": 1,
+      "message": "explicit",
+      "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8bd01e59_72dfc6c0",
         "filename": "platform/impl/stream_socket_posix.h",
         "patchSetId": 6
@@ -257,6 +326,24 @@
     },
     {
       "key": {
+        "uuid": "ec9a19aa_964e1083",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-21T01:42:41Z",
+      "side": 1,
+      "message": "This will likely have to take a callback: https://cs.chromium.org/chromium/src/services/network/public/mojom/tcp_socket.mojom?g\u003d0\u0026l\u003d131\n\nThat being said, do we even need to the server side to be compatible with Chromium?  I wasn\u0027t thinking so...",
+      "parentUuid": "8bd01e59_72dfc6c0",
+      "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9482ccb1_6b2133a3",
         "filename": "platform/impl/stream_socket_posix.h",
         "patchSetId": 6
@@ -268,6 +355,24 @@
       "writtenOn": "2019-08-19T18:09:06Z",
       "side": 1,
       "message": "Chrome\u0027s net/socket/stream_socket.h doesn\u0027t have Bind().\nIt doesn\u0027t seem to have have a way at all to bind a local address.\nHmm...",
+      "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7fb5064_86eb316e",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-21T01:42:41Z",
+      "side": 1,
+      "message": "I think we want the network service versions: https://cs.chromium.org/chromium/src/services/network/public/mojom/network_context.mojom?l\u003d941",
+      "parentUuid": "9482ccb1_6b2133a3",
       "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
