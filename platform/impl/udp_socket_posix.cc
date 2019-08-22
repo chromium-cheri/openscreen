@@ -59,6 +59,10 @@ UdpSocketPosix::UdpSocketPosix(TaskRunner* task_runner,
 }
 
 UdpSocketPosix::~UdpSocketPosix() {
+  CloseIfOpen();
+}
+
+void UdpSocketPosix::Close() {
   close(fd_);
 }
 
@@ -130,6 +134,10 @@ IPEndpoint UdpSocketPosix::GetLocalEndpoint() const {
 }
 
 Error UdpSocketPosix::Bind() {
+  if (is_closed()) {
+    return Error::Code::kSocketClosedFailure;
+  }
+
   // This is effectively a boolean passed to setsockopt() to allow a future
   // bind() on the same socket to succeed, even if the address is already in
   // use. This is pretty much universally the desired behavior.
@@ -175,6 +183,10 @@ Error UdpSocketPosix::Bind() {
 
 Error UdpSocketPosix::SetMulticastOutboundInterface(
     NetworkInterfaceIndex ifindex) {
+  if (is_closed()) {
+    return Error::Code::kSocketClosedFailure;
+  }
+
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
       struct ip_mreqn multicast_properties;
@@ -206,6 +218,10 @@ Error UdpSocketPosix::SetMulticastOutboundInterface(
 
 Error UdpSocketPosix::JoinMulticastGroup(const IPAddress& address,
                                          NetworkInterfaceIndex ifindex) {
+  if (is_closed()) {
+    return Error::Code::kSocketClosedFailure;
+  }
+
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
       // Passed as data to setsockopt().  1 means return IP_PKTINFO control data
@@ -367,6 +383,10 @@ Error ReceiveMessageInternal(int fd, UdpPacket* packet) {
 }  // namespace
 
 ErrorOr<UdpPacket> UdpSocketPosix::ReceiveMessage() {
+  if (is_closed()) {
+    return Error::Code::kSocketClosedFailure;
+  }
+
   ssize_t bytes_available = recv(fd_, nullptr, 0, MSG_PEEK | MSG_TRUNC);
   if (bytes_available == -1) {
     return ChooseError(errno, Error::Code::kSocketReadFailure);
@@ -396,6 +416,11 @@ ErrorOr<UdpPacket> UdpSocketPosix::ReceiveMessage() {
 void UdpSocketPosix::SendMessage(const void* data,
                                  size_t length,
                                  const IPEndpoint& dest) {
+  if (is_closed()) {
+    OnSendError(Error::Code::kSocketClosedFailure);
+    return;
+  }
+
   struct iovec iov = {const_cast<void*>(data), length};
   struct msghdr msg;
   msg.msg_iov = &iov;
@@ -440,6 +465,10 @@ void UdpSocketPosix::SendMessage(const void* data,
 }
 
 Error UdpSocketPosix::SetDscp(UdpSocket::DscpMode state) {
+  if (is_closed()) {
+    return Error::Code::kSocketClosedFailure;
+  }
+
   constexpr auto kSettingLevel = IPPROTO_IP;
   uint8_t code_array[1] = {static_cast<uint8_t>(state)};
   auto code =
