@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e702ff07_7f0ae64f",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-22T21:32:38Z",
+      "side": 1,
+      "message": "Would you prefer I leave this as-is, or that I implement OSP_LOG_FATAL in our platform?",
+      "parentUuid": "c1d9f5f9_e0ce33fb",
+      "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "102cdfb8_bde1a658",
         "filename": "platform/api/udp_socket_unittest.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3219e58_ba98d67b",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-22T21:32:38Z",
+      "side": 1,
+      "message": "Good catch! That test was moved to udp_socket_integration_unittest after merging and I forgot to get rid of this\n\nUpdated.",
+      "parentUuid": "102cdfb8_bde1a658",
+      "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "70233adc_b2ac0b31",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-22T21:32:38Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "72e71859_b0bbc631",
+      "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e2d437b_30673015",
         "filename": "platform/impl/udp_socket_posix.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb413846_bbf14037",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-22T21:32:38Z",
+      "side": 1,
+      "message": "Good idea! Updated\n\nBecause the error code isn\u0027t used in some cases, I made the net error number optional. Let me know if you don\u0027t like this and I can remove it.",
+      "parentUuid": "3e2d437b_30673015",
+      "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
