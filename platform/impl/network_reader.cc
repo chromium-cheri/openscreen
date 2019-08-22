@@ -29,6 +29,7 @@ NetworkReader::~NetworkReader() = default;
 Error NetworkReader::ReadRepeatedly(UdpSocket* socket, Callback callback) {
   socket->SetDeletionCallback(
       [this](UdpSocket* socket) { this->CancelReadForSocketDeletion(socket); });
+  socket->enable_reading();
   std::lock_guard<std::mutex> lock(mutex_);
   return !read_callbacks_.emplace(socket, std::move(callback)).second
              ? Error::Code::kIOFailure
@@ -36,6 +37,7 @@ Error NetworkReader::ReadRepeatedly(UdpSocket* socket, Callback callback) {
 }
 
 Error NetworkReader::CancelRead(UdpSocket* socket) {
+  socket->disable_reading();
   std::lock_guard<std::mutex> lock(mutex_);
   return read_callbacks_.erase(socket) != 0 ? Error::Code::kNone
                                             : Error::Code::kOperationInvalid;
@@ -48,7 +50,9 @@ Error NetworkReader::WaitAndRead(Clock::duration timeout) {
   {
     std::lock_guard<std::mutex> lock(mutex_);
     for (const auto& read : read_callbacks_) {
-      sockets.push_back(read.first);
+      if (read.first->is_reading()) {
+        sockets.push_back(read.first);
+      }
     }
   }
 
