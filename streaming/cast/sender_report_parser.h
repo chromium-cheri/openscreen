@@ -19,13 +19,21 @@ namespace cast_streaming {
 // else, since that is all a Receiver would be interested in.
 class SenderReportParser {
  public:
+  // Returned by Parse(), to also separately expose the StatusReportId.
+  struct SenderReportWithId : public RtcpSenderReport {
+    SenderReportWithId();
+    ~SenderReportWithId();
+
+    StatusReportId report_id{};
+  };
+
   explicit SenderReportParser(RtcpSession* session);
   ~SenderReportParser();
 
   // Parses the RTCP |packet|, and returns a parsed sender report if the packet
   // contained one. Returns nullopt if the data is corrupt or the packet did not
   // contain a sender report.
-  absl::optional<RtcpSenderReport> Parse(absl::Span<const uint8_t> packet);
+  absl::optional<SenderReportWithId> Parse(absl::Span<const uint8_t> packet);
 
  private:
   RtcpSession* const session_;
