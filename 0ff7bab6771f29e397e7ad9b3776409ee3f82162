@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1d9f5f9_e0ce33fb",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T17:23:18Z",
+      "side": 1,
+      "message": "OSP_LOG_FATAL should trigger an assertion failure, but it looks like that\u0027s not implemented in our platform.",
+      "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "102cdfb8_bde1a658",
+        "filename": "platform/api/udp_socket_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T17:23:18Z",
+      "side": 1,
+      "message": "I don\u0027t see any usages of _.",
+      "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72e71859_b0bbc631",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T17:23:18Z",
+      "side": 1,
+      "message": "Why use a function object here?  This will allocate a function even if there\u0027s no error.\n\nPlease see suggestion below about having a single method to generate these strings as-needed.",
+      "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e2d437b_30673015",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T17:23:18Z",
+      "side": 1,
+      "message": "Rather than craft individual error strings for each possible socket operation, it would be better to have a method that takes a POSIX net error number, calls strerror() on it and returns a formatted string with local_endpoint_.",
+      "revId": "0ff7bab6771f29e397e7ad9b3776409ee3f82162",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
