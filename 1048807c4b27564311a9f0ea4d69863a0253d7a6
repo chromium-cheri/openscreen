@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3439cebe_3a4cd358",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T17:44:27Z",
+      "side": 1,
+      "message": "This sounds like CloseIfOpen().\n\nCalling it from the dtor shouldn\u0027t need to pass an error.  So we could have CloseIfOpen(), and CloseOnError(Error) which calls CloseIfOpen(), which calls Close() (which actually closes the socket).",
+      "revId": "1048807c4b27564311a9f0ea4d69863a0253d7a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
