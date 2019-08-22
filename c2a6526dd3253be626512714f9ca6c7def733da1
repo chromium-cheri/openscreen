@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33e941a9_10484afd",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:02:03Z",
+      "side": 1,
+      "message": "Can MdnsReceiver just wait to create the socket until here?",
+      "revId": "c2a6526dd3253be626512714f9ca6c7def733da1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "471f8b12_d1f9d9a6",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:02:03Z",
+      "side": 1,
+      "message": "What about closing and destroying the socket here?",
+      "revId": "c2a6526dd3253be626512714f9ca6c7def733da1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8683457_658d440e",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:02:03Z",
+      "side": 1,
+      "message": "Please add a comment before OnRead indicating these are for the UdpClient interface:\n\n// UdpSocket::Client overrides",
+      "revId": "c2a6526dd3253be626512714f9ca6c7def733da1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68395676_2849a3e4",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:02:03Z",
+      "side": 1,
+      "message": "Remove extra newlines between declarations",
+      "revId": "c2a6526dd3253be626512714f9ca6c7def733da1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53427f63_5f423f00",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:02:03Z",
+      "side": 1,
+      "message": "This doesn\u0027t control reading.  It seems to control whether the OnRead callback does something, or is a no-op.",
+      "revId": "c2a6526dd3253be626512714f9ca6c7def733da1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
