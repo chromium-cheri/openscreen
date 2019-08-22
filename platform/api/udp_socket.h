@@ -5,6 +5,7 @@
 #ifndef PLATFORM_API_UDP_SOCKET_H_
 #define PLATFORM_API_UDP_SOCKET_H_
 
+#include <atomic>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -127,10 +128,18 @@ class UdpSocket {
   // called.
   void SetDeletionCallback(std::function<void(UdpSocket*)> callback);
 
+  // Controls whether this socket's client_::OnRead(...) callback fires when
+  // new data is read.
+  // Depending on the implementation, this can also be used to control whether
+  // data is read from this socket.
+  void enable_reading() { is_reading_ = true; }
+  void disable_reading() { is_reading_ = false; }
+  bool is_reading() { return is_reading_.load(); }
+
  protected:
   // Creates a new UdpSocket. The provided client and task_runner must exist for
   // the duration of this socket's lifetime.
-  UdpSocket(TaskRunner* task_runner, Client* client);
+  UdpSocket(TaskRunner* task_runner, Client* client, bool is_reading = true);
 
   // Methods to take care of posting UdpSocket::Client callbacks for client_ to
   // task_runner_.
@@ -139,6 +148,9 @@ class UdpSocket {
   void OnRead(ErrorOr<UdpPacket> read_data);
 
  private:
+  // Determines whether the socket is currently reading
+  std::atomic_bool is_reading_;
+
   // This callback allows other objects to observe the socket's destructor and
   // act when it is called.
   std::function<void(UdpSocket*)> deletion_callback_;
