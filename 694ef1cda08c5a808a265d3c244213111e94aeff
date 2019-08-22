@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "fd4f0afa_eeb573fa",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-22T22:29:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you\u0027re asking me to change here - do you want me to move the deletion callback back to the destructor?",
+      "parentUuid": "7aef1468_9017c6e9",
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be4ff36c_bbcca0f5",
         "filename": "platform/api/udp_socket.cc",
         "patchSetId": 1
@@ -149,6 +167,30 @@
       "side": 1,
       "message": "Can the socket just shortcut commands once an error is hit?  See the approach in Jordan\u0027s StreamSocket design.",
       "parentUuid": "71e363dc_639d6652",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 3
+      },
+      "revId": "694ef1cda08c5a808a265d3c244213111e94aeff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50d7f9b0_fff12eed",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-22T22:29:59Z",
+      "side": 1,
+      "message": "I think done?\n\nBased on Jordan\u0027s CL, I am pretty sure I understand what you mean - you want the method to return immediately if the socket is closed, correct?\n\nI\u0027ve updated all methods to behave this way, but if I misunderstood what you\u0027re asking for, let me know and I can fix it. Note that Send(...) is a bit different from the others because my CL to update Send has gone through - Once all of my updates are in, they will all shortcut like Send(...).",
+      "parentUuid": "9df4ef52_e7c48b11",
       "range": {
         "startLine": 27,
         "startChar": 2,
