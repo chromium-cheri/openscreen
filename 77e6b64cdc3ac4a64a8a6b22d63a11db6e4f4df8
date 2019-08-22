@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d68f77c_6eeb91e7",
+        "filename": "platform/impl/socket_address_posix_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:15:05Z",
+      "side": 1,
+      "message": "I guess I was thinking of using an array of values like testing::ElementsAreArray below, so it\u0027s obvious that you\u0027re expecting the identical address.",
+      "revId": "77e6b64cdc3ac4a64a8a6b22d63a11db6e4f4df8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "605458bb_9e4b655f",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:15:05Z",
+      "side": 1,
+      "message": "ISTM you could have CloseOnError() return last_error_ and return that here and elsewhere.",
+      "revId": "77e6b64cdc3ac4a64a8a6b22d63a11db6e4f4df8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "167d17a2_016c8411",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:15:05Z",
+      "side": 1,
+      "message": "CloseOnError should handle this IIUC.",
+      "revId": "77e6b64cdc3ac4a64a8a6b22d63a11db6e4f4df8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd92d4da_2ed7336e",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:15:05Z",
+      "side": 1,
+      "message": "It\u0027s not obvious that last_error_ will be Error::None.\n\nI would be okay returning Error::None() here, or renaming last_error_ to current_status_ or some thing clearer.",
+      "revId": "77e6b64cdc3ac4a64a8a6b22d63a11db6e4f4df8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014c209e_c2e9d838",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:15:05Z",
+      "side": 1,
+      "message": "I was thinking you could check is_open_ to determine if the socket is in a good state.",
+      "revId": "77e6b64cdc3ac4a64a8a6b22d63a11db6e4f4df8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee184c2_2cb970bd",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:15:05Z",
+      "side": 1,
+      "message": "This will call Close() again, which is probably not what you intended?",
+      "revId": "77e6b64cdc3ac4a64a8a6b22d63a11db6e4f4df8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9a60346_3a5f5ab3",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-22T01:15:05Z",
+      "side": 1,
+      "message": "This sets last_error, then calls Close(), which does nothing when last_error_ is set.",
+      "revId": "77e6b64cdc3ac4a64a8a6b22d63a11db6e4f4df8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
