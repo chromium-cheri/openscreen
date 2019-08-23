@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4a66130_befa018a",
+        "filename": "platform/impl/socket_address_posix.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:22:04Z",
+      "side": 1,
+      "message": "Do we want this to be non-movable?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 69
+      },
+      "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "383b37d4_cdb3d61b",
+        "filename": "platform/impl/socket_address_posix.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:22:04Z",
+      "side": 1,
+      "message": "Maybe make this consistent and move this out-out-line ot .cc or move Size back to the .h?",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49c07f72_b150a5f9",
+        "filename": "platform/impl/socket_address_posix_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:22:04Z",
+      "side": 1,
+      "message": "Nit: It\u0027s best to have all bytes with different values in things like this.",
+      "range": {
+        "startLine": 14,
+        "startChar": 47,
+        "endLine": 14,
+        "endChar": 58
+      },
+      "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fbce426_7876bb77",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:22:04Z",
+      "side": 1,
+      "message": "Nit: rephrase?",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 71
+      },
+      "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44273235_208d207e",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:22:04Z",
+      "side": 1,
+      "message": "Don\u0027t need to delete the default constructor, it\u0027s gone by itself when you declare any other constructor.",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47cc0cae_e6904230",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:22:04Z",
+      "side": 1,
+      "message": "Can Initialize be made implicit/lazy? I think you\u0027d only need to call it if socket !IsOpen and last_error_code is kNone",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 21
+      },
+      "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e84d1217_e9666c20",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:22:04Z",
+      "side": 1,
+      "message": "Why do these have to be public?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 62
+      },
+      "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
