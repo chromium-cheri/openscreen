@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6eb652e9_3880622a",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-23T19:12:47Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be a close(), just set last_error_code_.",
+      "revId": "267adf47307f4c2e57f0235888faa95472166498",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad435790_403fa649",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-23T19:12:47Z",
+      "side": 1,
+      "message": "These will both actually set last_error_ to kSocketClosedFailure because is_open_ is still false at this point.  This case in particular will also leak the fd.  Maybe just directly set last_error_ on socket() failure and directly call close()+set last_error_code_ here?  Or just set is_open_ to true above this one.",
+      "revId": "267adf47307f4c2e57f0235888faa95472166498",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fd4fed4_a2745fa1",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-23T19:12:47Z",
+      "side": 1,
+      "message": "nit: this isn\u0027t movable",
+      "revId": "267adf47307f4c2e57f0235888faa95472166498",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "325edccd_490ce131",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-23T19:12:47Z",
+      "side": 1,
+      "message": "nit: I don\u0027t feel strongly, especially because it\u0027s neither slow nor complicated, but making this atomic seems strange since nothing else about this class is thread-safe (e.g. reading from another thread would race with closing on both file_descriptor_ and is_open_).",
+      "revId": "267adf47307f4c2e57f0235888faa95472166498",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}

@@ -510,6 +510,24 @@
     },
     {
       "key": {
+        "uuid": "bb893e99_6b11474d",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-23T19:12:47Z",
+      "side": 1,
+      "message": "Yes, but the address in accept() is an out parameter.  And the size should either be derived from |address_| or set to the max size since it\u0027s in-out.  It looks like you _did_ end up changing it later though.",
+      "parentUuid": "0419b347_c1ba7412",
+      "revId": "b766533af9d22d1c6ab0115c9198a1e37fe4fb57",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8cbbd98_2debe4e6",
         "filename": "platform/impl/stream_socket_posix.cc",
         "patchSetId": 6
