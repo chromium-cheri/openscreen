@@ -50,6 +50,29 @@
       "revId": "33757b0203fb2a7c9d8374a1f9e04984ca63e8a1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c9cb84d_36e0bd49",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:01:30Z",
+      "side": 1,
+      "message": "Cannot it be called in the UdpSocket destructor? Mandating something has to be called in a child class destructor is not a typical approach for interfaces and inheritance, and this is not enforced by a compiler.",
+      "range": {
+        "startLine": 149,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 21
+      },
+      "revId": "33757b0203fb2a7c9d8374a1f9e04984ca63e8a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
