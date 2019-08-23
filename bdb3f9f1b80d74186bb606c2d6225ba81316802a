@@ -160,6 +160,23 @@
       "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c809ad6_6a9bf85a",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-23T21:22:31Z",
+      "side": 1,
+      "message": "I don\u0027t mind this, but I wouldn\u0027t really call this thread-safe either: you could still end up calling close() in one thread while inside a read() syscall in another.  IMHO nothing more is required in this patch though.",
+      "revId": "bdb3f9f1b80d74186bb606c2d6225ba81316802a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
