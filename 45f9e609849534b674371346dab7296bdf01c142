@@ -34,6 +34,24 @@
       "revId": "45f9e609849534b674371346dab7296bdf01c142",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64eae709_2c0afc47",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-23T21:14:24Z",
+      "side": 1,
+      "message": "gmtime_r() would also do this safely, but will wrap (on Mac anyway) in 2038.  BoringSSL uses gmtime_r internally.",
+      "parentUuid": "b2e6931d_3f5206d8",
+      "revId": "45f9e609849534b674371346dab7296bdf01c142",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
