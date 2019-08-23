@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "c31244c3_aefbc75a",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:32:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa32bc9a_82cf9a3e",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 62
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "175a69b0_931ea49e",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 5
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "For setting and getting the lifetime observer that would work\nI didn\u0027t see a way in the documentation to use std::atomic\u003cLifetimeObserver*\u003e-\u003eOnDestroy(...) atomically though - my main concern is that we delete the LifetimeObserver half-way through a socket\u0027s destruction, and then we segfault\n\nAny thoughts? I\u0027d much prefer avoid locking if it works here",
       "parentUuid": "175a69b0_931ea49e",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 48
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "450a5a62_2ce6598f",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T21:32:14Z",
+      "side": 1,
+      "message": "I was thinking the same as you put in your other comment: \"By the time we destroy the LifetimeObserver, we are entirely done with all networking operations\".\n\nThere\u0027s no guarantee with current approach that SetLifetimeObserver(nullptr) is called before the destruction of the observer has started. So it\u0027s the same story either way, in my opinion",
+      "parentUuid": "f03b0737_f2cfb4f7",
       "range": {
         "startLine": 152,
         "startChar": 0,
