@@ -15,6 +15,8 @@
 
 #include <cstring>
 #include <memory>
+#include <sstream>
+#include <string>
 
 #include "absl/types/optional.h"
 #include "platform/api/logging.h"
@@ -83,6 +85,12 @@ ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(TaskRunner* task_runner,
       new UdpSocketPosix(task_runner, client, fd.value(), endpoint)));
 }
 
+std::string UdpSocketPosix::CreateErrorString() {
+  std::stringstream stream;
+  stream << "endpoint: " << local_endpoint_ << ", error: " << strerror(errno);
+  return stream.str();
+}
+
 bool UdpSocketPosix::IsIPv4() const {
   return local_endpoint_.address.IsV4();
 }
@@ -129,14 +137,15 @@ IPEndpoint UdpSocketPosix::GetLocalEndpoint() const {
   return local_endpoint_;
 }
 
-Error UdpSocketPosix::Bind() {
+void UdpSocketPosix::Bind() {
   // This is effectively a boolean passed to setsockopt() to allow a future
   // bind() on the same socket to succeed, even if the address is already in
   // use. This is pretty much universally the desired behavior.
   const int reuse_addr = 1;
   if (setsockopt(fd_, SOL_SOCKET, SO_REUSEADDR, &reuse_addr,
                  sizeof(reuse_addr)) == -1) {
-    return Error(Error::Code::kSocketOptionSettingFailure, strerror(errno));
+    OnError(
+        Error(Error::Code::kSocketOptionSettingFailure, CreateErrorString()));
   }
 
   switch (local_endpoint_.address.version()) {
@@ -148,9 +157,9 @@ Error UdpSocketPosix::Bind() {
           reinterpret_cast<uint8_t*>(&address.sin_addr.s_addr));
       if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
                sizeof(address)) == -1) {
-        return Error(Error::Code::kSocketBindFailure, strerror(errno));
+        OnError(Error(Error::Code::kSocketBindFailure, CreateErrorString()));
       }
-      return Error::Code::kNone;
+      return;
     }
 
     case UdpSocket::Version::kV6: {
@@ -163,14 +172,13 @@ Error UdpSocketPosix::Bind() {
       address.sin6_scope_id = 0;
       if (bind(fd_, reinterpret_cast<struct sockaddr*>(&address),
                sizeof(address)) == -1) {
-        return Error(Error::Code::kSocketBindFailure, strerror(errno));
+        OnError(Error(Error::Code::kSocketBindFailure, CreateErrorString()));
       }
-      return Error::Code::kNone;
+      return;
     }
   }
 
   OSP_NOTREACHED();
-  return Error::Code::kUnknownError;
 }
 
 Error UdpSocketPosix::SetMulticastOutboundInterface(
