@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3efb5bfc_3223ce22",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-23T21:22:00Z",
+      "side": 1,
+      "message": "Good catch. Done.",
+      "parentUuid": "3af4c28c_8c4411fa",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "febb4f05_9c87fb9b",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960ac20e_5cec32b9",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-23T21:22:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "febb4f05_9c87fb9b",
+      "range": {
+        "startLine": 89,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 69
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "aa32bc9a_82cf9a3e",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-23T21:22:00Z",
+      "side": 1,
+      "message": "I agree that there is probably a better design out there somewhere, but I couldn\u0027t think of one either. And it should be very easy to swap in if we do find one\n\nIn practice it actually doesn\u0027t add much teardown complexity though. In the demo code (see CL linked in commit message), the LifetimeObserver exists for the duration of the program\u0027s run (similarly to the TaskRunner). So by the time we destroy the LifetimeObserver, we are entirely done with all networking operations - no new sockets are created, and all that we\u0027ve used are destroyed :)",
+      "parentUuid": "48c64a20_a57e5a3c",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 62
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "175a69b0_931ea49e",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2019-08-23T20:51:47Z",
       "side": 1,
       "message": "Given that a pointer is just an integer, an atomic pointer might work for you here. I think std::atomic supports what you\u0027d need if you choose to use it.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 48
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03b0737_f2cfb4f7",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-23T21:22:00Z",
+      "side": 1,
+      "message": "For setting and getting the lifetime observer that would work\nI didn\u0027t see a way in the documentation to use std::atomic\u003cLifetimeObserver*\u003e-\u003eOnDestroy(...) atomically though - my main concern is that we delete the LifetimeObserver half-way through a socket\u0027s destruction, and then we segfault\n\nAny thoughts? I\u0027d much prefer avoid locking if it works here",
+      "parentUuid": "175a69b0_931ea49e",
       "range": {
         "startLine": 152,
         "startChar": 0,
