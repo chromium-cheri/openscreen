@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3af4c28c_8c4411fa",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T20:51:47Z",
+      "side": 1,
+      "message": "Maybe needs a virtual destructor.",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "febb4f05_9c87fb9b",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T20:51:47Z",
+      "side": 1,
+      "message": "Maybe rephrase to: \"SetLifetimeObserver(nullptr) must be called before any future socket  creations when the observer is destroyed\" ?",
+      "range": {
+        "startLine": 89,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 69
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48c64a20_a57e5a3c",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T20:51:47Z",
+      "side": 1,
+      "message": "I do not have a better solution to propose at this time, but I have a feeling this would complicate out init/teardown story even further. However, if we come up with something else, it should be an easier change than sync-\u003easync UdpSocket.",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 62
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "175a69b0_931ea49e",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T20:51:47Z",
+      "side": 1,
+      "message": "Given that a pointer is just an integer, an atomic pointer might work for you here. I think std::atomic supports what you\u0027d need if you choose to use it.",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 48
+      },
+      "revId": "2201a27e066cd8bd3851688b336e8dc0a8bd26ba",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
