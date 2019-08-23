@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "42123541_799768c1",
+        "filename": "platform/impl/socket_address_posix_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-23T20:41:22Z",
+      "side": 1,
+      "message": "Maybe just:\n\n// 16777226u \u003d\u003d 10.0.0.1 in network byte order",
+      "revId": "c4c2e09f908a83080dabf6129f0c2c1b310ce458",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ecd6803_a203830d",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-23T20:41:22Z",
+      "side": 1,
+      "message": "if (is_open_)",
+      "revId": "c4c2e09f908a83080dabf6129f0c2c1b310ce458",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91d8df68_2c3652c7",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-23T20:41:22Z",
+      "side": 1,
+      "message": "CloseOnError() attempts to close the socket, which fails because it isn\u0027t open, and will override the error you\u0027re passing here.",
+      "revId": "c4c2e09f908a83080dabf6129f0c2c1b310ce458",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd560a70_ac6008e3",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-23T20:41:22Z",
+      "side": 1,
+      "message": "This should move above the call to fcntl, since you need to close the socket you\u0027ve opened if fnctl returns an error.",
+      "revId": "c4c2e09f908a83080dabf6129f0c2c1b310ce458",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f00fcc4_5f51a7e8",
         "filename": "platform/impl/stream_socket_posix.cc",
         "patchSetId": 8
@@ -46,6 +114,40 @@
       "revId": "c4c2e09f908a83080dabf6129f0c2c1b310ce458",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "442a29bc_b2235c79",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-23T20:41:22Z",
+      "side": 1,
+      "message": "Extra newline",
+      "revId": "c4c2e09f908a83080dabf6129f0c2c1b310ce458",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68ac862c_16471fca",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-23T20:41:22Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "c4c2e09f908a83080dabf6129f0c2c1b310ce458",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
