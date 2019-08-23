@@ -12,15 +12,36 @@ namespace platform {
 UdpSocket::UdpSocket(TaskRunner* task_runner, Client* client)
     : client_(client), task_runner_(task_runner) {
   OSP_CHECK(task_runner_);
-  deletion_callback_ = [](UdpSocket* socket) {};
+  if (lifetime_observer_) {
+    std::lock_guard<std::mutex> lock(*GetLifetimeObserverMutex());
+    if (lifetime_observer_) {
+      lifetime_observer_->OnCreate(this);
+    }
+  }
 }
 
 UdpSocket::~UdpSocket() {
-  deletion_callback_(this);
+  if (lifetime_observer_) {
+    std::lock_guard<std::mutex> lock(*GetLifetimeObserverMutex());
+    if (lifetime_observer_) {
+      lifetime_observer_->OnDestroy(this);
+    }
+  }
 }
 
-void UdpSocket::SetDeletionCallback(std::function<void(UdpSocket*)> callback) {
-  deletion_callback_ = callback;
+// static
+void UdpSocket::SetLifetimeObserver(LifetimeObserver* observer) {
+  std::lock_guard<std::mutex> lock(*GetLifetimeObserverMutex());
+  lifetime_observer_ = observer;
+}
+
+// static
+UdpSocket::LifetimeObserver* UdpSocket::lifetime_observer_ = nullptr;
+
+// static
+std::mutex* UdpSocket::GetLifetimeObserverMutex() {
+  static std::mutex lifetime_observer_mutex_;
+  return &lifetime_observer_mutex_;
 }
 
 void UdpSocket::OnError(Error error) {
