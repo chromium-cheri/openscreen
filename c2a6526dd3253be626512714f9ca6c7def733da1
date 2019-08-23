@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "66594c49_9297319e",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T20:09:03Z",
+      "side": 1,
+      "message": "MdnsReceiver doesn\u0027t get to choose what socket to create, it just works with the one provided. Also, MdnsReceiver and MdnsSender should share the same socket.",
+      "parentUuid": "46411a1e_604c105b",
+      "revId": "c2a6526dd3253be626512714f9ca6c7def733da1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "471f8b12_d1f9d9a6",
         "filename": "cast/common/mdns/mdns_receiver.cc",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "c2a6526dd3253be626512714f9ca6c7def733da1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "382d2dc5_a4d1d28b",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T20:09:03Z",
+      "side": 1,
+      "message": "Socket should outlive the receiver as it comes from the outside and is not owned by receiver.",
+      "parentUuid": "65a9a670_cbca9b79",
+      "revId": "c2a6526dd3253be626512714f9ca6c7def733da1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
