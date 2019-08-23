@@ -16,6 +16,24 @@
       "revId": "45f9e609849534b674371346dab7296bdf01c142",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2e6931d_3f5206d8",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T20:19:10Z",
+      "side": 1,
+      "message": "I think it would be best to avoid as much time conversion code as possible overall, and especially in anything related to crypto and certs. Just this method alone needs a bunch of unit tests. Does BoringSSL by any chance have any tools for this?",
+      "parentUuid": "ad9b05bc_c9298bc6",
+      "revId": "45f9e609849534b674371346dab7296bdf01c142",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
