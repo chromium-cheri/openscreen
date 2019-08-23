@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0f6d61f_ce153f09",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T22:47:55Z",
+      "side": 1,
+      "message": "Witchcraft.",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "4c759a66718fe6f663983068c9aa27a420acb8a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21c1f39f_82792992",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T22:47:55Z",
+      "side": 1,
+      "message": "OnFramesComplete?",
+      "range": {
+        "startLine": 100,
+        "startChar": 17,
+        "endLine": 100,
+        "endChar": 37
+      },
+      "revId": "4c759a66718fe6f663983068c9aa27a420acb8a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ac53eac_103996e6",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T22:47:55Z",
+      "side": 1,
+      "message": "platform::Clock::duration?",
+      "range": {
+        "startLine": 108,
+        "startChar": 11,
+        "endLine": 108,
+        "endChar": 36
+      },
+      "revId": "4c759a66718fe6f663983068c9aa27a420acb8a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c547b211_0b245f7f",
+        "filename": "streaming/cast/receiver_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T22:47:55Z",
+      "side": 1,
+      "message": "Given this might take a bit run a callback, do you think it makes sense to put it on the TaskRunner or is it too time critical?",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "4c759a66718fe6f663983068c9aa27a420acb8a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc67643_87fb9839",
+        "filename": "streaming/cast/receiver_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T22:47:55Z",
+      "side": 1,
+      "message": "Maybe use std::find or std::find_if? It returns an iterator that you can use to erase the element if it\u0027s found in Deregister",
+      "range": {
+        "startLine": 96,
+        "startChar": 46,
+        "endLine": 96,
+        "endChar": 56
+      },
+      "revId": "4c759a66718fe6f663983068c9aa27a420acb8a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f2ad6eb_1e11f4ee",
+        "filename": "streaming/cast/receiver_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T22:47:55Z",
+      "side": 1,
+      "message": "It\u0027s more of a PacketRouter than a ReceiverTransport",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "4c759a66718fe6f663983068c9aa27a420acb8a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edcd2ec0_6db0f42e",
+        "filename": "streaming/cast/receiver_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T22:47:55Z",
+      "side": 1,
+      "message": "Do you expect all client registerations/deregistrations to not overlap with OnReceivedPacket?\nAsking, because you have ResumeIncomingPackets in Register and SuspendIncomingPackets in Deregister\n\nAlso, maybe just AddClient and RemoveClient?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "4c759a66718fe6f663983068c9aa27a420acb8a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c7335c_b7c0ab1d",
+        "filename": "streaming/cast/receiver_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-23T22:47:55Z",
+      "side": 1,
+      "message": "Preferring vector here instead of an unordered_map due to a small expected collection size?",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 39
+      },
+      "revId": "4c759a66718fe6f663983068c9aa27a420acb8a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
