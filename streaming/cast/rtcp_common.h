@@ -101,6 +101,22 @@ struct RtcpReportBlock {
   using Delay = std::chrono::duration<int64_t, std::ratio<1, 65536>>;
   Delay delay_since_last_report{};
 
+  // Convenience helper to compute/assign the |packet_fraction_lost_numerator|,
+  // based on the |num_apparently_sent| and |num_received| packet counts since
+  // the last report was sent.
+  void SetPacketFractionLostNumerator(int64_t num_apparently_sent,
+                                      int64_t num_received);
+
+  // Convenience helper to compute/assign the |cumulative_packets_lost|, based
+  // on the |num_apparently_sent| and |num_received| packet counts since the
+  // start of the entire session.
+  void SetCumulativePacketsLost(int64_t num_apparently_sent,
+                                int64_t num_received);
+
+  // Convenience helper to convert the given |delay| to the correct timebase and
+  // clamp to its valid range.
+  void SetDelaySinceLastReport(platform::Clock::duration delay);
+
   // Serializes this report block in the first |kRtcpReportBlockSize| bytes of
   // the given |buffer| and adjusts |buffer| to point to the first byte after
   // it.
