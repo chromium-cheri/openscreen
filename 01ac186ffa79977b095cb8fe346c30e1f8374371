@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2de10e2_edf67327",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-26T16:25:29Z",
+      "side": 1,
+      "message": "previously, I was using UdpSocket::enable_reading() and ::disable_reading() here, but removed that after it was discussed and we decided to remove it\n\nI don\u0027t know if it\u0027s worth refactoring our approach here when we are already working on a new MDNS approach\n\nThoughts?",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 75
+      },
+      "revId": "01ac186ffa79977b095cb8fe346c30e1f8374371",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
