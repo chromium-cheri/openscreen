@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7f7f623_a8b4038e",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-26T20:21:00Z",
+      "side": 1,
+      "message": "I don\u0027t think closing an uninitialized socket should actually call socket().",
+      "revId": "3be21164a20916528924e087597a59d536267dbd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "524a8ce6_d080b364",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-26T20:21:00Z",
+      "side": 1,
+      "message": "If the caller calls Listen() on an unopened socket and socket() fails, they will get a SocketClosedError, which is counter-intuitive since they never closed the socket.",
+      "revId": "3be21164a20916528924e087597a59d536267dbd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be81bc39_4ae02a35",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-26T20:21:00Z",
+      "side": 1,
+      "message": "It looks like the return value gets dropped. \nCan we pass it back from the method that called EnsureInitialized()?",
+      "revId": "3be21164a20916528924e087597a59d536267dbd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5db5d55d_f4eee378",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-26T20:21:00Z",
+      "side": 1,
+      "message": "This is atomic, but other parts of this class are racy - for example Initialize().\n\nI would suggest first figuring out if we need this to be threadsafe, then add the necessary protections in a separate patch.",
+      "revId": "3be21164a20916528924e087597a59d536267dbd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
