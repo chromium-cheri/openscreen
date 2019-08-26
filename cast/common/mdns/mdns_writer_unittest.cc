@@ -306,10 +306,11 @@ TEST(MdnsWriterTest, WriteMdnsRecord_ARecordRdata) {
       0xac, 0x00, 0x00, 0x01,  // 172.0.0.1
   };
   // clang-format on
-  TestWriteEntrySucceeds(MdnsRecord(DomainName{"testing", "local"}, DnsType::kA,
-                                    DnsClass::kIN, RecordType::kUnique, 120,
-                                    ARecordRdata(IPAddress{172, 0, 0, 1})),
-                         kExpectedResult, sizeof(kExpectedResult));
+  TestWriteEntrySucceeds(
+      MdnsRecord(DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
+                 RecordType::kUnique, std::chrono::seconds(120),
+                 ARecordRdata(IPAddress{172, 0, 0, 1})),
+      kExpectedResult, sizeof(kExpectedResult));
 }
 
 TEST(MdnsWriterTest, WriteMdnsRecord_PtrRecordRdata) {
@@ -328,15 +329,16 @@ TEST(MdnsWriterTest, WriteMdnsRecord_PtrRecordRdata) {
   // clang-format on
   TestWriteEntrySucceeds(
       MdnsRecord(DomainName{"_service", "testing", "local"}, DnsType::kPTR,
-                 DnsClass::kIN, RecordType::kShared, 120,
+                 DnsClass::kIN, RecordType::kShared, std::chrono::seconds(120),
                  PtrRecordRdata(DomainName{"testing", "local"})),
       kExpectedResult, sizeof(kExpectedResult));
 }
 
 TEST(MdnsWriterTest, WriteMdnsRecord_InsufficientBuffer) {
-  TestWriteEntryInsufficientBuffer(MdnsRecord(
-      DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
-      RecordType::kUnique, 120, ARecordRdata(IPAddress{172, 0, 0, 1})));
+  TestWriteEntryInsufficientBuffer(
+      MdnsRecord(DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
+                 RecordType::kUnique, std::chrono::seconds(120),
+                 ARecordRdata(IPAddress{172, 0, 0, 1})));
 }
 
 TEST(MdnsWriterTest, WriteMdnsQuestion) {
@@ -391,7 +393,7 @@ TEST(MdnsWriterTest, WriteMdnsMessage) {
                         ResponseType::kMulticast);
 
   MdnsRecord auth_record(DomainName{"auth"}, DnsType::kTXT, DnsClass::kIN,
-                         RecordType::kShared, 120,
+                         RecordType::kShared, std::chrono::seconds(120),
                          TxtRecordRdata{"foo=1", "bar=2"});
 
   MdnsMessage message(1, MessageType::Query);
@@ -410,7 +412,7 @@ TEST(MdnsWriterTest, WriteMdnsMessage_InsufficientBuffer) {
                         ResponseType::kMulticast);
 
   MdnsRecord auth_record(DomainName{"auth"}, DnsType::kTXT, DnsClass::kIN,
-                         RecordType::kShared, 120,
+                         RecordType::kShared, std::chrono::seconds(120),
                          TxtRecordRdata{"foo=1", "bar=2"});
 
   MdnsMessage message(1, MessageType::Query);

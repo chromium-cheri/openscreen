@@ -288,43 +288,52 @@ TEST(MdnsRecordTest, Construct) {
   EXPECT_EQ(record1.dns_type(), static_cast<DnsType>(0));
   EXPECT_EQ(record1.record_class(), static_cast<DnsClass>(0));
   EXPECT_EQ(record1.record_type(), RecordType::kShared);
-  EXPECT_EQ(record1.ttl(), UINT32_C(255));  // 255 is kDefaultRecordTTL
+  EXPECT_EQ(record1.ttl(),
+            std::chrono::seconds(255));  // 255 is kDefaultRecordTTLSeconds
   EXPECT_EQ(record1.rdata(), Rdata(RawRecordRdata()));
 
   MdnsRecord record2(DomainName{"hostname", "local"}, DnsType::kPTR,
-                     DnsClass::kIN, RecordType::kUnique, 120,
+                     DnsClass::kIN, RecordType::kUnique,
+                     std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"testing", "local"}));
   EXPECT_EQ(record2.MaxWireSize(), UINT64_C(41));
   EXPECT_EQ(record2.name(), (DomainName{"hostname", "local"}));
   EXPECT_EQ(record2.dns_type(), DnsType::kPTR);
   EXPECT_EQ(record2.record_class(), DnsClass::kIN);
   EXPECT_EQ(record2.record_type(), RecordType::kUnique);
-  EXPECT_EQ(record2.ttl(), UINT32_C(120));
+  EXPECT_EQ(record2.ttl(), std::chrono::seconds(120));
   EXPECT_EQ(record2.rdata(),
             Rdata(PtrRecordRdata(DomainName{"testing", "local"})));
 }
 
 TEST(MdnsRecordTest, Compare) {
   MdnsRecord record1(DomainName{"hostname", "local"}, DnsType::kPTR,
-                     DnsClass::kIN, RecordType::kShared, 120,
+                     DnsClass::kIN, RecordType::kShared,
+                     std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"testing", "local"}));
   MdnsRecord record2(DomainName{"hostname", "local"}, DnsType::kPTR,
-                     DnsClass::kIN, RecordType::kShared, 120,
+                     DnsClass::kIN, RecordType::kShared,
+                     std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"testing", "local"}));
   MdnsRecord record3(DomainName{"othername", "local"}, DnsType::kPTR,
-                     DnsClass::kIN, RecordType::kShared, 120,
+                     DnsClass::kIN, RecordType::kShared,
+                     std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"testing", "local"}));
   MdnsRecord record4(DomainName{"hostname", "local"}, DnsType::kA,
-                     DnsClass::kIN, RecordType::kShared, 120,
+                     DnsClass::kIN, RecordType::kShared,
+                     std::chrono::seconds(120),
                      ARecordRdata(IPAddress{8, 8, 8, 8}));
   MdnsRecord record5(DomainName{"hostname", "local"}, DnsType::kPTR,
-                     DnsClass::kIN, RecordType::kUnique, 120,
+                     DnsClass::kIN, RecordType::kUnique,
+                     std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"testing", "local"}));
   MdnsRecord record6(DomainName{"hostname", "local"}, DnsType::kPTR,
-                     DnsClass::kIN, RecordType::kShared, 200,
+                     DnsClass::kIN, RecordType::kShared,
+                     std::chrono::seconds(200),
                      PtrRecordRdata(DomainName{"testing", "local"}));
   MdnsRecord record7(DomainName{"hostname", "local"}, DnsType::kPTR,
-                     DnsClass::kIN, RecordType::kShared, 120,
+                     DnsClass::kIN, RecordType::kShared,
+                     std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"device", "local"}));
 
   EXPECT_EQ(record1, record2);
@@ -337,7 +346,8 @@ TEST(MdnsRecordTest, Compare) {
 
 TEST(MdnsRecordTest, CopyAndMove) {
   MdnsRecord record(DomainName{"hostname", "local"}, DnsType::kPTR,
-                    DnsClass::kIN, RecordType::kUnique, 120,
+                    DnsClass::kIN, RecordType::kUnique,
+                    std::chrono::seconds(120),
                     PtrRecordRdata(DomainName{"testing", "local"}));
   TestCopyAndMove(record);
 }
@@ -396,13 +406,13 @@ TEST(MdnsMessageTest, Construct) {
   MdnsQuestion question(DomainName{"testing", "local"}, DnsType::kPTR,
                         DnsClass::kIN, ResponseType::kUnicast);
   MdnsRecord record1(DomainName{"record1"}, DnsType::kA, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      ARecordRdata(IPAddress{172, 0, 0, 1}));
   MdnsRecord record2(DomainName{"record2"}, DnsType::kTXT, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      TxtRecordRdata{"foo=1", "bar=2"});
   MdnsRecord record3(DomainName{"record3"}, DnsType::kPTR, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"device", "local"}));
 
   MdnsMessage message2(123, MessageType::Response);
@@ -451,13 +461,13 @@ TEST(MdnsMessageTest, Compare) {
   MdnsQuestion question(DomainName{"testing", "local"}, DnsType::kPTR,
                         DnsClass::kIN, ResponseType::kUnicast);
   MdnsRecord record1(DomainName{"record1"}, DnsType::kA, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      ARecordRdata(IPAddress{172, 0, 0, 1}));
   MdnsRecord record2(DomainName{"record2"}, DnsType::kTXT, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      TxtRecordRdata{"foo=1", "bar=2"});
   MdnsRecord record3(DomainName{"record3"}, DnsType::kPTR, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"device", "local"}));
 
   MdnsMessage message1(
@@ -506,13 +516,13 @@ TEST(MdnsMessageTest, CopyAndMove) {
   MdnsQuestion question(DomainName{"testing", "local"}, DnsType::kPTR,
                         DnsClass::kIN, ResponseType::kUnicast);
   MdnsRecord record1(DomainName{"record1"}, DnsType::kA, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      ARecordRdata(IPAddress{172, 0, 0, 1}));
   MdnsRecord record2(DomainName{"record2"}, DnsType::kTXT, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      TxtRecordRdata{"foo=1", "bar=2"});
   MdnsRecord record3(DomainName{"record3"}, DnsType::kPTR, DnsClass::kIN,
-                     RecordType::kShared, 120,
+                     RecordType::kShared, std::chrono::seconds(120),
                      PtrRecordRdata(DomainName{"device", "local"}));
   MdnsMessage message(
       123, MessageType::Response, std::vector<MdnsQuestion>{question},
