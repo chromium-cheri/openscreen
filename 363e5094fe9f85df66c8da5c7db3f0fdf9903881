@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "f74642db_8053e686",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Not related to this change, but I think we shouldn\u0027t really use platform/impl in demo, only platform/api",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3005798d_446f38a0",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7ebb305_bc34d811",
         "filename": "osp/impl/internal_services.cc",
         "patchSetId": 4
@@ -18,6 +64,306 @@
         "startChar": 0,
         "endLine": 184,
         "endChar": 75
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f45b4f2_8028cf85",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "cast/common/mdns is a replacement for third_party/mDNSResponder, this doesn\u0027t really look related to third_party/mDNSResponder usages",
+      "parentUuid": "f7ebb305_bc34d811",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 75
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5e84c9b_bddccf6a",
+        "filename": "osp/impl/presentation/presentation_connection_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "What check is failing? This destructor should not be needed.\nIf task runner has to be destroyed before fake clock, then change the order of the task_runner_ and fake_clock_ fields.",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 3
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69160f3c_13cb3f8d",
+        "filename": "osp/impl/presentation/presentation_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 90,
+        "startChar": 2,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90b74514_466cec06",
+        "filename": "osp/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 3
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0932a8d_db88f835",
+        "filename": "osp/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf01eaee_18aa68b5",
+        "filename": "osp/impl/quic/quic_client_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5255543_e2bc6dda",
+        "filename": "osp/impl/quic/quic_server_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Why is this needed? unique_ptr will have their destructors called when they are destroyed by the default destructor.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 3
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2d8aa32_27c1f93e",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Why do these need to be friends?",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 29
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68f85090_9620c3b6",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "socket instead of read?",
+      "range": {
+        "startLine": 31,
+        "startChar": 21,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6efd14f_3d474b88",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "socket instead of read?",
+      "range": {
+        "startLine": 46,
+        "startChar": 20,
+        "endLine": 46,
+        "endChar": 24
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "438fba62_c28e8454",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Don\u0027t need explicit anymore",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "392cea2a_36f9be0e",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "What do you need this constructor for?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed38224_814d711e",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-27T21:03:58Z",
+      "side": 1,
+      "message": "Just sockets_?",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 46
       },
       "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
