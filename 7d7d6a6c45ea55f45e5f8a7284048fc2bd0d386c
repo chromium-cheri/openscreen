@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "675bcd63_bfe4a5de",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-27T23:42:05Z",
+      "side": 1,
+      "message": "Is there a bug for these? We shouldn\u0027t leave stuff like this unimplemented where we would want users of the library to see these errors to handle them in the application.",
+      "range": {
+        "startLine": 347,
+        "startChar": 2,
+        "endLine": 347,
+        "endChar": 19
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf9b0506_ba325642",
+        "filename": "osp/impl/quic/testing/fake_quic_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-27T23:42:05Z",
+      "side": 1,
+      "message": "Did you mean OSP_NOTREACHED() for these?",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e49ee3c8_c853f797",
+        "filename": "osp/impl/testing/fake_mdns_responder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-27T23:42:05Z",
+      "side": 1,
+      "message": "OSP_NOTREACHED() for these too.",
+      "range": {
+        "startLine": 241,
+        "startChar": 2,
+        "endLine": 241,
+        "endChar": 18
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e56d48fa_8490453a",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-27T23:42:05Z",
+      "side": 1,
+      "message": "OOC, why is this global, and not per instance of a UdpSocket?",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 62
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b40ea2db_efa0659c",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-27T23:42:05Z",
+      "side": 1,
+      "message": "Let\u0027s remove these:\n\n1. MockUdpSocket doesn\u0027t seem to need private access.\n\n2. If NetworkReader needs to call OnRead() (a protected, not private method), then UdpSocketPosix (the subclass impl) should provide access to it; not the public API.",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 29
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7d73df2_82996190",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-27T23:42:05Z",
+      "side": 1,
+      "message": "Is this the same as:\n\n  sockets \u003d sockets_;\n\nOtherwise, nit: Before the loop: sockets.reserve(sockets_.size());",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51b54583_108d062c",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-27T23:42:05Z",
+      "side": 1,
+      "message": "re. the new bool argument: Code external to this class should not decide whether the current thread has to block based on private implementation details.",
+      "range": {
+        "startLine": 84,
+        "startChar": 48,
+        "endLine": 84,
+        "endChar": 64
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
