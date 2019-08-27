@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eacc3134_c46083ae",
+        "filename": "osp/demo/demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve added a TODO to take care of this - I think we will need to add some factory methods, but like you said it\u0027s outside the scope of this CL",
+      "parentUuid": "f74642db_8053e686",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3005798d_446f38a0",
         "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1086fed3_98285e9b",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve added a TODO to take care of this - I think we will need to add some factory methods, but like you said it\u0027s outside the scope of this CL",
+      "parentUuid": "3005798d_446f38a0",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "5e9c982d_d11c356c",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "OnRead(...) here calls MdnsResponderService::OnRead(...), which calls MdnsResponderAdapter::OnRead(...), which calls into third_party/mDNSResponder\n\nIf we want to handle the OnRead change here, I am happy to do so though. The two approaches I see working are either to keep an unordered_set\u003cUdpSocket*\u003e of sockets we want to read from (guarded by a mutex) or add back in enable_read()/disable_read() on UdpSocket. Does either approach sound good to you?",
+      "parentUuid": "9f45b4f2_8028cf85",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 75
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5e84c9b_bddccf6a",
         "filename": "osp/impl/presentation/presentation_connection_unittest.cc",
         "patchSetId": 4
@@ -115,6 +187,30 @@
       "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3581ea39_43489957",
+        "filename": "osp/impl/presentation/presentation_connection_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5e84c9b_bddccf6a",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 3
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "da1cd43e_8d341bcf",
+        "filename": "osp/impl/presentation/presentation_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69160f3c_13cb3f8d",
+      "range": {
+        "startLine": 90,
+        "startChar": 2,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90b74514_466cec06",
         "filename": "osp/impl/presentation/presentation_receiver_unittest.cc",
         "patchSetId": 4
@@ -161,6 +281,30 @@
       "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4bd90cf_8e661eae",
+        "filename": "osp/impl/presentation/presentation_receiver_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90b74514_466cec06",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 3
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "568ae0e9_a245be79",
+        "filename": "osp/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0932a8d_db88f835",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf01eaee_18aa68b5",
         "filename": "osp/impl/quic/quic_client_unittest.cc",
         "patchSetId": 4
@@ -207,6 +375,30 @@
       "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9167a6_706e2ed8",
+        "filename": "osp/impl/quic/quic_client_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf01eaee_18aa68b5",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -233,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "626746bf_9fe4434d",
+        "filename": "osp/impl/quic/quic_server_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "discussed offline and removed",
+      "parentUuid": "b5255543_e2bc6dda",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 3
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2d8aa32_27c1f93e",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 4
@@ -244,6 +460,30 @@
       "writtenOn": "2019-08-27T21:03:58Z",
       "side": 1,
       "message": "Why do these need to be friends?",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 29
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd61df46_f5bf8402",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "NetworkReader needs to be a friend so that it can call UdpSocket::OnRead(...) (since it uses UdpSocketPosix::RecieveMessage to get new packets)\nMockUdpSocket needs to be a friend so it can access UdpSocket\u0027s private TaskRunner variable in its PostPacket(...) method",
+      "parentUuid": "e2d8aa32_27c1f93e",
       "range": {
         "startLine": 185,
         "startChar": 0,
@@ -279,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "5a90d7b1_3240735a",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68f85090_9620c3b6",
+      "range": {
+        "startLine": 31,
+        "startChar": 21,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6efd14f_3d474b88",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 4
@@ -299,6 +563,30 @@
       "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4451aef3_0ce3fd08",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6efd14f_3d474b88",
+      "range": {
+        "startLine": 46,
+        "startChar": 20,
+        "endLine": 46,
+        "endChar": 24
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +613,30 @@
     },
     {
       "key": {
+        "uuid": "0d3cac0c_6dde00ac",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "438fba62_c28e8454",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "392cea2a_36f9be0e",
         "filename": "platform/impl/network_reader.h",
         "patchSetId": 4
@@ -336,6 +648,30 @@
       "writtenOn": "2019-08-27T21:03:58Z",
       "side": 1,
       "message": "What do you need this constructor for?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d27c89c6_bd0e1940",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "It\u0027s used in the UTs for dependency injection so that the underlying NetworkWaiter can be mocked",
+      "parentUuid": "392cea2a_36f9be0e",
       "range": {
         "startLine": 59,
         "startChar": 2,
@@ -368,6 +704,30 @@
       "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3544809e_44caaafd",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:59:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ed38224_814d711e",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "363e5094fe9f85df66c8da5c7db3f0fdf9903881",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
