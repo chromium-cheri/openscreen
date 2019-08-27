@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adf498fd_78400b5e",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T00:05:01Z",
+      "side": 1,
+      "message": "Please make sure this doesn\u0027t break Chromium.",
+      "revId": "4673a9a7d4272a6152a5b0b345f1eeb2da8991be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fe149e5_89e2b9ba",
+        "filename": "platform/test/mock_udp_socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T00:05:01Z",
+      "side": 1,
+      "message": "I have a slight preference to breaking out the non-empty queue assertion separately, something like:\n\nASSERT_TRUE(set_dscp_errors_.size()) \u003c\u003c \"No SetDscp responses queued\";\nProcessErrors(\u0026set_dscp_errors_);\n\nBut I don\u0027t feel strongly about it.",
+      "revId": "4673a9a7d4272a6152a5b0b345f1eeb2da8991be",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
