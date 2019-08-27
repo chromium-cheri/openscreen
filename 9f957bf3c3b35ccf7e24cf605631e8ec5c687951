@@ -37,6 +37,41 @@
     },
     {
       "key": {
+        "uuid": "03408ade_4f99a778",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Do you mean StreamSocketPosix?  Because I don\u0027t see any other StreamSocket.",
+      "parentUuid": "7b018d10_48049717",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1ac18b_592b680d",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Can we comment how we expect this class to be used?  It seems like it\u0027s a synchrounous impl detail to be used to implement async stuff later that people should use.  Is that accurate?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2597018_c3942327",
         "filename": "platform/api/tcp_socket.h",
         "patchSetId": 7
@@ -77,6 +112,23 @@
     },
     {
       "key": {
+        "uuid": "efc47d41_24aae761",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "kConnected and kClosed seem pretty clear, but kUnittialized and kOpen could use a comment explaining what they mean.",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f767beaa_8fd0c691",
         "filename": "platform/api/tcp_socket.h",
         "patchSetId": 7
@@ -105,6 +157,24 @@
       "writtenOn": "2019-08-27T21:09:40Z",
       "side": 1,
       "message": "Can this return ErrorOr\u003cTcpSocket\u003e instead?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c9e979e_05de3aa7",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Or ErrorOr\u003cstd::unique_ptr\u003cTcpSocket\u003e\u003e.",
+      "parentUuid": "30491bd5_791bf753",
       "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -162,6 +232,23 @@
     },
     {
       "key": {
+        "uuid": "1010d530_dff6e599",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Why not file_descriptor() or just fd()?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a3cf2ac_8c10825a",
         "filename": "platform/api/tcp_socket.h",
         "patchSetId": 7
@@ -173,6 +260,58 @@
       "writtenOn": "2019-08-27T21:09:40Z",
       "side": 1,
       "message": "What errors could be returned?  Would optional\u003cIPEndpoint\u003e make more sense?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84136c15_0d6c5dc0",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Can it fail?  If not, +1",
+      "parentUuid": "2a3cf2ac_8c10825a",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4580791_b281d971",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Why not peer_address()?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c5434b_c3374fa6",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Why not state()?",
       "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -248,6 +387,30 @@
     },
     {
       "key": {
+        "uuid": "c47a18f8_7ff960c4",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "b84e6e4d_f7848587",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 6
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17d263a6_b317f3f0",
         "filename": "platform/api/tls_socket.h",
         "patchSetId": 7
@@ -265,6 +428,24 @@
     },
     {
       "key": {
+        "uuid": "5b87e13f_734f206c",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "17d263a6_b317f3f0",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8981398_82f55123",
         "filename": "platform/api/tls_socket.h",
         "patchSetId": 7
@@ -276,6 +457,40 @@
       "writtenOn": "2019-08-27T21:09:40Z",
       "side": 1,
       "message": "Can you define this more concretely?  Is this after bind(), connect() or after the TLS handshake completed?\n\nIt seems inconsistent to have IsConnected() here and expose socket states in TcpSocket. Unless they mean something different.",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcc5aa0a_b7788840",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Why not connected() or state()?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcdc9418_73b0cb52",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Then perhaps call it parent_server_socket_id().\n\nAnd would a std::optional be appropriate?  If not, at least comment that \"\" \u003d\u003d none.",
       "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -368,6 +583,40 @@
     },
     {
       "key": {
+        "uuid": "e6324e0d_bda2fc15",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "id()?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50583490_1be77a99",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "local_address()?\n\n(And why are the others not remote_address instead of peer_address?)",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa0a0b96_d4f32ca0",
         "filename": "platform/api/tls_socket.h",
         "patchSetId": 7
@@ -408,6 +657,74 @@
     },
     {
       "key": {
+        "uuid": "1cf96d34_f16b03ab",
+        "filename": "platform/impl/tcp_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Why is this not part of TcpSocket (the interface)?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a38d3e4a_4144717b",
+        "filename": "platform/impl/tcp_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "That could use a little more explanation.",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87ed22fb_4c24c6d5",
+        "filename": "platform/impl/tcp_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be initialized to something?  Or does std::atomic magically do that?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebac72ed_a73203a8",
+        "filename": "platform/impl/tcp_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Please do (\"local_address\" and \"remote_address\") or (\"address\" and \"peer_address\") everywhere.  I\u0027m fine either way.  Just please make it consistent.",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ffe0d05d_b51a6052",
         "filename": "platform/impl/tls_socket_posix.h",
         "patchSetId": 7
@@ -425,6 +742,98 @@
         "endLine": 18,
         "endChar": 62
       },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e89f55e1_4d71b0ea",
+        "filename": "platform/impl/tls_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Yeah, I was thinking the same thing.",
+      "parentUuid": "ffe0d05d_b51a6052",
+      "range": {
+        "startLine": 18,
+        "startChar": 41,
+        "endLine": 18,
+        "endChar": 62
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a941f83_27f3760e",
+        "filename": "platform/impl/tls_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Storing a const\u0026 seems dangerous to me.  Why not just copy it?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e44ead7_4981878e",
+        "filename": "platform/impl/tls_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Why not just socket_?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8fd7bf0_dc7e2df8",
+        "filename": "platform/impl/tls_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Does this ever get initialized?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5902663d_3e9622fd",
+        "filename": "platform/impl/tls_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-27T22:03:27Z",
+      "side": 1,
+      "message": "Why not just credentials_?",
       "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
