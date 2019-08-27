@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2597018_c3942327",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "\u003d 0?",
+      "range": {
+        "startLine": 26,
+        "startChar": 21,
+        "endLine": 26,
+        "endChar": 35
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eacf495_e8bcaee6",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "Is there any reason we need to have a custom deleter rather than just using the destructor?\nThis approach is going to make UnitTesting more difficult\n\nThis might be outside the scope of this CL though",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 2
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cde25e0_82aaa00a",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "It might make the code clearer if this is moved to its own file, like we did for UdpPacket - there are a lot of different classes defined in this one file\n\nNot a strong preference though - your call",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b84e6e4d_f7848587",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "Why enum over enum class?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 6
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aa5d8ee_30edd8cc",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "Why make the client virtual instead of just storing the Client* client_ in the base class like it was previously?",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 37
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7833719_09ae140a",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "Comment doesn\u0027t seem relevant anymore",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 50
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d26aa5b1_a20431dd",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "What are everyone\u0027s thoughts on keeping this here vs moving it to a new file? I am in favor of smaller, more specific files personally",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0a0b96_d4f32ca0",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "Same question about why not store the client here?",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 51
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffe0d05d_b51a6052",
+        "filename": "platform/impl/tls_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-27T21:08:55Z",
+      "side": 1,
+      "message": "Is there a reason TlsSocketPosix needs to be a TcpSocketPosix rather than just owning an instance of a TcpSocketPosix (or even just a general TcpSocket)? Having TlsSocketPosix be a TcpSocketPosix feels weird to me, given that TlsSocket isn\u0027t a TcpSocket",
+      "range": {
+        "startLine": 18,
+        "startChar": 41,
+        "endLine": 18,
+        "endChar": 62
+      },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
