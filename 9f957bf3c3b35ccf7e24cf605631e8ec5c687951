@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "22ec5256_d3bd6275",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "1. How does this relate to platform::StreamSocket?  Is it a subclass or a wrapper?\n2. Plain TCP is not dependent on BoringSSL.\n3. I didn\u0027t quite follow the sentence, because the platform by definition must always provide platform specific methods.",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2597018_c3942327",
         "filename": "platform/api/tcp_socket.h",
         "patchSetId": 7
@@ -19,6 +36,125 @@
         "endLine": 26,
         "endChar": 35
       },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "818bad47_3da31582",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "Maybe this belongs in StreamSocket?  It seems like the state transitions are going to work the same?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f767beaa_8fd0c691",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "There is no last_error().",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30491bd5_791bf753",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "Can this return ErrorOr\u003cTcpSocket\u003e instead?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eead616f_d3fe9566",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "What address?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecb66a40_22cfa192",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "What are valid states to call Bind() and what is the resulting state?  Same comment applies to other methods that have side effects.",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4d6b7b5_463a4300",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "At least on Windows, socket handles are an opaque type SOCKET or some such.\n\nShould this go in the platform impl instead of the platform api?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a3cf2ac_8c10825a",
+        "filename": "platform/api/tcp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "What errors could be returned?  Would optional\u003cIPEndpoint\u003e make more sense?",
       "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -94,6 +230,40 @@
     },
     {
       "key": {
+        "uuid": "17d263a6_b317f3f0",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "Why is this not an IPEndpoint?",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8981398_82f55123",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "Can you define this more concretely?  Is this after bind(), connect() or after the TLS handshake completed?\n\nIt seems inconsistent to have IsConnected() here and expose socket states in TcpSocket. Unless they mean something different.",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7aa5d8ee_30edd8cc",
         "filename": "platform/api/tls_socket.h",
         "patchSetId": 7
@@ -140,6 +310,23 @@
     },
     {
       "key": {
+        "uuid": "941c4806_73547e5c",
+        "filename": "platform/api/tls_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like a factory to me.",
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d26aa5b1_a20431dd",
         "filename": "platform/api/tls_socket.h",
         "patchSetId": 7
@@ -180,6 +367,23 @@
         "endLine": 121,
         "endChar": 51
       },
+      "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "711b2931_446f5cc4",
+        "filename": "platform/impl/socket_address_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-27T21:09:40Z",
+      "side": 1,
+      "message": "I think the union is the right approach here - but trying to understand this comment:\n\n1. Does our code actually refer to sockaddr anywhere?\n2. What is sockaddrprivate?",
       "revId": "9f957bf3c3b35ccf7e24cf605631e8ec5c687951",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
