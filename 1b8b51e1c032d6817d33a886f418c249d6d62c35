@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07c0e580_62ba8d44",
+        "filename": "streaming/cast/environment.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T19:50:44Z",
+      "side": 1,
+      "message": "You might hit some issues here. Based on the current design decisions, you would need to enable/disable this in the UdpSocket::Client::OnRead(...) implementation provided to the UdpSocket at creation time, and the current design doesn\u0027t look like that is going to be in this class because the socket is provided to the Environment Constructor\n\nI previously coded up support for enable_reading() and disable_reading() as socket-level methods, but was asked to pull this out - this could be re-coded-up if needed\n\nThoughts? Or is this just a problem for future Yuri to worry about?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "1b8b51e1c032d6817d33a886f418c249d6d62c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f87bcd74_f719c61b",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T19:50:44Z",
+      "side": 1,
+      "message": "what about absl::optional\u003cuint32_t\u003e or ErrorOr\u003cuint32_t\u003e?",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 40
+      },
+      "revId": "1b8b51e1c032d6817d33a886f418c249d6d62c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab23cdb6_40bf7b5d",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T19:50:44Z",
+      "side": 1,
+      "message": "platform::Clock::duration? (and same comment in rest of CL when std::chrono is used)",
+      "range": {
+        "startLine": 155,
+        "startChar": 19,
+        "endLine": 155,
+        "endChar": 44
+      },
+      "revId": "1b8b51e1c032d6817d33a886f418c249d6d62c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
