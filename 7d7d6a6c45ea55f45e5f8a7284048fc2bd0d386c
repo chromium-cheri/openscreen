@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "edeb35da_222bdb7e",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T00:35:44Z",
+      "side": 1,
+      "message": "I will file a bug in the morning. Leaving this open pending the bug\n\nDo you suggest sprinkling TODOs throughout the code as-well?",
+      "parentUuid": "675bcd63_bfe4a5de",
+      "range": {
+        "startLine": 347,
+        "startChar": 2,
+        "endLine": 347,
+        "endChar": 19
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf9b0506_ba325642",
         "filename": "osp/impl/quic/testing/fake_quic_connection.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a53f60e_343bb7dc",
+        "filename": "osp/impl/quic/testing/fake_quic_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T00:35:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf9b0506_ba325642",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2bbf7b18_ede26628",
+        "filename": "osp/impl/testing/fake_mdns_responder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T00:35:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e49ee3c8_c853f797",
+      "range": {
+        "startLine": 241,
+        "startChar": 2,
+        "endLine": 241,
+        "endChar": 18
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e56d48fa_8490453a",
         "filename": "platform/api/udp_socket.h",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2019-08-27T23:42:05Z",
       "side": 1,
       "message": "OOC, why is this global, and not per instance of a UdpSocket?",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 62
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb8e4666_9e49f611",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T00:35:44Z",
+      "side": 1,
+      "message": "The goal here is that when a new socket is created, we want to perform some action (ie, the global NetworkReader\u0027s list of sockets to watch in StandAlone - that way we know to watch the socket for reads)\n\nI am open to alternative design options (as a follow-up CL), and this was the best so far. Definitely still open to something better though.",
+      "parentUuid": "e56d48fa_8490453a",
       "range": {
         "startLine": 94,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6500c674_fe79f0b7",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T00:35:44Z",
+      "side": 1,
+      "message": "MockUdpSocket needs access for calling PostPacket (which needs access to the task runner)\n\nRealized I could avoid returning the result from RecieveMessage in UdpSocketPosix, and avoid issue #2 entirely - so that\u0027s fixed in the newest iteration.",
+      "parentUuid": "b40ea2db_efa0659c",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 29
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7d73df2_82996190",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "de9ca788_0e3ee457",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T00:35:44Z",
+      "side": 1,
+      "message": "It\u0027s a different type - sockets_ is a unordered_set. \n\nAdded sockets.reserve",
+      "parentUuid": "a7d73df2_82996190",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b54583_108d062c",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 5
@@ -151,6 +295,30 @@
       "writtenOn": "2019-08-27T23:42:05Z",
       "side": 1,
       "message": "re. the new bool argument: Code external to this class should not decide whether the current thread has to block based on private implementation details.",
+      "range": {
+        "startLine": 84,
+        "startChar": 48,
+        "endLine": 84,
+        "endChar": 64
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a874dfc_40fb8a2d",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-28T00:35:44Z",
+      "side": 1,
+      "message": "This is currently a protected method, so it would only be decided by children\n\nThe purpose of this bool is to allow for testing. How about I make OnDelete private and friend the testing implementation?",
+      "parentUuid": "51b54583_108d062c",
       "range": {
         "startLine": 84,
         "startChar": 48,
