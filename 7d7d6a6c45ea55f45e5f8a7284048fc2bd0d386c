@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6cf261b8_d2265ae9",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-28T23:06:55Z",
+      "side": 1,
+      "message": "Thanks.\n\nYes, SOP is for all TODO\u0027s to have a tracking bug (unless you know for sure some soon upcoming CL is going to replace them). Then, the TODO comment looks like:\n\n  // TODO(issues/67): Errors should be bubbled up to embedders for handling.\n\nTwo interesting relevant discussions (since the convention is more \"tribal knowledge\" than explicit style guide rules):\n\nhttps://groups.google.com/a/chromium.org/forum/#!topic/java/_Qz571x0_dE\nhttps://groups.google.com/a/chromium.org/forum/#!msg/chromium-dev/whBCkcY8xtA/UCmmlblbDQAJ",
+      "parentUuid": "3c5529b8_9112b948",
+      "range": {
+        "startLine": 347,
+        "startChar": 2,
+        "endLine": 347,
+        "endChar": 19
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf9b0506_ba325642",
         "filename": "osp/impl/quic/testing/fake_quic_connection.cc",
         "patchSetId": 5
@@ -308,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "96e8c415_e673a42f",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-28T23:06:55Z",
+      "side": 1,
+      "message": "FWIW, |sockets_| should probably be a vector. It\u0027s usually a bad idea to use unordered_set/map on small numbers of elements, unless they are objects that cannot move in memory (and then, std::set/map are often better for that, even if you don\u0027t need things kept sorted).",
+      "parentUuid": "de9ca788_0e3ee457",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b54583_108d062c",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 5
@@ -343,6 +391,30 @@
       "side": 1,
       "message": "This is currently a protected method, so it would only be decided by children\n\nThe purpose of this bool is to allow for testing. How about I make OnDelete private and friend the testing implementation?",
       "parentUuid": "51b54583_108d062c",
+      "range": {
+        "startLine": 84,
+        "startChar": 48,
+        "endLine": 84,
+        "endChar": 64
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4a17dea_13a7992a",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-28T23:06:55Z",
+      "side": 1,
+      "message": "Can we always lock? Why would we not do locking/notifications when testing? Seems this would be something we want to test. :)\n\n...and maybe we shouldn\u0027t be mocking low-level platform code (i.e., use real sockets to test this)?",
+      "parentUuid": "3a874dfc_40fb8a2d",
       "range": {
         "startLine": 84,
         "startChar": 48,
