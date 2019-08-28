@@ -156,6 +156,38 @@ std::ostream& operator<<(std::ostream& os, const Error::Code& code) {
       return os << "Failure: OperationInvalid";
     case Error::Code::kOperationCancelled:
       return os << "Failure: OperationCancelled";
+    case Error::Code::kPeerCertEmpty:
+      return os << "Failure: kPeerCertEmpty";
+    case Error::Code::kWrongPayloadType:
+      return os << "Failure: kWrongPayloadType";
+    case Error::Code::kNoPayload:
+      return os << "Failure: kNoPayload";
+    case Error::Code::kPayloadParsingFailed:
+      return os << "Failure: kPayloadParsingFailed";
+    case Error::Code::kMessageError:
+      return os << "Failure: kMessageError";
+    case Error::Code::kNoResponse:
+      return os << "Failure: kNoResponse";
+    case Error::Code::kFingerprintNotFound:
+      return os << "Failure: kFingerprintNotFound";
+    case Error::Code::kCertNotSignedByTrustedCa:
+      return os << "Failure: kCertNotSignedByTrustedCa";
+    case Error::Code::kCannotExtractPublicKey:
+      return os << "Failure: kCannotExtractPublicKey";
+    case Error::Code::kSignedBlobsMismatch:
+      return os << "Failure: kSignedBlobsMismatch";
+    case Error::Code::kTlsCertValidityPeriodTooLong:
+      return os << "Failure: kTlsCertValidityPeriodTooLong";
+    case Error::Code::kTlsCertValidStartDateInFuture:
+      return os << "Failure: kTlsCertValidStartDateInFuture";
+    case Error::Code::kTlsCertExpired:
+      return os << "Failure: kTlsCertExpired";
+    case Error::Code::kSenderNonceMismatch:
+      return os << "Failure: kSenderNonceMismatch";
+    case Error::Code::kDigestUnsupported:
+      return os << "Failure: kDigestUnsupported";
+    case Error::Code::kSignatureEmpty:
+      return os << "Failure: kSignatureEmpty";
   }
 
   // Unused 'return' to get around failure on GCC.
