@@ -16,6 +16,52 @@
       "revId": "be858550e7082d22f0ea8b979ccc4cabe77e2ff3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5308547_49d50278",
+        "filename": "cast/common/mdns/mdns_random.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-28T22:26:48Z",
+      "side": 1,
+      "message": "I was going to suggest making these std::chrono::milliseconds instead of int64_t, but I can see it would make using them with the std::uniform_int_distribution members a bit weird. Maybe just go with the old-school style solution and add \"Ms\" at the end of the variable names (to denote the milliseconds)?",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 52
+      },
+      "revId": "be858550e7082d22f0ea8b979ccc4cabe77e2ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99f0e28b_c8a81a25",
+        "filename": "cast/common/mdns/mdns_random_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-28T22:26:48Z",
+      "side": 1,
+      "message": "Maybe loop N times in all these tests, to reduce the possibility of false positives? Not sure if N\u003d10 is enough, or N\u003d100, but not N\u003d1e6. :)",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "be858550e7082d22f0ea8b979ccc4cabe77e2ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
