@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff796112_a7c4052c",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-28T23:03:04Z",
+      "side": 1,
+      "message": "I think this one belongs to DataChunkSpan, but I don\u0027t feel strongly about this",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "635b63139a58d3119b92229f45f4ba5bda81036e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a48d63e3_22316405",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-28T23:03:04Z",
+      "side": 1,
+      "message": "[potentially corrupt]",
+      "range": {
+        "startLine": 40,
+        "startChar": 23,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "635b63139a58d3119b92229f45f4ba5bda81036e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea8de45_f80a2dcb",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-28T23:03:04Z",
+      "side": 1,
+      "message": "Split into two independent check and log statements, so it\u0027s immediately clear if it\u0027s packet ID \u003c-\u003e frame ID mismatch or packet count mismatch.\nPacket ID \u003c-\u003e Frame ID check can be common for both branches of the if statement.",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 65
+      },
+      "revId": "635b63139a58d3119b92229f45f4ba5bda81036e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "488848d2_2cada96c",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-28T23:03:04Z",
+      "side": 1,
+      "message": "Do you want to make sure that nacks is empty? Or intentionally not clearing the collection here?",
+      "range": {
+        "startLine": 99,
+        "startChar": 3,
+        "endLine": 99,
+        "endChar": 34
+      },
+      "revId": "635b63139a58d3119b92229f45f4ba5bda81036e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f93fa9_862c5279",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-28T23:03:04Z",
+      "side": 1,
+      "message": "size_t and no static_cast?",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 10
+      },
+      "revId": "635b63139a58d3119b92229f45f4ba5bda81036e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b5ab9c0_cd13dcb2",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-28T23:03:04Z",
+      "side": 1,
+      "message": "emplace_back?",
+      "range": {
+        "startLine": 114,
+        "startChar": 13,
+        "endLine": 114,
+        "endChar": 22
+      },
+      "revId": "635b63139a58d3119b92229f45f4ba5bda81036e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
