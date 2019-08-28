@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9388be69_87c78d92",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-28T17:15:59Z",
+      "side": 1,
+      "message": "You\u0027re declaring a TaskRunnerDeleter operator, but also have a public destructor.\nThe dtor needs to be protected so callers don\u0027t attempt to delete through it.",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8355f38e_5ba8ff18",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-28T17:15:59Z",
+      "side": 1,
+      "message": "Why isn\u0027t the thread passed into the NetworkReader ctor?",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f28a6dc_c72e9bcc",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-28T17:15:59Z",
+      "side": 1,
+      "message": "This doesn\u0027t appear to collaborate with objects other than |reader|.\nCan this just be done in the dtor implementation (avoiding the need for a Deleter)?",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "663cd8ed_4ff44041",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-28T17:15:59Z",
+      "side": 1,
+      "message": "Is it necessary to join with the reader thread?  We want to avoid hangs.\n\nNormally the reader will only be deleted on process shutdown, unless we want to go the direction of dynamically creating/destroying the reader based on the existence and status of platform sockets.  But I that is a bigger design change.",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caa56794_3a36766c",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-28T17:15:59Z",
+      "side": 1,
+      "message": "Same comment here.",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "654b03a1_4a55e208",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-28T17:15:59Z",
+      "side": 1,
+      "message": "Similar comment as for the NetworkReader.  This only calls APIs on the task runner itself, so it seems like this could be implemented in the TaskRunnerImpl dtor.",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3cb9016_a75c0764",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-28T17:15:59Z",
+      "side": 1,
+      "message": "Can you elaborate on this comment?  This is actually the thread that runs tasks?",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
