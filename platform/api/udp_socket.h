@@ -12,7 +12,7 @@
 #include <mutex>
 
 #include "platform/api/network_interface.h"
-#include "platform/api/udp_read_callback.h"
+#include "platform/api/udp_packet.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 #include "platform/base/macros.h"
@@ -181,6 +181,8 @@ class UdpSocket {
 
   // Task runner to use for queuing client_ callbacks.
   TaskRunner* const task_runner_;
+
+  friend class MockUdpSocket;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
 };
