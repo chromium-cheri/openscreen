@@ -106,6 +106,24 @@ class Error {
     // The pathlen constraint of the root certificate was exceeded.
     kErrCertsPathlen,
 
+    // Cast authentication errors.
+    kPeerCertEmpty,
+    kWrongPayloadType,
+    kNoPayload,
+    kPayloadParsingFailed,
+    kMessageError,
+    kNoResponse,
+    kFingerprintNotFound,
+    kCertNotSignedByTrustedCa,
+    kCannotExtractPublicKey,
+    kSignedBlobsMismatch,
+    kTlsCertValidityPeriodTooLong,
+    kTlsCertValidStartDateInFuture,
+    kTlsCertExpired,
+    kSenderNonceMismatch,
+    kDigestUnsupported,
+    kSignatureEmpty,
+
     // Generic errors.
     kUnknownError,
     kNotImplemented,
