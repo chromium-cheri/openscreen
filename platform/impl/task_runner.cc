@@ -7,6 +7,7 @@
 #include <thread>
 
 #include "platform/api/logging.h"
+#include "platform/api/time.h"
 
 namespace openscreen {
 namespace platform {
@@ -20,6 +21,23 @@ TaskRunnerImpl::TaskRunnerImpl(platform::ClockNowFunctionPtr now_function,
       waiter_timeout_(waiter_timeout) {}
 
 TaskRunnerImpl::~TaskRunnerImpl() = default;
+
+void TaskRunnerDeleter::operator()(TaskRunner* task_runner) {
+  TaskRunnerImpl* impl = static_cast<TaskRunnerImpl*>(task_runner);
+  impl->RequestStopSoon();
+  if (impl->thread_.get()) {
+    impl->thread_->join();
+  }
+  delete task_runner;
+}
+
+// static
+TaskRunnerUniquePtr TaskRunner::Create() {
+  TaskRunnerImpl* task_runner = new TaskRunnerImpl(Clock::now);
+  task_runner->thread_ = std::make_unique<std::thread>(
+      [task_runner]() { task_runner->RunUntilStopped(); });
+  return TaskRunnerUniquePtr(task_runner);
+}
 
 void TaskRunnerImpl::PostPackagedTask(Task task) {
   std::lock_guard<std::mutex> lock(task_mutex_);

@@ -7,6 +7,7 @@
 
 #include <map>
 #include <mutex>  // NOLINT
+#include <thread>
 
 #include "platform/api/network_runner.h"
 #include "platform/api/network_waiter.h"
@@ -16,6 +17,16 @@
 
 namespace openscreen {
 namespace platform {
+
+// TODO(rwkeane): Once UdpSocket::LifetimeObserver is replaced, move this and
+// the NetworkReaderUniquePtr definition to platform/api.
+class NetworkReader;
+struct NetworkReaderDeleter {
+  void operator()(NetworkReader* reader);
+};
+
+using NetworkReaderUniquePtr =
+    std::unique_ptr<NetworkReader, NetworkReaderDeleter>;
 
 // This is the class responsible for watching sockets for readable data, then
 // calling the function associated with these sockets once that data is read.
@@ -31,6 +42,9 @@ class NetworkReader : public UdpSocket::LifetimeObserver {
   // duration of this instance's life.
   explicit NetworkReader(TaskRunner* task_runner);
   virtual ~NetworkReader();
+
+  // Creates a new NetworkReader that is already running.
+  static NetworkReaderUniquePtr Create();
 
   // Waits for |socket| to be readable and then posts a task to the currently
   // set TaskRunner to run the provided |callback|.
@@ -97,6 +111,11 @@ class NetworkReader : public UdpSocket::LifetimeObserver {
 
   // Blocks deletion of sockets until they are no longer being watched.
   std::condition_variable socket_deletion_block_;
+
+  // Thread used when a NetworkReader is created via the Create() method.
+  std::unique_ptr<std::thread> thread_;
+
+  friend struct NetworkReaderDeleter;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(NetworkReader);
 };

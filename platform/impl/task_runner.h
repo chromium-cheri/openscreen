@@ -10,6 +10,7 @@
 #include <map>
 #include <memory>
 #include <mutex>  // NOLINT
+#include <thread>
 #include <utility>
 #include <vector>
 
@@ -54,6 +55,9 @@ class TaskRunnerImpl final : public TaskRunner {
 
   // TaskRunner overrides
   ~TaskRunnerImpl() final;
+
+  // Creates a new TaskRunner that is already running.
+
   void PostPackagedTask(Task task) final;
   void PostPackagedTaskWithDelay(Task task, Clock::duration delay) final;
 
@@ -151,6 +155,12 @@ class TaskRunnerImpl final : public TaskRunner {
   std::vector<TaskWithMetadata> running_tasks_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TaskRunnerImpl);
+
+  // Thread to be used by the creation method.
+  std::unique_ptr<std::thread> thread_;
+
+  friend struct TaskRunnerDeleter;
+  friend class TaskRunner;
 };
 }  // namespace platform
 }  // namespace openscreen

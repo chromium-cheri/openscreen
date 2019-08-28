@@ -13,6 +13,15 @@
 namespace openscreen {
 namespace platform {
 
+class TaskRunner;
+
+// Platform-specific deleter for a Task Runner
+struct TaskRunnerDeleter {
+  void operator()(TaskRunner* task_runner);
+};
+
+using TaskRunnerUniquePtr = std::unique_ptr<TaskRunner, TaskRunnerDeleter>;
+
 // A thread-safe API surface that allows for posting tasks. The underlying
 // implementation may be single or multi-threaded, and all complication should
 // be handled by the implementation class. It is the expectation of this API
@@ -25,6 +34,9 @@ class TaskRunner {
   using Task = std::packaged_task<void() noexcept>;
 
   virtual ~TaskRunner() = default;
+
+  // Creates a new TaskRunner.
+  static TaskRunnerUniquePtr Create();
 
   // Takes any callable target (function, lambda-expression, std::bind result,
   // etc.) that should be run at the first convenient time.
