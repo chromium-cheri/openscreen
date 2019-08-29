@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3e6dada4_81bd83d2",
+        "filename": "cast/common/mdns/mdns_random.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T17:39:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7da8059b_95ca4385",
+      "revId": "be858550e7082d22f0ea8b979ccc4cabe77e2ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5308547_49d50278",
         "filename": "cast/common/mdns/mdns_random.h",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "d61d078f_c2a9a17c",
+        "filename": "cast/common/mdns/mdns_random.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T17:39:28Z",
+      "side": 1,
+      "message": "I\u0027ve tried using std::chrono::milliseconds at first, but it turned out quite ugly as \u003crandom\u003e doesn\u0027t understand \u003cchrono\u003e. Added Ms and Percent suffixes to the names of the variables. Ms is megaseconds, though, but who am I to argue with a naming convention.",
+      "parentUuid": "e5308547_49d50278",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 52
+      },
+      "revId": "be858550e7082d22f0ea8b979ccc4cabe77e2ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99f0e28b_c8a81a25",
         "filename": "cast/common/mdns/mdns_random_unittest.cc",
         "patchSetId": 1
@@ -62,6 +104,30 @@
       "revId": "be858550e7082d22f0ea8b979ccc4cabe77e2ff3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa236bb1_dcee1e35",
+        "filename": "cast/common/mdns/mdns_random_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T17:39:28Z",
+      "side": 1,
+      "message": "Doing a 100 iterations every time a test runs.\nI\u0027ve looked into doing something more fancy here, but it all essentially boils down to testing RNG instead of our code.",
+      "parentUuid": "99f0e28b_c8a81a25",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "be858550e7082d22f0ea8b979ccc4cabe77e2ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
