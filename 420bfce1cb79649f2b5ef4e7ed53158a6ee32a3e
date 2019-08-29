@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "8a76aa7b_eeee23e7",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-29T18:02:42Z",
+      "side": 1,
+      "message": "I replied elsewhere.",
+      "parentUuid": "717a7cdf_f9eeb8c4",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f28a6dc_c72e9bcc",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 2
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "It\u0027s needed in NetworkReader because otherwise the code crashes at destruction time. The std::thread documentation says that if the thread is destroyed while still joinable, it calls terminate, which calls abort, which returns a platform-dependent unsuccessful termination error code to the host environment. The hang here should be no longer than 50 ms (max duration of WaitAndRead)\n\nIf crashing isn\u0027t a concern, I can remove the thread_-\u003ejoin(). Would you like the same for the TaskRunner?\n\nI really like the idea of dynamically creating/destroying the network reader though, as a replacement for the UdpSocket::LifetimeObserver approach! Do you think this is worth doing at this point (as a follow-up CL) or would you rather I add it to the backlog/add a todo + file a bug?",
       "parentUuid": "663cd8ed_4ff44041",
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "886345d4_b8df1880",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-29T18:02:42Z",
+      "side": 1,
+      "message": "You could empty the task queue, detach the thread and then destroy it.\n\nI still would like to replace the lifetime observer mechanism to manage the NetworkReader.  I\u0027ll add an item to the task sheet.",
+      "parentUuid": "cb5c96f0_2bbed939",
       "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -318,6 +354,30 @@
       "side": 1,
       "message": "This (and the NetworkReader ctor) is currently used for UTs. I could either make this protected and all the current final methods overrides (so I can make a child class to expose the constructor for UTs) or leave this public - what is your preference?",
       "parentUuid": "7eb89ce1_291a4a9f",
+      "range": {
+        "startLine": 51,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 25
+      },
+      "revId": "420bfce1cb79649f2b5ef4e7ed53158a6ee32a3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08c7a61d_880af2b4",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-08-29T18:02:42Z",
+      "side": 1,
+      "message": "Recommend Create() for normal usage and CreateForTest() for unit tests (making the ctor protected or private).\n\nOr just skip the Create() API, leaving the public tor, and have a public RunWithThread(std::thread\u0026\u0026) method to be called outside of unit tests.  That seems simplest to me.",
+      "parentUuid": "95255c12_482830ab",
       "range": {
         "startLine": 51,
         "startChar": 11,
