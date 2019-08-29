@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "db331f41_dc302dde",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T00:32:07Z",
+      "side": 1,
+      "message": "Updated MockUpdSocket to remove this dependency. friend declarations have now all been removed.",
+      "parentUuid": "6500c674_fe79f0b7",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 29
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7d73df2_82996190",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 5
@@ -356,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "bd403ca9_0d41bcee",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T00:32:07Z",
+      "side": 1,
+      "message": "Updating to vector. We do still need the copy, though - the NetworkReader\u0027s list might get modified while it\u0027s being used in the AwaitSocketsReadable method",
+      "parentUuid": "96e8c415_e673a42f",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b54583_108d062c",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 5
@@ -415,6 +463,30 @@
       "side": 1,
       "message": "Can we always lock? Why would we not do locking/notifications when testing? Seems this would be something we want to test. :)\n\n...and maybe we shouldn\u0027t be mocking low-level platform code (i.e., use real sockets to test this)?",
       "parentUuid": "3a874dfc_40fb8a2d",
+      "range": {
+        "startLine": 84,
+        "startChar": 48,
+        "endLine": 84,
+        "endChar": 64
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dcbfce5_48dee471",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T00:32:07Z",
+      "side": 1,
+      "message": "The lock here is a std::condition_variable. Normally, it gets cleared every ~100 ms when the NetworkReader\u0027s Wait loop runs - it\u0027s only here to ensure that the socket doesn\u0027t get destroyed while it\u0027s currently being used by the NetworkReader. It doesn\u0027t actually affect the functionality of the socket or NetworkRunner beyond ensuring safe socket deletion - whether we use a real socket or a mock doesn\u0027t actually matter for this method\n\nIf you think it\u0027s important to add a UT to cover that this actually blocks, I can work on that, but it would involve making the UT\u0027s fake NetworkReader a friend of the real NetworkReader so that it can access the private condition_variable and clear it - and you\u0027ve said elsewhere in this CL that you don\u0027t like the pattern of friending a test class\n\nLet me know your thoughts. I can make this change as a follow up CL, though I\u0027d prefer not to block this CL on that change unless you think its important to do so",
+      "parentUuid": "b4a17dea_13a7992a",
       "range": {
         "startLine": 84,
         "startChar": 48,
