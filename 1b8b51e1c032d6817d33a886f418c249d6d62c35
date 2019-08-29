@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2cc9884a_e030cd33",
+        "filename": "streaming/cast/environment.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T00:11:57Z",
+      "side": 1,
+      "message": "Yeah, this code was designed before we had finalized that API. So, I had taken a stab at the old code structure where we were going to make an API call to get \"pushed reads.\"\n\ntl;dr: I\u0027ll let future Yuri fix this. :)\n\nCurrent thoughts on fixing this: Instead of passing the UdpSocket to the Environment ctor, I might instead pass the local IpEndpoint in the ctor and have Environment create/bind/own the UdpSocket. That way, Environment itself can be a UdpSocket::Client and have its OnRead() override called, to pass packets on to the PacketConsumer.\n\nThis might mean the enable_reading() and disable_reading() you had should be put back in. It would be good to actually start/stop/free the side threads/memory/resources whenever we know we won\u0027t look at any inbound packets.\n\nI\u0027ll have to kajigger the code and figure out something that fits...",
+      "parentUuid": "07c0e580_62ba8d44",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "1b8b51e1c032d6817d33a886f418c249d6d62c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f87bcd74_f719c61b",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2ecf67c3_65ddb422",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T00:11:57Z",
+      "side": 1,
+      "message": "\u003e what about absl::optional\u003cuint32_t\u003e\n\nMy personal style is to not overuse constructs when something simpler and just as readable is available. We use \"int\" all over OSP code as a return value many other situations like this.\n\n\u003e or ErrorOr\u003cuint32_t\u003e?\n\nThere are no possible errors. For better or worse, Cast Streaming will just ignore all corrupted inputs and keep going forever, waiting for the good stuff. If there are irrecoverable protocol bugs, things will just live lock (but can still be gracefully shut down). It\u0027s up to external watchdogs to detect higher-level problems like the network going down, or OOM, or decode failures (which is why we provide a RequestKeyFrame() method).",
+      "parentUuid": "f87bcd74_f719c61b",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 40
+      },
+      "revId": "1b8b51e1c032d6817d33a886f418c249d6d62c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab23cdb6_40bf7b5d",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "1b8b51e1c032d6817d33a886f418c249d6d62c35",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b5b912_cdf6a0fd",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T00:11:57Z",
+      "side": 1,
+      "message": "\u003e platform::Clock::duration?\n\nHmm...To declare a constant of 5 milliseconds, I could also have written this:\n\n  static constexpr platform::Clock::duration kDefaultPlayerProcessingTime \u003d\n      std::chrono::milliseconds(5);\n\nThe only differences are: 1) Where is the type conversion happening? 2) Readability.\n\n\u003e (and same comment in rest of CL when std::chrono is used)\n\nIMHO, we shouldn\u0027t be trying to use one and only one duration type. It\u0027s not an inconsistency issue. We want to label our numbers with units of measure, and different units of measure are better in different contexts. platform::Clock::duration is good when \"number of ticks of the local Clock\" is what\u0027s most important (e.g., for scheduling when tasks run, or doing math an platform::Clock::time_points).",
+      "parentUuid": "ab23cdb6_40bf7b5d",
+      "range": {
+        "startLine": 155,
+        "startChar": 19,
+        "endLine": 155,
+        "endChar": 44
+      },
+      "revId": "1b8b51e1c032d6817d33a886f418c249d6d62c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
