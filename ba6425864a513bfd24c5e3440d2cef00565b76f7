@@ -147,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "d93a1776_d1d8c16d",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-29T21:25:40Z",
+      "side": 1,
+      "message": "The purpose of this CL is to have some common code somewhere that knows how to stop the TaskRunner and wait until it\u0027s done, which was duplicated twice in a different CL.\n\nstd::unique_ptr\u003cTaskRunnerImpl\u003e won\u0027t do that unless we have it in the destructor, which is what might be surprising.",
+      "parentUuid": "8abebe45_079037a6",
+      "revId": "ba6425864a513bfd24c5e3440d2cef00565b76f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c280f241_9ac0cca8",
         "filename": "platform/impl/task_runner.cc",
         "patchSetId": 3
@@ -176,6 +194,24 @@
       "side": 1,
       "message": "Calling code in OSP shouldn\u0027t care about the concrete type of the TaskRunner.\n\nIf we want to allow the embedder to work with different platform implementations, then it makes sense to have an abstract Create() method.\n\nBut if Chrome is always going to create a ChromeTaskRunner and standalone is always going to create a TaskRunnerImpl, then each implementation can just have its own Create() method.",
       "parentUuid": "c280f241_9ac0cca8",
+      "revId": "ba6425864a513bfd24c5e3440d2cef00565b76f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "514c5879_4c9fe55e",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-29T21:25:40Z",
+      "side": 1,
+      "message": "I\u0027m fine with each impl having a Create method.  If we want platforms to choose instead of callers, I suppose we could have a big platform::Factory that has a CreateTaskRunner method.",
+      "parentUuid": "86e10cbc_fd82566f",
       "revId": "ba6425864a513bfd24c5e3440d2cef00565b76f7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
