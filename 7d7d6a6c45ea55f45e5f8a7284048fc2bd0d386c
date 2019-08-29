@@ -404,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "311ed694_96c8d784",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T05:50:13Z",
+      "side": 1,
+      "message": "sgtm. The copy is totally reasonable.",
+      "parentUuid": "bd403ca9_0d41bcee",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51b54583_108d062c",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 5
@@ -487,6 +511,30 @@
       "side": 1,
       "message": "The lock here is a std::condition_variable. Normally, it gets cleared every ~100 ms when the NetworkReader\u0027s Wait loop runs - it\u0027s only here to ensure that the socket doesn\u0027t get destroyed while it\u0027s currently being used by the NetworkReader. It doesn\u0027t actually affect the functionality of the socket or NetworkRunner beyond ensuring safe socket deletion - whether we use a real socket or a mock doesn\u0027t actually matter for this method\n\nIf you think it\u0027s important to add a UT to cover that this actually blocks, I can work on that, but it would involve making the UT\u0027s fake NetworkReader a friend of the real NetworkReader so that it can access the private condition_variable and clear it - and you\u0027ve said elsewhere in this CL that you don\u0027t like the pattern of friending a test class\n\nLet me know your thoughts. I can make this change as a follow up CL, though I\u0027d prefer not to block this CL on that change unless you think its important to do so",
       "parentUuid": "b4a17dea_13a7992a",
+      "range": {
+        "startLine": 84,
+        "startChar": 48,
+        "endLine": 84,
+        "endChar": 64
+      },
+      "revId": "7d7d6a6c45ea55f45e5f8a7284048fc2bd0d386c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ee3efa_81be170f",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T05:50:13Z",
+      "side": 1,
+      "message": "Hmmm...Yeah, I see your point about us getting into huge scope creep to rework all the other stuff around this one code point. That\u0027d be ridiculous. So, I\u0027m fine with it.\n\nOkay, if this bool is only set to false for testing, then we let\u0027s add the \"for testing\" in its name (Chromium style) so that it\u0027s self-documenting for the benefit of future code readers. Something like \"enable_wait_when_not_testing\" or invert the logic and \"disable_wait_for_testing\".\n\n\u003e ...that you don\u0027t like the pattern of friending a test class\n\nOh! I\u0027m not against that particular pattern. It was more about the friending of an impl-related class in the public (non-impl) interface class that was concerning me. Just trying to keep the impl out of the public interface if at all possible. :)",
+      "parentUuid": "0dcbfce5_48dee471",
       "range": {
         "startLine": 84,
         "startChar": 48,
