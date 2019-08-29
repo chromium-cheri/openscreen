@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "08949770_ca7b3346",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-29T19:16:59Z",
+      "side": 1,
+      "message": "See my idea below for TaskRunnerScope or TaskRunnerThread).  I think that\u0027s the kind of thing I\u0027d like to see here as well (NetworkReaderScope or NetworkReaderThread).",
+      "revId": "ba6425864a513bfd24c5e3440d2cef00565b76f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58a7ff08_8684030f",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 3
@@ -95,6 +112,40 @@
     },
     {
       "key": {
+        "uuid": "ce9bfa0e_7c94e99a",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-29T19:16:59Z",
+      "side": 1,
+      "message": "I wonder if this would be too surprising to someone (that a destructor would be block indefinitely).  Could we instead have a something like a TaskRunnerScope object that owns a TaskRunner and does this when it\u0027s destroyed?  Then it\u0027s an opt-in explicit thing.",
+      "revId": "ba6425864a513bfd24c5e3440d2cef00565b76f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c280f241_9ac0cca8",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-29T19:16:59Z",
+      "side": 1,
+      "message": "I don\u0027t understand why the Create() is on TaskRunner instead of TaskRunnerImpl.  Shouldn\u0027t the caller know that it\u0027s going to get a TaskRunnerImpl?  I\u0027d prefer if this were on the TaskRunnerScope think I mentioned earlier so you could so something like this:\n\nauto task_runner_scope \u003d TaskRunnerScope(std::make_unique\u003cTaskRunnerImpl\u003e(Clock::now));\n\n\nMaybe TaskRunnerThread would be a better name.  But I think that\u0027s the kind of thing I was looking for.",
+      "revId": "ba6425864a513bfd24c5e3440d2cef00565b76f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8467f66c_77397d5f",
         "filename": "platform/impl/task_runner.cc",
         "patchSetId": 3
@@ -115,6 +166,23 @@
       "revId": "ba6425864a513bfd24c5e3440d2cef00565b76f7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e893d3d6_2e79192d",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-29T19:16:59Z",
+      "side": 1,
+      "message": "Why does this have to be in TaskRunner?  See below on TaskRunnerScope",
+      "revId": "ba6425864a513bfd24c5e3440d2cef00565b76f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
