@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db17543d_4378bce8",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "How does OnError get called in comparison to OnRead(Error) ?",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceee5935_24c22091",
+        "filename": "osp/impl/internal_services.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "Nit: useful comment? just rephrasing the constructor. What if we add another arg? I vote delete line 68.",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e6e39da_2244985a",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "OnRead implies to me that a read happened. Why call it with an Error if we just quit anyway? Semantics seem odd, I would probably prefer separate OnRead and OnError methods.",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf2d659_1fa1f9d9",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "Outside the scope of this patch, but what are our intentions for using scoped_refptr? What directories have it/should have it?",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daa8c79d_5488e58a",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "Nit: is this useful? Basically says task runner used to run tasks.",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c684bab9_060aab39",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "We don\u0027t use a TaskRunner now, right?",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbbe3bb5_990fada8",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c541d3b_6b04d57c",
+        "filename": "platform/impl/udp_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "Maybe include where the read goes? it\u0027s not obvious from this that we call OnRead. IDK.",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af181681_9b3477c0",
+        "filename": "platform/test/mock_udp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-08-29T17:08:46Z",
+      "side": 1,
+      "message": "Do we actually do anything with client_ here? I don\u0027t see it used.",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
