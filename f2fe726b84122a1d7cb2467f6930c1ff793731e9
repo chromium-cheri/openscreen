@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98448c68_dadd3405",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "GetCertValidTimeRange?",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b79686a_155204fd",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Would this work on other platforms (e.g. Windows)?\nIt would be good to have all platform specific code under platform, so we don\u0027t have to update many files in case a new platform is added (by us or embedder)",
+      "range": {
+        "startLine": 19,
+        "startChar": 12,
+        "endLine": 19,
+        "endChar": 34
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cff85d41_9d34969c",
+        "filename": "cast/common/certificate/test_helpers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Should be a class if it has a destructor",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82754201_231f10f5",
+        "filename": "cast/common/certificate/test_helpers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "I think in a simple case like\n{\n  SignatureTestData data;\n}\nthe destructor will try to free some random memory as members will have uninitialized fields.\nAm I missing where the initialization happens? It looks to be external to the struct.",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38902bd7_2707b9d6",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "DateTimeFromSeconds?",
+      "range": {
+        "startLine": 50,
+        "startChar": 5,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "199e9c50_3adf7235",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Maybe use data from util/std_util.h?",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 57
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0967cb0_25818adf",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "How can it fail if it\u0027s not required? Why did we run a revocation check if it\u0027s not required?",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e5138b6_baff55b6",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Is there a case when we don\u0027t want to do this?",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 32
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a9a5892_7ff3a3f7",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Why would we not want to enforce this?",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 31
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8814f746_5ad640a1",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Reflect in the name of the method that it verifies time range",
+      "range": {
+        "startLine": 189,
+        "startChar": 18,
+        "endLine": 189,
+        "endChar": 38
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f01da06_624f452b",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Deserializing?",
+      "range": {
+        "startLine": 254,
+        "startChar": 30,
+        "endLine": 254,
+        "endChar": 41
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cf24806_23086b8b",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 260,
+        "startChar": 30,
+        "endLine": 260,
+        "endChar": 41
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd7e4692_c73d4d10",
+        "filename": "cast/sender/channel/cast_auth_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "I personally think this makes code harder to read, since when I see AuthResult I need to figure out what it is.\n\nMaybe\nusing ErrorOr \u003d openscreen::ErrorOr;\nusing CastDeviceCertPolicy \u003d certificate::CastDeviceCertPolicy;\nand then use ErrorOr\u003cCastDeviceCertPolicy\u003e?",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed2cf25_bdd16a56",
+        "filename": "platform/base/error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-08-29T21:14:01Z",
+      "side": 1,
+      "message": "Should we prefix these with Cast V2?",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 20
+      },
+      "revId": "f2fe726b84122a1d7cb2467f6930c1ff793731e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
