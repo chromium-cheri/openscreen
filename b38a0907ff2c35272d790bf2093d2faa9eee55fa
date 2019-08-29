@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b47313bf_b18b81c6",
+        "filename": "platform/base/macros.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-29T20:21:54Z",
+      "side": 1,
+      "message": "I think it\u0027s the same error:\n\nnote: ‘openscreen::ServiceInfo\u0026 openscreen::ServiceInfo::operator\u003d(const openscreen::ServiceInfo\u0026) noexcept’ is implicitly deleted because its exception-specification does not match the implicit exception-specification ‘’\n   ServiceInfo\u0026 operator\u003d(const ServiceInfo\u0026) MAYBE_NOEXCEPT \u003d default",
+      "parentUuid": "2445c683_74d9e4b9",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "b38a0907ff2c35272d790bf2093d2faa9eee55fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47f940ba_060be954",
         "filename": "platform/impl/network_interface_linux.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "b38a0907ff2c35272d790bf2093d2faa9eee55fa",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b42b4aaa_ffcf2dc3",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-08-29T20:21:54Z",
+      "side": 1,
+      "message": "Good point, we should probably also preemptively null-terminate in case of hitting the buffer limit.",
+      "parentUuid": "47f940ba_060be954",
+      "revId": "b38a0907ff2c35272d790bf2093d2faa9eee55fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
