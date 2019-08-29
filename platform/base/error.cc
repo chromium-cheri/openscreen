@@ -188,6 +188,24 @@ std::ostream& operator<<(std::ostream& os, const Error::Code& code) {
       return os << "Failure: kDigestUnsupported";
     case Error::Code::kSignatureEmpty:
       return os << "Failure: kSignatureEmpty";
+    case Error::Code::kChannelNotOpen:
+      return os << "Failure: kChannelNotOpen";
+    case Error::Code::kAuthenticationError:
+      return os << "Failure: kAuthenticationError";
+    case Error::Code::kConnectError:
+      return os << "Failure: kConnectError";
+    case Error::Code::kCastSocketError:
+      return os << "Failure: kCastSocketError";
+    case Error::Code::kTransportError:
+      return os << "Failure: kTransportError";
+    case Error::Code::kInvalidMessage:
+      return os << "Failure: kInvalidMessage";
+    case Error::Code::kInvalidChannelId:
+      return os << "Failure: kInvalidChannelId";
+    case Error::Code::kConnectTimeout:
+      return os << "Failure: kConnectTimeout";
+    case Error::Code::kPingTimeout:
+      return os << "Failure: kPingTimeout";
   }
 
   // Unused 'return' to get around failure on GCC.

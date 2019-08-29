@@ -124,6 +124,17 @@ class Error {
     kDigestUnsupported,
     kSignatureEmpty,
 
+    // Cast channel errors.
+    kChannelNotOpen,
+    kAuthenticationError,
+    kConnectError,
+    kCastSocketError,
+    kTransportError,
+    kInvalidMessage,
+    kInvalidChannelId,
+    kConnectTimeout,
+    kPingTimeout,
+
     // Generic errors.
     kUnknownError,
     kNotImplemented,
