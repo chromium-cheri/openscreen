@@ -59,6 +59,11 @@ if [[ "$invoker" != 'python' ]]; then
   echo "This shouldn't be invoked directly, please use \`git cl presubmit\`."
 fi
 
+# TODO(jophba): check in a better fix for the build bots.
+if [[ ! -e ./clang-format ]]; then
+  tools/install-build-tools.sh
+fi
+
 for f in $(git diff --name-only --diff-filter=d origin/master); do
   # Skip third party files, except our custom BUILD.gns
   if [[ $f =~ third_party/[^\/]*/src ]]; then
