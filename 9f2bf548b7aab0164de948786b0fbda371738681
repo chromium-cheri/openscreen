@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3fada996_3a6fa4e6",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T00:41:17Z",
+      "side": 1,
+      "message": "It can be (e.g., duplicate packets received), and that\u0027s acceptable and normal. The statement just after this will clamp it to the [0,255] range.\n\nAdded code comment.",
+      "parentUuid": "5be9633d_2c8d4000",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 43
+      },
+      "revId": "9f2bf548b7aab0164de948786b0fbda371738681",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7645c4a_939c488d",
         "filename": "streaming/cast/rtcp_common.cc",
         "patchSetId": 1
@@ -139,6 +163,30 @@
       "revId": "9f2bf548b7aab0164de948786b0fbda371738681",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d2ad662_a4723672",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T00:41:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7645c4a_939c488d",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 26
+      },
+      "revId": "9f2bf548b7aab0164de948786b0fbda371738681",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -165,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1412f515_18db74ac",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T00:41:17Z",
+      "side": 1,
+      "message": "When writing std::max(num_lost, 0), the compiler can\u0027t deduce the template arg because the literal \"0\" isn\u0027t an int64_t.\n\nI could have equivalently written this to fix it: std::max(num_lost, int64_t{0})",
+      "parentUuid": "3d30332d_ff077154",
+      "range": {
+        "startLine": 170,
+        "startChar": 24,
+        "endLine": 170,
+        "endChar": 31
+      },
+      "revId": "9f2bf548b7aab0164de948786b0fbda371738681",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83534354_bfdcffaa",
         "filename": "streaming/cast/rtcp_common.cc",
         "patchSetId": 1
@@ -188,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "94f09a89_2e021fc5",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T00:41:17Z",
+      "side": 1,
+      "message": "Ack. There\u0027s no saturate_cast\u003cuint24_t\u003e.",
+      "parentUuid": "83534354_bfdcffaa",
+      "range": {
+        "startLine": 169,
+        "startChar": 2,
+        "endLine": 172,
+        "endChar": 1
+      },
+      "revId": "9f2bf548b7aab0164de948786b0fbda371738681",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "543adbb2_0b91ec86",
         "filename": "streaming/cast/rtcp_common.cc",
         "patchSetId": 1
@@ -208,6 +304,30 @@
       "revId": "9f2bf548b7aab0164de948786b0fbda371738681",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c72d4882_b3cbc90e",
+        "filename": "streaming/cast/rtcp_common.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-29T00:41:17Z",
+      "side": 1,
+      "message": "Hmm...\"rebase\" sounds like shifting/offsetting to me. It really is the number of ticks per second (a.k.a. timebase) that is being converted here.\n\nHow about \"local_clock_delay\" (and then I name the other thing \"reported_delay\")?",
+      "parentUuid": "543adbb2_0b91ec86",
+      "range": {
+        "startLine": 175,
+        "startChar": 30,
+        "endLine": 175,
+        "endChar": 53
+      },
+      "revId": "9f2bf548b7aab0164de948786b0fbda371738681",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
