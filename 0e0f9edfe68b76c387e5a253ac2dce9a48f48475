@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "16bc914c_c3f17ebd",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "OnError is called when configuration methods fail, while OnRead(error) is called for errors when reading - It\u0027s expected that after OnError is called, the socket will end up in an unhealthy state (and future method calls will all return an error)",
+      "parentUuid": "db17543d_4378bce8",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ceee5935_24c22091",
         "filename": "osp/impl/internal_services.h",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d712df2_867d06b6",
+        "filename": "osp/impl/internal_services.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceee5935_24c22091",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "41e8aee1_cd9d904e",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "OnError is used only for Configuration methods, not reads, which are expected to put the socket into an unhealthy state. We may later choose to handle socket read errors differently, but for this change I am just attempting to maintain consistency with existing code (where errors are also not handled and are instead ignored at the NetworkReader layer)\n\nThis can be discussed later, but updating the API is outside the scope of this patch",
+      "parentUuid": "8e6e39da_2244985a",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "daf2d659_1fa1f9d9",
         "filename": "osp/impl/quic/quic_connection_factory_impl.h",
         "patchSetId": 7
@@ -64,6 +118,24 @@
       "writtenOn": "2019-08-29T17:08:46Z",
       "side": 1,
       "message": "Outside the scope of this patch, but what are our intentions for using scoped_refptr? What directories have it/should have it?",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6723d610_9ad7ab00",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "I\u0027m actually not sure at all - I thought we were avoiding it entirely. What are everyone else\u0027s thoughts?",
+      "parentUuid": "daf2d659_1fa1f9d9",
       "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -84,6 +156,24 @@
       "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51feb9ee_f4ebff2f",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "daa8c79d_5488e58a",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "66bac53b_c280eb9f",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "Good catch. Done",
+      "parentUuid": "28be0183_8e7b8c1e",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c684bab9_060aab39",
         "filename": "platform/impl/network_reader.h",
         "patchSetId": 7
@@ -124,6 +238,24 @@
       "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14668237_056e6ad9",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "Good catch. Comment updated.",
+      "parentUuid": "c684bab9_060aab39",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "7233fbb2_20f004ca",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "If it\u0027s declared const, we can\u0027t move it on 422",
+      "parentUuid": "fbbe3bb5_990fada8",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c541d3b_6b04d57c",
         "filename": "platform/impl/udp_socket_posix.h",
         "patchSetId": 7
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "2cce7615_3e4aa624",
+        "filename": "platform/impl/udp_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c541d3b_6b04d57c",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af181681_9b3477c0",
         "filename": "platform/test/mock_udp_socket.h",
         "patchSetId": 7
@@ -175,6 +343,24 @@
       "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f97b629_10f64f15",
+        "filename": "platform/test/mock_udp_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-08-29T20:22:57Z",
+      "side": 1,
+      "message": "client_ is used in MockUdpSocket::SendMessage and MockUdpSocket::ProcessConfigurationMethod. It\u0027s added here so that we can remove a friend declaration from UdpSocket",
+      "parentUuid": "af181681_9b3477c0",
+      "revId": "0e0f9edfe68b76c387e5a253ac2dce9a48f48475",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
