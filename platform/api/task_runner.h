@@ -26,6 +26,9 @@ class TaskRunner {
 
   virtual ~TaskRunner() = default;
 
+  // Creates a new TaskRunner.
+  static std::unique_ptr<TaskRunner> Create();
+
   // Takes any callable target (function, lambda-expression, std::bind result,
   // etc.) that should be run at the first convenient time.
   template <typename Functor>

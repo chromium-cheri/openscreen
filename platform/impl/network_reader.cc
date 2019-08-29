@@ -24,7 +24,22 @@ NetworkReader::NetworkReader(TaskRunner* task_runner,
   OSP_CHECK(task_runner_);
 }
 
-NetworkReader::~NetworkReader() = default;
+NetworkReader::~NetworkReader() {
+  RequestStopSoon();
+  if (thread_.get()) {
+    thread_->join();
+  }
+}
+
+// static
+std::unique_ptr<NetworkReader> NetworkReader::Create() {
+  // NOTE: In parallel CL, the TaskRunner parameter is being removed. So don't
+  // worry about it here.
+  std::unique_ptr<NetworkReader> ptr = std::make_unique<NetworkReader>(nullptr);
+  ptr->thread_ = std::make_unique<std::thread>(
+      [reader = ptr.get()]() { reader->RunUntilStopped(); });
+  return ptr;
+}
 
 Error NetworkReader::ReadRepeatedly(UdpSocket* socket, Callback callback) {
   std::lock_guard<std::mutex> lock(mutex_);

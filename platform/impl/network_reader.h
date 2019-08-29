@@ -7,6 +7,7 @@
 
 #include <map>
 #include <mutex>  // NOLINT
+#include <thread>
 
 #include "platform/api/network_runner.h"
 #include "platform/api/network_waiter.h"
@@ -31,6 +32,9 @@ class NetworkReader : public UdpSocket::LifetimeObserver {
   // duration of this instance's life.
   explicit NetworkReader(TaskRunner* task_runner);
   virtual ~NetworkReader();
+
+  // Creates a new NetworkReader that is already running.
+  static std::unique_ptr<NetworkReader> Create();
 
   // Waits for |socket| to be readable and then posts a task to the currently
   // set TaskRunner to run the provided |callback|.
@@ -97,6 +101,12 @@ class NetworkReader : public UdpSocket::LifetimeObserver {
 
   // Blocks deletion of sockets until they are no longer being watched.
   std::condition_variable socket_deletion_block_;
+
+  // Thread used by the NetworkReader to repeatedly call the WaitAndRead(...)
+  // method to wait on data to be recieved by watched sockets.
+  std::unique_ptr<std::thread> thread_;
+
+  friend struct NetworkReaderDeleter;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(NetworkReader);
 };
