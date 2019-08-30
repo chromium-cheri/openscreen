@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7d482d33_780e3db8",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T23:36:19Z",
+      "side": 1,
+      "message": "Oh... I misunderstood. That clears it up.",
+      "parentUuid": "390fe583_20cb0411",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f113e20_ee53abdf",
         "filename": "streaming/cast/frame_collector.cc",
         "patchSetId": 7
@@ -177,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "6d0ec511_3b001b5f",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T23:36:19Z",
+      "side": 1,
+      "message": "Then can you leave a comment like \"// don\u0027t log because this happens too often\"?",
+      "parentUuid": "d7e0874b_3295eaae",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3c2cab3_63f393c6",
         "filename": "streaming/cast/frame_collector.cc",
         "patchSetId": 7
@@ -206,6 +242,24 @@
       "side": 1,
       "message": "Hmm...This is a bit of a personal-style issue: In small internal implementations, I rarely use std::optional with an integer, unless I actually need both the full value range of the integer *and* a \"null\" flag.",
       "parentUuid": "c3c2cab3_63f393c6",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "133b35c8_de7a76d4",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T23:36:19Z",
+      "side": 1,
+      "message": "Yes, it\u0027s perhaps personal style.  I don\u0027t like magic numbers.   It\u0027s much harder to misuse a std::optional.",
+      "parentUuid": "2981a9fd_25de9c41",
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -416,6 +470,24 @@
       "side": 1,
       "message": "IMHO, the naming I used is more-accurate than those suggestions. Perhaps you could explain what\u0027s wrong with my choice?",
       "parentUuid": "5ccfa6db_96d58788",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58263a1b_41dc339f",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T23:36:19Z",
+      "side": 1,
+      "message": "I was hoping it would reference the name of the collected chunks/parts to make it clear there\u0027s a relationship between this member and the previous one.",
+      "parentUuid": "7c8d7556_a87dffbb",
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
