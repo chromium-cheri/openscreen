@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8f8112d_053f5ed3",
+        "filename": "streaming/cast/environment.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Do incoming packets get buffered or dropped when there is no consumer?",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f29a755_4c33df8c",
+        "filename": "streaming/cast/environment.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Since you have to call Resume before ever calling Suspend, would StartIncomingPackets and StopIncomingPackets make more sense or ConsumePackets and DropPackets?",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f351f6ad_88cc0e9a",
+        "filename": "streaming/cast/environment.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Should we have an error return value for things like forgetting to call set_remote_endpoint() and OS-level errors that make it impossible to send?",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8dd3394_acf1e743",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "divides up",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b830b75_cc0b4e2f",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "cast_streaming::Receiver::Consumer ?",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86dfeb5a_69d142df",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Should we give some documentation to the user of the API as to what SSRCs they should pick?  Otherwise they won\u0027t know what to do.",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ae4bc34_457b9308",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Same here with rtp_timebase and initial_target_playout_delay.  How will they know what to use without some more documentation.",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40de8d44_ab946dc6",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "What happens to frames before this is called?  Are they buffered?  Dropped?",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e57cf91_1b67099f",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Do you mean decode, buffer, render?",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "704d2642_d9f0edb4",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Can you make that a name constant?  And would an ErrorOr make sense here?",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5db087e_a4a729c8",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Should there be an Error here for when you pass in too small of a buffer, etc?",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a88fc98d_dac8a6cc",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Fixing SSRCs isn\u0027t *that* bad :).",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3c5e6d7_7d70f698",
+        "filename": "streaming/cast/receiver_packet_router.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:19:10Z",
+      "side": 1,
+      "message": "Should probably point out that packets are demuxed by SSRC and thats\u0027s why the receivers are keyed by them here.",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
