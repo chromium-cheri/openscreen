@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "390fe583_20cb0411",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "I don\u0027t understand: What memory is being leaked here? I think, perhaps, I didn\u0027t write decent code comments around what\u0027s happening here.\n\nI\u0027ve revised the header file comments to make it clear it\u0027s not the std::vector that is becoming owned, but that the contents of it are being taken out of it. The caller still owns the actual std::vector.",
+      "parentUuid": "79f7a39a_78a52fae",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f113e20_ee53abdf",
         "filename": "streaming/cast/frame_collector.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d2a4d66_ea295420",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "It is true that, in the impl I have here, num_missing_packets_ being \"unknown\" is always state-consistent with chunks_ being empty. However, the fact that chunks_ is empty is just an optimization (i.e., memory was being freed after the client was done with the last frame). In other words, |num_missing_packets_| being \"unknown\" is the canonical source of truth in the logic here.",
+      "parentUuid": "4f113e20_ee53abdf",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4883737b_919b9dc7",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Normally, I would. However, I felt this allowed for better placement of the code comment. (There\u0027s just a few too many LOC between here and the top of the overall if-statement, IMHO.)",
+      "parentUuid": "ba49a430_c1286607",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb859140_53a8b64e",
         "filename": "streaming/cast/frame_collector.cc",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "340f2fe7_913455ed",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Whoops! Missed this one. Done.",
+      "parentUuid": "cb859140_53a8b64e",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "d7e0874b_3295eaae",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Not here. This is a very common case: e.g., packet re-transmits from the Sender that turn out not to be needed because an ACK happened while the packets were already in-flight over the network.",
+      "parentUuid": "0018732b_63d06c90",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3c2cab3_63f393c6",
         "filename": "streaming/cast/frame_collector.cc",
         "patchSetId": 7
@@ -101,6 +191,24 @@
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2981a9fd_25de9c41",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Hmm...This is a bit of a personal-style issue: In small internal implementations, I rarely use std::optional with an integer, unless I actually need both the full value range of the integer *and* a \"null\" flag.",
+      "parentUuid": "c3c2cab3_63f393c6",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "e9c7a07c_f0ca7a86",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Style guide says to use lower_case_naming() for inline getters/setters.",
+      "parentUuid": "8fd6300b_da672df1",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d769363_adf8625e",
         "filename": "streaming/cast/frame_collector.h",
         "patchSetId": 7
@@ -135,6 +261,24 @@
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80509f8e_5e7897ec",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d769363_adf8625e",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "bd264d14_574f9e8a",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c517c0c7_a54e3f8c",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58697e26_8ee5dbdb",
         "filename": "streaming/cast/frame_collector.h",
         "patchSetId": 7
@@ -169,6 +331,24 @@
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b512b8d1_2c663ed0",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58697e26_8ee5dbdb",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "69b1a025_297e9eee",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "Done: PayloadPart (to be more specific about it being just to store the data, and not any of the metadata).",
+      "parentUuid": "2a585c6a_0796c40c",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ccfa6db_96d58788",
         "filename": "streaming/cast/frame_collector.h",
         "patchSetId": 7
@@ -200,6 +398,24 @@
       "writtenOn": "2019-08-30T00:31:36Z",
       "side": 1,
       "message": "chunks_total_size?  parts_total_size? collected_size?",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c8d7556_a87dffbb",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-30T23:25:34Z",
+      "side": 1,
+      "message": "IMHO, the naming I used is more-accurate than those suggestions. Perhaps you could explain what\u0027s wrong with my choice?",
+      "parentUuid": "5ccfa6db_96d58788",
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
