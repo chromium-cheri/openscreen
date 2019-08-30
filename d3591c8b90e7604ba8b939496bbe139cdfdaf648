@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79f7a39a_78a52fae",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "It seems really easy to forget to free memory in this case.  Would it be better to pass in ownership of the buffer instead?  What would one do with the buffer if this failed anyway?",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f113e20_ee53abdf",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "Would it be safer to do by checking that chunks_ is empty?",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba49a430_c1286607",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "else if?",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb859140_53a8b64e",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "Seems like it\u0027s worth logging something.",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0018732b_63d06c90",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "Seems like it\u0027s worth logging something.",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3c2cab3_63f393c6",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "Seems like std::optional would be a useful here",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fd6300b_da672df1",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "SetFrameId",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d769363_adf8625e",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "CollectRtpPacket?",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c517c0c7_a54e3f8c",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "complete() or ready_to_assemble()?",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58697e26_8ee5dbdb",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "GetMissingPackets?\n\n(Append sounds a lot like you\u0027re appending to the frame, like Collect does).",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a585c6a_0796c40c",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "Part?",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ccfa6db_96d58788",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-30T00:31:36Z",
+      "side": 1,
+      "message": "chunks_total_size?  parts_total_size? collected_size?",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
