@@ -139,6 +139,11 @@ class UdpSocket {
   // Sets the DSCP value to use for all messages sent from this socket.
   virtual void SetDscp(DscpMode state) = 0;
 
+  // Start/Stop receiving messages. The Client's OnRead() method is invoked for
+  // each message received on this socket.
+  virtual void StartReceivingMessages() = 0;
+  virtual void StopReceivingMessages() = 0;
+
  protected:
   // Creates a new UdpSocket. The provided client and task_runner must exist for
   // the duration of this socket's lifetime.

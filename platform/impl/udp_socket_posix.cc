@@ -500,5 +500,16 @@ void UdpSocketPosix::SetDscp(UdpSocket::DscpMode state) {
   }
 }
 
+void UdpSocketPosix::StartReceivingMessages() {
+  // TODO(rwkeane): Activate machinery that receives messages and calls
+  // OnRead().
+  OSP_UNIMPLEMENTED();
+}
+
+void UdpSocketPosix::StopReceivingMessages() {
+  // TODO(rwkeane): Shut down machinery that receives messages.
+  OSP_UNIMPLEMENTED();
+}
+
 }  // namespace platform
 }  // namespace openscreen

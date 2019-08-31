@@ -76,25 +76,13 @@ int main(int argc, const char* argv[]) {
   const auto now_function = &openscreen::platform::Clock::now;
   openscreen::platform::TaskRunnerImpl task_runner(now_function);
 
-  // Create a UDP socket that listens for datagrams on the Cast Streaming port
-  // on all network interfaces.
+  // Create the platform environment that holds the required injected
+  // dependencies (clock, task runner) used throughout the system, and owns the
+  // UDP socket over which all communication occurs with the Sender.
   const openscreen::IPEndpoint receive_endpoint{openscreen::IPAddress(),
                                                 kCastStreamingPort};
-  auto socket_or_error = openscreen::platform::UdpSocket::Create(
-      &task_runner, nullptr, receive_endpoint);
-  const auto socket = socket_or_error.MoveValue();
-  if (!socket) {
-    OSP_LOG_ERROR << "Failed to create receive UDP socket at "
-                  << receive_endpoint << ": " << socket_or_error.error();
-    return 1;
-  }
-  socket->Bind();
-
-  // Create the platform environment that holds the required injected
-  // dependencies (clock, task runner, and network socket) used throughout the
-  // system.
   openscreen::cast_streaming::Environment env(now_function, &task_runner,
-                                              socket.get());
+                                              receive_endpoint);
 
   // Create the packet router that allows both the Audio Receiver and the Video
   // Receiver to share the same UDP socket.
@@ -110,8 +98,8 @@ int main(int argc, const char* argv[]) {
       kDemoVideoRtpTimebase, kDemoTargetPlayoutDelay, kDemoVideoAesKey,
       kDemoVideoCastIvMask);
 
-  OSP_LOG_INFO << "Awaiting first Cast Streaming packet at " << receive_endpoint
-               << "...";
+  OSP_LOG_INFO << "Awaiting first Cast Streaming packet at "
+               << env.GetBoundLocalEndpoint() << "...";
 
   // Create/Initialize the Audio Player and Video Player, which are responsible
   // for decoding and playing out the received media.

@@ -38,6 +38,8 @@ struct UdpSocketPosix : public UdpSocket {
                    size_t length,
                    const IPEndpoint& dest) override;
   void SetDscp(DscpMode state) override;
+  void StartReceivingMessages() override;
+  void StopReceivingMessages() override;
 
   int GetFd() const { return fd_; }
 

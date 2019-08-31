@@ -58,6 +58,10 @@ void FakeUdpSocket::SetDscp(DscpMode mode) {
   ProcessConfigurationMethod(&set_dscp_errors_);
 }
 
+void FakeUdpSocket::StartReceivingMessages() {}
+
+void FakeUdpSocket::StopReceivingMessages() {}
+
 void FakeUdpSocket::ProcessConfigurationMethod(std::queue<Error>* errors) {
   Error error = errors->front();
   errors->pop();

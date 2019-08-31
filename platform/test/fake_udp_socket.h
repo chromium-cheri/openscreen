@@ -53,6 +53,8 @@ class FakeUdpSocket : public UdpSocket {
   void JoinMulticastGroup(const IPAddress& address,
                           NetworkInterfaceIndex interface) override;
   void SetDscp(DscpMode mode) override;
+  void StartReceivingMessages() override;
+  void StopReceivingMessages() override;
 
   // Operatons to queue errors to be returned by the above functions
   void EnqueueBindResult(Error error) { bind_errors_.push(error); }
