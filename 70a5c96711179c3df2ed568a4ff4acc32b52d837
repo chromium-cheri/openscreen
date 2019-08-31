@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "662c2b45_7498d8cc",
+        "filename": "osp/impl/discovery/mdns/embedder_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-31T02:49:01Z",
+      "side": 1,
+      "message": "IIUC, the demo won\u0027t run for more than a split-second, since ~NetworkReaderThread() and ~TaskRunnerThread() will be invoked here and shut things down before they can get going.",
+      "range": {
+        "startLine": 374,
+        "startChar": 1,
+        "endLine": 374,
+        "endChar": 11
+      },
+      "revId": "70a5c96711179c3df2ed568a4ff4acc32b52d837",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd8b1d93_675d2e0b",
+        "filename": "platform/impl/network_reader_thread.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-31T02:49:01Z",
+      "side": 1,
+      "message": "IMHO, this is starting to go beyond what the style guide would allow for operator overloading...The get() method seems sufficient.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 63
+      },
+      "revId": "70a5c96711179c3df2ed568a4ff4acc32b52d837",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de7dc95e_973db20a",
+        "filename": "platform/impl/task_runner_thread.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-31T02:49:01Z",
+      "side": 1,
+      "message": "Suggestion: It\u0027s much simpler for classes to create the objects they own (when nothing needs to be done up-front to the object). So, how about:\n\n  explicit TaskRunnerThread(ClockNowFunctionPtr);\n\n...see next comment for the rest...",
+      "range": {
+        "startLine": 22,
+        "startChar": 19,
+        "endLine": 22,
+        "endChar": 62
+      },
+      "revId": "70a5c96711179c3df2ed568a4ff4acc32b52d837",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "247030ba_7425fffa",
+        "filename": "platform/impl/task_runner_thread.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-31T02:49:01Z",
+      "side": 1,
+      "message": "Following the suggestion above, don\u0027t allocate this separately on the heap. Just:\n\n  TaskRunnerImpl task_runner_;\n\n...and don\u0027t allocate |thread_| on the heap either (swap the order of the members, and then the ctor initializer list can be in object-dependency order):\n\nTaskRunnerThread::TaskRunnerThread(ClockNowFunctionPtr now_function)\n    : task_runner_(now_function),\n      thread_(\u0026TaskRunnerImpl::RunUntilStopped, \u0026task_runner_) {}",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 45
+      },
+      "revId": "70a5c96711179c3df2ed568a4ff4acc32b52d837",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
