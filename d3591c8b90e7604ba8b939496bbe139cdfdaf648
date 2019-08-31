@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "8a168dde_e20975cd",
+        "filename": "streaming/cast/frame_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-31T02:24:30Z",
+      "side": 1,
+      "message": "Done. And, I should note it\u0027s not indicative of a problem. It\u0027s just the unfortunate \"waste\" that falls-out of the packet re-transmit protocol.",
+      "parentUuid": "6d0ec511_3b001b5f",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3c2cab3_63f393c6",
         "filename": "streaming/cast/frame_collector.cc",
         "patchSetId": 7
@@ -491,6 +509,24 @@
       "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f27268_a656aabc",
+        "filename": "streaming/cast/frame_collector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-08-31T02:24:30Z",
+      "side": 1,
+      "message": "tl;dr: Removed this member.\n\nFWIW, this member didn\u0027t exist in the original patchset, and I was very 50/50 on whether to go with the old solution versus this one. This is a value that can be easily computed and is only needed at one specific point in the whole process (assembly). So, I\u0027m removing this duplicated state (sort of), and going back to what I had in the original patchset. Problem solved. :)",
+      "parentUuid": "58263a1b_41dc339f",
+      "revId": "d3591c8b90e7604ba8b939496bbe139cdfdaf648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
