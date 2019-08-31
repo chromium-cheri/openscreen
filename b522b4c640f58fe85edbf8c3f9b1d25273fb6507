@@ -2,6 +2,131 @@
   "comments": [
     {
       "key": {
+        "uuid": "2d79e2ba_a82827b8",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "by various socket types",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4704489_f25abc33",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "TLS, TCP",
+      "range": {
+        "startLine": 15,
+        "startChar": 65,
+        "endLine": 15,
+        "endChar": 66
+      },
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79aba691_f1f669e2",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "not initialized yet?",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eadc9ab_5cbef56b",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "Why would anyone care about the difference between kUninitialized and kUnbound?",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e95876_b1c3bd4a",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "kBound?\n\nAnd why would someone care about the difference between kUnbound and kBound/kOpen?  It seems like someone would only care about kNotConnected/kConnecting/kConnected/kClosed.\n\nAnd... there\u0027s no connecting state, which seems like a necessary state for client sockets.",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9fad473_03d77901",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "A remote what?",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53384cb_8a552a1b",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "Couldn\u0027t it get closed by the remote side as well?",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "172ff779_f984c991",
         "filename": "platform/api/tls_connection.h",
         "patchSetId": 9
@@ -71,6 +196,40 @@
     },
     {
       "key": {
+        "uuid": "01636de2_26e49851",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "Actually, we need to decide what to do when connecting fails.  OnError doesn\u0027t make sense because it conflicts with the \"might as well delete the factory\" thing above.  I thought maybe you have OnConnected fired by OnError of the TlsConnection.  But that doesn\u0027t make much sense.\n\nSo perhaps we need a Client::OnConnectFailed.",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e30df5_17bbd4e0",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "OK, I admit this seems a bit awkward having to pass a TlsConnectionFactory::Client to get the TlsConnection from OnConnected/OnAccepted but then pass a TlsConnection::Client here before you get the TlsConnection from OnConnected/OnAccepted.\n\nWould it be better to have a TlsConnection::SetClient that we call after OnConnected/OnAccepted and not pass it in here?",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "854f2832_f9bbd23b",
         "filename": "platform/api/tls_connection_factory.h",
         "patchSetId": 9
@@ -88,6 +247,23 @@
         "endLine": 52,
         "endChar": 37
       },
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb839720_c99ea306",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "Where is the TlsConnection?",
       "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -134,6 +310,40 @@
         "endLine": 49,
         "endChar": 17
       },
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17f05415_75e88c72",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "Why friend class?",
+      "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab817a1b_fe32e4ab",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-08-31T00:09:27Z",
+      "side": 1,
+      "message": "How does a ConnectionFactory have a remote address?",
       "revId": "b522b4c640f58fe85edbf8c3f9b1d25273fb6507",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
