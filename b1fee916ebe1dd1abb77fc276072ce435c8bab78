@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "12a906ed_d425f582",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-03T23:56:15Z",
+      "side": 1,
+      "message": "seconds or minutes?\n\nIf minutes, can you convert this constant to std::chrono::seconds?  Since it\u0027s easy to confuse the two this way.",
+      "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df33834b_a223962b",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-03T23:56:15Z",
+      "side": 1,
+      "message": "If you have a set-once field, the constructor is the best place to pass it.",
+      "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e50eca3e_8c86e1a5",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-03T23:56:15Z",
+      "side": 1,
+      "message": "Please document the ownership assumptions around these pointers.  Will they outlive MdnsQuestionTracker?  How is that guaranteed?",
+      "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "804c84d2_7eeb94d0",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 5
@@ -46,6 +97,23 @@
       "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "596d95bc_7c4b7cff",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-03T23:56:15Z",
+      "side": 1,
+      "message": "Does each question have its own tracking state?  It\u0027s possible to bundle multiple questions into a single query packet (section 5.3 of the mDNS spec).  I think for DNS-SD, usually the listener sends one SRV or PTR request, and the responder bundles all of the relevant answers together. \n\nI\u0027m thinking it\u0027s not crucial to implement bundled questions until there\u0027s a clear need.\nWhat do you think?",
+      "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
