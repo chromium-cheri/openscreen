@@ -27,7 +27,7 @@ TEST(MdnsRandomTest, InitialQueryDelay) {
 
 TEST(MdnsRandomTest, RecordTtlVariation) {
   double lower_bound = 0.0;
-  double upper_bound = 2.0;
+  double upper_bound = 0.02;
   MdnsRandom mdns_random;
   for (int i = 0; i < kIterationCount; ++i) {
     double variation = mdns_random.GetRecordTtlVariation();
