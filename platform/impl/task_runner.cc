@@ -104,7 +104,8 @@ void TaskRunnerImpl::RunCurrentTasksBlocking() {
   for (TaskWithMetadata& task : running_tasks_) {
     // Move the task to the stack so that its bound state is freed immediately
     // after being run.
-    std::move(task)();
+    auto task_to_run = std::move(task);
+    task_to_run();
   }
   running_tasks_.clear();
 }
