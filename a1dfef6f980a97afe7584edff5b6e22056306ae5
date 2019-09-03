@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af60e250_fd2a260e",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-03T19:35:05Z",
+      "side": 1,
+      "message": "Should have default implementation to avoid breaking chromium",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 43
+      },
+      "revId": "a1dfef6f980a97afe7584edff5b6e22056306ae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a46ee6a7_cc104120",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-03T19:35:05Z",
+      "side": 1,
+      "message": "Currently, as per discussions with Max + Mark, there is no socket level way to enable or disable reading\n\nI\u0027ve previously had an enable_reading() and disable_reading() method on UdpSocket, but was asked to remove them - I can set up a meeting with you, me, max, Mark to discuss it further if you think it would be helpful here",
+      "range": {
+        "startLine": 503,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 1
+      },
+      "revId": "a1dfef6f980a97afe7584edff5b6e22056306ae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
