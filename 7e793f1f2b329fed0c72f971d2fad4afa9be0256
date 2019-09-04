@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0084ca0_3809b302",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-04T19:55:20Z",
+      "side": 1,
+      "message": "Probably for a future CL, but I think it would be worth hiding the TaskRunner and Client access behind local methods (as was done for UdpSocket)\n\nIt is difficult enough code to push the Client method to TaskRunner - especially to do so with types we want moved not copied - that it\u0027s worth writing once and not expecting users to write\n\nI can take this change as a follow-up CL once this one is in if you prefer",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "7e793f1f2b329fed0c72f971d2fad4afa9be0256",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "996665a1_4411e762",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-04T19:55:20Z",
+      "side": 1,
+      "message": "Same comment here",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "7e793f1f2b329fed0c72f971d2fad4afa9be0256",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3637ef16_743a9e84",
+        "filename": "platform/impl/stream_socket.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-04T19:55:20Z",
+      "side": 1,
+      "message": "Do we not want to use a similar observer pattern for StreamSockets?",
+      "range": {
+        "startLine": 37,
+        "startChar": 10,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "7e793f1f2b329fed0c72f971d2fad4afa9be0256",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
