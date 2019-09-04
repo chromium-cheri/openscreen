@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "bedc728d_bd0059e0",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T22:09:44Z",
+      "side": 1,
+      "message": "FWIW, Chromium\u0027s task runners do not provide cancelable tasks. Once posted, a task must run; but can be implicitly canceled with WeakPtr, but this does not remove it from the queue.\n\nAlso, I don\u0027t think we have the need for thread safety, since OSP is meant to be as single-threaded as possible.",
+      "parentUuid": "8aebb91d_36536405",
+      "range": {
+        "startLine": 58,
+        "startChar": 24,
+        "endLine": 58,
+        "endChar": 78
+      },
+      "revId": "8145cb66338bc6e5a64c27e4b3889c93d11357f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d1db297_4cf1c16a",
         "filename": "cast/common/mdns/mdns_trackers_unittest.cc",
         "patchSetId": 6

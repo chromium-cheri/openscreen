@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9086d420_c9d40585",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T22:09:44Z",
+      "side": 1,
+      "message": "Respectfully, another disagreement here: I feel that \"60 minutes\" was much more readable than \"60 * 60 seconds.\" \"1 hour\" might even have been better.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 62
+      },
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56ed6eae_b95d801c",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 7
@@ -30,6 +53,29 @@
       "writtenOn": "2019-09-04T22:09:00Z",
       "side": 1,
       "message": "This feels a bit unnecessary as resend_delay_ can only increase.",
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "041ceaea_fecd5ee4",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T22:09:44Z",
+      "side": 1,
+      "message": "Side note, since IMHO, the comment is not improving readability here...\n\nThis is one of those things various project members seem to disagree on: Some want ownership semantics documented in code comments. My personal opinion is that the code is already self-documenting:\n\n1. If there is ownership transfer, std::unique_ptr should have been used.\n\n2. If something is not owned, but must outlive a class, that is already obvious when passing a raw pointer in a ctor. If an object might not outlive a class, there should have been a separate \"setter/reset\" method that allows external code to clear the reference to the external object.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 25
+      },
       "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
