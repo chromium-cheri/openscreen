@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "142fbf07_08f36398",
+        "filename": "platform/api/udp_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T03:04:10Z",
+      "side": 1,
+      "message": "After looking at how the demo apps use NetworkReader, I think I misunderstood the start-up path for UDP socket reads. I\u0027ve removed these, and fixed other parts of this change to match my new understanding. :)\n\nCorrect me if I\u0027m wrong: IIUC, NetworkReader is only needed to \"pump\" the socket reads and is only meant to be used in standalone apps. For a Chromium embedder, UdpSocket::Client::OnRead() would be called (from Chromium \"platform glue\") any time after the client has called UdpSocket::Bind(). In other words, for Chromium, there is no separate thing like a NetworkReader+thread to have to instantiate for packets to get received and passed to the Client.",
+      "parentUuid": "af60e250_fd2a260e",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 43
+      },
+      "revId": "a1dfef6f980a97afe7584edff5b6e22056306ae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a46ee6a7_cc104120",
         "filename": "platform/impl/udp_socket_posix.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "a1dfef6f980a97afe7584edff5b6e22056306ae5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a469e3b_d86ae6cb",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T03:04:10Z",
+      "side": 1,
+      "message": "I misunderstood the expected \"start up\" procedure for UdpSocket reads. I\u0027ve removed this here.",
+      "parentUuid": "a46ee6a7_cc104120",
+      "range": {
+        "startLine": 503,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 1
+      },
+      "revId": "a1dfef6f980a97afe7584edff5b6e22056306ae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
