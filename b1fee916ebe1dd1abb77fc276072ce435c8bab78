@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a5dd050_d4614e28",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T19:32:06Z",
+      "side": 1,
+      "message": "It\u0027s minutes. Done.",
+      "parentUuid": "12a906ed_d425f582",
+      "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df33834b_a223962b",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2019-09-03T23:56:15Z",
       "side": 1,
       "message": "If you have a set-once field, the constructor is the best place to pass it.",
+      "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "415178ea_b7dd8486",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T19:32:06Z",
+      "side": 1,
+      "message": "I will be adding more code to this class and other functionality as well. If it ends up being a set-once field, I\u0027ll move it to the constructor. Would that be fine with you?",
+      "parentUuid": "df33834b_a223962b",
       "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef337fb4_1788a576",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T19:32:06Z",
+      "side": 1,
+      "message": "Added a comment about ownership and lifetime.\nAll of these are expected to outlive MdnsQuestionTracker, MdnsSender and MdnsRandom can and will be created when mDNS \"service\" is started.",
+      "parentUuid": "e50eca3e_8c86e1a5",
+      "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +165,24 @@
       "writtenOn": "2019-09-03T23:56:15Z",
       "side": 1,
       "message": "Does each question have its own tracking state?  It\u0027s possible to bundle multiple questions into a single query packet (section 5.3 of the mDNS spec).  I think for DNS-SD, usually the listener sends one SRV or PTR request, and the responder bundles all of the relevant answers together. \n\nI\u0027m thinking it\u0027s not crucial to implement bundled questions until there\u0027s a clear need.\nWhat do you think?",
+      "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "518f4f1a_225585ee",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T19:32:06Z",
+      "side": 1,
+      "message": "Each question is tracked and re-sent independently. Each response record that is received as an answer to the question will be tracked independently as well (next PR).\n\nQuestion can be sent with type QANY, to get all records of all types that answer the question, including both SRV and PTR sent by responders.\n\nI initially looked into bundling multiple questions into a single message. I\u0027ve started with combined tracking of all questions in one place by keeping a collection of all active queries sorted by the next resend time. This adds a lot of complexity compared to the current approach, both in keeping the ordered collection up-to-date and thread safety wise. I think it\u0027s not warranted for the expected number of records we will see and it\u0027s better to go with a simpler solution for now.",
+      "parentUuid": "596d95bc_7c4b7cff",
       "revId": "b1fee916ebe1dd1abb77fc276072ce435c8bab78",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
