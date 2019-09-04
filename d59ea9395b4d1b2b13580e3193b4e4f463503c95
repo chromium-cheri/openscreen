@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "656c12a0_5da2fe27",
+        "filename": "streaming/cast/environment.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "Changed method name.",
+      "parentUuid": "e8f8112d_053f5ed3",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f29a755_4c33df8c",
         "filename": "streaming/cast/environment.h",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd27fdab_859f8db1",
+        "filename": "streaming/cast/environment.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "Renamed to ConsumeIncomingPackets() and DropIncomingPackets().",
+      "parentUuid": "2f29a755_4c33df8c",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "45f8e024_3c9dd425",
+        "filename": "streaming/cast/environment.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "\u003e forgetting to call set_remote_endpoint()\n\nThere is a DCHECK for this. It\u0027s a logic flaw, so reason to return an error or otherwise handle this case.\n\n\u003e OS-level errors\n\nThe CL that landed after this has added the bubbling-up of socket errors. The app/embedder will handle hard errors (e.g., by shutting things down). There\u0027s nothing actionable at this layer of the system (e.g., it seems wrong to try to re-open a new socket in such cases).",
+      "parentUuid": "f351f6ad_88cc0e9a",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8dd3394_acf1e743",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 6
@@ -67,6 +121,24 @@
       "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08f12b9f_b4973129",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8dd3394_acf1e743",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2b3aaeef_23033505",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "Done. Yeah, this example isn\u0027t meant to be so perfect as to guarantee to compile. It\u0027s just a HOWTO.",
+      "parentUuid": "5b830b75_cc0b4e2f",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86dfeb5a_69d142df",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 6
@@ -101,6 +191,24 @@
       "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "729211d1_66f8d126",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "There\u0027s a subjective balancing act going on here: \"Receiver-focused knowledge\" versus \"too much information about the whole system.\" To make things less mysterious here, I\u0027ll add a constructor comment to mention these are the end-to-end agreed-upon configuration from the OFFER/ANSWER exchange.",
+      "parentUuid": "86dfeb5a_69d142df",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "e3efa010_b156a8f0",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "See prior comment response. Also, note that the class-level comments refer to the demo app for further documentation.",
+      "parentUuid": "0ae4bc34_457b9308",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40de8d44_ab946dc6",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 6
@@ -135,6 +261,24 @@
       "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89436828_d45039ba",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40de8d44_ab946dc6",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "bfabeda4_867cb7fe",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e57cf91_1b67099f",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "704d2642_d9f0edb4",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 6
@@ -169,6 +331,24 @@
       "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52f18e3c_f442c90d",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "Done.\n\nAs for ErrorOr: -1 is not an error any more than std::vector::empty()→true  would be. :)",
+      "parentUuid": "704d2642_d9f0edb4",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "bb1b43af_c0a08f7c",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "There will be a DCHECK for that (upcoming impl CL), since it\u0027s a logic flaw to try to provide too-small of a buffer. It\u0027s documented in these method comments that the buffer has to be large enough. I\u0027ll s/should/must/ to make that clearer. :)",
+      "parentUuid": "e5db087e_a4a729c8",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a88fc98d_dac8a6cc",
         "filename": "streaming/cast/receiver_demo/main.cc",
         "patchSetId": 6
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "d18dcb4f_c836e10e",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "It\u0027s not clear why, but the original spec states they must be randomly generated, but doesn\u0027t say why. I can\u0027t find any reason they MUST be random.\n\nI think the benefit is mainly to help us parse logs after-the-fact: It\u0027s clear that different SSRCs mean a different session was started.\n\nIt\u0027s definitely *not* related to crypto, or any other \"random salt.\" I documented this in ssrc.cc (GenerateSsrc()).",
+      "parentUuid": "a88fc98d_dac8a6cc",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3c5e6d7_7d70f698",
         "filename": "streaming/cast/receiver_packet_router.h",
         "patchSetId": 6
@@ -220,6 +436,24 @@
       "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "924bfac1_deb867f8",
+        "filename": "streaming/cast/receiver_packet_router.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T23:17:56Z",
+      "side": 1,
+      "message": "See class-level comments.",
+      "parentUuid": "c3c5e6d7_7d70f698",
+      "revId": "d59ea9395b4d1b2b13580e3193b4e4f463503c95",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
