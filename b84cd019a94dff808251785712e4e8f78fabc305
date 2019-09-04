@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b38c62de_e615a6a1",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T22:32:01Z",
+      "side": 1,
+      "message": "Given that opinions on readability are divided in this case, I\u0027ll go back to specifying the constant as 60 minutes, since this is how RFC describes it and also is my personal preference.",
+      "parentUuid": "9086d420_c9d40585",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 62
+      },
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56ed6eae_b95d801c",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e06e5d73_2e9614a8",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T22:32:01Z",
+      "side": 1,
+      "message": "I\u0027ve actually thought about this. kMaximumQueryInterval is quite big at 1 hour and will only be reached on 12-th requery. Given that we still need a check after multiplication to cap at kMaximumQueryInterval, I figured it\u0027s better to simply always multiply and check. :)",
+      "parentUuid": "56ed6eae_b95d801c",
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "df3c025b_9b0067c2",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T22:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7153d37_b714c0e7",
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "041ceaea_fecd5ee4",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 7
@@ -70,6 +130,30 @@
       "writtenOn": "2019-09-04T22:09:44Z",
       "side": 1,
       "message": "Side note, since IMHO, the comment is not improving readability here...\n\nThis is one of those things various project members seem to disagree on: Some want ownership semantics documented in code comments. My personal opinion is that the code is already self-documenting:\n\n1. If there is ownership transfer, std::unique_ptr should have been used.\n\n2. If something is not owned, but must outlive a class, that is already obvious when passing a raw pointer in a ctor. If an object might not outlive a class, there should have been a separate \"setter/reset\" method that allows external code to clear the reference to the external object.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f00a03ae_0b7993b4",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T22:32:01Z",
+      "side": 1,
+      "message": "We\u0027re documenting this in comments in other cases.\n\nAnd to be fair, there\u0027s another option, an object might be passed to the constructor by pointer to be used in construction of the object only, with no pointers to the object stored in the instance.\n\nWe can always discuss this separately and add a new entry in Open Scree style guide.",
+      "parentUuid": "041ceaea_fecd5ee4",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "51529c60_a2959e7c",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T22:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ffe776d_48ad0b4b",
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8e0df7c_e776ca8d",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 7
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "d486d99c_6fda8780",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T22:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8e0df7c_e776ca8d",
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62076bc3_09da9a23",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 7
@@ -130,6 +250,24 @@
       "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae642620_1f14db7d",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-04T22:32:01Z",
+      "side": 1,
+      "message": "Peter has suggested IsStarted and I think it better describes the state of the object, since most of the time it\u0027s not doing work and only has a task scheduled on the task runner, in contrast to a Task that is in fact actively running on a thread.",
+      "parentUuid": "62076bc3_09da9a23",
+      "revId": "b84cd019a94dff808251785712e4e8f78fabc305",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
