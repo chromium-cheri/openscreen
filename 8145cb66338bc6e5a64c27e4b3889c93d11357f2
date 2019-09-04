@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1074ca33_8db2c6f8",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:56:24Z",
+      "side": 1,
+      "message": "Seems this could never happen. Remove it?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 3
+      },
+      "revId": "8145cb66338bc6e5a64c27e4b3889c93d11357f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75c075f8_cb46de8b",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:56:24Z",
+      "side": 1,
+      "message": "nit/suggestion: Feel free to add a blank line between the methods. (whitespace for readabitily)",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 2
+      },
+      "revId": "8145cb66338bc6e5a64c27e4b3889c93d11357f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c48e3d83_9c1f0684",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:56:24Z",
+      "side": 1,
+      "message": "Since this pointer is never changed, suggest:\n\n  MdnsSender* const sender_;\n\n...and same for |random_delay_|...",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 22
+      },
+      "revId": "8145cb66338bc6e5a64c27e4b3889c93d11357f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5394c42_4260f355",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:56:24Z",
+      "side": 1,
+      "message": "Looks like you were using this to schedule a delayed task that is auto-canceled if MdnsQuestionTracker is destroyed, which is exactly what Alarm does well. Would there ever be a reason to replace it?",
+      "range": {
+        "startLine": 58,
+        "startChar": 24,
+        "endLine": 58,
+        "endChar": 78
+      },
+      "revId": "8145cb66338bc6e5a64c27e4b3889c93d11357f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d1db297_4cf1c16a",
+        "filename": "cast/common/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:56:24Z",
+      "side": 1,
+      "message": "120ms may be enough, but perhaps make this something super-large like \"hours(12)\" to make it clear some scheduled task is definitely going to get scheduled/run.\n\n...ditto for the next test too...",
+      "range": {
+        "startLine": 144,
+        "startChar": 30,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "8145cb66338bc6e5a64c27e4b3889c93d11357f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a29984ed_b5cdefd9",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:56:24Z",
+      "side": 1,
+      "message": "Rebase problem? This seems to be part of a different change you have up for code review...",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 109,
+        "endChar": 3
+      },
+      "revId": "8145cb66338bc6e5a64c27e4b3889c93d11357f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
