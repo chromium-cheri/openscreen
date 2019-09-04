@@ -19,6 +19,7 @@ using ::testing::_;
 using ::testing::Args;
 using ::testing::Return;
 
+// TODO: make IsIPv4 and IsIPv6 non-mock versions
 class MockUdpSocket : public UdpSocket {
  public:
   MockUdpSocket(TaskRunner* task_runner) : UdpSocket(task_runner, nullptr) {}
