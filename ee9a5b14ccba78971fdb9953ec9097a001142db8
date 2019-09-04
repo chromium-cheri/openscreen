@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "becc9f2a_342a9c9d",
+        "filename": "streaming/cast/environment.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-04T18:35:34Z",
+      "side": 1,
+      "message": "In platform/UdpSocket, the errors sent here are non-recoverable errors (ie Bind() fails), such that all following calls to the socket will fail. If you forward all errors from OnRead and OnSendError here, that guarantee will be lost\n\nWhich isn\u0027t bad - just making sure you are aware before going that route\nMight be worth a comment though since this isn\u0027t the pattern used in the rest of the code",
+      "range": {
+        "startLine": 81,
+        "startChar": 18,
+        "endLine": 81,
+        "endChar": 25
+      },
+      "revId": "ee9a5b14ccba78971fdb9953ec9097a001142db8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "159f28b1_ede9b71b",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-04T18:35:34Z",
+      "side": 1,
+      "message": "reader",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 81,
+        "endChar": 28
+      },
+      "revId": "ee9a5b14ccba78971fdb9953ec9097a001142db8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
