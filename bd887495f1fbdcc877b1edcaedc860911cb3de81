@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59af568b_94132091",
+        "filename": "platform/api/internal/trace_logging_user_args.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:39:32Z",
+      "side": 1,
+      "message": "Do we need the virtual dtor and value() method?\n\nStepping back, is the polymorphism necessary? Could we just have single templated class? See note below regarding not needing the specializations.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 9
+      },
+      "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a043ae12_0f93f0fc",
+        "filename": "platform/api/internal/trace_logging_user_args.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:39:32Z",
+      "side": 1,
+      "message": "Equivalent (and don\u0027t need the |executed| bool):\n\n  if (string_value_.empty()) {",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 20
+      },
+      "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eec974e_078556a0",
+        "filename": "platform/api/internal/trace_logging_user_args.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:39:32Z",
+      "side": 1,
+      "message": "It seems like we can get rid of all the specializations (here and below) because TraceLoggingArgument\u003cT\u003e encompasses those cases and would do the right thing.\n\nDesign side note: Chromium tracing tracks numeric versus string values. I\u0027d suggest we have something like that since it\u0027s very common to record int/double values (e.g., time durations, counters, opaque IDs), for later analysis.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39d12f88_3e9016de",
+        "filename": "platform/api/internal/trace_logging_user_args.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T00:39:32Z",
+      "side": 1,
+      "message": "Please avoid writing functions that do nothing other than invoke ctors when there is only one possible implementation. Just let the client code invoke the ctor directly to make it clear to readers that there are no side-effects or global state associated with creating instances.",
+      "range": {
+        "startLine": 148,
+        "startChar": 33,
+        "endLine": 148,
+        "endChar": 39
+      },
+      "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
