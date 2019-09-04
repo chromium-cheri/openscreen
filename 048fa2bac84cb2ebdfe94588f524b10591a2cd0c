@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "941ff353_02bb955b",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-04T21:49:28Z",
+      "side": 1,
+      "message": "FYI--After you pointed out OnError(), I went spelunking through udp_socket_posix.cc to TAL at the call points. I noticed these two cases where OnError() was being called, but the method was continuing onward (not returning), so I fixed them.",
+      "range": {
+        "startLine": 242,
+        "startChar": 8,
+        "endLine": 242,
+        "endChar": 15
+      },
+      "revId": "048fa2bac84cb2ebdfe94588f524b10591a2cd0c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
