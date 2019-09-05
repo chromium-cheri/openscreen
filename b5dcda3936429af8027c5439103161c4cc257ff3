@@ -1,0 +1,361 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db12f9ef_5029acf4",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Where are tls_connection_factory.h and socket_state.h?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96de4a9_197f72ee",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Is tls_packet.h part of this patch?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1363418_85da664b",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Only connection-oriented sockets have a \"connected\" state.\nSo maybe this should be \"used by TCP and TLS sockets for indicating\"...",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8aae16f2_bd240d77",
+        "filename": "platform/api/socket_state.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "I\u0027m assuming state transitions only happen in the order listed.  Can you clarify that in a comment?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a29e0f6d_c2643b32",
+        "filename": "platform/api/tls_connect_options.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "This probably goes into platform/base as it\u0027s not an API to implement.",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd0c911_00771627",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Tiny nit: line wrapping",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eda01af5_35135418",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "s/deplete/overflow/?  How would the buffer be depleted on a blocked socket?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b283fddf_1c2c2610",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Calling OnWriteBlocked(connection, false) seems a little odd.\nMaybe OnWriteBlockedChanged?\nOr OnWriteBlocked + OnWriteUnblocked()?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2194a6c6_12844f81",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Note that UdpSocket passes a write payload as a const void*/size_t combination, which doesn\u0027t force the caller to pass data with a specific storage type.",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08074e2a_67d6ea50",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "When would a connected socket not have a local address?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0021a5f1_578a733f",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a945fca0_d7cbf36c",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "I don\u0027t see any reference to TaskRunner in the public API or its documentation; that makes me think it\u0027s part of the implementation and doesn\u0027t belong in the API.",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0745860d_b99e1e0f",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Does the API allows multiple connections to the same remote_address at once?\nHow would the caller know which one failed?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d4d2a29_38eb8db5",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Usually you don\u0027t need both ErrorOr and unique_ptr.",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4d2af45_769dc44c",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "I don\u0027t see any reference to a TaskRunner in the API.",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d1c5f8d_14f24c41",
+        "filename": "platform/api/tls_credentials.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "This probably belongs in platform/base.  It\u0027s not an API that the embedder needs to implement.",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0060c7ad_34c73f5f",
+        "filename": "platform/api/tls_credentials.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "What is this?  Is this the decoded form of |tls_certificate_der|?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19674850_32f9b0a8",
+        "filename": "platform/api/tls_credentials.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Is this the base-64 encoding of |private_key|?  What is it used for?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f7ed2cd_e8ef7cef",
+        "filename": "platform/api/tls_credentials.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "What public key is this?\nWhat is the base64 encoding used for?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b521d36b_35103300",
+        "filename": "platform/api/tls_credentials.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "Which public key?",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6606e286_a2e37e85",
+        "filename": "platform/api/tls_listen_options.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-05T23:36:03Z",
+      "side": 1,
+      "message": "platform/base",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
