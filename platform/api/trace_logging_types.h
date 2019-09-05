@@ -6,6 +6,7 @@
 #define PLATFORM_API_TRACE_LOGGING_TYPES_H_
 
 #include "absl/types/optional.h"
+#include "platform/base/macros.h"
 
 namespace openscreen {
 
@@ -55,6 +56,41 @@ struct TraceCategory {
     Quic = 0x01 << 1,
     Presentation = 0x01 << 2,
   };
+};
+
+// Type used for user provided arguments.
+class UserArgumentValue {
+ public:
+  union Data {
+    const char* string;
+    double floating_point;
+    int64_t integer;
+  };
+
+  enum class DataType { kString, kFloatingPoint, kInteger };
+
+  explicit UserArgumentValue(const char* string)
+      : data_({.string = string}), data_type_(DataType::kString) {}
+
+  explicit UserArgumentValue(double floating_point)
+      : data_({.floating_point = floating_point}),
+        data_type_(DataType::kFloatingPoint) {}
+
+  explicit UserArgumentValue(int64_t integer)
+      : data_({.integer = integer}), data_type_(DataType::kInteger) {}
+
+  UserArgumentValue(const UserArgumentValue& other) = default;
+  UserArgumentValue(UserArgumentValue&& other) = default;
+  UserArgumentValue& operator=(UserArgumentValue&& other) = default;
+  UserArgumentValue& operator=(const UserArgumentValue& other) = default;
+
+  Data data() const { return data_; }
+
+  DataType type() const { return data_type_; }
+
+ private:
+  Data data_;
+  DataType data_type_;
 };
 
 }  // namespace openscreen
