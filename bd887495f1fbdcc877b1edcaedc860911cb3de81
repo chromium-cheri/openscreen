@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af96b151_81ed28ae",
+        "filename": "platform/api/internal/trace_logging_user_args.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-05T15:48:34Z",
+      "side": 1,
+      "message": "I can remove this after we discuss specializations below and the design note\n\nI may have mininterpreted what you said, but I understood that to mean you wanted to support both strings and numeric values - if I misinterpreted that, let me know and I can update. I added more specializations to cover this case: Added int64_t and double specializations. Can add others if you\u0027d like, but went with those 2 now since they were the 2 you called out\n\nPTAL and let me know your thoughts.",
+      "parentUuid": "59af568b_94132091",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 9
+      },
+      "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a043ae12_0f93f0fc",
         "filename": "platform/api/internal/trace_logging_user_args.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "60fcbf86_9b694a92",
+        "filename": "platform/api/internal/trace_logging_user_args.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-05T15:48:34Z",
+      "side": 1,
+      "message": "Done. Removed with new approach",
+      "parentUuid": "a043ae12_0f93f0fc",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 20
+      },
+      "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3eec974e_078556a0",
         "filename": "platform/api/internal/trace_logging_user_args.h",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2019-09-04T00:39:32Z",
       "side": 1,
       "message": "It seems like we can get rid of all the specializations (here and below) because TraceLoggingArgument\u003cT\u003e encompasses those cases and would do the right thing.\n\nDesign side note: Chromium tracing tracks numeric versus string values. I\u0027d suggest we have something like that since it\u0027s very common to record int/double values (e.g., time durations, counters, opaque IDs), for later analysis.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6278672_16be75b2",
+        "filename": "platform/api/internal/trace_logging_user_args.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-05T15:48:34Z",
+      "side": 1,
+      "message": "Design note comment addressed in comment above\n\nRemoved the char* specialization. This was only there for a minor perf improvement. \nGood catch on the T* - I thought I had checked this would behave differently than the T case, but apparently I didn\u0027t\n\nRemoving the nullptr results in compilation error when nullptr is passed in - \"use of overloaded operator \u0027\u003c\u003c\u0027 is ambiguous\". Thoughts?",
+      "parentUuid": "3eec974e_078556a0",
       "range": {
         "startLine": 73,
         "startChar": 0,
@@ -91,6 +163,30 @@
       "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccda91d9_8948a52e",
+        "filename": "platform/api/internal/trace_logging_user_args.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-05T15:48:34Z",
+      "side": 1,
+      "message": "Done\n\nMoved it to the UnitTest file, since having parameter deduction makes the UnitTests far more useful",
+      "parentUuid": "39d12f88_3e9016de",
+      "range": {
+        "startLine": 148,
+        "startChar": 33,
+        "endLine": 148,
+        "endChar": 39
+      },
+      "revId": "bd887495f1fbdcc877b1edcaedc860911cb3de81",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
