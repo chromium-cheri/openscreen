@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1ffe0fd_8e0388d2",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-06T18:38:53Z",
+      "side": 1,
+      "message": "Won\u0027t this need a local_address aswell, so that we can create the TlsConnection object?\n\nAnd if both methods need it, it may make sense to put in the constructor - your call on that though",
+      "range": {
+        "startLine": 51,
+        "startChar": 15,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55546562_4bdd6bf6",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-06T18:38:53Z",
+      "side": 1,
+      "message": "In the case of a server which accepted a new client, I don\u0027t see any way in the OpenSSL documentation to get the remote address. Still looking though",
+      "range": {
+        "startLine": 26,
+        "startChar": 32,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
