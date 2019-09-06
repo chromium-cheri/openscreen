@@ -206,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "fc27b21e_c388f5d8",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-06T08:13:55Z",
+      "side": 1,
+      "message": "TaskRunner is needed because we have to push all Client_ callbacks to TaskRunner, same as with the UdpSocket implementation\n\nAs a follow-up CL, I am planning to make this and client_ private and add simialr methods to the OnRead/OnSendError/OnError methods in UdpSocket, but for now it\u0027s important to have the TaskRunner in the TcpSocket constructor to allow this future change",
+      "parentUuid": "a945fca0_d7cbf36c",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0745860d_b99e1e0f",
         "filename": "platform/api/tls_connection_factory.h",
         "patchSetId": 14
@@ -251,6 +269,24 @@
       "writtenOn": "2019-09-05T23:36:03Z",
       "side": 1,
       "message": "I don\u0027t see any reference to a TaskRunner in the API.",
+      "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f600c94_8a6bf7a6",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-06T08:13:55Z",
+      "side": 1,
+      "message": "Same comment as elsewhere",
+      "parentUuid": "a4d2af45_769dc44c",
       "revId": "b5dcda3936429af8027c5439103161c4cc257ff3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
