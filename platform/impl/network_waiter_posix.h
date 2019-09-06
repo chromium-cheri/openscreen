@@ -21,9 +21,9 @@ class NetworkWaiterPosix : public NetworkWaiter {
  public:
   NetworkWaiterPosix();
   ~NetworkWaiterPosix();
-  ErrorOr<std::vector<UdpSocket*>> AwaitSocketsReadable(
-      const std::vector<UdpSocket*>& sockets,
-      const Clock::duration& timeout) override;
+  ErrorOr<std::vector<int>> AwaitSocketsReadable(
+      const std::vector<int>& socket_fds,
+      const Clock::duration& timeout);
 
   // TODO(rwkeane): Move this to a platform-specific util library.
   static struct timeval ToTimeval(const Clock::duration& timeout);
