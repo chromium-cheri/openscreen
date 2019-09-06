@@ -25,6 +25,108 @@
     },
     {
       "key": {
+        "uuid": "a6f16ea1_b5cc0f7b",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-06T19:15:22Z",
+      "side": 1,
+      "message": "Please document the parameters.",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef77919_ea9b1433",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-06T19:15:22Z",
+      "side": 1,
+      "message": "If certificate_ is guaranteed to be non-null, can you return const CRYPTO_BUFFER\u0026?",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4007b3cd_ddc160ad",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-06T19:15:22Z",
+      "side": 1,
+      "message": "Usually a smart pointer is not returned by constant ref, unless there\u0027s no way to unwrap it into a raw const pointer.",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eabe8f97_a8a4dd4b",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-06T19:15:22Z",
+      "side": 1,
+      "message": "This API isn\u0027t consistent about returning values by copy, pointer or or by reference.",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbec0189_fb39abd6",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-06T19:15:22Z",
+      "side": 1,
+      "message": "Is this the public key in the certificate?\n\nI still don\u0027t quite follow how this works.  For RSA, can\u0027t derive a public key from the associated private key - they are generated at the same time.  So where does the public key come from?\n\nhttps://en.wikipedia.org/wiki/RSA_(cryptosystem)#Key_generation\n\nOr is the private key passed in the constructor just used for signing the certificate?",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "077ba936_007364fb",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-06T19:15:22Z",
+      "side": 1,
+      "message": "Is there a reason this is a class and not a struct?  I assume to prevent mutation after construction?",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55546562_4bdd6bf6",
         "filename": "platform/impl/tls_connection_posix.h",
         "patchSetId": 17
