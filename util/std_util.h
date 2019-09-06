@@ -7,6 +7,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 #include "absl/algorithm/container.h"
 
@@ -22,6 +23,11 @@ namespace openscreen {
 template <typename CharT, typename Traits, typename Allocator>
 CharT* data(std::basic_string<CharT, Traits, Allocator>& str) {
   return std::addressof(str[0]);
+}
+
+template <typename T>
+const std::string ToString(const std::vector<T>& vec) {
+  return std::string(vec.begin(), vec.end());
 }
 
 template <typename Key, typename Value>
