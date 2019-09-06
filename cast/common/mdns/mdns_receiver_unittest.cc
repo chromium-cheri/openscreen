@@ -16,9 +16,13 @@ using ::testing::_;
 using ::testing::Return;
 using FakeUdpSocket = openscreen::platform::FakeUdpSocket;
 
-class MockMdnsReceiverDelegate : public MdnsReceiver::Delegate {
+class MockMdnsReceiverQueryDelegate : public MdnsReceiver::QueryDelegate {
  public:
   MOCK_METHOD2(OnQueryReceived, void(const MdnsMessage&, const IPEndpoint&));
+};
+
+class MockMdnsReceiverResponseDelegate : public MdnsReceiver::ResponseDelegate {
+ public:
   MOCK_METHOD2(OnResponseReceived, void(const MdnsMessage&, const IPEndpoint&));
 };
 

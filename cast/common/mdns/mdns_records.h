@@ -6,6 +6,7 @@
 #define CAST_COMMON_MDNS_MDNS_RECORDS_H_
 
 #include <chrono>
+#include <functional>
 #include <initializer_list>
 #include <string>
 #include <vector>
@@ -22,6 +23,7 @@ namespace mdns {
 using IPAddress = openscreen::IPAddress;
 
 bool IsValidDomainLabel(absl::string_view label);
+uint16_t CreateMessageId();
 
 // Represents domain name as a collection of labels, ensures label length and
 // domain name length requirements are met.
@@ -73,8 +75,6 @@ class DomainName {
   size_t max_wire_size_ = 1;
   std::vector<std::string> labels_;
 };
-
-std::ostream& operator<<(std::ostream& stream, const DomainName& domain_name);
 
 // Parsed represenation of the extra data in a record. Does not include standard
 // DNS record data such as TTL, Name, Type and Class. We use it to distinguish
@@ -374,6 +374,12 @@ class MdnsQuestion {
                       record.record_class_, record.response_type_);
   }
 
+  template <typename H>
+  friend H AbslHashValue(H h, const MdnsQuestion& record) {
+    return H::combine(std::move(h), record.name_, record.type_,
+                      record.record_class_, record.unicast_response_);
+  }
+
  private:
   void CopyFrom(const MdnsQuestion& other);
 
@@ -449,8 +455,6 @@ class MdnsMessage {
   std::vector<MdnsRecord> authority_records_;
   std::vector<MdnsRecord> additional_records_;
 };
-
-uint16_t CreateMessageId();
 
 }  // namespace mdns
 }  // namespace cast
