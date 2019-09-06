@@ -118,6 +118,12 @@ std::ostream& operator<<(std::ostream& os, const Error::Code& code) {
       return os << "Failure: JsonWriteError";
     case Error::Code::kFatalSSLError:
       return os << "Failure: kFatalSSLError";
+    case Error::Code::kCertificateCreationError:
+      return os << "Failure: kCertificateCreationError";
+    case Error::Code::kCertificateValidationError:
+      return os << "Failure: kCertificateValidationError";
+    case Error::Code::kHashCalculationFailure:
+      return os << "Failure: kHashCalculationFailure";
     case Error::Code::kFileLoadFailure:
       return os << "Failure: FileLoadFailure";
     case Error::Code::kErrCertsMissing:
