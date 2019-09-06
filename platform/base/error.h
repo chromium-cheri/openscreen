@@ -9,6 +9,7 @@
 #include <string>
 #include <utility>
 
+#include "absl/types/optional.h"
 #include "platform/base/macros.h"
 
 namespace openscreen {
@@ -154,7 +155,7 @@ class Error {
   Error(const Error& error);
   Error(Error&& error) noexcept;
 
-  Error(Code code);
+  Error(Code code);  // NOLINT
   Error(Code code, const std::string& message);
   Error(Code code, std::string&& message);
   ~Error();
@@ -204,34 +205,34 @@ class ErrorOr {
   }
 
   ErrorOr(ErrorOr&& other) = default;
-  ErrorOr(const Value& value) : value_(value) {}
-  ErrorOr(Value&& value) noexcept : value_(std::move(value)) {}
-  ErrorOr(Error error) : error_(std::move(error)) {}
-  ErrorOr(Error::Code code) : error_(code) {}
+  ErrorOr(const Value& value) : value_{Value{value}} {}  // NOLINT
+  ErrorOr(Value&& value) noexcept                        // NOLINT
+      : value_{Value{std::move(value)}} {}
+  ErrorOr(Error error) : error_(std::move(error)) {}  // NOLINT
+  ErrorOr(Error::Code code) : error_(code) {}         // NOLINT
   ErrorOr(Error::Code code, std::string message)
       : error_(code, std::move(message)) {}
   ~ErrorOr() = default;
 
   ErrorOr& operator=(ErrorOr&& other) = default;
 
-  bool is_error() const { return error_.code() != Error::Code::kNone; }
+  bool is_error() const { return !error_.ok(); }
   bool is_value() const { return !is_error(); }
-
   // Unlike Error, we CAN provide an operator bool here, since it is
   // more obvious to callers that ErrorOr<Foo> will be true if it's Foo.
   operator bool() const { return is_value(); }
 
   const Error& error() const { return error_; }
 
-  Error&& MoveError() { return std::move(error_); }
-
-  const Value& value() const { return value_; }
-
-  Value&& MoveValue() { return std::move(value_); }
+  const Value& value() const { return value_.value(); }
+  Value&& MoveValue() { return std::move(value_.value()); }
 
  private:
   Error error_;
-  Value value_;
+
+  // While error is of a known size, value is not, and may not have a valid
+  // "null" or "empty" state for use when is_error = true.
+  absl::optional<Value> value_;
 };
 
 }  // namespace openscreen

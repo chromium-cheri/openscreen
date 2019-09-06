@@ -91,6 +91,15 @@ TEST(ErrorOrTest, ErrorOrWithError) {
   EXPECT_EQ(error_or5.error().message(), "Parse Error Again");
 }
 
+TEST(ErrorOrTest, ErrorOrWithPrimitiveValue) {
+  ErrorOr<int> error_or_integer(1337);
+  EXPECT_TRUE(error_or_integer);
+  EXPECT_TRUE(error_or_integer.is_value());
+  EXPECT_FALSE(error_or_integer.is_error());
+  EXPECT_EQ(error_or_integer.value(), 1337);
+  EXPECT_EQ(error_or_integer.error(), Error::None());
+}
+
 TEST(ErrorOrTest, ErrorOrWithValue) {
   ErrorOr<Dummy> error_or1(Dummy("Winterfell"));
   ErrorOr<Dummy> error_or2(Dummy("Riverrun"));
