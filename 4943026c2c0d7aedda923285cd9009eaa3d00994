@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5063a499_3902001a",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-06T20:14:48Z",
+      "side": 1,
+      "message": "No. At least in POSIX, we don\u0027t have to provide, and indeed do not care, about the local address:\n\n\"If the socket has not already been bound to a local address, connect() shall bind it to an address which, unless the socket\u0027s address family is AF_UNIX, is an unused local address.\"\n\nhttps://pubs.opengroup.org/onlinepubs/009695399/functions/connect.html",
+      "parentUuid": "e1ffe0fd_8e0388d2",
+      "range": {
+        "startLine": 51,
+        "startChar": 15,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6f16ea1_b5cc0f7b",
         "filename": "platform/base/tls_credentials.h",
         "patchSetId": 17
@@ -39,6 +63,24 @@
       "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8538420_d1dbec6b",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-06T20:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6f16ea1_b5cc0f7b",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "18da5154_1e53847d",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-06T20:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ef77919_ea9b1433",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4007b3cd_ddc160ad",
         "filename": "platform/base/tls_credentials.h",
         "patchSetId": 17
@@ -73,6 +133,24 @@
       "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9519975_daeb8ba9",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-06T20:14:48Z",
+      "side": 1,
+      "message": "Right, I\u0027ll return an EVP_PKEY ref.",
+      "parentUuid": "4007b3cd_ddc160ad",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "18ac515f_f58c6c4f",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-06T20:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eabe8f97_a8a4dd4b",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbec0189_fb39abd6",
         "filename": "platform/base/tls_credentials.h",
         "patchSetId": 17
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "d093ddf0_1ea9b53b",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-06T20:14:48Z",
+      "side": 1,
+      "message": "the EVP_PKEY should contain private and public keys. I\u0027ll rename it.",
+      "parentUuid": "bbec0189_fb39abd6",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "077ba936_007364fb",
         "filename": "platform/base/tls_credentials.h",
         "patchSetId": 17
@@ -124,6 +238,24 @@
       "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c4355e_4e02ca5f",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-06T20:14:48Z",
+      "side": 1,
+      "message": "Yeah, and since it creates the certificate the construction is non trivial. I\u0027m happy to change it to a struct, I felt it should be a class since it generates a certificate.",
+      "parentUuid": "077ba936_007364fb",
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -147,6 +279,30 @@
       "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "372a85a9_0af2b9a7",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-06T20:14:48Z",
+      "side": 1,
+      "message": "You accept as a TCP socket first, then call SSL accept:\n\nhttps://wiki.openssl.org/index.php/Simple_TLS_Server\nhttp://man7.org/linux/man-pages/man2/accept.2.html\n\nThe TCP accept method gives you the address.",
+      "parentUuid": "55546562_4bdd6bf6",
+      "range": {
+        "startLine": 26,
+        "startChar": 32,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "4943026c2c0d7aedda923285cd9009eaa3d00994",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
