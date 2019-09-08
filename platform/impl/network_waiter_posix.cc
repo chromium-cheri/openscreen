@@ -21,15 +21,14 @@ NetworkWaiterPosix::NetworkWaiterPosix() = default;
 
 NetworkWaiterPosix::~NetworkWaiterPosix() = default;
 
-ErrorOr<std::vector<UdpSocket*>> NetworkWaiterPosix::AwaitSocketsReadable(
-    const std::vector<UdpSocket*>& sockets,
+ErrorOr<std::vector<int>> NetworkWaiterPosix::AwaitSocketsReadable(
+    const std::vector<int>& socket_fds,
     const Clock::duration& timeout) {
   int max_fd = -1;
   FD_ZERO(&read_handles_);
-  for (UdpSocket* socket : sockets) {
-    UdpSocketPosix* posix_socket = static_cast<UdpSocketPosix*>(socket);
-    FD_SET(posix_socket->GetFd(), &read_handles_);
-    max_fd = std::max(max_fd, posix_socket->GetFd());
+  for (int fd : socket_fds) {
+    FD_SET(fd, &read_handles_);
+    max_fd = std::max(max_fd, fd);
   }
   if (max_fd < 0) {
     return Error::Code::kIOFailure;
@@ -49,15 +48,14 @@ ErrorOr<std::vector<UdpSocket*>> NetworkWaiterPosix::AwaitSocketsReadable(
     return Error::Code::kAgain;
   }
 
-  std::vector<UdpSocket*> changed_sockets;
-  for (UdpSocket* socket : sockets) {
-    UdpSocketPosix* posix_socket = static_cast<UdpSocketPosix*>(socket);
-    if (FD_ISSET(posix_socket->GetFd(), &read_handles_)) {
-      changed_sockets.push_back(socket);
+  std::vector<int> changed_fds;
+  for (int fd : socket_fds) {
+    if (FD_ISSET(fd, &read_handles_)) {
+      changed_fds.push_back(fd);
     }
   }
 
-  return changed_sockets;
+  return changed_fds;
 }
 
 // static
@@ -76,6 +74,20 @@ struct timeval NetworkWaiterPosix::ToTimeval(const Clock::duration& timeout) {
                    .count();
 
   return tv;
+}
+
+void NetworkWaiterPosix::RunUntilStopped() {
+  const bool was_running = is_running_.exchange(true);
+  OSP_CHECK(!was_running);
+
+  Clock::duration timeout = std::chrono::milliseconds(50);
+  while (is_running_) {
+    ProcessFds(timeout);
+  }
+}
+
+void NetworkWaiterPosix::RequestStopSoon() {
+  is_running_.store(false);
 }
 
 }  // namespace platform

@@ -13,61 +13,42 @@
 namespace openscreen {
 namespace platform {
 
-NetworkReader::NetworkReader() : NetworkReader(NetworkWaiter::Create()) {}
+NetworkReader::NetworkReader(NetworkWaiter* waiter) : waiter_(waiter) {
+  waiter_->Subscribe(this);
+}
 
-NetworkReader::NetworkReader(std::unique_ptr<NetworkWaiter> waiter)
-    : waiter_(std::move(waiter)), is_running_(false) {}
+NetworkReader::~NetworkReader() {
+  waiter_->Unsubscribe(this);
+}
 
-NetworkReader::~NetworkReader() = default;
-
-Error NetworkReader::WaitAndRead(Clock::duration timeout) {
-  // Get the set of all sockets we care about. A different list than the
-  // existing unordered_set is used to avoid race conditions with the method
-  // using this new list.
+std::vector<int> NetworkReader::GetFds() {
   socket_deletion_block_.notify_all();
-  std::vector<UdpSocket*> sockets;
+  std::vector<int> socket_fds;
+  socket_fds.reserve(sockets_.size());
+
   {
     std::lock_guard<std::mutex> lock(mutex_);
-    sockets = sockets_;
-  }
-
-  // Wait for the sockets to find something interesting or for the timeout.
-  auto changed_or_error = waiter_->AwaitSocketsReadable(sockets, timeout);
-  if (changed_or_error.is_error()) {
-    return changed_or_error.error();
-  }
-
-  // Process the results.
-  socket_deletion_block_.notify_all();
-  {
-    std::lock_guard<std::mutex> lock(mutex_);
-    for (UdpSocket* socket : changed_or_error.value()) {
-      if (std::find(sockets_.begin(), sockets_.end(), socket) ==
-          sockets_.end()) {
-        continue;
-      }
-
-      // TODO(rwkeane): Remove this unsafe cast.
+    for (const auto& socket : sockets_) {
       UdpSocketPosix* read_socket = static_cast<UdpSocketPosix*>(socket);
-      read_socket->ReceiveMessage();
+      socket_fds.push_back(read_socket->GetFd());
     }
   }
 
-  return Error::None();
+  return socket_fds;
 }
 
-void NetworkReader::RunUntilStopped() {
-  const bool was_running = is_running_.exchange(true);
-  OSP_CHECK(!was_running);
+void NetworkReader::ProcessReadyFd(int fd) {
+  socket_deletion_block_.notify_all();
 
-  Clock::duration timeout = std::chrono::milliseconds(50);
-  while (is_running_) {
-    WaitAndRead(timeout);
+  std::lock_guard<std::mutex> lock(mutex_);
+  // NOTE: Because sockets_ is expected to remain small, the perfomance here
+  // is better than using an unordered_set.
+  for (UdpSocket* socket : sockets_) {
+    UdpSocketPosix* read_socket = static_cast<UdpSocketPosix*>(socket);
+    if (fd == read_socket->GetFd()) {
+      read_socket->ReceiveMessage();
+    }
   }
-}
-
-void NetworkReader::RequestStopSoon() {
-  is_running_.store(false);
 }
 
 void NetworkReader::OnCreate(UdpSocket* socket) {
