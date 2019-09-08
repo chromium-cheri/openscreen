@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aa1cd84b_a2b1eaff",
+        "filename": "platform/impl/socket_address_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:29:41Z",
+      "side": 1,
+      "message": "sa_family isn\u0027t an enumeration type.",
+      "parentUuid": "0ce83710_3cdcf409",
+      "revId": "b05c2f546c07fbf4937b6d7f5d24fc0943dd81d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f244b49_4be6e046",
         "filename": "platform/impl/stream_socket_posix.cc",
         "patchSetId": 1
@@ -30,6 +48,57 @@
       "writtenOn": "2019-09-08T00:14:07Z",
       "side": 1,
       "message": "Why not just check is_bound_? We can\u0027t accept without being bound right?",
+      "revId": "b05c2f546c07fbf4937b6d7f5d24fc0943dd81d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b4094e_850d5071",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:29:41Z",
+      "side": 1,
+      "message": "If the caller passes a local_address in the ctor but fails to call Bind(), it looks like this will overwrite that local_address.  Which is probably not what the caller intended.",
+      "revId": "b05c2f546c07fbf4937b6d7f5d24fc0943dd81d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fdaae46_1cd9cd0f",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:29:41Z",
+      "side": 1,
+      "message": "kSocketConnectFailure since getsockname() is only called after connect()?",
+      "revId": "b05c2f546c07fbf4937b6d7f5d24fc0943dd81d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2f6791_5a475700",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:29:41Z",
+      "side": 1,
+      "message": "s/address/local_address/",
       "revId": "b05c2f546c07fbf4937b6d7f5d24fc0943dd81d1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
