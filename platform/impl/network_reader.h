@@ -21,21 +21,14 @@ namespace platform {
 // calling the function associated with these sockets once that data is read.
 // NOTE: This class will only function as intended while its RunUntilStopped
 // method is running.
-class NetworkReader : public UdpSocket::LifetimeObserver {
+// TODO(rwkeane): Rename to NetworkReaderPosix.
+class NetworkReader : public UdpSocket::LifetimeObserver,
+                      NetworkWaiter::Subscriber {
  public:
-  // Create a type for readability
-  using Callback = std::function<void(UdpPacket)>;
-
   // Creates a new instance of this object.
-  NetworkReader();
+  // NOTE: The provided NetworkWaiter must outlive this object.
+  explicit NetworkReader(NetworkWaiter* waiter);
   virtual ~NetworkReader();
-
-  // Runs the Wait function in a loop until the below RequestStopSoon function
-  // is called.
-  void RunUntilStopped();
-
-  // Signals for the RunUntilStopped loop to cease running.
-  void RequestStopSoon();
 
   // UdpSocket::LifetimeObserver overrides.
   // Waits for |socket| to be readable and then calls the socket's
@@ -47,23 +40,17 @@ class NetworkReader : public UdpSocket::LifetimeObserver {
   // Cancels any pending wait on reading |socket|. Following this call, any
   // pending reads will proceed but their associated callbacks will not fire.
   // NOTE: This method will block until a delete is safe.
-  void OnDestroy(UdpSocket* socket) override;
-
- protected:
-  // Creates a new instance of this object.
-  explicit NetworkReader(std::unique_ptr<NetworkWaiter> waiter);
-
-  // Waits for any writes to occur or for timeout to pass, whichever is sooner.
-  // If an error occurs when calling WaitAndRead, then no callbacks will have
-  // been called during the method's execution, but it is still safe to
-  // immediately call again.
-  // NOTE: Must be protected rather than private for UT purposes.
   // NOTE: If a socket callback is removed in the middle of a wait call, data
   // may be read on this socket and but the callback may not be called. If a
   // socket callback is added in the middle of a wait call, the new socket may
   // not be watched until after this wait call ends.
-  Error WaitAndRead(Clock::duration timeout);
+  void OnDestroy(UdpSocket* socket) override;
 
+  // NetworkWaiter::Subscriber overrides.
+  std::vector<int> GetFds() override;
+  void ProcessReadyFd(int fd) override;
+
+ protected:
   // Helper method to allow for OnDestroy calls without blocking.
   void OnDelete(UdpSocket* socket, bool disable_locking_for_testing = false);
 
@@ -71,17 +58,14 @@ class NetworkReader : public UdpSocket::LifetimeObserver {
   std::vector<UdpSocket*> sockets_;
 
  private:
-  // Abstractions around socket handling to ensure platform independence.
-  std::unique_ptr<NetworkWaiter> waiter_;
-
   // Mutex to protect against concurrent modification of socket info.
   std::mutex mutex_;
 
-  // Atomic so that we can perform atomic exchanges.
-  std::atomic_bool is_running_;
-
   // Blocks deletion of sockets until they are no longer being watched.
   std::condition_variable socket_deletion_block_;
+
+  // NetworkWaiter watching this NetworkReader.
+  NetworkWaiter* waiter_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(NetworkReader);
 };

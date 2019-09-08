@@ -12,7 +12,6 @@
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
-#include "platform/api/udp_socket.h"
 
 namespace openscreen {
 namespace platform {
