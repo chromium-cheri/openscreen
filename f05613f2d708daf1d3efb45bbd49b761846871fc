@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6236e01_e3812281",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "Is this making a copy?  string_view doesn\u0027t have ownership over its contents IIRC.",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c19ed8f_3b2561c1",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "Is this always the byte length of data()?  (Are we sure value doesn\u0027t have multibyte characters?)",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c93992b2_611bf7a1",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "Unique in what scope?  An integer counter isn\u0027t very unique.",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d166342_26e781c0",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "It should be legal to use std::chrono here.  Can you do that and convert to time_t?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33fc5d41_ab214cc8",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "Can we use ErrorOr here instead of magic values?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f55b422c_fc338e1e",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "WriteOutKey might be simpler by taking the vector as an output parameter and returning an Error.",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05faed95_e99c021f",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "In the current code, this could be empty, in which case the hash is meaningless.",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c054a57_1b683f5c",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "What is this function doing with the address of a null pointer?  Is it an output parameter?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f9bc6d_64a74bcc",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "Prefer ErrorOr to returning magic values.",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "677ca312_fe200878",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "Is this just a roll of our dependency?  Can we do that now before writing code that makes me cringe a bit?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0776ca45_c0ca8835",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "Does bssl::UniquePtr have a move constructor?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65d7502d_3e6f8d0d",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T19:47:48Z",
+      "side": 1,
+      "message": "s/lazy loaded/initialized/ ?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
