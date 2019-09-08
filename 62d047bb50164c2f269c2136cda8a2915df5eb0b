@@ -19,6 +19,58 @@
     },
     {
       "key": {
+        "uuid": "42c00fd8_b3707d58",
+        "filename": "cast/common/mdns/mdns_random_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T20:01:40Z",
+      "side": 1,
+      "message": "constexpr",
+      "parentUuid": "4d1e24aa_37714d51",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c82e8231_1b3c173c",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T20:01:40Z",
+      "side": 1,
+      "message": "Can you just use a C-style array instead of adding lots of pragmas?\n\nI don\u0027t feel strongly, I it would be unfortunate to have to duplicate this everywhere we declare an array.",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd8981d_977ed518",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T20:01:40Z",
+      "side": 1,
+      "message": "If we\u0027re querying in response to an interactive use, we want to send a query right away.   Is there a way to do that here, or would that be a different API?",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78ea45e1_bd693730",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 8
@@ -87,6 +139,23 @@
     },
     {
       "key": {
+        "uuid": "8f6a99bb_9ca2979c",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T20:01:40Z",
+      "side": 1,
+      "message": "As a rule of thumb, you want to send queries 2-3 times to improve reliability (I believe this is what Chrome does).  It\u0027s better to do that in response to interactive use (i.e. pulling up the dialog) or if the caller is requesting a cache refresh.  So we can probably add a Refresh() code path that handles that case, separately from background queries that use the RFC recommended cadence.",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4f838de_9560366e",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 8
@@ -104,6 +173,24 @@
     },
     {
       "key": {
+        "uuid": "0f87637b_e0e6efde",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T20:01:40Z",
+      "side": 1,
+      "message": "That allows move copy/construction to work with STL containers\n\nhttp://www.hlsl.co.uk/blog/2017/12/1/c-noexcept-and-move-constructors-effect-on-performance-in-stl-containers\n\nI recall there are some compiler specific issues with noexcept ... but we should go through and make sure our moveable types are STL friendly.",
+      "parentUuid": "d4f838de_9560366e",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e39121e8_6e55e38c",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 8
@@ -115,6 +202,23 @@
       "writtenOn": "2019-09-08T00:34:22Z",
       "side": 1,
       "message": "Why have using in the header?",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ac566c_14ce71f3",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-08T20:01:40Z",
+      "side": 1,
+      "message": "using-declarations are generally discouraged in headers.",
       "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
