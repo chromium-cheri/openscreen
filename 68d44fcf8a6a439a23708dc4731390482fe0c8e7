@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "16f99aee_0ffaf291",
+        "filename": "platform/api/file_descriptor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-09T23:57:49Z",
+      "side": 1,
+      "message": "I am open to suggestions on how to remove this - right now, it\u0027s needed in platform/api so that platform/api/network_waiter can use it, and because other classes that don\u0027t depend on NetworkWaiter need it (various types of sockets), I didn\u0027t want to introduce an artificial dependency\n\nSee follow-up CL for why its useful to keep NetworkWaiter in platform/api: https://chromium-review.googlesource.com/c/openscreen/+/1791373\n(the one sentence answer is that it\u0027s going to be a platform-independent way to change network polling to a push mechanism, as NetworkReader does for a specific use case currently)",
+      "parentUuid": "931b6025_7e40a48b",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b609fb2_e816044c",
         "filename": "platform/api/network_waiter.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0bfcb14_789f8308",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-09T23:57:49Z",
+      "side": 1,
+      "message": "Done\n\nGood idea. Updating to be \"SocketHandle\" to be even more agnostic. Can change to \"SocketDescriptor\" if that\u0027s preferable",
+      "parentUuid": "9b609fb2_e816044c",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 31,
+        "endChar": 44
+      },
+      "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0bf89e02_f02d72f9",
+        "filename": "platform/impl/file_descriptor_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-09T23:57:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c6d62d1_51c31293",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 17
+      },
+      "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ad635e0_064a6433",
         "filename": "platform/impl/udp_socket_posix.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c49d7d4b_37272d5d",
+        "filename": "platform/impl/udp_socket_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-09T23:57:49Z",
+      "side": 1,
+      "message": "Planning to do this as a follow-up CL right after this one (within a day or two) - just didn\u0027t want this one to grow beyond its current size and slow down the review process",
+      "parentUuid": "1ad635e0_064a6433",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 61
+      },
+      "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
