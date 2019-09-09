@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d473618c_dadeb13f",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-09T17:54:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe1bac52_2c380f5a",
+      "revId": "3a9713dd24225f47bc49f3b5f1903a3c2203fb38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4f0ae77_0fea65c3",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "3a9713dd24225f47bc49f3b5f1903a3c2203fb38",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f0c4945_86ae4901",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-09T17:54:56Z",
+      "side": 1,
+      "message": "I\u0027ve added a TODO - making that change here is outside the scope of this CL",
+      "parentUuid": "f4f0ae77_0fea65c3",
+      "revId": "3a9713dd24225f47bc49f3b5f1903a3c2203fb38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "Chrome\u0027s network service doesn\u0027t have file descriptors.  Just mojo handles.\n\nwin32 uses an opaque SOCKET type for their posix-style APIs.",
       "parentUuid": "92e6e5a0_59d70241",
+      "revId": "3a9713dd24225f47bc49f3b5f1903a3c2203fb38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3426f550_3ee440ed",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-09T17:54:56Z",
+      "side": 1,
+      "message": "Left the posix implementation this way, but updated the platform/api/network_waiter to use a struct as Jordan suggested. That way it can fit whatever implementation is defined for the platform",
+      "parentUuid": "ff3a578e_d8554b0a",
       "revId": "3a9713dd24225f47bc49f3b5f1903a3c2203fb38",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
