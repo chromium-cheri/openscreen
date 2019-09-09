@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1cbcf557_d9f82f34",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T23:22:38Z",
+      "side": 1,
+      "message": "This would copy whatever is in field and then destroy the copy after the call to X509_NAME_add_entry_by_txt. If X509_NAME_add_entry_by_txt holds onto the pointer for whatever reason, that would result in memory corruption.",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 57
+      },
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6236e01_e3812281",
         "filename": "platform/base/tls_credentials.cc",
         "patchSetId": 5
@@ -53,6 +76,29 @@
     },
     {
       "key": {
+        "uuid": "68617ecc_6ca013ac",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T23:22:38Z",
+      "side": 1,
+      "message": "atomic?",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 26
+      },
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d166342_26e781c0",
         "filename": "platform/base/tls_credentials.cc",
         "patchSetId": 5
@@ -64,6 +110,52 @@
       "writtenOn": "2019-09-08T19:47:48Z",
       "side": 1,
       "message": "It should be legal to use std::chrono here.  Can you do that and convert to time_t?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdfc40c1_7d4d0707",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T23:22:38Z",
+      "side": 1,
+      "message": "Could you please put it in bssl::UniquePtr?",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 41
+      },
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f25231_395f95b8",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T23:22:38Z",
+      "side": 1,
+      "message": "Can you use EVP_Digest to perform complete hashing in one call?",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 27
+      },
       "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -189,6 +281,47 @@
     },
     {
       "key": {
+        "uuid": "26797907_4409c57b",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T23:22:38Z",
+      "side": 1,
+      "message": "It has to, otherwise ownership wouldn\u0027t be transferrable",
+      "parentUuid": "0776ca45_c0ca8835",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52545a33_bfb85adb",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T23:22:38Z",
+      "side": 1,
+      "message": "key_pair?",
+      "range": {
+        "startLine": 47,
+        "startChar": 18,
+        "endLine": 47,
+        "endChar": 25
+      },
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65d7502d_3e6f8d0d",
         "filename": "platform/base/tls_credentials.h",
         "patchSetId": 5
@@ -200,6 +333,29 @@
       "writtenOn": "2019-09-08T19:47:48Z",
       "side": 1,
       "message": "s/lazy loaded/initialized/ ?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05fc7b02_260eb551",
+        "filename": "util/std_util.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T23:22:38Z",
+      "side": 1,
+      "message": "I\u0027m against adding this method to std_util.\nIf I see a method ToString called on a vector, I have no idea what it does. Does it put elements into a stringstream to make it readable/printable? If yes, does it use a separator? Or does it make a byte string of everything appended together? And so on.\nI think others would have a similar confusion.",
+      "range": {
+        "startLine": 29,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 26
+      },
       "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
