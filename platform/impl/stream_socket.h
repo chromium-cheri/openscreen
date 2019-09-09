@@ -18,7 +18,7 @@
 namespace openscreen {
 namespace platform {
 
-struct FileDescriptor;
+struct SocketHandle;
 
 // StreamSocket is an incomplete abstraction of synchronous platform methods for
 // creating, initializing, and closing stream sockets. Callers can use this
@@ -48,7 +48,7 @@ class StreamSocket {
   virtual Error Listen(int max_backlog_size) = 0;
 
   // Returns the file descriptor (e.g. fd or HANDLE pointer) for this socket.
-  virtual FileDescriptor file_descriptor() const = 0;
+  virtual SocketHandle file_descriptor() const = 0;
 
   // Returns the connected remote address, if socket is connected.
   virtual absl::optional<IPEndpoint> remote_address() const = 0;
