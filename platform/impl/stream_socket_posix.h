@@ -44,6 +44,7 @@ class StreamSocketPosix : public StreamSocket {
   // StreamSocket getter overrides.
   FileDescriptor file_descriptor() const override;
   absl::optional<IPEndpoint> remote_address() const override;
+  absl::optional<IPEndpoint> local_address() const override;
   SocketState state() const override;
   IPAddress::Version version() const override;
 
