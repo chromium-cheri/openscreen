@@ -282,6 +282,24 @@
     },
     {
       "key": {
+        "uuid": "3773d307_e6e4afa9",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T20:01:27Z",
+      "side": 1,
+      "message": "MdnsQueryTracker does send a query immediately, and then again in 1 second, 2 seconds, 4 seconds and so on. To force refresh and reset the query intervals the calling code can always call Stop and Start again on the MdnsQueryTracker instance.",
+      "parentUuid": "8f6a99bb_9ca2979c",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4f838de_9560366e",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 8
