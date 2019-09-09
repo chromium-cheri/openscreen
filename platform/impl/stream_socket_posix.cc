@@ -128,7 +128,7 @@ Error StreamSocketPosix::Listen(int max_backlog_size) {
 }
 
 FileDescriptor StreamSocketPosix::file_descriptor() const {
-  return FileDescriptor{.fd = file_descriptor_.load()};
+  return FileDescriptor{file_descriptor_.load()};
 }
 
 absl::optional<IPEndpoint> StreamSocketPosix::remote_address() const {

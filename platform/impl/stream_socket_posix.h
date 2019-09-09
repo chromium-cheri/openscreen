@@ -12,14 +12,12 @@
 #include "absl/types/optional.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
+#include "platform/impl/file_descriptor_posix.h"
 #include "platform/impl/socket_address_posix.h"
 #include "platform/impl/stream_socket.h"
 
 namespace openscreen {
 namespace platform {
-struct FileDescriptor {
-  int fd;
-};
 
 class StreamSocketPosix : public StreamSocket {
  public:

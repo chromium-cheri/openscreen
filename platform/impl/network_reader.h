@@ -13,6 +13,7 @@
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
 #include "platform/api/udp_socket.h"
+#include "platform/impl/file_descriptor_posix.h"
 
 namespace openscreen {
 namespace platform {
@@ -21,6 +22,7 @@ namespace platform {
 // calling the function associated with these sockets once that data is read.
 // NOTE: This class will only function as intended while its RunUntilStopped
 // method is running.
+// TODO: Rename this class NetworkReaderPosix.
 class NetworkReader : public UdpSocket::LifetimeObserver {
  public:
   // Create a type for readability

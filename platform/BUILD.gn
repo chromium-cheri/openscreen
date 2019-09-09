@@ -8,6 +8,7 @@ source_set("platform") {
   defines = []
 
   sources = [
+    "api/file_descriptor.h",
     "api/internal/trace_logging_internal.cc",
     "api/internal/trace_logging_internal.h",
     "api/internal/trace_logging_macros_internal.h",
@@ -82,6 +83,8 @@ source_set("platform") {
 
     if (is_posix) {
       sources += [
+        "impl/file_descriptor_posix.cc",
+        "impl/file_descriptor_posix.h",
         "impl/network_waiter_posix.cc",
         "impl/network_waiter_posix.h",
         "impl/scoped_pipe.h",
