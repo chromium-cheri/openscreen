@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "931b6025_7e40a48b",
+        "filename": "platform/api/file_descriptor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T21:55:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure that it makes sense to put forward declarations only in platform/api as what\u0027s essentially a hint to the user that this has to be implemented. I don\u0027t feel strongly about this though.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b609fb2_e816044c",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T21:55:45Z",
+      "side": 1,
+      "message": "Could be a platform that does not use FileDescriptors to describe sockets. Maybe a more agnostic name, e.g. SocketDescriptor?",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 31,
+        "endChar": 44
+      },
+      "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c6d62d1_51c31293",
         "filename": "platform/impl/file_descriptor_posix.h",
         "patchSetId": 2
@@ -18,6 +64,29 @@
         "startChar": 15,
         "endLine": 17,
         "endChar": 17
+      },
+      "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ad635e0_064a6433",
+        "filename": "platform/impl/udp_socket_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-09T21:55:45Z",
+      "side": 1,
+      "message": "Is this something you plan to get to soon?",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 61
       },
       "revId": "68d44fcf8a6a439a23708dc4731390482fe0c8e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
