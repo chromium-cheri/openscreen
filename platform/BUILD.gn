@@ -25,6 +25,8 @@ source_set("platform") {
     "api/tls_connection.h",
     "api/tls_connection_factory.cc",
     "api/tls_connection_factory.h",
+    "api/tls_write_buffer.cc",
+    "api/tls_write_buffer.h",
     "api/trace_logging.h",
     "api/trace_logging_platform.cc",
     "api/trace_logging_platform.h",
@@ -69,6 +71,7 @@ source_set("platform") {
       "impl/text_trace_logging_platform.cc",
       "impl/text_trace_logging_platform.h",
       "impl/time.cc",
+      "impl/tls_write_buffer.cc",
     ]
 
     if (is_linux) {
