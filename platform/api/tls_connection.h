@@ -13,6 +13,7 @@
 #include "absl/types/optional.h"
 #include "platform/api/network_interface.h"
 #include "platform/api/task_runner.h"
+#include "platform/api/tls_write_buffer.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 #include "platform/base/macros.h"
@@ -44,7 +45,7 @@ class TlsConnection {
   };
 
   // Sends a message.
-  virtual void Write(const void* data, size_t len) = 0;
+  void Write(const void* data, size_t len);
 
   // Get the local address.
   virtual const IPEndpoint& local_address() const = 0;
@@ -55,10 +56,10 @@ class TlsConnection {
   // Sets the client for this instance.
   void set_client(Client* client) { client_ = client; }
 
-  virtual ~TlsConnection() = default;
+  virtual ~TlsConnection();
 
  protected:
-  explicit TlsConnection(TaskRunner* task_runner) : task_runner_(task_runner) {}
+  explicit TlsConnection(TaskRunner* task_runner);
 
   // Called when |connection| writing is blocked and unblocked, respectively.
   // This call will be proxied to the Client set for this TlsConnection.
@@ -76,6 +77,10 @@ class TlsConnection {
  private:
   Client* client_;
   TaskRunner* const task_runner_;
+
+  std::unique_ptr<TlsWriteBuffer> write_buffer_;
+
+  friend class TlsWriteBuffer;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TlsConnection);
 };
