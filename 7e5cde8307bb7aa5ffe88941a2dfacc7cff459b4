@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a61a4210_a118621f",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T16:58:52Z",
+      "side": 1,
+      "message": "That\u0027s not true for this one\n\nOn success, it returns one. Otherwise, it returns \u003c\u003d 0. The caller should pass the value into |SSL_get_error| to determine how to proceed. But since we don\u0027t support error codes for OnConnectionFailed callbacks, that part is dropped",
+      "parentUuid": "47ae9c78_124b4cc9",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01d9291e_4c78e615",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-09-10T05:03:14Z",
       "side": 1,
       "message": "We should clean up SSLContext and consider using it here, maybe in a separate patch. Or just delete it, I guess?\n\nhttps://chromium-review.googlesource.com/c/openscreen/+/1652805/2/platform/base/ssl_context.h",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47b2d0be_94ab3dc7",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T16:58:52Z",
+      "side": 1,
+      "message": "I\u0027m confused - I looked and on master, I can\u0027t find platform/base/ssl_context.h. Has it already been deleted?\n\nI am in favor of getting rid of it though (if that hasn\u0027t already happened) - there is an ongoing thread in the OSP chat about whether we should be wrapping BoringSSL objects or using them directly, and the chat seems to be leaning towards the latter",
+      "parentUuid": "01d9291e_4c78e615",
       "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b12b075d_d07eac49",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T16:58:52Z",
+      "side": 1,
+      "message": "Personal preference - reset doesn\u0027t need to create a new object\n\nUpdating to \u003d.",
+      "parentUuid": "3fdae51a_ec7d478c",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "534f2512_a52adac1",
         "filename": "platform/impl/tls_connection_factory_posix.h",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2019-09-10T05:03:14Z",
       "side": 1,
       "message": "it\u0027s just used for ssl_context_, right? Consider GUARDED_BY.",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e2d50d_3735e27d",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T16:58:52Z",
+      "side": 1,
+      "message": "My understanding is that GUARDED_BY is for acquiring the mutex for any access. We don\u0027t need that much locking, since SSL_CTX is thread safe - just on initial creation of the unique_ptr.\n\nThe rest of this method, which does use SSL_CTX, does not need the lock",
+      "parentUuid": "534f2512_a52adac1",
       "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2b09bcc7_95e25585",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T16:58:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9393172a_ddaad121",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9f9b5dc_ca2a05d5",
         "filename": "platform/impl/tls_connection_posix.cc",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f47f0ea_e95964a3",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T16:58:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9f9b5dc_ca2a05d5",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
