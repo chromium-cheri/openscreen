@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7f6c21a1_571c562e",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-10T18:07:46Z",
+      "side": 1,
+      "message": "Ok, if X509_NAME_add_entry_by_txt creates the copy, why do you need to copy into a temporary std::string first instead of passing field.data() directly?\n\nTBH I don\u0027t see much value in this helper method since it\u0027s only used once and one of the arguments is a string literal.",
+      "parentUuid": "f6c8ec7e_24966eb8",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 57
+      },
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6236e01_e3812281",
         "filename": "platform/base/tls_credentials.cc",
         "patchSetId": 5
@@ -537,6 +561,24 @@
       "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "328777a4_c6c60558",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-10T18:07:46Z",
+      "side": 1,
+      "message": "I think this warrants an issue in the tracker.",
+      "parentUuid": "5524f38b_e88daa94",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
