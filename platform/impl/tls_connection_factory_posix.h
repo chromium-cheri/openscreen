@@ -18,7 +18,7 @@ namespace platform {
 class TlsConnectionFactoryPosix : public TlsConnectionFactory {
  public:
   TlsConnectionFactoryPosix(Client* client, TaskRunner* task_runner);
-  ~TlsConnectionFactoryPosix();
+  ~TlsConnectionFactoryPosix() override;
 
   // TlsConnectionFactory overrides
   void Connect(const IPEndpoint& remote_address,
@@ -26,6 +26,19 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory {
   void Listen(const IPEndpoint& local_address,
               const TlsCredentials& credentials,
               const TlsListenOptions& options) override;
+
+ private:
+  // Ensures that SSL is initialized, then gets a new SSL connection.
+  ErrorOr<bssl::UniquePtr<SSL>> GetSslConnection();
+
+  TaskRunner* task_runner_;
+
+  // SSL context, for creating SSL Connections via BoringSSL
+  bssl::UniquePtr<SSL_CTX> ssl_context_;
+
+  // This mutex is used only for initial creation of the ssl_context. Accessing
+  // the SSL context is thread safe, so locking this mutex is not needed.
+  std::mutex initialization_lock_;
 };
 
 }  // namespace platform
