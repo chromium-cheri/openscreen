@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47ae9c78_124b4cc9",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T05:03:14Z",
+      "side": 1,
+      "message": "Consider \n\nif (!SSL_connect(ssl.get())\n\nI think that\u0027s why they always return 1 on success, 0 on error.",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01d9291e_4c78e615",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T05:03:14Z",
+      "side": 1,
+      "message": "We should clean up SSLContext and consider using it here, maybe in a separate patch. Or just delete it, I guess?\n\nhttps://chromium-review.googlesource.com/c/openscreen/+/1652805/2/platform/base/ssl_context.h",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fdae51a_ec7d478c",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T05:03:14Z",
+      "side": 1,
+      "message": "Why reset over operator\u003d?",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "534f2512_a52adac1",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T05:03:14Z",
+      "side": 1,
+      "message": "it\u0027s just used for ssl_context_, right? Consider GUARDED_BY.",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9393172a_ddaad121",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T05:03:14Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9f9b5dc_ca2a05d5",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T05:03:14Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
