@@ -299,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "a081a822_1e537a34",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T00:14:11Z",
+      "side": 1,
+      "message": "bssl::UniquePtr is just an alias provided as part of boringSSL for std::UniquePtr\u003cT, CustomDeleter\u003cT\u003e\u003e, since all of the BoringSSL types have custom deleters that are written into the library",
+      "parentUuid": "26797907_4409c57b",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52545a33_bfb85adb",
         "filename": "platform/base/tls_credentials.h",
         "patchSetId": 5
@@ -333,6 +351,29 @@
       "writtenOn": "2019-09-08T19:47:48Z",
       "side": 1,
       "message": "s/lazy loaded/initialized/ ?",
+      "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fe63d47_1b26e20e",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T00:14:11Z",
+      "side": 1,
+      "message": "Can we persist the private key in memory unencrypted? I know this is a security risk, but I\u0027m not sure that matters for our purposes",
+      "range": {
+        "startLine": 68,
+        "startChar": 40,
+        "endLine": 68,
+        "endChar": 59
+      },
       "revId": "f05613f2d708daf1d3efb45bbd49b761846871fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
