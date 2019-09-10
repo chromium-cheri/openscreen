@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0953adb2_b23122da",
+        "filename": "cast/sender/channel/cast_framer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-09-10T17:53:46Z",
+      "side": 1,
+      "message": "Since we just modified |message_bytes_received_|, calling BytesRequested() checks if we\u0027re done.\n\nAnd in general, no, 0 does not imply an error.  0 means the current element has been completely read _or_ an error.",
+      "parentUuid": "f3c0ffd4_c5267b4a",
+      "range": {
+        "startLine": 102,
+        "startChar": 10,
+        "endLine": 102,
+        "endChar": 31
+      },
+      "revId": "b42d986ea5d909ec8764ac4e52752d966e9174c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "390a161b_78d581db",
         "filename": "cast/sender/channel/cast_framer.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "51f1a69d_c0fab2c1",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-09-10T17:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390a161b_78d581db",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 22
+      },
+      "revId": "b42d986ea5d909ec8764ac4e52752d966e9174c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6efad08_37a28a52",
         "filename": "cast/sender/channel/cast_framer.h",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "b42d986ea5d909ec8764ac4e52752d966e9174c1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ad9b932_632e3e95",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-09-10T17:53:46Z",
+      "side": 1,
+      "message": "I don\u0027t know the origin of this value, but I agree that it\u0027s a slightly odd choice.",
+      "parentUuid": "d6efad08_37a28a52",
+      "range": {
+        "startLine": 59,
+        "startChar": 53,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "b42d986ea5d909ec8764ac4e52752d966e9174c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
