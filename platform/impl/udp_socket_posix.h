@@ -6,6 +6,7 @@
 #define PLATFORM_IMPL_UDP_SOCKET_POSIX_H_
 
 #include "absl/types/optional.h"
+#include "platform/api/socket_handle.h"
 #include "platform/api/udp_socket.h"
 
 namespace openscreen {
@@ -39,8 +40,7 @@ struct UdpSocketPosix : public UdpSocket {
                    const IPEndpoint& dest) override;
   void SetDscp(DscpMode state) override;
 
-  // TODO(rwkeane): Update to return a SocketHandle object.
-  int GetFd() const { return fd_; }
+  SocketHandle GetHandle() const;
 
  private:
   void Close() override;

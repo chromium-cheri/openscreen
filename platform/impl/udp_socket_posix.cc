@@ -21,6 +21,7 @@
 #include "absl/types/optional.h"
 #include "platform/api/logging.h"
 #include "platform/base/error.h"
+#include "platform/impl/socket_handle_posix.h"
 
 namespace openscreen {
 namespace platform {
@@ -62,6 +63,10 @@ UdpSocketPosix::UdpSocketPosix(TaskRunner* task_runner,
 
 UdpSocketPosix::~UdpSocketPosix() {
   CloseIfOpen();
+}
+
+SocketHandle UdpSocketPosix::GetHandle() const {
+  return SocketHandle(fd_);
 }
 
 void UdpSocketPosix::Close() {
