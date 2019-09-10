@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af6eb104_d546c3e7",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-10T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1db6270e_96b2d918",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c2c84ef_6571066f",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f7e182f_330fbb8d",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-10T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c2c84ef_6571066f",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "2cee57e3_22dfd440",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-10T17:43:08Z",
+      "side": 1,
+      "message": "Agree on breaking up the condition in the if statement. Done.",
+      "parentUuid": "2c4362e2_f6017899",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44996357_eaa077a5",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7480dbbd_30b28860",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-10T17:43:08Z",
+      "side": 1,
+      "message": "Respectfully disagree, I think this is substantially less readable and more code as well.\n\ndouble ttl_fraction;\nif (send_count_ \u003c openscreen::countof(kTtlFractions) - 1) {\n  ttl_fraction \u003d\n      kTtlFractions[send_count_] + random_delay_-\u003eGetRecordTtlVariation();\n} else {\n  // Do not add random variation to the expiration time (last fraction of TTL)\n  ttl_fraction \u003d kTtlFractions[openscreen::countof(kTtlFractions) - 1];\n}\n++send_count_;",
+      "parentUuid": "44996357_eaa077a5",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ad992bc0_9cdac6a4",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-10T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e6f6af_004a04b2",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a70b6156_eeba1cd8",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 9
@@ -101,6 +191,24 @@
       "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c287d5eb_8850a586",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-10T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a70b6156_eeba1cd8",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
