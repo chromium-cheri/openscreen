@@ -22,6 +22,7 @@
 #include "platform/api/tls_connection_factory.h"
 #include "platform/base/error.h"
 #include "platform/impl/stream_socket.h"
+#include "platform/impl/tls_connection_posix.h"
 #include "util/crypto/openssl_util.h"
 
 namespace openscreen {
@@ -36,14 +37,42 @@ std::unique_ptr<TlsConnectionFactory> TlsConnectionFactory::CreateFactory(
 
 TlsConnectionFactoryPosix::TlsConnectionFactoryPosix(Client* client,
                                                      TaskRunner* task_runner)
-    : TlsConnectionFactory(client, task_runner) {}
+    : TlsConnectionFactory(client, task_runner), task_runner_(task_runner) {}
 
 TlsConnectionFactoryPosix::~TlsConnectionFactoryPosix() = default;
 
+// TODO(rwkeane): Add support for resuming sessions.
+// TODO(rwkeane): Integrate with Auth.
 void TlsConnectionFactoryPosix::Connect(const IPEndpoint& remote_address,
                                         const TlsConnectOptions& options) {
-  // TODO(jophba, rwkeane): implement this method.
-  OSP_UNIMPLEMENTED();
+  IPAddress::Version version = remote_address.address.version();
+  std::unique_ptr<TlsConnectionPosix> connection =
+      std::make_unique<TlsConnectionPosix>(version, task_runner_);
+  Error connect_error = connection->socket_->Connect(remote_address);
+  if (!connect_error.ok()) {
+    OnConnectionFailed(remote_address);
+  }
+
+  ErrorOr<bssl::UniquePtr<SSL>> ssl_or_error = GetSslConnection();
+  if (ssl_or_error.is_error()) {
+    OnError(ssl_or_error.error());
+    return;
+  }
+
+  bssl::UniquePtr<SSL> ssl = ssl_or_error.MoveValue();
+  if (!SSL_set_fd(ssl.get(), connection->socket_->file_descriptor().fd)) {
+    OnConnectionFailed(remote_address);
+    return;
+  }
+
+  int connection_status = SSL_connect(ssl.get());
+  if (connection_status != 1) {
+    OnConnectionFailed(remote_address);
+    return;
+  }
+
+  connection->ssl_.swap(ssl);
+  OnConnected(std::move(connection));
 }
 
 void TlsConnectionFactoryPosix::Listen(const IPEndpoint& local_address,
@@ -52,5 +81,34 @@ void TlsConnectionFactoryPosix::Listen(const IPEndpoint& local_address,
   // TODO(jophba, rwkeane): implement this method.
   OSP_UNIMPLEMENTED();
 }
+
+ErrorOr<bssl::UniquePtr<SSL>> TlsConnectionFactoryPosix::GetSslConnection() {
+  // Create the shared context used for all SSL connections created by this
+  // factory, if it doesn't exist yet.
+  if (!ssl_context_.get()) {
+    std::lock_guard<std::mutex> lock(initialization_lock_);
+    if (!ssl_context_.get()) {
+      EnsureOpenSSLInit();
+      const SSL_METHOD* ssl_method = TLS_method();
+      SSL_CTX* context = SSL_CTX_new(ssl_method);
+      if (context == nullptr) {
+        return Error::Code::kFatalSSLError;
+      }
+      ssl_context_ = bssl::UniquePtr<SSL_CTX>(context);
+    }
+  }
+
+  // Create this specific call's SSL Context. Handling of the SSL_CTX is thread
+  // safe, so this part doesn't need to be in the mutex.
+  SSL* ssl = SSL_new(ssl_context_.get());
+  if (ssl == nullptr) {
+    return Error::Code::kFatalSSLError;
+  }
+
+  auto result = bssl::UniquePtr<SSL>(ssl);
+  SSL_CTX_up_ref(ssl_context_.get());
+  return result;
+}
+
 }  // namespace platform
 }  // namespace openscreen
