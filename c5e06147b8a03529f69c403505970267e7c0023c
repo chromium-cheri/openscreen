@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "25955aea_c35e7887",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T20:04:40Z",
+      "side": 1,
+      "message": "Done.\n\nI think it was previously that way so that it could refer to abstract base class StreamSocket rather than StreamSocketPosix. But this seems unneeded since the class is already posix specific. Updated to avoid a unique_ptr",
+      "parentUuid": "db620e52_c0731c75",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 39
+      },
+      "revId": "c5e06147b8a03529f69c403505970267e7c0023c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef25d875_7781ca5c",
         "filename": "platform/impl/tls_connection_posix.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-10T18:41:18Z",
       "side": 1,
       "message": "Why does factory has to be a friend?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "c5e06147b8a03529f69c403505970267e7c0023c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9317acb7_2b07641d",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T20:04:40Z",
+      "side": 1,
+      "message": "Factory needs to be a friend so it can both create access the StreamSocket (so it can call connect and access the file descriptor) and so it can set the SSL object\nNeither of these we want accessible from the outside after construction (both FileDescriptor and SSL object are implementation details) so a friend declaration made most sense to me\n\nThoughts?",
+      "parentUuid": "ef25d875_7781ca5c",
       "range": {
         "startLine": 38,
         "startChar": 2,

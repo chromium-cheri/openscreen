@@ -161,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "fd280c53_10daef9a",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T20:04:40Z",
+      "side": 1,
+      "message": "It creates a new instance that needs to be freed with the SSL_CTX_free method. That\u0027s called from the bssl::UniquePtr though, so as long as we put it there we should be good\n\nChanging back to reset",
+      "parentUuid": "481745c2_38dfa07a",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "534f2512_a52adac1",
         "filename": "platform/impl/tls_connection_factory_posix.h",
         "patchSetId": 1
@@ -211,6 +229,24 @@
       "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afa07626_0410258d",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-10T20:04:40Z",
+      "side": 1,
+      "message": "Added comment.",
+      "parentUuid": "feb2d0fb_2b158f00",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
