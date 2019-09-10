@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1db6270e_96b2d918",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-09-10T00:01:33Z",
+      "side": 1,
+      "message": "Would it be more clear as start_time_?",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c2c84ef_6571066f",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-09-10T00:01:33Z",
+      "side": 1,
+      "message": "Would it be more clear as sent_count_?",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c4362e2_f6017899",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-09-10T00:01:33Z",
+      "side": 1,
+      "message": "Maybe something like this would be slightly more readable:\n\nauto ttl_deadline \u003d start_time_ + record.ttl();\nbool past_ttl \u003d new_function_() \u003e ttl_deadline;\nif (!past_ttl) {\n  // TODO(yakimakha): Notify owner that the record has expired\n  return;\n}\n\nMdnsQuestion question(record.name(), record.dns_type(),\nrecord.record_class(), ResponseType::kMulticast);\n...",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44996357_eaa077a5",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-09-10T00:01:33Z",
+      "side": 1,
+      "message": "This seems a bit risky. How about like this?\n\n\ndouble ttl_fraction;\nif (send_index_ \u003c openscreen::countof(kTtlFractions)) {\n  // Do not add random variation to the last fraction of TTL\n  ttl_fraction \u003d kTtlFractions[send_index_] + random_delay_-\u003eGetRecordTtlVariation()\n} else {\n  ttl_fraction \u003d kTtlFractions[openscreen::countof(kTtlFractions)-1];\n}\n\nconst Clock::duration delay \u003d std::chrono::duration_cast\u003cClock::duration\u003e(\n      record_.value().ttl() * ttl_fraction);\nreturn last_update_time_ + delay;",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61e6f6af_004a04b2",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-09-10T00:01:33Z",
+      "side": 1,
+      "message": "Could use a class-level comment.",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70b6156_eeba1cd8",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1125619
+      },
+      "writtenOn": "2019-09-10T00:01:33Z",
+      "side": 1,
+      "message": "These could use some comments",
+      "revId": "cb57482db30187de0c1fdbffa0b5b32c6b9eb898",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
