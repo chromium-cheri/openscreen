@@ -353,6 +353,24 @@
     },
     {
       "key": {
+        "uuid": "85633c27_de81a913",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-10T18:22:11Z",
+      "side": 1,
+      "message": "I suspect any modifiers like noexcept are ignored for deleted constructors.",
+      "parentUuid": "94396e00_898686e3",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e39121e8_6e55e38c",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 8
@@ -420,6 +438,24 @@
       "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10ee401c_ae959abf",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-10T18:22:11Z",
+      "side": 1,
+      "message": "The style guide is pretty clear that aliases in the public sections of headers are generally disallowed and doesn\u0027t make any exception for constructors.\n\nhttps://google.github.io/styleguide/cppguide.html#Aliases\n\nIf you\u0027d like argue for an exception for this case and make this change in a followup patch, feel free to email cxx@chromium.org to see what folks think.",
+      "parentUuid": "a536e371_4bdc177a",
+      "revId": "62d047bb50164c2f269c2136cda8a2915df5eb0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
