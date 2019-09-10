@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "93cdc47f_d3e23751",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T17:26:55Z",
+      "side": 1,
+      "message": "I love the inconsistency of OpenSSL methods...",
+      "parentUuid": "a61a4210_a118621f",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01d9291e_4c78e615",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea07ddd3_b46d0b2f",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T17:26:55Z",
+      "side": 1,
+      "message": "%s/platform\\/base/platform\\/impl/g.\n\nI\u0027ll put up a patch to delete it. I\u0027m fine with using BoringSSL objects directly, however we should keep an eye out for duplicate code. If we have complicated logic that ends up being the same in multiple places for instantiating a BoringSSL object, it makes sense to create an object that wraps it.",
+      "parentUuid": "47b2d0be_94ab3dc7",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "481745c2_38dfa07a",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T17:26:55Z",
+      "side": 1,
+      "message": "I did some reading up, that makes sense to me. Since the context is a local temporary, I would prefer reset() here then. Do we need to std::move the context so that the runtime knows to move it into the unique pointer?",
+      "parentUuid": "b12b075d_d07eac49",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "534f2512_a52adac1",
         "filename": "platform/impl/tls_connection_factory_posix.h",
         "patchSetId": 1
@@ -136,6 +190,24 @@
       "side": 1,
       "message": "My understanding is that GUARDED_BY is for acquiring the mutex for any access. We don\u0027t need that much locking, since SSL_CTX is thread safe - just on initial creation of the unique_ptr.\n\nThe rest of this method, which does use SSL_CTX, does not need the lock",
       "parentUuid": "534f2512_a52adac1",
+      "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feb2d0fb_2b158f00",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-10T17:26:55Z",
+      "side": 1,
+      "message": "Considering making a note of this on the mutex.",
+      "parentUuid": "42e2d50d_3735e27d",
       "revId": "7e5cde8307bb7aa5ffe88941a2dfacc7cff459b4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
