@@ -21,6 +21,7 @@
 #include "absl/types/optional.h"
 #include "platform/api/logging.h"
 #include "platform/base/error.h"
+#include "platform/impl/socket_handle_posix.h"
 
 namespace openscreen {
 namespace platform {

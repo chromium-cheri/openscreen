@@ -5,12 +5,30 @@
 #ifndef PLATFORM_API_SOCKET_HANDLE_H_
 #define PLATFORM_API_SOCKET_HANDLE_H_
 
+#include <memory>
+
 namespace openscreen {
 namespace platform {
 
 // A SocketHandle is the handle used to access a Socket by the underlying
 // platform.
 struct SocketHandle;
+
+bool operator==(const SocketHandle& lhs, const SocketHandle& rhs);
+inline bool operator!=(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return !(lhs == rhs);
+}
+
+bool operator>(const SocketHandle& lhs, const SocketHandle& rhs);
+inline bool operator<(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return rhs > lhs;
+}
+inline bool operator>=(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return !(lhs < rhs);
+}
+inline bool operator<=(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return !(lhs > rhs);
+}
 
 }  // namespace platform
 }  // namespace openscreen

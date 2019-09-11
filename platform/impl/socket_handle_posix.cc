@@ -4,17 +4,20 @@
 
 #include "platform/impl/socket_handle_posix.h"
 
+#include <memory>
+
 namespace openscreen {
 namespace platform {
 
 SocketHandle::SocketHandle(int descriptor) : fd(descriptor) {}
 
-bool SocketHandle::operator==(const SocketHandle& other) const {
-  return fd == other.fd;
+bool operator==(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return lhs.fd == rhs.fd;
 }
 
-bool SocketHandle::operator!=(const SocketHandle& other) const {
-  return !(*this == other);
+bool operator>(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return lhs.fd > rhs.fd;
 }
+
 }  // namespace platform
 }  // namespace openscreen
