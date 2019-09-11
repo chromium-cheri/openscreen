@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0bcc7553_92adb5fc",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-11T21:56:31Z",
+      "side": 1,
+      "message": "Interesting question - I\u0027m not really sure. What does everyone else think?\n\nI personally like keeping them separate, because keeping TlsWriteBufferPosix thread safe (per class-level note on TlsWriteBuffer) is easier than all of TlsConnection, but am open to either approach",
+      "parentUuid": "88c8917d_5ea37bf3",
+      "revId": "caf650c0bebe5418301520e24466c853a75a4261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddb16cd3_6c923706",
         "filename": "platform/api/tls_write_buffer.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "519aa883_149df2fc",
+        "filename": "platform/api/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-11T21:56:31Z",
+      "side": 1,
+      "message": "Yes. This is just the platform/api abstract class. The posix implementation will come once this is checked in",
+      "parentUuid": "ddb16cd3_6c923706",
+      "revId": "caf650c0bebe5418301520e24466c853a75a4261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63c75619_e3d3e6d4",
         "filename": "platform/api/tls_write_buffer.h",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-09-11T21:22:48Z",
       "side": 1,
       "message": "How is the lifetime for data_ptr going to be managed?",
+      "revId": "caf650c0bebe5418301520e24466c853a75a4261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5722a44d_64152b14",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-11T21:56:31Z",
+      "side": 1,
+      "message": "Good catch! I will have to think about this a bit more. Definitely open to suggestions\n\nMy original idea was that the networking thread will repeatedly call GetReadable() to see if any data is read, then read it, then repeat. You\u0027re right that if these assumptions are violated, the code as it is now won\u0027t work\n\nThe first approach I can think of to answer this question is:\n1) TlsWriteBuffer must outlive any ReadInfo it creates\n2) Creating a new ReadInfo invalidates any previous one created (via a static atomic\u003cReadInfo*\u003e or similar)\n\nAnyone have suggestions for normal patterns to use in this case?",
+      "parentUuid": "63c75619_e3d3e6d4",
       "revId": "caf650c0bebe5418301520e24466c853a75a4261",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
