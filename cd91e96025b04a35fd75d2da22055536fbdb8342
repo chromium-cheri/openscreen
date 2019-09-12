@@ -2,6 +2,142 @@
   "comments": [
     {
       "key": {
+        "uuid": "66f1d476_3710b1a6",
+        "filename": "platform/base/error.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "kSha256HashFailure?  (We will likely have other kinds of hashes.)",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b51bb346_df3a8ccc",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "time_as_t -\u003e timestamp_seconds?",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36f1f508_7021ea7c",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "Declare non-const if you\u0027re moving it.",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e3568ae_643c39c6",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "Can we eliminate a copy here?",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0387b51_ce148703",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82883b28_33d57496",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80553911_45f5a91a",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "std::move with a const argument just copies.  Either make the arguments non-const, or remove std::move.\n\nIf you\u0027re always passing these from MoveValue, you can just declare them std::vector\u003cuint8_t\u003e\u0026\u0026",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f19934a0_5fceefbb",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "Filed https://crbug.com/openscreen/72 to improve ErrorOr.  Can you add a TODO() here?",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "873f6063_7c273652",
         "filename": "platform/base/tls_credentials.h",
         "patchSetId": 10
@@ -19,6 +155,91 @@
         "endLine": 46,
         "endChar": 26
       },
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36a5ced4_6c070bad",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "I would just say \"...the private key provided on construction\"",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b7b6132_2aba403e",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "..the public key provided on construction.",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d29cda8_662fe428",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "...of the public key.",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41590869_beee689c",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "The raw (DER-encoded) ...",
+      "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9329e969_a2035c01",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-12T16:58:16Z",
+      "side": 1,
+      "message": "This does not appear to be true. Update comment?",
       "revId": "cd91e96025b04a35fd75d2da22055536fbdb8342",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
