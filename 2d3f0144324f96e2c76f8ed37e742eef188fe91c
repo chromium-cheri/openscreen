@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d409f3b7_6c73cc1a",
+        "filename": "streaming/cast/clock_drift_smoother.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T22:18:20Z",
+      "side": 1,
+      "message": "What\u0027s this? Needed for linker?",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 72
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd0ad5c_09a23614",
+        "filename": "streaming/cast/environment.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T22:18:20Z",
+      "side": 1,
+      "message": "Why not intercept it on a fake/mock socket?",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 54
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f5fabd8_186d0e2e",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T22:18:20Z",
+      "side": 1,
+      "message": "It\u0027s personal preference, I guess, but could you please either move this assignment out of the if statement or specify the type explicitly and not with auto?\n\nMy reasoning is that if the type returned by Parse changes, this line might not get updated, and relying on a implicit lvalue cast to bool is sketchy at best in my eyes.\n\nAlso, I had to go to .h to figure out what type is last_sender_report_ and what\u0027s returned by .Parse, so I\u0027d be in favor of specifying the type explicitly either way.",
+      "range": {
+        "startLine": 94,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 53
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39da3032_cb39958e",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T22:18:20Z",
+      "side": 1,
+      "message": "Might as well schedule in SendRtcpImmediately.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 1
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f22ca8db_49565fe1",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T22:18:20Z",
+      "side": 1,
+      "message": "Why not call now_function_ directly? If it\u0027s ugly, rename it to now_.",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 69
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "655c400e_98e07e6e",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T22:18:20Z",
+      "side": 1,
+      "message": "What benefits does it provide compared to having a vector?",
+      "range": {
+        "startLine": 215,
+        "startChar": 2,
+        "endLine": 216,
+        "endChar": 48
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28a5eee7_c7b1b4d5",
+        "filename": "streaming/cast/receiver_packet_router.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T22:18:20Z",
+      "side": 1,
+      "message": "maybe just sender_ssrc same as in FindEntry? Also, you have it as sender_ssrc in .cc",
+      "range": {
+        "startLine": 38,
+        "startChar": 30,
+        "endLine": 38,
+        "endChar": 45
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf8336e0_09665f33",
+        "filename": "streaming/cast/receiver_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T22:18:20Z",
+      "side": 1,
+      "message": "Mac build was giving me trouble for the exact same reason. I gave up and switched to C-style array.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 69
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
