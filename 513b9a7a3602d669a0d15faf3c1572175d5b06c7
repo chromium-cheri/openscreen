@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ba94438_a45536e3",
+        "filename": "cast/sender/channel/cast_framer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "We have BigEndianReader/Writer classes, would it be any more convenient to use those?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "513b9a7a3602d669a0d15faf3c1572175d5b06c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ebd98b_f19e1fea",
+        "filename": "cast/sender/channel/cast_framer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "You can always reserve memory for the header at the beginning of the buffer and then update the header at that address after you\u0027ve serialized the message",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "513b9a7a3602d669a0d15faf3c1572175d5b06c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f42816a_505db80a",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "Split into two separate reader and writer classes?",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "513b9a7a3602d669a0d15faf3c1572175d5b06c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f24964a_ec1e9b3c",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "Same comment as in the other review, could you please not hide the type behind IngestResult?\n\nusing openscreen::ErrorOr; should work even for the template, and ErrorOr\u003cstd::unique_ptr\u003cCastMessage\u003e\u003e is already not too long.",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "513b9a7a3602d669a0d15faf3c1572175d5b06c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36130ad9_7c69b03d",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "Name parameters message and out?",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "513b9a7a3602d669a0d15faf3c1572175d5b06c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4afa2ec3_d997c8ac",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "You can forward declare MessageHeader in the private section here, but put the entire class in .cc.",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 22
+      },
+      "revId": "513b9a7a3602d669a0d15faf3c1572175d5b06c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db8e4583_0bfc84c0",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "Is it just for the body or body plus header? If possible, could you put a link to where this is defined or add a comment about the message header format here?",
+      "range": {
+        "startLine": 59,
+        "startChar": 53,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "513b9a7a3602d669a0d15faf3c1572175d5b06c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "ce2d492a_52ffabfd",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "That\u0027s one weird name",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "5a50ba3eef3ccda2082a073f95a5c68f4a11f36a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b64c2337_44785602",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "maybe\nusing ErrorOr \u003d openscreen::ErrorOr;\nand then use\nErrorOr\u003cstd::unique_ptr\u003cCastMessage\u003e\u003e instead of IngestResult?\n\nAlso, why do we have to return a unique_ptr to a CastMessage?\nWhy not ErrorOr\u003cCastMessage\u003e?",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "5a50ba3eef3ccda2082a073f95a5c68f4a11f36a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79e8cd77_247a5ad7",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "That\u0027s one weird name",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "5a50ba3eef3ccda2082a073f95a5c68f4a11f36a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17449934_ce88bcea",
         "filename": "cast/sender/channel/cast_framer.h",
         "patchSetId": 1
@@ -93,6 +162,29 @@
       "revId": "5a50ba3eef3ccda2082a073f95a5c68f4a11f36a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23d33698_0e501269",
+        "filename": "platform/base/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T20:18:38Z",
+      "side": 1,
+      "message": "Should we prefix all of these names to show that these belong to Cast V2?",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 17
+      },
+      "revId": "5a50ba3eef3ccda2082a073f95a5c68f4a11f36a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
