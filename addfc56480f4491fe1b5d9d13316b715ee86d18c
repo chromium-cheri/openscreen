@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51bf93fa_2c07148f",
+        "filename": "cast/sender/channel/cast_framer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T23:19:19Z",
+      "side": 1,
+      "message": "Since it\u0027s always header and then body, I think Ingest + BytesReceived + ParseElement can be simplified into one quite straightforward method:\n\nErrorOr\u003cstd::unique_ptr\u003cCastMessage\u003e\u003e MessageFramer::Ingest(size_t byte_count) {\n  message_bytes_received_ +\u003d byte_count;\n\n  if (message_bytes_received_ \u003c header_size()) {\n    return need-more-bytes;\n  }\n\n  if (message_bytes_received_ \u003e input_buffer_.size()) {\n    return ChannelError::kCastV2InvalidMessage;\n  }\n\n  uint32_t message_size \u003d openscreen::ReadBigEndian\u003cuint32_t\u003e(input_buffer_.data());\n\n  if (message_size \u003e max_body_size()) {\n    return ChannelError::kCastV2InvalidMessage;\n  }\n\n  if (message_bytes_received_ \u003c message_size + header_size()) {\n    return need-more-bytes;\n  }\n\n  if (message_bytes_received_ \u003e message_size + header_size()) {\n    return ChannelError::kCastV2InvalidMessage; // or should we ignore extra bytes?\n  }\n\n  auto parsed_message \u003d std::make_unique\u003cCastMessage\u003e();\n  if (!parsed_message-\u003eParseFromArray(input_buffer_.data() + header_size(), message_size)) {\n    return ChannelError::kCastV2InvalidMessage;\n  }\n\n  message_bytes_received_ \u003d 0;\n  return parsed_message;\n}",
+      "range": {
+        "startLine": 68,
+        "startChar": 53,
+        "endLine": 68,
+        "endChar": 59
+      },
+      "revId": "addfc56480f4491fe1b5d9d13316b715ee86d18c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ecb524e_e156faed",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T23:19:19Z",
+      "side": 1,
+      "message": "I think this works as well\nusing openscreen::ErrorOr;\n\nIs there a particular reason you prefer the syntax you used?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "addfc56480f4491fe1b5d9d13316b715ee86d18c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cadbc4ed_b3d3324f",
+        "filename": "cast/sender/channel/cast_framer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-12T23:19:19Z",
+      "side": 1,
+      "message": "Why not make these constants in an anonymous namespace in .cc? It\u0027s best if tests specify their values independently so they are able to catch a change to these values.",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 0
+      },
+      "revId": "addfc56480f4491fe1b5d9d13316b715ee86d18c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
