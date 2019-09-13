@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b7d7366_37e53b10",
+        "filename": "platform/base/error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-13T22:08:13Z",
+      "side": 1,
+      "message": "Is specifying ValueType here necessary? (same comment for other constructors)\n\nI thought absl::variant should figure out the type and copy-construct it itself, i.e. does the following not work?\n\nErrorOr(const ValueType\u0026 value) : variant_{value} {}",
+      "range": {
+        "startLine": 211,
+        "startChar": 36,
+        "endLine": 211,
+        "endChar": 62
+      },
+      "revId": "19e9d3cb6086808da28e67199d8755c0c728cdac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
