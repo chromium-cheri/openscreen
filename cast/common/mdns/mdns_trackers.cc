@@ -176,7 +176,8 @@ MdnsQuestionTracker::MdnsQuestionTracker(MdnsSender* sender,
                                          TaskRunner* task_runner,
                                          ClockNowFunctionPtr now_function,
                                          MdnsRandom* random_delay)
-    : MdnsTracker(sender, task_runner, now_function, random_delay) {}
+    : MdnsTracker(sender, task_runner, now_function, random_delay),
+      task_runner_(task_runner) {}
 
 Error MdnsQuestionTracker::Start(MdnsQuestion question) {
   if (question_.has_value()) {
@@ -206,6 +207,45 @@ Error MdnsQuestionTracker::Stop() {
 bool MdnsQuestionTracker::IsStarted() {
   return question_.has_value();
 };
+
+void MdnsQuestionTracker::OnRecordReceived(const MdnsRecord& record) {
+  if (!question_.has_value()) {
+    return;
+  }
+
+  std::tuple<DomainName, DnsType, DnsClass> key =
+      std::make_tuple(record.name(), record.dns_type(), record.dns_class());
+
+  auto find_result = record_trackers_.find(key);
+  if (find_result != record_trackers_.end()) {
+    MdnsRecordTracker* record_tracker = find_result->second.get();
+    record_tracker->Update(record);
+    return;
+  }
+
+  std::unique_ptr<MdnsRecordTracker> record_tracker =
+      std::make_unique<MdnsRecordTracker>(
+          sender_, task_runner_, now_function_, random_delay_,
+          std::bind(&MdnsQuestionTracker::OnRecordUpdated, this,
+                    std::placeholders::_1),
+          std::bind(&MdnsQuestionTracker::OnRecordExpired, this,
+                    std::placeholders::_1));
+
+  record_tracker->Start(record);
+  record_trackers_.emplace(key, std::move(record_tracker));
+  // TODO(yakimakha): Notify all interested parties that a new record has been
+  // added
+}
+
+void MdnsQuestionTracker::OnRecordExpired(const MdnsRecord& record) {
+  // TODO(yakimakha): Notify all interested parties that an existing record has
+  // been deleted
+}
+
+void MdnsQuestionTracker::OnRecordUpdated(const MdnsRecord& record) {
+  // TODO(yakimakha): Notify all interested parties that an existing record has
+  // been updated
+}
 
 void MdnsQuestionTracker::SendQuery() {
   MdnsMessage message(CreateMessageId(), MessageType::Query);
