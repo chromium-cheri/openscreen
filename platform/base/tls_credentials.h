@@ -18,6 +18,7 @@
 #include "platform/api/time.h"
 #include "platform/base/error.h"
 #include "platform/base/macros.h"
+#include "util/crypto/rsa_private_key.h"
 
 namespace openscreen {
 namespace platform {
@@ -44,7 +45,7 @@ class TlsCredentials {
   const X509& certificate() const { return *certificate_; }
 
   // The original key pair provided on construction.
-  const EVP_PKEY& key_pair() const { return *key_pair_; }
+  const EVP_PKEY& key_pair() const { return *(key_pair_->key()); }
 
   // A base64 encoded version of the private key provided on construction.
   const std::vector<uint8_t>& private_key_base64() const {
@@ -68,14 +69,14 @@ class TlsCredentials {
 
  private:
   TlsCredentials(bssl::UniquePtr<X509> certificate,
-                 bssl::UniquePtr<EVP_PKEY> key_pair,
+                 std::unique_ptr<RSAPrivateKey> key_pair,
                  std::vector<uint8_t> private_key_base64,
                  std::vector<uint8_t> public_key_base64,
                  std::vector<uint8_t> public_key_hash,
                  std::vector<uint8_t> raw_der_certificate);
 
   bssl::UniquePtr<X509> certificate_;
-  bssl::UniquePtr<EVP_PKEY> key_pair_;
+  std::unique_ptr<RSAPrivateKey> key_pair_;
   std::vector<uint8_t> private_key_base64_;
   std::vector<uint8_t> public_key_base64_;
   std::vector<uint8_t> public_key_hash_;
