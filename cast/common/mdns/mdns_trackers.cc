@@ -204,6 +204,37 @@ bool MdnsQuestionTracker::IsStarted() {
   return question_.has_value();
 };
 
+void MdnsQuestionTracker::OnRecordReceived(const MdnsRecord& record) {
+  if (!question_.has_value()) {
+    // return Error::Code::kOperationInvalid;
+    return;
+  }
+
+  // MdnsRecordTracker t(sender_, nullptr, now_function_, random_delay_,
+  //                     std::bind(&MdnsQuestionTracker::OnRecordExpired, this,
+  //                               std::placeholders::_1),
+  //                     std::bind(&MdnsQuestionTracker::OnRecordUpdated, this,
+  //                               std::placeholders::_1));
+
+  // for (MdnsRecordTracker& record_trackers_ : record_trackers_) {
+  // if (found a tracker for this record) {
+  // update this record (what if it's a goodbye record?)
+  // if update says the record has different rdata, notify all interested
+  // parties break or return
+  //}
+  //}
+
+  // if (not found a tracker for this record) {
+  // create a tracker
+  // start a tracker
+  // notify all interested parties that a new record has been added
+  //}
+}
+
+void MdnsQuestionTracker::OnRecordExpired(const MdnsRecord& record) {}
+
+void MdnsQuestionTracker::OnRecordUpdated(const MdnsRecord& record) {}
+
 void MdnsQuestionTracker::SendQuery() {
   MdnsMessage message(CreateMessageId(), MessageType::Query);
   message.AddQuestion(question_.value());

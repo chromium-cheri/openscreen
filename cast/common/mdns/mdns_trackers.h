@@ -121,13 +121,24 @@ class MdnsQuestionTracker : public MdnsTracker {
   // automatically sending queries, false otherwise.
   bool IsStarted();
 
+  // Called by the owner of the class
+  void OnRecordReceived(const MdnsRecord& record);
+
  private:
+  // Called by owned MdnsRecordTrackers when a tracked record is expired
+  void OnRecordExpired(const MdnsRecord& record);
+
+  // Called by owned MdnsRecordTrackers when a tracked record's RDATA changes
+  void OnRecordUpdated(const MdnsRecord& record);
+
   // Sends a query message via MdnsSender and schedules the next resend.
   void SendQuery();
 
   // Stores MdnsQuestion provided to Start method call.
   absl::optional<MdnsQuestion> question_;
   Clock::duration send_delay_;
+
+  // std::vector<MdnsRecordTracker> record_trackers_;
 };
 
 }  // namespace mdns
