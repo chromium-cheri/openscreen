@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6a6d564_2f6c26c3",
+        "filename": "platform/base/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-13T17:17:03Z",
+      "side": 1,
+      "message": "Minor unrelated suggestion: I think renaming this to ValueType would help with reading the code in this class.",
+      "range": {
+        "startLine": 199,
+        "startChar": 19,
+        "endLine": 199,
+        "endChar": 24
+      },
+      "revId": "cf1face5d54d7d6cac25c5e3a53b27e8b9a942e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05fc2ce5_a81daf7a",
+        "filename": "platform/base/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-13T17:17:03Z",
+      "side": 1,
+      "message": "Fundamentally, ErrorOr\u003cValueType\u003e is just std::variant\u003cError, Value\u003e (absl::variant since we\u0027re at C++14). I suggest looking at the design of std::variant.\n\nI think it would make perfect sense to make value() method return a non-const reference, which also eliminates the need for MoveValue, as you can write \"more conventional and usual\" code like this:\n\nErrorOr\u003cMyType\u003e result;\n...\nMyFunction(std::move(result.value());\n\nAs well as modify the value stored inside of ErrorOr, which I personally find useful.\n\nI\u0027d like to know Mark\u0027s opinion on this.",
+      "range": {
+        "startLine": 227,
+        "startChar": 2,
+        "endLine": 228,
+        "endChar": 59
+      },
+      "revId": "cf1face5d54d7d6cac25c5e3a53b27e8b9a942e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f307413b_29dbdc76",
+        "filename": "platform/base/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-13T17:17:03Z",
+      "side": 1,
+      "message": "When the template is instantiated, the size of the Value type is known.",
+      "range": {
+        "startLine": 233,
+        "startChar": 5,
+        "endLine": 233,
+        "endChar": 49
+      },
+      "revId": "cf1face5d54d7d6cac25c5e3a53b27e8b9a942e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e099e711_26e037a9",
+        "filename": "platform/base/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-13T17:17:03Z",
+      "side": 1,
+      "message": "default state",
+      "range": {
+        "startLine": 234,
+        "startChar": 5,
+        "endLine": 234,
+        "endChar": 29
+      },
+      "revId": "cf1face5d54d7d6cac25c5e3a53b27e8b9a942e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
