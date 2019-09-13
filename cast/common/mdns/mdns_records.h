@@ -321,6 +321,10 @@ class MdnsRecord {
   DnsClass dns_class() const { return dns_class_; }
   RecordType record_type() const { return record_type_; }
   std::chrono::seconds ttl() const { return ttl_; }
+  void set_ttl(std::chrono::seconds value) {
+    OSP_DCHECK_LE(value.count(), std::numeric_limits<uint32_t>::max());
+    ttl_ = value;
+  }
   const Rdata& rdata() const { return rdata_; }
 
   template <typename H>
