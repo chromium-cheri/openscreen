@@ -17,6 +17,7 @@
 #include "absl/strings/str_cat.h"
 #include "platform/api/logging.h"
 #include "util/crypto/openssl_util.h"
+#include "util/crypto/sha2.h"
 
 namespace openscreen {
 namespace platform {
@@ -83,42 +84,6 @@ bssl::UniquePtr<X509> CreateCertificate(
   return certificate;
 }
 
-ErrorOr<std::vector<uint8_t>> Sha256Digest(const std::vector<uint8_t>& data) {
-  bssl::UniquePtr<EVP_MD_CTX> context(EVP_MD_CTX_new());
-  uint8_t digest[EVP_MAX_MD_SIZE];
-  unsigned int digest_len;
-  if (!EVP_Digest(data.data(), data.size(), digest, &digest_len, EVP_sha256(),
-                  nullptr)) {
-    return Error::Code::kSha256HashFailure;
-  }
-
-  return std::vector<uint8_t>(digest, digest + digest_len);
-}
-
-ErrorOr<std::vector<uint8_t>> WriteOutKey(EVP_PKEY key, bool is_public) {
-  bssl::UniquePtr<BIO> bio(BIO_new(BIO_s_mem()));
-
-  if (is_public) {
-    if (!PEM_write_bio_PUBKEY(bio.get(), &key)) {
-      return Error::Code::kParseError;
-    }
-  } else {
-    if (!PEM_write_bio_PrivateKey(
-            bio.get(), &key, nullptr /* EVP_CIPHER */, nullptr /* kstr */,
-            -1 /* klen */, nullptr /* pem_password_cb */, nullptr /* u */)) {
-      return Error::Code::kParseError;
-    }
-  }
-
-  char* data = nullptr;
-  const int len = BIO_get_mem_data(bio.get(), &data);
-  if (!data || len < 0) {
-    return Error::Code::kParseError;
-  }
-
-  return std::vector<uint8_t>(data, data + len);
-}
-
 }  // namespace
 
 ErrorOr<TlsCredentials> TlsCredentials::Create(
@@ -145,33 +110,29 @@ ErrorOr<TlsCredentials> TlsCredentials::Create(
   // BoringSSL doesn't free the temporary buffer.
   OPENSSL_free(buffer);
 
-  ErrorOr<std::vector<uint8_t>> private_key_or_error(
-      WriteOutKey(*key_pair, false /* is_public */));
-  if (!private_key_or_error) {
-    return private_key_or_error.error();
-  }
+  std::unique_ptr<RSAPrivateKey> rsa_private_key =
+      RSAPrivateKey::CreateFromKey(key_pair.release());
 
-  ErrorOr<std::vector<uint8_t>> public_key_or_error(
-      WriteOutKey(*key_pair, true /* is_public */));
+  std::vector<uint8_t> private_key_export;
+  rsa_private_key->ExportPrivateKey(&private_key_export);
 
-  if (!public_key_or_error) {
-    return public_key_or_error.error();
-  }
+  std::vector<uint8_t> public_key_export;
+  rsa_private_key->ExportPublicKey(&public_key_export);
 
-  ErrorOr<std::vector<uint8_t>> public_key_hash_or_error(
-      Sha256Digest(public_key_or_error.value()));
-  if (!public_key_hash_or_error) {
-    return public_key_hash_or_error.error();
-  }
+  std::vector<uint8_t> public_key_hash(SHA256_DIGEST_LENGTH);
+  absl::string_view key_view(
+      reinterpret_cast<const char*>(public_key_export.data()),
+      public_key_export.size());
+  SHA256HashString(key_view, public_key_hash.data());
 
   return TlsCredentials(
-      std::move(certificate), std::move(key_pair),
-      private_key_or_error.MoveValue(), public_key_or_error.MoveValue(),
-      public_key_hash_or_error.MoveValue(), std::move(raw_der_certificate));
+      std::move(certificate), std::move(rsa_private_key),
+      std::move(private_key_export), std::move(public_key_export),
+      std::move(public_key_hash), std::move(raw_der_certificate));
 }
 
 TlsCredentials::TlsCredentials(bssl::UniquePtr<X509> certificate,
-                               bssl::UniquePtr<EVP_PKEY> key_pair,
+                               std::unique_ptr<RSAPrivateKey> key_pair,
                                std::vector<uint8_t> private_key_base64,
                                std::vector<uint8_t> public_key_base64,
                                std::vector<uint8_t> public_key_hash,
