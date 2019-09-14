@@ -156,16 +156,19 @@ class RtpTimeDelta : public ExpandedValueBase<int64_t, RtpTimeDelta> {
 
   template <typename Rep>
   static constexpr Rep ToNearestRepresentativeValue(double ticks) {
-    if (!std::is_floating_point<Rep>::value) {
-      ticks = std::round(ticks);
-    }
-    OSP_DCHECK(std::isfinite(ticks));
-    if (ticks < std::numeric_limits<Rep>::min()) {
+    if (ticks <= std::numeric_limits<Rep>::min()) {
       return std::numeric_limits<Rep>::min();
-    } else if (ticks > std::numeric_limits<Rep>::max()) {
+    } else if (ticks >= std::numeric_limits<Rep>::max()) {
       return std::numeric_limits<Rep>::max();
     }
-    return Rep(ticks);
+    if (std::is_floating_point<Rep>::value) {
+      return Rep(ticks);
+    }
+    if (ticks >= 0.0) {
+      return Rep(ticks + 0.5);
+    } else {
+      return Rep(ticks - 0.5);
+    }
   }
 };
 
