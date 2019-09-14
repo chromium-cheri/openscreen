@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "18c317ea_eb971e52",
+        "filename": "streaming/cast/clock_drift_smoother.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-14T00:11:06Z",
+      "side": 1,
+      "message": "Yep, exactly. :(",
+      "parentUuid": "d409f3b7_6c73cc1a",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 72
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecd0ad5c_09a23614",
         "filename": "streaming/cast/environment.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c01fdda_7a57c4d3",
+        "filename": "streaming/cast/environment.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-14T00:11:06Z",
+      "side": 1,
+      "message": "The FakeUdpSocket instantiates its own FakeClock and FakeTaskRunner, but the tests I\u0027ve written need to do that too. There cannot be two instances of a FakeClock at the same time.\n\nFWIW, this method is the only one I need to have mocked, so I don\u0027t need all the rest of FakeUdpSocket anyway.",
+      "parentUuid": "ecd0ad5c_09a23614",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 54
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "179e0dec_8c4f06ac",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-14T00:11:06Z",
+      "side": 1,
+      "message": "Excellent points. Done.",
+      "parentUuid": "1f5fabd8_186d0e2e",
+      "range": {
+        "startLine": 94,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 53
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39da3032_cb39958e",
         "filename": "streaming/cast/receiver.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c079b2a4_7297e26f",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-14T00:11:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39da3032_cb39958e",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 1
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "03463b36_ea18b210",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-14T00:11:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f22ca8db_49565fe1",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 69
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "655c400e_98e07e6e",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1047b23b_41a3b73a",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-14T00:11:06Z",
+      "side": 1,
+      "message": "Small reasons:\n\n1. I mean for it to be a fixed buffer that doesn\u0027t auto-resize/reallocate. It\u0027s actually important that those who would change the code in the future not try to increase or decrease its size.\n\n2. Leaner: one int plus one pointer (4 + 8 bytes) instead of three pointers (24 bytes).",
+      "parentUuid": "655c400e_98e07e6e",
+      "range": {
+        "startLine": 215,
+        "startChar": 2,
+        "endLine": 216,
+        "endChar": 48
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "098844c0_55ea372a",
+        "filename": "streaming/cast/receiver_packet_router.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-14T00:11:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28a5eee7_c7b1b4d5",
+      "range": {
+        "startLine": 38,
+        "startChar": 30,
+        "endLine": 38,
+        "endChar": 45
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf8336e0_09665f33",
         "filename": "streaming/cast/receiver_unittest.cc",
         "patchSetId": 3
@@ -183,6 +351,30 @@
       "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5f020e3_1fffd4f6",
+        "filename": "streaming/cast/receiver_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-14T00:11:06Z",
+      "side": 1,
+      "message": "It\u0027s a compiler bug, fixed in newer Clangs. The syntax I used is absolutely valid C++11 (and is also valid C++14) when used unambiguously (i.e., it\u0027s almost always unambiguous). I\u0027ve added the extra braces it wanted, to placate it.",
+      "parentUuid": "bf8336e0_09665f33",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 69
+      },
+      "revId": "2d3f0144324f96e2c76f8ed37e742eef188fe91c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
