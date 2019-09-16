@@ -241,6 +241,9 @@ void MdnsQuestionTracker::OnRecordReceived(const MdnsRecord& record) {
 void MdnsQuestionTracker::OnRecordExpired(const MdnsRecord& record) {
   // TODO(yakimakha): Notify all interested parties that an existing record has
   // been deleted
+  std::tuple<DomainName, DnsType, DnsClass> key =
+      std::make_tuple(record.name(), record.dns_type(), record.dns_class());
+  record_trackers_.erase(key);
 }
 
 void MdnsQuestionTracker::OnRecordUpdated(const MdnsRecord& record) {
