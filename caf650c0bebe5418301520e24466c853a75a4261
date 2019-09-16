@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "dfe068a7_5140c963",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-16T18:17:35Z",
+      "side": 1,
+      "message": "Based on the current implementation, a class cannot implement both interfaces because it would be multiple implementation inheritance",
+      "parentUuid": "0bcc7553_92adb5fc",
+      "revId": "caf650c0bebe5418301520e24466c853a75a4261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddb16cd3_6c923706",
         "filename": "platform/api/tls_write_buffer.cc",
         "patchSetId": 2
@@ -104,6 +122,24 @@
       "revId": "caf650c0bebe5418301520e24466c853a75a4261",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51e85ab5_aa914a3f",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-16T18:17:35Z",
+      "side": 1,
+      "message": "Had an idea for a solution over the weekend using an instance-level mutex. Assuming the class is used as intended, there should never by any lock contention. PTAL and let me know your thoughts. Also added comments to address the lifetime of created ReadInfo objects.\n\nClosing this comment for now - please open a new one if you see issues with the new solution",
+      "parentUuid": "5722a44d_64152b14",
+      "revId": "caf650c0bebe5418301520e24466c853a75a4261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
