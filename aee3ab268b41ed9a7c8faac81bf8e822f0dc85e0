@@ -22,6 +22,74 @@
       "revId": "aee3ab268b41ed9a7c8faac81bf8e822f0dc85e0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7748545_11c0b4d7",
+        "filename": "platform/api/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-16T21:52:24Z",
+      "side": 1,
+      "message": "Nit:\n\nI\u0027d prefer \n\nauto read_info \u003d std::make_unique\u003cReadInfo\u003e(this);\nread_info-\u003eavailable_bytes_ \u003d available_bytes;\nread_info-\u003edata_ptr_ \u003d data_ptr;\nmost_recent_read_info_ \u003d read_info.get();\n\nreturn read_info;\n\nUnless there is some lifetime weirdness with the read_info.get() pointer, which I don\u0027t think there is?",
+      "revId": "aee3ab268b41ed9a7c8faac81bf8e822f0dc85e0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379a4439_32c17808",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-16T21:52:24Z",
+      "side": 1,
+      "message": "Any reason this is a double pointer instead of a single one? I\u0027m pretty sure you can just do a single pointer.",
+      "revId": "aee3ab268b41ed9a7c8faac81bf8e822f0dc85e0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dc9d37a_ebcbfa90",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-16T21:52:24Z",
+      "side": 1,
+      "message": "I\u0027m generally anti friends. This class is used by TlsWriteBuffer as its consumer, right? So anything TlsWriteBuffer needs to access should be part of its public interface and vice versa? I could be convinced, though, I guess. Generally friend classes feel like API design failures.",
+      "revId": "aee3ab268b41ed9a7c8faac81bf8e822f0dc85e0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "447d64ae_73c227b7",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-16T21:52:24Z",
+      "side": 1,
+      "message": "Consider \"\u003d nullptr\" in header.",
+      "revId": "aee3ab268b41ed9a7c8faac81bf8e822f0dc85e0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

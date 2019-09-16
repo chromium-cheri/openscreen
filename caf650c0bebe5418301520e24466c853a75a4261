@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "fcb54112_b6df827c",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-16T21:52:24Z",
+      "side": 1,
+      "message": "I mean more like why not have a TlsWriteBuffer::Observer interface, and have TlsConnection implement that interface? Then the OnWriteBlocked/OnWriteUnblocked methods can be part of that Observer interface.",
+      "parentUuid": "dfe068a7_5140c963",
+      "revId": "caf650c0bebe5418301520e24466c853a75a4261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddb16cd3_6c923706",
         "filename": "platform/api/tls_write_buffer.cc",
         "patchSetId": 2
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "Had an idea for a solution over the weekend using an instance-level mutex. Assuming the class is used as intended, there should never by any lock contention. PTAL and let me know your thoughts. Also added comments to address the lifetime of created ReadInfo objects.\n\nClosing this comment for now - please open a new one if you see issues with the new solution",
       "parentUuid": "5722a44d_64152b14",
+      "revId": "caf650c0bebe5418301520e24466c853a75a4261",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28bf48a3_d4d015cb",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-16T21:52:24Z",
+      "side": 1,
+      "message": "I\u0027m into it, sounds GTM.",
+      "parentUuid": "51e85ab5_aa914a3f",
       "revId": "caf650c0bebe5418301520e24466c853a75a4261",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
