@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0dc0b379_c3b04a97",
+        "filename": "platform/api/network_waiter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-16T18:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1785115b_59113a02",
+      "revId": "a72a65cfda4acf3db26279d909d2c85e4c0c044d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9f1ce06_f15b47d9",
         "filename": "platform/api/network_waiter.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "a72a65cfda4acf3db26279d909d2c85e4c0c044d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1583ea53_c9d5f20c",
+        "filename": "platform/api/network_waiter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-16T18:46:33Z",
+      "side": 1,
+      "message": "Good catch\n\nIt feels weird to me, but I think we should be using const SocketHandleRef\u0026 everywhere because it\u0027s a class not a primitive. Updating throughout the CL to this approach, but can change it if anyone else disagrees.",
+      "parentUuid": "b9f1ce06_f15b47d9",
+      "revId": "a72a65cfda4acf3db26279d909d2c85e4c0c044d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "17c38622_7ee42498",
+        "filename": "platform/api/network_waiter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-16T18:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "575784e3_f32eb9e3",
+      "revId": "a72a65cfda4acf3db26279d909d2c85e4c0c044d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e456647f_0a9b3227",
         "filename": "platform/api/network_waiter.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "a72a65cfda4acf3db26279d909d2c85e4c0c044d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b228dd_ebc24e31",
+        "filename": "platform/api/network_waiter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-16T18:46:33Z",
+      "side": 1,
+      "message": "It looks like abseil provides one! c_find\nhttps://github.com/abseil/abseil-cpp/blob/master/absl/algorithm/container.h\n\nUpdating to use this throughout the CL",
+      "parentUuid": "e456647f_0a9b3227",
+      "revId": "a72a65cfda4acf3db26279d909d2c85e4c0c044d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
