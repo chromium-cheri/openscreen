@@ -16,6 +16,52 @@
       "revId": "acdaa6c0412f1ec7c27d8de1f30792b8ec545ff0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceda8403_1605e3eb",
+        "filename": "platform/base/tls_credentials.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-16T17:05:23Z",
+      "side": 1,
+      "message": "Change this and the rest to return ErrorOr\u003cstd::vector\u003cuint8_t\u003e\u003e?",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 35
+      },
+      "revId": "acdaa6c0412f1ec7c27d8de1f30792b8ec545ff0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3c598b2_0b8d0880",
+        "filename": "platform/base/tls_credentials.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-16T17:05:23Z",
+      "side": 1,
+      "message": "I see that RSAPrivateKey Create methods return a unique_ptr, which is why you are using it here.\nThis means that to get to BoringSSL code we have to do two pointer dereferences.\nCan RSAPrivateKey Create methods be changed to return ErrorOr\u003cRSAPrivateKey\u003e instead of unique_ptr? Then you can either use RSAPrivateKey here either directly or in absl::optional.\n\nRSAPrivateKey still can hold nullptr in bssl::UniquePtr if needed.",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 32
+      },
+      "revId": "acdaa6c0412f1ec7c27d8de1f30792b8ec545ff0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
