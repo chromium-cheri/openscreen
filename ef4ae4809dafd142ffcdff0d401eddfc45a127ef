@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8ce266ba_c274b685",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-16T21:51:26Z",
+      "side": 1,
+      "message": "This is ok state to be in case of failure on Update.\nAll errors are state consistency anyway, but doing due diligence to check all error codes.",
+      "parentUuid": "0ed96e80_6ab2da74",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 3
+      },
+      "revId": "ef4ae4809dafd142ffcdff0d401eddfc45a127ef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3ae9884_79665a97",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "ef4ae4809dafd142ffcdff0d401eddfc45a127ef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb524c61_f9a47e70",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-16T21:51:26Z",
+      "side": 1,
+      "message": "The entire update call is on TaskRunner. I don\u0027t think it\u0027s necessary to split it further into smaller tasks at this point.",
+      "parentUuid": "e3ae9884_79665a97",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 28
+      },
+      "revId": "ef4ae4809dafd142ffcdff0d401eddfc45a127ef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
