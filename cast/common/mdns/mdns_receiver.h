@@ -26,22 +26,23 @@ class MdnsReceiver : UdpSocket::Client {
   class Delegate {
    public:
     virtual ~Delegate() = default;
-    virtual void OnQueryReceived(const MdnsMessage& message,
-                                 const IPEndpoint& sender) = 0;
-    virtual void OnResponseReceived(const MdnsMessage& message,
-                                    const IPEndpoint& sender) = 0;
+    virtual void OnMessageReceived(const MdnsMessage& message,
+                                   const IPEndpoint& sender) = 0;
   };
 
   // MdnsReceiver does not own |socket| and |delegate|
   // and expects that the lifetime of these objects exceeds the lifetime of
   // MdnsReceiver.
-  MdnsReceiver(UdpSocket* socket, Delegate* delegate);
+  MdnsReceiver(UdpSocket* socket);
   MdnsReceiver(const MdnsReceiver& other) = delete;
   MdnsReceiver(MdnsReceiver&& other) noexcept = delete;
   ~MdnsReceiver() override;
 
   MdnsReceiver& operator=(const MdnsReceiver& other) = delete;
   MdnsReceiver& operator=(MdnsReceiver&& other) noexcept = delete;
+
+  void SetQueryDelegate(Delegate* delegate);
+  void SetResponseDelegate(Delegate* delegate);
 
   // The receiver can be started and stopped multiple times.
   // Start and Stop are both synchronous calls. When MdnsReceiver has not yet
@@ -63,7 +64,8 @@ class MdnsReceiver : UdpSocket::Client {
   };
 
   UdpSocket* const socket_;
-  Delegate* const delegate_;
+  Delegate* query_delegate_ = nullptr;
+  Delegate* response_delegate_ = nullptr;
   State state_ = State::kStopped;
 };
 

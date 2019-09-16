@@ -102,10 +102,7 @@ class MdnsRecordTracker : public MdnsTracker {
 // continuous monitoring with exponential back-off as described in RFC 6762
 class MdnsQuestionTracker : public MdnsTracker {
  public:
-  MdnsQuestionTracker(MdnsSender* sender,
-                      TaskRunner* task_runner,
-                      ClockNowFunctionPtr now_function,
-                      MdnsRandom* random_delay);
+  using MdnsTracker::MdnsTracker;
 
   // Starts sending query messages for the provided question. Returns error with
   // code Error::Code::kOperationInvalid if called on an instance of
@@ -124,6 +121,10 @@ class MdnsQuestionTracker : public MdnsTracker {
 
   // Called by the owner of the class
   void OnRecordReceived(const MdnsRecord& record);
+
+  void AddDelegate();
+  void RemoveDelegate();
+  bool HasDelegates();
 
  private:
   // Called by owned MdnsRecordTrackers when a tracked record is expired
