@@ -38,11 +38,6 @@ TlsConnectionPosix::TlsConnectionPosix(IPEndpoint local_address,
 
 TlsConnectionPosix::~TlsConnectionPosix() = default;
 
-void TlsConnectionPosix::Write(const void* data, size_t len) {
-  // TODO(jophba, rwkeane): implement this method.
-  OSP_UNIMPLEMENTED();
-}
-
 const IPEndpoint& TlsConnectionPosix::local_address() const {
   return local_address_;
 }
