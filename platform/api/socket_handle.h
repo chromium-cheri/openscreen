@@ -12,6 +12,22 @@ namespace platform {
 // platform.
 struct SocketHandle;
 
+bool operator==(const SocketHandle& lhs, const SocketHandle& rhs);
+inline bool operator!=(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return !(lhs == rhs);
+}
+
+bool operator>(const SocketHandle& lhs, const SocketHandle& rhs);
+inline bool operator<(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return rhs > lhs;
+}
+inline bool operator>=(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return !(lhs < rhs);
+}
+inline bool operator<=(const SocketHandle& lhs, const SocketHandle& rhs) {
+  return !(lhs > rhs);
+}
+
 }  // namespace platform
 }  // namespace openscreen
 
