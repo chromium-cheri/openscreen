@@ -82,12 +82,18 @@ source_set("receiver") {
 
 source_set("sender") {
   sources = [
+    "bandwidth_estimator.cc",
+    "bandwidth_estimator.h",
     "compound_rtcp_parser.cc",
     "compound_rtcp_parser.h",
     "rtp_packetizer.cc",
     "rtp_packetizer.h",
+    "sender.cc",
+    "sender.h",
     "sender_report_builder.cc",
     "sender_report_builder.h",
+    "sender_transport.cc",
+    "sender_transport.h",
   ]
 
   public_deps = [
