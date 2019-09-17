@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9fbbebd_6ac760ca",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "All interfaces in platform/api should be either: 1) pure virtual, or 2) non-virtual with linker config to provide the specific module providing the impl. They are describing the thing each embedder will have to implement separately. The parts of the implementation that an embedder would not have to implement belongs in platform/base.\n\nHowever, looking at TlsWriteBuffer, it feels like that doesn\u0027t belong in platform/base either. It seems specific to the standalone implementation.",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 43
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fec325f_2ab79c90",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "Could TlsConnection::Write() just return the number of bytes written, instead of having this roundabout callback? :)",
+      "range": {
+        "startLine": 64,
+        "startChar": 7,
+        "endLine": 64,
+        "endChar": 27
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4375e24_cacef0b2",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "Please remove.",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6364847_4f6d7885",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "This is implementation, not platform/api. Let embedders that implement the TlsConnection API decide whether/how they will handle buffering. In Chromium, for example, it\u0027s very likely this TlsWriteBuffer won\u0027t get used at all, since something like Mojo\u0027s data pipe to the NetworkService would implicitly provide that functionality.",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cb19fa7_18422dbc",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "Considering:\n\n1. It seems that ReadInfo is just an absl::Span\u003cconst uint8_t\u003e with this extra MarkRead() method.\n2. There is a specific contract where only the most-recently-created ReadInfo object is valid.\n\nHow about removing this ReadInfo class altogether? Meaning, replace the GetReadable() method with a simpler API like:\n\n  // Returns the current readable region. This will be empty if nothing is currently\n  // available for read. The return Span is valid until DidConsume() is called.\n  virtual absl::Span\u003cconst uint8_t\u003e GetReadableRegion() \u003d 0;\n\n  // Called when the client has consumed |num_bytes| of the readable region.\n  virtual void DidConsume(int num_bytes) \u003d 0;",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d087712_8f23d1aa",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "s/write/read/  I think?",
+      "range": {
+        "startLine": 63,
+        "startChar": 55,
+        "endLine": 63,
+        "endChar": 60
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b906065_e258035d",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "explicit",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 16
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11217820_e235deac",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "If an embedder must implement this, there should be documentation about what it does.",
+      "range": {
+        "startLine": 69,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 28
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4405b5a_e281a45f",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T00:15:41Z",
+      "side": 1,
+      "message": "Strong suggestion: Don\u0027t allow multithreading. Only use this buffer on one thread, and external code running on other threads must post tasks to ensure operations only run on \"the one thread\" here. Then, no mutex/thread synchronization concerns are present and everything gets much simpler. This is Chromium SOP.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 30
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
