@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86a3f8c2_795bf569",
+        "filename": "platform/api/network_waiter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T01:21:41Z",
+      "side": 1,
+      "message": "This file and network_waiter.h seem to belong in platform/impl, since they are standalone-specific (not for embedders to worry about).",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 40
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "908db5e7_c6165537",
+        "filename": "platform/api/network_waiter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T01:21:41Z",
+      "side": 1,
+      "message": "Per my prior suggestion: If Subscribe() took in the list of SocketHandleRefs, this \"all handles for all subscribers\" list could just be changed whenever Subscribe() or Unsubscribe() are called, rather than having to be re-built for each NetworkWaiter loop iteration.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 39
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "996f7b42_36a918d2",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T01:21:41Z",
+      "side": 1,
+      "message": "Suggest passing this as a 2nd arg to Subscribe(). Then, the handle list cannot change during the subscribe (but should it ever? ...and could call Unsubscribe() and re-Subscribe() with new set of handles anyway...).\n\n------------ UPDATE --------------\n\nAh! Now that I see what NetworkReader is doing, I change my suggestion to:\n\n  // Start notifying |subscriber| whenever |handle| has an event. May be called multiple\n  // times, to be notified for multiple handles.\n  void Subscribe(Subscriber* subscriber, SocketHandleRef handle);\n\n  // Stop getting notifications for one of the handles currently subscribed to.\n  void UnsubscribeOne(Subscriber* subscriber, SocketHandleRef no_more_of_this_handle);\n\n  // Stop getting notifications for all handles currently subscribed to, or no-op if there\n  // are no subscriptions.\n  void UnsubscribeAll(Subscriber* subscriber);\n\nThe benefits to doing it this way are explained in a later comment (in the .cc file)...",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 40
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8b63e11_be517d67",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T01:21:41Z",
+      "side": 1,
+      "message": "Could there be multiple subscribers interested in the same SocketHandleRef? Or, is my concern \"over-engineering?\" :)",
+      "range": {
+        "startLine": 66,
+        "startChar": 32,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c321517_e01c55ee",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T01:21:41Z",
+      "side": 1,
+      "message": "This is all implementation specific to the standalone impl of the platform API, not for platform/api headers.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 20
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add4f82d_a83c4ba1",
+        "filename": "platform/api/socket_handle.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T01:21:41Z",
+      "side": 1,
+      "message": "ditto here: Seems that this file also belongs in platform/impl, IIUC.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 0
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a04fc7f4_c689675f",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T01:21:41Z",
+      "side": 1,
+      "message": "nit: NetworkWaiter* const waiter_;",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "559075da_84ee3d71",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-17T01:21:41Z",
+      "side": 1,
+      "message": "NetworkWaiterThread here? (I think this code was written before the dust had settled from a few weeks back.)",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 58
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
