@@ -15,20 +15,29 @@
 #include "platform/api/tls_connection.h"
 #include "platform/base/socket_state.h"
 #include "platform/impl/stream_socket_posix.h"
+#include "platform/impl/tls_write_buffer.h"
 
 namespace openscreen {
 namespace platform {
 
-class TlsConnectionPosix : public TlsConnection {
+class TlsConnectionPosix : public TlsConnection,
+                           public TlsWriteBuffer::Observer {
  public:
   TlsConnectionPosix(IPEndpoint local_address, TaskRunner* task_runner);
   TlsConnectionPosix(IPAddress::Version version, TaskRunner* task_runner);
   ~TlsConnectionPosix();
 
-  // TlsConnection overrides
+  // TlsConnection overrides.
   void Write(const void* data, size_t len) override;
   const IPEndpoint& local_address() const override;
   const IPEndpoint& remote_address() const override;
+
+  // TlsWriteBuffer::Observer overrides.
+  void OnWriteBufferBlocked() override { OnWriteBlocked(); }
+  void OnWriteBufferUnblocked() override { OnWriteUnblocked(); }
+  void OnTooMuchDataBuffered() override {
+    OnError(Error::Code::kInsufficientBuffer);
+  }
 
  private:
   StreamSocketPosix socket_;
