@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ef0dfb72_f67f01ca",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Moving to platform/impl and reverting this file",
+      "parentUuid": "d9fbbebd_6ac760ca",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 43
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fec325f_2ab79c90",
         "filename": "platform/api/tls_connection.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-17T00:15:41Z",
       "side": 1,
       "message": "Could TlsConnection::Write() just return the number of bytes written, instead of having this roundabout callback? :)",
+      "range": {
+        "startLine": 64,
+        "startChar": 7,
+        "endLine": 64,
+        "endChar": 27
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f41670aa_015b6d9c",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Discussed offline, and we need this for our buffering approach to work\n\n\nAdding additional comments to explain the approach now that it\u0027s in platform/impl",
+      "parentUuid": "4fec325f_2ab79c90",
       "range": {
         "startLine": 64,
         "startChar": 7,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "61c4497b_42eef7b4",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4375e24_cacef0b2",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6364847_4f6d7885",
         "filename": "platform/api/tls_write_buffer.h",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60e19b16_125d12b9",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Moved to platform/impl",
+      "parentUuid": "a6364847_4f6d7885",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b17baba6_ddee12eb",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Done.\n\nChanged signature of DidConsume slightly though - Can change back if you prefer.",
+      "parentUuid": "6cb19fa7_18422dbc",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d087712_8f23d1aa",
         "filename": "platform/api/tls_write_buffer.h",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add50df6_74d0db20",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Removed ReadInfo Entirely",
+      "parentUuid": "3d087712_8f23d1aa",
+      "range": {
+        "startLine": 63,
+        "startChar": 55,
+        "endLine": 63,
+        "endChar": 60
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "06c4ee00_d6a793e4",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b906065_e258035d",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 16
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11217820_e235deac",
         "filename": "platform/api/tls_write_buffer.h",
         "patchSetId": 4
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "98947e8b_a643e6f4",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Done.\n\nThis is no longer an embedder method, but documentation has been added.",
+      "parentUuid": "11217820_e235deac",
+      "range": {
+        "startLine": 69,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 28
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4405b5a_e281a45f",
         "filename": "platform/api/tls_write_buffer.h",
         "patchSetId": 4
@@ -197,6 +389,30 @@
       "writtenOn": "2019-09-17T00:15:41Z",
       "side": 1,
       "message": "Strong suggestion: Don\u0027t allow multithreading. Only use this buffer on one thread, and external code running on other threads must post tasks to ensure operations only run on \"the one thread\" here. Then, no mutex/thread synchronization concerns are present and everything gets much simpler. This is Chromium SOP.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 30
+      },
+      "revId": "7e32f0a5a5ec8c99ee5d184887b5d50361e9effb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43d9b260_a1e637fb",
+        "filename": "platform/api/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-17T18:26:22Z",
+      "side": 1,
+      "message": "Discussed offline. We need multithreading to support our standalone use case, but this can be moved to platform/impl. Will go with a lockless fifo instead",
+      "parentUuid": "a4405b5a_e281a45f",
       "range": {
         "startLine": 92,
         "startChar": 0,
