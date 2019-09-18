@@ -78,6 +78,12 @@ void UdpSocketPosix::Close() {
 ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(TaskRunner* task_runner,
                                               Client* client,
                                               const IPEndpoint& endpoint) {
+  static std::atomic_bool in_create{false};
+  if (in_create.exchange(true)) {
+    OSP_NOTREACHED();
+    return Error::Code::kAgain;
+  }
+
   int domain;
   switch (endpoint.address.version()) {
     case Version::kV4:
@@ -91,6 +97,8 @@ ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(TaskRunner* task_runner,
   if (!fd) {
     return fd.error();
   }
+
+  in_create.store(false);
   return UdpSocketUniquePtr(static_cast<UdpSocket*>(new UdpSocketPosix(
       task_runner, client, SocketHandle(fd.value()), endpoint)));
 }
