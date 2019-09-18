@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14bbd334_dbe89d5c",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-18T00:16:28Z",
+      "side": 1,
+      "message": "typo: s/1044/1024/\n\nA trick I use (but is not required...just personal style):\n\n  1 \u003c\u003c 10  // 1 KB\n  1 \u003c\u003c 20  // 1 MB\n  1 \u003c\u003c 30  // 1 GB\n\n...which also means constants like, say, 42 MB can be:\n\n  42 \u003c\u003c 20  // 42 MB",
+      "range": {
+        "startLine": 17,
+        "startChar": 31,
+        "endLine": 17,
+        "endChar": 35
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac171299_c302397e",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-18T00:16:28Z",
+      "side": 1,
+      "message": "In a header file, we shouldn\u0027t put constants in an anonymous namespace. Suggest making them public static class members instead.\n\nAlso, it kind of feels like these are tunable configuration rather than constants that should be hard-coded.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e962fc4d_f99ab96d",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-18T00:16:28Z",
+      "side": 1,
+      "message": "Per the above comment: If the \"constants\" should actually be configurable, perhaps a better observer interface would be something like:\n\n  virtual void NotifyWriteBufferFill(double fraction);  // 0.0 to 1.0 (0% to 100%)\n\nThen, the impl of Observer can decide what to do at the various fill levels.\n\nAlso, what would the implementation of OnTooMuchDataBuffered() look like? It seems that would always be the same as OnWriteBufferBlocked(). I see the class-level comments mention this should be treated as an unrecoverable error, but in stream writes, it\u0027s more typical for the sender to block/stall indefinitely until the buffer isn\u0027t full anymore. What I\u0027m getting at: Maybe this method isn\u0027t needed, if the impl of this interface can\u0027t do anything actionable.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 45
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6468263_f71c6d6e",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-18T00:16:28Z",
+      "side": 1,
+      "message": "It feels like this should return an error if the entire buffer isn\u0027t written. Maybe return the number of bytes actually pushed into the queue (could be anywhere from 0 to len)?",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 6
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da3a3bd9_b576cf4b",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-18T00:16:28Z",
+      "side": 1,
+      "message": "Side note, following-up on our discussion yesterday: It just occurred to me that you may still want to use a mutex. The reason is that the other thread will need to poll constantly unless the data flow rate is very steady/predictable and known ahead of time, which is wasteful of CPU. You can still use mostly the same FIFO design, but just use a mutex (instead of atomically fetching the head/tail pointers) and then also use a condition variable so that Write() can signal the consumer thread when the latter is blocking (waiting for more data).",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 48
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc4b573_ed993842",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-18T00:16:28Z",
+      "side": 1,
+      "message": "Observer* const observer_;\n          ^^^^^",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 21
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
