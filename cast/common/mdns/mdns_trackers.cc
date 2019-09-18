@@ -207,6 +207,29 @@ bool MdnsQuestionTracker::IsStarted() {
   return question_.has_value();
 };
 
+void MdnsQuestionTracker::AddCallback(MdnsRecordChangedCallback* callback) {
+  // TODO(yakimakha): Thread safety
+  const auto find_result =
+      std::find(callbacks_.begin(), callbacks_.end(), callback);
+  if (find_result == callbacks_.end()) {
+    callbacks_.push_back(callback);
+    // TODO(yakimakha): Notify the new callback with all known answers
+  }
+}
+
+void MdnsQuestionTracker::RemoveCallback(MdnsRecordChangedCallback* callback) {
+  // TODO(yakimakha): Thread safety
+  const auto find_result =
+      std::find(callbacks_.begin(), callbacks_.end(), callback);
+  if (find_result != callbacks_.end()) {
+    callbacks_.erase(find_result);
+  }
+}
+
+bool MdnsQuestionTracker::HasCallbacks() {
+  return !callbacks_.empty();
+}
+
 void MdnsQuestionTracker::OnRecordReceived(const MdnsRecord& record) {
   if (!question_.has_value()) {
     return;
@@ -234,18 +257,27 @@ void MdnsQuestionTracker::OnRecordReceived(const MdnsRecord& record) {
 
   record_tracker->Start(record);
   record_trackers_.emplace(key, std::move(record_tracker));
-  // TODO(yakimakha): Notify all interested parties that a new record has been
-  // added
+  // TODO(yakimakha): Thread safety
+  for (auto callback : callbacks_) {
+    callback->OnRecordChanged(record, RecordChangedEvent::kAdded);
+  }
 }
 
 void MdnsQuestionTracker::OnRecordExpired(const MdnsRecord& record) {
-  // TODO(yakimakha): Notify all interested parties that an existing record has
-  // been deleted
+  // TODO(yakimakha): Thread safety
+  for (auto callback : callbacks_) {
+    callback->OnRecordChanged(record, RecordChangedEvent::kDeleted);
+  }
+  std::tuple<DomainName, DnsType, DnsClass> key =
+      std::make_tuple(record.name(), record.dns_type(), record.dns_class());
+  record_trackers_.erase(key);
 }
 
 void MdnsQuestionTracker::OnRecordUpdated(const MdnsRecord& record) {
-  // TODO(yakimakha): Notify all interested parties that an existing record has
-  // been updated
+  // TODO(yakimakha): Thread safety
+  for (auto callback : callbacks_) {
+    callback->OnRecordChanged(record, RecordChangedEvent::kUpdated);
+  }
 }
 
 void MdnsQuestionTracker::SendQuery() {
