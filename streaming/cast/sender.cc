@@ -35,7 +35,8 @@ Sender::Sender(Environment* environment,
                const std::array<uint8_t, 16>& cast_iv_mask)
     : environment_(environment),
       transport_(transport),
-      rtcp_session_(sender_ssrc, receiver_ssrc),
+      // TODO(jophba): Is now a good time?
+      rtcp_session_(sender_ssrc, receiver_ssrc, platform::Clock::now()),
       rtcp_parser_(&rtcp_session_, this),
       sender_report_builder_(&rtcp_session_),
       rtp_packetizer_(rtp_payload_type,
