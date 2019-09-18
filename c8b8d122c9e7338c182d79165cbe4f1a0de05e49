@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "463b74e2_c3737db5",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T20:16:21Z",
+      "side": 1,
+      "message": "Maybe move this to TlsWriteBuffer since it\u0027s describes buffer state?\nAlso, kBlockBufferPercentage and kBufferSize can be a parameters to the buffer constructor, but declared as constants in TlsConnectionPosix.",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 45
+      },
+      "revId": "c8b8d122c9e7338c182d79165cbe4f1a0de05e49",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed8bb063_7508eaa3",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T20:16:21Z",
+      "side": 1,
+      "message": "Is there a scenario where we would need a TlsWriteBuffer with no observer? Maybe DCHECK in constructor, that it\u0027s not nullptr?",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 18
+      },
+      "revId": "c8b8d122c9e7338c182d79165cbe4f1a0de05e49",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09ab9735_20bcf410",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T20:16:21Z",
+      "side": 1,
+      "message": "Comment out of date?",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 78
+      },
+      "revId": "c8b8d122c9e7338c182d79165cbe4f1a0de05e49",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9050fe48_e22bb954",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T20:16:21Z",
+      "side": 1,
+      "message": "Just Consume for consistency with Write (i.e. it\u0027s not called WriteBytes)?",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 19
+      },
+      "revId": "c8b8d122c9e7338c182d79165cbe4f1a0de05e49",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "406cae2f_546839ca",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T20:16:21Z",
+      "side": 1,
+      "message": "kBufferSizeBytes? Also, does it have to be public?",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 37
+      },
+      "revId": "c8b8d122c9e7338c182d79165cbe4f1a0de05e49",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
