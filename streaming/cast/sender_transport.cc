@@ -13,6 +13,9 @@
 namespace openscreen {
 namespace cast_streaming {
 
+decltype(SenderTransport::kPacingInterval) constexpr SenderTransport::
+    kPacingInterval;
+
 SenderTransport::SenderTransport(Environment* environment, int max_bitrate)
     : environment_(environment),
       packet_buffer_size_(environment->GetMaxPacketSize()),
