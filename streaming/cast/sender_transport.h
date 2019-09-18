@@ -54,7 +54,8 @@ class SenderTransport : public Environment::PacketConsumer {
 
   int max_packet_size() const { return packet_buffer_size_; }
 
-  ///////BUG: Should be receiver_ssrc, but also need to replace other ssrcs in this class with Client* since those reference the client.
+  ///////BUG: Should be receiver_ssrc, but also need to replace other ssrcs in
+  /// this class with Client* since those reference the client.
   void RegisterClient(Ssrc ssrc, Client* client);
   void DeregisterClient(Ssrc ssrc);
 
