@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c36c19cf_5b6eb414",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:57:36Z",
+      "side": 1,
+      "message": "That\u0027s really convenient! Updating to suggestion",
+      "parentUuid": "14bbd334_dbe89d5c",
+      "range": {
+        "startLine": 17,
+        "startChar": 31,
+        "endLine": 17,
+        "endChar": 35
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac171299_c302397e",
         "filename": "platform/impl/tls_write_buffer.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7ff683a_91ac41f9",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:57:36Z",
+      "side": 1,
+      "message": "Size I have left as static class member constant, because the array size needs to be a constexpr value (and I don\u0027t think it\u0027s worth templating this class, unless you disagree). The other 2 have been moved to the observer\u0027s responsibility",
+      "parentUuid": "ac171299_c302397e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d2ab5f4a_5abb3771",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:57:36Z",
+      "side": 1,
+      "message": "Updated as suggested - you\u0027re right. This is much cleaner.\n\nSee platform/impl/tls_connection for an example implementation and why we need more than just OnWriteBufferBlocked / OnWriteBufferUnblocked.",
+      "parentUuid": "e962fc4d_f99ab96d",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 45
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6468263_f71c6d6e",
         "filename": "platform/impl/tls_write_buffer.h",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cdf4942_66d356a9",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:57:36Z",
+      "side": 1,
+      "message": "Updated as suggested",
+      "parentUuid": "a6468263_f71c6d6e",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 6
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f9812fb9_fc027d1c",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:57:36Z",
+      "side": 1,
+      "message": "That\u0027s really clever! I\u0027ll keep that in mind during the follow-up CL when I write the impl",
+      "parentUuid": "da3a3bd9_b576cf4b",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 48
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddc4b573_ed993842",
         "filename": "platform/impl/tls_write_buffer.h",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ad994ed_5ba642bb",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:57:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddc4b573_ed993842",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 21
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
