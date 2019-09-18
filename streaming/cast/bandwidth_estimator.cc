@@ -11,6 +11,13 @@
 namespace openscreen {
 namespace cast_streaming {
 
+decltype(
+    BandwidthEstimator::kNumBuckets) constexpr BandwidthEstimator::kNumBuckets;
+decltype(BandwidthEstimator::kBucketPeriod) constexpr BandwidthEstimator::
+    kBucketPeriod;
+decltype(BandwidthEstimator::kHistoryDuration) constexpr BandwidthEstimator::
+    kHistoryDuration;
+
 namespace {
 
 constexpr platform::Clock::duration kDurationOfOneClockTick{1};
