@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d4f0fbf_0b70200f",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "Nothing against do {} while; but IMHO it\u0027s easier to read\nwhile (latest_frame_expected_ \u003c\u003d part-\u003eframe_id) {}",
+      "range": {
+        "startLine": 125,
+        "startChar": 6,
+        "endLine": 125,
+        "endChar": 53
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "027022d4_28856be1",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "Is it possible to still accumulate but not process the packet? E.g. below where estimated_capture_time is being assigned, modify the check that it should be assigned only when a sender report has been received.",
+      "range": {
+        "startLine": 130,
+        "startChar": 25,
+        "endLine": 130,
+        "endChar": 56
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c603d50_c35ca664",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "nit: Could you please insert a new line here to separate ifs?",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 4
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aefdf8e_2437e712",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "In retrospect Dependency was probably not the best name. Maybe FrameType?\n\nOtherwise it might not be very clear why a thing called EncryptedFrame::KEY results in picture loss indicator being reset. One can easily think that EncryptedFrame::KEY is related to crypto.",
+      "range": {
+        "startLine": 186,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9b7717d_1b5ce890",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "\u003c\u003d here? latest_frame_expected_ might be complete as well at this point.",
+      "range": {
+        "startLine": 195,
+        "startChar": 28,
+        "endLine": 195,
+        "endChar": 29
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8619a07d_86270c8d",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "So, what type is it? int64_t?",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 12
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f11bc5cf_03313312",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "checkpoint_frame() vs rtcp_builder_.SetCheckpointFrame(new_checkpoint) is a bit confusing. Maybe either a helper or no helper for both? I don\u0027t see much value in hiding rtcp_builder_ behind checkpoint_frame() function.",
+      "range": {
+        "startLine": 292,
+        "startChar": 32,
+        "endLine": 292,
+        "endChar": 48
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6018d4ea_6df728cc",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "Why not return a reference here?",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 16
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9961c1c4_aac09d05",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "There\u0027s a default constructor for FrameId which sets it to std::numeric_limits\u003cint64_t\u003e::min(), while first() - 1 is -1.",
+      "range": {
+        "startLine": 260,
+        "startChar": 35,
+        "endLine": 260,
+        "endChar": 55
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6712562_fd2c7032",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "I don\u0027t see this value updated anywhere. Should checkpoint_frame be used instead evereywhere?",
+      "range": {
+        "startLine": 265,
+        "startChar": 2,
+        "endLine": 265,
+        "endChar": 54
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9fa4fa2_304b803d",
+        "filename": "streaming/cast/rtp_time.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-18T19:40:37Z",
+      "side": 1,
+      "message": "I think this might not always work due to precision issues.\nI\u0027m not 100% sure, something like this might happen:\nvalue is 7.5, but value + 0.5 ends up being 7.999999999992 or something along these lines.\n\nWhat does std::round do internally?",
+      "range": {
+        "startLine": 167,
+        "startChar": 4,
+        "endLine": 171,
+        "endChar": 5
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
