@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "e2da5694_9f3404e5",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T19:30:42Z",
+      "side": 1,
+      "message": "After thinking a bit more, I suspect that polling for write data will occur in the same loop as calling NetworkWaiter\u0027s Wait method and checking for TcpSocket readable data (so that we can get away with only one Networking thread instead of multiple), so we can\u0027t block on any one waiting on data. I will add a TODO when implementing it so we don\u0027t forget about this idea though, in case we don\u0027t end up using the same thread\n\nIf this seems like the wrong approach though, now is a great time to tell me - before I try to integrate the 3 above calls together",
+      "parentUuid": "f9812fb9_fc027d1c",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 48
+      },
+      "revId": "2844c8a05b8238f8230daa84ba6667e88d25315d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddc4b573_ed993842",
         "filename": "platform/impl/tls_write_buffer.h",
         "patchSetId": 5
