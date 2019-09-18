@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6276779d_79bb4cdb",
+        "filename": "platform/api/network_waiter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:19:27Z",
+      "side": 1,
+      "message": "Done. Completed in parallel CL https://chromium-review.googlesource.com/c/openscreen/+/1809484",
+      "parentUuid": "86a3f8c2_795bf569",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 40
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "908db5e7_c6165537",
         "filename": "platform/api/network_waiter.cc",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2e79f8c6_128e578a",
+        "filename": "platform/api/network_waiter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:19:27Z",
+      "side": 1,
+      "message": "Done.\n\nSee above for more info",
+      "parentUuid": "908db5e7_c6165537",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 39
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996f7b42_36a918d2",
         "filename": "platform/api/network_waiter.h",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2019-09-17T01:21:41Z",
       "side": 1,
       "message": "Suggest passing this as a 2nd arg to Subscribe(). Then, the handle list cannot change during the subscribe (but should it ever? ...and could call Unsubscribe() and re-Subscribe() with new set of handles anyway...).\n\n------------ UPDATE --------------\n\nAh! Now that I see what NetworkReader is doing, I change my suggestion to:\n\n  // Start notifying |subscriber| whenever |handle| has an event. May be called multiple\n  // times, to be notified for multiple handles.\n  void Subscribe(Subscriber* subscriber, SocketHandleRef handle);\n\n  // Stop getting notifications for one of the handles currently subscribed to.\n  void UnsubscribeOne(Subscriber* subscriber, SocketHandleRef no_more_of_this_handle);\n\n  // Stop getting notifications for all handles currently subscribed to, or no-op if there\n  // are no subscriptions.\n  void UnsubscribeAll(Subscriber* subscriber);\n\nThe benefits to doing it this way are explained in a later comment (in the .cc file)...",
+      "range": {
+        "startLine": 34,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 40
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9329bd16_7fa52a76",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:19:27Z",
+      "side": 1,
+      "message": "Updated as suggested.\n\nThough I think we still need to reconstruct the \"all handles for all subscribers\" list every iteration regardless. During the AwaitSockesReadable call, we need to be able to modify the set of currently watched handles (for a Subscribe or Unsubscribe call), so the set provided to AwaitSockesReadable can\u0027t be the same set stored in the NetworkWaiter. Else, we will need to hold the mutex for the full run of AwaitSockesReadable (over 100 ms), which is needed Subscribe and Unsubscribe calls. This approach does avoid an extra copy we previously needed to do in the Subscriber though - so still a perf improvement!\n\nThough now we have 2 \"sources of truth\" for currently watched sockets - in the subscriber (here NetworkReader) and in NetworkWaiter. Not sure if this is a concern, but PTAL and make sure I didn\u0027t miss any edge cases related to this\n\nThoughts?",
+      "parentUuid": "996f7b42_36a918d2",
       "range": {
         "startLine": 34,
         "startChar": 12,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2dcc061e_56418450",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:19:27Z",
+      "side": 1,
+      "message": "There shouldn\u0027t ever be multiple - the subscribers we\u0027ve planned so far are for UdpSocket reads (existing NetworkReader) and for TcpSocket new connections (Open to naming suggestions - any ideas?). If we eventually find a 3rd case that would have some overlap, we can re-engineer this map, but until then it seems like overkill\n\nAdded an OSP_CHECK to ensure this doesn\u0027t occur though",
+      "parentUuid": "d8b63e11_be517d67",
+      "range": {
+        "startLine": 66,
+        "startChar": 32,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c321517_e01c55ee",
         "filename": "platform/api/network_waiter.h",
         "patchSetId": 5
@@ -114,6 +210,30 @@
       "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8768e8a7_eb913b7b",
+        "filename": "platform/api/network_waiter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:19:27Z",
+      "side": 1,
+      "message": "Done.\n\nMoving to platform/impl in parallel CL https://chromium-review.googlesource.com/c/openscreen/+/1809484",
+      "parentUuid": "9c321517_e01c55ee",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 20
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "1e1928ee_caa4dc79",
+        "filename": "platform/api/socket_handle.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:19:27Z",
+      "side": 1,
+      "message": "Done. Completed in parallel CL https://chromium-review.googlesource.com/c/openscreen/+/1809484",
+      "parentUuid": "add4f82d_a83c4ba1",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 0
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a04fc7f4_c689675f",
         "filename": "platform/impl/network_reader.h",
         "patchSetId": 5
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "0ca0a14d_9ef9ab6d",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a04fc7f4_c689675f",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "559075da_84ee3d71",
         "filename": "streaming/cast/receiver_demo/main.cc",
         "patchSetId": 5
@@ -183,6 +351,30 @@
       "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57f3ac3a_5865a431",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-18T04:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "559075da_84ee3d71",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 58
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
