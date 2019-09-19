@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "070a37b6_fa0e043e",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-19T17:24:18Z",
+      "side": 1,
+      "message": "I don\u0027t see what atomics achieve here.\n\nTwo threads enter Write. Each thread atomically reads write_index_ and gets the same value.\nThen each thread proceeds independently, and independently, but atomically, updates write_index_ to potentially different values.",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
