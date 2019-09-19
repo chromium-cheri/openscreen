@@ -2,6 +2,108 @@
   "comments": [
     {
       "key": {
+        "uuid": "15db0e6f_307462e2",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-19T19:59:18Z",
+      "side": 1,
+      "message": "Nit: alphabetical?",
+      "revId": "e2415a795c57072cbe7dc8c5497ba72a12f4b155",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c8d8768_d405938c",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-19T19:59:18Z",
+      "side": 1,
+      "message": "1a) Manage registration of TlsConnections?",
+      "revId": "e2415a795c57072cbe7dc8c5497ba72a12f4b155",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d4acc71_b4b0646b",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-19T19:59:18Z",
+      "side": 1,
+      "message": "We should bug Peter about names. I generally am anti \"manager\" if it\u0027s avoidable, since it\u0027s such a vague title. This class\u0027s job is to take non blocking TLS socket POSIX functions (pull) and turn them into push callbacks, right?\n\nMaybe TlsEventPublisherPosix?",
+      "revId": "e2415a795c57072cbe7dc8c5497ba72a12f4b155",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e795117_3fb9138a",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-19T19:59:18Z",
+      "side": 1,
+      "message": "What\u0027s the use case between deregistering and destroying a TlsConnectionPosix? Just blocking on delete?",
+      "revId": "e2415a795c57072cbe7dc8c5497ba72a12f4b155",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d4b1622_31ced65e",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-19T19:59:18Z",
+      "side": 1,
+      "message": "Should we be able to Deregister listeners? And, naming wise, isn\u0027t this registering an observer?",
+      "revId": "e2415a795c57072cbe7dc8c5497ba72a12f4b155",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1a2002d_f461c929",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-19T19:59:18Z",
+      "side": 1,
+      "message": "This means we should ensure these NEVER get called on the network thread, yah?",
+      "revId": "e2415a795c57072cbe7dc8c5497ba72a12f4b155",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08431d9a_be499862",
         "filename": "platform/impl/tls_networking_manager_posix.h",
         "patchSetId": 4
@@ -13,6 +115,30 @@
       "writtenOn": "2019-09-19T19:39:44Z",
       "side": 1,
       "message": "This is pending the checkin of https://chromium-review.googlesource.com/c/openscreen/+/1791373\nWill be uncommented once that CL gets in",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 77
+      },
+      "revId": "e2415a795c57072cbe7dc8c5497ba72a12f4b155",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "165c4060_f3e05853",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-19T19:59:18Z",
+      "side": 1,
+      "message": "Consider adding a small TODO here to uncomment these lines, same in the cc.",
+      "parentUuid": "08431d9a_be499862",
       "range": {
         "startLine": 55,
         "startChar": 0,
