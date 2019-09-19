@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1cd0d63_e9d286d8",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:15:21Z",
+      "side": 1,
+      "message": "super nit: Reverse the rhs and lhs of the \u0026\u0026 operation. No need for the CPU to do the atomic read to check \"is_buffer_blocked_\" until it knows that \"fraction \u003e kBlockBufferPercentage\".\n\n...similar for the other way too (L63).",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 63
+      },
+      "revId": "35a4384da8fdf60fac7a33b00bead832e7091d7d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
