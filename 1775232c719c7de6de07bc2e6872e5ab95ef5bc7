@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b857bd1d_93744f26",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-19T17:32:56Z",
+      "side": 1,
+      "message": "We\u0027ll never get to return in this case and always crash here.\n\nShould be something like this:\n\nbool in_create_local \u003d in_create.exchange(true);\nOSP_DCHECK_EQ(in_create_local, false) \u003c\u003c \"Useful and informative error message\";\nif (in_create_local) (\n  return Error::Code::kAgain;\n}",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 21
+      },
+      "revId": "1775232c719c7de6de07bc2e6872e5ab95ef5bc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
