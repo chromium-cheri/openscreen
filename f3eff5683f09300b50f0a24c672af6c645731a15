@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2bf53b65_271282a7",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2d4f0fbf_0b70200f",
+      "range": {
+        "startLine": 125,
+        "startChar": 6,
+        "endLine": 125,
+        "endChar": 53
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "027022d4_28856be1",
         "filename": "streaming/cast/receiver.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-18T19:40:37Z",
       "side": 1,
       "message": "Is it possible to still accumulate but not process the packet? E.g. below where estimated_capture_time is being assigned, modify the check that it should be assigned only when a sender report has been received.",
+      "range": {
+        "startLine": 130,
+        "startChar": 25,
+        "endLine": 130,
+        "endChar": 56
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3829a52b_4c0acd23",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "I tried a bunch of other approaches, and this one was actually the best, IMHO. Considerations:\n\n1. If we collect packet 0 before the first Sender Report, we have to stash some extra state somewhere (I guess, in the PendingFrame struct) for later computation of |estimated_capture_time|.\n\n2a. What event would trigger the computation of |estimated_capture_time| later? We wouldn\u0027t be able to do it here (on RTP packet receive), since we start ignoring packets after the frame is_complete(). We could do it when the first Sender Report comes in: Add special logic to backfill all |estimated_capture_time| fields in OnReceivedRtcpPacket(). Another possibility is to just do on-demand backfill of missing |estimated_capture_time| values at the time when they are actually used.\n\n2b. There is a performance consideration here: The Sender Report could come in much later than when RTP packet 0 was received. The environmental conditions (delay on sender side, network jitter, etc.) may have changed significantly in the meantime. So, the clock-sync/lip-sync timing info, that goes into the |estimated_capture_time| computation may lead to a poor result.\n\n3. General philosophy is to sructure code around the common case. Since this out-of-order issue is supposed to be a rare occurrence, I would prefer not to write lots of extra code to account for it when a simple \"pragmatic heuristic\" here does the job just fine. The worst case scenario with this hack is that it takes a few extra network round-trips before play-out can begin, and that\u0027s a rare one-time occurrence in a session.",
+      "parentUuid": "027022d4_28856be1",
       "range": {
         "startLine": 130,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cfebc335_35eac851",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c603d50_c35ca664",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 4
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aefdf8e_2437e712",
         "filename": "streaming/cast/receiver.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756c3346_fcf7ec5e",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "Agree. I\u0027ve put a clarification comment here for now, to avoid the confusion.",
+      "parentUuid": "1aefdf8e_2437e712",
+      "range": {
+        "startLine": 186,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "2731f958_8462804b",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "If they\u0027re equal, then the |updated_checkpoint| is at the latest frame. Since the body of the loop looks one ahead, we don\u0027t want it to try to look outside the valid range of queue entries.",
+      "parentUuid": "a9b7717d_1b5ce890",
+      "range": {
+        "startLine": 195,
+        "startChar": 28,
+        "endLine": 195,
+        "endChar": 29
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8619a07d_86270c8d",
         "filename": "streaming/cast/receiver.cc",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e1d152a_f25f03c7",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "It\u0027s int64_t. It doesn\u0027t really matter, I can just get rid of the variable, and make this a one-liner method, since it\u0027s a noisy detail here.",
+      "parentUuid": "8619a07d_86270c8d",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 12
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "88e1904a_30cfbf0a",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "It has a lot more value in the next CL, where the helper is used everyhere. I\u0027ll add a set_checkpoint_frame() helper to be consistent here.",
+      "parentUuid": "f11bc5cf_03313312",
+      "range": {
+        "startLine": 292,
+        "startChar": 32,
+        "endLine": 292,
+        "endChar": 48
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6018d4ea_6df728cc",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 3
@@ -183,6 +351,30 @@
       "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf13b011_166b3fa5",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "The style guide prohibits non-const reference return types. See discussion there for rationale.",
+      "parentUuid": "6018d4ea_6df728cc",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 16
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "7a46348b_7be0c635",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "Yes. There\u0027s an important difference. I *did* intend first() - 1 here.",
+      "parentUuid": "9961c1c4_aac09d05",
+      "range": {
+        "startLine": 260,
+        "startChar": 35,
+        "endLine": 260,
+        "endChar": 55
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6712562_fd2c7032",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 3
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "a3669b43_19674b6a",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "Next CL, when I add the rest of the Receiver impl, to be able to consume frames from the Receiver.",
+      "parentUuid": "a6712562_fd2c7032",
+      "range": {
+        "startLine": 265,
+        "startChar": 2,
+        "endLine": 265,
+        "endChar": 54
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9fa4fa2_304b803d",
         "filename": "streaming/cast/rtp_time.h",
         "patchSetId": 3
@@ -243,6 +483,30 @@
       "writtenOn": "2019-09-18T19:40:37Z",
       "side": 1,
       "message": "I think this might not always work due to precision issues.\nI\u0027m not 100% sure, something like this might happen:\nvalue is 7.5, but value + 0.5 ends up being 7.999999999992 or something along these lines.\n\nWhat does std::round do internally?",
+      "range": {
+        "startLine": 167,
+        "startChar": 4,
+        "endLine": 171,
+        "endChar": 5
+      },
+      "revId": "f3eff5683f09300b50f0a24c672af6c645731a15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd602b4_cd37f512",
+        "filename": "streaming/cast/rtp_time.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T22:28:00Z",
+      "side": 1,
+      "message": "Hmm...yeah, good point.\n\nstd::round() calls round() or roundf(), for doubles or floats, respectively.\n\nThe problem is that POSIX says round() could set errno (in a case which does not actually happen on any hardware anywhere). Nevertheless, that means the function cannot be constexpr (it has side effects).\n\nThere is an interesting discussion thread on stackoverflow.com about this: https://stackoverflow.com/questions/17347935/constexpr-math-functions\n\nI looked around, and the actual implementation for round() or lround() is either: a) built-in CPU instruction; or b) many LOC to pull-apart the fields of the IEEE754 bits and surgically operate to find the answer.\n\nWhile I\u0027m up to the challenge, I can\u0027t justify spending time on writing my own lround() just for this. So, I\u0027ll revert changing this function and use a non-constexpr variable in receiver_unittest.cc.\n\nActually, having read through a bunch of the documentation, it seems lround() and llround() are more-approprate for the needs here, so I\u0027ll at least make that change.",
+      "parentUuid": "e9fa4fa2_304b803d",
       "range": {
         "startLine": 167,
         "startChar": 4,
