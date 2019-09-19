@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6a25a3f_43dd01d8",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T21:22:46Z",
+      "side": 1,
+      "message": "I am planning on adding only OnConnectionAccepted(ErrorOr\u003cunique_ptr\u003cStreamSocket\u003e\u003e)\n\nProcessReadyHandle(...) will call StreamSocket::Accept which returns the same, and this is our way to pass it back to TlsConnectionFactory (so its client can be informed about the new connection)\n\nbut this will be in the follow-up CL, which has this class implement NetworkWaiter::Subscriber",
+      "parentUuid": "c0424d03_50d68b4f",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 4
+      },
+      "revId": "3bc6da8c470a83f68f5b12913a8ee6ba90380429",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91b5a266_8df578c5",
         "filename": "platform/impl/tls_networking_manager_posix.h",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-19T21:14:53Z",
       "side": 1,
       "message": "Who calls these?",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "3bc6da8c470a83f68f5b12913a8ee6ba90380429",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ce48c1_0253c9a4",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T21:22:46Z",
+      "side": 1,
+      "message": "These are expected to be called by the dtor of StreamSocketPosix and TlsConnectionPosix, similar to the approach we have taken for UdpSocket (which calls NetworkReader::OnDestroy in its dtor)",
+      "parentUuid": "91b5a266_8df578c5",
       "range": {
         "startLine": 52,
         "startChar": 2,
