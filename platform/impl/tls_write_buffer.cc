@@ -1,0 +1,83 @@
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "platform/impl/tls_write_buffer.h"
+
+#include <algorithm>
+#include <cstring>
+
+#include "platform/api/logging.h"
+#include "platform/api/tls_connection.h"
+
+namespace openscreen {
+namespace platform {
+namespace {
+inline size_t GetCurrentFillCount(size_t write_index, size_t read_index) {
+  return (write_index + TlsWriteBuffer::kBufferSize - read_index) %
+         TlsWriteBuffer::kBufferSize;
+}
+}  // namespace
+
+TlsWriteBuffer::~TlsWriteBuffer() = default;
+
+TlsWriteBuffer::TlsWriteBuffer(TlsWriteBuffer::Observer* observer)
+    : observer_(observer) {}
+
+size_t TlsWriteBuffer::Write(const void* data, size_t len) {
+  size_t current_write_index = write_index_.load();
+  size_t current_read_index = read_index_.load();
+
+  size_t current_size =
+      GetCurrentFillCount(current_write_index, current_read_index);
+  size_t write_len = std::min(kBufferSize - current_size - 1, len);
+  size_t first_write_len =
+      std::min(write_len, kBufferSize - current_write_index);
+  memcpy(&buffer_[current_write_index], data, first_write_len);
+  if (first_write_len != write_len) {
+    const uint8_t* new_start =
+        static_cast<const uint8_t*>(data) + first_write_len;
+    memcpy(buffer_, new_start, write_len - first_write_len);
+  }
+
+  size_t new_write_index = (current_write_index + write_len) % kBufferSize;
+  write_index_.store(new_write_index);
+  NotifyWriteBufferFill(new_write_index, current_read_index);
+  return write_len;
+}
+
+absl::Span<const uint8_t> TlsWriteBuffer::GetReadableRegion() {
+  size_t current_write_index = write_index_.load();
+  size_t current_read_index = read_index_.load();
+
+  size_t end_index = current_write_index >= current_read_index
+                         ? current_write_index
+                         : kBufferSize - 1;
+  return absl::Span<const uint8_t>(&buffer_[current_read_index],
+                                   end_index - current_read_index);
+}
+
+void TlsWriteBuffer::ConsumeBytes(size_t byte_count) {
+  size_t current_write_index = write_index_.load();
+  size_t current_read_index = read_index_.load();
+
+  OSP_CHECK(GetCurrentFillCount(current_write_index, current_read_index) >=
+            byte_count);
+  size_t new_read_index = (current_read_index + byte_count) % kBufferSize;
+  read_index_.store(new_read_index);
+
+  NotifyWriteBufferFill(current_write_index, new_read_index);
+}
+
+void TlsWriteBuffer::NotifyWriteBufferFill(size_t write_index,
+                                           size_t read_index) {
+  if (observer_) {
+    double fraction =
+        static_cast<double>(GetCurrentFillCount(write_index, read_index)) /
+        kBufferSize;
+    observer_->NotifyWriteBufferFill(fraction);
+  }
+}
+
+}  // namespace platform
+}  // namespace openscreen

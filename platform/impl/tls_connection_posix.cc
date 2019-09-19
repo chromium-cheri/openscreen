@@ -30,17 +30,16 @@ namespace platform {
 // TODO(jophba, rwkeane): implement write blocking/unblocking
 TlsConnectionPosix::TlsConnectionPosix(IPEndpoint local_address,
                                        TaskRunner* task_runner)
-    : TlsConnection(task_runner), socket_(local_address) {}
+    : TlsConnection(task_runner), socket_(local_address), buffer_(this) {}
 
 TlsConnectionPosix::TlsConnectionPosix(IPAddress::Version version,
                                        TaskRunner* task_runner)
-    : TlsConnection(task_runner), socket_(version) {}
+    : TlsConnection(task_runner), socket_(version), buffer_(this) {}
 
 TlsConnectionPosix::~TlsConnectionPosix() = default;
 
 void TlsConnectionPosix::Write(const void* data, size_t len) {
-  // TODO(jophba, rwkeane): implement this method.
-  OSP_UNIMPLEMENTED();
+  buffer_.Write(data, len);
 }
 
 const IPEndpoint& TlsConnectionPosix::local_address() const {
@@ -53,6 +52,19 @@ const IPEndpoint& TlsConnectionPosix::remote_address() const {
   const absl::optional<IPEndpoint> endpoint = socket_.remote_address();
   OSP_DCHECK(endpoint.has_value());
   return endpoint.value();
+}
+
+void TlsConnectionPosix::NotifyWriteBufferFill(double fraction) {
+  constexpr double kBlockBufferPercentage = 0.5;
+  if (!is_buffer_blocked_ && fraction > kBlockBufferPercentage) {
+    OnWriteBlocked();
+    is_buffer_blocked_ = true;
+  } else if (is_buffer_blocked_ && fraction < kBlockBufferPercentage) {
+    OnWriteUnblocked();
+    is_buffer_blocked_ = false;
+  } else if (is_buffer_blocked_ && fraction >= 0.99) {
+    OnError(Error::Code::kInsufficientBuffer);
+  }
 }
 
 }  // namespace platform
