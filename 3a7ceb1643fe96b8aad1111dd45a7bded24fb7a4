@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2bc524fe_0effa5fb",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:26:40Z",
+      "side": 1,
+      "message": "Suggest wrapping all this in:\n\n  #if OSP_DCHECK_IS_ON()\n  ...\n  #endif",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 3
+      },
+      "revId": "3a7ceb1643fe96b8aad1111dd45a7bded24fb7a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ebe869e_3b32f5eb",
         "filename": "platform/impl/udp_socket_posix.cc",
         "patchSetId": 1
@@ -13,6 +36,24 @@
       "writtenOn": "2019-09-18T22:52:15Z",
       "side": 1,
       "message": "Do we want this to happen later, somehow?",
+      "revId": "3a7ceb1643fe96b8aad1111dd45a7bded24fb7a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6333a79_da3a1f6b",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:26:40Z",
+      "side": 1,
+      "message": "Yeah, maybe:\n\n  std::unique_ptr\u003cUdpSocket\u003e socket \u003d std::make_unique\u003cUdpSocketPosix\u003e(...args...);\n  in_create.store(false);\n  return socket;",
+      "parentUuid": "2ebe869e_3b32f5eb",
       "revId": "3a7ceb1643fe96b8aad1111dd45a7bded24fb7a4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
