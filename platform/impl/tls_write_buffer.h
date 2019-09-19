@@ -5,6 +5,7 @@
 #ifndef PLATFORM_IMPL_TLS_WRITE_BUFFER_H_
 #define PLATFORM_IMPL_TLS_WRITE_BUFFER_H_
 
+#include <atomic>
 #include <memory>
 
 #include "absl/types/span.h"
@@ -49,7 +50,16 @@ class TlsWriteBuffer {
 
  private:
   // Signals that the write buffer has reached some percentage of being filled.
-  void NotifyWriteBufferFill(double fraction);
+  void NotifyWriteBufferFill(size_t write_index, size_t read_index);
+
+  // Buffer where data to be written over the tls connection is stored.
+  uint8_t buffer_[kBufferSizeBytes];
+
+  // Index of the current read location in the buffer.
+  std::atomic_size_t read_index_{0};
+
+  // Index of the current write location in the buffer.
+  std::atomic_size_t write_index_{0};
 
   Observer* const observer_;
 
