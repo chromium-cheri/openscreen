@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ddf786c_939a7f3a",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-19T19:20:50Z",
+      "side": 1,
+      "message": "What about the message text here? Something along the lines of\n\"Another UdpSocket::Create is in progress. Calls to UdpSocket::Create should be serialized.\"",
+      "range": {
+        "startLine": 83,
+        "startChar": 43,
+        "endLine": 83,
+        "endChar": 45
+      },
+      "revId": "60a54c35579eb50794db9f407737635fef2539f9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "616efe43_3915692e",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-19T19:20:50Z",
+      "side": 1,
+      "message": "Must set in_create to false before returning",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 22
+      },
+      "revId": "60a54c35579eb50794db9f407737635fef2539f9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
