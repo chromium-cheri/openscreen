@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45ce215e_54d9eefc",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "Looks like we\u0027re holding the lock while ReceiveMessage() is being called. I\u0027d suggest using std::unique_lock instead of std::lock_guard, so you can then:\n\n    if (read_socket-\u003eGetHandle() \u003d\u003d handle) {\n      lock.release();\n      read_socket-\u003eReceiveMessage();\n      return;\n    }\n\nOf course, I\u0027m assuming OnDelete(socket) will be called on the same thread as this method. Maybe I\u0027m wrong about that...",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8775bc9_4aa08b12",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "Looks like both of these should be private, not protected.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 35
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d5df32_cb6e469b",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "Suggestion:\n\n  std::vector\u003cUdpSocketPosix*\u003e sockets_;\n                       ^^^^^\n\n...so you don\u0027t have to keep casting the pointer everywhere in the .cc file.\n\n...per today\u0027s discussion: Looks like NetworkReader will eventually just be something internally shared within udp_socket_posix.cc (first UdpSocketPosix instance creates one, last ~UdpSocketPosix() call destroys it)?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f953d8d0_829291cb",
+        "filename": "platform/impl/network_reader_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "This method could be moved to the protected section of NetworkReader. You might want to add the \"ForTesting\" to the name, since only the tests need this.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bdafb81_a7afa650",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "OSP_DCHECK is probably sufficient (here and above).\n    ^",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebff35d5_6c9826b0",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "nit:\n\n    it \u003d handle_mappings_.erase(it);",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33433d6b_7e21adc6",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "Seems like this lock should be at the top of the method. Especially since the call to handle_deletion_block_.notify_all() could wake up the other thread, which may mutate handle_mappings_.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 45
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c10f096_30adfd94",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "Looks like this should go before the \"if (is_error() { return }\" above.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0c4b61c_72f501f3",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "1. It feels pretty brittle to call an object\u0027s method (UdpSocketPosix::ReceiveMessage()) while the object\u0027s destructor may be running.\n\n2. It seems there is a possible deadlock situation:\n\n   Thread A:\n     1) Call into NetworkReader::OnDelete(), which acquires NetworkReader::mutex_.\n     2) Call into NetworkWaiter::OnHandleDeletion(), which blocks waiting on the cond-var.\n\n   Thread B:\n     1) Call into NetworkWaiter::ProcessReadyHandles().\n     2) Call into NetworkReader::ProcessReadyHandle(handle).\n     3) NetworkReader::ProcessReadyHandle() blocks trying to acquire NetworkReader::mutex_.\n\nSo, before calling ProcessReadyHandles(), you may have to filter-out any handles that were removed from handle_mappings_ while AwaitSocketsReadable() was executing. Or, maybe just replace the OSP_DCHECK() in the loop inside ProcessReadyHandles() with:\n\n  if (iterator \u003d\u003d handle_mappings_.end()) {\n    // This is OK: SocketHandle was deleted in the meantime.\n    continue;\n  }",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 47
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ab71e30_f4f3710f",
+        "filename": "platform/impl/network_waiter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "Suggest making this the first data member, with a comment explaining that it guards concurrent access to all other class data members.",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d3864a_e256ae98",
+        "filename": "platform/impl/network_waiter_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-19T01:07:02Z",
+      "side": 1,
+      "message": "nit: Constants should use the kConstant style.\n\n  constexpr Clock::duration kHandleReadyTimeout \u003d std::chrono::milliseconds(50);",
+      "range": {
+        "startLine": 84,
+        "startChar": 18,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
