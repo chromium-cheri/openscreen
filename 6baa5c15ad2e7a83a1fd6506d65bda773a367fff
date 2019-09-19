@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c1af1ada_c61f7356",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "OnDelete is expected to be a separate thread. That will happen on either the task runner or embedder threads (whenever the socket has it\u0027s dtor called) while ProcessReadyHandle will call ReceiveMessage from the networking thread",
+      "parentUuid": "45ce215e_54d9eefc",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8775bc9_4aa08b12",
         "filename": "platform/impl/network_reader.h",
         "patchSetId": 7
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "eced6e56_9fb8237a",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Adding a TODO for this - we have an open TODO for changing NetworkReader to NetworkReaderPosix, and this change should happen then (planning it for right after this CL goes in, so no need to file a bug)\n\nWe will be changing NetworkReader as you mentioned, but Mark has asked me to wait indefinitely on this change to the already working UdpSocket approach - so I\u0027m not sure when it will happen",
+      "parentUuid": "e1d5df32_cb6e469b",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a7d59ba_aa9f989b",
+        "filename": "platform/impl/network_reader.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8775bc9_4aa08b12",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 35
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f953d8d0_829291cb",
         "filename": "platform/impl/network_reader_unittest.cc",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fa6064_45b90e62",
+        "filename": "platform/impl/network_reader_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f953d8d0_829291cb",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "e0e8157f_649efe4f",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bdafb81_a7afa650",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebff35d5_6c9826b0",
         "filename": "platform/impl/network_waiter.cc",
         "patchSetId": 7
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "91dbc133_c599d290",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebff35d5_6c9826b0",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33433d6b_7e21adc6",
         "filename": "platform/impl/network_waiter.cc",
         "patchSetId": 7
@@ -151,6 +295,30 @@
       "writtenOn": "2019-09-19T01:07:02Z",
       "side": 1,
       "message": "Seems like this lock should be at the top of the method. Especially since the call to handle_deletion_block_.notify_all() could wake up the other thread, which may mutate handle_mappings_.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 45
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dae2f41_1a393c8d",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "By the time we hit the handle_deletion_block_.wait(lock) call, we have already removed the handle from our handle_mappings_ map, so it shouldn\u0027t be able to mutate handle_mappings further. The wait is only because we can\u0027t allow the socket/connection/etc to get deleted while posix is using the socket handle it references (in the AwaitSocketsReadable method)\n\n(We remove it on line 47, but the handle_deletion_block_.wait isn\u0027t until line 53)\n\nPlease let me know if I am understanding incorrectly though",
+      "parentUuid": "33433d6b_7e21adc6",
       "range": {
         "startLine": 74,
         "startChar": 4,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "36eca1d8_94873ac9",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c10f096_30adfd94",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0c4b61c_72f501f3",
         "filename": "platform/impl/network_waiter.cc",
         "patchSetId": 7
@@ -206,6 +398,30 @@
       "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acdb3de6_b1c0ff98",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Good catch!\n\nIn addition to your suggested fix, I\u0027ve updated NetworkReader::OnDelete to no longer hold the mutex for the NetworkWaiter::OnHandleDeleton() call.",
+      "parentUuid": "e0c4b61c_72f501f3",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 47
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "ac794e47_e77c2eb1",
+        "filename": "platform/impl/network_waiter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ab71e30_f4f3710f",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56d3864a_e256ae98",
         "filename": "platform/impl/network_waiter_posix.cc",
         "patchSetId": 7
@@ -252,6 +492,30 @@
       "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ec442c7_16c60027",
+        "filename": "platform/impl/network_waiter_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56d3864a_e256ae98",
+      "range": {
+        "startLine": 84,
+        "startChar": 18,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
