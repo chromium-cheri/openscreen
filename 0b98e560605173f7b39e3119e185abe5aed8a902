@@ -22,6 +22,30 @@
       "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f05208_0636858a",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-19T17:41:17Z",
+      "side": 1,
+      "message": "Based on the class-level comment, we only ever expect one thread to be acting as the publisher and one (potentially different) thread acting as the consumer. So we need concurrent calls to Reading and Write() to work, but not multiple calls to Write()\n\nIf we want to support multiple publishers or multiple consumers, the code gets much more complex (and/or needs mutexes), but we don\u0027t need this at least with our current approach",
+      "parentUuid": "070a37b6_fa0e043e",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
