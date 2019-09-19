@@ -55,6 +55,10 @@ class FakeTaskRunner : public TaskRunner {
   void PostPackagedTask(Task task) override;
   void PostPackagedTaskWithDelay(Task task, Clock::duration delay) override;
 
+#if OSP_DCHECK_IS_ON()
+  bool IsRunningOnTaskRunner() override;
+#endif
+
   FakeClock* const clock_;
 
   std::vector<Task> ready_to_run_tasks_;

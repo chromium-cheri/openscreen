@@ -8,6 +8,7 @@
 #include <future>
 
 #include "absl/types/optional.h"
+#include "platform/api/logging.h"
 #include "platform/api/time.h"
 
 namespace openscreen {
@@ -47,6 +48,10 @@ class TaskRunner {
   // passing an existing Task object.
   virtual void PostPackagedTask(Task task) = 0;
   virtual void PostPackagedTaskWithDelay(Task task, Clock::duration delay) = 0;
+
+#if OSP_DCHECK_IS_ON()
+  virtual bool IsRunningOnTaskRunner() = 0;
+#endif
 };
 
 // Class used to post the same task repeatedly to the task runner, with the

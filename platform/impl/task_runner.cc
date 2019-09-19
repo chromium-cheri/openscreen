@@ -43,7 +43,19 @@ void TaskRunnerImpl::PostPackagedTaskWithDelay(Task task,
   }
 }
 
+#if OSP_DCHECK_IS_ON()
+bool TaskRunnerImpl::IsRunningOnTaskRunner() {
+  // If the two thread IDs are equal, pthread_equal() returns a nonzero
+  // value; otherwise, it returns 0.
+  return task_runner_thread_id_.has_value() &&
+         pthread_equal(task_runner_thread_id_.value(), pthread_self());
+}
+#endif
+
 void TaskRunnerImpl::RunUntilStopped() {
+#if OSP_DCHECK_IS_ON()
+  task_runner_thread_id_ = pthread_self();
+#endif
   const bool was_running = is_running_.exchange(true);
   OSP_CHECK(!was_running);
 
@@ -115,6 +127,9 @@ void TaskRunnerImpl::RunTasksUntilStopped() {
     ScheduleDelayedTasks();
     RunCurrentTasksBlocking();
   }
+#if OSP_DCHECK_IS_ON()
+  task_runner_thread_id_ = absl::nullopt;
+#endif
 }
 
 void TaskRunnerImpl::ScheduleDelayedTasks() {
