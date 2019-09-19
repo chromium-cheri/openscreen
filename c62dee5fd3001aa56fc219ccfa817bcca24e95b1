@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "02be8e64_4644b90c",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-19T21:19:18Z",
+      "side": 1,
+      "message": "It allows to do certain things, e.g. to check if the function is running on task runner, and if it isn\u0027t schedule the call to itself on the task runner. However, I think we should discourage that and only keep this debug-only.",
+      "parentUuid": "abb17332_e6505a6e",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
+        "endLine": 53,
+        "endChar": 36
+      },
+      "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d56e17ec_d693ebcc",
         "filename": "platform/impl/task_runner.h",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "So far we have kept std::thread use out of TaskRunnerImpl (ie: task_runner_thread is separate from TaskRunnerImpl) - do we want to tie them together here?\n\nIt might make more sense to have a GetThreadId macro/function we expect the embedder to define",
       "parentUuid": "d56e17ec_d693ebcc",
+      "range": {
+        "startLine": 160,
+        "startChar": 17,
+        "endLine": 160,
+        "endChar": 26
+      },
+      "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "887723e3_1f5cc735",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-19T21:19:18Z",
+      "side": 1,
+      "message": "Do we expect the default implementation of task runner to be cross-platform?",
+      "parentUuid": "e5ba55a6_65b0f6ce",
       "range": {
         "startLine": 160,
         "startChar": 17,
