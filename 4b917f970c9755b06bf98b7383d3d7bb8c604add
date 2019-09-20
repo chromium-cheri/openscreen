@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "57b6dd6c_1b7e675f",
+        "filename": "platform/impl/stream_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T19:53:55Z",
+      "side": 1,
+      "message": "Done.\n\nI am under the impression that either is acceptable. I\u0027ve more commonly seen OSP_DISALLOW_COPY_AND_ASSIGN(...) (and personally find it to be cleaner) but have no problem going with the other",
+      "parentUuid": "39f0ef73_73b60102",
+      "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1320e7f_65f72b04",
         "filename": "platform/impl/stream_socket_posix.cc",
         "patchSetId": 1
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "297a4584_c37892ec",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T19:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1320e7f_65f72b04",
+      "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96715cf0_803220db",
         "filename": "platform/impl/stream_socket_posix.h",
         "patchSetId": 1
@@ -68,6 +104,24 @@
       "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc527c88_88919ff3",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T19:53:55Z",
+      "side": 1,
+      "message": "Adding comment regarding lifetime\n\nThere is no implementation for SocketHandle outside of the platform-specific one (just defined as \u0027struct SocketHandle;\u0027) - so it should be a non-issue. If we want to change how SocketHandle works we can, but that\u0027s outside the scope of this CL",
+      "parentUuid": "96715cf0_803220db",
+      "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -91,6 +145,30 @@
       "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28c59db3_3199fbba",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T19:53:55Z",
+      "side": 1,
+      "message": "Done. Good idea",
+      "parentUuid": "5f93657f_ef33e68d",
+      "range": {
+        "startLine": 59,
+        "startChar": 23,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
