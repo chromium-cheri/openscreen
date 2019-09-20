@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "c96194cc_ba72d0d9",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd8d1382_3e037a43",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acf1b065_5b9b6712",
         "filename": "platform/impl/tls_write_buffer.cc",
         "patchSetId": 2
@@ -80,6 +98,24 @@
       "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53835b2d_1deb7e3d",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acf1b065_5b9b6712",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -100,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "1e6e51de_ee9dac5d",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:23:40Z",
+      "side": 1,
+      "message": "Good point - this are some pretty dense calculations. I\u0027ve added some pretty extensive comments (which hopefully should explain where these names come from), so PTAL and open a new comment if you would like further changes.",
+      "parentUuid": "3faa7a7d_79ce49cf",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d331c464_072e98d3",
         "filename": "platform/impl/tls_write_buffer.cc",
         "patchSetId": 2
@@ -114,6 +168,24 @@
       "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1358c7f7_039bd227",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d331c464_072e98d3",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "2ceff4b3_dc6ded17",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:23:40Z",
+      "side": 1,
+      "message": "It could, but the API specifies that the returned area may not be the entire readable area - and supporting a read that wraps around involves copying to a temporary buffer of large enough size\n\nGiven both, there is no reason to not require 2 reads instead of 1 (especially given that we expect reads to be done in while(true) loop)\n\nAdding a comment to this effect - please open a new comment if you disagree",
+      "parentUuid": "3dedfc91_7338faa1",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c29c8f0_eed6cdce",
         "filename": "platform/impl/tls_write_buffer.cc",
         "patchSetId": 2
@@ -148,6 +238,24 @@
       "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ea24da_e1c86514",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:23:40Z",
+      "side": 1,
+      "message": "They may not read the full readable data. ie, BoringSSL\u0027s write method will write a subset of the provided data, not necessarily all of it",
+      "parentUuid": "1c29c8f0_eed6cdce",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -168,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "b1b03e54_2589788e",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:23:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe3c084b_37a9afd8",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6e00e8c_33a063e8",
         "filename": "platform/impl/tls_write_buffer.h",
         "patchSetId": 2
@@ -179,6 +305,24 @@
       "writtenOn": "2019-09-20T19:13:46Z",
       "side": 1,
       "message": "Comment is out of date.",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1881c9f0_c8c1c0a0",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:23:40Z",
+      "side": 1,
+      "message": "Actually the comment is still correct. The parameters are just... unexpected for this operation, so adding an extra line to reflect this. Internally, it does some math and then calls Observer::NotifyWriteBufferFill(...) with a value calculated based on the write and read indices provided\n\nLet me know if this seems better to you",
+      "parentUuid": "b6e00e8c_33a063e8",
       "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
