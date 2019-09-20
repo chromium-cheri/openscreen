@@ -46,5 +46,11 @@ void FakeTaskRunner::PostPackagedTaskWithDelay(Task task,
       std::make_pair(FakeClock::now() + delay, std::move(task)));
 }
 
+#if OSP_DCHECK_IS_ON()
+bool FakeTaskRunner::IsRunningOnTaskRunner() {
+  return true;
+}
+#endif
+
 }  // namespace platform
 }  // namespace openscreen

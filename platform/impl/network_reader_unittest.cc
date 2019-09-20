@@ -73,6 +73,10 @@ class MockTaskRunner final : public TaskRunner {
     t();
   }
 
+#if OSP_DCHECK_IS_ON()
+  bool IsRunningOnTaskRunner() override { return true; }
+#endif
+
   uint32_t tasks_posted;
   uint32_t delayed_tasks_posted;
 };
