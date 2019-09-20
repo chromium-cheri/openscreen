@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bc80b742_8eeafac9",
+        "filename": "platform/impl/stream_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T18:22:25Z",
+      "side": 1,
+      "message": "I\u0027m in favor of explicitly defaulted and deleted constructors and assignment operators.",
+      "parentUuid": "39f0ef73_73b60102",
+      "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1320e7f_65f72b04",
         "filename": "platform/impl/stream_socket_posix.cc",
         "patchSetId": 1
@@ -47,6 +65,29 @@
       "writtenOn": "2019-09-20T17:33:10Z",
       "side": 1,
       "message": "What are our lifetime assumptions around SocketHandle, and should it be copyable? My thoughts would be that we should return const ref here, and remove public constructors so that it is opaque outside of platform/impl, which I think we have done.",
+      "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f93657f_ef33e68d",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T18:22:25Z",
+      "side": 1,
+      "message": "Define a constant, e.g. kInvalidFileDescriptor?",
+      "range": {
+        "startLine": 59,
+        "startChar": 23,
+        "endLine": 59,
+        "endChar": 25
+      },
       "revId": "4b917f970c9755b06bf98b7383d3d7bb8c604add",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
