@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5dc0710d_e079c21c",
+        "filename": "platform/impl/network_reader.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T16:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11bd805f_5507747a",
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45ce215e_54d9eefc",
         "filename": "platform/impl/network_reader.cc",
         "patchSetId": 7
@@ -360,6 +378,30 @@
       "side": 1,
       "message": "What about code that adds entries to handle_mappings_?",
       "parentUuid": "6dae2f41_1a393c8d",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 45
+      },
+      "revId": "6baa5c15ad2e7a83a1fd6506d65bda773a367fff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a79078aa_b747c322",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T16:30:48Z",
+      "side": 1,
+      "message": "All access to handle_mappings_ (Subscribe, UnSubscribeOne, UnSubscribeAll, OnHandleDeletion, and ProcessHandles) is guarded by the same mutex (mutex_). Handles are only added in Subscribe, and since that is guarded by the same mutex, it can\u0027t occur concurrently with any other operation modifying the collection. Realized that the handles.reserve call should be inside the lock to be safe though, so moved that\n\nAfter the handle_deletion_block_.wait(lock) call proceeds, we\u0027ve already finished modifying the collection for sure, since it re-acquires the lock before proceeding",
+      "parentUuid": "3387ca5b_fbfd60e2",
       "range": {
         "startLine": 74,
         "startChar": 4,
