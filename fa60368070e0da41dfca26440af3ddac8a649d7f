@@ -22,6 +22,30 @@
       "revId": "fa60368070e0da41dfca26440af3ddac8a649d7f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c26688c7_6e6fa7e6",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T19:41:53Z",
+      "side": 1,
+      "message": "It can\u0027t\n\nStreamSocket::Accept returns ErrorOr\u003cstd::unique_ptr\u003cStreamSocket\u003e\u003e, and it\u0027s defined in StreamSocket base class which isn\u0027t posix specific so we can\u0027t change it\u0027s signature to be StreamSocketPosix",
+      "parentUuid": "807f0c73_fdfb3c9b",
+      "range": {
+        "startLine": 29,
+        "startChar": 21,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "fa60368070e0da41dfca26440af3ddac8a649d7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
