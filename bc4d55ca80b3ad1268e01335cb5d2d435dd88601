@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5040ac18_f08e6b2e",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T18:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fd8da66_bab17d68",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 47
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "544297f7_35d579e0",
         "filename": "platform/impl/network_waiter.cc",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a2df547c_cd0b138f",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T18:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "544297f7_35d579e0",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "255787d4_b26d2bde",
         "filename": "platform/impl/network_waiter.cc",
         "patchSetId": 9
@@ -59,6 +107,30 @@
       "writtenOn": "2019-09-20T17:59:19Z",
       "side": 1,
       "message": "std::remove_if?",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6d3b827_bf361034",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T18:39:12Z",
+      "side": 1,
+      "message": "I hit compilation issues with remove_if. Looks like remove_if tries to copy the parameter before calling the lambda\n\nobject of type std::pair\u003cSocketHandleRef, Subscriber*\u003e cannot be assigned because its copy assignment operator is implicitly deleted\n\ncode:\nstd::remove_if(handle_mappings_.begin(), handle_mappings_.end(),\n                [subscriber](const std::pair\u003cSocketHandleRef, Subscriber*\u003e\u0026 pair) {\n                     return pair.second \u003d\u003d subscriber;\n                });\n\n(happens without const ref as parameter too)",
+      "parentUuid": "255787d4_b26d2bde",
       "range": {
         "startLine": 32,
         "startChar": 2,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2820f6c3_1be31174",
+        "filename": "platform/impl/network_waiter.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T18:39:12Z",
+      "side": 1,
+      "message": "Done.\n\nUpdated to Unsubscribe. Leaving second method different for clarity as mentioned",
+      "parentUuid": "1156f0ea_e0d5be39",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "358b775d_18685834",
         "filename": "platform/impl/network_waiter.h",
         "patchSetId": 9
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6b64e55e_69ed4c84",
+        "filename": "platform/impl/network_waiter.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T18:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "358b775d_18685834",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 10
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "173d18a9_3af8fef1",
         "filename": "platform/impl/network_waiter_posix.cc",
         "patchSetId": 9
@@ -137,6 +257,30 @@
       "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4de64a0e_543f727c",
+        "filename": "platform/impl/network_waiter_posix.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T18:39:12Z",
+      "side": 1,
+      "message": "Done.\n\nDidn\u0027t think we wanted to rely on automatic wrapping/unwrapping because I had assumed it would take more time. Fine updating if that\u0027s not a concern",
+      "parentUuid": "173d18a9_3af8fef1",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
