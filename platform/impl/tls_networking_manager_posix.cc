@@ -41,6 +41,12 @@ void TlsNetworkingManagerPosix::OnSocketDestroyed(StreamSocketPosix* socket) {
   OSP_UNIMPLEMENTED();
 }
 
+void TlsNetworkingManagerPosix::ReadAll() {
+  for (TlsConnectionPosix* connection : connections_) {
+    connection->ReceiveMessage();
+  }
+}
+
 // TODO(rwkeane): Uncomment once
 // https://chromium-review.googlesource.com/c/openscreen/+/1791373 is in.
 /*
