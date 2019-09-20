@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "d1c2b02f_be3dc59d",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T18:17:01Z",
+      "side": 1,
+      "message": "We pass a pointer to TaskRunner and use the platform/api interface everywhere. Adding this to TaskRunnerImpl doesn\u0027t allow using it in arbitrary code to make sure, for example, a callback is running on task runner.",
+      "parentUuid": "ac7d84d9_dfc85ef9",
+      "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d56e17ec_d693ebcc",
         "filename": "platform/impl/task_runner.h",
         "patchSetId": 1
@@ -158,6 +176,30 @@
       "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0dbbd7d_785966bc",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T18:17:01Z",
+      "side": 1,
+      "message": "Oh, I like std::this_thread. Didn\u0027t know about it. Done.",
+      "parentUuid": "425de4f6_1842400d",
+      "range": {
+        "startLine": 160,
+        "startChar": 17,
+        "endLine": 160,
+        "endChar": 26
+      },
+      "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
