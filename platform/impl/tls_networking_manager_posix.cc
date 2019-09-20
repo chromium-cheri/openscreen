@@ -41,6 +41,13 @@ void TlsNetworkingManagerPosix::OnSocketDestroyed(StreamSocketPosix* socket) {
   OSP_UNIMPLEMENTED();
 }
 
+void TlsNetworkingManagerPosix::ReadAll() {
+  std::lock_guard<std::mutex> lock(connections_mutex_);
+  for (TlsConnectionPosix* connection : connections_) {
+    connection->TryReadBlock();
+  }
+}
+
 // TODO(rwkeane): Uncomment once
 // https://chromium-review.googlesource.com/c/openscreen/+/1791373 is in.
 /*
