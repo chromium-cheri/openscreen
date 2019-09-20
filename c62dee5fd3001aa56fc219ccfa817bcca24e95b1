@@ -134,6 +134,30 @@
       "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "425de4f6_1842400d",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T17:54:23Z",
+      "side": 1,
+      "message": "If we eventually want to support Windows in the Open Screen default implementation, then probably? That\u0027s definitely a Mark/Peter question, I\u0027d be happy to never support windows in standalone but I\"m not sure how much that impacts our goals.\n\nAs far as std::thread, we don\u0027 t have to tie them together still. We can replace the pthread_self() call in task_runner.cc with std::this_thread::get_id\n\nhttp://www.cplusplus.com/reference/thread/this_thread/",
+      "parentUuid": "887723e3_1f5cc735",
+      "range": {
+        "startLine": 160,
+        "startChar": 17,
+        "endLine": 160,
+        "endChar": 26
+      },
+      "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
