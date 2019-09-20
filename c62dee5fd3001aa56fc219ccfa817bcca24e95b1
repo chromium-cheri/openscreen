@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "0e18a9c4_69d4ad4a",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-20T21:19:35Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s tempting to allow it, but it can lead to folks writing tons of \"if (not the thread i wanted to be on) { trampoline; } else { do it; }\" code everywhere, which leads to lesser-maintainable code in the future.",
+      "parentUuid": "02be8e64_4644b90c",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
+        "endLine": 53,
+        "endChar": 36
+      },
+      "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d56e17ec_d693ebcc",
         "filename": "platform/impl/task_runner.h",
         "patchSetId": 1
