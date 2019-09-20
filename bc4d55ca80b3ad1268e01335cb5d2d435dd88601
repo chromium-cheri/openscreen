@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fd8da66_bab17d68",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T17:59:19Z",
+      "side": 1,
+      "message": "Since this method does not return anything, it might be better to have an if instead of DCHECK.\n\nif (handle_mappings_.find(handle) \u003d\u003d handle_mappings_.end()) {\n  handle_mappings_.emplace(handle, subscriber);\n}\n\nAlso, we have kItemAlreadyExists error if you choose to return Error from the method.\nBut I don\u0027t feel strongly about this.",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 47
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544297f7_35d579e0",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T17:59:19Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255787d4_b26d2bde",
+        "filename": "platform/impl/network_waiter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T17:59:19Z",
+      "side": 1,
+      "message": "std::remove_if?",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1156f0ea_e0d5be39",
+        "filename": "platform/impl/network_waiter.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T17:59:19Z",
+      "side": 1,
+      "message": "I\u0027d be in favor of calling this method simply Unsubscribe.\n\nGiven that parameter lists are different, you can name both methods Unsubscribe, but I see how UnsubscribeAll might be easier to follow.",
+      "range": {
+        "startLine": 51,
+        "startChar": 7,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "358b775d_18685834",
+        "filename": "platform/impl/network_waiter.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T17:59:19Z",
+      "side": 1,
+      "message": "Do you need to have these ordered, won\u0027t unordered_map or vector work here?",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 10
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "173d18a9_3af8fef1",
+        "filename": "platform/impl/network_waiter_posix.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T17:59:19Z",
+      "side": 1,
+      "message": "I think you should be able to do this, reference_wrapper has operator T overloaded, so it should be able to give you a reference to SocketHandle directly\nfor (const SocketHandle\u0026 : socket_handles)",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "bc4d55ca80b3ad1268e01335cb5d2d435dd88601",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

@@ -284,6 +284,29 @@
     },
     {
       "key": {
+        "uuid": "2c83cdc3_b839b710",
+        "filename": "platform/api/socket_handle.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T17:59:19Z",
+      "side": 1,
+      "message": "To minimize the number of operators that have to be implemented, usually all other operators are expressed through operator \u003c (less). I suggest you make operator\u003c the one that has to be implemented.\n\nThen something like this, with variations depending on how lazy one is.\n\ninline bool operator\u003e(const SocketHandle\u0026 lhs, const SocketHandle\u0026 rhs) {\n  return rhs \u003c lhs;\n}\ninline bool operator!\u003d(const SocketHandle\u0026 lhs, const SocketHandle\u0026 rhs) {\n  return (lhs \u003c rhs) || (lhs \u003e rhs);\n}\ninline bool operator\u003d\u003d(const SocketHandle\u0026 lhs, const SocketHandle\u0026 rhs){\n  return !(lhs !\u003d rhs);\n}\ninline bool operator\u003c\u003d(const SocketHandle\u0026 lhs, const SocketHandle\u0026 rhs) {\n  return !(lhs \u003e rhs);\n}\ninline bool operator\u003e\u003d(const SocketHandle\u0026 lhs, const SocketHandle\u0026 rhs) {\n  return !(lhs \u003c rhs);\n}",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "227052032f466d4fe8e30178a8dcf14508f03f05",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a04fc7f4_c689675f",
         "filename": "platform/impl/network_reader.h",
         "patchSetId": 5
