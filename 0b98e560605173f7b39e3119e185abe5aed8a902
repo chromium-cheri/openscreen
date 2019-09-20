@@ -46,6 +46,142 @@
       "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd8d1382_3e037a43",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T19:13:46Z",
+      "side": 1,
+      "message": "const",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acf1b065_5b9b6712",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T19:13:46Z",
+      "side": 1,
+      "message": "const",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3faa7a7d_79ce49cf",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T19:13:46Z",
+      "side": 1,
+      "message": "This part of the code gets a little dense for my tastes.\n\nwrite_len is the minimum of (1) the remaining space in the buffer and (2) the length of the data that we want to write.\n\nfirst_write_len is the minimum of write_len and the size of the buffer minus the current write location? This is to handle the overflow case, right, e.g. the first memcpy could take\n\n[0000|read_index|XXX|write_index|000]\n\nand make it\n\n[0000|read_index|XXX|write_index|AAA]\n\nThen new_start and the second memcpy only apply if we haven\u0027t written the whole thing:\n\n[BBBB|read_index|XXX|write_index|000]\n\nThen we store the new write index.\n\n\nI would love some commenting and additional clarity in this area, maybe some better names too. E.g. replace first_write_len with write_len_without_wrapping?",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d331c464_072e98d3",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T19:13:46Z",
+      "side": 1,
+      "message": "all const?",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dedfc91_7338faa1",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T19:13:46Z",
+      "side": 1,
+      "message": "couldn\u0027t your readable region include (0, current_write_index] when current_write_index \u003c current_read_index?",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c29c8f0_eed6cdce",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T19:13:46Z",
+      "side": 1,
+      "message": "Just curious, why GetReadableRegion + Consume instead of just Read?",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe3c084b_37a9afd8",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T19:13:46Z",
+      "side": 1,
+      "message": "const again.",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6e00e8c_33a063e8",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-20T19:13:46Z",
+      "side": 1,
+      "message": "Comment is out of date.",
+      "revId": "0b98e560605173f7b39e3119e185abe5aed8a902",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
