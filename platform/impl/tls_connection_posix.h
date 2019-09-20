@@ -30,6 +30,10 @@ class TlsConnectionPosix : public TlsConnection,
                      TaskRunner* task_runner);
   ~TlsConnectionPosix();
 
+  // Read out a block, if one is available, and notify this instance's
+  // TlsConnection::Client.
+  virtual void TryReadBlock();
+
   // TlsConnection overrides.
   void Write(const void* data, size_t len) override;
   const IPEndpoint& local_address() const override;
