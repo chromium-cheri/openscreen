@@ -57,8 +57,7 @@ source_set("platform") {
     sources += [
       "impl/network_reader.cc",
       "impl/network_reader.h",
-      "impl/network_reader_thread.cc",
-      "impl/network_reader_thread.h",
+      "impl/network_waiter.cc",
       "impl/network_waiter.h",
       "impl/socket_handle.h",
       "impl/task_runner.cc",
@@ -85,6 +84,8 @@ source_set("platform") {
       sources += [
         "impl/network_waiter_posix.cc",
         "impl/network_waiter_posix.h",
+        "impl/network_waiter_thread.cc",
+        "impl/network_waiter_thread.h",
         "impl/scoped_pipe.h",
         "impl/scoped_wake_lock_posix.cc",
         "impl/scoped_wake_lock_posix.h",
@@ -99,6 +100,8 @@ source_set("platform") {
         "impl/tls_connection_factory_posix.h",
         "impl/tls_connection_posix.cc",
         "impl/tls_connection_posix.h",
+        "impl/tls_networking_manager_posix.cc",
+        "impl/tls_networking_manager_posix.h",
         "impl/udp_socket_posix.cc",
         "impl/udp_socket_posix.h",
       ]
@@ -178,6 +181,7 @@ source_set("platform_unittests") {
         "impl/network_waiter_posix_unittest.cc",
         "impl/scoped_pipe_unittest.cc",
         "impl/socket_address_posix_unittest.cc",
+        "impl/tls_networking_manager_posix_unittest.cc",
       ]
     }
   }

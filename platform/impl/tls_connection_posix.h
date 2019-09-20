@@ -23,6 +23,8 @@ class TlsConnectionPosix : public TlsConnection {
  public:
   TlsConnectionPosix(IPEndpoint local_address, TaskRunner* task_runner);
   TlsConnectionPosix(IPAddress::Version version, TaskRunner* task_runner);
+  TlsConnectionPosix(std::unique_ptr<StreamSocket> socket,
+                     TaskRunner* task_runner);
   ~TlsConnectionPosix();
 
   // TlsConnection overrides
@@ -31,7 +33,7 @@ class TlsConnectionPosix : public TlsConnection {
   const IPEndpoint& remote_address() const override;
 
  private:
-  StreamSocketPosix socket_;
+  std::unique_ptr<StreamSocket> socket_;
   bssl::UniquePtr<SSL> ssl_;
 
   friend class TlsConnectionFactoryPosix;
