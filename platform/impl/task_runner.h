@@ -10,6 +10,7 @@
 #include <map>
 #include <memory>
 #include <mutex>  // NOLINT
+#include <thread>
 #include <utility>
 #include <vector>
 
@@ -56,6 +57,10 @@ class TaskRunnerImpl final : public TaskRunner {
   ~TaskRunnerImpl() final;
   void PostPackagedTask(Task task) final;
   void PostPackagedTaskWithDelay(Task task, Clock::duration delay) final;
+
+#if OSP_DCHECK_IS_ON()
+  bool IsRunningOnTaskRunner() final;
+#endif
 
   // Tasks will only be executed if RunUntilStopped has been called, and
   // RequestStopSoon has not. Important note: TaskRunner does NOT do any
@@ -149,6 +154,10 @@ class TaskRunnerImpl final : public TaskRunner {
   // vector, use an A/B vector-swap mechanism. |running_tasks_| starts out
   // empty, and is swapped with |tasks_| when it is time to run the Tasks.
   std::vector<TaskWithMetadata> running_tasks_;
+
+#if OSP_DCHECK_IS_ON()
+  std::thread::id task_runner_thread_id_;
+#endif
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TaskRunnerImpl);
 };
