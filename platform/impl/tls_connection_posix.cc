@@ -39,8 +39,7 @@ TlsConnectionPosix::TlsConnectionPosix(IPAddress::Version version,
 TlsConnectionPosix::~TlsConnectionPosix() = default;
 
 void TlsConnectionPosix::Write(const void* data, size_t len) {
-  // TODO(jophba, rwkeane): implement this method.
-  OSP_UNIMPLEMENTED();
+  buffer_.Write(data, len);
 }
 
 const IPEndpoint& TlsConnectionPosix::local_address() const {
