@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88da101a_dab2694b",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:34:37Z",
+      "side": 1,
+      "message": "Remove this. It is purposefully not exposed to children",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 38
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a819a8b6_940c86a1",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:34:37Z",
+      "side": 1,
+      "message": "OnRead(std::move(block))\n\nWe want this queued on the TaskRunner, especially since this method will generally be called from the Networking thread. Calling the client directly calls it on the same thread",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "243846a2_ff39d14e",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:34:37Z",
+      "side": 1,
+      "message": "Do we want this to be public?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b8c2203_06b5e5b1",
+        "filename": "platform/impl/tls_networking_manager_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-20T20:34:37Z",
+      "side": 1,
+      "message": "\u0027RecieveMessage\u0027 implies that there is definitely a message already here to read (and that\u0027s how it works for UdpSocketPosix)\n\nI\u0027d suggest either having a different name or having a separate IsMessageAvailable() method on a socket (which would better match up with existing code)",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 33
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
