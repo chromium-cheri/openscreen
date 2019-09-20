@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "2f36b3b7_3c9cce51",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-20T20:35:54Z",
+      "side": 1,
+      "message": "After a brief discussion, we\u0027ve decided that the following snippet is a valid and useful pattern.\n\nvoid MyClass::MyMethod(MyParameter* parameter) {\n  if (!task_runner_-\u003eIsRunningOnTaskRunner()) {\n    task_runner_-\u003ePostTask([this, parameter] { MyMethod(parameter); });\n    return;\n  }\n  ... do stuff here ...\n}",
+      "parentUuid": "02be8e64_4644b90c",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
+        "endLine": 53,
+        "endChar": 36
+      },
+      "revId": "c62dee5fd3001aa56fc219ccfa817bcca24e95b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d56e17ec_d693ebcc",
         "filename": "platform/impl/task_runner.h",
         "patchSetId": 1
