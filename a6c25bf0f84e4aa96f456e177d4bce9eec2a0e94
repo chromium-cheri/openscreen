@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7c56844_d93ae8d6",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-21T00:02:10Z",
+      "side": 1,
+      "message": "You need to check for the TaskRunner thread here too, or you may hit threading issues accessing callbacks_",
+      "range": {
+        "startLine": 227,
+        "startChar": 5,
+        "endLine": 227,
+        "endChar": 40
+      },
+      "revId": "a6c25bf0f84e4aa96f456e177d4bce9eec2a0e94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b51067e_a54573b0",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-21T00:02:10Z",
+      "side": 1,
+      "message": "Worth mentioning that a delay is expected - because we only queue the call on the taskrunner here and don\u0027t immediately process it",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 13
+      },
+      "revId": "a6c25bf0f84e4aa96f456e177d4bce9eec2a0e94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21db32c6_8cb9ce15",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-21T00:02:10Z",
+      "side": 1,
+      "message": "Worth adding a comment that this should only be accessed from the TaskRunner thread",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "a6c25bf0f84e4aa96f456e177d4bce9eec2a0e94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
