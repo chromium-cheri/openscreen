@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9b9757b4_84540a21",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-21T18:53:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88da101a_dab2694b",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 38
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a819a8b6_940c86a1",
         "filename": "platform/impl/tls_connection_posix.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "30cec850_0aeffa60",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-21T18:53:32Z",
+      "side": 1,
+      "message": "Sweet, thanks. I should have looked harder at tls_connection.cc",
+      "parentUuid": "a819a8b6_940c86a1",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "243846a2_ff39d14e",
         "filename": "platform/impl/tls_connection_posix.h",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2019-09-20T20:34:37Z",
       "side": 1,
       "message": "Do we want this to be public?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93fffd4c_3bf1171f",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-21T18:53:32Z",
+      "side": 1,
+      "message": "We need access to it in TLSNetworkingManagerPosix. We could refactor TlsNetworkingManagerPosix and TLSConnection to implement a separate interface for nudging purposes?",
+      "parentUuid": "243846a2_ff39d14e",
       "range": {
         "startLine": 31,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "36aea526_1d4f63dc",
+        "filename": "platform/impl/tls_networking_manager_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-21T18:53:32Z",
+      "side": 1,
+      "message": "Done. I\u0027m surprised this didn\u0027t cause an error with GUARDED_BY",
+      "parentUuid": "cbb16daf_1d6179e6",
+      "range": {
+        "startLine": 45,
+        "startChar": 40,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b8c2203_06b5e5b1",
         "filename": "platform/impl/tls_networking_manager_posix.cc",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b32704f_146d21a9",
+        "filename": "platform/impl/tls_networking_manager_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-21T18:53:32Z",
+      "side": 1,
+      "message": "There\u0027s no way to actually know that there is *definitely* a message to read for TLS without basically reading it (this is what SSL_peek does essentially), so I\u0027m not sure the IsMessageAvailable is a good approach unless it calls SSL_peek. I\u0027ll rename it for now.",
+      "parentUuid": "2b8c2203_06b5e5b1",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 33
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
