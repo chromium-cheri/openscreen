@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e971a7bb_b8851463",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-21T01:29:03Z",
+      "side": 1,
+      "message": "Is there some code structure that will guarantee |*this| is only destroyed in a later task? Otherwise, the task might run after this-\u003e~MdnsQuestionTracker() (e.g., shutdown race).\n\nThis is like doing base::Unretained(this) in a Chromium callback.",
+      "range": {
+        "startLine": 207,
+        "startChar": 26,
+        "endLine": 207,
+        "endChar": 30
+      },
+      "revId": "a6c25bf0f84e4aa96f456e177d4bce9eec2a0e94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7c56844_d93ae8d6",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 6
@@ -18,6 +41,29 @@
         "startChar": 5,
         "endLine": 227,
         "endChar": 40
+      },
+      "revId": "a6c25bf0f84e4aa96f456e177d4bce9eec2a0e94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f59945e_29438fdb",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-21T01:29:03Z",
+      "side": 1,
+      "message": "Suggestion:\n\n  record_trackers_.erase({record.name(), record.dns_type(), record.dns_class()});",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 30
       },
       "revId": "a6c25bf0f84e4aa96f456e177d4bce9eec2a0e94",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
