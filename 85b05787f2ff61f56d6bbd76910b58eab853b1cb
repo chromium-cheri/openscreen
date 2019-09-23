@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "768aa832_e7080a29",
+        "filename": "cast/common/mdns/mdns_record_changed_callback.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-23T20:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25c6e4c1_f2b12cb1",
+      "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6a95022_29c98183",
         "filename": "cast/common/mdns/mdns_record_changed_callback.h",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "218a6d24_dda93d03",
+        "filename": "cast/common/mdns/mdns_record_changed_callback.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-23T20:43:07Z",
+      "side": 1,
+      "message": "Yes, discussed in person last week. MdnsRecordChangedCallback has to be deleted from a collection, which means extra code is needed since std::functions are not comparable unlike interface pointers.",
+      "parentUuid": "d6a95022_29c98183",
+      "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c891bb48_bb640a05",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-23T20:43:07Z",
+      "side": 1,
+      "message": "I think it\u0027s better to not pollute MdnsRecord with additional properties. Everything it contains (and other structures define next to it as well) is the data that\u0027s serialized to \"on the wire\" blob. It would be weird for MdnsRecord to contain an arbitrary definition of the key used elsewhere.",
+      "parentUuid": "55dc1761_f07f15b4",
+      "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f320c529_3dfee680",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ad94c3_001f319f",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-23T20:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f320c529_3dfee680",
+      "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
