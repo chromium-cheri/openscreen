@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89b76165_fcc05825",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:41:04Z",
+      "side": 1,
+      "message": "Do we actually want partial writes? From reading the docs, it looks like this means that we can return success when any part of a message is sent, and you have to do a new write call with the rest of the message? Seems like trouble.",
+      "revId": "1f6409c47b64c1ab0078fbf68c8569eaffef71fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aabefef_68b6233d",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:41:04Z",
+      "side": 1,
+      "message": "if (sendable_bytes.empty()) {",
+      "revId": "1f6409c47b64c1ab0078fbf68c8569eaffef71fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da68eb41_5c45393b",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:41:04Z",
+      "side": 1,
+      "message": "const",
+      "revId": "1f6409c47b64c1ab0078fbf68c8569eaffef71fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8833cbed_69cca4a8",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:41:04Z",
+      "side": 1,
+      "message": "Zero is also considered an error for SSL_write. This should be result \u003c\u003d 0.\n\nhttps://www.openssl.org/docs/man1.0.2/man3/SSL_write.html",
+      "revId": "1f6409c47b64c1ab0078fbf68c8569eaffef71fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7baaedb7_37377815",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:41:04Z",
+      "side": 1,
+      "message": "const",
+      "revId": "1f6409c47b64c1ab0078fbf68c8569eaffef71fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55d61bfe_0a7a3176",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:41:04Z",
+      "side": 1,
+      "message": "Consider parenthesis around the second condition.",
+      "revId": "1f6409c47b64c1ab0078fbf68c8569eaffef71fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
