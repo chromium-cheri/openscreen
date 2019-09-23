@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "42ec316d_9fac6ceb",
+        "filename": "platform/impl/tls_networking_manager_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-23T17:24:46Z",
+      "side": 1,
+      "message": "I agree that TlsNetworkingManager is a bit too generic.\nI think we can drop Networking from the name, since it\u0027s TLS, and that is networking. This would give us more characters to describe what the class is doing and still have a reasonably short name.\nIt\u0027s a bit hard to name this class because it does a lot of things.\nMaybe something along the lines of TlsConnectionRouter or TlsReaderWriter?",
+      "parentUuid": "bd4838e2_d1a5cfe9",
+      "revId": "e2415a795c57072cbe7dc8c5497ba72a12f4b155",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e795117_3fb9138a",
         "filename": "platform/impl/tls_networking_manager_posix.h",
         "patchSetId": 4
