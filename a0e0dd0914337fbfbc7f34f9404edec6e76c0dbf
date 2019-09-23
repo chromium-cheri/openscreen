@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "06d50ee9_1f9d1a97",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-23T18:29:06Z",
+      "side": 1,
+      "message": "I thought about it a bit more, and I think this is the correct approach. Or at least I\u0027m not sure what a better approach would be - since it\u0027s already not exposed outside of the Posix implementation",
+      "parentUuid": "93fffd4c_3bf1171f",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbb16daf_1d6179e6",
         "filename": "platform/impl/tls_networking_manager_posix.cc",
         "patchSetId": 2
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "There\u0027s no way to actually know that there is *definitely* a message to read for TLS without basically reading it (this is what SSL_peek does essentially), so I\u0027m not sure the IsMessageAvailable is a good approach unless it calls SSL_peek. I\u0027ll rename it for now.",
       "parentUuid": "2b8c2203_06b5e5b1",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 33
+      },
+      "revId": "a0e0dd0914337fbfbc7f34f9404edec6e76c0dbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3f117f2_3e5c7bb8",
+        "filename": "platform/impl/tls_networking_manager_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-23T18:29:06Z",
+      "side": 1,
+      "message": "Renaming works for me!",
+      "parentUuid": "5b32704f_146d21a9",
       "range": {
         "startLine": 46,
         "startChar": 4,
