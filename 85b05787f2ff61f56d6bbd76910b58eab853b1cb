@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25c6e4c1_f2b12cb1",
+        "filename": "cast/common/mdns/mdns_record_changed_callback.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:35:15Z",
+      "side": 1,
+      "message": "Nit: consider kCreated, since this is CRUD (create, read, update, delete)",
+      "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6a95022_29c98183",
+        "filename": "cast/common/mdns/mdns_record_changed_callback.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:35:15Z",
+      "side": 1,
+      "message": "Any reason to prefer this over a std::function typedef?",
+      "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55dc1761_f07f15b4",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:35:15Z",
+      "side": 1,
+      "message": "Consider making this a property on MdnsRecord, e.g. something like record.unique_id? Not sure if this identifier is useful outside of the QuestionTracker, so feel free to take it or leave it.",
+      "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f320c529_3dfee680",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-23T18:35:15Z",
+      "side": 1,
+      "message": "Nit: consider auto* since we have to use pointer syntax on it. I\u0027m not sure this is in the style guide either way.",
+      "revId": "85b05787f2ff61f56d6bbd76910b58eab853b1cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
