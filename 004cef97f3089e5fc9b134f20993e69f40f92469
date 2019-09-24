@@ -49,6 +49,52 @@
     },
     {
       "key": {
+        "uuid": "dae78821_fb849487",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T23:51:08Z",
+      "side": 1,
+      "message": "I don\u0027t see much point in using unique_lock here since you manually call lock and unlock anyway.\n\nMaybe like this?\n\nbool more_tasks \u003d true;\nwhile (more_tasks)\n{\n  task_mutex_.lock();\n  running_tasks_.swap(tasks_);\n  task_mutex_.unlock();\n\n  more_tasks \u003d !running_tasks_.empty();\n  RunRunnableTasks();\n}",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66bb80e5_4834703d",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T23:51:08Z",
+      "side": 1,
+      "message": "Um, a task can reschedule itself without a delay (or, a more realistic scenario, a task loop that keeps itself alive). It\u0027s a bad, very bad task, and we don\u0027t want tasks like that, but it would be great to be able to mitigate it somehow.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f673532_0c45faaa",
         "filename": "platform/impl/task_runner.cc",
         "patchSetId": 2
@@ -65,6 +111,52 @@
         "startChar": 22,
         "endLine": 80,
         "endChar": 42
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02bf561_128c3706",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T23:51:08Z",
+      "side": 1,
+      "message": "This is very elegant and I like it.",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9127789e_9ee5f8f4",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T23:51:08Z",
+      "side": 1,
+      "message": "Maybe change this to WaitForRunnableTasks() and call RunRunnableTasks() independently? I think it makes a bit clearer what\u0027s going on.\n\nwhile (is_running_) {\n  ScheduleDelayedTasks();\n  WaitForRunnableTasks();\n  RunRunnableTasks();\n}",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 41
       },
       "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
