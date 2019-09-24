@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "467927a9_7823a438",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbed5b36_281959f2",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1448d5d_0194ff5f",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2019-09-23T20:31:45Z",
       "side": 1,
       "message": "Outside this patch, I guess: should we do SSL or Ssl? Consistency? And should the category be kSsl?",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd48dec_24ac18d8",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "We can take this as a follow-up patch. I\u0027m actually not sure though - what are your thoughts?",
+      "parentUuid": "d1448d5d_0194ff5f",
       "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "eebb1a0b_ebd6af3b",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "I personally don\u0027t see any benefit to returning an error here - the calling method can\u0027t do anything with that error but it would incur additional performance cost\n\nPreviously, it just returned if an error was hit, so the change now is only so that the calling methods can continue to do the same (since I\u0027ve broken it into a separate method)",
+      "parentUuid": "854b7b3f_fe02d583",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a2299ca_1b7e2bd9",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2019-09-23T20:31:45Z",
       "side": 1,
       "message": "Do we have a goal for what functions should include TRACE_SCOPED, e.g. TlsConnectionPosix?",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1a8ebe_ed27197f",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "Personally, my goal is to use them whenever calling into an external library, as we have no control over the runtime there and it can be helpful to determine whether these libraries are acting as a bottleneck.",
+      "parentUuid": "5a2299ca_1b7e2bd9",
       "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ddc0e3b1_5a4e6308",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fedbc72_80faf44e",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3777c81b_1dd624de",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 5
@@ -101,6 +191,24 @@
       "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d93f8777_5fbc33c8",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3777c81b_1dd624de",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "34f432d2_22e18b45",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "I think you\u0027re correct that it\u0027s not needed. removed.",
+      "parentUuid": "75813683_e990da19",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14c17ff5_b69abcf0",
         "filename": "platform/impl/tls_connection_factory_posix.h",
         "patchSetId": 5
@@ -135,6 +261,24 @@
       "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4657d40_2266c45c",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14c17ff5_b69abcf0",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "686a4864_396638ae",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cf95e3b_d01bb9e3",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44c77843_8ef067f9",
         "filename": "platform/impl/tls_data_router_posix.h",
         "patchSetId": 5
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "500cbadf_34e48b52",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44c77843_8ef067f9",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2b2cfa9_fdcd3726",
         "filename": "platform/impl/tls_data_router_posix.h",
         "patchSetId": 5
@@ -186,6 +366,24 @@
       "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07bc7a82_1501bcba",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T17:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2b2cfa9_fdcd3726",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
