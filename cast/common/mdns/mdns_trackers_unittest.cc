@@ -81,8 +81,7 @@ class MdnsTrackerTest : public ::testing::Test {
                   ARecordRdata(IPAddress{172, 0, 0, 1})) {}
 
   template <class TrackerType, class TrackedType>
-  void TrackerStartStop(std::unique_ptr<TrackerType> tracker,
-                        TrackedType tracked_data) {
+  void TrackerStartStop(TrackerType tracker, TrackedType tracked_data) {
     EXPECT_EQ(tracker->IsStarted(), false);
     EXPECT_EQ(tracker->Stop(), Error(Error::Code::kOperationInvalid));
     EXPECT_EQ(tracker->IsStarted(), false);
@@ -96,8 +95,7 @@ class MdnsTrackerTest : public ::testing::Test {
   }
 
   template <class TrackerType, class TrackedType>
-  void TrackerNoQueryAfterStop(std::unique_ptr<TrackerType> tracker,
-                               TrackedType tracked_data) {
+  void TrackerNoQueryAfterStop(TrackerType tracker, TrackedType tracked_data) {
     EXPECT_EQ(tracker->Start(tracked_data), Error(Error::Code::kNone));
     EXPECT_EQ(tracker->Stop(), Error(Error::Code::kNone));
     EXPECT_CALL(socket_, SendMessage(_, _, _)).Times(0);
@@ -107,7 +105,7 @@ class MdnsTrackerTest : public ::testing::Test {
   }
 
   template <class TrackerType, class TrackedType>
-  void TrackerNoQueryAfterDestruction(std::unique_ptr<TrackerType> tracker,
+  void TrackerNoQueryAfterDestruction(TrackerType tracker,
                                       TrackedType tracked_data) {
     tracker->Start(tracked_data);
     tracker.reset();
@@ -124,9 +122,9 @@ class MdnsTrackerTest : public ::testing::Test {
         [this](const MdnsRecord& record) { expiration_called_ = true; });
   }
 
-  std::unique_ptr<MdnsQuestionTracker> CreateQuestionTracker() {
-    return std::make_unique<MdnsQuestionTracker>(&sender_, &task_runner_,
-                                                 &FakeClock::now, &random_);
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> CreateQuestionTracker() {
+    return MdnsQuestionTracker::Create(&sender_, &task_runner_, &FakeClock::now,
+                                       &random_);
   }
 
  protected:
@@ -354,12 +352,12 @@ TEST_F(MdnsTrackerTest, RecordTrackerNoExpirationCallbackAfterDestruction) {
 // https://tools.ietf.org/html/rfc6762#section-5.2
 
 TEST_F(MdnsTrackerTest, QuestionTrackerStartStop) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   TrackerStartStop(std::move(tracker), a_question_);
 }
 
 TEST_F(MdnsTrackerTest, QuestionTrackerQueryAfterDelay) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   tracker->Start(a_question_);
 
   EXPECT_CALL(socket_, SendMessage(_, _, _)).Times(1);
@@ -374,7 +372,7 @@ TEST_F(MdnsTrackerTest, QuestionTrackerQueryAfterDelay) {
 }
 
 TEST_F(MdnsTrackerTest, QuestionTrackerSendsMessage) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   tracker->Start(a_question_);
 
   EXPECT_CALL(socket_, SendMessage(_, _, _))
@@ -385,17 +383,17 @@ TEST_F(MdnsTrackerTest, QuestionTrackerSendsMessage) {
 }
 
 TEST_F(MdnsTrackerTest, QuestionTrackerNoQueryAfterStop) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   TrackerNoQueryAfterStop(std::move(tracker), a_question_);
 }
 
 TEST_F(MdnsTrackerTest, QuestionTrackerNoQueryAfterDestruction) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   TrackerNoQueryAfterDestruction(std::move(tracker), a_question_);
 }
 
 TEST_F(MdnsTrackerTest, QuestionTrackerCallbackOnRecordReceived) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   MockRecordChangedCallback callback1;
   MockRecordChangedCallback callback2;
 
@@ -412,7 +410,7 @@ TEST_F(MdnsTrackerTest, QuestionTrackerCallbackOnRecordReceived) {
 }
 
 TEST_F(MdnsTrackerTest, QuestionTrackerNoCallbackAfterRemoval) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   MockRecordChangedCallback callback1;
   MockRecordChangedCallback callback2;
 
@@ -432,7 +430,7 @@ TEST_F(MdnsTrackerTest, QuestionTrackerNoCallbackAfterRemoval) {
 }
 
 TEST_F(MdnsTrackerTest, QuestionTrackerCallbackOnCreateUpdateGoodbye) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   MockRecordChangedCallback callback;
 
   tracker->Start(a_question_);
@@ -467,7 +465,7 @@ TEST_F(MdnsTrackerTest, QuestionTrackerCallbackOnCreateUpdateGoodbye) {
 }
 
 TEST_F(MdnsTrackerTest, QuestionTrackerNoCallbackOnNoUpdate) {
-  std::unique_ptr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
+  DelayedDeleteUniquePtr<MdnsQuestionTracker> tracker = CreateQuestionTracker();
   MockRecordChangedCallback callback;
 
   tracker->Start(a_question_);
