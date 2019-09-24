@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "f22a32e7_641faa09",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T19:58:37Z",
+      "side": 1,
+      "message": "Sounds good. This can be addressed as a follow-up CL\n\nI\u0027ll add a TODO to the file where this enum value lives (to show up next iteration)",
+      "parentUuid": "297754c7_6b361afe",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "854b7b3f_fe02d583",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 5
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "I\u0027m just curious how much there is ever a point to returning an error. 99% of the time we just check .ok(), since typically the method returning should do any logging. \n\nThis is more of a meta question I guess, is it ever important to return Error?",
       "parentUuid": "eebb1a0b_ebd6af3b",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ba47aa8_c10e17a6",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T19:58:37Z",
+      "side": 1,
+      "message": "IMHO, it\u0027s useful to return an error when we are going to report that back to the caller somehow (ie through our callback mechanism or a method return) - when it\u0027s internal to the class, such as a private or protected method, it seems less useful\n\nWhat are your thoughts?",
+      "parentUuid": "0da5dce6_c7d63bae",
       "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
