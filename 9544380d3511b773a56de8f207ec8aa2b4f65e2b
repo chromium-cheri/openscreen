@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e08d626_6c159432",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "Per header file comments, this could be just:\n\n  inline size_t GetCurrentFillCount(size_t write_index, size_t read_index) {\n    return write_index - read_index;\n  }\n\nIf you keep what you have, please simplify the expression: (N + k - M) % k \u003d\u003d (N - M) % k",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28132330_2d735ca5",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "nit: Please add newlines before/after each namespace brace.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee6af8b_e3f4ba23",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "load(std::memory_order_relaxed), since this is the only method that changes |write_index_| and so the current thread should always be visibly up-to-date w.r.t. the last store().\n\n...and in other places.",
+      "range": {
+        "startLine": 30,
+        "startChar": 50,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b93ed7af_e0d94fc1",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "load(std::memory_order_acquire)\n\n...and in other places.",
+      "range": {
+        "startLine": 31,
+        "startChar": 48,
+        "endLine": 31,
+        "endChar": 54
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cd66071_3f125a00",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "FWIW, this isn\u0027t exactly the design we were discussing last week. However, I\u0027m not sure if you should change anything, since we\u0027d be adding a lot more complexity to optimize something that might not need further optimization. We\u0027re not using the TLS socket for high-bandwidth data, after all.\n\nBut, to clarify the design idea of the lockless FIFO: The load of |read_index_| should not occur in every Write() call. Write() should maintain its own snapshot of the read index. Then, when the Write() method thinks the buffer is full, it does a read_index_.load() to see whether the buffer really is full.\n\nThis class would need the following data members:\n\n  // Published indices. These are aligned to a CPU cache line to alleviate memory-order\n  // contention.\n  #define CACHE_LINE_SIZE_BYTES 64\n  alignas(CACHE_LINE_SIZE_BYTES) std::atomic_size_t published_read_index_{0};\n  alignas(CACHE_LINE_SIZE_BYTES) std::atomic_size_t published_write_index_{0};\n\n  // Used by Write() only. When Write() thinks the buffer is full,\n  // it should update this from published_read_index_, to see whether the\n  // buffer really *is* full.\n  size_t snapshot_of_read_index_{0};\n  size_t write_index{0};\n\n  // Used by GetReadableRegion() and Consume() only. When Consume() thinks\n  // the buffer is empty, it should update this from published_write_index_,\n  // to see whether the buffer really *is* empty.\n  size_t read_index{0};\n  size_t snapshot_of_write_index_;",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beb3edbb_57d01153",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "Per header file comments, the -1 would not be necessary and the entire buffer could be used.",
+      "range": {
+        "startLine": 39,
+        "startChar": 68,
+        "endLine": 39,
+        "endChar": 71
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4574cd0_3e7b7291",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "store(new_write_index, std::memory_order_release)",
+      "range": {
+        "startLine": 60,
+        "startChar": 15,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f0910c3_8e93d6ce",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "This is where, if the buffer looks empty when looking at |snapshot_of_write_index_| versus |read_index_|, we load the published value and try again. Ex:\n\n  if (snapshot_of_write_index_ - read_index_ \u003d\u003d 0) {\n    snapshot_of_write_index_ \u003d published_write_index_.load(std::memory_order_acquire);\n  }\n  return absl::Span\u003cconst uint8_t\u003e(\u0026buffer_[read_index_ % kBufferSizeBytes],\n                                   snapshot_of_write_index_ - read_index_);",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 55
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48d47c06_a077aabb",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T22:39:11Z",
+      "side": 1,
+      "message": "From the .cc code, it seems the semantics of these variables is that they must always point to valid indices within |buffer_|. Instead, what if you always just incremented them, even letting them wrap-around past SIZE_T_MAX eventually? Then, the math gets a lot simpler throughout and you can use the entire buffer (not just all but one byte).",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
