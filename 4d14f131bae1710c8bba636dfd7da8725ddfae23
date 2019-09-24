@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfefe43d_7fd949f6",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T23:41:44Z",
+      "side": 1,
+      "message": "Is it null because Initialize() is meant to be safe to call more than once, and SSL_CTX_new() returns null if it\u0027s being called a second time?\n\nOr, is the null an error result, and there should be a OSP_CHECK(context) here?",
+      "range": {
+        "startLine": 132,
+        "startChar": 17,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "287e58c3_d96f0766",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T23:41:44Z",
+      "side": 1,
+      "message": "No need to check if the entry exists, since emplace() will not overwrite existing map entries. Though, it seems these 3 LOC could just be:\n\n  socket_mappings_[socket] \u003d observer;\n\n...since overwriting the entry is probably the more-desirable behavior (i.e., updates the observer getting notifications for the socket).\n\n...BTW, it looks like waiter_-\u003eSubscribe() could get called more than once for the same socket in these cases. Is that safe?",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d725796_00fd1dbe",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T23:41:44Z",
+      "side": 1,
+      "message": "Need explicit keyword here.",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 20
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3414c200_0a08744c",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T23:41:44Z",
+      "side": 1,
+      "message": "Need override or final keyword here.",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b48d264_e4b7b6ae",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T23:41:44Z",
+      "side": 1,
+      "message": "This belongs in the \"protected:\" section.",
+      "range": {
+        "startLine": 109,
+        "startChar": 2,
+        "endLine": 109,
+        "endChar": 33
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
