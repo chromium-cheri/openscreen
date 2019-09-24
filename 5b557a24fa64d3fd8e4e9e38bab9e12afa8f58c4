@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d7591e8_9f3e3bb7",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T21:22:31Z",
+      "side": 1,
+      "message": "naming nit: |tracker| doesn\u0027t feel like it describes the argument accurately. Suggestion: |owned_object_pointer| or just |pointer|?",
+      "range": {
+        "startLine": 17,
+        "startChar": 24,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cf5d2cb_9055d9c4",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T21:22:31Z",
+      "side": 1,
+      "message": "super nit: void operator()(Type* tracker) const {\n                                          ^^^^^",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91cb196b_df7185b1",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T21:22:31Z",
+      "side": 1,
+      "message": "If the TaskRunner is stopped early and destroyed without this task being run, the object will leak.\n\nHOWEVER, don\u0027t fix this. :) I have a CL (almost ready for review), that fixes the task runner shutdown to guarantee all immediately-runnable tasks will run before TaskRunnerImpl::RequestStopSoon() returns: https://chromium-review.googlesource.com/c/openscreen/+/1820181\n\nThough, it might be good to put a code comment here to the effect of, \"WARNING: If this task never runs, the object will leak.\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 58
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
