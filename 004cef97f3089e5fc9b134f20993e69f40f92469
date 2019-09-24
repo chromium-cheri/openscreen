@@ -92,6 +92,30 @@
       "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3883f22_6a6bd896",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:57:33Z",
+      "side": 1,
+      "message": "Due to data caching, the value of is_running_ may not by synced between multiple threads if it is not stored in an atomic_bool\n\nAlso, our design does not prevent starting a task runner after it has been stopped. That is a valid approach that may lead to concurrent access or modification",
+      "parentUuid": "f880b441_dc171625",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 6
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
