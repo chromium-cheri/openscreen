@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "297754c7_6b361afe",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-24T19:05:51Z",
+      "side": 1,
+      "message": "I don\u0027t think the style guide specifically says, but it does show UrlTableErrors as an example good name.\n\nSince URL is also a three letter abbreviation, I would vote for Ssl over SSL. I also think it looks nicer in camel case.\n\nhttps://google.github.io/styleguide/cppguide.html#General_Naming_Rules",
+      "parentUuid": "2cd48dec_24ac18d8",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "854b7b3f_fe02d583",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 5
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "I personally don\u0027t see any benefit to returning an error here - the calling method can\u0027t do anything with that error but it would incur additional performance cost\n\nPreviously, it just returned if an error was hit, so the change now is only so that the calling methods can continue to do the same (since I\u0027ve broken it into a separate method)",
       "parentUuid": "854b7b3f_fe02d583",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0da5dce6_c7d63bae",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-24T19:05:51Z",
+      "side": 1,
+      "message": "I\u0027m just curious how much there is ever a point to returning an error. 99% of the time we just check .ok(), since typically the method returning should do any logging. \n\nThis is more of a meta question I guess, is it ever important to return Error?",
+      "parentUuid": "eebb1a0b_ebd6af3b",
       "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -139,6 +175,24 @@
       "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ae7054d_32f9c968",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-24T19:05:51Z",
+      "side": 1,
+      "message": "Sounds good to me. I\u0027ll think about that for my patches.",
+      "parentUuid": "0b1a8ebe_ed27197f",
+      "revId": "38d708dc74e4c0f28794555f8e78e757086f92b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
