@@ -117,6 +117,53 @@
     },
     {
       "key": {
+        "uuid": "7af4e547_5833ebc6",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:51:57Z",
+      "side": 1,
+      "message": "I\u0027m against defining cache line sizes and using alignas. This seems unnecessary to me at this point in time. In addition to that, any embedder can implement their own TLS write buffer with optimizations specific to their hardware.\n\nAs for the indices that keep multiplying, I think it might be worth to have internal structs for reader and writer states to keep things together and easy to follow.",
+      "parentUuid": "6cd66071_3f125a00",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4393a1f9_c72b98b1",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:51:57Z",
+      "side": 1,
+      "message": "Maybe something like bytes_used? Size of the buffer is always kBufferSizeBytes",
+      "range": {
+        "startLine": 34,
+        "startChar": 15,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "beb3edbb_57d01153",
         "filename": "platform/impl/tls_write_buffer.cc",
         "patchSetId": 3
@@ -199,6 +246,29 @@
       "message": "From the .cc code, it seems the semantics of these variables is that they must always point to valid indices within |buffer_|. Instead, what if you always just incremented them, even letting them wrap-around past SIZE_T_MAX eventually? Then, the math gets a lot simpler throughout and you can use the entire buffer (not just all but one byte).",
       "range": {
         "startLine": 59,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b0b76ce_2d7a653c",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:51:57Z",
+      "side": 1,
+      "message": "Could you please add a comment that atomics here are primarily to guarantee atomic reads and writes on all platforms (including those that might not have atomic uint64_t reads and writes supported by hardware)? I.e. if we were certain that we are always running on x64, atomics wouldn\u0027t be necessary here.",
+      "range": {
+        "startLine": 60,
         "startChar": 2,
         "endLine": 63,
         "endChar": 37
