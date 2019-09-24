@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83f65ac0_6756ba14",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:44:11Z",
+      "side": 1,
+      "message": "to ensure thread safety, use:\nbool was_running \u003d is_running.exchange(true)\nOSP_DCHECK(!was_running)",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f673532_0c45faaa",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:44:11Z",
+      "side": 1,
+      "message": "Probably good to also DCHECK it was running prior to this call",
+      "range": {
+        "startLine": 80,
+        "startChar": 22,
+        "endLine": 80,
+        "endChar": 42
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c84f7b65_504abc98",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:44:11Z",
+      "side": 1,
+      "message": "why not an atomic? After this change, we expect RunUntilStopped to be called from the embedder thread and then this bool changed by RequestStopSoon from the TaskRunner thread",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 6
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
