@@ -68,6 +68,30 @@
       "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f880b441_dc171625",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-24T21:51:34Z",
+      "side": 1,
+      "message": "RunUntilStopped blocks the current thread, so it has be called from a shiny new TaskRunner thread, right? This is the same thread that tasks get posted to, if I understand correctly, so the stop task should run on the same thread RunUntilStopped is called on.",
+      "parentUuid": "c84f7b65_504abc98",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 6
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
