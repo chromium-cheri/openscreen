@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "14f16f6e_ceeac953",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:03:27Z",
+      "side": 1,
+      "message": "It has multiple classes in it and public helpers as well. No problem renaming the file, but I think the current name describes the contents quite well.",
+      "parentUuid": "ae4f34f7_5695d859",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7591e8_9f3e3bb7",
         "filename": "util/delayed_delete.h",
         "patchSetId": 2
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "975a8e5d_f662765a",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:03:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf5d2cb_9055d9c4",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f17dfd6f_dbd932de",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:03:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7591e8_9f3e3bb7",
+      "range": {
+        "startLine": 17,
+        "startChar": 24,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91cb196b_df7185b1",
         "filename": "util/delayed_delete.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3118dd96_a75f186b",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:03:27Z",
+      "side": 1,
+      "message": "Yes, I saw your change before I put a PR for this one out :)\nTry-bot caught this exact leak as far as I can tell. I\u0027ll rebase on top of your change and see if the issue is gone.\nAlso, adding a comment in the code as requested.",
+      "parentUuid": "91cb196b_df7185b1",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 58
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d6f9a88f_fd2c901f",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:03:27Z",
+      "side": 1,
+      "message": "Default deleter in std is called default_delete, that\u0027s why I called this DelayedDelete.\nI think Delete is more consistent and shorter than Deletion, so I\u0027d be in favor of that.\nRenaming it SerialDeletePtr, and, of course, we can rename it again later.",
+      "parentUuid": "32c83a22_05942cdb",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49d624c3_e2c29be5",
         "filename": "util/delayed_delete.h",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a3a01cf_917c55c5",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:03:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49d624c3_e2c29be5",
+      "range": {
+        "startLine": 32,
+        "startChar": 47,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "e057bf15_63dad638",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:03:27Z",
+      "side": 1,
+      "message": "MakeSerialDeletePtr",
+      "parentUuid": "a4798b38_bf01fc21",
+      "range": {
+        "startLine": 36,
+        "startChar": 29,
+        "endLine": 36,
+        "endChar": 55
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb84be9d_272b0566",
         "filename": "util/delayed_delete.h",
         "patchSetId": 2
@@ -177,6 +345,24 @@
       "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ac9773_f546f2af",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-24T22:03:27Z",
+      "side": 1,
+      "message": "That would add a lot of complexity, as unique_ptr might have a custom deleter that has to be propagated. In addition to that, anything that has to be deleted on task runner to avoid race conditions or use-after-delete, should be put into DelayedDelete from the very beginning. I\u0027ll add this helper if the need arises :)",
+      "parentUuid": "eb84be9d_272b0566",
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
