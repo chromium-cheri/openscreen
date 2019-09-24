@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ae4f34f7_5695d859",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:34:22Z",
+      "side": 1,
+      "message": "I\u0027d prefer if file name matched the class name, though not a strong preference",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d7591e8_9f3e3bb7",
         "filename": "util/delayed_delete.h",
         "patchSetId": 2
@@ -65,6 +88,92 @@
         "endLine": 18,
         "endChar": 58
       },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c83a22_05942cdb",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:34:22Z",
+      "side": 1,
+      "message": "something about this name bothers me and I can\u0027t figure out why\n\nDelayedDeletionUniquePtr seems better to me, but definitely open to other ideas. Maybe something like TaskRunnerOwnedUniquePtr or similar? I\u0027m really not sure\n\nAnyone else have any thoughts?",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49d624c3_e2c29be5",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:34:22Z",
+      "side": 1,
+      "message": "DCHECK(task_runner)",
+      "range": {
+        "startLine": 32,
+        "startChar": 47,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4798b38_bf01fc21",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:34:22Z",
+      "side": 1,
+      "message": "MakeDelayedDeletion?",
+      "range": {
+        "startLine": 36,
+        "startChar": 29,
+        "endLine": 36,
+        "endChar": 55
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb84be9d_272b0566",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-24T21:34:22Z",
+      "side": 1,
+      "message": "Seems worth also adding:\n\nDelayedDeleteUniquePtr\u003cType\u003e MakeDelayedDeletion(TaskRunner* tr, std::unique_ptr\u003cType\u003e\u003e ptr);",
       "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
