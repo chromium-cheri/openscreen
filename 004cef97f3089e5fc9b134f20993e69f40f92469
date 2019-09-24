@@ -116,6 +116,30 @@
       "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3de7e6_6be7dce8",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-24T23:03:43Z",
+      "side": 1,
+      "message": "\u003e why not an atomic?\n\nNo need for the atomic since only one thread can possibly read/write to |is_running_|. In fact, to be even more constrained in describing this restriction, note that |is_running_| will only be read/written while RunUntilStopped() is on the call stack. There is no other way to reach it.\n\n\u003e After this change, we expect RunUntilStopped to be called from the embedder thread and then this bool changed by RequestStopSoon from the TaskRunner thread\n\nNote that RequestStopSoon() doesn\u0027t read nor mutate |is_running_|. Instead, it posts a task that will be executed from the loop in RunUntilStopped().\n\n\u003e RunUntilStopped blocks the current thread, so it has be called from a shiny new TaskRunner thread, right?\n\nThe application developer can choose to dedicate any thread to being the \"task runner loop.\" That could be \"main()\" or a separate thread started by the app for this purpose. This behavior isn\u0027t being changed by this patch...we\u0027ve always had it this way.\n\n\u003e This is the same thread that tasks get posted to, if I understand correctly, so the stop task should run on the same thread RunUntilStopped is called on.\n\nYes, that\u0027s correct. And, the stop task must be run from a call stack that includes RunUntilStopped(), since that\u0027s the loop that spins to take tasks out of the queue and run them.",
+      "parentUuid": "e3883f22_6a6bd896",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 6
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
