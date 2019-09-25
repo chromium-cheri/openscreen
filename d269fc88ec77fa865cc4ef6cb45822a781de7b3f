@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eceb4189_b88ceaf6",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-25T18:24:06Z",
+      "side": 1,
+      "message": "Since you already know exactly how many bytes you can write\n\nfor (size_t i \u003d 0; i \u003c write_len; ++i) {\n  buffer_[current_write_index++] \u003d data[i];\n  if (current_write_index \u003d\u003d kBufferSizeBytes) {\n    current_write_index \u003d 0;\n  }\n}\n\nApplies to both approaches though.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "d269fc88ec77fa865cc4ef6cb45822a781de7b3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
