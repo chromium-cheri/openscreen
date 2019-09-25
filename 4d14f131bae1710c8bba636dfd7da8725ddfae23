@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a6a3cab_02ebb55b",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T00:29:15Z",
+      "side": 1,
+      "message": "It\u0027s null in the case of an error in BoringSSL, but we have error handling built into this class. This would be an \"unrecoverable\" error, which is converted to an error (line 140) and pushed back to the caller (line 67) via our OnError callback to say that this factory is an unhealthy state\n\nUsing a OSP_CHECK here would go against our current error-handling design",
+      "parentUuid": "cfefe43d_7fd949f6",
+      "range": {
+        "startLine": 132,
+        "startChar": 17,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "287e58c3_d96f0766",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3acef422_fed6fcec",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T00:29:15Z",
+      "side": 1,
+      "message": "Updated as suggested\n\nIt is safe to call Subscribe multiple times. We only perform an action if the SocketHandleRef isn\u0027t already being watched.",
+      "parentUuid": "287e58c3_d96f0766",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a650b4b9_06d6e0d6",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T00:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d725796_00fd1dbe",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 20
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3414c200_0a08744c",
         "filename": "platform/impl/tls_data_router_posix.h",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ade4e3c6_907eec33",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T00:29:15Z",
+      "side": 1,
+      "message": "Done. Good catch!",
+      "parentUuid": "3414c200_0a08744c",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b48d264_e4b7b6ae",
         "filename": "platform/impl/tls_data_router_posix.h",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac1132e7_5797861c",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T00:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b48d264_e4b7b6ae",
+      "range": {
+        "startLine": 109,
+        "startChar": 2,
+        "endLine": 109,
+        "endChar": 33
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
