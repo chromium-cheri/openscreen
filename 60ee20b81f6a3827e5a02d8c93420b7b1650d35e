@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d21c87b2_370d9d26",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:01:19Z",
+      "side": 1,
+      "message": "Do we expect other implementations of CastSocket? I\u0027m not sure I understand the split between CastSocket and CastSocketImpl, since they are in the same folder (and hence have the same visibility).",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d77876d_f7c679b4",
+        "filename": "cast/common/channel/cast_socket_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:01:19Z",
+      "side": 1,
+      "message": "What happens if connection is null? Just an AV? Should we DCHECK?",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7d6b951_948a3919",
+        "filename": "cast/common/channel/cast_socket_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:01:19Z",
+      "side": 1,
+      "message": "Nit: const.",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69f5d70c_e4de1061",
+        "filename": "cast/common/channel/cast_socket_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:01:19Z",
+      "side": 1,
+      "message": "The namespacing is lame, I think this is the right approach for now but I still don\u0027t like it that much. Maybe we can find a better way to lay out namespaces?\n\nE.g. should this really be openscreen::platform, or is it just platform?\n\nKind of out of scope of this patch, but not sure when it would be in scope.",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb9e99df_ab46cacb",
+        "filename": "cast/common/channel/cast_socket_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:01:19Z",
+      "side": 1,
+      "message": "Maybe mention that it will return an error if the message is improperly formatted or other unserializable. Not obvious from here what the error conditions are.",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55931b8c_f609ee12",
+        "filename": "cast/common/channel/message_framer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:01:19Z",
+      "side": 1,
+      "message": "Nit: const.",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2191f9f_c1eed708",
+        "filename": "cast/common/channel/message_framer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:01:19Z",
+      "side": 1,
+      "message": "Should length just be part of CastMessage, or no?",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdfbf5f3_c493425c",
+        "filename": "cast/common/channel/message_framer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:01:19Z",
+      "side": 1,
+      "message": "Since message framing isn\u0027t a class really (you never initialize it or construct one),\n\nconsider replacing it with a namespace, e.g.\n\nnamespace channel {\nnamespace message_serialization {\n    Serialize(message);\n    Deserialize(message);\n}\n}",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
