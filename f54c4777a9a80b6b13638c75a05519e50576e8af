@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "884d59ab_6cb64fdf",
+        "filename": "platform/impl/network_reader_writer_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T18:29:41Z",
+      "side": 1,
+      "message": "Hmm, interesting. Good to know!\n\nI\u0027ve added the lambda to the condition variables here. Assuming this fix looks good, I can go take a look at previous code and see where else I need changes (as a separate CL)",
+      "parentUuid": "be216a9a_45ade170",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9ca89c4_e90a20d8",
         "filename": "platform/impl/network_reader_writer_posix.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93a1adc2_da7d06b2",
+        "filename": "platform/impl/network_reader_writer_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T18:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ca89c4_e90a20d8",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6db6ebb1_515a1baa",
+        "filename": "platform/impl/network_reader_writer_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T18:29:41Z",
+      "side": 1,
+      "message": "Good idea. Done\n\nNot adding a default case, because enum-class will generate a compilation error if a new operation is added and not accounted for here",
+      "parentUuid": "181f9591_32e050a6",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f8fa0ab_cec193a5",
         "filename": "platform/impl/network_reader_writer_posix.h",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "db9e19b9_e0540d6b",
+        "filename": "platform/impl/network_reader_writer_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T18:29:41Z",
+      "side": 1,
+      "message": "Updated to plural",
+      "parentUuid": "7f8fa0ab_cec193a5",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d41c0b73_3db14140",
         "filename": "platform/impl/network_reader_writer_posix.h",
         "patchSetId": 1
@@ -84,6 +156,24 @@
       "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea1ad6f7_6bfe57f8",
+        "filename": "platform/impl/network_reader_writer_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T18:29:41Z",
+      "side": 1,
+      "message": "Updated to Register/Deregister",
+      "parentUuid": "d41c0b73_3db14140",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
