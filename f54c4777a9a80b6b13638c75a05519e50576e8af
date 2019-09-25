@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be216a9a_45ade170",
+        "filename": "platform/impl/network_reader_writer_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T17:43:32Z",
+      "side": 1,
+      "message": "Probably applies to other CLs I didn\u0027t notice, but you should never use a condition_variable without a predicate:\n\nhttps://www.modernescpp.com/index.php/c-core-guidelines-be-aware-of-the-traps-of-condition-variables\n\n\"Here is the rationale for the rule: \"A wait without a condition can miss a wakeup or wake up simply to find that there is no work to do.\" What does that mean? Condition variables can be victims of two very serious issues: lost wakeup and spurious wakeup. The key concern about condition variables is that they have no memory.\"\n\nEspecially on POSIX, I think condition_variables can randomly wake for no reason.",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9ca89c4_e90a20d8",
+        "filename": "platform/impl/network_reader_writer_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T17:43:32Z",
+      "side": 1,
+      "message": "Should this be const auto\u0026 for map iterators? I\u0027m assuming it does a copy of the iterator without actually copying any data around, so probably good.",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "181f9591_32e050a6",
+        "filename": "platform/impl/network_reader_writer_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T17:43:32Z",
+      "side": 1,
+      "message": "Nit: consider a switch in case we add additional provider operations.",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f8fa0ab_cec193a5",
+        "filename": "platform/impl/network_reader_writer_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T17:43:32Z",
+      "side": 1,
+      "message": "Is NetworkingOperation singular or plural? tasks here implies plural, but Operation implies singular.",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d41c0b73_3db14140",
+        "filename": "platform/impl/network_reader_writer_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T17:43:32Z",
+      "side": 1,
+      "message": "The naming is a little confusing for me. StartProviding implies to me that NetworkReaderWriterPosix is what provide, not the Provider class. If we are registering a provider in order to prod it at regular intervals, isn\u0027t this more of Register/Deregister?",
+      "revId": "f54c4777a9a80b6b13638c75a05519e50576e8af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
