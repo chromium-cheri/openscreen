@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ce13c9d_d5313f67",
+        "filename": "platform/impl/socket_handle_waiter_thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T20:41:18Z",
+      "side": 1,
+      "message": "I know we have talked about this before. This is the old way of doing it, the style guide now says they should be in the public, and not use the macro. Putting in private was a hack in old versions of C++ to delete the copy constructor by making it private and not defining it.\n\nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types",
+      "revId": "553d904f059f040fb2b42b0eecae207487028b63",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
