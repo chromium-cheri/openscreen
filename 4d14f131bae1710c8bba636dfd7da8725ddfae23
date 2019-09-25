@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a011f3cb_c47d7dd2",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T19:48:39Z",
+      "side": 1,
+      "message": "According to comments in BoringSSL \"SSL_CTX_new returns a newly-allocated |SSL_CTX| with default settings or NULL on error.\" Since this isn\u0027t indicative of an error in our code and instead means there is a BoringSSL-level issue, I will leave it as-is.",
+      "parentUuid": "92907b8c_63455855",
+      "range": {
+        "startLine": 132,
+        "startChar": 17,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "287e58c3_d96f0766",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 6
