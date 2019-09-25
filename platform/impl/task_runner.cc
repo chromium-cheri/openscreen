@@ -145,20 +145,14 @@ bool TaskRunnerImpl::GrabMoreRunnableTasks() {
       lock.lock();
     } while (!ShouldWakeUpRunLoop());
   } else {
-    // Pass a wait predicate to avoid lost or spurious wakeups.
-    const auto wait_predicate = [this] { return ShouldWakeUpRunLoop(); };
-    if (!delayed_tasks_.empty()) {
-      // We don't have any work to do currently, but have some in the
-      // pipe.
-      OSP_DVLOG << "TaskRunner waiting for lock until delayed task ready...";
-      run_loop_wakeup_.wait_for(lock,
-                                delayed_tasks_.begin()->first - now_function_(),
-                                wait_predicate);
-    } else {
-      // We don't have any work queued.
-      OSP_DVLOG << "TaskRunnerImpl waiting for lock...";
-      run_loop_wakeup_.wait(lock, wait_predicate);
-    }
+    do {
+      if (delayed_tasks_.empty()) {
+        run_loop_wakeup_.wait(lock);
+      } else {
+        run_loop_wakeup_.wait_for(
+            lock, delayed_tasks_.begin()->first - now_function_());
+      }
+    } while (!ShouldWakeUpRunLoop());
   }
 
   return false;
