@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "92907b8c_63455855",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-25T19:37:27Z",
+      "side": 1,
+      "message": "If the failure here should never happen (i.e., it indicates a build/linkage problem, missing shared library, a coding mistake, or other improper use of boringssl) it would be better to hard-crash the process here with the OSP_CHECK().\n\nIf there are environmental factors (e.g., out-of-memory, networking layer down, etc.), then it\u0027s fine to let the client code handle the error.",
+      "parentUuid": "0a6a3cab_02ebb55b",
+      "range": {
+        "startLine": 132,
+        "startChar": 17,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "4d14f131bae1710c8bba636dfd7da8725ddfae23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "287e58c3_d96f0766",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 6
