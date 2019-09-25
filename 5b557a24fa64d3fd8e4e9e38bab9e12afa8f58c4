@@ -333,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "bb2e2276_14b44785",
+        "filename": "util/delayed_delete.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-25T19:29:59Z",
+      "side": 1,
+      "message": "-1.\n\nI agree with Max, that the current naming is more appropriate (either DelayedDeletionUniquePtr or SerialDeletePtr).\n\nIn readable code, naming should give you a good sense for why a special \"unique_ptr\" is being used and how it works. ManagedUniquePtr doesn\u0027t do either of these things, while Max\u0027s choices both say \"the deletion has to be scheduled to run at a certain time.\"",
+      "parentUuid": "33e77c8d_1bef6c04",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "5b557a24fa64d3fd8e4e9e38bab9e12afa8f58c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "49d624c3_e2c29be5",
         "filename": "util/delayed_delete.h",
         "patchSetId": 2
