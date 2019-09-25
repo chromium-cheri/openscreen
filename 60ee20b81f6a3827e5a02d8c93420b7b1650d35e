@@ -355,6 +355,24 @@
       "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e806d62d_612d3195",
+        "filename": "cast/common/channel/message_framer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-09-25T21:44:13Z",
+      "side": 1,
+      "message": "Yeah, probably is a personal preference, although I think a namespace is a better fit syntactically:\n\nhttps://softwareengineering.stackexchange.com/questions/134540/are-utility-classes-with-nothing-but-static-members-an-anti-pattern-in-c\n\nhttps://stackoverflow.com/questions/9321/how-do-you-create-a-static-class-in-c/112451#112451\n\n\"In C++, the namespace is more powerful than classes for the \"Java static method\" pattern, because:\n\nstatic methods have access to the classes private symbols\nprivate static methods are still visible (if inaccessible) to everyone, which breaches somewhat the encapsulation\nstatic methods cannot be forward-declared\nstatic methods cannot be overloaded by the class user without modifying the library header\nthere is nothing that can be done by a static method that can\u0027t be done better than a (possibly friend) non-member function in the same namespace\nnamespaces have their own semantics (they can be combined, they can be anonymous, etc.)\netc.\nConclusion: Do not copy/paste that Java/C#\u0027s pattern in C++. In Java/C#, the pattern is mandatory. But in C++, it is bad style.\"",
+      "parentUuid": "fa692ab9_49b0dd77",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
