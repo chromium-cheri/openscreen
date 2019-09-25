@@ -95,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "f16d12a9_d9244c06",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-25T19:05:01Z",
+      "side": 1,
+      "message": "I could put a limit on the number of iterations, but...\n\nCode that schedules tasks this way would be a very badly-behaving bit of code. It would keep a CPU core spinning at 100%. Assuming someone accidentally did this, and wrote some unit tests (or a demo app) around it, it\u0027d actually be good that the TaskRunner is never able to quit because the unit tests wouldn\u0027t ever run to completion (and timeout). If they didn\u0027t write unit tests, a code reviewer should either: 1) point that out; or 2) at least notice that they wrote code calling PostTask() when it should have been PostTaskWithDelay().\n\nSo, good point, but I think the best course of action here is to purposely not mitigate this. I\u0027ve added code comments to explain this, for the benefit of future maintainers.\n\nIn addition, I\u0027ve modified FakeTaskRunner::RunUntilIdle() to never return until things truly go idle. That should catch unit tests that use FakeTaskRunner instead of the standalone impl.",
+      "parentUuid": "66bb80e5_4834703d",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e580d704_b8ab09c6",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-25T19:05:01Z",
+      "side": 1,
+      "message": "Reworked this, in combination with your other comment.",
+      "parentUuid": "dae78821_fb849487",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f673532_0c45faaa",
         "filename": "platform/impl/task_runner.cc",
         "patchSetId": 2
@@ -141,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "de859141_89e88a0c",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-25T19:05:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a02bf561_128c3706",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9127789e_9ee5f8f4",
         "filename": "platform/impl/task_runner.cc",
         "patchSetId": 2
@@ -161,6 +233,30 @@
       "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3446c58c_6dedb1d4",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-25T19:05:01Z",
+      "side": 1,
+      "message": "There is already a WaitForWorkAndAcquireLock() method, but returning a lock from a method felt weird. So, I\u0027ve \"pivoted\" things a bit:\n\n1. I got rid of RunTasksAfterWaiting().\n\n2. I re-purposed WaitForWorkAndAcquireLock() to a simpler GrabMoreRunnableTasks() method that doesn\u0027t return the lock. Instead, it transfers the tasks from |tasks_| to |running_tasks_| itself.\n\n3. The main loop (in RunUntilStopped()) got a ton simpler, which also addresses your other comment. :)",
+      "parentUuid": "9127789e_9ee5f8f4",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "004cef97f3089e5fc9b134f20993e69f40f92469",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
