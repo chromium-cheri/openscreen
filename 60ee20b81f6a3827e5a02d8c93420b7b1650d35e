@@ -19,6 +19,121 @@
     },
     {
       "key": {
+        "uuid": "0cd1a2d5_87ed6814",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "In UdpSocket + TlsConnection, we\u0027ve called this \"Client\" - probably best to do the same here for consistency",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b2472cc_7d8218ae",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "Worth adding a comment that this is a \"terminal\" error (since TcpConnection\u0027s OnError is \"terminal\")",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 69
+      },
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5f60dd0_140bf1fe",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "In other similar places (TlsConnection, UdpSocket) we transfer ownership here instead of passing a pointer. Might make more sense to do the same here for consistency",
+      "range": {
+        "startLine": 27,
+        "startChar": 47,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb7aaa6_5263a817",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "Do we ever expect a socket to not have a delegate? If not, it may make more sense to take this in the constructor like we do for UdpSocket\n\nNot a strong opinion though - your call",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 3
+      },
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78a07b22_3a63b61c",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "use platform/impl/socket_handle.h - it won\u0027t be a uint32 on non-posix platforms\n\nAlso, is there any reason to put this in the base rather than the impl?",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d77876d_f7c679b4",
         "filename": "cast/common/channel/cast_socket_impl.cc",
         "patchSetId": 2
@@ -53,6 +168,52 @@
     },
     {
       "key": {
+        "uuid": "f03a3b9c_e8dc0103",
+        "filename": "cast/common/channel/cast_socket_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "The queue could get blocked again while we are in this loop",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 3
+      },
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8d67efd_f3829a9c",
+        "filename": "cast/common/channel/cast_socket_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "won\u0027t this go out of scope when the method ends? should probably be std::move(message_or_error.value())",
+      "range": {
+        "startLine": 65,
+        "startChar": 30,
+        "endLine": 65,
+        "endChar": 46
+      },
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69f5d70c_e4de1061",
         "filename": "cast/common/channel/cast_socket_impl.h",
         "patchSetId": 2
@@ -64,6 +225,29 @@
       "writtenOn": "2019-09-25T21:01:19Z",
       "side": 1,
       "message": "The namespacing is lame, I think this is the right approach for now but I still don\u0027t like it that much. Maybe we can find a better way to lay out namespaces?\n\nE.g. should this really be openscreen::platform, or is it just platform?\n\nKind of out of scope of this patch, but not sure when it would be in scope.",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "800392c5_424b8e00",
+        "filename": "cast/common/channel/cast_socket_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "FWIW, TlsConnection queues all writes, and send them when the Networking Thread gets to it. So it might not be \"immediate\" - not sure this is relevant for this comment though",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 55
+      },
       "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +305,24 @@
     },
     {
       "key": {
+        "uuid": "832db8db_e2228760",
+        "filename": "cast/common/channel/message_framer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "+1 for including it in CastMessage - this would be more consistent with our other Message types (UdpSocket and TlsConenction both return vectors which have methods for length)",
+      "parentUuid": "e2191f9f_c1eed708",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fdfbf5f3_c493425c",
         "filename": "cast/common/channel/message_framer.h",
         "patchSetId": 2
@@ -132,6 +334,24 @@
       "writtenOn": "2019-09-25T21:01:19Z",
       "side": 1,
       "message": "Since message framing isn\u0027t a class really (you never initialize it or construct one),\n\nconsider replacing it with a namespace, e.g.\n\nnamespace channel {\nnamespace message_serialization {\n    Serialize(message);\n    Deserialize(message);\n}\n}",
+      "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa692ab9_49b0dd77",
+        "filename": "cast/common/channel/message_framer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-25T21:08:03Z",
+      "side": 1,
+      "message": "I actually prefer it as a class - might be a personal preference thing",
+      "parentUuid": "fdfbf5f3_c493425c",
       "revId": "60ee20b81f6a3827e5a02d8c93420b7b1650d35e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
