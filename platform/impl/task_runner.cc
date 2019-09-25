@@ -104,19 +104,6 @@ void TaskRunnerImpl::ScheduleDelayedTasks() {
   delayed_tasks_.erase(delayed_tasks_.begin(), end_of_range);
 }
 
-bool TaskRunnerImpl::ShouldWakeUpRunLoop() {
-  if (!is_running_) {
-    return true;
-  }
-
-  if (!tasks_.empty()) {
-    return true;
-  }
-
-  return !delayed_tasks_.empty() &&
-         (delayed_tasks_.begin()->first <= now_function_());
-}
-
 bool TaskRunnerImpl::GrabMoreRunnableTasks() {
   OSP_DCHECK(running_tasks_.empty());
 
@@ -131,33 +118,23 @@ bool TaskRunnerImpl::GrabMoreRunnableTasks() {
   }
 
   if (task_waiter_) {
-    do {
-      Clock::duration timeout = waiter_timeout_;
-      if (!delayed_tasks_.empty()) {
-        Clock::duration next_task_delta =
-            delayed_tasks_.begin()->first - now_function_();
-        if (next_task_delta < timeout) {
-          timeout = next_task_delta;
-        }
-      }
-      lock.unlock();
-      task_waiter_->WaitForTaskToBePosted(timeout);
-      lock.lock();
-    } while (!ShouldWakeUpRunLoop());
-  } else {
-    // Pass a wait predicate to avoid lost or spurious wakeups.
-    const auto wait_predicate = [this] { return ShouldWakeUpRunLoop(); };
+    Clock::duration timeout = waiter_timeout_;
     if (!delayed_tasks_.empty()) {
-      // We don't have any work to do currently, but have some in the
-      // pipe.
-      OSP_DVLOG << "TaskRunner waiting for lock until delayed task ready...";
-      run_loop_wakeup_.wait_for(lock,
-                                delayed_tasks_.begin()->first - now_function_(),
-                                wait_predicate);
+      Clock::duration next_task_delta =
+          delayed_tasks_.begin()->first - now_function_();
+      if (next_task_delta < timeout) {
+        timeout = next_task_delta;
+      }
+    }
+    lock.unlock();
+    task_waiter_->WaitForTaskToBePosted(timeout);
+    lock.lock();
+  } else {
+    if (delayed_tasks_.empty()) {
+      run_loop_wakeup_.wait(lock);
     } else {
-      // We don't have any work queued.
-      OSP_DVLOG << "TaskRunnerImpl waiting for lock...";
-      run_loop_wakeup_.wait(lock, wait_predicate);
+      run_loop_wakeup_.wait_for(
+          lock, delayed_tasks_.begin()->first - now_function_());
     }
   }
 
