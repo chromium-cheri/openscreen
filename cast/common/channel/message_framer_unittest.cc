@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/sender/channel/cast_framer.h"
+#include "cast/common/channel/message_framer.h"
 
 #include <stddef.h>
 
 #include <algorithm>
 #include <string>
 
-#include "cast/sender/channel/proto/cast_channel.pb.h"
+#include "cast/common/channel/proto/cast_channel.pb.h"
 #include "gtest/gtest.h"
 #include "util/big_endian.h"
 #include "util/std_util.h"
@@ -30,9 +30,7 @@ static constexpr size_t kMaxBodySize = 65536;
 
 class CastFramerTest : public testing::Test {
  public:
-  CastFramerTest()
-      : buffer_(kHeaderSize + kMaxBodySize),
-        framer_(absl::Span<uint8_t>(&buffer_[0], buffer_.size())) {}
+  CastFramerTest() : buffer_(kHeaderSize + kMaxBodySize) {}
 
   void SetUp() override {
     cast_message_.set_protocol_version(CastMessage::CASTV2_1_0);
@@ -50,50 +48,39 @@ class CastFramerTest : public testing::Test {
     memcpy(&buffer_[0], data.data(), data.size());
   }
 
+  absl::Span<uint8_t> GetSpan(size_t size) {
+    return absl::Span<uint8_t>(&buffer_[0], size);
+  }
+  absl::Span<uint8_t> GetSpan() { return GetSpan(cast_message_str_.size()); }
+
  protected:
   CastMessage cast_message_;
   std::string cast_message_str_;
   std::vector<uint8_t> buffer_;
-  MessageFramer framer_;
 };
 
 TEST_F(CastFramerTest, TestMessageFramerCompleteMessage) {
   WriteToBuffer(cast_message_str_);
 
   // Receive 1 byte of the header, framer demands 3 more bytes.
-  EXPECT_EQ(4u, framer_.BytesRequested().value());
-  ErrorOr<CastMessage> result = framer_.TryDeserialize(1);
+  size_t length = 0;
+  ErrorOr<CastMessage> result =
+      MessageFramer::TryDeserialize(GetSpan(1), &length);
   EXPECT_FALSE(result);
   EXPECT_EQ(ChannelError::kInsufficientBuffer, result.error().code());
-  EXPECT_EQ(3u, framer_.BytesRequested().value());
 
   // TryDeserialize remaining 3, expect that the framer has moved on to
   // requesting the body contents.
-  result = framer_.TryDeserialize(3);
+  result = MessageFramer::TryDeserialize(GetSpan(3), &length);
   EXPECT_FALSE(result);
   EXPECT_EQ(ChannelError::kInsufficientBuffer, result.error().code());
-  EXPECT_EQ(cast_message_str_.size() - kHeaderSize,
-            framer_.BytesRequested().value());
 
   // Remainder of packet sent over the wire.
-  result = framer_.TryDeserialize(framer_.BytesRequested().value());
+  result = MessageFramer::TryDeserialize(GetSpan(), &length);
   ASSERT_TRUE(result);
+  EXPECT_EQ(length, cast_message_str_.size());
   const CastMessage& message = result.value();
   EXPECT_EQ(message.SerializeAsString(), cast_message_.SerializeAsString());
-  EXPECT_EQ(4u, framer_.BytesRequested().value());
-}
-
-TEST_F(CastFramerTest, BigEndianMessageHeader) {
-  WriteToBuffer(cast_message_str_);
-
-  EXPECT_EQ(4u, framer_.BytesRequested().value());
-  ErrorOr<CastMessage> result = framer_.TryDeserialize(4);
-  EXPECT_FALSE(result);
-  EXPECT_EQ(ChannelError::kInsufficientBuffer, result.error().code());
-
-  const uint32_t expected_size =
-      openscreen::ReadBigEndian<uint32_t>(openscreen::data(cast_message_str_));
-  EXPECT_EQ(expected_size, framer_.BytesRequested().value());
 }
 
 TEST_F(CastFramerTest, TestSerializeErrorMessageTooLarge) {
@@ -108,12 +95,13 @@ TEST_F(CastFramerTest, TestSerializeErrorMessageTooLarge) {
 TEST_F(CastFramerTest, TestCompleteMessageAtOnce) {
   WriteToBuffer(cast_message_str_);
 
+  size_t length = 0;
   ErrorOr<CastMessage> result =
-      framer_.TryDeserialize(cast_message_str_.size());
+      MessageFramer::TryDeserialize(GetSpan(), &length);
   ASSERT_TRUE(result);
+  EXPECT_EQ(length, cast_message_str_.size());
   const CastMessage& message = result.value();
   EXPECT_EQ(message.SerializeAsString(), cast_message_.SerializeAsString());
-  EXPECT_EQ(4u, framer_.BytesRequested().value());
 }
 
 TEST_F(CastFramerTest, TestTryDeserializeIllegalLargeMessage) {
@@ -124,14 +112,11 @@ TEST_F(CastFramerTest, TestTryDeserializeIllegalLargeMessage) {
   mangled_cast_message[3] = 88;
   WriteToBuffer(mangled_cast_message);
 
-  EXPECT_EQ(4u, framer_.BytesRequested().value());
-  ErrorOr<CastMessage> result = framer_.TryDeserialize(4);
+  size_t length = 0;
+  ErrorOr<CastMessage> result =
+      MessageFramer::TryDeserialize(GetSpan(4), &length);
   ASSERT_FALSE(result);
   EXPECT_EQ(ChannelError::kCastV2InvalidMessage, result.error().code());
-  ErrorOr<size_t> bytes_requested = framer_.BytesRequested();
-  ASSERT_FALSE(bytes_requested);
-  EXPECT_EQ(ChannelError::kCastV2InvalidMessage,
-            bytes_requested.error().code());
 }
 
 TEST_F(CastFramerTest, TestTryDeserializeIllegalLargeMessage2) {
@@ -143,14 +128,11 @@ TEST_F(CastFramerTest, TestTryDeserializeIllegalLargeMessage2) {
   mangled_cast_message[3] = 0x1;
   WriteToBuffer(mangled_cast_message);
 
-  EXPECT_EQ(4u, framer_.BytesRequested().value());
-  ErrorOr<CastMessage> result = framer_.TryDeserialize(4);
+  size_t length = 0;
+  ErrorOr<CastMessage> result =
+      MessageFramer::TryDeserialize(GetSpan(4), &length);
   ASSERT_FALSE(result);
   EXPECT_EQ(ChannelError::kCastV2InvalidMessage, result.error().code());
-  ErrorOr<size_t> bytes_requested = framer_.BytesRequested();
-  ASSERT_FALSE(bytes_requested);
-  EXPECT_EQ(ChannelError::kCastV2InvalidMessage,
-            bytes_requested.error().code());
 }
 
 TEST_F(CastFramerTest, TestUnparsableBodyProto) {
@@ -163,14 +145,14 @@ TEST_F(CastFramerTest, TestUnparsableBodyProto) {
   WriteToBuffer(mangled_cast_message);
 
   // Send header.
-  EXPECT_EQ(4u, framer_.BytesRequested().value());
-  ErrorOr<CastMessage> result = framer_.TryDeserialize(4);
+  size_t length = 0;
+  ErrorOr<CastMessage> result =
+      MessageFramer::TryDeserialize(GetSpan(4), &length);
   EXPECT_FALSE(result);
   EXPECT_EQ(ChannelError::kInsufficientBuffer, result.error().code());
-  EXPECT_EQ(cast_message_str_.size() - 4, framer_.BytesRequested().value());
 
   // Send body, expect an error.
-  result = framer_.TryDeserialize(framer_.BytesRequested().value());
+  result = MessageFramer::TryDeserialize(GetSpan(), &length);
   ASSERT_FALSE(result);
   EXPECT_EQ(ChannelError::kCastV2InvalidMessage, result.error().code());
 }
