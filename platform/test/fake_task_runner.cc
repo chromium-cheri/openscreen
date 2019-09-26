@@ -19,21 +19,25 @@ FakeTaskRunner::~FakeTaskRunner() {
 }
 
 void FakeTaskRunner::RunTasksUntilIdle() {
-  const auto current_time = FakeClock::now();
-  const auto end_of_range = delayed_tasks_.upper_bound(current_time);
-  for (auto it = delayed_tasks_.begin(); it != end_of_range; ++it) {
-    ready_to_run_tasks_.push_back(std::move(it->second));
-  }
-  delayed_tasks_.erase(delayed_tasks_.begin(), end_of_range);
-
   std::vector<Task> running_tasks;
-  running_tasks.swap(ready_to_run_tasks_);
-  for (Task& running_task : running_tasks) {
-    // Move the task out of the vector and onto the stack so that it destroys
-    // just after being run. This helps catch "dangling reference/pointer" bugs.
-    Task task = std::move(running_task);
-    task();
-  }
+  do {
+    const auto current_time = FakeClock::now();
+    const auto end_of_range = delayed_tasks_.upper_bound(current_time);
+    for (auto it = delayed_tasks_.begin(); it != end_of_range; ++it) {
+      ready_to_run_tasks_.push_back(std::move(it->second));
+    }
+    delayed_tasks_.erase(delayed_tasks_.begin(), end_of_range);
+
+    running_tasks.clear();
+    running_tasks.swap(ready_to_run_tasks_);
+    for (Task& running_task : running_tasks) {
+      // Move the task out of the vector and onto the stack so that it destroys
+      // just after being run. This helps catch "dangling reference/pointer"
+      // bugs.
+      Task task = std::move(running_task);
+      task();
+    }
+  } while (!running_tasks.empty());
 }
 
 void FakeTaskRunner::PostPackagedTask(Task task) {
