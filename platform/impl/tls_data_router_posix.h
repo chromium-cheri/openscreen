@@ -10,6 +10,7 @@
 
 #include "absl/base/thread_annotations.h"
 #include "platform/api/logging.h"
+#include "platform/impl/network_reader_writer_posix.h"
 #include "platform/impl/socket_handle_waiter.h"
 
 namespace openscreen {
@@ -30,7 +31,8 @@ class TlsConnectionPosix;
 // of them should block. Additionally, this class must ensure that deletions of
 // the above types do not occur while a socket/connection is currently being
 // accessed from the networking thread.
-class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
+class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber,
+                           public NetworkReaderWriterPosix::Provider {
  public:
   class SocketObserver {
    public:
@@ -44,7 +46,8 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
 
   // The provided SocketHandleWaiter is expected to live for the duration of
   // this object's lifetime.
-  explicit TlsDataRouterPosix(SocketHandleWaiter* waiter);
+  explicit TlsDataRouterPosix(NetworkReaderWriterPosix* network_reader_writer,
+                              SocketHandleWaiter* waiter);
   ~TlsDataRouterPosix() override;
 
   // Register a TlsConnection that should be watched for readable and writable
@@ -79,6 +82,9 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
   // SocketHandleWaiter::Subscriber overrides.
   void ProcessReadyHandle(SocketHandleWaiter::SocketHandleRef handle) override;
 
+  // NetworkReaderWriterPosix::Provider overrides.
+  void PerformNetworkingOperations() override;
+
   OSP_DISALLOW_COPY_AND_ASSIGN(TlsDataRouterPosix);
 
  protected:
@@ -94,6 +100,7 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
 
   void RemoveWatchedSocket(StreamSocketPosix* socket);
 
+  NetworkReaderWriterPosix* network_reader_writer_;
   SocketHandleWaiter* waiter_;
 
   // Mutex guarding connections_ vector.

@@ -17,9 +17,15 @@
 namespace openscreen {
 namespace platform {
 
-SocketHandleWaiterPosix::SocketHandleWaiterPosix() = default;
+SocketHandleWaiterPosix::SocketHandleWaiterPosix(
+    NetworkReaderWriterPosix* network_reader_writer)
+    : network_reader_writer_(network_reader_writer) {
+  network_reader_writer_->RegisterProvider(this);
+}
 
-SocketHandleWaiterPosix::~SocketHandleWaiterPosix() = default;
+SocketHandleWaiterPosix::~SocketHandleWaiterPosix() {
+  network_reader_writer_->DeregisterProvider(this);
+}
 
 ErrorOr<std::vector<SocketHandleWaiterPosix::SocketHandleRef>>
 SocketHandleWaiterPosix::AwaitSocketsReadable(
@@ -60,11 +66,6 @@ SocketHandleWaiterPosix::AwaitSocketsReadable(
 }
 
 // static
-std::unique_ptr<SocketHandleWaiter> SocketHandleWaiter::Create() {
-  return std::unique_ptr<SocketHandleWaiter>(new SocketHandleWaiterPosix());
-}
-
-// static
 struct timeval SocketHandleWaiterPosix::ToTimeval(
     const Clock::duration& timeout) {
   struct timeval tv;
@@ -78,18 +79,9 @@ struct timeval SocketHandleWaiterPosix::ToTimeval(
   return tv;
 }
 
-void SocketHandleWaiterPosix::RunUntilStopped() {
-  const bool was_running = is_running_.exchange(true);
-  OSP_CHECK(!was_running);
-
-  constexpr Clock::duration kHandleReadyTimeout = std::chrono::milliseconds(50);
-  while (is_running_) {
-    ProcessHandles(kHandleReadyTimeout);
-  }
-}
-
-void SocketHandleWaiterPosix::RequestStopSoon() {
-  is_running_.store(false);
+void SocketHandleWaiterPosix::PerformNetworkingOperations() {
+  constexpr Clock::duration kTimeout = std::chrono::milliseconds(50);
+  ProcessHandles(kTimeout);
 }
 
 }  // namespace platform

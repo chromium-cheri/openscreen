@@ -12,9 +12,13 @@
 namespace openscreen {
 namespace platform {
 
+using testing::_;
+
 class TestingDataRouter : public TlsDataRouterPosix {
  public:
-  TestingDataRouter(SocketHandleWaiter* waiter) : TlsDataRouterPosix(waiter) {}
+  TestingDataRouter(NetworkReaderWriterPosix* reader_writer,
+                    SocketHandleWaiter* waiter)
+      : TlsDataRouterPosix(reader_writer, waiter) {}
 
   using TlsDataRouterPosix::IsSocketWatched;
 
@@ -35,9 +39,18 @@ class MockNetworkWaiter final : public SocketHandleWaiter {
                                             const Clock::duration&));
 };
 
+class MockNetworkReaderWriter : public NetworkReaderWriterPosix {
+ public:
+  MOCK_METHOD1(RegisterProvider, void(Provider*));
+  MOCK_METHOD1(DeregisterProvider, void(Provider*));
+};
+
 TEST(TlsNetworkingManagerPosixTest, SocketsWatchedCorrectly) {
+  MockNetworkReaderWriter reader_writer;
+  EXPECT_CALL(reader_writer, RegisterProvider(_)).Times(1);
+  EXPECT_CALL(reader_writer, DeregisterProvider(_)).Times(1);
   MockNetworkWaiter network_waiter;
-  TestingDataRouter network_manager(&network_waiter);
+  TestingDataRouter network_manager(&reader_writer, &network_waiter);
   StreamSocketPosix socket(IPAddress::Version::kV4);
   MockObserver observer;
 

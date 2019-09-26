@@ -82,6 +82,10 @@ source_set("platform") {
 
     if (is_posix) {
       sources += [
+        "impl/network_reader_writer_posix.cc",
+        "impl/network_reader_writer_posix.h",
+        "impl/network_reader_writer_thread.cc",
+        "impl/network_reader_writer_thread.h",
         "impl/scoped_pipe.h",
         "impl/scoped_wake_lock_posix.cc",
         "impl/scoped_wake_lock_posix.h",
@@ -91,8 +95,6 @@ source_set("platform") {
         "impl/socket_handle_posix.h",
         "impl/socket_handle_waiter_posix.cc",
         "impl/socket_handle_waiter_posix.h",
-        "impl/socket_handle_waiter_thread.cc",
-        "impl/socket_handle_waiter_thread.h",
         "impl/stream_socket.h",
         "impl/stream_socket_posix.cc",
         "impl/stream_socket_posix.h",

@@ -11,27 +11,25 @@
 #include <atomic>
 #include <mutex>  // NOLINT
 
+#include "platform/impl/network_reader_writer_posix.h"
 #include "platform/impl/socket_handle_waiter.h"
 
 namespace openscreen {
 namespace platform {
 
-class SocketHandleWaiterPosix : public SocketHandleWaiter {
+class SocketHandleWaiterPosix : public SocketHandleWaiter,
+                                public NetworkReaderWriterPosix::Provider {
  public:
   using SocketHandleRef = SocketHandleWaiter::SocketHandleRef;
 
-  SocketHandleWaiterPosix();
+  SocketHandleWaiterPosix(NetworkReaderWriterPosix* network_reader_writer);
   ~SocketHandleWaiterPosix() override;
 
   // TODO(rwkeane): Move this to a platform-specific util library.
   static struct timeval ToTimeval(const Clock::duration& timeout);
 
-  // Runs the Wait function in a loop until the below RequestStopSoon function
-  // is called.
-  void RunUntilStopped();
-
-  // Signals for the RunUntilStopped loop to cease running.
-  void RequestStopSoon();
+  // NetworkReaderWriterPosix::Provider overrides.
+  void PerformNetworkingOperations() override;
 
  protected:
   ErrorOr<std::vector<SocketHandleRef>> AwaitSocketsReadable(
@@ -41,8 +39,7 @@ class SocketHandleWaiterPosix : public SocketHandleWaiter {
  private:
   fd_set read_handles_;
 
-  // Atomic so that we can perform atomic exchanges.
-  std::atomic_bool is_running_;
+  NetworkReaderWriterPosix* network_reader_writer_;
 };
 
 }  // namespace platform

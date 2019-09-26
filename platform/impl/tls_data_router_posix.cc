@@ -4,18 +4,29 @@
 
 #include "platform/impl/tls_data_router_posix.h"
 
-#include "platform/api/logging.h"
+#include <chrono>
+#include <thread>
+
+#include "platform/api/time.h"
+#include "platform/base/macros.h"
 #include "platform/impl/stream_socket_posix.h"
 #include "platform/impl/tls_connection_posix.h"
 
 namespace openscreen {
 namespace platform {
 
-TlsDataRouterPosix::TlsDataRouterPosix(SocketHandleWaiter* waiter)
-    : waiter_(waiter) {}
+TlsDataRouterPosix::TlsDataRouterPosix(
+    NetworkReaderWriterPosix* network_reader_writer,
+    SocketHandleWaiter* waiter)
+    : network_reader_writer_(network_reader_writer), waiter_(waiter) {
+  OSP_DCHECK(network_reader_writer_);
+  OSP_DCHECK(waiter);
+  network_reader_writer_->RegisterProvider(this);
+}
 
 TlsDataRouterPosix::~TlsDataRouterPosix() {
   waiter_->UnsubscribeAll(this);
+  network_reader_writer_->DeregisterProvider(this);
 }
 
 void TlsDataRouterPosix::RegisterConnection(TlsConnectionPosix* connection) {
@@ -97,6 +108,11 @@ void TlsDataRouterPosix::RemoveWatchedSocket(StreamSocketPosix* socket) {
 bool TlsDataRouterPosix::IsSocketWatched(StreamSocketPosix* socket) const {
   std::unique_lock<std::mutex> lock(socket_mutex_);
   return socket_mappings_.find(socket) != socket_mappings_.end();
+}
+
+void TlsDataRouterPosix::PerformNetworkingOperations() {
+  ReadAll();
+  WriteAll();
 }
 
 }  // namespace platform
