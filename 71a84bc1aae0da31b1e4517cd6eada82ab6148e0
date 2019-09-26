@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6a731b_6515413f",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-26T00:03:00Z",
+      "side": 0,
+      "message": "Absolute minimal change would be to remove predicate here, i.e. any task, delayed or not, wakes the task runner up from the indefinite wait (that only happens in empty state) and makes it re-evaluate when to run tasks.",
+      "range": {
+        "startLine": 160,
+        "startChar": 34,
+        "endLine": 160,
+        "endChar": 48
+      },
+      "revId": "71a84bc1aae0da31b1e4517cd6eada82ab6148e0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
