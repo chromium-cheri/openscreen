@@ -22,6 +22,30 @@
       "revId": "866efb1e5161613499901d70b6f8b78b1c4eaa3c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "850e66c0_c53416d4",
+        "filename": "platform/impl/network_reader_writer_posix.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-26T23:44:50Z",
+      "side": 1,
+      "message": "I\u0027m going to have to think this through more. I 100% agree supporting cancellable calls is better, though still thinking about how to best implement it\n\nFor approach 1, this class is a dependency of SocketHandleWaiter, and it calls DeregisterProvider. If we wait on a socket handle for that call, we will wait forever :)\n\nMaybe approach 2 then. Would it be reasonable for us to take ownership of 5+ syscalls? I\u0027m trying to write a general solution currently, to go through review prior to this CL. We need this solution in 5 places (3 with blocking like above  [this class, TlsDataRouterPosix, SocketHandleWaiter] and 2 without blocking [UdpSocketReader, TlsDataRouterPosix again], so I\u0027m hoping one approach can work for all\n\nmaybe there is a way to code up a cancellation token or similar?",
+      "parentUuid": "ec65be87_3b4f9167",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "866efb1e5161613499901d70b6f8b78b1c4eaa3c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
