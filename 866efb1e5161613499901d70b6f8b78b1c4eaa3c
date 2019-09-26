@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec65be87_3b4f9167",
+        "filename": "platform/impl/network_reader_writer_posix.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-26T23:02:42Z",
+      "side": 1,
+      "message": "What we have here is everything needing to wait on the Wait() to stop waiting. :)\n\nTo be honest, we\u0027ve used this pattern a few times now, and it always leads to a lot of complexity everywhere (i.e., heavy use of thread synch primitives), and forces poor runtime behavior (i.e., lengthy blocking of 100ms or more for register/deregister operations that should run in less than a few nanoseconds). This design is \"inside-out\" from what it should be, in that Wait() operations should always be interruptible when control operations need to alter the configuration of the system.\n\nSo, let\u0027s revisit our past design decisions and see what we can do to support interruptible waits:\n\n1. There was push-back in the past in solving the \"interrupt select()\" problem by using a \"dummy UNIX socket\" or maybe just a pipe, internal to the POSIX-specific impl, used only to trigger a return from select(). IMHO, this is not an unreasonable solution, since it\u0027s such a mild straightforward hack. It\u0027s literally as simple as calling socket() to create a fd, and then just including that in the select() call alongside the other the networking fds, then interrupting the wait by: send(fd, a few bytes) or close(fd) or other \"event trigger.\" Just a few lines of straightforward code accomplishes this. This also seems to be an industry-standard approach: https://stackoverflow.com/questions/384391/how-to-signal-select-to-return-immediately\n\n2. Traditionally, POSIX apps will install signal handlers to interrupt the networking syscalls. So, that\u0027s an option to also consider. Since this platform impl is only for \"standalone app impl,\" it might be reasonable to take ownership over SIGUSR1 or SIGUSR2 or some such for this purpose. We would have to document to users that a certain signal handler will be triggered for \"internal purposes\" and hope they read that...\n\nIMHO, #1\u0027s the better way to go.",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 39
+      },
+      "revId": "866efb1e5161613499901d70b6f8b78b1c4eaa3c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
