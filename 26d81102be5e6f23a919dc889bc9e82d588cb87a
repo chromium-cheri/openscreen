@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "bb0f760e_f727b915",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-27T22:18:16Z",
+      "side": 1,
+      "message": "Is the goal of the static mutex to ensure that one and only one SocketHandleWaiter is created in a threadsafe way?",
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3368ea46_194acb3e",
         "filename": "platform/impl/socket_handle_waiter.cc",
         "patchSetId": 2
@@ -19,6 +36,40 @@
         "endLine": 122,
         "endChar": 1
       },
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9627a056_89121782",
+        "filename": "platform/impl/socket_handle_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-27T22:18:16Z",
+      "side": 1,
+      "message": "boolean parameters that change the behavior of a method aren\u0027t great.  Out of scope for this patch, but having OnHandleDeletionForTest(subscriber, handle) would be better.",
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1970fbd1_816eb947",
+        "filename": "platform/impl/socket_handle_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-27T22:18:16Z",
+      "side": 1,
+      "message": "I don\u0027t follow why the singleton has to have its own class definition that wraps a SocketHandleWaiter, versus just having a static GetInstance() method on SocketHandleWaiter itself.",
       "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
