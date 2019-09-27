@@ -177,6 +177,29 @@
     },
     {
       "key": {
+        "uuid": "c2f9be35_5e6ff21d",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T21:08:47Z",
+      "side": 1,
+      "message": "std::equal_to is a call to operator\u003d\u003d unless specialized.\nGoogle style guide prohibits specializing templates that are in std::\n\nMaybe just use operator\u003d\u003d instead of Equals in std;:find_if call?\nSubscriberType has to implement this parameter anyway and all standard types have it as well.",
+      "range": {
+        "startLine": 35,
+        "startChar": 32,
+        "endLine": 35,
+        "endChar": 76
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d5d975a_9e822b29",
         "filename": "util/subscriber_model.h",
         "patchSetId": 1
@@ -241,6 +264,52 @@
       "side": 1,
       "message": "In practice, SubscriberType will be a pointer when polymorphism is needed (this is how we\u0027ve handled it in all existing and planned code). I\u0027ve added a UT to ensure pointers work as expected",
       "parentUuid": "d735c769_f5fa2b9f",
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba67cc9_e2fae61d",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T21:08:47Z",
+      "side": 1,
+      "message": "UnsubscribeBlocking, UnsubscribeAndBlock sounds more like it will unsubscribe and block further work.",
+      "range": {
+        "startLine": 60,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 26
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12581f9f_14e22338",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T21:08:47Z",
+      "side": 1,
+      "message": "Do you want the lock for the entire method or just for the collection manipulation?",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 79
+      },
       "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -317,6 +386,52 @@
     },
     {
       "key": {
+        "uuid": "38f82fde_79287b5a",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T21:08:47Z",
+      "side": 1,
+      "message": "Would be nice to add a way to ensure that",
+      "range": {
+        "startLine": 83,
+        "startChar": 58,
+        "endLine": 84,
+        "endChar": 44
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c918c6e_819e8add",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T21:08:47Z",
+      "side": 1,
+      "message": "You can lock the mutex, std::move subscriber_changes_ into a local variable (or swap with a local variable), unlock the mutex and then update subscribers not under the lock. Lower latency in theory :)",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 72
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "add37d58_967e2fbf",
         "filename": "util/subscriber_model.h",
         "patchSetId": 1
@@ -349,6 +464,75 @@
       "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe54f66b_c487d1c1",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T21:08:47Z",
+      "side": 1,
+      "message": "Why are we erasing a subscriber that\u0027s already present?",
+      "range": {
+        "startLine": 95,
+        "startChar": 10,
+        "endLine": 97,
+        "endChar": 11
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68f4d8ec_348b77e1",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T21:08:47Z",
+      "side": 1,
+      "message": "I think it\u0027s better to make the caller explicitly call ApplyPendingChanges to get the updated collection of subscribers",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 73
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "122b1e0e_d4b36a56",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T21:08:47Z",
+      "side": 1,
+      "message": "mutex is re-entrant on the same thread, you can put a lock here and drop this expectation.",
+      "range": {
+        "startLine": 122,
+        "startChar": 70,
+        "endLine": 122,
+        "endChar": 76
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
