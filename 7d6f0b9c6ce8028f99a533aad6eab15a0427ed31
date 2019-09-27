@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d10ae1d2_e685beee",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T20:45:14Z",
+      "side": 1,
+      "message": "I find this check a bit misleading because message_or_error isn\u0027t a pointer and operator! isn\u0027t defined for ErrorOr\u003c...\u003e",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 23
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b547e863_10e43f25",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T20:45:14Z",
+      "side": 1,
+      "message": "Since this class isn\u0027t thread safe, it\u0027s worth a comment to say we only ever expect it to be used from the TaskRunner thread",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
