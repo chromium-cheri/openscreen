@@ -33,6 +33,8 @@ class MockNetworkWaiter final : public SocketHandleWaiter {
       AwaitSocketsReadable,
       ErrorOr<std::vector<SocketHandleRef>>(const std::vector<SocketHandleRef>&,
                                             const Clock::duration&));
+
+  MOCK_METHOD0(OnNoWatchedSockets, void());
 };
 
 TEST(TlsNetworkingManagerPosixTest, SocketsWatchedCorrectly) {

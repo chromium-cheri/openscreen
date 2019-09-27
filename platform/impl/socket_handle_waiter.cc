@@ -94,5 +94,61 @@ Error SocketHandleWaiter::ProcessHandles(const Clock::duration& timeout) {
   return Error::None();
 }
 
+// static
+SocketHandleWaiter* SocketHandleWaiter::Singleton::singleton_ = nullptr;
+
+// static
+std::mutex* SocketHandleWaiter::Singleton::singleton_mutex() {
+  static std::mutex singleton_mutex;
+  return &singleton_mutex;
+}
+
+// static
+void SocketHandleWaiter::Singleton::Subscribe(Subscriber* subscriber,
+                                              SocketHandleRef handle) {
+  std::lock_guard<std::mutex> lock(*singleton_mutex());
+  if (singleton_ == nullptr) {
+    singleton_ = SocketHandleWaiter::Create().release();
+  }
+
+  singleton_->Subscribe(subscriber, handle);
+}
+
+// static
+void SocketHandleWaiter::Singleton::Unsubscribe(Subscriber* subscriber,
+                                                SocketHandleRef handle) {
+  std::lock_guard<std::mutex> lock(*singleton_mutex());
+  if (singleton_ != nullptr) {
+    singleton_->Unsubscribe(subscriber, handle);
+  }
+}
+
+// static
+void SocketHandleWaiter::Singleton::UnsubscribeAll(Subscriber* subscriber) {
+  std::lock_guard<std::mutex> lock(*singleton_mutex());
+  if (singleton_ != nullptr) {
+    singleton_->UnsubscribeAll(subscriber);
+  }
+}
+
+// static
+void SocketHandleWaiter::Singleton::OnHandleDeletion(
+    Subscriber* subscriber,
+    SocketHandleRef handle,
+    bool disable_locking_for_testing) {
+  std::lock_guard<std::mutex> lock(*singleton_mutex());
+  if (singleton_ != nullptr) {
+    singleton_->UnsubscribeAll(subscriber);
+  }
+}
+
+// static
+void SocketHandleWaiter::Singleton::OnNoWatchedSockets() {
+  std::lock_guard<std::mutex> lock(*singleton_mutex());
+  if (singleton_ != nullptr) {
+    delete singleton_;
+  }
+}
+
 }  // namespace platform
 }  // namespace openscreen
