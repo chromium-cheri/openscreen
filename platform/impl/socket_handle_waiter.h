@@ -45,21 +45,21 @@ class SocketHandleWaiter {
   // Start notifying |subscriber| whenever |handle| has an event. May be called
   // multiple times, to be notified for multiple handles, but should not be
   // called multiple times for the same handle.
-  void Subscribe(Subscriber* subscriber, SocketHandleRef handle);
+  virtual void Subscribe(Subscriber* subscriber, SocketHandleRef handle);
 
   // Stop receiving notifications for one of the handles currently subscribed
   // to.
-  void Unsubscribe(Subscriber* subscriber, SocketHandleRef handle);
+  virtual void Unsubscribe(Subscriber* subscriber, SocketHandleRef handle);
 
   // Stop receiving notifications for all handles currently subscribed to, or
   // no-op if there are no subscriptions.
-  void UnsubscribeAll(Subscriber* subscriber);
+  virtual void UnsubscribeAll(Subscriber* subscriber);
 
   // Called when a handle will be deleted to ensure that deletion can proceed
   // safely.
-  void OnHandleDeletion(Subscriber* subscriber,
-                        SocketHandleRef handle,
-                        bool disable_locking_for_testing = false);
+  virtual void OnHandleDeletion(Subscriber* subscriber,
+                                SocketHandleRef handle,
+                                bool disable_locking_for_testing = false);
 
   OSP_DISALLOW_COPY_AND_ASSIGN(SocketHandleWaiter);
 
@@ -75,7 +75,28 @@ class SocketHandleWaiter {
       const std::vector<SocketHandleRef>& socket_fds,
       const Clock::duration& timeout) = 0;
 
+  virtual void OnNoWatchedSockets() = 0;
+
  private:
+  class Singleton {
+   public:
+    static void Subscribe(Subscriber* subscriber, SocketHandleRef handle);
+    static void Unsubscribe(Subscriber* subscriber, SocketHandleRef handle);
+    static void UnsubscribeAll(Subscriber* subscriber);
+    static void OnHandleDeletion(Subscriber* subscriber,
+                                 SocketHandleRef handle,
+                                 bool disable_locking_for_testing = false);
+    static ErrorOr<std::vector<SocketHandleRef>> AwaitSocketsReadable(
+        const std::vector<SocketHandleRef>& socket_fds,
+        const Clock::duration& timeout);
+    static void OnNoWatchedSockets();
+
+   private:
+    static std::mutex* singleton_mutex();
+
+    static SocketHandleWaiter* singleton_;
+  };
+
   // Call the subscriber associated with each changed handle.
   void ProcessReadyHandles(const std::vector<SocketHandleRef>& handles);
 
@@ -89,6 +110,44 @@ class SocketHandleWaiter {
   // that is watching them.
   std::unordered_map<SocketHandleRef, Subscriber*, SocketHandleHash>
       handle_mappings_;
+
+  friend class SocketHandleWaiterSingletonRef;
+};
+
+// Implementation of the SocketHandleWiater class that calls into the singleton
+// class inside SocketHandleWaiter.
+class SocketHandleWaiterSingletonRef : public SocketHandleWaiter {
+ public:
+  void Subscribe(Subscriber* subscriber, SocketHandleRef handle) override {
+    SocketHandleWaiter::Singleton::Subscribe(subscriber, handle);
+  }
+
+  void Unsubscribe(Subscriber* subscriber, SocketHandleRef handle) override {
+    SocketHandleWaiter::Singleton::Unsubscribe(subscriber, handle);
+  }
+
+  void UnsubscribeAll(Subscriber* subscriber) override {
+    SocketHandleWaiter::Singleton::UnsubscribeAll(subscriber);
+  }
+
+  void OnHandleDeletion(Subscriber* subscriber,
+                        SocketHandleRef handle,
+                        bool disable_locking_for_testing = false) override {
+    SocketHandleWaiter::Singleton::OnHandleDeletion(
+        subscriber, handle, disable_locking_for_testing);
+  }
+
+ protected:
+  ErrorOr<std::vector<SocketHandleRef>> AwaitSocketsReadable(
+      const std::vector<SocketHandleRef>& socket_fds,
+      const Clock::duration& timeout) override {
+    return SocketHandleWaiter::Singleton::AwaitSocketsReadable(socket_fds,
+                                                               timeout);
+  }
+
+  void OnNoWatchedSockets() override {
+    SocketHandleWaiter::Singleton::OnNoWatchedSockets();
+  }
 };
 
 }  // namespace platform

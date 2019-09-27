@@ -53,6 +53,8 @@ class MockNetworkWaiter final : public SocketHandleWaiter {
       AwaitSocketsReadable,
       ErrorOr<std::vector<SocketHandleRef>>(const std::vector<SocketHandleRef>&,
                                             const Clock::duration&));
+
+  void OnNoWatchedSockets() override {}
 };
 
 // Mock Task Runner

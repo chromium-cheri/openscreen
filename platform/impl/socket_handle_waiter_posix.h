@@ -38,6 +38,8 @@ class SocketHandleWaiterPosix : public SocketHandleWaiter {
       const std::vector<SocketHandleRef>& socket_fds,
       const Clock::duration& timeout) override;
 
+  void OnNoWatchedSockets() override{};
+
  private:
   fd_set read_handles_;
 
