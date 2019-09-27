@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7d98b09a_7748baf9",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T22:02:12Z",
+      "side": 1,
+      "message": "Maybe store message serialized here? Then\n1) you can return error about bad message here\n2) in OnWriteUnblocked you can just call connection_-\u003eWrite for all for all messages in a queue, instead of calling SendMessage",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 41
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82328e7e_855cb9ce",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T22:02:12Z",
+      "side": 1,
+      "message": "Given that connection_-\u003ewrite does not return an error, how is OnWriteBlocked handled that has happened during this loop?",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 5
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d10ae1d2_e685beee",
         "filename": "cast/common/channel/cast_socket.cc",
         "patchSetId": 5
@@ -25,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "e2d91780_d5d6a951",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T22:02:12Z",
+      "side": 1,
+      "message": "Maybe use std::deque for read_buffer? I think it\u0027s somewhat better with removing from the beginning of the data",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 77
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b547e863_10e43f25",
         "filename": "cast/common/channel/cast_socket.h",
         "patchSetId": 5
@@ -41,6 +110,29 @@
         "startChar": 0,
         "endLine": 19,
         "endChar": 15
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa0ad333_904bedb6",
+        "filename": "cast/common/channel/message_framer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-27T22:02:12Z",
+      "side": 1,
+      "message": "nit: A small inconsistency, string for Serialize vs span\u003cuint8_t\u003e for TryDeserialize, would be more consistent as vector\u003cuint8_t\u003e + span\u003cuint8_t\u003e or string + string_view.",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 19
       },
       "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
