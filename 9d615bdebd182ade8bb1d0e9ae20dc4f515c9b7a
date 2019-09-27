@@ -200,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "37c2691e_6f7731ea",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T22:01:25Z",
+      "side": 1,
+      "message": "Discussed offline, and the current template parameter works. Template is needed over equality to support cases like the MapKeyEquals below",
+      "parentUuid": "c2f9be35_5e6ff21d",
+      "range": {
+        "startLine": 35,
+        "startChar": 32,
+        "endLine": 35,
+        "endChar": 76
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d5d975a_9e822b29",
         "filename": "util/subscriber_model.h",
         "patchSetId": 1
@@ -293,6 +317,30 @@
     },
     {
       "key": {
+        "uuid": "313b77c9_487dff67",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T22:01:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eba67cc9_e2fae61d",
+      "range": {
+        "startLine": 60,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 26
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12581f9f_14e22338",
         "filename": "util/subscriber_model.h",
         "patchSetId": 1
@@ -304,6 +352,30 @@
       "writtenOn": "2019-09-27T21:08:47Z",
       "side": 1,
       "message": "Do you want the lock for the entire method or just for the collection manipulation?",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15899020_b2444304",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T22:01:25Z",
+      "side": 1,
+      "message": "We want it for the whole operation\n\nWe need it locked for the cancellation_token call and unsubscribe_block_.wait(). Else, the cancellation operation may complete too quickly and ApplyPendingChanges() will get the lock, complete an call unsubscribe_block_.notify_all(), and we will have missed our chance to unblock the condition_variable",
+      "parentUuid": "12581f9f_14e22338",
       "range": {
         "startLine": 61,
         "startChar": 4,
@@ -409,6 +481,30 @@
     },
     {
       "key": {
+        "uuid": "6dd7e8d2_a6eb978e",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T22:01:25Z",
+      "side": 1,
+      "message": "I can\u0027t think of a good way to do so (at least not without tying us to a specific threading implementation like std::thread, which seems not good to do in a util/ class)\n\nOpen to suggestions though",
+      "parentUuid": "38f82fde_79287b5a",
+      "range": {
+        "startLine": 83,
+        "startChar": 58,
+        "endLine": 84,
+        "endChar": 44
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c918c6e_819e8add",
         "filename": "util/subscriber_model.h",
         "patchSetId": 1
@@ -429,6 +525,30 @@
       "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d5d768_36026430",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T22:01:25Z",
+      "side": 1,
+      "message": "Done. Good idea!",
+      "parentUuid": "9c918c6e_819e8add",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 72
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -490,6 +610,30 @@
     },
     {
       "key": {
+        "uuid": "8460585f_939a5fb7",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T22:01:25Z",
+      "side": 1,
+      "message": "We want to replace any subscriber that is equal to the new one we are adding according to our Equals function, so they might be \u0027equal\u0027 but still not the same. So we remove the old one first and add the new one rather than just skipping the call if it\u0027s already present",
+      "parentUuid": "fe54f66b_c487d1c1",
+      "range": {
+        "startLine": 95,
+        "startChar": 10,
+        "endLine": 97,
+        "endChar": 11
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68f4d8ec_348b77e1",
         "filename": "util/subscriber_model.h",
         "patchSetId": 1
@@ -513,6 +657,30 @@
     },
     {
       "key": {
+        "uuid": "550db6b2_192b1665",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T22:01:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68f4d8ec_348b77e1",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 73
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "122b1e0e_d4b36a56",
         "filename": "util/subscriber_model.h",
         "patchSetId": 1
@@ -524,6 +692,30 @@
       "writtenOn": "2019-09-27T21:08:47Z",
       "side": 1,
       "message": "mutex is re-entrant on the same thread, you can put a lock here and drop this expectation.",
+      "range": {
+        "startLine": 122,
+        "startChar": 70,
+        "endLine": 122,
+        "endChar": 76
+      },
+      "revId": "9d615bdebd182ade8bb1d0e9ae20dc4f515c9b7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e80f244_2262fb64",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T22:01:25Z",
+      "side": 1,
+      "message": "I actually found during unit tests that this isn\u0027t true. Adding a std::unique_lock or std::lock_guard below causes UnitTests to deadlock\n\nAccording to std::mutex::lock documentation: \"If the mutex is currently locked by the same thread calling this function, it produces a deadlock (with undefined behavior). See recursive_mutex for a mutex type that allows multiple locks from the same thread.\"",
+      "parentUuid": "122b1e0e_d4b36a56",
       "range": {
         "startLine": 122,
         "startChar": 70,
