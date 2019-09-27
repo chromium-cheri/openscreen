@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3368ea46_194acb3e",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-09-27T18:45:26Z",
+      "side": 1,
+      "message": "It seems even this approach to a static mutex fails compilation\n\nIf we want to maintain thread safety with a mutex, we will need to suppress this compilation warning (and do so in each of the 4 singleton classes we take this approach for)",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 1
+      },
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
