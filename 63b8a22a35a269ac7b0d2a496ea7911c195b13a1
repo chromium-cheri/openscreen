@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d092b637_adb4cd78",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "This is probably an opportunity to have a shortcut method:\n\nruntime_context_-\u003eIsRunningOnTaskRunner()\n\nOr possibly a macro just for this common statement:\n\nOSP_DCHECK_ON_TASK_RUNNER();",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f5ccf2_9122e67b",
+        "filename": "osp/impl/mdns_responder_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "It looks like this class only needs the task runner - so change this back to task_runner_(runtime_context-\u003etask_runner())",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c657f73_cf541877",
+        "filename": "osp/impl/mdns_responder_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "Please declare stored pointers to RuntimeContext as *const",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a783a2f7_17c2b65d",
+        "filename": "osp/impl/mdns_service_publisher_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "Normally this forward declaration would be made in the .h (since that\u0027s what has the declaration of ::Create).\n\nSame comment applies to other forward declarations in .cc files",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "480be374_bde49b06",
+        "filename": "osp/impl/quic/quic_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "I think this should never be false?",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2690364d_dde3be9e",
+        "filename": "osp/impl/quic/quic_connection_factory_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "The code isn\u0027t consistent about checking for a null context.\n\nRather than add DCHECKS to every class, I would suggest dropping this and clearly documenting in runtime_context.h that nothing will work if you pass null.",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aad1bdca_70e40966",
+        "filename": "osp/impl/quic/quic_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "See previous comment about nullcheck",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4d877c1_59280c4a",
+        "filename": "platform/api/runtime_context.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "I wonder if RuntimeContext could just be made move-only.\n\nBut it looks like you want to pass it by raw pointer in a bunch of places, which makes me think that using unique_ptr to designate the owned pointer is more appropriate.\n\nWhat do you think?",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d574dab0_03440d0a",
+        "filename": "platform/api/runtime_context.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "Who calls the OnFoo APIs?  Is this part of the platform API or part of the implementation?\n\nCan the OnFoo APIs belong to a different object that is accessed through the RuntimeContext?",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeaa99b2_43b103f3",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "Do you need to store the context or just the task runner?",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f803d691_a4b34f75",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "Same comment here.",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e98d611_ff998662",
+        "filename": "platform/impl/runtime_context.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-09-30T19:45:18Z",
+      "side": 1,
+      "message": "Does RuntimeContext need a ctor?  What is being passed here?",
+      "revId": "63b8a22a35a269ac7b0d2a496ea7911c195b13a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
