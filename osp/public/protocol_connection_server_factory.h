@@ -12,7 +12,7 @@
 
 namespace openscreen {
 namespace platform {
-class TaskRunner;
+class RuntimeContext;
 }
 
 class ProtocolConnectionServerFactory {
@@ -21,7 +21,7 @@ class ProtocolConnectionServerFactory {
       const ServerConfig& config,
       MessageDemuxer* demuxer,
       ProtocolConnectionServer::Observer* observer,
-      platform::TaskRunner* task_runner);
+      platform::RuntimeContext* runtime_context);
 };
 
 }  // namespace openscreen

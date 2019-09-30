@@ -17,7 +17,7 @@
 #include "osp/impl/service_listener_impl.h"
 #include "osp/impl/service_publisher_impl.h"
 #include "platform/api/network_interface.h"
-#include "platform/api/task_runner.h"
+#include "platform/api/runtime_context.h"
 #include "platform/base/ip_address.h"
 
 namespace openscreen {
@@ -34,7 +34,7 @@ class MdnsResponderService : public ServiceListenerImpl::Delegate,
                              public platform::UdpSocket::Client {
  public:
   MdnsResponderService(
-      platform::TaskRunner* task_runner,
+      platform::RuntimeContext* runtime_context,
       const std::string& service_name,
       const std::string& service_protocol,
       std::unique_ptr<MdnsResponderAdapterFactory> mdns_responder_factory,
@@ -195,7 +195,7 @@ class MdnsResponderService : public ServiceListenerImpl::Delegate,
 
   std::map<std::string, ServiceInfo> receiver_info_;
 
-  platform::TaskRunner* task_runner_;
+  platform::RuntimeContext* runtime_context_;
 
   friend class TestingMdnsResponderService;
 };

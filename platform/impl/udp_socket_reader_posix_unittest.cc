@@ -10,6 +10,7 @@
 #include "platform/impl/socket_handle_posix.h"
 #include "platform/impl/udp_socket_posix.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_runtime_context.h"
 #include "platform/test/fake_task_runner.h"
 #include "platform/test/fake_udp_socket.h"
 
@@ -22,11 +23,11 @@ using ::testing::Invoke;
 
 class MockUdpSocketPosix : public UdpSocketPosix {
  public:
-  explicit MockUdpSocketPosix(TaskRunner* task_runner,
+  explicit MockUdpSocketPosix(RuntimeContext* runtime_context,
                               Client* client,
                               int fd,
                               Version version = Version::kV4)
-      : UdpSocketPosix(task_runner, client, SocketHandle(fd), IPEndpoint()),
+      : UdpSocketPosix(runtime_context, client, SocketHandle(fd), IPEndpoint()),
         version_(version) {}
   ~MockUdpSocketPosix() override = default;
 
@@ -99,9 +100,11 @@ TEST(UdpSocketReaderTest, WatchReadableSucceeds) {
       std::unique_ptr<SocketHandleWaiter>(new MockNetworkWaiter());
   std::unique_ptr<TaskRunner> task_runner =
       std::unique_ptr<TaskRunner>(new MockTaskRunner());
+  std::unique_ptr<FakeRuntimeContext> runtime_context =
+      std::make_unique<FakeRuntimeContext>(task_runner.get());
   FakeUdpSocket::MockClient client;
   std::unique_ptr<MockUdpSocketPosix> socket =
-      std::make_unique<MockUdpSocketPosix>(task_runner.get(), &client, 42,
+      std::make_unique<MockUdpSocketPosix>(runtime_context.get(), &client, 42,
                                            UdpSocket::Version::kV4);
 }
 
@@ -110,9 +113,11 @@ TEST(UdpSocketReaderTest, UnwatchReadableSucceeds) {
       std::unique_ptr<SocketHandleWaiter>(new MockNetworkWaiter());
   std::unique_ptr<TaskRunner> task_runner =
       std::unique_ptr<TaskRunner>(new MockTaskRunner());
+  std::unique_ptr<FakeRuntimeContext> runtime_context =
+      std::make_unique<FakeRuntimeContext>(task_runner.get());
   FakeUdpSocket::MockClient client;
   std::unique_ptr<MockUdpSocketPosix> socket =
-      std::make_unique<MockUdpSocketPosix>(task_runner.get(), &client, 17,
+      std::make_unique<MockUdpSocketPosix>(runtime_context.get(), &client, 17,
                                            UdpSocket::Version::kV4);
   TestingUdpSocketReader network_waiter(mock_waiter.get());
 

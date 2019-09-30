@@ -28,6 +28,7 @@
 #include "osp/public/service_publisher.h"
 #include "platform/api/logging.h"
 #include "platform/api/network_interface.h"
+#include "platform/api/runtime_context.h"
 #include "platform/api/time.h"
 #include "platform/api/trace_logging.h"
 #include "platform/impl/socket_handle_waiter_thread.h"
@@ -429,17 +430,18 @@ void ListenerDemo() {
   platform::UdpSocketReaderPosix reader(
       socket_handle_waiter_thread.socket_handle_waiter());
   platform::UdpSocket::SetLifetimeObserver(&reader);
+  auto runtime_context = platform::RuntimeContext::Create();
 
   ListenerObserver listener_observer;
   MdnsServiceListenerConfig listener_config;
   auto mdns_listener = MdnsServiceListenerFactory::Create(
-      listener_config, &listener_observer, task_runner_thread.task_runner());
+      listener_config, &listener_observer, runtime_context.get());
 
   MessageDemuxer demuxer(platform::Clock::now,
                          MessageDemuxer::kDefaultBufferLimit);
   ConnectionClientObserver client_observer;
   auto connection_client = ProtocolConnectionClientFactory::Create(
-      &demuxer, &client_observer, task_runner_thread.task_runner());
+      &demuxer, &client_observer, runtime_context.get());
 
   auto* network_service = NetworkServiceManager::Create(
       std::move(mdns_listener), nullptr, std::move(connection_client), nullptr);
@@ -521,6 +523,7 @@ void PublisherDemo(absl::string_view friendly_name) {
   platform::UdpSocketReaderPosix reader(
       socket_handle_waiter_thread.socket_handle_waiter());
   platform::UdpSocket::SetLifetimeObserver(&reader);
+  auto runtime_context = platform::RuntimeContext::Create();
 
   PublisherObserver publisher_observer;
   // TODO(btolsch): aggregate initialization probably better?
@@ -531,7 +534,7 @@ void PublisherDemo(absl::string_view friendly_name) {
   publisher_config.connection_server_port = server_port;
 
   auto mdns_publisher = MdnsServicePublisherFactory::Create(
-      publisher_config, &publisher_observer, task_runner_thread.task_runner());
+      publisher_config, &publisher_observer, runtime_context.get());
 
   ServerConfig server_config;
   std::vector<platform::InterfaceAddresses> interfaces =
@@ -545,8 +548,7 @@ void PublisherDemo(absl::string_view friendly_name) {
                          MessageDemuxer::kDefaultBufferLimit);
   ConnectionServerObserver server_observer;
   auto connection_server = ProtocolConnectionServerFactory::Create(
-      server_config, &demuxer, &server_observer,
-      task_runner_thread.task_runner());
+      server_config, &demuxer, &server_observer, runtime_context.get());
 
   auto* network_service =
       NetworkServiceManager::Create(nullptr, std::move(mdns_publisher), nullptr,

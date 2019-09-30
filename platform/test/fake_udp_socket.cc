@@ -7,16 +7,17 @@
 namespace openscreen {
 namespace platform {
 
-FakeUdpSocket::FakeUdpSocket(TaskRunner* task_runner,
+FakeUdpSocket::FakeUdpSocket(RuntimeContext* runtime_context,
                              Client* client,
                              Version version)
-    : UdpSocket(task_runner, client), client_(client), version_(version) {}
+    : UdpSocket(runtime_context, client), client_(client), version_(version) {}
 
 // Ensure that the destructors for the unique_ptr objects are called in
 // the correct order to avoid OSP_CHECK failures.
 FakeUdpSocket::~FakeUdpSocket() {
   CloseIfOpen();
 
+  fake_runtime_context_.reset();
   fake_task_runner_.reset();
   fake_clock_.reset();
   fake_client_.reset();
@@ -85,14 +86,17 @@ std::unique_ptr<FakeUdpSocket> FakeUdpSocket::CreateDefault(
   std::unique_ptr<FakeClock> clock = std::make_unique<FakeClock>(Clock::now());
   std::unique_ptr<FakeTaskRunner> task_runner =
       std::make_unique<FakeTaskRunner>(clock.get());
+  std::unique_ptr<FakeRuntimeContext> runtime_context =
+      std::make_unique<FakeRuntimeContext>(task_runner.get());
   std::unique_ptr<FakeUdpSocket::MockClient> client =
       std::make_unique<FakeUdpSocket::MockClient>();
 
-  std::unique_ptr<FakeUdpSocket> socket =
-      std::make_unique<FakeUdpSocket>(task_runner.get(), client.get(), version);
+  std::unique_ptr<FakeUdpSocket> socket = std::make_unique<FakeUdpSocket>(
+      runtime_context.get(), client.get(), version);
   socket->fake_clock_.swap(clock);
   socket->fake_client_.swap(client);
   socket->fake_task_runner_.swap(task_runner);
+  socket->fake_runtime_context_.swap(runtime_context);
 
   return socket;
 }

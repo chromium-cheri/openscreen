@@ -13,6 +13,7 @@
 #include "osp/impl/service_listener_impl.h"
 #include "osp/impl/testing/fake_mdns_platform_service.h"
 #include "osp/impl/testing/fake_mdns_responder_adapter.h"
+#include "platform/test/fake_runtime_context.h"
 #include "platform/test/fake_task_runner.h"
 
 namespace openscreen {
@@ -23,12 +24,12 @@ namespace openscreen {
 class TestingMdnsResponderService final : public MdnsResponderService {
  public:
   TestingMdnsResponderService(
-      platform::FakeTaskRunner* task_runner,
+      platform::FakeRuntimeContext* runtime_context,
       const std::string& service_name,
       const std::string& service_protocol,
       std::unique_ptr<MdnsResponderAdapterFactory> mdns_responder_factory,
       std::unique_ptr<MdnsPlatformService> platform_service)
-      : MdnsResponderService(task_runner,
+      : MdnsResponderService(runtime_context,
                              service_name,
                              service_protocol,
                              std::move(mdns_responder_factory),
@@ -184,11 +185,13 @@ class MdnsResponderServiceTest : public ::testing::Test {
         mdns_responder_factory_.get());
     clock_ = std::make_unique<platform::FakeClock>(platform::Clock::now());
     task_runner_ = std::make_unique<platform::FakeTaskRunner>(clock_.get());
+    runtime_context_ =
+        std::make_unique<platform::FakeRuntimeContext>(task_runner_.get());
     auto platform_service = std::make_unique<FakeMdnsPlatformService>();
     fake_platform_service_ = platform_service.get();
     fake_platform_service_->set_interfaces(bound_interfaces_);
     mdns_service_ = std::make_unique<TestingMdnsResponderService>(
-        task_runner_.get(), kTestServiceName, kTestServiceProtocol,
+        runtime_context_.get(), kTestServiceName, kTestServiceProtocol,
         std::move(wrapper_factory), std::move(platform_service));
     service_listener_ =
         std::make_unique<ServiceListenerImpl>(mdns_service_.get());
@@ -202,6 +205,7 @@ class MdnsResponderServiceTest : public ::testing::Test {
 
   std::unique_ptr<platform::FakeClock> clock_;
   std::unique_ptr<platform::FakeTaskRunner> task_runner_;
+  std::unique_ptr<platform::FakeRuntimeContext> runtime_context_;
   MockServiceListenerObserver observer_;
   FakeMdnsPlatformService* fake_platform_service_;
   std::unique_ptr<FakeMdnsResponderAdapterFactory> mdns_responder_factory_;

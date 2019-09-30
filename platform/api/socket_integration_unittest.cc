@@ -5,6 +5,7 @@
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_runtime_context.h"
 #include "platform/test/fake_task_runner.h"
 #include "platform/test/fake_udp_socket.h"
 
@@ -20,9 +21,10 @@ TEST(SocketIntegrationTest, ResolvesLocalEndpoint_IPv4) {
   const uint8_t kIpV4AddrAny[4] = {};
   FakeClock clock(Clock::now());
   FakeTaskRunner task_runner(&clock);
+  FakeRuntimeContext runtime_context(&task_runner);
   FakeUdpSocket::MockClient client;
   ErrorOr<UdpSocketUniquePtr> create_result = UdpSocket::Create(
-      &task_runner, &client, IPEndpoint{IPAddress(kIpV4AddrAny), 0});
+      &runtime_context, &client, IPEndpoint{IPAddress(kIpV4AddrAny), 0});
   ASSERT_TRUE(create_result) << create_result.error();
   const auto socket = std::move(create_result.value());
   EXPECT_CALL(client, OnError(_, _)).Times(0);
@@ -38,9 +40,10 @@ TEST(SocketIntegrationTest, ResolvesLocalEndpoint_IPv6) {
   const uint8_t kIpV6AddrAny[16] = {};
   FakeClock clock(Clock::now());
   FakeTaskRunner task_runner(&clock);
+  FakeRuntimeContext runtime_context(&task_runner);
   FakeUdpSocket::MockClient client;
   ErrorOr<UdpSocketUniquePtr> create_result = UdpSocket::Create(
-      &task_runner, &client, IPEndpoint{IPAddress(kIpV6AddrAny), 0});
+      &runtime_context, &client, IPEndpoint{IPAddress(kIpV6AddrAny), 0});
   ASSERT_TRUE(create_result) << create_result.error();
   const auto socket = std::move(create_result.value());
   EXPECT_CALL(client, OnError(_, _)).Times(0);

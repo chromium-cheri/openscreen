@@ -7,12 +7,14 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_runtime_context.h"
 #include "platform/test/fake_task_runner.h"
 
 namespace cast {
 namespace mdns {
 
 using openscreen::platform::FakeClock;
+using openscreen::platform::FakeRuntimeContext;
 using openscreen::platform::FakeTaskRunner;
 using openscreen::platform::NetworkInterfaceIndex;
 using ::testing::_;
@@ -33,7 +35,8 @@ ACTION_P2(VerifyMessageBytesWithoutId, expected_data, expected_size) {
 
 class MockUdpSocket : public UdpSocket {
  public:
-  MockUdpSocket(TaskRunner* task_runner) : UdpSocket(task_runner, nullptr) {}
+  MockUdpSocket(RuntimeContext* runtime_context)
+      : UdpSocket(runtime_context, nullptr) {}
   ~MockUdpSocket() { CloseIfOpen(); }
   MOCK_METHOD(bool, IsIPv4, (), (const, override));
   MOCK_METHOD(bool, IsIPv6, (), (const, override));
@@ -67,7 +70,8 @@ class MdnsTrackerTest : public ::testing::Test {
   MdnsTrackerTest()
       : clock_(Clock::now()),
         task_runner_(&clock_),
-        socket_(&task_runner_),
+        runtime_context_(&task_runner_),
+        socket_(&runtime_context_),
         sender_(&socket_),
         a_question_(DomainName{"testing", "local"},
                     DnsType::kANY,
@@ -117,14 +121,14 @@ class MdnsTrackerTest : public ::testing::Test {
 
   std::unique_ptr<MdnsRecordTracker> CreateRecordTracker() {
     return std::make_unique<MdnsRecordTracker>(
-        &sender_, &task_runner_, &FakeClock::now, &random_,
+        &sender_, &runtime_context_, &FakeClock::now, &random_,
         [this](const MdnsRecord& record) { update_called_ = true; },
         [this](const MdnsRecord& record) { expiration_called_ = true; });
   }
 
   SerialDeletePtr<MdnsQuestionTracker> CreateQuestionTracker() {
-    return MdnsQuestionTracker::Create(&sender_, &task_runner_, &FakeClock::now,
-                                       &random_);
+    return MdnsQuestionTracker::Create(&sender_, &runtime_context_,
+                                       &FakeClock::now, &random_);
   }
 
  protected:
@@ -162,6 +166,7 @@ class MdnsTrackerTest : public ::testing::Test {
   // clang-format on
   FakeClock clock_;
   FakeTaskRunner task_runner_;
+  FakeRuntimeContext runtime_context_;
   MockUdpSocket socket_;
   MdnsSender sender_;
   MdnsRandom random_;

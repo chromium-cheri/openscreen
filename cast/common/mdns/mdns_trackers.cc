@@ -44,15 +44,15 @@ constexpr std::chrono::seconds kGoodbyeRecordTtl{1};
 }  // namespace
 
 MdnsTracker::MdnsTracker(MdnsSender* sender,
-                         TaskRunner* task_runner,
+                         RuntimeContext* runtime_context,
                          ClockNowFunctionPtr now_function,
                          MdnsRandom* random_delay)
     : sender_(sender),
-      task_runner_(task_runner),
+      runtime_context_(runtime_context),
       now_function_(now_function),
-      send_alarm_(now_function, task_runner),
+      send_alarm_(now_function, runtime_context->task_runner()),
       random_delay_(random_delay) {
-  OSP_DCHECK(task_runner);
+  OSP_DCHECK(runtime_context);
   OSP_DCHECK(now_function);
   OSP_DCHECK(random_delay);
   OSP_DCHECK(sender);
@@ -60,12 +60,12 @@ MdnsTracker::MdnsTracker(MdnsSender* sender,
 
 MdnsRecordTracker::MdnsRecordTracker(
     MdnsSender* sender,
-    TaskRunner* task_runner,
+    RuntimeContext* runtime_context,
     ClockNowFunctionPtr now_function,
     MdnsRandom* random_delay,
     std::function<void(const MdnsRecord&)> record_updated_callback,
     std::function<void(const MdnsRecord&)> record_expired_callback)
-    : MdnsTracker(sender, task_runner, now_function, random_delay),
+    : MdnsTracker(sender, runtime_context, now_function, random_delay),
       record_updated_callback_(record_updated_callback),
       record_expired_callback_(record_expired_callback) {
   OSP_DCHECK(record_updated_callback);
@@ -95,7 +95,7 @@ Error MdnsRecordTracker::Stop() {
 }
 
 Error MdnsRecordTracker::Update(const MdnsRecord& new_record) {
-  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(runtime_context_->task_runner()->IsRunningOnTaskRunner());
 
   if (!record_.has_value()) {
     return Error::Code::kOperationInvalid;
@@ -173,22 +173,23 @@ Clock::time_point MdnsRecordTracker::GetNextSendTime() {
 }
 
 MdnsQuestionTracker::MdnsQuestionTracker(MdnsSender* sender,
-                                         TaskRunner* task_runner,
+                                         RuntimeContext* runtime_context,
                                          ClockNowFunctionPtr now_function,
                                          MdnsRandom* random_delay)
-    : MdnsTracker(sender, task_runner, now_function, random_delay) {}
+    : MdnsTracker(sender, runtime_context, now_function, random_delay) {}
 
 // static
 SerialDeletePtr<MdnsQuestionTracker> MdnsQuestionTracker::Create(
     MdnsSender* sender,
-    TaskRunner* task_runner,
+    RuntimeContext* runtime_context,
     ClockNowFunctionPtr now_function,
     MdnsRandom* random_delay) {
   // explicit new to access the private constructor that is unavailable to
   // SerialDeletePtr
   return SerialDeletePtr<MdnsQuestionTracker>(
-      task_runner,
-      new MdnsQuestionTracker(sender, task_runner, now_function, random_delay));
+      runtime_context->task_runner(),
+      new MdnsQuestionTracker(sender, runtime_context, now_function,
+                              random_delay));
 }
 
 Error MdnsQuestionTracker::Start(MdnsQuestion question) {
@@ -223,7 +224,7 @@ bool MdnsQuestionTracker::IsStarted() {
 void MdnsQuestionTracker::AddCallback(MdnsRecordChangedCallback* callback) {
   // Adding a callback to the collection does not have to be immediate as no
   // answers will be missed. The callback is called for all known answers.
-  task_runner_->PostTask([this, callback] {
+  runtime_context_->task_runner()->PostTask([this, callback] {
     const auto find_result =
         std::find(callbacks_.begin(), callbacks_.end(), callback);
     if (find_result == callbacks_.end()) {
@@ -234,7 +235,7 @@ void MdnsQuestionTracker::AddCallback(MdnsRecordChangedCallback* callback) {
 }
 
 void MdnsQuestionTracker::RemoveCallback(MdnsRecordChangedCallback* callback) {
-  task_runner_->PostTask([this, callback] {
+  runtime_context_->task_runner()->PostTask([this, callback] {
     const auto find_result =
         std::find(callbacks_.begin(), callbacks_.end(), callback);
     if (find_result != callbacks_.end()) {
@@ -244,7 +245,7 @@ void MdnsQuestionTracker::RemoveCallback(MdnsRecordChangedCallback* callback) {
 }
 
 void MdnsQuestionTracker::OnRecordReceived(const MdnsRecord& record) {
-  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(runtime_context_->task_runner()->IsRunningOnTaskRunner());
 
   if (!question_.has_value()) {
     return;
@@ -262,7 +263,7 @@ void MdnsQuestionTracker::OnRecordReceived(const MdnsRecord& record) {
 
   std::unique_ptr<MdnsRecordTracker> record_tracker =
       std::make_unique<MdnsRecordTracker>(
-          sender_, task_runner_, now_function_, random_delay_,
+          sender_, runtime_context_, now_function_, random_delay_,
           [this](const MdnsRecord& record) {
             MdnsQuestionTracker::OnRecordUpdated(record);
           },
@@ -279,7 +280,7 @@ void MdnsQuestionTracker::OnRecordReceived(const MdnsRecord& record) {
 }
 
 void MdnsQuestionTracker::OnRecordExpired(const MdnsRecord& record) {
-  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(runtime_context_->task_runner()->IsRunningOnTaskRunner());
 
   for (auto callback : callbacks_) {
     callback->OnRecordChanged(record, RecordChangedEvent::kDeleted);
@@ -291,7 +292,7 @@ void MdnsQuestionTracker::OnRecordExpired(const MdnsRecord& record) {
 }
 
 void MdnsQuestionTracker::OnRecordUpdated(const MdnsRecord& record) {
-  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(runtime_context_->task_runner()->IsRunningOnTaskRunner());
 
   for (auto* callback : callbacks_) {
     callback->OnRecordChanged(record, RecordChangedEvent::kUpdated);

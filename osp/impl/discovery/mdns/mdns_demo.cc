@@ -13,6 +13,7 @@
 // TODO(rwkeane): Remove references to platform/impl
 #include "osp/impl/discovery/mdns/mdns_responder_adapter_impl.h"
 #include "platform/api/logging.h"
+#include "platform/api/runtime_context.h"
 #include "platform/api/time.h"
 #include "platform/base/error.h"
 #include "platform/impl/socket_handle_waiter_thread.h"
@@ -125,13 +126,13 @@ void SignalThings() {
 }
 
 std::vector<platform::UdpSocketUniquePtr> SetUpMulticastSockets(
-    platform::TaskRunner* task_runner,
+    platform::RuntimeContext* runtime_context,
     const std::vector<platform::NetworkInterfaceIndex>& index_list,
     platform::UdpSocket::Client* client) {
   std::vector<platform::UdpSocketUniquePtr> sockets;
   for (const auto ifindex : index_list) {
-    auto create_result =
-        platform::UdpSocket::Create(task_runner, client, IPEndpoint{{}, 5353});
+    auto create_result = platform::UdpSocket::Create(runtime_context, client,
+                                                     IPEndpoint{{}, 5353});
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create IPv4 socket for interface " << ifindex
                     << ": " << create_result.error().message();
@@ -247,7 +248,7 @@ void HandleEvents(mdns::MdnsResponderAdapterImpl* mdns_adapter) {
   }
 }
 
-void BrowseDemo(platform::TaskRunner* task_runner,
+void BrowseDemo(platform::RuntimeContext* runtime_context,
                 const std::string& service_name,
                 const std::string& service_protocol,
                 const std::string& service_instance) {
@@ -278,7 +279,7 @@ void BrowseDemo(platform::TaskRunner* task_runner,
   }
 
   DemoSocketClient client(mdns_adapter.get());
-  auto sockets = SetUpMulticastSockets(task_runner, index_list, &client);
+  auto sockets = SetUpMulticastSockets(runtime_context, index_list, &client);
   // The code below assumes the elements in |sockets| is in exact 1:1
   // correspondence with the elements in |index_list|. Crash the demo if any
   // sockets are missing (i.e., failed to be set up).
@@ -366,7 +367,9 @@ int main(int argc, char** argv) {
       socket_handle_waiter_thread.socket_handle_waiter());
   openscreen::platform::UdpSocket::SetLifetimeObserver(&reader);
 
-  openscreen::BrowseDemo(task_runner_thread.task_runner(), labels[0], labels[1],
+  auto runtime_context = openscreen::platform::RuntimeContext::Create();
+
+  openscreen::BrowseDemo(runtime_context.get(), labels[0], labels[1],
                          service_instance);
 
   openscreen::g_services = nullptr;

@@ -10,6 +10,7 @@
 
 #include "osp/impl/internal_services.h"
 #include "platform/api/logging.h"
+#include "platform/api/task_runner.h"
 #include "platform/api/trace_logging.h"
 #include "platform/base/error.h"
 
@@ -30,7 +31,7 @@ std::string ServiceIdFromServiceInstanceName(
 }  // namespace
 
 MdnsResponderService::MdnsResponderService(
-    platform::TaskRunner* task_runner,
+    platform::RuntimeContext* runtime_context,
     const std::string& service_name,
     const std::string& service_protocol,
     std::unique_ptr<MdnsResponderAdapterFactory> mdns_responder_factory,
@@ -38,7 +39,7 @@ MdnsResponderService::MdnsResponderService(
     : service_type_{{service_name, service_protocol}},
       mdns_responder_factory_(std::move(mdns_responder_factory)),
       platform_(std::move(platform)),
-      task_runner_(task_runner) {}
+      runtime_context_(runtime_context) {}
 
 MdnsResponderService::~MdnsResponderService() = default;
 
@@ -79,48 +80,58 @@ void MdnsResponderService::OnError(platform::UdpSocket* socket, Error error) {
 }
 
 void MdnsResponderService::StartListener() {
-  task_runner_->PostTask([this]() { this->StartListenerInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->StartListenerInternal(); });
 }
 
 void MdnsResponderService::StartAndSuspendListener() {
-  task_runner_->PostTask([this]() { this->StartAndSuspendListenerInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->StartAndSuspendListenerInternal(); });
 }
 
 void MdnsResponderService::StopListener() {
-  task_runner_->PostTask([this]() { this->StopListenerInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->StopListenerInternal(); });
 }
 
 void MdnsResponderService::SuspendListener() {
-  task_runner_->PostTask([this]() { this->SuspendListenerInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->SuspendListenerInternal(); });
 }
 
 void MdnsResponderService::ResumeListener() {
-  task_runner_->PostTask([this]() { this->ResumeListenerInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->ResumeListenerInternal(); });
 }
 
 void MdnsResponderService::SearchNow(ServiceListener::State from) {
-  task_runner_->PostTask([this, from]() { this->SearchNowInternal(from); });
+  runtime_context_->task_runner()->PostTask(
+      [this, from]() { this->SearchNowInternal(from); });
 }
 
 void MdnsResponderService::StartPublisher() {
-  task_runner_->PostTask([this]() { this->StartPublisherInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->StartPublisherInternal(); });
 }
 
 void MdnsResponderService::StartAndSuspendPublisher() {
-  task_runner_->PostTask(
+  runtime_context_->task_runner()->PostTask(
       [this]() { this->StartAndSuspendPublisherInternal(); });
 }
 
 void MdnsResponderService::StopPublisher() {
-  task_runner_->PostTask([this]() { this->StopPublisherInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->StopPublisherInternal(); });
 }
 
 void MdnsResponderService::SuspendPublisher() {
-  task_runner_->PostTask([this]() { this->SuspendPublisherInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->SuspendPublisherInternal(); });
 }
 
 void MdnsResponderService::ResumePublisher() {
-  task_runner_->PostTask([this]() { this->ResumePublisherInternal(); });
+  runtime_context_->task_runner()->PostTask(
+      [this]() { this->ResumePublisherInternal(); });
 }
 
 void MdnsResponderService::StartListenerInternal() {
@@ -134,7 +145,7 @@ void MdnsResponderService::StartListenerInternal() {
   // Then it can be more effectively cancelled when the state changes away from
   // 'running'.
   platform::RepeatingFunction::Post(
-      task_runner_,
+      runtime_context_->task_runner(),
       std::bind(&mdns::MdnsResponderAdapter::RunTasks, mdns_responder_.get()));
 }
 
@@ -175,7 +186,7 @@ void MdnsResponderService::StartPublisherInternal() {
   StartService();
   ServicePublisherImpl::Delegate::SetState(ServicePublisher::State::kRunning);
   platform::RepeatingFunction::Post(
-      task_runner_,
+      runtime_context_->task_runner(),
       std::bind(&mdns::MdnsResponderAdapter::RunTasks, mdns_responder_.get()));
 }
 

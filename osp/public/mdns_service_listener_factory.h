@@ -11,7 +11,7 @@
 
 namespace openscreen {
 namespace platform {
-class TaskRunner;
+class RuntimeContext;
 }  // namespace platform
 
 struct MdnsServiceListenerConfig {
@@ -24,7 +24,7 @@ class MdnsServiceListenerFactory {
   static std::unique_ptr<ServiceListener> Create(
       const MdnsServiceListenerConfig& config,
       ServiceListener::Observer* observer,
-      platform::TaskRunner* task_runner);
+      platform::RuntimeContext* runtime_context);
 };
 
 }  // namespace openscreen
