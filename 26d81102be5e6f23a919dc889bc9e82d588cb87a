@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "a6594a16_06cb1e58",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-30T20:48:02Z",
+      "side": 1,
+      "message": "Note: The compiler is generating the code for two mutexes here:\n\n1. The one you\u0027ve explicitly declared.\n\n2. The one that makes on-demand local static initialization thread-safe.\n\nSo, the explicitly-coded mutex is redundant.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3368ea46_194acb3e",
         "filename": "platform/impl/socket_handle_waiter.cc",
         "patchSetId": 2
@@ -34,6 +57,53 @@
         "startLine": 118,
         "startChar": 0,
         "endLine": 122,
+        "endChar": 1
+      },
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4ec9b73_b5df01b5",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-30T20:48:02Z",
+      "side": 1,
+      "message": "You would need something like this, if you want to eliminate the at-exit destructor: https://cs.chromium.org/chromium/src/base/no_destructor.h",
+      "parentUuid": "3368ea46_194acb3e",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 1
+      },
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae201b5_be09a4c1",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-30T20:48:02Z",
+      "side": 1,
+      "message": "Don\u0027t use a lock for these operations. All of these methods should be called on the same thread.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 169,
         "endChar": 1
       },
       "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
@@ -59,6 +129,24 @@
     },
     {
       "key": {
+        "uuid": "b7c7553a_b9c9ef0f",
+        "filename": "platform/impl/socket_handle_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-30T20:48:02Z",
+      "side": 1,
+      "message": "+1. If we\u0027re changing the behavior of the code for testing, then we\u0027re not testing what is going to happen normally.",
+      "parentUuid": "9627a056_89121782",
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1970fbd1_816eb947",
         "filename": "platform/impl/socket_handle_waiter.h",
         "patchSetId": 2
@@ -70,6 +158,24 @@
       "writtenOn": "2019-09-27T22:18:16Z",
       "side": 1,
       "message": "I don\u0027t follow why the singleton has to have its own class definition that wraps a SocketHandleWaiter, versus just having a static GetInstance() method on SocketHandleWaiter itself.",
+      "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8390238_d8a9267b",
+        "filename": "platform/impl/socket_handle_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-30T20:48:02Z",
+      "side": 1,
+      "message": "Also, we don\u0027t want to add indefinitely-lived singletons to OSP, since it\u0027s library code. The \"singleton\" should only live while there are one or more subscriptions. After the last Unsubscribe(), it should auto-destruct.",
+      "parentUuid": "1970fbd1_816eb947",
       "revId": "26d81102be5e6f23a919dc889bc9e82d588cb87a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fff07abb_79454c70",
+        "filename": "platform/impl/socket_handle_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-09-30T20:48:02Z",
+      "side": 0,
+      "message": "Let\u0027s simplify: Just make the Subscribe/Unsubscribe methods static, get rid of Create(), and make the ctor/dtor private. Then,\n\n1. Whenever Subscribe() is called, and there isn\u0027t a singleton instance of SocketHandleWaiter yet, instantiate it and set the global pointer.\n\n2. Whenever either of the Unsubscribe methods is called, if there are no more subscribers left, auto-destruct the SocketHandleWaiter and set the global pointer back to null.\n\nIf it\u0027s possible for multiple threads to call into Subscribe/Unsubscribe, this is a design issue that should be fixed upstream of here. Always do everything you can to ensure one class \u003d\u003d one thread. A class should only have multiple threads calling into it when the 2nd, 3rd, 4th, ... thread are internally started/stopped by an instance of the class itself (ensuring a lifetime guarantee).",
+      "revId": "fe7f623fd67ddb4bfe095245811c0fa252522c2a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
