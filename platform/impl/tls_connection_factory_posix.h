@@ -22,8 +22,21 @@ class StreamSocket;
 class TlsConnectionFactoryPosix : public TlsConnectionFactory,
                                   public TlsDataRouterPosix::SocketObserver {
  public:
+  class StreamSocketNetworkWatcher {
+   public:
+    virtual ~StreamSocketNetworkWatcher() = default;
+
+    virtual void OnStreamSocketListen(StreamSocketPosix* socket);
+
+    virtual void OnStreamSocketDestroyed(StreamSocketPosix* socket);
+  }
+
   TlsConnectionFactoryPosix(Client* client, TaskRunner* task_runner);
   ~TlsConnectionFactoryPosix() override;
+
+  void SetStreamSocketNetworkWatcher(StreamSocketNetworkWatcher* watcher) {
+    steam_socket_network_watcher_ = watcher;
+  }
 
   // TlsConnectionFactory overrides
   void Connect(const IPEndpoint& remote_address,
@@ -57,6 +70,8 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory,
 
   // SSL context, for creating SSL Connections via BoringSSL.
   bssl::UniquePtr<SSL_CTX> ssl_context_;
+
+  StreamSocketNetworkWatcher* steam_socket_network_watcher_;
 };
 
 }  // namespace platform
