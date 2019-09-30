@@ -18,8 +18,7 @@ using FakeUdpSocket = openscreen::platform::FakeUdpSocket;
 
 class MockMdnsReceiverDelegate : public MdnsReceiver::Delegate {
  public:
-  MOCK_METHOD2(OnQueryReceived, void(const MdnsMessage&, const IPEndpoint&));
-  MOCK_METHOD2(OnResponseReceived, void(const MdnsMessage&, const IPEndpoint&));
+  MOCK_METHOD2(OnMessageReceived, void(const MdnsMessage&, const IPEndpoint&));
 };
 
 TEST(MdnsReceiverTest, ReceiveQuery) {
@@ -43,7 +42,8 @@ TEST(MdnsReceiverTest, ReceiveQuery) {
   std::unique_ptr<openscreen::platform::FakeUdpSocket> socket_info =
       FakeUdpSocket::CreateDefault(openscreen::IPAddress::Version::kV4);
   MockMdnsReceiverDelegate delegate;
-  MdnsReceiver receiver(socket_info.get(), &delegate);
+  MdnsReceiver receiver(socket_info.get());
+  receiver.SetQueryDelegate(&delegate);
   receiver.Start();
 
   MdnsQuestion question(DomainName{"testing", "local"}, DnsType::kA,
@@ -60,7 +60,7 @@ TEST(MdnsReceiverTest, ReceiveQuery) {
                  .port = kDefaultMulticastPort});
 
   // Imitate a call to OnRead from NetworkRunner by calling it manually here
-  EXPECT_CALL(delegate, OnQueryReceived(message, packet.source())).Times(1);
+  EXPECT_CALL(delegate, OnMessageReceived(message, packet.source())).Times(1);
   receiver.OnRead(socket_info.get(), std::move(packet));
 
   receiver.Stop();
@@ -95,7 +95,8 @@ TEST(MdnsReceiverTest, ReceiveResponse) {
   std::unique_ptr<openscreen::platform::FakeUdpSocket> socket_info =
       FakeUdpSocket::CreateDefault(openscreen::IPAddress::Version::kV6);
   MockMdnsReceiverDelegate delegate;
-  MdnsReceiver receiver(socket_info.get(), &delegate);
+  MdnsReceiver receiver(socket_info.get());
+  receiver.SetResponseDelegate(&delegate);
   receiver.Start();
 
   MdnsRecord record(DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
@@ -114,7 +115,7 @@ TEST(MdnsReceiverTest, ReceiveResponse) {
                  .port = kDefaultMulticastPort});
 
   // Imitate a call to OnRead from NetworkRunner by calling it manually here
-  EXPECT_CALL(delegate, OnResponseReceived(message, packet.source())).Times(1);
+  EXPECT_CALL(delegate, OnMessageReceived(message, packet.source())).Times(1);
   receiver.OnRead(socket_info.get(), std::move(packet));
 
   receiver.Stop();
