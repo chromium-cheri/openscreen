@@ -90,9 +90,13 @@ bool TlsConnectionFactoryPosix::ConfigureSsl(TlsConnectionPosix* connection) {
 void TlsConnectionFactoryPosix::Listen(const IPEndpoint& local_address,
                                        const TlsCredentials& credentials,
                                        const TlsListenOptions& options) {
-  // TODO(jophba, rwkeane): Call TlsNetworkManagerPosix::RegisterListener on
-  // singleton instance.
-  OSP_UNIMPLEMENTED();
+  StreamSocketPosix socket(local_address);
+  // TODO(rwkeane): Store credentials, options for later usage.
+
+  OSP_DCHECK(steam_socket_listener_);
+  if (steam_socket_listener_) {
+    steam_socket_listener_->StartListening(std::move(local_address), this);
+  }
 }
 
 void TlsConnectionFactoryPosix::OnConnectionPending(StreamSocketPosix* socket) {

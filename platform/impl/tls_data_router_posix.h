@@ -11,11 +11,11 @@
 #include "absl/base/thread_annotations.h"
 #include "platform/api/logging.h"
 #include "platform/impl/socket_handle_waiter.h"
+#include "platform/impl/stream_socket_posix.h"
 
 namespace openscreen {
 namespace platform {
 
-class StreamSocketPosix;
 class TlsConnectionPosix;
 
 // This class is responsible for 3 operations:
@@ -30,18 +30,9 @@ class TlsConnectionPosix;
 // of them should block. Additionally, this class must ensure that deletions of
 // the above types do not occur while a socket/connection is currently being
 // accessed from the networking thread.
-class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
+class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber,
+                           public StreamSocketPosix::Listener {
  public:
-  class SocketObserver {
-   public:
-    virtual ~SocketObserver() = default;
-
-    // Socket creation shouldn't occur on the Networking thread, so pass the
-    // socket to the observer and expect them to call socket->Accept() on the
-    // correct thread.
-    virtual void OnConnectionPending(StreamSocketPosix* socket) = 0;
-  };
-
   // The provided SocketHandleWaiter is expected to live for the duration of
   // this object's lifetime.
   explicit TlsDataRouterPosix(SocketHandleWaiter* waiter);
@@ -54,27 +45,21 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
   // Deregister a TlsConnection.
   void DeregisterConnection(TlsConnectionPosix* connection);
 
-  // Register a StreamSocket that should be watched for incoming Tcp Connections
-  // with the SocketHandleWaiter.
-  void RegisterSocketObserver(StreamSocketPosix* socket,
-                              SocketObserver* observer);
-
-  // Stops watching a Tcp Connections for incoming connections.
-  void DeregisterSocketObserver(StreamSocketPosix* socket);
-
   // Method to be executed on TlsConnection destruction. This is expected to
   // block until the networking thread is not using the provided connection.
   void OnConnectionDestroyed(TlsConnectionPosix* connection);
-
-  // Method to be executed on StreamSocket destruction. This is expected to
-  // block until the networking thread is not using the provided socket.
-  virtual void OnSocketDestroyed(StreamSocketPosix* socket);
 
   // Perform Read on all registered sockets.
   void ReadAll();
 
   // Perform write on all registered sockets.
   void WriteAll();
+
+  // StreamSocketPosix::Listener overrides.
+  StreamSocketPosix* StartListening(
+      StreamSocketPosix socket,
+      StreamSocketPosix::Observer* observer) override;
+  void StopListening(StreamSocketPosix* socket) override;
 
   // SocketHandleWaiter::Subscriber overrides.
   void ProcessReadyHandle(SocketHandleWaiter::SocketHandleRef handle) override;
@@ -104,8 +89,11 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
 
   // Mapping from all sockets to the observer that should be called when the
   // socket recognizes an incoming connection.
-  std::unordered_map<StreamSocketPosix*, SocketObserver*> socket_mappings_
-      GUARDED_BY(socket_mutex_);
+  std::unordered_map<StreamSocketPosix*, StreamSocketPosix::Observer*>
+      socket_mappings_ GUARDED_BY(socket_mutex_);
+
+  // Set of all StreamSockets currently being watched.
+  std::vector<StreamSocketPosix> sockets_ GUARDED_BY(socket_mutex_);
 
   // Set of all TlsConnectionPosix objects currently registered.
   std::vector<TlsConnectionPosix*> connections_ GUARDED_BY(connections_mutex_);

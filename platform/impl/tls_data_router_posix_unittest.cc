@@ -18,12 +18,12 @@ class TestingDataRouter : public TlsDataRouterPosix {
 
   using TlsDataRouterPosix::IsSocketWatched;
 
-  void OnSocketDestroyed(StreamSocketPosix* socket) override {
+  void StopListening(StreamSocketPosix* socket) override {
     TlsDataRouterPosix::OnSocketDestroyed(socket, true);
   }
 };
 
-class MockObserver : public TestingDataRouter::SocketObserver {
+class MockObserver : public StreamSocketPosix::Observer {
   MOCK_METHOD1(OnConnectionPending, void(StreamSocketPosix*));
 };
 
@@ -38,22 +38,20 @@ class MockNetworkWaiter final : public SocketHandleWaiter {
 TEST(TlsNetworkingManagerPosixTest, SocketsWatchedCorrectly) {
   MockNetworkWaiter network_waiter;
   TestingDataRouter network_manager(&network_waiter);
-  StreamSocketPosix socket(IPAddress::Version::kV4);
+  StreamSocketPosix local_socket(IPAddress::Version::kV4);
   MockObserver observer;
 
-  ASSERT_FALSE(network_manager.IsSocketWatched(&socket));
+  ASSERT_FALSE(network_manager.IsSocketWatched(&local_socket));
 
-  network_manager.RegisterSocketObserver(&socket, &observer);
-  ASSERT_TRUE(network_manager.IsSocketWatched(&socket));
+  auto* socket =
+      network_manager.StartListening(std::move(local_socket), &observer);
+  ASSERT_TRUE(network_manager.IsSocketWatched(socket));
 
-  network_manager.DeregisterSocketObserver(&socket);
-  ASSERT_FALSE(network_manager.IsSocketWatched(&socket));
+  network_manager.StopListening(socket);
+  ASSERT_FALSE(network_manager.IsSocketWatched(socket));
 
-  network_manager.RegisterSocketObserver(&socket, &observer);
-  ASSERT_TRUE(network_manager.IsSocketWatched(&socket));
-
-  network_manager.OnSocketDestroyed(&socket);
-  ASSERT_FALSE(network_manager.IsSocketWatched(&socket));
+  network_manager.StopListening(socket);
+  ASSERT_FALSE(network_manager.IsSocketWatched(socket));
 }
 
 }  // namespace platform

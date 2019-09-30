@@ -9,21 +9,23 @@
 #include <memory>
 #include <string>
 
-#include "platform/api/tls_connection.h"
 #include "platform/api/tls_connection_factory.h"
 #include "platform/base/socket_state.h"
-#include "platform/impl/tls_data_router_posix.h"
+#include "platform/impl/stream_socket_posix.h"
+#include "platform/impl/tls_connection_posix.h"
 
 namespace openscreen {
 namespace platform {
 
-class StreamSocket;
-
 class TlsConnectionFactoryPosix : public TlsConnectionFactory,
-                                  public TlsDataRouterPosix::SocketObserver {
+                                  public StreamSocketPosix::Observer {
  public:
   TlsConnectionFactoryPosix(Client* client, TaskRunner* task_runner);
   ~TlsConnectionFactoryPosix() override;
+
+  void SetStreamListener(StreamSocketPosix::Listener* socket_listener) {
+    steam_socket_listener_ = socket_listener;
+  }
 
   // TlsConnectionFactory overrides
   void Connect(const IPEndpoint& remote_address,
@@ -32,7 +34,7 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory,
               const TlsCredentials& credentials,
               const TlsListenOptions& options) override;
 
-  // TlsDataRouterPosix::SocketObserver overrides.
+  // StreamSocketPosix::Observer overrides.
   void OnConnectionPending(StreamSocketPosix* socket) override;
 
  private:
@@ -57,6 +59,8 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory,
 
   // SSL context, for creating SSL Connections via BoringSSL.
   bssl::UniquePtr<SSL_CTX> ssl_context_;
+
+  StreamSocketPosix::Listener* steam_socket_listener_;
 };
 
 }  // namespace platform

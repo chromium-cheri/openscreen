@@ -28,30 +28,29 @@ void TlsDataRouterPosix::DeregisterConnection(TlsConnectionPosix* connection) {
   OSP_UNIMPLEMENTED();
 }
 
-void TlsDataRouterPosix::RegisterSocketObserver(StreamSocketPosix* socket,
-                                                SocketObserver* observer) {
-  OSP_DCHECK(socket);
+StreamSocketPosix* TlsDataRouterPosix::StartListening(
+    StreamSocketPosix socket,
+    StreamSocketPosix::Observer* observer) {
   OSP_DCHECK(observer);
+  StreamSocketPosix* socket_ptr;
   {
     std::unique_lock<std::mutex> lock(socket_mutex_);
-    socket_mappings_[socket] = observer;
+    sockets_.push_back(std::move(socket));
+    socket_ptr = &sockets_.back();
+    socket_mappings_[socket_ptr] = observer;
   }
 
-  waiter_->Subscribe(this, socket->socket_handle());
+  waiter_->Subscribe(this, socket_ptr->socket_handle());
+  return socket_ptr;
 }
 
-void TlsDataRouterPosix::DeregisterSocketObserver(StreamSocketPosix* socket) {
-  RemoveWatchedSocket(socket);
-  waiter_->Unsubscribe(this, socket->socket_handle());
+void TlsDataRouterPosix::StopListening(StreamSocketPosix* socket) {
+  OnSocketDestroyed(socket, false);
 }
 
 void TlsDataRouterPosix::OnConnectionDestroyed(TlsConnectionPosix* connection) {
   // TODO(jophba, rwkeane): implement this method.
   OSP_UNIMPLEMENTED();
-}
-
-void TlsDataRouterPosix::OnSocketDestroyed(StreamSocketPosix* socket) {
-  OnSocketDestroyed(socket, false);
 }
 
 void TlsDataRouterPosix::OnSocketDestroyed(StreamSocketPosix* socket,
@@ -91,6 +90,15 @@ void TlsDataRouterPosix::RemoveWatchedSocket(StreamSocketPosix* socket) {
   const auto it = socket_mappings_.find(socket);
   if (it != socket_mappings_.end()) {
     socket_mappings_.erase(it);
+    bool socket_seen = false;
+    for (auto it = sockets_.begin(); it != sockets_.end(); it++) {
+      if (&(*it) == socket) {
+        sockets_.erase(it);
+        socket_seen = true;
+        break;
+      }
+    }
+    OSP_DCHECK(socket_seen);
   }
 }
 
