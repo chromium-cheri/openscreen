@@ -10,16 +10,24 @@
 namespace cast {
 namespace mdns {
 
-MdnsReceiver::MdnsReceiver(UdpSocket* socket, Delegate* delegate)
-    : socket_(socket), delegate_(delegate) {
+MdnsReceiver::MdnsReceiver(UdpSocket* socket) : socket_(socket) {
   OSP_DCHECK(socket_);
-  OSP_DCHECK(delegate_);
 }
 
 MdnsReceiver::~MdnsReceiver() {
   if (state_ == State::kRunning) {
     Stop();
   }
+}
+
+void MdnsReceiver::SetQueryCallback(
+    std::function<void(const MdnsMessage&)> callback) {
+  query_callback_ = callback;
+}
+
+void MdnsReceiver::SetResponseCallback(
+    std::function<void(const MdnsMessage&)> callback) {
+  response_callback_ = callback;
 }
 
 void MdnsReceiver::Start() {
@@ -44,10 +52,16 @@ void MdnsReceiver::OnRead(UdpSocket* socket,
   if (!reader.Read(&message)) {
     return;
   }
-  if (message.type() == MessageType::Response) {
-    delegate_->OnResponseReceived(message, packet.source());
-  } else {
-    delegate_->OnQueryReceived(message, packet.source());
+  // TODO(yakimakha): We do not know how long it's going to take to run the
+  // delegate, this should probably go to TaskRunner
+
+  // Read delegate pointer into a local variable so it's value is not changed
+  // between checking for nullptr and calling the callback
+  std::function<void(const MdnsMessage&)> callback =
+      (message.type() == MessageType::Response) ? response_callback_
+                                                : query_callback_;
+  if (callback) {
+    callback(message);
   }
 }
 
