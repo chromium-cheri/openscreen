@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d0b6e50_27fa2f43",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-30T20:47:01Z",
+      "side": 1,
+      "message": "The comment is a bit misleading, AdvanceNextFrame only updates last_frame_consumed_ in case it drops frames, otherwise, the value is unchanged",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 72
+      },
+      "revId": "1d6bf1e5f301352f9c9352edf45e49a169ede353",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b4d9cf0_09109ba7",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-30T20:47:01Z",
+      "side": 1,
+      "message": "Maybe |current| or |frame_id|?",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 21
+      },
+      "revId": "1d6bf1e5f301352f9c9352edf45e49a169ede353",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d0da02f_d3052a62",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-30T20:47:01Z",
+      "side": 1,
+      "message": "Maybe like this?\nreturn *GetMutableQueueEntry(frame_id);",
+      "range": {
+        "startLine": 348,
+        "startChar": 3,
+        "endLine": 349,
+        "endChar": 49
+      },
+      "revId": "1d6bf1e5f301352f9c9352edf45e49a169ede353",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2400b43d_a6c7a9b2",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-30T20:47:01Z",
+      "side": 1,
+      "message": "Maybe std::upper_bound since you keep the array sorted?",
+      "range": {
+        "startLine": 363,
+        "startChar": 25,
+        "endLine": 363,
+        "endChar": 37
+      },
+      "revId": "1d6bf1e5f301352f9c9352edf45e49a169ede353",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57347e64_144f2d2e",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-30T20:47:01Z",
+      "side": 1,
+      "message": "Would it make sense to prune before insertion? And to compare IDs of as_of_frame and next_frame to figure out if insertion is needed?",
+      "range": {
+        "startLine": 372,
+        "startChar": 2,
+        "endLine": 372,
+        "endChar": 54
+      },
+      "revId": "1d6bf1e5f301352f9c9352edf45e49a169ede353",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5066b1ce_9b82633d",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-30T20:47:01Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 373,
+        "startChar": 34,
+        "endLine": 373,
+        "endChar": 46
+      },
+      "revId": "1d6bf1e5f301352f9c9352edf45e49a169ede353",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a373790d_c8339a41",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-30T20:47:01Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 394,
+        "startChar": 23,
+        "endLine": 394,
+        "endChar": 30
+      },
+      "revId": "1d6bf1e5f301352f9c9352edf45e49a169ede353",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf1f4093_82831961",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-09-30T20:47:01Z",
+      "side": 1,
+      "message": "const qualifier on the function is sufficient for overload, you can have these with the same name if you want to.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 55
+      },
+      "revId": "1d6bf1e5f301352f9c9352edf45e49a169ede353",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
