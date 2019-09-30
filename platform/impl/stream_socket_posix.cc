@@ -30,18 +30,23 @@ bool IsConnectionPending(int fd) {
 }
 }  // namespace
 
-StreamSocketPosix::StreamSocketPosix(IPAddress::Version version)
-    : version_(version) {}
+StreamSocketPosix::StreamSocketPosix(IPAddress::Version version,
+                                     Listener* listener)
+    : version_(version), listener_(listener) {}
 
-StreamSocketPosix::StreamSocketPosix(const IPEndpoint& local_endpoint)
+StreamSocketPosix::StreamSocketPosix(const IPEndpoint& local_endpoint,
+                                     Listener* listener)
     : version_(local_endpoint.address.version()),
-      local_address_(local_endpoint) {}
+      local_address_(local_endpoint),
+      listener_(listener) {}
 
 StreamSocketPosix::StreamSocketPosix(SocketAddressPosix local_address,
-                                     int file_descriptor)
+                                     int file_descriptor,
+                                     Listener* listener)
     : handle_(file_descriptor),
       version_(local_address.version()),
-      local_address_(local_address) {}
+      local_address_(local_address),
+      listener_(listener) {}
 
 StreamSocketPosix::~StreamSocketPosix() {
   if (state_ == SocketState::kConnected) {
@@ -103,6 +108,10 @@ Error StreamSocketPosix::Bind() {
 Error StreamSocketPosix::Close() {
   if (!EnsureInitialized()) {
     return ReportSocketClosedError();
+  }
+
+  if (listener_) {
+    listener_->StopListening(this);
   }
 
   if (state_ == SocketState::kClosed) {
@@ -193,7 +202,7 @@ IPAddress::Version StreamSocketPosix::version() const {
 }
 
 bool StreamSocketPosix::EnsureInitialized() {
-  if (!is_initialized_ && (last_error_code_.load() == Error::Code::kNone)) {
+  if (!is_initialized_ && (last_error_code_ == Error::Code::kNone)) {
     return Initialize() == Error::None();
   }
 
