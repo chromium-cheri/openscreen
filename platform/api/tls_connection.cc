@@ -14,7 +14,7 @@ void TlsConnection::OnWriteBlocked() {
     return;
   }
 
-  task_runner_->PostTask([this]() {
+  runtime_context_->task_runner()->PostTask([this]() {
     // TODO(issues/71): |this| may be invalid at this point.
     this->client_->OnWriteBlocked(this);
   });
@@ -25,7 +25,7 @@ void TlsConnection::OnWriteUnblocked() {
     return;
   }
 
-  task_runner_->PostTask([this]() {
+  runtime_context_->task_runner()->PostTask([this]() {
     // TODO(issues/71): |this| may be invalid at this point.
     this->client_->OnWriteUnblocked(this);
   });
@@ -36,10 +36,11 @@ void TlsConnection::OnError(Error error) {
     return;
   }
 
-  task_runner_->PostTask([e = std::move(error), this]() mutable {
-    // TODO(issues/71): |this| may be invalid at this point.
-    this->client_->OnError(this, std::move(e));
-  });
+  runtime_context_->task_runner()->PostTask(
+      [e = std::move(error), this]() mutable {
+        // TODO(issues/71): |this| may be invalid at this point.
+        this->client_->OnError(this, std::move(e));
+      });
 }
 
 void TlsConnection::OnRead(std::vector<uint8_t> block) {
@@ -47,10 +48,11 @@ void TlsConnection::OnRead(std::vector<uint8_t> block) {
     return;
   }
 
-  task_runner_->PostTask([b = std::move(block), this]() mutable {
-    // TODO(issues/71): |this| may be invalid at this point.
-    this->client_->OnRead(this, std::move(b));
-  });
+  runtime_context_->task_runner()->PostTask(
+      [b = std::move(block), this]() mutable {
+        // TODO(issues/71): |this| may be invalid at this point.
+        this->client_->OnRead(this, std::move(b));
+      });
 }
 
 }  // namespace platform

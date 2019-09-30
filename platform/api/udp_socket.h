@@ -20,7 +20,7 @@
 namespace openscreen {
 namespace platform {
 
-class TaskRunner;
+class RuntimeContext;
 class UdpSocket;
 
 using UdpSocketUniquePtr = std::unique_ptr<UdpSocket>;
@@ -101,7 +101,7 @@ class UdpSocket {
   // will be queued on the provided task_runner. For this reason, the provided
   // task_runner and client must exist for the duration of the created socket's
   // lifetime.
-  static ErrorOr<UdpSocketUniquePtr> Create(TaskRunner* task_runner,
+  static ErrorOr<UdpSocketUniquePtr> Create(RuntimeContext* runtime_context,
                                             Client* client,
                                             const IPEndpoint& local_endpoint);
 
@@ -140,9 +140,9 @@ class UdpSocket {
   virtual void SetDscp(DscpMode state) = 0;
 
  protected:
-  // Creates a new UdpSocket. The provided client and task_runner must exist for
-  // the duration of this socket's lifetime.
-  UdpSocket(TaskRunner* task_runner, Client* client);
+  // Creates a new UdpSocket. The provided client and runtime_context must exist
+  // for the duration of this socket's lifetime.
+  UdpSocket(RuntimeContext* runtime_context, Client* client);
 
   // Methods to take care of posting UdpSocket::Client callbacks for client_ to
   // task_runner_.
@@ -181,7 +181,7 @@ class UdpSocket {
   Client* const client_;
 
   // Task runner to use for queuing client_ callbacks.
-  TaskRunner* const task_runner_;
+  RuntimeContext* const runtime_context_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocket);
 };

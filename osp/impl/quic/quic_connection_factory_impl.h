@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "osp/impl/quic/quic_connection_factory.h"
+#include "platform/api/runtime_context.h"
 #include "platform/api/udp_socket.h"
 #include "platform/base/ip_address.h"
 #include "third_party/chromium_quic/src/base/at_exit.h"
@@ -21,7 +22,7 @@ class QuicTaskRunner;
 
 class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
  public:
-  QuicConnectionFactoryImpl(platform::TaskRunner* task_runner);
+  QuicConnectionFactoryImpl(platform::RuntimeContext* runtime_context);
   ~QuicConnectionFactoryImpl() override;
 
   // UdpSocket::Client overrides.
@@ -58,7 +59,7 @@ class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
   // NOTE: Must be provided in constructor and stored as an instance variable
   // rather than using the static accessor method to allow for UTs to mock this
   // layer.
-  platform::TaskRunner* const task_runner_;
+  platform::RuntimeContext* const runtime_context_;
 };
 
 }  // namespace openscreen

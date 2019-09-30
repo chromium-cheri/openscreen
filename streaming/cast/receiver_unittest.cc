@@ -20,6 +20,7 @@
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 #include "platform/test/fake_clock.h"
+#include "platform/test/fake_runtime_context.h"
 #include "platform/test/fake_task_runner.h"
 #include "streaming/cast/compound_rtcp_parser.h"
 #include "streaming/cast/constants.h"
@@ -36,7 +37,9 @@
 
 using openscreen::platform::Clock;
 using openscreen::platform::FakeClock;
+using openscreen::platform::FakeRuntimeContext;
 using openscreen::platform::FakeTaskRunner;
+using openscreen::platform::RuntimeContext;
 using openscreen::platform::TaskRunner;
 using openscreen::platform::UdpPacket;
 using openscreen::platform::UdpSocket;
@@ -253,8 +256,8 @@ class MockSender : public CompoundRtcpParser::Client {
 class MockEnvironment : public Environment {
  public:
   MockEnvironment(platform::ClockNowFunctionPtr now_function,
-                  platform::TaskRunner* task_runner)
-      : Environment(now_function, task_runner) {}
+                  platform::RuntimeContext* runtime_context)
+      : Environment(now_function, runtime_context) {}
 
   ~MockEnvironment() override = default;
 
@@ -272,7 +275,8 @@ class ReceiverTest : public testing::Test {
   ReceiverTest()
       : clock_(Clock::now()),
         task_runner_(&clock_),
-        env_(&FakeClock::now, &task_runner_),
+        runtime_context_(&task_runner_),
+        env_(&FakeClock::now, &runtime_context_),
         packet_router_(&env_),
         receiver_(&env_,
                   &packet_router_,
@@ -302,6 +306,7 @@ class ReceiverTest : public testing::Test {
  private:
   FakeClock clock_;
   FakeTaskRunner task_runner_;
+  FakeRuntimeContext runtime_context_;
   testing::NiceMock<MockEnvironment> env_;
   ReceiverPacketRouter packet_router_;
   Receiver receiver_;

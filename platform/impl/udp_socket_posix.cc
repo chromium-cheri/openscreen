@@ -52,11 +52,11 @@ ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
 
 }  // namespace
 
-UdpSocketPosix::UdpSocketPosix(TaskRunner* task_runner,
+UdpSocketPosix::UdpSocketPosix(RuntimeContext* runtime_context,
                                Client* client,
                                SocketHandle handle,
                                const IPEndpoint& local_endpoint)
-    : UdpSocket(task_runner, client),
+    : UdpSocket(runtime_context, client),
       handle_(handle),
       local_endpoint_(local_endpoint) {
   OSP_DCHECK(local_endpoint_.address.IsV4() || local_endpoint_.address.IsV6());
@@ -75,7 +75,7 @@ void UdpSocketPosix::Close() {
 }
 
 // static
-ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(TaskRunner* task_runner,
+ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(RuntimeContext* runtime_context,
                                               Client* client,
                                               const IPEndpoint& endpoint) {
   static std::atomic_bool in_create{false};
@@ -104,7 +104,7 @@ ErrorOr<UdpSocketUniquePtr> UdpSocket::Create(TaskRunner* task_runner,
   }
 
   auto socket = UdpSocketUniquePtr(static_cast<UdpSocket*>(new UdpSocketPosix(
-      task_runner, client, SocketHandle(fd.value()), endpoint)));
+      runtime_context, client, SocketHandle(fd.value()), endpoint)));
   in_create = false;
   return socket;
 }

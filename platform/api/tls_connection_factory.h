@@ -11,6 +11,7 @@
 #include <string>
 
 #include "absl/types/optional.h"
+#include "platform/api/runtime_context.h"
 #include "platform/api/tls_connection.h"
 #include "platform/base/ip_address.h"
 #include "platform/base/tls_connect_options.h"
@@ -45,7 +46,7 @@ class TlsConnectionFactory {
   // callbacks both on the factory and on created TlsConnection instances.
   static std::unique_ptr<TlsConnectionFactory> CreateFactory(
       Client* client,
-      TaskRunner* task_runner);
+      RuntimeContext* runtime_context);
 
   virtual ~TlsConnectionFactory() = default;
 
@@ -61,8 +62,8 @@ class TlsConnectionFactory {
                       const TlsListenOptions& options) = 0;
 
  protected:
-  TlsConnectionFactory(Client* client, TaskRunner* task_runner)
-      : client_(client), task_runner_(task_runner) {}
+  TlsConnectionFactory(Client* client, RuntimeContext* runtime_context)
+      : client_(client), runtime_context_(runtime_context) {}
 
   // The below methods proxy calls to this TlsConnectionFactory's Client.
   void OnAccepted(std::unique_ptr<TlsConnection> connection);
@@ -76,7 +77,7 @@ class TlsConnectionFactory {
 
  private:
   Client* client_;
-  TaskRunner* task_runner_;
+  RuntimeContext* runtime_context_;
 };
 
 }  // namespace platform

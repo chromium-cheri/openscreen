@@ -18,7 +18,7 @@
 namespace openscreen {
 
 namespace platform {
-class TaskRunner;
+class RuntimeContext;
 }  // namespace platform
 
 namespace cast_streaming {
@@ -37,17 +37,17 @@ class Environment : public platform::UdpSocket::Client {
     virtual ~PacketConsumer();
   };
 
-  // Construct with the given clock source and TaskRunner. Creates and
+  // Construct with the given clock source and RuntimeContext. Creates and
   // internally-owns a UdpSocket, and immediately binds it to the given
   // |local_endpoint|.
   Environment(platform::ClockNowFunctionPtr now_function,
-              platform::TaskRunner* task_runner,
+              platform::RuntimeContext* runtime_context,
               const IPEndpoint& local_endpoint);
 
   ~Environment() override;
 
   platform::ClockNowFunctionPtr now_function() const { return now_function_; }
-  platform::TaskRunner* task_runner() const { return task_runner_; }
+  platform::RuntimeContext* runtime_context() const { return runtime_context_; }
 
   // Returns the local endpoint the socket is bound to, or the zero IPEndpoint
   // if socket creation/binding failed.
@@ -92,7 +92,7 @@ class Environment : public platform::UdpSocket::Client {
   // create a socket. Subclasses use this to provide an alternative packet
   // receive/send mechanism (e.g., for testing).
   Environment(platform::ClockNowFunctionPtr now_function,
-              platform::TaskRunner* task_runner);
+              platform::RuntimeContext* runtime_context);
 
  private:
   // platform::UdpSocket::Client implementation.
@@ -102,7 +102,7 @@ class Environment : public platform::UdpSocket::Client {
               ErrorOr<platform::UdpPacket> packet_or_error) final;
 
   const platform::ClockNowFunctionPtr now_function_;
-  platform::TaskRunner* const task_runner_;
+  platform::RuntimeContext* const runtime_context_;
 
   // The UDP socket bound to the local endpoint that was passed into the
   // constructor, or null if socket creation failed.

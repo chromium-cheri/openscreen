@@ -9,13 +9,14 @@
 #include "osp/impl/quic/quic_client.h"
 #include "osp/impl/quic/quic_server.h"
 #include "osp/public/network_service_manager.h"
+#include "platform/test/fake_runtime_context.h"
 #include "platform/test/fake_task_runner.h"
 
 namespace openscreen {
 
 FakeQuicBridge::FakeQuicBridge(platform::FakeTaskRunner* task_runner,
                                platform::ClockNowFunctionPtr now_function)
-    : task_runner_(task_runner) {
+    : task_runner_(task_runner), runtime_context_(task_runner) {
   fake_bridge =
       std::make_unique<FakeQuicConnectionFactoryBridge>(kControllerEndpoint);
 
@@ -27,7 +28,7 @@ FakeQuicBridge::FakeQuicBridge(platform::FakeTaskRunner* task_runner,
   auto fake_client_factory =
       std::make_unique<FakeClientQuicConnectionFactory>(fake_bridge.get());
   client_socket_ = std::make_unique<platform::FakeUdpSocket>(
-      task_runner_, fake_client_factory.get());
+      &runtime_context_, fake_client_factory.get());
 
   // TODO(rwkeane): Pass actual task runner instead of nullptr once the fake
   // task runner correctly respects the time delay for delayed tasks.
@@ -38,7 +39,7 @@ FakeQuicBridge::FakeQuicBridge(platform::FakeTaskRunner* task_runner,
   auto fake_server_factory =
       std::make_unique<FakeServerQuicConnectionFactory>(fake_bridge.get());
   server_socket_ = std::make_unique<platform::FakeUdpSocket>(
-      task_runner_, fake_server_factory.get());
+      &runtime_context_, fake_server_factory.get());
   ServerConfig config;
   config.connection_endpoints.push_back(kReceiverEndpoint);
   quic_server = std::make_unique<QuicServer>(config, receiver_demuxer.get(),

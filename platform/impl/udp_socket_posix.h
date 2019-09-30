@@ -16,7 +16,7 @@ struct UdpSocketPosix : public UdpSocket {
  public:
   // Creates a new UdpSocketPosix. The provided client and task_runner must
   // exist for the duration of this socket's lifetime.
-  UdpSocketPosix(TaskRunner* task_runner,
+  UdpSocketPosix(RuntimeContext* runtime_context,
                  Client* client,
                  SocketHandle handle,
                  const IPEndpoint& local_endpoint);

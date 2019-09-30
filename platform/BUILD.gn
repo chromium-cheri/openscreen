@@ -15,6 +15,7 @@ source_set("platform") {
     "api/logging_util.cc",
     "api/network_interface.cc",
     "api/network_interface.h",
+    "api/runtime_context.h",
     "api/scoped_wake_lock.cc",
     "api/scoped_wake_lock.h",
     "api/socket.h",
@@ -82,6 +83,7 @@ source_set("platform") {
 
     if (is_posix) {
       sources += [
+        "impl/runtime_context.cc",
         "impl/scoped_pipe.h",
         "impl/scoped_wake_lock_posix.cc",
         "impl/scoped_wake_lock_posix.h",
@@ -120,6 +122,7 @@ source_set("test") {
   sources = [
     "test/fake_clock.cc",
     "test/fake_clock.h",
+    "test/fake_runtime_context.h",
     "test/fake_task_runner.cc",
     "test/fake_task_runner.h",
     "test/fake_udp_socket.cc",

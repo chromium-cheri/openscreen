@@ -10,6 +10,7 @@
 
 #include "absl/types/optional.h"
 #include "platform/api/logging.h"
+#include "platform/api/runtime_context.h"
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
 
@@ -19,11 +20,11 @@ QuicClient::QuicClient(
     MessageDemuxer* demuxer,
     std::unique_ptr<QuicConnectionFactory> connection_factory,
     ProtocolConnectionServiceObserver* observer,
-    platform::TaskRunner* task_runner)
+    platform::RuntimeContext* runtime_context)
     : ProtocolConnectionClient(demuxer, observer),
       connection_factory_(std::move(connection_factory)) {
-  if (task_runner != nullptr) {
-    platform::RepeatingFunction::Post(task_runner,
+  if (runtime_context != nullptr) {
+    platform::RepeatingFunction::Post(runtime_context->task_runner(),
                                       std::bind(&QuicClient::Cleanup, this));
   }
 }

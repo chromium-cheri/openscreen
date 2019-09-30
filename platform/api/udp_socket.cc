@@ -4,14 +4,15 @@
 
 #include "platform/api/udp_socket.h"
 
+#include "platform/api/runtime_context.h"
 #include "platform/api/task_runner.h"
 
 namespace openscreen {
 namespace platform {
 
-UdpSocket::UdpSocket(TaskRunner* task_runner, Client* client)
-    : client_(client), task_runner_(task_runner) {
-  OSP_CHECK(task_runner_);
+UdpSocket::UdpSocket(RuntimeContext* runtime_context, Client* client)
+    : client_(client), runtime_context_(runtime_context) {
+  OSP_CHECK(runtime_context_);
   if (lifetime_observer_.load()) {
     lifetime_observer_.load()->OnCreate(this);
   }
@@ -37,10 +38,11 @@ void UdpSocket::OnError(Error error) {
     return;
   }
 
-  task_runner_->PostTask([e = std::move(error), this]() mutable {
-    // TODO(issues/71): |this| may be invalid at this point.
-    this->client_->OnError(this, std::move(e));
-  });
+  runtime_context_->task_runner()->PostTask(
+      [e = std::move(error), this]() mutable {
+        // TODO(issues/71): |this| may be invalid at this point.
+        this->client_->OnError(this, std::move(e));
+      });
 }
 
 void UdpSocket::OnSendError(Error error) {
@@ -48,10 +50,11 @@ void UdpSocket::OnSendError(Error error) {
     return;
   }
 
-  task_runner_->PostTask([e = std::move(error), this]() mutable {
-    // TODO(issues/71): |this| may be invalid at this point.
-    this->client_->OnSendError(this, std::move(e));
-  });
+  runtime_context_->task_runner()->PostTask(
+      [e = std::move(error), this]() mutable {
+        // TODO(issues/71): |this| may be invalid at this point.
+        this->client_->OnSendError(this, std::move(e));
+      });
 }
 
 void UdpSocket::OnRead(ErrorOr<UdpPacket> read_data) {
@@ -59,10 +62,11 @@ void UdpSocket::OnRead(ErrorOr<UdpPacket> read_data) {
     return;
   }
 
-  task_runner_->PostTask([data = std::move(read_data), this]() mutable {
-    // TODO(issues/71): |this| may be invalid at this point.
-    this->client_->OnRead(this, std::move(data));
-  });
+  runtime_context_->task_runner()->PostTask(
+      [data = std::move(read_data), this]() mutable {
+        // TODO(issues/71): |this| may be invalid at this point.
+        this->client_->OnRead(this, std::move(data));
+      });
 }
 
 void UdpSocket::CloseIfError(const Error& error) {

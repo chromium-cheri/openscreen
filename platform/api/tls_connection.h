@@ -12,7 +12,7 @@
 
 #include "absl/types/optional.h"
 #include "platform/api/network_interface.h"
-#include "platform/api/task_runner.h"
+#include "platform/api/runtime_context.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 #include "platform/base/macros.h"
@@ -58,7 +58,8 @@ class TlsConnection {
   virtual ~TlsConnection() = default;
 
  protected:
-  explicit TlsConnection(TaskRunner* task_runner) : task_runner_(task_runner) {}
+  explicit TlsConnection(RuntimeContext* runtime_context)
+      : runtime_context_(runtime_context) {}
 
   // Called when |connection| writing is blocked and unblocked, respectively.
   // This call will be proxied to the Client set for this TlsConnection.
@@ -75,7 +76,7 @@ class TlsConnection {
 
  private:
   Client* client_;
-  TaskRunner* const task_runner_;
+  RuntimeContext* const runtime_context_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TlsConnection);
 };

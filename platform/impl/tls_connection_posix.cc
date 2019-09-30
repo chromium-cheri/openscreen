@@ -30,20 +30,22 @@ namespace platform {
 
 // TODO(jophba, rwkeane): implement write blocking/unblocking
 TlsConnectionPosix::TlsConnectionPosix(IPEndpoint local_address,
-                                       TaskRunner* task_runner)
-    : TlsConnection(task_runner),
+                                       RuntimeContext* runtime_context)
+    : TlsConnection(runtime_context),
       socket_(std::make_unique<StreamSocketPosix>(local_address)),
       buffer_(this) {}
 
 TlsConnectionPosix::TlsConnectionPosix(IPAddress::Version version,
-                                       TaskRunner* task_runner)
-    : TlsConnection(task_runner),
+                                       RuntimeContext* runtime_context)
+    : TlsConnection(runtime_context),
       socket_(std::make_unique<StreamSocketPosix>(version)),
       buffer_(this) {}
 
 TlsConnectionPosix::TlsConnectionPosix(std::unique_ptr<StreamSocket> socket,
-                                       TaskRunner* task_runner)
-    : TlsConnection(task_runner), socket_(std::move(socket)), buffer_(this) {}
+                                       RuntimeContext* runtime_context)
+    : TlsConnection(runtime_context),
+      socket_(std::move(socket)),
+      buffer_(this) {}
 
 TlsConnectionPosix::~TlsConnectionPosix() = default;
 
