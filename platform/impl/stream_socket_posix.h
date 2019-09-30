@@ -1,3 +1,4 @@
+
 // Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -21,14 +22,44 @@ namespace platform {
 
 class StreamSocketPosix : public StreamSocket {
  public:
-  StreamSocketPosix(IPAddress::Version version);
-  explicit StreamSocketPosix(const IPEndpoint& local_endpoint);
-  StreamSocketPosix(SocketAddressPosix local_address, int file_descriptor);
+  class Observer {
+   public:
+    virtual ~Observer() = default;
 
-  // StreamSocketPosix is non-copyable, due to directly managing the file
-  // descriptor.
+    // Socket creation shouldn't occur on the Networking thread, so pass the
+    // socket to the observer and expect them to call socket->Accept() on the
+    // correct thread.
+    virtual void OnConnectionPending(StreamSocketPosix* socket) = 0;
+  };
+
+  class Listener {
+   public:
+    virtual ~Listener() = default;
+
+    // Begins watching the provided StreamSocket for incoming TLS connections
+    // and configures it to call the provided observer when any are detected.
+    // A pointer to the new location of the socket is returned.
+    virtual StreamSocketPosix* StartListening(StreamSocketPosix socket,
+                                              Observer* observer) = 0;
+
+    // Stops watching a Tcp Connections for incoming connections.
+    virtual void StopListening(StreamSocketPosix* socket) = 0;
+  };
+
+  StreamSocketPosix(IPAddress::Version version, Listener* listener = nullptr);
+  StreamSocketPosix(const IPEndpoint& local_endpoint,
+                    Listener* listener = nullptr);
+  StreamSocketPosix(SocketAddressPosix local_address,
+                    int file_descriptor,
+                    Listener* listener = nullptr);
+
+  // StreamSocketPosix is moveable but non-copyable, due to directly managing
+  // the file descriptor.
   StreamSocketPosix(const StreamSocketPosix& other) = delete;
+  StreamSocketPosix(StreamSocketPosix&& other) = default;
   StreamSocketPosix& operator=(const StreamSocketPosix& other) = delete;
+  StreamSocketPosix& operator=(StreamSocketPosix&& other) = default;
+
   virtual ~StreamSocketPosix();
 
   // StreamSocket overrides.
@@ -64,14 +95,16 @@ class StreamSocketPosix : public StreamSocket {
 
   // last_error_code_ is an Error::Code instead of an Error so it meets
   // atomic's (trivially) copyable and moveable requirements.
-  std::atomic<Error::Code> last_error_code_ = {Error::Code::kNone};
-  const IPAddress::Version version_;
+  Error::Code last_error_code_ = Error::Code::kNone;
+  IPAddress::Version version_;
   absl::optional<SocketAddressPosix> local_address_;
   absl::optional<IPEndpoint> remote_address_;
 
   bool is_bound_ = false;
   bool is_initialized_ = false;
   SocketState state_ = SocketState::kNotConnected;
+
+  Listener* listener_;
 };
 
 }  // namespace platform
