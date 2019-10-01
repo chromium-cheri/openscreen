@@ -7,6 +7,7 @@
 #include "platform/api/udp_socket.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
+#include "platform/base/runtime_context.h"
 #include "platform/impl/socket_handle_waiter_thread.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/udp_socket_reader_posix.h"
@@ -83,12 +84,14 @@ int main(int argc, const char* argv[]) {
       socket_handle_waiter_thread.socket_handle_waiter());
   openscreen::platform::UdpSocket::SetLifetimeObserver(&udp_socket_reader);
 
+  openscreen::RuntimeContext runtime_context(&task_runner);
+
   // Create the Environment that holds the required injected dependencies
   // (clock, task runner) used throughout the system, and owns the UDP socket
   // over which all communication occurs with the Sender.
   const openscreen::IPEndpoint receive_endpoint{openscreen::IPAddress(),
                                                 kCastStreamingPort};
-  openscreen::cast_streaming::Environment env(now_function, &task_runner,
+  openscreen::cast_streaming::Environment env(now_function, &runtime_context,
                                               receive_endpoint);
 
   // Create the packet router that allows both the Audio Receiver and the Video

@@ -13,11 +13,12 @@
 #include "osp/impl/quic/quic_connection_factory.h"
 #include "osp/impl/quic/quic_service_common.h"
 #include "osp/public/protocol_connection_client.h"
-#include "platform/api/task_runner.h"
 #include "platform/api/time.h"
 #include "platform/base/ip_address.h"
 
 namespace openscreen {
+
+class RuntimeContext;
 
 // This class is the default implementation of ProtocolConnectionClient for the
 // library.  It manages connections to other endpoints as well as the lifetime
@@ -41,7 +42,7 @@ class QuicClient final : public ProtocolConnectionClient,
   QuicClient(MessageDemuxer* demuxer,
              std::unique_ptr<QuicConnectionFactory> connection_factory,
              ProtocolConnectionServiceObserver* observer,
-             platform::TaskRunner* task_runner);
+             RuntimeContext* runtime_context);
   ~QuicClient() override;
 
   // ProtocolConnectionClient overrides.

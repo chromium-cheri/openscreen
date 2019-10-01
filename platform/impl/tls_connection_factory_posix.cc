@@ -22,6 +22,7 @@
 #include "platform/api/tls_connection_factory.h"
 #include "platform/api/trace_logging.h"
 #include "platform/base/error.h"
+#include "platform/base/runtime_context.h"
 #include "platform/impl/stream_socket.h"
 #include "platform/impl/tls_connection_posix.h"
 #include "util/crypto/openssl_util.h"
@@ -31,14 +32,16 @@ namespace platform {
 
 std::unique_ptr<TlsConnectionFactory> TlsConnectionFactory::CreateFactory(
     Client* client,
-    TaskRunner* task_runner) {
+    RuntimeContext* runtime_context) {
   return std::unique_ptr<TlsConnectionFactory>(
-      new TlsConnectionFactoryPosix(client, task_runner));
+      new TlsConnectionFactoryPosix(client, runtime_context));
 }
 
-TlsConnectionFactoryPosix::TlsConnectionFactoryPosix(Client* client,
-                                                     TaskRunner* task_runner)
-    : TlsConnectionFactory(client, task_runner), task_runner_(task_runner) {}
+TlsConnectionFactoryPosix::TlsConnectionFactoryPosix(
+    Client* client,
+    RuntimeContext* runtime_context)
+    : TlsConnectionFactory(client, runtime_context),
+      runtime_context_(runtime_context) {}
 
 TlsConnectionFactoryPosix::~TlsConnectionFactoryPosix() = default;
 
@@ -49,7 +52,7 @@ void TlsConnectionFactoryPosix::Connect(const IPEndpoint& remote_address,
   TRACE_SCOPED(TraceCategory::SSL, "TlsConnectionFactoryPosix::Connect");
   IPAddress::Version version = remote_address.address.version();
   std::unique_ptr<TlsConnectionPosix> connection =
-      std::make_unique<TlsConnectionPosix>(version, task_runner_);
+      std::make_unique<TlsConnectionPosix>(version, runtime_context_);
   Error connect_error = connection->socket_->Connect(remote_address);
   if (!connect_error.ok()) {
     TRACE_SET_RESULT(connect_error.error());
@@ -96,7 +99,7 @@ void TlsConnectionFactoryPosix::Listen(const IPEndpoint& local_address,
 }
 
 void TlsConnectionFactoryPosix::OnConnectionPending(StreamSocketPosix* socket) {
-  task_runner_->PostTask([socket, this]() mutable {
+  runtime_context_->task_runner()->PostTask([socket, this]() mutable {
     // TODO(issues/71): |this|, |socket| may be invalid at this point.
     ErrorOr<std::unique_ptr<StreamSocket>> accepted = socket->Accept();
     if (accepted.is_error()) {
@@ -119,7 +122,7 @@ void TlsConnectionFactoryPosix::OnSocketAccepted(
   TRACE_SCOPED(TraceCategory::SSL,
                "TlsConnectionFactoryPosix::OnSocketAccepted");
   auto connection =
-      std::make_unique<TlsConnectionPosix>(std::move(socket), task_runner_);
+      std::make_unique<TlsConnectionPosix>(std::move(socket), runtime_context_);
 
   if (ConfigureSsl(connection.get())) {
     OnAccepted(std::move(connection));

@@ -10,9 +10,8 @@
 #include "osp/public/service_listener.h"
 
 namespace openscreen {
-namespace platform {
-class TaskRunner;
-}  // namespace platform
+
+class RuntimeContext;
 
 struct MdnsServiceListenerConfig {
   // TODO(mfoltz): Populate with actual parameters as implementation progresses.
@@ -24,7 +23,7 @@ class MdnsServiceListenerFactory {
   static std::unique_ptr<ServiceListener> Create(
       const MdnsServiceListenerConfig& config,
       ServiceListener::Observer* observer,
-      platform::TaskRunner* task_runner);
+      RuntimeContext* runtime_context);
 };
 
 }  // namespace openscreen

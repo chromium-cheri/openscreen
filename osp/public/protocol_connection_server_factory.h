@@ -11,9 +11,8 @@
 #include "osp/public/server_config.h"
 
 namespace openscreen {
-namespace platform {
-class TaskRunner;
-}
+
+class RuntimeContext;
 
 class ProtocolConnectionServerFactory {
  public:
@@ -21,7 +20,7 @@ class ProtocolConnectionServerFactory {
       const ServerConfig& config,
       MessageDemuxer* demuxer,
       ProtocolConnectionServer::Observer* observer,
-      platform::TaskRunner* task_runner);
+      RuntimeContext* runtime_context);
 };
 
 }  // namespace openscreen

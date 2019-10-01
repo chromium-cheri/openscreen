@@ -5,13 +5,13 @@
 #include "platform/api/udp_socket.h"
 
 #include "platform/api/task_runner.h"
+#include "platform/base/runtime_context.h"
 
 namespace openscreen {
 namespace platform {
 
-UdpSocket::UdpSocket(TaskRunner* task_runner, Client* client)
-    : client_(client), task_runner_(task_runner) {
-  OSP_CHECK(task_runner_);
+UdpSocket::UdpSocket(RuntimeContext* runtime_context, Client* client)
+    : client_(client), task_runner_(runtime_context->task_runner()) {
   if (lifetime_observer_.load()) {
     lifetime_observer_.load()->OnCreate(this);
   }

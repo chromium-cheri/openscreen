@@ -4,6 +4,8 @@
 
 #include "platform/api/tls_connection_factory.h"
 
+#include "platform/api/task_runner.h"
+
 namespace openscreen {
 namespace platform {
 

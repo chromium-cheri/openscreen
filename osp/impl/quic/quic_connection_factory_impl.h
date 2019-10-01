@@ -18,10 +18,11 @@
 namespace openscreen {
 
 class QuicTaskRunner;
+class RuntimeContext;
 
 class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
  public:
-  QuicConnectionFactoryImpl(platform::TaskRunner* task_runner);
+  QuicConnectionFactoryImpl(RuntimeContext* runtime_context);
   ~QuicConnectionFactoryImpl() override;
 
   // UdpSocket::Client overrides.
@@ -58,7 +59,7 @@ class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
   // NOTE: Must be provided in constructor and stored as an instance variable
   // rather than using the static accessor method to allow for UTs to mock this
   // layer.
-  platform::TaskRunner* const task_runner_;
+  RuntimeContext* const runtime_context_;
 };
 
 }  // namespace openscreen

@@ -6,6 +6,7 @@
 
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
+#include "platform/base/runtime_context.h"
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
 #include "platform/test/fake_udp_socket.h"
@@ -27,13 +28,14 @@ using testing::_;
 TEST(UdpSocketTest, TestDeletionWithoutCallbackSet) {
   FakeClock clock(Clock::now());
   FakeTaskRunner task_runner(&clock);
+  RuntimeContext runtime_context(&task_runner);
   FakeUdpSocket::MockClient client;
   MockCallbacks callbacks;
   EXPECT_CALL(callbacks, OnCreate(_)).Times(0);
   EXPECT_CALL(callbacks, OnDestroy(_)).Times(0);
   {
     UdpSocket* socket =
-        new FakeUdpSocket(&task_runner, &client, UdpSocket::Version::kV4);
+        new FakeUdpSocket(&runtime_context, &client, UdpSocket::Version::kV4);
     delete socket;
   }
 }
@@ -41,6 +43,7 @@ TEST(UdpSocketTest, TestDeletionWithoutCallbackSet) {
 TEST(UdpSocketTest, TestCallbackCalledOnDeletion) {
   FakeClock clock(Clock::now());
   FakeTaskRunner task_runner(&clock);
+  RuntimeContext runtime_context(&task_runner);
   FakeUdpSocket::MockClient client;
   MockCallbacks callbacks;
   EXPECT_CALL(callbacks, OnCreate(_)).Times(1);
@@ -49,7 +52,7 @@ TEST(UdpSocketTest, TestCallbackCalledOnDeletion) {
 
   {
     UdpSocket* socket =
-        new FakeUdpSocket(&task_runner, &client, UdpSocket::Version::kV4);
+        new FakeUdpSocket(&runtime_context, &client, UdpSocket::Version::kV4);
     delete socket;
   }
 

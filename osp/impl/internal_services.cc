@@ -11,6 +11,7 @@
 #include "platform/api/logging.h"
 #include "platform/api/udp_socket.h"
 #include "platform/base/error.h"
+#include "platform/base/runtime_context.h"
 
 namespace openscreen {
 namespace {
@@ -59,8 +60,8 @@ int g_instance_ref_count = 0;
 std::unique_ptr<ServiceListener> InternalServices::CreateListener(
     const MdnsServiceListenerConfig& config,
     ServiceListener::Observer* observer,
-    platform::TaskRunner* task_runner) {
-  auto* services = ReferenceSingleton(task_runner);
+    RuntimeContext* runtime_context) {
+  auto* services = ReferenceSingleton(runtime_context);
   auto listener =
       std::make_unique<ServiceListenerImpl>(&services->mdns_service_);
   listener->AddObserver(observer);
@@ -73,8 +74,8 @@ std::unique_ptr<ServiceListener> InternalServices::CreateListener(
 std::unique_ptr<ServicePublisher> InternalServices::CreatePublisher(
     const ServicePublisher::Config& config,
     ServicePublisher::Observer* observer,
-    platform::TaskRunner* task_runner) {
-  auto* services = ReferenceSingleton(task_runner);
+    RuntimeContext* runtime_context) {
+  auto* services = ReferenceSingleton(runtime_context);
   services->mdns_service_.SetServiceConfig(
       config.hostname, config.service_instance_name,
       config.connection_server_port, config.network_interface_indices,
@@ -131,7 +132,7 @@ InternalServices::InternalPlatformLinkage::RegisterInterfaces(
     const platform::IPSubnet& primary_subnet = addr.addresses.front();
 
     auto create_result =
-        platform::UdpSocket::Create(parent_->task_runner_, parent_,
+        platform::UdpSocket::Create(parent_->runtime_context_, parent_,
                                     IPEndpoint{{}, kMulticastListeningPort});
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create socket for interface " << index << ": "
@@ -167,13 +168,13 @@ void InternalServices::InternalPlatformLinkage::DeregisterInterfaces(
   }
 }
 
-InternalServices::InternalServices(platform::TaskRunner* task_runner)
-    : mdns_service_(task_runner,
+InternalServices::InternalServices(RuntimeContext* runtime_context)
+    : mdns_service_(runtime_context->task_runner(),
                     kServiceName,
                     kServiceProtocol,
                     std::make_unique<MdnsResponderAdapterImplFactory>(),
                     std::make_unique<InternalPlatformLinkage>(this)),
-      task_runner_(task_runner) {}
+      runtime_context_(runtime_context) {}
 
 InternalServices::~InternalServices() = default;
 
@@ -190,10 +191,10 @@ void InternalServices::DeregisterMdnsSocket(platform::UdpSocket* socket) {
 
 // static
 InternalServices* InternalServices::ReferenceSingleton(
-    platform::TaskRunner* task_runner) {
+    RuntimeContext* runtime_context) {
   if (!g_instance) {
     OSP_CHECK_EQ(g_instance_ref_count, 0);
-    g_instance = new InternalServices(task_runner);
+    g_instance = new InternalServices(runtime_context);
   }
   ++g_instance_ref_count;
   return g_instance;

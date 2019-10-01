@@ -22,7 +22,7 @@ class StreamSocket;
 class TlsConnectionFactoryPosix : public TlsConnectionFactory,
                                   public TlsDataRouterPosix::SocketObserver {
  public:
-  TlsConnectionFactoryPosix(Client* client, TaskRunner* task_runner);
+  TlsConnectionFactoryPosix(Client* client, RuntimeContext* runtime_context);
   ~TlsConnectionFactoryPosix() override;
 
   // TlsConnectionFactory overrides
@@ -53,7 +53,7 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory,
   // Thread-safe mechanism to ensure Initialize() is only called once.
   std::once_flag initInstanceFlag;
 
-  TaskRunner* task_runner_;
+  RuntimeContext* const runtime_context_;
 
   // SSL context, for creating SSL Connections via BoringSSL.
   bssl::UniquePtr<SSL_CTX> ssl_context_;

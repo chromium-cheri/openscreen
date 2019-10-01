@@ -23,9 +23,8 @@
 #include "platform/base/macros.h"
 
 namespace openscreen {
-namespace platform {
-class TaskRunner;
-}  // namespace platform
+
+class RuntimeContext;
 
 // Factory for ServiceListener and ServicePublisher instances; owns internal
 // objects needed to instantiate them such as MdnsResponderService and runs an
@@ -37,11 +36,11 @@ class InternalServices : platform::UdpSocket::Client {
   static std::unique_ptr<ServiceListener> CreateListener(
       const MdnsServiceListenerConfig& config,
       ServiceListener::Observer* observer,
-      platform::TaskRunner* task_runner);
+      RuntimeContext* runtime_context);
   static std::unique_ptr<ServicePublisher> CreatePublisher(
       const ServicePublisher::Config& config,
       ServicePublisher::Observer* observer,
-      platform::TaskRunner* task_runner);
+      RuntimeContext* runtime_context);
 
   // UdpSocket::Client overrides.
   void OnError(platform::UdpSocket* socket, Error error) override;
@@ -67,19 +66,18 @@ class InternalServices : platform::UdpSocket::Client {
 
   // The TaskRunner provided here should live for the duration of this
   // InternalService object's lifetime.
-  explicit InternalServices(platform::TaskRunner* task_runner);
+  explicit InternalServices(RuntimeContext* runtime_context);
   ~InternalServices() override;
 
   void RegisterMdnsSocket(platform::UdpSocket* socket);
   void DeregisterMdnsSocket(platform::UdpSocket* socket);
 
-  static InternalServices* ReferenceSingleton(
-      platform::TaskRunner* task_runner);
+  static InternalServices* ReferenceSingleton(RuntimeContext* runtime_context);
   static void DereferenceSingleton(void* instance);
 
   MdnsResponderService mdns_service_;
 
-  platform::TaskRunner* const task_runner_;
+  RuntimeContext* const runtime_context_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(InternalServices);
 };

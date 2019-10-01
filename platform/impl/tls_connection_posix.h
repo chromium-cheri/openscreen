@@ -19,15 +19,19 @@
 #include "platform/impl/tls_write_buffer.h"
 
 namespace openscreen {
+
+class RuntimeContext;
+
 namespace platform {
 
 class TlsConnectionPosix : public TlsConnection,
                            public TlsWriteBuffer::Observer {
  public:
-  TlsConnectionPosix(IPEndpoint local_address, TaskRunner* task_runner);
-  TlsConnectionPosix(IPAddress::Version version, TaskRunner* task_runner);
+  TlsConnectionPosix(IPEndpoint local_address, RuntimeContext* runtime_context);
+  TlsConnectionPosix(IPAddress::Version version,
+                     RuntimeContext* runtime_context);
   TlsConnectionPosix(std::unique_ptr<StreamSocket> socket,
-                     TaskRunner* task_runner);
+                     RuntimeContext* runtime_context);
   ~TlsConnectionPosix();
 
   // Sends any available bytes from this connection's buffer_.

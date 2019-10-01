@@ -10,6 +10,7 @@
 
 #include "osp/impl/internal_services.h"
 #include "platform/api/logging.h"
+#include "platform/api/task_runner.h"
 #include "platform/api/trace_logging.h"
 #include "platform/base/error.h"
 

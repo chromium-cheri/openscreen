@@ -13,12 +13,15 @@
 #include "absl/types/optional.h"
 #include "platform/api/tls_connection.h"
 #include "platform/base/ip_address.h"
+#include "platform/base/runtime_context.h"
 #include "platform/base/tls_connect_options.h"
 #include "platform/base/tls_credentials.h"
 #include "platform/base/tls_listen_options.h"
 
 namespace openscreen {
 namespace platform {
+
+class TaskRunner;
 
 // We expect a single factory to be able to handle an arbitrary number of
 // calls using the same client and task runner.
@@ -45,7 +48,7 @@ class TlsConnectionFactory {
   // callbacks both on the factory and on created TlsConnection instances.
   static std::unique_ptr<TlsConnectionFactory> CreateFactory(
       Client* client,
-      TaskRunner* task_runner);
+      RuntimeContext* runtime_context);
 
   virtual ~TlsConnectionFactory() = default;
 
@@ -61,8 +64,8 @@ class TlsConnectionFactory {
                       const TlsListenOptions& options) = 0;
 
  protected:
-  TlsConnectionFactory(Client* client, TaskRunner* task_runner)
-      : client_(client), task_runner_(task_runner) {}
+  TlsConnectionFactory(Client* client, RuntimeContext* runtime_context)
+      : client_(client), task_runner_(runtime_context->task_runner()) {}
 
   // The below methods proxy calls to this TlsConnectionFactory's Client.
   void OnAccepted(std::unique_ptr<TlsConnection> connection);
@@ -75,8 +78,8 @@ class TlsConnectionFactory {
   void OnError(Error error);
 
  private:
-  Client* client_;
-  TaskRunner* task_runner_;
+  Client* const client_;
+  TaskRunner* const task_runner_;
 };
 
 }  // namespace platform

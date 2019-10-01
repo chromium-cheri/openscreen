@@ -12,13 +12,15 @@
 
 #include "absl/types/optional.h"
 #include "platform/api/network_interface.h"
-#include "platform/api/task_runner.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 #include "platform/base/macros.h"
+#include "platform/base/runtime_context.h"
 
 namespace openscreen {
 namespace platform {
+
+class TaskRunner;
 
 class TlsConnection {
  public:
@@ -58,7 +60,8 @@ class TlsConnection {
   virtual ~TlsConnection() = default;
 
  protected:
-  explicit TlsConnection(TaskRunner* task_runner) : task_runner_(task_runner) {}
+  explicit TlsConnection(RuntimeContext* runtime_context)
+      : task_runner_(runtime_context->task_runner()) {}
 
   // Called when |connection| writing is blocked and unblocked, respectively.
   // This call will be proxied to the Client set for this TlsConnection.

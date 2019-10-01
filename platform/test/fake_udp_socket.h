@@ -13,6 +13,7 @@
 #include "platform/api/logging.h"
 #include "platform/api/time.h"
 #include "platform/api/udp_socket.h"
+#include "platform/base/runtime_context.h"
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
 
@@ -35,7 +36,7 @@ class FakeUdpSocket : public UdpSocket {
   static std::unique_ptr<FakeUdpSocket> CreateDefault(
       Version version = Version::kV4);
 
-  FakeUdpSocket(TaskRunner* task_runner,
+  FakeUdpSocket(RuntimeContext* runtime_context,
                 Client* client,
                 Version version = Version::kV4);
   ~FakeUdpSocket() override;
@@ -97,6 +98,7 @@ class FakeUdpSocket : public UdpSocket {
   std::queue<Error> set_dscp_errors_;
 
   // Fake implementations to be set by CreateDefault().
+  std::unique_ptr<RuntimeContext> fake_runtime_context_;
   std::unique_ptr<FakeTaskRunner> fake_task_runner_;
   std::unique_ptr<FakeUdpSocket::MockClient> fake_client_;
   std::unique_ptr<FakeClock> fake_clock_;

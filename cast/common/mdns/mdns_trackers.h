@@ -12,15 +12,19 @@
 #include "cast/common/mdns/mdns_random.h"
 #include "cast/common/mdns/mdns_record_changed_callback.h"
 #include "cast/common/mdns/mdns_sender.h"
-#include "platform/api/task_runner.h"
 #include "platform/api/time.h"
 #include "util/alarm.h"
 #include "util/serial_delete_ptr.h"
+
+namespace openscreen {
+class RuntimeContext;
+}  // namespace openscreen
 
 namespace cast {
 namespace mdns {
 
 using openscreen::Alarm;
+using openscreen::RuntimeContext;
 using openscreen::SerialDeletePtr;
 using openscreen::platform::Clock;
 using openscreen::platform::ClockNowFunctionPtr;
@@ -30,11 +34,11 @@ using openscreen::platform::TaskRunner;
 // the purposes of common code sharing only
 class MdnsTracker {
  public:
-  // MdnsTracker does not own |sender|, |task_runner| and |random_delay|
+  // MdnsTracker does not own |sender|, |runtime_context| and |random_delay|
   // and expects that the lifetime of these objects exceeds the lifetime of
   // MdnsTracker.
   MdnsTracker(MdnsSender* sender,
-              TaskRunner* task_runner,
+              RuntimeContext* runtime_context,
               ClockNowFunctionPtr now_function,
               MdnsRandom* random_delay);
 
@@ -47,7 +51,7 @@ class MdnsTracker {
 
  protected:
   MdnsSender* const sender_;
-  TaskRunner* const task_runner_;
+  RuntimeContext* const runtime_context_;
   const ClockNowFunctionPtr now_function_;
   Alarm send_alarm_;  // TODO(yakimakha): Use cancelable task when available
   MdnsRandom* const random_delay_;
@@ -59,7 +63,7 @@ class MdnsRecordTracker : public MdnsTracker {
  public:
   MdnsRecordTracker(
       MdnsSender* sender,
-      TaskRunner* task_runner,
+      RuntimeContext* runtime_context,
       ClockNowFunctionPtr now_function,
       MdnsRandom* random_delay,
       std::function<void(const MdnsRecord&)> record_updated_callback,
@@ -108,7 +112,7 @@ class MdnsQuestionTracker : public MdnsTracker {
  public:
   static SerialDeletePtr<MdnsQuestionTracker> Create(
       MdnsSender* sender,
-      TaskRunner* task_runner,
+      RuntimeContext* runtime_context,
       ClockNowFunctionPtr now_function,
       MdnsRandom* random_delay);
 
@@ -139,7 +143,7 @@ class MdnsQuestionTracker : public MdnsTracker {
 
  private:
   MdnsQuestionTracker(MdnsSender* sender,
-                      TaskRunner* task_runner,
+                      RuntimeContext* runtime_context,
                       ClockNowFunctionPtr now_function,
                       MdnsRandom* random_delay);
 

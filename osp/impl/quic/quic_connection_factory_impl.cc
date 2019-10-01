@@ -13,6 +13,7 @@
 #include "platform/api/time.h"
 #include "platform/api/trace_logging.h"
 #include "platform/base/error.h"
+#include "platform/base/runtime_context.h"
 #include "third_party/chromium_quic/src/base/location.h"
 #include "third_party/chromium_quic/src/base/task_runner.h"
 #include "third_party/chromium_quic/src/net/third_party/quic/core/quic_constants.h"
@@ -59,9 +60,10 @@ bool QuicTaskRunner::RunsTasksInCurrentSequence() const {
 }
 
 QuicConnectionFactoryImpl::QuicConnectionFactoryImpl(
-    platform::TaskRunner* task_runner)
-    : task_runner_(task_runner) {
-  quic_task_runner_ = ::base::MakeRefCounted<QuicTaskRunner>(task_runner);
+    RuntimeContext* runtime_context)
+    : runtime_context_(runtime_context) {
+  quic_task_runner_ =
+      ::base::MakeRefCounted<QuicTaskRunner>(runtime_context_->task_runner());
   alarm_factory_ = std::make_unique<::net::QuicChromiumAlarmFactory>(
       quic_task_runner_.get(), ::quic::QuicChromiumClock::GetInstance());
   ::quic::QuartcFactoryConfig factory_config;
@@ -88,7 +90,7 @@ void QuicConnectionFactoryImpl::SetServerDelegate(
     // partial progress (i.e. "unwatch" all the sockets and call
     // sockets_.clear() to close the sockets)?
     auto create_result =
-        platform::UdpSocket::Create(task_runner_, this, endpoint);
+        platform::UdpSocket::Create(runtime_context_, this, endpoint);
     if (!create_result) {
       OSP_LOG_ERROR << "failed to create socket (for " << endpoint
                     << "): " << create_result.error().message();
@@ -151,7 +153,7 @@ std::unique_ptr<QuicConnection> QuicConnectionFactoryImpl::Connect(
     const IPEndpoint& endpoint,
     QuicConnection::Delegate* connection_delegate) {
   auto create_result =
-      platform::UdpSocket::Create(task_runner_, this, endpoint);
+      platform::UdpSocket::Create(runtime_context_, this, endpoint);
   if (!create_result) {
     OSP_LOG_ERROR << "failed to create socket: "
                   << create_result.error().message();

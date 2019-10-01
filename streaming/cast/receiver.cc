@@ -9,6 +9,7 @@
 
 #include "absl/types/span.h"
 #include "platform/api/logging.h"
+#include "platform/base/runtime_context.h"
 #include "streaming/cast/constants.h"
 #include "streaming/cast/receiver_packet_router.h"
 
@@ -50,7 +51,8 @@ Receiver::Receiver(Environment* environment,
       rtp_timebase_(rtp_timebase),
       rtcp_buffer_capacity_(environment->GetMaxPacketSize()),
       rtcp_buffer_(new uint8_t[rtcp_buffer_capacity_]),
-      rtcp_alarm_(environment->now_function(), environment->task_runner()),
+      rtcp_alarm_(environment->now_function(),
+                  environment->runtime_context()->task_runner()),
       smoothed_clock_offset_(ClockDriftSmoother::kDefaultTimeConstant) {
   OSP_DCHECK(packet_router_);
   OSP_DCHECK_EQ(checkpoint_frame(), FrameId::first() - 1);

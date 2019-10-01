@@ -12,6 +12,7 @@
 #include "platform/api/logging.h"
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
+#include "platform/base/runtime_context.h"
 
 namespace openscreen {
 
@@ -19,11 +20,13 @@ QuicClient::QuicClient(
     MessageDemuxer* demuxer,
     std::unique_ptr<QuicConnectionFactory> connection_factory,
     ProtocolConnectionServiceObserver* observer,
-    platform::TaskRunner* task_runner)
+    RuntimeContext* runtime_context)
     : ProtocolConnectionClient(demuxer, observer),
       connection_factory_(std::move(connection_factory)) {
-  if (task_runner != nullptr) {
-    platform::RepeatingFunction::Post(task_runner,
+  // NOTE: The below check should always be true in real code. It is to prevent
+  // an infinite loop from occuring in Unit Test code.
+  if (runtime_context != nullptr) {
+    platform::RepeatingFunction::Post(runtime_context->task_runner(),
                                       std::bind(&QuicClient::Cleanup, this));
   }
 }

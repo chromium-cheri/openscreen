@@ -17,10 +17,12 @@
 #include "osp/impl/service_listener_impl.h"
 #include "osp/impl/service_publisher_impl.h"
 #include "platform/api/network_interface.h"
-#include "platform/api/task_runner.h"
 #include "platform/base/ip_address.h"
 
 namespace openscreen {
+namespace platform {
+class TaskRunner;
+}  // namespace platform
 
 class MdnsResponderAdapterFactory {
  public:
@@ -195,7 +197,7 @@ class MdnsResponderService : public ServiceListenerImpl::Delegate,
 
   std::map<std::string, ServiceInfo> receiver_info_;
 
-  platform::TaskRunner* task_runner_;
+  platform::TaskRunner* const task_runner_;
 
   friend class TestingMdnsResponderService;
 };

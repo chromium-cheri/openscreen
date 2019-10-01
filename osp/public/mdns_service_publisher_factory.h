@@ -10,16 +10,15 @@
 #include "osp/public/service_publisher.h"
 
 namespace openscreen {
-namespace platform {
-class TaskRunner;
-}  // namespace platform
+
+class RuntimeContext;
 
 class MdnsServicePublisherFactory {
  public:
   static std::unique_ptr<ServicePublisher> Create(
       const ServicePublisher::Config& config,
       ServicePublisher::Observer* observer,
-      platform::TaskRunner* task_runner);
+      RuntimeContext* runtime_context);
 };
 
 }  // namespace openscreen

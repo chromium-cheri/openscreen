@@ -10,16 +10,15 @@
 #include "osp/public/protocol_connection_client.h"
 
 namespace openscreen {
-namespace platform {
-class TaskRunner;
-}  // namespace platform
+
+class RuntimeContext;
 
 class ProtocolConnectionClientFactory {
  public:
   static std::unique_ptr<ProtocolConnectionClient> Create(
       MessageDemuxer* demuxer,
       ProtocolConnectionServiceObserver* observer,
-      platform::TaskRunner* task_runner);
+      RuntimeContext* runtime_context);
 };
 
 }  // namespace openscreen
