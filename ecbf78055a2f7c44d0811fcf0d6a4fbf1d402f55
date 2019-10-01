@@ -70,6 +70,29 @@
     },
     {
       "key": {
+        "uuid": "2eff69b4_e7ea0d1a",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-01T23:11:27Z",
+      "side": 1,
+      "message": "should this be now_function_",
+      "range": {
+        "startLine": 57,
+        "startChar": 51,
+        "endLine": 57,
+        "endChar": 61
+      },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81b226a6_7d70e470",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 18
@@ -121,6 +144,52 @@
     },
     {
       "key": {
+        "uuid": "b58ff6a9_24bc55a5",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-01T23:11:27Z",
+      "side": 1,
+      "message": "It looks like sender, now_function, and random_delay are only used for StartQuery\n\nWould it make more sense to instead make the parameters:\n  MdnsQuerier(MdnsReceiver* receiver,\n              TaskRunner* task_runner,\n              std::function\u003cstd::unique_ptr\u003cMdnsQuestionTracker\u003e()\u003e);\n\n(Or maybe std::function\u003cstd::unique_ptr\u003cMdnsQuestionTracker\u003e(TaskRunner*)\u003e)",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "283e29bb_68e2b8fe",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-01T23:11:27Z",
+      "side": 1,
+      "message": "Would be clearer with:\nusing QueryKey \u003d std::tuple\u003cDomainName, DnsType, DnsClass\u003e",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 62
+      },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e9d309c_04e594b6",
         "filename": "cast/common/mdns/mdns_querier_unittest.cc",
         "patchSetId": 18
@@ -155,6 +224,29 @@
       "writtenOn": "2019-10-01T19:11:48Z",
       "side": 1,
       "message": "What delegate pointer are you referring to here?",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b9c0fe7_556d2b4f",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-01T23:11:27Z",
+      "side": 1,
+      "message": "nit: const?",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 25
+      },
       "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
