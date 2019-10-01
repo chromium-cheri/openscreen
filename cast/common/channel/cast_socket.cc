@@ -14,6 +14,11 @@ using message_serialization::DeserializeResult;
 using openscreen::ErrorOr;
 using openscreen::platform::TlsConnection;
 
+uint32_t GetNextSocketId() {
+  static uint32_t id = 1;
+  return id++;
+}
+
 CastSocket::CastSocket(std::unique_ptr<TlsConnection> connection,
                        Client* client,
                        uint32_t socket_id)

@@ -57,7 +57,8 @@ void TlsConnectionFactoryPosix::Connect(const IPEndpoint& remote_address,
   }
 
   if (ConfigureSsl(connection.get())) {
-    OnConnected(std::move(connection));
+    X509* peer_cert = SSL_get_peer_certificate(connection->ssl_.get());
+    OnConnected(peer_cert, std::move(connection));
   }
 }
 
@@ -122,7 +123,8 @@ void TlsConnectionFactoryPosix::OnSocketAccepted(
       std::make_unique<TlsConnectionPosix>(std::move(socket), task_runner_);
 
   if (ConfigureSsl(connection.get())) {
-    OnAccepted(std::move(connection));
+    X509* peer_cert = SSL_get_peer_certificate(connection->ssl_.get());
+    OnAccepted(peer_cert, std::move(connection));
   }
 }
 
