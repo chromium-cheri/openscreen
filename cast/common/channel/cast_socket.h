@@ -17,6 +17,8 @@ using TlsConnection = openscreen::platform::TlsConnection;
 
 class CastMessage;
 
+uint32_t GetNextSocketId();
+
 // Represents a simple message-oriented socket for communicating with the Cast
 // V2 protocol.  It isn't thread-safe, so it should only be used on the same
 // TaskRunner thread as its TlsConnection.
