@@ -2,6 +2,125 @@
   "comments": [
     {
       "key": {
+        "uuid": "2e30319d_23beb682",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "You don\u0027t need comparison to check for nullptr.",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4f40a96_f9bb7d91",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "What if receiver_ already has a callback set?\n\nShould receiver_ be owned by this class so that can\u0027t happen?",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af33cd21_c8bda027",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "Again, if two MdnsQuerier objects get passed the same MdnsReceiver, bad things are going to happen.",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7ff53f4_1232286e",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "Consider using a private type alias (QueryKey?) to save some typing, but I don\u0027t feel strongly about it.",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81b226a6_7d70e470",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "It might save a couple of lines to allocate and start the MdnsQuestionTracker, then insert it into the map, especially since you need to call it again below.",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e45d73fa_62c27ff6",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "Is there a use case for having more than one callback per query?",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd8eb6a5_85c32fe7",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "The authority records are used for simultaneous probe tiebreaking, which is used as a congestion control measure IIUC.  I think that can be left as future work.\n\nChromecast, at least, uses additional records to return the A, TXT and SRV answers.\n\nhttps://paste.googleplex.com/4715742731698176\n\nSo yes, those should definitely be handled.",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e9d309c_04e594b6",
         "filename": "cast/common/mdns/mdns_querier_unittest.cc",
         "patchSetId": 18
@@ -19,6 +138,57 @@
         "endLine": 11,
         "endChar": 36
       },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03c8220a_bc81009b",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "What delegate pointer are you referring to here?",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa5c9534_c2265782",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "Nit: callbacks",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f9ce9e_6ae36426",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T19:11:48Z",
+      "side": 1,
+      "message": "Maybe the QueryKey alias should be defined in a public .h so it can be used here too?",
       "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
