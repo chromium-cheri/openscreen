@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82f57fe8_7f9bb7c1",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-01T18:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d98b09a_7748baf9",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 41
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82328e7e_855cb9ce",
         "filename": "cast/common/channel/cast_socket.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e5b904_b319a05f",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-01T18:40:09Z",
+      "side": 1,
+      "message": "That can\u0027t happen synchronously ATM.  Added a dcheck for clarity.",
+      "parentUuid": "82328e7e_855cb9ce",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 5
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e9f01857_a9ed70d2",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-01T18:40:09Z",
+      "side": 1,
+      "message": "This uses `operator bool()`, which ErrorOr\u003c\u003e has.  I don\u0027t know of any bool-convertible classes that actually override operator! directly.",
+      "parentUuid": "d10ae1d2_e685beee",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 23
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2d91780_d5d6a951",
         "filename": "cast/common/channel/cast_socket.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f415745_cceab373",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-01T18:40:09Z",
+      "side": 1,
+      "message": "That would require copying out for every TryDeserialize above since std::deque isn\u0027t continuous.",
+      "parentUuid": "e2d91780_d5d6a951",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 77
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a4ff31b1_e5f4063e",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-01T18:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b547e863_10e43f25",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa0ad333_904bedb6",
         "filename": "cast/common/channel/message_framer.h",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9941d0e3_5e710698",
+        "filename": "cast/common/channel/message_framer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-01T18:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa0ad333_904bedb6",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "7d6f0b9c6ce8028f99a533aad6eab15a0427ed31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
