@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e10365a_fdacdd99",
+        "filename": "platform/impl/operation_loop.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T23:12:08Z",
+      "side": 1,
+      "message": "You can just inline the rvalue above since we always compile OSP_CHECK.",
+      "revId": "709ffaaad3ea4dbd5301a96fc4767f8fed4c243b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aedc52a_f83e287e",
+        "filename": "platform/impl/operation_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T23:12:08Z",
+      "side": 1,
+      "message": "A void function with no arguments is usually called a Closure.",
+      "revId": "709ffaaad3ea4dbd5301a96fc4767f8fed4c243b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0188cf51_598b383c",
+        "filename": "platform/impl/operation_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T23:12:08Z",
+      "side": 1,
+      "message": "Why not have OperationLoop accept a std::function\u003cvoid()\u003e, which would allow you to pass a function pointer, std::function, functor object or lambda expression?  That seems easier than requiring the caller to declare a functor class.",
+      "revId": "709ffaaad3ea4dbd5301a96fc4767f8fed4c243b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1db6b75_fa6187db",
+        "filename": "platform/impl/operation_loop.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T23:12:08Z",
+      "side": 1,
+      "message": "Can you declare these as const pointers?",
+      "revId": "709ffaaad3ea4dbd5301a96fc4767f8fed4c243b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
