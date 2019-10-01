@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "a79f0e13_c7e674fa",
+        "filename": "platform/api/runtime_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T16:28:10Z",
+      "side": 1,
+      "message": "This API is intended to be used by the feature code in the library, but I don\u0027t see a need for the embedder to implement it.  Maybe it belongs in platform/base instead of platform/api.\n\nI do have a question about the OnCreate/OnDestroy APIs, as they seem to be about managing the lifecycle of sockets in the network loop for the standalone impl.  I\u0027m not sure they belong in this object.",
+      "parentUuid": "acc1b9f1_4ed704cd",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "33b0b3048725b7bc9a51ed566528d4f1ba61f64e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ed965c2_a827d3f4",
         "filename": "platform/impl/runtime_context_posix.h",
         "patchSetId": 4
@@ -105,6 +129,30 @@
       "writtenOn": "2019-10-01T01:54:58Z",
       "side": 1,
       "message": "A lot is being packed into this class, and not everything would necessarily be used. We should create/destroy the singletons as-needed, and not force them all to be created upfront whether they are used or not. It\u0027s not too hard to make these things auto-created/destroyed singletons, this being a reasonable time to use ref-counting to track their lifetime. Example (note that SocketHandleWaiterThread can continue to be sole owner of the socket_handle_waiter_ plus network_loop_thread_):\n\n#include \u003cmemory\u003e\n\nclass SocketHandleWaiterThread\n    : public std::enable_shared_from_this\u003cSocketHandleWaiterThread\u003e {\n public:\n  // NOT THREAD SAFE, but it shouldn\u0027t have to be.\n  std::shared_ptr\u003cSocketHandleWaiterThread\u003e GetInstance();\n\n  // ...existing public methods...\n\n private:\n  SocketHandleWaiterThread();\n  ~SocketHandleWaiterThread();\n\n  // ...existing private members...\n\n  static SocketHandleWaiterThread* singleton_ \u003d nullptr;\n};\n\n// static\nstd::shared_ptr\u003cSocketHandleWaiterThread\u003e\n    SocketHandleWaiterThread::GetInstance() {\n  if (singleton_) {\n    return singleton_-\u003eshared_from_this();\n  }\n\n  auto new_instance \u003d std::make_shared\u003cSocketHandleWaiterThread\u003e();\n  singleton_ \u003d new_instance.get();\n  return new_instance;\n}\n\nSocketHandleWaiterThread::~SocketHandleWaiterThread() {\n  waiter_.RequestStopSoon();\n  thread_.join();\n\n  OSP_DCHECK_EQ(this, singleton_);\n  singleton_ \u003d nullptr;\n}\n\n...and then TlsDataRouterPosix and UdpSocketReaderPosix can be similarly enhanced, and each can call SocketHandleWaiterThread::GetInstance() in its ctor to get at the globally-shared SocketHandleWaiter/Thread.\n\n...and then UdpSocketPosix can call UdpSocketReaderPosix::GetInstance() from its ctor.\n\n...and so on to automatically build-up the \"singleton objects\" graph.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "33b0b3048725b7bc9a51ed566528d4f1ba61f64e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92514efa_ac07de83",
+        "filename": "platform/impl/runtime_context_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-01T16:28:10Z",
+      "side": 1,
+      "message": "+1 for creating singleton-type objects lazily.\n\nRyan and I discussed having a single object act as the sole \"true\" singleton, and having it own the other objects that need to exist in a one-per-process manner.\n\nI don\u0027t think setting up the threads and the socket lifetime API needs to be in the RuntimeContext.  The RuntimeContext should provide access to universal things that feature code using the platform library needs to run, which seems to be the TaskRunner.\n\nHere\u0027s a thought.  We could move the singleton access and one-time setup to a separate platform API, let\u0027s call it PlatformClient.   So the calling code would look like this:\n\n// Embedder sets the task runner for the library on startup.\n// The default implementation just holds a pointer to the TaskRunner.\n// The standalone impl of PlatformClient creates the network threads,\n// the SocketHandleWaiter, other \"singleton\" objects.\nPlatformClient::Create(TaskRunner*);\n\n// Libcast can get the RC to pass around inside the feature code.\nPlatformClient::GetInstance()-\u003eGetRuntimeContext()\n\n// Inside the standlone impl, the platform can get access to the SocketHandleWaiter\n// and other internal APIs to do network loop things. This GetInstance() returns a safe\n// downcast to access impl-specific APIs. \nPlatformClientImpl::GetInstance()-\u003eGetSocketHandleWaiter()\n\n// Embedder can shut down the library cleanly by deleting the singleton.\nPlatformClient::ShutDown();\n\nThis separates the concerns of the API exposed to feature code, from one-time setup needed by different platform implementations.",
+      "parentUuid": "18a99e30_ff809fa4",
       "range": {
         "startLine": 59,
         "startChar": 0,
