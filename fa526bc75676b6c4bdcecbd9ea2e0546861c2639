@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccc4ec65_99ec23e3",
+        "filename": "platform/impl/network_reader_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-01T19:51:58Z",
+      "side": 1,
+      "message": "Nit: consider ordering in the same order as the header. I don\u0027t think this is required, but it\u0027s nice.",
+      "revId": "fa526bc75676b6c4bdcecbd9ea2e0546861c2639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82e48b9d_a1deb2eb",
+        "filename": "platform/impl/network_reader_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-01T19:51:58Z",
+      "side": 1,
+      "message": "This is the only line that ties this at all to networking, right?\n\nThis class basically looks like a RunLoop to me, with no semantics particular to networking really. Do we plan on changing that? If not, we could genericize this class. E.g.\n\nProvider -\u003e Operator\n\nPerformNetworkingOperations -\u003e operator()\n\nNetworkReaderWriter -\u003e RunLoop / OperationLoop / something wittier.\n\nhttps://cs.chromium.org/chromium/src/base/run_loop.h",
+      "revId": "fa526bc75676b6c4bdcecbd9ea2e0546861c2639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cae4f88_5435af4d",
+        "filename": "platform/impl/network_reader_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-01T19:51:58Z",
+      "side": 1,
+      "message": "Is this really Wait()? Feels more like PerformOperations(), RunLoopOnce(), or similar.",
+      "revId": "fa526bc75676b6c4bdcecbd9ea2e0546861c2639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52dcfc0f_a67625ca",
+        "filename": "platform/impl/network_reader_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-01T19:51:58Z",
+      "side": 1,
+      "message": "Is this implemented anywhere?",
+      "revId": "fa526bc75676b6c4bdcecbd9ea2e0546861c2639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56aeac75_effec705",
+        "filename": "platform/impl/network_reader_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-01T19:51:58Z",
+      "side": 1,
+      "message": "We assume these outlast the loop, right? Any reason for this to be non-const?",
+      "revId": "fa526bc75676b6c4bdcecbd9ea2e0546861c2639",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
