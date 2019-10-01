@@ -55,6 +55,8 @@ source_set("platform") {
 
   if (!build_with_chromium) {
     sources += [
+      "impl/network_reader_writer.cc",
+      "impl/network_reader_writer.h",
       "impl/socket_handle.h",
       "impl/socket_handle_waiter.cc",
       "impl/socket_handle_waiter.h",
