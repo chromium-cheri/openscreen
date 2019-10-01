@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "acc1b9f1_4ed704cd",
+        "filename": "platform/api/runtime_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-01T01:54:58Z",
+      "side": 1,
+      "message": "Is this standalone impl only, or is an embedder meant to implement this interface? These public methods suggest the former, which means this class should not be in platform/api.\n\nIf the latter, I don\u0027t think we should have a RuntimeContext at all, since that adds restrictions on how the embedder is allowed to organize its object graph, and I don\u0027t think there\u0027s a reason we should force that.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "33b0b3048725b7bc9a51ed566528d4f1ba61f64e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed965c2_a827d3f4",
+        "filename": "platform/impl/runtime_context_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-01T01:54:58Z",
+      "side": 1,
+      "message": "explicit",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 21
+      },
+      "revId": "33b0b3048725b7bc9a51ed566528d4f1ba61f64e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4a6d5b6_8493e84b",
         "filename": "platform/impl/runtime_context_posix.h",
         "patchSetId": 4
@@ -38,6 +84,29 @@
       "message": "platform/impl/task_runner_thread and platform/impl/socket_handle_waiter_thread can both be removed once this class is integrated in - that same logic will be localized to here",
       "range": {
         "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "33b0b3048725b7bc9a51ed566528d4f1ba61f64e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18a99e30_ff809fa4",
+        "filename": "platform/impl/runtime_context_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-01T01:54:58Z",
+      "side": 1,
+      "message": "A lot is being packed into this class, and not everything would necessarily be used. We should create/destroy the singletons as-needed, and not force them all to be created upfront whether they are used or not. It\u0027s not too hard to make these things auto-created/destroyed singletons, this being a reasonable time to use ref-counting to track their lifetime. Example (note that SocketHandleWaiterThread can continue to be sole owner of the socket_handle_waiter_ plus network_loop_thread_):\n\n#include \u003cmemory\u003e\n\nclass SocketHandleWaiterThread\n    : public std::enable_shared_from_this\u003cSocketHandleWaiterThread\u003e {\n public:\n  // NOT THREAD SAFE, but it shouldn\u0027t have to be.\n  std::shared_ptr\u003cSocketHandleWaiterThread\u003e GetInstance();\n\n  // ...existing public methods...\n\n private:\n  SocketHandleWaiterThread();\n  ~SocketHandleWaiterThread();\n\n  // ...existing private members...\n\n  static SocketHandleWaiterThread* singleton_ \u003d nullptr;\n};\n\n// static\nstd::shared_ptr\u003cSocketHandleWaiterThread\u003e\n    SocketHandleWaiterThread::GetInstance() {\n  if (singleton_) {\n    return singleton_-\u003eshared_from_this();\n  }\n\n  auto new_instance \u003d std::make_shared\u003cSocketHandleWaiterThread\u003e();\n  singleton_ \u003d new_instance.get();\n  return new_instance;\n}\n\nSocketHandleWaiterThread::~SocketHandleWaiterThread() {\n  waiter_.RequestStopSoon();\n  thread_.join();\n\n  OSP_DCHECK_EQ(this, singleton_);\n  singleton_ \u003d nullptr;\n}\n\n...and then TlsDataRouterPosix and UdpSocketReaderPosix can be similarly enhanced, and each can call SocketHandleWaiterThread::GetInstance() in its ctor to get at the globally-shared SocketHandleWaiter/Thread.\n\n...and then UdpSocketPosix can call UdpSocketReaderPosix::GetInstance() from its ctor.\n\n...and so on to automatically build-up the \"singleton objects\" graph.",
+      "range": {
+        "startLine": 59,
         "startChar": 0,
         "endLine": 68,
         "endChar": 35
