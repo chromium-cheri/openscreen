@@ -46,6 +46,30 @@
       "revId": "55938c9e58f254b4da576ef62a3367ac4f3d7cd0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558fb20e_3cf12d8d",
+        "filename": "util/operation_loop.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-02T22:10:25Z",
+      "side": 1,
+      "message": "I\u0027ve added a test case that starts std::thread to check if it\u0027s noticeably. From my observation, variation in the execution time for all our tests (520 as of the moment I\u0027m writing it) is much greater than any time taken by the test, i.e. it\u0027s not noticeable.\n\nI think having a cleaner code that we test as-is is totally worth starting a thread in the test case.",
+      "parentUuid": "8100babc_c237fc03",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "55938c9e58f254b4da576ef62a3367ac4f3d7cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
