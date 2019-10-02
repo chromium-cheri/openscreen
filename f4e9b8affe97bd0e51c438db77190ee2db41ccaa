@@ -378,6 +378,30 @@
       "revId": "f4e9b8affe97bd0e51c438db77190ee2db41ccaa",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7867e4ca_887296b9",
+        "filename": "util/operation_loop.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-02T23:57:22Z",
+      "side": 1,
+      "message": "First question: In general, I expect it would be use-case and possibly hardware specific. For instance, once we put this in the PlatformClientPosix (parallel CL), we can allow the embedder to specify it when creating a PlatformClientPosix. An embedder who could use a dedicated core for just the Networking Thread may want minimum \u003d 0, while one using a raspberry pi v1 might want a very high minimum to avoid thread starvation\n\nSecond question: For our use case, I don\u0027t see any practical difference between a min loop execution time and a gap between executions. If you prefer the latter I can change to that, it just adds some complexity to the code that I didn\u0027t see a need for (we need to store the last start time of each function, etc). Let me know your preference and I can go that route",
+      "parentUuid": "1f52ad4e_2aea251f",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 66
+      },
+      "revId": "f4e9b8affe97bd0e51c438db77190ee2db41ccaa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
