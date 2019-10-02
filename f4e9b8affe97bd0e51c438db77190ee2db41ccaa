@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "1da95b56_89be0fef",
+        "filename": "util/operation_loop.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-02T21:45:17Z",
+      "side": 1,
+      "message": "Hmm, I see what you mean. Updating to a condition variable with a timeout instead\nI actually much prefer this approach because I didn\u0027t like taking a dependency on std::thread in a util/ class",
+      "parentUuid": "30d6a6d4_8f671e7d",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "f4e9b8affe97bd0e51c438db77190ee2db41ccaa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15819d42_66f33003",
         "filename": "util/operation_loop.h",
         "patchSetId": 6
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "How does the caller determine this duration?",
       "parentUuid": "e4f440e6_c6f39c7d",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 66
+      },
+      "revId": "f4e9b8affe97bd0e51c438db77190ee2db41ccaa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "410a0a85_8ad0e120",
+        "filename": "util/operation_loop.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-02T21:45:17Z",
+      "side": 1,
+      "message": "This is set with constructor parameter min_loop_execution_time. I might be misunderstanding the question.",
+      "parentUuid": "1ef4bfd3_4b742b77",
       "range": {
         "startLine": 49,
         "startChar": 24,

@@ -22,6 +22,30 @@
       "revId": "55938c9e58f254b4da576ef62a3367ac4f3d7cd0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8100babc_c237fc03",
+        "filename": "util/operation_loop.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-02T21:45:17Z",
+      "side": 1,
+      "message": "I am against using std::thread in tests unless it\u0027s really needed - it takes some time fro a thread to spin up, so it adds extra synchronization concerns, especially since the test that uses this is trying to test timing\n\nHow about a friend declaration instead? Updated to friend a class instead of an xForTesting() method",
+      "parentUuid": "0806bec8_79fc9bb4",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "55938c9e58f254b4da576ef62a3367ac4f3d7cd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
