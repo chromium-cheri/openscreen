@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "bedef5a6_acc48e64",
+        "filename": "util/operation_loop.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-02T19:23:28Z",
+      "side": 1,
+      "message": "These aren\u0027t actually constants in the sense of a constexpr Clock::duration, since they are provided on runtime, so shouldn\u0027t it be min_loop_execution_time?",
+      "revId": "777678b358685e96346ecf6419f39eab24da6032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c1606d_768985df",
+        "filename": "util/operation_loop.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-02T19:23:28Z",
+      "side": 1,
+      "message": "%s/eqch/each/g",
+      "revId": "777678b358685e96346ecf6419f39eab24da6032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e54d4702_8c90411c",
+        "filename": "util/operation_loop.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-02T19:23:28Z",
+      "side": 1,
+      "message": "Nit: rephrase. Consider:\n\n\"\u003d minimum time that OperationLoop should wait before successive calls to members of the provided operations vector.\"\n\n\"provided functions\" is kind of weird IMO.",
+      "revId": "777678b358685e96346ecf6419f39eab24da6032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55755d42_a80a988f",
         "filename": "util/operation_loop.h",
         "patchSetId": 5
@@ -19,6 +70,23 @@
         "endLine": 50,
         "endChar": 36
       },
+      "revId": "777678b358685e96346ecf6419f39eab24da6032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "883819e3_500d5fb4",
+        "filename": "util/operation_loop_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-02T19:23:28Z",
+      "side": 1,
+      "message": "I\u0027d prefer {} initialization over (). Not sure it\u0027s in the style guide, but see:\n\nhttps://stackoverflow.com/questions/18222926/why-is-list-initialization-using-curly-braces-better-than-the-alternatives",
       "revId": "777678b358685e96346ecf6419f39eab24da6032",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
