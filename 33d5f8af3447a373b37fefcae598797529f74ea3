@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9fb4629_68407341",
+        "filename": "cast/sender/channel/sender_socket_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-03T22:22:53Z",
+      "side": 1,
+      "message": "OSP_NOTREACHED?",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 19
+      },
+      "revId": "33d5f8af3447a373b37fefcae598797529f74ea3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "989d39c8_88f74282",
+        "filename": "cast/sender/channel/sender_socket_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-03T22:22:53Z",
+      "side": 1,
+      "message": "It seems worth at least logging here - IIUC, this would mean we failed to accept a connection, which seems like incorrect library usage",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 11
+      },
+      "revId": "33d5f8af3447a373b37fefcae598797529f74ea3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "872e36be_41b1d6dc",
+        "filename": "cast/sender/channel/sender_socket_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-03T22:22:53Z",
+      "side": 1,
+      "message": "IIUC, you are assuming that the sockets got inserted in-order so the first with id \u003e\u003d socket_id() would be the correct socket, right? I\u0027d recommend adding a comment here\n\nAlternatively, it might be clearer to change to an std::find_if (plus less prone to breaking when we eventually refactor)\n\nSame below",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 113,
+        "endChar": 50
+      },
+      "revId": "33d5f8af3447a373b37fefcae598797529f74ea3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6d324cf_783afeb8",
+        "filename": "cast/sender/channel/sender_socket_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-03T22:22:53Z",
+      "side": 1,
+      "message": "Somehow these two don\u0027t seem to go together\n\nIt feels like it should be one of:\n kAudioOnly vs kAudioAndVideo\n kAudio \u003d 0x1, kVideo \u003d 0x2 as flags",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 11
+      },
+      "revId": "33d5f8af3447a373b37fefcae598797529f74ea3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8eb855c_19c6f5cb",
+        "filename": "cast/sender/channel/sender_socket_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-03T22:22:53Z",
+      "side": 1,
+      "message": "Add comment about client lifetime",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 47
+      },
+      "revId": "33d5f8af3447a373b37fefcae598797529f74ea3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
