@@ -9,4 +9,7 @@ include_rules = [
   # Dependencies on the implementation are not allowed in public/.
   '-cast/sender',
   '+cast/sender/public'
+
+  # TODO(jophba): remove after Yuri's refactor patch lands
+  "+streaming/cast"
 ]
