@@ -7,6 +7,9 @@ include_rules = [
   '-platform',
 
   # Dependencies on the implementation are not allowed in public/.
+  '+cast/common/public',
   '-cast/common',
-  '+cast/common/public'
+
+  # TODO(jophba): remove after Yuri's refactor patch lands
+  '+streaming/cast',
 ]
