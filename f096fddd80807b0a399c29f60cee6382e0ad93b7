@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d1021ab_4a4d06c3",
+        "filename": "util/operation_loop.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-03T18:05:54Z",
+      "side": 1,
+      "message": "You have to put the mutex in .h next to the condition variable\nAnd you have to update is_running_ under the mutex, even though it\u0027s atomic\n\nhttps://www.modernescpp.com/index.php/c-core-guidelines-be-aware-of-the-traps-of-condition-variables",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "f096fddd80807b0a399c29f60cee6382e0ad93b7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "169cf00d_a3471ff4",
+        "filename": "util/operation_loop_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-03T18:05:54Z",
+      "side": 1,
+      "message": "If you assign it from inside of the test_function, then as soon as it becomes true, you know that the thread is active and you\u0027ve done at least one loop and you can remove sleep_for down below.",
+      "range": {
+        "startLine": 28,
+        "startChar": 19,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "f096fddd80807b0a399c29f60cee6382e0ad93b7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
