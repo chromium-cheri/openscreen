@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4da28929_0a657c6f",
+        "filename": "util/operation_loop.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-03T21:31:16Z",
+      "side": 1,
+      "message": "Huh. condition_variables seem more weird every time I use them - good catch!\n\nUpdated as suggested",
+      "parentUuid": "9d1021ab_4a4d06c3",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "f096fddd80807b0a399c29f60cee6382e0ad93b7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "169cf00d_a3471ff4",
         "filename": "util/operation_loop_unittest.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "f096fddd80807b0a399c29f60cee6382e0ad93b7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb09355f_d67baad3",
+        "filename": "util/operation_loop_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-03T21:31:16Z",
+      "side": 1,
+      "message": "That\u0027s not quite true if I am understanding your suggestion correctly\n\nAfter we execute the test_function, we then need to wait for the remainder of the kMinRuntime. Calling RequestStopSoon as soon as the test function executes will exit this wait early, and the test will fail because we didn\u0027t wait long enough.\nTo test it\u0027s working, we would need at least 2 executions of test_function. We would need to modify 2 different variables, in a mechanism similar to the current code.\n\nI\u0027ve updated the code to test this in a hot loop as suggested, so PTAL and let me know your thoughts\n\nClosing this comment, so please open a new one if you don\u0027t like the new approach",
+      "parentUuid": "169cf00d_a3471ff4",
+      "range": {
+        "startLine": 28,
+        "startChar": 19,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "f096fddd80807b0a399c29f60cee6382e0ad93b7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
