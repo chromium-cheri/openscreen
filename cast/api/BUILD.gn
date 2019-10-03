@@ -1,0 +1,22 @@
+# Copyright 2019 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//build_overrides/build.gni")
+
+source_set("api") {
+  sources = [
+    "frame_agent_config.h",
+    "frame_receiver_config.h",
+    "frame_sender_config.h",
+    "video_codec_params.h",
+  ]
+
+  deps = [
+    "../../platform",
+    "../../third_party/abseil",
+    "../../util",
+  ]
+
+  configs += [ "../../build:allow_build_from_embedder" ]
+}
