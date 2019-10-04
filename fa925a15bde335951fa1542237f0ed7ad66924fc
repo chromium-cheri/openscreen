@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ca35061_54bc12fe",
+        "filename": "util/operation_loop.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T18:10:14Z",
+      "side": 1,
+      "message": "That should be fine by design. See response-level comment for details",
+      "parentUuid": "e05cd412_93ad6d67",
+      "revId": "fa925a15bde335951fa1542237f0ed7ad66924fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e00eed96_ac614809",
         "filename": "util/operation_loop.cc",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "fa925a15bde335951fa1542237f0ed7ad66924fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7761a887_63bfc00b",
+        "filename": "util/operation_loop.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T18:10:14Z",
+      "side": 1,
+      "message": "That\u0027s automatically checked for as part of wait_for :)\n\nBased on the documentation, this is equivalent to:\nwait_until(lock, Clock::now() + timeout, std::move(pred));\n\nand that is equivalent to:\nwhile (!pred()) {\n    if (wait_until(lock, timeout_time) \u003d\u003d std::cv_status::timeout) {\n        return pred();\n    }\n}",
+      "parentUuid": "e00eed96_ac614809",
+      "revId": "fa925a15bde335951fa1542237f0ed7ad66924fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
