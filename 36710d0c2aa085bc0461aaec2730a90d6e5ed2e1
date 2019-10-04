@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0416f54f_9dbc702c",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T23:00:33Z",
+      "side": 1,
+      "message": "See follow-up comments\n\nThe name here is intended to match the namespace, because that is taking the place of a \u0027static\u0027 class",
+      "parentUuid": "7d4dcbf4_ff1d2407",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 44
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "565af4a1_0e91360b",
         "filename": "platform/base/network_loop_helper.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-04T22:04:38Z",
       "side": 1,
       "message": "Per style guide \"Namespace names are all lower-case\", also, shouldn\u0027t it be simply openscreen::platform?",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39f867e3_3706bb0a",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T23:00:33Z",
+      "side": 1,
+      "message": "Updated to also have platform namespace.\n\nI\u0027m open to changing the namespace to lower case, but I\u0027m not sure what the correct name would be. What do you think?\nThe goal here is to avoid creating a class just to hold another class and static methods when a namespace would suffice. See: \nhttps://softwareengineering.stackexchange.com/questions/134540/are-utility-classes-with-nothing-but-static-members-an-anti-pattern-in-c\nhttps://stackoverflow.com/questions/9321/how-do-you-create-a-static-class-in-c/112451#112451",
+      "parentUuid": "565af4a1_0e91360b",
       "range": {
         "startLine": 15,
         "startChar": 10,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dbdd6170_19b08b0a",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T23:00:33Z",
+      "side": 1,
+      "message": "This is intended to be an interface, to be used with the OperationLoop class. It is intended to be called for OperationLoop\u0027s std::function\u003cvoid(Clock::duration)\u003e parameter\n\nIt\u0027s not a Loop, just a single operation that\u0027s called in a loop (named \u0027Operation\u0027 due to association with OperationLoop)",
+      "parentUuid": "c7b4775a_4b626efd",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54ed491e_abc65928",
         "filename": "platform/base/network_loop_helper.h",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-10-04T22:04:38Z",
       "side": 1,
       "message": "Don\u0027t pass a unique_ptr by reference, just pass a pointer to T here.\nSame for WrapOptionalNetworkOperation.\nhttps://www.chromium.org/developers/smart-pointer-guidelines",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5db0bd_5fcb3c6a",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T23:00:33Z",
+      "side": 1,
+      "message": "This actually doesn\u0027t work in this case. The goal here is to call the provided object only once it exists, and otherwise do nothing\n\nThis is for use with OperationLoop (where the provided function will be called repeatedly) along with PlatformClient (where the std::unique_ptr will only have a value once it\u0027s needed, see CL: https://chromium-review.googlesource.com/c/openscreen/+/1834043)\n\nLet\u0027s discuss this offline Monday. I think this might actually be an exception to that rule (though I\u0027d definitely like to confirm that before committing the code)\n\nIf it\u0027s clearer, I can move this method to be a private method inside PlatformClientPosix (once it\u0027s checked in) - but I avoided that here because there is nothing posix specific about it",
+      "parentUuid": "54ed491e_abc65928",
       "range": {
         "startLine": 29,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d912c842_6fcf7685",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T23:00:33Z",
+      "side": 1,
+      "message": "Done.\n\nI felt the previous approach improved readability but I\u0027m happy to change it if now",
+      "parentUuid": "7521df7b_f68b1888",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 54
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3563e12_2bef1c7b",
         "filename": "platform/base/network_loop_helper.h",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2019-10-04T22:04:38Z",
       "side": 1,
       "message": "It took me some time of staring to figure out that this return statement creates a vector, could you please be a bit more explicit?\n\nAlso, this method is used only for testing, could you please move it to _unittests.cc?",
+      "range": {
+        "startLine": 30,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 7
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66399480_95624b90",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T23:00:33Z",
+      "side": 1,
+      "message": "This is not a testing method. This is for use with OperationLoop (where the provided function will be called repeatedly) along with PlatformClient (where the std::unique_ptr will only have a value once it\u0027s needed, see CL: https://chromium-review.googlesource.com/c/openscreen/+/1834043)\n\nUpdated to be more explcit",
+      "parentUuid": "f3563e12_2bef1c7b",
       "range": {
         "startLine": 30,
         "startChar": 9,
@@ -160,6 +304,30 @@
       "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "325aa806_9463fe26",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-04T23:00:33Z",
+      "side": 1,
+      "message": "Method removed based on previous comment",
+      "parentUuid": "ce1599c3_0415b194",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 33
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
