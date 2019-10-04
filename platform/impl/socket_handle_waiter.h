@@ -15,6 +15,7 @@
 #include "platform/api/time.h"
 #include "platform/base/error.h"
 #include "platform/base/macros.h"
+#include "platform/base/network_loop.h"
 #include "platform/impl/socket_handle.h"
 
 namespace openscreen {
@@ -23,7 +24,7 @@ namespace platform {
 // The class responsible for calling platform-level method to watch UDP sockets
 // for available read data. Reading from these sockets is handled at a higher
 // layer.
-class SocketHandleWaiter {
+class SocketHandleWaiter : public NetworkLoop::NetworkOperation {
  public:
   using SocketHandleRef = std::reference_wrapper<const SocketHandle>;
 
@@ -60,6 +61,11 @@ class SocketHandleWaiter {
   void OnHandleDeletion(Subscriber* subscriber,
                         SocketHandleRef handle,
                         bool disable_locking_for_testing = false);
+
+  // NetworkLoop::NetworkOperation overrides.
+  inline void PerformNetworkingOperations(Clock::duration timeout) override {
+    ProcessHandles(timeout);
+  }
 
   OSP_DISALLOW_COPY_AND_ASSIGN(SocketHandleWaiter);
 
