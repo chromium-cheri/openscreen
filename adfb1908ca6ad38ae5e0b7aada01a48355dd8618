@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6b7a64f7_9cb087cb",
+        "filename": "cast/common/public/frame_agent_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-04T22:05:08Z",
+      "side": 1,
+      "message": "These are different, because the RFC spec says unsigned 32 bit integer:\n\nhttps://tools.ietf.org/html/rfc5576#page-5\n\nIf we have it signed, it could be the wrong size. Adding a comment.\n\nI\u0027ll use the Ssrc type.",
+      "parentUuid": "8720cbd4_36f4c659",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8105dd4d_fbac58dc",
         "filename": "cast/common/public/frame_agent_config.h",
         "patchSetId": 2
@@ -57,6 +75,30 @@
       "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c39b37e5_6d120568",
+        "filename": "cast/common/public/frame_agent_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-04T22:05:08Z",
+      "side": 1,
+      "message": "Def.",
+      "parentUuid": "8105dd4d_fbac58dc",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "b255a683_06aadf5d",
+        "filename": "cast/common/public/frame_agent_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-04T22:05:08Z",
+      "side": 1,
+      "message": "Switching to an enum.",
+      "parentUuid": "cd9fc3ca_27c3828e",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e59de737_070438a2",
         "filename": "cast/common/public/frame_agent_config.h",
         "patchSetId": 2
@@ -118,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "a4eec84f_de70d6bd",
+        "filename": "cast/common/public/frame_agent_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-04T22:05:08Z",
+      "side": 1,
+      "message": "Switching, I definitely agree with this approach! I\u0027m trying to avoid having a massive constructor (I think that\u0027s an anti pattern I want to avoid) so capturing assumptions on the type itself sounds great.",
+      "parentUuid": "e59de737_070438a2",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 35
+      },
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a745524e_9cda8b0b",
         "filename": "cast/sender/public/frame_sender_config.h",
         "patchSetId": 2
@@ -132,6 +216,24 @@
       "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04aee87_79defe4a",
+        "filename": "cast/sender/public/frame_sender_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-04T22:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a745524e_9cda8b0b",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -152,6 +254,24 @@
     },
     {
       "key": {
+        "uuid": "97baab03_7655aa18",
+        "filename": "cast/sender/public/frame_sender_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-04T22:05:08Z",
+      "side": 1,
+      "message": "After offline discussion, I don\u0027t think we need these for now.",
+      "parentUuid": "2e8fe33d_734a672e",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67f4be1a_0a3313d0",
         "filename": "cast/sender/public/video_codec_params.h",
         "patchSetId": 2
@@ -169,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "22842ebc_4e3d76ef",
+        "filename": "cast/sender/public/video_codec_params.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-04T22:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67f4be1a_0a3313d0",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "657a04dd_92175e05",
         "filename": "cast/sender/public/video_codec_params.h",
         "patchSetId": 2
@@ -183,6 +321,24 @@
       "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44f3e8ea_15b7bf5d",
+        "filename": "cast/sender/public/video_codec_params.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-04T22:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "657a04dd_92175e05",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
