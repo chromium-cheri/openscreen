@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "a665fc7e_948bed16",
+        "filename": "cast/common/public/frame_agent_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T21:30:41Z",
+      "side": 1,
+      "message": "Yuri has been using uint32_h as ssrc, see openscreen/streaming/cast/ssrc.h\nMaybe use Ssrc defined there?",
+      "parentUuid": "8720cbd4_36f4c659",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8105dd4d_fbac58dc",
+        "filename": "cast/common/public/frame_agent_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T21:30:41Z",
+      "side": 1,
+      "message": "Ca you use types from rtp_time.h?",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd9fc3ca_27c3828e",
         "filename": "cast/common/public/frame_agent_config.h",
         "patchSetId": 2
@@ -30,6 +71,47 @@
       "writtenOn": "2019-10-04T00:00:00Z",
       "side": 1,
       "message": "Can this be an enum?",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7766d77d_532a29e2",
+        "filename": "cast/common/public/frame_agent_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T21:30:41Z",
+      "side": 1,
+      "message": "RtpPayloadType in rtp_defines.h that specifies at least some of the codecs. What\u0027s this string for?",
+      "parentUuid": "cd9fc3ca_27c3828e",
+      "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59de737_070438a2",
+        "filename": "cast/common/public/frame_agent_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T21:30:41Z",
+      "side": 1,
+      "message": "std::array\u003cuint8_t, 16\u003e is used in streaming/cast for AES",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 35
+      },
       "revId": "adfb1908ca6ad38ae5e0b7aada01a48355dd8618",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
