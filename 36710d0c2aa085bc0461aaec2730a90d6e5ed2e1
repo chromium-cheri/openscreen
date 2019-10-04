@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d4dcbf4_ff1d2407",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T22:04:38Z",
+      "side": 1,
+      "message": "Name of the file preferably should match the name of the class",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 44
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "565af4a1_0e91360b",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T22:04:38Z",
+      "side": 1,
+      "message": "Per style guide \"Namespace names are all lower-case\", also, shouldn\u0027t it be simply openscreen::platform?",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b4775a_4b626efd",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T22:04:38Z",
+      "side": 1,
+      "message": "This looks like this class should be named NetworkLoop",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54ed491e_abc65928",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T22:04:38Z",
+      "side": 1,
+      "message": "Don\u0027t pass a unique_ptr by reference, just pass a pointer to T here.\nSame for WrapOptionalNetworkOperation.\nhttps://www.chromium.org/developers/smart-pointer-guidelines",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7521df7b_f68b1888",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T22:04:38Z",
+      "side": 1,
+      "message": "Since you know that args is a parameter pack of pointers, do you need WrapOptionalNetworkOperation method? It looks to me like it can be inlined here in the lambda.",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 54
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3563e12_2bef1c7b",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T22:04:38Z",
+      "side": 1,
+      "message": "It took me some time of staring to figure out that this return statement creates a vector, could you please be a bit more explicit?\n\nAlso, this method is used only for testing, could you please move it to _unittests.cc?",
+      "range": {
+        "startLine": 30,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 7
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce1599c3_0415b194",
+        "filename": "platform/base/network_loop_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-04T22:04:38Z",
+      "side": 1,
+      "message": "From the method names it sounds like it should return a wrapper object. Maybe Run/Call/Execute instead of Wrap if you choose to keep this method?",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 33
+      },
+      "revId": "36710d0c2aa085bc0461aaec2730a90d6e5ed2e1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
