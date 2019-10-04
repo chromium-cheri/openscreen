@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0eeb3db3_3d245766",
+        "filename": "cast/common/public/agent_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-04T22:53:56Z",
+      "side": 1,
+      "message": "I get that validation is good, but would rather it be done in an AgentConfig struct ctor, or in a single method that consumes the AgentConfig struct later, versus writing value wrappers that require an extra lookup to access the real value.\n\nThey don\u0027t feel like real structs because they don\u0027t have multiple member variables or any methods other than the ctor.",
+      "revId": "8879c75ff16c1398997b2d6a034eca8ed98a25af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0a3645c_c1362e49",
+        "filename": "cast/common/public/agent_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-04T22:53:56Z",
+      "side": 1,
+      "message": "Integers need value initialization.",
+      "revId": "8879c75ff16c1398997b2d6a034eca8ed98a25af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df194d31_784eafde",
+        "filename": "cast/common/public/agent_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-04T22:53:56Z",
+      "side": 1,
+      "message": "Is this an enum?  Then it needs initialization.",
+      "revId": "8879c75ff16c1398997b2d6a034eca8ed98a25af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaa9e553_0cb6112e",
+        "filename": "cast/common/public/agent_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-04T22:53:56Z",
+      "side": 1,
+      "message": "The default-initialized contents of the array elements won\u0027t be deterministic.  Please initialize the values.",
+      "revId": "8879c75ff16c1398997b2d6a034eca8ed98a25af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
