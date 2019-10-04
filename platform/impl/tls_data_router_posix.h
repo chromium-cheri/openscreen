@@ -10,6 +10,7 @@
 
 #include "absl/base/thread_annotations.h"
 #include "platform/api/logging.h"
+#include "platform/api/time.h"
 #include "platform/impl/socket_handle_waiter.h"
 
 namespace openscreen {
@@ -30,7 +31,8 @@ class TlsConnectionPosix;
 // of them should block. Additionally, this class must ensure that deletions of
 // the above types do not occur while a socket/connection is currently being
 // accessed from the networking thread.
-class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
+class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber,
+                           public NetworkLoop::NetworkOperation {
  public:
   class SocketObserver {
    public:
@@ -70,14 +72,11 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
   // block until the networking thread is not using the provided socket.
   virtual void OnSocketDestroyed(StreamSocketPosix* socket);
 
-  // Perform Read on all registered sockets.
-  void ReadAll();
-
-  // Perform write on all registered sockets.
-  void WriteAll();
-
   // SocketHandleWaiter::Subscriber overrides.
   void ProcessReadyHandle(SocketHandleWaiter::SocketHandleRef handle) override;
+
+  // NetworkLoop::NetworkOperation overrides.
+  void PerformNetworkingOperations(Clock::duration timeout) override;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TlsDataRouterPosix);
 
@@ -86,13 +85,22 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
   // instance.
   bool IsSocketWatched(StreamSocketPosix* socket) const;
 
+  virtual bool HasTimedOut(Clock::time_point start_time,
+                           Clock::duration timeout);
+
   friend class TestingDataRouter;
 
  private:
+  enum class NetworkingOperation { kReading, kWriting };
+
   void OnSocketDestroyed(StreamSocketPosix* socket,
                          bool skip_locking_for_testing);
 
   void RemoveWatchedSocket(StreamSocketPosix* socket);
+
+  // Helper methods for PerformNetworkingOperations.
+  NetworkingOperation GetNextMode(NetworkingOperation state);
+  TlsConnectionPosix* GetNextConnection(TlsConnectionPosix* current);
 
   SocketHandleWaiter* waiter_;
 
@@ -101,6 +109,11 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
 
   // Mutex guarding socket_mappings_.
   mutable std::mutex socket_mutex_;
+
+  // Information related to how much of PerformNetworkingOperations(...) was
+  // completed before hitting the timeout.
+  NetworkingOperation last_state_ = NetworkingOperation::kReading;
+  TlsConnectionPosix* last_connection_processed_ = nullptr;
 
   // Mapping from all sockets to the observer that should be called when the
   // socket recognizes an incoming connection.
