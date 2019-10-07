@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc5f4bea_89cd97aa",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-07T18:58:02Z",
+      "side": 1,
+      "message": "Might be useful to have now function passed to the constructor of the class you can control it with fake clock in tests.",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 45
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39f814ba_4dde049e",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-07T18:58:02Z",
+      "side": 1,
+      "message": "Could you please specify the type here explicitly instead of auto?",
+      "range": {
+        "startLine": 77,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 32
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aeacac6_7d202a3b",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-07T18:58:02Z",
+      "side": 1,
+      "message": "Maybe early out like this?\n\nstd::lock_guard\u003cstd::mutex\u003e lock(connections_mutex_);\nif (connections_.empty()) {\n  return;\n}\n\nTlsConnectionPosix* start_connection \u003d GetNextConnection(last_connection_processed_);",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23e19e10_4c98387c",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-07T18:58:02Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 46
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee4543f_29553e9b",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-07T18:58:02Z",
+      "side": 1,
+      "message": "I\u0027m not sure that doing at least one read or write is valid given that timeout is passed as an argument to the function. Maybe while () {} instead of do {} while (); ?",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 45
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7c8b10e_7a9d6ac7",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-07T18:58:02Z",
+      "side": 1,
+      "message": "Doing a std::find once on a vector is perfectly reasonable, doing this for every GetNextConnection is too expensive as it immediately gives O(n^2)\n\nI suggest storing pointer to the last connection processed as a recovery point, but then immediately going from it to the iterator and using iterators to work with the collection.",
+      "range": {
+        "startLine": 150,
+        "startChar": 6,
+        "endLine": 150,
+        "endChar": 67
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
