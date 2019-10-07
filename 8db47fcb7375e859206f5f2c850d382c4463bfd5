@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a60fb105_d3afb1a3",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-07T21:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc5f4bea_89cd97aa",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 45
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39f814ba_4dde049e",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7512c4c_afd00794",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-07T21:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39f814ba_4dde049e",
+      "range": {
+        "startLine": 77,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 32
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "adbe3829_5d7c3141",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-07T21:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aeacac6_7d202a3b",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23e19e10_4c98387c",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "0c782a0f_1b5f533b",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-07T21:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23e19e10_4c98387c",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 46
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ee4543f_29553e9b",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 4
@@ -105,6 +201,30 @@
       "writtenOn": "2019-10-07T18:58:02Z",
       "side": 1,
       "message": "I\u0027m not sure that doing at least one read or write is valid given that timeout is passed as an argument to the function. Maybe while () {} instead of do {} while (); ?",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 45
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343f04ef_eb4db317",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-07T21:35:54Z",
+      "side": 1,
+      "message": "The reason I went with this approach is to ensure our code functions regardless of user input. There are only 2 cases where timeout before any reading/writing should be possible:\n\n1) If the mutex takes a long time to acquire. With the planned design, this should never happen, but if this is the concern I can change to a timed_mutex rather than a lock_guard (and return immediately if timed_mutex::try_lock_for(timeout) fails)\n\n2) If timeout is very small (ie timeout \u003d 0). In this case, we probably can expect all calls to PerformNetworkingOperations() will do no reads/writes (because we always expect this method called with the same timeout every time). In this case, we will never actually read/write any data and the thread will starve\nIf we want our code to continue to function in this case (our SocketHandleWaiter code does function as-is with timeout \u003d 0), then we need to do at least one read or write per iteration.\n\nWhat do you think?",
+      "parentUuid": "3ee4543f_29553e9b",
       "range": {
         "startLine": 120,
         "startChar": 4,
@@ -137,6 +257,30 @@
       "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ab81ed2_f3ccfa91",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-07T21:35:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7c8b10e_7a9d6ac7",
+      "range": {
+        "startLine": 150,
+        "startChar": 6,
+        "endLine": 150,
+        "endChar": 67
+      },
+      "revId": "8db47fcb7375e859206f5f2c850d382c4463bfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
