@@ -49,6 +49,57 @@
     },
     {
       "key": {
+        "uuid": "8d611c7c_896c2921",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:05:08Z",
+      "side": 1,
+      "message": "This is holding onto the lock for the entire duration of this method (presumably, until the timeout).\n\nCan you make a stack copy of connections_ under the lock and loop over that?\n\nOr will this lock be removed when we integrate the subscription object into this class?",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8928b783_3e605278",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:05:08Z",
+      "side": 1,
+      "message": "Where is connections_ populated? I don\u0027t see any code that inserts into it.  Is that code TBD?",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753cee2e_f77fe25d",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:05:08Z",
+      "side": 1,
+      "message": "This seems like a slightly complicated way to loop through reads/writes.  Is there a reason you can only do one operation at a time in this loop?\n\nYou could call TryReceive() and Send() on each connnection in a loop,\nor you could loop through the connections twice (once for sending, and once for receiving).",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "619203ad_9225c438",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 5
@@ -93,6 +144,40 @@
       "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "961aff98_2e267676",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:05:08Z",
+      "side": 1,
+      "message": "It looks like you\u0027re looping through the connections with an O(N^2) algorithm - by doing a lookup each time.\n\nCan you just use a range loop over connections_ inside the do ... while?",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14ce0d7f_d25790a1",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:05:08Z",
+      "side": 1,
+      "message": "Typo in iteration",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

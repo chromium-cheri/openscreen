@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4499a421_46019a15",
+        "filename": "platform/test/fake_clock.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:05:08Z",
+      "side": 0,
+      "message": "This is a good fix.  But there is a small risk that test code will instantiate multiple clocks accessed by different code, resulting in hard-to-diagnose test failures.\n\nI would lean on the side of simplifying this, and going back to the previous behavior if multiple FakeClocks emerge as an actual problem.",
+      "revId": "ecca5d148a59121159b8fb436a9b0b47fd2b79ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
