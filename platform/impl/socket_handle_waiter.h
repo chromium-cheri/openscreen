@@ -5,6 +5,7 @@
 #ifndef PLATFORM_IMPL_SOCKET_HANDLE_WAITER_H_
 #define PLATFORM_IMPL_SOCKET_HANDLE_WAITER_H_
 
+#include <atomic>
 #include <condition_variable>
 #include <functional>
 #include <memory>
