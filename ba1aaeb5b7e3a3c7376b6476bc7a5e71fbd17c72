@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "81a4c919_36d9951b",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T23:30:42Z",
+      "side": 1,
+      "message": "This may be removed after we integrate the Subscription CL into the class. The TODO above is related to this\n\nFor now, this is all under the lock because it\u0027s possible that a connection will be destroyed while we are using it, which would result in a segfault",
+      "parentUuid": "8d611c7c_896c2921",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8928b783_3e605278",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 5
@@ -83,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "5a5a5bd6_29f26751",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T23:30:42Z",
+      "side": 1,
+      "message": "This is TBD. Falls under TaskList item \"TlsNetworkingManager Subscribe / Unsubscribe x 2\"\n\nI expect this will be done with the SubscriberModel class that\u0027s currently in CL",
+      "parentUuid": "8928b783_3e605278",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "753cee2e_f77fe25d",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 5
@@ -94,6 +130,24 @@
       "writtenOn": "2019-10-08T23:05:08Z",
       "side": 1,
       "message": "This seems like a slightly complicated way to loop through reads/writes.  Is there a reason you can only do one operation at a time in this loop?\n\nYou could call TryReceive() and Send() on each connnection in a loop,\nor you could loop through the connections twice (once for sending, and once for receiving).",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7a486eb_7a6558bf",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T23:30:42Z",
+      "side": 1,
+      "message": "The reason for this is to exit more quickly when doing Send/Recieve\n\nIf we hit the timeout, we want to exit as quickly as possible. Then, the following iteration, we want to pick up where we left off (so that we don\u0027t always do reading and never writing for instance). In the worst case scenario, we might only ever get one Read or Write done before the timeout (which is why we have a do-while loop instead of a while loop)\n\nAs an exampleo:\nconnection1, read\nconnection1, write\nconnection2, read\nTIMEOUT\n\nWhat we would want is for the following iteration to start right where we left off (at Connection2, write), so that no single connection or operation is favored\n\nWith the approaches you suggest, either we take longer to stop after the timeout has been hit (first approach), or we may never actually do one of read/write if we always timeout after doing the first",
+      "parentUuid": "753cee2e_f77fe25d",
       "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -161,6 +215,24 @@
       "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6feb4c1_fa586ce5",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T23:30:42Z",
+      "side": 1,
+      "message": "GetConnection is only called once, outside of the loop\nInside the do-while loop, we just call current_connection++ and make use of the iterator which should be O(1) for each of the n iterations :)",
+      "parentUuid": "961aff98_2e267676",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
