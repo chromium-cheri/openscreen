@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "215c7d59_6bdff751",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T20:52:45Z",
+      "side": 1,
+      "message": "std::remove_if / std::find_if copy the value when calling the lambda\nBecause std::unique_ptr can\u0027t be copied, this doesn\u0027t work\n\n\"call to deleted constructor of \u0027std::unique_ptr\u003cStreamSocketPosix\u003e\u0027\n       { return bool(_M_pred(*__it)); }\"\n\nI might be misunderstanding the comment though",
+      "parentUuid": "089f3970_0f25d685",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "a9d090f4921d8919c9733d7ff680dd00dab0fdfd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52b4fc81_18c4a211",
         "filename": "platform/impl/tls_data_router_posix.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "a9d090f4921d8919c9733d7ff680dd00dab0fdfd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57f1b2ad_f5bf7fe7",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T20:52:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52b4fc81_18c4a211",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "a9d090f4921d8919c9733d7ff680dd00dab0fdfd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
