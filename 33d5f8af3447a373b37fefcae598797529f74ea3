@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "94a3af05_ef644c05",
+        "filename": "cast/sender/channel/sender_socket_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T16:56:07Z",
+      "side": 1,
+      "message": "It seems counter-intuitive (and possibly error prone) that:\nint x \u003d 0;\nint y \u003d 1;\nstd::unique_ptr\u003cPendingAuth\u003e ptr \u003d nullptr;\n\nx \u003c ptr \u003d false\nptr \u003c x \u003d false \n(implies x \u003d\u003d ptr)\n\ny \u003c ptr \u003d false\nptr \u003c y \u003d false\n(implies y \u003d\u003d ptr)\n\nx \u003d/\u003d y\n\n\nMaybe nullptr should be treated as 0 for the comparison to avoid this case?\nreturn a \u003c (b ? b-\u003esocket-\u003esocket_id() : 0)",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "33d5f8af3447a373b37fefcae598797529f74ea3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9fb4629_68407341",
         "filename": "cast/sender/channel/sender_socket_factory.cc",
         "patchSetId": 2
@@ -18,6 +41,29 @@
         "startChar": 2,
         "endLine": 46,
         "endChar": 19
+      },
+      "revId": "33d5f8af3447a373b37fefcae598797529f74ea3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09208ee_dad84e5e",
+        "filename": "cast/sender/channel/sender_socket_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T16:56:07Z",
+      "side": 1,
+      "message": "nit: return does nothing here",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 11
       },
       "revId": "33d5f8af3447a373b37fefcae598797529f74ea3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
