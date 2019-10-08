@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fbdf44f_ce5fb33b",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T17:10:32Z",
+      "side": 1,
+      "message": "move vs state vs operation.\nI think it would be a bit better if it was one of the three throughout, probably operation as networking mode and state could mean a lot of things",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619203ad_9225c438",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T17:10:32Z",
+      "side": 1,
+      "message": "You only have to update this after you exit the loop. Then I think you don\u0027t need start_mode and start_connection, you can compare to last_mode and last_connection below and then update last_mode and last_connection after the loop is done.",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 31
+      },
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
