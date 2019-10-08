@@ -18,8 +18,13 @@ class TestingDataRouter : public TlsDataRouterPosix {
 
   using TlsDataRouterPosix::IsSocketWatched;
 
-  void OnSocketDestroyed(StreamSocketPosix* socket) override {
+  void DeregisterSocketObserver(StreamSocketPosix* socket) override {
     TlsDataRouterPosix::OnSocketDestroyed(socket, true);
+  }
+
+  bool AnySocketsWatched() {
+    std::unique_lock<std::mutex> lock(socket_mutex_);
+    return !watched_stream_sockets_.empty() && !socket_mappings_.empty();
   }
 };
 
@@ -38,22 +43,23 @@ class MockNetworkWaiter final : public SocketHandleWaiter {
 TEST(TlsNetworkingManagerPosixTest, SocketsWatchedCorrectly) {
   MockNetworkWaiter network_waiter;
   TestingDataRouter network_manager(&network_waiter);
-  StreamSocketPosix socket(IPAddress::Version::kV4);
+  auto socket = std::make_unique<StreamSocketPosix>(IPAddress::Version::kV4);
   MockObserver observer;
 
-  ASSERT_FALSE(network_manager.IsSocketWatched(&socket));
+  ASSERT_FALSE(network_manager.IsSocketWatched(socket.get()));
 
-  network_manager.RegisterSocketObserver(&socket, &observer);
-  ASSERT_TRUE(network_manager.IsSocketWatched(&socket));
+  auto* ptr =
+      network_manager.RegisterSocketObserver(std::move(socket), &observer);
+  ASSERT_TRUE(network_manager.IsSocketWatched(ptr));
+  ASSERT_TRUE(network_manager.AnySocketsWatched());
 
-  network_manager.DeregisterSocketObserver(&socket);
-  ASSERT_FALSE(network_manager.IsSocketWatched(&socket));
+  network_manager.DeregisterSocketObserver(ptr);
+  ASSERT_FALSE(network_manager.IsSocketWatched(ptr));
+  ASSERT_FALSE(network_manager.AnySocketsWatched());
 
-  network_manager.RegisterSocketObserver(&socket, &observer);
-  ASSERT_TRUE(network_manager.IsSocketWatched(&socket));
-
-  network_manager.OnSocketDestroyed(&socket);
-  ASSERT_FALSE(network_manager.IsSocketWatched(&socket));
+  network_manager.DeregisterSocketObserver(ptr);
+  ASSERT_FALSE(network_manager.IsSocketWatched(ptr));
+  ASSERT_FALSE(network_manager.AnySocketsWatched());
 }
 
 }  // namespace platform

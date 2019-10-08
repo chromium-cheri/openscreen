@@ -28,21 +28,23 @@ void TlsDataRouterPosix::DeregisterConnection(TlsConnectionPosix* connection) {
   OSP_UNIMPLEMENTED();
 }
 
-void TlsDataRouterPosix::RegisterSocketObserver(StreamSocketPosix* socket,
-                                                SocketObserver* observer) {
-  OSP_DCHECK(socket);
+StreamSocketPosix* TlsDataRouterPosix::RegisterSocketObserver(
+    std::unique_ptr<StreamSocketPosix> socket,
+    SocketObserver* observer) {
   OSP_DCHECK(observer);
+  StreamSocketPosix* socket_ptr = socket.get();
   {
     std::unique_lock<std::mutex> lock(socket_mutex_);
-    socket_mappings_[socket] = observer;
+    watched_stream_sockets_.push_back(std::move(socket));
+    socket_mappings_[socket_ptr] = observer;
   }
 
-  waiter_->Subscribe(this, socket->socket_handle());
+  waiter_->Subscribe(this, socket_ptr->socket_handle());
+  return socket_ptr;
 }
 
 void TlsDataRouterPosix::DeregisterSocketObserver(StreamSocketPosix* socket) {
-  RemoveWatchedSocket(socket);
-  waiter_->Unsubscribe(this, socket->socket_handle());
+  OnSocketDestroyed(socket, false);
 }
 
 void TlsDataRouterPosix::OnConnectionDestroyed(TlsConnectionPosix* connection) {
@@ -50,15 +52,33 @@ void TlsDataRouterPosix::OnConnectionDestroyed(TlsConnectionPosix* connection) {
   OSP_UNIMPLEMENTED();
 }
 
-void TlsDataRouterPosix::OnSocketDestroyed(StreamSocketPosix* socket) {
-  OnSocketDestroyed(socket, false);
-}
-
 void TlsDataRouterPosix::OnSocketDestroyed(StreamSocketPosix* socket,
                                            bool skip_locking_for_testing) {
-  RemoveWatchedSocket(socket);
+  {
+    std::unique_lock<std::mutex> lock(socket_mutex_);
+    const auto it = socket_mappings_.find(socket);
+    if (it == socket_mappings_.end()) {
+      return;
+    }
+    socket_mappings_.erase(it);
+  }
+
   waiter_->OnHandleDeletion(this, std::cref(socket->socket_handle()),
                             skip_locking_for_testing);
+
+  {
+    std::unique_lock<std::mutex> lock(socket_mutex_);
+    bool found_socket = false;
+    for (auto i = watched_stream_sockets_.begin();
+         i != watched_stream_sockets_.end(); i++) {
+      if (i->get() == socket) {
+        watched_stream_sockets_.erase(i);
+        found_socket = true;
+        break;
+      }
+    }
+    OSP_DCHECK(found_socket);
+  }
 }
 
 void TlsDataRouterPosix::ReadAll() {
@@ -83,14 +103,6 @@ void TlsDataRouterPosix::ProcessReadyHandle(
       pair.second->OnConnectionPending(pair.first);
       break;
     }
-  }
-}
-
-void TlsDataRouterPosix::RemoveWatchedSocket(StreamSocketPosix* socket) {
-  std::unique_lock<std::mutex> lock(socket_mutex_);
-  const auto it = socket_mappings_.find(socket);
-  if (it != socket_mappings_.end()) {
-    socket_mappings_.erase(it);
   }
 }
 

@@ -54,21 +54,19 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
   // Deregister a TlsConnection.
   void DeregisterConnection(TlsConnectionPosix* connection);
 
-  // Register a StreamSocket that should be watched for incoming Tcp Connections
-  // with the SocketHandleWaiter.
-  void RegisterSocketObserver(StreamSocketPosix* socket,
-                              SocketObserver* observer);
+  // Takes ownership of a StreamSocket and registers that should be watched for
+  // incoming Tcp Connections with the SocketHandleWaiter.
+  StreamSocketPosix* RegisterSocketObserver(
+      std::unique_ptr<StreamSocketPosix> socket,
+      SocketObserver* observer);
 
   // Stops watching a Tcp Connections for incoming connections.
-  void DeregisterSocketObserver(StreamSocketPosix* socket);
+  // NOTE: This will destroy the StreamSocket.
+  virtual void DeregisterSocketObserver(StreamSocketPosix* socket);
 
   // Method to be executed on TlsConnection destruction. This is expected to
   // block until the networking thread is not using the provided connection.
   void OnConnectionDestroyed(TlsConnectionPosix* connection);
-
-  // Method to be executed on StreamSocket destruction. This is expected to
-  // block until the networking thread is not using the provided socket.
-  virtual void OnSocketDestroyed(StreamSocketPosix* socket);
 
   // Perform Read on all registered sockets.
   void ReadAll();
@@ -92,8 +90,6 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
   void OnSocketDestroyed(StreamSocketPosix* socket,
                          bool skip_locking_for_testing);
 
-  void RemoveWatchedSocket(StreamSocketPosix* socket);
-
   SocketHandleWaiter* waiter_;
 
   // Mutex guarding connections_ vector.
@@ -109,6 +105,10 @@ class TlsDataRouterPosix : public SocketHandleWaiter::Subscriber {
 
   // Set of all TlsConnectionPosix objects currently registered.
   std::vector<TlsConnectionPosix*> connections_ GUARDED_BY(connections_mutex_);
+
+  // StreamSockets currently owned by this object, being watched for
+  std::vector<std::unique_ptr<StreamSocketPosix>> watched_stream_sockets_
+      GUARDED_BY(connections_mutex_);
 };
 
 }  // namespace platform
