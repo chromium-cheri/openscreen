@@ -15,6 +15,7 @@
 #include "platform/api/logging.h"
 #include "platform/api/time.h"
 #include "platform/base/error.h"
+#include "platform/impl/platform_client_posix.h"
 #include "platform/impl/socket_handle_waiter_thread.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/task_runner_thread.h"
@@ -359,16 +360,17 @@ int main(int argc, char** argv) {
   openscreen::ServiceMap services;
   openscreen::g_services = &services;
 
+  openscreen::platform::PlatformClientPosix::Create();
   openscreen::platform::TaskRunnerThread task_runner_thread(
       openscreen::platform::Clock::now);
   openscreen::platform::SocketHandleWaiterThread socket_handle_waiter_thread;
   openscreen::platform::UdpSocketReaderPosix reader(
       socket_handle_waiter_thread.socket_handle_waiter());
-  openscreen::platform::UdpSocket::SetLifetimeObserver(&reader);
 
   openscreen::BrowseDemo(task_runner_thread.task_runner(), labels[0], labels[1],
                          service_instance);
 
+  openscreen::platform::PlatformClient::ShutDown();
   openscreen::g_services = nullptr;
   return 0;
 }

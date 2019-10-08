@@ -30,6 +30,7 @@
 #include "platform/api/network_interface.h"
 #include "platform/api/time.h"
 #include "platform/api/trace_logging.h"
+#include "platform/impl/platform_client_posix.h"
 #include "platform/impl/socket_handle_waiter_thread.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/task_runner_thread.h"
@@ -428,7 +429,6 @@ void ListenerDemo() {
   platform::SocketHandleWaiterThread socket_handle_waiter_thread;
   platform::UdpSocketReaderPosix reader(
       socket_handle_waiter_thread.socket_handle_waiter());
-  platform::UdpSocket::SetLifetimeObserver(&reader);
 
   ListenerObserver listener_observer;
   MdnsServiceListenerConfig listener_config;
@@ -520,7 +520,6 @@ void PublisherDemo(absl::string_view friendly_name) {
   platform::SocketHandleWaiterThread socket_handle_waiter_thread;
   platform::UdpSocketReaderPosix reader(
       socket_handle_waiter_thread.socket_handle_waiter());
-  platform::UdpSocket::SetLifetimeObserver(&reader);
 
   PublisherObserver publisher_observer;
   // TODO(btolsch): aggregate initialization probably better?
@@ -615,6 +614,7 @@ int main(int argc, char** argv) {
   openscreen::platform::SetLogLevel(level);
   openscreen::platform::TextTraceLoggingPlatform text_logging_platform;
   TRACE_SET_DEFAULT_PLATFORM(&text_logging_platform);
+  openscreen::platform::PlatformClientPosix::Create();
 
   if (is_receiver_demo) {
     openscreen::PublisherDemo(args.friendly_server_name);
@@ -622,5 +622,6 @@ int main(int argc, char** argv) {
     openscreen::ListenerDemo();
   }
 
+  openscreen::platform::PlatformClient::ShutDown();
   return 0;
 }

@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "platform/api/platform_client.h"
 #include "platform/api/task_runner.h"
 #include "platform/api/tls_connection.h"
 #include "platform/base/socket_state.h"
@@ -21,13 +22,23 @@
 namespace openscreen {
 namespace platform {
 
+class PlatformClientPosix;
+
 class TlsConnectionPosix : public TlsConnection,
                            public TlsWriteBuffer::Observer {
  public:
-  TlsConnectionPosix(IPEndpoint local_address, TaskRunner* task_runner);
-  TlsConnectionPosix(IPAddress::Version version, TaskRunner* task_runner);
-  TlsConnectionPosix(std::unique_ptr<StreamSocket> socket,
-                     TaskRunner* task_runner);
+  TlsConnectionPosix(
+      IPEndpoint local_address,
+      TaskRunner* task_runner,
+      PlatformClient* platform_client = PlatformClient::GetInstance());
+  TlsConnectionPosix(
+      IPAddress::Version version,
+      TaskRunner* task_runner,
+      PlatformClient* platform_client = PlatformClient::GetInstance());
+  TlsConnectionPosix(
+      std::unique_ptr<StreamSocket> socket,
+      TaskRunner* task_runner,
+      PlatformClient* platform_client = PlatformClient::GetInstance());
   ~TlsConnectionPosix();
 
   // Sends any available bytes from this connection's buffer_.
@@ -51,6 +62,8 @@ class TlsConnectionPosix : public TlsConnection,
 
   std::atomic_bool is_buffer_blocked_{false};
   TlsWriteBuffer buffer_;
+
+  PlatformClientPosix* platform_client_;
 
   friend class TlsConnectionFactoryPosix;
 };

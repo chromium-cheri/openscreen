@@ -10,6 +10,7 @@
 #include <string>
 
 #include "absl/types/optional.h"
+#include "platform/api/platform_client.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 #include "platform/impl/socket_address_posix.h"
@@ -19,11 +20,20 @@
 namespace openscreen {
 namespace platform {
 
+class PlatformClientPosix;
+
 class StreamSocketPosix : public StreamSocket {
  public:
-  StreamSocketPosix(IPAddress::Version version);
-  explicit StreamSocketPosix(const IPEndpoint& local_endpoint);
-  StreamSocketPosix(SocketAddressPosix local_address, int file_descriptor);
+  StreamSocketPosix(
+      IPAddress::Version version,
+      PlatformClient* platform_client = PlatformClient::GetInstance());
+  StreamSocketPosix(
+      const IPEndpoint& local_endpoint,
+      PlatformClient* platform_client = PlatformClient::GetInstance());
+  StreamSocketPosix(
+      SocketAddressPosix local_address,
+      int file_descriptor,
+      PlatformClient* platform_client = PlatformClient::GetInstance());
 
   // StreamSocketPosix is non-copyable, due to directly managing the file
   // descriptor.
@@ -74,6 +84,8 @@ class StreamSocketPosix : public StreamSocket {
   bool is_bound_ = false;
   bool is_initialized_ = false;
   SocketState state_ = SocketState::kNotConnected;
+
+  PlatformClientPosix* platform_client_;
 };
 
 }  // namespace platform

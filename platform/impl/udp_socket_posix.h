@@ -6,20 +6,25 @@
 #define PLATFORM_IMPL_UDP_SOCKET_POSIX_H_
 
 #include "absl/types/optional.h"
+#include "platform/api/platform_client.h"
 #include "platform/api/udp_socket.h"
 #include "platform/impl/socket_handle_posix.h"
 
 namespace openscreen {
 namespace platform {
 
+class PlatformClientPosix;
+
 struct UdpSocketPosix : public UdpSocket {
  public:
   // Creates a new UdpSocketPosix. The provided client and task_runner must
   // exist for the duration of this socket's lifetime.
-  UdpSocketPosix(TaskRunner* task_runner,
-                 Client* client,
-                 SocketHandle handle,
-                 const IPEndpoint& local_endpoint);
+  UdpSocketPosix(
+      TaskRunner* task_runner,
+      Client* client,
+      SocketHandle handle,
+      const IPEndpoint& local_endpoint,
+      PlatformClient* platform_client = PlatformClient::GetInstance());
 
   ~UdpSocketPosix() override;
 
@@ -55,6 +60,9 @@ struct UdpSocketPosix : public UdpSocket {
   // the port is zero, getsockname() is called to try to resolve it. Once the
   // port is non-zero, it is assumed never to change again.
   mutable IPEndpoint local_endpoint_;
+
+  // Instance to use for creation and destruction notifications.
+  PlatformClientPosix* platform_client_;
 };
 
 }  // namespace platform

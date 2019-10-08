@@ -11,6 +11,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "platform/impl/platform_client_posix.h"
+
 namespace openscreen {
 namespace platform {
 
@@ -30,20 +32,29 @@ bool IsConnectionPending(int fd) {
 }
 }  // namespace
 
-StreamSocketPosix::StreamSocketPosix(IPAddress::Version version)
-    : version_(version) {}
+StreamSocketPosix::StreamSocketPosix(IPAddress::Version version,
+                                     PlatformClient* platform_client)
+    : version_(version),
+      platform_client_(static_cast<PlatformClientPosix*>(platform_client)) {}
 
-StreamSocketPosix::StreamSocketPosix(const IPEndpoint& local_endpoint)
+StreamSocketPosix::StreamSocketPosix(const IPEndpoint& local_endpoint,
+                                     PlatformClient* platform_client)
     : version_(local_endpoint.address.version()),
-      local_address_(local_endpoint) {}
+      local_address_(local_endpoint),
+      platform_client_(static_cast<PlatformClientPosix*>(platform_client)) {}
 
 StreamSocketPosix::StreamSocketPosix(SocketAddressPosix local_address,
-                                     int file_descriptor)
+                                     int file_descriptor,
+                                     PlatformClient* platform_client)
     : handle_(file_descriptor),
       version_(local_address.version()),
-      local_address_(local_address) {}
+      local_address_(local_address),
+      platform_client_(static_cast<PlatformClientPosix*>(platform_client)) {}
 
 StreamSocketPosix::~StreamSocketPosix() {
+  if (platform_client_) {
+    platform_client_->tls_data_router()->DeregisterSocketObserver(this);
+  }
   if (state_ == SocketState::kConnected) {
     Close();
   }
@@ -74,8 +85,8 @@ ErrorOr<std::unique_ptr<StreamSocket>> StreamSocketPosix::Accept() {
   }
 
   return ErrorOr<std::unique_ptr<StreamSocket>>(
-      std::make_unique<StreamSocketPosix>(new_remote_address,
-                                          new_file_descriptor));
+      std::make_unique<StreamSocketPosix>(
+          new_remote_address, new_file_descriptor, platform_client_));
 }
 
 Error StreamSocketPosix::Bind() {
