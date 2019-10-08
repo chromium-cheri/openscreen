@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "530d9e7a_5f68d845",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e30319d_23beb682",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4f40a96_f9bb7d91",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 18
@@ -33,6 +51,24 @@
       "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a6e675d_ecf2a656",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "These are not top level user facing classes. Receiver and sender are meant to be shared between querier and responder (not yet implemented). Receiver has one callback for the querier (response callback) and one callback for the responder (query callback).\n\nThere will be one sender, one receiver, one querier and one responder object per instance of the mDNS \"service\", all these objects will be owned by the instance of the \"server\".\n\nQuerier and responder are the entities that do multiplexing from 1 sender/receiver to multiple user calls and callbacks.",
+      "parentUuid": "b4f40a96_f9bb7d91",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "30163a50_3bc7bb45",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "I\u0027ve added a few DCHECKs to SetResponseCallback to catch cases when multiple calls are made.",
+      "parentUuid": "af33cd21_c8bda027",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7ff53f4_1232286e",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 18
@@ -67,6 +121,24 @@
       "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4be8b774_94b3d975",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7ff53f4_1232286e",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "8f2ccd72_a01f6e20",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Good catch, thanks!",
+      "parentUuid": "2eff69b4_e7ea0d1a",
+      "range": {
+        "startLine": 57,
+        "startChar": 51,
+        "endLine": 57,
+        "endChar": 61
+      },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b226a6_7d70e470",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 18
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "bee60528_2687f70b",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Done, didn\u0027t become much shorter, but I think it\u0027s more readable after the change.\nRemoved DCHECK on emplace result, since that is essentially testing unordered_map is spec compliant.",
+      "parentUuid": "81b226a6_7d70e470",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e45d73fa_62c27ff6",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 18
@@ -121,6 +235,24 @@
       "writtenOn": "2019-10-01T19:11:48Z",
       "side": 1,
       "message": "Is there a use case for having more than one callback per query?",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9352aca_0f7159e1",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "I\u0027ve decided to do multiplexing from one question to many callback here so the user code does not have to do this. I think it\u0027s reasonable and possible that multiple places in the embedder code might ask the same DNS question.\n\nDo you think it\u0027s better to leave that to the embedder and have a single callback?",
+      "parentUuid": "e45d73fa_62c27ff6",
       "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "309d485a_295f7b67",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Added a task to the spreadsheet to handle these, going to do it in a separate CL",
+      "parentUuid": "bd8eb6a5_85c32fe7",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b58ff6a9_24bc55a5",
         "filename": "cast/common/mdns/mdns_querier.h",
         "patchSetId": 18
@@ -155,6 +305,30 @@
       "writtenOn": "2019-10-01T23:11:27Z",
       "side": 1,
       "message": "It looks like sender, now_function, and random_delay are only used for StartQuery\n\nWould it make more sense to instead make the parameters:\n  MdnsQuerier(MdnsReceiver* receiver,\n              TaskRunner* task_runner,\n              std::function\u003cstd::unique_ptr\u003cMdnsQuestionTracker\u003e()\u003e);\n\n(Or maybe std::function\u003cstd::unique_ptr\u003cMdnsQuestionTracker\u003e(TaskRunner*)\u003e)",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1d0b8f_7ba63ffd",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "MdnsSender is used to create question trackers and is needed for those. It\u0027s passed to the constructor here to enforce the fact that all queries on this querier will go through the same sender (which means the same UDP socket).\n\nSimilar reasoning for MdnsRandom, a single instance should be used across queries to preserve the desired distribution.\n\nI originally had MdnsQuestionTracker and MdnsRecordTracker as private classes in MdnsQuerier, but made them into independent classes for ease of reading, reviewing and testing.\n\nIn addition to that these trackers hide a lot of complexity from the surface API and I\u0027d like that whoever calls into the querier doesn\u0027t have to know about that complexity and provide a function that creates MdnsQuestionTracker.",
+      "parentUuid": "b58ff6a9_24bc55a5",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -190,6 +364,30 @@
     },
     {
       "key": {
+        "uuid": "6969655f_daad92c0",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "283e29bb_68e2b8fe",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 62
+      },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e9d309c_04e594b6",
         "filename": "cast/common/mdns/mdns_querier_unittest.cc",
         "patchSetId": 18
@@ -213,6 +411,30 @@
     },
     {
       "key": {
+        "uuid": "b7e1eee9_bfecab76",
+        "filename": "cast/common/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e9d309c_04e594b6",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 36
+      },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03c8220a_bc81009b",
         "filename": "cast/common/mdns/mdns_receiver.cc",
         "patchSetId": 18
@@ -227,6 +449,24 @@
       "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceae704c_fbc1d5d6",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Forgot to update the comment. Done.",
+      "parentUuid": "03c8220a_bc81009b",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -253,6 +493,30 @@
     },
     {
       "key": {
+        "uuid": "c4630f6f_c145d005",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b9c0fe7_556d2b4f",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 25
+      },
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa5c9534_c2265782",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 18
@@ -270,6 +534,24 @@
     },
     {
       "key": {
+        "uuid": "4b963fca_67b404b5",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa5c9534_c2265782",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35f9ce9e_6ae36426",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 18
@@ -284,6 +566,24 @@
       "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9972cb27_fdbfafc1",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-08T20:06:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35f9ce9e_6ae36426",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
