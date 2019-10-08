@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "cbea0e1f_fea7920c",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:42:32Z",
+      "side": 1,
+      "message": "OK.  I don\u0027t see how the lock quite helps, since the connection can be destroyed independently of the lock being held or not.\n\nLet\u0027s see how the code looks after the subscriber object is implemented.",
+      "parentUuid": "81a4c919_36d9951b",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8928b783_3e605278",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 5
@@ -148,6 +166,24 @@
       "side": 1,
       "message": "The reason for this is to exit more quickly when doing Send/Recieve\n\nIf we hit the timeout, we want to exit as quickly as possible. Then, the following iteration, we want to pick up where we left off (so that we don\u0027t always do reading and never writing for instance). In the worst case scenario, we might only ever get one Read or Write done before the timeout (which is why we have a do-while loop instead of a while loop)\n\nAs an exampleo:\nconnection1, read\nconnection1, write\nconnection2, read\nTIMEOUT\n\nWhat we would want is for the following iteration to start right where we left off (at Connection2, write), so that no single connection or operation is favored\n\nWith the approaches you suggest, either we take longer to stop after the timeout has been hit (first approach), or we may never actually do one of read/write if we always timeout after doing the first",
       "parentUuid": "753cee2e_f77fe25d",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "977c5123_db4f19a8",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:42:32Z",
+      "side": 1,
+      "message": "Ah ok, you want to implement round-robin operations so there\u0027s some fairness.  That makes perfect sense, thanks.  Can you add a comment after \"// Get the next\" explaining that we are processing the list in a round-robin fashion across timeouts?",
+      "parentUuid": "a7a486eb_7a6558bf",
       "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -233,6 +269,24 @@
       "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd1c39d9_2214288b",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:42:32Z",
+      "side": 1,
+      "message": "OK, thanks.  This is starting to make sense.  I assume you can\u0027t always hold onto the iterator itself across loops because it may be invalidated by vector modifications.  But if you know when the vector is modified, it seems like you could loop over an iterator until that happens.\n\nWill this code also go away when the subscription work is done?  If so it\u0027s not worth tweaking it further.",
+      "parentUuid": "f6feb4c1_fa586ce5",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
