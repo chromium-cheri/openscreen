@@ -37,31 +37,35 @@ deps = {
 
     'buildtools': {
         'url': Var('chromium_git')+ '/chromium/src/buildtools' +
-            '@' + 'd5c58b84d50d256968271db459cd29b22bff1ba2',
+            '@' + 'cf454b247c611167388742c7a31ef138a6031172',
         'condition': 'not build_with_chromium',
     },
 
-    'buildtools/linux64': {
-        'packages': [
-            {
-                'package': 'gn/gn/linux-amd64',
-                'version': Var('gn_version'),
-            },
-        ],
-        'dep_type': 'cipd',
-        'condition': 'checkout_linux',
-    },
+    # 'buildtools/clang_format/script':
+    #      Var('chromium_git') + '/chromium/llvm-project/cfe/tools/clang-format.git@' +
+    #      Var('clang_format_revision'),
 
-    'buildtools/mac': {
-        'packages': [
-            {
-                'package': 'gn/gn/mac-amd64',
-                'version': Var('gn_version'),
-            },
-        ],
-        'dep_type': 'cipd',
-        'condition': 'checkout_mac',
-    },
+    # 'buildtools/linux64': {
+    #     'packages': [
+    #         {
+    #             'package': 'gn/gn/linux-amd64',
+    #             'version': Var('gn_version'),
+    #         },
+    #     ],
+    #     'dep_type': 'cipd',
+    #     'condition': 'checkout_linux',
+    # },
+
+    # 'buildtools/mac': {
+    #     'packages': [
+    #         {
+    #             'package': 'gn/gn/mac-amd64',
+    #             'version': Var('gn_version'),
+    #         },
+    #     ],
+    #     'dep_type': 'cipd',
+    #     'condition': 'checkout_mac',
+    # },
 
     'third_party/protobuf/src': {
         'url': Var('chromium_git') +
@@ -123,6 +127,7 @@ deps = {
 
 recursedeps = [
     'third_party/chromium_quic/src',
+    'buildtools',
 ]
 
 include_rules = [
