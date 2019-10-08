@@ -28,8 +28,9 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory,
   // TlsConnectionFactory overrides
   void Connect(const IPEndpoint& remote_address,
                const TlsConnectOptions& options) override;
+
+  void SetListenCredentials(const TlsCredentials& credentials) override;
   void Listen(const IPEndpoint& local_address,
-              const TlsCredentials& credentials,
               const TlsListenOptions& options) override;
 
   // TlsDataRouterPosix::SocketObserver overrides.
@@ -45,6 +46,10 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory,
 
   // Ensures that SSL is initialized, then gets a new SSL connection.
   ErrorOr<bssl::UniquePtr<SSL>> GetSslConnection();
+
+  // Method wrapping the Initialize() private method, that can be safely called
+  // multiple times.
+  void EnsureInitialized();
 
   // Create the shared context used for all SSL connections created by this
   // factory.
