@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "cc13568e_411a4c5f",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:26:42Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "30163a50_3bc7bb45",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7ff53f4_1232286e",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 18
@@ -256,6 +274,24 @@
       "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51812cb9_9b15f02c",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-08T23:26:42Z",
+      "side": 1,
+      "message": "In general, this is going to be used by service discovery, and I can\u0027t think of a use case for having two simultaneous clients for the same query for the same service on the same interface.\n\nIf the client has multiple interfaces, we could have two distinct instances of this object, and then we would deduplicate answers at the service discovery level.\n\nSo, the answer is yes, I think it\u0027s simpler to have one callback/consumer per query, and allow higher levels to multiplex or deduplicate as needed.\n\nThat being said, reverting from the observer interface should happen in a separate patch.  We can even wait until we\u0027ve written the DNS-SD client to be sure.",
+      "parentUuid": "f9352aca_0f7159e1",
+      "revId": "ecbf78055a2f7c44d0811fcf0d6a4fbf1d402f55",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
