@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "49df326e_8d0fe655",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T23:56:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cbea0e1f_fea7920c",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8928b783_3e605278",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 5
@@ -284,6 +302,24 @@
       "side": 1,
       "message": "OK, thanks.  This is starting to make sense.  I assume you can\u0027t always hold onto the iterator itself across loops because it may be invalidated by vector modifications.  But if you know when the vector is modified, it seems like you could loop over an iterator until that happens.\n\nWill this code also go away when the subscription work is done?  If so it\u0027s not worth tweaking it further.",
       "parentUuid": "f6feb4c1_fa586ce5",
+      "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "662e4b86_32eaad18",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-08T23:56:37Z",
+      "side": 1,
+      "message": "Exactly that - In between calls to PerformNetworkingOperations(), we only hold on to the pointer (stored as last_connection_processed_). Then on the next PerformNetworkingOperations() call, this method either returns an iterator to that location or returns an iterator to the start of the vector if that held-on-to pointer was removed. Because the vector won\u0027t be modified while we hold the lock, we can use an iterator safely.\n\nWhen the subscription model work is in, this code may or may not be removed. It\u0027s hard to say without seeing how that code will look at the end. I\u0027d suggest revisiting it once that code is in, or at least further in review.",
+      "parentUuid": "fd1c39d9_2214288b",
       "revId": "ba1aaeb5b7e3a3c7376b6476bc7a5e71fbd17c72",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
