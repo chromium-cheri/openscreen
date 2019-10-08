@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18083a7c_201edf3f",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "Looks like only TaskRunner pointers appear in this header file. Prefer forward-declaring the class to including the entire header.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47761c73_fee57a61",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "Did you mean to put this inside the class?\n\nhttps://google.github.io/styleguide/cppguide.html#Aliases",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb235e7f_3fd7934c",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "nit: Move these down next to the operator\u003d() delete\u0027s, so the reader sees they\u0027re all there.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 53
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34647a1a_cd8729d9",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "nit: TaskRunner* const task_runner_;\n                 ^^^^^",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 27
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59698865_9f123181",
+        "filename": "cast/common/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "If there is ever a test broken by a future code change, it\u0027d be more useful if these EXPECT\u0027s were separate:\n\n EXPECT_EQ(expected.name(), actual.name());\n EXPECT_EQ(expected.dns_class(), actual.dns_class());\n ...",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 50
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62590e94_9e6d93b0",
+        "filename": "cast/common/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "explicit keyword here",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 15
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b899f257_a4d570d1",
+        "filename": "cast/common/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "Looks like you meant to remove these.",
+      "range": {
+        "startLine": 131,
+        "startChar": 1,
+        "endLine": 132,
+        "endChar": 37
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f29963b0_9dcafc63",
+        "filename": "cast/common/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": ".\n\n(period at end of sentence)",
+      "range": {
+        "startLine": 199,
+        "startChar": 36,
+        "endLine": 199,
+        "endChar": 37
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b090a69_eba956dd",
+        "filename": "cast/common/mdns/mdns_receiver.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "!\u003d instead of bitwise xor\n\n(here and in the other method)\n\nIt\u0027s totally a matter of personal style, but I typically coerce to bool with the \"truthy operator.\" Ex:\n\n  OSP_DCHECK((!!query_callback_) !\u003d (!!callback));",
+      "range": {
+        "startLine": 27,
+        "startChar": 48,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f13e3b_dba7bfdb",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "explicit keyword here",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 14
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "755ad941_86b791e5",
+        "filename": "cast/common/mdns/mdns_receiver.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "Put next to the operator\u003d() delete\u0027s.",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "687960fd_5cd20f4c",
+        "filename": "cast/common/mdns/mdns_records.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "Sanity-check questions: Is a NUL string terminator involved? Does label.size() include the NUL terminator? Does kMaxLabelLength include the NUL terminator? Or, maybe neither assume a NUL terminator?\n\nI ask just in case the \"label_size \u003c\u003d kMaxLabelLength\" expression has an off-by-one issue.",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4baef0d7_e8ae68ed",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-08T21:55:19Z",
+      "side": 1,
+      "message": "int?\n\nHowever, given the way this is used, I\u0027d suggest changing to:\n\n  bool HasCallbacks() const { return !callbacks_.empty(); }",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 8
+      },
+      "revId": "dd3b6484b28d83e3372e5aa9699a51fbc40d171c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
