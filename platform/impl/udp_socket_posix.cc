@@ -21,6 +21,7 @@
 #include "absl/types/optional.h"
 #include "platform/api/logging.h"
 #include "platform/base/error.h"
+#include "platform/impl/platform_client_posix.h"
 
 namespace openscreen {
 namespace platform {
@@ -55,14 +56,22 @@ ErrorOr<int> CreateNonBlockingUdpSocket(int domain) {
 UdpSocketPosix::UdpSocketPosix(TaskRunner* task_runner,
                                Client* client,
                                SocketHandle handle,
-                               const IPEndpoint& local_endpoint)
+                               const IPEndpoint& local_endpoint,
+                               PlatformClient* platform_client)
     : UdpSocket(task_runner, client),
       handle_(handle),
-      local_endpoint_(local_endpoint) {
+      local_endpoint_(local_endpoint),
+      platform_client_(static_cast<PlatformClientPosix*>(platform_client)) {
   OSP_DCHECK(local_endpoint_.address.IsV4() || local_endpoint_.address.IsV6());
+  if (platform_client_) {
+    platform_client_->udp_socket_reader()->OnCreate(this);
+  }
 }
 
 UdpSocketPosix::~UdpSocketPosix() {
+  if (platform_client_) {
+    platform_client_->udp_socket_reader()->OnDestroy(this);
+  }
   CloseIfOpen();
 }
 

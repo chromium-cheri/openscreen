@@ -9,6 +9,7 @@
 #include <memory>
 #include <string>
 
+#include "platform/api/platform_client.h"
 #include "platform/api/tls_connection.h"
 #include "platform/api/tls_connection_factory.h"
 #include "platform/base/socket_state.h"
@@ -17,12 +18,16 @@
 namespace openscreen {
 namespace platform {
 
+class PlatformClientPosix;
 class StreamSocket;
 
 class TlsConnectionFactoryPosix : public TlsConnectionFactory,
                                   public TlsDataRouterPosix::SocketObserver {
  public:
-  TlsConnectionFactoryPosix(Client* client, TaskRunner* task_runner);
+  TlsConnectionFactoryPosix(
+      Client* client,
+      TaskRunner* task_runner,
+      PlatformClient* platform_client = PlatformClient::GetInstance());
   ~TlsConnectionFactoryPosix() override;
 
   // TlsConnectionFactory overrides
@@ -57,6 +62,8 @@ class TlsConnectionFactoryPosix : public TlsConnectionFactory,
 
   // SSL context, for creating SSL Connections via BoringSSL.
   bssl::UniquePtr<SSL_CTX> ssl_context_;
+
+  PlatformClientPosix* platform_client_;
 };
 
 }  // namespace platform
