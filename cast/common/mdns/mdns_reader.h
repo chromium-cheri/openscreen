@@ -5,7 +5,11 @@
 #ifndef CAST_COMMON_MDNS_MDNS_READER_H_
 #define CAST_COMMON_MDNS_MDNS_READER_H_
 
+#include <vector>
+
+#include "absl/strings/string_view.h"
 #include "cast/common/mdns/mdns_records.h"
+#include "platform/base/ip_address.h"
 #include "util/big_endian.h"
 
 namespace cast {
@@ -15,6 +19,7 @@ class MdnsReader : public openscreen::BigEndianReader {
  public:
   using BigEndianReader::BigEndianReader;
   using BigEndianReader::Read;
+  using IPAddress = openscreen::IPAddress;
 
   // The following methods return true if the method was able to successfully
   // read the value to |out| and advances current() to point right past the read
