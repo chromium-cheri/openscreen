@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "98d15f23_f6bd2c95",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-09T00:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c661a28a_ca43f3e3",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 1
+      },
+      "revId": "d269fc88ec77fa865cc4ef6cb45822a781de7b3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eceb4189_b88ceaf6",
         "filename": "platform/impl/tls_write_buffer.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-25T18:24:06Z",
       "side": 1,
       "message": "Since you already know exactly how many bytes you can write\n\nfor (size_t i \u003d 0; i \u003c write_len; ++i) {\n  buffer_[current_write_index++] \u003d data[i];\n  if (current_write_index \u003d\u003d kBufferSizeBytes) {\n    current_write_index \u003d 0;\n  }\n}\n\nApplies to both approaches though.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "d269fc88ec77fa865cc4ef6cb45822a781de7b3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7f18077_20db0d40",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-09T00:51:44Z",
+      "side": 1,
+      "message": "Based on what I\u0027ve read online, memcpy runs faster than a for loop:\nhttps://stackoverflow.com/questions/4729046/memcpy-vs-for-loop-whats-the-proper-way-to-copy-an-array-from-a-pointer\n\nUnless there is a benefit to using the for loop, I\u0027d prefer to use the faster approach",
+      "parentUuid": "eceb4189_b88ceaf6",
       "range": {
         "startLine": 49,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9c2bafe5_4ecd405c",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-09T00:51:44Z",
+      "side": 1,
+      "message": "Done. Good idea!",
+      "parentUuid": "a1dc7227_3034407a",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 67
+      },
+      "revId": "d269fc88ec77fa865cc4ef6cb45822a781de7b3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e803bdee_c373ad0a",
         "filename": "platform/impl/tls_write_buffer.h",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-10-09T00:14:35Z",
       "side": 1,
       "message": "However, it\u0027s perfectly fine if they wrap-around. The modular arithmetic all works out without any special-cased expressions.",
+      "range": {
+        "startLine": 63,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 58
+      },
+      "revId": "d269fc88ec77fa865cc4ef6cb45822a781de7b3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8188e5c_f6af27f0",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-09T00:51:44Z",
+      "side": 1,
+      "message": "Good point - since we are using size_ts everywhere for the math, it should all be fine. I\u0027d still prefer to leave the warning though in case I\u0027m missing something",
+      "parentUuid": "e803bdee_c373ad0a",
       "range": {
         "startLine": 63,
         "startChar": 5,
