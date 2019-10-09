@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "400bc9e0_330e68bd",
+        "filename": "platform/api/tls_connection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-09T01:11:05Z",
+      "side": 1,
+      "message": "If we always expect TlsCredentials, we should either:\na) Take it in the constructor\nb) DCHECK that it\u0027s been set when calling Listen",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 75
+      },
+      "revId": "0b708d5017170f9924918f58e16d9614ee045c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "085ea9dd_73fe63db",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-09T01:11:05Z",
+      "side": 1,
+      "message": "nit: return doesn\u0027t do anything here",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 11
+      },
+      "revId": "0b708d5017170f9924918f58e16d9614ee045c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d53ab3d7_0edc2aa2",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-09T01:11:05Z",
+      "side": 1,
+      "message": "I know this wasn\u0027t changed in this CL, but:\n\nTaskRunner* const task_runner_;",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 27
+      },
+      "revId": "0b708d5017170f9924918f58e16d9614ee045c35",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
