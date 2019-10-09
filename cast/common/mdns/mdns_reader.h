@@ -5,16 +5,40 @@
 #ifndef CAST_COMMON_MDNS_MDNS_READER_H_
 #define CAST_COMMON_MDNS_MDNS_READER_H_
 
-#include "cast/common/mdns/mdns_records.h"
+#include <vector>
+
+#include "absl/strings/string_view.h"
+#include "platform/base/ip_address.h"
 #include "util/big_endian.h"
 
 namespace cast {
 namespace mdns {
 
+class AAAARecordRdata;
+class ARecordRdata;
+class DomainName;
+class MdnsMessage;
+class MdnsQuestion;
+class MdnsRecord;
+class PtrRecordRdata;
+class RawRecordRdata;
+class SrvRecordRdata;
+class TxtRecordRdata;
+struct Header;
+enum class DnsType : uint16_t;
+
+using Rdata = absl::variant<RawRecordRdata,
+                            SrvRecordRdata,
+                            ARecordRdata,
+                            AAAARecordRdata,
+                            PtrRecordRdata,
+                            TxtRecordRdata>;
+
 class MdnsReader : public openscreen::BigEndianReader {
  public:
   using BigEndianReader::BigEndianReader;
   using BigEndianReader::Read;
+  using IPAddress = openscreen::IPAddress;
 
   // The following methods return true if the method was able to successfully
   // read the value to |out| and advances current() to point right past the read

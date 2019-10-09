@@ -6,11 +6,14 @@
 
 #include <memory>
 
+#include "cast/common/mdns/mdns_records.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 namespace cast {
 namespace mdns {
+
+using openscreen::IPAddress;
 
 namespace {
 

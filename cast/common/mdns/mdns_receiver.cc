@@ -5,6 +5,7 @@
 #include "cast/common/mdns/mdns_receiver.h"
 
 #include "cast/common/mdns/mdns_reader.h"
+#include "cast/common/mdns/mdns_records.h"
 #include "platform/api/trace_logging.h"
 
 namespace cast {
@@ -46,7 +47,7 @@ void MdnsReceiver::Stop() {
 }
 
 void MdnsReceiver::OnRead(UdpSocket* socket,
-                          openscreen::ErrorOr<UdpPacket> packet_or_error) {
+                          ErrorOr<UdpPacket> packet_or_error) {
   if (state_ != State::kRunning || packet_or_error.is_error()) {
     return;
   }
