@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b899c88_9b339a6f",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-09T19:41:47Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be in TlsConnectionPosix destructor? Stream socket shouldn\u0027t care about child class added functionality.",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "bfbfcad113603720a3d974521e870629290ef97f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae35769_a94e5c85",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-09T19:41:47Z",
+      "side": 1,
+      "message": "Can we make this PlatformClientPosix* here and in other classes?",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "bfbfcad113603720a3d974521e870629290ef97f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
