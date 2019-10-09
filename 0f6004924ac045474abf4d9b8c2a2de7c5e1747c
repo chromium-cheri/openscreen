@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20674c69_d43f70f0",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-09T23:33:40Z",
+      "side": 1,
+      "message": "It is odd that the client can configure the polling interval, but not the operation timeout - both will impact performance.",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d3f8e7f_dea41fb2",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-09T23:33:40Z",
+      "side": 1,
+      "message": "What protects this code from overwriting an existing instance?",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9acb993_413796f9",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-09T23:33:40Z",
+      "side": 1,
+      "message": "At first I was wondering why the PlatformClient needs to have code to run individual networking operations. Then I saw that it\u0027s just building up some functions to pass into the networking_loop_.",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96c5fc40_9385e44f",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-09T23:33:40Z",
+      "side": 1,
+      "message": "Just so I understand, the operation loop is started, regardless of whether socket_handle_waiter or tls_data_router exist yet.  And it will run forever, even if those objects exist and have nothing to do.\n\nMaybe we can delay instantiation of networking_loop_ until at least one of those objects exists?  Or do you expect them to be created right away, so it isn\u0027t worth optimizing for?",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41ba66f4_065c941c",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-09T23:33:40Z",
+      "side": 1,
+      "message": "Maybe shorten a bit to networking_loop_interval?",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960fc6c1_918cc3c1",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-09T23:33:40Z",
+      "side": 1,
+      "message": "Jordan used std::call_once and std::once_flag to create call-once code in a recent patch.  Would that work here?  It would be nice to have a consistent pattern in our code base.",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
