@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "47378300_24b3a5cd",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-09T00:15:43Z",
+      "side": 1,
+      "message": "k is never less than zero.\n\nBut, since |write_index| can be less than |read_index| when using this indexing scheme, this expression needs to have the extra terms, I suppose.",
+      "parentUuid": "9547fca1_a66775d7",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "28132330_2d735ca5",
         "filename": "platform/impl/tls_write_buffer.cc",
         "patchSetId": 3
@@ -258,6 +282,30 @@
       "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b07eb66f_43e019fc",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-09T00:15:43Z",
+      "side": 1,
+      "message": "I agree that the optimization is not necessary. I was just jotting down a design idea, not advising it be applied here. :)",
+      "parentUuid": "d7c78936_7ffabfe4",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "9544380d3511b773a56de8f207ec8aa2b4f65e2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e09a3174_c0504e53",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-09T00:15:43Z",
+      "side": 1,
+      "message": "nit: Put the relaxed read before L70, to give the processor more leeway.\n\n...and in Consume().",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 80
+      },
+      "revId": "ec851fb2f7895bf1971e668159e656dc49e6cfbc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52f60a6a_3e535be6",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-09T00:15:43Z",
+      "side": 1,
+      "message": "It seems that the \"minus one\" here is a bug. If:\n\n current_write_index \u003d 0\n current_read_index \u003d kBufferSizeBytes - 1 (one before the end of the buffer)\n\nThen we expect a span of size one byte, but will get a span of size zero.\n\n...but, with this indexing scheme we\u0027re always wasting one byte; so is this actually a correct result? I\u0027m confused. Definitely prefer the other indexing scheme. :)\n\nI left comments on https://chromium-review.googlesource.com/c/openscreen/+/1825500 which might convince you guys it\u0027s simpler...",
+      "range": {
+        "startLine": 81,
+        "startChar": 50,
+        "endLine": 81,
+        "endChar": 53
+      },
+      "revId": "ec851fb2f7895bf1971e668159e656dc49e6cfbc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "754e7ada_0bdd9e07",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-09T00:15:43Z",
+      "side": 1,
+      "message": "Use DCHECK, and OSP_DCHECK_GE(current fill count, byte_count).",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 12
+      },
+      "revId": "ec851fb2f7895bf1971e668159e656dc49e6cfbc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3295fb8d_5444de73",
+        "filename": "platform/impl/tls_write_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-09T00:15:43Z",
+      "side": 1,
+      "message": "I\u0027m still not sure why the fraction is useful: If the observer doesn\u0027t know the total size of the buffer, how would it know how much to throttle by? If the observer *does* know the total size of the buffer, then it seems the fill count (not the fraction of fill) would be much more actionable information.",
+      "range": {
+        "startLine": 105,
+        "startChar": 35,
+        "endLine": 105,
+        "endChar": 43
+      },
+      "revId": "ec851fb2f7895bf1971e668159e656dc49e6cfbc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18558368_cfd78145",
+        "filename": "platform/impl/tls_write_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-09T00:15:43Z",
+      "side": 1,
+      "message": "s/tls/TLS/",
+      "range": {
+        "startLine": 56,
+        "startChar": 46,
+        "endLine": 56,
+        "endChar": 49
+      },
+      "revId": "ec851fb2f7895bf1971e668159e656dc49e6cfbc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
