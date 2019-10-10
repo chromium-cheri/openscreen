@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ce10f1ca_0d31b04e",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-10T19:36:46Z",
+      "side": 1,
+      "message": "Done\n\nUpdated so that both can be configured",
+      "parentUuid": "20674c69_d43f70f0",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d3f8e7f_dea41fb2",
         "filename": "platform/impl/platform_client_posix.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31c8b598_8505ae99",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-10T19:36:46Z",
+      "side": 1,
+      "message": "Good catch - it doesn\u0027t\n\nI\u0027ve added a DCHECK to PlatformClient because this seems like code we\u0027d want for all implementations",
+      "parentUuid": "8d3f8e7f_dea41fb2",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "29cbfa21_424771c6",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-10T19:36:46Z",
+      "side": 1,
+      "message": "That is correct - the loop will run forever, but because of the networking_loop_interval parameter it won\u0027t be a hot loop\n\nMy expectation was that an embedder will quickly create something that the network loop will use - either a StreamSocket to listen for incoming TLS connections in the case of a server or a UdpSocket to call mDNS in the case of a client (both of which would introduce socket handles to be watched by socket_handle_waiter())\n\nIf you\u0027d prefer, I can change so that both socket_handle_waiter() and tls_data_router() check network_loop exists and create it if not.\nWould you like me to do the same for TaskRunner for consistency (both of creation and thread handling)?",
+      "parentUuid": "96c5fc40_9385e44f",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41ba66f4_065c941c",
         "filename": "platform/impl/platform_client_posix.h",
         "patchSetId": 2
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "54d6ccfd_364ebe65",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-10T19:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41ba66f4_065c941c",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "960fc6c1_918cc3c1",
         "filename": "platform/impl/platform_client_posix.h",
         "patchSetId": 2
@@ -101,6 +173,24 @@
       "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f0391eb_c377708f",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-10T19:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "960fc6c1_918cc3c1",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
