@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "b482c2de_08be9fd1",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T20:46:16Z",
+      "side": 1,
+      "message": "Delaying the thread startup might be useful in the future, but I think the embedder should expect resources to be spun up after PlatformClientImpl::Create() is called.  It might be worth adding a NOTE: suggesting delayed instantiation of networking_loop_ in case we decide to revisit this later.",
+      "parentUuid": "29cbfa21_424771c6",
+      "revId": "0f6004924ac045474abf4d9b8c2a2de7c5e1747c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41ba66f4_065c941c",
         "filename": "platform/impl/platform_client_posix.h",
         "patchSetId": 2
