@@ -8,6 +8,9 @@
 #include <atomic>
 #include <memory>
 
+#include "platform/api/task_runner.h"
+#include "util/serial_delete_ptr.h"
+
 namespace openscreen {
 namespace platform {
 
@@ -15,10 +18,9 @@ namespace platform {
 // is automatically taken as part of construction, and released as part
 // of destruction.
 class ScopedWakeLock {
- protected:
-  // Pure virtual destructors must still be defined, but mark this class as
-  // abstract.
-  virtual ~ScopedWakeLock() = 0;
+ public:
+  static SerialDeletePtr<ScopedWakeLock> Create(TaskRunner* task_runner);
+  virtual ~ScopedWakeLock();
 };
 
 }  // namespace platform
