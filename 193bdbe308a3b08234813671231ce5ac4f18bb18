@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2fb5d0a_6663aead",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-10T16:45:23Z",
+      "side": 1,
+      "message": "Why not change the signature of SetListenCredentials to either accept a non-const reference or a pointer? My reasoning behind this is that credentials is not something solely owned by TlsConnectionFactoryPosix. The caller trusts SetListenCredentials with a const object and SetListenCredentials violates that trust.\n\nAlso, I couldn\u0027t find usages of SetListenCredentials anywhere in this CL or tests.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "193bdbe308a3b08234813671231ce5ac4f18bb18",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
