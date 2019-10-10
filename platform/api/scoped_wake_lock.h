@@ -15,10 +15,9 @@ namespace platform {
 // is automatically taken as part of construction, and released as part
 // of destruction.
 class ScopedWakeLock {
- protected:
-  // Pure virtual destructors must still be defined, but mark this class as
-  // abstract.
-  virtual ~ScopedWakeLock() = 0;
+ public:
+  static std::unique_ptr<ScopedWakeLock> Create();
+  virtual ~ScopedWakeLock();
 };
 
 }  // namespace platform
