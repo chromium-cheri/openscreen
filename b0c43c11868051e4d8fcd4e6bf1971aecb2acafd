@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "14488a84_c097ec2e",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T20:32:12Z",
+      "side": 1,
+      "message": "See reply below.",
+      "parentUuid": "dca646bf_d0dc58bb",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3e46b62_73c803a8",
         "filename": "util/subscriber_model.h",
         "patchSetId": 3
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "As Unsubscribe is often called in the dtor of subscribed objects, this is expected to be used to block deletion of an object that may not be safe to immediately delete (for instance, block the deletion of a UdpSocket\u0027s socket handle until SocketHandleWaiter is no longer using it for the SELECT call, to ensure we don\u0027t hit a segfault).\n\nThe specific classes that would use this are SocketHandleWaiter (for case mentioned above) and TlsDataRouterPosix (so we don\u0027t delete a TlsConnection as we are reading/writing with it)\n\nAn alternative would be to provide a \"deletion action\" to the Unsubscribe call to be called when the subscriber_changes_ action is executed (ie, for a socket handle, we could transfer the \"close this socket handle\" action like UdpSocketPosix::Close()). I did not go this route because:\n- We already use the currently coded pattern in our library (previously in UdpSocketReader, but since moved to SocketHandleWaiter during the previously discussed refactor while you were at TPAC)\n- This would require larger design changes and design discussions to other already-existing classes (especially because the called action can\u0027t be an instance method if the instance might be deleted), so I thought it would be better to get the code working and leave this as future work",
       "parentUuid": "6fc3a80d_38cd6c50",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deca0ebf_2c0a8a8c",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T20:32:12Z",
+      "side": 1,
+      "message": "I now realize that this class take a copy of SubscriberType and owns it in Subscribe() and Unsubscribe(), and uses Equals().  But the examples you provided below all pass pointers as SubscriberType.  If you update the API to always pass subscribers by (un-owned) pointer, do we still need to worry about deletion?",
+      "parentUuid": "b721152f_439a89f8",
       "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -247,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "d4c70aff_e42ffec7",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T20:32:12Z",
+      "side": 1,
+      "message": "Cmment looks good, but see reply below.",
+      "parentUuid": "10deefd0_69c730dc",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "859b3abc_ffe5615d",
         "filename": "util/subscriber_model.h",
         "patchSetId": 3
@@ -276,6 +330,24 @@
       "side": 1,
       "message": "This needs to be called from the consumer thread, not the producing threads that call Subscribe/Unsubscribe\n\nOriginally, I had this executed as part of the below subscribers() method, but this was changed in a previous iteration\n\nWith this approach, it can be called at multiple locations by the consumer, whenever it\u0027s safe.\nFor an example use case of calling it multiple times, compare to socket_handle_waiter.cc which calls handle_deletion_block_.notify_all() at multiple locations (as this method has a comparable unsubscribe_block_.notify_all() call)",
       "parentUuid": "859b3abc_ffe5615d",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b317f042_8f349c09",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T20:32:12Z",
+      "side": 1,
+      "message": "I think an easier to use API would not require the consumer to call an extra method to update the state of the subscribers, particularly because the consumer may have no idea whether there are any pending calls to Subscribe()/Unsubscribe().\n\nWhat was the disadvantage of putting this call in subscribers()?\n\nIf the concern is that subscribers() is more likely to be called in a \"hot loop,\" then you could use an atomic operation to know whether there are any pending changes, which should be able to implemented in a lock free manner (DCHECK(atomic\u003cbool\u003e::is_lock_free).\n\nAlso do you need strong consistency or eventual consistency?  Does subscribers() always need to see all pending changes, or can they be applied later?\n\nI think whether you break out the method into the API, or call it internally, this object will perform badly if either the producer or consumer hot-loops the API.",
+      "parentUuid": "a6236d55_9686b1f8",
       "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -314,6 +386,24 @@
       "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6943007_8b5a5a36",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T20:32:12Z",
+      "side": 1,
+      "message": "That looks good.  Feel free to add EXCLUSIVE_LOCKS annotations elsewhere they are suggested by the comments in this patch, and we can annotate existing code later.",
+      "parentUuid": "ce23e729_99d375cc",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -416,6 +506,24 @@
       "side": 1,
       "message": "This would be used for storing:\n- std::pair\u003cconst SocketHandle\u0026, SocketHandleWaiter::Subscriber*\u003e objects in SocketHandleWaiter\n- std::pair\u003cStreamSocket*, TlsDataRouterPosix::SocketObserver*\u003e objects in TlsDataRouterPosix\n\nIn these cases, Unsubscribe calls provide us with the Key (either a socket handle or a StreamSocket*), and we need to Unsubscribe the entry associated with that Key and any Value (Equivalent to std::unordered_map::Erase())",
       "parentUuid": "3cef199a_2ecb8576",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3538f15a_d123dc52",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T20:32:12Z",
+      "side": 1,
+      "message": "This map (or list of pairs) belong in SocketHandleWaiter/TlsDataRouterPosix, which can look up the subscriber and pass it in here.  This class should be kept simple and does not require key-based lookup.",
+      "parentUuid": "50d6d719_6f2fda86",
       "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
