@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a449f71_e6654780",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "Bikeshed: maybe the \"primary\" thread should be called the \"consumer\" thread, as the other threads in the system are \"producing\" subscribers.",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc48a379_55db0a7c",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "Can we just use operation\u003d\u003d for SubscriberType, instead of introducing a custom Equals template parameter?",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3e46b62_73c803a8",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "The cancellation_token seems to function as a closure (void callback).\nWould it be simpler to just pass a std::function\u003cvoid()\u003e to the constructor?",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fc3a80d_38cd6c50",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "Is there a use case for this?  The stated purpose of the class is to allow other threads to unsubscribe *without* blocking.",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4b1581_302d1965",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "Do we yet have a macro for enforcing thread/sequence affinity, similar to DCHECK_CALLED_ON_VALID_SEQUENCE in Chromium?\n\nWe have a lot of code that is not threadsafe, or has threading assumptions baked in.  It would be great to document and enforce those assumptions in code (not just comments).\n\nFeel free to file an issue and leave as a TODO.",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1117d12_767a0fe5",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "In general synchronous APIs are discouraged.  What is the use case for this?",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37fd5daa_2b3a4b90",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "I didn\u0027t quite follow this comment.  Calling this method is what processes pending Subscribe and Unsubscribe calls.",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "859b3abc_ffe5615d",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "Does this need to be part of the public API, or should it be private and called only from Subscribe/Unsubscribe?",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a95b74cf_9b45f925",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "Can we adopt abseil-style macros to enforce lock status?\n\nhttps://github.com/abseil/abseil-cpp/blob/master/absl/base/thread_annotations.h#L110\n\nFeel free to file an issue and leave as a TODO.",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a4fb12b_8c2cf7f0",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "What is StopProviding?",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3089a9_5b5d1f17",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "Is this used?",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cef199a_2ecb8576",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-10T00:25:51Z",
+      "side": 1,
+      "message": "Is this used?",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
