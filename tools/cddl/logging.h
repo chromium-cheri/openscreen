@@ -5,19 +5,36 @@
 #ifndef TOOLS_CDDL_LOGGING_H_
 #define TOOLS_CDDL_LOGGING_H_
 
-#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <cstdlib>
 #include <iostream>
 #include <string>
+#include <utility>
 
-#include "platform/api/logging.h"
+namespace {
 
-// A wrapper around all logging methods, so that the underlying logging
-// implementation can easily be swapped out, and to that loggers only ever need
-// to call static Log(...) or Error(...) methods
-// NOTES:
-// Template methods are fully defined in the header file here instead of the cc
-//   to get around needing explicit instantiation for the template, since we
-//   don't have that information at this point.
+void Abort(const char* condition) {
+  std::cerr << "CHECK(" << condition << ") failed!" << std::endl;
+  std::abort();
+}
+
+}  // namespace
+
+#define CHECK(condition) (condition) ? (void)0 : Abort(#condition)
+
+#define CHECK_EQ(a, b) CHECK((a) == (b))
+#define CHECK_NE(a, b) CHECK((a) != (b))
+#define CHECK_LT(a, b) CHECK((a) < (b))
+#define CHECK_LE(a, b) CHECK((a) <= (b))
+#define CHECK_GT(a, b) CHECK((a) > (b))
+#define CHECK_GE(a, b) CHECK((a) >= (b))
+
+// TODO #1: This class has no state, so it doesn't need to be a singleton, just
+// a collection of static functions.
+
+// TODO #2: Convert to stream oriented logging to clean up security warnings.
 class Logger {
  public:
   // Writes a log to the global singleton instance of Logger.
@@ -63,9 +80,7 @@ class Logger {
 
   // Writes a log message to this instance of Logger's text file.
   template <typename... Args>
-  void WriteToStream(std::ostream& stream,
-                     const std::string& message,
-                     Args&&... args) {
+  void WriteToStream(const std::string& message, Args&&... args) {
     VerifyInitialized();
 
     // NOTE: wihout the #pragma suppressions, the below line fails. There is a
@@ -89,22 +104,21 @@ class Logger {
 #elif defined(__GNUC__)
 #pragma GCC diagnostic pop
 #endif  // defined(__clang__)
-    OSP_CHECK_GE(byte_count, 0);
-    stream << str_buffer;
+    CHECK_GE(byte_count, 0);
+    std::cerr << str_buffer << std::endl;
     free(str_buffer);
   }
 
-  // Writes an error message to this instance of Logger's text file.
+  // Writes an error message.
   template <typename... Args>
   void WriteError(const std::string& message, Args&&... args) {
-    this->WriteToStream(OSP_LOG_ERROR, "Error: " + message,
-                        std::forward<Args>(args)...);
+    WriteToStream("Error: " + message, std::forward<Args>(args)...);
   }
 
-  // Writes a log message to this instance of Logger's text file.
+  // Writes a log message.
   template <typename... Args>
   void WriteLog(const std::string& message, Args&&... args) {
-    this->WriteToStream(OSP_LOG_INFO, message, std::forward<Args>(args)...);
+    WriteToStream(message, std::forward<Args>(args)...);
   }
 };
 
