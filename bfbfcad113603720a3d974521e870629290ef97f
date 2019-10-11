@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c6819e67_1f817485",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T00:02:07Z",
+      "side": 1,
+      "message": "This is to deregiser StreamSockets that are registered as part of TlsConnectionFactoryPosix::Listen()\nIt\u0027s possible that this StreamSocket was never actually registered, but in that case DeregisterSocketObserver() should be a no-op\n\nWe have platform_client_-\u003etls_data_router()-\u003eDeregisterConnection(this); in the TlsConnectionPosix dtor to handle TlsConnections, but this is handling listening StreamSockets which are different\nWe expect that the same StreamSocket can spin up multiple TlsConnections while listening, so we can\u0027t destroy it as part of TlsConnection",
+      "parentUuid": "8b899c88_9b339a6f",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "bfbfcad113603720a3d974521e870629290ef97f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eae35769_a94e5c85",
         "filename": "platform/impl/stream_socket_posix.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "bfbfcad113603720a3d974521e870629290ef97f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15ab36ea_b8f62e2e",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T00:02:07Z",
+      "side": 1,
+      "message": "Done.\n\nAdded an accessor to PlatformClientPosix and updated as suggested.",
+      "parentUuid": "eae35769_a94e5c85",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "bfbfcad113603720a3d974521e870629290ef97f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
