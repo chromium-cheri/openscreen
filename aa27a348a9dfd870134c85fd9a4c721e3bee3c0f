@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35f9c993_67c8773f",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T17:50:26Z",
+      "side": 1,
+      "message": "OOC, why is Abort visible to other files after the preprocessor substitution?\nIt clearly works since the code compiles and CHECK is used in parse.cc, but I can\u0027t figure out why it works - and can\u0027t find this case described online\n\nAlso, won\u0027t this behave weirdly if we define Abort() as a method in another file? The compiler wouldn\u0027t catch it because the anonymous namespace here isn\u0027t visible but the Macro could call the wrong Abort() after precompiler substitutions",
+      "range": {
+        "startLine": 25,
+        "startChar": 49,
+        "endLine": 25,
+        "endChar": 54
+      },
+      "revId": "aa27a348a9dfd870134c85fd9a4c721e3bee3c0f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e99bf75_d6237ecf",
+        "filename": "tools/cddl/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T17:50:26Z",
+      "side": 1,
+      "message": "nit: Should have a name or bug\n\nhttps://google.github.io/styleguide/cppguide.html#TODO_Comments",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "aa27a348a9dfd870134c85fd9a4c721e3bee3c0f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
