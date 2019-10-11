@@ -173,10 +173,11 @@ class MockSender : public CompoundRtcpParser::Client {
     packet_to_send.set_source(sender_endpoint_);
     packet_to_send.assign(packet_and_report_id.first.begin(),
                           packet_and_report_id.first.end());
-    task_runner_->PostTask(
-        [receiver = receiver_, packet = std::move(packet_to_send)]() mutable {
-          receiver->OnRead(nullptr, ErrorOr<UdpPacket>(std::move(packet)));
-        });
+    task_runner_->PostTask([
+      receiver = receiver_, packet = std::move(packet_to_send)
+    ]() mutable noexcept {
+      receiver->OnRead(nullptr, ErrorOr<UdpPacket>(std::move(packet)));
+    });
 
     return packet_and_report_id.second;
   }
@@ -218,10 +219,11 @@ class MockSender : public CompoundRtcpParser::Client {
       UdpPacket packet_to_send;
       packet_to_send.set_source(sender_endpoint_);
       packet_to_send.assign(span.begin(), span.end());
-      task_runner_->PostTask(
-          [receiver = receiver_, packet = std::move(packet_to_send)]() mutable {
-            receiver->OnRead(nullptr, ErrorOr<UdpPacket>(std::move(packet)));
-          });
+      task_runner_->PostTask([
+        receiver = receiver_, packet = std::move(packet_to_send)
+      ]() mutable noexcept {
+        receiver->OnRead(nullptr, ErrorOr<UdpPacket>(std::move(packet)));
+      });
     }
   }
 
