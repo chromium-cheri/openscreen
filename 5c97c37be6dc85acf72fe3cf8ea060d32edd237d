@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "cf9c4637_ff83a512",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-11T22:14:45Z",
+      "side": 1,
+      "message": "I think the entire point of this class is that the producers should be able to subscribe and unsubscribe without blocking.\n\nOr:\n- Ownership transfers to this object, which deletes it after processing the unsubscription.\n- It\u0027s held here by a weak pointer, so producers can delete it whenever they want.\n- It\u0027s held here by a shared pointer - but this class needs some signal when it\u0027s safe to drop its reference.",
+      "parentUuid": "af5605d7_8188199b",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f45de951_dd3baaaa",
         "filename": "util/subscriber_model.h",
         "patchSetId": 4
@@ -82,6 +106,30 @@
       "writtenOn": "2019-10-11T22:05:51Z",
       "side": 1,
       "message": "Instead of waiting for another thread to come around and call ApplyPendingChanges(), how about the other thread just hold the lock while it needs the references to the subscribers to remain valid? Then, we don\u0027t even need this condvar wait/notify mechanism.\n\nSure, the Subscribe() and Unsubscribe() calls may have to wait for a while for the consumer thread to do its work and release the lock, but that\u0027s perfectly okay. These are not \"needs to be as non-blocking and fast as possible\" operations: Instead, they are one-time startup/shutdown operations, and it\u0027s reasonable for those to be sequenced around the work happening on the consumer thread.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 7
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9983db8_1f72765f",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-11T22:14:45Z",
+      "side": 1,
+      "message": "My understanding is that the consumer is the select loop (for UDP sockets) and the TLS read/write loop (for TLS connections), which are not one-time operations.  If we can\u0027t get to an implementation that is non-blocking for both producers and consumers, the priority should be making it non-blocking for consumers the vast majority of the time.",
+      "parentUuid": "f8cac61c_d252b21f",
       "range": {
         "startLine": 60,
         "startChar": 0,
