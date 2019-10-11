@@ -12,6 +12,7 @@
 #include "absl/types/optional.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
+#include "platform/impl/platform_client_posix.h"
 #include "platform/impl/socket_address_posix.h"
 #include "platform/impl/socket_handle_posix.h"
 #include "platform/impl/stream_socket.h"
@@ -21,9 +22,16 @@ namespace platform {
 
 class StreamSocketPosix : public StreamSocket {
  public:
-  StreamSocketPosix(IPAddress::Version version);
-  explicit StreamSocketPosix(const IPEndpoint& local_endpoint);
-  StreamSocketPosix(SocketAddressPosix local_address, int file_descriptor);
+  StreamSocketPosix(IPAddress::Version version,
+                    PlatformClientPosix* platform_client =
+                        PlatformClientPosix::GetInstance());
+  StreamSocketPosix(const IPEndpoint& local_endpoint,
+                    PlatformClientPosix* platform_client =
+                        PlatformClientPosix::GetInstance());
+  StreamSocketPosix(SocketAddressPosix local_address,
+                    int file_descriptor,
+                    PlatformClientPosix* platform_client =
+                        PlatformClientPosix::GetInstance());
 
   // StreamSocketPosix is non-copyable, due to directly managing the file
   // descriptor.
@@ -74,6 +82,8 @@ class StreamSocketPosix : public StreamSocket {
   bool is_bound_ = false;
   bool is_initialized_ = false;
   SocketState state_ = SocketState::kNotConnected;
+
+  PlatformClientPosix* platform_client_;
 };
 
 }  // namespace platform
