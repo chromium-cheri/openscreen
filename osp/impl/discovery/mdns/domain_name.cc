@@ -48,10 +48,15 @@ DomainName::DomainName(std::vector<uint8_t>&& domain_name)
   OSP_CHECK_LE(domain_name_.size(), kDomainNameMaxLength);
 }
 DomainName::DomainName(const DomainName&) = default;
-DomainName::DomainName(DomainName&&) noexcept = default;
+DomainName::DomainName(DomainName&& other) noexcept
+    : domain_name_(std::move(other.domain_name_)) {}
+
 DomainName::~DomainName() = default;
-DomainName& DomainName::operator=(const DomainName& domain_name) = default;
-DomainName& DomainName::operator=(DomainName&& domain_name) = default;
+DomainName& DomainName::operator=(const DomainName& other) = default;
+DomainName& DomainName::operator=(DomainName&& other) noexcept {
+  domain_name_ = std::move(other.domain_name_);
+  return *this;
+}
 
 bool DomainName::operator==(const DomainName& other) const {
   if (domain_name_.size() != other.domain_name_.size()) {

@@ -61,8 +61,15 @@ IPAddress::IPAddress(uint8_t b1,
       bytes_{{b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15,
               b16}} {}
 IPAddress::IPAddress(const IPAddress& o) noexcept = default;
+IPAddress::IPAddress(IPAddress&& o) noexcept
+    : version_(o.version_), bytes_(std::move(o.bytes_)) {}
 
 IPAddress& IPAddress::operator=(const IPAddress& o) noexcept = default;
+IPAddress& IPAddress::operator=(IPAddress&& o) noexcept {
+  version_ = o.version_;
+  bytes_ = std::move(o.bytes_);
+  return *this;
+}
 
 bool IPAddress::operator==(const IPAddress& o) const {
   if (version_ != o.version_)
