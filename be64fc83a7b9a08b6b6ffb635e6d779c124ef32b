@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "726e2a7d_b1985378",
+        "filename": "platform/impl/scoped_wake_lock_mac.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T20:33:10Z",
+      "side": 1,
+      "message": "How about taking in the TaskRunner here? Then we can both:\n- Use IsRunningOnTaskRunner() to ensure it\u0027s running on the correct thread\n- Return a SerialDeletePtr\u003cScopedWakeLock\u003e instead of a unique_ptr\u003cScopedWakeLock\u003e to ensure that the dtor never runs on a different thread",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 56
+      },
+      "revId": "be64fc83a7b9a08b6b6ffb635e6d779c124ef32b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1affb35b_f03d39c1",
+        "filename": "platform/impl/scoped_wake_lock_mac.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T20:33:10Z",
+      "side": 1,
+      "message": "Some comments in this method would be helpful",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 36
+      },
+      "revId": "be64fc83a7b9a08b6b6ffb635e6d779c124ef32b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc7d605_8ce3ba89",
+        "filename": "platform/impl/scoped_wake_lock_mac.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T20:33:10Z",
+      "side": 1,
+      "message": "I\u0027m assuming this class should only ever be constructed on the TaskRunner thread, correct? (Because LockState isn\u0027t thread-safe)\nThis should be documented",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "be64fc83a7b9a08b6b6ffb635e6d779c124ef32b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a8939fc_d751281c",
+        "filename": "platform/impl/scoped_wake_lock_mac.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T20:33:10Z",
+      "side": 1,
+      "message": "Because LockState isn\u0027t thread safe, make this class non-copyable, non-movable to ensure it never crosses thread boundaries (and that the dtor is never run on a different thread)",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "be64fc83a7b9a08b6b6ffb635e6d779c124ef32b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b4d98cb_f4d72a5e",
+        "filename": "platform/impl/scoped_wake_lock_mac.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-11T20:33:10Z",
+      "side": 1,
+      "message": "In other similar cases (like UdpSocketPosix, TlsConnectionFactoryPosix), we make he ctor public instead of friending the base class - it might be better to do the same here for consistency",
+      "range": {
+        "startLine": 36,
+        "startChar": 15,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "be64fc83a7b9a08b6b6ffb635e6d779c124ef32b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
