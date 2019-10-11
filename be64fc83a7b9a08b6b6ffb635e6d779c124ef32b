@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "fc45946d_9cfe0f5e",
+        "filename": "platform/impl/scoped_wake_lock_mac.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-11T21:30:37Z",
+      "side": 1,
+      "message": "Everything is supposed to be assumed non-thread-safe since OpenScreen is a single-threaded library. The only case that I\u0027m aware of, where we have multiple threads, is in the standalone sockets impl.\n\nSo, my general advice is NOT to document redundantly, as this will confuse others and cast doubts on whether other classes are supposed to be thread-safe (nothing is supposed to be).",
+      "parentUuid": "4bc7d605_8ce3ba89",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "be64fc83a7b9a08b6b6ffb635e6d779c124ef32b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a8939fc_d751281c",
         "filename": "platform/impl/scoped_wake_lock_mac.h",
         "patchSetId": 2
