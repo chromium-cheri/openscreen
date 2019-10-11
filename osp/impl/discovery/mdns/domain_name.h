@@ -54,8 +54,8 @@ struct DomainName {
   DomainName(const DomainName&);
   DomainName(DomainName&&) noexcept;
   ~DomainName();
-  DomainName& operator=(const DomainName&);
-  DomainName& operator=(DomainName&&) noexcept;
+  DomainName& operator=(const DomainName& other);
+  DomainName& operator=(DomainName&& other) noexcept;
 
   bool operator==(const DomainName& other) const;
   bool operator!=(const DomainName& other) const;
