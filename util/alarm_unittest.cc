@@ -31,8 +31,9 @@ TEST_F(AlarmTest, RunsTaskAsClockAdvances) {
   const platform::Clock::time_point alarm_time =
       platform::FakeClock::now() + kDelay;
   platform::Clock::time_point actual_run_time{};
-  alarm()->Schedule([&]() { actual_run_time = platform::FakeClock::now(); },
-                    alarm_time);
+  alarm()->Schedule(
+      [&]() noexcept { actual_run_time = platform::FakeClock::now(); },
+      alarm_time);
   // Confirm the lambda did not run immediately.
   ASSERT_EQ(platform::Clock::time_point{}, actual_run_time);
 

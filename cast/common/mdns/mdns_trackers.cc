@@ -85,7 +85,8 @@ openscreen::Error MdnsRecordTracker::Start(MdnsRecord record) {
   record_ = std::move(record);
   start_time_ = now_function_();
   send_count_ = 0;
-  send_alarm_.Schedule([this] { SendQuery(); }, GetNextSendTime());
+  send_alarm_.Schedule(
+      [this]() noexcept { SendQuery(); }, GetNextSendTime());
   return Error::None();
 }
 
