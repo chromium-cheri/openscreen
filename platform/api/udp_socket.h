@@ -42,17 +42,6 @@ class UdpSocket {
  public:
   virtual ~UdpSocket();
 
-  class LifetimeObserver {
-   public:
-    virtual ~LifetimeObserver() = default;
-
-    // Function to call upon creation of a new UdpSocket.
-    virtual void OnCreate(UdpSocket* socket) = 0;
-
-    // Function to call upon deletion of a UdpSocket.
-    virtual void OnDestroy(UdpSocket* socket) = 0;
-  };
-
   // Client for the UdpSocket class.
   class Client {
    public:
@@ -87,11 +76,6 @@ class UdpSocket {
     // Mode for low priority operations such as trace log data.
     kLowPriority = 0x20
   };
-
-  // The LifetimeObserver set here must exist during ANY future UdpSocket
-  // creations. SetLifetimeObserver(nullptr) must be called before any future
-  // socket creations on destructions after the observer is destroyed
-  static void SetLifetimeObserver(LifetimeObserver* observer);
 
   using Version = IPAddress::Version;
 
@@ -165,8 +149,6 @@ class UdpSocket {
   bool is_closed() { return is_closed_.load(); }
 
  private:
-  static std::atomic<LifetimeObserver*> lifetime_observer_;
-
   // Closes this socket.
   // NOTE: This method will only be called once.
   virtual void Close() {}
