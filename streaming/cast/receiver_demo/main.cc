@@ -7,7 +7,7 @@
 #include "platform/api/udp_socket.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
-#include "platform/impl/socket_handle_waiter_thread.h"
+#include "platform/impl/platform_client_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/udp_socket_reader_posix.h"
 #include "streaming/cast/constants.h"
@@ -77,19 +77,19 @@ int main(int argc, const char* argv[]) {
   openscreen::platform::LogInit(nullptr /* stdout */);
   openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kInfo);
   const auto now_function = &openscreen::platform::Clock::now;
-  openscreen::platform::TaskRunnerImpl task_runner(now_function);
-  openscreen::platform::SocketHandleWaiterThread socket_handle_waiter_thread;
-  openscreen::platform::UdpSocketReaderPosix udp_socket_reader(
-      socket_handle_waiter_thread.socket_handle_waiter());
-  openscreen::platform::UdpSocket::SetLifetimeObserver(&udp_socket_reader);
+  openscreen::platform::PlatformClientPosix::Create(
+      openscreen::platform::Clock::duration{50},
+      openscreen::platform::Clock::duration{50});
 
   // Create the Environment that holds the required injected dependencies
   // (clock, task runner) used throughout the system, and owns the UDP socket
   // over which all communication occurs with the Sender.
   const openscreen::IPEndpoint receive_endpoint{openscreen::IPAddress(),
                                                 kCastStreamingPort};
-  openscreen::cast_streaming::Environment env(now_function, &task_runner,
-                                              receive_endpoint);
+  openscreen::cast_streaming::Environment env(
+      now_function,
+      openscreen::platform::PlatformClient::GetInstance()->task_runner(),
+      receive_endpoint);
 
   // Create the packet router that allows both the Audio Receiver and the Video
   // Receiver to share the same UDP socket.
@@ -121,6 +121,7 @@ int main(int argc, const char* argv[]) {
   // Run the event loop until an exit is requested (e.g., the video player GUI
   // window is closed, a SIGTERM is intercepted, or whatever other appropriate
   // user indication that shutdown is requested).
-  task_runner.RunUntilStopped();
+  while (true) {
+  }
   return 0;
 }
