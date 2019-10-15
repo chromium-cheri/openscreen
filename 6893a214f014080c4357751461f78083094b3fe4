@@ -16,6 +16,231 @@
       "revId": "6893a214f014080c4357751461f78083094b3fe4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f81f9d2_2ccccd5a",
+        "filename": "dnssd/dns_sd_temp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "Maybe add a txt_record.cc and stub out the methods? Achieves the same thing without a temp file.",
+      "parentUuid": "4e024b0f_7f1779e7",
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b160f86_d75bd2b5",
+        "filename": "dnssd/public/instance_record.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "Why does this need a virtual destructor?",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a6f02c_c6fcb9cc",
+        "filename": "dnssd/public/instance_record.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "1) It\u0027s recommended to not return references to a string view. Returning string view as a copy is usually cheaper than pointer and dereference. https://abseil.io/tips/1 \n\n2) InstanceRecord owns instance_id, service_id and domain_id strings. I don\u0027t see a reason why it shouldn\u0027t return a const reference to a string that it owns.",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 26
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e7b7aa4_f1f99d01",
+        "filename": "dnssd/public/publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "RFC 6763 uses terms \"register\", \"advertise\", \"query\" and \"discover\".\n\nExample:\n\"zero-configuration operation may be achieved by simply having the device register its services in a default registration domain learned from the network\"\n\nMaybe Register and Deregister?",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a282334c_a526f6dc",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "By const reference, we do not know what the behavior of the callback implementation is.\nIt might not need a copy and we shouldn\u0027t make one at the function call border.",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 54
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4699e93_45cfc88c",
+        "filename": "dnssd/public/txt_record.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "Here and in other files I think it should be\n\nnamespace openscreen {\nnamespace dnssd {\n\nper style guide: \"Top-level namespace names are based on the project name\"\n\nThis also eliminate the need for using directives inside of TxtRecord",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 17
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40c33d40_e4a7ebf7",
+        "filename": "dnssd/public/txt_record.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "Why does it need a virtual destructor?",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a33b77e_18f7cd8f",
+        "filename": "dnssd/public/txt_record.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "Having a version that accepts a blob is nice, I do think though that it might be convenient to have built-in overloads for some types. It\u0027s fine to not add these now, as it will be obvious which ones would be convenient as the implementation progresses.",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 49
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a257c467_4c482526",
+        "filename": "dnssd/public/txt_record.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "I suggest naming it SetValue as well, that might help calling these in template methods elsewhere as templates rely on names.",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdf75529_658ce987",
+        "filename": "dnssd/public/txt_record.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T17:50:57Z",
+      "side": 1,
+      "message": "GetValue for the same reason",
+      "range": {
+        "startLine": 31,
+        "startChar": 16,
+        "endLine": 31,
+        "endChar": 23
+      },
+      "revId": "6893a214f014080c4357751461f78083094b3fe4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
