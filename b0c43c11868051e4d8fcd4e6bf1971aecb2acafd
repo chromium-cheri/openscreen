@@ -178,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "5ae97757_cc327061",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "We will still require the same blocking functionality in some cases. The issue isn\u0027t whether the instance is owned, it\u0027s whether we might still be using the instance on the consumer thread when a provider thread tries to delete the pointed to object.\n\nAs an example, in the case of SocketHandleWaiter, the SubscriberType objects are pointers, but the pointed to objects are used on the consumer thread for the posix SELECT call. Unsubscribing is done as part of UdpSocketPosix\u0027s dtor, when the socket is deleted and the socket handle is invalidated. That means that, if the producing thread calls Unsubscribe instead of UnsubscribeBlocking as part of UdpSocket\u0027s deletion from the provider thread, then the underlying socket handle may be invalidated while the consumer thread is still using it for SELECT (Which I\u0027ve validated in local testing can cause a segfault)\n\nWe can use the Cancellation method to minimize the time spent blocked, but we do need to wait for the next call to ApplyPendingChanges() (which is why we might want to call it multiple times instead of just in SubscriberModel::subscribers(). For instance, in the above case, we can call ApplyPendingChanges() after we finish the SELECT call instead of waiting for the next iteration of the SocketHandleWaiter\u0027s run method when we again will call subscribers())\n\nI will update to only use pointers if you would still like that change despite this comment, but one of the cases below uses const refs rather than pointers, so it would be an extra level of indirection for that case",
+      "parentUuid": "deca0ebf_2c0a8a8c",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f4b1581_302d1965",
         "filename": "util/subscriber_model.h",
         "patchSetId": 3
@@ -348,6 +366,24 @@
       "side": 1,
       "message": "I think an easier to use API would not require the consumer to call an extra method to update the state of the subscribers, particularly because the consumer may have no idea whether there are any pending calls to Subscribe()/Unsubscribe().\n\nWhat was the disadvantage of putting this call in subscribers()?\n\nIf the concern is that subscribers() is more likely to be called in a \"hot loop,\" then you could use an atomic operation to know whether there are any pending changes, which should be able to implemented in a lock free manner (DCHECK(atomic\u003cbool\u003e::is_lock_free).\n\nAlso do you need strong consistency or eventual consistency?  Does subscribers() always need to see all pending changes, or can they be applied later?\n\nI think whether you break out the method into the API, or call it internally, this object will perform badly if either the producer or consumer hot-loops the API.",
       "parentUuid": "a6236d55_9686b1f8",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb00bccc_0853fd12",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "Updated the code to use an atomic boolean to eliminate hot loop concerns as suggested - that fixes the Note above. Though, in practice, we don\u0027t expect a hot loop on this method to ever occur\n\nI like the idea of putting it back into subscribers(), though the changes to subscribers can be applied later / eventual consistency is fine\n\nThe main rationale for calling it more frequently is that this method contains the unsubscribe_block_.notify_all(); call, so calling it more frequently means that UnsubscribeBlocking() blocks for less time (see example in above comment for more info)",
+      "parentUuid": "b317f042_8f349c09",
       "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -527,6 +563,24 @@
       "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dca207eb_a1052b93",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "Done.\n\nRemoved all map related info, as well as the Equals template parameter\nMy rationale for including it here was to prevent locking entirely in the using classes to keep them simpler :)",
+      "parentUuid": "3538f15a_d123dc52",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c5efe2b_b11b79ce",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "I will make this change in a future iteration. Leaving the comment open pending that change\n\nFor now I want to allow comparison between iterations more easily",
+      "parentUuid": "4499b86b_67fc653f",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 13
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af5605d7_8188199b",
         "filename": "util/subscriber_model.h",
         "patchSetId": 4
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ef57fcff_869abcd4",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "Mark is correct. \n\nWe don\u0027t know exactly when it will be run, but based on the current design, it will be run as part of OperationLoop. This means we expect it to be run within ~100 ms.",
+      "parentUuid": "cf9c4637_ff83a512",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f45de951_dd3baaaa",
         "filename": "util/subscriber_model.h",
         "patchSetId": 4
@@ -92,6 +140,30 @@
       "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "221c187d_6bf5e386",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "ApplyPendingChanges is called regularly from the consumer thread (think as part of OperationLoop\u0027s loop). UnsubscribeBlocking is called from one of the producer threads, and waits until the consumer has finished the unsubscribe (at which point, the unsubscribed object is no longer in use)",
+      "parentUuid": "f45de951_dd3baaaa",
+      "range": {
+        "startLine": 54,
+        "startChar": 7,
+        "endLine": 54,
+        "endChar": 26
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "bc17a692_f9869a22",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "Mark is correct",
+      "parentUuid": "b9983db8_1f72765f",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 7
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df5a06c3_240884aa",
         "filename": "util/subscriber_model.h",
         "patchSetId": 4
@@ -162,6 +258,30 @@
       "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aabf7a2f_ea0c09ac",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "This is being discussed on iteration 3 with Mark. Closing this comment as duplicate",
+      "parentUuid": "df5a06c3_240884aa",
+      "range": {
+        "startLine": 65,
+        "startChar": 58,
+        "endLine": 66,
+        "endChar": 45
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -188,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "6f92150d_cd76aba8",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "Done. This issue has been fixed thanks to a suggestion from Mark\n\nThey block in the sense that they acquire a lock on mutex_, which it may never get the chance to acquire if this method is called in a hot-loop (and holds the mutex consistently)",
+      "parentUuid": "ca1a3c4a_21457bd5",
+      "range": {
+        "startLine": 69,
+        "startChar": 54,
+        "endLine": 71,
+        "endChar": 44
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50858f8a_f6e410f7",
         "filename": "util/subscriber_model.h",
         "patchSetId": 4
@@ -211,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "a36c37c4_4de9ff74",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "Done\n\nUpdated to be a const ref here and below - good catch!",
+      "parentUuid": "50858f8a_f6e410f7",
+      "range": {
+        "startLine": 83,
+        "startChar": 49,
+        "endLine": 83,
+        "endChar": 63
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce312ef9_3eebf224",
         "filename": "util/subscriber_model.h",
         "patchSetId": 4
@@ -222,6 +390,30 @@
       "writtenOn": "2019-10-11T22:05:51Z",
       "side": 1,
       "message": "Suggestion: Instead of making the consumer call ApplyPendingChanges() manually, how about merging that method with this one?  Something like:\n\n  const std::vector\u003cSubscriberType\u003e\u0026 GetCurrentSubscribers() {\n    // ApplyPendingChanges code here.\n    return subscribers_;\n  }\n\nThough, per prior comments, I\u0027m not suggesting we proceed with this design. IMHO, a better way to do it is either:\n\n1. Have the consumer call a \"foreach\" method:\n\n  void ForEachSubscriber(std::function\u003cbool(SubscriberType*)\u003e op) {\n    std::lock_guard\u003cstd::mutex\u003e lock(mutex_);\n    for (SubscriberType subscriber : subscribers_) {\n      const bool should_continue \u003d op(subscriber);\n      if (!should_continue) {\n        break;\n      }\n    }\n  }\n\n2. Have the consumer hold the lock while doing an operation (e.g., select() call) on multiple subscribers at once:\n\n  std::lock_guard\u003cstd::mutex\u003e StartConsumerTransaction() {\n    return std::lock_guard\u003cstd::mutex\u003e lock(mutex_);\n  }\n\n  const std::vector\u003cSubscriberType\u003e\u0026 GetCurrentSubscribers() { ...as above... }",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 75
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f07e7642_20ee31ce",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "This was actually how I had it in iteration 1 - I updated it based on Max\u0027s feedback, and which approach to proceed with is being discussed on iteration 3\n\nAs to your suggestion, the issue with this approach is that we maintain a lock on mutex_ for the full operation. The consumer\u0027s method might be (and in some cases is expected to be) called in a hot-loop, at which point the subscribe/unsubscribe calls may never be able to acquire the lock on mutex_ and those threads would starve",
+      "parentUuid": "ce312ef9_3eebf224",
       "range": {
         "startLine": 98,
         "startChar": 0,
@@ -257,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "74bb6e0a_be4be4c6",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff534a5d_8e975e23",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 51
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7680c095_275ad0f1",
         "filename": "util/subscriber_model.h",
         "patchSetId": 4
@@ -280,6 +496,30 @@
     },
     {
       "key": {
+        "uuid": "4b2cee4c_17576d6a",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7680c095_275ad0f1",
+      "range": {
+        "startLine": 141,
+        "startChar": 10,
+        "endLine": 141,
+        "endChar": 15
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fd1c70d_2ac1cbb9",
         "filename": "util/subscriber_model.h",
         "patchSetId": 4
@@ -300,6 +540,30 @@
       "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4443fb5_ccadedeb",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-15T22:36:52Z",
+      "side": 1,
+      "message": "This has been removed based on Mark\u0027s suggestion\n\nThe reason was just to provide simpler use and access - the Subscribe/Unsuibscribe calls here could be done with just Key type instead of std::pair\u003cKey, Value\u003e, and it automatically uses MapKeyEquals without the user needing to understand the class internals",
+      "parentUuid": "9fd1c70d_2ac1cbb9",
+      "range": {
+        "startLine": 155,
+        "startChar": 6,
+        "endLine": 155,
+        "endChar": 24
+      },
+      "revId": "5c97c37be6dc85acf72fe3cf8ea060d32edd237d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
