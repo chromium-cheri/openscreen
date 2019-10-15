@@ -22,6 +22,30 @@
       "revId": "71855d708b835b96760b8007ad35e9ac53e67e6f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "762defc8_fd7a8ecd",
+        "filename": "cast/sender/channel/sender_socket_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-15T19:54:29Z",
+      "side": 1,
+      "message": "There\u0027s no reason to DCHECK here, it\u0027ll crash either way.  We could DCHECK in set_factory though.  I added that.",
+      "parentUuid": "40e6610f_b6fd363d",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 57
+      },
+      "revId": "71855d708b835b96760b8007ad35e9ac53e67e6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
