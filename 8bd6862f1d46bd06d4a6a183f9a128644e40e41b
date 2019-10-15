@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eaf778e5_ccf5ddc6",
+        "filename": "dnssd/public/instance_record.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T23:34:53Z",
+      "side": 1,
+      "message": "Don\u0027t need this one either.",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "8bd6862f1d46bd06d4a6a183f9a128644e40e41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "118cf22d_680c7fd4",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T23:34:53Z",
+      "side": 1,
+      "message": "Maybe simply Callback since it\u0027s full name is Querier::Callback and there are no other callbacks in the interface?",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "8bd6862f1d46bd06d4a6a183f9a128644e40e41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c23239d_f778ac31",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-15T23:34:53Z",
+      "side": 1,
+      "message": "I\u0027d maybe define this outside of QueryCallback, to have a shorter name and not have to call it QueryCallback::RecordChangeType  inside of Querier implementation, but I don\u0027t feel strongly about it.",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "8bd6862f1d46bd06d4a6a183f9a128644e40e41b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
