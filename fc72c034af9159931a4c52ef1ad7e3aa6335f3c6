@@ -22,6 +22,92 @@
       "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd70171a_f9f749c6",
+        "filename": "dnssd/public/instance_record.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-16T21:47:46Z",
+      "side": 1,
+      "message": "Should we define operator\u003d\u003d() based on instance_id, service_id, and domain_id being equal (Or maybe there is a different method in C++ that\u0027s more appropriate)?\nIt would allow users of the library to have an easier time processing an Update result from the querier",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4c6961_3b329a2b",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-16T21:47:46Z",
+      "side": 1,
+      "message": "Are \u0027created\u0027 and \u0027deleted\u0027 the right names here?\n\u0027created\u0027 means all of PTR + TXT + SRV + (A or AAAA) were created\n\u0027deleted\u0027 means ANY of the above were deleted\n\nAlso, with this approach, we will fire an Updated record if we discover a new A or AAAA record after the ServiceRecord was already \u0027Created\u0027 - Not sure if this is good or bad, just making sure that we are on the same page",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dc55034_058bdce6",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-16T21:47:46Z",
+      "side": 1,
+      "message": "How do we want to handle errors?\nFor instance, if we get a callback saying SRV record for instance X was created, and we already have a SRV record for X, how do we want to handle this case?\n\nI\u0027m leaning towards silently ignoring these errors (since the embedder can\u0027t do much) but wanted to get feedback before going this route",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fec18b09_24cf1451",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-16T21:47:46Z",
+      "side": 1,
+      "message": "Do we want one callback, or multiple? For instance, multiple could look like:\n\n// Similar to the current callback for Create\nOnRecordCreated(const InstanceRecord\u0026 record)\n\n// Update tells us the updated record AND what changed from an enum of field names (kAddressV4, kAddressV6, kTxt, etc...)\nOnRecordUpdated(const InstanceRecord\u0026 record, InstanceRecordField field)\n\n// It seems weird to return a record that is already deleted (Especially based on the definition of \u0027delete\u0027 above). This way, we only say\n// the service/domain/instance that was deleted rather than giving information we expect to be no longer valid.\nOnRecordDeleted(const std::string\u0026 instance, const std::string service\u0026, const std::string\u0026 domain);",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
