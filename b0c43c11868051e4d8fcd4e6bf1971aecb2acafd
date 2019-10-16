@@ -214,6 +214,24 @@
     },
     {
       "key": {
+        "uuid": "6ca3f6ed_31a27557",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-16T22:12:36Z",
+      "side": 1,
+      "message": "That\u0027s similar to what I was proposing in an earlier comment:\n\n  std::lock_guard\u003cstd::mutex\u003e StartConsumerTransaction() {\n    return std::lock_guard\u003cstd::mutex\u003e lock(mutex_);\n  }\n\nRather than have separate StartUsingSubscribers() and StopUsingSubscribers(), using std::lock_guard guarantees the lock is only held while in scope. Simplifies the code, client-side not to have to call StopUsingSubscribers() at every return codepoint.\n\nFWIW, this is the same as a problem I solved in the Audio Service code: https://cs.chromium.org/chromium/src/services/audio/loopback_stream.cc?rcl\u003dc4c6a468ab79ed56781f3fea32ae587e9003d986\u0026l\u003d332 In this situation, the \"consumer\" thread had to ensure the object graph did not change while pulling audio samples from several other objects. In other words, yes, it\u0027s okay for the consumer thread to hold the lock for a non-trivial amount of time, while doing its work, if that\u0027s because it requires the object graph be pinned-down while the work is in-progress. Also, note that the code that wants to change the object graph, on the other thread, is very infrequently called (only at startup/shutdown of an audio stream). Thus, the two threads will pretty much never become blocked on each other for any amount of time.",
+      "parentUuid": "df46e860_a1f2f787",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f4b1581_302d1965",
         "filename": "util/subscriber_model.h",
         "patchSetId": 3
@@ -402,6 +420,24 @@
       "side": 1,
       "message": "Updated the code to use an atomic boolean to eliminate hot loop concerns as suggested - that fixes the Note above. Though, in practice, we don\u0027t expect a hot loop on this method to ever occur\n\nI like the idea of putting it back into subscribers(), though the changes to subscribers can be applied later / eventual consistency is fine\n\nThe main rationale for calling it more frequently is that this method contains the unsubscribe_block_.notify_all(); call, so calling it more frequently means that UnsubscribeBlocking() blocks for less time (see example in above comment for more info)",
       "parentUuid": "b317f042_8f349c09",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84b42db2_c58d937f",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-16T22:12:36Z",
+      "side": 1,
+      "message": "Per my earlier comments, if there\u0027s a \"hot loop\" problem here (i.e., causing livelock), then the calling code is doing things wrong: It would be adding and removing lots of subscribers, never-ending, and at a very high frequency. The calling code should behave exactly the opposite of that! It should only add/remove one or two subscribers, and only when the user has activated a certain product feature, and certainly never more often than once every few seconds (usually, once per several minutes or more).\n\nI think it\u0027d be best not to over-engineer for a case that should never exist. Extra code, extra potential for bugs or unintended side-effects, fools future developers into thinking a problem exists where there is no problem, etc.",
+      "parentUuid": "eb00bccc_0853fd12",
       "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
