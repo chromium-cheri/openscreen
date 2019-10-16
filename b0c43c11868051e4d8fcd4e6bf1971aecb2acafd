@@ -196,6 +196,24 @@
     },
     {
       "key": {
+        "uuid": "df46e860_a1f2f787",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-16T17:31:58Z",
+      "side": 1,
+      "message": "I had an alternative idea this morning\n\nWe could instead have StartUsingSubscibers() and StopUsingSubscribers() methods (but with better names). Then, if we are in between StartUsingSubscribers() and StopUsingSubscribers(), UnsubscribeBlocking() would block until we all StopUsingsubscribers(), and else it would return immediately\n\nIf we lock/unlock a mutex inside these methods, we should be able to enforce that subscribers() can only be called between them at compile time with abseil thread annotations.",
+      "parentUuid": "5ae97757_cc327061",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f4b1581_302d1965",
         "filename": "util/subscriber_model.h",
         "patchSetId": 3
