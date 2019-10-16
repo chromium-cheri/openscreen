@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3f42e3e3_aa1a5286",
+        "filename": "dnssd/public/instance_record.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-16T22:42:13Z",
+      "side": 1,
+      "message": "Definitely wouldn\u0027t hurt to have operator\u003d, including for verifying expectations in test. Feel free to add one in this CL or later as you deem necessary.",
+      "parentUuid": "fd70171a_f9f749c6",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b4c6961_3b329a2b",
         "filename": "dnssd/public/querier.h",
         "patchSetId": 6
@@ -59,6 +83,30 @@
       "writtenOn": "2019-10-16T21:47:46Z",
       "side": 1,
       "message": "Are \u0027created\u0027 and \u0027deleted\u0027 the right names here?\n\u0027created\u0027 means all of PTR + TXT + SRV + (A or AAAA) were created\n\u0027deleted\u0027 means ANY of the above were deleted\n\nAlso, with this approach, we will fire an Updated record if we discover a new A or AAAA record after the ServiceRecord was already \u0027Created\u0027 - Not sure if this is good or bad, just making sure that we are on the same page",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "183692f0_70f95984",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-16T22:42:13Z",
+      "side": 1,
+      "message": "This should be created/updated/deleted for service instances, not for individual records. User of the DNS-SD should not care about what steps where necessary to get the information about the service.\n\nThen:\n1) created happens when we have SRV + TXT + A and/or AAAA\n2) updated happens on a change to SRV, TXT, A or AAAA record that we have, or if A or AAAA that we didn\u0027t have before is received (we had an IPv4 address, but now we also have IPv6), or one of A and AAAA records is deleted, but the other one is still alive\n3) deleted happens when SRV or TXT is deleted (expiration or goodbye), or A and/or AAAA is deleted and we don\u0027t have any address records.\n\nSo, probably rename it to InstanceChangeType and that\u0027s it for this CL :)",
+      "parentUuid": "6b4c6961_3b329a2b",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -88,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "32c355ef_9b53bb8e",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-16T22:42:13Z",
+      "side": 1,
+      "message": "New record replaces the old one for SRV, TXT and A/AAAA records (unique records), it\u0027s an update event. If we have one and another one comes with \"created\", this is a bug in MDNS.\n\nIf a new PTR record (shared record) comes with created, this means we discovered another instance of the service. If it\u0027s exactly the same one as we already have, it\u0027s a bug in MDNS.\n\nSo, I suggest DCHECK and optionally TRACE, otherwise ignore, unless RFC 6763 specifies what should or must be done.",
+      "parentUuid": "9dc55034_058bdce6",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fec18b09_24cf1451",
         "filename": "dnssd/public/querier.h",
         "patchSetId": 6
@@ -99,6 +165,30 @@
       "writtenOn": "2019-10-16T21:47:46Z",
       "side": 1,
       "message": "Do we want one callback, or multiple? For instance, multiple could look like:\n\n// Similar to the current callback for Create\nOnRecordCreated(const InstanceRecord\u0026 record)\n\n// Update tells us the updated record AND what changed from an enum of field names (kAddressV4, kAddressV6, kTxt, etc...)\nOnRecordUpdated(const InstanceRecord\u0026 record, InstanceRecordField field)\n\n// It seems weird to return a record that is already deleted (Especially based on the definition of \u0027delete\u0027 above). This way, we only say\n// the service/domain/instance that was deleted rather than giving information we expect to be no longer valid.\nOnRecordDeleted(const std::string\u0026 instance, const std::string service\u0026, const std::string\u0026 domain);",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19efc169_6c10163e",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-16T22:42:13Z",
+      "side": 1,
+      "message": "I don\u0027t think one way is substantially better than the other one.\n\nIf we go with one callback and then decide to replace Querier::Callback with std::function, it\u0027s a bit less work.\n\nAs for returning the instance that was deleted - we do not know how instances are stored by the user of DNS-SD, so it makes sense to provide the instance that was deleted.\n\nFor example, they store instance records in a dictionary from an IP address to an instance record. Only having instance, service and domain would be inconvenient.",
+      "parentUuid": "fec18b09_24cf1451",
       "range": {
         "startLine": 27,
         "startChar": 0,
