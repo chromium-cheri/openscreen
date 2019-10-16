@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af8ac92_cfc9449f",
+        "filename": "dnssd/public/instance_record.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-16T20:29:47Z",
+      "side": 1,
+      "message": "I changed this class from a virtual base class to an implementation at Max\u0027s suggestion, but there are 2 cases I find concerning using this approach:\n1) What if we get data over the wire which is invalid (ie - invalid Instance/Service names or invalid TXT string name)\n2) What if the classes using this library want to test for support of this data?\n\nIf we don\u0027t want to support the above 2 cases, I see no problem with this approach. Thoughts?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 22
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
