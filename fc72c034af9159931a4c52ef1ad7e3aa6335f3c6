@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "c1c7deac_2be23e58",
+        "filename": "dnssd/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "I don\u0027t completely object to having dnssd at the top level.  But it\u0027s really a sub-protocol for local discovery and not a main feature or use case of the library.\n\nWas there some discussion that led to landing this at the top-level?",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33a5e2bc_66d4b9b5",
+        "filename": "dnssd/dns_sd_temp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "OK to check in, if just to get buildbot visibility into this code.  Please add a TODO() to remove this in a later patch.",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7af8ac92_cfc9449f",
         "filename": "dnssd/public/instance_record.h",
         "patchSetId": 6
@@ -19,6 +53,23 @@
         "endLine": 16,
         "endChar": 22
       },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f6317c_55067944",
+        "filename": "dnssd/public/instance_record.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "Simple getters can be implemented inline.  Or do you plan to check in the rest of the implementation in a later patch?  It would be easier to review if this were a complete file.",
       "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -72,6 +123,91 @@
     },
     {
       "key": {
+        "uuid": "3957cf6f_5c5cd186",
+        "filename": "dnssd/public/instance_record.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "In any valid record, at least one will be set.",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "671d00fb_1231c48d",
+        "filename": "dnssd/public/publisher.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "Please document the behavior if there are already records with matching attributes.  How should the implementation de-duplicate?\n\nAlso s/DnsSdInstanceRecord/InstanceRecord/",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef12105f_cf423845",
+        "filename": "dnssd/public/publisher.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "What happens if the caller attempts to register an invalid record?",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ac6984_e302f3f9",
+        "filename": "dnssd/public/publisher.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "What happens if there is nothing matching (service, domain) registered?",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84f9c165_623667f3",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "Suggest s/DNS-SD record/InstanceRecord/ to avoid confusion with individual mDNS records.",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b4c6961_3b329a2b",
         "filename": "dnssd/public/querier.h",
         "patchSetId": 6
@@ -119,6 +255,30 @@
     },
     {
       "key": {
+        "uuid": "8db171c0_190786ef",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "+1 to what Max said above.  The DNS-SD layer should hide, whenever possible, the details of how the service information was aggregated from the mDNS layer.\n\nThat being said, a strict deletion policy, where the expiration of any mDNS record triggers deletion of the service instance, could hurt reliability.  It may be that the responder left the network, or it may be transient network issues that prevented refresh records from making it through.\n\nThe strict policy may be OK as a first cut, but we may want to introduce an \"expired\" state so that callers can handle expiration differently from explicit goodbyes.  (But that can happen later.)",
+      "parentUuid": "183692f0_70f95984",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9dc55034_058bdce6",
         "filename": "dnssd/public/querier.h",
         "patchSetId": 6
@@ -148,6 +308,41 @@
       "side": 1,
       "message": "New record replaces the old one for SRV, TXT and A/AAAA records (unique records), it\u0027s an update event. If we have one and another one comes with \"created\", this is a bug in MDNS.\n\nIf a new PTR record (shared record) comes with created, this means we discovered another instance of the service. If it\u0027s exactly the same one as we already have, it\u0027s a bug in MDNS.\n\nSo, I suggest DCHECK and optionally TRACE, otherwise ignore, unless RFC 6763 specifies what should or must be done.",
       "parentUuid": "9dc55034_058bdce6",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eca5903_2be7679e",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "The implementation needs to assume that the other side is buggy, if not outright malicious, so it should handle these cases in a way that hides misbehavior from the client.",
+      "parentUuid": "32c355ef_9b53bb8e",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52f3dbb0_838af8cf",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "Bikeshed: prefer OnInstanceChanged.",
       "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -195,6 +390,98 @@
         "endLine": 28,
         "endChar": 60
       },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6d81afe_0fad89b3",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "I prefer:\n\n- Multiple callbacks, each of which has to be implemented by the client.  This ensures that all three cases are handled and keeps the client code for each case cleanly separated.\n\n- Returning entire records, versus parts of records.  The client can decide how to map each record to its internal storage, and can detect what changes it cares about.",
+      "parentUuid": "19efc169_6c10163e",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06712397_015ee21e",
+        "filename": "dnssd/public/querier.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "Please document the lifetime assumptions around Callback here and below.  I assume this is taking an unowned pointer?",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675b00d8_beb32d37",
+        "filename": "dnssd/public/txt_record.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "Should there be a method to clear an existing value?",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56ccb174_f45ef381",
+        "filename": "dnssd/public/txt_record.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "Bikeshed:  Sometimes it\u0027s nicer to say:\n\nSetFlag(\"foo\")\nClearFlag(\"foo\") \n\nvs.\n\nSetFlag(\"foo\", false)\n\nwhere you have to remember that the \"false\" argument means to actually remove the flag.",
+      "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d470ce0_1ad6bb41",
+        "filename": "dnssd/public/txt_record.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-17T22:24:30Z",
+      "side": 1,
+      "message": "Isn\u0027t a missing key the same as false?",
       "revId": "fc72c034af9159931a4c52ef1ad7e3aa6335f3c6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
