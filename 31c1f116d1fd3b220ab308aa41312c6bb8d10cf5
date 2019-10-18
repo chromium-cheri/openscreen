@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68a89410_b2e12e81",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-18T22:06:05Z",
+      "side": 1,
+      "message": "According to RFC6763, this is an arbitrary utf8-encoded string when it gets sent over the wire\n\nShould we change this type to account for that? Maybe a std::vector\u003cuint8_t\u003e? (Abseil doesn\u0027t have support for utf8, so we would either need to write our own or take a new dependency)",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
