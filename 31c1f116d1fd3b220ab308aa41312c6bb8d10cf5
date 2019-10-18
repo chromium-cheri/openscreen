@@ -46,6 +46,30 @@
       "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d62e9670_daf12e4c",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-18T23:46:57Z",
+      "side": 1,
+      "message": "Actually \"The \u003cInstance\u003e portion of the Service Instance Name is a user-friendly name consisting of arbitrary Net-Unicode text\", so it does need to be valid utf-8\n\nPersonally, I think taking in a vector\u003cint8_t\u003e or vector\u003cint32_t\u003e would make the most sense - taking in a string would be weird if all characters don\u0027t fit into an 8-bit char",
+      "parentUuid": "df239778_f32cec77",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
