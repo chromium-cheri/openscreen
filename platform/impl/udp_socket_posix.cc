@@ -20,7 +20,9 @@
 
 #include "absl/types/optional.h"
 #include "platform/api/logging.h"
+#include "platform/api/task_runner.h"
 #include "platform/base/error.h"
+#include "platform/impl/udp_socket_reader_posix.h"
 
 namespace openscreen {
 namespace platform {
@@ -57,13 +59,19 @@ UdpSocketPosix::UdpSocketPosix(TaskRunner* task_runner,
                                SocketHandle handle,
                                const IPEndpoint& local_endpoint,
                                PlatformClientPosix* platform_client)
-    : UdpSocket(task_runner, client),
+    : task_runner_(task_runner),
+      client_(client),
       handle_(handle),
       local_endpoint_(local_endpoint),
       platform_client_(platform_client) {
+  OSP_DCHECK(task_runner_);
   OSP_DCHECK(local_endpoint_.address.IsV4() || local_endpoint_.address.IsV6());
+
   if (platform_client_) {
     platform_client_->udp_socket_reader()->OnCreate(this);
+  }
+  if (lifetime_observer_) {
+    lifetime_observer_->OnCreate(this);
   }
 }
 
@@ -71,15 +79,11 @@ UdpSocketPosix::~UdpSocketPosix() {
   if (platform_client_) {
     platform_client_->udp_socket_reader()->OnDestroy(this);
   }
-  CloseIfOpen();
+  Close();
 }
 
 const SocketHandle& UdpSocketPosix::GetHandle() const {
   return handle_;
-}
-
-void UdpSocketPosix::Close() {
-  close(handle_.fd);
 }
 
 // static
@@ -320,6 +324,15 @@ void UdpSocketPosix::JoinMulticastGroup(const IPAddress& address,
   OSP_NOTREACHED();
 }
 
+// static
+void UdpSocketPosix::SetLifetimeObserver(LifetimeObserver* observer) {
+  OSP_DCHECK_NE(!!lifetime_observer_, !!observer);
+  lifetime_observer_ = observer;
+}
+
+// static
+UdpSocketPosix::LifetimeObserver* UdpSocketPosix::lifetime_observer_{nullptr};
+
 namespace {
 
 // Examine |posix_errno| to determine whether the specific cause of a failure
@@ -426,37 +439,59 @@ Error ReceiveMessageInternal(int fd, UdpPacket* packet) {
 }  // namespace
 
 void UdpSocketPosix::ReceiveMessage() {
-  if (is_closed()) {
-    OnRead(Error::Code::kSocketClosedFailure);
-  }
+  // WARNING: This method may be called on a different thread from the thread
+  // calling into all the other methods.
 
-  ssize_t bytes_available = recv(handle_.fd, nullptr, 0, MSG_PEEK | MSG_TRUNC);
-  if (bytes_available == -1) {
-    OnRead(ChooseError(errno, Error::Code::kSocketReadFailure));
-  }
-  UdpPacket packet(bytes_available);
-  packet.set_socket(this);
-  Error result = Error::Code::kUnknownError;
-  switch (local_endpoint_.address.version()) {
-    case UdpSocket::Version::kV4: {
-      result =
-          ReceiveMessageInternal<sockaddr_in, in_pktinfo>(handle_.fd, &packet);
-      break;
+  ErrorOr<UdpPacket> error_or_packet(Error::Code::kUnknownError);
+  {
+    std::lock_guard<std::mutex> handle_lock(handle_mutex_);
+
+    if (is_closed()) {
+      task_runner_->PostTask([this] {
+        // TODO(issues/71): |this| may be invalid at this point.
+        OnRead(Error::Code::kSocketClosedFailure);
+      });
+      return;
     }
-    case UdpSocket::Version::kV6: {
-      result = ReceiveMessageInternal<sockaddr_in6, in6_pktinfo>(handle_.fd,
+
+    ssize_t bytes_available =
+        recv(handle_.fd, nullptr, 0, MSG_PEEK | MSG_TRUNC);
+    if (bytes_available == -1) {
+      task_runner_->PostTask(
+          [this, error = ChooseError(
+                     errno, Error::Code::kSocketReadFailure)]() mutable {
+            // TODO(issues/71): |this| may be invalid at this point.
+            OnRead(std::move(error));
+          });
+      return;
+    }
+    UdpPacket packet(bytes_available);
+    packet.set_socket(this);
+    Error result = Error::Code::kUnknownError;
+    switch (local_endpoint_.address.version()) {
+      case UdpSocket::Version::kV4: {
+        result = ReceiveMessageInternal<sockaddr_in, in_pktinfo>(handle_.fd,
                                                                  &packet);
-      break;
+        break;
+      }
+      case UdpSocket::Version::kV6: {
+        result = ReceiveMessageInternal<sockaddr_in6, in6_pktinfo>(handle_.fd,
+                                                                   &packet);
+        break;
+      }
+      default: {
+        OSP_NOTREACHED();
+      }
     }
-    default: {
-      OSP_NOTREACHED();
-    }
+    error_or_packet = result.ok() ? ErrorOr<UdpPacket>(std::move(packet))
+                                  : ErrorOr<UdpPacket>(std::move(result));
   }
-  ErrorOr<UdpPacket> error_or_packet =
-      result.ok() ? ErrorOr<UdpPacket>(std::move(packet))
-                  : ErrorOr<UdpPacket>(std::move(result));
 
-  OnRead(std::move(error_or_packet));
+  task_runner_->PostTask(
+      [this, read_result = std::move(error_or_packet)]() mutable {
+        // TODO(issues/71): |this| may be invalid at this point.
+        OnRead(std::move(read_result));
+      });
 }
 
 // TODO(yakimakha): Consider changing the interface to accept UdpPacket as
@@ -534,6 +569,50 @@ void UdpSocketPosix::SetDscp(UdpSocket::DscpMode state) {
   } else if (code == ENOPROTOOPT) {
     OSP_VLOG << "INVALID DSCP SETTING LEVEL PROVIDED: " << kSettingLevel;
     OnError(CreateError(Error::Code::kSocketOptionSettingFailure));
+  }
+}
+
+void UdpSocketPosix::OnError(Error error) {
+  CloseIfErrorIsFatal(error);
+  if (client_) {
+    client_->OnError(this, std::move(error));
+  }
+}
+
+void UdpSocketPosix::OnSendError(Error error) {
+  if (client_) {
+    client_->OnSendError(this, std::move(error));
+  }
+}
+
+void UdpSocketPosix::OnRead(ErrorOr<UdpPacket> read_data) {
+  if (client_) {
+    client_->OnRead(this, std::move(read_data));
+  }
+}
+
+void UdpSocketPosix::Close() {
+  if (handle_.fd >= 0) {
+    // It seems the OnDestroy() calls should only come from the destructor, but
+    // it makes sense for UdpSocketReaderPosix to consider this UdpSocketPosix
+    // as "dead" at this point.
+    if (lifetime_observer_) {
+      lifetime_observer_->OnDestroy(this);
+    }
+    if (platform_client_) {
+      platform_client_->udp_socket_reader()->OnDestroy(this);
+    }
+
+    std::lock_guard<std::mutex> handle_lock(handle_mutex_);
+    close(handle_.fd);
+    handle_.fd = -1;
+  }
+}
+
+void UdpSocketPosix::CloseIfErrorIsFatal(const Error& error) {
+  if (error.code() != Error::Code::kNone &&
+      error.code() != Error::Code::kAgain) {
+    Close();
   }
 }
 
