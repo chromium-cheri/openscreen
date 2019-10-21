@@ -26,7 +26,7 @@ def _CheckDeps(input_api, output_api):
 
 def _CommonChecks(input_api, output_api):
   results = []
-  # TODO(issues/43): Probably convert this to python so we can give more
+  # TODO(crbug.com/openscreen/43): Probably convert this to python so we can give more
   # detailed errors.
   presubmit_sh_result = input_api.subprocess.call(
       input_api.PresubmitLocalPath() + '/PRESUBMIT.sh')
