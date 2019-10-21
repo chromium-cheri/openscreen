@@ -1,0 +1,33 @@
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "cast/common/channel/namespace_router.h"
+
+#include "cast/common/channel/proto/cast_channel.pb.h"
+
+namespace cast {
+namespace channel {
+
+NamespaceRouter::NamespaceRouter() = default;
+NamespaceRouter::~NamespaceRouter() = default;
+
+void NamespaceRouter::AddNamespaceHandler(const std::string& ns,
+                                          CastMessageHandler* handler) {
+  handlers_.emplace(ns, handler);
+}
+
+void NamespaceRouter::RemoveNamespaceHandler(const std::string& ns) {
+  handlers_.erase(ns);
+}
+
+void NamespaceRouter::OnMessage(CastSocket* socket, CastMessage&& message) {
+  const std::string& ns = message.namespace_();
+  auto it = handlers_.find(ns);
+  if (it != handlers_.end()) {
+    it->second->OnMessage(socket, std::move(message));
+  }
+}
+
+}  // namespace channel
+}  // namespace cast

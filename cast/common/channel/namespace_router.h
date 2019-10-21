@@ -1,0 +1,34 @@
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef CAST_COMMON_CHANNEL_NAMESPACE_ROUTER_H_
+#define CAST_COMMON_CHANNEL_NAMESPACE_ROUTER_H_
+
+#include <map>
+#include <string>
+
+#include "cast/common/channel/cast_message_handler.h"
+
+namespace cast {
+namespace channel {
+
+class NamespaceRouter final : public CastMessageHandler {
+ public:
+  NamespaceRouter();
+  ~NamespaceRouter() override;
+
+  void AddNamespaceHandler(const std::string& ns, CastMessageHandler* handler);
+  void RemoveNamespaceHandler(const std::string& ns);
+
+  // CastMessageHandler overrides.
+  void OnMessage(CastSocket* socket, CastMessage&& message) override;
+
+ private:
+  std::map<std::string /* namespace */, CastMessageHandler*> handlers_;
+};
+
+}  // namespace channel
+}  // namespace cast
+
+#endif  // CAST_COMMON_CHANNEL_NAMESPACE_ROUTER_H_
