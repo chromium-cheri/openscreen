@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "f73022f2_530ce1ed",
+        "filename": "discovery/dnssd/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "Can this be moved to discovery/BUILD.gn?\n\nRationale: I want to avoid creating BUILD files more than one level deep in the repo, unless there\u0027s a good reason.  It just means more maintenance work for changes that touch multiple BUILD files.",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed896e4b_b1d4bfd4",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "You can\u0027t import or alias namespaces per style guide, so if you want to this API you would either write a using-declaration (which would strip all this context), or a long qualified name.\n\nI would prefer putting these names in just openscreen, or openscreen/discovery, and naming the class DnsSdInstanceRecord.\n\nThat way you can write discovery::DnsSdInstanceRecord in other openscreen headers, and DnsSdInstanceRecord with a using-declaration in other .cc.\n\nI\u0027m open to doing this if there\u0027s an advantage, but I don\u0027t think there are other three-deep namespaces in our project, so there\u0027s a consistency issue as well.",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68a89410_b2e12e81",
         "filename": "discovery/dnssd/public/instance_record.h",
         "patchSetId": 7
@@ -67,6 +101,132 @@
         "endLine": 23,
         "endChar": 40
       },
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de8d82cf_3abe3766",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "Because the contents are treated as a string, std::string is the right data type.  However before the contents are written to the wire or passed to the client the contents need to be validated against the Net-Unicode requirements.  Where were you planning on doing that?",
+      "parentUuid": "d62e9670_daf12e4c",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33a9d799_2cfe46cb",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "Blank line before NOTE",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6adf934b_43bcd9a1",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "Please name the args ipv4_endpoint and ipv6_endpoint to make this API clearer.",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e24f0388_5f7ec93c",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "There are no setters.  Can you make the members const?",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de14abd2_987688f9",
+        "filename": "discovery/dnssd/public/querier.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "Where is the API to register this callback object?",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da27cc1_f9b21a7d",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "We will likely want convenience methods to get/set values as absl::string_view; but fine to add later when there is a demonstrated need.",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "435f408c_f5e3f23b",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-21T23:17:52Z",
+      "side": 1,
+      "message": "Can the getters be const?",
       "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
