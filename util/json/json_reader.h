@@ -14,6 +14,8 @@ namespace Json {
 class Value;
 }
 
+#define JSON_EXPAND_FIND_CONSTANT_ARGS(s) (s), ((s) + sizeof(s) - 1)
+
 namespace openscreen {
 template <typename T>
 class ErrorOr;

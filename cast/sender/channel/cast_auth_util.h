@@ -7,10 +7,10 @@
 
 #include <openssl/x509.h>
 
+#include <chrono>
 #include <string>
 
 #include "cast/common/certificate/cast_cert_validator.h"
-#include "cast/common/channel/proto/cast_channel.pb.h"
 #include "platform/base/error.h"
 
 namespace cast {
