@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c3258d76_dba584f0",
+        "filename": "discovery/dnssd/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-21T23:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f73022f2_530ce1ed",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed896e4b_b1d4bfd4",
         "filename": "discovery/dnssd/public/instance_record.h",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-21T23:17:52Z",
       "side": 1,
       "message": "You can\u0027t import or alias namespaces per style guide, so if you want to this API you would either write a using-declaration (which would strip all this context), or a long qualified name.\n\nI would prefer putting these names in just openscreen, or openscreen/discovery, and naming the class DnsSdInstanceRecord.\n\nThat way you can write discovery::DnsSdInstanceRecord in other openscreen headers, and DnsSdInstanceRecord with a using-declaration in other .cc.\n\nI\u0027m open to doing this if there\u0027s an advantage, but I don\u0027t think there are other three-deep namespaces in our project, so there\u0027s a consistency issue as well.",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "655fdf6e_db833840",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-21T23:48:31Z",
+      "side": 1,
+      "message": "Changing to openscreen::discovery and updating names as suggested\n\nI think this is worth a larger discussion between us two and Max, but we can update that later as you mentioned.",
+      "parentUuid": "ed896e4b_b1d4bfd4",
       "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -131,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "9060be36_f66a9fc4",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-21T23:48:31Z",
+      "side": 1,
+      "message": "Leaving as a string\n\nThat will be done in the validation methods (see TODO above), and we will DCHECK it in the InstanceRecord ctor, based on what you asked for in the design doc\n\nPlanning to put up a CL with these details today or tomorrow",
+      "parentUuid": "de8d82cf_3abe3766",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33a9d799_2cfe46cb",
         "filename": "discovery/dnssd/public/instance_record.h",
         "patchSetId": 7
@@ -148,6 +208,24 @@
     },
     {
       "key": {
+        "uuid": "27617023_37ab16cb",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-21T23:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33a9d799_2cfe46cb",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6adf934b_43bcd9a1",
         "filename": "discovery/dnssd/public/instance_record.h",
         "patchSetId": 7
@@ -162,6 +240,24 @@
       "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85808c7f_456997ea",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-21T23:48:31Z",
+      "side": 1,
+      "message": "Done\n\nIn the follow UP CL implementing this class, either can be the v4 or b6 address. More details in the follow-up CL",
+      "parentUuid": "6adf934b_43bcd9a1",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -200,6 +296,24 @@
     },
     {
       "key": {
+        "uuid": "d5cd91b7_3b8dceda",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-21T23:48:31Z",
+      "side": 1,
+      "message": "Leaving as-is per Max\u0027s comment. If you still want these cosnt (And this class non-copyable), I can make the change in a follow-up CL",
+      "parentUuid": "41d814c9_13665d37",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de14abd2_987688f9",
         "filename": "discovery/dnssd/public/querier.h",
         "patchSetId": 7
@@ -214,6 +328,24 @@
       "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a88026a_ba899d3c",
+        "filename": "discovery/dnssd/public/querier.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-21T23:48:31Z",
+      "side": 1,
+      "message": "This is registered below on the StartQuery method",
+      "parentUuid": "de14abd2_987688f9",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +380,24 @@
       "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e5968dd_1ea8619f",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-21T23:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "435f408c_f5e3f23b",
+      "revId": "31c1f116d1fd3b220ab308aa41312c6bb8d10cf5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
