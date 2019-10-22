@@ -22,6 +22,30 @@
       "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baec0173_6ca3675d",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-22T22:15:21Z",
+      "side": 1,
+      "message": "I am fine going either way with this. In similar places it is used (ClearValue, ClearFlag), I think it\u0027s more important - Otherwise if we call ClearValue(flag_name) we would return success without actually clearing the flag, which could be confusing\nThis method is the same for consistency\n\nShould we make the Get functions return NotFound as suggested and leave Clear*() as-is? Or change them all?\n\n@mfoltz, what are your thoughts?",
+      "parentUuid": "9bbcffdc_c8b02259",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 3
+      },
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
