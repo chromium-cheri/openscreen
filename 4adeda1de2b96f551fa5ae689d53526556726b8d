@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12a694af_834a662b",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T22:41:07Z",
+      "side": 1,
+      "message": "I don\u0027t think these make sense anymore, since it\u0027s not a part of the base class, you might as well inline these. UdpSocketPosix would benefit from a smaller surface, even though these are private.",
+      "range": {
+        "startLine": 568,
+        "startChar": 0,
+        "endLine": 585,
+        "endChar": 1
+      },
+      "revId": "4adeda1de2b96f551fa5ae689d53526556726b8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
