@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "absl/hash/hash.h"
+#include "cast/common/mdns/mdns_record_changed_callback.h"
 #include "cast/common/mdns/mdns_records.h"
 #include "platform/api/task_runner.h"
 
@@ -16,9 +17,10 @@ namespace mdns {
 
 class MdnsRandom;
 class MdnsReceiver;
-class MdnsRecordChangedCallback;
+// class MdnsRecordChangedCallback;
 class MdnsSender;
 class MdnsQuestionTracker;
+class MdnsRecordTracker;
 
 class MdnsQuerier {
  public:
@@ -47,9 +49,24 @@ class MdnsQuerier {
                  MdnsRecordChangedCallback* callback);
 
  private:
-  using QuestionKey = std::tuple<DomainName, DnsType, DnsClass>;
+  using Key = std::tuple<DomainName, DnsType, DnsClass>;
 
   void OnMessageReceived(const MdnsMessage& message);
+
+  void ProcessRecords(const std::vector<MdnsRecord>& records);
+  void ProcessSharedRecord(const MdnsRecord& record);
+  void ProcessUniqueRecord(const MdnsRecord& record);
+
+  void ProcessQuestions(const MdnsRecord& record, RecordChangedEvent event);
+  void ProcessQuestion(const Key key,
+                       const MdnsRecord& record,
+                       RecordChangedEvent event);
+
+  // Called by owned MdnsRecordTrackers when a tracked record is expired
+  void OnRecordExpired(const MdnsRecord& record);
+
+  std::unique_ptr<MdnsQuestionTracker> CreateTracker(MdnsQuestion question);
+  std::unique_ptr<MdnsRecordTracker> CreateTracker(MdnsRecord record);
 
   MdnsSender* const sender_;
   MdnsReceiver* const receiver_;
@@ -62,10 +79,16 @@ class MdnsQuerier {
   // unique_ptr so they are not moved around in memory when the collection is
   // modified. This allows passing a pointer to MdnsQuestionTracker to a task
   // running on the TaskRunner.
-  std::unordered_map<QuestionKey,
-                     std::unique_ptr<MdnsQuestionTracker>,
-                     absl::Hash<QuestionKey>>
-      queries_;
+  std::unordered_map<Key, std::unique_ptr<MdnsQuestionTracker>, absl::Hash<Key>>
+      questions_;
+
+  std::unordered_multimap<Key,
+                          std::unique_ptr<MdnsRecordTracker>,
+                          absl::Hash<Key>>
+      records_;
+
+  std::unordered_multimap<Key, MdnsRecordChangedCallback*, absl::Hash<Key>>
+      callbacks_;
 };
 
 }  // namespace mdns
