@@ -16,9 +16,11 @@ namespace discovery {
 // Represents the data stored in DNS records of types SRV, TXT, A, and AAAA
 class DnsSdInstanceRecord {
  public:
+  static bool IsInstanceValid(const std::string& instance);
+  static bool IsServiceValid(const std::string& service);
+  static bool IsDomainValid(const std::string& domain);
+
   // These ctors expect valid input, and will cause a crash if they are not.
-  // TODO(rwkeane): Add validation methods for instance_id, service_id,
-  // domain_id.
   DnsSdInstanceRecord(std::string instance_id,
                       std::string service_id,
                       std::string domain_id,
@@ -30,8 +32,8 @@ class DnsSdInstanceRecord {
   DnsSdInstanceRecord(std::string instance_id,
                       std::string service_id,
                       std::string domain_id,
-                      IPEndpoint ipv4_endpoint,
-                      IPEndpoint ipv6_endpoint,
+                      IPEndpoint endpoint1,
+                      IPEndpoint endpoint2,
                       DnsSdTxtRecord txt);
 
   // Returns the instance name for this DNS-SD record.
