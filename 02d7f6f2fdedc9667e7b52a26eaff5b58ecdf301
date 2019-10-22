@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bbcffdc_c8b02259",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T22:05:11Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s necessary to check flags collection here since the caller has explicitly asked for a non-boolean value. I would assume that service that fills out the TXT and consumer that reads it know what type of value they are interested in.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 3
+      },
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
