@@ -378,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "ff5b680a_4a19657a",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T18:40:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "59993536_22918cf6",
+      "range": {
+        "startLine": 96,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 25
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f616381_0b7c6650",
         "filename": "discovery/dnssd/public/txt_record.cc",
         "patchSetId": 1
@@ -566,6 +590,30 @@
     },
     {
       "key": {
+        "uuid": "7240fcf6_59b0892b",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T18:40:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fce9f72a_d7cabbdd",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57758368_8044e5cf",
         "filename": "discovery/dnssd/public/txt_record.h",
         "patchSetId": 1
@@ -613,6 +661,30 @@
     },
     {
       "key": {
+        "uuid": "c44ecc85_881482c7",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T18:40:57Z",
+      "side": 1,
+      "message": "I think if you return a const span from GetValue, you won\u0027t need mutable.\nPlus returning a modifyable span to an internal collection is potentially dangerous.",
+      "parentUuid": "8dbbcad5_8a536f97",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 9
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d267141a_f1a7b92e",
         "filename": "discovery/dnssd/public/txt_record.h",
         "patchSetId": 1
@@ -648,6 +720,30 @@
       "side": 1,
       "message": "That\u0027s an option, but I thought this was cleaner / less error prone. If we forget to call ToLower() anywhere, it will lead to a bug that could easily be missed in Unit Tests\n\nIf you\u0027d prefer, I can change to this approach",
       "parentUuid": "d267141a_f1a7b92e",
+      "range": {
+        "startLine": 64,
+        "startChar": 29,
+        "endLine": 65,
+        "endChar": 56
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4235ac04_dac93fde",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T18:40:57Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly, just thought it would be less code overall, plus if you were to take this approach, then you can still accept string view as an argument and construct a lower-case string from a string view.",
+      "parentUuid": "556e1ede_009225f8",
       "range": {
         "startLine": 64,
         "startChar": 29,
