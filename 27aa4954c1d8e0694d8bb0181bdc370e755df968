@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a58152f_a4607790",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "since the first thing the method does is create a string from a string view, maybe just accept a string as an argument?",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 49
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05cea031_c3ee88c3",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Will that work for an empty span? How can a caller set a non-boolean flag to be an empty value, e.g.\"foo\u003d\" ?",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 70
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b7b2aad_d24fd640",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Check if key is valid in Get methods as well?",
+      "range": {
+        "startLine": 41,
+        "startChar": 14,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af84c8d0_49722aa3",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Check if key is valid in Clear methods as well?",
+      "range": {
+        "startLine": 68,
+        "startChar": 14,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31166cf4_8a36b981",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": ".erase and check returned result",
+      "range": {
+        "startLine": 70,
+        "startChar": 17,
+        "endLine": 70,
+        "endChar": 21
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "992673dd_b3d6b1df",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 21
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ae907dc_d5cb3e00",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be 254 to account for \u0027\u003d\u0027 character?",
+      "range": {
+        "startLine": 96,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 25
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f616381_0b7c6650",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Call IsKeyValid from this method? Right now KVP can be valid with an invalid key",
+      "range": {
+        "startLine": 116,
+        "startChar": 21,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39357c7f_22187b5d",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Doesn\u0027t matter, but usually strings are lower cased for case insensitive comparison.",
+      "range": {
+        "startLine": 128,
+        "startChar": 40,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ab9113b_bf2e62a8",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "nit: Keys are case-insensitive.\nsame in the comment for GetValue",
+      "range": {
+        "startLine": 24,
+        "startChar": 43,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61e48464_4627aa8d",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Doesn\u0027t empty vector mean the same thing as no vector at all? Why not use std::vector\u003cuint8_t\u003e directly? I think if you create the vector with size 0 it will not do a heap allocation.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57758368_8044e5cf",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Why do you need mutable here?",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 9
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d267141a_f1a7b92e",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-22T17:40:37Z",
+      "side": 1,
+      "message": "Why not store keys all lower case when you add it to the map?",
+      "range": {
+        "startLine": 64,
+        "startChar": 29,
+        "endLine": 65,
+        "endChar": 56
+      },
+      "revId": "27aa4954c1d8e0694d8bb0181bdc370e755df968",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
