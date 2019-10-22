@@ -261,5 +261,9 @@ TEST_F(MdnsQuerierTest, SameCallerDifferentQuestions) {
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record1_created_));
 }
 
+// TEST_F(MdnsTrackerTest, RecordTrackerCallbackOnRdataUpdate) {
+
+// TEST_F(MdnsTrackerTest, RecordTrackerNoCallbackOnTtlUpdate) {
+
 }  // namespace mdns
 }  // namespace cast
