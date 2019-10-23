@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64dec50a_2951df24",
+        "filename": "cast/common/channel/virtual_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-23T04:06:46Z",
+      "side": 1,
+      "message": "These methods are simple enough that it seems worth moving the definition to the header so that operator\u003d\u003d can be inline. Same for !\u003d",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 1
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ee3fff7_1dc197fb",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-23T04:06:46Z",
+      "side": 1,
+      "message": "Worth adding a description of what this entire enum is used for",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 17
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10237f61_aea0c7ba",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-23T04:06:46Z",
+      "side": 1,
+      "message": "Since there is no error case where socket_map.emplace(...) fails, can this be re-ordered to:\n\nif(observer_) {\n  observer_-\u003eOnConnectionAdded(vconn, associated_data)\n}\nsocket_map.emplace(...)",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e2c97bd_dc415f87",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-23T04:06:46Z",
+      "side": 1,
+      "message": "This seems like a lot of logic to erase from the socket_map entries before calling OnConnectionRemoved. Is there any reason we can\u0027t call OnConnectionRemoved first?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 68
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b3823ce_06a083f8",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-23T04:06:46Z",
+      "side": 1,
+      "message": "Same comment about ordering",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 18
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddfa6314_2e50c2c4",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-23T04:06:46Z",
+      "side": 1,
+      "message": "Client?",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce30ff9_6a0790d6",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-23T04:06:46Z",
+      "side": 1,
+      "message": "Comment to explain what the bool parameter is, since it\u0027s not immediately obvious. Same for 2 below functions",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 63
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb909d0a_a902068a",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-23T04:06:46Z",
+      "side": 1,
+      "message": "It seems like you never access connections_[id] without immediately calling connections_[id][local_id] after\n\nIt might simplify the code to change this to std::multimap\u003cstd::pair\u003cuint32, std::string\u003e, VCTail\u003e",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
