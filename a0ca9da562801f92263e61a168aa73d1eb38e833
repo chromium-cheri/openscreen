@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "12a3199d_482282fe",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-23T21:38:37Z",
+      "side": 1,
+      "message": "I think DCHECK is fine. It will check that our code never passes anything invalid to the constructor, and anything that comes over the network should be verified by the parser before passing down to the constructor. If we put OSP_CHECK here and validate in the parser, we will always do double validation.",
+      "parentUuid": "063bbdb1_c02931fa",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c94d570_ee953592",
         "filename": "discovery/dnssd/public/instance_record.cc",
         "patchSetId": 1
@@ -122,6 +140,24 @@
     },
     {
       "key": {
+        "uuid": "de512af1_4f7e154b",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-23T21:38:37Z",
+      "side": 1,
+      "message": "We do not need to do anything with UTF-8 here, it\u0027s effectively a pass-through\nWe only need to verify that it\u0027s a valid UTF-8 format, and there aren\u0027t that many correct formats to verify:\n\n1-byte UTF-8 character 0xxxxxxx\n2-byte UTF-8 character 110xxxxx 10xxxxxx\n3-byte UTF-8 character 1110xxxx 10xxxxxx 10xxxxxx\n4-byte UTF-8 character 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx",
+      "parentUuid": "1760d625_c65e2342",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f4078ce_99df5045",
         "filename": "discovery/dnssd/public/instance_record.cc",
         "patchSetId": 1
@@ -139,6 +175,24 @@
     },
     {
       "key": {
+        "uuid": "1ab5f188_32954c1e",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-23T21:38:37Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "3f4078ce_99df5045",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0b46b0f_c4462366",
         "filename": "discovery/dnssd/public/instance_record.cc",
         "patchSetId": 1
@@ -150,6 +204,47 @@
       "writtenOn": "2019-10-23T19:59:45Z",
       "side": 1,
       "message": "1. There has to be some length limit to enforce.\n\n2. Just because the RFC doesn\u0027t set limits, doesn\u0027t mean we can be opinionated.  For example, no one will want to deal with instance names that aren\u0027t UTF-8 and/or have embedded NULs.",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb91432d_5d67133c",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-23T21:38:37Z",
+      "side": 1,
+      "message": "https://www.ietf.org/rfc/rfc1035.txt\nLabels are 63 or less characters, total domain name length including terminating character is at most 256.\nSince this has to go through DNS, I think it should conform to at least these two checks as instance.service.domain is going to be the argument to the query to get SRV, TXT and A/AAAA records.",
+      "parentUuid": "e0b46b0f_c4462366",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e835e9_54b833d7",
+        "filename": "discovery/dnssd/public/instance_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-23T21:38:37Z",
+      "side": 1,
+      "message": "Per style guide: \"Static methods of a class should generally be closely related to instances of the class or the class\u0027s static data.\"\n\nI would prefer free namespace level functions for this. Shorter to call in parsers/tests/other validation as well.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 55
+      },
       "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
