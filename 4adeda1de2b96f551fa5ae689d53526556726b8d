@@ -22,6 +22,30 @@
       "revId": "4adeda1de2b96f551fa5ae689d53526556726b8d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04c85573_52725d1f",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-23T01:31:37Z",
+      "side": 1,
+      "message": "Done, for OnSendError() and OnRead(). However, there are 17 of callers of OnError(), so I left that. I also merged CreateError(), OnError(), and CloseIfErrorIsFatal() all into just OnError(), since those three methods were always involved in every OnError() call.",
+      "parentUuid": "12a694af_834a662b",
+      "range": {
+        "startLine": 568,
+        "startChar": 0,
+        "endLine": 585,
+        "endChar": 1
+      },
+      "revId": "4adeda1de2b96f551fa5ae689d53526556726b8d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
