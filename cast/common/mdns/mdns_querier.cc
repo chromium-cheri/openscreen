@@ -43,20 +43,43 @@ void MdnsQuerier::StartQuery(const DomainName& name,
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
   OSP_DCHECK(callback);
 
-  const QuestionKey key(name, dns_type, dns_class);
-  auto find_result = queries_.find(key);
-  if (find_result == queries_.end()) {
-    std::unique_ptr<MdnsQuestionTracker> tracker =
-        std::make_unique<MdnsQuestionTracker>(sender_, task_runner_,
-                                              now_function_, random_delay_);
-    tracker->AddCallback(callback);
-    tracker->Start(
-        MdnsQuestion(name, dns_type, dns_class, ResponseType::kMulticast));
-    queries_.emplace(key, std::move(tracker));
-  } else {
-    OSP_DCHECK(find_result->second->IsStarted());
-    find_result->second->AddCallback(callback);
+  // Add a new callback if haven't seen it before
+  auto callbacks = callbacks_.equal_range(name);
+  for (auto entry = callbacks.first; entry != callbacks.second; ++entry) {
+    const CallbackInfo& callback_info = entry->second;
+    if (callback_info.dns_type() == dns_type &&
+        callback_info.dns_class() == dns_class &&
+        callback_info.callback() == callback) {
+      // Already have this callback
+      return;
+    }
   }
+  callbacks_.emplace(name, CallbackInfo(callback, dns_type, dns_class));
+
+  // Notify the new callback with previously cached records
+  auto records = records_.equal_range(name);
+  for (auto entry = records.first; entry != records.second; ++entry) {
+    const MdnsRecord& record = entry->second->record();
+    if ((dns_type == DnsType::kANY || record.dns_type() == dns_type) &&
+        (dns_class == DnsClass::kANY || record.dns_class() == dns_class)) {
+      // TODO(yakimakha): Should this be kCreated or something else?
+      callback->OnRecordChanged(record, RecordChangedEvent::kCreated);
+    }
+  }
+
+  // Add a new question if haven't seen it before
+  auto questions = questions_.equal_range(name);
+  for (auto entry = questions.first; entry != questions.second; ++entry) {
+    const MdnsQuestion& tracked_question = entry->second->question();
+    if (tracked_question.dns_type() == dns_type &&
+        tracked_question.dns_class() == dns_class) {
+      // Already have this question
+      return;
+    }
+  }
+  questions_.emplace(name,
+                     CreateTracker(MdnsQuestion(name, dns_type, dns_class,
+                                                ResponseType::kMulticast)));
 }
 
 void MdnsQuerier::StopQuery(const DomainName& name,
@@ -66,31 +89,205 @@ void MdnsQuerier::StopQuery(const DomainName& name,
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
   OSP_DCHECK(callback);
 
-  const QuestionKey key(name, dns_type, dns_class);
-  auto find_result = queries_.find(key);
-  if (find_result != queries_.end()) {
-    MdnsQuestionTracker* query = find_result->second.get();
-    query->RemoveCallback(callback);
-    if (!query->HasCallbacks()) {
-      queries_.erase(find_result);
+  // Find and remove the callback.
+  int callbacks_for_key = 0;
+  auto callbacks = callbacks_.equal_range(name);
+  for (auto entry = callbacks.first; entry != callbacks.second; ++entry) {
+    const CallbackInfo& callback_info = entry->second;
+    if (callback_info.dns_type() == dns_type &&
+        callback_info.dns_class() == dns_class) {
+      if (callback_info.callback() == callback) {
+        callbacks_.erase(entry);
+      } else {
+        ++callbacks_for_key;
+      }
     }
   }
+
+  // Exit if there are still callbacks registered for DomainName + DnsType +
+  // DnsClass
+  if (callbacks_for_key > 0) {
+    return;
+  }
+
+  // Find and delete a question that does not have any associated callbacks
+  auto questions = questions_.equal_range(name);
+  for (auto entry = questions.first; entry != questions.second; ++entry) {
+    const MdnsQuestion& tracked_question = entry->second->question();
+    if (tracked_question.dns_type() == dns_type &&
+        tracked_question.dns_class() == dns_class) {
+      questions_.erase(entry);
+      return;
+    }
+  }
+
+  // TODO(yakimakha): Stop tracking all records that caller in no longer
+  // interested in, i.e. all records that do not answer any of the questions.
 }
 
 void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
   OSP_DCHECK(message.type() == MessageType::Response);
 
-  // TODO(yakimakha): Check authority and additional records
-  for (const MdnsRecord& record : message.answers()) {
-    // TODO(yakimakha): Handle questions with type ANY and class ANY
-    const QuestionKey key(record.name(), record.dns_type(), record.dns_class());
-    auto find_result = queries_.find(key);
-    if (find_result != queries_.end()) {
-      MdnsQuestionTracker* query = find_result->second.get();
-      query->OnRecordReceived(record);
+  // TODO(yakimakha): Check authority records
+  ProcessRecords(message.answers());
+  ProcessRecords(message.additional_records());
+}
+
+void MdnsQuerier::ProcessRecords(const std::vector<MdnsRecord>& records) {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  for (const MdnsRecord& record : records) {
+    switch (record.record_type()) {
+      case RecordType::kShared: {
+        ProcessSharedRecord(record);
+        break;
+      }
+      case RecordType::kUnique: {
+        ProcessUniqueRecord(record);
+        break;
+      }
     }
   }
+}
+
+void MdnsQuerier::ProcessSharedRecord(const MdnsRecord& record) {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(record.record_type() == RecordType::kShared);
+
+  auto records = records_.equal_range(record.name());
+  for (auto entry = records.first; entry != records.second; ++entry) {
+    MdnsRecordTracker* tracker = entry->second.get();
+    const MdnsRecord& tracked_record = tracker->record();
+    if (tracked_record.dns_type() == record.dns_type() &&
+        tracked_record.dns_class() == record.dns_class() &&
+        tracked_record.rdata() == record.rdata()) {
+      // Already have this shared record, update the existing one.
+      // This is a TTL only update since we've already checked that RDATA
+      // matches. No notification is necessary on a TTL only update.
+      tracker->Update(record);
+      return;
+    }
+  }
+  // Have never before seen this shared record, insert a new one.
+  records_.emplace(record.name(), CreateTracker(record));
+  ProcessQuestions(record, RecordChangedEvent::kCreated);
+}
+
+void MdnsQuerier::ProcessUniqueRecord(const MdnsRecord& record) {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(record.record_type() == RecordType::kUnique);
+
+  auto matching_record = records_.end();
+  int records_for_key = 0;
+
+  auto records = records_.equal_range(record.name());
+  for (auto entry = records.first; entry != records.second; ++entry) {
+    const MdnsRecord& tracked_record = entry->second->record();
+    if (tracked_record.dns_type() == record.dns_type() &&
+        tracked_record.dns_class() == record.dns_class()) {
+      ++records_for_key;
+      if (tracked_record.rdata() == record.rdata()) {
+        matching_record = entry;
+      }
+    }
+  }
+
+  if (records_for_key == 0) {
+    // Have not seen any records with this key before.
+    records_.emplace(record.name(), CreateTracker(record));
+    ProcessQuestions(record, RecordChangedEvent::kCreated);
+  } else if (records_for_key == 1) {
+    // There's only one record with this key.
+    // If RDATA on the record is different, notify that the record has been
+    // updated, otherwise simply reset TTL.
+    MdnsRecordTracker* tracker = records.first->second.get();
+    bool is_updated = (record.rdata() != tracker->record().rdata());
+    // TODO: notify if update is successful only? Can't actually fail here
+    tracker->Update(record);
+    if (is_updated) {
+      ProcessQuestions(record, RecordChangedEvent::kUpdated);
+    }
+  } else {
+    // Multiple records with the same key. Erase all record with non-matching
+    // RDATA. Update the record with the matching RDATA if it exists, otherwise
+    // insert a new record.
+    bool is_updated = false;
+    for (auto entry = records.first; entry != records.second; ++entry) {
+      MdnsRecordTracker* tracker = entry->second.get();
+      if (entry == matching_record) {
+        // This is a TTL only update since we've already checked that RDATA
+        // matches. No notification is necessary on a TTL only update.
+        is_updated = true;
+        tracker->Update(record);
+      } else {
+        // Mark records for expiration
+        tracker->Expire();
+      }
+    }
+
+    if (!is_updated) {
+      // Did not find an existing record to update,
+      records_.emplace(record.name(), CreateTracker(record));
+      ProcessQuestions(record, RecordChangedEvent::kCreated);
+    }
+  }
+}
+
+void MdnsQuerier::ProcessQuestions(const MdnsRecord& record,
+                                   RecordChangedEvent event) {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  auto callbacks = callbacks_.equal_range(record.name());
+  for (auto entry = callbacks.first; entry != callbacks.second; ++entry) {
+    const CallbackInfo& callback_info = entry->second;
+    if ((callback_info.dns_type() == DnsType::kANY ||
+         record.dns_type() == callback_info.dns_type()) &&
+        (callback_info.dns_class() == DnsClass::kANY ||
+         record.dns_class() == callback_info.dns_class())) {
+      callback_info.callback()->OnRecordChanged(record, event);
+    }
+  }
+
+  // TODO(yakimakha): Establish relationship between the record and the
+  // question.
+}
+
+void MdnsQuerier::OnRecordExpired(const MdnsRecord& record) {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  auto records = records_.equal_range(record.name());
+
+  for (auto entry = records.first; entry != records.second; ++entry) {
+    MdnsRecordTracker* tracker = entry->second.get();
+    const MdnsRecord& tracked_record = tracker->record();
+    if (tracked_record.dns_type() == record.dns_type() &&
+        tracked_record.dns_class() == record.dns_class() &&
+        tracked_record.rdata() == record.rdata()) {
+      records_.erase(entry);
+      break;
+    }
+  }
+
+  ProcessQuestions(record, RecordChangedEvent::kDeleted);
+
+  // TODO(yakimakha): Break the relationship between the record and the
+  // question. Delete record if it no longer has any questions.
+}
+
+std::unique_ptr<MdnsQuestionTracker> MdnsQuerier::CreateTracker(
+    MdnsQuestion question) {
+  return std::make_unique<MdnsQuestionTracker>(
+      std::move(question), sender_, task_runner_, now_function_, random_delay_);
+}
+
+std::unique_ptr<MdnsRecordTracker> MdnsQuerier::CreateTracker(
+    MdnsRecord record) {
+  return std::make_unique<MdnsRecordTracker>(
+      std::move(record), sender_, task_runner_, now_function_, random_delay_,
+      [this](const MdnsRecord& record) {
+        MdnsQuerier::OnRecordExpired(record);
+      });
 }
 
 }  // namespace mdns
