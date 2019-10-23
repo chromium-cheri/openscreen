@@ -2,6 +2,142 @@
   "comments": [
     {
       "key": {
+        "uuid": "063bbdb1_c02931fa",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-23T19:59:45Z",
+      "side": 1,
+      "message": "It seems like a potential security issue when passing invalid data here, as the mDNS serialization code could easily allocate fixed length buffers.  yakimakha@, do you think these should be OSP_CHECK?",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c94d570_ee953592",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-23T19:59:45Z",
+      "side": 1,
+      "message": "How is this possible?  No new IP address type is coming out in the forseeable future.\n\nI\u0027m annoyed if we have to check this fallthrough case every time we use an IPEndpoint.address.\n\nI wonder if we should remove the version enum and just use IsV6() to determine the type of the address.",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5591f9e0_67793fcb",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-23T19:59:45Z",
+      "side": 1,
+      "message": "Can you use a delegated constructor to remove the duplicated DCHECKs?",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d4ca10f_34e59c7a",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-23T19:59:45Z",
+      "side": 1,
+      "message": "The API expects a V4 and a V6 address, but they can be passed in either order.  That just seems odd.  Is it that difficult to require the caller to pass them as endpoint_v4 and endpoint_v6?",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b32a2e_908c3b8e",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-23T19:59:45Z",
+      "side": 1,
+      "message": "1: For consistency, write 0 as 0x0.\n2: It would be nice to write a comment with the characters for for 0x1F and 0x7F.",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1760d625_c65e2342",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-23T19:59:45Z",
+      "side": 1,
+      "message": "This should be done.  Boringssl has UTF8_getc defined in crypto/asn1/asn1_locl.h.  Would it be possible to use that here?",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4078ce_99df5045",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-23T19:59:45Z",
+      "side": 1,
+      "message": "Regular expression libraries have a notorius history of nasty bugs (memory issues, infinite loops), allocating a regex involves compiling it each time, and regexes are often considered \"write-once code\" since it\u0027s hard to update them without knowing if you\u0027re breaking the logic.\n\n- Are there any issues with using std::regex in Chromium?\n- The rules above look pretty simple.  How hard would they be with absl string operations?",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0b46b0f_c4462366",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-23T19:59:45Z",
+      "side": 1,
+      "message": "1. There has to be some length limit to enforce.\n\n2. Just because the RFC doesn\u0027t set limits, doesn\u0027t mean we can be opinionated.  For example, no one will want to deal with instance names that aren\u0027t UTF-8 and/or have embedded NULs.",
+      "revId": "a0ca9da562801f92263e61a168aa73d1eb38e833",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ad529de_4f82f96d",
         "filename": "discovery/dnssd/public/instance_record.h",
         "patchSetId": 1
