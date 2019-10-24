@@ -56,10 +56,11 @@ class PlatformClientPosix : public PlatformClient {
   // PlatformClient overrides.
   TaskRunner* GetTaskRunner() override;
 
- private:
+ protected:
   PlatformClientPosix(Clock::duration networking_operation_timeout,
                       Clock::duration networking_loop_interval);
 
+ private:
   // This method is thread-safe.
   SocketHandleWaiterPosix* socket_handle_waiter();
 
@@ -73,8 +74,8 @@ class PlatformClientPosix : public PlatformClient {
   // NOTE: Delayed instantiation of networking_loop_ may be useful in future.
   OperationLoop networking_loop_;
   TaskRunnerImpl task_runner_;
-  std::thread networking_loop_thread_;
-  std::thread task_runner_thread_;
+  std::unique_ptr<std::thread> networking_loop_thread_;
+  std::unique_ptr<std::thread> task_runner_thread_;
 
   // Track whether the associated instance variable has been created yet.
   std::atomic_bool waiter_created_{false};

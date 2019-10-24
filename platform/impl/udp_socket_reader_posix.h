@@ -22,8 +22,7 @@ namespace platform {
 // calling the function associated with these sockets once that data is read.
 // NOTE: This class will only function as intended while its RunUntilStopped
 // method is running.
-class UdpSocketReaderPosix : public UdpSocketPosix::LifetimeObserver,
-                             public SocketHandleWaiter::Subscriber {
+class UdpSocketReaderPosix : public SocketHandleWaiter::Subscriber {
  public:
   using SocketHandleRef = SocketHandleWaiter::SocketHandleRef;
 
@@ -32,12 +31,11 @@ class UdpSocketReaderPosix : public UdpSocketPosix::LifetimeObserver,
   explicit UdpSocketReaderPosix(SocketHandleWaiter* waiter);
   virtual ~UdpSocketReaderPosix();
 
-  // UdpSocket::LifetimeObserver overrides.
   // Waits for |socket| to be readable and then calls the socket's
   // RecieveMessage(...) method to process the available packet.
   // NOTE: The first read on any newly watched socket may be delayed up to 50
   // ms.
-  void OnCreate(UdpSocket* socket) override;
+  void OnCreate(UdpSocket* socket);
 
   // Cancels any pending wait on reading |socket|. Following this call, any
   // pending reads will proceed but their associated callbacks will not fire.
@@ -46,7 +44,7 @@ class UdpSocketReaderPosix : public UdpSocketPosix::LifetimeObserver,
   // may be read on this socket and but the callback may not be called. If a
   // socket callback is added in the middle of a wait call, the new socket may
   // not be watched until after this wait call ends.
-  void OnDestroy(UdpSocket* socket) override;
+  virtual void OnDestroy(UdpSocket* socket);
 
   // SocketHandleWaiter::Subscriber overrides.
   void ProcessReadyHandle(SocketHandleRef handle) override;

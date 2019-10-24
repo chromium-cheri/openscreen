@@ -17,16 +17,18 @@ PlatformClientPosix::PlatformClientPosix(
     : networking_loop_(networking_operations(),
                        networking_operation_timeout,
                        networking_loop_interval),
-      task_runner_(Clock::now),
-      networking_loop_thread_(&OperationLoop::RunUntilStopped,
-                              &networking_loop_),
-      task_runner_thread_(&TaskRunnerImpl::RunUntilStopped, &task_runner_) {}
+      task_runner_(Clock::now) {
+  networking_loop_thread_ = std::make_unique<std::thread>(
+      &OperationLoop::RunUntilStopped, &networking_loop_);
+  task_runner_thread_ = std::make_unique<std::thread>(
+      &TaskRunnerImpl::RunUntilStopped, &task_runner_);
+}
 
 PlatformClientPosix::~PlatformClientPosix() {
   networking_loop_.RequestStopSoon();
   task_runner_.RequestStopSoon();
-  networking_loop_thread_.join();
-  task_runner_thread_.join();
+  networking_loop_thread_->join();
+  task_runner_thread_->join();
 }
 
 // static
