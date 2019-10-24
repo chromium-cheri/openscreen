@@ -46,6 +46,57 @@
       "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88b59b5_04bd96d6",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T19:19:24Z",
+      "side": 1,
+      "message": "key is changed from string_view to string because you\u0027re storing it?",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30d3d1b1_80329497",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T19:19:24Z",
+      "side": 1,
+      "message": "It\u0027s a little odd to see std:: and absl:: types in the same declaration, but I\u0027m sure we do it elsewhere.  I wonder if we should discuss some general guidance on when to use e.g. std::span vs absl::Span.",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd2a7c5_8ae8ee56",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T19:19:24Z",
+      "side": 1,
+      "message": "TXT will have small numbers of keys (it\u0027s a few-dozen-byte record, after all).\n\nReview the advice in https://osscs.corp.google.com/chromium/chromium/src/+/master:base/containers/README.md and choose containers that are efficient for this use case (using the absl equivalents where necessary).",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
