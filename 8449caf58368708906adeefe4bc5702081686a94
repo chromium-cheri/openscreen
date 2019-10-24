@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4d31396_727502c2",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-24T20:59:37Z",
+      "side": 1,
+      "message": "Instead of client-side code having to manually call Create() and ShutDown(), how about just making the instance a local, scoped variable:\n\n  PlatformClientPosix platform_client(microseconds(50), microseconds(50));\n\n...then, no matter how the method returns, the dtor will be called automatically.\n\nThis also means getting rid of the PlatformClientPosix::Create() and Shutdown() methods, and then making the ctor/dtor public. Simpler! :)",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 72
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64396bf4_c2976015",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-24T20:59:37Z",
+      "side": 1,
+      "message": "50 microseconds is a pretty short for the timeouts. Seems like that\u0027d spin the CPU quite a bit. And, these only affect shutdown latency, correct? Consider something much larger, like 100ms maybe?\n\nIt\u0027d be good if we could revisit the design choices that led to \"busy/spin waits\" soon.",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 49
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67ce5a9f_71c57982",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-24T20:59:37Z",
+      "side": 1,
+      "message": "Why are the std::threads being heap-allocated now? Seems like you should not make any of these changes.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ecd1d4_549200c3",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-24T20:59:37Z",
+      "side": 1,
+      "message": "Per other comment: Make this public, and move to above the dtor.",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c781d7b_df8bedc5",
+        "filename": "platform/impl/udp_socket_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-24T20:59:37Z",
+      "side": 1,
+      "message": "Comment needs to be updated here.",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 64
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "617c3adf_a3dc0564",
+        "filename": "platform/impl/udp_socket_reader_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-24T20:59:37Z",
+      "side": 1,
+      "message": "Just noticed this: Since the dtor is an override, it should be (per Google C++ style):\n\n  ~UdpSocketReaderPosix() override;\n\nWe should add some kind of PRESUBMIT, like Chromium has to auto-detect this for us, at some point...I filed a bug for tracking that.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ae9bf1_50053b84",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-24T20:59:37Z",
+      "side": 1,
+      "message": "Instead of a subclass, how about just providing a second ctor in PlatformClientPosix that takes a TaskRunner and doesn\u0027t start the task_runner_thread_:\n\nPlatformClientPosix::PlatformClientPosix(\n    TaskRunner* task_runner,\n    Clock::duration networking_operation_timeout,\n    Clock::duration networking_loop_interval)\n    : networking_loop_(networking_operations(),\n                       networking_operation_timeout,\n                       networking_loop_interval),\n      task_runner_(task_runner),\n      networking_loop_thread_(\u0026OperationLoop::RunUntilStopped,\n                              \u0026networking_loop_) {}\n\nThis would mean that the existing task_runner_ member needs to be renamed to something like owned_task_runner_ and wrapped with absl::optional\u003cTaskRunnerImpl\u003e. Then, task_runner_ would just be a pointer to the internal or external one, depending on which ctor was used.\n\nThe reason for merging this all into the same class is that we have an \"either-or\" situation: We don\u0027t want an extra thread and task runner spawned if it isn\u0027t going to be used. It\u0027s best for the \"either-or\" decision to be encapsulated in the same place, rather than across files.\n\nAlso, ~PlatformClientPosix() would have to check if the thread is running before trying to join on it:\n\n  if (task_runner_thread_.joinable()) {\n    task_runner_thread_.join();\n  }",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 2
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
