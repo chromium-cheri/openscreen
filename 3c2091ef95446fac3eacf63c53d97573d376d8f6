@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8988dbf_0762f5c6",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-24T18:55:31Z",
+      "side": 1,
+      "message": "nit: continue is unnecessary in here, maybe put it into the last else-if\n\nif (string[i] \u003e\u003e 5 \u003d\u003d 0x06) {  // 110xxxxx 10xxxxxx\n  if (i + 1 \u003e\u003d string.size() || string[++i] \u003e\u003e 6 !\u003d 0x02) {\n    return false;\n  }\n} else if (string[i] \u003e\u003e 4 \u003d\u003d 0x0E) {  // 1110xxxx 10xxxxxx 10xxxxxx\n  if (i + 2 \u003e\u003d string.size() || string[++i] \u003e\u003e 6 !\u003d 0x02 || string[++i] \u003e\u003e 6 !\u003d 0x02) {\n    return false;\n  }\n} else if (string[i] \u003e\u003e 3 \u003d\u003d 0x1E) {  // 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx\n  if (i + 3 \u003e\u003d string.size() || string[++i] \u003e\u003e 6 !\u003d 0x02 || string[++i] \u003e\u003e 6 !\u003d 0x02 || string[++i] \u003e\u003e 6 !\u003d 0x02) {\n    return false;\n  }\n} else if ((string[i] \u0026 0x80) !\u003d 0x0) {\n  return false;\n}",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "3c2091ef95446fac3eacf63c53d97573d376d8f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03788c59_8b670b1f",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-24T18:55:31Z",
+      "side": 1,
+      "message": "You can move endpoint here as well",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 27
+      },
+      "revId": "3c2091ef95446fac3eacf63c53d97573d376d8f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd699efd_878894fe",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-24T18:55:31Z",
+      "side": 1,
+      "message": "Doesn\u0027t matter if you CHECK the parameter or the member field, I suggest initializing these right after the base constructor call\n\nDnsSdInstanceRecord(std::move(instance_id), std::move(service_id), std::move(domain_id), std::move(txt)), address_v4_(std::move(ipv4_endpoint)), address_v6_(std::move(ipv6_endpoint))",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "3c2091ef95446fac3eacf63c53d97573d376d8f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d08c6dc_5fa67003",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-24T18:55:31Z",
+      "side": 1,
+      "message": "that\u0027s including the terminating zero\nstring_view doesn\u0027t contain the terminating zero, so I think you should check against 255 here.",
+      "range": {
+        "startLine": 158,
+        "startChar": 41,
+        "endLine": 158,
+        "endChar": 44
+      },
+      "revId": "3c2091ef95446fac3eacf63c53d97573d376d8f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
