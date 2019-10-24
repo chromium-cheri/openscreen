@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "9c84306c_a423d8a7",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-24T21:49:19Z",
+      "side": 1,
+      "message": "If it\u0027s a string instead of a string_view only to use as a key, then declaring the map with absl::Hash\u003cabsl::string_view\u003e would let you use string_view here.",
+      "parentUuid": "f88b59b5_04bd96d6",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30d3d1b1_80329497",
         "filename": "discovery/dnssd/public/txt_record.h",
         "patchSetId": 5
@@ -101,6 +119,24 @@
       "writtenOn": "2019-10-24T19:19:24Z",
       "side": 1,
       "message": "It\u0027s a little odd to see std:: and absl:: types in the same declaration, but I\u0027m sure we do it elsewhere.  I wonder if we should discuss some general guidance on when to use e.g. std::span vs absl::Span.",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfc52595_eae3e2c8",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-24T21:49:19Z",
+      "side": 1,
+      "message": "absl::Span is a drop-in for std::span, std::span is only available in C++20",
+      "parentUuid": "30d3d1b1_80329497",
       "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
