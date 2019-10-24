@@ -13,26 +13,28 @@
 namespace openscreen {
 namespace discovery {
 
+bool IsInstanceValid(const std::string& instance);
+bool IsServiceValid(const std::string& service);
+bool IsDomainValid(const std::string& domain);
+
 // Represents the data stored in DNS records of types SRV, TXT, A, and AAAA
 class DnsSdInstanceRecord {
  public:
   // These ctors expect valid input, and will cause a crash if they are not.
-  // TODO(rwkeane): Add validation methods for instance_id, service_id,
-  // domain_id.
-  DnsSdInstanceRecord(std::string instance_id,
-                      std::string service_id,
-                      std::string domain_id,
-                      IPEndpoint endpoint,
-                      DnsSdTxtRecord txt);
+  DnsSdInstanceRecord(const std::string& instance_id,
+                      const std::string& service_id,
+                      const std::string& domain_id,
+                      const IPEndpoint& endpoint,
+                      const DnsSdTxtRecord& txt);
 
   // NOTE: This constructor expects one endpoint to be an IPv4 address and the
   // other to be an IPv6 address.
-  DnsSdInstanceRecord(std::string instance_id,
-                      std::string service_id,
-                      std::string domain_id,
-                      IPEndpoint ipv4_endpoint,
-                      IPEndpoint ipv6_endpoint,
-                      DnsSdTxtRecord txt);
+  DnsSdInstanceRecord(const std::string& instance_id,
+                      const std::string& service_id,
+                      const std::string& domain_id,
+                      const IPEndpoint& ipv4_endpoint,
+                      const IPEndpoint& ipv6_endpoint,
+                      const DnsSdTxtRecord& txt);
 
   // Returns the instance name for this DNS-SD record.
   const std::string& instance_id() const { return instance_id_; }
@@ -52,6 +54,11 @@ class DnsSdInstanceRecord {
   const DnsSdTxtRecord& txt() const { return txt_; };
 
  private:
+  DnsSdInstanceRecord(const std::string& instance_id,
+                      const std::string& service_id,
+                      const std::string& domain_id,
+                      const DnsSdTxtRecord& txt);
+
   std::string instance_id_;
   std::string service_id_;
   std::string domain_id_;
