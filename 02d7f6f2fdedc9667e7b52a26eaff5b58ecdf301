@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "424ae183_84418a92",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T22:59:20Z",
+      "side": 1,
+      "message": "Done, here and in Clear* methods",
+      "parentUuid": "178d4c58_7c31e50d",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 3
+      },
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f88b59b5_04bd96d6",
         "filename": "discovery/dnssd/public/txt_record.h",
         "patchSetId": 5
@@ -101,6 +125,24 @@
       "writtenOn": "2019-10-24T21:49:19Z",
       "side": 1,
       "message": "If it\u0027s a string instead of a string_view only to use as a key, then declaring the map with absl::Hash\u003cabsl::string_view\u003e would let you use string_view here.",
+      "parentUuid": "f88b59b5_04bd96d6",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f61c268_e662bf9d",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T22:59:20Z",
+      "side": 1,
+      "message": "@mark That\u0027s correct\n\n@max using string_view as the key doesn\u0027t work here - we need this class to own the key. if we use string_view, data is still owned by the caller so someone outside this class could change the data out from under us",
       "parentUuid": "f88b59b5_04bd96d6",
       "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
@@ -143,6 +185,24 @@
     },
     {
       "key": {
+        "uuid": "f10c3c0f_b27fd6d0",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T22:59:20Z",
+      "side": 1,
+      "message": "@mfoltz, is there any change you\u0027d like to see here? I agree it\u0027s odd, but I thought the whole point of abseil was to be std-objects-that-aren\u0027t-available-yet - so having them together sounds reasonable to me",
+      "parentUuid": "dfc52595_eae3e2c8",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcd2a7c5_8ae8ee56",
         "filename": "discovery/dnssd/public/txt_record.h",
         "patchSetId": 5
@@ -157,6 +217,24 @@
       "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b08e979_0a2fd190",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T22:59:20Z",
+      "side": 1,
+      "message": "Switched to std::map, since absl::flat_hash_map doesn\u0027t link correctly (see chat thread)",
+      "parentUuid": "fcd2a7c5_8ae8ee56",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
