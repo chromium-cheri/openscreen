@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "74dd4242_f5c0cb8f",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5cde628_8598260a",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b52bc62b_7a4f242e",
         "filename": "discovery/dnssd/public/instance_record.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5adb56_fd454631",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T18:08:09Z",
+      "side": 1,
+      "message": "Done. Good catch",
+      "parentUuid": "b52bc62b_7a4f242e",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4a92a6ac_1f294d3b",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c4660ba_dd25dad1",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9df573c_38b7a16b",
         "filename": "discovery/dnssd/public/instance_record.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44c03711_93f3f59b",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T18:08:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9df573c_38b7a16b",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ef486f99_5eefe5da",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T18:08:09Z",
+      "side": 1,
+      "message": "Done\n\nUpdated all ctor parameters in this way for the same reason",
+      "parentUuid": "68911de2_fe92b703",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cd9b075_56aeb3e8",
         "filename": "discovery/dnssd/public/instance_record.cc",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2019-10-24T17:31:20Z",
       "side": 1,
       "message": "Would absl::StrSplit() be simpler?",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5c10a0_275742b7",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T18:08:09Z",
+      "side": 1,
+      "message": "It would, but I actually hit a compilation error when using absl::StrSplit - it looks like one of the internal absl files isn\u0027t linked correctly\n\nAfter hitting that issue, I realized that this approach should be better perf-wise so I didn\u0027t fight with abseil to make it work. If you prefer, I can try to go back to that approach",
+      "parentUuid": "1cd9b075_56aeb3e8",
       "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
