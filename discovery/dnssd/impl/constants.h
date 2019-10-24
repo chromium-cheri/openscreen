@@ -49,18 +49,58 @@ H AbslHashValue(H h, const InstanceKey& key) {
                     key.instance_id);
 }
 
-// Equality operators to allow for comparison of Key types.
+// Comparison operators for using above keys with an std::map
+inline bool operator<(const ServiceKey& lhs, const ServiceKey& rhs) {
+  if (lhs.domain_id != rhs.domain_id) {
+    return lhs.domain_id < rhs.domain_id;
+  }
+  return lhs.service_id < rhs.service_id;
+}
+
+inline bool operator>(const ServiceKey& lhs, const ServiceKey& rhs) {
+  return rhs < lhs;
+}
+
+inline bool operator<=(const ServiceKey& lhs, const ServiceKey& rhs) {
+  return !(rhs > lhs);
+}
+
+inline bool operator>=(const ServiceKey& lhs, const ServiceKey& rhs) {
+  return !(rhs < lhs);
+}
+
 inline bool operator==(const ServiceKey& lhs, const ServiceKey& rhs) {
-  return lhs.service_id == rhs.service_id && lhs.domain_id == rhs.domain_id;
+  return lhs <= rhs && lhs >= rhs;
 }
 
 inline bool operator!=(const ServiceKey& lhs, const ServiceKey& rhs) {
   return !(lhs == rhs);
 }
 
+inline bool operator<(const InstanceKey& lhs, const InstanceKey& rhs) {
+  if (lhs.domain_id != rhs.domain_id) {
+    return lhs.domain_id < rhs.domain_id;
+  }
+  if (lhs.service_id != rhs.service_id) {
+    return lhs.service_id < rhs.service_id;
+  }
+  return lhs.instance_id < rhs.instance_id;
+}
+
+inline bool operator>(const InstanceKey& lhs, const InstanceKey& rhs) {
+  return rhs < lhs;
+}
+
+inline bool operator<=(const InstanceKey& lhs, const InstanceKey& rhs) {
+  return !(rhs > lhs);
+}
+
+inline bool operator>=(const InstanceKey& lhs, const InstanceKey& rhs) {
+  return !(rhs < lhs);
+}
+
 inline bool operator==(const InstanceKey& lhs, const InstanceKey& rhs) {
-  return lhs.instance_id == rhs.instance_id &&
-         lhs.service_id == rhs.service_id && lhs.domain_id == rhs.domain_id;
+  return lhs <= rhs && lhs >= rhs;
 }
 
 inline bool operator!=(const InstanceKey& lhs, const InstanceKey& rhs) {
