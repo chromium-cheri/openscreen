@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "06e0b16c_1f766c6c",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "Suggest s/device/virtual/",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ee3fff7_1dc197fb",
         "filename": "cast/common/channel/virtual_connection.h",
         "patchSetId": 1
@@ -42,6 +59,142 @@
         "endLine": 21,
         "endChar": 17
       },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff5c668e_6b34f372",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "Can you be more specific on what a user connection is?\n\nDoes this mean the user has foregrounded the application that owns the sender side of the connection?",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "357a14d5_9cc01709",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "It would be helpful to explain if the \"app\" is the software that requested the connection (sender) or that is receiving the connection (receiver).  Or could it be either?",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bd77a6f_cfba05ed",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "This didn\u0027t make a lot of sense to me.  If this is copied from Cast documentation, then fine to leave it as-is, and maybe we can come up with something better with the folks who designed the virtual connection system.",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b272997_79a82ee3",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "Super nit: s/cast/Cast/",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4acc060a_63f702ce",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "This seems to be associated with a peer_id.  Can this data be part of the VirtualConnection object itself?",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d285a13_505fd881",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "Can you add a comment explaining this?\n(I\u0027m guessing this is the last two bytes of the IPv4 address of the peer.)",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adaa8d84_58e9b205",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "Can you provide any comments on the syntax and meaning of local_id and peer_id?\n\nI *think* these are pseudorandom strings that are used to uniquify the connection endpoints.",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59635f3_eb38d035",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "Can the VC be made entirely moveable or entirely copyable, so we don\u0027t have to manually copy part of it and move the rest?",
       "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -140,6 +293,23 @@
     },
     {
       "key": {
+        "uuid": "a5e8fc70_9844dc95",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "virtual_connection or just connection",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dce30ff9_6a0790d6",
         "filename": "cast/common/channel/virtual_connection_manager.h",
         "patchSetId": 1
@@ -163,6 +333,40 @@
     },
     {
       "key": {
+        "uuid": "bb41e05b_69f53aa9",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "Could this remove multiple connections at once (if there are multiple VCs on a socket)?\nCan it be named RemoveConnectionsBySocketId?",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "786fe4f7_7ac3f555",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "Can the map of peer_id -\u003e AssociatedData live in the VirtualConnection object?",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb909d0a_a902068a",
         "filename": "cast/common/channel/virtual_connection_manager.h",
         "patchSetId": 1
@@ -174,6 +378,30 @@
       "writtenOn": "2019-10-23T04:06:46Z",
       "side": 1,
       "message": "It seems like you never access connections_[id] without immediately calling connections_[id][local_id] after\n\nIt might simplify the code to change this to std::multimap\u003cstd::pair\u003cuint32, std::string\u003e, VCTail\u003e",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14b69a4f_a807f98c",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T20:24:36Z",
+      "side": 1,
+      "message": "I also found the multi-map to add complexity that might not be necessary.  IIUC, a local_id/peer_id pair is unique across sockets.   Are local_ids and peer_ids also distinct?\n\nSo maybe you could have a local_id-\u003eVirtualConnection* map, and a socket_id-\u003estd::vector\u003cVirtualConnection\u003e map, to support the Add/Remove API above.\n\nWhat do you think?",
+      "parentUuid": "bb909d0a_a902068a",
       "range": {
         "startLine": 57,
         "startChar": 0,
