@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "18488866_3d8ea982",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T21:37:22Z",
+      "side": 1,
+      "message": "That change is outside the scope of this CL",
+      "parentUuid": "f4d31396_727502c2",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 72
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcd915bd_8756c76d",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T21:37:22Z",
+      "side": 1,
+      "message": "The timeout is the max time that an individual networking operation can execute (either sending/recieving TLS data or reading from UDP sockets)\nThe min execution time is the minimum time that will pass between iterations. This isn\u0027t done with a busy loop though - it uses a condition_variable::wait_for(...)\n\nSince the demo is only run on a multi-core processor, I\u0027d expect that each thread will have its own core (One for networking, which these variables apply to, one for task runner, and one for the embedder) - so we could reasonable put min_execution_time \u003d 0.",
+      "parentUuid": "64396bf4_c2976015",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 49
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67ce5a9f_71c57982",
         "filename": "platform/impl/platform_client_posix.cc",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-10-24T20:59:37Z",
       "side": 1,
       "message": "Why are the std::threads being heap-allocated now? Seems like you should not make any of these changes.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daeeb9a1_72c1c8be",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T21:37:22Z",
+      "side": 1,
+      "message": "I was hitting a race condition when I created the std::thread as part of the member initialization list rather than in the body of the ctor. If the std::thread is stored as a member variable, it needs to be initialized inline there, so this was the best fix I could come up with\n\nIn a previous CL I had been told not to use absl::optional for member variables, but I can\u0027t find any documentation online to support that conclusion, so it might be the best approach",
+      "parentUuid": "67ce5a9f_71c57982",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -91,6 +163,30 @@
       "revId": "8449caf58368708906adeefe4bc5702081686a94",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c81898c0_8c45e0f7",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-24T21:37:22Z",
+      "side": 1,
+      "message": "That is outside the scope of this CL.",
+      "parentUuid": "c7ecd1d4_549200c3",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
