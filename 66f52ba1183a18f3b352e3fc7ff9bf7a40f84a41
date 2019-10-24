@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5cde628_8598260a",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T17:31:20Z",
+      "side": 1,
+      "message": "I would suggest taking absl::string_view for the string validation methods, which is more flexible and efficient.",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b52bc62b_7a4f242e",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T17:31:20Z",
+      "side": 1,
+      "message": "You need to check that you\u0027re not advancing beyond string.end() when looking ahead.\nI would just use operator[] with a numeric index, to make the bounds checks simple.",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c4660ba_dd25dad1",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T17:31:20Z",
+      "side": 1,
+      "message": "I usually prefer boolean methods to covey a positive sense for what they are testing.\nSo this would be, HasControlCharacters",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9df573c_38b7a16b",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T17:31:20Z",
+      "side": 1,
+      "message": "Suggest s/string_char/ch/ for brevity.\nNormally abbreviations are discouraged, but char is a reserved word.",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68911de2_fe92b703",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T17:31:20Z",
+      "side": 1,
+      "message": "const std::string\u0026 for ctor arguments (the ctor is going to take a copy anyway)",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cd9b075_56aeb3e8",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-24T17:31:20Z",
+      "side": 1,
+      "message": "Would absl::StrSplit() be simpler?",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
