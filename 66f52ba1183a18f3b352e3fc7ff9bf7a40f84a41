@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "af5f3eef_3cd513cf",
+        "filename": "discovery/dnssd/public/instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-24T18:20:19Z",
+      "side": 1,
+      "message": "It\u0027s better to accept by value in the constructor as accepting by value is potentially a zero-copy, while accepting by const reference is always at least one copy into the member field.\n\nConsider the following example:\n\nclass Foo {\npublic:\n  // can move, no copy\n  Foo(std::string foo) : foo_(std::move(foo)) {}\nprivate:\n  std::string foo_;\n};\n\n// temporary is moved into the constructor\nFoo f1(std::string(\"blah\"));\n// inevitable copy here\nstd::string s(\"ugh\");\nFoo f2(s);\n// no copy here, moved by hand\nFoo f3(std::move(s));\n\nclass Bar {\npublic:\n  // can\u0027t move from const reference, always copy\n  Bar(const std::string\u0026 bar) : bar_(bar) {}\nprivate:\n  std::string bar_;\n};\n\n// results in a copy, worse than Foo\nBar b1(std::string(\"blah\"));\n// inevitable copy here\nstd::string s(\"ugh\");\nBar b2(s);\n// results in a copy, worse than Foo\nBar b3(std::move(s));",
+      "parentUuid": "ef486f99_5eefe5da",
+      "revId": "66f52ba1183a18f3b352e3fc7ff9bf7a40f84a41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1cd9b075_56aeb3e8",
         "filename": "discovery/dnssd/public/instance_record.cc",
         "patchSetId": 2
