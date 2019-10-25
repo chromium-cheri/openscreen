@@ -12,6 +12,9 @@ config("default_include_dirs") {
 # include resolution, among other things
 config("allow_build_from_embedder") {
   if (build_with_chromium) {
-    include_dirs = [ "//third_party/openscreen/src" ]
+    include_dirs = [
+      "//third_party/openscreen/src",
+      "$root_gen_dir/third_party/openscreen/src",
+      ]
   }
 }

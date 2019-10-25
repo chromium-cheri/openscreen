@@ -19,6 +19,8 @@ source_set("quic") {
     "../../../util",
     "../../public",
   ]
+
+  configs += [ "../../../build:allow_build_from_embedder" ]
 }
 
 source_set("test_support") {
@@ -38,4 +40,6 @@ source_set("test_support") {
     "../../../util",
     "../../msgs",
   ]
+
+  configs += [ "../../../build:allow_build_from_embedder" ]
 }

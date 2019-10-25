@@ -16,6 +16,8 @@ source_set("mdns_interface") {
     "../../../../platform",
     "../../../../util",
   ]
+
+  configs += [ "../../../../build:allow_build_from_embedder" ]
 }
 
 source_set("unittests") {
@@ -35,6 +37,8 @@ source_set("unittests") {
     sources += [ "mdns_responder_adapter_impl_unittest.cc" ]
     deps += [ ":mdns" ]
   }
+
+  configs += [ "../../../../build:allow_build_from_embedder" ]
 }
 
 if (use_mdns_responder) {
