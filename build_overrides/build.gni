@@ -4,3 +4,35 @@
 
 # Set to false to build OpenScreen targets as a standalone library.
 build_with_chromium = false
+
+openscreen_root = get_path_info(".", "abspath")
+
+# All binary targets will get this list of configs by default.
+_shared_binary_target_configs = [
+  openscreen_root + "/build/config:openscreen_code",
+  openscreen_root + "/build/config:no_exceptions",
+  openscreen_root + "/build/config:no_rtti",
+  openscreen_root + "/build/config:symbol_visibility_hidden",
+  openscreen_root + "/build/config:default_sanitizers",
+  openscreen_root + "/build/config:compiler_defaults",
+  openscreen_root + "/build/config:default_optimization",
+  openscreen_root + "/build:allow_build_from_embedder",
+  openscreen_root + "/build:default_include_dirs",
+]
+
+# Apply that default list to the binary target types.
+set_defaults("executable") {
+  configs = _shared_binary_target_configs
+}
+
+set_defaults("static_library") {
+  configs = _shared_binary_target_configs
+}
+
+set_defaults("shared_library") {
+  configs = _shared_binary_target_configs
+}
+
+set_defaults("source_set") {
+  configs = _shared_binary_target_configs
+}

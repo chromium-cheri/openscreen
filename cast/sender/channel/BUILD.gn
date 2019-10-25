@@ -2,6 +2,8 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+import("//build_overrides/build.gni")
+
 source_set("channel") {
   sources = [
     "cast_auth_util.cc",
@@ -23,15 +25,20 @@ source_set("channel") {
 
 source_set("unittests") {
   testonly = true
-  sources = [
-    "cast_auth_util_unittest.cc",
-  ]
 
-  deps = [
-    ":channel",
-    "../../../platform",
-    "../../../third_party/googletest:gtest",
-    "../../common/certificate/proto:unittest_proto",
-    "../../common/channel/proto",
-  ]
+  # TODO(jophba): allow test certificate lookup from the embedder, so this can
+  # run in Chrome.
+  if (!build_with_chromium) {
+    sources = [
+      "cast_auth_util_unittest.cc",
+    ]
+
+    deps = [
+      ":channel",
+      "../../../platform",
+      "../../../third_party/googletest:gtest",
+      "../../common/certificate/proto:unittest_proto",
+      "../../common/channel/proto",
+    ]
+  }
 }

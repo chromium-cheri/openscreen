@@ -61,8 +61,6 @@ source_set("dnssd") {
     "../platform",
     "../third_party/abseil",
   ]
-
-  configs += [ "../build:allow_build_from_embedder" ]
 }
 
 source_set("unittests") {
@@ -93,6 +91,4 @@ source_set("unittests") {
     "../third_party/googletest:gtest",
     "../util",
   ]
-
-  configs += [ "../../build:allow_build_from_embedder" ]
 }
