@@ -15,6 +15,8 @@ source_set("testing") {
     "../../../platform",
     "../discovery/mdns:mdns_interface",
   ]
+
+  configs += [ "../../../build:allow_build_from_embedder" ]
 }
 
 source_set("unittests") {
@@ -29,4 +31,6 @@ source_set("unittests") {
     "../../../third_party/abseil",
     "../../../third_party/googletest:gtest",
   ]
+
+  configs += [ "../../../build:allow_build_from_embedder" ]
 }

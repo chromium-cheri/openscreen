@@ -54,9 +54,16 @@ source_set("platform") {
     "../util",
   ]
 
-  configs += [ "../build:allow_build_from_embedder" ]
+  configs += [
+    "../build:allow_build_from_embedder",
+    ]
 
-  if (!build_with_chromium) {
+  if (build_with_chromium) {
+    print("$openscreen_platform_impl_path")
+    public_deps += [
+      "$openscreen_platform_impl_path",
+    ]
+  } else {
     sources += [
       "impl/socket_handle.h",
       "impl/socket_handle_waiter.cc",

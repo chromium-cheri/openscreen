@@ -22,9 +22,7 @@ group("gn_all") {
     "third_party/abseil",
     "third_party/boringssl",
     "third_party/jsoncpp",
-    "third_party/protobuf:protoc",
     "third_party/tinycbor",
-    "third_party/zlib",
     "tools/cddl",
     "util",
   ]
@@ -43,6 +41,13 @@ group("gn_all") {
 
   if (use_chromium_quic && use_mdns_responder) {
     deps += [ "osp:osp_demo" ]
+  }
+
+  if (!build_with_chromium) {
+    deps += [
+      "third_party/protobuf:protoc",
+      "third_party/zlib",
+    ]
   }
 }
 
