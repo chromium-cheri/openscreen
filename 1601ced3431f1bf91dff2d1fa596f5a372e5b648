@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b83582f_4c6d447a",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T21:44:46Z",
+      "side": 1,
+      "message": "This is an unfortunate repeating pattern:\n\nauto subcollection \u003d collection.equal_range(name);\nfor (auto entry \u003d subcollection.first; entry !\u003d subcollection.second; ++entry) {\n    const Value\u0026 value \u003d entry-\u003esecond;\n    if (dns_type \u003d\u003d value.dns_type() \u0026\u0026\n        dns_class \u003d\u003d value.dns_class())\n\nThere\u0027s enough differences that I can\u0027t find a nice way to simplify it without making a collection wrapper + iterator classes. Any suggestions are welcome.\nI\u0027ve tried templatizing this, but it didn\u0027t make it any better :/",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "1601ced3431f1bf91dff2d1fa596f5a372e5b648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ba778a2_a38aaf57",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T21:44:46Z",
+      "side": 1,
+      "message": "Result of Update is never actually checked as it\u0027s guaranteed to succeed due to the checks performed in the calling code. Do you think it\u0027s worth simplifying this by making return type void and switching this to a DCHECK?",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 42
+      },
+      "revId": "1601ced3431f1bf91dff2d1fa596f5a372e5b648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe9f60e2_91bd29d2",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T21:44:46Z",
+      "side": 1,
+      "message": "This being not set was a bug (tracker would attempt to refresh a record that received a goodbye or was force-expired), added a test for that.",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 60
+      },
+      "revId": "1601ced3431f1bf91dff2d1fa596f5a372e5b648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90f00d38_d0191d20",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T21:44:46Z",
+      "side": 1,
+      "message": "Based on how I ended up using this class, I\u0027ve taken one of Mark\u0027s previous suggestion to drop start/stop logic in favor of starting tracking on creation and stopping on destruction (or auto stop on expiration)",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 24
+      },
+      "revId": "1601ced3431f1bf91dff2d1fa596f5a372e5b648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4409abe7_cdb9f5cd",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T21:44:46Z",
+      "side": 1,
+      "message": "Same for the question.",
+      "range": {
+        "startLine": 99,
+        "startChar": 22,
+        "endLine": 99,
+        "endChar": 43
+      },
+      "revId": "1601ced3431f1bf91dff2d1fa596f5a372e5b648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
