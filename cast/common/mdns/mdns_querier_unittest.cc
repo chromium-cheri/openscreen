@@ -85,25 +85,25 @@ class MdnsQuerierTest : public testing::Test {
         record0_created_(DomainName{"testing", "local"},
                          DnsType::kA,
                          DnsClass::kIN,
-                         RecordType::kShared,
+                         RecordType::kUnique,
                          std::chrono::seconds(120),
                          ARecordRdata(IPAddress{172, 0, 0, 1})),
         record0_updated_(DomainName{"testing", "local"},
                          DnsType::kA,
                          DnsClass::kIN,
-                         RecordType::kShared,
+                         RecordType::kUnique,
                          std::chrono::seconds(120),
                          ARecordRdata(IPAddress{172, 0, 0, 2})),
         record0_deleted_(DomainName{"testing", "local"},
                          DnsType::kA,
                          DnsClass::kIN,
-                         RecordType::kShared,
+                         RecordType::kUnique,
                          std::chrono::seconds(0),  // a good bye record
                          ARecordRdata(IPAddress{172, 0, 0, 2})),
         record1_created_(DomainName{"poking", "local"},
                          DnsType::kA,
                          DnsClass::kIN,
-                         RecordType::kShared,
+                         RecordType::kUnique,
                          std::chrono::seconds(120),
                          ARecordRdata(IPAddress{192, 168, 0, 1})) {
     receiver_.Start();
@@ -137,8 +137,6 @@ class MdnsQuerierTest : public testing::Test {
   MdnsRecord record0_updated_;
   MdnsRecord record0_deleted_;
   MdnsRecord record1_created_;
-  MdnsRecord record1_updated_;
-  MdnsRecord record1_deleted_;
 };
 
 TEST_F(MdnsQuerierTest, RecordCreatedUpdatedDeleted) {
@@ -260,6 +258,96 @@ TEST_F(MdnsQuerierTest, SameCallerDifferentQuestions) {
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record1_created_));
 }
+
+// TEST_F(MdnsQuerierTest, CallbackOnRdataUpdate) {
+
+// TEST_F(MdnsQuerierTest, NoCallbackOnTtlUpdate) {
+
+// TEST_F(MdnsQuerierTest, CallbackOnRecordReceived) {
+//   std::unique_ptr<MdnsQuestionTracker> tracker =
+//       CreateQuestionTracker(a_question_);
+//   MockRecordChangedCallback callback1;
+//   MockRecordChangedCallback callback2;
+
+//   tracker->AddCallback(&callback1);
+//   tracker->AddCallback(&callback2);
+//   // Advance fake clock for callback addition on task runner to happen
+//   clock_.Advance(std::chrono::milliseconds(1));
+
+//   // All added callbacks must be called
+//   EXPECT_CALL(callback1, OnRecordChanged(_, _)).Times(1);
+//   EXPECT_CALL(callback2, OnRecordChanged(_, _)).Times(1);
+//   tracker->OnRecordReceived(a_record_);
+// }
+
+// TEST_F(MdnsQuerierTest, NoCallbackAfterRemoval) {
+//   std::unique_ptr<MdnsQuestionTracker> tracker =
+//       CreateQuestionTracker(a_question_);
+//   MockRecordChangedCallback callback1;
+//   MockRecordChangedCallback callback2;
+
+//   tracker->AddCallback(&callback1);
+//   tracker->AddCallback(&callback2);
+//   // Advance fake clock for callback addition on task runner to happen
+//   clock_.Advance(std::chrono::milliseconds(1));
+//   tracker->RemoveCallback(&callback2);
+//   // Advance fake clock for callback removal on task runner to happen
+//   clock_.Advance(std::chrono::milliseconds(1));
+
+//   // Removed callback must not be called
+//   EXPECT_CALL(callback1, OnRecordChanged(_, _)).Times(1);
+//   EXPECT_CALL(callback2, OnRecordChanged(_, _)).Times(0);
+//   tracker->OnRecordReceived(a_record_);
+// }
+
+// TEST_F(MdnsQuerierTest, CallbackOnCreateUpdateGoodbye) {
+//   std::unique_ptr<MdnsQuestionTracker> tracker =
+//       CreateQuestionTracker(a_question_);
+//   MockRecordChangedCallback callback;
+
+//   tracker->AddCallback(&callback);
+//   // Advance fake clock for callback addition on task runner to happen
+//   clock_.Advance(std::chrono::milliseconds(1));
+
+//   EXPECT_CALL(callback, OnRecordChanged(_, RecordChangedEvent::kCreated))
+//       .Times(1);
+//   tracker->OnRecordReceived(a_record_);
+
+//   MdnsRecord updated_record(a_record_.name(), a_record_.dns_type(),
+//                             a_record_.dns_class(), a_record_.record_type(),
+//                             a_record_.ttl(),
+//                             ARecordRdata(IPAddress{192, 168, 0, 1}));
+
+//   tracker->OnRecordReceived(updated_record);
+
+//   MdnsRecord goodbye_record(updated_record.name(), updated_record.dns_type(),
+//                             updated_record.dns_class(),
+//                             updated_record.record_type(),
+//                             std::chrono::seconds{0}, updated_record.rdata());
+
+//   EXPECT_CALL(callback, OnRecordChanged(_, RecordChangedEvent::kDeleted))
+//       .Times(1);
+//   tracker->OnRecordReceived(goodbye_record);
+//   // Expiration is scheduled on the task runner to happen 1 second later as
+//   per
+//   // RFC 6762. Advance the fake clock to receive the callback.
+//   clock_.Advance(std::chrono::seconds(10));
+// }
+
+// TEST_F(MdnsQuerierTest, NoCallbackOnNoUpdate) {
+//   std::unique_ptr<MdnsQuestionTracker> tracker =
+//       CreateQuestionTracker(a_question_);
+//   MockRecordChangedCallback callback;
+
+//   tracker->AddCallback(&callback);
+//   // Advance fake clock for callback addition on task runner to happen
+//   clock_.Advance(std::chrono::milliseconds(1));
+
+//   // Callback must not be called again if the record has not changed
+//   EXPECT_CALL(callback, OnRecordChanged(_, _)).Times(1);
+//   tracker->OnRecordReceived(a_record_);
+//   tracker->OnRecordReceived(a_record_);
+// }
 
 }  // namespace mdns
 }  // namespace cast
