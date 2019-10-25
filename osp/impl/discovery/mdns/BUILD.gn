@@ -5,33 +5,35 @@
 import("../../../build/config/services.gni")
 
 source_set("mdns_interface") {
-  sources = [
-    "domain_name.cc",
-    "domain_name.h",
-    "mdns_responder_adapter.cc",
-    "mdns_responder_adapter.h",
-  ]
+  if (use_mdns_responder) {
+    sources = [
+      "domain_name.cc",
+      "domain_name.h",
+      "mdns_responder_adapter.cc",
+      "mdns_responder_adapter.h",
+    ]
 
-  public_deps = [
-    "../../../../platform",
-    "../../../../util",
-  ]
+    public_deps = [
+      "../../../../platform",
+      "../../../../util",
+    ]
+  }
 }
 
 source_set("unittests") {
   testonly = true
 
-  sources = [
-    "domain_name_unittest.cc",
-  ]
-
-  deps = [
-    ":mdns_interface",
-    "../../../../third_party/googletest:gmock",
-    "../../../../third_party/googletest:gtest",
-  ]
-
   if (use_mdns_responder) {
+    sources = [
+      "domain_name_unittest.cc",
+    ]
+
+    deps = [
+      ":mdns_interface",
+      "../../../../third_party/googletest:gmock",
+      "../../../../third_party/googletest:gtest",
+    ]
+
     sources += [ "mdns_responder_adapter_impl_unittest.cc" ]
     deps += [ ":mdns" ]
   }
