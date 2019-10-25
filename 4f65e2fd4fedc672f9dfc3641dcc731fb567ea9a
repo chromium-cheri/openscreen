@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "752489f2_742e18a1",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T20:51:12Z",
+      "side": 1,
+      "message": "This probably will fail on bots as it will trigger signed vs unsigned and size mismatch warnings.\n\nYou can either use reverse iterators rbegin and rend, or write a loop like this\nfor (size_t i \u003d txt_data.texts().size(); i-- \u003e 0;)",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "4f65e2fd4fedc672f9dfc3641dcc731fb567ea9a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f996e45d_a9fac004",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T20:51:12Z",
+      "side": 1,
+      "message": "Unused",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 33
+      },
+      "revId": "4f65e2fd4fedc672f9dfc3641dcc731fb567ea9a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92ff35a1_ff901be5",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T20:51:12Z",
+      "side": 1,
+      "message": "nit: I think it would read better if this was explicitly if (index_of_eq \u003d\u003d 0), since index_of_eq was just checked for position-not-found \"invalid\" value.",
+      "range": {
+        "startLine": 28,
+        "startChar": 10,
+        "endLine": 28,
+        "endChar": 22
+      },
+      "revId": "4f65e2fd4fedc672f9dfc3641dcc731fb567ea9a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e215d48c_df7a3e6a",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T20:51:12Z",
+      "side": 1,
+      "message": "nit: instance_key?",
+      "range": {
+        "startLine": 50,
+        "startChar": 67,
+        "endLine": 50,
+        "endChar": 74
+      },
+      "revId": "4f65e2fd4fedc672f9dfc3641dcc731fb567ea9a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9aa0f55_d5e8aa26",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T20:51:12Z",
+      "side": 1,
+      "message": "DnsSdTxtRecord\u0026 txt \u003d txt_or_error.value(); should achieve the same\nYou can store a mutable reference here and then use it in std::move(txt) so you\u0027ll move just once.",
+      "range": {
+        "startLine": 77,
+        "startChar": 2,
+        "endLine": 77,
+        "endChar": 55
+      },
+      "revId": "4f65e2fd4fedc672f9dfc3641dcc731fb567ea9a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4bd6e38_b118e32a",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T20:51:12Z",
+      "side": 1,
+      "message": "In case of PTR record instance is in RDATA\nIn case of SRV/TXT/A/AAAA records instance is the name of the record.\nMaybe have GetInstanceKey/GetServiceKey methods that simply accept const DomainName\u0026 ? They don\u0027t need anything else to get the key. Also, no guarantees the record will have the correct amount of labels.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 1
+      },
+      "revId": "4f65e2fd4fedc672f9dfc3641dcc731fb567ea9a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a77a9cd_d9999750",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T20:51:12Z",
+      "side": 1,
+      "message": "I\u0027m a bit puzzled as to where this one is going to be used.\n\nA user of DNS-SD provides what service they are looking for.\nThis goes in as the name into mDNS query. Then PTR records are received and PTR RDATA describes instances, and instance already contains the service in itself.\n\nWhere do you plan to use this function?",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "4f65e2fd4fedc672f9dfc3641dcc731fb567ea9a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
