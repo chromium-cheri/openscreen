@@ -20,6 +20,8 @@ source_set("channel") {
     "../../../platform",
     "../../../third_party/abseil",
   ]
+
+  configs += [ "../../../build:allow_build_from_embedder" ]
 }
 
 source_set("unittests") {
@@ -38,4 +40,6 @@ source_set("unittests") {
     "../../common/certificate/proto:unittest_proto",
     "proto",
   ]
+
+  configs += [ "../../../build:allow_build_from_embedder" ]
 }

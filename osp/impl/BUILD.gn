@@ -46,6 +46,8 @@ source_set("impl") {
     "../../util",
     "quic",
   ]
+
+  configs += [ "../../build:allow_build_from_embedder" ]
 }
 
 if (use_chromium_quic) {

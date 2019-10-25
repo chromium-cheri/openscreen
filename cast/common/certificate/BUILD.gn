@@ -2,6 +2,8 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+import("//build_overrides/build.gni")
+
 source_set("certificate") {
   sources = [
     "cast_cert_validator.cc",
@@ -23,22 +25,34 @@ source_set("certificate") {
     "../../../util",
     "proto",
   ]
+
+  configs += [ "../../../build:allow_build_from_embedder" ]
 }
 
 source_set("unittests") {
   testonly = true
-  sources = [
-    "cast_cert_validator_unittest.cc",
-    "cast_crl_unittest.cc",
-    "test_helpers.cc",
-    "test_helpers.h",
-  ]
 
-  deps = [
-    ":certificate",
-    "../../../platform",
-    "../../../third_party/boringssl",
-    "../../../third_party/googletest:gtest",
-    "proto:unittest_proto",
-  ]
+  # TODO(jophba): allow test certificate lookup from the embedder, so this can
+  # run in Chrome.
+  if (!build_with_chromium) {
+    sources = [
+      "test_helpers.cc",
+      "test_helpers.h",
+    ]
+
+    # Both of these tests require access to the test certificates folder.
+    sources += [
+      "cast_cert_validator_unittest.cc",
+      "cast_crl_unittest.cc",
+    ]
+
+    deps = [
+      ":certificate",
+      "../../../platform",
+      "../../../third_party/boringssl",
+      "../../../third_party/googletest:gtest",
+      "proto:unittest_proto",
+    ]
+  }
+  configs += [ "../../../build:allow_build_from_embedder" ]
 }

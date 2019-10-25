@@ -7,6 +7,9 @@
 #include <openssl/pem.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+
+#include <iostream>
 
 #include "platform/api/logging.h"
 
@@ -39,6 +42,9 @@ std::string ReadEntireFileToString(const std::string& filename) {
 
 std::vector<std::string> ReadCertificatesFromPemFile(
     const std::string& filename) {
+  std::cout << "Opening filename: " << filename << std::endl;
+  std::cout << "CWD: " << getcwd(nullptr, 0) << std::endl;
+
   FILE* fp = fopen(filename.c_str(), "r");
   if (!fp) {
     return {};
