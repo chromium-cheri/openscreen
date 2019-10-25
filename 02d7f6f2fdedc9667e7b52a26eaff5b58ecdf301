@@ -150,6 +150,24 @@
     },
     {
       "key": {
+        "uuid": "76ef29c3_40237a23",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T17:27:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f61c268_e662bf9d",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30d3d1b1_80329497",
         "filename": "discovery/dnssd/public/txt_record.h",
         "patchSetId": 5
@@ -232,6 +250,24 @@
       "side": 1,
       "message": "Switched to std::map, since absl::flat_hash_map doesn\u0027t link correctly (see chat thread)",
       "parentUuid": "fcd2a7c5_8ae8ee56",
+      "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf4f4a04_f7d8b4f3",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-25T17:27:37Z",
+      "side": 1,
+      "message": "map/set is generally slower than unordered_map/unordered_set\nDo you need it for the \"keys are sorted\" property?",
+      "parentUuid": "4b08e979_0a2fd190",
       "revId": "02d7f6f2fdedc9667e7b52a26eaff5b58ecdf301",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
