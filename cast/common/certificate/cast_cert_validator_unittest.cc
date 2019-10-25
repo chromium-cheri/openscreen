@@ -156,7 +156,12 @@ DateTime MarchFirst2037() {
   return CreateDate(2037, 3, 1);
 }
 
-#define TEST_DATA_PREFIX "test/data/cast/common/certificate/"
+#ifndef EMBEDDER_TEST_DATA_PREFIX
+#define EMBEDDER_TEST_DATA_PREFIX
+#endif
+#define TEST_DATA_PREFIX    \
+  EMBEDDER_TEST_DATA_PREFIX \
+  "test/data/cast/common/certificate/"
 
 // Tests verifying a valid certificate chain of length 2:
 //

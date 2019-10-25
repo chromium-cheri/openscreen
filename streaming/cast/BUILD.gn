@@ -46,6 +46,8 @@ source_set("common") {
     "ssrc.h",
   ]
 
+  public_configs = [ "../../build:allow_build_from_embedder" ]
+
   public_deps = [
     "../../third_party/abseil",
     "../../third_party/boringssl",

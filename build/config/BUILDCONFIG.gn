@@ -125,28 +125,3 @@ if (current_os == "chromeos" || current_os == "linux") {
 # corresponding target. Target definitions can add or remove to the settings
 # here as needed.
 
-# All binary targets will get this list of configs by default.
-_shared_binary_target_configs = [
-  "//build/config:openscreen_code",
-  "//build/config:no_exceptions",
-  "//build/config:no_rtti",
-  "//build/config:symbol_visibility_hidden",
-  "//build/config:default_sanitizers",
-  "//build/config:compiler_defaults",
-  "//build/config:default_optimization",
-  "//build:default_include_dirs",
-]
-
-# Apply that default list to the binary target types.
-set_defaults("executable") {
-  configs = _shared_binary_target_configs
-}
-set_defaults("static_library") {
-  configs = _shared_binary_target_configs
-}
-set_defaults("shared_library") {
-  configs = _shared_binary_target_configs
-}
-set_defaults("source_set") {
-  configs = _shared_binary_target_configs
-}
