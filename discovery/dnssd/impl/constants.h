@@ -17,9 +17,9 @@ namespace discovery {
 // This class is intended to be used as the key of a std::unordered_map when
 // referencing data related to an SRV record.
 struct InstanceKey {
+  std::string instance_id;
   std::string service_id;
   std::string domain_id;
-  std::string instance_id;
 };
 
 // This class is intended to be used as the key of a std::unordered_map when
