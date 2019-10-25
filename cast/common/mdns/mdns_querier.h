@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "absl/hash/hash.h"
+#include "cast/common/mdns/mdns_record_changed_callback.h"
 #include "cast/common/mdns/mdns_records.h"
 #include "platform/api/task_runner.h"
 
@@ -16,9 +17,9 @@ namespace mdns {
 
 class MdnsRandom;
 class MdnsReceiver;
-class MdnsRecordChangedCallback;
 class MdnsSender;
 class MdnsQuestionTracker;
+class MdnsRecordTracker;
 
 class MdnsQuerier {
  public:
@@ -47,9 +48,40 @@ class MdnsQuerier {
                  MdnsRecordChangedCallback* callback);
 
  private:
-  using QuestionKey = std::tuple<DomainName, DnsType, DnsClass>;
+  class CallbackInfo {
+   public:
+    CallbackInfo()
+        : callback_(nullptr),
+          dns_type_(DnsType::kANY),
+          dns_class_(DnsClass::kANY) {}
+    CallbackInfo(MdnsRecordChangedCallback* callback,
+                 DnsType dns_type,
+                 DnsClass dns_class)
+        : callback_(callback), dns_type_(dns_type), dns_class_(dns_class) {}
 
+    MdnsRecordChangedCallback* callback() const { return callback_; }
+    DnsType dns_type() const { return dns_type_; }
+    DnsClass dns_class() const { return dns_class_; }
+
+   private:
+    MdnsRecordChangedCallback* callback_;
+    DnsType dns_type_;
+    DnsClass dns_class_;
+  };
+
+  // Passed to MdnsReceiver as a callback
   void OnMessageReceived(const MdnsMessage& message);
+
+  // Passed to owned MdnsRecordTracker when a tracked record is expired
+  void OnRecordExpired(const MdnsRecord& record);
+
+  void ProcessRecords(const std::vector<MdnsRecord>& records);
+  void ProcessSharedRecord(const MdnsRecord& record);
+  void ProcessUniqueRecord(const MdnsRecord& record);
+  void ProcessCallbacks(const MdnsRecord& record, RecordChangedEvent event);
+
+  std::unique_ptr<MdnsQuestionTracker> CreateTracker(MdnsQuestion question);
+  std::unique_ptr<MdnsRecordTracker> CreateTracker(MdnsRecord record);
 
   MdnsSender* const sender_;
   MdnsReceiver* const receiver_;
@@ -62,10 +94,12 @@ class MdnsQuerier {
   // unique_ptr so they are not moved around in memory when the collection is
   // modified. This allows passing a pointer to MdnsQuestionTracker to a task
   // running on the TaskRunner.
-  std::unordered_map<QuestionKey,
-                     std::unique_ptr<MdnsQuestionTracker>,
-                     absl::Hash<QuestionKey>>
-      queries_;
+  template <class Key, class Value>
+  using HashMultimap = std::unordered_multimap<Key, Value, absl::Hash<Key>>;
+
+  HashMultimap<DomainName, std::unique_ptr<MdnsQuestionTracker>> questions_;
+  HashMultimap<DomainName, std::unique_ptr<MdnsRecordTracker>> records_;
+  HashMultimap<DomainName, CallbackInfo> callbacks_;
 };
 
 }  // namespace mdns
