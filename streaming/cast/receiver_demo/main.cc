@@ -7,7 +7,8 @@
 #include "platform/api/udp_socket.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
-#include "platform/impl/socket_handle_waiter_thread.h"
+#include "platform/impl/platform_client_posix.h"
+#include "platform/impl/socket_handle_waiter_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/udp_socket_reader_posix.h"
 #include "streaming/cast/constants.h"
@@ -70,6 +71,17 @@ constexpr std::array<uint8_t, 16> kDemoVideoCastIvMask{
 // End of Receiver Configuration.
 ////////////////////////////////////////////////////////////////////////////////
 
+class PlatformClientExposingTaskRunner
+    : public openscreen::platform::PlatformClientPosix {
+ public:
+  PlatformClientExposingTaskRunner(
+      openscreen::platform::TaskRunner* task_runner)
+      : openscreen::platform::PlatformClientPosix(
+            openscreen::platform::Clock::duration{50},
+            openscreen::platform::Clock::duration{50},
+            task_runner) {}
+};
+
 }  // namespace
 
 int main(int argc, const char* argv[]) {
@@ -78,9 +90,8 @@ int main(int argc, const char* argv[]) {
   openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kInfo);
   const auto now_function = &openscreen::platform::Clock::now;
   openscreen::platform::TaskRunnerImpl task_runner(now_function);
-  openscreen::platform::SocketHandleWaiterThread socket_handle_waiter_thread;
-  openscreen::platform::UdpSocketReaderPosix udp_socket_reader(
-      socket_handle_waiter_thread.socket_handle_waiter());
+  auto* client = new PlatformClientExposingTaskRunner(&task_runner);
+  openscreen::platform::PlatformClient::SetInstance(client);
 
   // Create the Environment that holds the required injected dependencies
   // (clock, task runner) used throughout the system, and owns the UDP socket
@@ -121,5 +132,6 @@ int main(int argc, const char* argv[]) {
   // window is closed, a SIGTERM is intercepted, or whatever other appropriate
   // user indication that shutdown is requested).
   task_runner.RunUntilStopped();
+  openscreen::platform::PlatformClient::ShutDown();
   return 0;
 }

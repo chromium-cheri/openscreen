@@ -54,7 +54,12 @@ class PlatformClientPosix : public PlatformClient {
   UdpSocketReaderPosix* udp_socket_reader();
 
   // PlatformClient overrides.
-  TaskRunner* GetTaskRunner() override;
+  inline TaskRunner* GetTaskRunner() override { return task_runner_; }
+
+ protected:
+  PlatformClientPosix(Clock::duration networking_operation_timeout,
+                      Clock::duration networking_loop_interval,
+                      TaskRunner* task_runner);
 
  private:
   PlatformClientPosix(Clock::duration networking_operation_timeout,
@@ -72,9 +77,10 @@ class PlatformClientPosix : public PlatformClient {
   // Instance objects with threads are created at object-creation time.
   // NOTE: Delayed instantiation of networking_loop_ may be useful in future.
   OperationLoop networking_loop_;
-  TaskRunnerImpl task_runner_;
-  std::thread networking_loop_thread_;
-  std::thread task_runner_thread_;
+  absl::optional<TaskRunnerImpl> owned_task_runner_;
+  TaskRunner* task_runner_;
+  absl::optional<std::thread> networking_loop_thread_;
+  absl::optional<std::thread> task_runner_thread_;
 
   // Track whether the associated instance variable has been created yet.
   std::atomic_bool waiter_created_{false};

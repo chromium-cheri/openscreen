@@ -31,6 +31,14 @@ class PlatformClient {
   // embedder thread.
   static void ShutDown();
 
+  // This method is expected to be called in order to set the singleton instance
+  // (typically from the child class). It should only be called from the
+  // embedder thread. Client should be a new instance create via 'new' and
+  // ownership of this instance will be transferred to this class.
+  // NOTE: This method is NOT thread safe and should only be called from the
+  // embedder thread.
+  static void SetInstance(PlatformClient* client);
+
   static PlatformClient* GetInstance() { return client_; }
 
   OSP_DISALLOW_COPY_AND_ASSIGN(PlatformClient);
@@ -38,14 +46,6 @@ class PlatformClient {
  protected:
   PlatformClient();
   virtual ~PlatformClient();
-
-  // This method is expected to be called from child implementations in order to
-  // set the singleton instance. It should only be called from the embedder
-  // thread. Client should be a new instance create via 'new' and ownership of
-  // this instance will be transferred to this class.
-  // NOTE: This method is NOT thread safe and should only be called from the
-  // embedder thread.
-  static void SetInstance(PlatformClient* client);
 
  private:
   static PlatformClient* client_;
