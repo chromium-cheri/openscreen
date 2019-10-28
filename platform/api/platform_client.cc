@@ -13,19 +13,14 @@ PlatformClient::~PlatformClient() = default;
 PlatformClient::PlatformClient() = default;
 
 // static
-void PlatformClient::ShutDown() {
-  if (!client_) {
-    return;
-  }
-
-  delete client_;
-  client_ = nullptr;
-}
-
-// static
 void PlatformClient::SetInstance(PlatformClient* client) {
   OSP_DCHECK(!client_);
   client_ = client;
+}
+
+// static
+void PlatformClient::ClearInstance() {
+  client_ = nullptr;
 }
 
 // static

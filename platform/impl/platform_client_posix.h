@@ -25,23 +25,17 @@ class PlatformClientPosix : public PlatformClient {
  public:
   ~PlatformClientPosix() override;
 
-  // This method is expected to be called before the library is used.
-  // The networking_loop_interval parameter here represents the minimum amount
-  // of time that should pass between iterations of the loop used to handle
-  // networking operations. Higher values will result in less time being spent
-  // on these operations, but also potentially less performant networking
-  // operations. The networking_operation_timeout parameter refers to how much
-  // time may be spent on a single networking operation type.
+  // Exactly one instance of this class is expected to be called before the
+  // library is used.  The networking_loop_interval parameter here represents
+  // the minimum amount of time that should pass between iterations of the loop
+  // used to handle networking operations. Higher values will result in less\
+  // time being spent on these operations, but also potentially less performant
+  // networking operations. The networking_operation_timeout parameter refers to
+  // how much time may be spent on a single networking operation type.
   // NOTE: This method is NOT thread safe and should only be called from the
   // embedder thread.
-  static void Create(Clock::duration networking_operation_timeout,
-                     Clock::duration networking_loop_interval);
-
-  // Shuts down the PlatformClient instance currently stored as a singleton.
-  // This method is expected to be called before program exit.
-  // NOTE: This method is NOT thread safe and should only be called from the
-  // embedder thread.
-  static void ShutDown();
+  PlatformClientPosix(Clock::duration networking_operation_timeout,
+                      Clock::duration networking_loop_interval);
 
   inline static PlatformClientPosix* GetInstance() {
     return static_cast<PlatformClientPosix*>(PlatformClient::GetInstance());
@@ -57,9 +51,6 @@ class PlatformClientPosix : public PlatformClient {
   TaskRunner* GetTaskRunner() override;
 
  private:
-  PlatformClientPosix(Clock::duration networking_operation_timeout,
-                      Clock::duration networking_loop_interval);
-
   // This method is thread-safe.
   SocketHandleWaiterPosix* socket_handle_waiter();
 

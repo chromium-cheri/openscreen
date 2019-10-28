@@ -20,25 +20,17 @@ PlatformClientPosix::PlatformClientPosix(
       task_runner_(Clock::now),
       networking_loop_thread_(&OperationLoop::RunUntilStopped,
                               &networking_loop_),
-      task_runner_thread_(&TaskRunnerImpl::RunUntilStopped, &task_runner_) {}
+      task_runner_thread_(&TaskRunnerImpl::RunUntilStopped, &task_runner_) {
+  PlatformClient::SetInstance(this);
+}
 
 PlatformClientPosix::~PlatformClientPosix() {
   networking_loop_.RequestStopSoon();
   task_runner_.RequestStopSoon();
   networking_loop_thread_.join();
   task_runner_thread_.join();
-}
 
-// static
-void PlatformClientPosix::Create(Clock::duration networking_operation_timeout,
-                                 Clock::duration networking_loop_interval) {
-  PlatformClient::SetInstance(new PlatformClientPosix(
-      networking_operation_timeout, networking_loop_interval));
-}
-
-// static
-void PlatformClientPosix::ShutDown() {
-  PlatformClient::ShutDown();
+  PlatformClient::ClearInstance();
 }
 
 UdpSocketReaderPosix* PlatformClientPosix::udp_socket_reader() {

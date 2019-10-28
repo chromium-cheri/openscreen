@@ -23,14 +23,6 @@ class PlatformClient {
   // NOTE: This method is expected to be thread safe.
   virtual TaskRunner* GetTaskRunner() = 0;
 
-  // Shuts down and deletes the PlatformClient instance currently stored as a
-  // singleton. This method is expected to be called before program exit. After
-  // calling this method, if the client wishes to continue using the platform
-  // library, a new singleton must be created.
-  // NOTE: This method is NOT thread safe and should only be called from the
-  // embedder thread.
-  static void ShutDown();
-
   static PlatformClient* GetInstance() { return client_; }
 
   OSP_DISALLOW_COPY_AND_ASSIGN(PlatformClient);
@@ -46,6 +38,14 @@ class PlatformClient {
   // NOTE: This method is NOT thread safe and should only be called from the
   // embedder thread.
   static void SetInstance(PlatformClient* client);
+
+  // Clear's the PlatofrmClient instance singleton referenced by this class.
+  // This method is expected to be called before program exit. After calling
+  // this method, if the client wishes to continue using the platform library, a
+  // new singleton must be created.
+  // NOTE: This method is NOT thread safe and should only be called from the
+  // embedder thread.
+  static void ClearInstance();
 
  private:
   static PlatformClient* client_;
