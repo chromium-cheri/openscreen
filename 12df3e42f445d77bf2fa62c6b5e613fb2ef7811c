@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "4195c997_4000bea1",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T21:34:45Z",
+      "side": 1,
+      "message": "At first, I was wondering if there might be multiple questions that meet the criteria (making the early return a bug). However, I see, in StartQuery() that there should only be one question. Might want to comment here that the early return is valid because of that.\n\nAlso, I\u0027m starting to feel a bit confused as to why |questions_| became a multimap in this change. Why is that? Could you update the header file comments (where the maps are declared) with further details?",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 13
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c49dac_e1f91549",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T21:34:45Z",
+      "side": 1,
+      "message": "Same concern here: Only one entry to erase from the multimap?\n\n(And this seems to happen in multiple places below. I\u0027m wondering if I\u0027m just misunderstanding something. Maybe the multimap declarations need a comment explaining how they\u0027re being used? When are keys supposed to be unique or not?)",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 11
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19e57b6c_dea030a1",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 9
@@ -111,6 +157,29 @@
     },
     {
       "key": {
+        "uuid": "fbb5c438_1a09ee0c",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T21:34:45Z",
+      "side": 1,
+      "message": "Looks like CreateTracker(Record) is always being called as an argument to records_.emplace(). Perhaps it\u0027d be better to replace CreateTracker(Record) with:\n\n  void AddRecordTracker(record) {\n    auto name \u003d record.name;\n    records_.emplace(name, new MdnsRecordTracker(std::move(record), ...));\n  }\n\n...same for AddQuestionTracker().",
+      "range": {
+        "startLine": 248,
+        "startChar": 6,
+        "endLine": 248,
+        "endChar": 61
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "486f04b5_5aa92366",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 9
@@ -127,6 +196,29 @@
         "startChar": 8,
         "endLine": 264,
         "endChar": 56
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5679ce9b_fccfa1cc",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T21:34:45Z",
+      "side": 1,
+      "message": "Suggestion: This looks like it could just be a struct w/o methods (all members are trivially-foo).",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 4
       },
       "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
@@ -162,6 +254,75 @@
       "writtenOn": "2019-10-25T23:20:31Z",
       "side": 1,
       "message": "Would this be more accurate as \"Callback passed to owned MdnsRecordTracker...\"",
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "905e272e_39ac8dc3",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T21:34:45Z",
+      "side": 1,
+      "message": "No need to cancel, since it is unconditionally being Schedule()\u0027ed again a few lines down.",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 23
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eb732ff_b58a8cc4",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T21:34:45Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 119,
+        "startChar": 2,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85a15142_e3dbd035",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T21:34:45Z",
+      "side": 1,
+      "message": "naming nit: ExpireSoon() or ScheduleExpirationInOneSecond()?",
+      "range": {
+        "startLine": 74,
+        "startChar": 7,
+        "endLine": 74,
+        "endChar": 13
+      },
       "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
