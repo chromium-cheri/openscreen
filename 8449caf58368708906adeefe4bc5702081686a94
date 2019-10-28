@@ -120,6 +120,54 @@
     },
     {
       "key": {
+        "uuid": "e56a69f5_1ebec4da",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T23:10:43Z",
+      "side": 1,
+      "message": "\u003e This isn\u0027t done with a busy loop though - it uses a condition_variable::wait_for(...)\n\nI guess \"busy\" is subjective here. What I meant is that this is controlling a thread that unconditionally runs some \"operations\" every 50 usec, even if no work is being done. Instead of that, why don\u0027t we let the operations post delayed tasks to a task runner, and only if there is some trigger that suggests there is actually work to do?\n\nThe problem is that the current design is forcing us into a position to guess at \"tunable configuration,\" and none of us knows (nor *could* know) what will work best for all use cases. 100 ms might be fine for most things, but that would definitely cripple Cast Streaming\u0027s use cases.",
+      "parentUuid": "b9a9f898_e4adb49c",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 49
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b1047dd_7e82cb44",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T23:10:43Z",
+      "side": 1,
+      "message": "Respectfully, I disagree. In this change, all the demo apps are being modified to create and destroy a PlatformClientPosix; so, it very much seems to be in-scope.\n\nIf not in this CL, that change should be made before this CL, and not afterwards.",
+      "parentUuid": "18488866_3d8ea982",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 72
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67ce5a9f_71c57982",
         "filename": "platform/impl/platform_client_posix.cc",
         "patchSetId": 4
@@ -188,6 +236,30 @@
       "revId": "8449caf58368708906adeefe4bc5702081686a94",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fdaad960_dbe2387a",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T23:10:43Z",
+      "side": 1,
+      "message": "\u003e I was hitting a race condition when I created the std::thread as part of the member initialization list rather than in the body of the ctor.\n\nIs that because there is a dependency on the other data members of this class? If so, you could just put the std::thread members last, to ensure the other ones are constructed/initialized before the threads are constructed/started; and aren\u0027t destroyed until after the std::threads are stopped/destroyed.\n\n\u003e In a previous CL I had been told not to use absl::optional for member variables...\n\nAFAIK, there\u0027s no reason why one shouldn\u0027t use absl::optional like this, when inline allocation (but later construction) is desired. However, needing to do this may indicate other structural/design issues, like functionality that should be encapsulated differently. So, this is only something you\u0027d want do when it makes sense in the bigger picture.",
+      "parentUuid": "e34b2ff7_3ebd53d5",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -376,6 +448,30 @@
       "revId": "8449caf58368708906adeefe4bc5702081686a94",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d40eb11_1e2d39dd",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-10-28T23:10:43Z",
+      "side": 1,
+      "message": "Ok, so now we can delete this class, right?",
+      "parentUuid": "bff24dea_ebc982ca",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 2
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
