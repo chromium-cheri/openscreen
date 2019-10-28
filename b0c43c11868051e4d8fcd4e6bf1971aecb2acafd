@@ -232,6 +232,24 @@
     },
     {
       "key": {
+        "uuid": "e9513b60_1fbccf61",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-28T18:27:39Z",
+      "side": 1,
+      "message": "I think I misunderstood that suggestion in the previous comment - sorry about that\n\n@Mark, what are your thoughts? This is a big change from what we\u0027ve discussed so far",
+      "parentUuid": "6ca3f6ed_31a27557",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f4b1581_302d1965",
         "filename": "util/subscriber_model.h",
         "patchSetId": 3
@@ -441,6 +459,24 @@
       "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f53e653b_9ca0ea58",
+        "filename": "util/subscriber_model.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-28T18:27:39Z",
+      "side": 1,
+      "message": "The code does act as described here. It only adds/removes a couple times (when we create new sockets, in practice) which should be fairly infrequent)\n\nThe issue wasn\u0027t that the Subscribe/Unsubscribe would be called repeatedly. It was that ApplyPendingChanges would be called frequently, which is the design we are accounting for - It is reasonable to call it before or after each call to subscribers(), and subscribers() are expected to be used in a hot loop (ie: repeatedly get all TLS Connections, then call ReadAll() / WriteAll on them).\n\nThe edge case where this is worrying is if subscribers() is currently empty, a hot loop using subscribers could be (on the Consumer thread):\nwhile(is_running) {\n  for (subscriber : subscribers()) {\n    DoWork();\n  }\n}\n\nThis means that the consumer thread would repeatedly call ApplyPendingChanges() which would hold the mutex_\u0027s lock for it\u0027s duration. As a result, the mutex_ lock would be held by the consumer thread forever.\nIn this case, Subscribe / Unsubscribe could never acquire mutex_\u0027s lock, so they would block indefinitely\n\nIn the new iteration, Mark\u0027s suggestion eliminates these concerns with an atomic bool",
+      "parentUuid": "84b42db2_c58d937f",
+      "revId": "b0c43c11868051e4d8fcd4e6bf1971aecb2acafd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
