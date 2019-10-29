@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f193bc30_eca9a5c6",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "I\u0027d have to construct a callback info from the function parameters first to use the operator\u003d\u003d",
+      "parentUuid": "332d7bb9_06b57a9a",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bba89f12_d5c104b5",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8776eb9_0099056c",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Discussed yesterday in person with rwkeane and miu and decided to keep the regular loops for better readability, brevity and homogeneity of the code.",
+      "parentUuid": "bba89f12_d5c104b5",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 3
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0db72442_a5c4a044",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Multimap can have multiple questions matching the same domain name, but with different DNS type and class, including wildcards. Those all are distinct questions that should be tracked independently.",
+      "parentUuid": "4195c997_4000bea1",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 13
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5c49dac_e1f91549",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "602ca3ce_e1c50926",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Multimap can have multiple shared records matching the same domain name, but there will be at most one record that also matches DNS type, class and rdata.",
+      "parentUuid": "d5c49dac_e1f91549",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 11
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "57028b5a_1396b02d",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "I\u0027ve given it a try, turns out to be a few more lines of code, and I think readability suffers from extra lambdas",
+      "parentUuid": "19e57b6c_dea030a1",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 3
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8ee3ef_4ac4bd6f",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 9
@@ -131,6 +251,24 @@
       "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "810d1558_527b9d32",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "We\u0027ve previously decided that we want operator\u003d\u003d to check for full exact match.\nI tried adding partial match functions here, but there\u0027s almost no re-use between those as most of the loops are a bit different here.",
+      "parentUuid": "7a8ee3ef_4ac4bd6f",
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "ad105b07_2bb3901c",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "I\u0027ve given it a try, turns out to be a few more lines of code, and I think readability suffers from extra lambdas",
+      "parentUuid": "6205f89a_fbb37f63",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 3
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbb5c438_1a09ee0c",
         "filename": "cast/common/mdns/mdns_querier.cc",
         "patchSetId": 9
@@ -177,6 +339,30 @@
       "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda272d7_87e2a45c",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbb5c438_1a09ee0c",
+      "range": {
+        "startLine": 248,
+        "startChar": 6,
+        "endLine": 248,
+        "endChar": 61
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "0a2d0d84_bcc32f7f",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Most of the checks are somewhat different and would require a different function, with almost zero re-use\n\nHere the ones I see:\nexact CallbackInfo match,\nCallbackInfo DNS type and class only match,\nCallbackInfo DNS type and class with wildcards match against MdnsRecord,\nCallbackInfo DNS type and class match against MdnsRecord with wildcards (different from the one above because of the side where wildcards are used on)\nMdnsRecord DNS type, class and RDATA match,\nMdnsRecord DNS type and class match,\nMdnsQuestion DNS type and class match\n\nI addition to that some loops find all instances, some loops only look for the only one in existence.",
+      "parentUuid": "486f04b5_5aa92366",
+      "range": {
+        "startLine": 261,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 56
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5679ce9b_fccfa1cc",
         "filename": "cast/common/mdns/mdns_querier.h",
         "patchSetId": 9
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "6b6a31af_6524f37e",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5679ce9b_fccfa1cc",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 4
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d46c5f8_ec08b3ba",
         "filename": "cast/common/mdns/mdns_querier.h",
         "patchSetId": 9
@@ -243,6 +477,24 @@
     },
     {
       "key": {
+        "uuid": "df2c4ff8_7b418a55",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d46c5f8_ec08b3ba",
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecf0f5d5_72e67e6b",
         "filename": "cast/common/mdns/mdns_querier.h",
         "patchSetId": 9
@@ -257,6 +509,24 @@
       "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "291674eb_b1100387",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecf0f5d5_72e67e6b",
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -283,6 +553,30 @@
     },
     {
       "key": {
+        "uuid": "cb098e82_f8c72131",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Right, since it\u0027s running on task runner there\u0027s no chance it triggers while this function is in flight",
+      "parentUuid": "905e272e_39ac8dc3",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 23
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9eb732ff_b58a8cc4",
         "filename": "cast/common/mdns/mdns_trackers.cc",
         "patchSetId": 9
@@ -306,6 +600,30 @@
     },
     {
       "key": {
+        "uuid": "1ccb11ce_a87255d0",
+        "filename": "cast/common/mdns/mdns_trackers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eb732ff_b58a8cc4",
+      "range": {
+        "startLine": 119,
+        "startChar": 2,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85a15142_e3dbd035",
         "filename": "cast/common/mdns/mdns_trackers.h",
         "patchSetId": 9
@@ -326,6 +644,30 @@
       "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f460911a_2030add1",
+        "filename": "cast/common/mdns/mdns_trackers.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T20:12:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85a15142_e3dbd035",
+      "range": {
+        "startLine": 74,
+        "startChar": 7,
+        "endLine": 74,
+        "endChar": 13
+      },
+      "revId": "12df3e42f445d77bf2fa62c6b5e613fb2ef7811c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
