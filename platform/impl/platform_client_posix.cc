@@ -17,16 +17,33 @@ PlatformClientPosix::PlatformClientPosix(
     : networking_loop_(networking_operations(),
                        networking_operation_timeout,
                        networking_loop_interval),
-      task_runner_(Clock::now),
+      owned_task_runner_(Clock::now),
+      task_runner_(&owned_task_runner_.value()),
       networking_loop_thread_(&OperationLoop::RunUntilStopped,
                               &networking_loop_),
-      task_runner_thread_(&TaskRunnerImpl::RunUntilStopped, &task_runner_) {}
+      task_runner_thread_(&TaskRunnerImpl::RunUntilStopped,
+                          &owned_task_runner_.value()) {}
+
+PlatformClientPosix::PlatformClientPosix(
+    Clock::duration networking_operation_timeout,
+    Clock::duration networking_loop_interval,
+    TaskRunner* task_runner)
+    : networking_loop_(networking_operations(),
+                       networking_operation_timeout,
+                       networking_loop_interval),
+      task_runner_(task_runner),
+      networking_loop_thread_(&OperationLoop::RunUntilStopped,
+                              &networking_loop_) {}
 
 PlatformClientPosix::~PlatformClientPosix() {
   networking_loop_.RequestStopSoon();
-  task_runner_.RequestStopSoon();
   networking_loop_thread_.join();
-  task_runner_thread_.join();
+  if (owned_task_runner_.has_value()) {
+    owned_task_runner_.value().RequestStopSoon();
+  }
+  if (task_runner_thread_.joinable()) {
+    task_runner_thread_.join();
+  }
 }
 
 // static
@@ -64,10 +81,6 @@ SocketHandleWaiterPosix* PlatformClientPosix::socket_handle_waiter() {
     waiter_created_.store(true);
   });
   return waiter_.get();
-}
-
-TaskRunner* PlatformClientPosix::GetTaskRunner() {
-  return &task_runner_;
 }
 
 void PlatformClientPosix::PerformSocketHandleWaiterActions(
