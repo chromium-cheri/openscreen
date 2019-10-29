@@ -240,6 +240,30 @@
     },
     {
       "key": {
+        "uuid": "5c977c34_d7acf4d8",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T17:46:01Z",
+      "side": 1,
+      "message": "The standalone platform is not intended to accommodate all hardware and performance scenarios.  Rather it\u0027s to bootstrap development of functionality.\n\nBefore complexifying the current implementation, I\u0027d like to first tune it through the current interface; the recevier demo can use a tighter loop to reduce latency (keeping in mind it takes at ~100us for a datagram to traverse WiFi).\n\nIf that proves inadequate, we can either customize the networking event loop, or adopt libevent, which I see as the long term solution for both standalone processes and receiver embedders.",
+      "parentUuid": "abc6d1b7_f894ebe9",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 49
+      },
+      "revId": "8449caf58368708906adeefe4bc5702081686a94",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67ce5a9f_71c57982",
         "filename": "platform/impl/platform_client_posix.cc",
         "patchSetId": 4
