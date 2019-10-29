@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc44e416_2da22450",
+        "filename": "platform/api/platform_client.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T17:34:12Z",
+      "side": 1,
+      "message": "This seems to be opposite of what the other change is doing, which keeps SetInstance protected and invokes it from the subclass ctor.",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15fa74fd_ec86e825",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T17:34:12Z",
+      "side": 1,
+      "message": "How is this optional?",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "053050b2_46d20670",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T17:34:12Z",
+      "side": 1,
+      "message": "How does this object work without threads?\n\nI think you just want to use new to instantiate these, in which case, you can use std::make_unique.",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de6fec68_93263884",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T17:34:12Z",
+      "side": 1,
+      "message": "This is just a call-through to the PCP constructor, it isn\u0027t necessary.",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
