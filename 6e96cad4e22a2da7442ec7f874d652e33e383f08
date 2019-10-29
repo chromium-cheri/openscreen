@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67f56bb8_b04360eb",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T20:22:34Z",
+      "side": 1,
+      "message": "I\u0027m assuming this is data associated with the peer (see my response to the other comment).",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb2ac4ae_270ae9ac",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T20:22:34Z",
+      "side": 1,
+      "message": "Side note: in general we want code in OSPL to be compatible with IPv4 and IPv6, and I believe all of the underlying networking pieces will be.\n\nIt would be good to understand what this data is used for, and what the equivalent would be for an IPv6 channel.  Eventually we\u0027ll have to write code to fill this if the socket has an IPv6 address. \n\nCan you add a NOTE: for future reference?",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d2c55f5_5cc6e6cf",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T20:22:34Z",
+      "side": 1,
+      "message": "|data| appears to be unused.",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3515a356_d2203686",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T20:22:34Z",
+      "side": 1,
+      "message": "size_t, since this counts members of a container?",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675ea654_e9bf9b70",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T20:22:34Z",
+      "side": 1,
+      "message": "size_t",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40f09247_fd89d2b5",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T20:22:34Z",
+      "side": 1,
+      "message": "Rather than return an optional reference wrapper, just return an absl::optional\u003cAssociatedData\u003e populated by a copy, or a pointer to the object in the container.\n\nI usually prefer the latter as it\u0027s just simpler as long as it\u0027s clear the returned data is unowned; but if the object can be relocated in the container (invalidating the pointer) then returning a copy is safer.",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

@@ -751,6 +751,24 @@
     },
     {
       "key": {
+        "uuid": "b5463e59_f65f12d4",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T20:22:34Z",
+      "side": 1,
+      "message": "Sorry if my comment wasn\u0027t clear.  It looks like you want a struct to hold the data associated with the virtual connection peer to hold in the map.  Would it be possible to combine VCTail and AssociatedData into a new object, say PeerData, that includes the peer_id?",
+      "parentUuid": "a9f5366c_8d6c4903",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb909d0a_a902068a",
         "filename": "cast/common/channel/virtual_connection_manager.h",
         "patchSetId": 1
@@ -810,6 +828,30 @@
       "side": 1,
       "message": "Mark: The specific maps you suggested wouldn\u0027t work because VirtualConnection* isn\u0027t stable inside a std::vector\u003c\u003e (and an index still wouldn\u0027t work because of removals earlier in the list).  That leaves either std::{forward_,}list or std::vector\u003cstd::unique_ptr\u003c\u003e\u003e.  Since you wouldn\u0027t be able to remove from the socket_id list with just a pointer from the local_id map with forward_list, I think std::vector\u003cstd::unique_ptr\u003c\u003e\u003e might be the lesser evil.\n\nRyan: That would simplify removing a specific virtual connection but then removing by socket_id or local_id would have to iterate over the entire map (aside from the VCTail lists) since there\u0027s no wildcard we can supply for the other half of the pair when doing a lookup.  Admittedly, that might not be that bad but it\u0027s something to consider.  We could also do map\u003cpair\u003csocket_id, peer_id\u003e, VCTail\u003e to get out of the multimap altogether but that\u0027s also a case where removal by socket_id or local_id would iterate over the entire map (which probably has even more nodes actually).  Still another option would be to keep a vector sorted first by local_id then (stably) by socket_id.  I imagine no one wants to look at that code alternative though...\n\nFor now, I\u0027ll leave the current implementation if either of you want to respond to the available options.",
       "parentUuid": "14b69a4f_a807f98c",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2c477e2_41e7d26a",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-10-29T20:22:34Z",
+      "side": 1,
+      "message": "I see, if we don\u0027t want to maintain two copies of the data for a virtual connection, or pointers to the data, then it makes sense to try to maintain the VC in one map.\n\nWhat makes things complicated is that some VCs are scoped to a socket (receiver-0/sender-0) while others are likely not (sender-XXX and the GUID).  So the key for the outer map makes sense as socket_id.\n\nThe open question I have is whether within a socket, there would ever be duplicate local_ids.  If not, we could do away with the inner multimap.  I can ask Oriol today if that\u0027s possible.",
+      "parentUuid": "5912d24f_ef7e5951",
       "range": {
         "startLine": 57,
         "startChar": 0,
