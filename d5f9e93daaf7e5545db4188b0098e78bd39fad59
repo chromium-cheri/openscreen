@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2822505_56877dbc",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T22:20:50Z",
+      "side": 1,
+      "message": "It seems like this is to resolve linking issues you get by literally adding the \"openscreen_unittests\" exe as a dep.  IMHO this is the wrong way to worry about linking.  Maybe openscreen_unittests can be refactored to a separate source_set() and executable() so chromium can depend on the source_set() and provide its own linking deps there.",
+      "revId": "d5f9e93daaf7e5545db4188b0098e78bd39fad59",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "560837af_2f91339f",
+        "filename": "osp/impl/discovery/mdns/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T22:20:50Z",
+      "side": 1,
+      "message": "It seems like all the mDNSResponder code isn\u0027t under the use_mdns_responder flag?  I\u0027d definitely prefer to fix that more completely over just making it work in chromium.",
+      "revId": "d5f9e93daaf7e5545db4188b0098e78bd39fad59",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
