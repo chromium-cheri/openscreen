@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d88ed18a_80200ff9",
+        "filename": "discovery/dnssd/impl/dns_data.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T23:34:43Z",
+      "side": 1,
+      "message": "Should it still update |stored| in case of kItemAlreadyExists",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ed80d7_5a701893",
+        "filename": "discovery/dnssd/impl/dns_data.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T23:34:43Z",
+      "side": 1,
+      "message": "kOperationInvalid?",
+      "range": {
+        "startLine": 74,
+        "startChar": 24,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cc0a40b_d3807d6e",
+        "filename": "discovery/dnssd/impl/dns_data.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T23:34:43Z",
+      "side": 1,
+      "message": "Suggest moving this up in the function, as it\u0027s a possible source of failure, so bailing out earlier is better",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 0
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6201de6_9c9ecd8a",
+        "filename": "discovery/dnssd/impl/dns_data.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T23:34:43Z",
+      "side": 1,
+      "message": "nit: maybe if (a_.has_value() \u0026\u0026 aaaa_.has_value()) and create endpoints inline?",
+      "range": {
+        "startLine": 92,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 38
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1a44ae0_9e9b3229",
+        "filename": "discovery/dnssd/impl/dns_data.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T23:34:43Z",
+      "side": 1,
+      "message": "In one of the previous CLs we discussed that constructor should DCHECK parameters and it\u0027s the responsibility of the caller to use provided validation functions to make sure that valid parameters are passed to the constructor. This way no factory method is needed.\nIIRC, mfoltz was also in favor of this approach\n\nOr, if you make it impossible to create an invalid InstanceKey in the first place via the same approach, then you don\u0027t need any checks here",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a6a70cb_45a88516",
+        "filename": "discovery/dnssd/impl/dns_data.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T23:34:43Z",
+      "side": 1,
+      "message": "Make this protected instead of adding a friend class?",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 38,
+        "endChar": 8
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "685f583a_ce6ee4ab",
+        "filename": "discovery/dnssd/impl/dns_data_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-29T23:34:43Z",
+      "side": 1,
+      "message": "Why not set these through public API ApplyDataRecordChange? Extra coverage of the API won\u0027t hurt.",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
