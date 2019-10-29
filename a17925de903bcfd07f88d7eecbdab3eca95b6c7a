@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7bcb4ad5_b27f048d",
+        "filename": "platform/api/platform_client.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-29T20:24:20Z",
+      "side": 1,
+      "message": "This needs to be public in order to allow the steaming demo to have a custom TaskRunner",
+      "parentUuid": "bc44e416_2da22450",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15fa74fd_ec86e825",
         "filename": "platform/impl/platform_client_posix.h",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-29T17:34:12Z",
       "side": 1,
       "message": "How is this optional?",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfcbf302_1f40c8de",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-29T20:24:20Z",
+      "side": 1,
+      "message": "If the user passes in a TaskRunner (with the protected ctor), then this TaskRunner will not be initialized.",
+      "parentUuid": "15fa74fd_ec86e825",
       "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -64,6 +100,24 @@
       "writtenOn": "2019-10-29T17:34:12Z",
       "side": 1,
       "message": "This is just a call-through to the PCP constructor, it isn\u0027t necessary.",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "076836d6_b34c51a5",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-29T20:24:20Z",
+      "side": 1,
+      "message": "The PCP ctor is non-public (per previous discussion. You say in the parallel CL you\u0027d prefer to leave it this way). In order to allow an instance to be created without a private Create() method, we need to expose it in this way",
+      "parentUuid": "de6fec68_93263884",
       "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
