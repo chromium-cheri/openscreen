@@ -769,6 +769,24 @@
     },
     {
       "key": {
+        "uuid": "a576cdd8_4e470b59",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T23:57:25Z",
+      "side": 1,
+      "message": "That VCTail only contains peer data is incidental.  The reason it exists is because we just want a collection of {VirtualConnection, AssociatedData}.  If we used std::vector\u003c\u003e, that would be our struct and we\u0027re done.  Using std::map, we\u0027d be duplicating storage to do for example std::map\u003clocal_id, {VirtualConnection, AssociatedData}\u003e.  VCTail is just the data that\u0027s left over after putting other pieces into map keys.",
+      "parentUuid": "b5463e59_f65f12d4",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb909d0a_a902068a",
         "filename": "cast/common/channel/virtual_connection_manager.h",
         "patchSetId": 1
@@ -852,6 +870,30 @@
       "side": 1,
       "message": "I see, if we don\u0027t want to maintain two copies of the data for a virtual connection, or pointers to the data, then it makes sense to try to maintain the VC in one map.\n\nWhat makes things complicated is that some VCs are scoped to a socket (receiver-0/sender-0) while others are likely not (sender-XXX and the GUID).  So the key for the outer map makes sense as socket_id.\n\nThe open question I have is whether within a socket, there would ever be duplicate local_ids.  If not, we could do away with the inner multimap.  I can ask Oriol today if that\u0027s possible.",
       "parentUuid": "5912d24f_ef7e5951",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dbdf642_3587177a",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T23:57:25Z",
+      "side": 1,
+      "message": "Well, in the current map setup, duplicate local_ids are not why there is a multimap, it\u0027s about whether there could be multiple peer_ids per one local_id (i.e. multiple senders talking to the same app/receiver-0) which seems completely legitimate.  Duplicate local_ids would just cause a bug in message routing.",
+      "parentUuid": "c2c477e2_41e7d26a",
       "range": {
         "startLine": 57,
         "startChar": 0,

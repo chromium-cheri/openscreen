@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ac1c2a6a_25fd56ec",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T23:57:25Z",
+      "side": 1,
+      "message": "Yes, it is.",
+      "parentUuid": "67f56bb8_b04360eb",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb2ac4ae_270ae9ac",
         "filename": "cast/common/channel/virtual_connection.h",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-29T20:22:34Z",
       "side": 1,
       "message": "Side note: in general we want code in OSPL to be compatible with IPv4 and IPv6, and I believe all of the underlying networking pieces will be.\n\nIt would be good to understand what this data is used for, and what the equivalent would be for an IPv6 channel.  Eventually we\u0027ll have to write code to fill this if the socket has an IPv6 address. \n\nCan you add a NOTE: for future reference?",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "345f152b_4bb6e85e",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T23:57:25Z",
+      "side": 1,
+      "message": "This was used for logging/metrics in the receiver and really they are taking the last two bytes of any address, v4 or v6.  I amended the comment.",
+      "parentUuid": "cb2ac4ae_270ae9ac",
       "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e75396ec_59fd2ceb",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T23:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d2c55f5_5cc6e6cf",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3515a356_d2203686",
         "filename": "cast/common/channel/virtual_connection_manager.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ad7d2a1_5dcf1743",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T23:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3515a356_d2203686",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "de56ff8e_e88d0cb6",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T23:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "675ea654_e9bf9b70",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40f09247_fd89d2b5",
         "filename": "cast/common/channel/virtual_connection_manager.cc",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e0d336f_24f4a928",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-10-29T23:57:25Z",
+      "side": 1,
+      "message": "Latter done + comment.",
+      "parentUuid": "40f09247_fd89d2b5",
+      "revId": "6e96cad4e22a2da7442ec7f874d652e33e383f08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
