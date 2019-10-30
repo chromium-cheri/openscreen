@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0350a43e_af49b47f",
+        "filename": "discovery/dnssd/impl/dns_data.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-30T22:35:42Z",
+      "side": 1,
+      "message": "I think for the caller it\u0027s fair to expect that if a call returned an error, then the operation was not performed and state of the object is unchanged.\n\n\nDnsData data(\"foo\");\nDnsData original_data \u003d data;\ndata.ApplyDataRecordChange(...); // return error\nEXPECT_EQ(data, original_data);",
+      "parentUuid": "a5c49c88_280bd3d9",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97ed80d7_5a701893",
         "filename": "discovery/dnssd/impl/dns_data.cc",
         "patchSetId": 4
@@ -319,6 +343,30 @@
       "side": 1,
       "message": "The main reason I am against that though is that this takes an absl::optional - to do the suggested approach would look like\n\nvoid set_srv(absl::optional\u003ccast::mdns::SrvRecordRdata\u003e srv) { \n  if(!srv.has_value()) { srv_ \u003d srv; return; }\n  MdnsRecord record(... create record from srv ...)\n  ApplyDataRecordChange(record, change_type)\n}\n\nSo we are already calling srv_ \u003d srv in one case - and just adding extra complexity which makes the tests harder to follow\n\nI don\u0027t feel strongly though. If you\u0027d still like this change, I can make it following resolution of the earlier comment. Happy to go either way, but need to resolve that one first because it may change how ApplyDataRecordChange works :)",
       "parentUuid": "685f583a_ce6ee4ab",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4899a056_6cb75a07",
+        "filename": "discovery/dnssd/impl/dns_data_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2019-10-30T22:35:42Z",
+      "side": 1,
+      "message": "I meant testing public API of the class instead of having a friend class and test hooks.\n\nAny state of DnsData that is achievable via set_* hooks is achievable via ApplyDataRecordChange.",
+      "parentUuid": "2f31d1c4_3f9d8690",
       "range": {
         "startLine": 20,
         "startChar": 2,
