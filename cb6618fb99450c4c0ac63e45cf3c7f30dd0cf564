@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "14b5f65a_4d5c5c5d",
+        "filename": "discovery/dnssd/impl/dns_data.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-30T22:54:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0350a43e_af49b47f",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97ed80d7_5a701893",
         "filename": "discovery/dnssd/impl/dns_data.cc",
         "patchSetId": 4
@@ -367,6 +391,30 @@
       "side": 1,
       "message": "I meant testing public API of the class instead of having a friend class and test hooks.\n\nAny state of DnsData that is achievable via set_* hooks is achievable via ApplyDataRecordChange.",
       "parentUuid": "2f31d1c4_3f9d8690",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "cb6618fb99450c4c0ac63e45cf3c7f30dd0cf564",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87ddf72e_1e784076",
+        "filename": "discovery/dnssd/impl/dns_data_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-30T22:54:09Z",
+      "side": 1,
+      "message": "We need the friend class regardless so that we can support the getters below\n\nAfter the requested change to ApplyDataRecordChange, this is not easily doable. It would need to look like:\nvoid set_srv(absl::optional\u003ccast::mdns::SrvRecordRdata\u003e srv) { \n  if(!srv.has_value()) {\n    ApplyDataRecordChange(record, delete);\n    return\n  }\n  MdnsRecord record(... create record from srv ...)\n  if (get_srv) {\n    ApplyDataRecordChange(record, update);\n  } else {\n    ApplyDataRecordChange(record, create);\n  }\n}\n\nAnd while this is possible, it would defeat the purpose of UTs for multiple reasons:\n - If we see test failures, it is no longer possible to easily tell where the failure is (ie: a bug in ApplyDataRecordChange could make all tests fail instead of just the ones related to ApplyDataRecordChange())\n - If we have multiple bugs in our code (for instance multiple bugs in ApplyDataRecordChange), its possible that the change you suggest would allow the tests to pass when they shouldn\u0027t.\n - The code would become more complex, making it harder for readers to understand how the tested code works (making it less useful as a code reference)\n\nBy directly modifying the underlying data structure, we ensure that neither of the above is an issue",
+      "parentUuid": "4899a056_6cb75a07",
       "range": {
         "startLine": 20,
         "startChar": 2,
