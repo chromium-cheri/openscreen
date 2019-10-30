@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bbdbb0e5_c3a87829",
+        "filename": "build_overrides/build.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-30T23:28:30Z",
+      "side": 1,
+      "message": "Yeah, you are definitely right. I\u0027ll move it to a separate source_set and a thin executable config.",
+      "parentUuid": "d2822505_56877dbc",
+      "revId": "d5f9e93daaf7e5545db4188b0098e78bd39fad59",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "560837af_2f91339f",
         "filename": "osp/impl/discovery/mdns/BUILD.gn",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "d5f9e93daaf7e5545db4188b0098e78bd39fad59",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "943d830e_b549ed97",
+        "filename": "osp/impl/discovery/mdns/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-10-30T23:28:30Z",
+      "side": 1,
+      "message": "It seems a little trickier, since the code is split up into interface and implementation, and the interface is kept linked for testing purposes. \n\nI am in favor of just not running mDNS tests without mDNS responder, so I\u0027ll clean it up that way.",
+      "parentUuid": "560837af_2f91339f",
+      "revId": "d5f9e93daaf7e5545db4188b0098e78bd39fad59",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
