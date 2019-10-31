@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "discovery/dnssd/impl/dns_data.h"
+#include "discovery/dnssd/impl/dns_data_impl.h"
 
 #include <chrono>
 
@@ -12,10 +12,10 @@
 namespace openscreen {
 namespace discovery {
 
-class DnsDataTesting : public DnsData {
+class DnsDataTesting : public DnsDataImpl {
  public:
   explicit DnsDataTesting(const InstanceKey& instance_key)
-      : DnsData(instance_key) {}
+      : DnsDataImpl(instance_key) {}
 
   void set_srv(absl::optional<cast::mdns::SrvRecordRdata> new_srv) {
     SetVariable(new_srv, srv(), cast::mdns::DnsType::kSRV);
