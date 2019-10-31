@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ec6f77b1_4353ce9a",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-31T17:05:32Z",
+      "side": 1,
+      "message": "Given how many of us asked you to refactor to remove some of the duplicated code / use find_if / etc..., you should probably put a comment in this file to say that those changes don\u0027t really work - otherwise someone at some point is going to try to refactor to make those same changes",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08c01dda_88ab7164",
         "filename": "cast/common/mdns/mdns_querier.h",
         "patchSetId": 11
@@ -13,6 +30,30 @@
       "writtenOn": "2019-10-31T01:18:35Z",
       "side": 1,
       "message": "IIRC, std::unordered_multimap guarantees this. So, maybe you can remove the indirection here, and do a construct-in-place insert into these maps like:\n\n  questions_.emplace(std::piecewise_construct,\n                     std::forward_as_tuple(question.name()),\n                     std::forward_as_tuple(\n                         std::move(question), sender_, task_runner_,\n                         now_function_, random_delay_));\n\nThe STL syntax is a bit yuk for this, but it gets you the in-place construction.",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 68
+      },
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d881998f_84eec96c",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-10-31T17:05:32Z",
+      "side": 1,
+      "message": "More of an OOC, but I\u0027m confused how unordered_multimap would achieve this\n\nDon\u0027t all entries need to be re-hashed when the map needs to resize, so they would need to move around? (Why the emplace method has worst-case linear complexity)",
+      "parentUuid": "08c01dda_88ab7164",
       "range": {
         "startLine": 83,
         "startChar": 16,
