@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "discovery/dnssd/impl/dns_data.h"
+#include "discovery/dnssd/impl/dns_data_impl.h"
 
 #include "absl/types/optional.h"
 #include "cast/common/mdns/mdns_records.h"
@@ -58,9 +58,12 @@ inline Error ProcessRecord(absl::optional<T>* stored,
 
 }  // namespace
 
-DnsData::DnsData(const InstanceKey& instance_id) : instance_id_(instance_id) {}
+DnsDataImpl::DnsDataImpl(const InstanceKey& instance_id)
+    : instance_id_(instance_id) {}
 
-ErrorOr<DnsSdInstanceRecord> DnsData::CreateRecord() {
+DnsDataImpl::~DnsDataImpl() = default;
+
+ErrorOr<DnsSdInstanceRecord> DnsDataImpl::CreateRecord() {
   if (!srv_.has_value() || !txt_.has_value() ||
       (!a_.has_value() && !aaaa_.has_value())) {
     return Error::Code::kOperationInvalid;
@@ -89,8 +92,8 @@ ErrorOr<DnsSdInstanceRecord> DnsData::CreateRecord() {
   }
 }
 
-Error DnsData::ApplyDataRecordChange(const cast::mdns::MdnsRecord& record,
-                                     cast::mdns::RecordChangedEvent event) {
+Error DnsDataImpl::ApplyDataRecordChange(const cast::mdns::MdnsRecord& record,
+                                         cast::mdns::RecordChangedEvent event) {
   switch (record.dns_type()) {
     case cast::mdns::DnsType::kSRV:
       return ProcessRecord(&srv_, record, event);

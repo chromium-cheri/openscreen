@@ -45,7 +45,9 @@ class QuerierImpl : public DnsSdQuerier,
  private:
   // Map from {instance, service, domain} to the data received so far for this
   // service instance.
-  std::unordered_map<InstanceKey, DnsData, absl::Hash<InstanceKey>>
+  std::unordered_map<InstanceKey,
+                     std::unique_ptr<DnsData>,
+                     absl::Hash<InstanceKey>>
       received_records_;
 
   // Stores the association between {service, domain} and Callback to call for
