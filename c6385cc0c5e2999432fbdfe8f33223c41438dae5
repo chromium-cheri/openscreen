@@ -19,6 +19,210 @@
     },
     {
       "key": {
+        "uuid": "ace94f39_56469126",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "Nit: \n\ncallbacks_ and callbacks are very similar.\n\nI\u0027d prefer that iterators be named differently from the container, so callbacks_it or just it.  That\u0027s the style I\u0027ve usually seen in Chromium.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a18c783d_a567ce95",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "Did you consider having a separate API to fetch cached records that match a query?\nOr do you expect that all callers that start a query want to get records right away?",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ccff747_9d70d636",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "If |callback| gets copied or moved between and the caller doesn\u0027t have access to the same instance passed to StartQuery(), the caller may have no way of removing it here.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d64b3a39_dc3e26ac",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "Don\u0027t think we should do this; what if another callback is added with the same question before the records expire.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "572bfe33_e31f3683",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "I think record expiry should take care of this.\n\nMemory consumption could be a concern.  To avoid a denial of service by a publisher generating many long lived records, we could add some caps (records per domain)?",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b04cea8c_a273f388",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "TODO(crbug.com/openscreen/XX) for adding authority record support.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe27ccbd_d1840281",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "If the TTL changes, will the RDATA be different (and would it be considered a new record)?",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7804a04d_54c4e4f4",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "One way to handle an optional update is an API like this:\n\n// Returns true if the record actually changed.\nbool MaybeUpdate(record)\n\nThis way you could also verify that shared records update.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e7efde2_304e03c0",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "Do you need to call ProcessCallbacks with kUpdated if is_updated is true here?",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1df5faec_71285106",
+        "filename": "cast/common/mdns/mdns_querier.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "TODO(crbug.com/openscreen/XX) where XX is an issue for adding known answer suppression.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "917ba2aa_330fd757",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "IMO, it would be safer to mark this move-only, to avoid extra copies to the unowned |callback|.\n\nSide comment: In Chromium, callbacks are move-only, which could result in a better pattern: ownership of the callback moves to this class in StartQuery(), which returns an ID the caller can use to cancel later in StopQuery().  That way there\u0027s no concern about the callback lifetime. \n\nHowever not requesting any change to this API; we can discuss adopting move-only callbacks more broadly, which probably requires writing our own callback wrapper.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65993d0a_ee7e1d0c",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "Nit: can you use a const pointer here?",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08c01dda_88ab7164",
         "filename": "cast/common/mdns/mdns_querier.h",
         "patchSetId": 11
@@ -84,6 +288,57 @@
         "endLine": 84,
         "endChar": 68
       },
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13a8c30d_3d4ae812",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "Can you provide some thoughts as to why a hash-based map is necessary?\n\nThis has come up a couple of times: my viewpoint is that hash-based maps are for when lookup speed is the highest priority over all else (iteration, memory, insertion).  It\u0027s not clear that is the case here, as queries are not going to be added and removed that frequently.  Mostly when the caller wants to enable/disable receiver discovery.\n\nstd::map uses lexicographic ordering.  If you stored a key of DomainName:type:class and used upper_bound(DomainName), you could search for all entries that have that DomainName.\n\nstd::multimap could also work here, and gets you nicer range iteration.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a59d7524_27fff867",
+        "filename": "cast/common/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "I think the unit tests should make sure they cover:\n- Records across multiple domains\n- Removing the last callback for a query\n- Making sure callbacks are invoked for both wildcard and specific class and type queries\n\nThese may already be covered - I didn\u0027t review every existing test case.",
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dcc6052_286a992c",
+        "filename": "cast/common/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T22:43:56Z",
+      "side": 1,
+      "message": "Is there a kUpdated expectation missing?",
       "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
