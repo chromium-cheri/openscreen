@@ -51,6 +51,8 @@ class DnsSdTxtRecord {
     return key_value_txt_.empty() && boolean_txt_.empty();
   }
 
+  std::vector<std::string> GetData() const;
+
  private:
   struct CaseInsensitiveComparison {
     bool operator()(const std::string& lhs, const std::string& rhs) const;
