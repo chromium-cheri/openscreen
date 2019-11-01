@@ -63,6 +63,30 @@
       "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42b3e06c_d60ae595",
+        "filename": "cast/common/mdns/mdns_querier.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-01T21:39:51Z",
+      "side": 1,
+      "message": "The entries themselves are nodes in a linked list in some bucket of the hash table. Only the pointers to the entries change whenever the map mutates.\n\nThe STL is rather unreadable code due to the mangled member names, but if you\u0027re curious: https://cs.chromium.org/chromium/src/buildtools/third_party/libc%2B%2B/trunk/include/__hash_table?rcl\u003d5938e0582bac570a41edb3d6a2217c299adc1bc6\u0026l\u003d954 This is only one possible implementation of std::unordered_map, but the C++ spec effectively forces the use of a bucket + linked_list data structure.",
+      "parentUuid": "d881998f_84eec96c",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 68
+      },
+      "revId": "c6385cc0c5e2999432fbdfe8f33223c41438dae5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
