@@ -2,6 +2,193 @@
   "comments": [
     {
       "key": {
+        "uuid": "3e6e564a_a9ea60f6",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Input/output parameters should go after input parameters.\n\nhttps://google.github.io/styleguide/cppguide.html#Output_Parameters",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3085d53_10997739",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Are empty strings possible from this StrSplit?  How should they be handled? Same comment applies below.",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35cf54d5_fcf34d31",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "I thought mDNS was restricted to class IN (Internet).",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1efeb9a_d8a2a2bf",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Following up on my earlier comment, IMO it would be clearer to have a ToMdnsDomain() method on ServiceKey and InstanceKey, versus having separate conversion routines.  But I don\u0027t feel super strongly about it, if the priority is keeping InstanceKey and ServiceKey as simple structs.",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "566f772e_9b59d4ef",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Same comment here.",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3a2308c_199ecec9",
+        "filename": "discovery/dnssd/impl/conversion_layer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Please use // for full-line comments;\n/* */ is reserved for in-line comments.",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d644ab14_6e8869f9",
+        "filename": "discovery/dnssd/impl/conversion_layer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Is |domain| a dotted fully qualified domain?  Or just a single domain fragment (like .local)?  The comment is a little ambiguous.",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be804711_a89f0121",
+        "filename": "discovery/dnssd/impl/conversion_layer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "s/FROM/from/, /TO/to/",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dae4780a_5f46f00d",
+        "filename": "discovery/dnssd/impl/conversion_layer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Can this be a method on InstanceKey?",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34bcc24b_53f885c1",
+        "filename": "discovery/dnssd/impl/conversion_layer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Can this be a method on ServiceKey?",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1322a5e1_a5d6be95",
+        "filename": "discovery/dnssd/impl/conversion_layer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:04:32Z",
+      "side": 1,
+      "message": "Can this be a method on DnsSdInstanceRecord?",
+      "revId": "59488c66c433416151e0eb05c9597e71b1d32987",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba370591_66da5361",
         "filename": "discovery/dnssd/impl/conversion_layer.h",
         "patchSetId": 4
