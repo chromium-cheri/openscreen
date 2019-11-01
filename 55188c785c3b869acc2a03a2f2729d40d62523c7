@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "562ed05e_578732f3",
+        "filename": "cast/common/channel/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-01T21:59:23Z",
+      "side": 1,
+      "message": "Seeing this duplicated throughout all these build files makes me wonder if this should be default configuration, and not have to explicitly add it to every source_set.\n\nIn other words, maybe it should be default config, and then make sure the few targets that are not built for Chromium (e.g., platform/impl targets) are just guarded by \"if (!build_with_chromium)\".\n\nWebRTC does this by setting the include dirs in its root BUILD.gn file: https://cs.chromium.org/chromium/src/third_party/webrtc/BUILD.gn?rcl\u003d8846c8af8511b505c4b61cefd4db49d15871baa7\u0026l\u003d139 Seems like that would work well for OpenScreen as well.\n\nThoughts?",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81340654_2527b1a8",
+        "filename": "cast/sender/channel/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-01T21:59:23Z",
+      "side": 1,
+      "message": "Per earlier comment about modifying our root BUILD.gn, maybe we wouldn\u0027t need these lines sprinkled everywhere either?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 37
+      },
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
