@@ -5,11 +5,24 @@
 #include "discovery/dnssd/impl/conversion_layer.h"
 
 #include "absl/strings/str_join.h"
+#include "absl/strings/str_split.h"
 #include "cast/common/mdns/mdns_records.h"
 #include "discovery/dnssd/impl/constants.h"
 
 namespace openscreen {
 namespace discovery {
+namespace {
+
+inline void AddServiceInfoToLabels(std::vector<std::string>* labels,
+                                   const ServiceKey& key) {
+  std::vector<std::string> service_labels = absl::StrSplit(key.service_id, '.');
+  labels->insert(labels->end(), service_labels.begin(), service_labels.end());
+
+  std::vector<std::string> domain_labels = absl::StrSplit(key.domain_id, '.');
+  labels->insert(labels->end(), domain_labels.begin(), domain_labels.end());
+}
+
+}  // namespace
 
 ErrorOr<DnsSdTxtRecord> CreateFromDnsTxt(
     const cast::mdns::TxtRecordRdata& txt_data) {
@@ -71,8 +84,27 @@ ErrorOr<ServiceKey> GetServiceKey(const cast::mdns::MdnsRecord& record) {
   if (key_or_error.is_error()) {
     return key_or_error.error();
   }
-  return ServiceKey{key_or_error.value().service_id,
-                    key_or_error.value().domain_id};
+  return GetServiceKey(key_or_error.value());
+}
+
+ServiceKey GetServiceKey(const InstanceKey& key) {
+  return {key.service_id, key.domain_id};
+}
+
+DnsQueryInfo GetInstanceQueryInfo(const InstanceKey& key) {
+  std::vector<std::string> labels;
+  labels.emplace_back(key.instance_id);
+
+  AddServiceInfoToLabels(&labels, GetServiceKey(key));
+  return {cast::mdns::DomainName{labels}, cast::mdns::DnsType::kANY,
+          cast::mdns::DnsClass::kANY};
+}
+
+DnsQueryInfo GetPtrQueryInfo(const ServiceKey& key) {
+  std::vector<std::string> labels;
+  AddServiceInfoToLabels(&labels, key);
+  return {cast::mdns::DomainName{labels}, cast::mdns::DnsType::kPTR,
+          cast::mdns::DnsClass::kANY};
 }
 
 ServiceKey GetServiceKey(absl::string_view service, absl::string_view domain) {
