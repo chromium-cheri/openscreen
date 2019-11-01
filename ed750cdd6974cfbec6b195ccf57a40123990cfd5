@@ -787,6 +787,24 @@
     },
     {
       "key": {
+        "uuid": "22e63fcb_f5974e9a",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T23:59:32Z",
+      "side": 1,
+      "message": "OK.  Normally I don\u0027t worry too much about splitting an object into a sub-structure to avoid duplicating a field into a map key, since you end up with objects that don\u0027t have a lot of meaning.  Since this is a private implementation detail of the manager, I\u0027m not too worried about it.  However  I think a comment explaining the purpose of VCTail would be helpful.",
+      "parentUuid": "a576cdd8_4e470b59",
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb909d0a_a902068a",
         "filename": "cast/common/channel/virtual_connection_manager.h",
         "patchSetId": 1
@@ -903,6 +921,30 @@
       "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e901a2f0_04ff1c7d",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T23:59:32Z",
+      "side": 1,
+      "message": "Thanks for the explanation.  I agree the multimap makes sense with the current structures as they are defined.",
+      "parentUuid": "8dbdf642_3587177a",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "ed750cdd6974cfbec6b195ccf57a40123990cfd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
