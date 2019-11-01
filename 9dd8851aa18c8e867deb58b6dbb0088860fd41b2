@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11a25acf_6c7a4ef4",
+        "filename": "discovery/dnssd/impl/dns_data.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:26:43Z",
+      "side": 1,
+      "message": "Can you be more specific about the error type?",
+      "revId": "9dd8851aa18c8e867deb58b6dbb0088860fd41b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbb2711e_7bbe1419",
+        "filename": "discovery/dnssd/impl/dns_data.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:26:43Z",
+      "side": 1,
+      "message": "Please document the error type returned.",
+      "revId": "9dd8851aa18c8e867deb58b6dbb0088860fd41b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63560df2_6a079a54",
+        "filename": "discovery/dnssd/impl/dns_data_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-01T21:26:43Z",
+      "side": 1,
+      "message": "Why is DnsData being split into an interface and implementation?\n- The implementation is fairly simple and doesn\u0027t need mocking for unit tests IMO.\n- I don\u0027t see us ever needing more than one implementation to hold data for a PTR record.",
+      "revId": "9dd8851aa18c8e867deb58b6dbb0088860fd41b2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
