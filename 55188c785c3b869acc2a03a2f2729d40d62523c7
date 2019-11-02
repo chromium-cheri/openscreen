@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "e3c32969_b30213f8",
+        "filename": "BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-02T00:00:52Z",
+      "side": 1,
+      "message": "Let\u0027s leave this openscreen_unittests to avoid name collisions with the embedder\u0027s targets.  (GN targets all live in one namespace.)",
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd51bf15_7aff00e9",
+        "filename": "build/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-02T00:00:52Z",
+      "side": 1,
+      "message": "We should just make this a default config since any target with build_with_chromium set will need to have include_dirs patched.\n\nAnother issue is, that we need to move chromium-specific configs out of the openscreen repo, but that is a different task for a different day.",
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f07d5e_c4ee9129",
+        "filename": "cast/common/certificate/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-02T00:00:52Z",
+      "side": 1,
+      "message": "Isn\u0027t this imported by default?",
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d99b432_dbaf0fba",
+        "filename": "cast/common/certificate/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-02T00:00:52Z",
+      "side": 1,
+      "message": "If these tests can\u0027t run without test data in Chromium then they should be moved to Chromium.\n\n(Or if there\u0027s a plan to move the test data to the OSP repo, then this is fine as a temporary measure.)",
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "562ed05e_578732f3",
         "filename": "cast/common/channel/BUILD.gn",
         "patchSetId": 7
@@ -25,6 +93,23 @@
     },
     {
       "key": {
+        "uuid": "7a1d4b82_a0d4bbc7",
+        "filename": "cast/common/channel/proto/authority_keys.proto",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-02T00:00:52Z",
+      "side": 1,
+      "message": "Update copyright year",
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81340654_2527b1a8",
         "filename": "cast/sender/channel/BUILD.gn",
         "patchSetId": 7
@@ -42,6 +127,40 @@
         "endLine": 5,
         "endChar": 37
       },
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ab43006_2a576af0",
+        "filename": "osp/impl/discovery/mdns/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-02T00:00:52Z",
+      "side": 1,
+      "message": "If !use_mdns_responder, what is the point of defining empty targets?\n\nIt seems like this file should have assert(use_mdns_responder) and instead, fix the incoming dependencies.",
+      "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea8153e9_d2bd6e53",
+        "filename": "osp/impl/testing/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-02T00:00:52Z",
+      "side": 1,
+      "message": "Similar comment here.",
       "revId": "55188c785c3b869acc2a03a2f2729d40d62523c7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
