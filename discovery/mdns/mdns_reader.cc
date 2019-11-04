@@ -2,12 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/common/mdns/mdns_reader.h"
+#include "discovery/mdns/mdns_reader.h"
 
 #include "platform/api/logging.h"
 
-namespace cast {
-namespace mdns {
+namespace openscreen {
+namespace discovery {
 
 bool MdnsReader::Read(absl::string_view* out) {
   Cursor cursor(this);
@@ -291,5 +291,5 @@ bool MdnsReader::Read(Header* out) {
   return false;
 }
 
-}  // namespace mdns
-}  // namespace cast
+}  // namespace discovery
+}  // namespace openscreen
