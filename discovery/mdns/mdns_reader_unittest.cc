@@ -2,15 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/common/mdns/mdns_reader.h"
+#include "discovery/mdns/mdns_reader.h"
 
 #include <memory>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-namespace cast {
-namespace mdns {
+namespace openscreen {
+namespace discovery {
 
 using openscreen::IPAddress;
 
@@ -620,5 +620,5 @@ TEST(MdnsReaderTest, ReadMdnsMessage_MissingAdditionalRecord) {
   TestReadEntryFails<MdnsMessage>(kInvalidMessage, sizeof(kInvalidMessage));
 }
 
-}  // namespace mdns
-}  // namespace cast
+}  // namespace discovery
+}  // namespace openscreen
