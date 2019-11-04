@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/common/mdns/mdns_service_impl.h"
+#include "discovery/mdns/mdns_service_impl.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 void MdnsServiceImpl::StartQuery(const DomainName& name,
@@ -30,4 +30,4 @@ void MdnsServiceImpl::DeregisterRecord(const MdnsRecord& record) {
 }
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen

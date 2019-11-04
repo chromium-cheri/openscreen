@@ -2,19 +2,16 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/common/mdns/mdns_sender.h"
+#include "discovery/mdns/mdns_sender.h"
 
-#include "cast/common/mdns/mdns_records.h"
+#include "discovery/mdns/mdns_records.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/test/fake_udp_socket.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
-using openscreen::Error;
-using openscreen::IPAddress;
-using openscreen::IPEndpoint;
 using openscreen::platform::FakeUdpSocket;
 using testing::_;
 using testing::Args;
@@ -184,4 +181,4 @@ TEST_F(MdnsSenderTest, ReturnsErrorOnSocketFailure) {
 }
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen

@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_COMMON_MDNS_MDNS_RECORDS_H_
-#define CAST_COMMON_MDNS_MDNS_RECORDS_H_
+#ifndef DISCOVERY_MDNS_MDNS_RECORDS_H_
+#define DISCOVERY_MDNS_MDNS_RECORDS_H_
 
 #include <chrono>
 #include <initializer_list>
@@ -12,11 +12,11 @@
 
 #include "absl/strings/string_view.h"
 #include "absl/types/variant.h"
-#include "cast/common/mdns/public/mdns_constants.h"
+#include "discovery/mdns/public/mdns_constants.h"
 #include "platform/api/logging.h"
 #include "platform/base/ip_address.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 bool IsValidDomainLabel(absl::string_view label);
@@ -130,8 +130,6 @@ class SrvRecordRdata {
 // 4 bytes for IP address.
 class ARecordRdata {
  public:
-  using IPAddress = openscreen::IPAddress;
-
   ARecordRdata() = default;
   explicit ARecordRdata(IPAddress ipv4_address);
 
@@ -154,8 +152,6 @@ class ARecordRdata {
 // 16 bytes for IP address.
 class AAAARecordRdata {
  public:
-  using IPAddress = openscreen::IPAddress;
-
   AAAARecordRdata() = default;
   explicit AAAARecordRdata(IPAddress ipv6_address);
 
@@ -393,6 +389,6 @@ class MdnsMessage {
 uint16_t CreateMessageId();
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen
 
-#endif  // CAST_COMMON_MDNS_MDNS_RECORDS_H_
+#endif  // DISCOVERY_MDNS_MDNS_RECORDS_H_

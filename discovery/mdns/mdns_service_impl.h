@@ -2,12 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_COMMON_MDNS_MDNS_SERVICE_IMPL_H_
-#define CAST_COMMON_MDNS_MDNS_SERVICE_IMPL_H_
+#ifndef DISCOVERY_MDNS_MDNS_SERVICE_IMPL_H_
+#define DISCOVERY_MDNS_MDNS_SERVICE_IMPL_H_
 
-#include "cast/common/mdns/public/mdns_service.h"
+#include "discovery/mdns/public/mdns_service.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 class MdnsServiceImpl : MdnsService {
@@ -28,6 +28,6 @@ class MdnsServiceImpl : MdnsService {
 };
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen
 
-#endif  // CAST_COMMON_MDNS_MDNS_SERVICE_IMPL_H_
+#endif  // DISCOVERY_MDNS_MDNS_SERVICE_IMPL_H_

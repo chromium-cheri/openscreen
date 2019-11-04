@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_COMMON_MDNS_MDNS_RANDOM_H_
-#define CAST_COMMON_MDNS_MDNS_RANDOM_H_
+#ifndef DISCOVERY_MDNS_MDNS_RANDOM_H_
+#define DISCOVERY_MDNS_MDNS_RANDOM_H_
 
 #include <random>
 
 #include "platform/api/time.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 class MdnsRandom {
@@ -66,6 +66,6 @@ class MdnsRandom {
 };
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen
 
-#endif  // CAST_COMMON_MDNS_MDNS_RANDOM_H_
+#endif  // DISCOVERY_MDNS_MDNS_RANDOM_H_

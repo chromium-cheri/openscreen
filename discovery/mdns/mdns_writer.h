@@ -2,23 +2,19 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_COMMON_MDNS_MDNS_WRITER_H_
-#define CAST_COMMON_MDNS_MDNS_WRITER_H_
+#ifndef DISCOVERY_MDNS_MDNS_WRITER_H_
+#define DISCOVERY_MDNS_MDNS_WRITER_H_
 
 #include <unordered_map>
 
-#include "cast/common/mdns/mdns_records.h"
+#include "discovery/mdns/mdns_records.h"
 #include "util/big_endian.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 class MdnsWriter : public openscreen::BigEndianWriter {
  public:
-  using BigEndianWriter::BigEndianWriter;
-  using BigEndianWriter::Write;
-  using IPAddress = openscreen::IPAddress;
-
   // The following methods return true if the method was able to successfully
   // write the value to the underlying buffer and advances current() to point
   // right past the written data. Returns false if the method failed to write
@@ -71,6 +67,6 @@ class MdnsWriter : public openscreen::BigEndianWriter {
 };
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen
 
-#endif  // CAST_COMMON_MDNS_MDNS_WRITER_H_
+#endif  // DISCOVERY_MDNS_MDNS_WRITER_H_

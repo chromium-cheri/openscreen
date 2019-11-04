@@ -2,22 +2,20 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_COMMON_MDNS_MDNS_SENDER_H_
-#define CAST_COMMON_MDNS_MDNS_SENDER_H_
+#ifndef DISCOVERY_MDNS_MDNS_SENDER_H_
+#define DISCOVERY_MDNS_MDNS_SENDER_H_
 
 #include "platform/api/udp_socket.h"
 #include "platform/base/error.h"
 #include "platform/base/ip_address.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 class MdnsMessage;
 
 class MdnsSender {
  public:
-  using Error = openscreen::Error;
-  using IPEndpoint = openscreen::IPEndpoint;
   using UdpSocket = openscreen::platform::UdpSocket;
 
   // MdnsSender does not own |socket| and expects that its lifetime exceeds the
@@ -37,6 +35,6 @@ class MdnsSender {
 };
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen
 
-#endif  // CAST_COMMON_MDNS_MDNS_SENDER_H_
+#endif  // DISCOVERY_MDNS_MDNS_SENDER_H_

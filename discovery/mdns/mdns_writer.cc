@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/common/mdns/mdns_writer.h"
+#include "discovery/mdns/mdns_writer.h"
 
 #include "absl/hash/hash.h"
 #include "absl/strings/ascii.h"
 #include "platform/api/logging.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 namespace {
@@ -46,7 +46,7 @@ bool UpdateRecordLength(const uint8_t* end, uint8_t* begin) {
   OSP_DCHECK_LE(begin + sizeof(uint16_t), end);
   ptrdiff_t record_length = end - begin - sizeof(uint16_t);
   if (record_length <= std::numeric_limits<uint16_t>::max()) {
-    openscreen::WriteBigEndian<uint16_t>(record_length, begin);
+    WriteBigEndian<uint16_t>(record_length, begin);
     return true;
   }
   return false;
@@ -273,4 +273,4 @@ bool MdnsWriter::Write(const Header& header) {
 }
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen

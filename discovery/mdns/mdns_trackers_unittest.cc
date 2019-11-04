@@ -2,17 +2,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/common/mdns/mdns_trackers.h"
+#include "discovery/mdns/mdns_trackers.h"
 
-#include "cast/common/mdns/mdns_random.h"
-#include "cast/common/mdns/mdns_record_changed_callback.h"
-#include "cast/common/mdns/mdns_sender.h"
+#include "discovery/mdns/mdns_random.h"
+#include "discovery/mdns/mdns_record_changed_callback.h"
+#include "discovery/mdns/mdns_sender.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 using openscreen::Error;
@@ -486,4 +486,4 @@ TEST_F(MdnsTrackerTest, QuestionTrackerNoCallbackOnNoUpdate) {
 }
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen

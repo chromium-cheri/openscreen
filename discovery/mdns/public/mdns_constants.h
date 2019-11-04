@@ -10,13 +10,13 @@
 // message size (synced with sender SDK) and usage of site-local MDNS group
 // in addition to the default link-local MDNS multicast group.
 
-#ifndef CAST_COMMON_MDNS_PUBLIC_MDNS_CONSTANTS_H_
-#define CAST_COMMON_MDNS_PUBLIC_MDNS_CONSTANTS_H_
+#ifndef DISCOVERY_MDNS_PUBLIC_MDNS_CONSTANTS_H_
+#define DISCOVERY_MDNS_PUBLIC_MDNS_CONSTANTS_H_
 
 #include <stddef.h>
 #include <stdint.h>
 
-namespace cast {
+namespace openscreen {
 namespace mdns {
 
 // ============================================================================
@@ -367,6 +367,6 @@ constexpr size_t kTXTMaxEntrySize = 255;
 constexpr uint8_t kTXTEmptyRdata = 0;
 
 }  // namespace mdns
-}  // namespace cast
+}  // namespace openscreen
 
-#endif  // CAST_COMMON_MDNS_PUBLIC_MDNS_CONSTANTS_H_
+#endif  // DISCOVERY_MDNS_PUBLIC_MDNS_CONSTANTS_H_
