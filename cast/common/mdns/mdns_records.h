@@ -220,6 +220,7 @@ class TxtRecordRdata {
     }
   }
 
+  explicit TxtRecordRdata(const std::vector<std::string>& texts);
   explicit TxtRecordRdata(const std::vector<absl::string_view>& texts);
   explicit TxtRecordRdata(std::initializer_list<absl::string_view> texts);
 
