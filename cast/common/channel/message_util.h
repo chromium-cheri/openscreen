@@ -13,6 +13,8 @@ namespace channel {
 // Reserved message namespaces for internal messages.
 static constexpr char kCastInternalNamespacePrefix[] =
     "urn:x-cast:com.google.cast.";
+static constexpr char kTransportNamespacePrefix[] =
+    "urn:x-cast:com.google.cast.tp.";
 static constexpr char kAuthNamespace[] =
     "urn:x-cast:com.google.cast.tp.deviceauth";
 static constexpr char kHeartbeatNamespace[] =
@@ -31,6 +33,12 @@ static constexpr char kPlatformReceiverId[] = "receiver-0";
 
 inline bool IsAuthMessage(const CastMessage& message) {
   return message.namespace_() == kAuthNamespace;
+}
+
+inline bool IsTransportNamespace(const std::string& ns) {
+  return (ns.size() > (sizeof(kTransportNamespacePrefix) - 1)) &&
+         (ns.compare(0, sizeof(kTransportNamespacePrefix) - 1,
+                     kTransportNamespacePrefix) == 0);
 }
 
 }  // namespace channel
