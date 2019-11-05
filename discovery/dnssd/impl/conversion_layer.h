@@ -61,7 +61,6 @@ DnsQueryInfo GetInstanceQueryInfo(const InstanceKey& key);
 DnsQueryInfo GetPtrQueryInfo(const ServiceKey& key);
 
 // Returns all MdnsRecord entites generated from this InstanceRecord.
-// TODO(rwkeane): Implement this method.
 std::vector<cast::mdns::MdnsRecord> GetDnsRecords(
     const DnsSdInstanceRecord& record);
 
