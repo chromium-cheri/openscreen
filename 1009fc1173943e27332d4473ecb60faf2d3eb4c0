@@ -117,6 +117,24 @@
       "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "802a939d_d2c8940a",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-05T20:22:24Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion either way about the return type - I am happy to go with whatever is your preference\n\nThe 2 reasons I lean slightly towards the current approach are related to our previous discussions about making some subset of the mDNS API public so that it can be swapped out by embedders:\n- Currently, that hasn\u0027t happened yet for mDNS Record data types, so it seems risky to use these entities in the public API of DNS-SD. Any mDNS API would need the data we return here though to publish a TXT record though.\n- It seems weird for the DNS-SD public API to rely on mDNS types - if an embedder swaps out our DNS-SD implementation for their own, they won\u0027t be using any of our mDNS code, so having this dependency would make their lives harder",
+      "parentUuid": "011ca7f1_ef3a2b55",
+      "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
