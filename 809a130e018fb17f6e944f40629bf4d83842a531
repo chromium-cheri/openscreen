@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cce9ae88_1a69c9fe",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T23:34:33Z",
+      "side": 1,
+      "message": "Will a message that caused the socket to block be left in message_queue_?",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c28a206c_ae4a2b2c",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T23:34:33Z",
+      "side": 1,
+      "message": "I didn\u0027t see any uses from the platform API (nor should there be, as clients shouldn\u0027t need to know about our object management details.)\n\nCan this go into util/?",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ba977d7_7d29bb53",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T23:34:33Z",
+      "side": 1,
+      "message": "Nit: s/null/nullptr/",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39e884ec_022ca8cb",
+        "filename": "platform/base/weak_ptr.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T23:34:33Z",
+      "side": 1,
+      "message": "nit: Open Screen\u0027s",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f67877d6_d6bc3b7e",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T23:34:33Z",
+      "side": 1,
+      "message": "Since OnConnected is getting a raw (not a weak pointer), what assumptions can client_ make about the lifetime of the |self| that\u0027s being passed into it?\n\nSimilar comment applies to other uses of this pattern here.",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97abc12d_8375e338",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T23:34:33Z",
+      "side": 1,
+      "message": "It looks like you\u0027re creating a WeakPtr on one thread and passing it to another.\n\nIn Chromium, weak_ptr\u0027s aren\u0027t threadsafe; the factory that vends them is bound to one thread (or sequence).  Is the std:: equivalent different?",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
