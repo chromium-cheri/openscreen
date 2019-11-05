@@ -135,6 +135,24 @@
       "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d7ba0e4_6b0c7417",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T20:56:44Z",
+      "side": 1,
+      "message": "Those are fair points.  Being able to deliver the record data into a different mDNS implementation could be advantageous.  My belief is that embedders implement service discovery and mDNS together, not one or the other, but it\u0027s okay to remain flexible for now.\n\nI suppose mDNSResponder is one counterexample - it\u0027s strictly an mDNS implementation, although frameworks on Mac expose it through Bonjour, which is a service discovery API.",
+      "parentUuid": "802a939d_d2c8940a",
+      "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
