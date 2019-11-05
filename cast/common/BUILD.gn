@@ -3,6 +3,7 @@
 # found in the LICENSE file.
 
 import("//build_overrides/build.gni")
+import("//third_party/protobuf/proto_library.gni")
 
 source_set("mdns") {
   sources = [
@@ -26,20 +27,85 @@ source_set("mdns") {
     "mdns/public/mdns_constants.h",
     "mdns/public/mdns_service.h",
   ]
+  deps = [
+    "../../platform",
+    "../../third_party/abseil",
+  ]
+  configs += [ "../../build:allow_build_from_embedder" ]
+}
+
+source_set("certificate") {
+  sources = [
+    "certificate/cast_cert_validator.cc",
+    "certificate/cast_cert_validator.h",
+    "certificate/cast_cert_validator_internal.cc",
+    "certificate/cast_cert_validator_internal.h",
+    "certificate/cast_crl.cc",
+    "certificate/cast_crl.h",
+    "certificate/types.cc",
+    "certificate/types.h",
+  ]
+  public_deps = [
+    "../../third_party/boringssl",
+  ]
 
   deps = [
+    ":certificate_proto",
     "../../platform",
     "../../third_party/abseil",
     "../../util",
   ]
+}
 
-  configs += [ "../../build:allow_build_from_embedder" ]
+proto_library("certificate_proto") {
+  sources = [
+    "certificate/proto/revocation.proto",
+  ]
+}
+
+source_set("channel") {
+  sources = [
+    "channel/cast_socket.cc",
+    "channel/cast_socket.h",
+    "channel/message_framer.cc",
+    "channel/message_framer.h",
+    "channel/message_util.h",
+  ]
+
+  deps = [
+    ":certificate_proto",
+    ":channel_proto",
+    "../../util",
+  ]
+
+  public_deps = [
+    "../../platform",
+    "../../third_party/abseil",
+  ]
+}
+
+proto_library("channel_proto") {
+  sources = [
+    "channel/proto/cast_channel.proto",
+  ]
+}
+
+proto_library("certificate_unittest_proto") {
+  testonly = true
+  sources = [
+    "certificate/proto/test_suite.proto",
+  ]
 }
 
 source_set("unittests") {
   testonly = true
-
   sources = [
+    "certificate/cast_cert_validator_unittest.cc",
+    "certificate/cast_crl_unittest.cc",
+    "certificate/test_helpers.cc",
+    "certificate/test_helpers.h",
+    "channel/cast_socket_unittest.cc",
+    "channel/message_framer_unittest.cc",
     "mdns/mdns_querier_unittest.cc",
     "mdns/mdns_random_unittest.cc",
     "mdns/mdns_reader_unittest.cc",
@@ -51,13 +117,14 @@ source_set("unittests") {
   ]
 
   deps = [
+    ":certificate",
+    ":certificate_unittest_proto",
+    ":channel",
     ":mdns",
     "../../platform",
-    "../../third_party/abseil",
+    "../../third_party/boringssl",
     "../../third_party/googletest:gmock",
     "../../third_party/googletest:gtest",
     "../../util",
   ]
-
-  configs += [ "../../build:allow_build_from_embedder" ]
 }
