@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "94995c2e_4922f646",
+        "filename": "discovery/dnssd/public/txt_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-05T18:22:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e57f7b5_891b69ac",
+      "range": {
+        "startLine": 106,
+        "startChar": 7,
+        "endLine": 106,
+        "endChar": 26
+      },
+      "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd73b7cd_fd4f77a0",
         "filename": "discovery/dnssd/public/txt_record.h",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2019-11-01T21:16:29Z",
       "side": 1,
       "message": "Please document this method.  I assume this is getting every distinct entry: both the key\u003dvalue  entries and the flag entries?\n\nThe values also don\u0027t have to contain character data.  There\u0027s a risk that the caller will assume it\u0027s valid UTF-8 or some other encoding.  What code is going to call this method?",
+      "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1f566e_191663fb",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-05T18:22:34Z",
+      "side": 1,
+      "message": "Documentation added\n\nUpdated to std::vector\u003cstd::vector\u003cuint8_t\u003e\u003e\n\nThe result of this call is being passed to TxtRecordRData::ctor (which requires a vector of string_views and internally stores the data as a vector\u003cstring\u003e). I originally went with std::vector\u003cstd::string\u003e over std::vector\u003cstd::vector\u003cuint8_t\u003e\u003e because this approach should require less processing (after adding a ctor taking std::vector\u003cstd::string\u003e\u0026, it requires parsing the vector once instead of 3 times). After thinking a bit more, I realized that for a small vector this should be minimal cost.",
+      "parentUuid": "bd73b7cd_fd4f77a0",
       "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
