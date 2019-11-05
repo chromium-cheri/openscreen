@@ -22,6 +22,30 @@
       "revId": "b4e354d57fc4e8d3ee092ec3fa966ee5e377bba0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "304277ca_096463ac",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T23:47:55Z",
+      "side": 1,
+      "message": "It\u0027s possible to split up the tests into multiple rules, but right now dnssd depends on mdns, so anyone using it will get both linked in.  And there\u0027s no mDNS public API for embedders to inject their own implementation.\n\nIf we decide to split the implementation up later, we can split the rules to match.",
+      "parentUuid": "eb39fece_01612307",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 35
+      },
+      "revId": "b4e354d57fc4e8d3ee092ec3fa966ee5e377bba0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
