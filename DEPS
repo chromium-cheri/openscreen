@@ -44,7 +44,7 @@ deps = {
     'third_party/protobuf/src': {
         'url': Var('chromium_git') +
             '/external/github.com/protocolbuffers/protobuf.git' +
-            '@' + '09745575a923640154bcf307fba8aedff47f240a', # version 3.8.0
+            '@' + '4668a3323fda98c2301336ddfa6ed15a299a9a98', # version 3.8.0
         'condition': 'not build_with_chromium',
     },
 
