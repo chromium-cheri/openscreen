@@ -141,6 +141,9 @@ size_t PtrRecordRdata::MaxWireSize() const {
   return sizeof(uint16_t) + ptr_domain_.MaxWireSize();
 }
 
+TxtRecordRdata::TxtRecordRdata(const std::vector<std::string>& texts)
+    : TxtRecordRdata(texts.begin(), texts.end()) {}
+
 TxtRecordRdata::TxtRecordRdata(const std::vector<absl::string_view>& texts)
     : TxtRecordRdata(texts.begin(), texts.end()) {}
 

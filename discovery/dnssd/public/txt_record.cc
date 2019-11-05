@@ -95,6 +95,21 @@ bool DnsSdTxtRecord::IsKeyValid(const std::string& key) const {
   return true;
 }
 
+std::vector<std::string> DnsSdTxtRecord::GetData() const {
+  std::vector<std::string> data;
+  for (const auto& pair : key_value_txt_) {
+    std::string value(reinterpret_cast<const char*>(pair.second.data()),
+                      pair.second.size());
+    data.push_back(pair.first + '=' + value);
+  }
+
+  for (const auto& boolean : boolean_txt_) {
+    data.push_back(boolean);
+  }
+
+  return data;
+}
+
 bool DnsSdTxtRecord::IsKeyValuePairValid(
     const std::string& key,
     const absl::Span<const uint8_t>& value) const {

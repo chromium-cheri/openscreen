@@ -53,6 +53,12 @@ class DnsSdInstanceRecord {
   // Returns the TXT record associated with this DNS-SD record
   const DnsSdTxtRecord& txt() const { return txt_; };
 
+  bool operator==(const DnsSdInstanceRecord& other) const;
+
+  inline bool operator!=(const DnsSdInstanceRecord& other) const {
+    return !(*this == other);
+  }
+
  private:
   DnsSdInstanceRecord(std::string instance_id,
                       std::string service_id,
