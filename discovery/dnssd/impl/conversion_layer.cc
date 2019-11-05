@@ -14,13 +14,116 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
-inline void AddServiceInfoToLabels(const ServiceKey& key,
-                                   std::vector<std::string>* labels) {
-  std::vector<std::string> service_labels = absl::StrSplit(key.service_id, '.');
+inline void AddServiceInfoToLabels(const std::string& service,
+                                   const std::string& domain,
+                                   std::vector<absl::string_view>* labels) {
+  std::vector<std::string> service_labels = absl::StrSplit(service, '.');
   labels->insert(labels->end(), service_labels.begin(), service_labels.end());
 
-  std::vector<std::string> domain_labels = absl::StrSplit(key.domain_id, '.');
+  std::vector<std::string> domain_labels = absl::StrSplit(domain, '.');
   labels->insert(labels->end(), domain_labels.begin(), domain_labels.end());
+}
+
+inline cast::mdns::DomainName GetPtrDomainName(const std::string& service,
+                                               const std::string& domain) {
+  std::vector<absl::string_view> labels;
+  AddServiceInfoToLabels(service, domain, &labels);
+  return cast::mdns::DomainName{labels};
+}
+
+inline cast::mdns::DomainName GetInstanceDomainName(const std::string& instance,
+                                                    const std::string& service,
+                                                    const std::string& domain) {
+  std::vector<absl::string_view> labels;
+  labels.emplace_back(instance);
+  AddServiceInfoToLabels(service, domain, &labels);
+  return cast::mdns::DomainName{labels};
+}
+
+inline cast::mdns::MdnsRecord CreatePtrRecord(
+    const DnsSdInstanceRecord& record) {
+  auto inner_domain = GetInstanceDomainName(
+      record.instance_id(), record.service_id(), record.domain_id());
+  cast::mdns::PtrRecordRdata data(inner_domain);
+
+  // TTL specified by RFC 6762 section 10.
+  constexpr std::chrono::seconds ttl(120);
+  auto domain = GetPtrDomainName(record.service_id(), record.domain_id());
+  return cast::mdns::MdnsRecord(domain, cast::mdns::DnsType::kPTR,
+                                cast::mdns::DnsClass::kIN,
+                                cast::mdns::RecordType::kShared, ttl, data);
+}
+
+inline cast::mdns::MdnsRecord CreateSrvRecord(
+    const DnsSdInstanceRecord& record) {
+  auto domain = GetInstanceDomainName(record.instance_id(), record.service_id(),
+                                      record.domain_id());
+  uint16_t port{0};
+  if (record.address_v4().has_value()) {
+    port = record.address_v4().value().port;
+  } else if (record.address_v6().has_value()) {
+    port = record.address_v6().value().port;
+  } else {
+    OSP_NOTREACHED();
+  }
+
+  // TTL specified by RFC 6762 section 10.
+  constexpr std::chrono::seconds ttl(120);
+  cast::mdns::SrvRecordRdata data(0, 0, port, domain);
+  return cast::mdns::MdnsRecord(domain, cast::mdns::DnsType::kSRV,
+                                cast::mdns::DnsClass::kIN,
+                                cast::mdns::RecordType::kUnique, ttl, data);
+}
+
+inline absl::optional<cast::mdns::MdnsRecord> CreateARecord(
+    const DnsSdInstanceRecord& record) {
+  if (!record.address_v4().has_value()) {
+    return absl::nullopt;
+  }
+
+  // TTL specified by RFC 6762 section 10.
+  constexpr std::chrono::seconds ttl(120);
+  cast::mdns::ARecordRdata data(record.address_v4().value().address);
+  auto domain = GetInstanceDomainName(record.instance_id(), record.service_id(),
+                                      record.domain_id());
+  return cast::mdns::MdnsRecord(domain, cast::mdns::DnsType::kA,
+                                cast::mdns::DnsClass::kIN,
+                                cast::mdns::RecordType::kUnique, ttl, data);
+}
+
+inline absl::optional<cast::mdns::MdnsRecord> CreateAAAARecord(
+    const DnsSdInstanceRecord& record) {
+  if (!record.address_v6().has_value()) {
+    return absl::nullopt;
+  }
+
+  // TTL specified by RFC 6762 section 10.
+  constexpr std::chrono::seconds ttl(120);
+  cast::mdns::AAAARecordRdata data(record.address_v6().value().address);
+  auto domain = GetInstanceDomainName(record.instance_id(), record.service_id(),
+                                      record.domain_id());
+  return cast::mdns::MdnsRecord(domain, cast::mdns::DnsType::kAAAA,
+                                cast::mdns::DnsClass::kIN,
+                                cast::mdns::RecordType::kUnique, ttl, data);
+}
+
+inline cast::mdns::MdnsRecord CreateTxtRecord(
+    const DnsSdInstanceRecord& record) {
+  std::vector<std::vector<uint8_t>> txt = record.txt().GetData();
+  std::vector<absl::string_view> txt_converted;
+  for (const std::vector<uint8_t>& record : txt) {
+    txt_converted.emplace_back(reinterpret_cast<const char*>(record.data()),
+                               record.size());
+  }
+  cast::mdns::TxtRecordRdata data(txt_converted);
+
+  // TTL specified by RFC 6762 section 10.
+  constexpr std::chrono::seconds ttl(75 * 60);
+  auto domain = GetInstanceDomainName(record.instance_id(), record.service_id(),
+                                      record.domain_id());
+  return cast::mdns::MdnsRecord(domain, cast::mdns::DnsType::kTXT,
+                                cast::mdns::DnsClass::kIN,
+                                cast::mdns::RecordType::kUnique, ttl, data);
 }
 
 }  // namespace
@@ -97,19 +200,14 @@ ServiceKey GetServiceKey(const InstanceKey& key) {
 }
 
 DnsQueryInfo GetInstanceQueryInfo(const InstanceKey& key) {
-  std::vector<std::string> labels;
-  labels.emplace_back(key.instance_id);
-
-  AddServiceInfoToLabels(GetServiceKey(key), &labels);
-  return {cast::mdns::DomainName{labels}, cast::mdns::DnsType::kANY,
-          cast::mdns::DnsClass::kANY};
+  auto domain =
+      GetInstanceDomainName(key.instance_id, key.service_id, key.domain_id);
+  return {domain, cast::mdns::DnsType::kANY, cast::mdns::DnsClass::kANY};
 }
 
 DnsQueryInfo GetPtrQueryInfo(const ServiceKey& key) {
-  std::vector<std::string> labels;
-  AddServiceInfoToLabels(key, &labels);
-  return {cast::mdns::DomainName{labels}, cast::mdns::DnsType::kPTR,
-          cast::mdns::DnsClass::kANY};
+  auto domain = GetPtrDomainName(key.service_id, key.domain_id);
+  return {domain, cast::mdns::DnsType::kPTR, cast::mdns::DnsClass::kANY};
 }
 
 ServiceKey GetServiceKey(absl::string_view service, absl::string_view domain) {
@@ -120,6 +218,25 @@ ServiceKey GetServiceKey(absl::string_view service, absl::string_view domain) {
 
 bool IsPtrRecord(const cast::mdns::MdnsRecord& record) {
   return record.dns_type() == cast::mdns::DnsType::kPTR;
+}
+
+std::vector<cast::mdns::MdnsRecord> GetDnsRecords(
+    const DnsSdInstanceRecord& record) {
+  std::vector<cast::mdns::MdnsRecord> records{CreatePtrRecord(record),
+                                              CreateSrvRecord(record),
+                                              CreateTxtRecord(record)};
+
+  auto v4 = CreateARecord(record);
+  if (v4.has_value()) {
+    records.push_back(std::move(v4.value()));
+  }
+
+  auto v6 = CreateAAAARecord(record);
+  if (v6.has_value()) {
+    records.push_back(std::move(v6.value()));
+  }
+
+  return records;
 }
 
 }  // namespace discovery
