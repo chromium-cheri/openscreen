@@ -13,6 +13,8 @@ source_set("channel") {
     "virtual_connection.h",
     "virtual_connection_manager.cc",
     "virtual_connection_manager.h",
+    "virtual_connection_router.cc",
+    "virtual_connection_router.h",
   ]
 
   public_deps = [
@@ -46,6 +48,7 @@ source_set("unittests") {
     "cast_socket_unittest.cc",
     "message_framer_unittest.cc",
     "virtual_connection_manager_unittest.cc",
+    "virtual_connection_router_unittest.cc",
   ]
 
   deps = [
