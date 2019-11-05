@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b93ca495_4bda745c",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-05T03:14:02Z",
+      "side": 1,
+      "message": "It\u0027s been tempting. I\u0027ve kept it mainly since it\u0027s a very compact usage example. I\u0027m hoping the API won\u0027t change again here, so this would be the last time I have to update it.",
+      "parentUuid": "d89e7cb3_8c486a5e",
+      "revId": "aca40971520a272b7ca9dd45555f657161004a0d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84d985f6_7968b037",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "cb890492_fde2f06e",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-05T03:14:02Z",
+      "side": 1,
+      "message": "The comments here do say that waiting for OnFramesReady() is the thing to do. The comments for Consumer::OnFramesReady() says it\u0027s valid to call AdvanceToNextFrame() if the embedder wants to consume more than one frame. So, it\u0027s not just internal impl.",
+      "parentUuid": "84d985f6_7968b037",
+      "revId": "aca40971520a272b7ca9dd45555f657161004a0d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5be7d964_40c66678",
         "filename": "streaming/cast/receiver.h",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "aca40971520a272b7ca9dd45555f657161004a0d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a95efb4_44562857",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-05T03:14:02Z",
+      "side": 1,
+      "message": "Done.\n\nAs for return type: There is no error case. If this method is called in a way other than described, DCHECKs will trigger.",
+      "parentUuid": "5be7d964_40c66678",
+      "revId": "aca40971520a272b7ca9dd45555f657161004a0d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
