@@ -46,6 +46,7 @@ source_set("platform") {
     "base/tls_credentials.cc",
     "base/tls_credentials.h",
     "base/tls_listen_options.h",
+    "base/weak_ptr.h",
   ]
 
   public_deps = [
@@ -176,6 +177,7 @@ source_set("unittests") {
     "base/location_unittest.cc",
     "base/serial_delete_ptr_unittest.cc",
     "base/tls_credentials_unittest.cc",
+    "base/weak_ptr_unittest.cc",
   ]
 
   # The unit tests in impl/ assume the standalone implementation is being used.
