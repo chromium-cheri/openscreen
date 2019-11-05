@@ -9,9 +9,10 @@ import("osp/build/config/services.gni")
 # source_sets).
 group("gn_all") {
   deps = [
+    "cast/common:certificate",
+    "cast/common:channel",
     "cast/common:mdns",
-    "cast/common/certificate",
-    "cast/sender/channel",
+    "cast/sender:channel",
     "discovery:dnssd",
     "osp",
     "osp/msgs",
@@ -50,9 +51,7 @@ executable("openscreen_unittests") {
   testonly = true
   deps = [
     "cast/common:unittests",
-    "cast/common/certificate:unittests",
-    "cast/common/channel:unittests",
-    "cast/sender/channel:unittests",
+    "cast/sender:unittests",
     "discovery:unittests",
     "osp:unittests",
     "osp/impl/discovery/mdns:unittests",
