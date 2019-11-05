@@ -18,6 +18,7 @@ config("protobuf_warnings") {
     "-Wno-enum-compare",
     "-Wno-unused-function",
     "-Wno-sign-compare",
+    "-Wno-deprecated-declarations",
   ]
 
   if (is_clang) {
