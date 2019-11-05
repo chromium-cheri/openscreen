@@ -31,6 +31,22 @@ static constexpr char kMediaNamespace[] = "urn:x-cast:com.google.cast.media";
 static constexpr char kPlatformSenderId[] = "sender-0";
 static constexpr char kPlatformReceiverId[] = "receiver-0";
 
+static constexpr char kBroadcastId[] = "*";
+
+// JSON message key strings.
+static constexpr char kKeyType[] = "type";
+static constexpr char kKeyConnType[] = "connType";
+static constexpr char kKeyUserAgent[] = "userAgent";
+static constexpr char kKeySenderInfo[] = "senderInfo";
+static constexpr char kKeyProtocolVersion[] = "protocolVersion";
+static constexpr char kKeyProtocolVersionList[] = "protocolVersionList";
+static constexpr char kKeyReasonCode[] = "reasonCode";
+
+// JSON message field values.
+static constexpr char kTypeConnect[] = "connect";
+static constexpr char kTypeClose[] = "close";
+static constexpr char kTypeConnected[] = "CONNECTED";
+
 inline bool IsAuthMessage(const CastMessage& message) {
   return message.namespace_() == kAuthNamespace;
 }

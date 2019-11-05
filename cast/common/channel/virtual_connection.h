@@ -41,6 +41,9 @@ struct VirtualConnection {
   // proto/cast_channel.proto.
   enum class ProtocolVersion {
     kV2_1_0,
+    kV2_1_1,
+    kV2_1_2,
+    kV2_1_3,
   };
 
   enum CloseReason {
