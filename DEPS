@@ -77,7 +77,7 @@ deps = {
 
     'third_party/boringssl/src': {
         'url' : Var('boringssl_git') + '/boringssl.git' +
-            '@' + '6410e18e9190b6b0c71955119fbf3cae1b9eedb7',
+            '@' + 'f0bdf5c9a10ba7172001aece1ed4908830eebea2',
         'condition': 'not build_with_chromium',
     },
 
