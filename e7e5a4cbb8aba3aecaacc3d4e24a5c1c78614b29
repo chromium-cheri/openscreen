@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dcd76eed_5d710b90",
+        "filename": "cast/common/channel/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-11-05T21:53:04Z",
+      "side": 1,
+      "message": "The public util/ dep is from a future change that just got copied over early.\n\nThe proto dep is only for directly using the CastMessage::ProtocolVersion enum, so I can duplicate just the enum in VirtualConnection to avoid that (+ static_asserts for value equality).  I can revert later if you\u0027d just prefer the public proto include to duplication (or have naming nits).",
+      "parentUuid": "15dc07dc_2eaf20e6",
+      "revId": "e7e5a4cbb8aba3aecaacc3d4e24a5c1c78614b29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "149bab8d_4ca6ebbe",
         "filename": "cast/common/channel/virtual_connection.h",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "e7e5a4cbb8aba3aecaacc3d4e24a5c1c78614b29",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3607f3db_b780ebc9",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-11-05T21:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "149bab8d_4ca6ebbe",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 13
+      },
+      "revId": "e7e5a4cbb8aba3aecaacc3d4e24a5c1c78614b29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "8b10e3ce_dacbe8a3",
+        "filename": "cast/common/channel/virtual_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-11-05T21:53:04Z",
+      "side": 1,
+      "message": "We shouldn\u0027t really depend on the ID format meaning anything specific; this is really just an FYI note (and in that sense maybe it has no value?).",
+      "parentUuid": "abee75e2_8e611ad3",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 22
+      },
+      "revId": "e7e5a4cbb8aba3aecaacc3d4e24a5c1c78614b29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53252ce5_55bcb174",
         "filename": "cast/common/channel/virtual_connection_manager.cc",
         "patchSetId": 3
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "2b943004_d189daa4",
+        "filename": "cast/common/channel/virtual_connection_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-11-05T21:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53252ce5_55bcb174",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 10
+      },
+      "revId": "e7e5a4cbb8aba3aecaacc3d4e24a5c1c78614b29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62de42ac_795be4f0",
         "filename": "cast/common/channel/virtual_connection_manager.h",
         "patchSetId": 3
@@ -108,6 +198,30 @@
       "revId": "e7e5a4cbb8aba3aecaacc3d4e24a5c1c78614b29",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb9cc53b_d8f52d6b",
+        "filename": "cast/common/channel/virtual_connection_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-11-05T21:53:04Z",
+      "side": 1,
+      "message": "Done but GetConnectionData.",
+      "parentUuid": "62de42ac_795be4f0",
+      "range": {
+        "startLine": 41,
+        "startChar": 59,
+        "endLine": 41,
+        "endChar": 72
+      },
+      "revId": "e7e5a4cbb8aba3aecaacc3d4e24a5c1c78614b29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
