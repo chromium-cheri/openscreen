@@ -81,6 +81,24 @@
       "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af3b33eb_6fda1923",
+        "filename": "discovery/dnssd/public/txt_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-05T20:05:33Z",
+      "side": 1,
+      "message": "I\u0027m still not sure this is the best API for this since the caller will have to figure out for each vector entry:\n\n1. If it\u0027s a boolean or key/value.\n2. If the latter, parsing the key and value.\n3. Validating that the key is actually ASCII.\n\nCan you explain more about the use case for this API?\n\nWould it be better to leave this method out until it can be reviewed with the calling code?",
+      "parentUuid": "8a1f566e_191663fb",
+      "revId": "1009fc1173943e27332d4473ecb60faf2d3eb4c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
