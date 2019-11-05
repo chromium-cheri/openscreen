@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d89e7cb3_8c486a5e",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-05T01:44:47Z",
+      "side": 1,
+      "message": "I\u0027d vote to delete all commented out code, since isn\u0027t this effectively in the rest of the demo anyway?",
+      "revId": "aca40971520a272b7ca9dd45555f657161004a0d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84d985f6_7968b037",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-05T01:44:47Z",
+      "side": 1,
+      "message": "Why wouldn\u0027t the embedder just wait for OnFramesReady? If this is only needed for internal implementation, can\u0027t we make it private or protected?",
+      "revId": "aca40971520a272b7ca9dd45555f657161004a0d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be7d964_40c66678",
+        "filename": "streaming/cast/receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-05T01:44:47Z",
+      "side": 1,
+      "message": "What is the state of EncodedFrame expected to be before being passed in? Just empty with a valid data buffer?\n\nI would vote for passing the buffer pointer and returning an EncodedFrame, instead. E.g.\n\n    ErrorOr\u003cEncodedFrame\u003e ConsumeNextFrame(void* buffer, int len);\n\nOr if Abseil is on the table:\n\n    ErrorOr\u003cEncodedFrame\u003e ConsumeNextFrame(absl::Span\u003cuint8_t\u003e buffer);",
+      "revId": "aca40971520a272b7ca9dd45555f657161004a0d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
