@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c579da9_bd31a0a6",
+        "filename": "platform/api/internal/logging_macros.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-06T22:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "348728d4_9bcf1dad",
+      "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05739b58_4485fa79",
         "filename": "platform/api/internal/logging_macros.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c56956_28df2e64",
+        "filename": "platform/api/internal/logging_macros.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-06T22:48:51Z",
+      "side": 1,
+      "message": "FWIW, this is all moved code (not new); but, totally agree with your points, and made it const char*.\n\n__FILE__ is a preprocessor macro that will expand to a C string literal. So, this:\n\n  std::cout \u003c\u003c __FILE__;\n\nbecomes:\n\n  std::cout \u003c\u003c \"my_file.cc\";\n\nThus, this should exist as const static data in the resulting binary (essentially, having const char* const type).",
+      "parentUuid": "05739b58_4485fa79",
+      "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f6178c6e_f3c66b2c",
+        "filename": "platform/api/internal/logging_macros.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-06T22:48:51Z",
+      "side": 1,
+      "message": "Here, it should be FATAL. The OSP_LOG_IF macro was declared to use OSP_LOG_##level (see L77), which will result in the use of the other macros, like OSP_LOG_WARN.\n\nWe can discuss changing it (and some of the other macros) for better consistency, but it would involve a search-and-replace over all files.\n\nWhat\u0027s cool about this whole change I\u0027m doing now is that now we can make such changes, if we want, without them affecting platform/api (and forcing embedder code changes). :)",
+      "parentUuid": "5a24a604_20bee44f",
+      "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c9337d3_eac40afd",
         "filename": "platform/api/internal/logging_macros.h",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4927a976_5a5d4368",
+        "filename": "platform/api/internal/logging_macros.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-06T22:48:51Z",
+      "side": 1,
+      "message": "Done.\n\nIt also occurred to me that: 1) UNIMPLEMENTED() isn\u0027t truly a bug or an error, but just indicates that some functionality is intentionally missing (a TODO). 2) It\u0027s pretty useless to spam the logs with these messages, for functions called at high frequency.\n\nThus, I\u0027ve added a little \"do once\" logic here: At verbose logging, log always. At warning level, just log once as an FYI.",
+      "parentUuid": "4c9337d3_eac40afd",
+      "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fff59fd2_19d65536",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-06T22:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea72d82f_35bc9a52",
+      "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f96e779_4477d0af",
         "filename": "platform/api/logging.h",
         "patchSetId": 1
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "71520113_d8b84628",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-06T22:48:51Z",
+      "side": 1,
+      "message": "Yes, that makes sense. I\u0027ve added a TODO comment here, and will do a follow-up change to move the file along with the repository-wide search-and-replace on the #include\u0027s.",
+      "parentUuid": "4f96e779_4477d0af",
+      "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a839cb7_c5f77053",
         "filename": "platform/impl/logging.h",
         "patchSetId": 1
@@ -118,6 +226,24 @@
       "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2dd65fe_85c45bcc",
+        "filename": "platform/impl/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-06T22:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a839cb7_c5f77053",
+      "revId": "9528ed089a52f20a66c557f23c9ef3fa43f34141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

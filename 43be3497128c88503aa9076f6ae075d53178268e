@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00992722_7729e1f0",
+        "filename": "platform/api/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-06T22:48:51Z",
+      "side": 1,
+      "message": "\u003e Might need to add [[noreturn]] in a separate patch.\n\nI took a look at how Chromium\u0027s base works, and made some changes here to reflect their approach:\n\n1. Updated the description to say that this either \"breaks into the debugger,\" or else aborts the current process.\n\n2. Removed the [[noreturn]] since this function *could* return during live debugging, if a developer continues the program on-purpose.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 13
+      },
+      "revId": "43be3497128c88503aa9076f6ae075d53178268e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
