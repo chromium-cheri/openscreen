@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdcb1d04_a4128bfa",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "s/cast::mdns::/g after the recent code move for mDNS",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eaa2066_4ebb905c",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "Consider having these functions return domain names by rvalue reference to force the callers to move and not copy.",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "184c9476_4c9fa9ff",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "I am not sure these methods need to be inline.  Inline functions increase the binary size, which our embedders are sensitive to.  Are they called in a performance-critical section of code?",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdc23abb_95cb0145",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "If we are allocating a vector here to store the labels, can you switch the DomainName ctor to take a vector by value so we can move labels into the ctor?",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ccb1003_b7080992",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "It seems like we are parsing the same strings multiple times.  Is there a way to structure the code so this parsing is done once?",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f8c0ea_6a2d39ff",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "Can you add a move constructor to DomainName so you can move them into the RData ctors?",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef76d78_34341509",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "Is |data| used in this function?",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "720d07cd_3b8ae681",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "std::move(domain)",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2897dee8_2adcb012",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "Can you add a GetPort() API to DnsSdInstanceRecord, so callers don\u0027t have to care about IP version?",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "182c7d81_afd723de",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "Perhaps GetData() should return an rvalue reference to the vector to ensure that we are not copying the contents; since it\u0027s just used to pass the txt contents to a different object.",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8487e9db_5d267af7",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "Please fix the TxtRecordRdata ctor to take a std::vector\u003cstd::vector\u003cuint8_t\u003e\u003e by value and move the result of GetData() into it.",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65f66812_ad0c96e1",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-06T21:55:09Z",
+      "side": 1,
+      "message": "std::move(domain)",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
