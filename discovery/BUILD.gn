@@ -3,6 +3,7 @@
 # found in the LICENSE file.
 
 import("//build_overrides/build.gni")
+import("//third_party/protobuf/proto_library.gni")
 
 source_set("mdns") {
   sources = [
@@ -26,13 +27,10 @@ source_set("mdns") {
     "mdns/public/mdns_constants.h",
     "mdns/public/mdns_service.h",
   ]
-
   deps = [
-    "../platform",
-    "../third_party/abseil",
-    "../util",
+    "../../platform",
+    "../../third_party/abseil",
   ]
-
   configs += [ "../../build:allow_build_from_embedder" ]
 }
 
@@ -67,7 +65,6 @@ source_set("dnssd") {
 
 source_set("unittests") {
   testonly = true
-
   sources = [
     "dnssd/impl/constants_unittest.cc",
     "dnssd/impl/conversion_layer_unittest.cc",
@@ -93,6 +90,4 @@ source_set("unittests") {
     "../third_party/googletest:gtest",
     "../util",
   ]
-
-  configs += [ "../../build:allow_build_from_embedder" ]
 }
