@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ef51928b_700f4ccd",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "It\u0027s not clear what the design intention was (from the platform API interface code/comments). Based on an existing code review (https://chromium-review.googlesource.com/c/chromium/src/+/1867446), and outstanding comments from me, I\u0027m assuming all Write()\u0027s succeed, but it\u0027s invalid to call it after OnWriteBlocked() (and before OnWriteUnblocked()).\n\nWe may have to revisit this, depending on how things go in the other CL. This change is blocked on the other one anyway (to not clash the DEPS rolls). Thus, I\u0027ll take another look here once the other CL commits.\n\nI\u0027m also concerned about the \"flow control\" in the current design of the API, which we should probably revisit:\n\n1. TlsConnection::Write() has a void return type and is non-blocking, so it *has* to succeed.\n\n2. The OnWriteBlocked() callback is made asynchronously (according to platform/api comments), so we might call TlsConnection::Write() multiple times during one task, not having any *synchronous* feedback that writes have become blocked at some point and data is being discarded.\n\n3. The API is inconsistent with established industry norms for stream writes. We should rectify this to make it easier for embedder developers to adapt to their code.",
+      "parentUuid": "cce9ae88_1a69c9fe",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c28a206c_ae4a2b2c",
         "filename": "platform/BUILD.gn",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7866de5_cf8c15d2",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "Good point. tl;dr: Moved to platform/impl/ instead.\n\nAt first, I did move it to util/. Then, I started working on your other comment about the thread-binding issue w.r.t. creates. Putting the two together, I\u0027m had to ask myself: Why is thread-aware code going in util/, when all of Open Screen is supposed to be single-threaded?\n\nI also chatted with Jordan a bit face-to-face, and we realized there actually isn\u0027t any need for this outside of the threaded networking code in platform/impl/. If we are to move this to util/, we can always do this later, after discussing team-wide the ramifications of \"blessing\" WeakPtrs for general usage.\n\nFWIW, we\u0027ve already successfully coded asynch callbacks throughout Open Screen without needing WeakPtrs so far. :)\n\nThus, I\u0027ve moved the weak pointer code to platform/impl/, to keep them isolated to just where they\u0027re used.",
+      "parentUuid": "c28a206c_ae4a2b2c",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8c1e0c39_c611da7e",
+        "filename": "platform/api/tls_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ba977d7_7d29bb53",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39e884ec_022ca8cb",
         "filename": "platform/base/weak_ptr.h",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a7bda12_e4b52df3",
+        "filename": "platform/base/weak_ptr.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39e884ec_022ca8cb",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "0d7d48fa_5b0928ac",
+        "filename": "platform/base/weak_ptr.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "I\u0027d prefer not to force future readers of this code to have to jump to another ctor definition when the ctor body is trivial.",
+      "parentUuid": "2d375f5e_f3d6e700",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 28
+      },
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c3d6ec0_0d100015",
         "filename": "platform/base/weak_ptr.h",
         "patchSetId": 2
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "8bab45ff_0b2f574f",
+        "filename": "platform/base/weak_ptr.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "There\u0027s an important difference. I found this helpful: https://isocpp.org/blog/2018/02/quick-q-whats-the-difference-between-stdmove-and-stdforward\n\nFWIW, the code also doesn\u0027t compile, when using std::forward.",
+      "parentUuid": "6c3d6ec0_0d100015",
+      "range": {
+        "startLine": 108,
+        "startChar": 14,
+        "endLine": 108,
+        "endChar": 23
+      },
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f67877d6_d6bc3b7e",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 2
@@ -130,6 +250,24 @@
       "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4639749c_3bffb3da",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "My understanding is that, from the client\u0027s perspective, |self| should be a valid pointer during the OnConnected() method call. I\u0027m not sure why TlsConnectionFactory* was included in the Client::OnConnected() API. Maybe it is meant to identify which TCFactory instance is calling int o the Client? But, why wouldn\u0027t the code that set the TCFactory\u0027s Client already know that; and, how many different instances of TCFactory are floating around in the program? I wasn\u0027t involved in the discussion here.\n\nBased on this, and other comments/replies, it sounds like we might want to revisit some of the API decisions...",
+      "parentUuid": "f67877d6_d6bc3b7e",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "776ed7de_b2c2b239",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "The old code attempted to use the raw |socket| pointer in the task, but it may have become invalid by the time that task was run and would call socket-\u003eAccept().\n\nI realized that the caller was holding a lock that would guarantee the socket remains alive (including its POSIX file descriptor) while calling Accept() here. I wasn\u0027t worried about which thread calls accept() because POSIX sockets are guaranteed by the standard to be thread-safe. That, and I don\u0027t think there\u0027s a race here, since accept() is all about \"instantiating\" a new socket that will live on its own, detached from the server socket that had spawned it.",
+      "parentUuid": "caca0211_6be4e358",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 3
+      },
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97abc12d_8375e338",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 2
@@ -170,6 +332,24 @@
       "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26c9ffa6_9bddf415",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "Good catch. I reviewed Chromium\u0027s WeakPtr again. I had it mostly correct: They are thread-safe when copying/moving around between threads. What I didn\u0027t realize is the *first* WeakPtr created by the factory binds it to the thread.\n\nSo, std::shared_ptr\u003c\u003e and std::weak_ptr\u003c\u003e are thread-safe in the way we\u0027re using them here (for their bookkeeping). It means that creating WeakPtrs *can* be created on any thread without any logic flaws, invalid pointer dereferencing, etc.\n\nGiven the convenience and safety (and since we\u0027re using these only in platform/impl/ code), I think it\u0027s reasonable to allow this deviation from Chromium\u0027s bind-when-create behavior. I\u0027ve updated the usage/top-level \"thread-safety\" comments in weak_ptr.h to discuss the behavior.",
+      "parentUuid": "97abc12d_8375e338",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -196,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "0eec65a7_73d10507",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "This comment was moved from the platform/api/tls_connection.h. I don\u0027t understand the context behind it, but I moved it to here because it seemed like an implementation detail.",
+      "parentUuid": "35ad11fe_1252d11a",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed0d88ee_d7383624",
         "filename": "platform/impl/tls_connection_posix.cc",
         "patchSetId": 2
@@ -216,6 +420,30 @@
       "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede3ec19_c7644c4f",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-07T02:54:08Z",
+      "side": 1,
+      "message": "\u003e These should be called on the TaskRunner thread (same pattern used above).\n\nThey are. Note the DCHECK on L138.\n\nThey also cannot be called in a separate task: If we do that, a client may call Write() multiple times, and never know that a socket has become blocked at some point. The TlsWriteBuffer will silently discard bytes at that point, but that\u0027s not acceptable because TLS connections are supposed to guarantee delivery of all bytes that are written.\n\n\u003e IMHO the code is more readable with these as separate functions than written inline...\n\nThe problem is that those functions were declared in the interface class. I could move them into this impl class, but when I did a very similar thing for UdpSocketPosix, the code review discussion evolved into, \"Keep it simple and call into the client directly since this is the only place method Client::XYZ() is being called..\"",
+      "parentUuid": "ed0d88ee_d7383624",
+      "range": {
+        "startLine": 143,
+        "startChar": 6,
+        "endLine": 143,
+        "endChar": 36
+      },
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
