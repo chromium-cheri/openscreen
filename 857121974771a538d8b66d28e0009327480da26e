@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2fbe055b_276668b2",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Done.\n\nMerged in master",
+      "parentUuid": "cdcb1d04_a4128bfa",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eaa2066_4ebb905c",
         "filename": "discovery/dnssd/impl/conversion_layer.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-11-06T21:55:09Z",
       "side": 1,
       "message": "Consider having these functions return domain names by rvalue reference to force the callers to move and not copy.",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cf66ff7_6fffcfd6",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "returning std::move(...) results in build error: \"moving a temporary object prevents copy elision\"",
+      "parentUuid": "2eaa2066_4ebb905c",
       "revId": "857121974771a538d8b66d28e0009327480da26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a79855c8_ad789684",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Done\n\nDidn\u0027t realize there was a large size hit from using inline\u0027d functions - though it makes sense after thinking a bit. Changed these to non-inline",
+      "parentUuid": "184c9476_4c9fa9ff",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdc23abb_95cb0145",
         "filename": "discovery/dnssd/impl/conversion_layer.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "857121974771a538d8b66d28e0009327480da26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55d6cd87_6f4e32de",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdc23abb_95cb0145",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "99ef801f_10ec46e3",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Good idea. I updated the code to use the same DomainName object for all Create*Record calls",
+      "parentUuid": "2ccb1003_b7080992",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16f8c0ea_6a2d39ff",
         "filename": "discovery/dnssd/impl/conversion_layer.cc",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "857121974771a538d8b66d28e0009327480da26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43d93754_ce306500",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16f8c0ea_6a2d39ff",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "b7b9ae9d_e12e4bc1",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "It\u0027s used in creating the MdnsRecord that\u0027s returned (last parameter)",
+      "parentUuid": "eef76d78_34341509",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "720d07cd_3b8ae681",
         "filename": "discovery/dnssd/impl/conversion_layer.cc",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "857121974771a538d8b66d28e0009327480da26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a3faa96_ff1309fa",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "720d07cd_3b8ae681",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "f7eb118a_fa8f85d3",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Done\n\nCalled it \u0027port()\u0027 for consistency with the rest of the InstanceRecord class",
+      "parentUuid": "2897dee8_2adcb012",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "182c7d81_afd723de",
         "filename": "discovery/dnssd/impl/conversion_layer.cc",
         "patchSetId": 2
@@ -166,6 +328,24 @@
       "writtenOn": "2019-11-06T21:55:09Z",
       "side": 1,
       "message": "Perhaps GetData() should return an rvalue reference to the vector to ensure that we are not copying the contents; since it\u0027s just used to pass the txt contents to a different object.",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f964df0_a9de2d5c",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "returning std::move(...) results in build error: \"moving a local object in a return statement prevents copy elision\"",
+      "parentUuid": "182c7d81_afd723de",
       "revId": "857121974771a538d8b66d28e0009327480da26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "0e01e055_47e91aef",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Done, though it makes the TxtRecordRData templated ctor a bit more complex. PTAL",
+      "parentUuid": "8487e9db_5d267af7",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65f66812_ad0c96e1",
         "filename": "discovery/dnssd/impl/conversion_layer.cc",
         "patchSetId": 2
@@ -203,6 +401,24 @@
       "revId": "857121974771a538d8b66d28e0009327480da26e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64ff35ae_c1afffa3",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T22:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65f66812_ad0c96e1",
+      "revId": "857121974771a538d8b66d28e0009327480da26e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
