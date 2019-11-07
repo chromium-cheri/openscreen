@@ -4,6 +4,8 @@
 
 #include "discovery/dnssd/impl/conversion_layer.h"
 
+#include <iostream>
+
 #include "absl/strings/str_join.h"
 #include "absl/strings/str_split.h"
 #include "discovery/dnssd/impl/constants.h"
@@ -75,7 +77,7 @@ ErrorOr<InstanceKey> GetInstanceKey(const MdnsRecord& record) {
   std::string service_name = *it++;
   std::string protocol = *it++;
   result.service_id = service_name.append(".").append(protocol);
-  result.domain_id = absl::StrJoin(it, record.name().labels().end(), ".");
+  result.domain_id = absl::StrJoin(it, names.labels().end(), ".");
   if (!IsInstanceValid(result.instance_id) ||
       !IsServiceValid(result.service_id) || !IsDomainValid(result.domain_id)) {
     return Error::Code::kParameterInvalid;
