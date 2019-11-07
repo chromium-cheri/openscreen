@@ -2,6 +2,176 @@
   "comments": [
     {
       "key": {
+        "uuid": "a5f47e52_940c44ea",
+        "filename": "cast/common/channel/cast_message_handler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "Is this a protocol message or a library-defined type?",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfd672c4_7ed4003e",
+        "filename": "cast/common/channel/cast_socket_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "In Chrome, I\u0027ve seen non-const references returned to objects when you\u0027ll never return a nullptr.\n\nIMO that slightly improves readability/maintainability because you don\u0027t have to worry about remembering -\u003e and *, especially for mocks.",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c030a55_277e61a8",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "absl::stringview namespace",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6389c5f_42239ff2",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "namespace.find_first_of(kTransportNamespacePrefix) \u003d\u003d 0",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32b51bbe_5fe22c6c",
+        "filename": "cast/common/channel/test/fake_cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "Interesting, is this the new MOCK_METHOD syntax that puts modifiers inside the macro call?\nIt looks like you don\u0027t have to use a different macro for the number of arguments either.\nNice.",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f21dda05_c56f2e75",
+        "filename": "cast/common/channel/test/fake_cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "I expected this to be a struct with two FakeCastSockets.  But it seems to be something else.",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88f5b4c5_0a47f5c5",
+        "filename": "cast/common/channel/test/fake_cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "It seems to me that the test case base class should own the fake clock and fake task runner, and pass them here to construct fake sockets.\n\nDoes it make sense for a test case to have more than one?",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a84b8eb6_714f6610",
+        "filename": "cast/common/channel/test/fake_cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "Is it important that these are identical to the ones in FakeCastSocket?\nCan they be moved to the top level as constexpr?",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "449b7148_0bc8a182",
+        "filename": "cast/common/channel/test/fake_cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "Is the unique_ptr buying anything? This looks like a normal struct member.  Similar comment for connection2.",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11447301_0cc15109",
+        "filename": "cast/common/channel/test/mock_cast_message_handler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-07T20:38:51Z",
+      "side": 1,
+      "message": "The wrapping/spacing of this looks little weird.",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "107ad0d3_0d79c064",
         "filename": "cast/common/channel/virtual_connection_router.cc",
         "patchSetId": 2
