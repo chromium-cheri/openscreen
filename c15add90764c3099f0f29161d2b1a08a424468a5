@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f50f4ae1_c2b6381d",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T23:17:59Z",
+      "side": 1,
+      "message": "inline?",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "517cc395_f8a36f2b",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T23:17:59Z",
+      "side": 1,
+      "message": "const ref? or comment on the using definition if this is an integer type",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 14
+      },
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb597306_cc13019d",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T23:17:59Z",
+      "side": 1,
+      "message": "Should this be an OSP_NOTREACHED or did you forget a case?",
+      "range": {
+        "startLine": 97,
+        "startChar": 3,
+        "endLine": 98,
+        "endChar": 3
+      },
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a1366b0_76091321",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-07T23:17:59Z",
+      "side": 1,
+      "message": "Due to the order they are defined in, isn\u0027t CloseReason::kUnknown \u003d\u003d 0 and CloseReason::kTransportClosed \u003d\u003d 1, so this is never true?\n\nThis seems less-readable and potentially error-prone without explicitly assigned values on the CloseReason enum (especially if we ever add new enum values).",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 66
+      },
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
