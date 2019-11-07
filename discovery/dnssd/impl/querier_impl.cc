@@ -4,6 +4,12 @@
 
 #include "discovery/dnssd/impl/querier_impl.h"
 
+#include <string>
+#include <vector>
+
+#include "absl/strings/string_view.h"
+#include "platform/api/logging.h"
+
 namespace openscreen {
 namespace discovery {
 
@@ -12,21 +18,202 @@ QuerierImpl::QuerierImpl(MdnsService* mdns_querier)
   OSP_DCHECK(mdns_querier_);
 }
 
+QuerierImpl::~QuerierImpl() = default;
+
 void QuerierImpl::StartQuery(const absl::string_view& service,
                              const absl::string_view& domain,
                              Callback* callback) {
-  // TODO(rwkeane): Implement this method.
+  OSP_DCHECK(IsServiceValid(service));
+  OSP_DCHECK(IsDomainValid(domain));
+  OSP_DCHECK(callback);
+
+  ServiceKey key = GetServiceKey(service, domain);
+  DnsQueryInfo query = GetPtrQueryInfo(key);
+  if (!IsQueryRunning(key)) {
+    callback_map_[key] = {};
+    StartDnsQuery(query);
+  } else {
+    std::vector<InstanceKey> keys = GetMatchingInstances(key);
+    for (const auto& key : keys) {
+      auto it = received_records_.find(key);
+      if (it == received_records_.end()) {
+        continue;
+      }
+
+      ErrorOr<DnsSdInstanceRecord> record = it->second.CreateRecord();
+      if (record.is_value()) {
+        callback->OnInstanceCreated(record.value());
+      }
+    }
+  }
+  callback_map_[key].push_back(callback);
 }
 
 void QuerierImpl::StopQuery(const absl::string_view& service,
                             const absl::string_view& domain,
                             Callback* callback) {
-  // TODO(rwkeane): Implement this method.
+  OSP_DCHECK(IsServiceValid(service));
+  OSP_DCHECK(IsDomainValid(domain));
+  OSP_DCHECK(callback);
+
+  ServiceKey key = GetServiceKey(service, domain);
+  DnsQueryInfo query = GetPtrQueryInfo(key);
+  auto callback_it = callback_map_.find(key);
+  if (callback_it == callback_map_.end()) {
+    return;
+  }
+  std::vector<Callback*>* callbacks = &callback_it->second;
+
+  auto it = std::find(callbacks->begin(), callbacks->end(), callback);
+  if (it != callbacks->end()) {
+    callbacks->erase(it);
+    if (callbacks->empty()) {
+      EraseKeyedRecords(key);
+      callback_map_.erase(callback_it);
+      StopDnsQuery(query);
+    }
+  }
 }
 
 void QuerierImpl::OnRecordChanged(const MdnsRecord& record,
                                   RecordChangedEvent event) {
-  // TODO(rwkeane): Implement this method.
+  // PTR records are special, because they represent new service insances found.
+  // Handle them separately from other records.
+  if (IsPtrRecord(record)) {
+    HandlePtrRecordChange(record, event);
+    return;
+  }
+
+  // Else process it as data related to a previously received PTR.
+  ErrorOr<ServiceKey> key_or_error = GetServiceKey(record);
+  if (key_or_error.is_error() || !IsQueryRunning(key_or_error.value())) {
+    // This means that either:
+    // - The call received had malformed data.
+    // - The call was already queued up on the TaskRunner when the callback was
+    //   removed. The caller no longer cares, so drop the record.
+    // In either case, there's no further work to do here.
+    return;
+  }
+  const ServiceKey& key = key_or_error.value();
+  const std::vector<Callback*>& callbacks = callback_map_[key];
+
+  // Get the current InstanceRecord data associated with the received record.
+  const ErrorOr<InstanceKey> id_or_error = GetInstanceKey(record);
+  if (id_or_error.is_error()) {
+    // This means that we received malformed data, so no further processing is
+    // needed.
+    return;
+  }
+  const InstanceKey& id = id_or_error.value();
+  ErrorOr<DnsSdInstanceRecord> old_instance_record = Error::Code::kItemNotFound;
+  auto it = received_records_.find(id);
+  if (it == received_records_.end()) {
+    it = received_records_.emplace(id, DnsData(id)).first;
+  } else {
+    old_instance_record = it->second.CreateRecord();
+  }
+  DnsData* data = &it->second;
+
+  // Apply the changes specified by the received event to the stored
+  // InstanceRecord.
+  Error apply_result = data->ApplyDataRecordChange(record, event);
+  if (!apply_result.ok()) {
+    OSP_LOG_ERROR << "Received erroneous record change. Error: "
+                  << apply_result;
+  }
+
+  // Send an update to the user, based on how the new and old records compare.
+  ErrorOr<DnsSdInstanceRecord> new_instance_record = data->CreateRecord();
+  if (!old_instance_record.is_value() && !new_instance_record.is_value()) {
+    return;
+  } else if (old_instance_record.is_value() &&
+             !new_instance_record.is_value()) {
+    for (Callback* callback : callbacks) {
+      callback->OnInstanceDeleted(old_instance_record.value());
+    }
+  } else if (!old_instance_record.is_value() &&
+             new_instance_record.is_value()) {
+    for (Callback* callback : callbacks) {
+      callback->OnInstanceCreated(new_instance_record.value());
+    }
+  } else {
+    for (Callback* callback : callbacks) {
+      callback->OnInstanceUpdated(new_instance_record.value());
+    }
+  }
+}
+
+Error QuerierImpl::HandlePtrRecordChange(const MdnsRecord& record,
+                                         RecordChangedEvent event) {
+  ErrorOr<InstanceKey> key_or_error = GetInstanceKey(record);
+  if (key_or_error.is_error()) {
+    // This means that the received record is malformed.
+    return key_or_error.error();
+  }
+
+  const InstanceKey& key = key_or_error.value();
+  DnsQueryInfo query = GetInstanceQueryInfo(key);
+  switch (event) {
+    case RecordChangedEvent::kCreated:
+      StartDnsQuery(query);
+      return Error::None();
+    case RecordChangedEvent::kDeleted:
+      StopDnsQuery(query);
+      EraseKeyedRecords(GetServiceKey(key));
+      return Error::None();
+    case RecordChangedEvent::kUpdated:
+      return Error::Code::kOperationInvalid;
+  }
+}
+
+void QuerierImpl::EraseKeyedRecords(const ServiceKey& key) {
+  std::vector<InstanceKey> keys = GetMatchingInstances(key);
+  auto it = callback_map_.find(key);
+  std::vector<Callback*> callbacks;
+  if (it != callback_map_.end()) {
+    callbacks = it->second;
+  }
+
+  for (const auto& key : keys) {
+    auto recieved_record = received_records_.find(key);
+    if (recieved_record == received_records_.end()) {
+      continue;
+    }
+
+    ErrorOr<DnsSdInstanceRecord> instance_record =
+        recieved_record->second.CreateRecord();
+    if (instance_record.is_value()) {
+      for (Callback* callback : callbacks) {
+        callback->OnInstanceDeleted(instance_record.value());
+      }
+    }
+
+    received_records_.erase(recieved_record);
+  }
+}
+
+std::vector<InstanceKey> QuerierImpl::GetMatchingInstances(
+    const ServiceKey& key) {
+  // Because only one or two PTR queries are expected at a time, expect >=1/2 of
+  // the records to be associated with a given PTR. They can't be removed in
+  // less than O(n) time, so just iterate across them all.
+  std::vector<InstanceKey> keys;
+  for (auto it = received_records_.begin(); it != received_records_.end();
+       it++) {
+    if (IsInstanceOf(key, it->first)) {
+      keys.push_back(it->first);
+    }
+  }
+
+  return keys;
+}
+
+void QuerierImpl::StartDnsQuery(const DnsQueryInfo& query) {
+  mdns_querier_->StartQuery(query.name, query.dns_type, query.dns_class, this);
+}
+
+void QuerierImpl::StopDnsQuery(const DnsQueryInfo& query) {
+  mdns_querier_->StopQuery(query.name, query.dns_type, query.dns_class, this);
 }
 
 }  // namespace discovery
