@@ -7,6 +7,8 @@
 #include "absl/strings/str_join.h"
 #include "absl/strings/str_split.h"
 #include "discovery/dnssd/impl/constants.h"
+#include "discovery/dnssd/impl/instance_key.h"
+#include "discovery/dnssd/impl/service_key.h"
 #include "discovery/dnssd/public/instance_record.h"
 #include "discovery/mdns/mdns_records.h"
 
@@ -135,56 +137,38 @@ ErrorOr<DnsSdTxtRecord> CreateFromDnsTxt(const TxtRecordRdata& txt_data) {
   return txt;
 }
 
-ErrorOr<InstanceKey> GetInstanceKey(const MdnsRecord& record) {
+DnsQueryInfo GetInstanceQueryInfo(const InstanceKey& key) {
+  auto domain = GetInstanceDomainName(key.instance_id(), key.service_id(),
+                                      key.domain_id());
+  return {std::move(domain), DnsType::kANY, DnsClass::kANY};
+}
+
+DnsQueryInfo GetPtrQueryInfo(const ServiceKey& key) {
+  auto domain = GetPtrDomainName(key.service_id(), key.domain_id());
+  return {std::move(domain), DnsType::kPTR, DnsClass::kANY};
+}
+
+bool HasValidDnsRecordAddress(const MdnsRecord& record) {
   const DomainName& names =
       !IsPtrRecord(record)
           ? record.name()
           : absl::get<PtrRecordRdata>(record.rdata()).ptr_domain();
   if (names.labels().size() < 4) {
-    return Error::Code::kParameterInvalid;
+    return false;
   }
 
   auto it = names.labels().begin();
-  InstanceKey result;
-  result.instance_id = *it++;
+  if (!IsInstanceValid(*it++)) {
+    return false;
+  }
+
   std::string service_name = *it++;
   std::string protocol = *it++;
-  result.service_id = service_name.append(".").append(protocol);
-  result.domain_id = absl::StrJoin(it, record.name().labels().end(), ".");
-  if (!IsInstanceValid(result.instance_id) ||
-      !IsServiceValid(result.service_id) || !IsDomainValid(result.domain_id)) {
-    return Error::Code::kParameterInvalid;
+  if (!IsServiceValid(service_name.append(".").append(protocol))) {
+    return false;
   }
-  return result;
-}
 
-ErrorOr<ServiceKey> GetServiceKey(const MdnsRecord& record) {
-  ErrorOr<InstanceKey> key_or_error = GetInstanceKey(record);
-  if (key_or_error.is_error()) {
-    return key_or_error.error();
-  }
-  return GetServiceKey(key_or_error.value());
-}
-
-ServiceKey GetServiceKey(const InstanceKey& key) {
-  return {key.service_id, key.domain_id};
-}
-
-DnsQueryInfo GetInstanceQueryInfo(const InstanceKey& key) {
-  auto domain =
-      GetInstanceDomainName(key.instance_id, key.service_id, key.domain_id);
-  return {std::move(domain), DnsType::kANY, DnsClass::kANY};
-}
-
-DnsQueryInfo GetPtrQueryInfo(const ServiceKey& key) {
-  auto domain = GetPtrDomainName(key.service_id, key.domain_id);
-  return {std::move(domain), DnsType::kPTR, DnsClass::kANY};
-}
-
-ServiceKey GetServiceKey(absl::string_view service, absl::string_view domain) {
-  OSP_DCHECK(IsServiceValid(service));
-  OSP_DCHECK(IsDomainValid(domain));
-  return {service.data(), domain.data()};
+  return IsDomainValid(absl::StrJoin(it, names.labels().end(), "."));
 }
 
 bool IsPtrRecord(const MdnsRecord& record) {
