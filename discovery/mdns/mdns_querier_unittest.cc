@@ -11,7 +11,7 @@
 #include "discovery/mdns/mdns_writer.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
-#include "platform/api/udp_packet.h"
+#include "platform/base/udp_packet.h"
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
 
