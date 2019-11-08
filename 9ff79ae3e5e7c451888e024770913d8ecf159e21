@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36b5a9a8_df32b487",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T18:37:23Z",
+      "side": 1,
+      "message": "std::move(outer_domain)",
+      "revId": "9ff79ae3e5e7c451888e024770913d8ecf159e21",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0384d8fa_341e3cc8",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T18:37:23Z",
+      "side": 1,
+      "message": "Can this be declared as a templatized file-level function in an anonymous namespace (versus binding it as a constructor param)?",
+      "revId": "9ff79ae3e5e7c451888e024770913d8ecf159e21",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50670a08_f09d1538",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T18:37:23Z",
+      "side": 1,
+      "message": "I don\u0027t totally get this API...\n\n1. There\u0027s a template constructor to take multiple iterator types, but also ctors that take containers with a fixed set of concrete types.\n2. The contents of TXT are uint8_t but they are stored as std::string\n\nMaybe this can be simplified in a future patch.  Feel free to assign an issue to me to look into it.",
+      "revId": "9ff79ae3e5e7c451888e024770913d8ecf159e21",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
