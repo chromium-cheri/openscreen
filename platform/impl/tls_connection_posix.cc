@@ -21,6 +21,7 @@
 #include "absl/types/optional.h"
 #include "absl/types/span.h"
 #include "platform/api/logging.h"
+#include "platform/api/task_runner.h"
 #include "platform/base/error.h"
 #include "platform/impl/stream_socket.h"
 #include "util/crypto/openssl_util.h"
@@ -32,10 +33,11 @@ namespace platform {
 TlsConnectionPosix::TlsConnectionPosix(IPEndpoint local_address,
                                        TaskRunner* task_runner,
                                        PlatformClientPosix* platform_client)
-    : TlsConnection(task_runner),
+    : task_runner_(task_runner),
+      platform_client_(platform_client),
       socket_(std::make_unique<StreamSocketPosix>(local_address)),
-      buffer_(this),
-      platform_client_(platform_client) {
+      buffer_(this) {
+  OSP_DCHECK(task_runner_);
   if (platform_client_) {
     platform_client_->tls_data_router()->RegisterConnection(this);
   }
@@ -44,10 +46,11 @@ TlsConnectionPosix::TlsConnectionPosix(IPEndpoint local_address,
 TlsConnectionPosix::TlsConnectionPosix(IPAddress::Version version,
                                        TaskRunner* task_runner,
                                        PlatformClientPosix* platform_client)
-    : TlsConnection(task_runner),
+    : task_runner_(task_runner),
+      platform_client_(platform_client),
       socket_(std::make_unique<StreamSocketPosix>(version)),
-      buffer_(this),
-      platform_client_(platform_client) {
+      buffer_(this) {
+  OSP_DCHECK(task_runner_);
   if (platform_client_) {
     platform_client_->tls_data_router()->RegisterConnection(this);
   }
@@ -56,10 +59,11 @@ TlsConnectionPosix::TlsConnectionPosix(IPAddress::Version version,
 TlsConnectionPosix::TlsConnectionPosix(std::unique_ptr<StreamSocket> socket,
                                        TaskRunner* task_runner,
                                        PlatformClientPosix* platform_client)
-    : TlsConnection(task_runner),
+    : task_runner_(task_runner),
+      platform_client_(platform_client),
       socket_(std::move(socket)),
-      buffer_(this),
-      platform_client_(platform_client) {
+      buffer_(this) {
+  OSP_DCHECK(task_runner_);
   if (platform_client_) {
     platform_client_->tls_data_router()->RegisterConnection(this);
   }
@@ -86,42 +90,68 @@ void TlsConnectionPosix::TryReceiveMessage() {
     if (bytes_read <= 0) {
       const Error error = GetSSLError(ssl_.get(), bytes_read);
       if (!error.ok() && (error != Error::Code::kAgain)) {
-        OnError(error);
+        DispatchError(error);
       }
       return;
     }
 
     block.resize(bytes_read);
-    OnRead(std::move(block));
+
+    task_runner_->PostTask([weak_this = weak_factory_.GetWeakPtr(),
+                            moved_block = std::move(block)]() mutable {
+      if (auto* self = weak_this.get()) {
+        if (auto* client = self->client_) {
+          client->OnRead(self, std::move(moved_block));
+        }
+      }
+    });
   }
 }
 
+void TlsConnectionPosix::SetClient(Client* client) {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  client_ = client;
+}
+
 void TlsConnectionPosix::Write(const void* data, size_t len) {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
   buffer_.Write(data, len);
 }
 
-IPEndpoint TlsConnectionPosix::local_address() const {
+IPEndpoint TlsConnectionPosix::GetLocalEndpoint() const {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
   absl::optional<IPEndpoint> endpoint = socket_->local_address();
   OSP_DCHECK(endpoint.has_value());
-  return std::move(endpoint.value());
+  return endpoint.value();
 }
 
-IPEndpoint TlsConnectionPosix::remote_address() const {
+IPEndpoint TlsConnectionPosix::GetRemoteEndpoint() const {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
   absl::optional<IPEndpoint> endpoint = socket_->remote_address();
   OSP_DCHECK(endpoint.has_value());
-  return std::move(endpoint.value());
+  return endpoint.value();
 }
 
 void TlsConnectionPosix::NotifyWriteBufferFill(double fraction) {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
   constexpr double kBlockBufferPercentage = 0.5;
   if (fraction > kBlockBufferPercentage && !is_buffer_blocked_) {
-    OnWriteBlocked();
+    if (client_) {
+      client_->OnWriteBlocked(this);
+    }
     is_buffer_blocked_ = true;
   } else if (fraction < kBlockBufferPercentage && is_buffer_blocked_) {
-    OnWriteUnblocked();
+    if (client_) {
+      client_->OnWriteUnblocked(this);
+    }
     is_buffer_blocked_ = false;
   } else if (fraction >= 0.99 && is_buffer_blocked_) {
-    OnError(Error::Code::kInsufficientBuffer);
+    if (client_) {
+      client_->OnError(this, Error::Code::kInsufficientBuffer);
+    }
   }
 }
 
@@ -136,11 +166,22 @@ void TlsConnectionPosix::SendAvailableBytes() {
   if (result <= 0) {
     const Error result_error = GetSSLError(ssl_.get(), result);
     if (!result_error.ok() && (result_error.code() != Error::Code::kAgain)) {
-      OnError(result_error);
+      DispatchError(result_error);
     }
   } else {
     buffer_.Consume(static_cast<size_t>(result));
   }
+}
+
+void TlsConnectionPosix::DispatchError(Error error) {
+  task_runner_->PostTask([weak_this = weak_factory_.GetWeakPtr(),
+                          moved_error = std::move(error)]() mutable {
+    if (auto* self = weak_this.get()) {
+      if (auto* client = self->client_) {
+        client->OnError(self, std::move(moved_error));
+      }
+    }
+  });
 }
 
 }  // namespace platform
