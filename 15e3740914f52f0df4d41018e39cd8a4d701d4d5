@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "a8e841aa_4e38ea18",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:51:31Z",
+      "side": 1,
+      "message": "I don\u0027t think of dependency injection as a way to insulate tests from bugs in dependencies, but rather a way to simplify the writing of tests so you can more easily generate specific behaviors that would be too hard to set up otherwise (by allowing the test to inject fakes/mocks).\n\nIt also can reduce nondeterminism and improve test speed especially when the dependency requires expensive system resources (memory/CPU/graphics/processes/servers).  That\u0027s not the case here as GetDnsRecords is just manipulating in-memory data structures.\n\nFor the cases you mention, I think those are arguments that GetDnsRecords needs better test coverage.\n\nTo put it another way: if I were introduce a bug in GetDnsRecords, I would expect multiple tests to break, including hopefully the tests for GetDnsRecords.\n\nI get your argument that focusing unit tests on small slices of code makes debugging test failures easier.  In big projects that\u0027s a real issue.  But practically speaking I usually don\u0027t have a problem figuring out the code path between a change I made and the test breakage.\n\nThe other thing, is that in a statically bound language like C++ dependency injection always has an impact on the API surface and the runtime performance: more types and declarations, more arguments, more vtables, and more complexity for the code maintainers.  So there\u0027s a cost/benefit tradeoff, and it looks like the test here could be written with out passing a fake to generate records.  Maybe I missed something?\n\nIn Javascript, who cares.  You can override any property at any time with zero impact on the production code.",
+      "parentUuid": "8d85fa9c_2797a666",
+      "revId": "15e3740914f52f0df4d41018e39cd8a4d701d4d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e475e443_b601523b",
         "filename": "discovery/dnssd/impl/publisher_impl.cc",
         "patchSetId": 4
