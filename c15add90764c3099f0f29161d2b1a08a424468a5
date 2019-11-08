@@ -25,6 +25,64 @@
     },
     {
       "key": {
+        "uuid": "cd22c226_6e229f90",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Can you use bool CastMessage_ProtocolVersion_IsValid(int value) from the generated code?",
+      "parentUuid": "f50f4ae1_c2b6381d",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9de2a55_119dd33b",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "IMO, this would be more natural as returning either absl::Optional\u003cint\u003e or ErrorOr\u003cint\u003e, instead of a bool and output argument.",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58cb716_2861825f",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "*max_version \u003d CastMessage_ProtocolVersion_CASTV2_1_0",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "517cc395_f8a36f2b",
         "filename": "cast/common/channel/connection_namespace_handler.cc",
         "patchSetId": 1
@@ -42,6 +100,74 @@
         "endLine": 32,
         "endChar": 14
       },
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "982e6671_f4a158ae",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "File-level aliases should go at the top of the file.",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbf81f6f_e5c046f2",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Is kKeyType the name of a JSON dictionary key?\nCan it be named something more descriptive - maybe kMessageTypeKey?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37ad8443_974c84e2",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Can you provide some thoughts on error reporting and handling?\n\nDropping bad messages won\u0027t really give us any indication something is wrong in the field, or protection against misbehaving or malicious endpoints.\n\nLet\u0027s consider the options and come back with later patches to implement the approach.",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dd66b4e_1e227104",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "- Does asString() return a copy of the contents?  Can it be a const ref, const char* or absl::string_view instead?\n\n- The code to extract a string value from a JSON dictionary is likely to be common in our codebase.  Consider factoring out a utility function to return a absl::optional\u003cabsl::string_view\u003e (or similar) given an JSON object and a key name.",
       "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -71,6 +197,125 @@
     },
     {
       "key": {
+        "uuid": "7c34824b_68661a99",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Utility function to return an optional int from an object and a key?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "974c5517_c59d0966",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "It might be helpful to factor out a function like GetConectionType(value) for readability.  It would help encapsulate all of the static_casting back and forth.",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da481cc3_8956ee6b",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Is sender_info_value used anywhere?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a0d3168_41ec2895",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "The code seems to imply that if the other side does not supply a version, then it defaults to 1.0.\n\nDoes \"has_version\" mean that version negotiation was successful?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "879e1626_13acd568",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "I would assume?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88064556_3bc5633d",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Is the response only required when version negotiation happened?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fa2787e_031a3bde",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Can this be encapsulated into GetCloseReason(value)?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a1366b0_76091321",
         "filename": "cast/common/channel/connection_namespace_handler.cc",
         "patchSetId": 1
@@ -88,6 +333,278 @@
         "endLine": 185,
         "endChar": 66
       },
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8c708d4_3d871e18",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "If the other side may support a higher protocol version, but we are always sending 1.0?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2870e49b_0a8a349e",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Is max_protocol_version already part of vconn.data?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7706abc1_527507e9",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Please encapsulate message construction into a utility function.",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "010bffa0_4c7a67b3",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Can this be const?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66518c9e_00d71baf",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Please document lifetime assumptions about passed-in pointers.  It looks like they are assumed to outlive this class.",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb68bf06_e803d1fc",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Forward declare or #include VirtualConnectionRouter?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3377df1c_c6a259fe",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Is |value| parsed from |message|?\n\nSo the message still owns the original string, which has been parsed and moved into |value|?\n\nIs the idea that the handler will take ownership and destroy both of them when it exits?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e8e9dbb_480eae95",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Can you name |value| something more meaningful?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bcd11c1_55eee212",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e4710ea_b700f0cc",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "It\u0027s a little odd to have some methods take a VirtualConnection by rvalue reference and others by const reference.  Is the idea that SendClose() is going to destroy it?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d483df2_6d6e25a0",
+        "filename": "cast/common/channel/connection_namespace_handler_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "This could almost be moved verbatim into the implementation :-)",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4b8fe9f_c7fe6bf4",
+        "filename": "cast/common/channel/connection_namespace_handler_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "This only differs from MakeConnectMessage by one string in the message payload.",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb837e0_b1e68da9",
+        "filename": "cast/common/channel/connection_namespace_handler_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "There is some duplication in the expectations in ExpectXXXMessage.\n\nCan basic validation and extraction of the content be factored out, leaving expectations that are specific to each message type?",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d4c1b4_3fa7485e",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "kKeyMessageType",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82832e7f_ce8c8d41",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "IIRC these are all upper case in the original spec.",
+      "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66af5961_792c4233",
+        "filename": "cast/common/channel/namespace_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T23:29:12Z",
+      "side": 1,
+      "message": "namespace",
       "revId": "c15add90764c3099f0f29161d2b1a08a424468a5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
