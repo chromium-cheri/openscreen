@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5636eb83_11e4e055",
+        "filename": "streaming/cast/receiver_demo/avcodec_glue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "I am not sure that the code deduplication from using a macro here is worth it, and it probably is not in the spirit of the style guide.\n\n    Don\u0027t define macros in a .h file.\n    #define macros right before you use them, and #undef them right after.\n    Do not just #undef an existing macro before replacing it with your own; instead, pick a name \n    that\u0027s likely to be unique.\n    Try not to use macros that expand to unbalanced C++ constructs, or at least document that \n    behavior well.\n    Prefer not using ## to generate function/class/variable names.\n\nhttps://google.github.io/styleguide/cppguide.html#Preprocessor_Macros\n\nWe should at least undef it at the end of this header.",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a888faec_f3781ac3",
+        "filename": "streaming/cast/receiver_demo/decoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Why do we need to zero out the buffer?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e76b94_7becbe38",
+        "filename": "streaming/cast/receiver_demo/decoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Detect and InitFromFirstBuffer look like they could be at least partially combined?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a31ae06f_f5a5b0e2",
+        "filename": "streaming/cast/receiver_demo/dummy_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e034008c_995c652b",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "How does Environment compare to PlatformClient?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53272c8b_bf43b9da",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Is this a note or TODO?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "906c1327_7d6d0503",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Document magic string please",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f8b817a_d3e539e8",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "I\u0027m assuming fatal error is completely unrecoverable?\n\nIf we aren\u0027t DCHECKing here, I\u0027m wondering if we should also return ErrorOr\u003cClock::time_point\u003e, since we are in an indeterminate state?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6696def1_466c1c62",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Consider a std::array kSdlSupportedNumChannels and std::find over magic numbers.",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "447be9dd_a1edf809",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Considering breaking up into separate function.",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc468b75_7b5d520c",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "should we divide or multiply first, or does it matter for this use case?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98a63ea7_595c46df",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Consider breaking up into separate function. I usually find that if I put a comment above a code grouping to explain what it does, it\u0027s an independent function.",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4be91665_476e7a85",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "constexpr int kSdlResumePlaybackCommand \u003d 0;\n\n?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ab67ab3_af3ae443",
+        "filename": "streaming/cast/receiver_demo/sdl_player_base.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Nit: consider explicit type since now_() type is not obvious",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f55d673_a4e51873",
+        "filename": "streaming/cast/receiver_demo/sdl_video_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Nit: You can unnest this if check?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19be4b92_f95b7bd6",
+        "filename": "streaming/cast/receiver_demo/sdl_video_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Consider an int[] array for the red and blue colors here.\n\nE.g.\n\nstd::array\u003cint, 4\u003e kRedSplashColor {128, 0, 0, 255};\n\nSDL_SetRenderDrawColor(renderer_, kRedSplashColor[0],....kRedSplashColor[3])",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2a6c8c_65cc0a73",
+        "filename": "streaming/cast/receiver_demo/sdl_video_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-08T20:06:00Z",
+      "side": 1,
+      "message": "Do we not care about matching x, y on dst_rect?",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
