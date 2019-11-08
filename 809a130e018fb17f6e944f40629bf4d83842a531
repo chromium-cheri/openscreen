@@ -372,6 +372,30 @@
     },
     {
       "key": {
+        "uuid": "3e393881_d5c9ed38",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-08T00:20:10Z",
+      "side": 1,
+      "message": "The reason for the extra level of indirection was to ensure that the the socket was created on the TaskRunner thread to avoid the data races mentioned in the header file - we don\u0027t currently support blocking the TaskRunner, and adding that method to the TaskRunner would complicate the public API\n\nCould we create a new WeakPtrFactory in the StreamSocket and pass that instead of the raw pointer? That way, we avoid the bug called out in the header without any added complexity",
+      "parentUuid": "776ed7de_b2c2b239",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 3
+      },
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97abc12d_8375e338",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 2
@@ -516,6 +540,30 @@
       "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f744cd32_78a9fdb8",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-08T00:20:10Z",
+      "side": 1,
+      "message": "\u003e They also cannot be called in a separate task: If we do that, a client may call Write() multiple times, and never know that a socket has become blocked at some point. The TlsWriteBuffer will silently discard bytes at that point, but that\u0027s not acceptable because TLS connections are supposed to guarantee delivery of all bytes that are written.\n\nActually, that\u0027s not true\n\nOnWriteBlocked(...) gets signaled when we hit about 1/2 buffer capacity to solve exactly this problem. We keep queueing up bytes until we hit 100% capacity, at which point we signal OnError(...) which is a fatal error for the TLS connection, and the connection is killed off. Bytes are never discarded. As long as the caller hasn\u0027t queued up 1/2 MB of data in the TaskRunner after we signal OnWriteBlocked (which should never happen over our TLS channel), this error case shouldn\u0027t ever happen - especially since the TLS Write data is pulled out in what-is-essentially-a-hot-loop on the networking thread\n\nBy design, NotifyWriteBufferFill(...) must be callable from any thread. In TlsDataWriteBuffer, this method is called both from Write (TaskRunner Thread) and Consume (Networking thread) - this was our Lockless FIFO :) So the OSP_CHECK approach doesn\u0027t work",
+      "parentUuid": "ede3ec19_c7644c4f",
+      "range": {
+        "startLine": 143,
+        "startChar": 6,
+        "endLine": 143,
+        "endChar": 36
+      },
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
