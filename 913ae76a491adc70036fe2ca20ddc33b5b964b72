@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7876c02b_4115abbe",
+        "filename": "platform/impl/weak_ptr.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T00:13:35Z",
+      "side": 1,
+      "message": "I don\u0027t think this paragraph is entirely consistent with the threading guarantees for std::weak_ptr.  It\u0027s safe to access a weak_ptr from two different threads, you just can\u0027t mutate mutate the returned shared_ptr\u003c\u003e from multiple threads without locking.\n\nhttps://en.cppreference.com/w/cpp/memory/shared_ptr\n\nhttps://en.cppreference.com/w/cpp/memory/weak_ptr/lock\n\nIt may be simpler to just note that this class follows the threading rules for std::weak_ptr?\n(const methods are threadsafe, non-const methods including destructor/InvalidateWeakPtrs are not)",
+      "revId": "913ae76a491adc70036fe2ca20ddc33b5b964b72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

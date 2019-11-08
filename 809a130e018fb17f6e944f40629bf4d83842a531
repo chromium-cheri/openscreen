@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "38b60434_715474d7",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T00:13:35Z",
+      "side": 1,
+      "message": "My question was more specifically around if the loop at L78 exits because of a change to state_, should we include the last message attempted in the range of messages that are erased from message_queue_.\n\nMy reading is because of the post-increment, the current code will drop the message.  So we could increment after a write only if the state remains kOpen.",
+      "parentUuid": "ef51928b_700f4ccd",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c28a206c_ae4a2b2c",
         "filename": "platform/BUILD.gn",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Good point. tl;dr: Moved to platform/impl/ instead.\n\nAt first, I did move it to util/. Then, I started working on your other comment about the thread-binding issue w.r.t. creates. Putting the two together, I\u0027m had to ask myself: Why is thread-aware code going in util/, when all of Open Screen is supposed to be single-threaded?\n\nI also chatted with Jordan a bit face-to-face, and we realized there actually isn\u0027t any need for this outside of the threaded networking code in platform/impl/. If we are to move this to util/, we can always do this later, after discussing team-wide the ramifications of \"blessing\" WeakPtrs for general usage.\n\nFWIW, we\u0027ve already successfully coded asynch callbacks throughout Open Screen without needing WeakPtrs so far. :)\n\nThus, I\u0027ve moved the weak pointer code to platform/impl/, to keep them isolated to just where they\u0027re used.",
       "parentUuid": "c28a206c_ae4a2b2c",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0598a45_7515d82b",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T00:13:35Z",
+      "side": 1,
+      "message": "That sounds good to me.  If we end up using it elsewhere, it should be simple to move it to util/.",
+      "parentUuid": "c7866de5_cf8c15d2",
       "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -271,6 +307,24 @@
     },
     {
       "key": {
+        "uuid": "1a743dfc_36a057c4",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T00:13:35Z",
+      "side": 1,
+      "message": "Ok, it would be safer not to pass self as all, as if OnConnected decides to delete it then Bad Things will happen.  Let\u0027s see if we can reduce the amount of |this|-passing and replace the necessary uses with safer patterns (shared_ or weak_ ptrs).",
+      "parentUuid": "4639749c_3bffb3da",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "caca0211_6be4e358",
         "filename": "platform/impl/tls_connection_factory_posix.cc",
         "patchSetId": 2
@@ -347,6 +401,24 @@
       "side": 1,
       "message": "Good catch. I reviewed Chromium\u0027s WeakPtr again. I had it mostly correct: They are thread-safe when copying/moving around between threads. What I didn\u0027t realize is the *first* WeakPtr created by the factory binds it to the thread.\n\nSo, std::shared_ptr\u003c\u003e and std::weak_ptr\u003c\u003e are thread-safe in the way we\u0027re using them here (for their bookkeeping). It means that creating WeakPtrs *can* be created on any thread without any logic flaws, invalid pointer dereferencing, etc.\n\nGiven the convenience and safety (and since we\u0027re using these only in platform/impl/ code), I think it\u0027s reasonable to allow this deviation from Chromium\u0027s bind-when-create behavior. I\u0027ve updated the usage/top-level \"thread-safety\" comments in weak_ptr.h to discuss the behavior.",
       "parentUuid": "97abc12d_8375e338",
+      "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70b9a23a_45292216",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-08T00:13:35Z",
+      "side": 1,
+      "message": "Sounds good, see the comments I left there.",
+      "parentUuid": "26c9ffa6_9bddf415",
       "revId": "809a130e018fb17f6e944f40629bf4d83842a531",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
