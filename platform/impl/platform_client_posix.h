@@ -9,8 +9,8 @@
 #include <mutex>
 #include <thread>
 
-#include "platform/api/platform_client.h"
 #include "platform/api/time.h"
+#include "platform/base/macros.h"
 #include "platform/impl/socket_handle_waiter_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/tls_data_router_posix.h"
@@ -21,9 +21,14 @@ namespace platform {
 
 class UdpSocketReaderPosix;
 
-class PlatformClientPosix : public PlatformClient {
+// A PlatformClientPosix is an access point for all singletons in a standalone
+// application. The static SetInstance method is to be called before library use
+// begins, and the ShutDown() method should be called to deallocate the platform
+// library's global singletons (for example to save memory when libcast is not
+// in use).
+class PlatformClientPosix {
  public:
-  ~PlatformClientPosix() override;
+  ~PlatformClientPosix();
 
   // This method is expected to be called before the library is used.
   // The networking_loop_interval parameter here represents the minimum amount
@@ -37,15 +42,15 @@ class PlatformClientPosix : public PlatformClient {
   static void Create(Clock::duration networking_operation_timeout,
                      Clock::duration networking_loop_interval);
 
-  // Shuts down the PlatformClient instance currently stored as a singleton.
-  // This method is expected to be called before program exit.
+  // Shuts down and deletes the PlatformClient instance currently stored as a
+  // singleton. This method is expected to be called before program exit. After
+  // calling this method, if the client wishes to continue using the platform
+  // library, a new singleton must be created.
   // NOTE: This method is NOT thread safe and should only be called from the
   // embedder thread.
   static void ShutDown();
 
-  inline static PlatformClientPosix* GetInstance() {
-    return static_cast<PlatformClientPosix*>(PlatformClient::GetInstance());
-  }
+  static PlatformClientPosix* GetInstance() { return instance_; }
 
   // This method is thread-safe.
   TlsDataRouterPosix* tls_data_router();
@@ -53,8 +58,9 @@ class PlatformClientPosix : public PlatformClient {
   // This method is thread-safe.
   UdpSocketReaderPosix* udp_socket_reader();
 
-  // PlatformClient overrides.
-  TaskRunner* GetTaskRunner() override;
+  // Returns the TaskRunner associated with this PlatformClient.
+  // NOTE: This method is expected to be thread safe.
+  TaskRunner* GetTaskRunner() { return &task_runner_; }
 
  private:
   PlatformClientPosix(Clock::duration networking_operation_timeout,
@@ -90,6 +96,10 @@ class PlatformClientPosix : public PlatformClient {
   std::unique_ptr<SocketHandleWaiterPosix> waiter_;
   std::unique_ptr<UdpSocketReaderPosix> udp_socket_reader_;
   std::unique_ptr<TlsDataRouterPosix> tls_data_router_;
+
+  static PlatformClientPosix* instance_;
+
+  OSP_DISALLOW_COPY_AND_ASSIGN(PlatformClientPosix);
 };
 
 }  // namespace platform

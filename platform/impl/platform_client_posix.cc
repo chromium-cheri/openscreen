@@ -11,6 +11,9 @@
 namespace openscreen {
 namespace platform {
 
+// static
+PlatformClientPosix* PlatformClientPosix::instance_ = nullptr;
+
 PlatformClientPosix::PlatformClientPosix(
     Clock::duration networking_operation_timeout,
     Clock::duration networking_loop_interval)
@@ -27,18 +30,23 @@ PlatformClientPosix::~PlatformClientPosix() {
   task_runner_.RequestStopSoon();
   networking_loop_thread_.join();
   task_runner_thread_.join();
+
+  OSP_DCHECK(!instance_ || instance_ == this);
 }
 
 // static
 void PlatformClientPosix::Create(Clock::duration networking_operation_timeout,
                                  Clock::duration networking_loop_interval) {
-  PlatformClient::SetInstance(new PlatformClientPosix(
-      networking_operation_timeout, networking_loop_interval));
+  OSP_DCHECK(!instance_);
+  instance_ = new PlatformClientPosix(networking_operation_timeout,
+                                      networking_loop_interval);
 }
 
 // static
 void PlatformClientPosix::ShutDown() {
-  PlatformClient::ShutDown();
+  OSP_DCHECK(instance_);
+  delete instance_;
+  instance_ = nullptr;
 }
 
 UdpSocketReaderPosix* PlatformClientPosix::udp_socket_reader() {
@@ -64,10 +72,6 @@ SocketHandleWaiterPosix* PlatformClientPosix::socket_handle_waiter() {
     waiter_created_.store(true);
   });
   return waiter_.get();
-}
-
-TaskRunner* PlatformClientPosix::GetTaskRunner() {
-  return &task_runner_;
 }
 
 void PlatformClientPosix::PerformSocketHandleWaiterActions(
