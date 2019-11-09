@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b3d9428_288e6661",
+        "filename": "discovery/dnssd/impl/constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-09T00:47:37Z",
+      "side": 1,
+      "message": "I considered moving this to a class, but the 2 methods we use to create them are in conversion_layer.cc:\nDnsQueryInfo GetInstanceQueryInfo(const InstanceKey\u0026 key);\nDnsQueryInfo GetPtrQueryInfo(const ServiceKey\u0026 key);\n\nNeither of these really makes sense (at least IMHO) as a ctor, so there didn\u0027t seem to be any benefit to making it a class. They could work as static factory methods, but that\u0027s really no different from the current approach\n\nWhat do you think? If you prefer that approach, I can create another follow-up CL (after this one) to accomplish that change",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 2
+      },
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c124da24_921e51ba",
+        "filename": "discovery/dnssd/testing/fake_dns_record_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-09T00:47:37Z",
+      "side": 1,
+      "message": "This is all now needed in multiple files instead of just conversion_layer_unittest, so I thought it would work better as a utility class rather than duplicating the logic",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
