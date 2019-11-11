@@ -25,6 +25,86 @@
     },
     {
       "key": {
+        "uuid": "4b65eb1e_1896c128",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-11-11T22:05:00Z",
+      "side": 1,
+      "message": "It looks like most of this function is duplicated in the ctors of InstanceKey and ServiceKey. Maybe we can factor the common parts into a helper function that takes a MdnsRecord and returns a struct containing instance ID, service ID, and domain ID, each of which is a std::optional\u003cstd::string\u003e that\u0027s only filled if the field was valid.",
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59768575_018c718c",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-11-11T22:05:00Z",
+      "side": 1,
+      "message": "Nit: I think this would be easier to read without the !, and the two expressions flipped.",
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61fd053a_f4e3d95f",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-11-11T22:05:00Z",
+      "side": 1,
+      "message": "Nit: These could be combined into one return statement.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27c5dbe1_39833028",
+        "filename": "discovery/dnssd/impl/service_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-11-11T22:05:00Z",
+      "side": 1,
+      "message": "In Chromium, we\u0027re generally discouraged from using std::unordered_map because of its memory overhead. Something to consider, if we haven\u0027t already:\nhttps://cs.chromium.org/chromium/src/base/containers/README.md?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d32",
+      "range": {
+        "startLine": 19,
+        "startChar": 53,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c124da24_921e51ba",
         "filename": "discovery/dnssd/testing/fake_dns_record_factory.h",
         "patchSetId": 2
