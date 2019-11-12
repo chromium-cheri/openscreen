@@ -8,12 +8,13 @@
 #include <stdint.h>
 
 #include <array>
-#include <chrono>
+#include <chrono>  // NOLINT
 #include <memory>
 #include <vector>
 
 #include "absl/types/optional.h"
 #include "absl/types/span.h"
+#include "cast/streaming/receiver_config.h"
 #include "platform/api/time.h"
 #include "streaming/cast/clock_drift_smoother.h"
 #include "streaming/cast/compound_rtcp_builder.h"
@@ -117,18 +118,13 @@ class Receiver {
   };
 
   // Constructs a Receiver that attaches to the given |environment| and
-  // |packet_router|. The remaining arguments provide the configuration that was
+  // |packet_router|. The config contains the settings that were
   // agreed-upon by both sides from the OFFER/ANSWER exchange (i.e., the part of
   // the overall end-to-end connection process that occurs before Cast Streaming
   // is started).
   Receiver(Environment* environment,
            ReceiverPacketRouter* packet_router,
-           Ssrc sender_ssrc,
-           Ssrc receiver_ssrc,
-           int rtp_timebase,
-           std::chrono::milliseconds initial_target_playout_delay,
-           const std::array<uint8_t, 16>& aes_key,
-           const std::array<uint8_t, 16>& cast_iv_mask);
+           const cast::streaming::ReceiverConfig& config);
 
   ~Receiver();
 

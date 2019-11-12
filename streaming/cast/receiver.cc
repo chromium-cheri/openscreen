@@ -33,21 +33,16 @@ namespace cast_streaming {
 
 Receiver::Receiver(Environment* environment,
                    ReceiverPacketRouter* packet_router,
-                   Ssrc sender_ssrc,
-                   Ssrc receiver_ssrc,
-                   int rtp_timebase,
-                   milliseconds initial_target_playout_delay,
-                   const std::array<uint8_t, 16>& aes_key,
-                   const std::array<uint8_t, 16>& cast_iv_mask)
+                   const cast::streaming::ReceiverConfig& config)
     : now_(environment->now_function()),
       packet_router_(packet_router),
-      rtcp_session_(sender_ssrc, receiver_ssrc, now_()),
+      rtcp_session_(config.sender_ssrc, config.receiver_ssrc, now_()),
       rtcp_parser_(&rtcp_session_),
       rtcp_builder_(&rtcp_session_),
-      stats_tracker_(rtp_timebase),
-      rtp_parser_(sender_ssrc),
-      rtp_timebase_(rtp_timebase),
-      crypto_(aes_key, cast_iv_mask),
+      stats_tracker_(config.rtp_timebase),
+      rtp_parser_(config.sender_ssrc),
+      rtp_timebase_(config.rtp_timebase),
+      crypto_(config.aes_secret_key, config.aes_iv_mask),
       rtcp_buffer_capacity_(environment->GetMaxPacketSize()),
       rtcp_buffer_(new uint8_t[rtcp_buffer_capacity_]),
       rtcp_alarm_(environment->now_function(), environment->task_runner()),
@@ -59,9 +54,10 @@ Receiver::Receiver(Environment* environment,
   OSP_CHECK_GT(rtcp_buffer_capacity_, 0);
   OSP_CHECK(rtcp_buffer_);
 
-  rtcp_builder_.SetPlayoutDelay(initial_target_playout_delay);
+  rtcp_builder_.SetPlayoutDelay(
+      duration_cast<milliseconds>(config.target_playout_delay));
   playout_delay_changes_.emplace_back(FrameId::first() - 1,
-                                      initial_target_playout_delay);
+                                      config.target_playout_delay);
 
   packet_router_->OnReceiverCreated(rtcp_session_.sender_ssrc(), this);
 }

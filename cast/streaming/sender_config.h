@@ -11,6 +11,7 @@
 
 #include "cast/streaming/session_config.h"
 #include "cast/streaming/video_codec_params.h"
+#include "streaming/cast/rtp_defines.h"
 
 namespace cast {
 namespace streaming {
@@ -23,12 +24,17 @@ struct SenderConfig : public SessionConfig {
   // The total amount of time between a frame capture and its playback on
   // the receiver. This is given as a range, so we can select a value for
   // use by the receiver.
-  std::pair<std::chrono::microseconds, std::chrono::microseconds>
+  std::pair<std::chrono::milliseconds, std::chrono::milliseconds>
       playout_limits{};
 
   // The initial playout delay for animated content. Must be in the range
   // specified by playout_limits.
-  std::chrono::microseconds animated_playout_delay{};
+  std::chrono::milliseconds animated_playout_delay{};
+
+  // The type/encoding of frame data.
+  // TODO(jophba): change type after Yuri's refactor patches land.
+  openscreen::cast_streaming::RtpPayloadType payload_type =
+      openscreen::cast_streaming::RtpPayloadType::kNull;
 
   // If true, use an external hardware encoder.
   bool use_external_encoder = false;

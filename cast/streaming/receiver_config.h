@@ -16,12 +16,18 @@ namespace streaming {
 // in the underlying SessionConfig, however some settings must be configured
 // specifically for the receiver.
 struct ReceiverConfig : public SessionConfig {
+  ReceiverConfig(openscreen::cast_streaming::Ssrc sender_ssrc_in,
+                 openscreen::cast_streaming::Ssrc receiver_ssrc_in,
+                 int rtp_timebase_in,
+                 int channels_in,
+                 std::array<uint8_t, 16> aes_secret_key_in,
+                 std::array<uint8_t, 16> aes_iv_mask_in,
+                 std::chrono::milliseconds target_playout_delay_in);
+  ~ReceiverConfig() = default;
+
   // The total amount of time between a frame capture and its playback on
   // the receiver.
-  std::chrono::microseconds target_playout_delay{};
-
-  // The target frame rate, in frames per second.
-  double target_frame_rate = 0;
+  std::chrono::milliseconds target_playout_delay{};
 };
 
 }  // namespace streaming
