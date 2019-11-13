@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "absl/hash/hash.h"
+#include "cast/common/mdns/mdns_record_changed_callback.h"
 #include "cast/common/mdns/mdns_records.h"
 #include "platform/api/task_runner.h"
 
@@ -16,9 +17,9 @@ namespace mdns {
 
 class MdnsRandom;
 class MdnsReceiver;
-class MdnsRecordChangedCallback;
 class MdnsSender;
 class MdnsQuestionTracker;
+class MdnsRecordTracker;
 
 class MdnsQuerier {
  public:
@@ -47,9 +48,25 @@ class MdnsQuerier {
                  MdnsRecordChangedCallback* callback);
 
  private:
-  using QuestionKey = std::tuple<DomainName, DnsType, DnsClass>;
+  struct CallbackInfo {
+    MdnsRecordChangedCallback* callback;
+    DnsType dns_type;
+    DnsClass dns_class;
+  };
 
+  // Callback passed to MdnsReceiver
   void OnMessageReceived(const MdnsMessage& message);
+
+  // Callback passed to owned MdnsRecordTrackers
+  void OnRecordExpired(const MdnsRecord& record);
+
+  void ProcessRecords(const std::vector<MdnsRecord>& records);
+  void ProcessSharedRecord(const MdnsRecord& record);
+  void ProcessUniqueRecord(const MdnsRecord& record);
+  void ProcessCallbacks(const MdnsRecord& record, RecordChangedEvent event);
+
+  void AddQuestion(const MdnsQuestion& question);
+  void AddRecord(const MdnsRecord& record);
 
   MdnsSender* const sender_;
   MdnsReceiver* const receiver_;
@@ -57,15 +74,33 @@ class MdnsQuerier {
   const ClockNowFunctionPtr now_function_;
   MdnsRandom* const random_delay_;
 
-  // Active question trackers, uniquely identified by domain name, DNS record
-  // type and DNS record class. MdnsQuestionTracker instances are stored as
-  // unique_ptr so they are not moved around in memory when the collection is
-  // modified. This allows passing a pointer to MdnsQuestionTracker to a task
-  // running on the TaskRunner.
-  std::unordered_map<QuestionKey,
-                     std::unique_ptr<MdnsQuestionTracker>,
-                     absl::Hash<QuestionKey>>
-      queries_;
+  template <class Key, class Value>
+  using HashMultimap = std::unordered_multimap<Key, Value, absl::Hash<Key>>;
+
+  // A collection of active question trackers, each is uniquely identified by
+  // domain name, DNS record type and DNS record class. Multimap key is domain
+  // name only to allow easy support for wildcard processing for DNS record type
+  // and class. MdnsQuestionTracker instances are stored as unique_ptr so they
+  // are not moved around in memory when the collection is modified. This allows
+  // passing a pointer to MdnsQuestionTracker to a task running on the
+  // TaskRunner.
+  HashMultimap<DomainName, std::unique_ptr<MdnsQuestionTracker>> questions_;
+
+  // A collection of active known record trackers, each is identified by domain
+  // name, DNS record type and DNS record class. Multimap key is domain name
+  // only to allow easy support for wildcard processing for DNS record type and
+  // class and allow storing shared records that differ only in RDATA.
+  // MdnsRecordTracker instances are stored as unique_ptr so they are not moved
+  // around in memory when the collection is modified. This allows passing a
+  // pointer to MdnsQuestionTracker to a task running on the TaskRunner.
+  HashMultimap<DomainName, std::unique_ptr<MdnsRecordTracker>> records_;
+
+  // A collection of callbacks passed to StartQuery method. Each is identified
+  // by domain name, DNS record type and DNS record class, but there can be more
+  // than one callback for a particular query. Multimap key is domain name only
+  // to allow easy matching of records against callbacks that have wildcard DNS
+  // class and/or DNS type.
+  HashMultimap<DomainName, CallbackInfo> callbacks_;
 };
 
 }  // namespace mdns
