@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "5f28b5a5_d6e74744",
+        "filename": "platform/api/platform_client.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-13T00:30:20Z",
+      "side": 1,
+      "message": "I think this comment is no longer relevant as we are removing PlatformClient from the API.",
+      "parentUuid": "ba9b05a3_862937c5",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15fa74fd_ec86e825",
         "filename": "platform/impl/platform_client_posix.h",
         "patchSetId": 5
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "If the user passes in a TaskRunner (with the protected ctor), then this TaskRunner will not be initialized.",
       "parentUuid": "15fa74fd_ec86e825",
+      "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61e209e3_2b205ab6",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-13T00:30:20Z",
+      "side": 1,
+      "message": "It\u0027s confusing to have an object that may or may not own another optional object; it would be simpler to have the PlatformClient always own the task runner that is passed into it.\n\nI\u0027m not sure this comment is still relevant in light of the decision to remove the PlatformClient from the API, though.",
+      "parentUuid": "dfcbf302_1f40c8de",
       "revId": "a17925de903bcfd07f88d7eecbdab3eca95b6c7a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
