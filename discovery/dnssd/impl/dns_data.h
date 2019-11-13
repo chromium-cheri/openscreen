@@ -7,6 +7,7 @@
 
 #include "absl/types/optional.h"
 #include "discovery/dnssd/impl/constants.h"
+#include "discovery/dnssd/impl/instance_key.h"
 #include "discovery/dnssd/public/instance_record.h"
 #include "discovery/mdns/mdns_record_changed_callback.h"
 #include "discovery/mdns/mdns_records.h"
@@ -41,7 +42,11 @@ class DnsData {
 
   InstanceKey instance_id_;
 
+  // Used in dns_data_unittest.cc.
   friend class DnsDataTesting;
+
+  // Used in querier_impl_unittest.cc.
+  friend class DnsDataAccessor;
 };
 
 }  // namespace discovery
