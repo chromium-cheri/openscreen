@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "1ad940c6_b62a69b1",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-13T01:37:08Z",
+      "side": 1,
+      "message": "In a previous CL, Mark + Max made their preference for separate validation and ctor methods, rather than an ErrorOr\u003cInstanceKey\u003e style factory (Which it was in the previous CL, because it used to be a struct)\nThis was my attempt to satisfy that request, though I agree adding a bunch of duplicated code isn\u0027t great either\n\nI\u0027ve taken a stab at eliminating the duplicated code with a private factory method and a friend declaration - still not ideal, but I think it\u0027s an improvement\n\nWhat do you think?",
+      "parentUuid": "4b65eb1e_1896c128",
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59768575_018c718c",
         "filename": "discovery/dnssd/impl/conversion_layer.cc",
         "patchSetId": 2
@@ -56,6 +74,24 @@
       "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb1991a1_c87fc567",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-13T01:37:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59768575_018c718c",
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "0f90f293_47481f3b",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-13T01:37:08Z",
+      "side": 1,
+      "message": "No longer applies with update code",
+      "parentUuid": "61fd053a_f4e3d95f",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27c5dbe1_39833028",
         "filename": "discovery/dnssd/impl/service_key.h",
         "patchSetId": 2
@@ -102,6 +162,30 @@
       "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98668695_7448cd53",
+        "filename": "discovery/dnssd/impl/service_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-13T01:37:08Z",
+      "side": 1,
+      "message": "There\u0027s actually been a lot of back and forth about what we can do in OSP between me, Max, and Mark\n\nThe summary of that is:\n- abseil has equivalents of flat_map, flat_set, but adding them would require adding a bunch of new abseil requirements so we\u0027re avoiding that for now\n- there is no abseil small_map requirement\n\nThat leave the discussion as a question of when should we use map vs unordered_map, which comes down to how many elements we expect. If a lot of elements are expected, unordered map seems reasonable. Otherwise, map is better\n\nIn the case of DNS-SD, we have some of both. Comment here was updated, because it should work for both map and unordered_map :)",
+      "parentUuid": "27c5dbe1_39833028",
+      "range": {
+        "startLine": 19,
+        "startChar": 53,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "a72e12090fb54ad68c375079a451fcd3fe4fb446",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
