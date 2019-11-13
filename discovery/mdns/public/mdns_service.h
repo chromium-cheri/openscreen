@@ -5,9 +5,17 @@
 #ifndef DISCOVERY_MDNS_PUBLIC_MDNS_SERVICE_H_
 #define DISCOVERY_MDNS_PUBLIC_MDNS_SERVICE_H_
 
+#include <memory>
+
 #include "discovery/mdns/public/mdns_constants.h"
 
 namespace openscreen {
+
+template <typename T>
+class ErrorOr;
+struct IPEndpoint;
+class TaskRunner;
+
 namespace discovery {
 
 class DomainName;
@@ -17,6 +25,10 @@ class MdnsRecordChangedCallback;
 class MdnsService {
  public:
   virtual ~MdnsService() = default;
+
+  static ErrorOr<std::unique_ptr<MdnsService>> Create(
+      TaskRunner* task_runner,
+      const IPEndpoint& endpoint);
 
   virtual void StartQuery(const DomainName& name,
                           DnsType dns_type,
