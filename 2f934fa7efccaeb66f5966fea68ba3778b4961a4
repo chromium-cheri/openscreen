@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "123db5e6_533972e6",
+        "filename": "discovery/dnssd/public/service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-13T22:05:34Z",
+      "side": 1,
+      "message": "IPEndpoint \u003e UdpSocket because some embedders just want a port and not a whole sockets (and want to create their own socket as part of the implementation. ex: Android)\n\nIn the case of our mDNS implementation, we specify a port to listen on (by giving it a UDP Socket). In all other cases, the port isn\u0027t specified, so this IPEndpoint here only applies for publishing. Is that an issue we should address in our implementation, or is it not a problem?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 0
+      },
+      "revId": "2f934fa7efccaeb66f5966fea68ba3778b4961a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cd260c3_d64c5b06",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-13T22:05:34Z",
+      "side": 1,
+      "message": "The IPEndpoint is needed to create a UdpSocket. A UdpSocket + TaskRunner should be enough to create the MdnsTracker and MdnsQuerier objects needed to implement this interface\n\nI went with an IPEndpoint rather than a UdpSocket because this seemed simpler for some embedders - thoughts?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "2f934fa7efccaeb66f5966fea68ba3778b4961a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
