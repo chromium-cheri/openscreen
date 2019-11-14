@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ab2a78db_162437fc",
+        "filename": "discovery/dnssd/public/service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T00:46:49Z",
+      "side": 1,
+      "message": "See other comment: I\u0027m not familiar with DNS-SD, but I believe it works a lot like mDNS? So, maybe the stuff I wrote in the other comment applies here too.",
+      "parentUuid": "123db5e6_533972e6",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 0
+      },
+      "revId": "2f934fa7efccaeb66f5966fea68ba3778b4961a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6cd260c3_d64c5b06",
         "filename": "discovery/mdns/public/mdns_service.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-11-13T22:05:34Z",
       "side": 1,
       "message": "The IPEndpoint is needed to create a UdpSocket. A UdpSocket + TaskRunner should be enough to create the MdnsTracker and MdnsQuerier objects needed to implement this interface\n\nI went with an IPEndpoint rather than a UdpSocket because this seemed simpler for some embedders - thoughts?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "2f934fa7efccaeb66f5966fea68ba3778b4961a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5917046_cd511c5a",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T00:46:49Z",
+      "side": 1,
+      "message": "Looking at MdnsSender, it seems it does not need an endpoint at all. Internally, it always sends to the fixed mDNS broadcast address.\n\nMdnsReceiver currently doesn\u0027t yet have any code calling UdpSocket::Bind() or joining the multicast group. I\u0027m not exactly sure how the UdpSocket should be set up; but it would probably be the same as how SetUpMulticastSockets() does it in osp/impl/discovery/mdns/mdns_demo.cc. So, again, it\u0027s going to Bind() to a fixed address+port.\n\nSo, it seems we don\u0027t need an |endpoint| argument here.",
+      "parentUuid": "6cd260c3_d64c5b06",
       "range": {
         "startLine": 29,
         "startChar": 0,
