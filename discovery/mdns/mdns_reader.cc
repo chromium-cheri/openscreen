@@ -9,17 +9,17 @@
 namespace openscreen {
 namespace discovery {
 
-bool MdnsReader::Read(absl::string_view* out) {
+bool MdnsReader::Read(absl::span<const uint8_t>* out) {
   Cursor cursor(this);
-  uint8_t string_length;
-  if (!Read(&string_length)) {
+  uint8_t entry_length;
+  if (!Read(&entry_length)) {
     return false;
   }
-  const char* string_begin = reinterpret_cast<const char*>(current());
-  if (!Skip(string_length)) {
+  const uint8_t* entry_begin = current();
+  if (!Skip(entry_length)) {
     return false;
   }
-  *out = absl::string_view(string_begin, string_length);
+  *out = absl::MakeConstSpan(entry_begin, entry_length);
   cursor.Commit();
   return true;
 }
@@ -171,9 +171,9 @@ bool MdnsReader::Read(TxtRecordRdata* out) {
   if (!Read(&record_length)) {
     return false;
   }
-  std::vector<absl::string_view> texts;
+  std::vector<absl::span<const uint8_t>> texts;
   while (cursor.delta() < sizeof(record_length) + record_length) {
-    absl::string_view entry;
+    absl::span<const uint8_t> entry;
     if (!Read(&entry)) {
       return false;
     }

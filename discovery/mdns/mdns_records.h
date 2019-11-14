@@ -231,27 +231,29 @@ class PtrRecordRdata {
 };
 
 // TXT record format (http://www.ietf.org/rfc/rfc1035.txt):
-// texts: One or more <character-string>s.
-// a <character-string> is a length octet followed by as many characters.
+// texts: One or more <octet-strings>.
+// An <octet-string> is a length octet followed by as many 8-bit values.
 class TxtRecordRdata {
  public:
   TxtRecordRdata();
+  // TODO: Is it okay for this object to not own the content of |texts|?
+  TxtRecordRData(std::vector<absl::span<const uint8_t>> texts);
 
-  template <typename IteratorType>
-  TxtRecordRdata(IteratorType first, IteratorType last) {
-    const size_t count = std::distance(first, last);
-    if (count > 0) {
-      texts_.reserve(count);
-      // max_wire_size includes uint16_t record length field.
-      max_wire_size_ = sizeof(uint16_t);
-      for (IteratorType entry = first; entry != last; ++entry) {
-        OSP_DCHECK(!entry->empty());
-        texts_.push_back(std::move(ConvertToString(entry)));
-        // Include the length byte in the size calculation.
-        max_wire_size_ += entry->size() + 1;
-      }
-    }
-  }
+  /* template <typename IteratorType> */
+  /* TxtRecordRdata(IteratorType first, IteratorType last) { */
+  /*   const size_t count = std::distance(first, last); */
+  /*   if (count > 0) { */
+  /*     texts_.reserve(count); */
+  /*     // max_wire_size includes uint16_t record length field. */
+  /*     max_wire_size_ = sizeof(uint16_t); */
+  /*     for (IteratorType entry = first; entry != last; ++entry) { */
+  /*       OSP_DCHECK(!entry->empty()); */
+  /*       texts_.push_back(std::move(ConvertToString(entry))); */
+  /*       // Include the length byte in the size calculation. */
+  /*       max_wire_size_ += entry->size() + 1; */
+  /*     } */
+  /*   } */
+  /* } */
 
   explicit TxtRecordRdata(std::vector<std::vector<uint8_t>> texts);
   explicit TxtRecordRdata(const std::vector<absl::string_view>& texts);
