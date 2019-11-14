@@ -231,31 +231,13 @@ class PtrRecordRdata {
 };
 
 // TXT record format (http://www.ietf.org/rfc/rfc1035.txt):
-// texts: One or more <character-string>s.
-// a <character-string> is a length octet followed by as many characters.
+// texts: One or more <entries>.
+// An <entry> is a length octet followed by as many data octets.
 class TxtRecordRdata {
  public:
+  using Entry = std::vector<uint8_t>;
   TxtRecordRdata();
-
-  template <typename IteratorType>
-  TxtRecordRdata(IteratorType first, IteratorType last) {
-    const size_t count = std::distance(first, last);
-    if (count > 0) {
-      texts_.reserve(count);
-      // max_wire_size includes uint16_t record length field.
-      max_wire_size_ = sizeof(uint16_t);
-      for (IteratorType entry = first; entry != last; ++entry) {
-        OSP_DCHECK(!entry->empty());
-        texts_.push_back(std::move(ConvertToString(entry)));
-        // Include the length byte in the size calculation.
-        max_wire_size_ += entry->size() + 1;
-      }
-    }
-  }
-
-  explicit TxtRecordRdata(std::vector<std::vector<uint8_t>> texts);
-  explicit TxtRecordRdata(const std::vector<absl::string_view>& texts);
-  explicit TxtRecordRdata(std::initializer_list<absl::string_view> texts);
+  explicit TxtRecordRdata(std::vector<Entry> texts);
   TxtRecordRdata(const TxtRecordRdata& other);
   TxtRecordRdata(TxtRecordRdata&& other);
 
@@ -265,6 +247,7 @@ class TxtRecordRdata {
   bool operator!=(const TxtRecordRdata& rhs) const;
 
   size_t MaxWireSize() const;
+  // NOTE: TXT entries are not guaranteed to be character data.
   const std::vector<std::string>& texts() const { return texts_; }
 
   template <typename H>
@@ -276,6 +259,8 @@ class TxtRecordRdata {
   // max_wire_size_ is at least 3, uint16_t record length and at the
   // minimum a NULL byte character string is present.
   size_t max_wire_size_ = 3;
+  // NOTE: For compatibility with DNS-SD usage, std::string is used for internal
+  // storage.
   std::vector<std::string> texts_;
 };
 
