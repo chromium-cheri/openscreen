@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1be72958_caca6f9d",
+        "filename": "discovery/dnssd/public/service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-14T22:44:50Z",
+      "side": 1,
+      "message": "The embedder can\u0027t add its own enums to our Error class, so it would have to return a generic error type.\n\nI would consider having this just return a std::unique_ptr\u003c\u003e and allow the embedder to return nullptr in case of an error.  Our code will likely CHECK-fail on a nullptr return value, as there won\u0027t be anything useful we can do at that point.",
+      "revId": "f95ee750cff24845aa05c782f9b8fe48972c80a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "668a3773_e8c8d05d",
+        "filename": "discovery/dnssd/public/service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-14T22:44:50Z",
+      "side": 1,
+      "message": "Who owns the returned result?",
+      "revId": "f95ee750cff24845aa05c782f9b8fe48972c80a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54633187_4f6f98a7",
+        "filename": "discovery/dnssd/public/service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-14T22:44:50Z",
+      "side": 1,
+      "message": "Same question here.",
+      "revId": "f95ee750cff24845aa05c782f9b8fe48972c80a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
