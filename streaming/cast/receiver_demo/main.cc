@@ -1,3 +1,7 @@
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 #include <array>
 #include <chrono>
 #include <thread>
@@ -16,6 +20,16 @@
 #include "streaming/cast/receiver_packet_router.h"
 #include "streaming/cast/ssrc.h"
 
+#if defined(CAST_STREAMING_HAVE_EXTERNAL_LIBS_FOR_DEMO_APPS)
+#include "streaming/cast/receiver_demo/sdl_audio_player.h"
+#include "streaming/cast/receiver_demo/sdl_glue.h"
+#include "streaming/cast/receiver_demo/sdl_video_player.h"
+#else
+#include "streaming/cast/receiver_demo/dummy_player.h"
+#endif  // defined(CAST_STREAMING_HAVE_EXTERNAL_LIBS_FOR_DEMO_APPS)
+
+namespace openscreen {
+namespace cast_streaming {
 namespace {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +44,6 @@ constexpr int kCastStreamingPort = 2344;
 
 // The SSRC's should be randomly generated using either
 // openscreen::cast_streaming::GenerateSsrc(), or a similar heuristic.
-using openscreen::cast_streaming::Ssrc;
 constexpr Ssrc kDemoAudioSenderSsrc = 1;
 constexpr Ssrc kDemoAudioReceiverSsrc = 2;
 constexpr Ssrc kDemoVideoSenderSsrc = 50001;
@@ -42,8 +55,7 @@ constexpr int kDemoAudioRtpTimebase = 48000;
 
 // Per the Cast Streaming spec, this is always 90 kHz. See kVideoTimebase in
 // constants.h.
-constexpr int kDemoVideoRtpTimebase =
-    static_cast<int>(openscreen::cast_streaming::kVideoTimebase::den);
+constexpr int kDemoVideoRtpTimebase = static_cast<int>(kVideoTimebase::den);
 
 // In a production environment, this would start-out at some initial value
 // appropriate to the networking environment, and then be adjusted by the
@@ -70,55 +82,90 @@ constexpr std::array<uint8_t, 16> kDemoVideoCastIvMask{
 // End of Receiver Configuration.
 ////////////////////////////////////////////////////////////////////////////////
 
-}  // namespace
-
-int main(int argc, const char* argv[]) {
+void DemoMain() {
   // Platform setup for this standalone demo app.
-  openscreen::platform::SetLogLevel(openscreen::platform::LogLevel::kInfo);
-  const auto now_function = &openscreen::platform::Clock::now;
-  openscreen::platform::TaskRunnerImpl task_runner(now_function);
-  openscreen::platform::SocketHandleWaiterThread socket_handle_waiter_thread;
-  openscreen::platform::UdpSocketReaderPosix udp_socket_reader(
+  platform::SetLogLevel(platform::LogLevel::kInfo);
+  const auto now_function = &platform::Clock::now;
+  platform::TaskRunnerImpl task_runner(now_function);
+  platform::SocketHandleWaiterThread socket_handle_waiter_thread;
+  platform::UdpSocketReaderPosix udp_socket_reader(
       socket_handle_waiter_thread.socket_handle_waiter());
 
   // Create the Environment that holds the required injected dependencies
   // (clock, task runner) used throughout the system, and owns the UDP socket
   // over which all communication occurs with the Sender.
-  const openscreen::IPEndpoint receive_endpoint{openscreen::IPAddress(),
-                                                kCastStreamingPort};
-  openscreen::cast_streaming::Environment env(now_function, &task_runner,
-                                              receive_endpoint);
+  const IPEndpoint receive_endpoint{openscreen::IPAddress(),
+                                    kCastStreamingPort};
+  Environment env(now_function, &task_runner, receive_endpoint);
 
   // Create the packet router that allows both the Audio Receiver and the Video
   // Receiver to share the same UDP socket.
-  openscreen::cast_streaming::ReceiverPacketRouter packet_router(&env);
+  ReceiverPacketRouter packet_router(&env);
 
   // Create the two Receivers.
-  openscreen::cast_streaming::Receiver audio_receiver(
-      &env, &packet_router, kDemoAudioSenderSsrc, kDemoAudioReceiverSsrc,
-      kDemoAudioRtpTimebase, kDemoTargetPlayoutDelay, kDemoAudioAesKey,
-      kDemoAudioCastIvMask);
-  openscreen::cast_streaming::Receiver video_receiver(
-      &env, &packet_router, kDemoVideoSenderSsrc, kDemoVideoReceiverSsrc,
-      kDemoVideoRtpTimebase, kDemoTargetPlayoutDelay, kDemoVideoAesKey,
-      kDemoVideoCastIvMask);
+  Receiver audio_receiver(&env, &packet_router, kDemoAudioSenderSsrc,
+                          kDemoAudioReceiverSsrc, kDemoAudioRtpTimebase,
+                          kDemoTargetPlayoutDelay, kDemoAudioAesKey,
+                          kDemoAudioCastIvMask);
+  Receiver video_receiver(&env, &packet_router, kDemoVideoSenderSsrc,
+                          kDemoVideoReceiverSsrc, kDemoVideoRtpTimebase,
+                          kDemoTargetPlayoutDelay, kDemoVideoAesKey,
+                          kDemoVideoCastIvMask);
 
   OSP_LOG_INFO << "Awaiting first Cast Streaming packet at "
                << env.GetBoundLocalEndpoint() << "...";
 
+#if defined(CAST_STREAMING_HAVE_EXTERNAL_LIBS_FOR_DEMO_APPS)
+
+  // Start the SDL event loop, using the task runner to poll/process events.
+  const ScopedSDLSubSystem<SDL_INIT_AUDIO> sdl_audio_sub_system;
+  const ScopedSDLSubSystem<SDL_INIT_VIDEO> sdl_video_sub_system;
+  const SDLEventLoopProcessor sdl_event_loop(
+      &task_runner, [&] { task_runner.RequestStopSoon(); });
+
   // Create/Initialize the Audio Player and Video Player, which are responsible
   // for decoding and playing out the received media.
-  /*
-    // TODO: SDL implementation to play in a window on the local desktop.
-    SdlAudioPlayer audio_player(&audio_receiver);
-    SdlVideoPlayer video_player(&video_receiver);
+  constexpr int kDefaultWindowWidth = 1280;
+  constexpr int kDefaultWindowHeight = 720;
+  const SDLWindowUniquePtr window = MakeUniqueSDLWindow(
+      "Cast Streaming Receiver Demo",
+      SDL_WINDOWPOS_UNDEFINED /* initial X position */,
+      SDL_WINDOWPOS_UNDEFINED /* initial Y position */, kDefaultWindowWidth,
+      kDefaultWindowHeight, SDL_WINDOW_RESIZABLE);
+  OSP_CHECK(window) << "Failed to create SDL window: " << SDL_GetError();
+  const SDLRendererUniquePtr renderer =
+      MakeUniqueSDLRenderer(window.get(), -1, 0);
+  OSP_CHECK(renderer) << "Failed to create SDL renderer: " << SDL_GetError();
 
-    // Note: See Receiver class-level comments for player code example.
-  */
+  const SDLAudioPlayer audio_player(
+      now_function, &task_runner, &audio_receiver, [&] {
+        OSP_LOG_ERROR << audio_player.error_status().message();
+        task_runner.RequestStopSoon();
+      });
+  const SDLVideoPlayer video_player(
+      now_function, &task_runner, &video_receiver, renderer.get(), [&] {
+        OSP_LOG_ERROR << video_player.error_status().message();
+        task_runner.RequestStopSoon();
+      });
+
+#else
+
+  const DummyPlayer audio_player(&audio_receiver);
+  const DummyPlayer video_player(&video_receiver);
+
+#endif  // defined(CAST_STREAMING_HAVE_EXTERNAL_LIBS_FOR_DEMO_APPS)
 
   // Run the event loop until an exit is requested (e.g., the video player GUI
   // window is closed, a SIGTERM is intercepted, or whatever other appropriate
   // user indication that shutdown is requested).
   task_runner.RunUntilStopped();
+}
+
+}  // namespace
+}  // namespace cast_streaming
+}  // namespace openscreen
+
+int main(int argc, const char* argv[]) {
+  openscreen::cast_streaming::DemoMain();
   return 0;
 }
