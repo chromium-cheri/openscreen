@@ -7,8 +7,10 @@
 
 #include "absl/types/optional.h"
 #include "platform/api/udp_socket.h"
+#include "platform/base/macros.h"
 #include "platform/impl/platform_client_posix.h"
 #include "platform/impl/socket_handle_posix.h"
+#include "platform/impl/weak_ptr.h"
 
 namespace openscreen {
 namespace platform {
@@ -100,9 +102,13 @@ class UdpSocketPosix : public UdpSocket {
   // port is non-zero, it is assumed never to change again.
   mutable IPEndpoint local_endpoint_;
 
+  WeakPtrFactory<UdpSocketPosix> weak_factory_{this};
+
   // TODO: Remove these. See comments for SetLifetimeObserver().
   PlatformClientPosix* platform_client_;
   static LifetimeObserver* lifetime_observer_;
+
+  OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocketPosix);
 };
 
 }  // namespace platform
