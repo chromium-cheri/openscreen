@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "0b9f8c81_6c4ada59",
+        "filename": "discovery/dnssd/impl/instance_key.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-14T21:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b37454fe_f2bcc71c",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "1f5a0920601aeb52522a46956a2259ba1dae1ef3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3468a2fc_f82c172e",
+        "filename": "discovery/dnssd/impl/instance_key.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-14T21:50:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50eb1318_338abd86",
+      "range": {
+        "startLine": 58,
+        "startChar": 51,
+        "endLine": 58,
+        "endChar": 72
+      },
+      "revId": "1f5a0920601aeb52522a46956a2259ba1dae1ef3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5a228d4_7b7413f7",
         "filename": "discovery/dnssd/impl/service_key.cc",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "1f5a0920601aeb52522a46956a2259ba1dae1ef3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "547c8b90_1d201a04",
+        "filename": "discovery/dnssd/impl/service_key.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-14T21:50:51Z",
+      "side": 1,
+      "message": "In our case, that\u0027s actually fine. If we ever receive an invalid record, then we want the code to fail. While we don\u0027t use the InstanceId parameter, if the record we received has an invalid InstanceKey then we know it\u0027s invalid and have no reason to continue processing\n\nAlso, specific to our code, the Validation method for an MdnsRecord validates the Instance Id as-well :)\n\nAdding a comment inline to this effect",
+      "parentUuid": "a5a228d4_7b7413f7",
+      "revId": "1f5a0920601aeb52522a46956a2259ba1dae1ef3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
