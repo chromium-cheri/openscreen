@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "05c23cec_467b216b",
+        "filename": "platform/impl/weak_ptr.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T20:56:19Z",
+      "side": 1,
+      "message": "\u003e mfoltz@ said:\n\u003e Looks great, let\u0027s try to simplify the documentation for weak_ptr as I think the docs from Chromium are just confusing things a bit.\n\nI tried to simplify things a bit. Deleted some text, minified other parts. I felt the usage example was worth keeping, however.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 2
+      },
+      "revId": "913ae76a491adc70036fe2ca20ddc33b5b964b72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7876c02b_4115abbe",
         "filename": "platform/impl/weak_ptr.h",
         "patchSetId": 3
@@ -16,6 +39,24 @@
       "revId": "913ae76a491adc70036fe2ca20ddc33b5b964b72",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85619c5f_04407586",
+        "filename": "platform/impl/weak_ptr.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T20:56:19Z",
+      "side": 1,
+      "message": "Sounds good. I\u0027ve documented this in the relevant WeakPtrFactory methods (dtor and InvalidateWeakPtrs()), since that\u0027s the only place that invokes non-const methods in std::shared_ptr.\n\nNormally, I\u0027d like to add something like Chromium\u0027s SEQUENCE_CHECKER() to ensure correct use, but that\u0027d involve adding a lot more infrastructure/code to Open Screen. For now, I suggest we just trust ourselves to be careful; and if this ever goes into util/, we may also want to add SEQUENCE_CHECKER() at that point, since we\u0027ll have more widespread use of these WeakPtrs.",
+      "parentUuid": "7876c02b_4115abbe",
+      "revId": "913ae76a491adc70036fe2ca20ddc33b5b964b72",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
