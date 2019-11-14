@@ -236,26 +236,9 @@ class PtrRecordRdata {
 class TxtRecordRdata {
  public:
   TxtRecordRdata();
-
-  template <typename IteratorType>
-  TxtRecordRdata(IteratorType first, IteratorType last) {
-    const size_t count = std::distance(first, last);
-    if (count > 0) {
-      texts_.reserve(count);
-      // max_wire_size includes uint16_t record length field.
-      max_wire_size_ = sizeof(uint16_t);
-      for (IteratorType entry = first; entry != last; ++entry) {
-        OSP_DCHECK(!entry->empty());
-        texts_.push_back(std::move(ConvertToString(entry)));
-        // Include the length byte in the size calculation.
-        max_wire_size_ += entry->size() + 1;
-      }
-    }
-  }
-
   explicit TxtRecordRdata(std::vector<std::vector<uint8_t>> texts);
-  explicit TxtRecordRdata(const std::vector<absl::string_view>& texts);
-  explicit TxtRecordRdata(std::initializer_list<absl::string_view> texts);
+  //  explicit TxtRecordRdata(const std::vector<absl::string_view>& texts);
+  //  explicit TxtRecordRdata(std::initializer_list<absl::string_view> texts);
   TxtRecordRdata(const TxtRecordRdata& other);
   TxtRecordRdata(TxtRecordRdata&& other);
 

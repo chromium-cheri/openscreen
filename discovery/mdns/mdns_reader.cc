@@ -4,22 +4,25 @@
 
 #include "discovery/mdns/mdns_reader.h"
 
+#include <algorithm>
+
 #include "platform/api/logging.h"
 
 namespace openscreen {
 namespace discovery {
 
-bool MdnsReader::Read(absl::string_view* out) {
+bool MdnsReader::Read(std::vector<uint8_t>* out) {
   Cursor cursor(this);
-  uint8_t string_length;
-  if (!Read(&string_length)) {
+  uint8_t data_length;
+  if (!Read(&data_length)) {
     return false;
   }
-  const char* string_begin = reinterpret_cast<const char*>(current());
-  if (!Skip(string_length)) {
+  const uint8_t* data_begin = current();
+  if (!Skip(data_length)) {
     return false;
   }
-  *out = absl::string_view(string_begin, string_length);
+  out->reserve(data_length);
+  std::copy(data_begin, data_begin + data_length, out->begin());
   cursor.Commit();
   return true;
 }
@@ -171,13 +174,13 @@ bool MdnsReader::Read(TxtRecordRdata* out) {
   if (!Read(&record_length)) {
     return false;
   }
-  std::vector<absl::string_view> texts;
+  std::vector<std::vector<uint8_t>> texts;
   while (cursor.delta() < sizeof(record_length) + record_length) {
-    absl::string_view entry;
+    std::vector<uint8_t> entry;
     if (!Read(&entry)) {
       return false;
     }
-    OSP_DCHECK(entry.length() <= kTXTMaxEntrySize);
+    OSP_DCHECK(entry.size() <= kTXTMaxEntrySize);
     if (!entry.empty()) {
       texts.push_back(entry);
     }
@@ -185,7 +188,7 @@ bool MdnsReader::Read(TxtRecordRdata* out) {
   if (cursor.delta() != sizeof(record_length) + record_length) {
     return false;
   }
-  *out = TxtRecordRdata(texts);
+  *out = TxtRecordRdata(std::move(texts));
   cursor.Commit();
   return true;
 }

@@ -39,6 +39,8 @@ MdnsRecord CreateFullyPopulatedRecord(uint16_t port = port_num) {
   return MdnsRecord(target, type, clazz, record_type, ttl, srv);
 }
 
+// TxtRecordRdata MakeText(std::initializer_list<const char*> strings) {
+
 }  // namespace
 
 // TXT Conversions.
