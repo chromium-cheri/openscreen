@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afad6eec_ac5d3115",
+        "filename": "cast/streaming/receiver_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "Looking at everything together, I\u0027m thinking maybe we shouldn\u0027t have the ReceiverConfig struct. My thoughts on this:\n\n1. The target_playout_delay is the only field being added over SessionConfig.\n\n2. The target_playout_delay will change during the streaming (the Receiver will get new settings from the sender). This means that embedders may mistakenly use the value in this struct in situations where it\u0027s no longer the correct value. Though, only the Receiver really will ever use this value (to compute the timestamps).\n\n3. The Receiver ctor could take the two \"config arguments\" separately:\n\n  Receiver(...other stuff,\n           const SessionConfig\u0026 config,\n           std::chrono::milliseconds initial_target_playout_delay);\n\n4. It\u0027s a lot less code, since most of ReceiverConfig is boilerplate. :)\n\nWDYT?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0f0aee_10ed0885",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "We should define move ctors for ConfiguredReceivers.",
+      "range": {
+        "startLine": 52,
+        "startChar": 30,
+        "endLine": 52,
+        "endChar": 49
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2a61f64_b88edf6e",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "IMHO, would much rather see this as a public ctor than a Create method: It shouldn\u0027t be possible for this to fail. That, and let the owner of the class decide whether it should be heap-allocated, a data member of some class, or a stack object in some main()-like function.",
+      "range": {
+        "startLine": 55,
+        "startChar": 42,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46fd8932_802e452e",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "nit: Also need a public dtor, so the compiler doesn\u0027t code-generate it in multiple places.",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 17
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80e89d22_3c475854",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "nit: Clazz* const for both of these.\n            ^^^^^",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74afa7c1_8fe8bc11",
+        "filename": "cast/streaming/sender_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "The Sender won\u0027t be using these*. Instead, the embedder would set EncodedFrame::new_playout_delay if it should be changed as of a certain frame.\n\nI think these config properties here are left-overs from the Chromium extension APIs: This is how we would configure the min/max possible settings, as controlled by Chrome-specific app code (that happened to be written deep inside media/cast/sender code). They don\u0027t appear in the OFFER/ANSWER messages, either, IIRC.\n\nSo, should we remove them?\n\n(*) https://chromium-review.googlesource.com/c/openscreen/+/1809846",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6694dc1c_9b124175",
+        "filename": "cast/streaming/sender_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "ditto for use_external_encoder: It\u0027s entirely app-level config, not relevant to streaming since the app has to encode/decode the frames before they pass through this API surface.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 36
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c89efda9_3744ffe2",
+        "filename": "cast/streaming/sender_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "This is okay to keep: Even though the streaming sender code doesn\u0027t use it, it\u0027s something the application should pay attention to, since the receiver provided it in the ANSWER message.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a1e51b0_7fb079d6",
+        "filename": "cast/streaming/sender_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "Seems we should delete this too (and the VideoCodecParams struct): It\u0027s all upstream stuff related to how encoding is done, and not part of the OFFER/ANSWER messaging, either.\n\nHowever, hold onto the VideoCodecParams code for later: We can include it as part of our \"sender app,\" where we show how an application might handle the encoding details when using libcast.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 55
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d216ff_5a27bc88",
+        "filename": "cast/streaming/session_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "naming nit: I\u0027m not sure about the \"_in\" suffix on all of these arguments. Is that to just avoid name clashing in the initializer list? Note that they can be named the same as the class members, and C++ will assume you mean:\n\n  \u003cclass_member\u003e in the \"left hand side\" context\n  \u003cctor argument\u003e in the \"right hand side\" context\n\n...when they have exactly the same name.",
+      "range": {
+        "startLine": 10,
+        "startChar": 73,
+        "endLine": 10,
+        "endChar": 76
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32a03e87_0cc5d0cb",
+        "filename": "cast/streaming/session_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "Per my comment about deleting ReceiverConfig, and just using this: It seems the comment here should say that this the \"Common streaming configuration, established from the OFFER/ANSWER exchange, that the Sender and Receiver are assuming.\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 75
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bbc9292_0148072f",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-14T01:39:23Z",
+      "side": 1,
+      "message": "This should be: static_cast\u003cint\u003e(kVideoTimebase::den)",
+      "range": {
+        "startLine": 58,
+        "startChar": 26,
+        "endLine": 58,
+        "endChar": 31
+      },
+      "revId": "86c570e765d254be39b84dda88b4f9538f795fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
