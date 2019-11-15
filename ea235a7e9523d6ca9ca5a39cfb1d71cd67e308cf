@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d09280e0_b80c7b17",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-15T21:00:41Z",
+      "side": 1,
+      "message": "DCHECKs?",
+      "range": {
+        "startLine": 22,
+        "startChar": 63,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab2aa97e_7be2bf3f",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-15T21:00:41Z",
+      "side": 1,
+      "message": "This looks like a simple struct. Why pass it as a unique_ptr instead of just passing it by reference or by value with an assumed std::move(...). Using a unique_ptr would require heap allocation, which seems like overkill if you\u0027re just storing constants\n\nSame for SessionConfig",
+      "range": {
+        "startLine": 27,
+        "startChar": 24,
+        "endLine": 27,
+        "endChar": 76
+      },
+      "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a5d95ad_3d172460",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-15T21:00:41Z",
+      "side": 1,
+      "message": "inline these, use snake case\n\ninline functions here:\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 66
+      },
+      "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "040dc747_25f9d510",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-15T21:00:41Z",
+      "side": 1,
+      "message": "Do we expect the caller to modify these? A cost ref might make more sense than a pointer\n\nIf the Recievers shouldn\u0027t be modified either, same for those calls",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d49e73_f537fd9e",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-15T21:00:41Z",
+      "side": 1,
+      "message": "virtual ~Client() \u003d 0",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7134d81d_83fe902e",
+        "filename": "cast/streaming/session_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-15T21:00:41Z",
+      "side": 1,
+      "message": "virtual",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
