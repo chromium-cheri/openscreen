@@ -527,11 +527,13 @@ void PublisherDemo(absl::string_view friendly_name) {
       PlatformClientPosix::GetInstance()->GetTaskRunner());
 
   ServerConfig server_config;
-  std::vector<platform::InterfaceAddresses> interfaces =
-      platform::GetInterfaceAddresses();
+  std::vector<platform::InterfaceInfo> interfaces =
+      platform::GetNetworkInterfaces();
   for (const auto& interface : interfaces) {
-    server_config.connection_endpoints.push_back(
-        IPEndpoint{interface.addresses[0].address, server_port});
+    if (!interface.addresses.empty()) {
+      server_config.connection_endpoints.push_back(
+          IPEndpoint{interface.addresses[0].address, server_port});
+    }
   }
 
   MessageDemuxer demuxer(platform::Clock::now,

@@ -12,6 +12,7 @@
 
 // TODO(rwkeane): Remove references to platform/impl
 #include "osp/impl/discovery/mdns/mdns_responder_adapter_impl.h"
+#include "platform/api/network_interface.h"
 #include "platform/api/time.h"
 #include "platform/base/error.h"
 #include "platform/impl/logging.h"
@@ -269,15 +270,16 @@ void BrowseDemo(platform::TaskRunner* task_runner,
   auto mdns_adapter = std::make_unique<mdns::MdnsResponderAdapterImpl>();
   mdns_adapter->Init();
   mdns_adapter->SetHostLabel("gigliorononomicon");
-  auto interface_addresses = platform::GetInterfaceAddresses();
-  for (const auto& ifa : interface_addresses) {
-    OSP_LOG << "Found interface: " << ifa;
+  auto interfaces = platform::GetNetworkInterfaces();
+  for (const auto& interface : interfaces) {
+    OSP_LOG << "Found interface: " << interface;
   }
 
   std::vector<platform::NetworkInterfaceIndex> index_list;
-  for (const auto& interface : interface_addresses) {
-    if (!interface.addresses.empty())
-      index_list.push_back(interface.info.index);
+  for (const auto& interface : interfaces) {
+    if (!interface.addresses.empty()) {
+      index_list.push_back(interface.index);
+    }
   }
 
   DemoSocketClient client(mdns_adapter.get());
@@ -290,13 +292,13 @@ void BrowseDemo(platform::TaskRunner* task_runner,
   // Listen on all interfaces.
   auto socket_it = sockets.begin();
   for (platform::NetworkInterfaceIndex index : index_list) {
-    const auto& addr = *std::find_if(
-        interface_addresses.begin(), interface_addresses.end(),
-        [index](const openscreen::platform::InterfaceAddresses& addr) {
-          return addr.info.index == index;
-        });
+    const auto& interface =
+        *std::find_if(interfaces.begin(), interfaces.end(),
+                      [index](const openscreen::platform::InterfaceInfo& info) {
+                        return info.index == index;
+                      });
     // Pick any address for the given interface.
-    mdns_adapter->RegisterInterface(addr.info, addr.addresses.front(),
+    mdns_adapter->RegisterInterface(interface, interface.addresses.front(),
                                     socket_it->get());
     ++socket_it;
   }
