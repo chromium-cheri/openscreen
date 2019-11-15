@@ -39,6 +39,20 @@ MdnsRecord CreateFullyPopulatedRecord(uint16_t port = port_num) {
   return MdnsRecord(target, type, clazz, record_type, ttl, srv);
 }
 
+MdnsRecord CreatePtrRecord() {
+  const std::vector<std::string> kPtrLabels{"_srv-name", "_udp", domain_name};
+  const std::vector<std::string> kInstanceLabels{instance_name, "_srv-name",
+                                                 "_udp", domain_name};
+
+  auto ptr_domain = DomainName(kPtrLabels);
+  auto inner_domain = DomainName(kInstanceLabels);
+
+  PtrRecordRdata data(std::move(inner_domain));
+  constexpr std::chrono::seconds kTtl(120);
+  return MdnsRecord(std::move(ptr_domain), DnsType::kPTR, DnsClass::kIN,
+                    RecordType::kShared, kTtl, data);
+}
+
 }  // namespace
 
 // TXT Conversions.
@@ -85,7 +99,7 @@ TEST(DnsSdConversionLayerTest, TestCreateTxtValidBool) {
 }
 
 // Get*Key functions.
-TEST(DnsSdConversionLayerTest, GetSrvKeyFromRecordTest) {
+TEST(DnsSdConversionLayerTest, GetInstanceKeyFromSrvRecordTest) {
   MdnsRecord record = CreateFullyPopulatedRecord();
   ErrorOr<InstanceKey> key = GetInstanceKey(record);
   ASSERT_TRUE(key.is_value());
@@ -94,7 +108,16 @@ TEST(DnsSdConversionLayerTest, GetSrvKeyFromRecordTest) {
   EXPECT_EQ(key.value().domain_id, domain_name);
 }
 
-TEST(DnsSdConversionLayerTest, GetPtrKeyFromRecordTest) {
+TEST(DnsSdConversionLayerTest, GetInstanceKeyFromPtrRecordTest) {
+  MdnsRecord record = CreatePtrRecord();
+  const ErrorOr<InstanceKey> key = GetInstanceKey(record);
+  ASSERT_TRUE(key.is_value());
+  EXPECT_EQ(key.value().instance_id, instance_name);
+  EXPECT_EQ(key.value().service_id, service_name);
+  EXPECT_EQ(key.value().domain_id, domain_name);
+}
+
+TEST(DnsSdConversionLayerTest, GetServiceKeyFromRecordTest) {
   MdnsRecord record = CreateFullyPopulatedRecord();
   ErrorOr<ServiceKey> key = GetServiceKey(record);
   ASSERT_TRUE(key.is_value());
@@ -102,7 +125,7 @@ TEST(DnsSdConversionLayerTest, GetPtrKeyFromRecordTest) {
   EXPECT_EQ(key.value().domain_id, domain_name);
 }
 
-TEST(DnsSdConversionLayerTest, GetPtrKeyFromStringsTest) {
+TEST(DnsSdConversionLayerTest, GetServiceKeyFromStringsTest) {
   ServiceKey key = GetServiceKey(service_name, domain_name);
   EXPECT_EQ(key.service_id, service_name);
   EXPECT_EQ(key.domain_id, domain_name);
