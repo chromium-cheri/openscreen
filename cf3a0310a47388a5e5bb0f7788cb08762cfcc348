@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b80cb443_cf961e93",
+        "filename": "streaming/cast/receiver_demo/avcodec_glue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "Fair enough. Works for me, I\u0027m happy with the #undef.",
+      "parentUuid": "4d1401f4_5c7339b6",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a888faec_f3781ac3",
         "filename": "streaming/cast/receiver_demo/decoder.cc",
         "patchSetId": 4
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "They do look that way. I had tried this and found out the only common ground were the allocations and avcodec_open2() call, and then things diverge. By the time this is common code is factored-out, and extra code is added to call into the common routine, to check that all returned objects are not null, and to std::move() objects to a final location places; it actually turns out to be a bit more \"noisy\" code.",
       "parentUuid": "22e76b94_7becbe38",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8986b4a7_d3310cab",
+        "filename": "streaming/cast/receiver_demo/decoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "That\u0027s a bummer. I feel like that happens a lot in C++.",
+      "parentUuid": "52bfef80_24477d48",
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -177,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "aa9b2197_ca8626cf",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "Yeah, rename eventually sounds good. Doesn\u0027t have to be right now. Maybe something like StreamingPlatformClient or similar?",
+      "parentUuid": "cbc4ebc9_11ee2739",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53272c8b_bf43b9da",
         "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
         "patchSetId": 4
@@ -206,6 +260,24 @@
       "side": 1,
       "message": "Yes! 😜\n\nMostly, I\u0027m not going to spend time doing it in a demo app. The comment is mostly so that embedder developers think twice before just copy+pasting this code into their apps; depending on whether they care.\n\nIn other words, it\u0027s not a TODO because the code here works; but it\u0027s just pointing out the \"low-hanging-fruit\" potential for a significant performance improvement that many embedder apps will want to do.",
       "parentUuid": "53272c8b_bf43b9da",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a81e79ab_ded119d3",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "LOL, that makes sense to me. No need to overthink it really.",
+      "parentUuid": "ccd9725a_2daa3297",
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -247,6 +319,24 @@
     },
     {
       "key": {
+        "uuid": "31f24f56_d23a45da",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "I mean I\u0027d prefer const char kSDLAudioPlayerType[] \u003d \"audio\";",
+      "parentUuid": "6ccb294f_a8a8ff56",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f8b817a_d3e539e8",
         "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
         "patchSetId": 4
@@ -276,6 +366,24 @@
       "side": 1,
       "message": "\u003e I\u0027m assuming fatal error is completely unrecoverable?\n\nYes.\n\n\u003e If we aren\u0027t DCHECKing here, I\u0027m wondering if we should also return ErrorOr\u003cClock::time_point\u003e, since we are in an indeterminate state?\n\nIt would be inappropriate to DCHECK, since the error is based on external data input (i.e., it\u0027s not an internal logic flaw). In general, bad data from outside a program should be sanity-checked, but not crash the program.\n\nBut, I like your idea about returning the ErrorOr, and then having the base class call into OnFatalError(). Reduces the \"side effects\" of calling RenderNextFrame(), from the control logic point-of-view.",
       "parentUuid": "5f8b817a_d3e539e8",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90a9a7a8_82ca6e5d",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "Sweet, this looks great.",
+      "parentUuid": "aecf4996_216c707a",
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -317,6 +425,24 @@
     },
     {
       "key": {
+        "uuid": "146d112c_29a8d367",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "I like this better for sure, separation of data and algorithms is always a huge plus for me.",
+      "parentUuid": "8376fabd_7a8b77e0",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "447be9dd_a1edf809",
         "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
         "patchSetId": 4
@@ -331,6 +457,24 @@
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ef661c8_57ba9e6c",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "Closing.",
+      "parentUuid": "447be9dd_a1edf809",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -369,6 +513,24 @@
     },
     {
       "key": {
+        "uuid": "de7c2335_3feb6e1d",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "I\u0027d consider parenthesis to make the assumption more obvious. Not a big deal either way.",
+      "parentUuid": "9af6a4e9_a0c3356a",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98a63ea7_595c46df",
         "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
         "patchSetId": 4
@@ -398,6 +560,24 @@
       "side": 1,
       "message": "Ack. I personally don\u0027t subscribe to the \"small functions\" principle as a \"one size fits all\" rule, because there are cases where forcing this will decrease readability.\n\nIn this case, the function is procedural, a step-by-step \"recipe\" for how to \"cook\" the decoded audio data, turning it into a ready-to-present form. Breaking this up into even more \nfunctions would just force those reading the code to have to jump around in the file to understand everything, each \"jump\" being a mental context switch. That, and there\u0027d be a ton of  extra boilerplate for argument passing, control flow for the early-return cases, etc.",
       "parentUuid": "98a63ea7_595c46df",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3fe7d4d_9a0317c9",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-15T23:00:40Z",
+      "side": 1,
+      "message": "Fair enough",
+      "parentUuid": "f50a6456_ceb4ff47",
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
