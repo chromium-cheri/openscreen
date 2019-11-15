@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d1401f4_5c7339b6",
+        "filename": "streaming/cast/receiver_demo/avcodec_glue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "I added the #undef after the macro usage. The problem here is that there are a several C-style objects for which I had to manually write a ton of memory management code. After things started getting rather crazy, I decided to go this route, and everything got much cleaner.",
+      "parentUuid": "5636eb83_11e4e055",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a888faec_f3781ac3",
         "filename": "streaming/cast/receiver_demo/decoder.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecaf5e9d_00e14ed4",
+        "filename": "streaming/cast/receiver_demo/decoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "libavcodec requires this. Their rationale is that \"some decoders\" use it as a stop marker. Added a comment to the code.",
+      "parentUuid": "a888faec_f3781ac3",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "52bfef80_24477d48",
+        "filename": "streaming/cast/receiver_demo/decoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "They do look that way. I had tried this and found out the only common ground were the allocations and avcodec_open2() call, and then things diverge. By the time this is common code is factored-out, and extra code is added to call into the common routine, to check that all returned objects are not null, and to std::move() objects to a final location places; it actually turns out to be a bit more \"noisy\" code.",
+      "parentUuid": "22e76b94_7becbe38",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a31ae06f_f5a5b0e2",
         "filename": "streaming/cast/receiver_demo/dummy_player.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fb628d7_eacd29b0",
+        "filename": "streaming/cast/receiver_demo/dummy_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a31ae06f_f5a5b0e2",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "cbc4ebc9_11ee2739",
+        "filename": "streaming/cast/receiver_demo/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "They seem similar, but Environment is a session-level object; not a global \"factory\" for TaskRunners and UDPSockets. Environment has a lot of streaming-specific logic around owning/managing the streaming UDP socket.\n\nPerhaps the name should change at some point, since Environment sounds like it should be the same thing as a PlatformClient. Either that, or it should become merged into your ReceiverSession in libcast (or maybe one abstraction level higher, in some kind of ReceiverApp class?). Though, it *is* meant to contain common stuff that a Sender will also need. So, probably just a rename at some point, when we\u0027ve figured out how all this will fit into libcast better.",
+      "parentUuid": "e034008c_995c652b",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53272c8b_bf43b9da",
         "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
         "patchSetId": 4
@@ -101,6 +191,24 @@
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd9725a_2daa3297",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "Yes! 😜\n\nMostly, I\u0027m not going to spend time doing it in a demo app. The comment is mostly so that embedder developers think twice before just copy+pasting this code into their apps; depending on whether they care.\n\nIn other words, it\u0027s not a TODO because the code here works; but it\u0027s just pointing out the \"low-hanging-fruit\" potential for a significant performance improvement that many embedder apps will want to do.",
+      "parentUuid": "53272c8b_bf43b9da",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "6ccb294f_a8a8ff56",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "It\u0027s documented in the SDLPlayerBase() ctor comments. Or, do you mean something else?",
+      "parentUuid": "906c1327_7d6d0503",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f8b817a_d3e539e8",
         "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
         "patchSetId": 4
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "aecf4996_216c707a",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "\u003e I\u0027m assuming fatal error is completely unrecoverable?\n\nYes.\n\n\u003e If we aren\u0027t DCHECKing here, I\u0027m wondering if we should also return ErrorOr\u003cClock::time_point\u003e, since we are in an indeterminate state?\n\nIt would be inappropriate to DCHECK, since the error is based on external data input (i.e., it\u0027s not an internal logic flaw). In general, bad data from outside a program should be sanity-checked, but not crash the program.\n\nBut, I like your idea about returning the ErrorOr, and then having the base class call into OnFatalError(). Reduces the \"side effects\" of calling RenderNextFrame(), from the control logic point-of-view.",
+      "parentUuid": "5f8b817a_d3e539e8",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6696def1_466c1c62",
         "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
         "patchSetId": 4
@@ -152,6 +296,24 @@
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8376fabd_7a8b77e0",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6696def1_466c1c62",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "9af6a4e9_a0c3356a",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "Multiply first to reduce loss due to precision.",
+      "parentUuid": "bc468b75_7b5d520c",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98a63ea7_595c46df",
         "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
         "patchSetId": 4
@@ -203,6 +383,24 @@
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f50a6456_ceb4ff47",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "Ack. I personally don\u0027t subscribe to the \"small functions\" principle as a \"one size fits all\" rule, because there are cases where forcing this will decrease readability.\n\nIn this case, the function is procedural, a step-by-step \"recipe\" for how to \"cook\" the decoded audio data, turning it into a ready-to-present form. Breaking this up into even more \nfunctions would just force those reading the code to have to jump around in the file to understand everything, each \"jump\" being a mental context switch. That, and there\u0027d be a ton of  extra boilerplate for argument passing, control flow for the early-return cases, etc.",
+      "parentUuid": "98a63ea7_595c46df",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +421,24 @@
     },
     {
       "key": {
+        "uuid": "7e39a759_b14e8be8",
+        "filename": "streaming/cast/receiver_demo/sdl_audio_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4be91665_476e7a85",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ab67ab3_af3ae443",
         "filename": "streaming/cast/receiver_demo/sdl_player_base.cc",
         "patchSetId": 4
@@ -237,6 +453,24 @@
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7793d200_3b811555",
+        "filename": "streaming/cast/receiver_demo/sdl_player_base.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ab67ab3_af3ae443",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +491,24 @@
     },
     {
       "key": {
+        "uuid": "ba077c56_6209f773",
+        "filename": "streaming/cast/receiver_demo/sdl_video_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "No longer applicable.",
+      "parentUuid": "0f55d673_a4e51873",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19be4b92_f95b7bd6",
         "filename": "streaming/cast/receiver_demo/sdl_video_player.cc",
         "patchSetId": 4
@@ -274,6 +526,24 @@
     },
     {
       "key": {
+        "uuid": "fb53b336_72428fa2",
+        "filename": "streaming/cast/receiver_demo/sdl_video_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19be4b92_f95b7bd6",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f2a6c8c_65cc0a73",
         "filename": "streaming/cast/receiver_demo/sdl_video_player.cc",
         "patchSetId": 4
@@ -288,6 +558,24 @@
       "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "680a8cde_edb87f64",
+        "filename": "streaming/cast/receiver_demo/sdl_video_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-15T22:46:59Z",
+      "side": 1,
+      "message": "x and y are initialized to zero on L141.\n\nSDL_RenderSetLogicalSize() just takes a size argument (width and height only) to set the size of the whole viewport. Then, on L154, SDL_RenderCopy() uses x\u003d0,y\u003d0 part of dst_rect as the destination position+size.",
+      "parentUuid": "3f2a6c8c_65cc0a73",
+      "revId": "cf3a0310a47388a5e5bb0f7788cb08762cfcc348",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
