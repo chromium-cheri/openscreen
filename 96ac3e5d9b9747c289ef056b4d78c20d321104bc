@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fc0eff8_eb42a9a2",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-16T00:40:59Z",
+      "side": 1,
+      "message": "dtor should be before methods\n\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "96ac3e5d9b9747c289ef056b4d78c20d321104bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ed087e_1debb6fd",
+        "filename": "streaming/cast/receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-16T00:40:59Z",
+      "side": 1,
+      "message": "surprised the compiler didn\u0027t catch this, but you declare this parameter as const in the header. Are std::chrono types not mutable so const does nothing?",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "96ac3e5d9b9747c289ef056b4d78c20d321104bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
