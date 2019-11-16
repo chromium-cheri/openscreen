@@ -2,10 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "platform/api/trace_logging.h"
+#include "platform/api/trace_logging_platform.h"
 
 #ifndef PLATFORM_TEST_TRACE_LOGGING_HELPERS_H_
 #define PLATFORM_TEST_TRACE_LOGGING_HELPERS_H_
+
+#include "platform/api/logging.h"
+#include "platform/base/trace_logging_activation.h"
 
 namespace openscreen {
 namespace platform {
@@ -16,6 +19,22 @@ enum ArgumentId { kFirst, kSecond };
 
 class MockLoggingPlatform : public TraceLoggingPlatform {
  public:
+  MockLoggingPlatform() {
+    OSP_DCHECK(!GetTracingDestination());
+    StartTracing(this);
+  }
+
+  ~MockLoggingPlatform() override {
+    OSP_DCHECK_EQ(GetTracingDestination(), this);
+    StopTracing();
+  }
+
+  bool IsTraceLoggingEnabled(TraceCategory::Value category) override {
+    constexpr uint64_t kAllLogCategoriesMask =
+        std::numeric_limits<uint64_t>::max();
+    return (kAllLogCategoriesMask & category) != 0;
+  }
+
   MOCK_METHOD7(LogTrace,
                void(const char*,
                     const uint32_t,
