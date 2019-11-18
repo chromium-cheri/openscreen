@@ -29,20 +29,13 @@ class QuerierImpl : public DnsSdQuerier, public MdnsRecordChangedCallback {
  public:
   // |querier| must outlive the QuerierImpl instance constructed.
   explicit QuerierImpl(MdnsService* querier);
-  ~QuerierImpl() override;
+  virtual ~QuerierImpl() override;
 
-  inline bool IsQueryRunning(absl::string_view service,
-                             absl::string_view domain) const {
-    return IsQueryRunning(ServiceKey(service, domain));
-  }
+  bool IsQueryRunning(absl::string_view service) const;
 
   // DnsSdQuerier overrides.
-  void StartQuery(absl::string_view service,
-                  absl::string_view domain,
-                  Callback* callback) override;
-  void StopQuery(absl::string_view service,
-                 absl::string_view domain,
-                 Callback* callback) override;
+  void StartQuery(absl::string_view service, Callback* callback) override;
+  void StopQuery(absl::string_view service, Callback* callback) override;
 
   // MdnsRecordChangedCallback overrides.
   void OnRecordChanged(const MdnsRecord& record,
