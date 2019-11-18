@@ -13,6 +13,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/impl/socket_handle_posix.h"
+#include "platform/impl/timeval_posix.h"
 
 namespace openscreen {
 namespace platform {
@@ -89,27 +90,27 @@ TEST(SocketHandleWaiterTest, WatchedSocketsReturnedToCorrectSubscribers) {
 
 TEST(SocketHandleWaiterTest, ValidateTimevalConversion) {
   auto timespan = Clock::duration::zero();
-  auto timeval = SocketHandleWaiterPosix::ToTimeval(timespan);
+  auto timeval = ToTimeval(timespan);
   EXPECT_EQ(timeval.tv_sec, 0);
   EXPECT_EQ(timeval.tv_usec, 0);
 
   timespan = Clock::duration(1000000);
-  timeval = SocketHandleWaiterPosix::ToTimeval(timespan);
+  timeval = ToTimeval(timespan);
   EXPECT_EQ(timeval.tv_sec, 1);
   EXPECT_EQ(timeval.tv_usec, 0);
 
   timespan = Clock::duration(1000000 - 1);
-  timeval = SocketHandleWaiterPosix::ToTimeval(timespan);
+  timeval = ToTimeval(timespan);
   EXPECT_EQ(timeval.tv_sec, 0);
   EXPECT_EQ(timeval.tv_usec, 1000000 - 1);
 
   timespan = Clock::duration(1);
-  timeval = SocketHandleWaiterPosix::ToTimeval(timespan);
+  timeval = ToTimeval(timespan);
   EXPECT_EQ(timeval.tv_sec, 0);
   EXPECT_EQ(timeval.tv_usec, 1);
 
   timespan = Clock::duration(100000010);
-  timeval = SocketHandleWaiterPosix::ToTimeval(timespan);
+  timeval = ToTimeval(timespan);
   EXPECT_EQ(timeval.tv_sec, 100);
   EXPECT_EQ(timeval.tv_usec, 10);
 }

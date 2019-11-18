@@ -23,9 +23,6 @@ class SocketHandleWaiterPosix : public SocketHandleWaiter {
   SocketHandleWaiterPosix();
   ~SocketHandleWaiterPosix() override;
 
-  // TODO(rwkeane): Move this to a platform-specific util library.
-  static struct timeval ToTimeval(const Clock::duration& timeout);
-
   // Runs the Wait function in a loop until the below RequestStopSoon function
   // is called.
   void RunUntilStopped();
