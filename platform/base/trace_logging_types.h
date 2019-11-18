@@ -2,12 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef PLATFORM_API_TRACE_LOGGING_TYPES_H_
-#define PLATFORM_API_TRACE_LOGGING_TYPES_H_
+#ifndef PLATFORM_BASE_TRACE_LOGGING_TYPES_H_
+#define PLATFORM_BASE_TRACE_LOGGING_TYPES_H_
 
 #include "absl/types/optional.h"
 
 namespace openscreen {
+namespace platform {
 
 // Define TraceId type here since other TraceLogging files import it.
 using TraceId = uint64_t;
@@ -59,6 +60,7 @@ struct TraceCategory {
   };
 };
 
+}  // namespace platform
 }  // namespace openscreen
 
-#endif  // PLATFORM_API_TRACE_LOGGING_TYPES_H_
+#endif  // PLATFORM_BASE_TRACE_LOGGING_TYPES_H_
