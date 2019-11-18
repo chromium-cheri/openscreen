@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "81f4aad9_e14d4c25",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-18T21:04:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e15538b7_3623138e",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 66
+      },
+      "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "040dc747_25f9d510",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 2
@@ -283,6 +307,30 @@
       "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f809b4c4_964db50c",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-18T21:04:58Z",
+      "side": 1,
+      "message": "I remember why I made them pointers now. It is possible for there to not be a valid configuration, if a device is audio-only or video only, or we couldn\u0027t find a codec to agree on, there may not be a valid receiver and configuration. And it\u0027s not necessarily an error condition.\n\nI\u0027ll make the configs optional, and keep the receivers as unique_ptrs, since they aren\u0027t easily copyable or moveable (requirements for optional).",
+      "parentUuid": "b89c5e39_60dabb73",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "ea235a7e9523d6ca9ca5a39cfb1d71cd67e308cf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
