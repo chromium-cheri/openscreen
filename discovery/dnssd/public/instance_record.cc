@@ -5,7 +5,7 @@
 #include "discovery/dnssd/public/instance_record.h"
 
 #include "absl/strings/ascii.h"
-#include "platform/api/logging.h"
+#include "util/logging.h"
 
 namespace openscreen {
 namespace discovery {
