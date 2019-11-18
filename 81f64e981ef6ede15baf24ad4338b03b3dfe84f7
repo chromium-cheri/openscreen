@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae281d79_a3f85a6a",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-18T22:57:04Z",
+      "side": 1,
+      "message": "Move ctors and assigners should be declared noexcept: https://groups.google.com/a/chromium.org/forum/#!msg/chromium-dev/W_vruKXS_6Q/cfXcCR0KAgAJ\n\nPlease fix throughout all files...",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 46
+      },
+      "revId": "81f64e981ef6ede15baf24ad4338b03b3dfe84f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "521e13db_4599ca57",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-18T22:57:04Z",
+      "side": 1,
+      "message": "The inline keyword is not necessary for these accessor methods. Definition inside the class declaration is already a request to inline.\n\nAlso, please make this a const method, since it\u0027s an accessor.",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 71
+      },
+      "revId": "81f64e981ef6ede15baf24ad4338b03b3dfe84f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f96b302b_af3e1306",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-18T22:57:04Z",
+      "side": 1,
+      "message": "Since you\u0027re passing the |offers| vector by value, there\u0027s no need to enforce that its elements are const. (This, internally, would auto-disable all move ctors/assigns, forcing copies.)",
+      "range": {
+        "startLine": 58,
+        "startChar": 37,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "81f64e981ef6ede15baf24ad4338b03b3dfe84f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86aecfae_c6cd5b0a",
+        "filename": "streaming/cast/receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-18T22:57:04Z",
+      "side": 1,
+      "message": "naming nit: It\u0027s not really \"sample\" config, since the tests depend on these values being what they are. Naming is hard, so maybe just put the config directly in here (instead of having a separate global const for it):\n\n        receiver_(\u0026env_,\n                  \u0026packet_router_,\n                  SessionConfig(kSenderSsrc, kReceiverSsrc, ...),\n                  kTargetPlayoutDelay),",
+      "range": {
+        "startLine": 297,
+        "startChar": 18,
+        "endLine": 297,
+        "endChar": 38
+      },
+      "revId": "81f64e981ef6ede15baf24ad4338b03b3dfe84f7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
