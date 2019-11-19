@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "b318a78c_51afa571",
+        "filename": "util/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T22:08:23Z",
+      "side": 1,
+      "message": "+1 on leaving this as-is\n\nBut it might be better to move the platform/base import to after this check",
+      "parentUuid": "044e8e1b_2ef9ebf9",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09c1074b_3730ee60",
         "filename": "util/trace_logging.h",
         "patchSetId": 3
@@ -67,6 +85,24 @@
       "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d236f2a_3e16eeb7",
+        "filename": "util/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T22:08:23Z",
+      "side": 1,
+      "message": "This is copied from the pre-move code. It\u0027s to keep this file simpler for the reader, since those macros aren\u0027t needed to understand this file",
+      "parentUuid": "09c1074b_3730ee60",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +157,24 @@
     },
     {
       "key": {
+        "uuid": "7f2d26ae_760dc326",
+        "filename": "util/trace_logging_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T22:08:23Z",
+      "side": 1,
+      "message": "This has been fixed in a previous patch and can be removed",
+      "parentUuid": "d9c7293f_f87becab",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25a694c7_5592e13d",
         "filename": "util/trace_logging_unittest.cc",
         "patchSetId": 3
@@ -149,6 +203,24 @@
       "writtenOn": "2019-11-19T00:31:31Z",
       "side": 1,
       "message": "These tests don\u0027t seem very strict.  I would expect the TRACE macros to produce a deterministic call to the underlying implementation.  (Not anything to fix here though.)",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d507e1a3_2097c662",
+        "filename": "util/trace_logging_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T22:08:23Z",
+      "side": 1,
+      "message": "Looking at the below code, it seems that each of the specific parameters is checked in relevant tests (ie ExpectTimestampsReflectDelay checks the timestamp parts) so all of the cases get checked, but tests do not validate outside of what is being called out in the test name",
+      "parentUuid": "0826bcf9_9ee21bdb",
       "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
