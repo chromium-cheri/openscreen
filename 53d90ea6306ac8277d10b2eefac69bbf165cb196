@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "359aed18_3bc0aad2",
+        "filename": "cast/common/channel/virtual_connection_router.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T22:36:57Z",
+      "side": 1,
+      "message": "Where do we expect this method to be called? If we can std::move() the string into AddHandlerForLocalId() and then std::move() it to endpoints_ it should be one less copy\n\nSame for below",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "53d90ea6306ac8277d10b2eefac69bbf165cb196",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08beb308_aaf0ceb8",
+        "filename": "cast/common/channel/virtual_connection_router.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T22:36:57Z",
+      "side": 1,
+      "message": "Is this variable used?\nIf not, it-\u003esecond.socket.reset() would be clearer",
+      "revId": "53d90ea6306ac8277d10b2eefac69bbf165cb196",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
