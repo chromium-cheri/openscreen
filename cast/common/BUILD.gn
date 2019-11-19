@@ -41,6 +41,11 @@ source_set("channel") {
     "channel/message_framer.cc",
     "channel/message_framer.h",
     "channel/message_util.h",
+    "channel/virtual_connection.h",
+    "channel/virtual_connection_manager.cc",
+    "channel/virtual_connection_manager.h",
+    "channel/virtual_connection_router.cc",
+    "channel/virtual_connection_router.h",
   ]
 
   deps = [
@@ -52,6 +57,7 @@ source_set("channel") {
   public_deps = [
     "../../platform",
     "../../third_party/abseil",
+    "../../util",
   ]
 }
 
@@ -62,21 +68,44 @@ proto_library("channel_proto") {
   ]
 }
 
+source_set("test_helpers") {
+  testonly = true
+  sources = [
+    "certificate/test_helpers.cc",
+    "certificate/test_helpers.h",
+    "channel/test/fake_cast_socket.h",
+    "channel/test/mock_cast_message_handler.h",
+  ]
+  public_deps = [
+    ":certificate",
+    ":channel",
+    "../../platform:test",
+    "../../third_party/boringssl",
+    "../../third_party/googletest:gmock",
+  ]
+  deps = [
+    "../../platform",
+    "../../platform:test",
+  ]
+}
+
 source_set("unittests") {
   testonly = true
   sources = [
     "certificate/cast_cert_validator_unittest.cc",
     "certificate/cast_crl_unittest.cc",
-    "certificate/test_helpers.cc",
-    "certificate/test_helpers.h",
     "channel/cast_socket_unittest.cc",
     "channel/message_framer_unittest.cc",
+    "channel/virtual_connection_manager_unittest.cc",
+    "channel/virtual_connection_router_unittest.cc",
   ]
 
   deps = [
     ":certificate",
     ":certificate_unittest_proto",
     ":channel",
+    ":channel_proto",
+    ":test_helpers",
     "../../platform",
     "../../third_party/boringssl",
     "../../third_party/googletest:gmock",
