@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b77e6786_751f9f5c",
+        "filename": "build/config/features.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "I\u0027d like to discuss this more.  The nice thing about GN args is that you don\u0027t have to include magic headers, just add configs to the appropriate GN libraries.  But I could see advantages to enabling the library to query enabled features at runtime (e.g. by generating constants/flags) here.\n\nSince it seems like this isn\u0027t fully implemented yet, can you remove it from this patch?",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e1cd31b_e9177742",
+        "filename": "platform/base/trace_logging_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "nit: add newlines around operator declarations",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "044e8e1b_2ef9ebf9",
+        "filename": "util/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "Or you could write at L5:\n\n#if defined(ENABLE_TRACE_LOGGING) \u0026\u0026 !defined(UTIL_TRACE_LOGGING_H_) \n\nAlthough the current form is better if we end up moving flags to features.h.",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09c1074b_3730ee60",
+        "filename": "util/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "Is breaking out these declarations intended to make this file smaller?",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ccc85f3_2c3471d0",
+        "filename": "util/trace_logging/macro_support.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "Nit: newlines around declaration.",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2404fe26_e3b4b77a",
+        "filename": "util/trace_logging/macro_support.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "Nit: add a newline before declaration.",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c7293f_f87becab",
+        "filename": "util/trace_logging_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "Is this TODO still relevant?  How hard is it to fix?",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25a694c7_5592e13d",
+        "filename": "util/trace_logging_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "Thanks, this is better. It verifies that there are no calls to the platform if tracing is disabled.\n\nIt might be worth a comment explaining why this is a StrictMock.",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0826bcf9_9ee21bdb",
+        "filename": "util/trace_logging_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-19T00:31:31Z",
+      "side": 1,
+      "message": "These tests don\u0027t seem very strict.  I would expect the TRACE macros to produce a deterministic call to the underlying implementation.  (Not anything to fix here though.)",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
