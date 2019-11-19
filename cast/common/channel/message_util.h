@@ -32,6 +32,22 @@ static constexpr char kMediaNamespace[] = "urn:x-cast:com.google.cast.media";
 static constexpr char kPlatformSenderId[] = "sender-0";
 static constexpr char kPlatformReceiverId[] = "receiver-0";
 
+static constexpr char kBroadcastId[] = "*";
+
+// JSON message key strings.
+static constexpr char kMessageKeyType[] = "type";
+static constexpr char kMessageKeyConnType[] = "connType";
+static constexpr char kMessageKeyUserAgent[] = "userAgent";
+static constexpr char kMessageKeySenderInfo[] = "senderInfo";
+static constexpr char kMessageKeyProtocolVersion[] = "protocolVersion";
+static constexpr char kMessageKeyProtocolVersionList[] = "protocolVersionList";
+static constexpr char kMessageKeyReasonCode[] = "reasonCode";
+
+// JSON message field values.
+static constexpr char kMessageTypeConnect[] = "CONNECT";
+static constexpr char kMessageTypeClose[] = "CLOSE";
+static constexpr char kMessageTypeConnected[] = "CONNECTED";
+
 inline bool IsAuthMessage(const CastMessage& message) {
   return message.namespace_() == kAuthNamespace;
 }
@@ -41,6 +57,14 @@ inline bool IsTransportNamespace(absl::string_view namespace_) {
          (namespace_.compare(0, sizeof(kTransportNamespacePrefix) - 1,
                              kTransportNamespacePrefix) == 0);
 }
+
+CastMessage MakeSimpleUTF8Message(const std::string& namespace_,
+                                  std::string payload);
+
+CastMessage MakeConnectMessage(const std::string& source_id,
+                               const std::string& destination_id);
+CastMessage MakeCloseMessage(const std::string& source_id,
+                             const std::string& destination_id);
 
 }  // namespace channel
 }  // namespace cast

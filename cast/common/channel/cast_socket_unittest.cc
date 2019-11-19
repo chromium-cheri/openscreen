@@ -137,5 +137,23 @@ TEST_F(CastSocketTest, ErrorWhileEmptyingQueue) {
   ASSERT_FALSE(socket().SendMessage(message_).ok());
 }
 
+TEST_F(CastSocketTest, SanitizedAddress) {
+  std::array<uint8_t, 2> result1 = socket().GetSanitizedIpAddress();
+  EXPECT_EQ(result1[0], 1u);
+  EXPECT_EQ(result1[1], 9u);
+
+  auto v6_connection = std::make_unique<MockTlsConnection>(
+      IPEndpoint{{1, 2, 3, 4}, 1025},
+      IPEndpoint{{24, 25, 26, 27, 28, 29, 30, 31, 32, 123, 124, 125, 126, 127,
+                  128, 129},
+                 4321});
+  CastSocket socket(std::move(v6_connection),
+                    // NOTE: Dodge DCHECK on |client| because it's never used.
+                    reinterpret_cast<CastSocket::Client*>(128), 0);
+  std::array<uint8_t, 2> result2 = socket.GetSanitizedIpAddress();
+  EXPECT_EQ(result2[0], 128);
+  EXPECT_EQ(result2[1], 129);
+}
+
 }  // namespace channel
 }  // namespace cast
