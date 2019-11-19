@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8dd25304_8b7370ca",
+        "filename": "build/config/features.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-19T22:58:20Z",
+      "side": 1,
+      "message": "Totally agree. My goal is to [very soon] bring back the GN args for this (and consolidate other feature config for Open Screen). This here is only meant to be temporary for now, so that compiling .cc files will, through the \"graph\" of header #include\u0027s, always have ENABLE_TRACE_LOGGING defined exactly the same way.\n\nWe want to use GN args this way:\n\n  declare_args() {\n    enable_trace_logging \u003d true\n  }\n  \n  ...\n  \n  source_set(\"my_piece_of_the_pie) {\n    if (enable_trace_logging) {\n      defines +\u003d [\"ENABLE_TRACE_LOGGING\"]\n    }\n  }\n\n...but without a small bit of extra infrastructure, this will only modify the compiler command line for some, not *all*, .cc files (only the files in the same source_set). In the case of tracing, that means the macros will be defined differently for some files, which would break things.\n\nI\u0027ll be researching this issue further, and write a design proposal for how we should do \"build feature switches\" that the team can look at and discuss. Chromium has a solution that may be close to what we want to do, but I also want to consider the embedders\u0027 possible requirements.",
+      "parentUuid": "b77e6786_751f9f5c",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e1cd31b_e9177742",
         "filename": "platform/base/trace_logging_types.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b88210b_99174d74",
+        "filename": "platform/base/trace_logging_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-19T22:58:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e1cd31b_e9177742",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "6db348f8_9d8e124e",
+        "filename": "util/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-19T22:58:20Z",
+      "side": 1,
+      "message": "Just tried this. It seems the PRESUBMIT checks complain about a non-standard header guard.",
+      "parentUuid": "044e8e1b_2ef9ebf9",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09c1074b_3730ee60",
         "filename": "util/trace_logging.h",
         "patchSetId": 3
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "ef7612c2_8e7c6741",
+        "filename": "util/trace_logging.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-19T22:58:20Z",
+      "side": 1,
+      "message": "Mostly, I was just keeping a similar break-up of what things were in separate files.\n\nThinking about this more, IMHO, I like the break-up we have (separating the \"internal macros\" versus the \"user macros\"). I feel it\u0027s easier for those writing Open Screen code to see just the set of tracing macros they\u0027re supposed to be using (i.e., the \"API\"), and not having to worry about the internal details.\n\nSGTY?",
+      "parentUuid": "09c1074b_3730ee60",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ccc85f3_2c3471d0",
         "filename": "util/trace_logging/macro_support.h",
         "patchSetId": 3
@@ -123,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "aaea7efb_7a2eb269",
+        "filename": "util/trace_logging/macro_support.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-19T22:58:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ccc85f3_2c3471d0",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2404fe26_e3b4b77a",
         "filename": "util/trace_logging/macro_support.h",
         "patchSetId": 3
@@ -137,6 +227,24 @@
       "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3907265_a44cd06a",
+        "filename": "util/trace_logging/macro_support.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-19T22:58:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2404fe26_e3b4b77a",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +297,24 @@
       "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d5b2ce7_6e610f47",
+        "filename": "util/trace_logging_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-19T22:58:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25a694c7_5592e13d",
+      "revId": "282725cb77b4bc77e01a70decb3716cbfd725ce4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
