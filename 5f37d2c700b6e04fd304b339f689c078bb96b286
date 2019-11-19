@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c111cabc_9af22e7e",
+        "filename": "platform/impl/socket_handle_waiter_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T00:15:39Z",
+      "side": 1,
+      "message": "It feels weird to import \u003csys/time.h\u003e when it\u0027s only used by ToTimeval(). Don\u0027t think there\u0027s anything wrong with this though",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "5f37d2c700b6e04fd304b339f689c078bb96b286",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec4b0a0d_9f86f667",
+        "filename": "platform/impl/socket_handle_waiter_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T00:15:39Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed anymore",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 23
+      },
+      "revId": "5f37d2c700b6e04fd304b339f689c078bb96b286",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "277e22cb_49351d7d",
+        "filename": "platform/impl/socket_handle_waiter_posix_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-19T00:15:39Z",
+      "side": 1,
+      "message": "This should probably move to a timeval_posix_unittest class",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 1
+      },
+      "revId": "5f37d2c700b6e04fd304b339f689c078bb96b286",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
