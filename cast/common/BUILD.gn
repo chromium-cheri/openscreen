@@ -28,12 +28,6 @@ source_set("certificate") {
   ]
 }
 
-proto_library("certificate_proto") {
-  sources = [
-    "certificate/proto/revocation.proto",
-  ]
-}
-
 source_set("channel") {
   sources = [
     "channel/cast_socket.cc",
@@ -44,8 +38,8 @@ source_set("channel") {
   ]
 
   deps = [
-    ":certificate_proto",
-    ":channel_proto",
+    "certificate/proto:certificate_proto",
+    "channel/proto:channel_proto",
     "../../util",
   ]
 
@@ -55,12 +49,6 @@ source_set("channel") {
   ]
 }
 
-proto_library("channel_proto") {
-  sources = [
-    "channel/proto/authority_keys.proto",
-    "channel/proto/cast_channel.proto",
-  ]
-}
 
 source_set("unittests") {
   testonly = true
@@ -75,19 +63,12 @@ source_set("unittests") {
 
   deps = [
     ":certificate",
-    ":certificate_unittest_proto",
+    "certificate/proto:certificate_unittest_proto",
     ":channel",
     "../../platform",
     "../../third_party/boringssl",
     "../../third_party/googletest:gmock",
     "../../third_party/googletest:gtest",
     "../../util",
-  ]
-}
-
-proto_library("certificate_unittest_proto") {
-  testonly = true
-  sources = [
-    "certificate/proto/test_suite.proto",
   ]
 }
