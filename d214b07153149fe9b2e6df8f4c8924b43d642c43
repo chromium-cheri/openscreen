@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4402b76a_dfdcbd82",
+        "filename": "platform/base/trace_logging_activation.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-20T19:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7053f9d_09ce0d61",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 1
+      },
+      "revId": "d214b07153149fe9b2e6df8f4c8924b43d642c43",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f27eadc_6b404518",
         "filename": "platform/base/trace_logging_activation.h",
         "patchSetId": 5
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "616793d1_60e1d455",
+        "filename": "util/trace_logging/macro_support.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-20T19:21:47Z",
+      "side": 1,
+      "message": "\u003e Why not just \u0027false\u0027? That way we don\u0027t even need to evaluate the value of category\n\nWe want to evaluate |category| to prevent the compiler from erroring-out with \"unused variable\" kinds of errors. It also maintains the semantic type checking, should a developer be adding tracing statements but forget to enable tracing in their build.\n\n\u003e It seems like this file should never be included if !defined(ENABLE_TRACE_LOGGING).\n\u003e Can you #error if that is the case, and clean up the macros accordingly?\n\nDone.",
+      "parentUuid": "6318a198_e5165ae5",
+      "range": {
+        "startLine": 57,
+        "startChar": 3,
+        "endLine": 57,
+        "endChar": 75
+      },
+      "revId": "d214b07153149fe9b2e6df8f4c8924b43d642c43",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8143585b_1c403f2b",
         "filename": "util/trace_logging/scoped_trace_operations.h",
         "patchSetId": 5
@@ -133,6 +181,24 @@
       "revId": "d214b07153149fe9b2e6df8f4c8924b43d642c43",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2aca4b0_438ecba0",
+        "filename": "util/trace_logging/scoped_trace_operations.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-20T19:21:47Z",
+      "side": 1,
+      "message": "Ack. Added to my personal notes for follow-up work.",
+      "parentUuid": "8143585b_1c403f2b",
+      "revId": "d214b07153149fe9b2e6df8f4c8924b43d642c43",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
