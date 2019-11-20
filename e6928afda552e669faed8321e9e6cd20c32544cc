@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9d592ea_40630b18",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-20T00:30:35Z",
+      "side": 1,
+      "message": "The use case here is that MdnsResponder will call HasRecords() to check if there are any records available for a given question. If so, it will push a task to the TaskRunner for a random delay, and when it gets pulled off it will call GetRecords() to get the records\n\nThese are passed by value because the vector will be std::move\u0027d into the MdnsMessage object that is send out to respond to the query",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 59
+      },
+      "revId": "e6928afda552e669faed8321e9e6cd20c32544cc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
