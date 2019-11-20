@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e27b8f9a_414bc7ed",
+        "filename": "platform/base/trace_logging_activation.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-20T00:48:06Z",
+      "side": 1,
+      "message": "Can you add a TODO(crbug.com/openscreen/85) here?",
+      "parentUuid": "c7053f9d_09ce0d61",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 1
+      },
+      "revId": "d214b07153149fe9b2e6df8f4c8924b43d642c43",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f27eadc_6b404518",
         "filename": "platform/base/trace_logging_activation.h",
         "patchSetId": 5
@@ -59,6 +83,30 @@
       "writtenOn": "2019-11-19T22:08:23Z",
       "side": 1,
       "message": "Why not just \u0027false\u0027? That way we don\u0027t even need to evaluate the value of category\n\nSame question for elsewhere in the CL",
+      "range": {
+        "startLine": 57,
+        "startChar": 3,
+        "endLine": 57,
+        "endChar": 75
+      },
+      "revId": "d214b07153149fe9b2e6df8f4c8924b43d642c43",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6318a198_e5165ae5",
+        "filename": "util/trace_logging/macro_support.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-20T00:48:06Z",
+      "side": 1,
+      "message": "It seems like this file should never be included if !defined(ENABLE_TRACE_LOGGING). \nCan you #error if that is the case, and clean up the macros accordingly?",
+      "parentUuid": "d4d120e5_76cde3b3",
       "range": {
         "startLine": 57,
         "startChar": 3,
