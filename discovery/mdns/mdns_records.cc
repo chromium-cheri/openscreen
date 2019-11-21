@@ -6,6 +6,7 @@
 
 #include <atomic>
 
+#include "absl/strings/ascii.h"
 #include "absl/strings/match.h"
 #include "absl/strings/str_join.h"
 
@@ -40,9 +41,43 @@ std::string DomainName::ToString() const {
   return absl::StrJoin(labels_, ".");
 }
 
+bool DomainName::operator>(const DomainName& rhs) const {
+  size_t this_size = std::distance(labels_.begin(), labels_.end());
+  size_t other_size = std::distance(rhs.labels_.begin(), rhs.labels_.end());
+  if (this_size != other_size) {
+    return this_size > other_size;
+  }
+
+  auto this_it = labels_.begin();
+  auto other_it = rhs.labels_.begin();
+  while (this_it != labels_.end()) {
+    size_t compare = absl::AsciiStrToLower(*this_it).compare(
+        absl::AsciiStrToLower(*other_it));
+    if (compare != 0) {
+      return compare > 0;
+    }
+
+    this_it++;
+    other_it++;
+  }
+
+  return false;
+}
+
+bool DomainName::operator<(const DomainName& rhs) const {
+  return rhs > *this;
+}
+
+bool DomainName::operator>=(const DomainName& rhs) const {
+  return !(*this < rhs);
+}
+
+bool DomainName::operator<=(const DomainName& rhs) const {
+  return !(*this > rhs);
+}
+
 bool DomainName::operator==(const DomainName& rhs) const {
-  return std::equal(labels_.begin(), labels_.end(), rhs.labels_.begin(),
-                    rhs.labels_.end(), absl::EqualsIgnoreCase);
+  return (*this <= rhs) && (*this >= rhs);
 }
 
 bool DomainName::operator!=(const DomainName& rhs) const {
