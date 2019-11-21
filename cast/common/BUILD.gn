@@ -90,7 +90,6 @@ source_set("unittests") {
   deps = [
     ":certificate",
     ":channel",
-    ":channel_proto",
     ":test_helpers",
     "../../platform",
     "../../third_party/boringssl",
@@ -98,5 +97,6 @@ source_set("unittests") {
     "../../third_party/googletest:gtest",
     "../../util",
     "certificate/proto:certificate_unittest_proto",
+    "channel/proto:channel_proto",
   ]
 }
