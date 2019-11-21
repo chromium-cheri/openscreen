@@ -8,15 +8,28 @@
 #include <memory>
 #include <vector>
 
+#include "cast/streaming/message_port.h"
+#include "cast/streaming/offer.h"
 #include "cast/streaming/receiver.h"
 #include "cast/streaming/receiver_packet_router.h"
 #include "cast/streaming/session_config.h"
+#include "util/json/json_reader.h"
 
 namespace cast {
+
+namespace channel {
+class CastSocket;
+class CastMessage;
+class VirtualConnectionRouter;
+class VirtualConnection;
+}  // namespace channel
+
 namespace streaming {
 
-class ReceiverSession {
+class ReceiverSession final : public MessagePort::Client {
  public:
+  // Upon successful negotiation, a set of configured receivers is constructed
+  // for handling audio and video. Note that either receiver may be null.
   class ConfiguredReceivers {
    public:
     // In practice, we may have 0, 1, or 2 receivers configured, depending
@@ -51,25 +64,55 @@ class ReceiverSession {
     absl::optional<SessionConfig> video_receiver_config_;
   };
 
+  // The embedder should provide a client for handling connections.
+  // When a connection is established, the OnNegotiated callback is called.
   class Client {
    public:
-    virtual ~Client() = 0;
-    virtual void OnOffer(std::vector<SessionConfig> offers) = 0;
-    virtual void OnNegotiated(ConfiguredReceivers receivers) = 0;
+    virtual void OnNegotiated(ReceiverSession* session,
+                              ConfiguredReceivers receivers) = 0;
+    virtual void OnError(ReceiverSession* session, openscreen::Error error) = 0;
   };
 
-  ReceiverSession(Client* client, ReceiverPacketRouter* router);
+  // The embedder has the option of providing a list of prioritized
+  // preferences for selecting from the offer.
+  enum AudioCodec { kAac, kOpus };
+  enum VideoCodec { kH264, kVp8, kHevc, kVp9 };
+
+  // Note: embedders are required to implement the following
+  // codecs to be Cast V2 compliant: H264, VP8, AAC, Opus.
+  // TODO(jophba): add additional fields for preferences.
+  struct Preferences {
+    std::vector<VideoCodec> video_codecs{VideoCodec::kVp8, VideoCodec::kH264};
+    std::vector<AudioCodec> audio_codecs{AudioCodec::kOpus, AudioCodec::kAac};
+  };
+
+  ReceiverSession(Client* client,
+                  MessagePort* message_port,
+                  Preferences preferences);
+  ReceiverSession(Client* client, MessagePort* message_port);
   ReceiverSession(const ReceiverSession&) = delete;
   ReceiverSession(ReceiverSession&&) noexcept;
   ReceiverSession& operator=(const ReceiverSession&) = delete;
   ReceiverSession& operator=(ReceiverSession&&) noexcept;
   ~ReceiverSession();
 
-  void SelectOffer(const SessionConfig& selected_offer);
+  // MessagePort::Client overrides
+  void OnMessage(absl::string_view message) override;
+  void OnError(openscreen::Error error) override;
 
  private:
+  // Message handlers
+  void OnOffer(Json::Value root, int sequence_number);
+
+  void SelectStreams(const AudioStream* audio,
+                     const VideoStream* video,
+                     Offer&& offer);
+
   Client* client_;
-  ReceiverPacketRouter* router_;
+  MessagePort* message_port_;
+  Preferences preferences_;
+
+  openscreen::JsonReader json_reader_ = {};
 };
 
 }  // namespace streaming
