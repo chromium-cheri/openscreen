@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "0d4aa3eb_0211a34b",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-21T22:56:12Z",
+      "side": 1,
+      "message": "Right - you could do the size check first. However, I still think find_first_of() is more readable than compare() here.",
+      "parentUuid": "da298890_18678ffd",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32b51bbe_5fe22c6c",
         "filename": "cast/common/channel/test/fake_cast_socket.h",
         "patchSetId": 2
@@ -311,6 +329,24 @@
       "side": 1,
       "message": "Retaining the unique_ptrs is an artifact of when I was avoiding having a constructor (before the pair), so this is probably clearer in the constructor now.  CastSocket needs to own a TlsConnection but we need to retain a pointer for checking mock methods.",
       "parentUuid": "449b7148_0bc8a182",
+      "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33d24244_df347396",
+        "filename": "cast/common/channel/test/fake_cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-21T22:56:12Z",
+      "side": 1,
+      "message": "LGTM now, thanks.",
+      "parentUuid": "ea30195d_79d54796",
       "revId": "fbebbdb2877d18b0ed254178f9ac263533b554c0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
