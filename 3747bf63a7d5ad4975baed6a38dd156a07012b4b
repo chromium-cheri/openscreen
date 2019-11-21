@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "abdbed23_bc80a4f5",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-21T23:11:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffc5c72a_c6b04bd8",
+      "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b33d50a4_276f6d03",
         "filename": "discovery/mdns/mdns_records.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-11-21T22:12:03Z",
       "side": 1,
       "message": "How often will labels be the same, but differently cased? Are they effectively the same if they have different capitalization?\n\nHaving to copy them to lower because you can\u0027t use EqualsIgnoreCase is a bummer--if we need case insensitive compare, can we enforce absl::AsciiStrToLower as part of adding the domain name label to the list, so we don\u0027t have to do this for every comparison?",
+      "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19dd7100_054922a7",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-21T23:11:52Z",
+      "side": 1,
+      "message": "How often doesn\u0027t really matter - the RFC specifies that comparisons must be case insensitive.\n\nI like the idea of calling ToLower as part of adding the domain label to the list, but unfortunately it doesn\u0027t work here. The first domain label is the Instance id, which is generally displayed to the user. Changing the case would affect what is displayed (either on our side or on the receiver side). Additionally, changing the other labels could have unintended side effects if the other side is not implemented fully to spec (ie it does not ignore case)\n\nI\u0027ve reworked the function a bit to avoid creating a copy at all - though it\u0027s more complex now. What do you think?",
+      "parentUuid": "b33d50a4_276f6d03",
       "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "281ecffe_bb5acebf",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-21T23:11:52Z",
+      "side": 1,
+      "message": "We need \u003e (or maybe it was \u003c) to allow use with std::map\n\nWe need the others because of style-guide requirements: \"If you define an operator, also define any related operators that make sense\"\nhttps://google.github.io/styleguide/cppguide.html#Operator_Overloading\n\nexisting \u003d\u003d and !\u003d are already used so we need them to maintain functionality",
+      "parentUuid": "12834b4e_ba177d3f",
+      "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c394d08_3aff7d2c",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fd8015b_c6feac03",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-21T23:11:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c394d08_3aff7d2c",
+      "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
