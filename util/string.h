@@ -1,12 +1,19 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef UTIL_STRINGPRINTF_H_
-#define UTIL_STRINGPRINTF_H_
+#ifndef UTIL_STRING_H_
+#define UTIL_STRING_H_
 
 #include <ostream>
+#include <string>
+#include <vector>
 
+#include "absl/strings/string_view.h"
+#include "platform/base/error.h"
+
+// Helper class containing string and string_view related functions.
+// Intended to fill the gaps in the Abseil and STD libraries.
 namespace openscreen {
 
 template <typename It>
@@ -36,6 +43,8 @@ void PrettyPrintAsciiHex(std::ostream& os, It first, It last) {
   }
 }
 
+Error HexToBytes(absl::string_view hex_string, uint8_t* bytes, int bytes_len);
+
 }  // namespace openscreen
 
-#endif  // UTIL_STRINGPRINTF_H_
+#endif  // UTIL_STRING_H_
