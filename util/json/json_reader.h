@@ -21,6 +21,10 @@ class ErrorOr;
 class JsonReader {
  public:
   JsonReader();
+  JsonReader(JsonReader&&) noexcept;
+  JsonReader(const JsonReader&);
+  JsonReader& operator=(JsonReader&&) noexcept;
+  JsonReader& operator=(const JsonReader&);
 
   ErrorOr<Json::Value> Read(absl::string_view document);
 
