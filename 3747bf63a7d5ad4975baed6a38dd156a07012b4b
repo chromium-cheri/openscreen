@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffc5c72a_c6b04bd8",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-21T22:12:03Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b33d50a4_276f6d03",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-21T22:12:03Z",
+      "side": 1,
+      "message": "How often will labels be the same, but differently cased? Are they effectively the same if they have different capitalization?\n\nHaving to copy them to lower because you can\u0027t use EqualsIgnoreCase is a bummer--if we need case insensitive compare, can we enforce absl::AsciiStrToLower as part of adding the domain name label to the list, so we don\u0027t have to do this for every comparison?",
+      "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12834b4e_ba177d3f",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-21T22:12:03Z",
+      "side": 1,
+      "message": "Are we actually gonna use these, or do we just really need operator\u003e?",
+      "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c394d08_3aff7d2c",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-21T22:12:03Z",
+      "side": 1,
+      "message": "Super nit: consider oxford comma",
+      "revId": "3747bf63a7d5ad4975baed6a38dd156a07012b4b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
