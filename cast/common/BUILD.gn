@@ -90,7 +90,7 @@ source_set("unittests") {
   deps = [
     ":certificate",
     ":channel",
-    ":channel_proto",
+    "channel/proto:channel_proto",
     ":test_helpers",
     "../../platform",
     "../../third_party/boringssl",

@@ -8,14 +8,23 @@
 #include <memory>
 #include <vector>
 
+#include "cast/common/channel/cast_message_handler.h"
 #include "cast/streaming/receiver.h"
 #include "cast/streaming/receiver_packet_router.h"
 #include "cast/streaming/session_config.h"
+#include "util/json/json_reader.h"
 
 namespace cast {
+
+namespace channel {
+class CastSocket;
+class CastMessage;
+class VirtualConnectionRouter;
+}  // namespace channel
+
 namespace streaming {
 
-class ReceiverSession {
+class ReceiverSession : public channel::CastMessageHandler {
  public:
   class ConfiguredReceivers {
    public:
@@ -58,7 +67,8 @@ class ReceiverSession {
     virtual void OnNegotiated(ConfiguredReceivers receivers) = 0;
   };
 
-  ReceiverSession(Client* client, ReceiverPacketRouter* router);
+  ReceiverSession(Client* client, ReceiverPacketRouter* packet_router,
+  channel::VirtualConnectionRouter* connection_router);
   ReceiverSession(const ReceiverSession&) = delete;
   ReceiverSession(ReceiverSession&&) noexcept;
   ReceiverSession& operator=(const ReceiverSession&) = delete;
@@ -67,9 +77,16 @@ class ReceiverSession {
 
   void SelectOffer(const SessionConfig& selected_offer);
 
+  // CastMessageHandler overrides
+  void OnMessage(channel::VirtualConnectionRouter* router,
+                 channel::CastSocket* socket,
+                 channel::CastMessage&& message) override;
+
  private:
   Client* client_;
-  ReceiverPacketRouter* router_;
+  openscreen::JsonReader json_reader_ = {};
+  ReceiverPacketRouter* packet_router_;
+  channel::VirtualConnectionRouter connection_router_;
 };
 
 }  // namespace streaming
