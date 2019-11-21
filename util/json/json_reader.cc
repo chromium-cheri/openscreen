@@ -17,6 +17,11 @@ JsonReader::JsonReader() {
   Json::CharReaderBuilder::strictMode(&builder_.settings_);
 }
 
+JsonReader::JsonReader(JsonReader&&) = default;
+JsonReader::JsonReader(const JsonReader&) = default;
+JsonReader& JsonReader::operator=(JsonReader&&) = default;
+JsonReader& JsonReader::operator=(const JsonReader&) = default;
+
 ErrorOr<Json::Value> JsonReader::Read(absl::string_view document) {
   if (document.empty()) {
     return ErrorOr<Json::Value>(Error::Code::kJsonParseError, "empty document");
