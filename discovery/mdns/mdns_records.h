@@ -62,6 +62,7 @@ class DomainName {
   DomainName& operator=(DomainName&& rhs);
   bool operator==(const DomainName& rhs) const;
   bool operator!=(const DomainName& rhs) const;
+  bool operator<(const DomainName& rhs) const;
 
   std::string ToString() const;
 

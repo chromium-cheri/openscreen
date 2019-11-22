@@ -5,12 +5,34 @@
 #include "discovery/mdns/mdns_records.h"
 
 #include <atomic>
+#include <cctype>
 
 #include "absl/strings/match.h"
 #include "absl/strings/str_join.h"
 
 namespace openscreen {
 namespace discovery {
+
+namespace {
+
+inline int CompareIgnoreCase(const std::string& x, const std::string& y) {
+  size_t i = 0;
+  for (; i < x.size(); i++) {
+    if (i == y.size()) {
+      return 1;
+    }
+    const char& x_char = std::tolower(x[i]);
+    const char& y_char = std::tolower(y[i]);
+    if (x_char < y_char) {
+      return -1;
+    } else if (y_char < x_char) {
+      return 1;
+    }
+  }
+  return i == y.size() ? 0 : -1;
+}
+
+}  // namespace
 
 bool IsValidDomainLabel(absl::string_view label) {
   const size_t label_size = label.size();
@@ -47,6 +69,23 @@ bool DomainName::operator==(const DomainName& rhs) const {
 
 bool DomainName::operator!=(const DomainName& rhs) const {
   return !(*this == rhs);
+}
+
+bool DomainName::operator<(const DomainName& rhs) const {
+  size_t i = 0;
+  for (; i < labels_.size(); i++) {
+    if (i == rhs.labels_.size()) {
+      return false;
+    } else {
+      int result = CompareIgnoreCase(labels_[i], rhs.labels_[i]);
+      if (result < 0) {
+        return true;
+      } else if (result > 0) {
+        return false;
+      }
+    }
+  }
+  return i < rhs.labels_.size();
 }
 
 size_t DomainName::MaxWireSize() const {
