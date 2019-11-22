@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb604d9f_72dc03d2",
+        "filename": "cast/common/channel/cast_socket_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "How difficult would it be to just pass a kV4 or kV6 flag to the FakeCastSocket ctor, so you could easily write tests against both types?",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb4cc0ee_6b3114de",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Does Json::Value allow you to create an iterator over the list members (so you don\u0027t have to fiddle with indexing)?",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5069ad74_f38a2789",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Please use a switch statement with a NOTREACHED() default so that if new values are added, they don\u0027t automatically default to kStrong.",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d0f0bd0_494ff64e",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "|message| is already an rvalue reference.  Does it need std::move()?",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afd2018b_4d475f75",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Same comment here.",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f411d68_a51b7d5d",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Can VirtualConnection::Type be an enum?",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0575d58d_9773802d",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Can this be simplified to:\nint conn_type \u003d GetConnectionType(openscreen.MaybeGetInt(...));",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e13bdac_ab98944a",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Can you just use result.value() and rely on the std::string move constructor?",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e50d0db_0d3cb83f",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "CastMessage could be constructed here without the need for std::move.",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2259712_54957bba",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Similar comments as above.",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9fd859b_16a3e9a5",
+        "filename": "cast/common/channel/connection_namespace_handler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "s/vconn/connection/ or virtual_conn here and below",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bf40b5c_3d9b2ce4",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "I would prefer the version for outgoing messages is a constant defined elsewhere (e.g. in message_util.h) so if we need to support additional versions, it will be easier to plumb that in.",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dbf4526_aca82df8",
+        "filename": "cast/common/channel/namespace_router.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Consider taking absl::string_view for Add/Remove to simplify use with string constants, although I don\u0027t feel strongly about it until there is a need.",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4a64cb3_6f75cdc6",
+        "filename": "cast/common/channel/proto/cast_channel.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "If you want to de-risk landing this, I would break out the .proto changes into a separate patch, land them, and roll them into Chromium.\n\nOnce Jordan\u0027s patch lands, this will be the canonical .proto definition for both Chrome and libcast.  And landing and possibly tweaking the proto changes will be less painful than doing so when they are part of a larger patch.",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "499fe18f_1da11e72",
+        "filename": "util/json/json_value.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T00:51:32Z",
+      "side": 1,
+      "message": "Nit: newline between declarations",
+      "revId": "6aade4bfc50f344906decd7085775220d9cb7234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
