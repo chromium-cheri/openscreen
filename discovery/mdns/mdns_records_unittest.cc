@@ -280,6 +280,12 @@ TEST(MdnsTxtRecordRdataTest, CopyAndMove) {
   TestCopyAndMove(MakeTxtRecord({"foo=1", "bar=2"}));
 }
 
+TEST(MdnsNescRecordRdataTest, Construct) {}
+
+TEST(MdnsNescRecordRdataTest, Compare) {}
+
+TEST(MdnsNescRecordRdataTest, CopyAndMove) {}
+
 TEST(MdnsRecordTest, Construct) {
   MdnsRecord record1;
   EXPECT_EQ(record1.MaxWireSize(), UINT64_C(11));
