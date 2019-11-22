@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f89d447_e13d2840",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T23:33:02Z",
+      "side": 1,
+      "message": "I would rather call GetNetworkInterfaces in the range loop, than use \"auto\" to hide the container.",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "877a7360_b0f15cd1",
+        "filename": "platform/base/network_interface_structs.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T23:33:02Z",
+      "side": 1,
+      "message": "I would rather just call this network_interface_info.h, since that\u0027s the main struct, and it might become a class someday :-)",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2774951_9d825825",
+        "filename": "platform/base/network_interface_structs.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T23:33:02Z",
+      "side": 1,
+      "message": "Can you check that this is a valid representation of a subnet prefix for an IPv6 address?",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7237ffa_571721ec",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T23:33:02Z",
+      "side": 1,
+      "message": "Can you just spell out the type here, so it\u0027s clearer what kinds of const-ness you want.",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe1fa410_65c8363e",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-22T23:33:02Z",
+      "side": 1,
+      "message": "Consider returning a proper Error object (and sticking the log message inside) so the caller can determine if there are actually no interfaces up, or there was an error fetching them.\n\nOn the other hand, it looks like there\u0027s nowhere for the error to go upwards from GetNetworkInterfaces()...",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
