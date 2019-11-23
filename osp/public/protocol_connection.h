@@ -14,6 +14,7 @@
 #include "util/logging.h"
 
 namespace openscreen {
+namespace osp {
 
 template <typename T>
 using MessageEncodingFunction =
@@ -103,6 +104,7 @@ class ProtocolConnectionServiceObserver {
   virtual ~ProtocolConnectionServiceObserver() = default;
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_PUBLIC_PROTOCOL_CONNECTION_H_

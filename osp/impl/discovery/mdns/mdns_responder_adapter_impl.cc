@@ -16,7 +16,7 @@
 using openscreen::platform::TraceCategory;
 
 namespace openscreen {
-namespace mdns {
+namespace osp {
 namespace {
 
 // RFC 1035 specifies a max string length of 256, including the leading length
@@ -1035,5 +1035,5 @@ void MdnsResponderAdapterImpl::RemoveQuestionsIfEmpty(
     socket_to_questions_.erase(entry);
 }
 
-}  // namespace mdns
+}  // namespace osp
 }  // namespace openscreen

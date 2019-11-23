@@ -14,6 +14,7 @@
 #include "platform/base/error.h"
 
 namespace openscreen {
+namespace osp {
 
 class QuicStream;
 
@@ -131,6 +132,7 @@ class MessageTypeDecoder {
                                          size_t* num_bytes_decoded);
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_PUBLIC_MESSAGE_DEMUXER_H_

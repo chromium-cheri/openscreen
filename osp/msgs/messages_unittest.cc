@@ -6,6 +6,7 @@
 #include "osp/msgs/osp_messages.h"
 
 namespace openscreen {
+namespace osp {
 namespace msgs {
 
 // TODO(btolsch): This is in the current (draft) spec, but should we actually
@@ -222,4 +223,5 @@ TEST(PresentationMessagesTest, CborEncodeBufferTooLarge) {
 }
 
 }  // namespace msgs
+}  // namespace osp
 }  // namespace openscreen

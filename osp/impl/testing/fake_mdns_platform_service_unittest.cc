@@ -9,6 +9,7 @@
 #include "gtest/gtest.h"
 
 namespace openscreen {
+namespace osp {
 namespace {
 
 platform::UdpSocket* const kDefaultSocket =
@@ -99,4 +100,5 @@ TEST_F(FakeMdnsPlatformServiceTest, PartialDeregister) {
   platform_service.DeregisterInterfaces(eth1_only);
 }
 
+}  // namespace osp
 }  // namespace openscreen
