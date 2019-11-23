@@ -18,8 +18,11 @@
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
-namespace presentation {
+namespace osp {
 
 using ::testing::_;
 using ::testing::Invoke;
@@ -225,5 +228,5 @@ TEST_F(ConnectionTest, ConnectAndSend) {
   receiver_connection_manager_->RemoveConnection(&receiver);
 }
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen

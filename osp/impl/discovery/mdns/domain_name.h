@@ -15,23 +15,23 @@
 #include "util/logging.h"
 
 namespace openscreen {
-namespace mdns {
+namespace osp {
 
 struct DomainName {
-  static ErrorOr<DomainName> Append(const DomainName& first,
-                                    const DomainName& second);
+  static openscreen::ErrorOr<DomainName> Append(const DomainName& first,
+                                                const DomainName& second);
 
   template <typename It>
-  static ErrorOr<DomainName> FromLabels(It first, It last) {
+  static openscreen::ErrorOr<DomainName> FromLabels(It first, It last) {
     size_t total_length = 1;
     for (auto label = first; label != last; ++label) {
       if (label->size() > kDomainNameMaxLabelLength)
-        return Error::Code::kDomainNameLabelTooLong;
+        return openscreen::Error::Code::kDomainNameLabelTooLong;
 
       total_length += label->size() + 1;
     }
     if (total_length > kDomainNameMaxLength)
-      return Error::Code::kDomainNameTooLong;
+      return openscreen::Error::Code::kDomainNameTooLong;
 
     DomainName result;
     result.domain_name_.resize(total_length);
@@ -63,7 +63,7 @@ struct DomainName {
   bool EndsWithLocalDomain() const;
   bool IsEmpty() const { return domain_name_.size() == 1 && !domain_name_[0]; }
 
-  Error Append(const DomainName& after);
+  openscreen::Error Append(const DomainName& after);
   std::vector<absl::string_view> GetLabels() const;
 
   const std::vector<uint8_t>& domain_name() const { return domain_name_; }
@@ -85,7 +85,7 @@ class DomainNameComparator {
 
 std::ostream& operator<<(std::ostream& os, const DomainName& domain_name);
 
-}  // namespace mdns
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_DISCOVERY_MDNS_DOMAIN_NAME_H_

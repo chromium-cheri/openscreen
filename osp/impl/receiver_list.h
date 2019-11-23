@@ -11,6 +11,7 @@
 #include "platform/base/error.h"
 
 namespace openscreen {
+namespace osp {
 
 class ReceiverList {
  public:
@@ -21,9 +22,9 @@ class ReceiverList {
 
   void OnReceiverAdded(const ServiceInfo& info);
 
-  Error OnReceiverChanged(const ServiceInfo& info);
-  Error OnReceiverRemoved(const ServiceInfo& info);
-  Error OnAllReceiversRemoved();
+  openscreen::Error OnReceiverChanged(const ServiceInfo& info);
+  openscreen::Error OnReceiverRemoved(const ServiceInfo& info);
+  openscreen::Error OnAllReceiversRemoved();
 
   const std::vector<ServiceInfo>& receivers() const { return receivers_; }
 
@@ -31,6 +32,7 @@ class ReceiverList {
   std::vector<ServiceInfo> receivers_;
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_RECEIVER_LIST_H_

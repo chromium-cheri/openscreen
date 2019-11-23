@@ -15,7 +15,11 @@
 #include "osp/impl/testing/fake_mdns_responder_adapter.h"
 #include "platform/test/fake_task_runner.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 
 // Child of the MdnsResponderService for testing purposes. Only difference
 // betweeen this and the base class is that methods on this class are executed
@@ -76,7 +80,7 @@ class FakeMdnsResponderAdapterFactory final
  public:
   ~FakeMdnsResponderAdapterFactory() override = default;
 
-  std::unique_ptr<mdns::MdnsResponderAdapter> Create() override {
+  std::unique_ptr<MdnsResponderAdapter> Create() override {
     auto mdns = std::make_unique<FakeMdnsResponderAdapter>();
     mdns->SetLifetimeObserver(this);
     last_mdns_responder_ = mdns.get();
@@ -131,7 +135,7 @@ class WrapperMdnsResponderAdapterFactory final
   WrapperMdnsResponderAdapterFactory(FakeMdnsResponderAdapterFactory* ptr)
       : other_(ptr) {}
 
-  std::unique_ptr<mdns::MdnsResponderAdapter> Create() override {
+  std::unique_ptr<MdnsResponderAdapter> Create() override {
     return other_->Create();
   }
 
@@ -262,7 +266,7 @@ TEST_F(MdnsResponderServiceTest, BasicServiceStates) {
 
   auto ptr_remove = MakePtrEvent(kTestServiceInstance, kTestServiceName,
                                  kTestServiceProtocol, kDefaultSocket);
-  ptr_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  ptr_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddPtrEvent(std::move(ptr_remove));
 
   EXPECT_CALL(observer_, OnReceiverRemoved(_))
@@ -319,7 +323,7 @@ TEST_F(MdnsResponderServiceTest, SimultaneousFieldChanges) {
                    "gigliorononomicon", 54321, kDefaultSocket));
   auto a_remove = MakeAEvent("gigliorononomicon", IPAddress{192, 168, 3, 7},
                              kDefaultSocket);
-  a_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  a_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddAEvent(std::move(a_remove));
   mdns_responder->AddAEvent(MakeAEvent(
       "gigliorononomicon", IPAddress{192, 168, 3, 8}, kDefaultSocket));
@@ -352,7 +356,7 @@ TEST_F(MdnsResponderServiceTest, SimultaneousHostAndAddressChange) {
   auto srv_remove =
       MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
                    "gigliorononomicon", kTestPort, kDefaultSocket);
-  srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  srv_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
   mdns_responder->AddSrvEvent(
       MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
@@ -619,7 +623,7 @@ TEST_F(MdnsResponderServiceTest, AddressQueryStopped) {
   auto srv_remove =
       MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
                    "gigliorononomicon", kTestPort, kDefaultSocket);
-  srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  srv_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
 
   EXPECT_CALL(observer_, OnReceiverRemoved(_));
@@ -653,7 +657,7 @@ TEST_F(MdnsResponderServiceTest, AddressQueryRefCount) {
   auto srv_remove =
       MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
                    "gigliorononomicon", kTestPort, kDefaultSocket);
-  srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  srv_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
 
   EXPECT_CALL(observer_, OnReceiverRemoved(_));
@@ -668,7 +672,7 @@ TEST_F(MdnsResponderServiceTest, AddressQueryRefCount) {
   srv_remove =
       MakeSrvEvent("instance-2", kTestServiceName, kTestServiceProtocol,
                    "gigliorononomicon", 4321, kDefaultSocket);
-  srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  srv_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
 
   EXPECT_CALL(observer_, OnReceiverRemoved(_));
@@ -698,7 +702,7 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedSrvFirst) {
   auto srv_remove =
       MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
                    "gigliorononomicon", kTestPort, kDefaultSocket);
-  srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  srv_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
 
   EXPECT_CALL(observer_, OnReceiverRemoved(_));
@@ -712,7 +716,7 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedSrvFirst) {
 
   auto ptr_remove = MakePtrEvent(kTestServiceInstance, kTestServiceName,
                                  kTestServiceProtocol, kDefaultSocket);
-  ptr_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  ptr_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddPtrEvent(std::move(ptr_remove));
   mdns_service_->HandleNewEvents();
 
@@ -739,7 +743,7 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedPtrFirst) {
 
   auto ptr_remove = MakePtrEvent(kTestServiceInstance, kTestServiceName,
                                  kTestServiceProtocol, kDefaultSocket);
-  ptr_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  ptr_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddPtrEvent(std::move(ptr_remove));
 
   EXPECT_CALL(observer_, OnReceiverRemoved(_));
@@ -754,7 +758,7 @@ TEST_F(MdnsResponderServiceTest, ServiceQueriesStoppedPtrFirst) {
   auto srv_remove =
       MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
                    "gigliorononomicon", kTestPort, kDefaultSocket);
-  srv_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  srv_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove));
   mdns_service_->HandleNewEvents();
 
@@ -786,7 +790,7 @@ TEST_F(MdnsResponderServiceTest, MultipleInterfaceRemove) {
   auto srv_remove1 =
       MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
                    "gigliorononomicon", kTestPort, kSecondSocket);
-  srv_remove1.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  srv_remove1.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove1));
   EXPECT_CALL(observer_, OnReceiverChanged(_)).Times(0);
   EXPECT_CALL(observer_, OnReceiverRemoved(_)).Times(0);
@@ -795,7 +799,7 @@ TEST_F(MdnsResponderServiceTest, MultipleInterfaceRemove) {
   auto srv_remove2 =
       MakeSrvEvent(kTestServiceInstance, kTestServiceName, kTestServiceProtocol,
                    "gigliorononomicon", kTestPort, kDefaultSocket);
-  srv_remove2.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  srv_remove2.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddSrvEvent(std::move(srv_remove2));
   EXPECT_CALL(observer_, OnReceiverRemoved(_));
   mdns_service_->HandleNewEvents();
@@ -803,7 +807,7 @@ TEST_F(MdnsResponderServiceTest, MultipleInterfaceRemove) {
 
   auto ptr_remove = MakePtrEvent(kTestServiceInstance, kTestServiceName,
                                  kTestServiceProtocol, kDefaultSocket);
-  ptr_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  ptr_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddPtrEvent(std::move(ptr_remove));
   mdns_service_->HandleNewEvents();
 
@@ -854,7 +858,7 @@ TEST_F(MdnsResponderServiceTest, RestorePtrNotifiesObserver) {
 
   auto ptr_remove = MakePtrEvent(kTestServiceInstance, kTestServiceName,
                                  kTestServiceProtocol, kDefaultSocket);
-  ptr_remove.header.response_type = mdns::QueryEventHeader::Type::kRemoved;
+  ptr_remove.header.response_type = QueryEventHeader::Type::kRemoved;
   mdns_responder->AddPtrEvent(std::move(ptr_remove));
 
   EXPECT_CALL(observer_, OnReceiverRemoved(_));
@@ -868,4 +872,5 @@ TEST_F(MdnsResponderServiceTest, RestorePtrNotifiesObserver) {
   mdns_service_->HandleNewEvents();
 }
 
+}  // namespace osp
 }  // namespace openscreen

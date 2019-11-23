@@ -11,7 +11,11 @@
 #include "platform/test/fake_clock.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 namespace {
 
 using ::testing::_;
@@ -373,4 +377,5 @@ TEST_F(MessageDemuxerTest, DeserializeMessages) {
   EXPECT_TRUE(kUnknownInfo.is_error());
 }
 
+}  // namespace osp
 }  // namespace openscreen

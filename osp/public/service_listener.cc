@@ -4,7 +4,11 @@
 
 #include "osp/public/service_listener.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 
 ServiceListenerError::ServiceListenerError() = default;
 ServiceListenerError::ServiceListenerError(Code error,
@@ -23,4 +27,5 @@ ServiceListener::Metrics::~Metrics() = default;
 ServiceListener::ServiceListener() : state_(State::kStopped) {}
 ServiceListener::~ServiceListener() = default;
 
+}  // namespace osp
 }  // namespace openscreen

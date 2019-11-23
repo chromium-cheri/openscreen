@@ -16,6 +16,7 @@
 #include "third_party/chromium_quic/src/net/third_party/quic/quartc/quartc_factory.h"
 
 namespace openscreen {
+namespace osp {
 
 class QuicTaskRunner;
 
@@ -25,10 +26,11 @@ class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
   ~QuicConnectionFactoryImpl() override;
 
   // UdpSocket::Client overrides.
-  void OnError(platform::UdpSocket* socket, Error error) override;
-  void OnSendError(platform::UdpSocket* socket, Error error) override;
+  void OnError(platform::UdpSocket* socket, openscreen::Error error) override;
+  void OnSendError(platform::UdpSocket* socket,
+                   openscreen::Error error) override;
   void OnRead(platform::UdpSocket* socket,
-              ErrorOr<platform::UdpPacket> packet) override;
+              openscreen::ErrorOr<platform::UdpPacket> packet) override;
 
   // QuicConnectionFactory overrides.
   void SetServerDelegate(ServerDelegate* delegate,
@@ -61,6 +63,7 @@ class QuicConnectionFactoryImpl final : public QuicConnectionFactory {
   platform::TaskRunner* const task_runner_;
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_QUIC_QUIC_CONNECTION_FACTORY_IMPL_H_

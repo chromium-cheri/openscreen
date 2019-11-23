@@ -21,10 +21,9 @@
 #include "util/logging.h"
 
 namespace openscreen {
+namespace osp {
 
 class ProtocolConnection;
-
-namespace presentation {
 
 enum class TerminationReason {
   kReceiverTerminateCalled = 0,
@@ -99,10 +98,11 @@ class Connection {
     ParentDelegate() = default;
     virtual ~ParentDelegate() = default;
 
-    virtual Error CloseConnection(Connection* connection,
-                                  CloseReason reason) = 0;
-    virtual Error OnPresentationTerminated(const std::string& presentation_id,
-                                           TerminationReason reason) = 0;
+    virtual openscreen::Error CloseConnection(Connection* connection,
+                                              CloseReason reason) = 0;
+    virtual openscreen::Error OnPresentationTerminated(
+        const std::string& presentation_id,
+        TerminationReason reason) = 0;
     virtual void OnConnectionDestroyed(Connection* connection) = 0;
 
    private:
@@ -140,15 +140,15 @@ class Connection {
   }
 
   // Sends a UTF-8 string message.
-  Error SendString(absl::string_view message);
+  openscreen::Error SendString(absl::string_view message);
 
   // Sends a binary message.
-  Error SendBinary(std::vector<uint8_t>&& data);
+  openscreen::Error SendBinary(std::vector<uint8_t>&& data);
 
   // Closes the connection.  This can be based on an explicit request from the
   // embedder or because the connection object is being discarded (page
   // navigated, object GC'd, etc.).
-  Error Close(CloseReason reason);
+  openscreen::Error Close(CloseReason reason);
 
   // Terminates the presentation associated with this connection.
   void Terminate(TerminationReason reason);
@@ -161,7 +161,7 @@ class Connection {
                    uint64_t endpoint_id,
                    std::unique_ptr<ProtocolConnection> stream);
 
-  void OnClosedByError(Error cause);
+  void OnClosedByError(openscreen::Error cause);
   void OnClosedByRemote();
   void OnTerminated();
 
@@ -192,12 +192,13 @@ class ConnectionManager final : public MessageDemuxer::MessageCallback {
   void RemoveConnection(Connection* connection);
 
   // MessasgeDemuxer::MessageCallback overrides.
-  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
-                                  uint64_t connection_id,
-                                  msgs::Type message_type,
-                                  const uint8_t* buffer,
-                                  size_t buffer_size,
-                                  platform::Clock::time_point now) override;
+  openscreen::ErrorOr<size_t> OnStreamMessage(
+      uint64_t endpoint_id,
+      uint64_t connection_id,
+      msgs::Type message_type,
+      const uint8_t* buffer,
+      size_t buffer_size,
+      platform::Clock::time_point now) override;
 
   Connection* GetConnection(uint64_t connection_id);
 
@@ -214,7 +215,7 @@ class ConnectionManager final : public MessageDemuxer::MessageCallback {
   OSP_DISALLOW_COPY_AND_ASSIGN(ConnectionManager);
 };
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_PUBLIC_PRESENTATION_PRESENTATION_CONNECTION_H_

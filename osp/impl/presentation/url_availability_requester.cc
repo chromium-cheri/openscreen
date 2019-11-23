@@ -15,8 +15,11 @@
 using openscreen::platform::Clock;
 using std::chrono::seconds;
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
-namespace presentation {
+namespace osp {
 namespace {
 
 static constexpr Clock::duration kWatchDuration = seconds(20);
@@ -487,5 +490,5 @@ ErrorOr<size_t> UrlAvailabilityRequester::ReceiverRequester::OnStreamMessage(
   return Error::Code::kCborParsing;
 }
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen

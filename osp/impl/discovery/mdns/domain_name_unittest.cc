@@ -9,8 +9,11 @@
 #include "gtest/gtest.h"
 #include "platform/base/error.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
-namespace mdns {
+namespace osp {
 
 namespace {
 
@@ -190,5 +193,5 @@ TEST(DomainNameTest, StreamEscaping) {
   }
 }
 
-}  // namespace mdns
+}  // namespace osp
 }  // namespace openscreen

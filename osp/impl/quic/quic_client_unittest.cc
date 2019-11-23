@@ -19,7 +19,11 @@
 #include "platform/test/fake_task_runner.h"
 #include "util/logging.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 namespace {
 
 using ::testing::_;
@@ -268,4 +272,5 @@ TEST_F(QuicClientTest, RequestIds) {
   EXPECT_EQ(0u, client_->endpoint_request_ids()->GetNextRequestId(endpoint_id));
 }
 
+}  // namespace osp
 }  // namespace openscreen

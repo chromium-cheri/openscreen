@@ -19,6 +19,7 @@
 #include "platform/base/macros.h"
 
 namespace openscreen {
+namespace osp {
 
 class ProtocolConnectionServer {
  public:
@@ -79,14 +80,14 @@ class ProtocolConnectionServer {
   State state() const { return state_; }
 
   // Returns the last error reported by this client.
-  const Error& last_error() const { return last_error_; }
+  const openscreen::Error& last_error() const { return last_error_; }
 
  protected:
   explicit ProtocolConnectionServer(MessageDemuxer* demuxer,
                                     Observer* observer);
 
   State state_ = State::kStopped;
-  Error last_error_;
+  openscreen::Error last_error_;
   MessageDemuxer* const demuxer_;
   EndpointRequestIds endpoint_request_ids_;
   Observer* const observer_;
@@ -97,6 +98,7 @@ class ProtocolConnectionServer {
 std::ostream& operator<<(std::ostream& os,
                          ProtocolConnectionServer::State state);
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_PUBLIC_PROTOCOL_CONNECTION_SERVER_H_

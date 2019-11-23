@@ -18,6 +18,7 @@
 #include "util/logging.h"
 
 namespace openscreen {
+namespace osp {
 
 template <typename T>
 using MessageDecodingFunction = ssize_t (*)(const uint8_t*, size_t, T*);
@@ -61,7 +62,7 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
     virtual void OnMatchedResponse(RequestT* request,
                                    typename RequestT::ResponseMsgType* response,
                                    uint64_t endpoint_id) = 0;
-    virtual void OnError(RequestT* request, Error error) = 0;
+    virtual void OnError(RequestT* request, openscreen::Error error) = 0;
   };
 
   explicit RequestResponseHandler(Delegate* delegate) : delegate_(delegate) {}
@@ -70,11 +71,13 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
   void Reset() {
     connection_ = nullptr;
     for (auto& message : to_send_) {
-      delegate_->OnError(&message.request, Error::Code::kRequestCancelled);
+      delegate_->OnError(&message.request,
+                         openscreen::Error::Code::kRequestCancelled);
     }
     to_send_.clear();
     for (auto& message : sent_) {
-      delegate_->OnError(&message.request, Error::Code::kRequestCancelled);
+      delegate_->OnError(&message.request,
+                         openscreen::Error::Code::kRequestCancelled);
     }
     sent_.clear();
     response_watch_ = MessageDemuxer::MessageWatch();
@@ -88,12 +91,12 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
       !std::is_lvalue_reference<RequestTRval>::value &&
           std::is_same<typename std::decay<RequestTRval>::type,
                        RequestT>::value,
-      Error>::type
+      openscreen::Error>::type
   WriteMessage(absl::optional<uint64_t> id, RequestTRval&& message) {
     auto* request_msg = RequestCoderTraits::serial_request(message);
     if (connection_) {
       request_msg->request_id = GetNextRequestId(connection_->endpoint_id());
-      Error result =
+      openscreen::Error result =
           connection_->WriteMessage(*request_msg, RequestCoderTraits::kEncoder);
       if (!result.ok()) {
         return result;
@@ -103,7 +106,7 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
     } else {
       to_send_.emplace_back(RequestWithId{id, std::move(message)});
     }
-    return Error::None();
+    return openscreen::Error::None();
   }
 
   template <typename RequestTRval>
@@ -111,7 +114,7 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
       !std::is_lvalue_reference<RequestTRval>::value &&
           std::is_same<typename std::decay<RequestTRval>::type,
                        RequestT>::value,
-      Error>::type
+      openscreen::Error>::type
   WriteMessage(RequestTRval&& message) {
     return WriteMessage(absl::nullopt, std::move(message));
   }
@@ -139,7 +142,7 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
     for (auto& message : to_send_) {
       auto* request_msg = RequestCoderTraits::serial_request(message.request);
       request_msg->request_id = GetNextRequestId(connection_->endpoint_id());
-      Error result =
+      openscreen::Error result =
           connection_->WriteMessage(*request_msg, RequestCoderTraits::kEncoder);
       if (result.ok()) {
         sent_.emplace_back(std::move(message));
@@ -154,12 +157,13 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
   }
 
   // MessageDemuxer::MessageCallback overrides.
-  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
-                                  uint64_t connection_id,
-                                  msgs::Type message_type,
-                                  const uint8_t* buffer,
-                                  size_t buffer_size,
-                                  platform::Clock::time_point now) override {
+  openscreen::ErrorOr<size_t> OnStreamMessage(
+      uint64_t endpoint_id,
+      uint64_t connection_id,
+      msgs::Type message_type,
+      const uint8_t* buffer,
+      size_t buffer_size,
+      platform::Clock::time_point now) override {
     if (message_type != RequestT::kResponseType) {
       return 0;
     }
@@ -220,6 +224,7 @@ class RequestResponseHandler : public MessageDemuxer::MessageCallback {
   OSP_DISALLOW_COPY_AND_ASSIGN(RequestResponseHandler);
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_MSGS_REQUEST_RESPONSE_HANDLER_H_

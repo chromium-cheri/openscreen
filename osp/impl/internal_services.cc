@@ -12,7 +12,11 @@
 #include "platform/base/error.h"
 #include "util/logging.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 namespace {
 
 constexpr char kServiceName[] = "_openscreen";
@@ -31,8 +35,8 @@ class MdnsResponderAdapterImplFactory final
   MdnsResponderAdapterImplFactory() = default;
   ~MdnsResponderAdapterImplFactory() override = default;
 
-  std::unique_ptr<mdns::MdnsResponderAdapter> Create() override {
-    return std::make_unique<mdns::MdnsResponderAdapterImpl>();
+  std::unique_ptr<MdnsResponderAdapter> Create() override {
+    return std::make_unique<MdnsResponderAdapterImpl>();
   }
 };
 
@@ -225,4 +229,5 @@ void InternalServices::OnRead(platform::UdpSocket* socket,
   g_instance->mdns_service_.OnRead(socket, std::move(packet));
 }
 
+}  // namespace osp
 }  // namespace openscreen

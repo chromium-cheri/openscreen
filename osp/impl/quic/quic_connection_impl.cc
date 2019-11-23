@@ -16,7 +16,11 @@
 
 using openscreen::platform::TraceCategory;
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 
 UdpTransport::UdpTransport(platform::UdpSocket* socket,
                            const IPEndpoint& destination)
@@ -154,4 +158,5 @@ void QuicConnectionImpl::OnConnectionClosed(
   delegate_->OnConnectionClosed(session_->connection_id());
 }
 
+}  // namespace osp
 }  // namespace openscreen

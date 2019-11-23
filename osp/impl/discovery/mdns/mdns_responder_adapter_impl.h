@@ -15,7 +15,7 @@
 #include "third_party/mDNSResponder/src/mDNSCore/mDNSEmbeddedAPI.h"
 
 namespace openscreen {
-namespace mdns {
+namespace osp {
 
 class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
  public:
@@ -24,20 +24,22 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
   MdnsResponderAdapterImpl();
   ~MdnsResponderAdapterImpl() override;
 
-  Error Init() override;
+  openscreen::Error Init() override;
   void Close() override;
 
-  Error SetHostLabel(const std::string& host_label) override;
+  openscreen::Error SetHostLabel(const std::string& host_label) override;
 
-  Error RegisterInterface(const platform::InterfaceInfo& interface_info,
-                          const platform::IPSubnet& interface_address,
-                          platform::UdpSocket* socket) override;
-  Error DeregisterInterface(platform::UdpSocket* socket) override;
+  openscreen::Error RegisterInterface(
+      const platform::InterfaceInfo& interface_info,
+      const platform::IPSubnet& interface_address,
+      platform::UdpSocket* socket) override;
+  openscreen::Error DeregisterInterface(platform::UdpSocket* socket) override;
 
   void OnRead(platform::UdpSocket* socket,
-              ErrorOr<platform::UdpPacket> packet) override;
-  void OnSendError(platform::UdpSocket* socket, Error error) override;
-  void OnError(platform::UdpSocket* socket, Error error) override;
+              openscreen::ErrorOr<platform::UdpPacket> packet) override;
+  void OnSendError(platform::UdpSocket* socket,
+                   openscreen::Error error) override;
+  void OnError(platform::UdpSocket* socket, openscreen::Error error) override;
 
   absl::optional<platform::Clock::duration> RunTasks() override;
 
@@ -153,7 +155,7 @@ class MdnsResponderAdapterImpl final : public MdnsResponderAdapter {
   std::vector<std::unique_ptr<ServiceRecordSet>> service_records_;
 };
 
-}  // namespace mdns
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_DISCOVERY_MDNS_MDNS_RESPONDER_ADAPTER_IMPL_H_

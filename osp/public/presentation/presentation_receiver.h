@@ -15,7 +15,7 @@
 #include "osp/public/presentation/presentation_connection.h"
 
 namespace openscreen {
-namespace presentation {
+namespace osp {
 
 enum class ResponseResult {
   kSuccess = 0,
@@ -74,30 +74,31 @@ class Receiver final : public MessageDemuxer::MessageCallback,
   void SetReceiverDelegate(ReceiverDelegate* delegate);
 
   // Called by the embedder to report its response to StartPresentation.
-  Error OnPresentationStarted(const std::string& presentation_id,
-                              Connection* connection,
-                              ResponseResult result);
+  openscreen::Error OnPresentationStarted(const std::string& presentation_id,
+                                          Connection* connection,
+                                          ResponseResult result);
 
-  Error OnConnectionCreated(uint64_t request_id,
-                            Connection* connection,
-                            ResponseResult result);
+  openscreen::Error OnConnectionCreated(uint64_t request_id,
+                                        Connection* connection,
+                                        ResponseResult result);
 
   // Connection::ParentDelegate overrides.
-  Error CloseConnection(Connection* connection,
-                        Connection::CloseReason reason) override;
+  openscreen::Error CloseConnection(Connection* connection,
+                                    Connection::CloseReason reason) override;
   // Also called by the embedder to report that a presentation has been
   // terminated.
-  Error OnPresentationTerminated(const std::string& presentation_id,
-                                 TerminationReason reason) override;
+  openscreen::Error OnPresentationTerminated(const std::string& presentation_id,
+                                             TerminationReason reason) override;
   void OnConnectionDestroyed(Connection* connection) override;
 
   // MessageDemuxer::MessageCallback overrides.
-  ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
-                                  uint64_t connection_id,
-                                  msgs::Type message_type,
-                                  const uint8_t* buffer,
-                                  size_t buffer_size,
-                                  platform::Clock::time_point now) override;
+  openscreen::ErrorOr<size_t> OnStreamMessage(
+      uint64_t endpoint_id,
+      uint64_t connection_id,
+      msgs::Type message_type,
+      const uint8_t* buffer,
+      size_t buffer_size,
+      platform::Clock::time_point now) override;
 
  private:
   struct QueuedResponse {
@@ -123,7 +124,7 @@ class Receiver final : public MessageDemuxer::MessageCallback,
 
   void DeleteQueuedResponse(const std::string& presentation_id,
                             QueuedResponseIterator response);
-  ErrorOr<QueuedResponseIterator> GetQueuedResponse(
+  openscreen::ErrorOr<QueuedResponseIterator> GetQueuedResponse(
       const std::string& presentation_id,
       uint64_t request_id) const;
 
@@ -147,7 +148,7 @@ class Receiver final : public MessageDemuxer::MessageCallback,
   uint64_t GetNextConnectionId();
 };
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_PUBLIC_PRESENTATION_PRESENTATION_RECEIVER_H_

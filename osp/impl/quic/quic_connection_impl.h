@@ -20,6 +20,7 @@
 #include "third_party/chromium_quic/src/net/third_party/quic/quartc/quartc_stream.h"
 
 namespace openscreen {
+namespace osp {
 
 class QuicConnectionFactoryImpl;
 
@@ -76,9 +77,10 @@ class QuicConnectionImpl final : public QuicConnection,
 
   // UdpSocket::Client overrides.
   void OnRead(platform::UdpSocket* socket,
-              ErrorOr<platform::UdpPacket> data) override;
-  void OnError(platform::UdpSocket* socket, Error error) override;
-  void OnSendError(platform::UdpSocket* socket, Error error) override;
+              openscreen::ErrorOr<platform::UdpPacket> data) override;
+  void OnError(platform::UdpSocket* socket, openscreen::Error error) override;
+  void OnSendError(platform::UdpSocket* socket,
+                   openscreen::Error error) override;
 
   // QuicConnection overrides.
   std::unique_ptr<QuicStream> MakeOutgoingStream(
@@ -99,6 +101,7 @@ class QuicConnectionImpl final : public QuicConnection,
   std::vector<QuicStream*> streams_;
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_QUIC_QUIC_CONNECTION_IMPL_H_

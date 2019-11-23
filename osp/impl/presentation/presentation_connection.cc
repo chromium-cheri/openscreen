@@ -19,8 +19,11 @@
 #include "util/std_util.h"
 
 // TODO(crbug.com/openscreen/27): Address TODOs in this file
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
-namespace presentation {
+namespace osp {
 
 namespace {
 
@@ -291,5 +294,5 @@ Connection* ConnectionManager::GetConnection(uint64_t connection_id) {
   return nullptr;
 }
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen

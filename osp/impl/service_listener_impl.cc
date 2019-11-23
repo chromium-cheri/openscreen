@@ -7,7 +7,11 @@
 #include "platform/base/error.h"
 #include "util/logging.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 namespace {
 
 bool IsTransitionValid(ServiceListener::State from, ServiceListener::State to) {
@@ -202,4 +206,5 @@ void ServiceListenerImpl::MaybeNotifyObservers() {
   }
 }
 
+}  // namespace osp
 }  // namespace openscreen
