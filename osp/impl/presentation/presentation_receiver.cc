@@ -18,8 +18,11 @@
 
 using openscreen::platform::TraceCategory;
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
-namespace presentation {
+namespace osp {
 namespace {
 
 msgs::PresentationConnectionCloseEvent_reason GetEventCloseReason(
@@ -567,5 +570,5 @@ uint64_t Receiver::GetNextConnectionId() {
   return request_id++;
 }
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen

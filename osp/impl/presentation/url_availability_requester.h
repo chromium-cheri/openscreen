@@ -19,7 +19,7 @@
 #include "platform/base/error.h"
 
 namespace openscreen {
-namespace presentation {
+namespace osp {
 
 // Handles Presentation API URL availability requests and persistent watches.
 // It keeps track of the set of currently known receivers as well as all
@@ -95,10 +95,11 @@ class UrlAvailabilityRequester {
         const std::vector<std::string>& requested_urls,
         ReceiverObserver* observer);
     void RequestUrlAvailabilities(std::vector<std::string> urls);
-    ErrorOr<uint64_t> SendRequest(uint64_t request_id,
-                                  const std::vector<std::string>& urls);
+    openscreen::ErrorOr<uint64_t> SendRequest(
+        uint64_t request_id,
+        const std::vector<std::string>& urls);
     platform::Clock::time_point RefreshWatches(platform::Clock::time_point now);
-    Error::Code UpdateAvailabilities(
+    openscreen::Error::Code UpdateAvailabilities(
         const std::vector<std::string>& urls,
         const std::vector<msgs::UrlAvailability>& availabilities);
     void RemoveUnobservedRequests(const std::set<std::string>& unobserved_urls);
@@ -112,12 +113,13 @@ class UrlAvailabilityRequester {
     void OnConnectionFailed(uint64_t request_id) override;
 
     // MessageDemuxer::MessageCallback overrides.
-    ErrorOr<size_t> OnStreamMessage(uint64_t endpoint_id,
-                                    uint64_t connection_id,
-                                    msgs::Type message_type,
-                                    const uint8_t* buffer,
-                                    size_t buffer_size,
-                                    platform::Clock::time_point now) override;
+    openscreen::ErrorOr<size_t> OnStreamMessage(
+        uint64_t endpoint_id,
+        uint64_t connection_id,
+        msgs::Type message_type,
+        const uint8_t* buffer,
+        size_t buffer_size,
+        platform::Clock::time_point now) override;
 
     UrlAvailabilityRequester* const listener;
 
@@ -146,7 +148,7 @@ class UrlAvailabilityRequester {
       receiver_by_service_id_;
 };
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_PRESENTATION_URL_AVAILABILITY_REQUESTER_H_

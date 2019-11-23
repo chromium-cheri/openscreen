@@ -18,7 +18,7 @@
 #include "platform/base/error.h"
 
 namespace openscreen {
-namespace presentation {
+namespace osp {
 
 class UrlAvailabilityRequester;
 
@@ -27,7 +27,7 @@ class RequestDelegate {
   virtual ~RequestDelegate() = default;
 
   virtual void OnConnection(std::unique_ptr<Connection> connection) = 0;
-  virtual void OnError(const Error& error) = 0;
+  virtual void OnError(const openscreen::Error& error) = 0;
 };
 
 class ReceiverObserver {
@@ -135,13 +135,13 @@ class Controller final : public ServiceListener::Observer,
                                      RequestDelegate* delegate);
 
   // Connection::ParentDelegate overrides.
-  Error CloseConnection(Connection* connection,
-                        Connection::CloseReason reason) override;
+  openscreen::Error CloseConnection(Connection* connection,
+                                    Connection::CloseReason reason) override;
 
   // Also called by the embedder to report that a presentation has been
   // terminated.
-  Error OnPresentationTerminated(const std::string& presentation_id,
-                                 TerminationReason reason) override;
+  openscreen::Error OnPresentationTerminated(const std::string& presentation_id,
+                                             TerminationReason reason) override;
 
   void OnConnectionDestroyed(Connection* connection) override;
 
@@ -217,7 +217,7 @@ class Controller final : public ServiceListener::Observer,
       termination_listener_by_id_;
 };
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_PUBLIC_PRESENTATION_PRESENTATION_CONTROLLER_H_

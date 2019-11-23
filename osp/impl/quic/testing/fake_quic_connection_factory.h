@@ -13,6 +13,7 @@
 #include "osp/public/message_demuxer.h"
 
 namespace openscreen {
+namespace osp {
 
 class FakeQuicConnectionFactoryBridge {
  public:
@@ -54,10 +55,11 @@ class FakeClientQuicConnectionFactory final : public QuicConnectionFactory {
   ~FakeClientQuicConnectionFactory() override;
 
   // UdpSocket::Client overrides.
-  void OnError(platform::UdpSocket* socket, Error error) override;
-  void OnSendError(platform::UdpSocket* socket, Error error) override;
+  void OnError(platform::UdpSocket* socket, openscreen::Error error) override;
+  void OnSendError(platform::UdpSocket* socket,
+                   openscreen::Error error) override;
   void OnRead(platform::UdpSocket* socket,
-              ErrorOr<platform::UdpPacket> packet) override;
+              openscreen::ErrorOr<platform::UdpPacket> packet) override;
 
   // QuicConnectionFactory overrides.
   void SetServerDelegate(ServerDelegate* delegate,
@@ -82,10 +84,11 @@ class FakeServerQuicConnectionFactory final : public QuicConnectionFactory {
   ~FakeServerQuicConnectionFactory() override;
 
   // UdpSocket::Client overrides.
-  void OnError(platform::UdpSocket* socket, Error error) override;
-  void OnSendError(platform::UdpSocket* socket, Error error) override;
+  void OnError(platform::UdpSocket* socket, openscreen::Error error) override;
+  void OnSendError(platform::UdpSocket* socket,
+                   openscreen::Error error) override;
   void OnRead(platform::UdpSocket* socket,
-              ErrorOr<platform::UdpPacket> packet) override;
+              openscreen::ErrorOr<platform::UdpPacket> packet) override;
 
   // QuicConnectionFactory overrides.
   void SetServerDelegate(ServerDelegate* delegate,
@@ -101,6 +104,7 @@ class FakeServerQuicConnectionFactory final : public QuicConnectionFactory {
   bool idle_ = true;
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_QUIC_TESTING_FAKE_QUIC_CONNECTION_FACTORY_H_

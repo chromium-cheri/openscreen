@@ -12,6 +12,7 @@
 #include "platform/api/task_runner.h"
 
 namespace openscreen {
+namespace osp {
 
 // static
 std::unique_ptr<ProtocolConnectionServer>
@@ -25,4 +26,5 @@ ProtocolConnectionServerFactory::Create(
       observer, task_runner);
 }
 
+}  // namespace osp
 }  // namespace openscreen

@@ -6,7 +6,11 @@
 
 #include <algorithm>
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 
 ReceiverList::ReceiverList() = default;
 ReceiverList::~ReceiverList() = default;
@@ -42,4 +46,5 @@ Error ReceiverList::OnAllReceiversRemoved() {
   return empty ? Error::Code::kItemNotFound : Error::None();
 }
 
+}  // namespace osp
 }  // namespace openscreen

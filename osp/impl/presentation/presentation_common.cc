@@ -6,8 +6,11 @@
 
 #include "absl/strings/ascii.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
-namespace presentation {
+namespace osp {
 
 std::unique_ptr<ProtocolConnection> GetProtocolConnection(
     uint64_t endpoint_id) {
@@ -42,5 +45,5 @@ PresentationID::PresentationID(std::string presentation_id)
   }
 }
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen

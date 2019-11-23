@@ -23,6 +23,7 @@
 #include "platform/test/fake_udp_socket.h"
 
 namespace openscreen {
+namespace osp {
 
 class MockServiceObserver : public ProtocolConnectionServiceObserver {
  public:
@@ -31,7 +32,7 @@ class MockServiceObserver : public ProtocolConnectionServiceObserver {
   MOCK_METHOD0(OnRunning, void());
   MOCK_METHOD0(OnStopped, void());
   MOCK_METHOD1(OnMetrics, void(const NetworkMetrics& metrics));
-  MOCK_METHOD1(OnError, void(const Error& error));
+  MOCK_METHOD1(OnError, void(const openscreen::Error& error));
 };
 
 class MockServerObserver : public ProtocolConnectionServer::Observer {
@@ -41,7 +42,7 @@ class MockServerObserver : public ProtocolConnectionServer::Observer {
   MOCK_METHOD0(OnRunning, void());
   MOCK_METHOD0(OnStopped, void());
   MOCK_METHOD1(OnMetrics, void(const NetworkMetrics& metrics));
-  MOCK_METHOD1(OnError, void(const Error& error));
+  MOCK_METHOD1(OnError, void(const openscreen::Error& error));
 
   MOCK_METHOD0(OnSuspended, void());
 
@@ -84,6 +85,7 @@ class FakeQuicBridge {
   std::unique_ptr<platform::FakeUdpSocket> server_socket_;
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_QUIC_TESTING_QUIC_TEST_SUPPORT_H_

@@ -16,7 +16,7 @@
 #include "util/logging.h"
 
 namespace openscreen {
-namespace presentation {
+namespace osp {
 
 // This method asks the singleton NetworkServiceManager
 // to create a new protocol connection for the given endpoint.
@@ -40,10 +40,10 @@ class PresentationID {
   operator std::string() { return id_.value(); }
 
  private:
-  ErrorOr<std::string> id_;
+  openscreen::ErrorOr<std::string> id_;
 };
 
-}  // namespace presentation
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_PRESENTATION_PRESENTATION_COMMON_H_

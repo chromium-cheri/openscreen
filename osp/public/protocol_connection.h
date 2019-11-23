@@ -15,11 +15,14 @@
 
 namespace openscreen {
 
+class Error;
+
+namespace osp {
+
 template <typename T>
 using MessageEncodingFunction =
     std::add_pointer_t<bool(const T&, msgs::CborEncodeBuffer*)>;
 
-class Error;
 struct NetworkMetrics;
 
 // Represents an embedder's view of a connection between an Open Screen
@@ -60,17 +63,18 @@ class ProtocolConnection {
   void SetObserver(Observer* observer);
 
   template <typename T>
-  Error WriteMessage(const T& message, MessageEncodingFunction<T> encoder) {
+  openscreen::Error WriteMessage(const T& message,
+                                 MessageEncodingFunction<T> encoder) {
     msgs::CborEncodeBuffer buffer;
 
     if (!encoder(message, &buffer)) {
       OSP_LOG_WARN << "failed to properly encode presentation message";
-      return Error::Code::kParseError;
+      return openscreen::Error::Code::kParseError;
     }
 
     Write(buffer.data(), buffer.size());
 
-    return Error::None();
+    return openscreen::Error::None();
   }
 
   // TODO(btolsch): This should be derived from the handshake auth identifier
@@ -97,12 +101,13 @@ class ProtocolConnectionServiceObserver {
   // Called when metrics have been collected by the service.
   virtual void OnMetrics(const NetworkMetrics& metrics) = 0;
   // Called when an error has occurred.
-  virtual void OnError(const Error& error) = 0;
+  virtual void OnError(const openscreen::Error& error) = 0;
 
  protected:
   virtual ~ProtocolConnectionServiceObserver() = default;
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_PUBLIC_PROTOCOL_CONNECTION_H_

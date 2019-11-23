@@ -9,7 +9,11 @@
 #include "osp/impl/quic/testing/fake_quic_connection_factory.h"
 #include "util/logging.h"
 
+using openscreen::Error;
+using openscreen::ErrorOr;
+
 namespace openscreen {
+namespace osp {
 
 FakeQuicStream::FakeQuicStream(Delegate* delegate, uint64_t id)
     : QuicStream(delegate, id) {}
@@ -90,4 +94,5 @@ void FakeQuicConnection::Close() {
   }
 }
 
+}  // namespace osp
 }  // namespace openscreen

@@ -14,6 +14,7 @@
 #include "platform/base/error.h"
 
 namespace openscreen {
+namespace osp {
 
 class QuicStream;
 
@@ -29,9 +30,10 @@ class MessageDemuxer {
 
     // |buffer| contains data for a message of type |message_type|.  However,
     // the data may be incomplete, in which case the callback should return an
-    // error code of Error::Code::kCborIncompleteMessage.  This way, the
-    // MessageDemuxer knows to neither consume the data nor discard it as bad.
-    virtual ErrorOr<size_t> OnStreamMessage(
+    // error code of openscreen::Error::Code::kCborIncompleteMessage.  This way,
+    // the MessageDemuxer knows to neither consume the data nor discard it as
+    // bad.
+    virtual openscreen::ErrorOr<size_t> OnStreamMessage(
         uint64_t endpoint_id,
         uint64_t connection_id,
         msgs::Type message_type,
@@ -123,14 +125,17 @@ void StopWatching(MessageDemuxer::MessageWatch* watch);
 
 class MessageTypeDecoder {
  public:
-  static ErrorOr<msgs::Type> DecodeType(const std::vector<uint8_t>& buffer,
-                                        size_t* num_bytes_decoded);
+  static openscreen::ErrorOr<msgs::Type> DecodeType(
+      const std::vector<uint8_t>& buffer,
+      size_t* num_bytes_decoded);
 
  private:
-  static ErrorOr<uint64_t> DecodeVarUint(const std::vector<uint8_t>& buffer,
-                                         size_t* num_bytes_decoded);
+  static openscreen::ErrorOr<uint64_t> DecodeVarUint(
+      const std::vector<uint8_t>& buffer,
+      size_t* num_bytes_decoded);
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_PUBLIC_MESSAGE_DEMUXER_H_

@@ -18,6 +18,7 @@
 #include "platform/base/ip_address.h"
 
 namespace openscreen {
+namespace osp {
 
 // This class is the default implementation of ProtocolConnectionClient for the
 // library.  It manages connections to other endpoints as well as the lifetime
@@ -128,6 +129,7 @@ class QuicClient final : public ProtocolConnectionClient,
   std::vector<decltype(connections_)::iterator> delete_connections_;
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_QUIC_QUIC_CLIENT_H_

@@ -20,7 +20,7 @@
 #include "platform/base/ip_address.h"
 
 namespace openscreen {
-namespace mdns {
+namespace osp {
 
 struct QueryEventHeader {
   enum class Type {
@@ -168,7 +168,7 @@ class MdnsResponderAdapter : public platform::UdpSocket::Client {
 
   // Initializes mDNSResponder.  This should be called before any queries or
   // service registrations are made.
-  virtual Error Init() = 0;
+  virtual openscreen::Error Init() = 0;
 
   // Stops all open queries and service registrations.  If this is not called
   // before destruction, any registered services will not send their goodbye
@@ -179,16 +179,18 @@ class MdnsResponderAdapter : public platform::UdpSocket::Client {
   // when any service is active (via RegisterService).  Returns true if the
   // label was set successfully, false otherwise (e.g. the label did not meet
   // DNS name requirements).
-  virtual Error SetHostLabel(const std::string& host_label) = 0;
+  virtual openscreen::Error SetHostLabel(const std::string& host_label) = 0;
 
   // The following methods register and deregister a network interface with
   // mDNSResponder.  |socket| will be used to identify which interface received
   // the data in OnDataReceived and will be used to send data via the platform
   // layer.
-  virtual Error RegisterInterface(const platform::InterfaceInfo& interface_info,
-                                  const platform::IPSubnet& interface_address,
-                                  platform::UdpSocket* socket) = 0;
-  virtual Error DeregisterInterface(platform::UdpSocket* socket) = 0;
+  virtual openscreen::Error RegisterInterface(
+      const platform::InterfaceInfo& interface_info,
+      const platform::IPSubnet& interface_address,
+      platform::UdpSocket* socket) = 0;
+  virtual openscreen::Error DeregisterInterface(
+      platform::UdpSocket* socket) = 0;
 
   // Returns the time period after which this method must be called again, if
   // any.
@@ -253,7 +255,7 @@ class MdnsResponderAdapter : public platform::UdpSocket::Client {
       const std::map<std::string, std::string>& txt_data) = 0;
 };
 
-}  // namespace mdns
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_DISCOVERY_MDNS_MDNS_RESPONDER_ADAPTER_H_

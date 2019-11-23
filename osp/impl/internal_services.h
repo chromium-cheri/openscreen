@@ -23,9 +23,12 @@
 #include "platform/base/macros.h"
 
 namespace openscreen {
+
 namespace platform {
 class TaskRunner;
 }  // namespace platform
+
+namespace osp {
 
 // Factory for ServiceListener and ServicePublisher instances; owns internal
 // objects needed to instantiate them such as MdnsResponderService and runs an
@@ -44,10 +47,11 @@ class InternalServices : platform::UdpSocket::Client {
       platform::TaskRunner* task_runner);
 
   // UdpSocket::Client overrides.
-  void OnError(platform::UdpSocket* socket, Error error) override;
-  void OnSendError(platform::UdpSocket* socket, Error error) override;
+  void OnError(platform::UdpSocket* socket, openscreen::Error error) override;
+  void OnSendError(platform::UdpSocket* socket,
+                   openscreen::Error error) override;
   void OnRead(platform::UdpSocket* socket,
-              ErrorOr<platform::UdpPacket> packet) override;
+              openscreen::ErrorOr<platform::UdpPacket> packet) override;
 
  private:
   class InternalPlatformLinkage final : public MdnsPlatformService {
@@ -84,6 +88,7 @@ class InternalServices : platform::UdpSocket::Client {
   OSP_DISALLOW_COPY_AND_ASSIGN(InternalServices);
 };
 
+}  // namespace osp
 }  // namespace openscreen
 
 #endif  // OSP_IMPL_INTERNAL_SERVICES_H_
