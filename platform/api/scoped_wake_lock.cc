@@ -6,6 +6,8 @@
 
 namespace openscreen {
 namespace platform {
+
 ScopedWakeLock::~ScopedWakeLock() = default;
+
 }  // namespace platform
 }  // namespace openscreen
