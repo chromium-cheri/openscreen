@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4eb61458_0553009d",
+        "filename": "osp/impl/internal_services.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-25T22:55:31Z",
+      "side": 1,
+      "message": "It gets used in two places, L105 and L121. I replaced auto with the actual type.",
+      "parentUuid": "5f89d447_e13d2840",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "877a7360_b0f15cd1",
         "filename": "platform/base/network_interface_structs.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb12bf2_8026e499",
+        "filename": "platform/base/network_interface_structs.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-25T22:55:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "877a7360_b0f15cd1",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e6d63faa_04b927a8",
+        "filename": "platform/base/network_interface_structs.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-25T22:55:31Z",
+      "side": 1,
+      "message": "Yes. It the prefix length concept is the same. Whereas IPv4 prefix lengths can be from 0 to 32, IPv6 prefix lengths can be from 0 to 128. I\u0027ve updated the comment and added an IPv6 example.",
+      "parentUuid": "b2774951_9d825825",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7237ffa_571721ec",
         "filename": "platform/impl/network_interface_linux.cc",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "e73a8484_3bec30da",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-25T22:55:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7237ffa_571721ec",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe1fa410_65c8363e",
         "filename": "platform/impl/network_interface_linux.cc",
         "patchSetId": 3
@@ -84,6 +156,24 @@
       "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d25c6ae0_8b77ea9c",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-25T22:55:31Z",
+      "side": 1,
+      "message": "I thought about this for a bit, and I don\u0027t think there\u0027s anything actionable by the caller (i.e., Open Screen code) when an Error occurs. Open Screen code could only log the fault and continue. However, that\u0027s assuming that logging the fault is the behavior all embedders will want.\n\nInstead, the embedder\u0027s implementation of GetNetworkInterfaces() could also be responsible for handling faults: For example, the the embedder might want to do something different than just logging the error, like aboritng the app, sending a user feedback report, a retry-after-waiting-for-WiFi-to-come-up mechanism, etc.\n\nSo, I left it as-is, and expanded the comments in the platform API.",
+      "parentUuid": "fe1fa410_65c8363e",
+      "revId": "6891f3ae47436ea0d2f4a128ff823213facb3026",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
