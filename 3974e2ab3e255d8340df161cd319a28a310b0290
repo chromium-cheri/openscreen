@@ -22,6 +22,30 @@
       "revId": "3974e2ab3e255d8340df161cd319a28a310b0290",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d101162e_d11fdc5f",
+        "filename": "platform/api/scoped_wake_lock.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-25T23:08:48Z",
+      "side": 1,
+      "message": "Yes. We put declarations in header files and definitions in .cc files, unless we want the compiler to inline generated code.\n\n\"\u003d delete\" is a part of the method\u0027s declaration only, and means \"forbid definition.\"\n\n\"\u003d default\" is one possible method definition. The only time a method\u0027s definition is part of its declaration is when you\u0027re inlining it in a header file (because you\u0027re both declaring and defining it at the same time).",
+      "parentUuid": "8cd396ae_f27b368c",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "3974e2ab3e255d8340df161cd319a28a310b0290",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
