@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ceb6d895_81342f89",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T22:57:16Z",
+      "side": 1,
+      "message": "Done, much simpler.  Thanks.",
+      "parentUuid": "8bd81261_acb77659",
+      "revId": "044aebd6fac7f8d09d16b2f6c1397c03869cee3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0d58933_0d776c2a",
         "filename": "osp/impl/discovery/mdns/mdns_demo.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "044aebd6fac7f8d09d16b2f6c1397c03869cee3f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e97afb1_f2a456be",
+        "filename": "osp/impl/discovery/mdns/mdns_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T22:57:16Z",
+      "side": 1,
+      "message": "We could, but:\n\n1. This patch is large enough, and I would do it in a different patch.\n\n2. The code that defines QueryEventHeader is part of the wrapper for mDNSResponder, which will be going away when we transition OSP to use our home-grown mDNS.\n\nSo I would say \"not worth it.\"",
+      "parentUuid": "a0d58933_0d776c2a",
+      "revId": "044aebd6fac7f8d09d16b2f6c1397c03869cee3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
