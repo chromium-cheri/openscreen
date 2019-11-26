@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6cb5c658_f2be1de0",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5599de3_8948fb2a",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39749d8d_bb641182",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "0e6788a2_aa9a3d8d",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "For the time being at least - In future, this can be revisited, but I think that should all change as a single CL rather than piece-by-piece. Otherwise, we will end up with a bunch of `using` statements scattered throughout the discovery code, which is just what we wanted to avoid",
+      "parentUuid": "39749d8d_bb641182",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3c9c000_825024d9",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2019-11-26T04:20:05Z",
       "side": 1,
       "message": "Cool.  Does this allocate an object per wrapper?",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd36ad02_49a0a477",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "It seems that they are very light-weight and minimal objects:\n\nhttps://code.woboq.org/gcc/libstdc++-v3/include/bits/refwrap.h.html#310\n\nThey seem to only exist to make references copyable + assignable, so they can be used in structs like a vector",
+      "parentUuid": "f3c9c000_825024d9",
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "cc4a57b1_ba775cdb",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b820f8a_9031b1d4",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cf192bc_df439c85",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 8
@@ -84,6 +156,24 @@
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eab3c20_32a68b94",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "We don\u0027t post a task, but we need to include `OSP_DCHECK(task_runner_-\u003eIsRunningOnTaskRunner())` calls throughout the code to ensure our threading assumptions aren\u0027t violated. (That\u0027s the pattern we\u0027ve used so far for the mDNS code, so I wanted to maintain the same here)",
+      "parentUuid": "0cf192bc_df439c85",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "41174264_82727896",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecfb1e78_3e90dea6",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e403012_a2914c89",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 8
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "86c3d1e8_01ed364d",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e403012_a2914c89",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00b596cb_67bbf9dc",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 8
@@ -132,6 +258,24 @@
       "writtenOn": "2019-11-26T04:20:05Z",
       "side": 1,
       "message": "Can you describe how the record\u0027s name is derived?  Is this a fully qualified domain name?",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "761cc279_ea2ae921",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Rephrased this text to make it clearer (hopefully?)\n\nThe name we are claiming (in the ClaimExclusiveOwnership function) is via a DomainName object, which is where we take the fully qualified domain name object and split it into separate labels at the \u0027.\u0027 character. So since this isn\u0027t technically the FQDN I\u0027m not sure how to phrase this in a non-confusing way. Any suggestions?",
+      "parentUuid": "00b596cb_67bbf9dc",
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -155,6 +299,42 @@
     },
     {
       "key": {
+        "uuid": "61a9fafb_7814f695",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a56de092_44e803c3",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f0c0ff0_c4235390",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a56de092_44e803c3",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a1e2545_b841b7c8",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 8
@@ -166,6 +346,24 @@
       "writtenOn": "2019-11-26T04:20:05Z",
       "side": 1,
       "message": "It is cool if you implemented probing, but at least for Cast, instance names are guaranteed to be unique.",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990ca2ab_9699f27c",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Implementation of this method is left as a TODO. For now, the implementation is:\n\nDomainName ClaimExclusiveOwnership(DomainName name) {\n  // TODO: implement this method\n  Mark `name` as successfully claimed\n  return name\n}\n\nimplementing probing is on the tasks sheet, so I wanted to leave a place for it to be implemented if/when we do eventually prioritize that work.\nAdditionally, the RFC says that querying should handle case where we are the exclusive owner of a name differently than when we aren\u0027t, so a placeholder allows for those checks to proceed more easily",
+      "parentUuid": "5a1e2545_b841b7c8",
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -189,6 +387,24 @@
     },
     {
       "key": {
+        "uuid": "a50bc6f7_583a8821",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7458d68b_92192bbf",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51128671_dfd2d190",
         "filename": "discovery/mdns/mdns_responder.h",
         "patchSetId": 8
@@ -203,6 +419,24 @@
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2539d1a_cd6250cd",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51128671_dfd2d190",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +457,24 @@
     },
     {
       "key": {
+        "uuid": "fb536097_46041fad",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9149c06c_94a35317",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74231643_290a1f7c",
         "filename": "discovery/mdns/mdns_responder.h",
         "patchSetId": 8
@@ -234,6 +486,24 @@
       "writtenOn": "2019-11-26T04:20:05Z",
       "side": 1,
       "message": "I\u0027m not opposed to using reference_wrapper here, but if the caller is most often iterating over the results, consider returning an iterator object over the internal container, instead of allocating a vector of references. The difference is O(1) vs O(N) space.",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19f98f2b_ac813869",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "In many cases, there won\u0027t be a single internal container we are iterating over, so we will need to construct a new container in the GetRecords call. \nFor example, we support DnsType::kANY as well as specific types (kA, kSRV, etc...), so a query for at least one of the two wouldn\u0027t be an enumeration of a single container. It\u0027s a similar problem to what we were dealing with in the MdnsQuerier class",
+      "parentUuid": "74231643_290a1f7c",
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -257,6 +527,24 @@
     },
     {
       "key": {
+        "uuid": "eb44d151_e6b53850",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78535add_81920e78",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "229fa5ac_f002816b",
         "filename": "discovery/mdns/mdns_responder.h",
         "patchSetId": 8
@@ -271,6 +559,24 @@
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb40ec21_64a60dc2",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T20:22:38Z",
+      "side": 1,
+      "message": "We don\u0027t post a task, but we need to include `OSP_DCHECK(task_runner_-\u003eIsRunningOnTaskRunner())` calls throughout the code to ensure our threading assumptions aren\u0027t violated. (That\u0027s the pattern we\u0027ve used so far for the mDNS code, so I wanted to maintain the same here)",
+      "parentUuid": "229fa5ac_f002816b",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
