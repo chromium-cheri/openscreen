@@ -71,6 +71,30 @@ TEST(MdnsDomainNameTest, Compare) {
   EXPECT_EQ(fourth, fifth);
   EXPECT_NE(first, third);
   EXPECT_NE(first, fourth);
+
+  EXPECT_FALSE(first < second);
+  EXPECT_FALSE(second < first);
+  EXPECT_FALSE(first < third);
+  EXPECT_TRUE(third < first);
+  EXPECT_TRUE(first < fourth);
+  EXPECT_FALSE(fourth < first);
+  EXPECT_TRUE(first < fifth);
+  EXPECT_FALSE(fifth < first);
+
+  EXPECT_FALSE(second < third);
+  EXPECT_TRUE(third < second);
+  EXPECT_TRUE(second < fourth);
+  EXPECT_FALSE(fourth < second);
+  EXPECT_TRUE(second < fifth);
+  EXPECT_FALSE(fifth < second);
+
+  EXPECT_TRUE(third < fourth);
+  EXPECT_FALSE(fourth < third);
+  EXPECT_TRUE(third < fifth);
+  EXPECT_FALSE(fifth < third);
+
+  EXPECT_FALSE(fourth < fifth);
+  EXPECT_FALSE(fifth < fourth);
 }
 
 TEST(MdnsDomainNameTest, CopyAndMove) {
