@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "764cdaa7_484aaf5a",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-11-26T21:52:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4f023dd_fca47040",
+      "revId": "53d90ea6306ac8277d10b2eefac69bbf165cb196",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cd37e36_fc40bbef",
         "filename": "cast/common/channel/message_util.h",
         "patchSetId": 3
@@ -77,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5d1e17f7_591551a1",
+        "filename": "cast/common/channel/virtual_connection_router.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-11-26T21:52:27Z",
+      "side": 1,
+      "message": "I suspect these will all be called with either constants or strings owned by an app, but I\u0027m still okay with this idea.  Done.\n\nRemoveHandlerForLocalId doesn\u0027t benefit from this (if you were suggesting that).\n\nAlso applied this to SendMessage\u0027s VirtualConnection.",
+      "parentUuid": "359aed18_3bc0aad2",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "53d90ea6306ac8277d10b2eefac69bbf165cb196",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08beb308_aaf0ceb8",
         "filename": "cast/common/channel/virtual_connection_router.cc",
         "patchSetId": 3
@@ -91,6 +133,24 @@
       "revId": "53d90ea6306ac8277d10b2eefac69bbf165cb196",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7a749d9_d787d105",
+        "filename": "cast/common/channel/virtual_connection_router.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-11-26T21:52:27Z",
+      "side": 1,
+      "message": "|socket| \u003d\u003d |it-\u003esecond.socket| and I\u0027d prefer to call OnError after erase(), so |socket_owned| keeps it alive temporarily.",
+      "parentUuid": "08beb308_aaf0ceb8",
+      "revId": "53d90ea6306ac8277d10b2eefac69bbf165cb196",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
