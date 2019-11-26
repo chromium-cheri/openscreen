@@ -16,6 +16,29 @@
       "revId": "f4dd7a83f7f90ebab17a1b75ca62b93ec129dbe0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eebca2c5_50947d26",
+        "filename": "util/string.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-26T23:46:20Z",
+      "side": 1,
+      "message": "To minimize code size and ease future maintenance burdens, I suggest using as much of the standard library as possible before introducing more utility code.\n\nIt looks like you\u0027re using this in receiver_session.cc, in ParseSessionConfig(). So, in receiver_session.cc (or move that to offer.cc, per other comments), you could parse the AES keys (32 hex chars \u003d 128 bits) as two 64-bit conversions with sscanf(), like:\n\n  uint64_t quads[2];\n  int chars_scanned;\n  if (hex_string.size() \u003d\u003d 32 \u0026\u0026\n      sscanf(hex_string.c_str(),\n             \"%16\" SCNx64 \"%16\" SCNx64 \"%n\",\n             \u0026quads[0], \u0026quads[1], \u0026chars_scanned) \u003d\u003d 2 \u0026\u0026\n      chars_scanned \u003d\u003d 32 \u0026\u0026\n      std::none_of(hex_string.begin(), hex_string.end(),\n                   [](char c) { return std::isspace(c); })) {\n    WriteBigEndian(quads[0], bytes);\n    WriteBigEndian(quads[1], bytes + 8);\n    return Ok;\n  }\n  return Error;\n\n(The \"none is whitespace check\" is necessary because sscanf() will skip over whitespace before consuming the hex digits, and we want to make sure *only* hex digits were included in the input string.)",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "f4dd7a83f7f90ebab17a1b75ca62b93ec129dbe0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53cd3fcc_87fb4eeb",
+        "filename": "cast/streaming/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-26T23:46:20Z",
+      "side": 1,
+      "message": "In a future change, we might wish to add setters, for sender-side use too. For now, it\u0027s fine to keep it in \"receiver\" and later move it to \"common\".",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "bfee9603545e3cc85f57a7b923e0e291bcfdfcc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43cd419a_1fe53c45",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-26T23:46:20Z",
+      "side": 1,
+      "message": "Let\u0027s add some class-level comments explaining what this is and how it\u0027s used.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "bfee9603545e3cc85f57a7b923e0e291bcfdfcc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ef7c3f_80e3fce3",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-26T23:46:20Z",
+      "side": 1,
+      "message": "Do we need a Close() method? Can the destructor be that method (RAII)?",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "bfee9603545e3cc85f57a7b923e0e291bcfdfcc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afd79804_aad3d89e",
+        "filename": "cast/streaming/offer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-26T23:46:20Z",
+      "side": 1,
+      "message": "file naming nit: offer_messages.h, or even parsed_offer_messages.h, to be a bit more specific that this is about parsing rather than actual business/control logic?",
+      "range": {
+        "startLine": 5,
+        "startChar": 23,
+        "endLine": 5,
+        "endChar": 31
+      },
+      "revId": "bfee9603545e3cc85f57a7b923e0e291bcfdfcc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db509799_bcbb3ca7",
+        "filename": "cast/streaming/offer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-26T23:46:20Z",
+      "side": 1,
+      "message": "I\u0027d suggest the parsing do complete validation and type conversion. For example, here, we could return a Ssrc instead of a uint32_t. On L30 (for type()), it could return an \"enum { AUDIO_STREAM, VIDEO_STREAM, UNKNOWN }\" instead of the raw string. target_delay() could return std::chrono::milliseconds. etc...\n\nThat way, ReceiverSession can encapsulate the decision/control logic, while Offer::Parse() can encapsulate the data modeling details. IMHO, this would be a better abstraction for unit testing, too. 😊\n\nA related side note: In some cases, we may want to hard-fail the parse on invalid values, but soft-fail (i.e., return UNKNOWN enums) if there are individual properties that might not make-or-break our ability to start the session going. Some judgement calls will be needed here.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "bfee9603545e3cc85f57a7b923e0e291bcfdfcc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99896c8f_a96309d0",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-26T23:46:20Z",
+      "side": 1,
+      "message": "nit: No need to allocate this on the heap. Meaning: s/std::unique_ptr\u003cReceiverPacketRouter\u003e/ReceiverPacketRouter/ as the class member decl.",
+      "range": {
+        "startLine": 150,
+        "startChar": 10,
+        "endLine": 150,
+        "endChar": 27
+      },
+      "revId": "bfee9603545e3cc85f57a7b923e0e291bcfdfcc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d38964_02f470c1",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-26T23:46:20Z",
+      "side": 1,
+      "message": "nit: Client* const client_;\n             ^^^^^\n\n...and it seems the other 3 ctor-injected members can be const too...",
+      "range": {
+        "startLine": 123,
+        "startChar": 2,
+        "endLine": 123,
+        "endChar": 18
+      },
+      "revId": "bfee9603545e3cc85f57a7b923e0e291bcfdfcc8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
