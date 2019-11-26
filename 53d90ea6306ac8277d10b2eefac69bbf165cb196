@@ -119,6 +119,47 @@
     },
     {
       "key": {
+        "uuid": "a6140088_5ec7a195",
+        "filename": "cast/common/channel/virtual_connection_router.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-26T22:16:41Z",
+      "side": 1,
+      "message": "If we expect it to be a constant, then we should switch this to absl::string_view to make it more flexible (const char* and std::string are both auto promoted to string_view).",
+      "parentUuid": "5d1e17f7_591551a1",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "53d90ea6306ac8277d10b2eefac69bbf165cb196",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4f8b0db_b287d74f",
+        "filename": "cast/common/channel/virtual_connection_router.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-26T22:16:41Z",
+      "side": 1,
+      "message": "ItemNotFound might be more appropriate, unknown seems too vague.",
+      "revId": "53d90ea6306ac8277d10b2eefac69bbf165cb196",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08beb308_aaf0ceb8",
         "filename": "cast/common/channel/virtual_connection_router.cc",
         "patchSetId": 3
