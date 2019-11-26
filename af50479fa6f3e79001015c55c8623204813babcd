@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "77c21422_b34b2c62",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T23:11:34Z",
+      "side": 1,
+      "message": "Interesting - Your call. I know you had previously mentioned we wanted to differentiate between these two in the DNS-SD layer",
+      "parentUuid": "bd4f47f5_48b42199",
+      "range": {
+        "startLine": 151,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 57
+      },
+      "revId": "af50479fa6f3e79001015c55c8623204813babcd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe288221_92cdf1fd",
         "filename": "discovery/mdns/mdns_querier.h",
         "patchSetId": 6
@@ -140,6 +164,30 @@
       "revId": "af50479fa6f3e79001015c55c8623204813babcd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39f564d6_531b4073",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-26T23:11:34Z",
+      "side": 1,
+      "message": "Sounds good on the implementation - For the current use cases, all we need is some consistent operator to ensure use with std::map works\n\nRegarding the unused operators, we need those to match style guidelines:\n\"If you define an operator, also define any related operators that make sense, and make sure they are defined consistently. For example, if you overload \u003c, overload all the comparison operators, and make sure \u003c and \u003e never return true for the same arguments.\"\n\nhttps://google.github.io/styleguide/cppguide.html#Operator_Overloading",
+      "parentUuid": "1c970990_47c531e4",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 46
+      },
+      "revId": "af50479fa6f3e79001015c55c8623204813babcd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
