@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5599de3_8948fb2a",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Nit: Can you add newlines around the platform namespace, and remove them around the class TaskRunner declaration?",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39749d8d_bb641182",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Are you sticking with a secondary namespace for discovery/ code?",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c9c000_825024d9",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Cool.  Does this allocate an object per wrapper?",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b820f8a_9031b1d4",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Please document lifetime assumptions about the passed-in querier and sender.",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cf192bc_df439c85",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "When does this code need to post a task?",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecfb1e78_3e90dea6",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "I don\u0027t see members to store any of these arguments.",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e403012_a2914c89",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Lowercase \u0027record\u0027",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00b596cb_67bbf9dc",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Can you describe how the record\u0027s name is derived?  Is this a fully qualified domain name?",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a56de092_44e803c3",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Ownership",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a1e2545_b841b7c8",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "It is cool if you implemented probing, but at least for Cast, instance names are guaranteed to be unique.",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7458d68b_92192bbf",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "These should be declared private: as clients of the publisher won\u0027t need them I assume.",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51128671_dfd2d190",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Similar comments about spacing",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9149c06c_94a35317",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "It would make sense to declare this in mdns_records.h as it\u0027s used multiple places, maybe as MdnsRecord::ConstRef",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74231643_290a1f7c",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "I\u0027m not opposed to using reference_wrapper here, but if the caller is most often iterating over the results, consider returning an iterator object over the internal container, instead of allocating a vector of references. The difference is O(1) vs O(N) space.",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78535add_81920e78",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "Document lifetime assumptions about the Mdns* pointers passed in.",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "229fa5ac_f002816b",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T04:20:05Z",
+      "side": 1,
+      "message": "When does this code need to post a task?",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
