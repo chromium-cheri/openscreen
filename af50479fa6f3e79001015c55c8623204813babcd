@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5c16e597_9aa64991",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T23:33:47Z",
+      "side": 1,
+      "message": "I don\u0027t recall mentioning that specifically :-)\n\nThe only other time I can think a record will be removed is during a flush, in which case we don\u0027t want to send change events at all.  So I went ahead and renamed to kExpired.",
+      "parentUuid": "77c21422_b34b2c62",
+      "range": {
+        "startLine": 151,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 57
+      },
+      "revId": "af50479fa6f3e79001015c55c8623204813babcd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe288221_92cdf1fd",
         "filename": "discovery/mdns/mdns_querier.h",
         "patchSetId": 6
@@ -188,6 +212,30 @@
       "revId": "af50479fa6f3e79001015c55c8623204813babcd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65d46b91_0b1e05e3",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-26T23:33:47Z",
+      "side": 1,
+      "message": "Done.  Good to know, even if it seems somewhat wasteful.  Let\u0027s hope the linker eliminates the dead code.",
+      "parentUuid": "39f564d6_531b4073",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 46
+      },
+      "revId": "af50479fa6f3e79001015c55c8623204813babcd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
