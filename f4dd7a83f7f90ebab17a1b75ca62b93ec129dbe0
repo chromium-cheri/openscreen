@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6c6cc120_573c1751",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-27T19:00:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1db4508c_f548d0c8",
+      "revId": "f4dd7a83f7f90ebab17a1b75ca62b93ec129dbe0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eebca2c5_50947d26",
         "filename": "util/string.cc",
         "patchSetId": 11
@@ -39,6 +57,30 @@
       "revId": "f4dd7a83f7f90ebab17a1b75ca62b93ec129dbe0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb4f3d63_89d3e80e",
+        "filename": "util/string.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-27T19:00:00Z",
+      "side": 1,
+      "message": "Fair enough, I wrote this + tests to make it more robust, but since this is a legacy API and a very limited use case, it\u0027s probably not worth making it more robust. If we end up having to do more hex to byte conversions I would definitely prefer this code over doing a sscanf quads approach.",
+      "parentUuid": "eebca2c5_50947d26",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "f4dd7a83f7f90ebab17a1b75ca62b93ec129dbe0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
