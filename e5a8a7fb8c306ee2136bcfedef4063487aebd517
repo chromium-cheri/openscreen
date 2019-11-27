@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbc33e89_71ec8811",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "I made a few comments below where the default probably shouldn\u0027t be zero. This helper could be easily adjusted to handle those use cases:\n\n  T ValueOrDefault(const ErrorOr\u003cT\u003e\u0026 value, T fallback \u003d T{}) {\n    ...same stuff...\n    return fallback;  ...instead of: return T{};\n  }",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f38d0ce3_ba6d596c",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "Suggest:\n\n  } else {\n    OSP_LOG_ERROR \u003c\u003c ...out-of-range-message...\n    return Error::Code::kParameterInvalid;\n  }\n\n...since no Cast Sender should try to do something outside of [0,2000].",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 153,
+        "endChar": 5
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "128bcc2c_a8f74197",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "Let\u0027s validate that the key and iv were provided (i.e., they are required). We want to require all Senders respect the user\u0027s privacy.",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 164,
+        "endChar": 44
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "114ae3ae_267b52d8",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "Need validation check: channels should be greater than zero.",
+      "range": {
+        "startLine": 184,
+        "startChar": 55,
+        "endLine": 184,
+        "endChar": 71
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ada6d338_96d17a5b",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "Validation check: These should both be \u003e0.",
+      "range": {
+        "startLine": 195,
+        "startChar": 20,
+        "endLine": 195,
+        "endChar": 49
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e8ae7e_65567ca9",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "I\u0027m trying to remember, but I think there are legacy Senders (Android?) that don\u0027t send the new \"resolutions\" key/value. I\u0027d suggest returning an empty vector instead of an error if it\u0027s missing from the OFFER.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 3
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4713d56a_cfeda1a2",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "Based on past experience, I think the default should be 30, if this is missing.",
+      "range": {
+        "startLine": 234,
+        "startChar": 21,
+        "endLine": 234,
+        "endChar": 51
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9ac5567_4140a1d1",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "ditto here: It should default to 4 \u003c\u003c 20 (4 Mbps) if missing.",
+      "range": {
+        "startLine": 235,
+        "startChar": 21,
+        "endLine": 235,
+        "endChar": 49
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d1a3ece_89eea5b5",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "At the top of the loop, I recommend something like:\n\n  const Json::Value\u0026 fields \u003d supported_streams[i];\n\n...and then using \"fields\" instead of \"supported_streams[i]\" everywhere to avoid repeat JSON map look-ups.",
+      "range": {
+        "startLine": 277,
+        "startChar": 28,
+        "endLine": 277,
+        "endChar": 48
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c4c2ab9_3903c33e",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "FYI--There is kDefaultTargetPlayoutDelay in cast/streaming/constants.h.",
+      "range": {
+        "startLine": 23,
+        "startChar": 15,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daa45b29_c1054b78",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "Good choice on the std::string here. Allows this to support other codecs in the future.",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0646a136_2a9a505f",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "If this can only equal one value, should we omit it?\n\nFWIW, I\u0027m not sure what they were planning to do with this (according to the spec). I suppose we could just validate it\u0027s set to \"cast\" when parsing the JSON. Maybe check what the Chromecast impl does?",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e54394a_17cdcd06",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "There\u0027s an RtpPlayloadType enum in rtp_defines.h.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c6a5364_a9bb9a19",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "nit: rtp_timebase, for consistency w/ the rest of the code in this dir.",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 15
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ed71d4_5158da9c",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "This is a bit weird, because this is specified as a rational number like \"30000/1001\". Our Cast Streaming impl actually doesn\u0027t care about the max frame rate, but the embedder application should respect it.\n\nI suggest we parse this and use a double instead of string here. Normally, I\u0027d be wary of possible loss of precision, but this is just a frame rate upper-bound. It shouldn\u0027t cause problems if it\u0027s off by a tiny fractional amount.",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 13
+      },
+      "revId": "e5a8a7fb8c306ee2136bcfedef4063487aebd517",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

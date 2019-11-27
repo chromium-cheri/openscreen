@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c20f5e0a_23cef734",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "IMHO, the string_view was more versatile here. However, if you know the impl will always have these fields in std::string form (and not a char buffer or some other thing), then this is fine.\n\nThe whole game here is to use types that avoid unnecessary string copies (both in the caller and the callee).",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "4c47fee199ec31c01966cbaa9d8d9b7825dd113c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b7a0dd_24b6ffdc",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "Same thing here: If JSON serialization produces a std::string, then this is fine. Otherwise, the string_view would be more versatile (let the impl copy into whatever string/buffer object it\u0027s using).",
+      "range": {
+        "startLine": 31,
+        "startChar": 27,
+        "endLine": 31,
+        "endChar": 46
+      },
+      "revId": "4c47fee199ec31c01966cbaa9d8d9b7825dd113c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d68d2355_b027eb83",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T22:50:01Z",
+      "side": 1,
+      "message": "Totally nitting here, but how about int8_t instead of int?",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 29
+      },
+      "revId": "4c47fee199ec31c01966cbaa9d8d9b7825dd113c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
