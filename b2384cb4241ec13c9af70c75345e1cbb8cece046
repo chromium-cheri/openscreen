@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "c7ffab60_1be8c3cc",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-27T21:23:28Z",
+      "side": 1,
+      "message": "It looks like a type wrapper around a pointer which is what I would expect.",
+      "parentUuid": "cd36ad02_49a0a477",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b820f8a_9031b1d4",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 8
@@ -282,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "e560f8aa_cc3c861c",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-27T21:23:28Z",
+      "side": 1,
+      "message": "I would just say \"domain name\" instead of \"name\" so it\u0027s clear it\u0027s the record domain.",
+      "parentUuid": "761cc279_ea2ae921",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a56de092_44e803c3",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 8
@@ -367,6 +403,24 @@
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80737caf_de0e63fa",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-27T21:23:28Z",
+      "side": 1,
+      "message": "See other comment about his API.",
+      "parentUuid": "990ca2ab_9699f27c",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -507,6 +561,24 @@
       "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bb3561d_4e1acd80",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-11-27T21:23:28Z",
+      "side": 1,
+      "message": "Makes sense.  This isn\u0027t part of the public API so we can go back later and optimize both the storage and the calling pattern if need be.  I don\u0027t expect there to be more than a dozen records in the common case, so premature optimization isn\u0027t necessary.",
+      "parentUuid": "19f98f2b_ac813869",
+      "revId": "b2384cb4241ec13c9af70c75345e1cbb8cece046",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
