@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "618b7a01_3a12fd76",
+        "filename": "platform/api/scoped_wake_lock.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T01:58:36Z",
+      "side": 1,
+      "message": "Are you talking about ScopedWakeLockMac? If so, it does do this since the dtor is posting a task that checks that the global reference count is zero before making the Mac platform calls to remove the wake lock.",
+      "parentUuid": "23201d18_e732fc5a",
+      "revId": "3974e2ab3e255d8340df161cd319a28a310b0290",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8cd396ae_f27b368c",
         "filename": "platform/api/scoped_wake_lock.h",
         "patchSetId": 5
