@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "89c0dafd_1136ec33",
+        "filename": "cast/sender/channel/sender_socket_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T00:12:12Z",
+      "side": 1,
+      "message": "Done.\n\nOriginally, I was thinking it\u0027d be better to just pass a pointer to the data and let the impl of the Client interface decide whether to make/keep a copy. However, impls are going to be generating this from their internal object structure, for this API; so, it makes sense to just pass ownership of that onto the client.",
+      "parentUuid": "a02758ab_73b836ea",
+      "revId": "dd0f75da71367ad88e562b91954b833ff7e8b188",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "535130e3_e6f1635d",
         "filename": "cast/sender/channel/sender_socket_factory.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "dd0f75da71367ad88e562b91954b833ff7e8b188",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b61887e_ba9096d0",
+        "filename": "cast/sender/channel/sender_socket_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-11-27T00:12:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "535130e3_e6f1635d",
+      "revId": "dd0f75da71367ad88e562b91954b833ff7e8b188",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
