@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21154b27_79a3d40f",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T21:27:11Z",
+      "side": 1,
+      "message": "It sounds like this is an interface embedders might implement?\nIf so, avoid the abseil types",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "e192c92494d89a078a922178f1d4c82dafe55bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4be7256_f11c6fd8",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T21:27:11Z",
+      "side": 1,
+      "message": "uint32_t\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "range": {
+        "startLine": 208,
+        "startChar": 7,
+        "endLine": 208,
+        "endChar": 19
+      },
+      "revId": "e192c92494d89a078a922178f1d4c82dafe55bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd536884_7fbd3ddf",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T21:27:11Z",
+      "side": 1,
+      "message": "cast_mode.is_error() is clearer (and similar above)",
+      "range": {
+        "startLine": 245,
+        "startChar": 7,
+        "endLine": 245,
+        "endChar": 16
+      },
+      "revId": "e192c92494d89a078a922178f1d4c82dafe55bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6201769a_45df5aa1",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T21:27:11Z",
+      "side": 1,
+      "message": "This could use some comments",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 13
+      },
+      "revId": "e192c92494d89a078a922178f1d4c82dafe55bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "508a299f_baff6382",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 14
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T21:27:11Z",
+      "side": 1,
+      "message": "You forgot to add the new string class / unit test :)",
+      "range": {
+        "startLine": 8,
+        "startChar": 2,
+        "endLine": 8,
+        "endChar": 9
+      },
+      "revId": "e192c92494d89a078a922178f1d4c82dafe55bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb1cea23_cab83863",
+        "filename": "util/string.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T21:27:11Z",
+      "side": 1,
+      "message": "Not sure if this is actually better or not for your use cases, but you should be able to change the method signature to:\n\ntemplate\u003csize_t length\u003e\nError HexToBytes(absl::string_view hex, uint8_t bytes[length])",
+      "range": {
+        "startLine": 30,
+        "startChar": 47,
+        "endLine": 30,
+        "endChar": 76
+      },
+      "revId": "e192c92494d89a078a922178f1d4c82dafe55bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bcf20a0_80c4dd3b",
+        "filename": "util/string.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T21:27:11Z",
+      "side": 1,
+      "message": "IteratorType would be clearer",
+      "range": {
+        "startLine": 19,
+        "startChar": 19,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "e192c92494d89a078a922178f1d4c82dafe55bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "538cf31c_0e14e9a5",
+        "filename": "util/string.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T21:27:11Z",
+      "side": 1,
+      "message": "The logic looks right here at first glance, but I\u0027d suggest some comments to explain it - there are a lot of \u0027magic\u0027 constants here",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 7
+      },
+      "revId": "e192c92494d89a078a922178f1d4c82dafe55bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
