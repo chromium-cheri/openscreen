@@ -188,6 +188,30 @@
       "revId": "6bd34ebd2f5e010dfde65784552a199296058822",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8bad6e1_8ebf1dba",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-11-27T23:35:16Z",
+      "side": 1,
+      "message": "I think you\u0027re right about a different approach for this method is a good idea. Going to take a stab at something with the approach you suggest\n\nPulling this out as suggested - will work on a separate API CL for probing, and leave the implementation of the API as a TODO\nI expect having both that API and how its used in DNS-SD will be too large of a CL, so I will start with the API. If its use is not clear, I can add the DNS-SD code in too and then break that back into separate CLs",
+      "parentUuid": "d3de6486_21b746d1",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 54
+      },
+      "revId": "6bd34ebd2f5e010dfde65784552a199296058822",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
