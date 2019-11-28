@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3d8f120e_729f4dd7",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-28T23:04:00Z",
+      "side": 1,
+      "message": "I agree that string_view is more versatile. Switched to this b/c Ryan suggested we shouldn\u0027t expose Abseil as something the embedder needs to implement. I\u0027m happy to switch it back if that\u0027s something we want to do.",
+      "parentUuid": "c20f5e0a_23cef734",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "4c47fee199ec31c01966cbaa9d8d9b7825dd113c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53b7a0dd_24b6ffdc",
         "filename": "cast/streaming/message_port.h",
         "patchSetId": 17
@@ -59,6 +83,30 @@
       "writtenOn": "2019-11-27T22:50:01Z",
       "side": 1,
       "message": "Totally nitting here, but how about int8_t instead of int?",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 29
+      },
+      "revId": "4c47fee199ec31c01966cbaa9d8d9b7825dd113c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96bf1110_9415e8c9",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-11-28T23:04:00Z",
+      "side": 1,
+      "message": "int8_t wont\u0027 really result in space saving due to alignment, right? I don\u0027t think we really care about the size that much, hence int.\n\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "parentUuid": "d68d2355_b027eb83",
       "range": {
         "startLine": 79,
         "startChar": 26,
