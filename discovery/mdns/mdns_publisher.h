@@ -5,6 +5,7 @@
 #ifndef DISCOVERY_MDNS_MDNS_PUBLISHER_H_
 #define DISCOVERY_MDNS_MDNS_PUBLISHER_H_
 
+#include "discovery/mdns/mdns_probe.h"
 #include "discovery/mdns/mdns_records.h"
 #include "discovery/mdns/mdns_responder.h"
 
@@ -16,9 +17,7 @@ class TaskRunner;
 
 namespace discovery {
 
-// TODO(rwkeane): Add API for claiming a DomainName as described in RFC 6762
-// Section 8.1's probing phase.
-class MdnsPublisher : public MdnsResponder::RecordHandler {
+class MdnsPublisher : public MdnsResponder::RecordHandler, MdnsProbe::Observer {
  public:
   // |querier|, |sender|, |task_runner|, and |random_delay| must all persist for
   // the duration of this object's lifetime
@@ -43,9 +42,25 @@ class MdnsPublisher : public MdnsResponder::RecordHandler {
   // the name is released.
   Error UnregisterRecord(const MdnsRecord& record);
 
+  // Attempts to claim the given domain name, and claims a similar name if this
+  // is not possible. Once claimed, the provided record factories will be called
+  // and the associated records will be published. Then, the callback will be
+  // called, if one is provided.
+  void ClaimExclusiveOwnership(
+      DomainName target_name,
+      std::vector<std::function<MdnsRecord(const DomainName&)>>
+          record_factories,
+      std::function<void(DomainName)> callback);
+
   OSP_DISALLOW_COPY_AND_ASSIGN(MdnsPublisher);
 
  private:
+  struct ProbeInfo {
+    std::unique_ptr<MdnsProbe> probe;
+    std::vector<std::function<MdnsRecord(DomainName)>> factories;
+    std::function<void(DomainName)> callback;
+  };
+
   // MdnsResponder::RecordHandler overrides.
   bool IsExclusiveOwner(const DomainName& name) override;
   bool HasRecords(const DomainName& name,
@@ -55,10 +70,15 @@ class MdnsPublisher : public MdnsResponder::RecordHandler {
                                                DnsType type,
                                                DnsClass clazz) override;
 
+  // MdnsProbe::Observer overrides.
+  void OnDomainFound(MdnsProbe* probe, DomainName name) override;
+
   MdnsQuerier* const querier_;
   MdnsSender* const sender_;
   platform::TaskRunner* const task_runner_;
   MdnsRandom* const random_delay_;
+
+  std::vector<ProbeInfo> active_probes_;
 };
 
 }  // namespace discovery
