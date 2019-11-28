@@ -42,6 +42,21 @@ Error MdnsPublisher::UnregisterRecord(const MdnsRecord& record) {
   return Error::None();
 }
 
+void MdnsPublisher::ClaimExclusiveOwnership(
+    DomainName target_name,
+    std::vector<std::function<MdnsRecord(const DomainName&)>> record_factories,
+    std::function<void(DomainName)> callback) {
+  ProbeInfo info;
+  info.probe = std::make_unique<MdnsProbe>(querier_, sender_, task_runner_,
+                                           random_delay_, this);
+  info.factories = record_factories;
+  info.callback = callback;
+
+  MdnsProbe* probe = info.probe.get();
+  active_probes_.push_back(std::move(info));
+  probe->Start(std::move(target_name), record_factories);
+}
+
 bool MdnsPublisher::IsExclusiveOwner(const DomainName& name) {
   // TODO(rwkeane): Implement this method.
   return false;
@@ -59,6 +74,31 @@ std::vector<MdnsRecord::ConstRef> MdnsPublisher::GetRecords(
     DnsClass clazz) {
   // TODO(rwkeane): Implement this method.
   return std::vector<MdnsRecord::ConstRef>();
+}
+
+void MdnsPublisher::OnDomainFound(MdnsProbe* probe, DomainName name) {
+  auto it = std::find_if(
+      active_probes_.begin(), active_probes_.end(),
+      [probe](const ProbeInfo& info) { return info.probe.get() == probe; });
+
+  if (it == active_probes_.end()) {
+    // This means that the probe we got a call from wasn't an active probe. This
+    // should never happen.
+    return;
+  }
+
+  // TODO(rwkeane): Mark name as claimed.
+
+  for (auto factory : it->factories) {
+    RegisterRecord(factory(name));
+  }
+
+  auto callback = it->callback;
+  active_probes_.erase(it);
+
+  if (callback) {
+    callback(name);
+  }
 }
 
 }  // namespace discovery
