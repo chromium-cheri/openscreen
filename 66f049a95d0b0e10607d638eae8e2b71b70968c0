@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92fa34e2_8f9226c1",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-02T22:48:10Z",
+      "side": 1,
+      "message": "Looks like this should be initialized to kDefaultMaxFrameRate.",
+      "range": {
+        "startLine": 259,
+        "startChar": 32,
+        "endLine": 259,
+        "endChar": 40
+      },
+      "revId": "66f049a95d0b0e10607d638eae8e2b71b70968c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b61e1126_ec8587d9",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-02T22:48:10Z",
+      "side": 1,
+      "message": "Also, a div-by-zero check to avoid crashing:\n\n  if (... \u0026\u0026 denominator !\u003d 0) {",
+      "range": {
+        "startLine": 269,
+        "startChar": 51,
+        "endLine": 269,
+        "endChar": 52
+      },
+      "revId": "66f049a95d0b0e10607d638eae8e2b71b70968c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94547992_4f80c0a7",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-02T22:48:10Z",
+      "side": 1,
+      "message": "if (!std::isfinite(max_frame_rate_value) || max_frame_rate_value \u003c\u003d 0) {\n  ...\n}",
+      "range": {
+        "startLine": 274,
+        "startChar": 8,
+        "endLine": 274,
+        "endChar": 40
+      },
+      "revId": "66f049a95d0b0e10607d638eae8e2b71b70968c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9624fe73_b599f19e",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-02T22:48:10Z",
+      "side": 1,
+      "message": "This can\u0027t be const, since you\u0027re moving it on L117. The compiler will silently invoke the copy ctor there, not the move ctor, if the argument is const.",
+      "range": {
+        "startLine": 113,
+        "startChar": 33,
+        "endLine": 113,
+        "endChar": 38
+      },
+      "revId": "66f049a95d0b0e10607d638eae8e2b71b70968c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
