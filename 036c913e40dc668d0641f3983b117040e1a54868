@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3271a1f_48cce2cb",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-02T18:31:56Z",
+      "side": 1,
+      "message": "Since this class is a one-shot API, this is really a Callback object that is curried through the constructor.  Suggest renaming to Callback.",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9cbcd6b_ca899d12",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-02T18:31:56Z",
+      "side": 1,
+      "message": "I don\u0027t follow why this method takes a vector of functors.  What are record_factories going to be used for?",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4be79030_ee80d865",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-02T18:31:56Z",
+      "side": 1,
+      "message": "I don\u0027t think this layering is quite right. The MdnsProbe class should be responsible for tracking outstanding probes, using an internal struct if needed; versus adding those implementation details to the publisher.\n\nThe publisher should only have to call\n\nprobe_.ClaimDomainName(target_name, callback)\n\nto start a probe that invokes |callback| when complete.",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "029927cb_3bd8b5a0",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-02T18:31:56Z",
+      "side": 1,
+      "message": "Rather than have a separate functor argument here vs. the Callback object in MdnsProbe, can they be combined into a DomainNameCallback type?",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
