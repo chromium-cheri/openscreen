@@ -41,10 +41,14 @@ struct VirtualConnection {
   // proto/cast_channel.proto.
   enum class ProtocolVersion {
     kV2_1_0,
+    kV2_1_1,
+    kV2_1_2,
+    kV2_1_3,
   };
 
   enum CloseReason {
     kUnknown,
+    kFirstReason = kUnknown,
 
     // Underlying socket has been closed by peer. This happens when Cast sender
     // closed transport connection normally without graceful virtual connection
@@ -68,6 +72,7 @@ struct VirtualConnection {
 
     // The virtual connection has been closed by the peer gracefully.
     kClosedByPeer,
+    kLastReason = kClosedByPeer,
   };
 
   struct AssociatedData {
