@@ -5,6 +5,7 @@
 #ifndef CAST_COMMON_CHANNEL_CAST_SOCKET_H_
 #define CAST_COMMON_CHANNEL_CAST_SOCKET_H_
 
+#include <memory>
 #include <vector>
 
 #include "platform/api/tls_connection.h"

@@ -52,8 +52,8 @@ ARecordRdata CreateARecord() {
 }
 
 AAAARecordRdata CreateAAAARecord() {
-  return AAAARecordRdata(
-      IPAddress{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16});
+  return AAAARecordRdata(IPAddress(0x0102, 0x0304, 0x0506, 0x0708, 0x090a,
+                                   0x0b0c, 0x0d0e, 0x0f10));
 }
 
 MdnsRecord CreatePtrRecord(const std::string& instance,
