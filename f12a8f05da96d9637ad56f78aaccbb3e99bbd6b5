@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "784f782b_4e944a51",
+        "filename": "cast/common/channel/cast_socket_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-03T23:29:29Z",
+      "side": 1,
+      "message": "Nit: I\u0027d prefer no bitshift operations here. Isn\u0027t this equivalent to 0x2425, 0x2627, ... ?",
+      "revId": "f12a8f05da96d9637ad56f78aaccbb3e99bbd6b5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5443f541_0b7612a4",
+        "filename": "discovery/dnssd/testing/fake_dns_record_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-03T23:29:29Z",
+      "side": 1,
+      "message": "Where is the value of kPortNum defined?",
+      "revId": "f12a8f05da96d9637ad56f78aaccbb3e99bbd6b5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7c1903b_34f5684f",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-03T23:29:29Z",
+      "side": 1,
+      "message": "Why the switch to hextets? I\u0027m not sure I see the value add. If it\u0027s just brevity, why not uint32_t?",
+      "revId": "f12a8f05da96d9637ad56f78aaccbb3e99bbd6b5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb6b770_5d34f1a6",
+        "filename": "platform/base/location.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-03T23:29:29Z",
+      "side": 1,
+      "message": "Does ostringstream format void* as hex? Neat.",
+      "revId": "f12a8f05da96d9637ad56f78aaccbb3e99bbd6b5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc45d5f_e241f94d",
+        "filename": "platform/impl/socket_address_posix.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-03T23:29:29Z",
+      "side": 1,
+      "message": "I\u0027m surprised this didn\u0027t cause issues compiling in Chrome.",
+      "revId": "f12a8f05da96d9637ad56f78aaccbb3e99bbd6b5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
