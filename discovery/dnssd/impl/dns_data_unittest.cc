@@ -66,10 +66,9 @@ class DnsDataTesting : public DnsData {
   }
 };
 
-static const IPAddress v4_address =
-    IPAddress(std::array<uint8_t, 4>{{192, 168, 0, 0}});
-static const IPAddress v6_address = IPAddress(std::array<uint8_t, 16>{
-    {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}});
+static const IPAddress v4_address(192, 168, 0, 0);
+static const IPAddress
+    v6_address(0x0102, 0x0304, 0x0506, 0x0708, 0x090a, 0x0b0c, 0x0d0e, 0x0f10);
 static const std::string instance_name = "instance";
 static const std::string service_name = "_srv-name._udp";
 static const std::string domain_name = "local";

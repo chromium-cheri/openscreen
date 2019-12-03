@@ -91,9 +91,9 @@ TEST(MdnsReceiverTest, ReceiveResponse) {
       0xac, 0x00, 0x00, 0x01,  // 172.0.0.1
   };
 
-  constexpr uint8_t kIPv6AddressBytes[] = {
-      0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-      0x02, 0x02, 0xb3, 0xff, 0xfe, 0x1e, 0x83, 0x29,
+  constexpr uint16_t kIPv6AddressHextets[] = {
+      0xfe80, 0x0000, 0x0000, 0x0000,
+      0x0202, 0xb3ff, 0xfe1e, 0x8329,
   };
   // clang-format on
 
@@ -116,7 +116,7 @@ TEST(MdnsReceiverTest, ReceiveResponse) {
   packet.assign(kResponseBytes.data(),
                 kResponseBytes.data() + kResponseBytes.size());
   packet.set_source(
-      IPEndpoint{.address = IPAddress(kIPv6AddressBytes), .port = 31337});
+      IPEndpoint{.address = IPAddress(kIPv6AddressHextets), .port = 31337});
   packet.set_destination(
       IPEndpoint{.address = IPAddress(kDefaultMulticastGroupIPv6),
                  .port = kDefaultMulticastPort});

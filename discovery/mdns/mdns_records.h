@@ -192,7 +192,8 @@ class AAAARecordRdata {
   }
 
  private:
-  IPAddress ipv6_address_{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  IPAddress ipv6_address_{0x0000, 0x0000, 0x0000, 0x0000,
+                          0x0000, 0x0000, 0x0000, 0x0000};
 };
 
 // PTR record format (http://www.ietf.org/rfc/rfc1035.txt):

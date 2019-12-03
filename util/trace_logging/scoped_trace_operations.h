@@ -7,6 +7,7 @@
 
 #include <atomic>
 #include <cstring>
+#include <memory>
 #include <stack>
 #include <vector>
 

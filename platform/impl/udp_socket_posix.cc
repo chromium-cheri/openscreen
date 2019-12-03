@@ -346,11 +346,11 @@ uint16_t GetPortFromFromSockAddr(const sockaddr_in& sa) {
 }
 
 IPAddress GetIPAddressFromSockAddr(const sockaddr_in6& sa) {
-  return IPAddress(sa.sin6_addr.s6_addr);
+  return IPAddress(IPAddress::Version::kV6, sa.sin6_addr.s6_addr);
 }
 
 IPAddress GetIPAddressFromPktInfo(const in6_pktinfo& pktinfo) {
-  return IPAddress(pktinfo.ipi6_addr.s6_addr);
+  return IPAddress(IPAddress::Version::kV6, pktinfo.ipi6_addr.s6_addr);
 }
 
 uint16_t GetPortFromFromSockAddr(const sockaddr_in6& sa) {
