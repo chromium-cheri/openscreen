@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "cast/streaming/offer_messages.h"
 #include "cast/streaming/ssrc.h"
 #include "json/value.h"
 #include "platform/base/error.h"
@@ -73,6 +74,7 @@ struct DisplayDescription {
 };
 
 struct Answer {
+  CastMode cast_mode;
   int udp_port;
   std::vector<int> send_indexes;
   std::vector<Ssrc> ssrcs;
