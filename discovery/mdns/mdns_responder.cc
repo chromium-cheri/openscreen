@@ -46,6 +46,8 @@ MdnsResponder::~MdnsResponder() {
   receiver_->SetQueryCallback(nullptr);
 }
 
+MdnsResponder::RecordHandler::~RecordHandler() = default;
+
 void MdnsResponder::OnMessageReceived(const MdnsMessage& message,
                                       const IPEndpoint& src) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
