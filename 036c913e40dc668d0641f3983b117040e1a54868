@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "74bc73f1_c296875a",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-04T01:09:45Z",
+      "side": 1,
+      "message": "According to RFC6762 section 8.2\n\"each host populates the query message\u0027s Authority Section with the record or records with the rdata that it would be proposing to use, should its probing be successful.\" - the factorioes are used to populate these authority records\n\nAn alternative would be to expect the caller to provide an IPEndpoint (for one of their Instance\u0027s endpoints) instead of the functors. Then, we internally use that to create an A / AAAA record, and we can use that for tie breaking in the probing step (as described in the RFC). Then, once the name is claimed, the caller registers all records they care about separately. Does this sound better to you?\nIt wouldn\u0027t be fully to spec, but I can\u0027t see any issues arising from this based on my reading of the RFC",
+      "parentUuid": "d9cbcd6b_ca899d12",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4be79030_ee80d865",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2019-12-02T18:31:56Z",
       "side": 1,
       "message": "I don\u0027t think this layering is quite right. The MdnsProbe class should be responsible for tracking outstanding probes, using an internal struct if needed; versus adding those implementation details to the publisher.\n\nThe publisher should only have to call\n\nprobe_.ClaimDomainName(target_name, callback)\n\nto start a probe that invokes |callback| when complete.",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0038cdb_db3634b8",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-04T01:09:45Z",
+      "side": 1,
+      "message": "See above comment - We need more data than that to satisfy RFC 6762 section 8.2\u0027s requirements",
+      "parentUuid": "4be79030_ee80d865",
       "revId": "036c913e40dc668d0641f3983b117040e1a54868",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
