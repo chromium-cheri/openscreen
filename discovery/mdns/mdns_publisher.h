@@ -5,6 +5,8 @@
 #ifndef DISCOVERY_MDNS_MDNS_PUBLISHER_H_
 #define DISCOVERY_MDNS_MDNS_PUBLISHER_H_
 
+#include <map>
+
 #include "discovery/mdns/mdns_records.h"
 #include "discovery/mdns/mdns_responder.h"
 
@@ -24,7 +26,7 @@ class MdnsPublisher : public MdnsResponder::RecordHandler {
                 MdnsSender* sender,
                 TaskRunner* task_runner,
                 MdnsRandom* random_delay);
-  ~MdnsPublisher();
+  ~MdnsPublisher() override;
 
   // Registers a new mDNS record for advertisement by this service. For A, AAAA,
   // SRV, and TXT records, the domain name must have already been claimed by the
@@ -33,6 +35,7 @@ class MdnsPublisher : public MdnsResponder::RecordHandler {
   Error RegisterRecord(const MdnsRecord& record);
 
   // Updates the existing record with name matching the name of the new record.
+  // NOTE: This method is not valid for PTR records.
   Error UpdateRegisteredRecord(const MdnsRecord& old_record,
                                const MdnsRecord& new_record);
 
@@ -41,9 +44,22 @@ class MdnsPublisher : public MdnsResponder::RecordHandler {
   // the name is released.
   Error UnregisterRecord(const MdnsRecord& record);
 
+  // Returns the total number of records currently registered;
+  size_t RecordCount() const;
+
   OSP_DISALLOW_COPY_AND_ASSIGN(MdnsPublisher);
 
  private:
+  Error RegisterPtrRecord(const MdnsRecord& record);
+
+  Error RegisterNonPtrRecord(const MdnsRecord& record);
+
+  Error UnregisterPtrRecord(const MdnsRecord& record);
+
+  Error UnregisterNonPtrRecord(const MdnsRecord& record);
+
+  Error RemoveNonPtrRecord(const MdnsRecord& record);
+
   // MdnsResponder::RecordHandler overrides.
   bool IsExclusiveOwner(const DomainName& name) override;
   bool HasRecords(const DomainName& name,
@@ -57,6 +73,23 @@ class MdnsPublisher : public MdnsResponder::RecordHandler {
   MdnsSender* const sender_;
   TaskRunner* const task_runner_;
   MdnsRandom* const random_delay_;
+
+  // Stores non-PTR mDNS records that have been published. The Keys here are the
+  // set of DomainNames for which this service is the exclusive owner, and the
+  // values are all records which have that name. For that reason, a key is
+  // present in this map if and only if this service instance is the exclusive
+  // owner of that domain name.
+  std::map<DomainName, std::vector<MdnsRecord>> records_;
+
+  // Stores all PTR mDNS records. These are stored separately from the above
+  // records because the DomainName parameter here is not unique to this
+  // service instance, so the presence of a record for a given PTR domain is
+  // different from that of a non-PTR domain.
+  // NOTE: This storage format assumes that only one PTR record for a given
+  // service type will be registered per service instance.
+  std::map<DomainName, MdnsRecord> ptr_records_;
+
+  friend class MdnsPublisherTesting;
 };
 
 }  // namespace discovery
