@@ -5,12 +5,14 @@
 #include "cast/streaming/receiver_session.h"
 
 #include <chrono>  // NOLINT
+#include <string>
 #include <utility>
 
 #include "absl/strings/match.h"
 #include "absl/strings/numbers.h"
 #include "cast/streaming/message_port.h"
 #include "cast/streaming/offer_messages.h"
+#include "util/json/json_writer.h"
 #include "util/logging.h"
 
 namespace cast {
@@ -79,6 +81,15 @@ openscreen::ErrorOr<SessionConfig> ParseSessionConfig(const Stream& stream,
                        channels,    stream.aes_key,  stream.aes_iv_mask};
 }
 
+openscreen::ErrorOr<std::string> ToString(
+    const openscreen::ErrorOr<Json::Value>& value) {
+  if (value) {
+    openscreen::JsonWriter writer;
+    return writer.Write(value.value());
+  }
+  return std::move(value.error());
+}
+
 }  // namespace
 
 ReceiverSession::ConfiguredReceivers::ConfiguredReceivers(
@@ -100,20 +111,27 @@ ConfiguredReceivers::~ConfiguredReceivers() = default;
 Preferences::Preferences() = default;
 Preferences::Preferences(std::vector<VideoCodec> video_codecs,
                          std::vector<AudioCodec> audio_codecs)
-    : video_codecs(video_codecs), audio_codecs(audio_codecs) {}
+    : Preferences(video_codecs, audio_codecs, nullptr, nullptr) {}
+
+Preferences::Preferences(std::vector<VideoCodec> video_codecs,
+                         std::vector<AudioCodec> audio_codecs,
+                         std::unique_ptr<Constraints> constraints,
+                         std::unique_ptr<DisplayDescription> description)
+    : video_codecs(std::move(video_codecs)),
+      audio_codecs(std::move(audio_codecs)),
+      constraints(std::move(constraints)),
+      display_description(std::move(description)) {}
 
 Preferences::Preferences(Preferences&&) noexcept = default;
-Preferences::Preferences(const Preferences&) = default;
 Preferences& Preferences::operator=(Preferences&&) noexcept = default;
-Preferences& Preferences::operator=(const Preferences&) = default;
 
 ReceiverSession::ReceiverSession(Client* const client,
-                                 std::unique_ptr<MessagePort> message_port,
                                  std::unique_ptr<Environment> environment,
+                                 std::unique_ptr<MessagePort> message_port,
                                  Preferences preferences)
     : client_(client),
-      message_port_(std::move(message_port)),
       environment_(std::move(environment)),
+      message_port_(std::move(message_port)),
       preferences_(std::move(preferences)),
       packet_router_(environment_.get()) {
   OSP_DCHECK(client_);
@@ -127,9 +145,9 @@ ReceiverSession::~ReceiverSession() {
   message_port_->SetClient(nullptr);
 }
 
-void ReceiverSession::SelectStreams(const AudioStream* audio,
-                                    const VideoStream* video,
-                                    Offer&& offer) {
+void ReceiverSession::NegotiateReceivers(const AudioStream* audio,
+                                         const VideoStream* video,
+                                         Offer&& offer) {
   std::unique_ptr<Receiver> audio_receiver;
   absl::optional<SessionConfig> audio_config;
   if (audio) {
@@ -156,7 +174,6 @@ void ReceiverSession::SelectStreams(const AudioStream* audio,
                    << error_or_config.error();
       return;
     }
-
     video_config = std::move(error_or_config.value());
     video_receiver = std::make_unique<Receiver>(
         environment_.get(), &packet_router_, video_config.value(),
@@ -166,9 +183,45 @@ void ReceiverSession::SelectStreams(const AudioStream* audio,
   ConfiguredReceivers receivers(
       std::move(audio_receiver), std::move(audio_config),
       std::move(video_receiver), std::move(video_config));
-
-  // TODO(jophba): implement Answer messaging.
   client_->OnNegotiated(this, std::move(receivers));
+}
+
+// TODO(jophba): implement Answer messaging.
+void ReceiverSession::SendAnswer(int sequence_number,
+                                 const AudioStream* selected_audio_stream,
+                                 const VideoStream* selected_video_stream) {
+  std::vector<int> stream_indexes(2);
+  std::vector<Ssrc> stream_ssrcs(2);
+  if (selected_audio_stream) {
+    stream_indexes.push_back(selected_audio_stream->stream.index);
+    stream_ssrcs.push_back(selected_audio_stream->stream.ssrc + 1);
+  }
+
+  if (selected_video_stream) {
+    stream_indexes.push_back(selected_video_stream->stream.index);
+    stream_ssrcs.push_back(selected_video_stream->stream.ssrc + 1);
+  }
+
+  const Answer answer{
+      cast_mode_, udp_port_, std::move(stream_indexes), std::move(stream_ssrcs),
+      preferences_.constraints ? *preferences_.constraints
+                               : Constraints{},  // constraints
+      preferences_.display_description ? *preferences_.display_description
+                                       : DisplayDescription{},  // display
+      std::array<uint8_t, 16>{},                                // iv
+      std::vector<int>{},       // receiver_rtcp_event_log
+      std::vector<int>{},       // receiver_rtcp_dscp
+      enable_receiver_status_,  // receiver_get_status
+      // RTP extensions should be empty, but not null.
+      std::vector<std::string>{}  // rtp_extensions
+  };
+
+  auto message_or_error = ToString(answer.ToJson());
+  if (message_or_error) {
+    message_port_->PostMessage(message_or_error.value());
+  } else {
+    // TODO(jophba): add negative answer case.
+  }
 }
 
 void ReceiverSession::OnMessage(absl::string_view sender_id,
@@ -220,8 +273,13 @@ void ReceiverSession::OnOffer(Json::Value root, int sequence_number) {
         SelectStream(preferences_.video_codecs, offer.value().video_streams);
   }
 
-  SelectStreams(selected_audio_stream, selected_video_stream,
-                std::move(offer.value()));
+  cast_mode_ = offer.value().cast_mode;
+  enable_receiver_status_ = offer.value().receiver_get_status;
+
+  SendAnswer(sequence_number, selected_audio_stream, selected_video_stream);
+
+  NegotiateReceivers(selected_audio_stream, selected_video_stream,
+                     std::move(offer.value()));
 }
 
 }  // namespace streaming

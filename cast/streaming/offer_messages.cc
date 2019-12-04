@@ -7,6 +7,7 @@
 #include <inttypes.h>
 
 #include <string>
+#include <utility>
 
 #include "absl/strings/match.h"
 #include "absl/strings/numbers.h"
@@ -315,6 +316,9 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
     return Error::Code::kJsonParseError;
   }
 
+  const openscreen::ErrorOr<bool> get_status =
+      ParseBool(root["receiverGetStatus"]);
+
   Json::Value supported_streams = root[kSupportedStreams];
   if (!supported_streams.isArray()) {
     return Error::Code::kJsonParseError;
@@ -329,6 +333,7 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
       OSP_LOG_ERROR << "Stream missing mandatory type field.";
       return Error::Code::kJsonParseError;
     }
+
     if (type.value() == kAudioSourceType) {
       auto stream = ParseAudioStream(fields);
       if (!stream) {
@@ -346,8 +351,8 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
     }
   }
 
-  return Offer{cast_mode.value(), std::move(audio_streams),
-               std::move(video_streams)};
+  return Offer{cast_mode.value(), ValueOrDefault(get_status),
+               std::move(audio_streams), std::move(video_streams)};
 }
 
 }  // namespace streaming

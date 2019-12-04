@@ -56,6 +56,18 @@ Json::Value PrimitiveVectorToJson(const std::vector<T>& vec) {
 
   return array;
 }
+
+std::string ToString(Offer::CastMode cast_mode) {
+  switch (cast_mode) {
+    case Offer::CastMode::kMirroring:
+      return "mirroring";
+    case Offer::CastMode::kRemoting:
+      return "remoting";
+    default:
+      return "";
+  }
+}
+
 }  // namespace
 
 openscreen::ErrorOr<Json::Value> AudioConstraints::ToJson() const {
@@ -172,6 +184,7 @@ openscreen::ErrorOr<Json::Value> Answer::ToJson() const {
   }
 
   Json::Value root;
+  root["castMode"] = ToString(cast_mode);
   root["udpPort"] = udp_port;
   root["sendIndexes"] = PrimitiveVectorToJson(send_indexes);
   root["ssrcs"] = PrimitiveVectorToJson(ssrcs);

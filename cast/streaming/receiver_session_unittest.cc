@@ -146,7 +146,7 @@ TEST_F(ReceiverSessionTest, RegistersSelfOnMessagePump) {
   StrictMock<FakeClient> client;
 
   auto session = std::make_unique<ReceiverSession>(
-      &client, std::move(message_port), std::move(env_),
+      &client, std::move(env_), std::move(message_port),
       ReceiverSession::Preferences{});
   EXPECT_EQ(raw_port->client_, session.get());
 }
@@ -155,7 +155,7 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithDefaultPreferences) {
   auto message_port = std::make_unique<SimpleMessagePort>();
   SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
-  ReceiverSession session(&client, std::move(message_port), std::move(env_),
+  ReceiverSession session(&client, std::move(env_), std::move(message_port),
                           ReceiverSession::Preferences{});
 
   EXPECT_CALL(client, OnNegotiated(&session, _))
@@ -185,7 +185,7 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomPreferences) {
   SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
   ReceiverSession session(
-      &client, std::move(message_port), std::move(env_),
+      &client, std::move(env_), std::move(message_port),
       ReceiverSession::Preferences{{ReceiverSession::VideoCodec::kVp9},
                                    {ReceiverSession::AudioCodec::kOpus}});
 
@@ -207,7 +207,6 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomPreferences) {
         EXPECT_EQ(cr.video_session_config().value().channels, 1);
         EXPECT_EQ(cr.video_session_config().value().rtp_timebase, 90000);
       });
-  ;
   raw_port->ReceiveMessage(kValidOfferMessage);
 }
 }  // namespace streaming

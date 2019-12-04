@@ -272,6 +272,7 @@ TEST(OfferTest, CanParseValidOffer) {
   openscreen::ErrorOr<Offer> offer = Offer::Parse(std::move(root.value()));
 
   EXPECT_EQ(Offer::CastMode::kMirroring, offer.value().cast_mode);
+  EXPECT_EQ(true, offer.value().receiver_get_status);
 
   // Verify list of video streams.
   EXPECT_EQ(2u, offer.value().video_streams.size());

@@ -6,6 +6,7 @@
 #define CAST_STREAMING_OFFER_MESSAGES_H_
 
 #include <chrono>
+#include <string>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -82,6 +83,7 @@ struct Offer {
   static openscreen::ErrorOr<Offer> Parse(const Json::Value& root);
 
   CastMode cast_mode;
+  bool receiver_get_status;
   std::vector<AudioStream> audio_streams;
   std::vector<VideoStream> video_streams;
 };

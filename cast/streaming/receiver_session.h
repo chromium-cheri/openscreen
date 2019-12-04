@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 
+#include "cast/streaming/answer_messages.h"
 #include "cast/streaming/environment.h"
 #include "cast/streaming/message_port.h"
 #include "cast/streaming/offer_messages.h"
@@ -86,19 +87,29 @@ class ReceiverSession final : public MessagePort::Client {
     Preferences();
     Preferences(std::vector<VideoCodec> video_codecs,
                 std::vector<AudioCodec> audio_codecs);
+    Preferences(std::vector<VideoCodec> video_codecs,
+                std::vector<AudioCodec> audio_codecs,
+                std::unique_ptr<Constraints> constraints,
+                std::unique_ptr<DisplayDescription> description);
 
     Preferences(Preferences&&) noexcept;
-    Preferences(const Preferences&);
+    Preferences(const Preferences&) = delete;
     Preferences& operator=(Preferences&&) noexcept;
-    Preferences& operator=(const Preferences&);
+    Preferences& operator=(const Preferences&) = delete;
 
     std::vector<VideoCodec> video_codecs{VideoCodec::kVp8, VideoCodec::kH264};
     std::vector<AudioCodec> audio_codecs{AudioCodec::kOpus, AudioCodec::kAac};
+
+    // The embedder has the option of directly specifying the display
+    // information and video/audio constraints passed along to the sender in
+    // the offer/answer exchange. If nullptr, these are ignored.
+    std::unique_ptr<Constraints> constraints;
+    std::unique_ptr<DisplayDescription> display_description;
   };
 
   ReceiverSession(Client* const client,
-                  std::unique_ptr<MessagePort> message_port,
                   std::unique_ptr<Environment> environment,
+                  std::unique_ptr<MessagePort> message_port,
                   Preferences preferences);
   ReceiverSession(const ReceiverSession&) = delete;
   ReceiverSession(ReceiverSession&&) = delete;
@@ -116,17 +127,23 @@ class ReceiverSession final : public MessagePort::Client {
   // Message handlers
   void OnOffer(Json::Value root, int sequence_number);
 
-  void SelectStreams(const AudioStream* audio,
-                     const VideoStream* video,
-                     Offer&& offer);
+  void NegotiateReceivers(const AudioStream* audio,
+                          const VideoStream* video,
+                          Offer&& offer);
+  void SendAnswer(int sequence_number,
+                  const AudioStream* audio,
+                  const VideoStream* video);
 
   Client* const client_;
-  const std::unique_ptr<MessagePort> message_port_;
   const std::unique_ptr<Environment> environment_;
+  const std::unique_ptr<MessagePort> message_port_;
   const Preferences preferences_;
 
-  ReceiverPacketRouter packet_router_;
+  Offer::CastMode cast_mode_ = Offer::CastMode::kMirroring;
+  bool enable_receiver_status_ = false;
   openscreen::JsonReader json_reader_ = {};
+  ReceiverPacketRouter packet_router_;
+  int udp_port_;
 };
 
 }  // namespace streaming

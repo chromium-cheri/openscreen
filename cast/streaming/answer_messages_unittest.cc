@@ -14,6 +14,7 @@ namespace streaming {
 namespace {
 
 const Answer kValidAnswer{
+    Offer::CastMode::kMirroring,
     1234,                         // udp_port
     std::vector<int>{1, 2, 3},    // send_indexes
     std::vector<Ssrc>{123, 456},  // ssrcs
@@ -66,6 +67,7 @@ TEST(AnswerMessagesTest, ProperlyPopulatedAnswerSerializesProperly) {
   EXPECT_TRUE(value_or_error.is_value());
 
   Json::Value root = std::move(value_or_error.value());
+  EXPECT_EQ(root["castMode"], "mirroring");
   EXPECT_EQ(root["udpPort"], 1234);
 
   Json::Value sendIndexes = std::move(root["sendIndexes"]);
