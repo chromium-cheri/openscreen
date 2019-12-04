@@ -4,6 +4,8 @@
 
 #include "cast/streaming/offer_messages.h"
 
+#include <utility>
+
 #include "cast/streaming/rtp_defines.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
@@ -16,7 +18,7 @@ namespace streaming {
 
 namespace {
 
-const std::string kValidOffer = R"({
+const char kValidOffer[] = R"({
   "castMode": "mirroring",
   "receiverGetStatus": true,
   "supportedStreams": [
@@ -97,10 +99,8 @@ TEST(OfferTest, ErrorOnEmptyOffer) {
 }
 
 TEST(OfferTest, ErrorOnMissingMandatoryFields) {
-  ExpectFailureOnParse(R"({
-    "supportedStreams": []
-  })");
-
+  // It's okay if castMode is omitted, but if supportedStreams is
+  // omitted we should fail here.
   ExpectFailureOnParse(R"({
     "castMode": "mirroring"
   })");
@@ -271,7 +271,8 @@ TEST(OfferTest, CanParseValidOffer) {
   ASSERT_TRUE(root.is_value());
   openscreen::ErrorOr<Offer> offer = Offer::Parse(std::move(root.value()));
 
-  EXPECT_EQ(Offer::CastMode::kMirroring, offer.value().cast_mode);
+  EXPECT_EQ(CastMode::Type::kMirroring, offer.value().cast_mode.type);
+  EXPECT_EQ(true, offer.value().supports_wifi_status_reporting);
 
   // Verify list of video streams.
   EXPECT_EQ(2u, offer.value().video_streams.size());

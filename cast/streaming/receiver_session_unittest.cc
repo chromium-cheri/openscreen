@@ -4,6 +4,8 @@
 
 #include "cast/streaming/receiver_session.h"
 
+#include <utility>
+
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/test/fake_clock.h"
@@ -22,7 +24,7 @@ namespace streaming {
 
 namespace {
 
-const std::string kValidOfferMessage = R"({
+const char kValidOfferMessage[] = R"({
   "type": "OFFER",
   "seqNum": 1337,
   "offer": {
@@ -95,7 +97,8 @@ class SimpleMessagePort : public MessagePort {
 
   void ReceiveMessage(absl::string_view message) {
     ASSERT_NE(client_, nullptr);
-    client_->OnMessage("sender-id", "namespace", message);
+    client_->OnMessage("sender-id", "urn:x-cast:com.google.cast.webrtc",
+                       message);
   }
 
   void ReceiveError(openscreen::Error error) {
@@ -103,7 +106,9 @@ class SimpleMessagePort : public MessagePort {
     client_->OnError(error);
   }
 
-  void PostMessage(absl::string_view message) {
+  void PostMessage(absl::string_view sender_id,
+                   absl::string_view message_namespace,
+                   absl::string_view message) {
     posted_messages_.emplace_back(std::move(message));
   }
 
@@ -146,7 +151,7 @@ TEST_F(ReceiverSessionTest, RegistersSelfOnMessagePump) {
   StrictMock<FakeClient> client;
 
   auto session = std::make_unique<ReceiverSession>(
-      &client, std::move(message_port), std::move(env_),
+      &client, std::move(env_), std::move(message_port),
       ReceiverSession::Preferences{});
   EXPECT_EQ(raw_port->client_, session.get());
 }
@@ -155,7 +160,7 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithDefaultPreferences) {
   auto message_port = std::make_unique<SimpleMessagePort>();
   SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
-  ReceiverSession session(&client, std::move(message_port), std::move(env_),
+  ReceiverSession session(&client, std::move(env_), std::move(message_port),
                           ReceiverSession::Preferences{});
 
   EXPECT_CALL(client, OnNegotiated(&session, _))
@@ -185,7 +190,7 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomPreferences) {
   SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
   ReceiverSession session(
-      &client, std::move(message_port), std::move(env_),
+      &client, std::move(env_), std::move(message_port),
       ReceiverSession::Preferences{{ReceiverSession::VideoCodec::kVp9},
                                    {ReceiverSession::AudioCodec::kOpus}});
 
@@ -207,7 +212,6 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomPreferences) {
         EXPECT_EQ(cr.video_session_config().value().channels, 1);
         EXPECT_EQ(cr.video_session_config().value().rtp_timebase, 90000);
       });
-  ;
   raw_port->ReceiveMessage(kValidOfferMessage);
 }
 }  // namespace streaming
