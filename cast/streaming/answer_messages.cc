@@ -4,8 +4,7 @@
 
 #include "cast/streaming/answer_messages.h"
 
-#include <iomanip>
-#include <sstream>
+#include <utility>
 
 #include "absl/strings/str_cat.h"
 #include "platform/base/error.h"
@@ -13,14 +12,25 @@
 
 namespace cast {
 namespace streaming {
-
 namespace {
 
-Json::Value ScalingToJson(Scaling scaling) {
-  switch (scaling) {
-    case Scaling::kReceiver:
+static constexpr char kMessageKeyType[] = "type";
+static constexpr char kMessageTypeAnswer[] = "ANSWER";
+
+// List of ANSWER message fields.
+static constexpr char kAnswerMessageBody[] = "answer";
+static constexpr char kResult[] = "result";
+static constexpr char kResultOk[] = "ok";
+static constexpr char kResultError[] = "error";
+static constexpr char kErrorMessageBody[] = "error";
+static constexpr char kErrorCode[] = "code";
+static constexpr char kErrorDescription[] = "description";
+
+Json::Value AspectRatioConstraintToJson(AspectRatioConstraint aspect_ratio) {
+  switch (aspect_ratio) {
+    case AspectRatioConstraint::kAny:
       return Json::Value("receiver");
-    case Scaling::kSender:
+    case AspectRatioConstraint::kForce16x9:
     default:
       return Json::Value("sender");
   }
@@ -43,6 +53,7 @@ openscreen::Error CreateParameterSerializationError(absl::string_view type) {
       openscreen::Error::Code::kParameterInvalid,
       absl::StrCat("Invalid '", type, "' presented for serialization."));
 }
+
 }  // namespace
 
 openscreen::ErrorOr<Json::Value> AudioConstraints::ToJson() const {
@@ -123,7 +134,7 @@ openscreen::ErrorOr<Json::Value> Constraints::ToJson() const {
 }
 
 openscreen::ErrorOr<Json::Value> DisplayDescription::ToJson() const {
-  if (aspect_ratio.empty()) {
+  if (aspect_ratio == std::pair<int, int>{}) {
     return CreateParameterSerializationError("DisplayDescription");
   }
 
@@ -134,8 +145,9 @@ openscreen::ErrorOr<Json::Value> DisplayDescription::ToJson() const {
 
   Json::Value root;
   root["dimensions"] = dimensions_or_error.value();
-  root["aspectRatio"] = aspect_ratio;
-  root["scaling"] = ScalingToJson(scaling);
+  root["aspectRatio"] =
+      absl::StrCat(aspect_ratio.first, ":", aspect_ratio.second);
+  root["scaling"] = AspectRatioConstraintToJson(aspect_ratio_constraint);
   return root;
 }
 
@@ -144,27 +156,57 @@ openscreen::ErrorOr<Json::Value> Answer::ToJson() const {
     return CreateParameterSerializationError("Answer - UDP Port number");
   }
 
-  auto constraints_or_error = constraints.ToJson();
-  if (constraints_or_error.is_error()) {
-    return constraints_or_error.error();
-  }
-
-  auto display_or_error = display.ToJson();
-  if (display_or_error.is_error()) {
-    return display_or_error.error();
-  }
-
   Json::Value root;
+  if (constraints) {
+    auto constraints_or_error = constraints.value().ToJson();
+    if (constraints_or_error.is_value()) {
+      root["constraints"] = constraints_or_error.value();
+    } else {
+      return constraints_or_error.error();
+    }
+  }
+
+  if (display) {
+    auto display_or_error = display.value().ToJson();
+    if (display_or_error.is_value()) {
+      root["display"] = display_or_error.value();
+    } else {
+      return display_or_error.error();
+    }
+  }
+
+  root["castMode"] = cast_mode.ToString();
   root["udpPort"] = udp_port;
   root["sendIndexes"] = PrimitiveVectorToJson(send_indexes);
   root["ssrcs"] = PrimitiveVectorToJson(ssrcs);
-  root["constraints"] = constraints_or_error.value();
-  root["display"] = display_or_error.value();
   root["receiverRtcpEventLog"] = PrimitiveVectorToJson(receiver_rtcp_event_log);
   root["receiverRtcpDscp"] = PrimitiveVectorToJson(receiver_rtcp_dscp);
   root["receiverGetStatus"] = supports_wifi_status_reporting;
   root["rtpExtensions"] = PrimitiveVectorToJson(rtp_extensions);
   return root;
+}
+
+Json::Value Answer::ToMessageBody() const {
+  auto json_or_error = ToJson();
+  if (json_or_error.is_error()) {
+    return CreateInvalidAnswer(json_or_error.error());
+  }
+
+  Json::Value message_root;
+  message_root[kMessageKeyType] = kMessageTypeAnswer;
+  message_root[kAnswerMessageBody] = std::move(json_or_error.value());
+  message_root[kResult] = kResultOk;
+  return message_root;
+}
+
+Json::Value CreateInvalidAnswer(openscreen::Error error) {
+  Json::Value message_root;
+  message_root[kMessageKeyType] = kMessageTypeAnswer;
+  message_root[kResult] = kResultError;
+  message_root[kErrorMessageBody][kErrorCode] = static_cast<int>(error.code());
+  message_root[kErrorMessageBody][kErrorDescription] = error.message();
+
+  return message_root;
 }
 
 }  // namespace streaming
