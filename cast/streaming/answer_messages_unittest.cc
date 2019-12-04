@@ -4,6 +4,8 @@
 
 #include "cast/streaming/answer_messages.h"
 
+#include <utility>
+
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "util/json/json_serialization.h"
@@ -14,6 +16,7 @@ namespace streaming {
 namespace {
 
 const Answer kValidAnswer{
+    CastMode{CastMode::Type::kMirroring},
     1234,                         // udp_port
     std::vector<int>{1, 2, 3},    // send_indexes
     std::vector<Ssrc>{123, 456},  // ssrcs
@@ -48,8 +51,8 @@ const Answer kValidAnswer{
             480,   // height
             30, 1  // frame_rate
         },
-        "16:9",            // aspect_ratio
-        Scaling::kSender,  // scaling
+        std::make_pair<int, int>(16, 9),  // aspect_ratio
+        AspectRatio::kForce16x9,          // scaling
     },
     std::vector<int>{7, 8, 9},              // receiver_rtcp_event_log
     std::vector<int>{11, 12, 13},           // receiver_rtcp_dscp
@@ -57,13 +60,14 @@ const Answer kValidAnswer{
     std::vector<std::string>{"foo", "bar"}  // rtp_extensions
 };
 
-}
+}  // anonymous namespace
 
 TEST(AnswerMessagesTest, ProperlyPopulatedAnswerSerializesProperly) {
   auto value_or_error = kValidAnswer.ToJson();
   EXPECT_TRUE(value_or_error.is_value());
 
   Json::Value root = std::move(value_or_error.value());
+  EXPECT_EQ(root["castMode"], "mirroring");
   EXPECT_EQ(root["udpPort"], 1234);
 
   Json::Value sendIndexes = std::move(root["sendIndexes"]);
@@ -160,7 +164,7 @@ TEST(AnswerMessagesTest, InvalidVideoConstraintsCauseError) {
 
 TEST(AnswerMessagesTest, InvalidDisplayDescriptionsCauseError) {
   Answer invalid_display = kValidAnswer;
-  invalid_display.display.aspect_ratio = "";
+  invalid_display.display.aspect_ratio = std::pair<int, int>{};
   auto value_or_error = invalid_display.ToJson();
   EXPECT_TRUE(value_or_error.is_error());
 }
