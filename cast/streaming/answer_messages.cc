@@ -43,6 +43,7 @@ openscreen::Error CreateParameterSerializationError(absl::string_view type) {
       openscreen::Error::Code::kParameterInvalid,
       absl::StrCat("Invalid '", type, "' presented for serialization."));
 }
+
 }  // namespace
 
 openscreen::ErrorOr<Json::Value> AudioConstraints::ToJson() const {
@@ -155,6 +156,7 @@ openscreen::ErrorOr<Json::Value> Answer::ToJson() const {
   }
 
   Json::Value root;
+  root["castMode"] = cast_mode.ToString();
   root["udpPort"] = udp_port;
   root["sendIndexes"] = PrimitiveVectorToJson(send_indexes);
   root["ssrcs"] = PrimitiveVectorToJson(ssrcs);
