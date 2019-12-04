@@ -5,9 +5,11 @@
 #ifndef CAST_STREAMING_OFFER_MESSAGES_H_
 #define CAST_STREAMING_OFFER_MESSAGES_H_
 
-#include <chrono>
+#include <chrono>  // NOLINT
+#include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "cast/streaming/rtp_defines.h"
 #include "cast/streaming/session_config.h"
@@ -76,12 +78,24 @@ struct VideoStream {
   std::string error_recovery_mode;
 };
 
-struct Offer {
-  enum class CastMode : int { kRemoting, kMirroring };
+struct CastMode {
+ public:
+  enum class Type : uint8_t { kMirroring, kRemoting };
 
+  static openscreen::ErrorOr<CastMode> Parse(absl::string_view value);
+  std::string ToString() const;
+
+  // Default cast mode is mirroring.
+  Type type = Type::kMirroring;
+};
+
+struct Offer {
   static openscreen::ErrorOr<Offer> Parse(const Json::Value& root);
 
   CastMode cast_mode;
+  // This field is poorly named in the spec (receiverGetStatus), so we use
+  // a more descriptive name here.
+  bool supports_wifi_status_reporting;
   std::vector<AudioStream> audio_streams;
   std::vector<VideoStream> video_streams;
 };

@@ -7,11 +7,13 @@
 #include <inttypes.h>
 
 #include <string>
+#include <utility>
 
 #include "absl/strings/match.h"
 #include "absl/strings/numbers.h"
 #include "absl/strings/str_split.h"
 #include "cast/streaming/constants.h"
+#include "cast/streaming/receiver_session.h"
 #include "platform/base/error.h"
 #include "util/big_endian.h"
 #include "util/json/json_reader.h"
@@ -24,11 +26,6 @@ using openscreen::Error;
 using openscreen::ErrorOr;
 
 namespace {
-
-// Cast modes, default is "mirroring"
-const char kCastMirroring[] = "mirroring";
-const char kCastMode[] = "castMode";
-const char kCastRemoting[] = "remoting";
 
 const char kSupportedStreams[] = "supportedStreams";
 const char kAudioSourceType[] = "audio_source";
@@ -289,31 +286,44 @@ ErrorOr<VideoStream> ParseVideoStream(const Json::Value& value) {
                      ValueOrDefault(error_recovery_mode)};
 }
 
-ErrorOr<Offer::CastMode> ParseCastMode(const Json::Value& value) {
-  auto cast_mode = ParseString(value);
-  if (cast_mode.is_error()) {
-    OSP_LOG_ERROR << "Received no cast mode";
-    return Error::Code::kJsonParseError;
-  }
-
-  if (cast_mode.value() == kCastMirroring) {
-    return Offer::CastMode::kMirroring;
-  }
-  if (cast_mode.value() == kCastRemoting) {
-    return Offer::CastMode::kRemoting;
-  }
-
-  OSP_LOG_ERROR << "Received invalid cast mode: " << cast_mode.value();
-  return Error::Code::kJsonParseError;
-}
 }  // namespace
+
+const char kCastMirroring[] = "mirroring";
+const char kCastRemoting[] = "remoting";
+
+// static
+openscreen::ErrorOr<CastMode> CastMode::Parse(absl::string_view value) {
+  if (value == kCastRemoting) {
+    return CastMode{CastMode::Type::kRemoting};
+  }
+  if (value == kCastMirroring) {
+    return CastMode{CastMode::Type::kMirroring};
+  }
+  return Error::Code::kParameterInvalid;
+}
+
+std::string CastMode::ToString() const {
+  switch (type) {
+    case Type::kMirroring:
+      return kCastMirroring;
+    case Type::kRemoting:
+      return kCastRemoting;
+    default:
+      OSP_NOTREACHED();
+      return "";
+  }
+}
 
 // static
 ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
-  auto cast_mode = ParseCastMode(root[kCastMode]);
+  auto cast_mode = CastMode::Parse(root["castMode"].asString());
   if (cast_mode.is_error()) {
+    OSP_LOG_ERROR << "Provided invalid cast mode.";
     return Error::Code::kJsonParseError;
   }
+
+  const openscreen::ErrorOr<bool> get_status =
+      ParseBool(root["receiverGetStatus"]);
 
   Json::Value supported_streams = root[kSupportedStreams];
   if (!supported_streams.isArray()) {
@@ -329,6 +339,7 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
       OSP_LOG_ERROR << "Stream missing mandatory type field.";
       return Error::Code::kJsonParseError;
     }
+
     if (type.value() == kAudioSourceType) {
       auto stream = ParseAudioStream(fields);
       if (!stream) {
@@ -346,8 +357,8 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
     }
   }
 
-  return Offer{cast_mode.value(), std::move(audio_streams),
-               std::move(video_streams)};
+  return Offer{cast_mode.value(), ValueOrDefault(get_status),
+               std::move(audio_streams), std::move(video_streams)};
 }
 
 }  // namespace streaming
