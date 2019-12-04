@@ -7,11 +7,13 @@
 #include <inttypes.h>
 
 #include <string>
+#include <utility>
 
 #include "absl/strings/match.h"
 #include "absl/strings/numbers.h"
 #include "absl/strings/str_split.h"
 #include "cast/streaming/constants.h"
+#include "cast/streaming/receiver_session.h"
 #include "platform/base/error.h"
 #include "util/big_endian.h"
 #include "util/json/json_serialization.h"
@@ -25,15 +27,10 @@ using openscreen::ErrorOr;
 
 namespace {
 
-// Cast modes, default is "mirroring"
-const char kCastMirroring[] = "mirroring";
-const char kCastMode[] = "castMode";
-const char kCastRemoting[] = "remoting";
-
-const char kSupportedStreams[] = "supportedStreams";
-const char kAudioSourceType[] = "audio_source";
-const char kVideoSourceType[] = "video_source";
-const char kStreamType[] = "type";
+constexpr char kSupportedStreams[] = "supportedStreams";
+constexpr char kAudioSourceType[] = "audio_source";
+constexpr char kVideoSourceType[] = "video_source";
+constexpr char kStreamType[] = "type";
 
 ErrorOr<bool> ParseBool(const Json::Value& value) {
   if (!value.isBool()) {
@@ -81,8 +78,8 @@ ErrorOr<RtpPayloadType> ParseRtpPayloadType(const Json::Value& value) {
 
   uint8_t t_small = t.value();
   if (t_small != t.value() || !IsRtpPayloadType(t_small)) {
-    OSP_LOG_ERROR << "Received invalid RTP Payload Type: " << t.value();
-    return Error::Code::kParameterInvalid;
+    return Error(Error::Code::kParameterInvalid,
+                 "Received invalid RTP Payload Type.");
   }
 
   return static_cast<RtpPayloadType>(t_small);
@@ -95,7 +92,7 @@ ErrorOr<int> ParseRtpTimebase(const Json::Value& value) {
   }
 
   int rtp_timebase = 0;
-  const char kTimeBasePrefix[] = "1/";
+  constexpr char kTimeBasePrefix[] = "1/";
   if (!absl::StartsWith(error_or_raw.value(), kTimeBasePrefix) ||
       !absl::SimpleAtoi(error_or_raw.value().substr(strlen(kTimeBasePrefix)),
                         &rtp_timebase) ||
@@ -130,6 +127,7 @@ ErrorOr<std::array<uint8_t, 16>> ParseAesHexBytes(const Json::Value& value) {
 
 ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
   auto index = ParseInt(value["index"]);
+  auto channels = ParseInt(value["channels"]);
   auto codec_name = ParseString(value["codecName"]);
   auto rtp_profile = ParseString(value["rtpProfile"]);
   auto rtp_payload_type = ParseRtpPayloadType(value["rtpPayloadType"]);
@@ -143,8 +141,14 @@ ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
 
   if (!index || !codec_name || !rtp_profile || !rtp_payload_type || !ssrc ||
       !rtp_timebase) {
-    OSP_LOG_ERROR << "Missing required stream property.";
-    return Error::Code::kJsonParseError;
+    return Error(Error::Code::kJsonParseError,
+                 "Missing required stream property.");
+  }
+
+  if (channels.is_value() && channels.value() <= 0) {
+    OSP_LOG_ERROR << "Received non-positive channel value: "
+                  << channels.value();
+    return Error::Code::kParameterInvalid;
   }
 
   if (rtp_profile.value() != "cast") {
@@ -169,12 +173,13 @@ ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
   }
 
   if (aes_key.is_error() || aes_iv_mask.is_error()) {
-    OSP_LOG_ERROR << "Sender did not provide AES Key + IV Mask.";
-    return Error::Code::kParameterInvalid;
+    return Error(Error::Code::kParameterInvalid,
+                 "Sender did not provide AES Key + IV Mask.");
   }
 
   return Stream{index.value(),
                 type,
+                ValueOrDefault(channels, kDefaultNumChannels),
                 codec_name.value(),
                 rtp_payload_type.value(),
                 ssrc.value(),
@@ -189,23 +194,17 @@ ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
 ErrorOr<AudioStream> ParseAudioStream(const Json::Value& value) {
   auto stream = ParseStream(value, Stream::Type::kAudioSource);
   auto bit_rate = ParseInt(value["bitRate"]);
-  auto channels = ParseInt(value["channels"]);
 
-  if (!stream || !bit_rate || !channels) {
+  if (!stream || !bit_rate) {
     return Error::Code::kJsonParseError;
   }
 
-  if (channels.value() <= 0) {
-    OSP_LOG_ERROR << "Received non-positive channel value: "
-                  << channels.value();
-    return Error::Code::kParameterInvalid;
-  }
   if (bit_rate.value() <= 0) {
     OSP_LOG_ERROR << "Received non-positive audio bitrate: "
                   << bit_rate.value();
     return Error::Code::kParameterInvalid;
   }
-  return AudioStream{stream.value(), bit_rate.value(), channels.value()};
+  return AudioStream{stream.value(), bit_rate.value()};
 }
 
 ErrorOr<Resolution> ParseResolution(const Json::Value& value) {
@@ -217,8 +216,8 @@ ErrorOr<Resolution> ParseResolution(const Json::Value& value) {
   }
 
   if (width <= 0 || height <= 0) {
-    OSP_LOG_ERROR << "Received non-positive width or height resolution value";
-    return Error::Code::kParameterInvalid;
+    return Error(Error::Code::kParameterInvalid,
+                 "Received non-positive width or height resolution value");
   }
 
   return Resolution{width.value(), height.value()};
@@ -289,35 +288,39 @@ ErrorOr<VideoStream> ParseVideoStream(const Json::Value& value) {
                      ValueOrDefault(error_recovery_mode)};
 }
 
-ErrorOr<Offer::CastMode> ParseCastMode(const Json::Value& value) {
-  auto cast_mode = ParseString(value);
-  if (cast_mode.is_error()) {
-    OSP_LOG_ERROR << "Received no cast mode";
-    return Error::Code::kJsonParseError;
-  }
-
-  if (cast_mode.value() == kCastMirroring) {
-    return Offer::CastMode::kMirroring;
-  }
-  if (cast_mode.value() == kCastRemoting) {
-    return Offer::CastMode::kRemoting;
-  }
-
-  OSP_LOG_ERROR << "Received invalid cast mode: " << cast_mode.value();
-  return Error::Code::kJsonParseError;
-}
 }  // namespace
+
+constexpr char kCastMirroring[] = "mirroring";
+constexpr char kCastRemoting[] = "remoting";
+
+// static
+CastMode CastMode::Parse(absl::string_view value) {
+  return (value == kCastRemoting) ? CastMode{CastMode::Type::kRemoting}
+                                  : CastMode{CastMode::Type::kMirroring};
+}
+
+std::string CastMode::ToString() const {
+  switch (type) {
+    case Type::kMirroring:
+      return kCastMirroring;
+    case Type::kRemoting:
+      return kCastRemoting;
+    default:
+      OSP_NOTREACHED();
+      return "";
+  }
+}
 
 // static
 ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
-  auto cast_mode = ParseCastMode(root[kCastMode]);
-  if (cast_mode.is_error()) {
-    return Error::Code::kJsonParseError;
-  }
+  CastMode cast_mode = CastMode::Parse(root["castMode"].asString());
+
+  const openscreen::ErrorOr<bool> get_status =
+      ParseBool(root["receiverGetStatus"]);
 
   Json::Value supported_streams = root[kSupportedStreams];
   if (!supported_streams.isArray()) {
-    return Error::Code::kJsonParseError;
+    return Error(Error::Code::kJsonParseError, "No streams included in offer.");
   }
 
   std::vector<AudioStream> audio_streams;
@@ -326,27 +329,28 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
     const Json::Value& fields = supported_streams[i];
     auto type = ParseString(fields[kStreamType]);
     if (!type) {
-      OSP_LOG_ERROR << "Stream missing mandatory type field.";
-      return Error::Code::kJsonParseError;
+      return Error(Error::Code::kJsonParseError,
+                   "Stream missing mandatory type field.");
     }
+
     if (type.value() == kAudioSourceType) {
       auto stream = ParseAudioStream(fields);
       if (!stream) {
-        OSP_LOG_ERROR << "Failed to parse audio stream.";
-        return Error::Code::kJsonParseError;
+        return Error(Error::Code::kJsonParseError,
+                     "Failed to parse audio stream.");
       }
       audio_streams.push_back(std::move(stream.value()));
     } else if (type.value() == kVideoSourceType) {
       auto stream = ParseVideoStream(fields);
       if (!stream) {
-        OSP_LOG_ERROR << "Failed to parse video stream.";
-        return Error::Code::kJsonParseError;
+        return Error(Error::Code::kJsonParseError,
+                     "Failed to parse video stream.");
       }
       video_streams.push_back(std::move(stream.value()));
     }
   }
 
-  return Offer{cast_mode.value(), std::move(audio_streams),
+  return Offer{cast_mode, ValueOrDefault(get_status), std::move(audio_streams),
                std::move(video_streams)};
 }
 
