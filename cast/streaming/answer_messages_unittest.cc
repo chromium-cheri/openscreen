@@ -4,6 +4,8 @@
 
 #include "cast/streaming/answer_messages.h"
 
+#include <utility>
+
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "util/json/json_writer.h"
@@ -14,6 +16,7 @@ namespace streaming {
 namespace {
 
 const Answer kValidAnswer{
+    CastMode{CastMode::Type::kMirroring},
     1234,                         // udp_port
     std::vector<int>{1, 2, 3},    // send_indexes
     std::vector<Ssrc>{123, 456},  // ssrcs
@@ -57,13 +60,14 @@ const Answer kValidAnswer{
     std::vector<std::string>{"foo", "bar"}  // rtp_extensions
 };
 
-}
+}  // anonymous namespace
 
 TEST(AnswerMessagesTest, ProperlyPopulatedAnswerSerializesProperly) {
   auto value_or_error = kValidAnswer.ToJson();
   EXPECT_TRUE(value_or_error.is_value());
 
   Json::Value root = std::move(value_or_error.value());
+  EXPECT_EQ(root["castMode"], "mirroring");
   EXPECT_EQ(root["udpPort"], 1234);
 
   Json::Value sendIndexes = std::move(root["sendIndexes"]);

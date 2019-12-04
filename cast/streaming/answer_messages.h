@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "cast/streaming/offer_messages.h"
 #include "cast/streaming/ssrc.h"
 #include "json/value.h"
 #include "platform/base/error.h"
@@ -73,6 +74,7 @@ struct DisplayDescription {
 };
 
 struct Answer {
+  CastMode cast_mode;
   int udp_port;
   std::vector<int> send_indexes;
   std::vector<Ssrc> ssrcs;
@@ -84,9 +86,11 @@ struct Answer {
   bool supports_wifi_status_reporting;
   std::vector<std::string> rtp_extensions;
 
+  Json::Value ToJsonMessage() const;
   openscreen::ErrorOr<Json::Value> ToJson() const;
 };
 
+Json::Value CreateInvalidAnswerJsonMessage(openscreen::Error error);
 }  // namespace streaming
 }  // namespace cast
 
