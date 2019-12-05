@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "3dedc4f3_d91facd0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Is there a crbug to track this work? It\u0027d be good to have one and refer to it from CL comments with a line like:\n\n Bug: openscreen:\u003cbug number here\u003e",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ce16df0_ccd346ed",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Can we use OSP_DCHECK_NE here instead?",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3097916_9e1a397f",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Nit: pipes around variable names, e.g. |querier_|",
+      "range": {
+        "startLine": 30,
+        "startChar": 11,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d609908a_d44621e7",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 3
@@ -104,6 +161,46 @@
     },
     {
       "key": {
+        "uuid": "9e053add_3d7ec2a4",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Maybe I\u0027m misunderstanding, but doesn\u0027t the comment on |ptr_records_| in the header file say that you don\u0027t have to be the exclusive owner for a PTR domain?",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ffce8c7_a0d1a544",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Nit: |ptr_records_|",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 180,
+        "endChar": 28
+      },
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9696428_a3430aad",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 3
@@ -189,6 +286,80 @@
     },
     {
       "key": {
+        "uuid": "f34b48d5_1bda39e8",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "It\u0027d be helpful if there was a sentence or two of comment here to describe what the class does, to help out people less familiar with the codebase like me :)",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43d3bb14_d63cbc7a",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Is this comment still relevant? I can\u0027t find the method.",
+      "range": {
+        "startLine": 33,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b45bcc1_63d5a451",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Nit: It seems ambiguous to me whether \"Record\" is a verb or a noun, so I\u0027d name this GetRecordCount().",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8842c7b8_6a3d81fc",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "In Chromium, the trend has been to explicitly delete the copy ctor and the assignment operator instead of using the DISALLOW_COPY_AND_ASSIGN macro. I like the explicitness, and it\u0027s something we can consider in the OSP codebase as well.\n\nLike this: https://cs.chromium.org/chromium/src/chrome/browser/ui/global_media_controls/cast_media_notification_item.h?l\u003d32\u0026rcl\u003d12f349c6e3992193c3082cc52d3312ab6a446c89",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c587534b_52d4ec87",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 3
@@ -200,6 +371,46 @@
       "writtenOn": "2019-12-05T22:43:13Z",
       "side": 1,
       "message": "NIT: can remove extra newlines between methods here.",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b9f0920_cf2fce21",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "It might be helpful to comment the difference between Unregister and Remove.",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2891ef_3a6f25c2",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Nit: Is there a reason to capitalize Keys?",
+      "range": {
+        "startLine": 77,
+        "startChar": 63,
+        "endLine": 77,
+        "endChar": 67
+      },
       "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -223,6 +434,23 @@
     },
     {
       "key": {
+        "uuid": "3bf5489f_2fdfc176",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Nit: In Chromium, friend declarations go at the top of the private section.",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a1c4e689_0cd10f17",
         "filename": "discovery/mdns/mdns_publisher_unittest.cc",
         "patchSetId": 3
@@ -234,6 +462,40 @@
       "writtenOn": "2019-12-05T22:43:13Z",
       "side": 1,
       "message": "Now that I see this, I\u0027m curious: is this worth being a template utility method?\n \n    template\u003ctypename T\u003e\n    bool Contains(const std::vector\u003cT\u003e\u0026 vec, T item) {\n    ...\n    }",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b500bf_995960dd",
+        "filename": "discovery/mdns/mdns_publisher_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Nit: put this right after the #includes",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5427ab_992a06f9",
+        "filename": "discovery/mdns/mdns_publisher_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Given we\u0027re testing MdnsPublisher\u0027s behavior, it\u0027d be best if we didn\u0027t need to override its methods for testing, and just test it through its public methods. Are there reasons why that\u0027d be difficult?",
       "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -268,6 +530,23 @@
       "writtenOn": "2019-12-05T22:43:13Z",
       "side": 1,
       "message": "const? here and elsewhere in this file.",
+      "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "158e618c_2f0109f1",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-05T22:48:33Z",
+      "side": 1,
+      "message": "Class comment here would be appreciated.",
       "revId": "b864ac495bc256dfde858d0bbfdc72f7fc113e56",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
