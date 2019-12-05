@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c9e6f5e_c998f53f",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-05T22:22:25Z",
+      "side": 1,
+      "message": "Can you check that include_rules in the DEPS assert this?",
+      "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f59defc7_dffc2498",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-05T22:22:25Z",
+      "side": 1,
+      "message": "Can you check that include_rules in the DEPS assert this?",
+      "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c04bbfe_1a8a07e2",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-05T22:22:25Z",
+      "side": 1,
+      "message": "It seems like api: should be the only public dep, since calling code should not be using headers directly from the impl.",
+      "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfcdd863_6b73d11b",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-05T22:22:25Z",
+      "side": 1,
+      "message": "IT might be simpler to move all of the impl files and impl unittests to their own BUILD.gn, with an assertion that !build_with_chromium at the top.  That would make this file simpler.\n\nThen individual targets would explicitly choose to link in the standalone impl as a dep.\n\nI don\u0027t feel strongly about it though.  Not linking a default platform implementation might just be more work in the end.",
+      "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
