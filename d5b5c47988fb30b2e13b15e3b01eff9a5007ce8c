@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07ae5d2a_9160d8b8",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-05T19:34:38Z",
+      "side": 1,
+      "message": "In the parsed structure, we\u0027re using a double. However, the JSON should still be a string the spec describes (a rational). Converting the double to a rational is a bit of code, with all kinds of corner cases. I\u0027m thinking maybe we should split the frame_rate member of Dimension into two ints: frame_rate_numerator and frame_rate_denominator, and then the string formatting of that is trivial. WDYT?",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 33
+      },
+      "revId": "d5b5c47988fb30b2e13b15e3b01eff9a5007ce8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
