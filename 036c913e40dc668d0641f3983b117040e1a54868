@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2e41abb9_26a720e5",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T23:34:26Z",
+      "side": 1,
+      "message": "std::move() all the way through",
+      "range": {
+        "startLine": 41,
+        "startChar": 32,
+        "endLine": 41,
+        "endChar": 46
+      },
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3271a1f_48cce2cb",
         "filename": "discovery/mdns/mdns_probe.h",
         "patchSetId": 3
@@ -13,6 +36,46 @@
       "writtenOn": "2019-12-02T18:31:56Z",
       "side": 1,
       "message": "Since this class is a one-shot API, this is really a Callback object that is curried through the constructor.  Suggest renaming to Callback.",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49921ef0_3741e539",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T23:34:26Z",
+      "side": 1,
+      "message": "How does MdnsProbe communicate that we _cannot_ take ownership of |requested_name|?  It looks like MdnsPublisher would currently leak MdnsProbe in that case.  However, ClaimExclusiveOwnership has a comment saying this could end up being a \"similar\" name.  Does MdnsProbe also handle retrying with different names then (i.e. section 9 of the RFC)?  If so, I wonder whether it\u0027s better to let the caller handle renaming based on other information it might have, but I don\u0027t have much to go on so I don\u0027t feel strongly.  Also, if that\u0027s the case, it might be beneficial for the class comment to say that it implements sections 8 and 9.",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbc480a7_b6123b2a",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T23:34:26Z",
+      "side": 1,
+      "message": "It\u0027s pretty hard to tell if passing this by value is the right choice; can you briefly explain why this over const-ref?",
+      "range": {
+        "startLine": 32,
+        "startChar": 49,
+        "endLine": 32,
+        "endChar": 64
+      },
       "revId": "036c913e40dc668d0641f3983b117040e1a54868",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -54,6 +117,47 @@
     },
     {
       "key": {
+        "uuid": "b228fcfa_ed7ee873",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T23:34:26Z",
+      "side": 1,
+      "message": "It\u0027s still not clear to me why this couldn\u0027t be std::vector of MdnsRecord* or Rdata*?  The probe is basically an initialization step, so there shouldn\u0027t be much of a long-term lifetime concern, correct?  The vector could also be by-value if absolutely necessary.  Can you give an example call sequence whether the factory form is better/necessary?  It seems like the records are known starting from ClaimExclusiveOwnership, where the MdnsProbe is created, and then they are committed or dropped in OnDomainFound, where MdnsProbe is destroyed.\n\nFor the IPEndpoint suggestiong: I could be misremembering how mDNS labels things, but isn\u0027t it true that for DNS-SD SRV/TXT are under one name (instance name) and A/AAAA are under another (hostname)?  If that\u0027s true, only checking hostname seems problematic.",
+      "parentUuid": "74bc73f1_c296875a",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d7f0cf6_bb57eea5",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T23:34:26Z",
+      "side": 1,
+      "message": "std::move()",
+      "range": {
+        "startLine": 53,
+        "startChar": 18,
+        "endLine": 53,
+        "endChar": 26
+      },
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4be79030_ee80d865",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 3
@@ -83,6 +187,75 @@
       "side": 1,
       "message": "See above comment - We need more data than that to satisfy RFC 6762 section 8.2\u0027s requirements",
       "parentUuid": "4be79030_ee80d865",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "999f87b5_df913f13",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T23:34:26Z",
+      "side": 1,
+      "message": "std::move()",
+      "range": {
+        "startLine": 57,
+        "startChar": 39,
+        "endLine": 57,
+        "endChar": 55
+      },
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "833f8716_8d38eb53",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T23:34:26Z",
+      "side": 1,
+      "message": "std::move()",
+      "range": {
+        "startLine": 96,
+        "startChar": 18,
+        "endLine": 96,
+        "endChar": 30
+      },
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e26e696_cc011b68",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T23:34:26Z",
+      "side": 1,
+      "message": "std::move()",
+      "range": {
+        "startLine": 100,
+        "startChar": 13,
+        "endLine": 100,
+        "endChar": 17
+      },
       "revId": "036c913e40dc668d0641f3983b117040e1a54868",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
