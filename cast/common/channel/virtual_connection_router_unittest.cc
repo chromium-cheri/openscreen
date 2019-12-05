@@ -8,8 +8,8 @@
 #include "cast/common/channel/proto/cast_channel.pb.h"
 #include "cast/common/channel/test/fake_cast_socket.h"
 #include "cast/common/channel/test/mock_cast_message_handler.h"
+#include "cast/common/channel/test/mock_socket_error_handler.h"
 #include "cast/common/channel/virtual_connection_manager.h"
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
 namespace cast {
@@ -19,20 +19,10 @@ namespace {
 using ::testing::_;
 using ::testing::Invoke;
 
-class MockSocketErrorHandler
-    : public VirtualConnectionRouter::SocketErrorHandler {
- public:
-  MOCK_METHOD(void, OnClose, (CastSocket * socket), (override));
-  MOCK_METHOD(void,
-              OnError,
-              (CastSocket * socket, openscreen::Error error),
-              (override));
-};
-
 class VirtualConnectionRouterTest : public ::testing::Test {
  public:
   void SetUp() override {
-    socket_id_ = fake_cast_socket_pair_.socket->socket_id();
+    socket_ = fake_cast_socket_pair_.socket.get();
     router_.TakeSocket(&mock_error_handler_,
                        std::move(fake_cast_socket_pair_.socket));
   }
@@ -41,7 +31,7 @@ class VirtualConnectionRouterTest : public ::testing::Test {
   CastSocket& peer_socket() { return *fake_cast_socket_pair_.peer_socket; }
 
   FakeCastSocketPair fake_cast_socket_pair_;
-  uint32_t socket_id_;
+  CastSocket* socket_;
 
   MockSocketErrorHandler mock_error_handler_;
   MockCastMessageHandler mock_message_handler_;
@@ -55,7 +45,8 @@ class VirtualConnectionRouterTest : public ::testing::Test {
 TEST_F(VirtualConnectionRouterTest, LocalIdHandler) {
   router_.AddHandlerForLocalId("receiver-1234", &mock_message_handler_);
   manager_.AddConnection(
-      VirtualConnection{"receiver-1234", "sender-9873", socket_id_}, {});
+      VirtualConnection{"receiver-1234", "sender-9873", socket_->socket_id()},
+      {});
 
   CastMessage message;
   message.set_protocol_version(CastMessage_ProtocolVersion_CASTV2_1_0);
@@ -64,10 +55,10 @@ TEST_F(VirtualConnectionRouterTest, LocalIdHandler) {
   message.set_destination_id("receiver-1234");
   message.set_payload_type(CastMessage::STRING);
   message.set_payload_utf8("cnlybnq");
-  EXPECT_CALL(mock_message_handler_, OnMessage(_, _, _));
+  EXPECT_CALL(mock_message_handler_, OnMessage(_, socket_, _));
   peer_socket().SendMessage(message);
 
-  EXPECT_CALL(mock_message_handler_, OnMessage(_, _, _));
+  EXPECT_CALL(mock_message_handler_, OnMessage(_, socket_, _));
   peer_socket().SendMessage(message);
 
   message.set_destination_id("receiver-4321");
@@ -78,7 +69,8 @@ TEST_F(VirtualConnectionRouterTest, LocalIdHandler) {
 TEST_F(VirtualConnectionRouterTest, RemoveLocalIdHandler) {
   router_.AddHandlerForLocalId("receiver-1234", &mock_message_handler_);
   manager_.AddConnection(
-      VirtualConnection{"receiver-1234", "sender-9873", socket_id_}, {});
+      VirtualConnection{"receiver-1234", "sender-9873", socket_->socket_id()},
+      {});
 
   CastMessage message;
   message.set_protocol_version(CastMessage_ProtocolVersion_CASTV2_1_0);
@@ -87,18 +79,19 @@ TEST_F(VirtualConnectionRouterTest, RemoveLocalIdHandler) {
   message.set_destination_id("receiver-1234");
   message.set_payload_type(CastMessage::STRING);
   message.set_payload_utf8("cnlybnq");
-  EXPECT_CALL(mock_message_handler_, OnMessage(_, _, _));
+  EXPECT_CALL(mock_message_handler_, OnMessage(_, socket_, _));
   peer_socket().SendMessage(message);
 
   router_.RemoveHandlerForLocalId("receiver-1234");
 
-  EXPECT_CALL(mock_message_handler_, OnMessage(_, _, _)).Times(0);
+  EXPECT_CALL(mock_message_handler_, OnMessage(_, socket_, _)).Times(0);
   peer_socket().SendMessage(message);
 }
 
 TEST_F(VirtualConnectionRouterTest, SendMessage) {
   manager_.AddConnection(
-      VirtualConnection{"receiver-1234", "sender-4321", socket_id_}, {});
+      VirtualConnection{"receiver-1234", "sender-4321", socket_->socket_id()},
+      {});
 
   CastMessage message;
   message.set_protocol_version(CastMessage_ProtocolVersion_CASTV2_1_0);
@@ -116,7 +109,7 @@ TEST_F(VirtualConnectionRouterTest, SendMessage) {
         EXPECT_EQ(message.payload_utf8(), "cnlybnq");
       }));
   router_.SendMessage(
-      VirtualConnection{"receiver-1234", "sender-4321", socket_id_},
+      VirtualConnection{"receiver-1234", "sender-4321", socket_->socket_id()},
       std::move(message));
 }
 
