@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12e0c4ec_1e3a67c5",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T21:35:55Z",
+      "side": 1,
+      "message": "std::move(record) here and below.",
+      "range": {
+        "startLine": 52,
+        "startChar": 33,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "0da00443e3bf0f9118d9107e34d0ba11a3d498a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c821b7a_2d3b6b46",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T21:35:55Z",
+      "side": 1,
+      "message": "DCHECK this?",
+      "range": {
+        "startLine": 183,
+        "startChar": 19,
+        "endLine": 183,
+        "endChar": 69
+      },
+      "revId": "0da00443e3bf0f9118d9107e34d0ba11a3d498a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ef11c54_1c88a003",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T21:35:55Z",
+      "side": 1,
+      "message": "tedious but I think you need a further std::move(send)",
+      "revId": "0da00443e3bf0f9118d9107e34d0ba11a3d498a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e51692_280e8a8a",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T21:35:55Z",
+      "side": 1,
+      "message": "Here we delay |response| by a random duration, but then we use |question| by reference.  Maybe there\u0027s a reason outside this code that that\u0027s safe, but I was imagining |message| gets destroyed after this call.  If it\u0027s safe it\u0027s probably good to comment why, otherwise you probably need to capture by value and just take a pointer/const-ref in SendResponse (furthermore, the latter just seems like a good idea anyway).",
+      "revId": "0da00443e3bf0f9118d9107e34d0ba11a3d498a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34d07c98_edbdcd36",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T21:35:55Z",
+      "side": 1,
+      "message": "nit: this isn\u0027t necessary since the instance isn\u0027t deleted through a |RecordHandler*|.  We don\u0027t strictly follow this by any means though, so up to you.",
+      "revId": "0da00443e3bf0f9118d9107e34d0ba11a3d498a0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

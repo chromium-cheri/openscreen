@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "2baee721_19db10ce",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-05T21:35:55Z",
+      "side": 1,
+      "message": "FWIW: My understanding is that `inline` is strictly a hint, and never a requirement.  The attributes `noinline` and `always_inline` are requirements.  Also, AFAIK clang is one of the most aggressive compilers about _ignoring_ inlining hints.  Many people either consider it just a hint to the reader or don\u0027t use it.  However, I believe it\u0027s necessary when defining a function in a header file to avoid multiple definition errors.",
+      "parentUuid": "d255c728_85c8aac1",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94a94756_efd1eec8",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
