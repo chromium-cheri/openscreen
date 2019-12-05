@@ -4,7 +4,9 @@
 
 #include "cast/common/certificate/test_helpers.h"
 
+#include <openssl/bytestring.h>
 #include <openssl/pem.h>
+#include <openssl/rsa.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -63,6 +65,40 @@ std::vector<std::string> ReadCertificatesFromPemFile(
   }
   fclose(fp);
   return certs;
+}
+
+bssl::UniquePtr<EVP_PKEY> ReadKeyFromPemFile(const std::string& filename) {
+  FILE* fp = fopen(filename.c_str(), "r");
+  if (!fp) {
+    return {};
+  }
+  std::string key;
+  bssl::UniquePtr<EVP_PKEY> pkey;
+  for (;;) {
+    char* name;
+    char* header;
+    unsigned char* data;
+    long length;
+    if (PEM_read(fp, &name, &header, &data, &length) == 1) {
+      if (STRCMP_LITERAL(name, "RSA PRIVATE KEY") == 0) {
+        OSP_DCHECK(!pkey);
+        CBS cbs;
+        CBS_init(&cbs, data, length);
+        RSA* rsa = RSA_parse_private_key(&cbs);
+        if (rsa) {
+          pkey.reset(EVP_PKEY_new());
+          EVP_PKEY_assign_RSA(pkey.get(), rsa);
+        }
+      }
+      OPENSSL_free(name);
+      OPENSSL_free(header);
+      OPENSSL_free(data);
+    } else {
+      break;
+    }
+  }
+  fclose(fp);
+  return pkey;
 }
 
 SignatureTestData::SignatureTestData()

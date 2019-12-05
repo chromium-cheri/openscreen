@@ -165,8 +165,8 @@ bool ParseDerUint64(ASN1_INTEGER* asn1int, uint64_t* result) {
 
 CastCRL::CastCRL(const TbsCrl& tbs_crl, const DateTime& overall_not_after) {
   // Parse the validity information.
-  // Assume ConvertTimeSeconds will succeed. Successful call to VerifyCRL
-  // means that these calls were successful.
+  // Assume DateTimeFromSeconds will succeed. Successful call to VerifyCRL means
+  // that these calls were successful.
   DateTimeFromSeconds(tbs_crl.not_before_seconds(), &not_before_);
   DateTimeFromSeconds(tbs_crl.not_after_seconds(), &not_after_);
   if (overall_not_after < not_after_) {

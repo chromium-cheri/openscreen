@@ -5,6 +5,8 @@
 #ifndef CAST_COMMON_CERTIFICATE_TEST_HELPERS_H_
 #define CAST_COMMON_CERTIFICATE_TEST_HELPERS_H_
 
+#include <openssl/evp.h>
+
 #include <string>
 #include <vector>
 
@@ -18,6 +20,7 @@ namespace testing {
 std::string ReadEntireFileToString(const std::string& filename);
 std::vector<std::string> ReadCertificatesFromPemFile(
     const std::string& filename);
+bssl::UniquePtr<EVP_PKEY> ReadKeyFromPemFile(const std::string& filename);
 
 class SignatureTestData {
  public:
