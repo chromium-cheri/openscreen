@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "696c7046_e4086765",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-05T22:13:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "436dbbb5_1389e38b",
+      "range": {
+        "startLine": 43,
+        "startChar": 31,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "d5b5c47988fb30b2e13b15e3b01eff9a5007ce8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07ae5d2a_9160d8b8",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "d5b5c47988fb30b2e13b15e3b01eff9a5007ce8c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c30e4c9_97cf6987",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-05T22:13:59Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m fine with that. I went back and forth on it. What I really want is a std::pair with better naming for syntactic sugar.",
+      "parentUuid": "21206c53_b493899d",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 33
+      },
+      "revId": "d5b5c47988fb30b2e13b15e3b01eff9a5007ce8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "efc4a605_b62f1894",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-05T22:13:59Z",
+      "side": 1,
+      "message": "These should be, and stay, as POD structs/aggregates, which I think these are from reading, and I think that they should be structs because of that.\n\nhttps://en.wikipedia.org/wiki/C%2B%2B_classes#Aggregate_classes\n\nA POD-struct (Plain Old Data Structure) is an aggregate class that has no non-static data members of type non-POD-struct, non-POD-union (or array of such types) or reference, and has no user-defined assignment operator and no user-defined destructor.[1] A POD-struct could be said to be the C++ equivalent of a C struct. In most cases, a POD-struct will have the same memory layout as a corresponding struct declared in C.[4] For this reason, POD-structs are sometimes colloquially referred to as \"C-style structs\".[5]",
+      "parentUuid": "3c0d64af_8c5f686c",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "d5b5c47988fb30b2e13b15e3b01eff9a5007ce8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "016c2123_7090bd3b",
         "filename": "cast/streaming/answer_messages.h",
         "patchSetId": 4
@@ -190,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "a2e40b2c_c633b1db",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-05T22:13:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56d55cc5_7f242c3c",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "d5b5c47988fb30b2e13b15e3b01eff9a5007ce8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b665c82_2c5c3198",
         "filename": "cast/streaming/answer_messages.h",
         "patchSetId": 4
@@ -210,6 +306,30 @@
       "revId": "d5b5c47988fb30b2e13b15e3b01eff9a5007ce8c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4520247_185dddf9",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-05T22:13:59Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a good use case for uint16_t:\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\nYou should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N. In particular, do not use unsigned types to say a number will never be negative. Instead, use assertions for this.",
+      "parentUuid": "2b665c82_2c5c3198",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 5
+      },
+      "revId": "d5b5c47988fb30b2e13b15e3b01eff9a5007ce8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
