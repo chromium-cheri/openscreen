@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8f4d55da_2440731f",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c60802b0_445ad3ca",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1eea7894_ba267bd3",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "e8a8d05d316496741957f48549c5337e69649944",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8185941e_d8e2567a",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eea7894_ba267bd3",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b07d6f2a_35c3eeb3",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35d3c6c6_90ceb38e",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7348330_b205ac24",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2019-12-04T19:00:58Z",
       "side": 1,
       "message": "What\u0027s the value of requesting inline here? I\u0027m curious if we should just be having the compiler rules set appropriately, e.g. for modern versions of clang they have the following inline options:\n\nanalyzer-config ipa\u003dnone - All inlining is disabled. This is the only mode available in LLVM 3.1 and earlier and in Xcode 4.3 and earlier.\n\nanalyzer-config ipa\u003dbasic-inlining - Turns on inlining for C functions, C++\nstatic member functions, and blocks – essentially, the calls that behave like simple C function calls. This is essentially the mode used in Xcode 4.4.\n\nanalyzer-config ipa\u003dinlining - Turns on inlining when we can confidently find\nthe function/method body corresponding to the call. (C functions, static functions, devirtualized C++ methods, Objective-C class methods, Objective-C instance methods when ExprEngine is confident about the dynamic type of the instance).\n\nanalyzer-config ipa\u003ddynamic - Inline instance methods for which the type is\ndetermined at runtime and we are not 100% sure that our type info is correct. For virtual calls, inline the most plausible definition.\n\nhttps://clang.llvm.org/docs/analyzer/developer-docs/IPA.html",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d255c728_85c8aac1",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "I typically try to inline functions which are only a couple lines long - here we\u0027ve only got 2 lines of code in production (since the DCHECK is compiled out), and I suspect after adding the std::move() in the newer iteration this will actually be treated as one line\n\nhttps://google.github.io/styleguide/cppguide.html#Inline_Functions\n\nI\u0027m not quite sure what the compile rules should be, but my approach to inlining is based on feedback I\u0027ve received from Mark in Code Review - we want to keep file size minimal, so more than a line or two of code typically isn\u0027t worth it",
+      "parentUuid": "a7348330_b205ac24",
       "revId": "e8a8d05d316496741957f48549c5337e69649944",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9c0fe929_abc376a0",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "These are the types because these are the only types we can be adding as additional records (out of the types we currently support) according to the spec :) We can\u0027t add PTR records, since those are top-level records, and ANY records are only for queries. We might later add additional record types though (Already have a task on the sheet to support NSEC records), so I want to limit what is supported rather than disallowing PTR and ANY records to prevent regressions later on\n\nAdding an inlined function rather than the array suggested - I think a function call is more readable than the std::find syntax. What do you think?",
+      "parentUuid": "94a94756_efd1eec8",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "50b96534_0c694843",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "e8a8d05d316496741957f48549c5337e69649944",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a85980d3_38179cf3",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50b96534_0c694843",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "89e3f040_0c2b1cd9",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d94e27b5_e93c3e33",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6c70368_b68f11ac",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "dc299ced_2c19ed2c",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "I think the code is more readable with this approach\n\nAdditionally, NSEC records are only added in some cases (and we may not end up wanting them for all cases below when we actually implement it) - if we loop over an array, its easier to introduce a bug",
+      "parentUuid": "a6c70368_b68f11ac",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99e6d6da_604e014f",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
@@ -149,6 +293,24 @@
       "writtenOn": "2019-12-04T19:00:58Z",
       "side": 1,
       "message": "Just double checking... you need to add kAAAA records since kA records have already been consumed in the AddResponseRecords call?",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36733506_62b2fcba",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "The spec calls out:\n- If we add PTR records, we should add SRV, TXT, A, and AAAA records (in DNS-SD spec)\n- If we add SRV records, we should add A, AAAA to the additions records (in mDNS spec)\n- If we add A records, we should add AAAA records (in mDNS spec)\n- If we add AAAA records, we should add A records (in mDNS spec)\n\nThe logic being that A records are ipv4 endpoints and AAAA records are ipv6 - this way if they request one endpoint type, they can get both. And if they request service information, they automatically have the endpoints for that service instance. If they request meta-information about what service instances are present (PTR records), we also should give them the service info and service endpoints\n\nAddResponseRecords only returns true if we successfully add the records, so we just need to look at the type that was added for this information",
+      "parentUuid": "99e6d6da_604e014f",
       "revId": "e8a8d05d316496741957f48549c5337e69649944",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "37ca5edd_330e3841",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ed2727f_6d7b4dfb",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6c35ed5_45a5f6e3",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
@@ -186,6 +366,24 @@
       "revId": "e8a8d05d316496741957f48549c5337e69649944",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87cadd28_defd95ac",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6c35ed5_45a5f6e3",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "778ffc01_99aca074",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "652c5113_d7ffae5e",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9790a0c2_1c19f0b5",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
@@ -220,6 +436,24 @@
       "revId": "e8a8d05d316496741957f48549c5337e69649944",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ac3ee1_561ecbde",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9790a0c2_1c19f0b5",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "c5e5381c_807525df",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ac32f95_eec91a20",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa7fdd1b_92555149",
         "filename": "discovery/mdns/mdns_responder_unittest.cc",
         "patchSetId": 3
@@ -254,6 +506,24 @@
       "revId": "e8a8d05d316496741957f48549c5337e69649944",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f81316b_48ca9c8b",
+        "filename": "discovery/mdns/mdns_responder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-05T19:32:34Z",
+      "side": 1,
+      "message": "Done\n\nThe Contains(DnsType::kA) doesn\u0027t quite work here (since it\u0027s a property of the record, not the record itself)\nUpdating to an anonymous function",
+      "parentUuid": "fa7fdd1b_92555149",
+      "revId": "e8a8d05d316496741957f48549c5337e69649944",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
