@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ab0eee08_97c05142",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "namespace is a reserved keyword. We use namespace_ in other places in our codebase already to get around this, for examples see cast/common/channel/message_util.* and cast/common/channel/namespace_router.*.\n\nOther solutions I have seen in Chrome:\n\nnspace (v8 torque)\nns (what the old cast code uses)\n\nThese are both not in the spirit of the style guide.\n\nI do get the confusion though, so I\u0027m renaming it to message_namespace.",
+      "parentUuid": "1c34de6a_3e6993d6",
+      "range": {
+        "startLine": 34,
+        "startChar": 45,
+        "endLine": 34,
+        "endChar": 55
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d41e9634_8d651b32",
         "filename": "cast/streaming/offer_messages.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e12e45a4_cfcab6fd",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d41e9634_8d651b32",
+      "range": {
+        "startLine": 302,
+        "startChar": 9,
+        "endLine": 302,
+        "endChar": 14
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d5d07bc2_8421e8a0",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f325dbe6_ce1ce97e",
+      "range": {
+        "startLine": 321,
+        "startChar": 4,
+        "endLine": 321,
+        "endChar": 17
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4366db4_8a81ef55",
         "filename": "cast/streaming/receiver_session.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed5d445c_bea81b03",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4366db4_8a81ef55",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "81031ba0_3353f304",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21d49e1f_2a423ded",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 16
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "363af568_8b3a120f",
         "filename": "cast/streaming/receiver_session.cc",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a7ea8ec_933fda58",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "363af568_8b3a120f",
+      "range": {
+        "startLine": 232,
+        "startChar": 2,
+        "endLine": 232,
+        "endChar": 33
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "69b4b809_6fc7b793",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e77e8aa_a4d9407e",
+      "range": {
+        "startLine": 237,
+        "startChar": 2,
+        "endLine": 237,
+        "endChar": 20
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e0510a5_0c382979",
         "filename": "cast/streaming/receiver_session.cc",
         "patchSetId": 4
@@ -183,6 +351,30 @@
       "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f39c36ca_b14abdbd",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e0510a5_0c382979",
+      "range": {
+        "startLine": 241,
+        "startChar": 22,
+        "endLine": 241,
+        "endChar": 40
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "72e025fa_90c942ae",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ed48d08_3f06c71f",
+      "range": {
+        "startLine": 106,
+        "startChar": 47,
+        "endLine": 106,
+        "endChar": 59
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3876e7cf_4ec6c153",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 4
@@ -229,6 +445,30 @@
       "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7077170_4d106f75",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "renamed.",
+      "parentUuid": "3876e7cf_4ec6c153",
+      "range": {
+        "startLine": 131,
+        "startChar": 16,
+        "endLine": 131,
+        "endChar": 26
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "2f8b1bc4_baaca593",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58f21e12_a7f066a0",
+      "range": {
+        "startLine": 136,
+        "startChar": 15,
+        "endLine": 136,
+        "endChar": 52
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcf97b84_5ea6f474",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 4
@@ -275,6 +539,30 @@
       "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db82d83c_bb3c5c2c",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "We talked about this originally to force the caller to get rid of the offer when they negotiate, since after negotiation it\u0027s no longer valid. However since we don\u0027t expose this to the embedder we don\u0027t actually need to enforce it now.\n\nDone.",
+      "parentUuid": "bcf97b84_5ea6f474",
+      "range": {
+        "startLine": 140,
+        "startChar": 26,
+        "endLine": 140,
+        "endChar": 33
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "3b527b73_eac59a16",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Construction isn\u0027t very expensive, just initializing the configuration struct. I\u0027m fine moving it to a local.",
+      "parentUuid": "dd909e5b_eb9da260",
+      "range": {
+        "startLine": 154,
+        "startChar": 2,
+        "endLine": 154,
+        "endChar": 38
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebb1ae17_fcdee0e6",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 4
@@ -321,6 +633,30 @@
       "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ecb99f_c28258ab",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T22:27:12Z",
+      "side": 1,
+      "message": "Yeah, there\u0027s def some follow up work. Let\u0027s sync up monday and talk about what we need for a polished, complete component.",
+      "parentUuid": "ebb1ae17_fcdee0e6",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 157,
+        "endChar": 15
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
