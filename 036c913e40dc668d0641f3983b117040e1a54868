@@ -59,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "a4547302_1922fa29",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-06T17:17:06Z",
+      "side": 1,
+      "message": "\u003e Does MdnsProbe also handle retrying with different names then (i.e. section 9 of the RFC)?\n\nThis is what I had planned. for our use case, we expect that all records will be using the same domain name (something to the effect of \"instance._castv2._udp.local\"), because we will only have one SRV record. In this case, we\u0027d only need to ever change \u0027instance\u0027 to \u0027instance#\u0027 for some number, which seems reasonable enough for us to make assumptions about\n\nWill add comments to this affect if it sounds good to you",
+      "parentUuid": "49921ef0_3741e539",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbc480a7_b6123b2a",
         "filename": "discovery/mdns/mdns_probe.h",
         "patchSetId": 3
@@ -129,6 +147,24 @@
       "side": 1,
       "message": "It\u0027s still not clear to me why this couldn\u0027t be std::vector of MdnsRecord* or Rdata*?  The probe is basically an initialization step, so there shouldn\u0027t be much of a long-term lifetime concern, correct?  The vector could also be by-value if absolutely necessary.  Can you give an example call sequence whether the factory form is better/necessary?  It seems like the records are known starting from ClaimExclusiveOwnership, where the MdnsProbe is created, and then they are committed or dropped in OnDomainFound, where MdnsProbe is destroyed.\n\nFor the IPEndpoint suggestiong: I could be misremembering how mDNS labels things, but isn\u0027t it true that for DNS-SD SRV/TXT are under one name (instance name) and A/AAAA are under another (hostname)?  If that\u0027s true, only checking hostname seems problematic.",
       "parentUuid": "74bc73f1_c296875a",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3da6316_e4705e47",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-06T17:17:06Z",
+      "side": 1,
+      "message": "\u003e It\u0027s still not clear to me why this couldn\u0027t be std::vector of MdnsRecord*\n\nThe probe is an intialization step, but we can\u0027t initialize with just the MdnsRecord because one parameter of the MdnsRecord is the DomainName (field name). When running the probing phase, we first try and claim the requested name (lets say \"instance._castv2._udp.local\"). If that fails, we modify the provided name according to the process supplied in RFC 6762 and 6763 (so if \"instance._castv2._udp.local\" is already claimed, we might instead try \"instance2._castv2._udp.local\"). At this point, the original MdnsRecord would be invalid, since it is created with the wrong DomainName. We need these records to be accurate, because we are using them for collision detection, so we need a mechanism to modify the name field. For this purpose, we use a factory.\n\n\u003e or RData\n\nThe issue with this approach is that we lose the TTL information supplied by the caller. For the probe phase this may not matter (what does everyone else think?) though so it could work 😊This would require that registration of records is done as a separate step after the probe phase, but I still think this would end up cleaner\n\n\u003e For the IPEndpoint suggestiong: I could be misremembering how mDNS labels things, but isn\u0027t it true that for DNS-SD SRV/TXT are under one name (instance name) and A/AAAA are under another (hostname)?  If that\u0027s true, only checking hostname seems problematic.\n\nYou are correct that SRV and TXT records use one name and A/AAAA records use a (possibly) different name, the one called out in the SRV record\u0027s RData. That being said, there is no reason we need to probe for these 2 domains at once or with the record type that we expect will be using that domain name.\n\nLet\u0027s say we care about domain d1, ..., dn where each is used by a TXT, SRV, A, or AAAA record. Then, we can spin up probes P1, ... Pn where Pi is associated with di. In each of these probe steps, we would supply an A or AAAA record, even if that\u0027s not the record type we plan to create at the end. Because RFC 6762 calls out that probe queries are done using DnsType::kANY, even if these are not the final record types, they will still match the incoming query and conflict resolution can proceed as described in the RFC. Then, after conflict resolution is completed and the probe\u0027s callback is called, we can register all records with the new name using the RegisterRecord call in MdnsPublisher. The only edge case here is if the same IPendpoint is used for multiple Probe queries, but:\n- For different instances, this should never happen (they can never share an IP endpoint per RFC)\n- For the same endpoint, this would be considered \u0027redundant\u0027 records per RFC 6762 and would be a non-issue\n\nThis would require n separate probe queries, but given that n \u003c\u003d 2 for all current cases (the instance for castV2 and for OSP, since we will be using the same instance domain name for A and AAAA records, as we only publish one SRV record), that shouldn\u0027t be a problem\n\nIf this approach seems to at least *sound* better than the original one, I can update this CL to reflect the suggestion above. IMHO it would be much cleaner, but would require significant documentation",
+      "parentUuid": "b228fcfa_ed7ee873",
       "revId": "036c913e40dc668d0641f3983b117040e1a54868",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
