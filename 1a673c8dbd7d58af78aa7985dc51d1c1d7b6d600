@@ -1,0 +1,565 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df2022c4_91978aa7",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Should we have a FileUniquePtr type?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbda132a_8d0cc51d",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably prefer nullptr.",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "302b8e56_4745dfc1",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "where is key used?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b62327_799247b2",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Nit: while(PEM_read(...) \u003d\u003d 1) {\n\n}\n\n?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9427862_8ea378aa",
+        "filename": "cast/common/certificate/test_helpers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "absl::string_view?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "512d4722_447147cb",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Comment about this being for the eventual rollover of this time type would be good.",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b32c90c_f73a230f",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Nit: consider just using a static initializer list:\n\nconst struct tm tm {\n     time.second,\n     time.minute,\n     ...\n};",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa465ceb_0142c59d",
+        "filename": "cast/common/certificate/types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Consider putting these methods on DateTime itself.",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81aa0934_86bbf781",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "I\u0027m assuming message.mutable_error() is a pointer? Why not just\n\nAuthError* error \u003d message.mutable_error();\nOSP_DCHECK(error);\nerror-\u003eset_error_type(error_type);",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "915ccd6a_baa1eac2",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Maybe outside the scope of this, but why doesn\u0027t this method just return a string? Passing in a a string pointer seems weird if we don\u0027t reuse it.",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bebd1aec_572ce513",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebdd2055_79c74054",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "This method seems odd. Why not ErrorOr\u003cDeviceAuthMessage\u003e DeviceAuthMessage::ParseFromArray(..)?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4faa5ffe_15e033a4",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d92707b_33084ddd",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "febd3764_cd1dc6c8",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "absl::StrCat?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0ca3f6d_bc5cff45",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Nit: consider moving this line closer to line 74, so it\u0027s more obvious that sha1 and sha256 are the only two hash_alg options, or add a dcheck right above this line.",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88b73f15_bb3571c6",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Storing a binary payload in a string seems weird. Not sure what the action items there are here though.",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54600576_e17ace20",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Nit: order alphabetically?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3050854f_0d1bd483",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a27282_a64f27ae",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ca059fc_480a62bb",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Should we just have operator\u003d method on AuthResponse?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b28d684_08b10c71",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "EXPECT_THAT(auth_response.intermediate_certificate(), ElementsAreArray(expected_auth_response.intermediate_certificate());\n\nand shouldn\u0027t intermediate_certificate() be plural?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d35741c5_e23b9580",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "auto data \u003d reinterpret_cast? No old-school C style casts please.",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a47bfe5f_fd2da172",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "bssl::UniquePtr\u003cX509\u003e?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3de0ebe_050090f7",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76e120ae_c49f770d",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Nit: consider having a separate statement:\n\nconst auto* begin \u003d reinterpret_cast\u003cconst uint8_t*\u003e(tls_cert[0].data());\ncreds-\u003etls_cert_der.assign(begin, begin + tls_cert[0].size());",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f5a734_1476a80f",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "absl::string_view?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1427e4d8_f23117b0",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be\n\n#ifndef SERIALIZE_THIS_TEST\n#define SERIALIZE_THIS_TEST 0\n#endif\n\n?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "139db487_3a39aef4",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "This will break building in Chrome. You have to use the OPENSCREEN_TEST_DATA_DIR define. See cast_crl_unittest.cc for an example:\n\n#define TEST_DATA_PREFIX OPENSCREEN_TEST_DATA_DIR \"cast/receiver/channel\"",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c4e312d_1ae20352",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "nit: consider storing these flags somewhere so you don\u0027t have to specify them every time.",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "141f03d4_4396cee7",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c50a45e4_dddf1815",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "kOctober2019? Static initializer list?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b071f498_66962bd2",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:41:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "1a673c8dbd7d58af78aa7985dc51d1c1d7b6d600",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
