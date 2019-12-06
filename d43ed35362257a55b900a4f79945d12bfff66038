@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c34de6a_3e6993d6",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "c++ style: remove trailing underscore here (and OnMessage). It\u0027s okay not to exactly match the key string in the JSON.",
+      "range": {
+        "startLine": 34,
+        "startChar": 45,
+        "endLine": 34,
+        "endChar": 55
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d41e9634_8d651b32",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "IIRC this is another one of those fields that may have been added late (i.e., when remoting was added to the spec). I suggest parsing this as:\n\n1. if \"remoting\" then CastMode::Type::kRemoting.\n2. if any other string, then kMirroring.\n3. if missing, then kMirroring.",
+      "range": {
+        "startLine": 302,
+        "startChar": 9,
+        "endLine": 302,
+        "endChar": 14
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f325dbe6_ce1ce97e",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "Like the last change, I suggest not logging, and just including the string in an Error.",
+      "range": {
+        "startLine": 321,
+        "startChar": 4,
+        "endLine": 321,
+        "endChar": 17
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4366db4_8a81ef55",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "Suggest moving this to answer_messages.h/cc. Perhaps it should be a const method of the Answer class? (Like what we did for in rtcp_common.h.)",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d49e1f_2a423ded",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "This may spam the logs, as there are several other mirroring control messages that this code doesn\u0027t handle yet. Meaning, I wouldn\u0027t log anything until we\u0027ve implemented all the message handling.",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 16
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363af568_8b3a120f",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "I think this has to be forced to false until OnMessage() processes GET_STATUS messages.",
+      "range": {
+        "startLine": 232,
+        "startChar": 2,
+        "endLine": 232,
+        "endChar": 33
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e77e8aa_a4d9407e",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "Since this has failure points, it seems it should be called before SendAnswer. It should return a bool to indicate success, and if failed the ANSWER should have its error fields set.\n\nBetter yet, instead of bool, how about ErrorOr\u003cConfiguredReceivers\u003e, and call client_-\u003eOnNegotiated() here?",
+      "range": {
+        "startLine": 237,
+        "startChar": 2,
+        "endLine": 237,
+        "endChar": 20
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0510a5_0c382979",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "naming nit: How about TrySpawningReceivers()?",
+      "range": {
+        "startLine": 241,
+        "startChar": 22,
+        "endLine": 241,
+        "endChar": 40
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ed48d08_3f06c71f",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "Suggestion: s/passed along/that will be passed along/",
+      "range": {
+        "startLine": 106,
+        "startChar": 47,
+        "endLine": 106,
+        "endChar": 59
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3876e7cf_4ec6c153",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "remove underscore",
+      "range": {
+        "startLine": 131,
+        "startChar": 16,
+        "endLine": 131,
+        "endChar": 26
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f21e12_a7f066a0",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "Suggest swapping the order of these arguments, for consistency with SendMessage().\n\n...and s/root/body/ maybe?",
+      "range": {
+        "startLine": 136,
+        "startChar": 15,
+        "endLine": 136,
+        "endChar": 52
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcf97b84_5ea6f474",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "re Offer\u0026\u0026: Is there a reason you want to force the caller to only pass temporaries for the offer argument? That\u0027s usually a decision best left up to the caller (e.g., they may want to pass a copy of the original, or else would explicitly use std::move()).\n\nIt seems you used the rval ref intending to document that this method will try to move the Offer instead of copy it. However, for non-trivial input arguments in modern C++, you\u0027ll just want to pass by value instead because, when the caller uses std::move(), the compiler will automatically elide the copy.",
+      "range": {
+        "startLine": 140,
+        "startChar": 26,
+        "endLine": 140,
+        "endChar": 33
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd909e5b_eb9da260",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "Is it better to make this a local in the OnOffer() method? Or, is construction/initialization non-trivial/expensive? If so, perhaps document that here.",
+      "range": {
+        "startLine": 154,
+        "startChar": 2,
+        "endLine": 154,
+        "endChar": 38
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebb1ae17_fcdee0e6",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T20:07:33Z",
+      "side": 1,
+      "message": "Instead of this, call environment_-\u003eGetLocalBoundEndpoint().port.\n\nThis also brings up an issue...We need to create a new UDPSocket (on a different port) for each new negotiation... which means ReceiverSession would need to create the Environment and ReceiverPacketRouter itself. And, whenever renegotiating, we need to keep the old Environment and RPR around until after the old Receivers are destroyed. We can address all this in a follow-up change.",
+      "range": {
+        "startLine": 157,
+        "startChar": 2,
+        "endLine": 157,
+        "endChar": 15
+      },
+      "revId": "d43ed35362257a55b900a4f79945d12bfff66038",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
