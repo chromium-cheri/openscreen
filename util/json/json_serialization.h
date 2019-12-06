@@ -2,33 +2,24 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef UTIL_JSON_JSON_WRITER_H_
-#define UTIL_JSON_JSON_WRITER_H_
+#ifndef UTIL_JSON_JSON_SERIALIZATION_H_
+#define UTIL_JSON_JSON_SERIALIZATION_H_
 
-#include <memory>
 #include <string>
 
 #include "absl/strings/string_view.h"
-#include "json/writer.h"
-
-namespace Json {
-class Value;
-}
+#include "json/value.h"
 
 namespace openscreen {
 template <typename T>
 class ErrorOr;
 
-class JsonWriter {
- public:
-  JsonWriter();
+namespace json {
 
+  ErrorOr<Json::Value> Read(absl::string_view value);
   ErrorOr<std::string> Write(const Json::Value& value);
 
- private:
-  Json::StreamWriterBuilder factory_;
-};
-
+}  // namespace json
 }  // namespace openscreen
 
-#endif  // UTIL_JSON_JSON_WRITER_H_
+#endif  // UTIL_JSON_JSON_SERIALIZATION_H_
