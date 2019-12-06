@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4794a526_9db753b5",
+        "filename": "util/json/json_serialization.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T23:03:44Z",
+      "side": 1,
+      "message": "Please use std::ostringstream instead.\n                ^",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "827fd2be6ae5892e1aa2c688e1180eb3a97840a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42718eb3_a024984f",
+        "filename": "util/json/json_serialization.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T23:03:44Z",
+      "side": 1,
+      "message": "I\u0027d suggest removing this. Or, is this for the \"pretty printed\" debug build?\n\nAlso, maybe just put \u0027\\n\u0027 instead of std::endl, since flushing will make an extra call into the streambuf that is a no-op for the ostringstream impl.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 22
+      },
+      "revId": "827fd2be6ae5892e1aa2c688e1180eb3a97840a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcf2692e_eb4b8f00",
+        "filename": "util/json/json_serialization.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T23:03:44Z",
+      "side": 1,
+      "message": "naming: I hate to cause you extra work to search-and-replace, but I feel like these function names sound a bit too much like file or network I/O. How about Parse() and Stringify(), which is what the Javascript/Typescript world uses?\n\nBTW--In answer to your question, I agree with how you did the json namespace (instead of a class). It\u0027s really clear when reading code like:\n\n  json::Parse(my_string) or json::Stringify(my_value)",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 55
+      },
+      "revId": "827fd2be6ae5892e1aa2c688e1180eb3a97840a5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
