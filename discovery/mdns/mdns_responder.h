@@ -29,6 +29,9 @@ class MdnsResponder {
  public:
   // Class to handle querying for existing records.
   class RecordHandler {
+   public:
+    virtual ~RecordHandler();
+
     // Returns whether the provided name is exclusively owned by this endpoint.
     virtual bool IsExclusiveOwner(const DomainName& name) = 0;
 
