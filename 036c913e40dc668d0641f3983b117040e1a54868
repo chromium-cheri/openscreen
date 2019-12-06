@@ -77,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "7d6f37b1_1fc4eefd",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-06T22:29:21Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "a4547302_1922fa29",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbc480a7_b6123b2a",
         "filename": "discovery/mdns/mdns_probe.h",
         "patchSetId": 3
@@ -183,6 +201,24 @@
       "side": 1,
       "message": "It seems like the caller must have already generated the records it intends to announce before it is ready to probe, and alterations to those records aren\u0027t required.  In that case it can pass them as const std::vector\u003cMdnsRecord\u003e\u0026.\n\nIf a conflict is detected, I would leave it up to the caller to generate new records with new names and then probe again.",
       "parentUuid": "b228fcfa_ed7ee873",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fd334ac_4592ce74",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-06T22:29:21Z",
+      "side": 1,
+      "message": "\u003e We need these records to be accurate, because we are using them for collision detection, so we need a mechanism to modify the name field. For this purpose, we use a factory.\n\nWhy does the entire record need to be accurate/complete for probing though?  It doesn\u0027t seem unreasonable to just ignore the DomainName of each MdnsRecord since we know that\u0027s what we\u0027re currently trying to determine.  There doesn\u0027t seem to be a concrete reason for reconstructing an MdnsRecord with a new DomainName unless it\u0027s an API issue.\n\nIf it\u0027s just to meet an API requirement for inserting these into the message\u0027s authority section, a std::vector\u003cMdnsRecord*\u003e would be a simpler way to modify the DomainName as probing progresses through conflict resolution.  If this isn\u0027t ideal for some reason, I would probably put the option of leaving the renaming+reprobing outside this class over using a vector of factories.\n\n\u003e The issue with this approach is that we lose the TTL information supplied by the caller.\n\nTTL information is only considered during the tiebreaking lexicographic comparison in the case of probing.  So losing it isn\u0027t great but setting it to 0, 1, or some other constant is certainly no worse than the IPEndpoint solution.\n\n\u003e ... there is no reason we need to probe for these 2 domains at once or with the record type that we expect will be using that domain name.\n\nHm, although always using an A/AAAA record for tiebreaking seems dishonest, I don\u0027t really see a problem with it.  This seems fine as long as we document that we are relying on the fact that the A/AAAA record being sent is for tiebreaking only and isn\u0027t used/cached in any other way, because proper record registration occurs after probing.",
+      "parentUuid": "d41ec6f6_5a83e31b",
       "revId": "036c913e40dc668d0641f3983b117040e1a54868",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
