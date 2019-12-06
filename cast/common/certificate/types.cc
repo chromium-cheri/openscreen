@@ -66,5 +66,20 @@ bool DateTimeFromSeconds(uint64_t seconds, DateTime* time) {
   return true;
 }
 
+uint64_t DateTimeToSeconds(const DateTime& time) {
+  OSP_DCHECK_GE(time.month, 1);
+  OSP_DCHECK_GE(time.year, 1900);
+  // NOTE: Guard against overflow if time_t is 32-bit.
+  OSP_DCHECK(sizeof(time_t) >= 8 || time.year < 2038) << time.year;
+  struct tm tm = {};
+  tm.tm_sec = time.second;
+  tm.tm_min = time.minute;
+  tm.tm_hour = time.hour;
+  tm.tm_mday = time.day;
+  tm.tm_mon = time.month - 1;
+  tm.tm_year = time.year - 1900;
+  return mktime(&tm);
+}
+
 }  // namespace certificate
 }  // namespace cast
