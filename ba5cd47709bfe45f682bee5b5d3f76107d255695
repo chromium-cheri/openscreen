@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2e8f62df_e02d88ba",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T22:34:54Z",
+      "side": 1,
+      "message": "Yep. They were set during previous code changes:\n\ninclude_rules \u003d [\n    # Platform base code should depend on no outside code/libraries, other than\n    # the standard toolchain libraries (C, STL).\n    \u0027-absl\u0027,\n    \u0027-platform\u0027,\n    \u0027+platform/base\u0027,\n    \u0027-util\u0027,\n    \u0027-third_party\u0027,\n]",
+      "parentUuid": "3c9e6f5e_c998f53f",
+      "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f59defc7_dffc2498",
         "filename": "platform/BUILD.gn",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e322daff_6aeb1a9e",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T22:34:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f59defc7_dffc2498",
+      "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b1edcfa2_9697df55",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T22:34:54Z",
+      "side": 1,
+      "message": "Ah! Looking at this again, I think they can all be regular deps instead of public_deps.\n\nThe \"platform\" target (below) will make :api a public dep.",
+      "parentUuid": "0c04bbfe_1a8a07e2",
+      "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfcdd863_6b73d11b",
         "filename": "platform/BUILD.gn",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d74300ed_cfaa6f00",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-06T22:34:54Z",
+      "side": 1,
+      "message": "I like this idea. I started working on it, but it became a bit involved. I think it\u0027d be best to work on it in a separate change, along with the \"build feature flags and external libraries\" work (https://bugs.chromium.org/p/openscreen/issues/detail?id\u003d92).",
+      "parentUuid": "cfcdd863_6b73d11b",
+      "revId": "ba5cd47709bfe45f682bee5b5d3f76107d255695",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
