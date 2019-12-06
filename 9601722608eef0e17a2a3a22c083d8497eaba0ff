@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0498b4e8_66ff88b1",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-06T17:48:26Z",
+      "side": 1,
+      "message": "why use iterators here?\n\nfor (const auto\u0026 record : message-\u003eadditional_records()) {\n    const DomainName target \u003d absl::get\u003cSrvRecordRdata\u003e(it.rdata()).target);\n    ...\n}",
+      "revId": "9601722608eef0e17a2a3a22c083d8497eaba0ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
