@@ -171,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "d41ec6f6_5a83e31b",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-06T17:23:01Z",
+      "side": 1,
+      "message": "It seems like the caller must have already generated the records it intends to announce before it is ready to probe, and alterations to those records aren\u0027t required.  In that case it can pass them as const std::vector\u003cMdnsRecord\u003e\u0026.\n\nIf a conflict is detected, I would leave it up to the caller to generate new records with new names and then probe again.",
+      "parentUuid": "b228fcfa_ed7ee873",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d7f0cf6_bb57eea5",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 3
@@ -223,6 +241,24 @@
       "side": 1,
       "message": "See above comment - We need more data than that to satisfy RFC 6762 section 8.2\u0027s requirements",
       "parentUuid": "4be79030_ee80d865",
+      "revId": "036c913e40dc668d0641f3983b117040e1a54868",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b985c27_134e1f39",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-06T17:23:01Z",
+      "side": 1,
+      "message": "Right, but the argument I had before still applies.  The prober class could keep track of the records in the probe.",
+      "parentUuid": "f0038cdb_db3634b8",
       "revId": "036c913e40dc668d0641f3983b117040e1a54868",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
