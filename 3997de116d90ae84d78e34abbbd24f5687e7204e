@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87d37489_25b8d9d4",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Nit: newline after namespace",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "342b47ed_c92f3931",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "I would just shorten all of these private conversion functions as ToJson() and allow overload resolution to do the trick.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "407edf84_1c65eaf0",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "None of these structs have constructors or member defaults, so the POD types are going to bet set with uninitialized memory when default-initialized.\n\nInitializing the structs properly prevents hard-to-diagnose bugs, and is a major security benefit for any pointers.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c438827b_1a8ec570",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Drive-by: The sender will always scale, I think the difference is whether the frames are guaranteed to be a 16:9 aspect ratio via letterboxing/pillarboxing.\n\nIt might be more accurate to name this enum AspectRatio { kAny, kForce16x9 } or some such.\n\nCheck with miu@ :-)",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5fac21f_ed8dfc1f",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Drive-by: Odd that this is a string.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08aae6bd_b2b66dbd",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Why is there ToJsonMessage and ToJson()?",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557a2f64_4f3a595f",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "I would shorten this to CreateInvalidAnswer().\nThe return type tells you it\u0027s a JSON message.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cbada6c_b49ea7bd",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Nit: add a newline before the closing brace.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d74c3825_a7ee8a11",
+        "filename": "cast/streaming/message_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Drive-by: It seems like this is something the embedder would need to interact with (e.g. to plumb messages to/from its Cast channel).  In which case, it should avoid using absl.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf95a5e7_a0bb2e59",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Style nit: Would prefer a ternary return.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4732c9f5_c237633e",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Namespaces are used by the cast channel to route messages internally.  I don\u0027t think the mirroring session should care about what Cast V2 namespace the offer/answer are sent/received on.\n\nFor example, the embedder\u0027s cast channel implementation could already have a \u0027virtual connection\u0027 bound to a namespace that it can use to send/receive message payloads.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21228aa0_0b183519",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Is SelectStream() always guaranteed to succeed?",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80865545_64accf94",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "I\u0027m not aware of anything that uses the data gathered from GET_STATUS, so not worth implementing IMO.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cef57d83_010ad21d",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Can these just be passed by const ref? \nOr are they nullable (e.g. for audio-only sessions)?",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86ac659f_cab17461",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "This code led me to believe that we are actually spinning up resources to receive an audio stream.\n\nBut it looks like it is also validating the stream configuration.\n\nIMO it would be cleaner to separate out validation from the construction of the receiver objects.",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961060cd_78123e76",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "What if audio is nullptr?",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2ff037a_78b764f4",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "std::array\u003cint, 2\u003e, unless you need push_back :-)",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69604448_ba91afc8",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2b6d961_5f4bde77",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Can this be the default value for the member?",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6831f9b0_3f71819d",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "It would seem simpler to put the message payload itself into this struct, since you seem to always pass them together?",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71725b74_87217d13",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Please document.  Is it legal to pass nullptr for either or both streams?",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "019778d5_5dee1bb0",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03199a71_5aa72573",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "constexpr",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec0938a9_ba04db59",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-07T00:23:47Z",
+      "side": 1,
+      "message": "Can you add test cases for most/all of the logic added to ReceiverSession?\n\n- Handling invalid offers\n- Handling invalid stream configs\n- Handling offers with just audio and just video (if not already covered)\n- Generating a valid answer",
+      "revId": "3997de116d90ae84d78e34abbbd24f5687e7204e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
