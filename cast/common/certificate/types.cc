@@ -6,8 +6,8 @@
 
 #include "util/logging.h"
 
+namespace openscreen {
 namespace cast {
-namespace certificate {
 
 bool operator<(const DateTime& a, const DateTime& b) {
   if (a.year < b.year) {
@@ -66,5 +66,5 @@ bool DateTimeFromSeconds(uint64_t seconds, DateTime* time) {
   return true;
 }
 
-}  // namespace certificate
 }  // namespace cast
+}  // namespace openscreen

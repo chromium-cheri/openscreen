@@ -16,16 +16,12 @@
 #include "cast/streaming/session_config.h"
 #include "util/json/json_serialization.h"
 
+namespace openscreen {
 namespace cast {
 
-namespace channel {
 class CastSocket;
-class CastMessage;
 class VirtualConnectionRouter;
 class VirtualConnection;
-}  // namespace channel
-
-namespace streaming {
 
 class ReceiverSession final : public MessagePort::Client {
  public:
@@ -71,7 +67,7 @@ class ReceiverSession final : public MessagePort::Client {
    public:
     virtual void OnNegotiated(ReceiverSession* session,
                               ConfiguredReceivers receivers) = 0;
-    virtual void OnError(ReceiverSession* session, openscreen::Error error) = 0;
+    virtual void OnError(ReceiverSession* session, Error error) = 0;
   };
 
   // The embedder has the option of providing a list of prioritized
@@ -110,7 +106,7 @@ class ReceiverSession final : public MessagePort::Client {
   void OnMessage(absl::string_view sender_id,
                  absl::string_view namespace_,
                  absl::string_view message) override;
-  void OnError(openscreen::Error error) override;
+  void OnError(Error error) override;
 
  private:
   // Message handlers
@@ -128,7 +124,7 @@ class ReceiverSession final : public MessagePort::Client {
   ReceiverPacketRouter packet_router_;
 };
 
-}  // namespace streaming
 }  // namespace cast
+}  // namespace openscreen
 
 #endif  // CAST_STREAMING_RECEIVER_SESSION_H_

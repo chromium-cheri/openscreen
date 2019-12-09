@@ -11,11 +11,9 @@
 #include "gtest/gtest.h"
 #include "util/logging.h"
 
+namespace openscreen {
 namespace cast {
-namespace certificate {
 namespace {
-
-using CastCertError = openscreen::Error::Code;
 
 // Indicates the expected result of test step's verification.
 enum TestStepResult {
@@ -31,10 +29,9 @@ bool TestVerifyCertificate(TestStepResult expected_result,
                            TrustStore* cast_trust_store) {
   std::unique_ptr<CertVerificationContext> context;
   CastDeviceCertPolicy policy;
-  openscreen::Error result =
-      VerifyDeviceCert(der_certs, time, &context, &policy, nullptr,
-                       CRLPolicy::kCrlOptional, cast_trust_store);
-  bool success = (result.code() == CastCertError::kNone) ==
+  Error result = VerifyDeviceCert(der_certs, time, &context, &policy, nullptr,
+                                  CRLPolicy::kCrlOptional, cast_trust_store);
+  bool success = (result.code() == Error::Code::kNone) ==
                  (expected_result == kResultSuccess);
   EXPECT_TRUE(success);
   return success;
@@ -60,7 +57,7 @@ bool TestVerifyCRL(TestStepResult expected_result,
 // The provided CRL is verified at |crl_time|.
 // If |crl_required| is set, then a valid Cast CRL must be provided.
 // Otherwise, a missing CRL is be ignored.
-bool TestVerifyRevocation(CastCertError expected_result,
+bool TestVerifyRevocation(Error::Code expected_result,
                           const std::vector<std::string>& der_certs,
                           const std::string& crl_bundle,
                           const DateTime& crl_time,
@@ -78,9 +75,8 @@ bool TestVerifyRevocation(CastCertError expected_result,
   CastDeviceCertPolicy policy;
   CRLPolicy crl_policy =
       crl_required ? CRLPolicy::kCrlRequired : CRLPolicy::kCrlOptional;
-  openscreen::Error result =
-      VerifyDeviceCert(der_certs, cert_time, &context, &policy, crl.get(),
-                       crl_policy, cast_trust_store);
+  Error result = VerifyDeviceCert(der_certs, cert_time, &context, &policy,
+                                  crl.get(), crl_policy, cast_trust_store);
   EXPECT_EQ(expected_result, result.code());
   return expected_result == result.code();
 }
@@ -132,7 +128,7 @@ bool RunTest(const DeviceCertTest& test_case) {
              TestVerifyCRL(kResultFail, crl_bundle, crl_verification_time,
                            crl_trust_store.get()) &&
              TestVerifyRevocation(
-                 CastCertError::kErrCrlInvalid, der_cert_path, crl_bundle,
+                 Error::Code::kErrCrlInvalid, der_cert_path, crl_bundle,
                  crl_verification_time, cert_verification_time, true,
                  cast_trust_store.get(), crl_trust_store.get());
     case CRL_EXPIRED_AFTER_INITIAL_VERIFICATION:  // fallthrough
@@ -143,7 +139,7 @@ bool RunTest(const DeviceCertTest& test_case) {
              TestVerifyCRL(kResultSuccess, crl_bundle, crl_verification_time,
                            crl_trust_store.get()) &&
              TestVerifyRevocation(
-                 CastCertError::kErrCertsRevoked, der_cert_path, crl_bundle,
+                 Error::Code::kErrCertsRevoked, der_cert_path, crl_bundle,
                  crl_verification_time, cert_verification_time, true,
                  cast_trust_store.get(), crl_trust_store.get());
     case SUCCESS:
@@ -153,10 +149,9 @@ bool RunTest(const DeviceCertTest& test_case) {
              TestVerifyCertificate(kResultSuccess, der_cert_path,
                                    cert_verification_time,
                                    cast_trust_store.get()) &&
-             TestVerifyRevocation(CastCertError::kNone, der_cert_path,
-                                  crl_bundle, crl_verification_time,
-                                  cert_verification_time, !crl_bundle.empty(),
-                                  cast_trust_store.get(),
+             TestVerifyRevocation(Error::Code::kNone, der_cert_path, crl_bundle,
+                                  crl_verification_time, cert_verification_time,
+                                  !crl_bundle.empty(), cast_trust_store.get(),
                                   crl_trust_store.get());
     case UNSPECIFIED:
       return false;
@@ -191,5 +186,5 @@ TEST(CastCertificateTest, TestSuite1) {
 }
 
 }  // namespace
-}  // namespace certificate
 }  // namespace cast
+}  // namespace openscreen

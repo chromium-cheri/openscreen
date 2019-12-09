@@ -7,8 +7,8 @@
 
 #include <stdint.h>
 
+namespace openscreen {
 namespace cast {
-namespace certificate {
 
 struct ConstDataSpan {
   const uint8_t* data;
@@ -28,7 +28,7 @@ bool operator<(const DateTime& a, const DateTime& b);
 bool operator>(const DateTime& a, const DateTime& b);
 bool DateTimeFromSeconds(uint64_t seconds, DateTime* time);
 
-}  // namespace certificate
 }  // namespace cast
+}  // namespace openscreen
 
 #endif  // CAST_COMMON_CERTIFICATE_TYPES_H_

@@ -17,11 +17,8 @@
 #include "util/json/json_serialization.h"
 #include "util/logging.h"
 
+namespace openscreen {
 namespace cast {
-namespace streaming {
-
-using openscreen::Error;
-using openscreen::ErrorOr;
 
 namespace {
 
@@ -121,8 +118,8 @@ ErrorOr<std::array<uint8_t, 16>> ParseAesHexBytes(const Json::Value& value) {
       std::none_of(hex_string.value().begin(), hex_string.value().end(),
                    [](char c) { return std::isspace(c); })) {
     std::array<uint8_t, 16> bytes;
-    openscreen::WriteBigEndian(quads[0], bytes.data());
-    openscreen::WriteBigEndian(quads[1], bytes.data() + 8);
+    WriteBigEndian(quads[0], bytes.data());
+    WriteBigEndian(quads[1], bytes.data() + 8);
     return bytes;
   }
   return Error::Code::kJsonParseError;
@@ -350,5 +347,5 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
                std::move(video_streams)};
 }
 
-}  // namespace streaming
 }  // namespace cast
+}  // namespace openscreen

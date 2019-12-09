@@ -11,8 +11,8 @@
 #include "platform/base/error.h"
 #include "util/logging.h"
 
+namespace openscreen {
 namespace cast {
-namespace streaming {
 
 namespace {
 
@@ -38,14 +38,14 @@ Json::Value PrimitiveVectorToJson(const std::vector<T>& vec) {
   return array;
 }
 
-openscreen::Error CreateParameterSerializationError(absl::string_view type) {
-  return openscreen::Error(
-      openscreen::Error::Code::kParameterInvalid,
+Error CreateParameterSerializationError(absl::string_view type) {
+  return Error(
+      Error::Code::kParameterInvalid,
       absl::StrCat("Invalid '", type, "' presented for serialization."));
 }
 }  // namespace
 
-openscreen::ErrorOr<Json::Value> AudioConstraints::ToJson() const {
+ErrorOr<Json::Value> AudioConstraints::ToJson() const {
   if (max_sample_rate <= 0 || max_channels <= 0 || min_bit_rate <= 0 ||
       max_bit_rate < min_bit_rate) {
     return CreateParameterSerializationError("AudioConstraints");
@@ -60,7 +60,7 @@ openscreen::ErrorOr<Json::Value> AudioConstraints::ToJson() const {
   return root;
 }
 
-openscreen::ErrorOr<Json::Value> Dimensions::ToJson() const {
+ErrorOr<Json::Value> Dimensions::ToJson() const {
   if (width <= 0 || height <= 0 || frame_rate_denominator <= 0 ||
       frame_rate_numerator <= 0) {
     return CreateParameterSerializationError("Dimensions");
@@ -79,7 +79,7 @@ openscreen::ErrorOr<Json::Value> Dimensions::ToJson() const {
   return root;
 }
 
-openscreen::ErrorOr<Json::Value> VideoConstraints::ToJson() const {
+ErrorOr<Json::Value> VideoConstraints::ToJson() const {
   if (max_pixels_per_second <= 0 || min_bit_rate <= 0 ||
       max_bit_rate < min_bit_rate || max_delay.count() <= 0) {
     return CreateParameterSerializationError("VideoConstraints");
@@ -105,7 +105,7 @@ openscreen::ErrorOr<Json::Value> VideoConstraints::ToJson() const {
   return root;
 }
 
-openscreen::ErrorOr<Json::Value> Constraints::ToJson() const {
+ErrorOr<Json::Value> Constraints::ToJson() const {
   auto audio_or_error = audio.ToJson();
   if (audio_or_error.is_error()) {
     return audio_or_error.error();
@@ -122,7 +122,7 @@ openscreen::ErrorOr<Json::Value> Constraints::ToJson() const {
   return root;
 }
 
-openscreen::ErrorOr<Json::Value> DisplayDescription::ToJson() const {
+ErrorOr<Json::Value> DisplayDescription::ToJson() const {
   if (aspect_ratio.empty()) {
     return CreateParameterSerializationError("DisplayDescription");
   }
@@ -139,7 +139,7 @@ openscreen::ErrorOr<Json::Value> DisplayDescription::ToJson() const {
   return root;
 }
 
-openscreen::ErrorOr<Json::Value> Answer::ToJson() const {
+ErrorOr<Json::Value> Answer::ToJson() const {
   if (udp_port <= 0 || udp_port > 65535) {
     return CreateParameterSerializationError("Answer - UDP Port number");
   }
@@ -167,5 +167,5 @@ openscreen::ErrorOr<Json::Value> Answer::ToJson() const {
   return root;
 }
 
-}  // namespace streaming
 }  // namespace cast
+}  // namespace openscreen

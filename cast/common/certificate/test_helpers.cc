@@ -10,8 +10,8 @@
 
 #include "util/logging.h"
 
+namespace openscreen {
 namespace cast {
-namespace certificate {
 namespace testing {
 
 std::string ReadEntireFileToString(const std::string& filename) {
@@ -126,5 +126,5 @@ std::unique_ptr<TrustStore> CreateTrustStoreFromPemFile(
 }
 
 }  // namespace testing
-}  // namespace certificate
 }  // namespace cast
+}  // namespace openscreen

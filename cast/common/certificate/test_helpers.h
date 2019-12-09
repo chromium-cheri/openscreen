@@ -11,8 +11,8 @@
 #include "cast/common/certificate/cast_cert_validator_internal.h"
 #include "cast/common/certificate/types.h"
 
+namespace openscreen {
 namespace cast {
-namespace certificate {
 namespace testing {
 
 std::string ReadEntireFileToString(const std::string& filename);
@@ -35,7 +35,7 @@ std::unique_ptr<TrustStore> CreateTrustStoreFromPemFile(
     const std::string& filename);
 
 }  // namespace testing
-}  // namespace certificate
 }  // namespace cast
+}  // namespace openscreen
 
 #endif  // CAST_COMMON_CERTIFICATE_TEST_HELPERS_H_

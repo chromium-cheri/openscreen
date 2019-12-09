@@ -16,8 +16,8 @@
 #include "json/value.h"
 #include "platform/base/error.h"
 
+namespace openscreen {
 namespace cast {
-namespace streaming {
 
 struct AudioConstraints {
   int max_sample_rate;
@@ -27,7 +27,7 @@ struct AudioConstraints {
   int max_bit_rate;
   std::chrono::milliseconds max_delay;
 
-  openscreen::ErrorOr<Json::Value> ToJson() const;
+  ErrorOr<Json::Value> ToJson() const;
 };
 
 struct Dimensions {
@@ -36,7 +36,7 @@ struct Dimensions {
   int frame_rate_numerator;
   int frame_rate_denominator;
 
-  openscreen::ErrorOr<Json::Value> ToJson() const;
+  ErrorOr<Json::Value> ToJson() const;
 };
 
 struct VideoConstraints {
@@ -48,14 +48,14 @@ struct VideoConstraints {
   int max_bit_rate;
   std::chrono::milliseconds max_delay;
 
-  openscreen::ErrorOr<Json::Value> ToJson() const;
+  ErrorOr<Json::Value> ToJson() const;
 };
 
 struct Constraints {
   AudioConstraints audio;
   VideoConstraints video;
 
-  openscreen::ErrorOr<Json::Value> ToJson() const;
+  ErrorOr<Json::Value> ToJson() const;
 };
 
 // Decides whether the Sender scales and letterboxes content, or if
@@ -69,7 +69,7 @@ struct DisplayDescription {
   std::string aspect_ratio;
   Scaling scaling;
 
-  openscreen::ErrorOr<Json::Value> ToJson() const;
+  ErrorOr<Json::Value> ToJson() const;
 };
 
 struct Answer {
@@ -84,10 +84,10 @@ struct Answer {
   bool supports_wifi_status_reporting;
   std::vector<std::string> rtp_extensions;
 
-  openscreen::ErrorOr<Json::Value> ToJson() const;
+  ErrorOr<Json::Value> ToJson() const;
 };
 
-}  // namespace streaming
 }  // namespace cast
+}  // namespace openscreen
 
 #endif  // CAST_STREAMING_ANSWER_MESSAGES_H_

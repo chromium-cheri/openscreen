@@ -9,16 +9,12 @@
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
 
-using openscreen::Clock;
-using openscreen::FakeClock;
-using openscreen::FakeTaskRunner;
-
 using ::testing::_;
 using ::testing::Invoke;
 using ::testing::StrictMock;
 
+namespace openscreen {
 namespace cast {
-namespace streaming {
 
 namespace {
 
@@ -98,7 +94,7 @@ class SimpleMessagePort : public MessagePort {
     client_->OnMessage("sender-id", "namespace", message);
   }
 
-  void ReceiveError(openscreen::Error error) {
+  void ReceiveError(Error error) {
     ASSERT_NE(client_, nullptr);
     client_->OnError(error);
   }
@@ -119,7 +115,7 @@ class FakeClient : public ReceiverSession::Client {
   MOCK_METHOD(void,
               OnNegotiated,
               (ReceiverSession*, ReceiverSession::ConfiguredReceivers));
-  MOCK_METHOD(void, OnError, (ReceiverSession*, openscreen::Error error));
+  MOCK_METHOD(void, OnError, (ReceiverSession*, Error error));
 };
 
 }  // namespace
@@ -131,7 +127,7 @@ class ReceiverSessionTest : public ::testing::Test {
         task_runner_(&clock_),
         env_(std::make_unique<Environment>(&FakeClock::now,
                                            &task_runner_,
-                                           openscreen::IPEndpoint{})) {}
+                                           IPEndpoint{})) {}
 
   FakeClock clock_;
   FakeTaskRunner task_runner_;
@@ -210,5 +206,5 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomPreferences) {
   ;
   raw_port->ReceiveMessage(kValidOfferMessage);
 }
-}  // namespace streaming
 }  // namespace cast
+}  // namespace openscreen

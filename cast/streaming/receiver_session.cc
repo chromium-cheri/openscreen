@@ -13,8 +13,8 @@
 #include "cast/streaming/offer_messages.h"
 #include "util/logging.h"
 
+namespace openscreen {
 namespace cast {
-namespace streaming {
 
 // Using statements for constructor readability.
 using Preferences = ReceiverSession::Preferences;
@@ -73,8 +73,7 @@ const Stream* SelectStream(const std::vector<Codec>& preferred_codecs,
 // Currently, the SessionConfig is very similar between Audio and
 // Video streams, even though the streams themselves expose many different
 // fields
-openscreen::ErrorOr<SessionConfig> ParseSessionConfig(const Stream& stream,
-                                                      int channels) {
+ErrorOr<SessionConfig> ParseSessionConfig(const Stream& stream, int channels) {
   return SessionConfig{stream.ssrc, stream.ssrc + 1, stream.rtp_timebase,
                        channels,    stream.aes_key,  stream.aes_iv_mask};
 }
@@ -174,11 +173,10 @@ void ReceiverSession::SelectStreams(const AudioStream* audio,
 void ReceiverSession::OnMessage(absl::string_view sender_id,
                                 absl::string_view namespace_,
                                 absl::string_view message) {
-  openscreen::ErrorOr<Json::Value> message_json =
-      openscreen::json::Parse(message);
+  ErrorOr<Json::Value> message_json = json::Parse(message);
 
   if (!message_json) {
-    client_->OnError(this, openscreen::Error::Code::kJsonParseError);
+    client_->OnError(this, Error::Code::kJsonParseError);
     OSP_LOG_WARN << "Received an invalid message: " << message;
     return;
   }
@@ -194,13 +192,13 @@ void ReceiverSession::OnMessage(absl::string_view sender_id,
   }
 }
 
-void ReceiverSession::OnError(openscreen::Error error) {
+void ReceiverSession::OnError(Error error) {
   OSP_LOG_WARN << "ReceiverSession's MessagePump encountered an error:"
                << error;
 }
 
 void ReceiverSession::OnOffer(Json::Value root, int sequence_number) {
-  openscreen::ErrorOr<Offer> offer = Offer::Parse(std::move(root));
+  ErrorOr<Offer> offer = Offer::Parse(std::move(root));
   if (!offer) {
     client_->OnError(this, offer.error());
     OSP_LOG_WARN << "Could not parse offer" << offer.error();
@@ -225,5 +223,5 @@ void ReceiverSession::OnOffer(Json::Value root, int sequence_number) {
                 std::move(offer.value()));
 }
 
-}  // namespace streaming
 }  // namespace cast
+}  // namespace openscreen
