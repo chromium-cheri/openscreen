@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cd47090_12a8d9ce",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "If either width or height is \u003c 1 this is invalid.",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21f2465_7252d8b4",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "I would just prefer using 0 instead of {} for integer POD as it\u0027s more self explanatory.",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "315f23ce_87b876d9",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "This doesn\u0027t need a RHS as you\u0027ve initialized members of Dimensions.",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "453ef4f0_ed0c15de",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aace2946_e7a7fe5b",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Which constraints does this refer to?  VideoConstraints?",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e9f29b1_8f4d0a5e",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Nit: I would prefer this to be a struct, i.e.\n\nstruct AspectRatio {\n  width \u003d 0;\n  height \u003d 0;\n} aspect_ratio;\n\nwhich will make the code using it more explanatory than aspect_ratio.{first,second}.",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76742c61_04f85361",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Non-POD types will invoke default constructors, so they don\u0027t need to be value initialized.",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c102998_e3550739",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Nit: rewrap comment",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e4ad18b_ade60767",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "false",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542b00c7_6db18bdf",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "This would read better as ToAnswerMessage() or something similar IMO",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03e00f21_ccb76a4b",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Please document.\n\nIs this called outside answer_messages.cc?  If not, remove this declaration.",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd0be59d_f3349c77",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Is it okay for channels to be missing?",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2d854d8_3af8d3f8",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "I guess this answers my question :-)",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dffdf63c_9e15bdb5",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Add error message(s) specific to the missing field(s)?",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa9731d_3000e527",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Let\u0027s have the validation code always use error messages.  The caller should be able to use one logging statement for the error, instead of sprinkling them throughout.",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1833582b_551f7bc1",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "Consider judicious using statements for common error codes for readability",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63021da4_17334f26",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T22:31:30Z",
+      "side": 1,
+      "message": "A helper object could shorten this and improve readability, one suggestion is below.\n\nJsonMatcher matcher(display_json);\n\nmatcher.ExpectFieldEquals(\"aspectRatio\", \"16.9\")\nmatcher.ExpectFieldEquals(\"dimensions.width\", 640)\n\nYou\u0027ve already got working code, and unclear how much maintenance will be required going forward.  I don\u0027t feel too strongly about it, but we\u0027re probably going to be writing more JSON matching tests for Cast V2...",
+      "revId": "f453b94c0f131beee88257b67d2d86bc394d2948",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
