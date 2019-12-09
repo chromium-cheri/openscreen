@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a890f5b_c276a47e",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "This seems generally useful and I suspect we\u0027ll end up writing it again.\n\nConsider moving this function to a new file in testing/util, for test-only utility functions.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4668c1_f5ad992e",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Drive-by: \nAre s and l null-terminated? \nConsider absl::StartsWith instead of defining custom comparison macros.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bd0aef9_95712f95",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Drive-by: is there a specific reason to use the libc methods here instead of std::chrono::system_clock?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "258a3edd_380f4be7",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Where does |time| come from?\n\nIs there some other check against obviously invalid |time| values that is made before this function is called, that will trigger an error in release builds?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f02c290_7b80e73a",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "It appears that 64-bit time_t is not guaranteed in 32-bit Linux.  Sigh.\n\nIt would be a good idea to assert that time_t is a minimum of 32 bits.\n\nMaybe we should assert that time_t is 64 bits by default, and force developers to opt in to 32-bit time_t through a build flag with a big warning message.   Not sure.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2ef3a69_1702cb5f",
+        "filename": "cast/common/certificate/types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Can you use std::chrono::seconds here?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb283435_0b094dbf",
+        "filename": "cast/common/channel/proto/cast_channel.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Does this fix need to be rolled downstream?  (Presumably not, since Chrome shouldn\u0027t compile if it actually referenced this field.)",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a22883d_cd7cc872",
+        "filename": "cast/receiver/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Can you add cast/common/certificate instead of whitelisting all of cast/common?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c321b94_9d13415e",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Please add /* */ comments for the nullptr args.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0096c048_9dba269d",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Is this ever nonzero?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16100b6f_77a6332b",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Can you add a test case that verifies a CRL?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccf5c02f_639d67a3",
+        "filename": "test/data/cast/receiver/channel/device_chain.pem",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Did you generate a new set of test certs?  These are different from the ones in Chromium.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92097a0e_de6251f6",
+        "filename": "test/data/cast/receiver/channel/device_chain.pem",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-09T19:47:27Z",
+      "side": 1,
+      "message": "Nit: remove trailing whitespace throughout",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
