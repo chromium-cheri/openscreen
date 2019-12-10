@@ -138,6 +138,312 @@
     },
     {
       "key": {
+        "uuid": "efc94e3c_2abbf44d",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Nit: do this check at the top of the method",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2df0ffeb_5759153e",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "We\u0027ll eventually want an error reporting and collection path, either through the trace logging framework, or a set of observer APIs.  \n\nAlthough these challenges could be coming from any on-network device, so there will likely be spam we just want to ignore.  So not the highest priority to collect metrics on.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "573341d9_e5ca00e2",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Do you know why an UNSPECIFIED sig_alg is assumed to be PKCS1v15?  A workaround for a misbehaving client?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b4e4f29_c7b6a654",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "SHA1 has been deprecated for a long time...",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0986421c_7ef1bd4e",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "These are device configuration problems that should definitely be logged somewhere in a future patch.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ad8632_08b24a26",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Can this be a std::vector\u003cconst uint8_t\u003e to avoid conversions below?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0237839_d68471af",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "In general we\u0027ve agreed to drop second-level namespaces in Open Screen code, unless there was a compelling case to avoid name conflicts or some other reason.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b65b3d13_314e7489",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Can you document these more specifically?\n\n- What certs are included in certs?\n- Which private key is the private_key for?\n- What is the format of the serialized_crl?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec253a15_3d447b3d",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "If this is a hardware private key, it is generally not accessible to user space code.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c4bbf73_b2d38c44",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Can these be const?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f14a498d_43b1c530",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Could this return a const reference?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9936d2b9_6cba3860",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Please document lifetime assumptions for creds_provider.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f7de32b_dcaadb01",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Are these assertions just to ensure that the contents of auth_challenge.pb are sane?\nShould they just go after you parse the file at L62?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca906493_9145e64b",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "I\u0027m a little confused - it looks like you are just checking values from a pre-stored protocol messages?\n\nWhere do you validate the contents of challenge_reply are as expected?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b7fdf06_e2e5fcdd",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "There are a lot of error cases that don\u0027t have test coverage.  Consider writing some tests that modify auth_challenge.pb to verify that they don\u0027t pass validation.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d638893_c248ac88",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "private_key",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a07d9f_49109c31",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "We\u0027ve adopted a pattern of keeping test support code in testing/ folders, can you do that for these files?\n\nMaybe this and the certificate test helpers could go in a cast/receiver/channel/testing folder?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6488185_17097ceb",
+        "filename": "cast/receiver/channel/receiver_socket_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T00:44:02Z",
+      "side": 1,
+      "message": "Is the same true of |socket_client|?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c321b94_9d13415e",
         "filename": "cast/sender/channel/cast_auth_util.cc",
         "patchSetId": 3
