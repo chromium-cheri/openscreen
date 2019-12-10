@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acc454de_a9dfb96a",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T17:51:45Z",
+      "side": 1,
+      "message": "This comment block seems like it should go at the class level, as it describes the probing mechanism in use.",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26d00b12_51c4d54d",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T17:51:45Z",
+      "side": 1,
+      "message": "Nit: Add a blank line between paragraphs",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a74a8c97_2e577856",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T17:51:45Z",
+      "side": 1,
+      "message": "nit: \u003d default",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d3453a7_12cf8d98",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T17:51:45Z",
+      "side": 1,
+      "message": "My thinking is that the MdnsResponder would own a MdnsProbeManager, instead of implementing part of it.\n\nTwo other approaches here:\n\n1. Change the Callback to a Client that is implemented by MdnsResponder, and move this API there.\n2. Have MdnsResponder push a list of claimed names into this object to check.\n\n#2 may result in some duplicated state, but has the least coupling between the two classes.",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfe9ea3_87a93bf0",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T17:51:45Z",
+      "side": 1,
+      "message": "nit: s/Records/records/",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d45aaa_d6d7f95f",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T17:51:45Z",
+      "side": 1,
+      "message": "Nit: Blank lines between documentation paragraphs",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
