@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fca4b4e7_8a4de75b",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T19:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acc454de_a9dfb96a",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26d00b12_51c4d54d",
         "filename": "discovery/mdns/mdns_probe.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c7770cf_9b44cacd",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T19:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26d00b12_51c4d54d",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3f5c2220_0afea52e",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T19:31:39Z",
+      "side": 1,
+      "message": "Doesn\u0027t work because of the variable definitions :)",
+      "parentUuid": "a74a8c97_2e577856",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d3453a7_12cf8d98",
         "filename": "discovery/mdns/mdns_probe_manager.h",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2019-12-10T17:51:45Z",
       "side": 1,
       "message": "My thinking is that the MdnsResponder would own a MdnsProbeManager, instead of implementing part of it.\n\nTwo other approaches here:\n\n1. Change the Callback to a Client that is implemented by MdnsResponder, and move this API there.\n2. Have MdnsResponder push a list of claimed names into this object to check.\n\n#2 may result in some duplicated state, but has the least coupling between the two classes.",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed97bcc6_3f1af8d7",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T19:31:39Z",
+      "side": 1,
+      "message": "I like the idea of having MdnsResponder own an MdnsProbeManager (I will make this change in a follow-up CL - it will require changes to the MdnsResponder\u0027s UnitTests and want to keep this CL small) - and I think it would lead to the cleanest code of those options\nRemoving the TODO\n\nThis approach is similar to what I had intended with my not-very-descriptive TODO\nThe main reason I wanted to define an interface with these 2 (pure virtual) methods in MdnsResponder which MdnsProbeManager implements (maybe interface `OwnershipTracker`, where `MdnsProveManager : public MdnsResponder::OwnershipTracker`), and then provide MdnsProbeManager to MdnsResponder and an instance of that interface (MdnsResponder ctor takes an OwnershipTracker* ptr) was to break the class dependency\nMdnsProbeManager is complex enough that I both like the MdnsResponder treating it as a black-box and I didn\u0027t want to make MdnsResponder\u0027s UnitTests depend on it",
+      "parentUuid": "8d3453a7_12cf8d98",
       "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9e158f87_0b79eb45",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T19:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cfe9ea3_87a93bf0",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22d45aaa_d6d7f95f",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 4
@@ -101,6 +191,24 @@
       "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ac7f6ce_50fddff5",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T19:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22d45aaa_d6d7f95f",
+      "revId": "531a1a1f8130b329b7b78716e60f7cf56d3f8cde",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
