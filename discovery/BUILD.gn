@@ -73,6 +73,20 @@ source_set("dnssd") {
   ]
 }
 
+source_set("public") {
+  defines = []
+
+  sources = [
+    "public/dns_sd_service_publisher.h",
+    "public/dns_sd_service_watcher.h",
+    "public/temp.cc",
+  ]
+
+  public_deps = [
+    ":dnssd",
+  ]
+}
+
 source_set("testing") {
   testonly = true
 
