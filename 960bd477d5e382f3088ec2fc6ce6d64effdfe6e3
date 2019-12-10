@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0cb655eb_e57daf81",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T20:49:38Z",
+      "side": 1,
+      "message": "Done\n\nGood catch - this was a typo",
+      "parentUuid": "49e3abe8_52a5faf1",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "783c8b19_602e4631",
         "filename": "discovery/public/dns_sd_service_publisher.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-12-10T19:52:16Z",
       "side": 1,
       "message": "I assume it\u0027s legal to publish multiple service instances under the service name?\n\nIs service_info assumed to be completely valid - is there a circumstance when it can\u0027t be converted into records?\n\nFor consistency with the listener API, can you call these StartPublishing/StopPublishingAll()?",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a284f27f_644b9122",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T20:49:38Z",
+      "side": 1,
+      "message": "\u003e I assume it\u0027s legal to publish multiple service instances under the service name?\n\nIt is legal - each one must have a different instance id.\n\n\u003e Is service_info assumed to be completely valid - is there a circumstance when it can\u0027t be converted into records?\n\nInteresting thought. Here, we\u0027re assuming service_info will be valid, though that might not be a safe assumption. Do we want to require this, or should we update Start() to return an error and ToRecord() to return an ErrorOr\u003c...\u003e? It\u0027s hard to say if there is a circumstance where record conversion would fail without knowing how T looks, but I expect there are at least a few (ie - invalid instance id per RFC 6763 provided in service_info)\n\nI\u0027m open to either approach - just let me know your preference\n\n\u003e For consistency with the listener API, can you call these StartPublishing/StopPublishingAll()?\n\nNames updated",
+      "parentUuid": "783c8b19_602e4631",
       "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "279bd1c9_c4fedad3",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T20:49:38Z",
+      "side": 1,
+      "message": "Done\n\nGood idea. Updating to a ctor variable",
+      "parentUuid": "885aee40_16aed59b",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5055f736_95cc77f6",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "78d95271_9ae7785b",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T20:49:38Z",
+      "side": 1,
+      "message": "Done, here and other class. Not quite sure about the wording though - PTAL.",
+      "parentUuid": "5055f736_95cc77f6",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d889476b_8a1636e9",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 1
@@ -84,6 +156,24 @@
       "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3023234_0b40a193",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-10T20:49:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d889476b_8a1636e9",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
