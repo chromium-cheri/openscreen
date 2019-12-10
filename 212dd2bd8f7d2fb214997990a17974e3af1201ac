@@ -201,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "90705401_532f3d43",
+        "filename": "discovery/mdns/mdns_publisher_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-10T18:58:06Z",
+      "side": 1,
+      "message": "It compiles for me:\n\n    EXPECT_CALL(sender_, SendMulticast(_))\n        .WillOnce([this, \u0026record](const MdnsMessage\u0026 message) -\u003e Error {\n          return IsAnnounced(record, message);\n        });",
+      "parentUuid": "08aa73c8_a0684bb4",
+      "range": {
+        "startLine": 137,
+        "startChar": 18,
+        "endLine": 137,
+        "endChar": 24
+      },
+      "revId": "212dd2bd8f7d2fb214997990a17974e3af1201ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa9a529e_e9dbbc20",
         "filename": "discovery/mdns/mdns_publisher_unittest.cc",
         "patchSetId": 1
@@ -230,6 +254,24 @@
       "side": 1,
       "message": "Done\n\nThis is a strict mock, so it shouldn\u0027t be an issue. But updated for clarity.",
       "parentUuid": "aa9a529e_e9dbbc20",
+      "revId": "212dd2bd8f7d2fb214997990a17974e3af1201ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80301f63_6c87d19a",
+        "filename": "discovery/mdns/mdns_publisher_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-10T18:58:06Z",
+      "side": 1,
+      "message": "I don\u0027t think StrictMock cares when the mock call happens. For example if line 330 doesn\u0027t call SendMulticast() but line 338 calls it twice, I think this test would still pass if we didn\u0027t use VerifyAndClearExpectations().",
+      "parentUuid": "7a81827c_3dd1529c",
       "revId": "212dd2bd8f7d2fb214997990a17974e3af1201ac",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
