@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49e3abe8_52a5faf1",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T19:52:16Z",
+      "side": 1,
+      "message": "Why does the publisher need to implement the querier callback?  I didn\u0027t see part of the API below implementing this.",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "783c8b19_602e4631",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T19:52:16Z",
+      "side": 1,
+      "message": "I assume it\u0027s legal to publish multiple service instances under the service name?\n\nIs service_info assumed to be completely valid - is there a circumstance when it can\u0027t be converted into records?\n\nFor consistency with the listener API, can you call these StartPublishing/StopPublishingAll()?",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "885aee40_16aed59b",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T19:52:16Z",
+      "side": 1,
+      "message": "Does this need to be virtual?  For a publisher implementation, would it ever return anything but a fixed value?\n\nIt would seem simpler to just pass this into the constructor and have a base class getter.",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5055f736_95cc77f6",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T19:52:16Z",
+      "side": 1,
+      "message": "Please document the template parameter.",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d889476b_8a1636e9",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-10T19:52:16Z",
+      "side": 1,
+      "message": "Similar comment regarding the service name.",
+      "revId": "960bd477d5e382f3088ec2fc6ce6d64effdfe6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
