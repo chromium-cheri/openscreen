@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "05eee7a4_2488de7c",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:56:45Z",
+      "side": 1,
+      "message": "nit: TODO to remove when there are other users of these templates?",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4636fe28_eb91b9a2",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:56:45Z",
+      "side": 1,
+      "message": "IMHO it doesn\u0027t seem like this class provides much value.  Is it primarily moving DnsSdPublisher into public/?  Or maybe the impl is more than the comment lets on...",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f6c6dec_d670ceeb",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -49,6 +83,23 @@
     },
     {
       "key": {
+        "uuid": "e88cc323_2ae00bab",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:56:45Z",
+      "side": 1,
+      "message": "nit: sometimes called ForceRefresh.",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0885a5a_1c1ab10f",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -66,6 +117,47 @@
         "endLine": 73,
         "endChar": 16
       },
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "888eb732_d94bf76c",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:56:45Z",
+      "side": 1,
+      "message": "const-refs seem better as long as it\u0027s reasonable.  In particular, whether this class internally stores T or DnsSdInstanceRecord (and then calls FromRecord here) seems to be what matters.",
+      "parentUuid": "d0885a5a_1c1ab10f",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 16
+      },
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a477ede_e878fd11",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:56:45Z",
+      "side": 1,
+      "message": "CRTP seems more appropriate for these.",
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
