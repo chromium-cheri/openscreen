@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb1a16a6_92ab7bf6",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:12:35Z",
+      "side": 1,
+      "message": "This doesn\u0027t depend on util... future code leak?",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3171bfd5_7d421505",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:12:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure what this means.  When does a receiver \"need\" to be connected?",
+      "range": {
+        "startLine": 18,
+        "startChar": 30,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2aafd06_392ee7b1",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:12:35Z",
+      "side": 1,
+      "message": "Can these just be flags?",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b20a50b_5fa75281",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-11T22:12:35Z",
+      "side": 1,
+      "message": "IMHO just IPEndpoint with 0 port or even all 0s would be fine for empty (we have an operator bool() for IPAddress but just never made one for IPEndpoint).",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
