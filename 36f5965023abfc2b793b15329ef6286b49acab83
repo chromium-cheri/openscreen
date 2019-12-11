@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afbddac4_825c77f3",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-11T20:55:03Z",
+      "side": 1,
+      "message": "Why FAIL() over OSP_UNIMPLEMENTED?",
+      "revId": "36f5965023abfc2b793b15329ef6286b49acab83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa9eca8e_ed870a8b",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-11T20:55:03Z",
+      "side": 1,
+      "message": "Nit: phrasing is weird (if, then, or ?). I\u0027d prefer something like:\n\nIf either this is not true, no changes have occurred, or on failure\nconditions defined by the embedder, an error will be returned.",
+      "revId": "36f5965023abfc2b793b15329ef6286b49acab83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "436d33c4_0628b10a",
+        "filename": "discovery/mdns/mdns_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-11T20:55:03Z",
+      "side": 1,
+      "message": "What does hard refresh queries do? Just delete the list of queries? I\u0027m wondering if the Querier should be HardRefresh, and here it should be ClearQueries or similar.",
+      "revId": "36f5965023abfc2b793b15329ef6286b49acab83",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
