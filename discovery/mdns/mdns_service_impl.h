@@ -22,7 +22,12 @@ class MdnsServiceImpl : public MdnsService {
                  DnsClass dns_class,
                  MdnsRecordChangedCallback* callback) override;
 
+  void HardRefreshQueries(const DomainName& name) override;
+
   void RegisterRecord(const MdnsRecord& record) override;
+
+  void UpdateRegisteredRecord(const MdnsRecord& old_record,
+                              const MdnsRecord& new_record) override;
 
   void DeregisterRecord(const MdnsRecord& record) override;
 };
