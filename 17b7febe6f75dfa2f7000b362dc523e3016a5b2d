@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a0e4c28_29e4c960",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-11T19:43:00Z",
+      "side": 1,
+      "message": "In either case, if we queue this call on the TaskRunner, rather that immediately calling the callback, we might be able to combine multiple callbacks and improve perf\n\nie: if we have already pushed this to the task runner but have not yet had the callback called, don\u0027t push the callback to the task runner again. Or, if we push callbacks Callback1, Callback2, Callback3, when we run callback1 it could invalidate 2 and 3 so that they never actually run.",
+      "parentUuid": "0f6c6dec_d670ceeb",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 79
+      },
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0885a5a_1c1ab10f",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
