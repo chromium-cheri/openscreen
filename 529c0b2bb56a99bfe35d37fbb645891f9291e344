@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "65450b03_6e6c4a66",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a890f5b_c276a47e",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac4668c1_f5ad992e",
         "filename": "cast/common/certificate/test_helpers.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "cdc53681_197eba1e",
+        "filename": "cast/common/certificate/test_helpers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac4668c1_f5ad992e",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bd0aef9_95712f95",
         "filename": "cast/common/certificate/types.cc",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2019-12-09T19:47:27Z",
       "side": 1,
       "message": "Drive-by: is there a specific reason to use the libc methods here instead of std::chrono::system_clock?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ed1872_88aff374",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "1. system_clock isn\u0027t _required_ to use the Unix Epoch as its basis until c++20.\n2. Which methods would actually be the equivalent here?  to_time_t and from_time_t don\u0027t do these operations AFAICT (i.e. where is month, day, year?).",
+      "parentUuid": "7bd0aef9_95712f95",
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "5a70ebfd_578c3c84",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "In release builds, the only caller of this is currently using our code for now(), so this isn\u0027t unverified input from the network for example.  Would you prefer these be full CHECKs and to add more?",
+      "parentUuid": "258a3edd_380f4be7",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f02c290_7b80e73a",
         "filename": "cast/common/certificate/types.cc",
         "patchSetId": 3
@@ -81,6 +153,24 @@
       "writtenOn": "2019-12-09T19:47:27Z",
       "side": 1,
       "message": "It appears that 64-bit time_t is not guaranteed in 32-bit Linux.  Sigh.\n\nIt would be a good idea to assert that time_t is a minimum of 32 bits.\n\nMaybe we should assert that time_t is 64 bits by default, and force developers to opt in to 32-bit time_t through a build flag with a big warning message.   Not sure.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "664cafb5_fcb359d7",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Added static_assert for at least 32-bit time_t.\n\nWell, if by opt-in you mean something like: static_assert(sizeof(time_t) \u003d\u003d 8 || BIG_SCARY_FLAG_IS_ON, \"...\").  We can\u0027t otherwise change what time_t means to libc (and rewriting this for 64-bit was rejected in earlier CLs).",
+      "parentUuid": "3f02c290_7b80e73a",
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "3d6e215b_adc7564f",
+        "filename": "cast/common/certificate/types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2ef3a69_1702cb5f",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb283435_0b094dbf",
         "filename": "cast/common/channel/proto/cast_channel.proto",
         "patchSetId": 3
@@ -115,6 +223,24 @@
       "writtenOn": "2019-12-09T19:47:27Z",
       "side": 1,
       "message": "Does this fix need to be rolled downstream?  (Presumably not, since Chrome shouldn\u0027t compile if it actually referenced this field.)",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a63e31c_985bb85c",
+        "filename": "cast/common/channel/proto/cast_channel.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the question but it _will_ fail to compile in Chromium when this is rolled because it _does_ reference it.",
+      "parentUuid": "fb283435_0b094dbf",
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "bb1ebef4_7f0f6e61",
+        "filename": "cast/receiver/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "cast/common/channel is also used.  I wasn\u0027t thinking internal links to common needed to go through \u0027public\u0027.  Should cast/common get rearranged to make that possible?",
+      "parentUuid": "4a22883d_cd7cc872",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efc94e3c_2abbf44d",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
         "patchSetId": 3
@@ -152,6 +296,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99456619_4553a896",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Moved |virtual_conn| down.",
+      "parentUuid": "efc94e3c_2abbf44d",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "997bde62_1a360182",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Added TODO for considering these later with an error reporting system.",
+      "parentUuid": "2df0ffeb_5759153e",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "573341d9_e5ca00e2",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
         "patchSetId": 3
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "afe2d9d0_8792d4c5",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "My best guess is based on this comment: \"Legacy senders will be seen as requesting RSASSA_PKCS1_V15, and new receivers will behave appropriately.\"  It\u0027s possible there was no UNSPECIFIED value and PKCS1v15 was 0 (and default), and maybe UNSPECIFIED was added for clarity (though there\u0027s no logging related to that condition).",
+      "parentUuid": "573341d9_e5ca00e2",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b4e4f29_c7b6a654",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
         "patchSetId": 3
@@ -200,6 +398,24 @@
       "writtenOn": "2019-12-10T00:44:02Z",
       "side": 1,
       "message": "SHA1 has been deprecated for a long time...",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac2788ed_d9c287aa",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Deprecated but not disabled AFAICT [1].  Do we want to draw the line now?  There\u0027s a very small but non-0 number of SHA1 uses weekly.\n\n[1] https://osscs.corp.google.com/chromium/chromium/src/+/master:components/cast_channel/cast_auth_util.cc;drc\u003d2594b710bd474d07a1fafb9029624275582502ab;l\u003d62?q\u003df:components%2Fcast_channel%20sha1\u0026ss\u003dchromium",
+      "parentUuid": "2b4e4f29_c7b6a654",
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "a74a6b0b_00166770",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Noted with TODO.",
+      "parentUuid": "0986421c_7ef1bd4e",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83ad8632_08b24a26",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
         "patchSetId": 3
@@ -237,6 +471,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "266adc6b_bde98f12",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done but not const.",
+      "parentUuid": "83ad8632_08b24a26",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "cc13c160_53027bcd",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Understood, but I believe Yuri has a large renaming patch pending.  My plan was to leave this as-is until that lands to prevent lots of adding/removing namespace specifiers.",
+      "parentUuid": "f0237839_d68471af",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b65b3d13_314e7489",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
         "patchSetId": 3
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "905a3e33_47c8368d",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b65b3d13_314e7489",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec253a15_3d447b3d",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
         "patchSetId": 3
@@ -285,6 +573,24 @@
       "writtenOn": "2019-12-10T00:44:02Z",
       "side": 1,
       "message": "If this is a hardware private key, it is generally not accessible to user space code.",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30cb9b5b_52f56d17",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Does that mean we should instead have a platform API for init/encrypt when intending to use this key?  Is that something you\u0027d prefer is handled now or leave a bug/TODO?",
+      "parentUuid": "ec253a15_3d447b3d",
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -308,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "72147860_937bd07d",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c4bbf73_b2d38c44",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f14a498d_43b1c530",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
         "patchSetId": 3
@@ -322,6 +646,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0e5e7f2_654addf0",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f14a498d_43b1c530",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -342,6 +684,24 @@
     },
     {
       "key": {
+        "uuid": "74ddd315_1f274d7d",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9936d2b9_6cba3860",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f7de32b_dcaadb01",
         "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
         "patchSetId": 3
@@ -356,6 +716,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5d47044_12166443",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "No, |challenge_reply| is generated by DeviceAuthNamespaceHandler in _response_ to the file data (|auth_challenge|).",
+      "parentUuid": "5f7de32b_dcaadb01",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -376,6 +754,24 @@
     },
     {
       "key": {
+        "uuid": "11b88837_b55f63b3",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Yes, this is checking against a precomputed answer from the integration test.  This is because both generating the challenge _and_ verifying the reply are under //cast/sender, which we aren\u0027t allowed to access here because of DEPS.  The integration test _does_ cover the full process though.",
+      "parentUuid": "ca906493_9145e64b",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b7fdf06_e2e5fcdd",
         "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
         "patchSetId": 3
@@ -390,6 +786,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d5ee2a_3da68792",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b7fdf06_e2e5fcdd",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -410,6 +824,24 @@
     },
     {
       "key": {
+        "uuid": "4ec21ec7_15eef061",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d638893_c248ac88",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8a07d9f_49109c31",
         "filename": "cast/receiver/channel/device_auth_test_helpers.h",
         "patchSetId": 3
@@ -424,6 +856,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "562c5783_c3f5db95",
+        "filename": "cast/receiver/channel/device_auth_test_helpers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done.  Certificate helpers are under common though and I will move those in a separate CL (added TODO).",
+      "parentUuid": "d8a07d9f_49109c31",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -444,6 +894,24 @@
     },
     {
       "key": {
+        "uuid": "cac202aa_cdc5dba8",
+        "filename": "cast/receiver/channel/receiver_socket_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Yes, added to comment.",
+      "parentUuid": "f6488185_17097ceb",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c321b94_9d13415e",
         "filename": "cast/sender/channel/cast_auth_util.cc",
         "patchSetId": 3
@@ -461,6 +929,24 @@
     },
     {
       "key": {
+        "uuid": "04e67b19_615d28b2",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c321b94_9d13415e",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0096c048_9dba269d",
         "filename": "cast/test/device_auth_test.cc",
         "patchSetId": 3
@@ -472,6 +958,24 @@
       "writtenOn": "2019-12-09T19:47:27Z",
       "side": 1,
       "message": "Is this ever nonzero?",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c0cc861_2796dd60",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "No, this would be manually set to regenerate the .pb files if a functional change were made that caused the unit tests to fail despite the system as a whole being consistent.  I can remove this but I thought it\u0027d be valuable to avoid rewriting this if it came up.",
+      "parentUuid": "0096c048_9dba269d",
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -495,6 +999,24 @@
     },
     {
       "key": {
+        "uuid": "646b8919_747a2373",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Ack but this will require regenerating the certs with small serial numbers and keeping the intermediate\u0027s key for signing.  I don\u0027t want to block other comment responses on this, but I\u0027m working on it.",
+      "parentUuid": "16100b6f_77a6332b",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccf5c02f_639d67a3",
         "filename": "test/data/cast/receiver/channel/device_chain.pem",
         "patchSetId": 3
@@ -512,6 +1034,24 @@
     },
     {
       "key": {
+        "uuid": "a457a2e9_9b3ae179",
+        "filename": "test/data/cast/receiver/channel/device_chain.pem",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Yes.  We also need the device key for authentication testing (which Chromium doesn\u0027t do, since it has no receiver auth code).  None of the (valid) cases in Chromium have a corresponding key.",
+      "parentUuid": "ccf5c02f_639d67a3",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92097a0e_de6251f6",
         "filename": "test/data/cast/receiver/channel/device_chain.pem",
         "patchSetId": 3
@@ -526,6 +1066,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "930e517b_c1448363",
+        "filename": "test/data/cast/receiver/channel/device_chain.pem",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:18:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92097a0e_de6251f6",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
