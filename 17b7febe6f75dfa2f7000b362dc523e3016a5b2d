@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "3bdb5dae_4c52036b",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-12T02:33:10Z",
+      "side": 1,
+      "message": "I have a slight preference towards including this class. We can centralize validations to the provided SndSdService instance and service name, and only require the cast/osp folders to understand a conversion function (DnsSdService has a factory method that only requires a task runner). It\u0027s not a strong preference though\n\n@mfoltz, what are your thoughts?",
+      "parentUuid": "4636fe28_eb91b9a2",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f6c6dec_d670ceeb",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -100,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "07cebe17_71b23e40",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-12T02:33:10Z",
+      "side": 1,
+      "message": "Open to either name. @mfoltz, What are your thoughts - \u0027HardRefresh\u0027 was your suggestion",
+      "parentUuid": "e88cc323_2ae00bab",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0885a5a_1c1ab10f",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -158,6 +194,24 @@
       "writtenOn": "2019-12-11T22:56:45Z",
       "side": 1,
       "message": "CRTP seems more appropriate for these.",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ad08668_07ffd771",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-12T02:33:10Z",
+      "side": 1,
+      "message": "Is your concern the cost of the virtual function call?",
+      "parentUuid": "1a477ede_e878fd11",
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
