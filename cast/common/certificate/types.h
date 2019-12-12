@@ -7,6 +7,8 @@
 
 #include <stdint.h>
 
+#include <chrono>
+
 namespace cast {
 namespace certificate {
 
@@ -27,6 +29,7 @@ struct DateTime {
 bool operator<(const DateTime& a, const DateTime& b);
 bool operator>(const DateTime& a, const DateTime& b);
 bool DateTimeFromSeconds(uint64_t seconds, DateTime* time);
+std::chrono::seconds DateTimeToSeconds(const DateTime& time);
 
 }  // namespace certificate
 }  // namespace cast
