@@ -215,6 +215,24 @@
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d048b8c_f3288252",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-12T03:13:53Z",
+      "side": 1,
+      "message": "That and having a vtable/vptr at all (since Publisher only has the one virtual function).  There\u0027s no reason to mock this for testing and we won\u0027t otherwise have multiple implementations of e.g. DnsSdServiceWatcher\u003ccast::ServiceInfo\u003e.  This is a drop in the bucket though, just thought I\u0027d mention it.",
+      "parentUuid": "3ad08668_07ffd771",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
