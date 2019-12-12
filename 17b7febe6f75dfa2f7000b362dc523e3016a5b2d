@@ -233,6 +233,24 @@
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79891fe6_44b3573a",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-12T18:00:11Z",
+      "side": 1,
+      "message": "Actually there will be multiple implementations - we will have one for OSP and one for CastV2\n\nIt seems the options for this conversions are:\n1) virtual functions\n2) conversion std::function\u003cT(const DnsSdInstanceRecord\u0026)\u003e passed into the ctor\n3) operator on T with build failure if its not there\n4) CRTP with build failure if its not there\n\nIMHO 1 and 2 are the most readable, with 1 leading to cleaner code, which is why I went with that route (even if there is a minor perf hit). Happy to change it if needed though",
+      "parentUuid": "9d048b8c_f3288252",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
