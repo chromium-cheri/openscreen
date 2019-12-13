@@ -298,6 +298,29 @@ size_t TxtRecordRdata::MaxWireSize() const {
   return max_wire_size_;
 }
 
+NsecRecordRdata::NsecRecordRdata() = default;
+
+NsecRecordRdata::NsecRecordRdata(const NsecRecordRdata& other) = default;
+
+NsecRecordRdata::NsecRecordRdata(NsecRecordRdata&& other) = default;
+
+NsecRecordRdata& NsecRecordRdata::operator=(const NsecRecordRdata& rhs) =
+    default;
+
+NsecRecordRdata& NsecRecordRdata::operator=(NsecRecordRdata&& rhs) = default;
+
+bool NsecRecordRdata::operator==(const NsecRecordRdata& rhs) const {
+  return types_ == rhs.types_ && next_domain_name_ == rhs.next_domain_name_;
+}
+
+bool NsecRecordRdata::operator!=(const NsecRecordRdata& rhs) const {
+  return !(*this == rhs);
+}
+
+size_t NsecRecordRdata::MaxWireSize() const {
+  return max_wire_size_;
+}
+
 MdnsRecord::MdnsRecord() = default;
 
 MdnsRecord::MdnsRecord(DomainName name,
@@ -324,6 +347,8 @@ MdnsRecord::MdnsRecord(DomainName name,
               absl::holds_alternative<PtrRecordRdata>(rdata_)) ||
              (dns_type == DnsType::kTXT &&
               absl::holds_alternative<TxtRecordRdata>(rdata_)) ||
+             (dns_type == DnsType::kNSEC &&
+              absl::holds_alternative<NsecRecordRdata>(rdata_)) ||
              absl::holds_alternative<RawRecordRdata>(rdata_));
 }
 
