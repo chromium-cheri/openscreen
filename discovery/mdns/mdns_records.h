@@ -5,6 +5,7 @@
 #ifndef DISCOVERY_MDNS_MDNS_RECORDS_H_
 #define DISCOVERY_MDNS_MDNS_RECORDS_H_
 
+#include <algorithm>
 #include <chrono>  // NOLINT
 #include <functional>
 #include <initializer_list>
@@ -260,12 +261,75 @@ class TxtRecordRdata {
   std::vector<std::string> texts_;
 };
 
+// NSEC record format (https://tools.ietf.org/html/rfc4034#section-4).
+// In mDNS, this record type is used for representing negative responses to
+// queries.
+//
+// next_domain_name: The next domain to process. In mDNS, this value is expected
+// to match the record-level domain name in a negative response.
+class NsecRecordRdata {
+ public:
+  NsecRecordRdata();
+  template <typename... Types>
+  NsecRecordRdata(DomainName next_domain_name, Types... types)
+      : types_{types...}, next_domain_name_(std::move(next_domain_name)) {
+    // Sort the types_ array for easier comparison later.
+    std::sort(types_.begin(), types_.end());
+
+    max_wire_size_ = next_domain_name_.MaxWireSize();
+
+    // Calculate the bit map size as described in RFC 4034 Section 4.1.2.
+    int current_block = -1;
+    size_t current_bitfield_byte = 0;
+    for (DnsType type : types_) {
+      const uint16_t type_as_int = static_cast<uint16_t>(type);
+      const int type_block = type_as_int >> 8;
+      const size_t type_bitfield_byte = (type_as_int & 0xFF) / 8;
+      if (type_block > current_block) {
+        current_block = type_block;
+        current_bitfield_byte = 0;
+        max_wire_size_ += 3;  // 1 from window, 1 from size, 1 from bitfield.
+      }
+      if (type_bitfield_byte > current_bitfield_byte) {
+        max_wire_size_ += type_bitfield_byte - current_bitfield_byte;
+        current_bitfield_byte = type_bitfield_byte;
+      }
+    }
+  }
+  NsecRecordRdata(const NsecRecordRdata& other);
+  NsecRecordRdata(NsecRecordRdata&& other);
+
+  NsecRecordRdata& operator=(const NsecRecordRdata& rhs);
+  NsecRecordRdata& operator=(NsecRecordRdata&& rhs);
+  bool operator==(const NsecRecordRdata& rhs) const;
+  bool operator!=(const NsecRecordRdata& rhs) const;
+
+  size_t MaxWireSize() const;
+
+  const DomainName& next_domain_name() const { return next_domain_name_; }
+  const std::vector<DnsType>& types() const { return types_; }
+
+  template <typename H>
+  friend H AbslHashValue(H h, const NsecRecordRdata& rdata) {
+    return H::combine(std::move(h), rdata.types_, rdata.next_domain_name_);
+  }
+
+ private:
+  std::vector<DnsType> types_;
+  DomainName next_domain_name_;
+
+  // If no domain or types are provided, then the max wire size is the same as
+  // that of an empty domain.
+  size_t max_wire_size_ = 1;
+};
+
 using Rdata = absl::variant<RawRecordRdata,
                             SrvRecordRdata,
                             ARecordRdata,
                             AAAARecordRdata,
                             PtrRecordRdata,
-                            TxtRecordRdata>;
+                            TxtRecordRdata,
+                            NsecRecordRdata>;
 
 // Resource record top level format (http://www.ietf.org/rfc/rfc1035.txt):
 // name: the name of the node to which this resource record pertains.
