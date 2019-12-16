@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df6f97d2_6c68f423",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-16T21:57:39Z",
+      "side": 1,
+      "message": "OOC, is there a reason to have this?  It seems like there\u0027s no way to modify members after construction, so is an empty NSEC record ever used for anything?",
+      "revId": "db75e27dd2c08bac95b73cb89530a0643e58d06f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f2ed11_ef490d03",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-16T21:57:39Z",
+      "side": 1,
+      "message": "1. Might be worth testing that each member of |Types| is DnsType (since I don\u0027t think `DnsType...` is a thing), unless `types_{types...}` provides sufficient type checking + error messages.\n2. It looks like you only added construct+write support here.  If we needed to read one there would need to be something like a std::vector/absl::Span constructor, right?  I\u0027m not previously familiar with its use in mDNS but above you say it\u0027s for negative responses.  Wouldn\u0027t we also care about reading this from other responders?",
+      "revId": "db75e27dd2c08bac95b73cb89530a0643e58d06f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
