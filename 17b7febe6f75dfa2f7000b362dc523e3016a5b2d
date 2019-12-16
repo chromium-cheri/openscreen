@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c1bd6e07_94693c8e",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:27:14Z",
+      "side": 1,
+      "message": "Remove",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "05eee7a4_2488de7c",
         "filename": "discovery/BUILD.gn",
         "patchSetId": 2
@@ -13,6 +30,23 @@
       "writtenOn": "2019-12-11T22:56:45Z",
       "side": 1,
       "message": "nit: TODO to remove when there are other users of these templates?",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4140ff66_afff7cfd",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:27:14Z",
+      "side": 1,
+      "message": "s/discovery/service publication/",
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -48,6 +82,24 @@
       "side": 1,
       "message": "I have a slight preference towards including this class. We can centralize validations to the provided SndSdService instance and service name, and only require the cast/osp folders to understand a conversion function (DnsSdService has a factory method that only requires a task runner). It\u0027s not a strong preference though\n\n@mfoltz, what are your thoughts?",
       "parentUuid": "4636fe28_eb91b9a2",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b7478c5_5d8c425b",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:27:14Z",
+      "side": 1,
+      "message": "It looks like the main value of this class is converting T into the data necessary to populate a DnsSdInstanceRecord, and that code should live in cast/ or osp/.\n\nOnce you do that it\u0027s a straightforward call into DnsSdPublisher::Register.\n\nDoes that sound right rwkeane@?  Is there anything else this class needs to do?",
+      "parentUuid": "3bdb5dae_4c52036b",
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -101,6 +153,30 @@
     },
     {
       "key": {
+        "uuid": "cafacfd5_752468cf",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:27:14Z",
+      "side": 1,
+      "message": "This is a simple API where the calling pattern and ownership of the data is clear.\n\nThe main downside is that the caller has to check for updated services and manually update its cached state.  But it gives maximum flexibility for the caller on how to do that.\n\nIf we want to help the caller track services added/updated/removed we can refactor to a fuller client API in the future.\n\nI don\u0027t see an advantage to requiring the caller to call back on the service watcher.  If that happens in a future task, the service list could change from underneath the caller.\n\nCan you pass the services vector by const ref so we\u0027re not making a copy each time?  If the caller is just copying services out into its own data, then that should be fine.  And multiple callbacks will be efficient.",
+      "parentUuid": "5a0e4c28_29e4c960",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 79
+      },
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e88cc323_2ae00bab",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -130,6 +206,24 @@
       "side": 1,
       "message": "Open to either name. @mfoltz, What are your thoughts - \u0027HardRefresh\u0027 was your suggestion",
       "parentUuid": "e88cc323_2ae00bab",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d96e3a7a_d07a7416",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:27:14Z",
+      "side": 1,
+      "message": "ForceRefresh seems common in Chrome and SGTM.",
+      "parentUuid": "07cebe17_71b23e40",
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -171,6 +265,30 @@
       "side": 1,
       "message": "const-refs seem better as long as it\u0027s reasonable.  In particular, whether this class internally stores T or DnsSdInstanceRecord (and then calls FromRecord here) seems to be what matters.",
       "parentUuid": "d0885a5a_1c1ab10f",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 16
+      },
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22ae14ff_445be971",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:27:14Z",
+      "side": 1,
+      "message": "Agree with btolsch@, see what I wrote above about the callback API.",
+      "parentUuid": "888eb732_d94bf76c",
       "range": {
         "startLine": 73,
         "startChar": 2,
@@ -248,6 +366,24 @@
       "side": 1,
       "message": "Actually there will be multiple implementations - we will have one for OSP and one for CastV2\n\nIt seems the options for this conversions are:\n1) virtual functions\n2) conversion std::function\u003cT(const DnsSdInstanceRecord\u0026)\u003e passed into the ctor\n3) operator on T with build failure if its not there\n4) CRTP with build failure if its not there\n\nIMHO 1 and 2 are the most readable, with 1 leading to cleaner code, which is why I went with that route (even if there is a minor perf hit). Happy to change it if needed though",
       "parentUuid": "9d048b8c_f3288252",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8556818_a589c284",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:27:14Z",
+      "side": 1,
+      "message": "This is related to the conversation about whether the DnsSdServicePublisher/DnsSdServiceWatcher are necessary at all. If the only function they provide is the conversion of T, I would encourage going route #2 or #3 which could eliminate the need for these two classes entirely.",
+      "parentUuid": "79891fe6_44b3573a",
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
