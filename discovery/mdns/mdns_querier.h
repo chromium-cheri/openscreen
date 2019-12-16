@@ -75,6 +75,10 @@ class MdnsQuerier {
   void AddQuestion(const MdnsQuestion& question);
   void AddRecord(const MdnsRecord& record);
 
+  std::vector<MdnsRecord::ConstRef> GetKnownAnswers(const DomainName& name,
+                                                    DnsType type,
+                                                    DnsClass clazz);
+
   MdnsSender* const sender_;
   MdnsReceiver* const receiver_;
   TaskRunner* const task_runner_;
