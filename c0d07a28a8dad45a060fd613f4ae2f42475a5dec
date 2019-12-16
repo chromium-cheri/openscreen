@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac693acb_d6174b44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-16T18:16:03Z",
+      "side": 1,
+      "message": "Looks like Gerrit doesn\u0027t auto-link the bug unless it\u0027s capitalized. Heh.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed6c01bd_d40625d2",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-16T18:16:03Z",
+      "side": 1,
+      "message": "Nit: !records_to_send_",
+      "range": {
+        "startLine": 360,
+        "startChar": 6,
+        "endLine": 360,
+        "endChar": 33
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf0616e4_d16431f4",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-16T18:16:03Z",
+      "side": 1,
+      "message": "Would there ever be two records that are identical except for the TTLs, and neither is goodbye? How do we handle such cases?",
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9907f338_21cf4733",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-16T18:16:03Z",
+      "side": 1,
+      "message": "Does it make sense to send a goodbye record without having sent an announcement?",
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d1a6eb_0db510af",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-16T18:16:03Z",
+      "side": 1,
+      "message": "Nit: Using \u003d\u003d and flipping the if and else clauses around would be a bit more readable.",
+      "range": {
+        "startLine": 378,
+        "startChar": 9,
+        "endLine": 378,
+        "endChar": 11
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0161f366_c180fd79",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-16T18:16:03Z",
+      "side": 1,
+      "message": "Nit: This can be (MdnsRecord\u0026  record : *records_to_send_)",
+      "range": {
+        "startLine": 398,
+        "startChar": 7,
+        "endLine": 399,
+        "endChar": 11
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86635d9c_25a29ff9",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-16T18:16:03Z",
+      "side": 1,
+      "message": "Seems like we\u0027re requiring all the publisher instances to be run on the same thread by having a shared queue. It\u0027d be good to mention that in the comment here",
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94fcafd9_fa149b27",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2019-12-16T18:16:03Z",
+      "side": 1,
+      "message": "Nit: lowercase announcement?",
+      "range": {
+        "startLine": 101,
+        "startChar": 47,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
