@@ -1,8 +1,92 @@
-# Copyright 2019 The Chromium Authors. All rights reserved.
+# Copyright (c) 2013 The Chromium Authors. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-source_set("zlib") {
+if (current_cpu == "arm" || current_cpu == "arm64") {
+  import("//build/config/arm.gni")
+}
+
+config("zlib_config") {
+  include_dirs = [ "." ]
+}
+
+config("zlib_internal_config") {
+  defines = [ "ZLIB_IMPLEMENTATION" ]
+}
+
+use_arm_neon_optimizations = false
+if (current_cpu == "arm" || current_cpu == "arm64") {
+  if (arm_use_neon) {
+    use_arm_neon_optimizations = true
+  }
+}
+
+use_x86_x64_optimizations = current_cpu == "x86" || current_cpu == "x64"
+
+config("zlib_adler32_simd_config") {
+  if (use_x86_x64_optimizations) {
+    defines = [ "ADLER32_SIMD_SSSE3" ]
+  }
+
+  if (use_arm_neon_optimizations) {
+    defines = [ "ADLER32_SIMD_NEON" ]
+  }
+}
+
+if (use_arm_neon_optimizations) {
+  config("zlib_arm_crc32_config") {
+    defines = [ "CRC32_ARMV8_CRC32" ]
+    if (is_linux || is_chromeos) {
+      defines += [ "ARMV8_OS_LINUX" ]
+    } else if (is_fuchsia) {
+      defines += [ "ARMV8_OS_FUCHSIA" ]
+    } else {
+      assert(false, "Unsupported ARM OS")
+    }
+  }
+}
+
+config("zlib_inflate_chunk_simd_config") {
+  if (use_x86_x64_optimizations) {
+    defines = [ "INFLATE_CHUNK_SIMD_SSE2" ]
+
+    if (current_cpu == "x64") {
+      defines += [ "INFLATE_CHUNK_READ_64LE" ]
+    }
+  }
+
+  if (use_arm_neon_optimizations) {
+    defines = [ "INFLATE_CHUNK_SIMD_NEON" ]
+    if (current_cpu == "arm64") {
+      defines += [ "INFLATE_CHUNK_READ_64LE" ]
+    }
+  }
+}
+
+config("zlib_crc32_simd_config") {
+  if (use_x86_x64_optimizations) {
+    defines = [ "CRC32_SIMD_SSE42_PCLMUL" ]
+  }
+}
+
+config("zlib_warnings") {
+  cflags = []
+  if (is_clang && use_x86_x64_optimizations) {
+    cflags += [ "-Wno-incompatible-pointer-types" ]
+  }
+
+  if (is_clang) {
+    cflags += [
+      "-Wno-unused-variable",
+      "-Wno-implicit-function-declaration",
+    ]
+  }
+}
+
+static_library("zlib") {
+  # Don't stomp on "libzlib"
+  output_name = "chrome_zlib"
+
   sources = [
     "src/adler32.c",
     "src/compress.c",
@@ -19,37 +103,44 @@ source_set("zlib") {
     "src/inffast.c",
     "src/inffast.h",
     "src/inffixed.h",
-    "src/inflate.c",
     "src/inflate.h",
     "src/inftrees.c",
     "src/inftrees.h",
     "src/trees.c",
     "src/trees.h",
     "src/uncompr.c",
+    "src/zconf.h",
     "src/zlib.h",
     "src/zutil.c",
     "src/zutil.h",
   ]
 
-  include_dirs = [
-    "src",
-    ".",
-  ]
+  defines = []
+  deps = []
 
-  defines = [
-    "HAVE_SYS_TYPES_H",
-    "HAVE_STDINT_H",
-    "HAVE_STDDEF_H",
-    "_LARGEFILE64_SOURCE",
-    "_FILE_OFFSET_BITS=64",
-  ]
-  if (is_mac) {
-    # NOTE: zlib wants to use fseeko() if available, but on Mac it isn't
-    # available.
-    defines += [ "NO_FSEEKO" ]
+  if (use_x86_x64_optimizations || use_arm_neon_optimizations) {
+    deps += [
+      ":zlib_adler32_simd",
+      ":zlib_inflate_chunk_simd",
+    ]
+
+    if (use_x86_x64_optimizations) {
+      sources += [ "x86.c" ]
+      deps += [ ":zlib_crc32_simd" ]
+    } else if (use_arm_neon_optimizations) {
+      deps += [ ":zlib_arm_crc32" ]
+    }
+  } else {
+    sources += [ "src/inflate.c" ]
   }
-}
 
-config("zlib_config") {
-  include_dirs = [ "src" ]
+  include_dirs = [ "." ]
+  configs += [
+    ":zlib_internal_config",
+    ":zlib_warnings",
+  ]
+
+  public_configs = [ ":zlib_config" ]
+
+  allow_circular_includes_from = deps
 }
