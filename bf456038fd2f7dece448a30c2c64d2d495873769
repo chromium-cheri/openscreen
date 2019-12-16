@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "2bd4f90b_c94fdbf4",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:40:18Z",
+      "side": 1,
+      "message": "This might be copied from other documentation?\n\nMy interpretation it that it means the receiver is running a \"background\" app like Backdrop, and doesn\u0027t have a user initiated cast session.   So, its RECEIVER_STATUS won\u0027t have anything of interest for the client.",
+      "parentUuid": "3171bfd5_7d421505",
+      "range": {
+        "startLine": 18,
+        "startChar": 30,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2aafd06_392ee7b1",
         "filename": "cast/common/discovery/service_info.h",
         "patchSetId": 1
@@ -59,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "372bd059_ba902a15",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:40:18Z",
+      "side": 1,
+      "message": "It would save space to store this as an integer and define bitmask enum values.",
+      "parentUuid": "e2aafd06_392ee7b1",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b20a50b_5fa75281",
         "filename": "cast/common/discovery/service_info.h",
         "patchSetId": 1
@@ -70,6 +112,58 @@
       "writtenOn": "2019-12-11T22:12:35Z",
       "side": 1,
       "message": "IMHO just IPEndpoint with 0 port or even all 0s would be fine for empty (we have an operator bool() for IPAddress but just never made one for IPEndpoint).",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fc2c9a6_a34f337a",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:40:18Z",
+      "side": 1,
+      "message": "SGTM if we add the aforementioned operator to IpEndpoint and have IpEndpoint default-construct to the zero address/port.\n\nWe could eliminate other usages of unique_ptr/optional\u003cIpEndpoint\u003e if we agree that the zero endpoint represents null.",
+      "parentUuid": "5b20a50b_5fa75281",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91f67d3e_bf1f2acf",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:40:18Z",
+      "side": 1,
+      "message": "Do you have any reference for the origin/syntax of the UUID?",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fddc00c_6df4792c",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-16T19:40:18Z",
+      "side": 1,
+      "message": "protocol_version",
       "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
