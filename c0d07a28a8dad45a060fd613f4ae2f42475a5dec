@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "046cc997_c34b353e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-16T23:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac693acb_d6174b44",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed6c01bd_d40625d2",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8855861c_b58dcc23",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-16T23:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed6c01bd_d40625d2",
+      "range": {
+        "startLine": 360,
+        "startChar": 6,
+        "endLine": 360,
+        "endChar": 33
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf0616e4_d16431f4",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 1
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "07d91eb2_547e1d0f",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-16T23:06:15Z",
+      "side": 1,
+      "message": "Split this if into a few cases, both to make our expectations clearer and to add some log statements for the unexpected cases\n\nIn practice, I can\u0027t think of a reason this would come up with our use case - We don\u0027t support updating TTL in the higher layers because the TTL values are called out by the spec, so the only 2 options should either be the spec-called-out-value or 0 (goodbye)",
+      "parentUuid": "bf0616e4_d16431f4",
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9907f338_21cf4733",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 1
@@ -79,6 +145,24 @@
       "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "112d225a_d9130c26",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-16T23:06:15Z",
+      "side": 1,
+      "message": "It wouldn\u0027t hurt anything to do that - it would just mean expiring a record immediately upon creation, which should have no negative side effects\n\nIt\u0027s quite possible that devices would receive this even if we weren\u0027t using message batching (think if a device gets disconnected and reconnects right as a goodbye record is being sent). So its a case that receivers must handle already",
+      "parentUuid": "9907f338_21cf4733",
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "4aaa66bf_1d9325fe",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-16T23:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1d1a6eb_0db510af",
+      "range": {
+        "startLine": 378,
+        "startChar": 9,
+        "endLine": 378,
+        "endChar": 11
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0161f366_c180fd79",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 1
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "85ec3498_c7149de4",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-16T23:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0161f366_c180fd79",
+      "range": {
+        "startLine": 398,
+        "startChar": 7,
+        "endLine": 399,
+        "endChar": 11
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86635d9c_25a29ff9",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 1
@@ -142,6 +274,24 @@
       "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484a5fbe_ae5d4192",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-16T23:06:15Z",
+      "side": 1,
+      "message": "Adding comment\n\nAll of the methods do actually check that they are being run on the task runner, so in our single-task-runner world, this should be enough to guarantee that",
+      "parentUuid": "86635d9c_25a29ff9",
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -165,6 +315,30 @@
       "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe34d50f_c84b2644",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-16T23:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94fcafd9_fa149b27",
+      "range": {
+        "startLine": 101,
+        "startChar": 47,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "c0d07a28a8dad45a060fd613f4ae2f42475a5dec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
