@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b04c069_43f027a7",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T17:50:59Z",
+      "side": 1,
+      "message": "this is a byte? why not uint8_t then?",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dbfadca_d32130e9",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T17:50:59Z",
+      "side": 1,
+      "message": "Do you want divided by 8, or \u003e\u003e 8? 0xFF / 8 \u003d 31.9 right?",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc0cea7e_b73b91ef",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T17:50:59Z",
+      "side": 1,
+      "message": "Are you allowed to provide only one DnsType parameter with this ctor?",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e97fc5bf_02b4ed0c",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T17:50:59Z",
+      "side": 1,
+      "message": "NIT: is this for interfacing with the STL? Otherwise we prefer int for this I think.",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a8d43b4_d30e45ba",
+        "filename": "discovery/mdns/mdns_records_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T17:50:59Z",
+      "side": 1,
+      "message": "NIT: some comments might be good here. You are checking that DnsType order doesn\u0027t matter, right? I would also check identity as nit.\n\n// Ensure that DnsType order doesn\u0027t matter:\nEXPECT_EQ(rdata1, rdata1);\nEXPECT_EQ(rdata1, rdata2);\nEXPECT_EQ(rdata2, rdata1);",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
