@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2371e0be_5daf1973",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T08:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1bd6e07_94693c8e",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05eee7a4_2488de7c",
         "filename": "discovery/BUILD.gn",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "34f6687c_407624cf",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T08:20:03Z",
+      "side": 1,
+      "message": "Adding the TODO in the .cc file itself",
+      "parentUuid": "05eee7a4_2488de7c",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4140ff66_afff7cfd",
         "filename": "discovery/public/dns_sd_service_publisher.h",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d337e436_5c55e3d5",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T08:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4140ff66_afff7cfd",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -100,6 +154,24 @@
       "side": 1,
       "message": "It looks like the main value of this class is converting T into the data necessary to populate a DnsSdInstanceRecord, and that code should live in cast/ or osp/.\n\nOnce you do that it\u0027s a straightforward call into DnsSdPublisher::Register.\n\nDoes that sound right rwkeane@?  Is there anything else this class needs to do?",
       "parentUuid": "3bdb5dae_4c52036b",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4ffc50e_e9201fdc",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T08:20:03Z",
+      "side": 1,
+      "message": "Yeah, there isn\u0027t much that this class needs to do - and having an outside class call DnsSdSer ice::Publisher::Register isn\u0027t hard\n\nRemove it?",
+      "parentUuid": "7b7478c5_5d8c425b",
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -177,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "54efd237_c4c4e0df",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T08:20:03Z",
+      "side": 1,
+      "message": "\u003e This is a simple API where the calling pattern and ownership of the data is clear.\n\nAgree after the explanation\n\n\u003e Can you pass the services vector by const ref so we\u0027re not making a copy each time\n\nI wasn\u0027t planning to store the data as an std::vector\u003cT\u003e. We need to be able to update the stored entity when we receive an OnInstanceUpdated(DnsSdInstanceRecord) or similarly OnInstanceDeleted(), so my thought was we could store it as:\nstd::map\u003cDnsSdInstanceRecord, T\u003e - so that we minimize how often conversions need to be done, but also simplify the update + delete flow.\n\nGiven this, I\u0027ve updated to an std::vector\u003cconst T\u0026\u003e - it\u0027s as close as I can get to const std::vector\u003cT\u003e\u0026",
+      "parentUuid": "cafacfd5_752468cf",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 79
+      },
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e88cc323_2ae00bab",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -227,6 +323,24 @@
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9073e171_ec99a913",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T08:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96e3a7a_d07a7416",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -298,6 +412,30 @@
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "176abed6_1b4272eb",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T08:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22ae14ff_445be971",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 16
+      },
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -402,6 +540,24 @@
       "side": 1,
       "message": "\u003e Actually there will be multiple implementations - we will have one for OSP and one for CastV2\n\nRight, but they will use different service info structs, and therefore will be different template instantiations, no?",
       "parentUuid": "b8556818_a589c284",
+      "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5af4306d_0d746a79",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T08:20:03Z",
+      "side": 1,
+      "message": "\u003e If the only function they provide is the conversion of T, I would encourage going route #2 or #3 which could eliminate the need for these two classes entirely.\n\nDnsSdServiceWatcher will allow us to centralize some complex logic (unlike the DnsSdServicePublisher) - so I do think this class is worthwhile. We need to handle OnInstanceCreate/Updated/Deleted aggregations, which is complex enough we won\u0027t want to write it twice\n\n\u003e Right, but they will use different service info structs, and therefore will be different template instantiations, no?\n\nUpdating to option #2 to remove the virtual function",
+      "parentUuid": "c0fe2f0a_7cf8f205",
       "revId": "17b7febe6f75dfa2f7000b362dc523e3016a5b2d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
