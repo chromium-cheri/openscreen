@@ -19,6 +19,41 @@
     },
     {
       "key": {
+        "uuid": "34fde058_e3a90042",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T21:09:30Z",
+      "side": 1,
+      "message": "I think I added a move constructor to IPAddress to allow some of the mDNS types to be movable.\n\nBut IPAddress is just an enum value and a std::array\u003cuint8_t\u003e.\n\nFrom what I can gather, std::array isn\u0027t really movable since it\u0027s owned storage; so I believe at the end of the day you\u0027ll just end up copying its contents.",
+      "parentUuid": "1aaf62f4_6124d35e",
+      "revId": "d7c647dbe1ea2faf375cac05f5f5e443fc0e03a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a3bc36c_f8dbe05b",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T21:09:30Z",
+      "side": 1,
+      "message": "Is this the name that the caller is attempting to claim?  If so, it would be clearer to name the constructor argument target_name as well.",
+      "revId": "d7c647dbe1ea2faf375cac05f5f5e443fc0e03a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4c3d048_074bab1a",
         "filename": "discovery/mdns/mdns_probe.h",
         "patchSetId": 5
@@ -36,6 +71,40 @@
         "endLine": 72,
         "endChar": 18
       },
+      "revId": "d7c647dbe1ea2faf375cac05f5f5e443fc0e03a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd3e8e2a_614002fe",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T21:09:30Z",
+      "side": 1,
+      "message": "Shorter as ProbeOnce() ?",
+      "revId": "d7c647dbe1ea2faf375cac05f5f5e443fc0e03a1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50b9d3d7_f636e416",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T21:09:30Z",
+      "side": 1,
+      "message": "target_name_",
       "revId": "d7c647dbe1ea2faf375cac05f5f5e443fc0e03a1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
