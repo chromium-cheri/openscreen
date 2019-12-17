@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ad2b87c_18824b65",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T05:54:25Z",
+      "side": 1,
+      "message": "I added it for consistency with other RData types - there is no real use for an A record or PTR record with a default ctor, but they exist. Thought I should add the same support here too\n\nCan pull this out if you\u0027d rather its not there",
+      "parentUuid": "df6f97d2_6c68f423",
+      "revId": "db75e27dd2c08bac95b73cb89530a0643e58d06f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b7f2ed11_ef490d03",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-12-16T21:57:39Z",
       "side": 1,
       "message": "1. Might be worth testing that each member of |Types| is DnsType (since I don\u0027t think `DnsType...` is a thing), unless `types_{types...}` provides sufficient type checking + error messages.\n2. It looks like you only added construct+write support here.  If we needed to read one there would need to be something like a std::vector/absl::Span constructor, right?  I\u0027m not previously familiar with its use in mDNS but above you say it\u0027s for negative responses.  Wouldn\u0027t we also care about reading this from other responders?",
+      "revId": "db75e27dd2c08bac95b73cb89530a0643e58d06f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccbac7b2_f254a6a4",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T05:54:25Z",
+      "side": 1,
+      "message": "\u003e 1. Might be worth testing that each member of |Types| is DnsType (since I don\u0027t think `DnsType...` is a thing), unless `types_{types...}` provides sufficient type checking + error messages.\n\nDnsType is an enum class, so we should get that validation when it\u0027s copied to the vector\u003cDnsType\u003e, or a build-time failure if `types...` isn\u0027t all DnsType values. The only edge case I could find is if the ctor is called with types... being another valid std::vector\u003cDnsType\u003e() ctor values\n\nDo you think it\u0027s worth adding validation callers don\u0027t do this? IMHO this isn\u0027t a case they would hit without trying, and this class won\u0027t be exposed to the embedder (as of now, we don\u0027t allow overriding of the mDNS layer - just the DNS-SD layer, which doesn\u0027t expose any of these objects), so it seems like an issue that can be fixed with documentation. WDYT?\n\n\u003e 2. It looks like you only added construct+write support here.  If we needed to read one there would need to be something like a std::vector/absl::Span constructor, right?  I\u0027m not previously familiar with its use in mDNS but above you say it\u0027s for negative responses.  Wouldn\u0027t we also care about reading this from other responders?\n\nAdding support for an std::vector ctor (so we can std::move it) and updating the other ctor to call it - Good idea!\n\nWe do care about reading these, but I plan to add support for that to MdnsReader later on - I want to do that as a separate CL. I\u0027m not sure that our querier would correctly handle receiving these records yet, and want to be sure of that before allowing external services to send them\nThe only reason I added the writer change here is because I got a compiler error when I didn\u0027t",
+      "parentUuid": "b7f2ed11_ef490d03",
       "revId": "db75e27dd2c08bac95b73cb89530a0643e58d06f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
