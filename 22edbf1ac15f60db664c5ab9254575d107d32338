@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc70263c_72648194",
+        "filename": "discovery/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "constants should follow kFoo naming, e.g. \n\nconst DomainName kLocalName;\n\nand bonus points if it likes constexpr",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f08c7058_3941f6d4",
+        "filename": "discovery/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "Not sure what the preference is team-wide, but this can also just be\n\nASSERT_EQ(records.size(), 1u);\n\nWe should probably figure out which way we prefer and do it everywhere.",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b63b3f9_5db7674d",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "Nit/preference: extra parenthesis around max_wire_size_ + record.MaxWireSize() would help make order of operations more obvious to readers.",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbcccd4d_f07f8516",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "NIT: parens here as well",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84c33320_a144aa35",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "What if we enter the else loop on the last message, and this message doesn\u0027t contain and known_answers? Is that alright/by design?",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37899161_8347b945",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "Why half, instead of something more like 80 or 90%?",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d36c77f2_5a780bfd",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "+1. I like ASSERTS for things that will cause compiler errors later in the test.",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bfb87af_02941e38",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "!! casts to bool here, right? If you leave it off does the compiler complain? I think !! is okay since we are already doing bitwise operations, but consider instead:\n\nEXPECT_EQ(actual_data[2] \u0026 0b10 !\u003d 0, is_truncated);\n\nAlso, if 0b10 is always the truncated flag, consider adding a constant e.g.\n\nkTruncationFlagMask \u003d 0b00000010; or\nkTruncationFlagMak \u003d 1 \u003c\u003c 2;",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "845706bd_b2801263",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-17T18:16:36Z",
+      "side": 1,
+      "message": "Do you actually need to advance the clock here?",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
