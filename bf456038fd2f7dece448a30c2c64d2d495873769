@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "66a96d53_49d85d4d",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T07:47:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb1a16a6_92ab7bf6",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3171bfd5_7d421505",
         "filename": "cast/common/discovery/service_info.h",
         "patchSetId": 1
@@ -66,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "4a1d6bb3_a098bdba",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T07:47:37Z",
+      "side": 1,
+      "message": "Mark is correct - this is copied from the original CastV2 design doc where the enum is defined",
+      "parentUuid": "2bd4f90b_c94fdbf4",
+      "range": {
+        "startLine": 18,
+        "startChar": 30,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2aafd06_392ee7b1",
         "filename": "cast/common/discovery/service_info.h",
         "patchSetId": 1
@@ -98,6 +140,24 @@
       "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc77152_8d9eaee3",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T07:47:37Z",
+      "side": 1,
+      "message": "Done\n\nCreated an enum with flags. Also, now the value directly maps to what we are storing in the TXT record with no data modification needed.",
+      "parentUuid": "372bd059_ba902a15",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -136,6 +196,24 @@
     },
     {
       "key": {
+        "uuid": "efa44275_3ae52874",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T07:47:37Z",
+      "side": 1,
+      "message": "Done\n\nAdded the operator, and a UT to validate that the default ctor evaluates to false (And other values don\u0027t)",
+      "parentUuid": "6fc2c9a6_a34f337a",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91f67d3e_bf1f2acf",
         "filename": "cast/common/discovery/service_info.h",
         "patchSetId": 1
@@ -153,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "fb5f6581_185e9193",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T07:47:37Z",
+      "side": 1,
+      "message": "From the CastV2 Design Doc\n\nIn order for senders to maintain data associated with each receiver in relation to the current set of discoverable receivers, it is helpful to have a stable identifier for each receiver.  The id field should be a universally unique identifier for the receiver.  It is recommended but not required that the identifier be stable across factory resets; otherwise, a factory reset device could show up as a duplicate to the sender.   The UUID generation algorithm is up to the receiver; the uPnP Unique Device Name algorithm (1.1.4 of the specification) or the Java name-based UUID algorithm in java.util.UUID using the MAC address of the device are possibilities\n\nAdding some of this info to the comment. LMK if you\u0027d like any changes and I can make it as a follow-up CL",
+      "parentUuid": "91f67d3e_bf1f2acf",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fddc00c_6df4792c",
         "filename": "cast/common/discovery/service_info.h",
         "patchSetId": 1
@@ -167,6 +263,24 @@
       "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e8c169_95f58e0e",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-17T07:47:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fddc00c_6df4792c",
+      "revId": "bf456038fd2f7dece448a30c2c64d2d495873769",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
