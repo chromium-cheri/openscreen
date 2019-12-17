@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "d5b0b514_d9ffe01b",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "Good point on #1.\n\nIt seems like std:: just wraps the libc equivalents for time_t and gmtime.  There doesn\u0027t seem to be any particular reason to use these std:: wrappers.",
+      "parentUuid": "24ed1872_88aff374",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "258a3edd_380f4be7",
         "filename": "cast/common/certificate/types.cc",
         "patchSetId": 3
@@ -142,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "1e03c2d0_6d8c298c",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "I don\u0027t think CHECKs are necessary, but maybe just document that |time| is assumed to be valid.\n\nIt would be good to ensure that the system clock is returning reasonable values e.g. to avoid running the library when the system clock is returning 0, so that certificate validation checks don\u0027t just fail randomly.   But I would expect that kind of check to happen at application startup.",
+      "parentUuid": "5a70ebfd_578c3c84",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f02c290_7b80e73a",
         "filename": "cast/common/certificate/types.cc",
         "patchSetId": 3
@@ -174,6 +210,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3c45631_c076fac5",
+        "filename": "cast/common/certificate/types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "Yeah.  This looks good to me with one nit above.",
+      "parentUuid": "664cafb5_fcb359d7",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -422,6 +476,24 @@
     },
     {
       "key": {
+        "uuid": "95c3e002_bd1ce4aa",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "Let\u0027s leave a TODO here.  We may be able to use metrics in Chrome to tell us how prevalent it is.",
+      "parentUuid": "ac2788ed_d9c287aa",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0986421c_7ef1bd4e",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.cc",
         "patchSetId": 3
@@ -527,6 +599,24 @@
     },
     {
       "key": {
+        "uuid": "06e81d43_9dfd2bcf",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "cc13c160_53027bcd",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b65b3d13_314e7489",
         "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
         "patchSetId": 3
@@ -594,6 +684,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8afa343_1e96194f",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "We will likely need this API for devices that use the hardware key as part of Cast authentication, but I am not sure what that API will look like without knowing how it works today.\n\nLet\u0027s track as a separate task (no TODO needed).",
+      "parentUuid": "30cb9b5b_52f56d17",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -769,6 +877,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8564444c_1d31a9d7",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "Can you add a couple of comments explaining the test setup and what is being tested in this case?",
+      "parentUuid": "11b88837_b55f63b3",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -982,6 +1108,24 @@
     },
     {
       "key": {
+        "uuid": "72c66d72_717a2fd8",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "Seems like it could be \"GENERATE_AUTH_TEST_DATA\" with a GN flag to turn it on.  (Or maybe the test data generation code broken out into its own file + binary target.)\n\nCan you add a comment explaining the current setup?  Or start a README.md for this folder.",
+      "parentUuid": "2c0cc861_2796dd60",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16100b6f_77a6332b",
         "filename": "cast/test/device_auth_test.cc",
         "patchSetId": 3
@@ -1014,6 +1158,24 @@
       "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3ddd18a_c309d444",
+        "filename": "cast/test/device_auth_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-17T00:17:58Z",
+      "side": 1,
+      "message": "That\u0027s fine.",
+      "parentUuid": "646b8919_747a2373",
+      "revId": "529c0b2bb56a99bfe35d37fbb645891f9291e344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
