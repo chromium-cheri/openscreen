@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "887b7524_ace5e967",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-18T21:05:33Z",
+      "side": 1,
+      "message": "Adding comments to each of these variables for clarity\n\nThis is the position of the byte we are examining, not a specific byte",
+      "parentUuid": "0b04c069_43f027a7",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dbfadca_d32130e9",
         "filename": "discovery/mdns/mdns_records.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa175711_b19d4873",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-18T21:05:33Z",
+      "side": 1,
+      "message": "Done\n\nUpdating to use \u003e\u003e instead for readability\nActually 0xFF / 8 \u003d 31 are equal because integer division, though :)",
+      "parentUuid": "0dbfadca_d32130e9",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "feaf1043_dba34ba8",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-18T21:05:33Z",
+      "side": 1,
+      "message": "Yes, any number is fine (even zero, though zero doesn\u0027t have much of a use case)\nOur primary use case for this record type will actually be with just one DnsType :)",
+      "parentUuid": "dc0cea7e_b73b91ef",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e97fc5bf_02b4ed0c",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "0d0d0fc3_6b2003a9",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-18T21:05:33Z",
+      "side": 1,
+      "message": "Actually, the style guide allows for size_t too: https://google.github.io/styleguide/cppguide.html#Integer_Types\n\n\u003e When appropriate, you are welcome to use standard types like size_t and ptrdiff_t\n\nI\u0027d prefer that here for consistency with other mDNS types, which all define a size_t max_wire_size (and associated getter)",
+      "parentUuid": "e97fc5bf_02b4ed0c",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a8d43b4_d30e45ba",
         "filename": "discovery/mdns/mdns_records_unittest.cc",
         "patchSetId": 3
@@ -84,6 +156,24 @@
       "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c2b622d_2865c1a3",
+        "filename": "discovery/mdns/mdns_records_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-18T21:05:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a8d43b4_d30e45ba",
+      "revId": "aaf170f494456b21f2f6fb1d205d6e18c791b705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
