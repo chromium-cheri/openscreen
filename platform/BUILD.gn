@@ -62,6 +62,7 @@ source_set("api") {
 }
 
 # The following target is only activated in standalone builds (see :platform).
+if (!build_with_chromium) {
 source_set("standalone_impl") {
   defines = []
 
@@ -136,6 +137,7 @@ source_set("standalone_impl") {
     "../third_party/boringssl",
     "../util",
   ]
+}
 }
 
 # The main target, which either assumes an embedder will link-in the platform
