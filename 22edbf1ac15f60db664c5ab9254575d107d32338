@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fd68ef7e_dc82e652",
+        "filename": "discovery/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-19T00:39:20Z",
+      "side": 1,
+      "message": "Since this keeps coming up - looking at the chromium style guide, I don\u0027t think this is required for non-static variables: https://google.github.io/styleguide/cppguide.html#Variable_Names\n\n\u003e All such variables with static storage duration (i.e. statics and globals, see Storage Duration for details) should be named this way. This convention is optional for variables of other storage classes\n\nWDYT?\n\n\u003e bonus points if it likes constexpr\n\nUnfortunately it doesn\u0027t like constexpr - if only",
+      "parentUuid": "dc70263c_72648194",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f08c7058_3941f6d4",
         "filename": "discovery/mdns/mdns_querier_unittest.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8320fe6e_fda6fbe2",
+        "filename": "discovery/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-19T00:39:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f08c7058_3941f6d4",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "fc7c2a76_9dac75e1",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-19T00:39:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b63b3f9_5db7674d",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbcccd4d_f07f8516",
         "filename": "discovery/mdns/mdns_trackers.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b81a848_afa85e43",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-19T00:39:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbcccd4d_f07f8516",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "883f5e30_e2ebbd46",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-19T00:39:20Z",
+      "side": 1,
+      "message": "Good catch! In practice that shouldn\u0027t happen (due to the size of messages we are sending), but it would be fine if it did as long as it\u0027s the same packet with the question. Adding a case to be sure we don\u0027t have any MdnsRecords larger than a message (maybe due to a malicious sender?)\n\nWhat we are doing here is we are creating a series of messages where the first contains the question, and each contains as many known answers as possible (zero or more). We signal to the other side that more messages are still ongoing with the truncated bit, set on lime 193, and if the receiver gets a message with that bit set, it waits up to 500 ms for more messages (with more known answers) from the same machine (determined by IP address). This can happen as many times as needed, waiting as many 500 ms periods as required. So nothing should break if we send a packet with just the question and noo known answers",
+      "parentUuid": "84c33320_a144aa35",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37899161_8347b945",
         "filename": "discovery/mdns/mdns_trackers.h",
         "patchSetId": 4
@@ -98,6 +188,24 @@
       "writtenOn": "2019-12-17T18:16:36Z",
       "side": 1,
       "message": "Why half, instead of something more like 80 or 90%?",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa04d64a_c12df7af",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-19T00:39:20Z",
+      "side": 1,
+      "message": "Half is called out in the RFC (adding comment to specify this)\n\nIf the mDNS record has passed more than it\u0027s expiry, we don\u0027t want to suppress that response from the other machine. That way, we can update our record (and reset the TTL) as part of a query we are already doing, rather than making another query later",
+      "parentUuid": "37899161_8347b945",
       "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "7f82cd0b_0842ca30",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-19T00:39:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bfb87af_02941e38",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "845706bd_b2801263",
         "filename": "discovery/mdns/mdns_trackers_unittest.cc",
         "patchSetId": 4
@@ -152,6 +278,24 @@
       "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0320df47_fdfb302e",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-19T00:39:20Z",
+      "side": 1,
+      "message": "Some of the functions on this class push to the task runner with a delay. This is just to ensure that we didn\u0027t push any unexpected calls to the TR",
+      "parentUuid": "845706bd_b2801263",
+      "revId": "22edbf1ac15f60db664c5ab9254575d107d32338",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
