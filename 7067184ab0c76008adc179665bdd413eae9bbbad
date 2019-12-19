@@ -351,6 +351,24 @@
       "revId": "7067184ab0c76008adc179665bdd413eae9bbbad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67e49107_1292a3dc",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-19T22:54:31Z",
+      "side": 1,
+      "message": "Wouldn\u0027t manually specifying the toolchain for case 1 accomplish that?  For example, if the abseil dep in cddl still references an ARM version of the target even though cddl is only defined for the host toolchain (seems like a GN bug?), you could still change the dep to `abseil:abseil($host_toolchain)`.",
+      "parentUuid": "39ad819b_82f2269b",
+      "revId": "7067184ab0c76008adc179665bdd413eae9bbbad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
