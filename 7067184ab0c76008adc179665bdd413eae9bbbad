@@ -154,6 +154,23 @@
       "revId": "7067184ab0c76008adc179665bdd413eae9bbbad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61d91c0d_c91f88b7",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-19T22:40:23Z",
+      "side": 1,
+      "message": "Would it help keep this a single source set to make this `!build_with_chromium \u0026\u0026 current_toolchain \u003d\u003d host_toolchain`?  Or the `host_toolchain` check could even be done for the `runtime_libraries` target directly (i.e. nop it for `host_toolchain`) since it seems like this check will get sprinkled multiple places.  I\u0027m not really sure how GN handles that when host \u003d\u003d target though, so just some ideas.",
+      "revId": "7067184ab0c76008adc179665bdd413eae9bbbad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
