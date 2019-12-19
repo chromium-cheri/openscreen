@@ -50,7 +50,12 @@ bool MdnsProbeManager::IsDomainClaimed(const DomainName& domain) const {
   return true;
 }
 
-void MdnsProbeManager::RespondToProbeQuery(const MdnsQuestion& message,
+bool MdnsProbeManager::IsProbeQuery(const MdnsMessage& message) const {
+  // TODO(rwkeane): Implement this method.
+  return false;
+}
+
+void MdnsProbeManager::RespondToProbeQuery(const MdnsMessage& message,
                                            const IPEndpoint& src) {
   // TODO(rwkeane): Implement this method.
 }
