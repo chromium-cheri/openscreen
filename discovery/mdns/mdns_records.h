@@ -304,8 +304,7 @@ class MdnsRecord {
   template <typename H>
   friend H AbslHashValue(H h, const MdnsRecord& record) {
     return H::combine(std::move(h), record.name_, record.dns_type_,
-                      record.dns_class_, record.record_type_, record.ttl_,
-                      record.rdata_);
+                      record.dns_class_, record.record_type_, record.rdata_);
   }
 
  private:

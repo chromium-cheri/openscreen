@@ -5,8 +5,10 @@
 #ifndef DISCOVERY_MDNS_MDNS_RESPONDER_H_
 #define DISCOVERY_MDNS_MDNS_RESPONDER_H_
 
+#include <unordered_set>
 #include <vector>
 
+#include "absl/hash/hash.h"
 #include "discovery/mdns/mdns_records.h"
 #include "platform/api/time.h"
 #include "platform/base/macros.h"
@@ -70,6 +72,7 @@ class MdnsResponder {
   void OnMessageReceived(const MdnsMessage& message, const IPEndpoint& src);
 
   void SendResponse(const MdnsQuestion& question,
+                    const std::vector<MdnsRecord>& known_answers,
                     std::function<void(const MdnsMessage&)> send_response);
 
   RecordHandler* const record_handler_;
