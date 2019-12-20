@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5246b439_7c5a7895",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-20T02:35:46Z",
+      "side": 1,
+      "message": "Why do you think we might get false negatives?  It\u0027s hard to tell without an implementation yet, but if a false negative here means we don\u0027t do conflict resolution, wouldn\u0027t it be possible for both sides to think they claimed the same name (especially if both sides are this impl) since no records are registered with the publisher until after probing?  Of course, this is moot without IsProbeQuery false negatives...",
+      "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c64f156_296cc166",
         "filename": "discovery/mdns/mdns_probe_manager.h",
         "patchSetId": 3
@@ -19,6 +36,64 @@
         "endLine": 37,
         "endChar": 66
       },
+      "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f052b2f5_3b632eed",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-20T02:35:46Z",
+      "side": 1,
+      "message": "I\u0027d prefer a static method since we don\u0027t need polymorphism.  It seems like the responder code would be weird if you just try every message in RespondToProbeQuery and check for an error.",
+      "parentUuid": "0c64f156_296cc166",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d6f7f90_9aaa17a8",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-20T02:35:46Z",
+      "side": 1,
+      "message": "missing public",
+      "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24dd3562_de0ffd38",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-20T02:35:46Z",
+      "side": 1,
+      "message": "extra !",
       "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
