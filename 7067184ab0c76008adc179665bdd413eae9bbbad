@@ -369,6 +369,24 @@
       "revId": "7067184ab0c76008adc179665bdd413eae9bbbad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "691f04bf_d9035378",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2019-12-20T00:30:19Z",
+      "side": 1,
+      "message": "Currently this is configured to just use the host toolchain period--the toolchain is set based on OS, currently not on ARCH. Since this compilation is only Linux x64/x86 for Linux arm/arm64, the toolchains are the same. We could try moving to a separate toolchain declaration, but I\u0027m not sure how to do that yet. Thoughts?",
+      "parentUuid": "67e49107_1292a3dc",
+      "revId": "7067184ab0c76008adc179665bdd413eae9bbbad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
