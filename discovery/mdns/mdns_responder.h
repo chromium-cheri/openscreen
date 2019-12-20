@@ -19,6 +19,7 @@ class TaskRunner;
 namespace discovery {
 
 class MdnsMessage;
+class MdnsDomainOwnershipManager;
 class MdnsRandom;
 class MdnsReceiver;
 class MdnsRecordChangedCallback;
@@ -41,9 +42,6 @@ class MdnsResponder {
    public:
     virtual ~RecordHandler();
 
-    // Returns whether the provided name is exclusively owned by this endpoint.
-    virtual bool IsExclusiveOwner(const DomainName& name) = 0;
-
     // Returns whether this service has one or more records matching the
     // provided name, type, and class.
     virtual bool HasRecords(const DomainName& name,
@@ -60,6 +58,7 @@ class MdnsResponder {
   // |record_handler|, |sender|, |receiver|, |task_runner|, and |random_delay|
   // are expected to persist for the duration of this instance's lifetime.
   MdnsResponder(RecordHandler* record_handler,
+                MdnsDomainOwnershipManager* ownership_handler,
                 MdnsSender* sender,
                 MdnsReceiver* receiver,
                 TaskRunner* task_runner,
@@ -75,6 +74,7 @@ class MdnsResponder {
                     std::function<void(const MdnsMessage&)> send_response);
 
   RecordHandler* const record_handler_;
+  MdnsDomainOwnershipManager* const ownership_handler_;
   MdnsSender* const sender_;
   MdnsReceiver* const receiver_;
   TaskRunner* const task_runner_;

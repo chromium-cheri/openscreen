@@ -23,14 +23,34 @@ class MdnsQuerier;
 class MdnsRandom;
 class MdnsSender;
 
+// Interface for maintaining ownership of mDNS Domains.
+class MdnsDomainOwnershipManager {
+ public:
+  virtual ~MdnsDomainOwnershipManager();
+
+  // Returns true if the provided message is an mDNS probe query as described in
+  // RFC 6762 section 8.1.
+  static bool IsProbeQuery(const MdnsMessage& message);
+
+  // Returns whether the provided domain name has been claimed as owned by this
+  // service instance.
+  virtual bool IsDomainClaimed(const DomainName& domain) const = 0;
+
+  // If a probe for the provided domain name is ongoing, an MdnsMessage is sent
+  // to the provided endpoint as described in RFC 6762 section 8.2. If the
+  // requested name has already been claimed, a message to specify this will be
+  // sent as described in RFC 6762 section 8.1.
+  virtual void RespondToProbeQuery(const MdnsMessage& message,
+                                   const IPEndpoint& src) = 0;
+};
+
 // This class is responsible for managing all ongoing probes for claiming domain
 // names, as described in RFC 6762 Section 8.1's probing phase. If one such
 // probe fails due to a conflict detection, this class will modify the domain
 // name as described in RFC 6762 section 9 and re-initiate probing for the new
 // name.
-// TODO(rwkeane): Integrate with MdnsResponder to receive incoming Probe
-// queries.
-class MdnsProbeManager : public MdnsProbe::Observer {
+class MdnsProbeManager : public MdnsProbe::Observer,
+                         public MdnsDomainOwnershipManager {
  public:
   class Callback {
    public:
@@ -71,15 +91,10 @@ class MdnsProbeManager : public MdnsProbe::Observer {
   // Stops probing for the requested domain name.
   Error StopProbe(const DomainName& requested_name);
 
-  // Returns whether the provided domain name has been claimed as owned by this
-  // service instance.
-  bool IsDomainClaimed(const DomainName& domain) const;
-
-  // If a probe for the provided domain name is ongoing, an MdnsMessage is sent
-  // to the provided endpoint as described in RFC 6762 section 8.2. If the
-  // requested name has already been claimed, a message to specify this will be
-  // sent as described in RFC 6762 section 8.1.
-  void RespondToProbeQuery(const MdnsQuestion& message, const IPEndpoint& src);
+  // MdnsDomainOwnershipManager overrides.
+  bool IsDomainClaimed(const DomainName& domain) const override;
+  void RespondToProbeQuery(const MdnsMessage& message,
+                           const IPEndpoint& src) override;
 
  private:
   std::unique_ptr<MdnsProbe> CreateProbe(DomainName name, IPEndpoint endpoint) {

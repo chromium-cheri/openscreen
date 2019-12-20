@@ -11,6 +11,14 @@
 namespace openscreen {
 namespace discovery {
 
+MdnsDomainOwnershipManager::~MdnsDomainOwnershipManager() = default;
+
+// static
+bool MdnsDomainOwnershipManager::IsProbeQuery(const MdnsMessage& message) {
+  // TODO(rwkeane): Implement this method.
+  return false;
+}
+
 MdnsProbeManager::Callback::~Callback() = default;
 
 MdnsProbeManager::MdnsProbeManager(MdnsSender* sender,
@@ -50,7 +58,7 @@ bool MdnsProbeManager::IsDomainClaimed(const DomainName& domain) const {
   return true;
 }
 
-void MdnsProbeManager::RespondToProbeQuery(const MdnsQuestion& message,
+void MdnsProbeManager::RespondToProbeQuery(const MdnsMessage& message,
                                            const IPEndpoint& src) {
   // TODO(rwkeane): Implement this method.
 }
