@@ -387,6 +387,24 @@
       "revId": "7067184ab0c76008adc179665bdd413eae9bbbad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823644c9_53d7129b",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-20T01:56:45Z",
+      "side": 1,
+      "message": "Some things were cleared up over chat + further digging.  Specifically, my assumption about host_toolchain vs. default_toolchain was wrong because this CL overloads the runtime_libraries target with a toolchain-like change via flags instead of using the Chromium pattern of per-target toolchains.\n\nMy $0.02 then would be to change to Chromium\u0027s toolchain pattern by converting our toolchain definition to a GN template (which can have no variables other than extra command line flags to keep it simple).  I think this is more consistent with GN\u0027s use of toolchain-specific targets.  proto_library.gni and osp/msgs make use of this if it\u0027s not clear what I mean.  You can also see it as a deps tree from a Chromium ARM build:\n\n//third_party/openscreen/src/osp/msgs:cddl_gen\n  //third_party/openscreen/src/tools/cddl:cddl(//build/toolchain/linux:clang_x64)\n    //build/config:executable_deps(//build/toolchain/linux:clang_x64)\n      //build/config:common_deps(//build/toolchain/linux:clang_x64)\n        //buildtools/third_party/libc++:libc++(//build/toolchain/linux:clang_x64)\n          //buildtools/third_party/libc++abi:libc++abi(//build/toolchain/linux:clang_x64)\n    //third_party/openscreen/src/third_party/abseil:abseil(//build/toolchain/linux:clang_x64)\n      //third_party/abseil-cpp/absl/hash:hash(//build/toolchain/linux:clang_x64)\n      ...\n//third_party/openscreen/src/third_party/abseil:abseil\n  //third_party/abseil-cpp/absl/hash:hash\n  ...\n\nNote the two different versions of abseil here.\n\nIf you think that sounds good but still aren\u0027t sure how that would be implemented, you can always land this as-is and I can follow-up with how I think it would go for further discussion.",
+      "parentUuid": "691f04bf_d9035378",
+      "revId": "7067184ab0c76008adc179665bdd413eae9bbbad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
