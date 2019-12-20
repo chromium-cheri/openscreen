@@ -6,6 +6,7 @@
 
 #include <atomic>
 #include <cctype>
+#include <map>
 
 #include "absl/strings/ascii.h"
 #include "absl/strings/match.h"
@@ -306,34 +307,31 @@ NsecRecordRdata::NsecRecordRdata(DomainName next_domain_name,
   // Sort the types_ array for easier comparison later.
   std::sort(types_.begin(), types_.end());
 
-  max_wire_size_ = next_domain_name_.MaxWireSize();
+  // Calculate the bitmaps as described in RFC 4034 Section 4.1.2.
+  std::map<uint8_t, std::vector<uint8_t>> block_to_bitmap;
+  for (auto type : types_) {
+    const uint16_t type_int = static_cast<uint16_t>(type);
+    const uint8_t block = static_cast<uint8_t>(type_int >> 8);
+    const uint8_t block_position = static_cast<uint8_t>(type_int & 0xFF);
+    const uint8_t byte_bit_is_at = block_position >> 3;         // First 5 bits.
+    const uint8_t byte_mask = 0x80 >> (block_position & 0x07);  // Last 3 bits.
 
-  // Calculate the bit map size as described in RFC 4034 Section 4.1.2.
-  int current_block = -1;
-  size_t current_bitfield_byte = 0;
-  for (DnsType type : types_) {
-    // Representation of the DnsType as a 16-bit integer. Our currently
-    // supported DnsType values are all < 0xFF, but to stick with the RFC a
-    // 16 bit integer is used.
-    const uint16_t type_as_int = static_cast<uint16_t>(type);
-
-    // This is the block being examined, or the high order byte of the 2 present
-    // in the above 16 bit integer.
-    const int type_block = type_as_int >> 8;
-
-    // Each of the possible lower-order integers (0-255) is represented as a
-    // single bit, divided into 8 bit-bytes int eh standard way. This represents
-    // the largest byte needed to hold one such lower-order integer in this
-    // encoding format.
-    const size_t type_bitfield_byte = (type_as_int & 0xF0) >> 4;
-    if (type_block > current_block) {
-      current_block = type_block;
-      current_bitfield_byte = 0;
-      max_wire_size_ += 3;  // 1 from window, 1 from size, 1 from bitfield.
+    auto it = block_to_bitmap.emplace(block, std::vector<uint8_t>()).first;
+    if (it->first) {
+      it->second.reserve(32);
     }
-    if (type_bitfield_byte > current_bitfield_byte) {
-      max_wire_size_ += type_bitfield_byte - current_bitfield_byte;
-      current_bitfield_byte = type_bitfield_byte;
+
+    while (it->second.size() <= byte_bit_is_at) {
+      it->second.push_back(0x00);
+    }
+    it->second[byte_bit_is_at] |= byte_mask;
+  }
+
+  for (const auto& pair : block_to_bitmap) {
+    encoded_types_.push_back(pair.first);
+    encoded_types_.push_back(static_cast<uint8_t>(pair.second.size()));
+    for (const auto& bitmap_byte : pair.second) {
+      encoded_types_.push_back(bitmap_byte);
     }
   }
 }
@@ -356,7 +354,7 @@ bool NsecRecordRdata::operator!=(const NsecRecordRdata& rhs) const {
 }
 
 size_t NsecRecordRdata::MaxWireSize() const {
-  return max_wire_size_;
+  return next_domain_name_.MaxWireSize() + encoded_types_.size();
 }
 
 MdnsRecord::MdnsRecord() = default;
