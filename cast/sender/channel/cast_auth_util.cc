@@ -260,23 +260,24 @@ ErrorOr<CastDeviceCertPolicy> AuthenticateChallengeReplyImpl(
     return result;
   }
 
-  int len = i2d_X509(peer_cert, nullptr);
-  if (len <= 0) {
+  int cert_len = i2d_X509(peer_cert, nullptr);
+  if (cert_len <= 0) {
     return openscreen::Error(CastCertError::kErrCertsParse,
                              "Serializing cert failed.");
   }
-  std::string peer_cert_der(len, 0);
-  uint8_t* data = reinterpret_cast<uint8_t*>(&peer_cert_der[0]);
+  size_t nonce_response_size = nonce_response.size();
+  std::string nonce_plus_peer_cert_der(nonce_response_size + cert_len, 0);
+  std::copy(nonce_response.begin(), nonce_response.end(),
+            &nonce_plus_peer_cert_der[0]);
+  uint8_t* data = reinterpret_cast<uint8_t*>(
+      &nonce_plus_peer_cert_der[nonce_response_size]);
   if (!i2d_X509(peer_cert, &data)) {
     return openscreen::Error(CastCertError::kErrCertsParse,
                              "Serializing cert failed.");
   }
-  size_t actual_size = data - reinterpret_cast<uint8_t*>(&peer_cert_der[0]);
-  OSP_DCHECK_EQ(actual_size, peer_cert_der.size());
-  peer_cert_der.resize(actual_size);
 
-  return VerifyCredentialsImpl(response, nonce_response + peer_cert_der,
-                               crl_policy, cast_trust_store, crl_trust_store,
+  return VerifyCredentialsImpl(response, nonce_plus_peer_cert_der, crl_policy,
+                               cast_trust_store, crl_trust_store,
                                verification_time, false);
 }
 
