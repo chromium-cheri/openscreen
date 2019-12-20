@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd724470_67bcef63",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-20T02:24:47Z",
+      "side": 1,
+      "message": "|block| is also monotonically increasing so a map seems unnecessary.  This could be done incrementally in a single vector by just keeping current window length and length byte cursor and then expanding every time |block| changes.\n\nIt kind of seems like a shame for this work to go here instead of the writer, but I guess I don\u0027t feel strongly since it\u0027s never going to be used (AFAIK) without later writing it and we\u0027re already doing some iteration to compute the length.  The tests can\u0027t be more precise with our existing constants without this either, so there\u0027s that.",
+      "revId": "70019c27a89f7aa6a53866cbd2694130f1802b6c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9814a0b_c46935f0",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-20T02:24:47Z",
+      "side": 1,
+      "message": "1234",
+      "range": {
+        "startLine": 277,
+        "startChar": 21,
+        "endLine": 277,
+        "endChar": 25
+      },
+      "revId": "70019c27a89f7aa6a53866cbd2694130f1802b6c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c12248_01bf19a9",
+        "filename": "discovery/mdns/mdns_records_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2019-12-20T02:24:47Z",
+      "side": 1,
+      "message": "Very well documented examples, thanks!",
+      "revId": "70019c27a89f7aa6a53866cbd2694130f1802b6c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
