@@ -11,6 +11,19 @@
 
 namespace openscreen {
 namespace discovery {
+namespace {
+
+bool IsNegativeResponseFor(const MdnsRecord& record, DnsType type) {
+  if (record.dns_type() != DnsType::kNSEC) {
+    return false;
+  }
+
+  const NsecRecordRdata& nsec = absl::get<NsecRecordRdata>(record.rdata());
+  return std::find(nsec.types().begin(), nsec.types().end(), type) !=
+         nsec.types().end();
+}
+
+}  // namespace
 
 MdnsQuerier::MdnsQuerier(MdnsSender* sender,
                          MdnsReceiver* receiver,
@@ -45,6 +58,7 @@ void MdnsQuerier::StartQuery(const DomainName& name,
                              DnsClass dns_class,
                              MdnsRecordChangedCallback* callback) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(dns_type != DnsType::kNSEC);
   OSP_DCHECK(callback);
 
   // Add a new callback if haven't seen it before
@@ -164,6 +178,8 @@ void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
     const auto it =
         std::find_if(range.first, range.second, [&answer](const auto& pair) {
           return (pair.second->question().dns_type() == DnsType::kANY ||
+                  IsNegativeResponseFor(answer,
+                                        pair.second->question().dns_type()) ||
                   pair.second->question().dns_type() == answer.dns_type()) &&
                  (pair.second->question().dns_class() == DnsClass::kANY ||
                   pair.second->question().dns_class() == answer.dns_class());
@@ -206,6 +222,11 @@ void MdnsQuerier::ProcessRecords(const std::vector<MdnsRecord>& records) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
   for (const MdnsRecord& record : records) {
+    if (record.dns_type() == DnsType::kNSEC) {
+      // TODO(rwkeane): Handle NSEC negative response records.
+      continue;
+    }
+
     switch (record.record_type()) {
       case RecordType::kShared: {
         ProcessSharedRecord(record);
