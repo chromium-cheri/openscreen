@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f7e274c2_40da3d83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-20T17:13:56Z",
+      "side": 1,
+      "message": "Updating comment to be clearer. I didn\u0027t mean false negatives here\n\nI was referring to how our current implementation of IsProbeQuery is:\n\nbool MdnsProbeManager::IsProbeQuery(const MdnsMessage\u0026 message) const {\n  // TODO(rwkeane): Implement this method.\n  return false;\n}\n\nEven without a full implementation, we should not see any issues. So we can put off the full implementation as long as needed",
+      "parentUuid": "5246b439_7c5a7895",
+      "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c64f156_296cc166",
         "filename": "discovery/mdns/mdns_probe_manager.h",
         "patchSetId": 3
@@ -66,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "75f4b9c1_0f59f631",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-20T17:13:56Z",
+      "side": 1,
+      "message": "Done\n\nIMHO Leaving the static function as part of MdnsDomainOwnershipManager rather than a free static function (for readability) or part of MdnsProbeManager (to avoid other classes referencing MdnsProbeManager at all) seems cleanest. WDYT?",
+      "parentUuid": "f052b2f5_3b632eed",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d6f7f90_9aaa17a8",
         "filename": "discovery/mdns/mdns_probe_manager.h",
         "patchSetId": 3
@@ -83,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "27346fdd_bcf4d349",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-20T17:13:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d6f7f90_9aaa17a8",
+      "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24dd3562_de0ffd38",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 3
@@ -97,6 +157,24 @@
       "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "283d0d66_6ea3d0e0",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-20T17:13:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24dd3562_de0ffd38",
+      "revId": "4dd7f35503d5c8c12871f2c2941d61a9f33ab1f6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
