@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a3dbcad7_5d9d63e7",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-20T18:23:11Z",
+      "side": 1,
+      "message": "Done on updating to avoid map. I think using 2 vectors and copying the contents is much more readable though (it avoids backtracking to update the size every time it changes) - and the extra O(n) operations seems worth it for readability since n is expected to be small. WDYT?\n\nI agree it\u0027s not ideal to have this not in the writer. But we already need to do almost this full calculation to figure out the MaxWireSize - and no need to put this hard-to-understand computation in multiple places. Plus testing in only one place is nice, as you mentioned.",
+      "parentUuid": "bd724470_67bcef63",
+      "revId": "70019c27a89f7aa6a53866cbd2694130f1802b6c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d9814a0b_c46935f0",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "70019c27a89f7aa6a53866cbd2694130f1802b6c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6d33304_635e07a9",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-20T18:23:11Z",
+      "side": 1,
+      "message": "Good catch. Done",
+      "parentUuid": "d9814a0b_c46935f0",
+      "range": {
+        "startLine": 277,
+        "startChar": 21,
+        "endLine": 277,
+        "endChar": 25
+      },
+      "revId": "70019c27a89f7aa6a53866cbd2694130f1802b6c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
