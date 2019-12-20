@@ -6,12 +6,11 @@
 
 #include <utility>
 
+#include "discovery/mdns/mdns_domain_claimed_callback.h"
 #include "platform/api/task_runner.h"
 
 namespace openscreen {
 namespace discovery {
-
-MdnsProbeManager::Callback::~Callback() = default;
 
 MdnsProbeManager::MdnsProbeManager(MdnsSender* sender,
                                    MdnsQuerier* querier,
@@ -29,7 +28,7 @@ MdnsProbeManager::MdnsProbeManager(MdnsSender* sender,
 
 MdnsProbeManager::~MdnsProbeManager() = default;
 
-Error MdnsProbeManager::StartProbe(Callback* callback,
+Error MdnsProbeManager::StartProbe(MdnsDomainClaimedCallback* callback,
                                    DomainName requested_name,
                                    IPEndpoint endpoint) {
   // TODO(rwkeane): Ensure the requested name isn't already being queried for.
@@ -66,7 +65,7 @@ void MdnsProbeManager::OnProbeSuccess(MdnsProbe* probe) {
     std::unique_ptr<MdnsProbe> probe = std::move(it->probe);
     completed_probes_.push_back(std::move(probe));
     DomainName requested = std::move(it->requested_name);
-    Callback* callback = it->callback;
+    MdnsDomainClaimedCallback* callback = it->callback;
     ongoing_probes_.erase(it);
     callback->OnDomainFound(requested, probe->target_name());
   }
@@ -76,9 +75,10 @@ void MdnsProbeManager::OnProbeFailure(MdnsProbe* probe) {
   // TODO(rwkeane): Implement this method.
 }
 
-MdnsProbeManager::OngoingProbe::OngoingProbe(std::unique_ptr<MdnsProbe> probe,
-                                             DomainName name,
-                                             Callback* callback)
+MdnsProbeManager::OngoingProbe::OngoingProbe(
+    std::unique_ptr<MdnsProbe> probe,
+    DomainName name,
+    MdnsDomainClaimedCallback* callback)
     : probe(std::move(probe)),
       requested_name(std::move(name)),
       callback(callback) {}

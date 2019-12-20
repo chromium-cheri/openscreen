@@ -19,6 +19,7 @@ class TaskRunner;
 
 namespace discovery {
 
+class MdnsDomainClaimedCallback;
 class MdnsQuerier;
 class MdnsRandom;
 class MdnsSender;
@@ -32,18 +33,6 @@ class MdnsSender;
 // queries.
 class MdnsProbeManager : public MdnsProbe::Observer {
  public:
-  class Callback {
-   public:
-    virtual ~Callback();
-
-    // Called once the probing phase has been completed, and a DomainName has
-    // been confirmed. The callee is expected to register records for the
-    // newly confirmed name in this callback. Note that the requested name and
-    // the confirmed name may differ if conflict resolution has occurred.
-    virtual void OnDomainFound(const DomainName& requested_name,
-                               const DomainName& confirmed_name) = 0;
-  };
-
   // |sender|, |querier|, |random_delay|, and |task_runner|, must all persist
   // for the duration of this object's lifetime.
   MdnsProbeManager(MdnsSender* sender,
@@ -64,7 +53,7 @@ class MdnsProbeManager : public MdnsProbe::Observer {
   // NOTE: |endpoint| is used to generate a 'fake' address record to use for
   // the probe query. See MdnsProbe::PerformProbeIteration() for further
   // details.
-  Error StartProbe(Callback* callback,
+  Error StartProbe(MdnsDomainClaimedCallback* callback,
                    DomainName requested_name,
                    IPEndpoint endpoint);
 
@@ -91,13 +80,13 @@ class MdnsProbeManager : public MdnsProbe::Observer {
   struct OngoingProbe {
     OngoingProbe(std::unique_ptr<MdnsProbe> probe,
                  DomainName name,
-                 Callback* callback);
+                 MdnsDomainClaimedCallback* callback);
 
     // NOTE: unique_ptr objects are used to avoid issues when the container
     // holding this object is resized.
     std::unique_ptr<MdnsProbe> probe;
     DomainName requested_name;
-    Callback* callback;
+    MdnsDomainClaimedCallback* callback;
   };
 
   // MdnsProbe::Observer overrides.

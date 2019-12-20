@@ -40,13 +40,27 @@ class MockMdnsService : public MdnsService {
 
   MOCK_METHOD1(ReinitializeQueries, void(const DomainName& name));
 
-  void RegisterRecord(const MdnsRecord& record) override { FAIL(); }
+  Error StartProbe(MdnsDomainClaimedCallback* callback,
+                   DomainName requested_name,
+                   IPEndpoint endpoint) {
+    OSP_NOTREACHED();
+    return Error::None();
+  }
 
-  void DeregisterRecord(const MdnsRecord& record) override { FAIL(); }
+  Error RegisterRecord(const MdnsRecord& record) override {
+    OSP_NOTREACHED();
+    return Error::None();
+  }
 
-  void UpdateRegisteredRecord(const MdnsRecord& old_record,
-                              const MdnsRecord& new_record) override {
-    FAIL();
+  Error UnregisterRecord(const MdnsRecord& record) override {
+    OSP_NOTREACHED();
+    return Error::None();
+  }
+
+  Error UpdateRegisteredRecord(const MdnsRecord& old_record,
+                               const MdnsRecord& new_record) override {
+    OSP_NOTREACHED();
+    return Error::None();
   }
 };
 
