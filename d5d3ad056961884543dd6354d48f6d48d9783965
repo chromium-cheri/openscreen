@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "646e43ec_112bf38f",
+        "filename": "DEPS",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-20T21:19:33Z",
+      "side": 1,
+      "message": "Are there commits in our QUIC repo we need?",
+      "revId": "d5d3ad056961884543dd6354d48f6d48d9783965",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "264d2725_869091c7",
+        "filename": "build/config/arm.gni",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-20T21:19:33Z",
+      "side": 1,
+      "message": "Fuschia actually runs on a number of architectures.  I would just leave out this paragraph as it\u0027s likely to become obsolete as new embedders come on board.",
+      "revId": "d5d3ad056961884543dd6354d48f6d48d9783965",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41a24569_37844963",
+        "filename": "build/config/arm.gni",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-20T21:19:33Z",
+      "side": 1,
+      "message": "Can you just default this to arm_fpu \u003d\u003d \"neon\" ?",
+      "revId": "d5d3ad056961884543dd6354d48f6d48d9783965",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88c5891_d8d50d0e",
+        "filename": "build/scripts/install-sysroot.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-20T21:19:33Z",
+      "side": 1,
+      "message": "It looks like this is in build/ not buildtools/ which we already check out.\nMaybe we could get Chrome to move it so that other projects can consume the sysroots repository more easily...",
+      "revId": "d5d3ad056961884543dd6354d48f6d48d9783965",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7a2f991_304f21ae",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-20T21:19:33Z",
+      "side": 1,
+      "message": "This needs to work when build_with_chromium \u003d\u003d true (see the chromium trybots).",
+      "revId": "d5d3ad056961884543dd6354d48f6d48d9783965",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
