@@ -105,6 +105,7 @@ MdnsPublisher::~MdnsPublisher() {
 
 Error MdnsPublisher::RegisterRecord(const MdnsRecord& record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(record.dns_type() != DnsType::kNSEC);
   ValidateRecord(record);
 
   return record.dns_type() == DnsType::kPTR ? RegisterPtrRecord(record)
