@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5185486_2c25daa8",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-20T23:31:29Z",
+      "side": 1,
+      "message": "Generally prefer to declare variables holding binary data as std::array\u003cuint8_t\u003e or std::vector\u003cuint8_t\u003e; and you\u0027re casting to uint8_t* anyway below.\n\nBut that will probably require an extra step to copy out of nonce_response; I don\u0027t remember if there\u0027s a coercion from char to uint8_t.",
+      "revId": "53f8fe00b45f6d5164392461c641fde59079877c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
