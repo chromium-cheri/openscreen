@@ -105,6 +105,7 @@ MdnsPublisher::~MdnsPublisher() {
 
 Error MdnsPublisher::RegisterRecord(const MdnsRecord& record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(record.dns_type() != DnsType::kNSEC);
   ValidateRecord(record);
 
   return record.dns_type() == DnsType::kPTR ? RegisterPtrRecord(record)
@@ -113,6 +114,7 @@ Error MdnsPublisher::RegisterRecord(const MdnsRecord& record) {
 
 Error MdnsPublisher::UnregisterRecord(const MdnsRecord& record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(record.dns_type() != DnsType::kNSEC);
   ValidateRecord(record);
 
   return record.dns_type() == DnsType::kPTR ? UnregisterPtrRecord(record)
@@ -122,6 +124,7 @@ Error MdnsPublisher::UnregisterRecord(const MdnsRecord& record) {
 Error MdnsPublisher::UpdateRegisteredRecord(const MdnsRecord& old_record,
                                             const MdnsRecord& new_record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(old_record.dns_type() != DnsType::kNSEC);
 
   if (old_record.dns_type() == DnsType::kPTR) {
     return Error::Code::kParameterInvalid;
