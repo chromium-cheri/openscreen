@@ -46,6 +46,30 @@
       "revId": "2c5e3d4c9d608a3dfaf075a27f4c5914ce4418ec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d53029f_cb79f0eb",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-20T17:28:59Z",
+      "side": 0,
+      "message": "In the new design, all domain-name-claiming must be done before we attempt publish any records, so it no longer makes sense for the publisher to make this kind of call since domain ownership and claiming is now an entirely separate process\n\nI could add a method to MdnsProbeManager to release ownership of a DomainName, which then unpublishes all related records. Though, IMHO, this is unnecessary because we currently have no scenario where this would be used. We never stop a running Chromecast service, so we only want to release ownership when we shut down. At this point the MdnsProbeManager will stop responding to probe queries, which is all releasing ownership would do. WDYT?",
+      "parentUuid": "7a42ae5f_f8f73fed",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 23
+      },
+      "revId": "2c5e3d4c9d608a3dfaf075a27f4c5914ce4418ec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
