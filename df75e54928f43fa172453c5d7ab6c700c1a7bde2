@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7276969d_a5cd272a",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-21T01:12:57Z",
+      "side": 1,
+      "message": "This seems to duplicate the purpose of ToRecord() above.",
+      "revId": "df75e54928f43fa172453c5d7ab6c700c1a7bde2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5f99143_610008a3",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-21T01:12:57Z",
+      "side": 1,
+      "message": "Or if a service instance changes its data, like TXT or A?",
+      "revId": "df75e54928f43fa172453c5d7ab6c700c1a7bde2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46428de9_34db1427",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2019-12-21T01:12:57Z",
+      "side": 1,
+      "message": "Side comment:This will likely be implemented as just sending additional queries, which is sort of a \"re-initialization\", since those queries would be sent by StartDiscovery().",
+      "revId": "df75e54928f43fa172453c5d7ab6c700c1a7bde2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
