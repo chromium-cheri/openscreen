@@ -20,6 +20,13 @@
 namespace openscreen {
 namespace cast {
 
+// TODO(crbug.com/openscreen/90): Remove these after Chromium is migrated to
+// openscreen::cast
+using CrlBundle = ::cast::certificate::CrlBundle;
+using Crl = ::cast::certificate::Crl;
+using TbsCrl = ::cast::certificate::TbsCrl;
+using SerialNumberRange = ::cast::certificate::SerialNumberRange;
+
 // This class represents the certificate revocation list information parsed from
 // the binary in a protobuf message.
 class CastCRL {

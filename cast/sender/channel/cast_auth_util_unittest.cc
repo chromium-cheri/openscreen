@@ -18,6 +18,13 @@
 
 namespace openscreen {
 namespace cast {
+
+// TODO(crbug.com/openscreen/90): Remove these after Chromium is migrated to
+// openscreen::cast
+using DeviceCertTestSuite = ::cast::certificate::DeviceCertTestSuite;
+using VerificationResult = ::cast::certificate::VerificationResult;
+using DeviceCertTest = ::cast::certificate::DeviceCertTest;
+
 namespace {
 
 using ::cast::channel::AuthResponse;
@@ -401,7 +408,7 @@ bool RunTest(const DeviceCertTest& test_case) {
   std::string crl_bundle = test_case.crl_bundle();
   ErrorOr<CastDeviceCertPolicy> result(CastDeviceCertPolicy::kUnrestricted);
   switch (test_case.expected_result()) {
-    case PATH_VERIFICATION_FAILED:
+    case ::cast::certificate::PATH_VERIFICATION_FAILED:
       result = TestVerifyRevocation(
           certificate_chain, crl_bundle, verification_time, false,
           cast_trust_store.get(), crl_trust_store.get());
@@ -409,31 +416,31 @@ bool RunTest(const DeviceCertTest& test_case) {
                 Error::Code::kCastV2CertNotSignedByTrustedCa);
       return result.error().code() ==
              Error::Code::kCastV2CertNotSignedByTrustedCa;
-    case CRL_VERIFICATION_FAILED:
+    case ::cast::certificate::CRL_VERIFICATION_FAILED:
     // Fall-through intended.
-    case REVOCATION_CHECK_FAILED_WITHOUT_CRL:
+    case ::cast::certificate::REVOCATION_CHECK_FAILED_WITHOUT_CRL:
       result = TestVerifyRevocation(
           certificate_chain, crl_bundle, verification_time, true,
           cast_trust_store.get(), crl_trust_store.get());
       EXPECT_EQ(result.error().code(), Error::Code::kErrCrlInvalid);
       return result.error().code() == Error::Code::kErrCrlInvalid;
-    case CRL_EXPIRED_AFTER_INITIAL_VERIFICATION:
+    case ::cast::certificate::CRL_EXPIRED_AFTER_INITIAL_VERIFICATION:
       // By-pass this test because CRL is always verified at the time the
       // certificate is verified.
       return true;
-    case REVOCATION_CHECK_FAILED:
+    case ::cast::certificate::REVOCATION_CHECK_FAILED:
       result = TestVerifyRevocation(
           certificate_chain, crl_bundle, verification_time, true,
           cast_trust_store.get(), crl_trust_store.get());
       EXPECT_EQ(result.error().code(), Error::Code::kErrCertsRevoked);
       return result.error().code() == Error::Code::kErrCertsRevoked;
-    case SUCCESS:
+    case ::cast::certificate::SUCCESS:
       result = TestVerifyRevocation(
           certificate_chain, crl_bundle, verification_time, false,
           cast_trust_store.get(), crl_trust_store.get());
       EXPECT_EQ(result.error().code(), Error::Code::kCastV2SignedBlobsMismatch);
       return result.error().code() == Error::Code::kCastV2SignedBlobsMismatch;
-    case UNSPECIFIED:
+    case ::cast::certificate::UNSPECIFIED:
       return false;
   }
   return false;

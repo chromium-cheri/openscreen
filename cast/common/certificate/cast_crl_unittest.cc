@@ -14,6 +14,13 @@
 
 namespace openscreen {
 namespace cast {
+
+// TODO(crbug.com/openscreen/90): Remove these after Chromium is migrated to
+// openscreen::cast
+using DeviceCertTestSuite = ::cast::certificate::DeviceCertTestSuite;
+using VerificationResult = ::cast::certificate::VerificationResult;
+using DeviceCertTest = ::cast::certificate::DeviceCertTest;
+
 namespace {
 
 // Indicates the expected result of test step's verification.
@@ -115,14 +122,14 @@ bool RunTest(const DeviceCertTest& test_case) {
 
   std::string crl_bundle = test_case.crl_bundle();
   switch (test_case.expected_result()) {
-    case PATH_VERIFICATION_FAILED:
+    case ::cast::certificate::PATH_VERIFICATION_FAILED:
       return TestVerifyCertificate(kResultFail, der_cert_path,
                                    cert_verification_time,
                                    cast_trust_store.get());
-    case CRL_VERIFICATION_FAILED:
+    case ::cast::certificate::CRL_VERIFICATION_FAILED:
       return TestVerifyCRL(kResultFail, crl_bundle, crl_verification_time,
                            crl_trust_store.get());
-    case REVOCATION_CHECK_FAILED_WITHOUT_CRL:
+    case ::cast::certificate::REVOCATION_CHECK_FAILED_WITHOUT_CRL:
       return TestVerifyCertificate(kResultSuccess, der_cert_path,
                                    cert_verification_time,
                                    cast_trust_store.get()) &&
@@ -132,8 +139,9 @@ bool RunTest(const DeviceCertTest& test_case) {
                  Error::Code::kErrCrlInvalid, der_cert_path, crl_bundle,
                  crl_verification_time, cert_verification_time, true,
                  cast_trust_store.get(), crl_trust_store.get());
-    case CRL_EXPIRED_AFTER_INITIAL_VERIFICATION:  // fallthrough
-    case REVOCATION_CHECK_FAILED:
+    case ::cast::certificate::
+        CRL_EXPIRED_AFTER_INITIAL_VERIFICATION:  // fallthrough
+    case ::cast::certificate::REVOCATION_CHECK_FAILED:
       return TestVerifyCertificate(kResultSuccess, der_cert_path,
                                    cert_verification_time,
                                    cast_trust_store.get()) &&
@@ -143,7 +151,7 @@ bool RunTest(const DeviceCertTest& test_case) {
                  Error::Code::kErrCertsRevoked, der_cert_path, crl_bundle,
                  crl_verification_time, cert_verification_time, true,
                  cast_trust_store.get(), crl_trust_store.get());
-    case SUCCESS:
+    case ::cast::certificate::SUCCESS:
       return (crl_bundle.empty() ||
               TestVerifyCRL(kResultSuccess, crl_bundle, crl_verification_time,
                             crl_trust_store.get())) &&
@@ -154,7 +162,7 @@ bool RunTest(const DeviceCertTest& test_case) {
                                   crl_verification_time, cert_verification_time,
                                   !crl_bundle.empty(), cast_trust_store.get(),
                                   crl_trust_store.get());
-    case UNSPECIFIED:
+    case ::cast::certificate::UNSPECIFIED:
       return false;
   }
   return false;
