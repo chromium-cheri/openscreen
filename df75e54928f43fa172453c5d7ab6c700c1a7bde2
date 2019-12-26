@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c6c1fc56_94fc6383",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T18:31:44Z",
+      "side": 1,
+      "message": "File removed per other comment.",
+      "parentUuid": "7276969d_a5cd272a",
+      "revId": "df75e54928f43fa172453c5d7ab6c700c1a7bde2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5f99143_610008a3",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1096c9b8_d6912e43",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T18:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5f99143_610008a3",
+      "revId": "df75e54928f43fa172453c5d7ab6c700c1a7bde2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46428de9_34db1427",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "df75e54928f43fa172453c5d7ab6c700c1a7bde2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542d5d68_3e12c632",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T18:31:44Z",
+      "side": 1,
+      "message": "mDNS Querier now supports ReinitializeQueries(DomainName), and this has been plumbed through the DNS-SD layer as well - so it should actually just be a simple call to that method\n\nOn its own, sending additional queries would not re-initialize anything, because ongoing mDNS queries would not be resent (we would just return any results mDNS has found and not re-query) due to optimizations included in the original mDNS Querier design. So here we can keep the set of services discovered so far (by persisting the data within this class) and re-initialize the underlying mDNS Queries",
+      "parentUuid": "46428de9_34db1427",
+      "revId": "df75e54928f43fa172453c5d7ab6c700c1a7bde2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
