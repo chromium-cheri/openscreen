@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "57c8f8d4_f2eac743",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T18:03:16Z",
+      "side": 1,
+      "message": "Good point. I think an error is a more obvious response, so updating the code and the comment here",
+      "parentUuid": "b45d6af9_e0832a23",
+      "revId": "2c97cf59ea843f6af6ffa499dece4aa9726b1841",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7bbd3df_1172bb4e",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bed02837_5b4622f0",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T18:03:16Z",
+      "side": 1,
+      "message": "It sounds like you\u0027re asking for \n\ntemplate\u003cDnsType type\u003e\nIsNegativeResponse(const MdnsRecord\u0026 record) {\n  ...\n}\n\nI like that too, but enum class template parameters are nontrivial - so IMHO this is a lot more readable",
+      "parentUuid": "d7bbd3df_1172bb4e",
+      "revId": "2c97cf59ea843f6af6ffa499dece4aa9726b1841",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38afd7ff_cbea03e2",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "2c97cf59ea843f6af6ffa499dece4aa9726b1841",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65974777_d7591c59",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T18:03:16Z",
+      "side": 1,
+      "message": "If we get a Negative Response back off the network, we want to skip it - the below code wouldn\u0027t handle it correctly, so we need the `continue` statement.",
+      "parentUuid": "38afd7ff_cbea03e2",
+      "revId": "2c97cf59ea843f6af6ffa499dece4aa9726b1841",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
