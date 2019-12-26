@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5e59adfe_45954222",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T20:07:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bc5d452_87212491",
+      "revId": "5a2f93d94b9a820705af3df4995fdc75b644e648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8e8d721_e52ca2b7",
         "filename": "discovery/mdns/mdns_probe_manager.h",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "5a2f93d94b9a820705af3df4995fdc75b644e648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "372b6ecf_ab5cd199",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T20:07:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8e8d721_e52ca2b7",
+      "revId": "5a2f93d94b9a820705af3df4995fdc75b644e648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "54d4b012_a19bfbf2",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T20:07:20Z",
+      "side": 1,
+      "message": "Done. Updated to \"owned by this MdnsProbeManager\"",
+      "parentUuid": "ba145f51_55dfcd75",
+      "revId": "5a2f93d94b9a820705af3df4995fdc75b644e648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4e41053_8b11021f",
         "filename": "discovery/mdns/mdns_probe_manager.h",
         "patchSetId": 5
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "1ba4d797_d2e83ed0",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T20:07:20Z",
+      "side": 1,
+      "message": "\u003e Which domain name is handled here? Do you mean a domain name contained inside one of the records in |message|?  Which one?\n\nAdding documentation.\n\nThe way a probe query is recognized is whether the \u0027authority records\u0027 section contains records which answer the kANY query in the questions section. So this is both the DomainName contained in the query and the associated authority records\n\n\u003e Please document the |src| argument (it\u0027s to address the unicast reply, right)?\n\nDone",
+      "parentUuid": "a4e41053_8b11021f",
+      "revId": "5a2f93d94b9a820705af3df4995fdc75b644e648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f03a8f2_47125c5c",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 5
@@ -84,6 +156,24 @@
       "revId": "5a2f93d94b9a820705af3df4995fdc75b644e648",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa780b8e_b3d42a73",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T20:07:20Z",
+      "side": 1,
+      "message": "The map we use to store published records is a map of RecordAnnouncer objects. As part of the dtor for these objects, a Goodbye message is removed\n\nThe code that\u0027s been removed here only had a TODO to send a goodbye record (which was poorly documented) which should have been removed when the RecordAnnouncer class was added. The code here didn\u0027t actually send the Goodbye message yet - it only marked that Probe requests for the previously claimed DomainName should stop returning an \"I already own this\" response from this publisher",
+      "parentUuid": "5f03a8f2_47125c5c",
+      "revId": "5a2f93d94b9a820705af3df4995fdc75b644e648",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
