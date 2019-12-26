@@ -16,6 +16,24 @@
       "revId": "37213ee0745b318da90c6959328f90bb70375835",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "405d8597_6924c6fd",
+        "filename": "discovery/dnssd/public/dns_sd_instance_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-26T17:52:31Z",
+      "side": 1,
+      "message": "We have 2 separate ctors. The first (line 56) allows only one endpoint, and this ctor requires both\n\nPrior to the recent change, IPEndpoints always were considered to \u0027exist\u0027 - so making either of these endpoints optional would have been absl::optional\u003cIPEndpoint\u003e. We\u0027d discussed this as part of the orignal design, and decided against it, so I am continuing to require both be valid in this ctor to stick with our previous design decisions\n\nIf you disagree, let me know and I will create a follow-up CL",
+      "parentUuid": "02d5c07a_53b18528",
+      "revId": "37213ee0745b318da90c6959328f90bb70375835",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
