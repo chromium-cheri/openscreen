@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f16eff8b_95d0f47b",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-27T22:28:06Z",
+      "side": 1,
+      "message": "This should be data(), not c_str().",
+      "range": {
+        "startLine": 126,
+        "startChar": 49,
+        "endLine": 126,
+        "endChar": 54
+      },
+      "revId": "47f6dcbde5451aed1b66fb56a02ad8446a0e1c85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e5ce910_f8c47f93",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-27T22:28:06Z",
+      "side": 1,
+      "message": "c++ style: Rarely use size_t. Always prefer signed integers. There are tons of reasons why it\u0027s bad to use unsigned integers when you\u0027re not bit-twiddling.\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 6
+      },
+      "revId": "47f6dcbde5451aed1b66fb56a02ad8446a0e1c85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89859dfd_c96a891a",
+        "filename": "discovery/dnssd/public/dns_sd_instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-27T22:28:06Z",
+      "side": 1,
+      "message": "Please remove and use std::isdigit() and std::isalpha().",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 1
+      },
+      "revId": "47f6dcbde5451aed1b66fb56a02ad8446a0e1c85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c39bfc_19940656",
+        "filename": "discovery/dnssd/public/dns_sd_instance_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2019-12-27T22:28:06Z",
+      "side": 1,
+      "message": "Suggest making this a DCHECK (and in the other ctor) to avoid the extra code generation for release builds. This is not guarding/preventing a memory error or some kind of resource acquisition failure.",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 11
+      },
+      "revId": "47f6dcbde5451aed1b66fb56a02ad8446a0e1c85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
