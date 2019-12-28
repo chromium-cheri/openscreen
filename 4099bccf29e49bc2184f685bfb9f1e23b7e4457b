@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8e15c5b_e568838b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2019-12-28T00:11:54Z",
+      "side": 1,
+      "message": "IIUC, this requires callers to use a hot loop, which the previous approach was designed to avoid\n\nIf the caller gets back a kAgain from write, then that would signal that the write failed and they need to try again, correct? In that case, they have no way of knowing how long to wait. So their only option is a hot loop:\n\nwhile (result \u003d\u003d kAgain) {\n  result \u003d Send();\n}\n\nThe previous approach, while not perfect, allowed for asynchronous waits:\n\nOnWritesUnblocked {\n  SendAsMuchDataAsICan();  // Send data until it\u0027s blocked again.\n}\n\nMy understanding based on our previous discussions was that you wanted to use a boolean return value to simplify that SendAsMuchAsICan() method above. After adding a boolean, it becomes send until we get back a false, then stop. \n\nI might be misunderstanding how you intend for the new Send() method to be used - lets plan to discuss it next week",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "4099bccf29e49bc2184f685bfb9f1e23b7e4457b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
