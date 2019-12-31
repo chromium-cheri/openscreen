@@ -15,6 +15,11 @@
 
 #define TEST_DATA_PREFIX OPENSCREEN_TEST_DATA_DIR "cast/receiver/channel/"
 
+using ::cast::certificate::Crl;
+using ::cast::certificate::CrlBundle;
+using ::cast::certificate::SerialNumberRange;
+using ::cast::certificate::TbsCrl;
+
 namespace openscreen {
 namespace cast {
 namespace {
