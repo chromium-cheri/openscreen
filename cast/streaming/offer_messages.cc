@@ -65,27 +65,48 @@ ErrorOr<int> ParseRtpTimebase(const Json::Value& parent,
   return rtp_timebase;
 }
 
-ErrorOr<std::array<uint8_t, 16>> ParseAesHexBytes(const Json::Value& parent,
-                                                  const std::string& field) {
+// For a hex byte, the conversion is 4 bits to 1 character, e.g.
+// 0b11110001 becomes F1.
+constexpr int kBytesToStringFactor = 2;
+template <size_t N>
+ErrorOr<std::array<uint8_t, N>> ParseAesHexBytes(const Json::Value& parent,
+                                                 const std::string& field) {
+  const int aes_string_length = N * kBytesToStringFactor;
   auto hex_string = ParseString(parent, field);
   if (!hex_string) {
     return hex_string.error();
   }
 
-  uint64_t quads[2];
+  uint64_t quads[kBytesToStringFactor];
   int chars_scanned;
-  if (hex_string.value().size() == 32 &&
+  if (hex_string.value().size() == aes_string_length &&
       sscanf(hex_string.value().c_str(), "%16" SCNx64 "%16" SCNx64 "%n",
-             &quads[0], &quads[1], &chars_scanned) == 2 &&
-      chars_scanned == 32 &&
+             &quads[0], &quads[1], &chars_scanned) == kBytesToStringFactor &&
+      chars_scanned == aes_string_length &&
       std::none_of(hex_string.value().begin(), hex_string.value().end(),
                    [](char c) { return std::isspace(c); })) {
-    std::array<uint8_t, 16> bytes;
+    std::array<uint8_t, N> bytes;
     WriteBigEndian(quads[0], bytes.data());
     WriteBigEndian(quads[1], bytes.data() + 8);
     return bytes;
   }
   return CreateParseError("AES hex string bytes");
+}
+
+template <size_t N>
+std::string AesHexBytesToString(const std::array<uint8_t, N>& bytes) {
+  const int aes_string_length = N * kBytesToStringFactor;
+  std::string out(aes_string_length, '\0');
+
+  for (size_t i = 0; i < N; ++i) {
+    const int r = snprintf(out.data() + i * kBytesToStringFactor,
+                           kBytesToStringFactor, "%02x", bytes[i]);
+
+    // Since the string is a known size, this definitely should not fail.
+    OSP_CHECK(r == kBytesToStringFactor);
+  }
+
+  return out;
 }
 
 ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
@@ -114,11 +135,11 @@ ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
   if (!ssrc) {
     return ssrc.error();
   }
-  auto aes_key = ParseAesHexBytes(value, "aesKey");
+  auto aes_key = ParseAesHexBytes<16>(value, "aesKey");
   if (!aes_key) {
     return aes_key.error();
   }
-  auto aes_iv_mask = ParseAesHexBytes(value, "aesIvMask");
+  auto aes_iv_mask = ParseAesHexBytes<16>(value, "aesIvMask");
   if (!aes_iv_mask) {
     return aes_iv_mask.error();
   }
@@ -255,6 +276,19 @@ ErrorOr<VideoStream> ParseVideoStream(const Json::Value& value) {
                      ValueOrDefault(error_recovery_mode)};
 }
 
+std::string ToString(Stream::Type type) {
+  switch (type) {
+    case Stream::Type::kAudioSource:
+      return kAudioSourceType;
+    case Stream::Type::kVideoSource:
+      return kVideoSourceType;
+    default: {
+      OSP_NOTREACHED();
+      return "";
+    }
+  }
+}
+
 }  // namespace
 
 constexpr char kCastMirroring[] = "mirroring";
@@ -264,6 +298,27 @@ constexpr char kCastRemoting[] = "remoting";
 CastMode CastMode::Parse(absl::string_view value) {
   return (value == kCastRemoting) ? CastMode{CastMode::Type::kRemoting}
                                   : CastMode{CastMode::Type::kMirroring};
+}
+
+ErrorOr<Json::Value> Stream::ToJson() const {
+  if (channels < 1 || index < 0 || codec_name.empty() || rtp_timebase < 1) {
+    return CreateParameterError("Stream");
+  }
+
+  Json::Value root;
+  root["index"] = index;
+  root["type"] = ToString(type);
+  root["channels"] = channels;
+  root["codecName"] = codec_name;
+  root["rtpPayloadType"] = static_cast<int>(rtp_payload_type);
+  root["ssrc"] = static_cast<int>(ssrc);
+  root["targetDelay"] = target_delay.count();
+  root["aesKey"] = 1;
+  root["aesIvMask"] = 1;
+  root["ReceiverRtcpEventLog"] = receiver_rtcp_event_log;
+  root["receiverRtcpDscp"] = receiver_rtcp_dscp;
+  root["rtp_timebase"] = "1/" + std::to_string(rtp_timebase);
+  return root;
 }
 
 std::string CastMode::ToString() const {
