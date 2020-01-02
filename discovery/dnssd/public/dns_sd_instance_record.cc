@@ -83,7 +83,7 @@ DnsSdInstanceRecord::DnsSdInstanceRecord(std::string instance_id,
                           std::move(domain_id),
                           std::move(txt)) {
   OSP_CHECK(ipv4_endpoint);
-  OSP_CHECK(ipv4_endpoint);
+  OSP_CHECK(ipv6_endpoint);
   OSP_CHECK(ipv4_endpoint.address.IsV4());
   OSP_CHECK(ipv6_endpoint.address.IsV6());
 
