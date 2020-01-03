@@ -43,8 +43,8 @@ class DnsSdInstanceRecord {
   // Returns the domain id for this DNS-SD record.
   const std::string& domain_id() const { return domain_id_; }
 
-  // Returns the addess associated with this DNS-SD record. In any valid record,
-  // at least one will be set.
+  // Returns the address associated with this DNS-SD record. In any valid
+  // record, at least one will be set.
   const IPEndpoint& address_v4() const { return address_v4_; }
   const IPEndpoint& address_v6() const { return address_v6_; }
 
