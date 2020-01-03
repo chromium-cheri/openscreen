@@ -22,6 +22,29 @@
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "222f9468_b32b38f4",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-03T17:53:48Z",
+      "side": 1,
+      "message": "using std::string types causes an \"exit time dtor\" warning, and using non-char types (uint8_t, int8_t) causes compilation failures\n\nThese are declared here (rather than an anonymous namespace in the .cc) so that the UTs can have access, without needing to copy-past the defintions",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
