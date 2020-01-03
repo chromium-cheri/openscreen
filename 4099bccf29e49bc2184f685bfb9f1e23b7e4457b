@@ -46,6 +46,53 @@
       "revId": "4099bccf29e49bc2184f685bfb9f1e23b7e4457b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "559ed89e_ee6bac3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-03T23:03:37Z",
+      "side": 1,
+      "message": "That makes sense. I agree this approach is probably better suited to our use case based on your description of #2 above\n\nMy only other concern is that the task doing the write may be on the task runner. We might have code that says:\n\nvoid WriteThings() {\n  TaskRunner::PostTask(Write(a))\n  TaskRunner::PostTask(Write(b))\n  TaskRunner::PostTask(Write(c))\n}\n\nThen, when these are executed in order\ntime\u003d1. Write(a) returns kAgain, so we re-queue the write\ntime\u003d2. The TLS Write thread executes, and the queue is cleared out.\ntime\u003d3. Write(b) returns No error, because by then the write queue has been cleared\ntime\u003d4. Write(c) also succeeds\ntime\u003d5. Write(a) succeeds the second time\ntime\u003d6. TLS Write thread executes again and all TLS messages are sent out.\n\nThen, we\u0027ve written b, c, a\nwhile the intended order is a, b, c\n\nIf all of our messages are commutative, this wouldn\u0027t be a problem.\nI don\u0027t think that\u0027s true though - If A \u003d start_cast and C \u003d stop_cast, then the end state would be start_cast rather than stop_cast (not to mention, we are assuming that the receiver can handle receiving an invalid command. IE: Stop Casting when nothing is casting. Based on previous discussions, this seems to be a bad assumption)\n\nWhat are your thoughts?",
+      "parentUuid": "b3104d21_c6a9de82",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "4099bccf29e49bc2184f685bfb9f1e23b7e4457b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffe882f_9712c7da",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-03T23:03:37Z",
+      "side": 1,
+      "message": "Cool - I didn\u0027t know you could do that",
+      "range": {
+        "startLine": 58,
+        "startChar": 18,
+        "endLine": 58,
+        "endChar": 25
+      },
+      "revId": "4099bccf29e49bc2184f685bfb9f1e23b7e4457b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
