@@ -20,6 +20,15 @@ Error DnsSdTxtRecord::SetValue(const std::string& key,
   return Error::None();
 }
 
+Error DnsSdTxtRecord::SetValue(const std::string& key, uint8_t value) {
+  return SetValue(key, std::vector<uint8_t>{value});
+}
+
+Error DnsSdTxtRecord::SetValue(const std::string& key,
+                               const std::string& value) {
+  return SetValue(key, std::vector<uint8_t>(value.begin(), value.end()));
+}
+
 Error DnsSdTxtRecord::SetFlag(const std::string& key, bool value) {
   if (!IsKeyValid(key)) {
     return Error::Code::kParameterInvalid;

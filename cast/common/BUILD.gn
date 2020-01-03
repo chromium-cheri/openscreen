@@ -61,6 +61,7 @@ source_set("channel") {
 
 source_set("discovery") {
   sources = [
+    "discovery/service_info.cc",
     "discovery/service_info.h",
   ]
 
@@ -107,11 +108,13 @@ source_set("unittests") {
     "channel/namespace_router_unittest.cc",
     "channel/virtual_connection_manager_unittest.cc",
     "channel/virtual_connection_router_unittest.cc",
+    "discovery/service_info_unittest.cc",
   ]
 
   deps = [
     ":certificate",
     ":channel",
+    ":discovery",
     ":test_helpers",
     "../../platform",
     "../../testing/util",
