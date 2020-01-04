@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ddbec716_b4ab4b9e",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Once this CL is in, I plan to go back to the DNS-SD layer and update it to account for the modified MdnsService interface. Aside from no longer dropping the Errors as you point out, I also need to update it to account for the Probe interface change, which was not there when DNS-SD was first written.\n\nWanted to keep them separate to keep the CL small though. I\u0027ve found 200-300 lines to be the sweet spot.",
+      "parentUuid": "36f66b22_541f8a72",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be27e55a_c7f47b45",
         "filename": "discovery/dnssd/impl/querier_impl_unittest.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e075bca3_c231db08",
+        "filename": "discovery/dnssd/impl/querier_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be27e55a_c7f47b45",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3cac9242_d1876875",
+        "filename": "discovery/mdns/mdns_domain_claimed_callback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Going with MdnsDomainConfirmedProvider - all of the classes here are prefaced with mDNS",
+      "parentUuid": "74ea6ac8_fc0dcfa3",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "554c07eb_1ce5b4ef",
         "filename": "discovery/mdns/mdns_domain_claimed_callback.h",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2019-12-20T22:39:47Z",
       "side": 1,
       "message": "Is it called once the probing phase is complete and the domain name has not been confirmed? Or are they synonymous?",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94817ecc_121fa4d6",
+        "filename": "discovery/mdns/mdns_domain_claimed_callback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "They are synonyms. I used both here to make the comment clearer - if you think it does the opposite I can remove one of the two. WDYT?",
+      "parentUuid": "554c07eb_1ce5b4ef",
       "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ea4fb7e0_52153dd6",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a0bca24_3cc943a5",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ce62980_22dbafa7",
         "filename": "discovery/mdns/mdns_service_impl.cc",
         "patchSetId": 1
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "5ff78791_a8278146",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ce62980_22dbafa7",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfccf4be_819620b6",
         "filename": "discovery/mdns/mdns_service_impl.cc",
         "patchSetId": 1
@@ -115,6 +223,24 @@
       "writtenOn": "2019-12-20T22:39:47Z",
       "side": 1,
       "message": "If the querier, publisher, and responder all need the same set of 5 parameters, can you create an aggregate struct and pass that instead? \u003e3 parameters is less than ideal right?",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db04ce18_08da8f86",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "After integrating the changes from parallel CLs, these 3 classes now all require different input parameters\n\nI agree that a lot of input parameters is not ideal, but I\u0027m not sure whether the new approach is better anymore\nWith the new approach, we would create a new stuct MdnsInitialization or similar (probably with MdnsSender, MdnsReceiver, MdnsRandom, and MdnsProbeManager, as adding non-MDNS types like TaskRunner feels like hiding too many details). This would make the ctors:\n- MdnsPublisher(TaskRunner*, ClockNowFunctionPtr, const MdnsInitialization\u0026)\n- MdnsResponder(RecordHandler*, TaskRunner*, const MdnsInitialization\u0026)\n- MdnsQuerier(TaskRunner*, ClockNowFunctionPtr, const MdnsInitialization\u0026)\n\nSo definitely less ctor code\n\nBut at the same time, we lose the sense of what these classes\u0027 dependencies are. Additionally, it feels a bit haphazard what gets included in the Institutionalization class (for instance, why isn\u0027t MdnsPublisher included if it is needed by MdnsResponder, but MdnsProbeManager is?). Also, just personal preference, but I don\u0027t like mixing pointers and const refs in the same ctor.\n\nWDYT? I\u0027m open to either option, though IMHO the current approach is more readable now that they use different ctor parameters",
+      "parentUuid": "cfccf4be_819620b6",
       "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "b2b5dd6c_538f52c0",
+        "filename": "discovery/mdns/mdns_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a962e4a_97b23380",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c231e530_036746f0",
         "filename": "discovery/mdns/mdns_service_impl.h",
         "patchSetId": 1
@@ -152,6 +296,24 @@
       "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ff9e60_6d0495d6",
+        "filename": "discovery/mdns/mdns_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c231e530_036746f0",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "73258f1d_db452333",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3802dea_c0e1331b",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0efb695_846a6c8f",
         "filename": "discovery/mdns/public/mdns_service.h",
         "patchSetId": 1
@@ -186,6 +366,24 @@
       "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "800a83bc_91e2c3f7",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-04T00:59:38Z",
+      "side": 1,
+      "message": "Reference arguments must all be const, which doesn\u0027t work here\n\nhttps://google.github.io/styleguide/cppguide.html#Reference_Arguments",
+      "parentUuid": "a0efb695_846a6c8f",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
