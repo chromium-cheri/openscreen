@@ -2,6 +2,159 @@
   "comments": [
     {
       "key": {
+        "uuid": "0007065e_050c6794",
+        "filename": "cast/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem necessary?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5e64e88_25d388db",
+        "filename": "cast/common/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "Is this right?  The only include I see is discovery/dnssd/public, which is the right one; code outside of discovery/ should depend on its public/ folders.",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99d29b9b_828df107",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "This function seems to do the opposite of string-to-integer.",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4229a011_5e8ed762",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "Can you use std::to_string?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5da4612_c1c6fa1d",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "Can you use std::stol or absl::SimpleAtoi?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c717966_1b9a22f6",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "Can this just return ErrorOr\u003cstd::string\u003e?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57e4a092_472a1744",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "ErrorOr\u003cuin8_t\u003e",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9daaf187_9a69a246",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "I guess it can\u0027t hurt to validate the contents of |service|.  But it could be simpler to have a separate validation method, and then DCHECK that a valid service is passed in before setting the instance record fields.\n\nWho calls this code? Can the validation be moved upstream?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70b8c880_4b613649",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "This is checking a constant, so the result will never change.  Is that intentional?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f399226b_e1809e69",
         "filename": "cast/common/discovery/service_info.cc",
         "patchSetId": 4
@@ -25,6 +178,74 @@
     },
     {
       "key": {
+        "uuid": "fddf8de4_710709b7",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "What is the type of service.capabilities if not already uint64_t?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1e9b4e_8cc0a506",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "I would shorten this by not declaring |capabilities|.",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b24f4504_154a8aff",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "I see why you used the output parameter here for the error.  This is one place where not having exceptions is a pain.\n\nI guess the alternative is a macro, and I would prefer plain C++ over that.",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bc888c5_09da51ba",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "Where is the port set?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "222f9468_b32b38f4",
         "filename": "cast/common/discovery/service_info.h",
         "patchSetId": 4
@@ -42,6 +263,47 @@
         "endLine": 27,
         "endChar": 44
       },
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1d815f2_5bff2330",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "OK.  \n\nIf you were to define these as uint8_t[], they would need an array initializer like { 0x39, 0x40 } or some such.  This is more readable and it should be safe to convert char[] to uint8_t[].",
+      "parentUuid": "222f9468_b32b38f4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44f033ed_cb531c06",
+        "filename": "cast/common/discovery/service_info_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-06T20:17:47Z",
+      "side": 1,
+      "message": "It might be useful to put these into a separate file in cast/testing, since they are likely to be needed in other tests (if they aren\u0027t already repeated).",
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
