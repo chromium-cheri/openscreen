@@ -29,7 +29,7 @@ constexpr auto kMaxTargetPlayoutDelay = std::chrono::milliseconds(2000);
 
 // If the sender provides an invalid maximum frame rate, it will
 // be set to kDefaultMaxFrameRate.
-constexpr double kDefaultMaxFrameRate = 30.0;
+constexpr int kDefaultMaxFrameRate = 30;
 
 constexpr int kDefaultNumVideoChannels = 1;
 constexpr int kDefaultNumAudioChannels = 2;
@@ -42,6 +42,8 @@ constexpr int kDefaultNumAudioChannels = 2;
 // fields specific to audio and video respectively.
 struct Stream {
   enum class Type : uint8_t { kAudioSource, kVideoSource };
+
+  ErrorOr<Json::Value> ToJson() const;
 
   int index = 0;
   Type type = {};
@@ -63,18 +65,29 @@ struct Stream {
 };
 
 struct AudioStream {
+  ErrorOr<Json::Value> ToJson() const;
+
   Stream stream = {};
   int bit_rate = 0;
 };
 
 struct Resolution {
+  ErrorOr<Json::Value> ToJson() const;
+
   int width = 0;
   int height = 0;
 };
 
 struct VideoStream {
+  ErrorOr<Json::Value> ToJson() const;
+
   Stream stream = {};
-  double max_frame_rate = {};
+  double max_frame_rate() const {
+    return static_cast<double>(max_frame_rate_numerator) /
+           static_cast<double>(max_frame_rate_denominator);
+  }
+  int max_frame_rate_numerator;
+  int max_frame_rate_denominator;
   int max_bit_rate = 0;
   std::string protection = {};
   std::string profile = {};
@@ -96,6 +109,7 @@ struct CastMode {
 
 struct Offer {
   static ErrorOr<Offer> Parse(const Json::Value& root);
+  ErrorOr<Json::Value> ToJson() const;
 
   CastMode cast_mode = {};
   // This field is poorly named in the spec (receiverGetStatus), so we use
