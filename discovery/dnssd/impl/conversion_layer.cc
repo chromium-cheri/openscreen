@@ -140,10 +140,13 @@ ErrorOr<DnsSdTxtRecord> CreateFromDnsTxt(const TxtRecordRdata& txt_data) {
   return txt;
 }
 
+DomainName GetDomainName(const InstanceKey& key) {
+  return GetInstanceDomainName(key.instance_id(), key.service_id(),
+                               key.domain_id());
+}
+
 DnsQueryInfo GetInstanceQueryInfo(const InstanceKey& key) {
-  auto domain = GetInstanceDomainName(key.instance_id(), key.service_id(),
-                                      key.domain_id());
-  return {std::move(domain), DnsType::kANY, DnsClass::kANY};
+  return {GetDomainName(key), DnsType::kANY, DnsClass::kANY};
 }
 
 DnsQueryInfo GetPtrQueryInfo(const ServiceKey& key) {
@@ -152,7 +155,11 @@ DnsQueryInfo GetPtrQueryInfo(const ServiceKey& key) {
 }
 
 bool HasValidDnsRecordAddress(const MdnsRecord& record) {
-  return InstanceKey::CreateFromRecord(record).is_value();
+  return InstanceKey::TryCreate(record).is_value();
+}
+
+bool HasValidDnsRecordAddress(const DomainName& domain) {
+  return InstanceKey::TryCreate(domain).is_value();
 }
 
 bool IsPtrRecord(const MdnsRecord& record) {

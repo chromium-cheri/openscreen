@@ -112,6 +112,22 @@ std::ostream& operator<<(std::ostream& out, const IPAddress& address);
 //   or [fe80:0000:0000:0000:1234:5678:9abc:def0]:8080
 std::ostream& operator<<(std::ostream& out, const IPEndpoint& endpoint);
 
+inline bool operator<(const IPEndpoint& lhs, const IPEndpoint& rhs) {
+  return IPEndpointComparator()(lhs, rhs);
+}
+
+inline bool operator>(const IPEndpoint& lhs, const IPEndpoint& rhs) {
+  return rhs < lhs;
+}
+
+inline bool operator<=(const IPEndpoint& lhs, const IPEndpoint& rhs) {
+  return !(rhs > lhs);
+}
+
+inline bool operator>=(const IPEndpoint& lhs, const IPEndpoint& rhs) {
+  return !(rhs < lhs);
+}
+
 }  // namespace openscreen
 
 #endif  // PLATFORM_BASE_IP_ADDRESS_H_
