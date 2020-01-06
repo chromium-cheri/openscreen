@@ -43,8 +43,8 @@ class DnsSdInstanceRecord {
   // Returns the domain id for this DNS-SD record.
   const std::string& domain_id() const { return domain_id_; }
 
-  // Returns the addess associated with this DNS-SD record. In any valid record,
-  // at least one will be set.
+  // Returns the address associated with this DNS-SD record. In any valid
+  // record, at least one will be set.
   const IPEndpoint& address_v4() const { return address_v4_; }
   const IPEndpoint& address_v6() const { return address_v6_; }
 
@@ -53,12 +53,6 @@ class DnsSdInstanceRecord {
 
   // Returns the port associated with this instance record.
   uint16_t port() const;
-
-  bool operator==(const DnsSdInstanceRecord& other) const;
-
-  inline bool operator!=(const DnsSdInstanceRecord& other) const {
-    return !(*this == other);
-  }
 
  private:
   DnsSdInstanceRecord(std::string instance_id,
@@ -72,7 +66,63 @@ class DnsSdInstanceRecord {
   IPEndpoint address_v4_;
   IPEndpoint address_v6_;
   DnsSdTxtRecord txt_;
+
+  friend bool operator<(const DnsSdInstanceRecord& lhs,
+                        const DnsSdInstanceRecord& rhs);
 };
+
+inline bool operator<(const DnsSdInstanceRecord& lhs,
+                      const DnsSdInstanceRecord& rhs) {
+  int comp = lhs.instance_id_.compare(rhs.instance_id_);
+  if (comp != 0) {
+    return comp < 0;
+  }
+
+  comp = lhs.service_id_.compare(rhs.service_id_);
+  if (comp != 0) {
+    return comp < 0;
+  }
+
+  comp = lhs.domain_id_.compare(rhs.domain_id_);
+  if (comp != 0) {
+    return comp < 0;
+  }
+
+  if (lhs.address_v4_ != rhs.address_v4_) {
+    return lhs.address_v4_ < rhs.address_v4_;
+  }
+
+  if (lhs.address_v6_ != rhs.address_v6_) {
+    return lhs.address_v6_ < rhs.address_v6_;
+  }
+
+  return lhs.txt_ < rhs.txt_;
+}
+
+inline bool operator>(const DnsSdInstanceRecord& lhs,
+                      const DnsSdInstanceRecord& rhs) {
+  return rhs < lhs;
+}
+
+inline bool operator<=(const DnsSdInstanceRecord& lhs,
+                       const DnsSdInstanceRecord& rhs) {
+  return !(rhs > lhs);
+}
+
+inline bool operator>=(const DnsSdInstanceRecord& lhs,
+                       const DnsSdInstanceRecord& rhs) {
+  return !(rhs < lhs);
+}
+
+inline bool operator==(const DnsSdInstanceRecord& lhs,
+                       const DnsSdInstanceRecord& rhs) {
+  return lhs <= rhs && lhs >= rhs;
+}
+
+inline bool operator!=(const DnsSdInstanceRecord& lhs,
+                       const DnsSdInstanceRecord& rhs) {
+  return !(lhs == rhs);
+}
 
 }  // namespace discovery
 }  // namespace openscreen
