@@ -22,11 +22,16 @@ declare_args() {
 if (!build_with_chromium) {
   executable("cast_receiver") {
     sources = [
+      "demo_client.cc",
+      "demo_client.h",
       "main.cc",
       "memory_util.h",
+      "simple_message_port.cc",
+      "simple_message_port.h",
     ]
     deps = [
       "../../platform",
+      "../../third_party/jsoncpp",
       "../streaming:receiver",
     ]
 

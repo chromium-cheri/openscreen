@@ -43,6 +43,8 @@ constexpr int kDefaultNumAudioChannels = 2;
 struct Stream {
   enum class Type : uint8_t { kAudioSource, kVideoSource };
 
+  ErrorOr<Json::Value> ToJson() const;
+
   int index = 0;
   Type type = {};
 
@@ -63,16 +65,22 @@ struct Stream {
 };
 
 struct AudioStream {
+  ErrorOr<Json::Value> ToJson() const;
+
   Stream stream = {};
   int bit_rate = 0;
 };
 
 struct Resolution {
+  ErrorOr<Json::Value> ToJson() const;
+
   int width = 0;
   int height = 0;
 };
 
 struct VideoStream {
+  ErrorOr<Json::Value> ToJson() const;
+
   Stream stream = {};
   double max_frame_rate = {};
   int max_bit_rate = 0;
@@ -96,6 +104,7 @@ struct CastMode {
 
 struct Offer {
   static ErrorOr<Offer> Parse(const Json::Value& root);
+  ErrorOr<Json::Value> ToJson() const;
 
   CastMode cast_mode = {};
   // This field is poorly named in the spec (receiverGetStatus), so we use
