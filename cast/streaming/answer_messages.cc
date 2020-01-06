@@ -79,7 +79,7 @@ ErrorOr<Json::Value> Dimensions::ToJson() const {
 
   if (frame_rate_denominator > 1) {
     root["frameRate"] =
-        absl::StrCat(frame_rate_numerator, "/", frame_rate_denominator);
+        Fraction{frame_rate_numerator, frame_rate_denominator}.ToString();
   } else {
     root["frameRate"] = std::to_string(frame_rate_numerator);
   }
