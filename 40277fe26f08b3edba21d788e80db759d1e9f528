@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ff16e67e_2359a2e3",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-06T18:09:15Z",
+      "side": 1,
+      "message": "Sounds good. As long as the work is tracked somewhere I\u0027m happy.",
+      "parentUuid": "ddbec716_b4ab4b9e",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be27e55a_c7f47b45",
         "filename": "discovery/dnssd/impl/querier_impl_unittest.cc",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "be27e55a_c7f47b45",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4207a18_4a585c1b",
+        "filename": "discovery/dnssd/impl/querier_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-06T18:09:15Z",
+      "side": 1,
+      "message": "Sweet, thanks. The history of NiceMock/StrictMock is kind of interesting. I think google test is planning on moving to strictmock by default, which I think is a good plan to make sure unit tests are actually unit tests.",
+      "parentUuid": "e075bca3_c231db08",
       "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -247,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "c7a06e08_894f4df0",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-06T18:09:15Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly. The rule I have heard/generally try to stick to is \u003c\u003d 3 constructor parameters to get classes in line with SOLID principles, but I\u0027m pretty happy with how this looks. It\u0027s just generally a good clue that classes are doing too much/have too much state or responsibility.\n\nA poorly defined initialization struct would definitely be a weird step for this. If we find a logical grouping along the lines of an MdnsEnvironment that we expect to stick around for a session I would probably be in favor of moving to that, but just shoving them in a struct isn\u0027t that much better I think.",
+      "parentUuid": "db04ce18_08da8f86",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a962e4a_97b23380",
         "filename": "discovery/mdns/mdns_service_impl.h",
         "patchSetId": 1
@@ -381,6 +435,24 @@
       "side": 1,
       "message": "Reference arguments must all be const, which doesn\u0027t work here\n\nhttps://google.github.io/styleguide/cppguide.html#Reference_Arguments",
       "parentUuid": "a0efb695_846a6c8f",
+      "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83edc6dd_fad6a6d6",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-06T18:09:15Z",
+      "side": 1,
+      "message": "Oh, duh. Yeah, that makes sense.",
+      "parentUuid": "800a83bc_91e2c3f7",
       "revId": "40277fe26f08b3edba21d788e80db759d1e9f528",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
