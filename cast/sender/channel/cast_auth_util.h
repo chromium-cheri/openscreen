@@ -9,6 +9,7 @@
 
 #include <chrono>
 #include <string>
+#include <vector>
 
 #include "cast/common/certificate/cast_cert_validator.h"
 #include "platform/base/error.h"
@@ -84,7 +85,7 @@ openscreen::Error VerifyTLSCertificateValidity(
 // |signature_input|.
 ErrorOr<CastDeviceCertPolicy> VerifyCredentials(
     const AuthResponse& response,
-    const std::string& signature_input,
+    const std::vector<uint8_t>& signature_input,
     bool enforce_revocation_checking = false,
     bool enforce_sha256_checking = false);
 
@@ -94,7 +95,7 @@ ErrorOr<CastDeviceCertPolicy> VerifyCredentials(
 // trust stores, and verification times.
 ErrorOr<CastDeviceCertPolicy> VerifyCredentialsForTest(
     const AuthResponse& response,
-    const std::string& signature_input,
+    const std::vector<uint8_t>& signature_input,
     certificate::CRLPolicy crl_policy,
     certificate::TrustStore* cast_trust_store,
     certificate::TrustStore* crl_trust_store,
