@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "927a60ba_b10e02f1",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-06T22:19:45Z",
+      "side": 1,
+      "message": "|service| is already be constructed so its virtual methods are safe to call.  Is the actual problem that |service| doesn\u0027t have a querier set yet for some other reason?",
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "613c7a77_cc4119b5",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -65,6 +82,47 @@
     },
     {
       "key": {
+        "uuid": "94593473_83ddced0",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-06T22:19:45Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "74fc1e7c_8140cf04",
+      "range": {
+        "startLine": 108,
+        "startChar": 25,
+        "endLine": 108,
+        "endChar": 33
+      },
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42dac6a9_c60d01c2",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-06T22:19:45Z",
+      "side": 1,
+      "message": "When would Querier() return a different result?  If it could return a different result, is caching it here actually safe?",
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f835145_2ea23fc4",
         "filename": "discovery/public/dns_sd_service_watcher_unittest.cc",
         "patchSetId": 2
@@ -76,6 +134,24 @@
       "writtenOn": "2020-01-04T00:23:35Z",
       "side": 1,
       "message": "Maybe I\u0027m missing something, but what\u0027s the point of wrapping an object with no mock methods in StrictMock?",
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b033d2b3_e446c8f8",
+        "filename": "discovery/public/dns_sd_service_watcher_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-06T22:19:45Z",
+      "side": 1,
+      "message": "Agree.  I\u0027d prefer this just be called FakeQuerier, and possibly make _its_ member StrictMock\u003cMockDnsSdService\u003e*.",
+      "parentUuid": "6f835145_2ea23fc4",
       "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
