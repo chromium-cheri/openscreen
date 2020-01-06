@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f4f55c43_c7219ad9",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-06T19:49:05Z",
+      "side": 1,
+      "message": "gn_all is just a catch-all for building things on bots and making as-yet-unused things reachable by GN\u0027s graph traversal for building.  FYI chromium\u0027s gn_all is marked testonly.",
+      "parentUuid": "069178d4_f6168d2f",
+      "revId": "c5a29049f4fb540b813cf898d606a23b76768d61",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4c0e55b_219fc383",
         "filename": "BUILD.gn",
         "patchSetId": 1
@@ -69,6 +87,24 @@
       "revId": "c5a29049f4fb540b813cf898d606a23b76768d61",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9b023bf_6d8babfa",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-06T19:49:05Z",
+      "side": 1,
+      "message": "No, this should be here.  This is not a set of tests itself, but a tool for generating test data.  It\u0027s not _generally_ required for building/running the unit tests, but it _should_ be built by the bots to ensure it still compiles with every change (as Jordan discovered).",
+      "parentUuid": "be9be05e_dedac1f1",
+      "revId": "c5a29049f4fb540b813cf898d606a23b76768d61",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
