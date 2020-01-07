@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9f91d2e0_60fc6129",
+        "filename": "build/config/external_libraries.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:52:32Z",
+      "side": 1,
+      "message": "Yeah, GN doesn\u0027t seem to have multiline comments and `git cl format` wants 80 cols.\n\nIMHO, it\u0027s not a big deal. For example, I could quickly copy/paste this into my editor and truncate the first 2 cols of these lines with a shortcut key, then copy/paste that to the command line.\n\nThis command also does the trick:\n\n  cat build/config/external_libraries.gni | cut --bytes\u003d7-",
+      "parentUuid": "a5380738_d5b7cc80",
+      "revId": "7c9840998a6ce86add119abbb046c11fd96b35e4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f1a2bc8_9e46c805",
         "filename": "build/config/external_libraries.gni",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ac0c48a8_6fadf581",
+        "filename": "build/config/external_libraries.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:52:32Z",
+      "side": 1,
+      "message": "GN format added newlines where I didn\u0027t like them, so I left the comments as EOL comments.",
+      "parentUuid": "4f1a2bc8_9e46c805",
+      "revId": "7c9840998a6ce86add119abbb046c11fd96b35e4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7472967_7047069c",
         "filename": "build/config/external_libraries.gni",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "7c9840998a6ce86add119abbb046c11fd96b35e4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6df57b75_0fc803a0",
+        "filename": "build/config/external_libraries.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:52:32Z",
+      "side": 1,
+      "message": "I explained why I didn\u0027t do config()\u0027s in the CL description. Both: 1) GN won\u0027t let you; 2) Ease-of-use for our customers (strings in the args.gn text file are easy, especially if auto-generated from their own tooling).",
+      "parentUuid": "e7472967_7047069c",
+      "revId": "7c9840998a6ce86add119abbb046c11fd96b35e4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
