@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5380738_d5b7cc80",
+        "filename": "build/config/external_libraries.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T18:09:53Z",
+      "side": 1,
+      "message": "Dumb question: is there a way that we can make this actually copyable easily? Right now, you would have to select these lines and uncomment them in order for this to be runnable in a terminal. Alternatively, maybe we should include a bash script?\n\nUpdate: I checked, I\u0027m pretty sure there is no way to to make a multiline comment in GNI files easily, so we would probably have to stick it all on one line for this to work.",
+      "revId": "7c9840998a6ce86add119abbb046c11fd96b35e4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f1a2bc8_9e46c805",
+        "filename": "build/config/external_libraries.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T18:09:53Z",
+      "side": 1,
+      "message": "Nit/preference: I would probably prefer a single comment like this:\n\n# Add libsdl_*_dirs only if headers are at non-standard locations:\nlibsdl2_include_dirs \u003d []\nlibsdl2_lib_dirs \u003d []\n\nTBH I dislike comments on same line generally, although I understand it\u0027s okay from the style guide.",
+      "revId": "7c9840998a6ce86add119abbb046c11fd96b35e4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7472967_7047069c",
+        "filename": "build/config/external_libraries.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T18:09:53Z",
+      "side": 1,
+      "message": "I think we talked about this previously. I would prefer to keep this declare_args block, but then add a config:\n\nconfig(\"ffmpeg_config\") {\n   defines \u003d [\"CAST_STANDALONE_RECEIVER_HAVE_EXTERNAL_LIBS\"]\n   include_dirs \u003d ffmpeg_include_dirs + libsdl2_include_dirs\n   lib_dirs \u003d ffmpeg_lib_dirs + libsdl2_lib_dirs\n   libs \u003d ffmpeg_libs + libsdl2_libs\n}\n\nAnd then in the standalone receiver BUILD.gn, I\u0027m pretty sure you can just have\n\nconfigs +\u003d [ \"//build/config/external_libraries:ffmpeg_config\" ]\n\nI think this does a better job of splitting up responsibilities: this way only one file has to know what configuration is necessary for using ffmpeg and SDL, as opposed to having two places.",
+      "revId": "7c9840998a6ce86add119abbb046c11fd96b35e4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
