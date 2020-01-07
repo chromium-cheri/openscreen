@@ -1,0 +1,310 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5124866c_6ab6f3be",
+        "filename": "discovery/dnssd/impl/conversion_layer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Super duper (maybe duper duper) nit: I\u0027d prefer \"instance\" over \"object\"",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0998ad65_9d8d2c77",
+        "filename": "discovery/dnssd/impl/instance_key.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Nit: remove extra newline between ctors.",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c259994_ed07c55e",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Does it make sense to just call this method every time, even if v4 or v6 are falsey? This seems like more work than is necessary.",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307cb49d_7ccee7a1",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Nit/food for thought: Does it make sense to have a private method called absl::optional\u003cDnsSdInstanceRecord\u0026\u003e GetRecordIfPublished that does this lambda body? We could use it here and several other places. \n\nI find lambdas hard to read generally.",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4cf3b5_d451e913",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "The use of InstanceKey currently results in making a lot of string copies. I would prefer to refactor all of the classes that implicitly provide an InstanceKey to just have an InstanceKey member variable, or have InstanceKey be an interface that is defined by all the classes that implicitly provide them? It would also have the advantage of removing knowledge of implementers from the InstanceKey(which needs a constructor for each class that implements it, which is kind of backwards).",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c948294f_285ba3e6",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Double check: it-\u003efirst \u003d\u003d record will call the equality operator, which you have defined as including all of the fields as the record. However, \"it\" is found by just checking that the InstanceKey is the same. Is it actually an error condition if you find a record with the same key but it\u0027s not exactly the same?",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d63bf30_1775eab4",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Nit: \"it\" is somewhat long lived for such a short variable name. Consider renaming to something like:\n\npublished_record_it or current_record_it",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1a099fe_a7cfaaf5",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Nit: consider a anonymous namespace helper method:\n\nint EraseRecordsWithServiceId(const std::vector\u003cRecords\u003e\u0026 records, const std::string\u0026 service_id)\n\nthen this method becomes:\n\nint removed_count \u003d EraseRecordsWithServiceId(published_records_, service);\nremoved_count +\u003d EraseRecordsWithServiceId(pending_records_, service);",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57bae35b_6248dc6f",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "\"It shouldn\u0027t happen\" reads to me as this probably should be a OSP_DCHECK?",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b34ceec9_ab350cba",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Nit: do we registery a plurality of records anywhere else? Just curious if it makes sense to expose a RegisterRecords(/* iterator or std::vector */) method.",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "891384c3_93fc50b4",
+        "filename": "discovery/dnssd/impl/publisher_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Do we ever want to invalidate a domain? or would we just have no records for that domain?",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d214c88_8d958578",
+        "filename": "discovery/dnssd/impl/publisher_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "If the only difference is the instance name, does it make sense to map DnsSdInstanceRecord to std::string, where std::string is the published instance name? Or no?",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c42de186_0e9f9710",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdd72b0_d516968a",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "EXPECT(publisher.UpdateRegistration(record).is_error()) ?",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7633b1e_c706eb34",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "I generally dislike having to \"rig\" conditional macros in this fashion.\n\nConsider:\n\nEXPECT_NE(record.dns_type(), DnsType::kA);\nif (record.dns_type() \u003d\u003d DnsType::kAAAA) {\n    seen_v6 \u003d true;\n}\nreturn Error::None();",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "184ba810_974e4f94",
+        "filename": "discovery/dnssd/impl/service_key.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Does the ServiceKey actually care about instance labels?",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e260a347_4ff178df",
+        "filename": "discovery/dnssd/impl/service_key.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "I think this suffers from the same inversion as InstanceKey: ServiceKey is a tiny class used for the key of a map, right? I don\u0027t think it makes sense for ServiceKey to have to know about every class that uses it, I think that\u0027s an anti-pattern and in this case results in copying all of the fields of the using class.\n\nAfter looking, I know its a little hairy since the InstanceKey and ServiceKey have overlap in what fields they use.\n\nConsider having InstanceKey inherit from ServiceKey, and having both be an abstract base class:\n\nconst std::string\u0026 service_id() \u003d 0;\nconst std::string\u0026 domain_id() \u003d 0;\n\nThen you could pass classes around as InstanceKey or ServiceKey without any copying.",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a76b01e_9cbd0ba1",
+        "filename": "discovery/dnssd/public/dns_sd_instance_record.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T19:41:14Z",
+      "side": 1,
+      "message": "Seems lame to me that we don\u0027t have a macro or something for implementing this boilerplate code. Typically in c++ you just implemented \"operator\u003c\", so we end up writing these dumb functions that we really shouldn\u0027t have to.",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
