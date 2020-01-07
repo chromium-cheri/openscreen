@@ -22,11 +22,16 @@ declare_args() {
 if (!build_with_chromium) {
   executable("cast_receiver") {
     sources = [
+      "streaming_playback_controller.cc",
+      "streaming_playback_controller.h",
       "main.cc",
       "memory_util.h",
+      "simple_message_port.cc",
+      "simple_message_port.h",
     ]
     deps = [
       "../../platform",
+      "../../third_party/jsoncpp",
       "../streaming:receiver",
     ]
 
@@ -49,9 +54,9 @@ if (!build_with_chromium) {
         "sdl_video_player.h",
       ]
       libs += [
-        "-lSDL2",
-        "-lavcodec",
-        "-lavutil",
+        "SDL2",
+        "avcodec",
+        "avutil",
       ]
     } else {
       sources += [
