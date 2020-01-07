@@ -169,8 +169,7 @@ class SimpleMessagePort : public MessagePort {
 
   void ReceiveMessage(absl::string_view message) {
     ASSERT_NE(client_, nullptr);
-    client_->OnMessage("sender-id", "urn:x-cast:com.google.cast.webrtc",
-                       message);
+    client_->OnMessage("sender-id", "namespace", message);
   }
 
   void ReceiveError(Error error) {
@@ -198,7 +197,7 @@ class FakeClient : public ReceiverSession::Client {
  public:
   MOCK_METHOD(void,
               OnNegotiated,
-              (ReceiverSession*, ReceiverSession::ConfiguredReceivers),
+              (const ReceiverSession*, ReceiverSession::ConfiguredReceivers),
               (override));
   MOCK_METHOD(void, OnReceiversDestroyed, (ReceiverSession*), (override));
   MOCK_METHOD(void, OnError, (ReceiverSession*, Error error), (override));
@@ -255,7 +254,7 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithDefaultPreferences) {
                           ReceiverSession::Preferences{});
 
   EXPECT_CALL(client, OnNegotiated(&session, _))
-      .WillOnce([](ReceiverSession* session,
+      .WillOnce([](const ReceiverSession* session,
                    ReceiverSession::ConfiguredReceivers cr) {
         EXPECT_TRUE(cr.audio_receiver());
         EXPECT_TRUE(cr.audio_session_config());
@@ -317,7 +316,7 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomCodecPreferences) {
                                    {ReceiverSession::AudioCodec::kOpus}});
 
   EXPECT_CALL(client, OnNegotiated(&session, _))
-      .WillOnce([](ReceiverSession* session,
+      .WillOnce([](const ReceiverSession* session,
                    ReceiverSession::ConfiguredReceivers cr) {
         EXPECT_TRUE(cr.audio_receiver());
         EXPECT_TRUE(cr.audio_session_config());
@@ -345,13 +344,13 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomConstraints) {
 
   auto constraints = std::unique_ptr<Constraints>{new Constraints{
       AudioConstraints{1, 2, 3, 4},
-      VideoConstraints{3.14159, Dimensions{320, 240, 24, 1},
-                       Dimensions{1920, 1080, 144, 1}, 3000, 90000000,
-                       std::chrono::milliseconds{1000}}}};
+      VideoConstraints{3.14159, Dimensions{320, 240, SimpleFraction{24, 1}},
+                       Dimensions{1920, 1080, SimpleFraction{144, 1}}, 3000,
+                       90000000, std::chrono::milliseconds{1000}}}};
 
-  auto display = std::unique_ptr<DisplayDescription>{
-      new DisplayDescription{Dimensions{640, 480, 60, 1}, AspectRatio{16, 9},
-                             AspectRatioConstraint::kFixed}};
+  auto display = std::unique_ptr<DisplayDescription>{new DisplayDescription{
+      Dimensions{640, 480, SimpleFraction{60, 1}}, AspectRatio{16, 9},
+      AspectRatioConstraint::kFixed}};
 
   ReceiverSession session(
       &client, std::move(env_), std::move(message_port),

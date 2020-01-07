@@ -73,7 +73,7 @@ class ReceiverSession final : public MessagePort::Client {
   class Client {
    public:
     // This method is called when a new set of receivers has been negotiated.
-    virtual void OnNegotiated(ReceiverSession* session,
+    virtual void OnNegotiated(const ReceiverSession* session,
                               ConfiguredReceivers receivers) = 0;
 
     // This method is called immediately preceding the invalidation of
