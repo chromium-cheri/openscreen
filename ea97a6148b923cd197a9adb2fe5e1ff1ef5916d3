@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f399a82f_49d212a5",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Unforunately, no. Without including cast/standalone_receiver:cast_reciever as a dep here, it\u0027s completely invisible:\n\njophba@jophba-macbookpro [11:43:39] [/usr/local/src/openscreen/out/Default] [session *]\n-\u003e % ncd cast_receiver\n/usr/local/src/openscreen /usr/local/src/openscreen/out/Default\nninja: Entering directory `out/Default\u0027\nninja: no work to do.\n\nWhen I remove \"force_build_standalone_receiver\":\njophba@jophba-macbookpro [11:44:20] [/usr/local/src/openscreen] [session *]\n-\u003e % ncd cast_receiver\n/usr/local/src/openscreen /usr/local/src/openscreen/out/Default\nninja: Entering directory `out/Default\u0027\n[1/1] Regenerating ninja files\nninja: error: unknown target \u0027cast_receiver\u0027\n\nI\u0027m open to other solutions, I think this is a dumb problem.",
+      "parentUuid": "ac3ef673_fb39f712",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c1ec0b9_e1548fbc",
         "filename": "cast/standalone_receiver/BUILD.gn",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "af69276c_db4184b2",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done. LMK if you would prefer a different place or name.",
+      "parentUuid": "5c1ec0b9_e1548fbc",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ec3d4df_c39b1bd3",
         "filename": "cast/standalone_receiver/BUILD.gn",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2020-01-07T18:49:15Z",
       "side": 1,
       "message": "It looks like only one flag is needed\nhere, maybe have_libs_for_demo_apps ?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "624a1e4e_1ec96211",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Agreed. Yuri is refactoring this right now so I\u0027ll leave it alone and this item open for now.",
+      "parentUuid": "8ec3d4df_c39b1bd3",
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "633f539a_cfe6aaa7",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b7ffc24_f2c81581",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "307461db_ed95caf7",
         "filename": "cast/standalone_receiver/demo_client.h",
         "patchSetId": 8
@@ -81,6 +153,24 @@
       "writtenOn": "2020-01-07T18:49:15Z",
       "side": 1,
       "message": "Maybe there could be a single Player object that is implemented as an SDLPlayer or a DummyPlayer ... reducing the number of #ifdefs in the code to the place that instantiates the Player.\n\nNot worth spending large amounts of time on refactoring/optimizing demo-specific code though so consider this an optional path to go down.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b57279b_af016c01",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "I\u0027ve been thinking about that. It\u0027s definitely a refactor I want to do. I\u0027m thinking I\u0027ll do it if/when I write a third video player.",
+      "parentUuid": "307461db_ed95caf7",
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "22354be1_7ceaf47a",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Ahhh, but the answer does! It\u0027s actually the receiver that tells the sender what port to use. See answer_messages.h, Answer::udp_port.\n\nIn receiver_session.cc, we call environment_-\u003eGetBoundLocalEndpoint().port to set the udp port on the Answer message, which is set from this constant.",
+      "parentUuid": "be4701a7_b6ff3dcb",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94534d1f_9f516c6b",
         "filename": "cast/standalone_receiver/main.cc",
         "patchSetId": 8
@@ -118,6 +226,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5213456_7ed6b78f",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Thanks, I should have changed it.",
+      "parentUuid": "94534d1f_9f516c6b",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "36e857c0_caf06fea",
+        "filename": "cast/standalone_receiver/simple_message_port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Hmmm... currently the ReceiverSession is actually ignored the namespace, so we should probably delete it.",
+      "parentUuid": "db97c408_a20fcf35",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbe87408_e824c943",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 8
@@ -152,6 +296,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fed28b4_c15fb7a7",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Yeah, I can switch to that.",
+      "parentUuid": "dbe87408_e824c943",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "a456ed30_9383c735",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Sounds good, I can do that.",
+      "parentUuid": "28040aec_1ccfdf39",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad00413_e6228a01",
         "filename": "cast/streaming/message_util.h",
         "patchSetId": 8
@@ -186,6 +366,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f277d653_aef1cfcd",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad00413_e6228a01",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "8ebb5e87_3f420ea9",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1dc684f_51253c8b",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81099d97_cd9f93c3",
         "filename": "cast/streaming/message_util.h",
         "patchSetId": 8
@@ -220,6 +436,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e9937ca_18ede5b4",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81099d97_cd9f93c3",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "bd9b25c8_319112fd",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46fa4c41_868e926a",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79f24445_2f292299",
         "filename": "cast/streaming/offer_messages.cc",
         "patchSetId": 8
@@ -254,6 +506,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d443f426_37410549",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79f24445_2f292299",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "11e10303_f6cf7339",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf5073a5_617076f1",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c6239b1_136d1a8a",
         "filename": "cast/streaming/offer_messages.cc",
         "patchSetId": 8
@@ -288,6 +576,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f009250_b415df0d",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Fair enough. I was using snprintf to match the sscanf usage above.",
+      "parentUuid": "5c6239b1_136d1a8a",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -308,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "006ff552_b35d21bb",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e3d6e47_54748b17",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05e895e3_dd9a6513",
         "filename": "cast/streaming/offer_messages.cc",
         "patchSetId": 8
@@ -322,6 +646,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6cc314c_0e82c862",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05e895e3_dd9a6513",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -342,6 +684,24 @@
     },
     {
       "key": {
+        "uuid": "c61898f8_59144139",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "...kind of. The spec actually demands that it is formatted as 1/\u003cthe timebase\u003e. I personally think that that\u0027s silly.\n\nI can definitely move it to a fraction in parsing, though. LMK if you like the new revision.",
+      "parentUuid": "e8ce8e3b_7307c621",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b08576d_e51d023a",
         "filename": "cast/streaming/offer_messages.h",
         "patchSetId": 8
@@ -356,6 +716,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c71acafa_e44650de",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-07T23:14:44Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure if I wanted to expose fraction as part of the public API. Upon further thinking, that was dumb.",
+      "parentUuid": "2b08576d_e51d023a",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
