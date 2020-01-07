@@ -1,0 +1,361 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac3ef673_fb39f712",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "ISTM that individuals could just add cast_receiver to the ninja commandline.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c1ec0b9_e1548fbc",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "Might be helpful to drop this into a shell script in cast/standalone_receiver.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ec3d4df_c39b1bd3",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "It looks like only one flag is needed\nhere, maybe have_libs_for_demo_apps ?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b7ffc24_f2c81581",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "It looks like these callbacks don\u0027t modify |session|.  Can they pass it as pointer-to-const?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307461db_ed95caf7",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "Maybe there could be a single Player object that is implemented as an SDLPlayer or a DummyPlayer ... reducing the number of #ifdefs in the code to the place that instantiates the Player.\n\nNot worth spending large amounts of time on refactoring/optimizing demo-specific code though so consider this an optional path to go down.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be4701a7_b6ff3dcb",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "How does the receiver know this port number is correct?  The offer doesn\u0027t include it.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94534d1f_9f516c6b",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t look right.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db97c408_a20fcf35",
+        "filename": "cast/standalone_receiver/simple_message_port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "We should have a constant for the namespace string - I also see it in receiver_session_unittest.cc",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbe87408_e824c943",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "Can the frame rate be stored as a Fraction?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28040aec_1ccfdf39",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "This could go in util/, but you would need to implement comparators and assignment at a minimum to make it generally useful.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad00413_e6228a01",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "What about whole numbers (denominator \u003d\u003d 1)",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1dc684f_51253c8b",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "Technically zero denominator is undefined, not infinite",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81099d97_cd9f93c3",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "FYI, this includes positive NaN",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46fa4c41_868e926a",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "I think this is saying that a hex digit is a nibble (half a byte), which is common knowledge.\n\nMaybe the constant could be kHexDigitsPerByte?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79f24445_2f292299",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "This is cool, but per offline discussion we might not need a general length key parsing routine - fine to convert 16 into a constant though.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf5073a5_617076f1",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c6239b1_136d1a8a",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "It seems simpler to just use character arithmetic here than call into snprintf, something like:\n\n*next++ \u003d n \u003c 10 ? \u00270\u0027 + n : \u00277\u0027 + n\n\nfor each nibble n in bytes[i], and next is a pointer to the next byte to write in buffer.\n\nThe amount of bookkeeping is similar and you don\u0027t have to deal with the trailing null terminator.",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e3d6e47_54748b17",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "Store as Fraction?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05e895e3_dd9a6513",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "These are all returning constants, can you use absl::string_view?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8ce8e3b_7307c621",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "Is this a Fraction?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b08576d_e51d023a",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-07T18:49:15Z",
+      "side": 1,
+      "message": "Why not use Fraction here (and add a toDouble() operator)?",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
