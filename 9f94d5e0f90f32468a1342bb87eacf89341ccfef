@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "bbec8e01_684173c4",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:43:47Z",
+      "side": 1,
+      "message": "I\u0027ll remove it since we shouldn\u0027t be adding things until we\u0027re using them. Also, I think the preferred way is to add internal repos to the .gclient file, instead of in DEPS?",
+      "parentUuid": "dad0a876_bbb5ac17",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "064fffde_95babc17",
         "filename": "DEPS",
         "patchSetId": 2
@@ -69,6 +87,24 @@
       "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91f2697b_1966584d",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:43:47Z",
+      "side": 1,
+      "message": "This *can* be automated by specifying \"master\" instead of the hash here. However, that would break things any time we want to check-out/build something from the past (e.g., to debug a problem with a specific version of the library).\n\ncrashpad and other projects seem to manage it manually.\n\nNote that our Chromium-build trybots will not use this for their buildtools. They will always use the latest found in Chromium (that we want to be sync\u0027ed against). So, if anything breaks, we\u0027ll be aware before the next commit to the openscreen repo; and can bump this forward.\n\nAnother thing we could do is write a PRESUBMIT warning check that fetches the ToT revision from the git server and compare it to what\u0027s in our DEPS. This would highly encourage a developer to roll it forward whenever uploading a CL.",
+      "parentUuid": "ce9186c4_927a5fb0",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "32511d4c_6fa0710d",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:43:47Z",
+      "side": 1,
+      "message": "Correct. The target is in a public bucket.",
+      "parentUuid": "3df60344_d57e2761",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "650eeed2_f075e2b7",
         "filename": "README.md",
         "patchSetId": 2
@@ -120,6 +174,24 @@
       "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2f54e65_5c80a3e9",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "650eeed2_f075e2b7",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "aa1276a1_24267633",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:43:47Z",
+      "side": 1,
+      "message": "clang is auto-downloaded from an exec_script() target in build/config/BUILDCONFIG.gn.\n\nHowever, now that we bring this up, that\u0027s a bit of \"voodoo\" since it\u0027s the only tool we download during the build (instead of from gclient). Chromium uses gclient hooks. So, I\u0027ve added a gclient hook for it in our DEPS file.\n\nAlso, the tools/clang/scripts/update.py was copied from Chromium, but it will never auto-update. AND, that script hard-codes the revision of clang to use. So, instead, I\u0027ve added a gclient hook to download the latest script and then run it. This is all according to the documentation for how subprojects should use the clang update script.\n\nAll in all, clang will now be auto-downloaded via `gclient sync` now, and we will be using the exact same version as found in Chromium. :)",
+      "parentUuid": "c0b8a021_1eb6e017",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77f41ca5_b72a07ae",
         "filename": "README.md",
         "patchSetId": 2
@@ -154,6 +244,24 @@
       "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c66003ca_b8a1dcc7",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-07T23:43:47Z",
+      "side": 1,
+      "message": "Just link against its frameworks. Updated this.",
+      "parentUuid": "77f41ca5_b72a07ae",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
