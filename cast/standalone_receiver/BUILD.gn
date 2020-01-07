@@ -24,9 +24,14 @@ if (!build_with_chromium) {
     sources = [
       "main.cc",
       "memory_util.h",
+      "simple_message_port.cc",
+      "simple_message_port.h",
+      "streaming_playback_controller.cc",
+      "streaming_playback_controller.h",
     ]
     deps = [
       "../../platform",
+      "../../third_party/jsoncpp",
       "../streaming:receiver",
     ]
 
@@ -49,9 +54,9 @@ if (!build_with_chromium) {
         "sdl_video_player.h",
       ]
       libs += [
-        "-lSDL2",
-        "-lavcodec",
-        "-lavutil",
+        "SDL2",
+        "avcodec",
+        "avutil",
       ]
     } else {
       sources += [
