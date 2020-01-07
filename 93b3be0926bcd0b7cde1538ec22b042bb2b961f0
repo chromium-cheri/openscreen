@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "86e84dd4_0c462390",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-07T20:41:05Z",
+      "side": 1,
+      "message": "I will address this as a follow-up CL",
+      "parentUuid": "f0685eb4_edff02f6",
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "927a60ba_b10e02f1",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b6c441c_2aefce0d",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-07T20:41:05Z",
+      "side": 1,
+      "message": "Good catch. I initially thought this was why it wasn\u0027t working, but you\u0027re right that\u0027s not it\n\nI had to fight with the code for a while to figure it out, but it seems there was a bug related to the order in which parameters were initialized that was causing UT failures here. Bug has been fixed and the querier_ variable is set from the ctor",
+      "parentUuid": "927a60ba_b10e02f1",
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa8a2e16_c56e3a8c",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-07T20:41:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "613c7a77_cc4119b5",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 16
+      },
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "f6ed1b5c_cb81fd26",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-07T20:41:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94593473_83ddced0",
+      "range": {
+        "startLine": 108,
+        "startChar": 25,
+        "endLine": 108,
+        "endChar": 33
+      },
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42dac6a9_c60d01c2",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 2
@@ -120,6 +204,24 @@
       "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8148466_c4edc9e0",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-07T20:41:05Z",
+      "side": 1,
+      "message": "We don\u0027t own the implementation of Querier() because this is embedder-overridable - they can inject their own definition of DnsSdService rather than using ours.\n\nThis section has been removed though due to previously mentioned bug fix. Closing this comment as the code was removed, so please open a new comment if this is an issue",
+      "parentUuid": "42dac6a9_c60d01c2",
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +257,24 @@
       "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c246ef6c_05d4a021",
+        "filename": "discovery/public/dns_sd_service_watcher_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-07T20:41:05Z",
+      "side": 1,
+      "message": "Done. It\u0027s just habit to make anything related to a mock a StrictMock at this point :)",
+      "parentUuid": "b033d2b3_e446c8f8",
+      "revId": "93b3be0926bcd0b7cde1538ec22b042bb2b961f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
