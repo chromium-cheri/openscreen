@@ -39,11 +39,12 @@ class ReceiverSession final : public MessagePort::Client {
     // to be valid until the OnReceiversDestroyed event is fired, at which
     // point they become invalid and need to replaced by the results of
     // the ensuing OnNegotiated call.
-    ConfiguredReceivers(
-        Receiver* audio_receiver,
-        const absl::optional<SessionConfig> audio_receiver_config,
-        Receiver* video_receiver,
-        const absl::optional<SessionConfig> video_receiver_config);
+    ConfiguredReceivers(Receiver* audio_receiver,
+                        absl::optional<SessionConfig> audio_receiver_config,
+                        absl::optional<AudioStream> selected_audio_stream,
+                        Receiver* video_receiver,
+                        absl::optional<SessionConfig> video_receiver_config,
+                        absl::optional<VideoStream> selected_video_stream);
     ConfiguredReceivers(const ConfiguredReceivers&) = delete;
     ConfiguredReceivers(ConfiguredReceivers&&) noexcept;
     ConfiguredReceivers& operator=(const ConfiguredReceivers&) = delete;
@@ -56,16 +57,26 @@ class ReceiverSession final : public MessagePort::Client {
     const absl::optional<SessionConfig>& audio_session_config() const {
       return audio_receiver_config_;
     }
+    const absl::optional<AudioStream>& selected_audio_stream() const {
+      return selected_audio_stream_;
+    }
+
     Receiver* video_receiver() const { return video_receiver_; }
     const absl::optional<SessionConfig>& video_session_config() const {
       return video_receiver_config_;
+    }
+    const absl::optional<VideoStream>& selected_video_stream() const {
+      return selected_video_stream_;
     }
 
    private:
     Receiver* audio_receiver_;
     absl::optional<SessionConfig> audio_receiver_config_;
+    absl::optional<AudioStream> selected_audio_stream_;
+
     Receiver* video_receiver_;
     absl::optional<SessionConfig> video_receiver_config_;
+    absl::optional<VideoStream> selected_video_stream_;
   };
 
   // The embedder should provide a client for handling connections.

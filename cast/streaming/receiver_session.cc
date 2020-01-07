@@ -80,12 +80,16 @@ const Stream* SelectStream(const std::vector<Codec>& preferred_codecs,
 ReceiverSession::ConfiguredReceivers::ConfiguredReceivers(
     Receiver* audio_receiver,
     absl::optional<SessionConfig> audio_receiver_config,
+    absl::optional<AudioStream> selected_audio_stream,
     Receiver* video_receiver,
-    absl::optional<SessionConfig> video_receiver_config)
+    absl::optional<SessionConfig> video_receiver_config,
+    absl::optional<VideoStream> selected_video_stream)
     : audio_receiver_(audio_receiver),
       audio_receiver_config_(std::move(audio_receiver_config)),
+      selected_audio_stream_(std::move(selected_audio_stream)),
       video_receiver_(video_receiver),
-      video_receiver_config_(std::move(video_receiver_config)) {}
+      video_receiver_config_(std::move(video_receiver_config)),
+      selected_video_stream_(std::move(selected_video_stream)) {}
 
 ConfiguredReceivers::ConfiguredReceivers(ConfiguredReceivers&&) noexcept =
     default;
@@ -245,9 +249,19 @@ ErrorOr<ConfiguredReceivers> ReceiverSession::TrySpawningReceivers(
     current_video_receiver_ = std::move(video_pair.second);
   }
 
+  absl::optional<AudioStream> selected_audio_stream;
+  if (audio) {
+    selected_audio_stream = *audio;
+  }
+  absl::optional<VideoStream> selected_video_stream;
+  if (video) {
+    selected_video_stream = *video;
+  }
+
   return ConfiguredReceivers{
-      current_audio_receiver_.get(), std::move(audio_config),
-      current_video_receiver_.get(), std::move(video_config)};
+      current_audio_receiver_.get(),    std::move(audio_config),
+      std::move(selected_audio_stream), current_video_receiver_.get(),
+      std::move(video_config),          std::move(selected_video_stream)};
 }
 
 void ReceiverSession::ResetReceivers() {
