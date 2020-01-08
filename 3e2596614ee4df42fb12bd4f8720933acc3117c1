@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "91ce8e97_fafed440",
+        "filename": "discovery/dnssd/impl/conversion_layer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5124866c_6ab6f3be",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0998ad65_9d8d2c77",
         "filename": "discovery/dnssd/impl/instance_key.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c40e0b5b_e111df8a",
+        "filename": "discovery/dnssd/impl/instance_key.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0998ad65_9d8d2c77",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "74c083ba_0051af06",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "We have a DCHECK in this ctor that the v4 and v6 versions are not null. There was a lot of back and forth with Mark and Max when we decided on this class and its ctors, so I\u0027d prefer not to change it now.",
+      "parentUuid": "6c259994_ed07c55e",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "307cb49d_7ccee7a1",
         "filename": "discovery/dnssd/impl/publisher_impl.cc",
         "patchSetId": 4
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "7a3fa20b_c8564a8c",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "IMHO removing the find_if entirely is more readable than moving just the lambda, so went that route. WDYT? Can change back to just the lambda if you prefer",
+      "parentUuid": "307cb49d_7ccee7a1",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d4cf3b5_d451e913",
         "filename": "discovery/dnssd/impl/publisher_impl.cc",
         "patchSetId": 4
@@ -81,6 +153,24 @@
       "writtenOn": "2020-01-07T19:41:14Z",
       "side": 1,
       "message": "The use of InstanceKey currently results in making a lot of string copies. I would prefer to refactor all of the classes that implicitly provide an InstanceKey to just have an InstanceKey member variable, or have InstanceKey be an interface that is defined by all the classes that implicitly provide them? It would also have the advantage of removing knowledge of implementers from the InstanceKey(which needs a constructor for each class that implements it, which is kind of backwards).",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7154e629_8544fe2f",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "I really like that idea. Unfortunately, that approach doesn\u0027t work because it introduces some reverse dependencies \n\n- DnsSdInstanceRecord is in our public/folder, so it can\u0027t depend on our impl/ interface (and we are trying to keep that folder minimal like with platform/api, so I\u0027d prefer not to move 2 new interfaces there)\n\n- MdnsRecord and DomainName are in discovery/mdns, which cannot depend on discovery/dnssd, and at that level the idea of an \"instance id\" isn\u0027t understood (It\u0027s just a DomainName, where the labels aren\u0027t parsed or validated beyond what\u0027s called out in the mDNS RFC), so we can\u0027t put the interfaces there\n\nI should really add some DEPS rules to enforce this, now that I\u0027m thinking about it\n\nAs far as where these conversions from other entities into InstanceKey entities should live, I used to have them as functions in the conversion_layer class converting into structs (That\u0027s really where they should live, since they are converting from mDNS types DomainName, MdnsRecord into DNS-SD types), but Mark asked me to move them to their own classes for readability purposes. I agree it\u0027s kind of weird to have the knowledge of implementers is a bit weird, but I haven\u0027t been able to figure out a better approach since the implementers can\u0027t have knowledge of InstanceKey\n\n\nI do want to do the other suggestion you have for modifying the InstanceKey, ServiceKey classes though (making InstanceKey extend ServiceKey), but I think this should be a follow-up CL",
+      "parentUuid": "1d4cf3b5_d451e913",
       "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "8e7e6111_c6202341",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "I think you\u0027re reading this backwards. The failure condition here is if we find a record with the matching InstanceKey and when the updated record exactly matches the record we already have stored. Then, we are trying to call update when nothing has actually changed.",
+      "parentUuid": "c948294f_285ba3e6",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d63bf30_1775eab4",
         "filename": "discovery/dnssd/impl/publisher_impl.cc",
         "patchSetId": 4
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "a16c354d_95361fba",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d63bf30_1775eab4",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1a099fe_a7cfaaf5",
         "filename": "discovery/dnssd/impl/publisher_impl.cc",
         "patchSetId": 4
@@ -132,6 +258,24 @@
       "writtenOn": "2020-01-07T19:41:14Z",
       "side": 1,
       "message": "Nit: consider a anonymous namespace helper method:\n\nint EraseRecordsWithServiceId(const std::vector\u003cRecords\u003e\u0026 records, const std::string\u0026 service_id)\n\nthen this method becomes:\n\nint removed_count \u003d EraseRecordsWithServiceId(published_records_, service);\nremoved_count +\u003d EraseRecordsWithServiceId(pending_records_, service);",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0706f3a_83472629",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Done for the vector\n\nThe map is a bit more complex - we need to also call Unregister, and I think hiding that detail in an anonymous namespace method makes this part easy to miss. WDYT?",
+      "parentUuid": "b1a099fe_a7cfaaf5",
       "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "77b79f03_52154b45",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57bae35b_6248dc6f",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b34ceec9_ab350cba",
         "filename": "discovery/dnssd/impl/publisher_impl.cc",
         "patchSetId": 4
@@ -169,6 +331,24 @@
       "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76b65274_e03b9168",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "This is actually the only place we publish records at all :)\n\nThere was a lot of discussion with Mark around this interface design, so I\u0027d prefer to leave it as-is for now",
+      "parentUuid": "b34ceec9_ab350cba",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "c0164415_0c5425cd",
+        "filename": "discovery/dnssd/impl/publisher_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Right now, we don\u0027t have any scenario that involves invalidating a domain - once we claim it, when a probe query comes in we always respond with that claim until the service is shut down",
+      "parentUuid": "891384c3_93fc50b4",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d214c88_8d958578",
         "filename": "discovery/dnssd/impl/publisher_impl.h",
         "patchSetId": 4
@@ -200,6 +398,24 @@
       "writtenOn": "2020-01-07T19:41:14Z",
       "side": 1,
       "message": "If the only difference is the instance name, does it make sense to map DnsSdInstanceRecord to std::string, where std::string is the published instance name? Or no?",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e5a6ad2_15190a15",
+        "filename": "discovery/dnssd/impl/publisher_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Going the current route saves a few operations - We need to use the DnsSdInstanceRecord for the publish and update flows (so we need to construct it regardless) and we also need to use it for the delete flow (so find the records to un-publish). So we could store the new Instance name, but that would involve re-creating the DnsSdInstanceRecord in the delete flow\n\nIt\u0027s relatively minor though - if you think storing the new instance name is more readable, I\u0027d rather go that route. WDYT?",
+      "parentUuid": "8d214c88_8d958578",
       "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "7266a10c_22ec20b8",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42de186_0e9f9710",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbdd72b0_d516968a",
         "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
         "patchSetId": 4
@@ -237,6 +471,24 @@
       "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a11d290_5521068f",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "is_error is only defined on ErrorOr\u003c...\u003e types, not Errors - updating to .ok() instead",
+      "parentUuid": "dbdd72b0_d516968a",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "e3351cb7_f1b06073",
+        "filename": "discovery/dnssd/impl/publisher_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7633b1e_c706eb34",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "184ba810_974e4f94",
         "filename": "discovery/dnssd/impl/service_key.h",
         "patchSetId": 4
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "c8ef178e_b1f3ea94",
+        "filename": "discovery/dnssd/impl/service_key.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "It cares in the sense that the provided MdnsRecord is invalid if the InstanceKey is invalid. There\u0027s no sense doing further work if we\u0027ve received an invalid record (Especially since every flow we have that uses a ServiceKey also later uses an InstanceKey, which has to fail on an invalid InstanceId)\n\nLet\u0027s discuss this further in the follow-up CL with the below change rather than here",
+      "parentUuid": "184ba810_974e4f94",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e260a347_4ff178df",
         "filename": "discovery/dnssd/impl/service_key.h",
         "patchSetId": 4
@@ -285,6 +573,24 @@
       "writtenOn": "2020-01-07T19:41:14Z",
       "side": 1,
       "message": "I think this suffers from the same inversion as InstanceKey: ServiceKey is a tiny class used for the key of a map, right? I don\u0027t think it makes sense for ServiceKey to have to know about every class that uses it, I think that\u0027s an anti-pattern and in this case results in copying all of the fields of the using class.\n\nAfter looking, I know its a little hairy since the InstanceKey and ServiceKey have overlap in what fields they use.\n\nConsider having InstanceKey inherit from ServiceKey, and having both be an abstract base class:\n\nconst std::string\u0026 service_id() \u003d 0;\nconst std::string\u0026 domain_id() \u003d 0;\n\nThen you could pass classes around as InstanceKey or ServiceKey without any copying.",
+      "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df44e73f_eab63db5",
+        "filename": "discovery/dnssd/impl/service_key.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T19:39:45Z",
+      "side": 1,
+      "message": "I like the idea of this change, but it\u0027s outside the scope of this CL - I\u0027d rather do this as a follow-up CL once this one is in, since it will touch a lot of files",
+      "parentUuid": "e260a347_4ff178df",
       "revId": "3e2596614ee4df42fb12bd4f8720933acc3117c1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
