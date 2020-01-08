@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d2a78b5_796a3d71",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-08T16:44:17Z",
+      "side": 1,
+      "message": "Yeah, I\u0027d have to see what the sender OFFER was, and what the Preferences object was set to on the ReceiverSession in order to determine what the issue was.\n\nIf we don\u0027t have SSRCs or send indexes, that means we don\u0027t have anything pretty much right? Should it be an error condition if we don\u0027t select any offers? I can certainly send an error response if we don\u0027t select any. Should we send an error return if you give us an audio and video and we only select the audio or video then?",
+      "parentUuid": "e1fa30e8_de8feb66",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 49
+      },
+      "revId": "70a9cf36ecfb0244f2d8b1b61aeeae2dbef1766a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cebf8560_fc6eea22",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 1
