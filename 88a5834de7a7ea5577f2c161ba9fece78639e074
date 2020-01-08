@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62711bde_7942bae7",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:46:24Z",
+      "side": 1,
+      "message": "nit: newline after this one",
+      "range": {
+        "startLine": 255,
+        "startChar": 2,
+        "endLine": 255,
+        "endChar": 3
+      },
+      "revId": "88a5834de7a7ea5577f2c161ba9fece78639e074",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d8084b_eafdea4e",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:46:24Z",
+      "side": 1,
+      "message": "How do you feel about something like:\n\ntemplate\u003ctypename T\u003e\nstruct StreamData {\n  Receiver* receiver;\n  absl::optional\u003cSessionConfig\u003e receiver_config;\n  absl::optional\u003cT\u003e selected_stream;\n}\n\nThen the ctor only has 2 parameters (StreamData\u003cAudioStream\u003e, StreamData\u003cVideoStream\u003e), and the private variables will be grouped more cleanly",
+      "range": {
+        "startLine": 45,
+        "startChar": 24,
+        "endLine": 47,
+        "endChar": 73
+      },
+      "revId": "88a5834de7a7ea5577f2c161ba9fece78639e074",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb640e89_78aae75c",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:46:24Z",
+      "side": 1,
+      "message": "nit: new line after here",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 5
+      },
+      "revId": "88a5834de7a7ea5577f2c161ba9fece78639e074",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
