@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "eea97b60_349f60d2",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-08T19:38:48Z",
+      "side": 1,
+      "message": "Ack.  I forgot to leave a note that I was aware he was actually fixing this more completely.  For some reason the gcc bot chokes without this (haven\u0027t been able to repro locally), so I\u0027ll wait for Yuri\u0027s change to go in then merge.",
+      "parentUuid": "1df64524_e386deef",
+      "revId": "62e54a19005d08773cd91f611ab87424d48c40ec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48724f24_81ce4a00",
         "filename": "build/toolchain/linux/BUILD.gn",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "62e54a19005d08773cd91f611ab87424d48c40ec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3df8b6d6_141fcf2c",
+        "filename": "build/toolchain/linux/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-08T19:38:48Z",
+      "side": 1,
+      "message": "We do care about this because boringssl uses some assembly code.",
+      "parentUuid": "48724f24_81ce4a00",
+      "revId": "62e54a19005d08773cd91f611ab87424d48c40ec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
