@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1fa30e8_de8feb66",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-08T03:16:23Z",
+      "side": 1,
+      "message": "Hmm...These two are supposed to be required no matter what. If they are empty, we should be sending an empty JSON array.\n\nSounds like the bug is that our Answer message is rejecting everything offered by the Android sender? We should probably check that and return an error answer.\n\nJordan, WDYT?",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 49
+      },
+      "revId": "70a9cf36ecfb0244f2d8b1b61aeeae2dbef1766a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cebf8560_fc6eea22",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-08T03:16:23Z",
+      "side": 1,
+      "message": "style: Please use braces for all if-statements, even if they are just one liners. (It\u0027s our style.)",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 66
+      },
+      "revId": "70a9cf36ecfb0244f2d8b1b61aeeae2dbef1766a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
