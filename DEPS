@@ -8,6 +8,7 @@
 # to list the dependency's destination directory.
 
 use_relative_paths = True
+use_relative_hooks = True
 
 vars = {
     'boringssl_git': 'https://boringssl.googlesource.com',
@@ -104,6 +105,15 @@ deps = {
         'condition': 'not build_with_chromium',
     },
 }
+
+hooks = [
+  {
+    # Update the prebuilt clang toolchain.
+    'name': 'clang',
+    'pattern': '.',
+    'action': ['python', 'tools/clang/scripts/update.py'],
+  },
+]
 
 recursedeps = [
     'third_party/chromium_quic/src',
