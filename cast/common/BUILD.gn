@@ -61,6 +61,7 @@ source_set("channel") {
 
 source_set("discovery") {
   sources = [
+    "discovery/service_info.cc",
     "discovery/service_info.h",
   ]
 
@@ -68,6 +69,7 @@ source_set("discovery") {
 
   public_deps = [
     "../../platform",
+    "../../third_party/abseil",
   ]
 }
 
@@ -81,6 +83,8 @@ source_set("test_helpers") {
     "channel/test/fake_cast_socket.h",
     "channel/test/mock_cast_message_handler.h",
     "channel/test/mock_socket_error_handler.h",
+    "testing/discovery_utils.cc",
+    "testing/discovery_utils.h",
   ]
   public_deps = [
     ":certificate",
@@ -107,11 +111,13 @@ source_set("unittests") {
     "channel/namespace_router_unittest.cc",
     "channel/virtual_connection_manager_unittest.cc",
     "channel/virtual_connection_router_unittest.cc",
+    "discovery/service_info_unittest.cc",
   ]
 
   deps = [
     ":certificate",
     ":channel",
+    ":discovery",
     ":test_helpers",
     "../../platform",
     "../../testing/util",
