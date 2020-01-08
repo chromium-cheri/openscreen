@@ -264,13 +264,27 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithDefaultPreferences) {
         EXPECT_EQ(cr.audio_session_config().value().channels, 2);
         EXPECT_EQ(cr.audio_session_config().value().rtp_timebase, 48000);
 
+        // We should have chosen opus
+        EXPECT_EQ(cr.selected_audio_stream().value().stream.index, 1337);
+        EXPECT_EQ(cr.selected_audio_stream().value().stream.type,
+                  Stream::Type::kAudioSource);
+        EXPECT_EQ(cr.selected_audio_stream().value().stream.codec_name, "opus");
+        EXPECT_EQ(cr.selected_audio_stream().value().stream.channels, 2);
+
         EXPECT_TRUE(cr.video_receiver());
         EXPECT_TRUE(cr.video_session_config());
-        // We should have chosen vp8
+
         EXPECT_EQ(cr.video_session_config().value().sender_ssrc, 19088745u);
         EXPECT_EQ(cr.video_session_config().value().receiver_ssrc, 19088746u);
         EXPECT_EQ(cr.video_session_config().value().channels, 1);
         EXPECT_EQ(cr.video_session_config().value().rtp_timebase, 90000);
+
+        // We should have chosen vp8
+        EXPECT_EQ(cr.selected_video_stream().value().stream.index, 31338);
+        EXPECT_EQ(cr.selected_video_stream().value().stream.type,
+                  Stream::Type::kVideoSource);
+        EXPECT_EQ(cr.selected_video_stream().value().stream.codec_name, "vp8");
+        EXPECT_EQ(cr.selected_video_stream().value().stream.channels, 1);
       });
   EXPECT_CALL(client, OnReceiversDestroyed(&session)).Times(1);
 
