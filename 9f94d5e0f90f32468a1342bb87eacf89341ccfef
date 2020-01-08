@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "1811a86b_63e28926",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-08T23:52:54Z",
+      "side": 1,
+      "message": "Removing SGTM.",
+      "parentUuid": "bbec8e01_684173c4",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "064fffde_95babc17",
         "filename": "DEPS",
         "patchSetId": 2
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "This *can* be automated by specifying \"master\" instead of the hash here. However, that would break things any time we want to check-out/build something from the past (e.g., to debug a problem with a specific version of the library).\n\ncrashpad and other projects seem to manage it manually.\n\nNote that our Chromium-build trybots will not use this for their buildtools. They will always use the latest found in Chromium (that we want to be sync\u0027ed against). So, if anything breaks, we\u0027ll be aware before the next commit to the openscreen repo; and can bump this forward.\n\nAnother thing we could do is write a PRESUBMIT warning check that fetches the ToT revision from the git server and compare it to what\u0027s in our DEPS. This would highly encourage a developer to roll it forward whenever uploading a CL.",
       "parentUuid": "ce9186c4_927a5fb0",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97104631_9ec4a2cc",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-08T23:52:54Z",
+      "side": 1,
+      "message": "A PRESUBMIT to check the git hash would be okay, if the commit rate to buildtools/ is infrequent enough so that it\u0027s not a nag-bot.  Say, once a week or so.\n\nOtherwise, I would prefer automation via a deps roller so that we get consistent snapshots with a given revision of our repository.",
+      "parentUuid": "91f2697b_1966584d",
       "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -224,6 +260,24 @@
       "side": 1,
       "message": "clang is auto-downloaded from an exec_script() target in build/config/BUILDCONFIG.gn.\n\nHowever, now that we bring this up, that\u0027s a bit of \"voodoo\" since it\u0027s the only tool we download during the build (instead of from gclient). Chromium uses gclient hooks. So, I\u0027ve added a gclient hook for it in our DEPS file.\n\nAlso, the tools/clang/scripts/update.py was copied from Chromium, but it will never auto-update. AND, that script hard-codes the revision of clang to use. So, instead, I\u0027ve added a gclient hook to download the latest script and then run it. This is all according to the documentation for how subprojects should use the clang update script.\n\nAll in all, clang will now be auto-downloaded via `gclient sync` now, and we will be using the exact same version as found in Chromium. :)",
       "parentUuid": "c0b8a021_1eb6e017",
+      "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47b2c753_86fa1ca6",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-08T23:52:54Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "aa1276a1_24267633",
       "revId": "9f94d5e0f90f32468a1342bb87eacf89341ccfef",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
