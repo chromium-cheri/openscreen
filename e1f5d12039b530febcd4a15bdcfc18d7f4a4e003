@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0a4fc449_2f6fb55c",
+        "filename": "cast/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Done. Works without this now that you pointed out the bug in the other DEPS file :)",
+      "parentUuid": "0007065e_050c6794",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5e64e88_25d388db",
         "filename": "cast/common/DEPS",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2281c007_64cfe56a",
+        "filename": "cast/common/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Done. Good catch",
+      "parentUuid": "f5e64e88_25d388db",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6f6c6e05_0f3f5b5c",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Updated comment to clarify it\u0027s related to both below functions",
+      "parentUuid": "99d29b9b_828df107",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4229a011_5e8ed762",
         "filename": "cast/common/discovery/service_info.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6009059e_62ed583f",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4229a011_5e8ed762",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "909ebe1d_e4e364a4",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5da4612_c1c6fa1d",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c717966_1b9a22f6",
         "filename": "cast/common/discovery/service_info.cc",
         "patchSetId": 4
@@ -98,6 +188,24 @@
       "writtenOn": "2020-01-06T20:17:47Z",
       "side": 1,
       "message": "Can this just return ErrorOr\u003cstd::string\u003e?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e146c49_7604f94b",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Here (and below) I specifically avoided ErrorOr\u003c...\u003e\n\nI want to make the code using it cleaner. With ErrorOr\u003c...\u003e the code would need to be:\n\nErrorOr\u003cstring\u003e result \u003d TryParseString(first)\nif (result.is_error()) {\n  return error;\n}\nrecord.parameter1 \u003d result.value;\n\nErrorOr\u003cstring\u003e result2 \u003d TryParseString(second)\nif (result2.is_error()) {\n  return error;\n}\nrecord.parameter2 \u003d result2.value;\n\n...\n\nIMHO with the current approach it\u0027s much more readable\n\nError error;\nif (!TryParseString(first, \u0026error, \u0026record.parameter1) ||\n    !TryParseString(first, \u0026error, \u0026record.parameter2) ||\n    ...) {\n  return error;\n}\n\nThe same trick I use with IsError below, and avoiding the same pitfalls of not having errors enabled.\n\nWDYT? See lines 169-174 for how its used",
+      "parentUuid": "7c717966_1b9a22f6",
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "b13762aa_cc82420d",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Closing this comment as duplicate to the above one",
+      "parentUuid": "57e4a092_472a1744",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9daaf187_9a69a246",
         "filename": "cast/common/discovery/service_info.cc",
         "patchSetId": 4
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "00a488c7_8bec853d",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Done. Split the validation from the conversion as suggested\n\nThis will be used when calling DnsSdPublisher, to convert into something DNS-SD understands. So moving it upstream should work",
+      "parentUuid": "9daaf187_9a69a246",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70b8c880_4b613649",
         "filename": "cast/common/discovery/service_info.cc",
         "patchSetId": 4
@@ -149,6 +293,24 @@
       "writtenOn": "2020-01-06T20:17:47Z",
       "side": 1,
       "message": "This is checking a constant, so the result will never change.  Is that intentional?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecca1c21_2ea21dbf",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "That is intentional. In debug builds, we can quickly catch a regression (either if the constant changes or if our validation logic does) and in production builds this check will never occur\n\nWDYT? I\u0027m happy to pull it out if you\u0027d like",
+      "parentUuid": "70b8c880_4b613649",
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -178,6 +340,30 @@
     },
     {
       "key": {
+        "uuid": "0d390e19_cc26f23d",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Sync\u0027d with Tavis and found the correct calculation",
+      "parentUuid": "f399226b_e1809e69",
+      "range": {
+        "startLine": 120,
+        "startChar": 35,
+        "endLine": 120,
+        "endChar": 53
+      },
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fddf8de4_710709b7",
         "filename": "cast/common/discovery/service_info.cc",
         "patchSetId": 4
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "ded2a293_d3224254",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Done\n\nIt\u0027s converting from an enum : uint64_t so I used the static_cast to be explicit / help readability. It seems to have done the opposite, so I removed it",
+      "parentUuid": "fddf8de4_710709b7",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b1e9b4e_8cc0a506",
         "filename": "cast/common/discovery/service_info.cc",
         "patchSetId": 4
@@ -209,6 +413,24 @@
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5af35bb9_25320305",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b1e9b4e_8cc0a506",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -240,6 +462,24 @@
       "writtenOn": "2020-01-06T20:17:47Z",
       "side": 1,
       "message": "Where is the port set?",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387a0085_bd5ffd9c",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "the v4_address / v6_address fields are IPEndpoint types, which include the port, so it\u0027s set by the embedder who\u0027s calling this method\n\nWDYT about renaming those fields to v4_endpoint / v6_endpoint to be clearer?",
+      "parentUuid": "0bc888c5_09da51ba",
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -307,6 +547,24 @@
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed1a5ccc_d2e51d1c",
+        "filename": "cast/common/discovery/service_info_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-08T01:21:48Z",
+      "side": 1,
+      "message": "Done\n\nThere wasn\u0027t a cast/testing folder yet (cast/test seems to be just integration tests so far) so I created cast/common/testing for these.",
+      "parentUuid": "44f033ed_cb531c06",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
