@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "812f2a62_cccda3b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-09T08:51:23Z",
+      "side": 1,
+      "message": "nit: associated",
+      "range": {
+        "startLine": 17,
+        "startChar": 59,
+        "endLine": 17,
+        "endChar": 68
+      },
+      "revId": "e4384513cd3b12f276fb3dad633851ec282b0fec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d4534e7_e91c124b",
+        "filename": "cast/streaming/rtp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-09T08:51:23Z",
+      "side": 1,
+      "message": "Same typename comment.",
+      "revId": "e4384513cd3b12f276fb3dad633851ec282b0fec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16960ae9_9c2095c2",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-09T08:51:23Z",
+      "side": 1,
+      "message": "Here and below, typename is unnecessary because std::enable_if_t is already a type (would be used for `typename std::enable_if\u003c...\u003e::type`).",
+      "range": {
+        "startLine": 16,
+        "startChar": 10,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "e4384513cd3b12f276fb3dad633851ec282b0fec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e5b1beb_cf0c71bb",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-09T08:51:23Z",
+      "side": 1,
+      "message": "not be exactly",
+      "range": {
+        "startLine": 104,
+        "startChar": 49,
+        "endLine": 104,
+        "endChar": 60
+      },
+      "revId": "e4384513cd3b12f276fb3dad633851ec282b0fec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b8441c8_03a52a65",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-09T08:51:23Z",
+      "side": 1,
+      "message": "to compare",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 41
+      },
+      "revId": "e4384513cd3b12f276fb3dad633851ec282b0fec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8a22b4_3ccb5add",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-09T08:51:23Z",
+      "side": 1,
+      "message": "ISTM this could just be `double(uint64_t(1) \u003c\u003c (digits - 1)) * 2.0`.",
+      "revId": "e4384513cd3b12f276fb3dad633851ec282b0fec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "611363f8_5627104a",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-09T08:51:23Z",
+      "side": 1,
+      "message": "If kMaxInt \u003d\u003d kMaxIntPlusOne, From doesn\u0027t have enough precision for the max To value.  Then, nextafter() is getting the _actual_ next smallest representable value in From.  So isn\u0027t the latter condition also covered by `from \u003e\u003d kMaxInt`?  Then these can be one if: `(kMaxInt \u003c\u003d kMaxIntPlus \u0026\u0026 from \u003e\u003d kMaxInt)`, but the former is trivially true so just `from \u003e\u003d kMaxInt`.\n\nThere\u0027s a good chance I\u0027m missing a subtlety so LMK.",
+      "revId": "e4384513cd3b12f276fb3dad633851ec282b0fec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "039d4227_b9bfe40c",
+        "filename": "util/saturate_cast.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-01-09T08:51:23Z",
+      "side": 1,
+      "message": "nit: return 0;",
+      "revId": "e4384513cd3b12f276fb3dad633851ec282b0fec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
