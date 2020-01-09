@@ -5,10 +5,20 @@
 #ifndef UTIL_SATURATE_CAST_H_
 #define UTIL_SATURATE_CAST_H_
 
+#include <cmath>
 #include <limits>
 #include <type_traits>
 
 namespace openscreen {
+
+// Case 0: When To and From are the same type, saturate_cast<> is pass-through.
+template <typename To, typename From>
+constexpr typename std::enable_if_t<
+    std::is_same<std::remove_cv<To>, std::remove_cv<From>>::value,
+    To>
+saturate_cast(From from) {
+  return from;
+}
 
 // Because of the way C++ signed versus unsigned comparison works (i.e., the
 // type promotion strategy employed), extra care must be taken to range-check
@@ -64,6 +74,83 @@ saturate_cast(From from) {
     return std::numeric_limits<To>::max();
   }
   return static_cast<To>(from);
+}
+
+namespace saturate_cast_internal {
+
+// A recursive template as a constexpr-friendly equivalent to std::expr2(power).
+template <int kPower>
+struct TwoToTheN {
+  static constexpr double value = 2.0 * TwoToTheN<kPower - 1>::value;
+};
+template <>
+struct TwoToTheN<0> {
+  static constexpr double value = 1.0;
+};
+
+}  // namespace saturate_cast_internal
+
+// Case 4: "From" is a floating-point type, and "To" is an integer type (signed
+// or unsigned). The result is truncated, per the usual C++ float-to-int
+// conversion rules.
+template <typename To, typename From>
+constexpr typename std::enable_if_t<std::is_floating_point<From>::value &&
+                                        std::is_integral<To>::value,
+                                    To>
+saturate_cast(From from) {
+  // Note: It's invalid to compare the argument against
+  // std::numeric_limits<To>::max() because the latter, an integer value, will
+  // be type-promoted to the floating-point type. The problem is that the
+  // conversion is imprecise, as "max int" might not exactly representable as a
+  // floating-point value (depending on the actual types of From and To).
+  //
+  // Thus, the strategy is to use compare only floating-point values/constants
+  // to determine whether the bounds of the range of integers has been exceeded.
+  // Two assumptions here: 1) "To" is either unsigned, or is a 2's complement
+  // signed integer type. 2) "From" is a floating-point type that can exactly
+  // represent all powers of 2 within its value range.
+  static_assert((~To(1) + To(1)) == To(-1), "assumed 2's complement integers");
+  constexpr From kMaxIntPlusOne =
+      saturate_cast_internal::TwoToTheN<std::numeric_limits<To>::digits>::value;
+  constexpr From kMaxInt = kMaxIntPlusOne - 1;
+  if (kMaxInt < kMaxIntPlusOne && from >= kMaxInt) {
+    return std::numeric_limits<To>::max();
+  } else if (kMaxInt == kMaxIntPlusOne &&
+             from > std::nextafter(kMaxInt, From(0))) {
+    return std::numeric_limits<To>::max();
+  }
+  if (std::is_signed<To>::value) {
+    constexpr From kMinInt = -kMaxIntPlusOne;
+    if (from <= kMinInt) {
+      return std::numeric_limits<To>::min();
+    }
+  } else /* if To is unsigned */ {
+    if (from <= From(0)) {
+      return std::numeric_limits<To>::min();
+    }
+  }
+  return static_cast<To>(from);
+}
+
+// Like saturate_cast<>, but rounds to the nearest integer instead of
+// truncating.
+template <typename To, typename From>
+constexpr typename std::enable_if_t<std::is_floating_point<From>::value &&
+                                        std::is_integral<To>::value,
+                                    To>
+rounded_saturate_cast(From from) {
+  const To saturated = saturate_cast<To>(from);
+  if (saturated == std::numeric_limits<To>::min() ||
+      saturated == std::numeric_limits<To>::max()) {
+    return saturated;
+  }
+
+  static_assert(sizeof(To) <= sizeof(decltype(llround(from))),
+                "No version of lround() for the required range of values.");
+  if (sizeof(To) <= sizeof(decltype(lround(from)))) {
+    return static_cast<To>(lround(from));
+  }
+  return static_cast<To>(llround(from));
 }
 
 }  // namespace openscreen
