@@ -1,0 +1,378 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32a5b676_f9602cb3",
+        "filename": "DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Be extra careful that this doesn\u0027t break downstream, because of the Chromium weirdness with absl.",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6260bb72_2310bd4d",
+        "filename": "cast/DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Can you update this to -osp",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8464de1c_16e58137",
+        "filename": "cast/DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Delete",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fcd5383_647a84a7",
+        "filename": "cast/DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Delete",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30602df_9f76a193",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Side comment: it seems like we\u0027ve settled on \"testing\" for these folders, I can send a patch to rename this one.",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2bfbf55_fe8b7bf7",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Maybe put these in discovery/testing ?",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "789176b2_22cc2f8a",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "If this were a method on ServiceInfo, you could compute the instance ID once and store it there for future calls.",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "850367c2_b0e4ca6e",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Do you need to set result here too?",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27e57762_22272eb8",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "DecodeIntegerString calls SimpleAtoi which is parsing a base-10 integer, not a base-64 encoded value.  Which format is the capabilities value in the TXT?",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4958221_35ac4dd4",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "There\u0027s a maximum possible integer value depending on the number of bits defined for capabilities.  Can you check against it?",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5097c71e_a7f86e2b",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "POD types and enums should have initializers if you are using the compiler-generated ctor.",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63202481_e2e9439e",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Probably shouldn\u0027t define IsValid in the openscreen::cast namespace, as there\u0027s an opportunity for name collisions in the future.\n\nIt could be a method on ServiceInfo, or maybe IsValidServiceInfo()",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d322501c_e8dbc5aa",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Similar comment - change to method, or ServiceInfoToDnsSdRecord()",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "923e32c0_d249d061",
+        "filename": "cast/common/discovery/service_info.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "DnsSdRecordToServiceInfo",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360a608e_2cd05c7e",
+        "filename": "cast/common/testing/discovery_utils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Can the function body go in the .cc?",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55d52099_acea2edc",
+        "filename": "cast/common/testing/discovery_utils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Can you log this assertion as, \"Expected value \" \u003c\u003c expected \u003c\u003c \" for key \" \u003c\u003c key \u003c\u003c \"; got error \" \u003c\u003c value.error()",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90738d89_cfbafd87",
+        "filename": "cast/common/testing/discovery_utils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "\"Expected value \" \u003c\u003c expected \u003c\u003c \" for key \" \u003c\u003c key",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6599a19c_acd5029a",
+        "filename": "cast/common/testing/discovery_utils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Ditto about function body",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84de4560_49e3ac10",
+        "filename": "cast/common/testing/discovery_utils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "The value will likely be nonsense characters ... maybe there is a routine in gtest to print  individual values as hex?",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a860038_9e44e60e",
+        "filename": "cast/common/testing/discovery_utils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "\"Expected 1-byte value for key \" \u003c\u003c key \u003c\u003c \", got \" \u003c\u003c data.size() \u003c\u003c \" bytes\"",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "001847e3_396feb46",
+        "filename": "cast/common/testing/discovery_utils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "\"Expected value \" \u003c\u003c std::hex \u003c\u003c expected \u003c\u003c \"for key \" \u003c\u003c key \u003c\u003c \", got \" \u003c\u003c data[0]",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eacc53a_ec689f76",
+        "filename": "discovery/dnssd/public/dns_sd_txt_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Maybe IsValidTxtKey for consistency with the new methods you\u0027re adding?",
+      "revId": "ef8b84389a5ededb6248190e04db9f80f1edb19f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

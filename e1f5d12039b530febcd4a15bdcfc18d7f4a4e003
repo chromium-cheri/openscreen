@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "f6b2c292_dba39d56",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Right, I see how you\u0027re using it to effectively inline the if ... then flow.  I agree the way you\u0027ve done it is cleaner!",
+      "parentUuid": "6e146c49_7604f94b",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57e4a092_472a1744",
         "filename": "cast/common/discovery/service_info.cc",
         "patchSetId": 4
@@ -314,6 +332,24 @@
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8f256be_dce217b6",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "It can\u0027t hurt.   Normally I would look at adding some compile time static_assert-s if I wanted to validate that my constants are sane.   But as long as there is unit test coverage of this code, this would quickly catch anything as well, and you can re-use the logic you\u0027ve written.",
+      "parentUuid": "ecca1c21_2ea21dbf",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -480,6 +516,24 @@
       "side": 1,
       "message": "the v4_address / v6_address fields are IPEndpoint types, which include the port, so it\u0027s set by the embedder who\u0027s calling this method\n\nWDYT about renaming those fields to v4_endpoint / v6_endpoint to be clearer?",
       "parentUuid": "0bc888c5_09da51ba",
+      "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acc33ef2_6cac90f5",
+        "filename": "cast/common/discovery/service_info.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-09T00:45:55Z",
+      "side": 1,
+      "message": "Yes, I would encourage renaming if that doesn\u0027t blow up this patch with unrelated files.",
+      "parentUuid": "387a0085_bd5ffd9c",
       "revId": "e1f5d12039b530febcd4a15bdcfc18d7f4a4e003",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
