@@ -38,6 +38,26 @@ class MdnsSender;
 // 6762 section 8.2.1 can proceed as described.
 class MdnsProbe {
  public:
+  MdnsProbe(DomainName target_name, IPEndpoint endpoint);
+  virtual ~MdnsProbe();
+
+  // Postpones the current probe operation by |delay|, after which the probing
+  // process is re-initialized.
+  virtual void Postpone(std::chrono::seconds delay) = 0;
+
+  // Cancels this ongoing probe.
+  virtual void Cancel() = 0;
+
+  const DomainName& target_name() const { return target_name_; }
+  const IPEndpoint& endpoint() const { return endpoint_; }
+
+ private:
+  const DomainName target_name_;
+  const IPEndpoint endpoint_;
+};
+
+class MdnsProbeImpl : public MdnsProbe {
+ public:
   // The observer class is responsible for returning the result of an ongoing
   // probe query to the caller.
   class Observer {
@@ -53,23 +73,23 @@ class MdnsProbe {
 
   // |sender|, |querier|, |random_delay|, |task_runner|, and |observer| must all
   // persist for the duration of this object's lifetime.
-  MdnsProbe(MdnsSender* sender,
-            MdnsQuerier* querier,
-            MdnsRandom* random_delay,
-            TaskRunner* task_runner,
-            Observer* observer,
-            DomainName target_name,
-            IPEndpoint endpoint);
-  MdnsProbe(const MdnsProbe& other) = delete;
-  MdnsProbe(MdnsProbe&& other) = delete;
-  ~MdnsProbe();
+  MdnsProbeImpl(MdnsSender* sender,
+                MdnsQuerier* querier,
+                MdnsRandom* random_delay,
+                TaskRunner* task_runner,
+                Observer* observer,
+                DomainName target_name,
+                IPEndpoint endpoint);
+  MdnsProbeImpl(const MdnsProbeImpl& other) = delete;
+  MdnsProbeImpl(MdnsProbeImpl&& other) = delete;
+  ~MdnsProbeImpl() override;
 
-  MdnsProbe& operator=(const MdnsProbe& other) = delete;
-  MdnsProbe& operator=(MdnsProbe&& other) = delete;
+  MdnsProbeImpl& operator=(const MdnsProbeImpl& other) = delete;
+  MdnsProbeImpl& operator=(MdnsProbeImpl&& other) = delete;
 
-  const DomainName& target_name() const { return target_name_; }
-
-  const IPEndpoint& endpoint() const { return endpoint_; }
+  // MdnsProbe overrides.
+  void Postpone(std::chrono::seconds delay) override;
+  void Cancel() override;
 
  private:
   // Performs the probe query as described in the class-level comment.
@@ -80,8 +100,6 @@ class MdnsProbe {
   MdnsRandom* const random_delay_;
   TaskRunner* const task_runner_;
   Observer* const observer_;
-  DomainName target_name_;
-  IPEndpoint endpoint_;
 };
 
 }  // namespace discovery
