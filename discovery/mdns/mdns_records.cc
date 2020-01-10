@@ -33,6 +33,25 @@ inline int CompareIgnoreCase(const std::string& x, const std::string& y) {
   return i == y.size() ? 0 : -1;
 }
 
+size_t GetSize(DnsType type) {
+  switch (type) {
+    case DnsType::kA:
+      return sizeof(ARecordRdata);
+    case DnsType::kPTR:
+      return sizeof(PtrRecordRdata);
+    case DnsType::kTXT:
+      return sizeof(TxtRecordRdata);
+    case DnsType::kAAAA:
+      return sizeof(AAAARecordRdata);
+    case DnsType::kSRV:
+      return sizeof(SrvRecordRdata);
+    case DnsType::kNSEC:
+      return sizeof(NsecRecordRdata);
+    default:
+      return sizeof(RawRecordRdata);
+  }
+}
+
 }  // namespace
 
 bool IsValidDomainLabel(absl::string_view label) {
@@ -417,6 +436,45 @@ bool MdnsRecord::operator!=(const MdnsRecord& rhs) const {
   return !(*this == rhs);
 }
 
+bool MdnsRecord::operator>(const MdnsRecord& rhs) const {
+  // Returns the record which is lexicographically later. The determination of
+  // "lexicographically later" is performed by first comparing the record class
+  // then the record type, then raw comparison of the binary content of the
+  // rdata without regard for meaning or structure.
+  if (dns_class() != rhs.dns_class()) {
+    return dns_class() > rhs.dns_class();
+  }
+
+  uint16_t this_type = static_cast<uint16_t>(dns_type()) & kClassMask;
+  uint16_t other_type = static_cast<uint16_t>(rhs.dns_type()) & kClassMask;
+  if (this_type != other_type) {
+    return this_type > other_type;
+  }
+
+  size_t size = GetSize(dns_type());
+  for (size_t i = 0; i < size; i++) {
+    uint8_t this_byte = reinterpret_cast<uint8_t const*>(&rdata())[i];
+    uint8_t other_byte = reinterpret_cast<uint8_t const*>(&rhs.rdata())[i];
+    if (this_byte != other_byte) {
+      return this_byte > other_byte;
+    }
+  }
+
+  return false;
+}
+
+bool MdnsRecord::operator<(const MdnsRecord& rhs) const {
+  return rhs > *this;
+}
+
+bool MdnsRecord::operator<=(const MdnsRecord& rhs) const {
+  return !(*this > rhs);
+}
+
+bool MdnsRecord::operator>=(const MdnsRecord& rhs) const {
+  return !(*this < rhs);
+}
+
 size_t MdnsRecord::MaxWireSize() const {
   auto wire_size_visitor = [](auto&& arg) { return arg.MaxWireSize(); };
   // NAME size, 2-byte TYPE, 2-byte CLASS, 4-byte TTL, RDATA size
@@ -494,7 +552,24 @@ bool MdnsMessage::operator!=(const MdnsMessage& rhs) const {
 }
 
 bool MdnsMessage::IsProbeQuery() const {
-  // TODO(rwkeane): Implement this method.
+  // A message is a probe query if it contains records in the authority section
+  // which answer the question being asked.
+  if (questions().empty() || authority_records().empty()) {
+    return false;
+  }
+
+  for (const MdnsQuestion& question : questions_) {
+    for (const MdnsRecord& record : authority_records_) {
+      if (question.name() == record.name() &&
+          ((question.dns_type() == record.dns_type()) ||
+           (question.dns_type() == DnsType::kANY)) &&
+          ((question.dns_class() == record.dns_class()) ||
+           (question.dns_class() == DnsClass::kANY))) {
+        return true;
+      }
+    }
+  }
+
   return false;
 }
 
