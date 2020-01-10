@@ -252,6 +252,30 @@
       "revId": "4158204cb91439778a3616ca82d776c6d01ce006",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be00baa_195cb885",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T00:43:46Z",
+      "side": 1,
+      "message": "That\u0027s similar to what the code did before.\n\nBut calling into sprintf() requires parsing a format string, and assumes the next developer remembers the format string syntax (I don\u0027t).  Moreover, if we ever want to write strings of different length, it\u0027s not helpful.\n\nThe code above is comparable line-wise, requires few instructions and is self-documenting.  It would be even shorter line-wise by inlining the nibble computations.\n\nMaybe Jordan should have the final say :-)",
+      "parentUuid": "dff14a05_554ed67a",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 1
+      },
+      "revId": "4158204cb91439778a3616ca82d776c6d01ce006",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
