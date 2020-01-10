@@ -276,6 +276,74 @@
       "revId": "4158204cb91439778a3616ca82d776c6d01ce006",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc54ed6_6e337cb6",
+        "filename": "util/simple_fraction.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "This isn\u0027t symmetric with ToString().",
+      "revId": "4158204cb91439778a3616ca82d776c6d01ce006",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "135d8ce9_ac1305be",
+        "filename": "util/simple_fraction.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "So \"1/0\" is not legal?  It\u0027s another case where FromString(ToString(SimpleFraction{1,0})) won\u0027t work.  Please document in comments",
+      "revId": "4158204cb91439778a3616ca82d776c6d01ce006",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dfb2c0a_ade0332a",
+        "filename": "util/simple_fraction.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "Return +NaN or -NaN.",
+      "revId": "4158204cb91439778a3616ca82d776c6d01ce006",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39fe0939_1c814a40",
+        "filename": "util/simple_fraction.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "Is there code that needs to represent infinity?  This basically makes int min/int max ambiguous.",
+      "revId": "4158204cb91439778a3616ca82d776c6d01ce006",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

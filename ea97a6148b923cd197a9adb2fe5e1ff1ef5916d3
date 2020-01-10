@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "9959eec2_ca686389",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "What is \"ncd\"?  Is that an alias for ninja?\n\nIf the target is defined in its own BUILD file, then it won\u0027t be generated because of the (!is_mac) clause below.  GN won\u0027t load the BUILD file that defines it.\n\nYou could always manually include that BUILD file so that GN generates the target...\n\nIs there an issue filed for getting this working on the Mac bots?",
+      "parentUuid": "f399a82f_49d212a5",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c1ec0b9_e1548fbc",
         "filename": "cast/standalone_receiver/BUILD.gn",
         "patchSetId": 8
@@ -280,6 +298,24 @@
     },
     {
       "key": {
+        "uuid": "43a2c4c7_9b4fcc4b",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "Similar comment applies to OnReceiversDestroyed, OnError",
+      "parentUuid": "633f539a_cfe6aaa7",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62aec53b_5b70f089",
         "filename": "cast/standalone_receiver/demo_client.h",
         "patchSetId": 8
@@ -396,6 +432,24 @@
     },
     {
       "key": {
+        "uuid": "5d9bc071_250e13e0",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "Thanks for the clarification - maybe mention this hard-coded port is sent in the ANSWER.",
+      "parentUuid": "22354be1_7ceaf47a",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94534d1f_9f516c6b",
         "filename": "cast/standalone_receiver/main.cc",
         "patchSetId": 8
@@ -463,6 +517,24 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bee92874_7adacfa6",
+        "filename": "cast/standalone_receiver/simple_message_port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "Do you mean delete the namespace argument?  We will need to pass multiple namespaces since remoting RPCs are sent on a different one IIRC.",
+      "parentUuid": "36e857c0_caf06fea",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -880,6 +952,24 @@
       "side": 1,
       "message": "...kind of. The spec actually demands that it is formatted as 1/\u003cthe timebase\u003e. I personally think that that\u0027s silly.\n\nI can definitely move it to a fraction in parsing, though. LMK if you like the new revision.",
       "parentUuid": "e8ce8e3b_7307c621",
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba69ce99_4658fe95",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-10T21:16:19Z",
+      "side": 1,
+      "message": "Current code is fine, not worth trying to fix the spec :-)",
+      "parentUuid": "c61898f8_59144139",
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
