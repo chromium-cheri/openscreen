@@ -51,7 +51,7 @@ class MdnsProbeManager {
 // probe fails due to a conflict detection, this class will modify the domain
 // name as described in RFC 6762 section 9 and re-initiate probing for the new
 // name.
-class MdnsProbeManagerImpl : public MdnsProbe::Observer,
+class MdnsProbeManagerImpl : public MdnsProbeImpl::Observer,
                              public MdnsProbeManager {
  public:
   // |sender|, |querier|, |random_delay|, and |task_runner|, must all persist
@@ -87,10 +87,19 @@ class MdnsProbeManagerImpl : public MdnsProbe::Observer,
                            const IPEndpoint& src) override;
 
  private:
-  std::unique_ptr<MdnsProbe> CreateProbe(DomainName name, IPEndpoint endpoint) {
-    return std::make_unique<MdnsProbe>(sender_, querier_, random_delay_,
-                                       task_runner_, this, std::move(name),
-                                       std::move(endpoint));
+  friend class TestMdnsProbeManager;
+
+  // Creates an A or AAAA record as appropriate for the provided parameters.
+  MdnsRecord CreateAddressRecord(DomainName name, const IPEndpoint& endpoint);
+
+  // Resolves simultaneous probe queries as described in RFC 6762 section 8.2.
+  void TiebreakSimultaneousProbes(const MdnsMessage& message);
+
+  virtual std::unique_ptr<MdnsProbe> CreateProbe(DomainName name,
+                                                 IPEndpoint endpoint) {
+    return std::make_unique<MdnsProbeImpl>(sender_, querier_, random_delay_,
+                                           task_runner_, this, std::move(name),
+                                           std::move(endpoint));
   }
 
   struct OngoingProbe {
@@ -103,11 +112,18 @@ class MdnsProbeManagerImpl : public MdnsProbe::Observer,
     std::unique_ptr<MdnsProbe> probe;
     DomainName requested_name;
     MdnsDomainConfirmedProvider* callback;
+    int attempts = 0;
   };
 
-  // MdnsProbe::Observer overrides.
+  // MdnsProbeImpl::Observer overrides.
   void OnProbeSuccess(MdnsProbe* probe) override;
   void OnProbeFailure(MdnsProbe* probe) override;
+
+  // Helpers to find ongoing and completed probes.
+  std::vector<std::unique_ptr<MdnsProbe>>::const_iterator FindCompletedProbe(
+      const DomainName& name) const;
+  std::vector<OngoingProbe>::iterator FindOngoingProbe(const DomainName& name);
+  std::vector<OngoingProbe>::iterator FindOngoingProbe(MdnsProbe* probe);
 
   MdnsSender* const sender_;
   MdnsQuerier* const querier_;

@@ -13,6 +13,7 @@
 #include "discovery/dnssd/impl/service_key.h"
 #include "discovery/dnssd/public/dns_sd_instance_record.h"
 #include "discovery/mdns/mdns_records.h"
+#include "discovery/mdns/public/mdns_constants.h"
 
 namespace openscreen {
 namespace discovery {
@@ -47,23 +48,17 @@ DomainName GetInstanceDomainName(const std::string& instance,
 MdnsRecord CreatePtrRecord(const DnsSdInstanceRecord& record,
                            const DomainName& domain) {
   PtrRecordRdata data(domain);
-
-  // TTL specified by RFC 6762 section 10.
-  constexpr std::chrono::seconds ttl(120);
   auto outer_domain = GetPtrDomainName(record.service_id(), record.domain_id());
   return MdnsRecord(std::move(outer_domain), DnsType::kPTR, DnsClass::kIN,
-                    RecordType::kShared, ttl, std::move(data));
+                    RecordType::kShared, kPtrRecordTtl, std::move(data));
 }
 
 MdnsRecord CreateSrvRecord(const DnsSdInstanceRecord& record,
                            const DomainName& domain) {
   uint16_t port = record.port();
-
-  // TTL specified by RFC 6762 section 10.
-  constexpr std::chrono::seconds ttl(120);
   SrvRecordRdata data(0, 0, port, domain);
   return MdnsRecord(domain, DnsType::kSRV, DnsClass::kIN, RecordType::kUnique,
-                    ttl, std::move(data));
+                    kSrvRecordTtl, std::move(data));
 }
 
 absl::optional<MdnsRecord> CreateARecord(const DnsSdInstanceRecord& record,
@@ -72,11 +67,9 @@ absl::optional<MdnsRecord> CreateARecord(const DnsSdInstanceRecord& record,
     return absl::nullopt;
   }
 
-  // TTL specified by RFC 6762 section 10.
-  constexpr std::chrono::seconds ttl(120);
   ARecordRdata data(record.address_v4().address);
   return MdnsRecord(domain, DnsType::kA, DnsClass::kIN, RecordType::kUnique,
-                    ttl, std::move(data));
+                    kARecordTtl, std::move(data));
 }
 
 absl::optional<MdnsRecord> CreateAAAARecord(const DnsSdInstanceRecord& record,
@@ -85,21 +78,16 @@ absl::optional<MdnsRecord> CreateAAAARecord(const DnsSdInstanceRecord& record,
     return absl::nullopt;
   }
 
-  // TTL specified by RFC 6762 section 10.
-  constexpr std::chrono::seconds ttl(120);
   AAAARecordRdata data(record.address_v6().address);
   return MdnsRecord(domain, DnsType::kAAAA, DnsClass::kIN, RecordType::kUnique,
-                    ttl, std::move(data));
+                    kAAAARecordTtl, std::move(data));
 }
 
 MdnsRecord CreateTxtRecord(const DnsSdInstanceRecord& record,
                            const DomainName& domain) {
   TxtRecordRdata data(record.txt().GetData());
-
-  // TTL specified by RFC 6762 section 10.
-  constexpr std::chrono::seconds ttl(75 * 60);
   return MdnsRecord(domain, DnsType::kTXT, DnsClass::kIN, RecordType::kUnique,
-                    ttl, std::move(data));
+                    kTXTRecordTtl, std::move(data));
 }
 
 }  // namespace
