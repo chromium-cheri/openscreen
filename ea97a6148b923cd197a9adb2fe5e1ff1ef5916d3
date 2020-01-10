@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a8adbf86_e7b4e297",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-10T00:15:10Z",
+      "side": 1,
+      "message": "Consider adding TODO(crbug.com/openscreen/86) text here.",
+      "range": {
+        "startLine": 9,
+        "startChar": 66,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac3ef673_fb39f712",
         "filename": "BUILD.gn",
         "patchSetId": 8
@@ -107,6 +130,121 @@
     },
     {
       "key": {
+        "uuid": "0c8c57d7_1cd62761",
+        "filename": "cast/standalone_receiver/demo_client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-10T00:15:10Z",
+      "side": 1,
+      "message": "DCHECK(task_runner_), like the other ctor?",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 2
+      },
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15f45774_edc12b9d",
+        "filename": "cast/standalone_receiver/demo_client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-10T00:15:10Z",
+      "side": 1,
+      "message": "nit: It might be better to merge the code with the above, to help tools like code search (and the human reader) see that there is only one ctor being defined. Something like:\n\n  DemoClient::DemoClient(TaskRunnerImpl* task_runer)\n    : task_runner_(task_runner) {\n    OSP_DCHECK(task_runner_);\n\n  #if defined(CAST_STREAMING_HAVE_EXTERNAL_LIBS_FOR_DEMO_APPS)\n    sdl_event_loop_ \u003d std::make_unique\u003cSDLEventLoopProcessor\u003e(...);\n    // ...and the rest of the SDL stuff...\n  #endif\n  }",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdac3a2c_32f26888",
+        "filename": "cast/standalone_receiver/demo_client.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-10T00:15:10Z",
+      "side": 1,
+      "message": "Need to conditionally create each player, if the session only has audio or only video:\n\n  if (receivers.audio_receiver()) {\n    audio_player_ \u003d std::make_unique\u003cSDLAudioPlayer\u003e(...);\n  } else {\n    OSP_LOG_INFO \u003c\u003c \"No audio receiver in this streaming session.\";\n  }\n  if (receivers.video_receiver()) {\n    video_player \u003d std::make_unique\u003cSDLVideoPlayer\u003e(...);\n  } else {\n    OSP_LOG_INFO \u003c\u003c \"No video receiver in this streaming session.\";\n  }",
+      "range": {
+        "startLine": 43,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 51
+      },
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e3b42e5_de944ba3",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-10T00:15:10Z",
+      "side": 1,
+      "message": "naming nit: IMO, DemoClient is a bit nondescript. How about something like StreamingPlaybackController?\n\nThinking longer term, when we add discovery, we\u0027ll probably split this class up into a Model+View+Controller scheme (maybe just View+Controller) since we\u0027ll want to add some simple UI story loop with a \"waiting for OFFER\" screen, followed by the A/V playback screen, and then back to \"waiting for OFFER,\" and so on.",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d38bc97b_4fa38dae",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-10T00:15:10Z",
+      "side": 1,
+      "message": "explicit",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 12
+      },
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b7ffc24_f2c81581",
         "filename": "cast/standalone_receiver/demo_client.h",
         "patchSetId": 8
@@ -139,6 +277,52 @@
       "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62aec53b_5b70f089",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-10T00:15:10Z",
+      "side": 1,
+      "message": "TaskRunnerImpl* const task_runner_;\n                ^^^^^",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b317f166_4a588e9a",
+        "filename": "cast/standalone_receiver/demo_client.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-10T00:15:10Z",
+      "side": 1,
+      "message": "Might want to add a comment that the order of the members here is important, since the ScopedSDLSubSystem members need to be first-constructed, last-destroyed (before/after the SDL event loop and window and players).",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 65
+      },
+      "revId": "ea97a6148b923cd197a9adb2fe5e1ff1ef5916d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
