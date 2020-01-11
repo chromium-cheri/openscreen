@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "11fec9b7_bbd14daa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-11T00:01:39Z",
+      "side": 1,
+      "message": "\u003e void WriteThings() {\n \u003e   TaskRunner::PostTask(Write(a))\n \u003e   TaskRunner::PostTask(Write(b))\n \u003e   TaskRunner::PostTask(Write(c))\n \u003e }\n \u003e\n \u003e ...\n \u003e Then, we\u0027ve written b, c, a\n \u003e while the intended order is a, b, c\n\nYou would never want to post \"best-effort\" tasks requiring a specific ordering directly. Instead, you would post tasks that manage progress and make attempts and retries, like:\n\n  std::queue\u003c...\u003e pending_control_messages_;\n\n  void WriteThings() {\n    while (!pending_control_messages_.empty()) {\n      if (!Write(pending_control_messages_.front())) {\n        task_runner_-\u003ePostDelayedTask(\n            std::bind(\u0026WriteThings, this),\n            \u003csome retry delay\u003e);\n        // (Usually better to use a util::Alarm instead to\n        // manage auto-cancelable delayed tasks.)\n        return;\n      }\n      pending_control_messages_.pop_front();\n    }\n  }\n\n\u003e If all of our messages are commutative, this wouldn\u0027t be a problem.\n \u003e I don\u0027t think that\u0027s true though - If A \u003d start_cast and C \u003d stop_cast, then ...\n\nThe class/entity that sends the control message(s) will also know whether any message has been accepted for reliable delivery to the receiver. So, the class/entity would probably have control logic like (oversimplified example here):\n\n  enum State { IDLE, PLAY, PAUSE, STOP, QUIT };\n  State posted_state_;\n  State desired_state_;\n\n  void UpdateIfNecessary() {\n    if (posted_state_ !\u003d desired_state_) {\n      if (Write(\u003ccontrol message to get to desired_state_\u003e)) {\n        posted_state_ \u003d desired_state_;\n      } else {\n        // schedule retry at later time\n      }\n    }\n  }\n\n  void SetDesiredState(State x) {\n    desired_state_ \u003d x;\n    UpdateIfNecessary();\n  }\n\nSo, desired_state_ could be changed by the user even while some previous desired state was never communicated to the receiver; and, this would be good because it effectively auto-cancels old state changes that the user no longer wants (and no thrashing the receiver with rapid, useless state changes).",
+      "parentUuid": "559ed89e_ee6bac3b",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "4099bccf29e49bc2184f685bfb9f1e23b7e4457b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fffe882f_9712c7da",
         "filename": "cast/common/channel/cast_socket.h",
         "patchSetId": 2
