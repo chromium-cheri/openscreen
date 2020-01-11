@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fb687d1_25a847b3",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "The patch description made me think this had the entire implementation; but it looks like it\u0027s only the probe lifecycle logic and not the implementation of an individual probe. \n\nCan you mention that there are parts yet to be implemented in the patch description?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee36d17f_ad53f404",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "It seems like the Observer declaration belongs in the MdnsProbe API; otherwise, someone holding that object won\u0027t have any way of finding out the probe results.",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae74659d_1c83b9a3",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "This is already defined as 63 here?\n\nhttps://chromium.googlesource.com/openscreen/+/refs/heads/master/discovery/mdns/public/mdns_constants.h#180",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad1b9f6b_5bca8217",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "Since you are basically modifying label[0] in-place, can you use a mutable reference to simplify this code?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0b6c524_8e2e456c",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "Just to clarify: a probe is only completed after the name is successfully claimed?\n\nMaybe this should call IsDomainClaimed()?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a3f4c82_6477a988",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "Nit: maybe use a different error code for this case, just in case the client cares.",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83db9ad6_9f77f38a",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "This is responding to a probe sent by a different mdns publisher, right?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9cc8c0f_423af4c0",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "Is this finding the minimum among the authority_records according to the comparison operator?  Would std::min_element work?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "898d05b4_f8d796d5",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "There are a couple of checks for an ongoing probe in this file. Suggest factoring out a boolean function for this check.",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b17f53f1_6d576af9",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "Is it possible for there to be two simulaneous probes for the same name from the same publisher?  I think the check in StartProbe will prevent it from happening, so the second probe would never get here?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca59dcea_3d3206c8",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "Can you add a brief comment, like:\n\n\"Owns a MdnsProbe in progress.  Created when the probe is started and deleted when the probe has completed.  Will invoke |callback| exactly once with the outcome of the probe.\"\n \n\n Is this always deleted when the probe has completed?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67a02f1b_f544e92c",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "It looks like this is counting completed attempts. Maybe num_probes_completed?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708147eb_9ad6c0ec",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-11T00:39:19Z",
+      "side": 1,
+      "message": "This is accessing the raw bytes of the absl::variant pointed to by rdata() right?\nIs there a way you can do this without casting an object to raw bytes - for example by implementing operator\u003c on the rdata?",
+      "revId": "eccfa52c4b952096cff99633b8c614695cd5a0eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
