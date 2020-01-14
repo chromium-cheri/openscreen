@@ -8,10 +8,23 @@
 #include <memory>
 #include <string>
 
+#include "discovery/dnssd/public/dns_sd_instance_record.h"
 #include "platform/base/ip_address.h"
 
 namespace openscreen {
 namespace cast {
+
+// Constants to identify a CastV2 instance with DNS-SD.
+static constexpr char kCastV2ServiceId[] = "_googlecast._tcp";
+static constexpr char kCastV2DomainId[] = "local";
+
+// Constants to be used as keys when storing data inside of a DNS-SD TXT record.
+static constexpr char kUniqueIdKey[] = "id";
+static constexpr char kVersionId[] = "ve";
+static constexpr char kCapabilitiesId[] = "ca";
+static constexpr char kStatusId[] = "st";
+static constexpr char kFriendlyNameId[] = "fn";
+static constexpr char kModelNameId[] = "mn";
 
 // This represents the ‘st’ flag in the CastV2 TXT record.
 enum ReceiverStatus {
@@ -39,6 +52,12 @@ enum ReceiverCapabilities : uint64_t {
 // This is the top-level service info class for CastV2. It describes a specific
 // service instance.
 struct ServiceInfo {
+  // returns the instance id associated with this ServiceInfo instance.
+  const std::string& GetInstanceId() const;
+
+  // Returns whether all fields of this ServiceInfo are valid.
+  bool IsValid();
+
   // Endpoints for the service. Present if an endpoint of this address type
   // exists and empty otherwise.
   IPEndpoint v4_address;
@@ -64,7 +83,31 @@ struct ServiceInfo {
 
   // The friendly name of the device, e.g. “Living Room TV".
   std::string friendly_name;
+
+ private:
+  mutable std::string instance_id_ = "";
 };
+
+inline bool operator==(const ServiceInfo& lhs, const ServiceInfo& rhs) {
+  return lhs.v4_address == rhs.v4_address && lhs.v6_address == rhs.v6_address &&
+         lhs.unique_id == rhs.unique_id &&
+         lhs.protocol_version == rhs.protocol_version &&
+         lhs.capabilities == rhs.capabilities && lhs.status == rhs.status &&
+         lhs.model_name == rhs.model_name &&
+         lhs.friendly_name == rhs.friendly_name;
+}
+
+inline bool operator!=(const ServiceInfo& lhs, const ServiceInfo& rhs) {
+  return !(lhs == rhs);
+}
+
+// Functions responsible for converting between CastV2 and DNS-SD
+// representations of a service instance.
+discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
+    const ServiceInfo& service);
+
+ErrorOr<ServiceInfo> DnsSdRecordToServiceInfo(
+    const discovery::DnsSdInstanceRecord& service);
 
 }  // namespace cast
 }  // namespace openscreen
