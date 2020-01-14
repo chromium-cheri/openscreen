@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00ddf6a8_235b7e1a",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Drop std::move; I don\u0027t see any overload of append that takes a non-const argument.\n\nhttps://en.cppreference.com/w/cpp/string/basic_string/append",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4250bc8f_223ff6f0",
+        "filename": "discovery/mdns/mdns_probe_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "The logic below seems to have a second case where a tiebreaker probe is used if we see a probe identical to our own (?).  I checked this with a logic chart.\n\nI would have written this section in multiple statements with comments for the different cases (even at the expense of an extra line or two of code):\n\n// If this host finds that ...\nif (probe_record \u003e *lowest_record_it) break;\n\n// If the probe record is identical to our own data then skip it.\nif (message_authority_records.size() \u003d\u003d 1 \u0026\u0026 probe_record \u003d\u003d *lowest_record_it) break;\n\n// Need to tiebreak.\nit-\u003eprobe-\u003ePostpone(kSimultaneousProbeDelay);\n\nPlease double check my logic!",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46076c7a_6d260b9a",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "... contains a query for that domain ... ?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c925417_6784a118",
+        "filename": "discovery/mdns/mdns_probe_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Maybe clarify that the |probe| doesn\u0027t get deleted when the probe completes, but gets moved into completed_probes_.",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28660f4e_7fb97051",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "2020 :-)",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4128908c_4e152082",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "These names should already be accessible without qualification because of inheritance (unless I\u0027m missing something)",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0777f69_328401f7",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Nit: Maybe GetOngoingMockProbe since this exists to downcast the probe object into a mock implementation.",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4635f8e4_229a3df0",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Can you use FindOngoingProbe from the base class?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad920856_e8455284",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "GetMockCompletedProbe",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9853244_d3cb54be",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Is this lookup already implemented in the base class?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c607963_716e57b3",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "GetMockProbe",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "243b2127_0e1f7f71",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "I thought this meant that there was a time aspect, but I think it\u0027s just a different address.\n\nMaybe name them address_a_ and address_b_?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1697903_759b79aa",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Maybe address_c_ - I didn\u0027t see any tests that cared about v4/v6?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d0602c_86c26ac5",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "It\u0027s good to be explicit with all expectations, but sometimes there\u0027s repetition that can be factored out.\n\nConsider writing some helper expectations like:\n\nExpectProbeOngoing(name)\nExpectProbeWillSucceed(name)\nExpectProbeSuceeded(name)\n\netc.",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81b04e2c_236bfd96",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Maybe:\n\nExpectProbeWillSuceed(name)\nmanager_.OngoingProbeSucceeded(name)*\nExpectProbeSucceeded(name)\n\n* calls OnProbeSuccess and clears expectations.",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cefb537_468ddb25",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "OnUnownedDomain",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "483e376b_bbb4962e",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "I think this test code is repeated from previous cases?  Can you add a method to the test fixture set up the probe manager with a successfully completed probe?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19580075_8765c27f",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Can you explain this test in more detail?  Is the query crafted so that manager_ wins the tiebreak here but loses in L254?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3af492a5_39f8ffa7",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "I think these are evident since manager_ has yet to start any probes...",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fe5e593_decb1528",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "This test looks similar to StartProbeBeginsProbeWhenNoneExistsOnly except that it\u0027s probing with 2 names.  Maybe combine the two tests?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0a553d_6679dee5",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "Is it necessary to try to start a second probe to test this?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0377754_7d2ced68",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "See comment above",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5acc09d_85124d8c",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "It\u0027s weird that the test is starting the initial probe with a name generated for retries.",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ce13478_539c7fc2",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-14T01:36:40Z",
+      "side": 1,
+      "message": "I\u0027d like to make sure the simultaneous tiebreaker cases are well covered by unit tests as the logic seems tricky.  How hard would that be?",
+      "revId": "1a3a614d7dbc9ccb460f0e2d9c1908a710140d5b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
