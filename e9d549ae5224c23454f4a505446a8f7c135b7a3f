@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7b39f977_a814e50e",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-15T21:10:23Z",
+      "side": 1,
+      "message": "If we don\u0027t use an assert / use an OSP_CHECK, the Unit Test will crash (either in the CHECK or line 146 will cause a segault)\nWith an ASSERT, the test will fail at line 140, but then and all remaining UTs will still be run. So it would give more information to hopefully help with debugging :)\n\nLeaving as-is, but I can update with a follow-up patch if you still prefer the alternative approach",
+      "parentUuid": "041dfba9_bd5f623f",
+      "revId": "e9d549ae5224c23454f4a505446a8f7c135b7a3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0292b4b5_77dae98c",
         "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "e9d549ae5224c23454f4a505446a8f7c135b7a3f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "489587af_f18f0ec5",
+        "filename": "discovery/mdns/mdns_probe_manager_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-15T21:10:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0292b4b5_77dae98c",
+      "revId": "e9d549ae5224c23454f4a505446a8f7c135b7a3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
