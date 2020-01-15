@@ -194,7 +194,7 @@ to monitor the build and test health of the library.  Current builders include:
 | linux64_debug          | x86-64 | Ubuntu Linux 16.04 | clang     | debug   | ASAN enabled          |
 | linux64_gcc_debug      | x86-64 | Ubuntu Linux 18.04 | gcc-7     | debug   |                       |
 | linux64_tsan           | x86-64 | Ubuntu Linux 16.04 | clang     | release | TSAN enabled          |
-| linux_arm64            | arm64  | Ubuntu Linux 16.04 | clang     | release | ARM v8 build          |
+| linux_arm64            | x86-64 | Ubuntu Linux 16.04 | clang     | release | ARM 64 cross compile  |
 | mac_debug              | x86-64 | Mac OS X/Xcode     | clang     | debug   |                       |
 | chromium_linux64_debug | x86-64 | Ubuntu Linux 16.04 | clang     | debug   | built within chromium |
 | chromium_mac_debug     | x86-64 | Mac OS X/Xcode     | clang     | debug   | built within chromium |
