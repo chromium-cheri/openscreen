@@ -38,15 +38,17 @@ DomainName CreateRetryDomainName(const DomainName& name, int attempt) {
 MdnsProbeManager::~MdnsProbeManager() = default;
 
 MdnsProbeManagerImpl::MdnsProbeManagerImpl(MdnsSender* sender,
-                                           MdnsQuerier* querier,
+                                           MdnsReceiver* receiver,
                                            MdnsRandom* random_delay,
-                                           TaskRunner* task_runner)
+                                           TaskRunner* task_runner,
+                                           ClockNowFunctionPtr now_function)
     : sender_(sender),
-      querier_(querier),
+      receiver_(receiver),
       random_delay_(random_delay),
-      task_runner_(task_runner) {
+      task_runner_(task_runner),
+      now_function_(now_function) {
   OSP_DCHECK(sender_);
-  OSP_DCHECK(querier_);
+  OSP_DCHECK(receiver_);
   OSP_DCHECK(task_runner_);
   OSP_DCHECK(random_delay_);
 }
@@ -175,26 +177,6 @@ void MdnsProbeManagerImpl::TiebreakSimultaneousProbes(
       }
     }
   }
-}
-
-MdnsRecord MdnsProbeManagerImpl::CreateAddressRecord(
-    DomainName name,
-    const IPEndpoint& endpoint) {
-  Rdata rdata;
-  DnsType type;
-  std::chrono::seconds ttl;
-  if (endpoint.address.IsV4()) {
-    type = DnsType::kA;
-    rdata = ARecordRdata(endpoint.address);
-    ttl = kARecordTtl;
-  } else {
-    type = DnsType::kAAAA;
-    rdata = AAAARecordRdata(endpoint.address);
-    ttl = kAAAARecordTtl;
-  }
-
-  return MdnsRecord(std::move(name), type, DnsClass::kIN, RecordType::kUnique,
-                    ttl, std::move(rdata));
 }
 
 void MdnsProbeManagerImpl::OnProbeSuccess(MdnsProbe* probe) {
