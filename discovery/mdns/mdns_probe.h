@@ -7,8 +7,11 @@
 
 #include <vector>
 
+#include "discovery/mdns/mdns_receiver.h"
 #include "discovery/mdns/mdns_records.h"
+#include "platform/api/time.h"
 #include "platform/base/ip_address.h"
+#include "util/alarm.h"
 
 namespace openscreen {
 
@@ -19,6 +22,9 @@ namespace discovery {
 class MdnsQuerier;
 class MdnsRandom;
 class MdnsSender;
+
+// Creates an A or AAAA record as appropriate for the provided parameters.
+MdnsRecord CreateAddressRecord(DomainName name, const IPEndpoint& endpoint);
 
 // Implements the probing method as described in RFC 6762 section 8.1 to claim a
 // provided domain name. In place of the MdnsRecord(s) that will be published, a
@@ -36,18 +42,24 @@ class MdnsSender;
 // fake mDNS records should never match the real or fake records provided by
 // the other mDNS endpoint, so lexicographic comparison as described in RFC
 // 6762 section 8.2.1 can proceed as described.
-class MdnsProbe {
+class MdnsProbe : public MdnsReceiver::ResponseClient {
  public:
+  // RFC 6762 section 8.1 specifies that a probe should wait 250 ms between
+  // subsequent probe queries.
+  static const Clock::duration kDelayBetweenProbeQueries;
+
   // The observer class is responsible for returning the result of an ongoing
   // probe query to the caller.
   class Observer {
    public:
     virtual ~Observer();
 
-    // Called once the probing phase has been completed successfully.
+    // Called once the probing phase has been completed successfully. |probe| is
+    // expected to be stopped at the time of this call.
     virtual void OnProbeSuccess(MdnsProbe* probe) = 0;
 
-    // Called once the probing phase fails.
+    // Called once the probing phase fails. |probe| is expected to be stopped at
+    // the time of this call.
     virtual void OnProbeFailure(MdnsProbe* probe) = 0;
   };
 
@@ -68,12 +80,13 @@ class MdnsProbe {
 
 class MdnsProbeImpl : public MdnsProbe {
  public:
-  // |sender|, |querier|, |random_delay|, |task_runner|, and |observer| must all
-  // persist for the duration of this object's lifetime.
+  // |sender|, |receiver|, |random_delay|, |task_runner|, and |observer| must
+  // all persist for the duration of this object's lifetime.
   MdnsProbeImpl(MdnsSender* sender,
-                MdnsQuerier* querier,
+                MdnsReceiver* receiver,
                 MdnsRandom* random_delay,
                 TaskRunner* task_runner,
+                ClockNowFunctionPtr now_function,
                 Observer* observer,
                 DomainName target_name,
                 IPEndpoint endpoint);
@@ -88,14 +101,28 @@ class MdnsProbeImpl : public MdnsProbe {
   void Postpone(std::chrono::seconds delay) override;
 
  private:
+  friend class MdnsProbeTests;
+
   // Performs the probe query as described in the class-level comment.
   void ProbeOnce();
 
+  // Stops this probe.
+  void Stop();
+
+  // MdnsReceiver::ResponseClient overrides.
+  void OnMessageReceived(const MdnsMessage& message) override;
+
   MdnsSender* const sender_;
-  MdnsQuerier* const querier_;
+  MdnsReceiver* const receiver_;
   MdnsRandom* const random_delay_;
   TaskRunner* const task_runner_;
+  ClockNowFunctionPtr now_function_;
   Observer* const observer_;
+
+  Alarm alarm_;
+
+  int successful_probe_queries_ = 0;
+  bool is_running_ = true;
 };
 
 }  // namespace discovery
