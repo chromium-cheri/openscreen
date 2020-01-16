@@ -297,7 +297,10 @@ CastMode CastMode::Parse(absl::string_view value) {
 }
 
 ErrorOr<Json::Value> Stream::ToJson() const {
-  if (channels < 1 || index < 0 || codec_name.empty() || rtp_timebase < 1) {
+  if (channels < 1 || index < 0 || codec_name.empty() ||
+      target_delay.count() <= 0 ||
+      target_delay.count() > std::numeric_limits<int>::max() ||
+      rtp_timebase < 1) {
     return CreateParameterError("Stream");
   }
 
@@ -311,7 +314,7 @@ ErrorOr<Json::Value> Stream::ToJson() const {
   // to cast. We set it here to be compliant with all spec implementers.
   root["rtpProfile"] = "cast";
   root["ssrc"] = static_cast<int>(ssrc);
-  root["targetDelay"] = target_delay.count();
+  root["targetDelay"] = static_cast<int>(target_delay.count());
   root["aesKey"] = AesHexBytesToString(aes_key);
   root["aesIvMask"] = AesHexBytesToString(aes_iv_mask);
   root["ReceiverRtcpEventLog"] = receiver_rtcp_event_log;
