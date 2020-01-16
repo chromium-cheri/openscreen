@@ -55,12 +55,13 @@ class MdnsProbeManager {
 class MdnsProbeManagerImpl : public MdnsProbe::Observer,
                              public MdnsProbeManager {
  public:
-  // |sender|, |querier|, |random_delay|, and |task_runner|, must all persist
+  // |sender|, |receiver|, |random_delay|, and |task_runner|, must all persist
   // for the duration of this object's lifetime.
   MdnsProbeManagerImpl(MdnsSender* sender,
-                       MdnsQuerier* querier,
+                       MdnsReceiver* receiver,
                        MdnsRandom* random_delay,
-                       TaskRunner* task_runner);
+                       TaskRunner* task_runner,
+                       ClockNowFunctionPtr now_function);
   MdnsProbeManagerImpl(const MdnsProbeManager& other) = delete;
   MdnsProbeManagerImpl(MdnsProbeManager&& other) = delete;
   ~MdnsProbeManagerImpl() override;
@@ -90,17 +91,14 @@ class MdnsProbeManagerImpl : public MdnsProbe::Observer,
  private:
   friend class TestMdnsProbeManager;
 
-  // Creates an A or AAAA record as appropriate for the provided parameters.
-  MdnsRecord CreateAddressRecord(DomainName name, const IPEndpoint& endpoint);
-
   // Resolves simultaneous probe queries as described in RFC 6762 section 8.2.
   void TiebreakSimultaneousProbes(const MdnsMessage& message);
 
   virtual std::unique_ptr<MdnsProbe> CreateProbe(DomainName name,
-                                                 IPEndpoint endpoint) {
-    return std::make_unique<MdnsProbeImpl>(sender_, querier_, random_delay_,
-                                           task_runner_, this, std::move(name),
-                                           std::move(endpoint));
+                                                 MdnsRecord record) {
+    return std::make_unique<MdnsProbeImpl>(sender_, receiver_, random_delay_,
+                                           task_runner_, now_function_, this,
+                                           std::move(name), std::move(record));
   }
 
   // Owns an in-progress MdnsProbe. When the probe starts, an instance of this
@@ -132,9 +130,10 @@ class MdnsProbeManagerImpl : public MdnsProbe::Observer,
   std::vector<OngoingProbe>::iterator FindOngoingProbe(MdnsProbe* probe);
 
   MdnsSender* const sender_;
-  MdnsQuerier* const querier_;
+  MdnsReceiver* const receiver_;
   MdnsRandom* const random_delay_;
   TaskRunner* const task_runner_;
+  ClockNowFunctionPtr now_function_;
 
   // The set of all probes which have completed successfully. This set is
   // expected to remain small. unique_ptrs are used for storing the probes to

@@ -39,24 +39,24 @@ class MockMdnsSender : public MdnsSender {
 
 class MockMdnsProbe : public MdnsProbe {
  public:
-  MockMdnsProbe(DomainName target_name, IPEndpoint endpoint)
-      : MdnsProbe(std::move(target_name), std::move(endpoint)) {}
+  MockMdnsProbe(DomainName target_name, MdnsRecord record)
+      : MdnsProbe(std::move(target_name), std::move(record)) {}
 
   MOCK_METHOD1(Postpone, void(std::chrono::seconds));
+  MOCK_METHOD1(OnMessageReceived, void(const MdnsMessage&));
 };
 
 class TestMdnsProbeManager : public MdnsProbeManagerImpl {
  public:
   using MdnsProbeManagerImpl::MdnsProbeManagerImpl;
 
-  using MdnsProbeManagerImpl::CreateAddressRecord;
   using MdnsProbeManagerImpl::OnProbeFailure;
   using MdnsProbeManagerImpl::OnProbeSuccess;
 
   std::unique_ptr<MdnsProbe> CreateProbe(DomainName name,
-                                         IPEndpoint endpoint) override {
+                                         MdnsRecord record) override {
     return std::make_unique<StrictMock<MockMdnsProbe>>(std::move(name),
-                                                       std::move(endpoint));
+                                                       std::move(record));
   }
 
   StrictMock<MockMdnsProbe>* GetOngoingMockProbeByTarget(
@@ -88,12 +88,6 @@ class TestMdnsProbeManager : public MdnsProbeManagerImpl {
     return GetCompletedMockProbe(target) != nullptr;
   }
 
-  void MarkProbeComplete(DomainName domain, IPEndpoint endpoint) {
-    std::unique_ptr<MdnsProbe> probe =
-        CreateProbe(std::move(domain), std::move(endpoint));
-    completed_probes_.push_back(std::move(probe));
-  }
-
   size_t GetOngoingProbeCount() { return ongoing_probes_.size(); }
 
   size_t GetCompletedProbeCount() { return completed_probes_.size(); }
@@ -107,8 +101,11 @@ class MdnsProbeManagerTests : public testing::Test {
         task_runner_(&clock_),
         sender_(socket_.get()),
         receiver_(socket_.get()),
-        querier_(&sender_, &receiver_, &task_runner_, FakeClock::now, &random_),
-        manager_(&sender_, &querier_, &random_, &task_runner_) {
+        manager_(&sender_,
+                 &receiver_,
+                 &random_,
+                 &task_runner_,
+                 FakeClock::now) {
     ExpectProbeStopped(name_);
     ExpectProbeStopped(name2_);
     ExpectProbeStopped(name_retry_);
@@ -120,8 +117,7 @@ class MdnsProbeManagerTests : public testing::Test {
     MdnsMessage message(CreateMessageId(), MessageType::Query);
     MdnsQuestion question(domain, DnsType::kANY, DnsClass::kANY,
                           ResponseType::kUnicast);
-    MdnsRecord record =
-        manager_.CreateAddressRecord(std::move(domain), endpoint);
+    MdnsRecord record = CreateAddressRecord(std::move(domain), endpoint);
     message.AddQuestion(std::move(question));
     message.AddAuthorityRecord(std::move(record));
     return message;
@@ -177,7 +173,6 @@ class MdnsProbeManagerTests : public testing::Test {
   StrictMock<MockMdnsSender> sender_;
   MdnsReceiver receiver_;
   MdnsRandom random_;
-  MdnsQuerier querier_;
   StrictMock<TestMdnsProbeManager> manager_;
   MockDomainConfirmedProvider callback_;
 
@@ -286,28 +281,28 @@ TEST_F(MdnsProbeManagerTests, TiebreakProbeQueryWorksForMultiRecordQueries) {
   // If the received records have one record less than the tested record, they
   // are sorted and the lowest record is compared.
   MdnsMessage query = CreateProbeQueryMessage(name_, endpoint_b_);
-  query.AddAuthorityRecord(manager_.CreateAddressRecord(name_, endpoint_c_));
+  query.AddAuthorityRecord(CreateAddressRecord(name_, endpoint_c_));
   manager_.RespondToProbeQuery(query, endpoint_a_);
 
   query = CreateProbeQueryMessage(name_, endpoint_c_);
-  query.AddAuthorityRecord(manager_.CreateAddressRecord(name_, endpoint_b_));
+  query.AddAuthorityRecord(CreateAddressRecord(name_, endpoint_b_));
   manager_.RespondToProbeQuery(query, endpoint_a_);
 
   query = CreateProbeQueryMessage(name_, endpoint_a_);
-  query.AddAuthorityRecord(manager_.CreateAddressRecord(name_, endpoint_b_));
-  query.AddAuthorityRecord(manager_.CreateAddressRecord(name_, endpoint_c_));
+  query.AddAuthorityRecord(CreateAddressRecord(name_, endpoint_b_));
+  query.AddAuthorityRecord(CreateAddressRecord(name_, endpoint_c_));
   manager_.RespondToProbeQuery(query, endpoint_a_);
 
   // If the probe message received has the same first record as what's being
   // compared and the query has more records, the query wins.
   query = CreateProbeQueryMessage(name_, endpoint_a_);
-  query.AddAuthorityRecord(manager_.CreateAddressRecord(name_, endpoint_c_));
+  query.AddAuthorityRecord(CreateAddressRecord(name_, endpoint_c_));
   EXPECT_CALL(*ongoing_probe, Postpone(_)).Times(1);
   manager_.RespondToProbeQuery(query, endpoint_a_);
   testing::Mock::VerifyAndClearExpectations(ongoing_probe);
 
   query = CreateProbeQueryMessage(name_, endpoint_c_);
-  query.AddAuthorityRecord(manager_.CreateAddressRecord(name_, endpoint_a_));
+  query.AddAuthorityRecord(CreateAddressRecord(name_, endpoint_a_));
   EXPECT_CALL(*ongoing_probe, Postpone(_)).Times(1);
   manager_.RespondToProbeQuery(query, endpoint_a_);
 }
