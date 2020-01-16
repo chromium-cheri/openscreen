@@ -52,6 +52,24 @@
       "revId": "9eae23b5418b2226f18194b8b5c617e8cfd050df",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f8f4e03_124c9b81",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-16T21:59:45Z",
+      "side": 1,
+      "message": "\u003e Wouldn\u0027t this be a good candidate for saturate cast?\n\nNo, since one side would be using a different delay. Although, if the sender is offering anything more than about 2500 ms for a target delay, things are already bad.",
+      "parentUuid": "d9e59d37_6e8b508d",
+      "revId": "9eae23b5418b2226f18194b8b5c617e8cfd050df",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
