@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2cd0868_544a144e",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "Strictly speaking this only needs an IpAddress - the port is unused.",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b9849e_fd0b0076",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "constexpr",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb82006_6a6a4ddb",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "typo: GetProbeInitializationDelay\n\nOr, shorter as GetInitialProbeDelay",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eeff43b_2bc146c5",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "Are 3 probe attempts mandated by spec?  Or is that our choice?",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bcd3a7_e2767a16",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "This is called from the TaskRunner via alarm_, correct?\n\nPlease document that public APIs that access receiver_ or is_running_ should be called from the TaskRunner, including the dtor.\n\nAlso, add DCHECK(IsRunningOnTaskRunner) where appropriate, I think the dtor at a minimum.",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3edd1387_3aebd3a4",
+        "filename": "discovery/mdns/mdns_probe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "Access to this member also needs to be single-threaded.",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc059286_3e763532",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem specific to probing; I would put it in mdns_records.h",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5320cf39_691a3b61",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "mdns_constants.h seems to be the place for spec-defined parameters.  I would rather keep  constants there, unless they are really internal details and not mentioned in the RFCs.",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c27571e_ce51affd",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "I\u0027m guessing that record is an A/AAAA record.  Can this ctor stick with passing IpEndpoint and generate the record internally?",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "460d3508_2c84fa47",
+        "filename": "discovery/mdns/mdns_probe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "address_record_",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43a719d9_dae7be59",
+        "filename": "discovery/mdns/mdns_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "DCHECK that response_clients_ is empty here?",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04dc3d73_a05385a5",
+        "filename": "discovery/mdns/mdns_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-16T23:49:50Z",
+      "side": 1,
+      "message": "Side comment:  We might benefit from a utility class like CheckedCallbackList that:\n\n- holds a vector of std::function\u003cT\u003e\n- has call(T t) to invoke callbacks with t\n- has an API for adding/removing callbacks \n- checks that the list is empty on destruction\n\nHowever, I would want to make sure that it would be used in 3+ places before coding it up in a separate patch.  WDYT?",
+      "revId": "1b43b61dad48533e6cacc44792cff7f808b21f28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
