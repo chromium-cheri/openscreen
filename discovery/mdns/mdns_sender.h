@@ -14,7 +14,7 @@ namespace discovery {
 
 class MdnsMessage;
 
-class MdnsSender {
+class MdnsSender : UdpSocket::Client {
  public:
   // MdnsSender does not own |socket| and expects that its lifetime exceeds the
   // lifetime of MdnsSender.
@@ -28,6 +28,11 @@ class MdnsSender {
   virtual Error SendMulticast(const MdnsMessage& message);
   virtual Error SendUnicast(const MdnsMessage& message,
                             const IPEndpoint& endpoint);
+
+  // UdpSocket::Client overrides.
+  void OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet_or_error);
+  void OnError(UdpSocket* socket, Error error);
+  void OnSendError(UdpSocket* socket, Error error);
 
  private:
   UdpSocket* const socket_;

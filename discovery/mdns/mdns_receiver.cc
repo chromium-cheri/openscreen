@@ -4,15 +4,15 @@
 
 #include "discovery/mdns/mdns_receiver.h"
 
+#include <iostream>
+
 #include "discovery/mdns/mdns_reader.h"
 #include "util/trace_logging.h"
 
 namespace openscreen {
 namespace discovery {
 
-MdnsReceiver::MdnsReceiver(UdpSocket* socket) : socket_(socket) {
-  OSP_DCHECK(socket_);
-}
+MdnsReceiver::MdnsReceiver() = default;
 
 MdnsReceiver::~MdnsReceiver() {
   if (state_ == State::kRunning) {
@@ -47,6 +47,7 @@ void MdnsReceiver::Stop() {
 
 void MdnsReceiver::OnRead(UdpSocket* socket,
                           ErrorOr<UdpPacket> packet_or_error) {
+  std::cout << "received packet\n";
   if (state_ != State::kRunning || packet_or_error.is_error()) {
     return;
   }
@@ -62,10 +63,12 @@ void MdnsReceiver::OnRead(UdpSocket* socket,
 
   if (message.type() == MessageType::Response) {
     if (response_callback_) {
+      std::cout << "\tresponse received\n";
       response_callback_(message);
     }
   } else {
     if (query_callback_) {
+      std::cout << "\tquery received\n";
       query_callback_(message, packet.source());
     }
   }

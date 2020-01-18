@@ -4,6 +4,8 @@
 
 #include "discovery/mdns/mdns_querier.h"
 
+#include <iostream>
+
 #include "discovery/mdns/mdns_random.h"
 #include "discovery/mdns/mdns_receiver.h"
 #include "discovery/mdns/mdns_sender.h"

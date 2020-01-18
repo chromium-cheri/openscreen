@@ -6,6 +6,7 @@
 
 #include <chrono>
 #include <cmath>
+#include <iostream>
 
 #include "discovery/mdns/mdns_probe_manager.h"
 #include "discovery/mdns/mdns_records.h"
@@ -53,7 +54,7 @@ inline void ValidateRecord(const MdnsRecord& record) {
 // records being sent, the message should be small), but since the message is
 // created from a static vector, that's not guaranteed.
 Error ProcessQueue(MdnsSender* sender, MdnsMessage* message) {
-  Error send_response = sender->SendMulticast(*message);
+  Error send_response;  // = sender->SendMulticast(*message);
   if (send_response.ok()) {
     return Error::None();
   } else if (message->answers().size() <= 1) {
@@ -181,10 +182,13 @@ std::vector<MdnsRecord::ConstRef> MdnsPublisher::GetRecords(
 
   std::vector<MdnsRecord::ConstRef> records;
 
+  std::cout << "\tQuery for: " << name.ToString()
+            << ", type: " << static_cast<uint16_t>(type) << "\n";
   if (type != DnsType::kPTR) {
     auto it = records_.find(name);
     if (it != records_.end()) {
-      for (const auto& publisher : it->second) {
+      for (const std::unique_ptr<RecordAnnouncer>& publisher : it->second) {
+        OSP_DCHECK(publisher.get());
         if ((type == DnsType::kANY || type == publisher->record().dns_type()) &&
             (clazz == DnsClass::kANY ||
              clazz == publisher->record().dns_class())) {
@@ -197,15 +201,20 @@ std::vector<MdnsRecord::ConstRef> MdnsPublisher::GetRecords(
   if (type == DnsType::kPTR || type == DnsType::kANY) {
     const auto ptr_it = ptr_records_.find(name);
     if (ptr_it != ptr_records_.end()) {
+      std::cout << "\t\tPTR found\n";
+      OSP_DCHECK(ptr_it->second);
       records.push_back(ptr_it->second->record());
     }
   }
+  std::cout << "\t\tReturning " << records.size() << " records\n";
 
   return records;
 }
 
 Error MdnsPublisher::RegisterPtrRecord(const MdnsRecord& record) {
   OSP_DCHECK(record.dns_type() == DnsType::kPTR);
+
+  std::cout << "PTR record registered\n";
 
   const auto& ptr_data = absl::get<PtrRecordRdata>(record.rdata());
   if (!ownership_manager_->IsDomainClaimed(ptr_data.ptr_domain())) {

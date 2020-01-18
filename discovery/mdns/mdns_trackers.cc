@@ -5,6 +5,7 @@
 #include "discovery/mdns/mdns_trackers.h"
 
 #include <array>
+#include <iostream>
 
 #include "discovery/mdns/mdns_random.h"
 #include "discovery/mdns/mdns_record_changed_callback.h"
@@ -182,6 +183,9 @@ MdnsQuestionTracker::MdnsQuestionTracker(MdnsQuestion question,
 void MdnsQuestionTracker::SendQuery() {
   MdnsMessage message(CreateMessageId(), MessageType::Query);
   message.AddQuestion(question_);
+
+  std::cout << "Sending query: " << question_.name().ToString() << " for type "
+            << static_cast<uint16_t>(question_.dns_type()) << "\n";
 
   // Send the message and additional known answer packets as needed.
   std::vector<MdnsRecord::ConstRef> known_answers = known_answer_query_(
