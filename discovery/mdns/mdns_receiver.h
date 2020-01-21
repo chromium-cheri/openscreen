@@ -19,7 +19,7 @@ class MdnsReceiver : UdpSocket::Client {
   // MdnsReceiver does not own |socket| and |delegate|
   // and expects that the lifetime of these objects exceeds the lifetime of
   // MdnsReceiver.
-  explicit MdnsReceiver(UdpSocket* socket);
+  MdnsReceiver();
   MdnsReceiver(const MdnsReceiver& other) = delete;
   MdnsReceiver(MdnsReceiver&& other) noexcept = delete;
   MdnsReceiver& operator=(const MdnsReceiver& other) = delete;
@@ -48,7 +48,6 @@ class MdnsReceiver : UdpSocket::Client {
     kRunning,
   };
 
-  UdpSocket* const socket_;
   std::function<void(const MdnsMessage&, const IPEndpoint& src)>
       query_callback_;
   std::function<void(const MdnsMessage&)> response_callback_;

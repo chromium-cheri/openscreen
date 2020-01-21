@@ -5,7 +5,12 @@
 #ifndef DISCOVERY_DNSSD_PUBLIC_DNS_SD_SERVICE_H_
 #define DISCOVERY_DNSSD_PUBLIC_DNS_SD_SERVICE_H_
 
+#include <functional>
 #include <memory>
+
+#include "platform/base/error.h"
+#include "platform/base/interface_info.h"
+#include "platform/base/ip_address.h"
 
 namespace openscreen {
 
@@ -21,11 +26,18 @@ class DnsSdQuerier;
 // allow for an embedder-overridable factory method below.
 class DnsSdService {
  public:
+  // Callback called when a fatal error occurs after a successful initialization
+  // and this DnsSdService instance is no longer valid.
+  using FatalErrorCallback = std::function<void(Error)>;
+
   virtual ~DnsSdService() = default;
 
   // Creates a new DnsSdService instance, to be owned by the caller. On failure,
   // return nullptr.
-  static std::unique_ptr<DnsSdService> Create(TaskRunner* task_runner);
+  static std::unique_ptr<DnsSdService> Create(
+      TaskRunner* task_runner,
+      FatalErrorCallback fatal_error_callback,
+      NetworkInterfaceIndex network_interface = kInvalidNetworkInterfaceIndex);
 
   // Returns the DnsSdQuerier owned by this DnsSdService. If queries are not
   // supported, returns nullptr.
