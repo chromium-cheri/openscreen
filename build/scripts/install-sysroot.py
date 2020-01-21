@@ -120,11 +120,8 @@ def InstallSysroot(target_platform, target_arch):
     if os.path.exists(stamp):
         with open(stamp) as s:
             if s.read() == url:
-                print("Sysroot image already installed...")
                 return
 
-    print('Installing Debian %s %s root image: %s' % \
-        (target_platform, target_arch, sysroot))
     if os.path.isdir(sysroot):
         shutil.rmtree(sysroot)
     os.mkdir(sysroot)
@@ -132,6 +129,8 @@ def InstallSysroot(target_platform, target_arch):
     tarball_path = os.path.join(sysroot, tarball_filename)
     DownloadFile(url, tarball_path)
     ValidateFile(tarball_path, tarball_sha1sum)
+    print("tarball path: {}".format(tarball_path))
+    print("sysroot: {}".format(sysroot))
     subprocess.check_call(['tar', 'xf', tarball_path, '-C', sysroot])
     os.remove(tarball_path)
 
