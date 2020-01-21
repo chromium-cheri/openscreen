@@ -63,7 +63,8 @@ uint8_t ToPrefixLength(const uint8_t (&netmask)[N]) {
   return result;
 }
 
-std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
+std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces,
+                                                 bool include_loopback) {
   // Socket used for querying interface media types.
   const ScopedFd ioctl_socket(socket(AF_INET6, SOCK_DGRAM, 0));
 
@@ -72,8 +73,8 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
   for (ifaddrs* cur = interfaces; cur; cur = cur->ifa_next) {
     // Skip: 1) loopback interfaces, 2) interfaces that are down, 3) interfaces
     // with no address configured.
-    if ((IFF_LOOPBACK & cur->ifa_flags) || !(IFF_RUNNING & cur->ifa_flags) ||
-        !cur->ifa_addr) {
+    if ((!include_loopback && IFF_LOOPBACK & cur->ifa_flags) ||
+        !(IFF_RUNNING & cur->ifa_flags) || !cur->ifa_addr) {
       continue;
     }
 
@@ -162,11 +163,11 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
 
 }  // namespace
 
-std::vector<InterfaceInfo> GetNetworkInterfaces() {
+std::vector<InterfaceInfo> GetNetworkInterfaces(bool include_loopback) {
   std::vector<InterfaceInfo> results;
   ifaddrs* interfaces;
   if (getifaddrs(&interfaces) == 0) {
-    results = ProcessInterfacesList(interfaces);
+    results = ProcessInterfacesList(interfaces, include_loopback);
     freeifaddrs(interfaces);
   }
   return results;
