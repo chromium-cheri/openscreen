@@ -18,6 +18,9 @@ using testing::StrictMock;
 
 class MockMdnsService : public MdnsService {
  public:
+  MockMdnsService()
+      : MdnsService([this](Error error) { OnFatalError(error); }) {}
+
   void StartQuery(const DomainName& name,
                   DnsType dns_type,
                   DnsClass dns_class,
@@ -34,6 +37,7 @@ class MockMdnsService : public MdnsService {
 
   void ReinitializeQueries(const DomainName& name) override { FAIL(); }
 
+  MOCK_METHOD1(OnFatalError, void(Error));
   MOCK_METHOD3(StartProbe,
                Error(MdnsDomainConfirmedProvider*, DomainName, IPAddress));
   MOCK_METHOD2(UpdateRegisteredRecord,
