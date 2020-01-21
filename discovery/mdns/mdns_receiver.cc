@@ -12,9 +12,7 @@ namespace discovery {
 
 MdnsReceiver::ResponseClient::~ResponseClient() = default;
 
-MdnsReceiver::MdnsReceiver(UdpSocket* socket) : socket_(socket) {
-  OSP_DCHECK(socket_);
-}
+MdnsReceiver::MdnsReceiver() = default;
 
 MdnsReceiver::~MdnsReceiver() {
   if (state_ == State::kRunning) {

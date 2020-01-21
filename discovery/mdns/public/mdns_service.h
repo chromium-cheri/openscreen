@@ -5,10 +5,13 @@
 #ifndef DISCOVERY_MDNS_PUBLIC_MDNS_SERVICE_H_
 #define DISCOVERY_MDNS_PUBLIC_MDNS_SERVICE_H_
 
+#include <functional>
 #include <memory>
 
 #include "discovery/mdns/public/mdns_constants.h"
 #include "platform/base/error.h"
+#include "platform/base/interface_info.h"
+#include "platform/base/ip_address.h"
 
 namespace openscreen {
 
@@ -24,11 +27,19 @@ class MdnsRecordChangedCallback;
 
 class MdnsService {
  public:
-  virtual ~MdnsService() = default;
+  // This is the function to call if the MdnsService instance ceases to function
+  // after a successful initialization.
+  using FatalErrorCallback = std::function<void(Error)>;
+
+  MdnsService(FatalErrorCallback callback);
+  virtual ~MdnsService();
 
   // Creates a new MdnsService instance, to be owned by the caller. On failure,
   // returns nullptr.
-  static std::unique_ptr<MdnsService> Create(TaskRunner* task_runner);
+  static std::unique_ptr<MdnsService> Create(
+      TaskRunner* task_runner,
+      FatalErrorCallback callback,
+      NetworkInterfaceIndex network_interface = kInvalidNetworkInterfaceIndex);
 
   // Starts an mDNS query with the given properties. Updated records are passed
   // to |callback|.  The caller must ensure |callback| remains alive while it is
@@ -73,6 +84,14 @@ class MdnsService {
   // name are bing advertised after this call's completion, then ownership of
   // the name is released.
   virtual Error UnregisterRecord(const MdnsRecord& record) = 0;
+
+ protected:
+  FatalErrorCallback fatal_error_callback() const {
+    return fatal_error_callback_;
+  }
+
+ private:
+  FatalErrorCallback fatal_error_callback_;
 };
 
 }  // namespace discovery
