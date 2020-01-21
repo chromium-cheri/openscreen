@@ -65,13 +65,25 @@ source_set("discovery") {
     "discovery/service_info.h",
   ]
 
-  deps = []
-
-  public_deps = [
+  deps = [
     "../../discovery:dnssd",
     "../../discovery:public",
     "../../platform",
     "../../third_party/abseil",
+  ]
+}
+
+executable("discovery_demo") {
+  sources = [
+    "discovery/demo/main.cc",
+  ]
+
+  deps = []
+
+  public_deps = [
+    ":discovery",
+    "../../discovery:dnssd",
+    "../../discovery:public",
   ]
 }
 
