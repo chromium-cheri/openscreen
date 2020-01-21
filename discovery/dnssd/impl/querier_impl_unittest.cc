@@ -30,6 +30,9 @@ class MockCallback : public DnsSdQuerier::Callback {
 
 class MockMdnsService : public MdnsService {
  public:
+  MockMdnsService()
+      : MdnsService([this](Error error) { OnFatalError(error); }) {}
+
   MOCK_METHOD4(
       StartQuery,
       void(const DomainName&, DnsType, DnsClass, MdnsRecordChangedCallback*));
@@ -41,6 +44,7 @@ class MockMdnsService : public MdnsService {
   MOCK_METHOD1(ReinitializeQueries, void(const DomainName& name));
 
   // Unused.
+  MOCK_METHOD1(OnFatalError, void(Error));
   MOCK_METHOD3(StartProbe,
                Error(MdnsDomainConfirmedProvider*, DomainName, IPEndpoint));
   MOCK_METHOD1(RegisterRecord, Error(const MdnsRecord&));

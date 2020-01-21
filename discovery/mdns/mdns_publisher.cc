@@ -48,35 +48,6 @@ inline void ValidateRecord(const MdnsRecord& record) {
   OSP_DCHECK(record.dns_class() != DnsClass::kANY);
 }
 
-// Tries to send the provided |message|, and splits it up and retries
-// recursively if it fails. In practice, it should never fail (with <= 5
-// records being sent, the message should be small), but since the message is
-// created from a static vector, that's not guaranteed.
-Error ProcessQueue(MdnsSender* sender, MdnsMessage* message) {
-  Error send_response = sender->SendMulticast(*message);
-  if (send_response.ok()) {
-    return Error::None();
-  } else if (message->answers().size() <= 1) {
-    return send_response;
-  }
-
-  MdnsMessage first(message->id(), message->type());
-  for (size_t i = 0; i < message->answers().size() / 2; i++) {
-    first.AddAnswer(std::move(message->answers()[i]));
-  }
-  Error first_result = ProcessQueue(sender, &first);
-  if (!first_result.ok()) {
-    return first_result;
-  }
-
-  MdnsMessage second(CreateMessageId(), message->type());
-  for (size_t i = message->answers().size() / 2; i < message->answers().size();
-       i++) {
-    second.AddAnswer(std::move(message->answers()[i]));
-  }
-  return ProcessQueue(sender, &second);
-}
-
 }  // namespace
 
 MdnsPublisher::MdnsPublisher(MdnsSender* sender,
@@ -184,7 +155,8 @@ std::vector<MdnsRecord::ConstRef> MdnsPublisher::GetRecords(
   if (type != DnsType::kPTR) {
     auto it = records_.find(name);
     if (it != records_.end()) {
-      for (const auto& publisher : it->second) {
+      for (const std::unique_ptr<RecordAnnouncer>& publisher : it->second) {
+        OSP_DCHECK(publisher.get());
         if ((type == DnsType::kANY || type == publisher->record().dns_type()) &&
             (clazz == DnsClass::kANY ||
              clazz == publisher->record().dns_class())) {
@@ -197,6 +169,7 @@ std::vector<MdnsRecord::ConstRef> MdnsPublisher::GetRecords(
   if (type == DnsType::kPTR || type == DnsType::kANY) {
     const auto ptr_it = ptr_records_.find(name);
     if (ptr_it != ptr_records_.end()) {
+      OSP_DCHECK(ptr_it->second);
       records.push_back(ptr_it->second->record());
     }
   }
@@ -388,10 +361,24 @@ void MdnsPublisher::ProcessRecordQueue() {
   }
 
   MdnsMessage message(CreateMessageId(), MessageType::Response);
-  for (MdnsRecord& record : *records_to_send_) {
-    message.AddAnswer(std::move(record));
+  for (auto it = records_to_send_->begin(); it != records_to_send_->end();) {
+    if (message.CanAddRecord(*it)) {
+      message.AddAnswer(std::move(*it++));
+    } else if (message.answers().empty()) {
+      // This case should never happen, because it means a record is too large
+      // to fit into its own message.
+      OSP_LOG << "Encountered unreasonably large message in cache. Skipping "
+              << "known answer in suppressions...";
+      it++;
+    } else {
+      sender_->SendMulticast(message);
+      message = MdnsMessage(CreateMessageId(), MessageType::Query);
+    }
   }
-  ::openscreen::discovery::ProcessQueue(sender_, &message);
+
+  if (!message.answers().empty()) {
+    sender_->SendMulticast(message);
+  }
 
   batch_records_alarm_ = absl::nullopt;
   delete records_to_send_;

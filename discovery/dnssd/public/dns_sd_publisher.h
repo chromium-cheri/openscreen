@@ -13,6 +13,17 @@ namespace discovery {
 
 class DnsSdPublisher {
  public:
+  class Client {
+   public:
+    virtual ~Client() = default;
+
+    // Callback called when an instance id is successfully claimed by the
+    // Register() method. This callback is purely for informational purposes and
+    // the caller is not required to act on it.
+    virtual void OnInstanceIdClaimed(const std::string& requested_id,
+                                     const std::string& claimed_id) = 0;
+  };
+
   virtual ~DnsSdPublisher() = default;
 
   // Publishes the PTR, SRV, TXT, A, and AAAA records provided in the
@@ -21,7 +32,8 @@ class DnsSdPublisher {
   // NOTE: Some embedders may return errors on other conditions (for instance,
   // android will return an error if the resulting TXT record has values not
   // encodable with UTF8).
-  virtual Error Register(const DnsSdInstanceRecord& record) = 0;
+  virtual Error Register(const DnsSdInstanceRecord& record,
+                         Client* client = nullptr) = 0;
 
   // Updates the TXT, A, and AAAA records associated with the provided record,
   // if any changes have occurred. The instance and domain names must match
