@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b471902_c743e81b",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-22T19:02:50Z",
+      "side": 1,
+      "message": "I generally dislike boolean arguments, mostly because of this:\n\nhttp://www.informit.com/articles/article.aspx?p\u003d1392524\n\n\"Boolean arguments loudly declare that the function does more than one thing. They are confusing and should be eliminated.\"\n\nMy question(s) would be: do we actually ever want to NOT include loopback? Why not? Is one for testing only? Which one? \n\nSome (hopefully better) options:\n\n1. Always include loopback, and the caller can remove if they want.\n2. Never include loopback, and expose a separate method for GetLoopbackNetworkInterface().",
+      "revId": "cfd4c2c68fa178c41053b2307533df865f5935ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "969b5882_5e9dbd79",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-22T19:02:50Z",
+      "side": 1,
+      "message": "Comment should be updated, or better yet just deleted in favor of:\n\nconst bool is_loopback_interface \u003d interface_info-\u003eifi_flags \u0026 IFF_LOOPBACK;\n\nif (!include_loopback \u0026\u0026 is_loopback_interface) {",
+      "revId": "cfd4c2c68fa178c41053b2307533df865f5935ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
