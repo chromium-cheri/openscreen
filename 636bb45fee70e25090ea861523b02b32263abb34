@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ef4632c_e669dbbf",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-22T20:42:39Z",
+      "side": 1,
+      "message": "nit: s/the/The/",
+      "range": {
+        "startLine": 283,
+        "startChar": 6,
+        "endLine": 283,
+        "endChar": 9
+      },
+      "revId": "636bb45fee70e25090ea861523b02b32263abb34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52c35d52_ddb7f3ac",
         "filename": "build/config/sysroot.gni",
         "patchSetId": 2
@@ -61,6 +84,30 @@
       "side": 1,
       "message": "This seems like a pretty major security bug. An outside contributor could create a CL to add a script they create which executes malicious code on out trybots, and have it automatically execute when a CL is created\n\nAny idea how we can report this to the security team?",
       "parentUuid": "5320592d_0153f91d",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 73
+      },
+      "revId": "636bb45fee70e25090ea861523b02b32263abb34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf4a6b63_6141f5dc",
+        "filename": "build/config/sysroot.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-22T20:42:39Z",
+      "side": 1,
+      "message": "ISTM they would not be able to commit the CL without an OWNERS LGTM, though...",
+      "parentUuid": "63bbd84c_ad31c7d6",
       "range": {
         "startLine": 33,
         "startChar": 0,
