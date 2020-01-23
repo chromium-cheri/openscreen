@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "ffcdac46_7f1abc77",
+        "filename": "platform/api/network_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-23T06:11:19Z",
+      "side": 1,
+      "message": "\u003e Needed for the DNS-SD E2E test code - we need to talk to the loopback interface so that the test can be done\n \u003e from a single executable on one machine (and ideally run as a trybot)\n\nOh! We could just keep the changes constrained to platform/impl since this is intended for standalone test executables.\n\nMy suggestion: Do #2 in a platform/impl/network_interfaces.h header file, then provide the linux- and mac-specific implementations in p/i/network_interfaces_linux.cc and mac.cc.",
+      "parentUuid": "42dece54_006714ba",
+      "revId": "cfd4c2c68fa178c41053b2307533df865f5935ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "969b5882_5e9dbd79",
         "filename": "platform/impl/network_interface_linux.cc",
         "patchSetId": 1
