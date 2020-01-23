@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22ad0cea_88a3fd62",
+        "filename": "discovery/dnssd/impl/service_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-23T21:40:41Z",
+      "side": 1,
+      "message": "After some thinking I don\u0027t think this is the best API for reporting the status of the mDNS service back to the client.\n\nI think there should be a proper client API with a callback that reports the state of the service, which could be:\n\nStarting\nRunning\nError\nStopped\n\nIf the service can\u0027t bind a socket, it should to into the error state.  The error callback can pass an error code and message to be more explicit to explain why mDNS got into an error state.\n\nSeparately, a feature of the library could be automatic retries to rebind the socket(s) at a later time if the underlying network interfaces get back into a good state.   If we do that, there aren\u0027t really \"fatal\" errors, just transient failures of the platform to provide usable sockets.\n\nBut for now, the client can handle the error callback above and attempt to restart the querier/publisher.\n\nMake sense?",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3434f315_7c06d8c6",
+        "filename": "discovery/dnssd/public/dns_sd_service.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-23T21:40:41Z",
+      "side": 1,
+      "message": "What is kInvalidNetworkInterfaceIndex?   It looks like the socket will be configured for multicast with this value by default.",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "482b5c77_b9d14e6f",
+        "filename": "discovery/mdns/mdns_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-23T21:40:41Z",
+      "side": 1,
+      "message": "This should probably be renamed to SendMessage.  Otherwise it\u0027s confusing to see SendMulticast call SendUnicast since those actually mean different things.",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e762046_fac4bdd5",
+        "filename": "discovery/mdns/mdns_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-23T21:40:41Z",
+      "side": 1,
+      "message": "If a client is both a querier and publisher, do they use the same socket?  In that case, this could get invoked.",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bdf0bfa_c7caddb5",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-23T21:40:41Z",
+      "side": 1,
+      "message": "It looks like the client doesn\u0027t have the ability to configure mDNS for listener-only or publisher-only.  I think that\u0027s okay for now as long as the listener doesn\u0027t do anything if there are no queries, and the publisher doesn\u0027t do anything if no services are published.\n\n\nSome clients may want to guarantee that they never publish records, we can add that as a configuation parameter in the future and avoid instantiating the publisher/probe manager.",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "857be4f9_5f7b9e31",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-23T21:40:41Z",
+      "side": 1,
+      "message": "If the interface doesn\u0027t have a v6 local address configured, this might or might not work.",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a60bac9d_8f3568b2",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-23T21:40:41Z",
+      "side": 1,
+      "message": "Remove trailing newline?\n\nDo you actually know that the sockets were bound successfully?  It looks like the only way to know what happened is through the OnError callback.",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
