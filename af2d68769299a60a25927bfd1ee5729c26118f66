@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c35d08b8_47f50422",
+        "filename": "discovery/dnssd/impl/publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "I would prefer Client be mandatory to reduce the number of null checks and potential for bugs.\nI expect the default client to want to pass a client.",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71592b20_8533fce2",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "What is an \"instance id\"?",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60cdb918_29e6693b",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "What would make more sense to me is passing the original record that was published, and the actual record that was published.",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f7139ba_479c242e",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "Can you update this to define service ID?  Is this the instance name, service type and domain name?",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26680e39_d6b8d0cd",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "Can you log the error in this message?",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "145bfe46_4deb8e88",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "If this code is called, it means that some device is publishing invalid records for a service the client cares about.  It could be noise, or it could be an issue that the client wants to know about (and log in a metric).\n\nA bigger change would be to implement a client API for this class that gets callbacks for service updates as well as errors, versus dumping errors on the floor.",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b98d1a8_5c1385fa",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "It would be simpler to use insert here.",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25ffe19c_67c3ed42",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "Side comment: I think it would be nice to have a Take() method on ErrorOr to move the value out.",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cad87bf9_66d8854c",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3ad1b89_39076f7c",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T19:57:01Z",
+      "side": 1,
+      "message": "If you have a map value you can move, it\u0027s a little redundant to hold it by unique_ptr, unless you want to hold nullptrs for some reason.\n\nInstead use map.emplace() or map.insert(key, std::move(value)).",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
