@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "13551bde_23446ab6",
+        "filename": "discovery/dnssd/impl/publisher_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c35d08b8_47f50422",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71592b20_8533fce2",
         "filename": "discovery/dnssd/public/dns_sd_publisher.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41d40f85_27cab9de",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "Comment updated to explain further in the context of the requested API change below",
+      "parentUuid": "71592b20_8533fce2",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a17b1164_a78a5b8e",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60cdb918_29e6693b",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f7139ba_479c242e",
         "filename": "discovery/dnssd/public/dns_sd_publisher.h",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee40ecc_11aba336",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f7139ba_479c242e",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2823bfa6_88b04d26",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26680e39_d6b8d0cd",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "145bfe46_4deb8e88",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2020-01-24T19:57:01Z",
       "side": 1,
       "message": "If this code is called, it means that some device is publishing invalid records for a service the client cares about.  It could be noise, or it could be an issue that the client wants to know about (and log in a metric).\n\nA bigger change would be to implement a client API for this class that gets callbacks for service updates as well as errors, versus dumping errors on the floor.",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7db1e5b0_d5b60143",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "That makes sense - I think a callback would be useful, but probably a bit out of scope here. WDYT about filing a bug and coming back to it later once the perf updates are in?\n\nAs clarification, would we want to pass back noise intentionally and inform them of noise at lower levels too? Right now, the MdnsQuerier just drops records it doesn\u0027t know how to parse",
+      "parentUuid": "145bfe46_4deb8e88",
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "82fbf42e_abc7daff",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "The reason for using this instead of insert is because we need to insert if the element does not yet exist, or overwrite the current record if it does (as would be the case after a Soft Refresh). The equivalent code would be similar to what we do in the Update case below\n\n  auto it \u003d records.emplace(new_record.instance_id(), std::make_unique\u003cT\u003e()).first;\n  it-\u003esecond.swap(std::make_unique\u003cT\u003e(std::move(record.value()));\n\nIMHO this is less readable, but open to changing. WDYT?",
+      "parentUuid": "2b98d1a8_5c1385fa",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25ffe19c_67c3ed42",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 1
@@ -132,6 +258,24 @@
       "writtenOn": "2020-01-24T19:57:01Z",
       "side": 1,
       "message": "Side comment: I think it would be nice to have a Take() method on ErrorOr to move the value out.",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "134ad57b_283822a2",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "I actually find the std::move() syntax to be clearer - Take() would work, but you need to think about it more to understand what\u0027s happening",
+      "parentUuid": "25ffe19c_67c3ed42",
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "decf599f_666f5d11",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cad87bf9_66d8854c",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3ad1b89_39076f7c",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 1
@@ -166,6 +328,24 @@
       "writtenOn": "2020-01-24T19:57:01Z",
       "side": 1,
       "message": "If you have a map value you can move, it\u0027s a little redundant to hold it by unique_ptr, unless you want to hold nullptrs for some reason.\n\nInstead use map.emplace() or map.insert(key, std::move(value)).",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13417252_b3a1c2ab",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T21:39:38Z",
+      "side": 1,
+      "message": "The reason we need unique_pts here is so that when we return references (either in GetServices() or in the callback), we need the references to persist if the map is resized. If we use Value types rather than unique_ptr\u003cValue\u003e, then these would become dangling references.\n\nWe could swap the callback / GetServices() calls to copy data, but I\u0027d expect that to be called much more frequently than the unqiue_ptr values are changed, and have a much higher cost than passing references as is currently done\n\nWDYT?",
+      "parentUuid": "f3ad1b89_39076f7c",
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
