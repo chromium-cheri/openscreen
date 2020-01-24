@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f1a4edbf_85f3a78c",
+        "filename": "discovery/dnssd/impl/service_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T22:49:44Z",
+      "side": 1,
+      "message": "Done\n\nThat sort of reporting callback sounds much clearer to me! Would you prefer I create a follow-up CL with the design as you suggest once this one is in, or would you prefer to discuss it more first?",
+      "parentUuid": "642a371e_4680e010",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3434f315_7c06d8c6",
         "filename": "discovery/dnssd/public/dns_sd_service.h",
         "patchSetId": 4
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "ba640aed_7fecc6d0",
+        "filename": "discovery/dnssd/public/dns_sd_service.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T22:49:44Z",
+      "side": 1,
+      "message": "Unfortunately, the demo code doesn\u0027t seem to work without the NetworkInterface. The issue I\u0027m seeing is we need to call JoinMulticastGroup() in order for demo code to work, which requires a NetworkInterface parameter. This might involve a breaking platform change to get working without the network interface if we want to support running on all network interfaces.\n\nI agree that the configuration struct would be simpler (see previous CL-level comment). \n\nThe reason kInvalidNetworkInterfaceIndex is used as the default value here is because it is the only member of the NetworkInterfaceIndex enum, and it seemed to be a reasonable \u0027unset\u0027 value to me. Once the above issue is fixed, do you think it make more sense to add a new value for unset? (Until then, I think having the default be \u0027invalid\u0027 makes more sense).\n\nI\u0027d originally left the NetworkInterface as \u0027optional\u0027 since I had thought we wouldn\u0027t want to require it eventually as you mentioned, but since it will be swapped out for the configuration struct later on, I am updating it to be non-optional.",
+      "parentUuid": "dc44027e_93eb4f34",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "482b5c77_b9d14e6f",
         "filename": "discovery/mdns/mdns_sender.cc",
         "patchSetId": 4
@@ -83,6 +119,24 @@
       "writtenOn": "2020-01-23T21:40:41Z",
       "side": 1,
       "message": "This should probably be renamed to SendMessage.  Otherwise it\u0027s confusing to see SendMulticast call SendUnicast since those actually mean different things.",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5569f62_95f6679e",
+        "filename": "discovery/mdns/mdns_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T22:49:44Z",
+      "side": 1,
+      "message": "Will plan to make this as a follow-up CL once this one is in. It will touch a lot of files outside the scope of this CL",
+      "parentUuid": "482b5c77_b9d14e6f",
       "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "96eb86fe_079710d6",
+        "filename": "discovery/mdns/mdns_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T22:49:44Z",
+      "side": 1,
+      "message": "The UdpSocket::Client used for these sockets is the MdnsServideImpl class, which passes calls here. Removing the UdpSocket::Client interface from this class (and mdns_receiver for same reason) to make this clearer",
+      "parentUuid": "4e762046_fac4bdd5",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bdf0bfa_c7caddb5",
         "filename": "discovery/mdns/mdns_service_impl.cc",
         "patchSetId": 4
@@ -120,6 +192,24 @@
       "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcc01c8c_a5dc5c17",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T22:49:44Z",
+      "side": 1,
+      "message": "SGTM - you\u0027re correct that the Publisher and Listener don\u0027t do anything if the higher layers don\u0027t call them\n\nThis sounds like a good use for the configuration struct",
+      "parentUuid": "7bdf0bfa_c7caddb5",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "78448773_7387fd0e",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T22:49:44Z",
+      "side": 1,
+      "message": "Done. Good point\n\nI\u0027m adding support to NetworkInterface to check if a V4 or V6 endpoint is supported. This is only a few lines of code, but LMK if you\u0027d prefer me to pull it to a separate patch",
+      "parentUuid": "857be4f9_5f7b9e31",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a60bac9d_8f3568b2",
         "filename": "discovery/mdns/mdns_service_impl.cc",
         "patchSetId": 4
@@ -154,6 +262,24 @@
       "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0150ef9f_754119fc",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-24T22:49:44Z",
+      "side": 1,
+      "message": "Done\n\nLog statement removed. The state change callback mentioned in previous comments will provide this same information in a clearer way",
+      "parentUuid": "a60bac9d_8f3568b2",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
