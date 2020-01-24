@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "dc44027e_93eb4f34",
+        "filename": "discovery/dnssd/public/dns_sd_service.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-24T01:55:47Z",
+      "side": 1,
+      "message": "Separately - I made a comment about passing a config object into the API to allow the client/embedder to configure the service. I think this makes sense, but let\u0027s figure out first what the right default behavior is.  Reasonable default behavior would be to attempt to bind/send on all active interfaces.\n\nThen the config object becomes optional and only needs to be set if the client wants to pick specific interfaces to bind.  It could be passed through a public API in mdns/public; need to figure out how to set this object *before* sockets are bound.\n\nTL;DR: I think the network_interfaces parameter can be removed to simplify this patch and custom interface configuration handled as a separate API/feature, assuming we can get demos/tests to work with default behavior.",
+      "parentUuid": "3434f315_7c06d8c6",
+      "revId": "ee99814c7faf482abf0578e42af4a25d1e8afa22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "482b5c77_b9d14e6f",
         "filename": "discovery/mdns/mdns_sender.cc",
         "patchSetId": 4
