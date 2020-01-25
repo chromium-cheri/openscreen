@@ -25,6 +25,7 @@
 #include "absl/types/optional.h"
 #include "platform/api/network_interface.h"
 #include "platform/base/ip_address.h"
+#include "platform/impl/network_interface.h"
 #include "platform/impl/scoped_pipe.h"
 #include "util/logging.h"
 
@@ -137,7 +138,7 @@ absl::optional<IPAddress> GetIPAddressOrNull(struct rtattr* rta,
   return have_local ? local : address;
 }
 
-std::vector<InterfaceInfo> GetLinkInfo() {
+std::vector<InterfaceInfo> GetLinkInfo(InterfaceType interface_type) {
   ScopedFd fd(socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE));
   if (!fd) {
     OSP_LOG_WARN << "netlink socket() failed: " << errno << " - "
@@ -219,16 +220,21 @@ std::vector<InterfaceInfo> GetLinkInfo() {
 
         struct ifinfomsg* interface_info =
             static_cast<struct ifinfomsg*>(NLMSG_DATA(netlink_header));
-        // Only process non-loopback interfaces which are active (up).
-        if ((interface_info->ifi_flags & IFF_LOOPBACK) ||
-            ((interface_info->ifi_flags & IFF_UP) == 0)) {
+        // Only process interfaces which are active (up).
+        if (!(interface_info->ifi_flags & IFF_UP)) {
           continue;
         }
-        info_list.emplace_back();
-        InterfaceInfo& info = info_list.back();
-        info.index = interface_info->ifi_index;
-        GetInterfaceAttributes(IFLA_RTA(interface_info),
-                               IFLA_PAYLOAD(netlink_header), &info);
+
+        // Only add interfaces which are of allowed types.
+        const bool isLoopback = interface_info->ifi_flags & IFF_LOOPBACK;
+        if ((isLoopback && (interface_type & InterfaceType::kLoopback)) ||
+            (!isLoopback && (interface_type & InterfaceType::kNonLoopback))) {
+          info_list.emplace_back();
+          InterfaceInfo& info = info_list.back();
+          info.index = interface_info->ifi_index;
+          GetInterfaceAttributes(IFLA_RTA(interface_info),
+                                 IFLA_PAYLOAD(netlink_header), &info);
+        }
       }
     }
   }
@@ -351,9 +357,17 @@ void PopulateSubnetsOrClearList(std::vector<InterfaceInfo>* info_list) {
 }  // namespace
 
 std::vector<InterfaceInfo> GetNetworkInterfaces() {
-  std::vector<InterfaceInfo> interfaces = GetLinkInfo();
+  std::vector<InterfaceInfo> interfaces =
+      GetLinkInfo(InterfaceType::kNonLoopback);
   PopulateSubnetsOrClearList(&interfaces);
   return interfaces;
+}
+
+InterfaceInfo GetLoopbackInterface() {
+  std::vector<InterfaceInfo> interfaces = GetLinkInfo(InterfaceType::kLoopback);
+  OSP_DCHECK(!interfaces.empty());
+  PopulateSubnetsOrClearList(&interfaces);
+  return interfaces[0];
 }
 
 }  // namespace openscreen
