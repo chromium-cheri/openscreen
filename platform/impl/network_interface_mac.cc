@@ -19,6 +19,7 @@
 
 #include "platform/api/network_interface.h"
 #include "platform/base/ip_address.h"
+#include "platform/impl/network_interface.h"
 #include "platform/impl/scoped_pipe.h"
 #include "util/logging.h"
 
@@ -63,17 +64,23 @@ uint8_t ToPrefixLength(const uint8_t (&netmask)[N]) {
   return result;
 }
 
-std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
+std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces,
+                                                 InterfaceType interface_type) {
   // Socket used for querying interface media types.
   const ScopedFd ioctl_socket(socket(AF_INET6, SOCK_DGRAM, 0));
 
-  // Walk the |interfaces| linked list, creating the hierarchial structure.
+  // Walk the |interfaces| linked list, creating the hierarchical structure.
   std::vector<InterfaceInfo> results;
   for (ifaddrs* cur = interfaces; cur; cur = cur->ifa_next) {
-    // Skip: 1) loopback interfaces, 2) interfaces that are down, 3) interfaces
-    // with no address configured.
-    if ((IFF_LOOPBACK & cur->ifa_flags) || !(IFF_RUNNING & cur->ifa_flags) ||
-        !cur->ifa_addr) {
+    // 1) interfaces that are down, 2) interfaces with no address configured.
+    if (!(IFF_RUNNING & cur->ifa_flags) || !cur->ifa_addr) {
+      continue;
+    }
+
+    // Skip incorrectly typed interfaces.
+    const bool is_loopback = IFF_LOOPBACK & cur->ifa_flags;
+    if ((is_loopback && !(interface_type & InterfaceType::kLoopback)) ||
+        (!is_loopback && !(interface_type & InterfaceType::kNonLoopback))) {
       continue;
     }
 
@@ -166,10 +173,21 @@ std::vector<InterfaceInfo> GetNetworkInterfaces() {
   std::vector<InterfaceInfo> results;
   ifaddrs* interfaces;
   if (getifaddrs(&interfaces) == 0) {
-    results = ProcessInterfacesList(interfaces);
+    results = ProcessInterfacesList(interfaces, InterfaceType::kNonLoopback);
     freeifaddrs(interfaces);
   }
   return results;
+}
+
+InterfaceInfo GetLoopbackInterface() {
+  std::vector<InterfaceInfo> results;
+  ifaddrs* interfaces;
+  if (getifaddrs(&interfaces) == 0) {
+    results = ProcessInterfacesList(interfaces, InterfaceType::kLoopback);
+    freeifaddrs(interfaces);
+  }
+  OSP_DCHECK(!results.empty());
+  return results[0];
 }
 
 }  // namespace openscreen
