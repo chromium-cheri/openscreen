@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51768a8e_a7e0cc30",
+        "filename": "platform/impl/network_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-26T03:22:21Z",
+      "side": 1,
+      "message": "1. kNone is never used, can we remove it?\n\n2. This shouldn\u0027t be a bitfield since this enum is classifying things that can\u0027t be both at the same time.\n\n3. This seems to be the same as InterfaceInfo::Type. Maybe add a kLoopback entry to that enum instead of creating this one, and modify GetInterfaceType() (in network_interface_linux.cc, and the other code in _mac.cc) to set it in the InterfaceInfo correctly?",
+      "range": {
+        "startLine": 14,
+        "startChar": 20,
+        "endLine": 14,
+        "endChar": 30
+      },
+      "revId": "e9cc0c645c0aac5563282034a248a5f8e33c0de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8772823d_c93c6f97",
+        "filename": "platform/impl/network_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-26T03:22:21Z",
+      "side": 1,
+      "message": "naming nit: GetLoopbackInterfaceForTesting(), which would help self-document the original intention here.",
+      "range": {
+        "startLine": 17,
+        "startChar": 14,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "e9cc0c645c0aac5563282034a248a5f8e33c0de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ae3ada_29e07814",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-26T03:22:21Z",
+      "side": 1,
+      "message": "suggestion: bool want_loopbacks\n\nThen, you don\u0027t need the extra InterfaceType enum and the logic below gets much simpler.",
+      "range": {
+        "startLine": 141,
+        "startChar": 39,
+        "endLine": 141,
+        "endChar": 67
+      },
+      "revId": "e9cc0c645c0aac5563282034a248a5f8e33c0de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5829c779_24d3f2e1",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-26T03:22:21Z",
+      "side": 1,
+      "message": "style: s/isLoopback/is_loopback/",
+      "range": {
+        "startLine": 229,
+        "startChar": 19,
+        "endLine": 229,
+        "endChar": 29
+      },
+      "revId": "e9cc0c645c0aac5563282034a248a5f8e33c0de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7883bd8a_33a13c07",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-26T03:22:21Z",
+      "side": 1,
+      "message": "suggestion:\n\n  if (is_loopback \u003d\u003d want_loopbacks) {\n    ...",
+      "range": {
+        "startLine": 230,
+        "startChar": 12,
+        "endLine": 231,
+        "endChar": 75
+      },
+      "revId": "e9cc0c645c0aac5563282034a248a5f8e33c0de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22bffac3_34acf90b",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-26T03:22:21Z",
+      "side": 1,
+      "message": "DCHECK is for logic flaws within the code in the library. Since the result here depends on data coming from external entities (the OS, not our code), it\u0027s possible the \"scan\" might not match any loopback devices. It\u0027s also possible there\u0027s no bug anywhere, since the OS might not have a loopback network interface up.\n\nThis would suggest the return type should be an Optional. Example test code might be:\n\n  const absl::optional\u003cInterfaceInfo\u003e loopback_interface \u003d GetLoopbackInterfaceForTesting();\n  ASSERT_NE(loopback_interface, absl::nullopt);  // Crash if missing.",
+      "range": {
+        "startLine": 368,
+        "startChar": 6,
+        "endLine": 368,
+        "endChar": 12
+      },
+      "revId": "e9cc0c645c0aac5563282034a248a5f8e33c0de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd87f4a_281fb422",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-26T03:22:21Z",
+      "side": 1,
+      "message": "Hmm...So, there can be zero loopbacks or more than one loopback running on a machine. We have some choices here:\n\n1. Search the list for an element whose address is either 127.0.0.1 or ::1 and return it.\n\n2. Return all the loopback interfaces and let the caller choose. (less useful for testing)",
+      "range": {
+        "startLine": 370,
+        "startChar": 9,
+        "endLine": 370,
+        "endChar": 22
+      },
+      "revId": "e9cc0c645c0aac5563282034a248a5f8e33c0de7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
