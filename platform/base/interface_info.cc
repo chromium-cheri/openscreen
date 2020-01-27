@@ -46,6 +46,9 @@ std::ostream& operator<<(std::ostream& out, const InterfaceInfo& info) {
     case InterfaceInfo::Type::kWifi:
       media_type = "Wifi";
       break;
+    case InterfaceInfo::Type::kLoopback:
+      media_type = "Loopback";
+      break;
     case InterfaceInfo::Type::kOther:
       media_type = "Other";
       break;

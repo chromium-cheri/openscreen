@@ -39,10 +39,11 @@ struct IPSubnet {
 };
 
 struct InterfaceInfo {
-  enum class Type {
-    kEthernet = 0,
-    kWifi,
-    kOther,
+  enum class Type : uint32_t {
+    kEthernet = 0x01,
+    kWifi = 0x02,
+    kLoopback = 0x04,
+    kOther = 0x08,
   };
 
   // Interface index, typically as specified by the operating system,
@@ -73,6 +74,19 @@ struct InterfaceInfo {
 // Human-readable output (e.g., for logging).
 std::ostream& operator<<(std::ostream& out, const IPSubnet& subnet);
 std::ostream& operator<<(std::ostream& out, const InterfaceInfo& info);
+
+// bitflag operations.
+inline InterfaceInfo::Type operator|(InterfaceInfo::Type lhs,
+                                     InterfaceInfo::Type rhs) {
+  return static_cast<InterfaceInfo::Type>(static_cast<uint32_t>(lhs) |
+                                          static_cast<uint32_t>(rhs));
+}
+
+inline InterfaceInfo::Type operator&(InterfaceInfo::Type lhs,
+                                     InterfaceInfo::Type rhs) {
+  return static_cast<InterfaceInfo::Type>(static_cast<uint32_t>(lhs) &
+                                          static_cast<uint32_t>(rhs));
+}
 
 }  // namespace openscreen
 
