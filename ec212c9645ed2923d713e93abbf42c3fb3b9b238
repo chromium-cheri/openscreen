@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6f0df2b_ce94d849",
+        "filename": "platform/impl/network_interface.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-27T21:59:37Z",
+      "side": 1,
+      "message": "It seems you wanted make InterfaceInfo::Type a bitfield just for this. The problem is that you\u0027re changing a concept from an \"one of these\" to a \"could be more than one of these,\" and that will lead to confusion and issues in other code.\n\nInstead, what you really wanted to do here is pass a filter argument to \"select one or more.\" InterfaceInfo::Type values aren\u0027t filter values, they\u0027re classifiers.\n\nThat said, there\u0027s a refactoring of this code that does not require creating/passing a \"filter argument\" to another function. I suggest ditching the GetTypedInterfaces() helper, and:\n\nstd::vector\u003cInterfaceInfo\u003e GetNetworkInterfaces() {\n  std::vector\u003cInterfaceInfo\u003e interfaces \u003d GetAllInterfaces();\n  const auto new_end \u003d\n    std:remove_if(interfaces.begin(), interfaces.end(), [](const InterfaceInfo\u0026 info) {\n      return info.type \u003d\u003d InterfaceInfo::Type::kLoopback;\n    });\n  interfaces.erase(new_end, interfaces.end());\n  return interfaces;\n}\n\nabsl::optional\u003cInterfaceInfo\u003e GetLoopbackInterfaceForTesting() {\n  std::vector\u003cInterfaceInfo\u003e interfaces \u003d GetAllInterfaces();\n  auto it \u003d std::find_if(\n    interfaces.begin(), interfaces.end(), [](const InterfaceInfo\u0026 info) {\n      return info.type \u003d\u003d InterfaceInfo::Type::kLoopback \u0026\u0026////////////////ONLY THIS IS NEW\n             std::find_if(info.addresses.begin(), info.addresses.end(),\n                          [](const IPSubnet\u0026 subnet) {\n                            const IPAddress loopback_address{127, 0, 0, 1};\n                            return subnet.address \u003d\u003d loopback_address;\n                          }) !\u003d info.addresses.end();\n    });\n\n  if (it \u003d\u003d interfaces.end()) {\n    return absl::nullopt;\n  } else {\n    return *it;\n  }\n}",
+      "range": {
+        "startLine": 27,
+        "startChar": 28,
+        "endLine": 29,
+        "endChar": 55
+      },
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7698d454_4f79bf92",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-27T21:59:37Z",
+      "side": 1,
+      "message": "nit: Consider moving this up into the calling function, since the whole purpose of this function is to ask Linux to map the name of an interface to its type. Feel free to change the name of this function to something like MapNameToInterfaceType().",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7916de_e85ca231",
+        "filename": "platform/impl/network_interface_linux.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-27T21:59:37Z",
+      "side": 1,
+      "message": "nit: Consider just passing \"interface_info-\u003eifi_flags \u0026 IFF_LOOPBACK\" as the argument here, since is_loopback isn\u0027t needed anywhere else.",
+      "range": {
+        "startLine": 241,
+        "startChar": 61,
+        "endLine": 241,
+        "endChar": 72
+      },
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b528259e_f205a1fd",
+        "filename": "platform/impl/network_interface_mac.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-01-27T21:59:37Z",
+      "side": 1,
+      "message": "nit: Just put this in the if(\u003cexpr\u003e) since is_loopback isn\u0027t used anywhere else?",
+      "range": {
+        "startLine": 110,
+        "startChar": 31,
+        "endLine": 110,
+        "endChar": 60
+      },
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
