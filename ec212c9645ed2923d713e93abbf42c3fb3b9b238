@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "d3d83b23_dbf49f83",
+        "filename": "platform/base/interface_info.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-27T22:00:35Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably prefer this switch in a separate ToString method.",
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66dbbfa0_93df5e62",
+        "filename": "platform/base/interface_info.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-27T22:00:35Z",
+      "side": 1,
+      "message": "Nit/style preference. I usually prefer bitshift for flag enums, e.g.:\n\nkEthernet \u003d 1 \u003c\u003c 1,\nkWifi \u003d 1 \u003c\u003c 2,\nkLoopback \u003d 1 \u003c\u003c 3,\nkOther \u003d 1 \u003c\u003c 4",
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e26a66e5_1a79e5a0",
+        "filename": "platform/base/interface_info.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-27T22:00:35Z",
+      "side": 1,
+      "message": "+1, I bet we read the same stack overflow post 💯\n\nhttps://stackoverflow.com/questions/1448396/how-to-use-enums-as-flags-in-c",
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc896b2_a79c3252",
+        "filename": "platform/impl/network_interface.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-27T22:00:35Z",
+      "side": 1,
+      "message": "Nit: single type? Looks like this supports arbitrary numbers of types as flags?",
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6f0df2b_ce94d849",
         "filename": "platform/impl/network_interface.cc",
         "patchSetId": 5
@@ -19,6 +87,74 @@
         "endLine": 29,
         "endChar": 55
       },
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4279554b_277b2d95",
+        "filename": "platform/impl/network_interface.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-27T22:00:35Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e7b5dc6_b36c04ed",
+        "filename": "platform/impl/network_interface.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-27T22:00:35Z",
+      "side": 1,
+      "message": "constexpr? And should the IPAddress itself know it is loopback, or the network interface?\n\n\nI\u0027m wondering if IPAddress should have a kLoopbackAddress type, since this probably won\u0027t be the only place you need it. And then InterfaceInfo could have bool ContainsLoopbackInterface. Then this becomes;\n\nstd::find_if(\n      interfaces.begin(), interfaces.end(), [](const InterfaceInfo\u0026 info) {\n    return info.ContainsLoopbackInterface();\n}",
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45a65cab_5a855972",
+        "filename": "platform/impl/network_interface.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-27T22:00:35Z",
+      "side": 1,
+      "message": "Nit: else not necessary, implies by the return statement.",
+      "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b82dead2_495f730d",
+        "filename": "platform/impl/network_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-27T22:00:35Z",
+      "side": 1,
+      "message": "Can you add a comment indicating what these functions have in common? In lieu of a class hiearchy, I think some commenting is appropriate to ensure we don\u0027t shove random functions in here later.\n\n+1 for functions as first order citizens.",
       "revId": "ec212c9645ed2923d713e93abbf42c3fb3b9b238",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
