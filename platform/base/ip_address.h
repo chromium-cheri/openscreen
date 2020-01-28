@@ -22,6 +22,8 @@ class IPAddress {
     kV6,
   };
 
+  static const IPAddress kV4LoopbackAddress;
+
   static constexpr size_t kV4Size = 4;
   static constexpr size_t kV6Size = 16;
 
