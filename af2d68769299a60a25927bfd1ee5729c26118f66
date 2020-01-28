@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "a2699f51_1bc3ff54",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T19:28:58Z",
+      "side": 1,
+      "message": "Maybe drop the \"id\" from this sentence?",
+      "parentUuid": "41d40f85_27cab9de",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60cdb918_29e6693b",
         "filename": "discovery/dnssd/public/dns_sd_publisher.h",
         "patchSetId": 1
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "6f7139ba_479c242e",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4a4f1e8_606501f0",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T19:28:58Z",
+      "side": 1,
+      "message": "s/service id/service type name/ ?  Please check the RFC; it would be helpful to align the terms in the comments with the spec where possible.",
+      "parentUuid": "6ee40ecc_11aba336",
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -212,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "fb1af3ea_bea119ad",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T19:28:58Z",
+      "side": 1,
+      "message": "Filing a bug as a future enhancement SGTM. The client requirements will drive the API design here: whether they want detailed info on error cases, just counts/metrics, or nothing at all.",
+      "parentUuid": "7db1e5b0_d5b60143",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b98d1a8_5c1385fa",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 1
@@ -247,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "4765d880_d5809d69",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T19:28:58Z",
+      "side": 1,
+      "message": "Since this is called from OnInstanceCreated() I assumed there would not be a pre-existing entry with the same instance_id.  How could that happen?",
+      "parentUuid": "82fbf42e_abc7daff",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25ffe19c_67c3ed42",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 1
@@ -276,6 +348,24 @@
       "side": 1,
       "message": "I actually find the std::move() syntax to be clearer - Take() would work, but you need to think about it more to understand what\u0027s happening",
       "parentUuid": "25ffe19c_67c3ed42",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997de126_d5f4e495",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T19:28:58Z",
+      "side": 1,
+      "message": "Fair enough; just thinking about saving typing over the long haul.\n\nTake() is common in Blink for methods that pass ownership of a member.",
+      "parentUuid": "134ad57b_283822a2",
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -364,6 +454,24 @@
       "side": 1,
       "message": "This is going to be changed in a parallel CL. To prevent threading issues, a copy of the object needs to be returned rather than a ref\n\nClosing this comment as parallel work",
       "parentUuid": "13417252_b3a1c2ab",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf2cec7b_0a79905d",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T19:28:58Z",
+      "side": 1,
+      "message": "OK.  Generally pass-by-reference APIs across a client boundary where you don\u0027t control the lifetime of the reference create more problems than they solve.",
+      "parentUuid": "0a340e7b_41da4c9d",
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
