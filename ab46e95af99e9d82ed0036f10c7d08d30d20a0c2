@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0db24c28_c7c9635d",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T18:00:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "074a7162_2774e397",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec5a6beb_678b27fc",
         "filename": "discovery/mdns/mdns_service_impl.cc",
         "patchSetId": 7
@@ -66,6 +84,41 @@
       "side": 1,
       "message": "That\u0027s only half true. v6_ will never be used for sending - it will still be used for receiving on the mDNS v6 addresses/ports",
       "parentUuid": "ec5a6beb_678b27fc",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd770e6b_1a15f14f",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T18:00:45Z",
+      "side": 1,
+      "message": "Got it, it wasn\u0027t obvious because reading was snuck into the .h.\n\nCan you update the comment at L72 to clarify that only one socket is used for sending and both are for receiving?",
+      "parentUuid": "526fd15c_31131bbd",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91d87ba2_c3820fa3",
+        "filename": "discovery/mdns/mdns_service_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T18:00:45Z",
+      "side": 1,
+      "message": "Nit: Non-trivial methods should be declared in the .cc",
       "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
