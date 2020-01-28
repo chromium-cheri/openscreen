@@ -192,6 +192,24 @@
       "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "858ae08a_dd257df9",
+        "filename": "platform/base/interface_info.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T18:45:08Z",
+      "side": 1,
+      "message": "It looks like C++ mandates an integral type to hold all values.\n\nhttps://timsong-cpp.github.io/cppwp/n4140/dcl.enum#7\n\nThe exact width that\u0027s optimal depends on how the CPU handles aligned vs. unaligned data, so no need to force the compiler\u0027s hand.",
+      "parentUuid": "d9792985_042c946e",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
