@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "074a7162_2774e397",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-28T17:49:44Z",
+      "side": 1,
+      "message": "SGTM\n\nThe second socket in this case is to listen on a different set of address/port combinations - mDNS has both v6 and v4 ports allocated for incoming traffic.",
+      "parentUuid": "68117e48_d8d0bad8",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec5a6beb_678b27fc",
         "filename": "discovery/mdns/mdns_service_impl.cc",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2020-01-28T00:26:37Z",
       "side": 1,
       "message": "If socket_v4_ is set, socket_v6_ will never get used.",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "526fd15c_31131bbd",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-28T17:49:44Z",
+      "side": 1,
+      "message": "That\u0027s only half true. v6_ will never be used for sending - it will still be used for receiving on the mDNS v6 addresses/ports",
+      "parentUuid": "ec5a6beb_678b27fc",
       "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "85e0369f_35107ea0",
+        "filename": "platform/base/interface_info.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-28T17:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b75a8e72_c923b6bc",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1301983e_1e0fa049",
         "filename": "platform/base/interface_info.h",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9792985_042c946e",
+        "filename": "platform/base/interface_info.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-28T17:49:44Z",
+      "side": 1,
+      "message": "Definitely couldn\u0027t hurt. Since this is a small enum, I\u0027ll go with an int8_t to make it even smaller",
+      "parentUuid": "1301983e_1e0fa049",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
