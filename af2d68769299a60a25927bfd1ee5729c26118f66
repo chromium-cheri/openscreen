@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "1d3bbda5_67d77d09",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-28T23:09:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2699f51_1bc3ff54",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60cdb918_29e6693b",
         "filename": "discovery/dnssd/public/dns_sd_publisher.h",
         "patchSetId": 1
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "s/service id/service type name/ ?  Please check the RFC; it would be helpful to align the terms in the comments with the spec where possible.",
       "parentUuid": "6ee40ecc_11aba336",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3439abe_1f45e036",
+        "filename": "discovery/dnssd/public/dns_sd_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-28T23:09:56Z",
+      "side": 1,
+      "message": "The RFC refers to it as \u0027Service Instance Name \u003d \u003cInstance\u003e . \u003cService\u003e . \u003cDomain\u003e\u0027, which we refer to throughout public/ as \u0027instance id\u0027, \u0027service id\u0027 and \u0027domain id\u0027 (to differentiate from the instance object we return, and service running on the machine)\n\nHere, we are referring to only the \u0027Service\u0027 section. I can update this if you still want it changed, but IMHO having it different from the rest of the public/ folder would just introduce confusion.\n\nWDYT? I can change this if you\u0027d like, but it should be a large change (outside the scope of this CL) affecting the whole discovery/dnssd/public/ folder",
+      "parentUuid": "b4a4f1e8_606501f0",
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -266,6 +302,24 @@
     },
     {
       "key": {
+        "uuid": "a7cf1e91_268717fa",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-28T23:09:56Z",
+      "side": 1,
+      "message": "The patch to introduce error reporting is in progress, per yesterday\u0027s discussion. This will be included there, so I will avoid filing a bug unless you believe it would be helpful to have that in addition",
+      "parentUuid": "fb1af3ea_bea119ad",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b98d1a8_5c1385fa",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 1
@@ -313,6 +367,24 @@
       "side": 1,
       "message": "Since this is called from OnInstanceCreated() I assumed there would not be a pre-existing entry with the same instance_id.  How could that happen?",
       "parentUuid": "82fbf42e_abc7daff",
+      "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ffe66c_74f06a2c",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-28T23:09:56Z",
+      "side": 1,
+      "message": "This occurs if:\n1) This class receives an OnInstanceCreated() call for \"Instance X\"\n2) the user calls DiscoverNow, reinitializing all lower-level discovery code but keeping the list of services discovered so far at this level\n3) The class receives an OnInstanceCreated() call for \"Instance X\" again. It still has the old data for when \"Instance X\" was received the first time, so this would overwrite the old one rather than just create a new one",
+      "parentUuid": "4765d880_d5809d69",
       "revId": "af2d68769299a60a25927bfd1ee5729c26118f66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
