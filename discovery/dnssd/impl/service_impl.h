@@ -29,6 +29,8 @@ class ServiceImpl final : public DnsSdService {
   DnsSdPublisher* GetPublisher() override { return &publisher_; }
 
  private:
+  TaskRunner* const task_runner_;
+
   std::unique_ptr<MdnsService> mdns_service_;
 
   QuerierImpl querier_;

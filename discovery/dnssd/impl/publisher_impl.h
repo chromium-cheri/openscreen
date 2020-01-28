@@ -18,7 +18,7 @@ namespace discovery {
 class PublisherImpl : public DnsSdPublisher,
                       public MdnsDomainConfirmedProvider {
  public:
-  PublisherImpl(MdnsService* publisher);
+  PublisherImpl(MdnsService* publisher, TaskRunner* task_runner);
   ~PublisherImpl() override;
 
   // DnsSdPublisher overrides.
@@ -43,6 +43,7 @@ class PublisherImpl : public DnsSdPublisher,
   std::map<DnsSdInstanceRecord, DnsSdInstanceRecord> published_records_;
 
   MdnsService* const mdns_publisher_;
+  TaskRunner* const task_runner_;
 
   friend class PublisherTesting;
 };

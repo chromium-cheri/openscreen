@@ -7,21 +7,26 @@
 #include <utility>
 
 #include "discovery/mdns/public/mdns_service.h"
+#include "platform/api/task_runner.h"
 
 namespace openscreen {
 namespace discovery {
 
 // static
-std::unique_ptr<DnsSdService> DnsSdService::Create(TaskRunner* task_runner) {
-  return std::make_unique<ServiceImpl>(task_runner);
+SerialDeletePtr<DnsSdService> DnsSdService::Create(TaskRunner* task_runner) {
+  return SerialDeletePtr<DnsSdService>(task_runner,
+                                       new ServiceImpl(task_runner));
 }
 
 ServiceImpl::ServiceImpl(TaskRunner* task_runner)
-    : mdns_service_(MdnsService::Create(task_runner)),
-      querier_(mdns_service_.get()),
-      publisher_(mdns_service_.get()) {}
+    : task_runner_(task_runner),
+      mdns_service_(MdnsService::Create(task_runner_)),
+      querier_(mdns_service_.get(), task_runner_),
+      publisher_(mdns_service_.get(), task_runner_) {}
 
-ServiceImpl::~ServiceImpl() = default;
+ServiceImpl::~ServiceImpl() {
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+}
 
 }  // namespace discovery
 }  // namespace openscreen
