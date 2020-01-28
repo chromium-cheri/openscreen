@@ -7,6 +7,8 @@
 
 #include <memory>
 
+#include "util/serial_delete_ptr.h"
+
 namespace openscreen {
 
 struct IPEndpoint;
@@ -25,7 +27,7 @@ class DnsSdService {
 
   // Creates a new DnsSdService instance, to be owned by the caller. On failure,
   // return nullptr.
-  static std::unique_ptr<DnsSdService> Create(TaskRunner* task_runner);
+  static SerialDeletePtr<DnsSdService> Create(TaskRunner* task_runner);
 
   // Returns the DnsSdQuerier owned by this DnsSdService. If queries are not
   // supported, returns nullptr.
