@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68117e48_d8d0bad8",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T00:26:37Z",
+      "side": 1,
+      "message": "A network interface bound on v4 and v6 will never send queries on v6?\n\nThis is probably a reasonable default behavior.  It would be surprising if the set of nodes reachable by multicast over v4 was different from the set reachable over v6.\n\nCreating 2 sockets would just double the network traffic in most cases.\n\nEventually, we may want to give clients the choice to prefer using v4 or v6.",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec5a6beb_678b27fc",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T00:26:37Z",
+      "side": 1,
+      "message": "If socket_v4_ is set, socket_v6_ will never get used.",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b75a8e72_c923b6bc",
+        "filename": "platform/base/interface_info.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T00:26:37Z",
+      "side": 1,
+      "message": "Bike shed: HasIpV4Address()\n\nSince an interface can support IPv6 in theory, but may not currently have a V6 assigned address.",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1301983e_1e0fa049",
+        "filename": "platform/base/interface_info.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-28T00:26:37Z",
+      "side": 1,
+      "message": "I wonder if it\u0027s worth forcing small enums like these to be 32 bits wide.",
+      "revId": "ab46e95af99e9d82ed0036f10c7d08d30d20a0c2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
