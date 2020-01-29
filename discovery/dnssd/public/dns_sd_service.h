@@ -19,8 +19,10 @@ class TaskRunner;
 
 namespace discovery {
 
+struct ConfigurationParameters;
 class DnsSdPublisher;
 class DnsSdQuerier;
+class ReportingClient;
 
 // This class provides a wrapper around DnsSdQuerier and DnsSdPublisher to
 // allow for an embedder-overridable factory method below.
@@ -30,8 +32,10 @@ class DnsSdService {
 
   // Creates a new DnsSdService instance, to be owned by the caller. On failure,
   // return nullptr.
-  static std::unique_ptr<DnsSdService> Create(TaskRunner* task_runner,
-                                              InterfaceInfo network_interface);
+  static std::unique_ptr<DnsSdService> Create(
+      TaskRunner* task_runner,
+      ReportingClient* reporting_client,
+      const ConfigurationParameters& config);
 
   // Returns the DnsSdQuerier owned by this DnsSdService. If queries are not
   // supported, returns nullptr.
