@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0bcc48f_2c59ec5c",
+        "filename": "discovery/mdns/mdns_responder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-30T02:10:51Z",
+      "side": 1,
+      "message": "I tried to come up with a way to stop repeating this code so often\n\nMoving the MdnsMessage creation IMHO makes the code less readable (I use a few different flavors of this call throughout this file and this hides those details)\n\nIt turns out it can eliminate a few lines to add a method AddRecordsOfTypes(DnsType::kA, DnsType::kAAAA, etc....), but this only saved a couple lines and I found it decreased readability over having the code be more explicit (AddRecordsOfTypes needs to use template magic, so it\u0027s not the most readable), especially in cases where I don\u0027t use the boilerplate GetFake\u003ctype\u003eRecord methods.\nIMHO it\u0027s not worth it to save 1-3 lines per method, but open to changing. WDYT?",
+      "range": {
+        "startLine": 518,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 56
+      },
+      "revId": "cc840a741f0c8b76b3b55509e503a6d319b4c3d9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

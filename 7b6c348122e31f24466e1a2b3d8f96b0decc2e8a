@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "332a432a_111fcee5",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-30T02:10:51Z",
+      "side": 0,
+      "message": "After rereading the RFC, it seems the host\u0027s supposed to add a NSEC record for type kANY, not the individual records we care about, when we are the exclusive owner of the domain. After changing to this approach, the code is much clearer if this and the following method are combined",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 3
+      },
+      "revId": "7b6c348122e31f24466e1a2b3d8f96b0decc2e8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "680e3828_6aac87f0",
+        "filename": "discovery/mdns/mdns_responder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-30T02:10:51Z",
+      "side": 0,
+      "message": "This test case is no longer true with NSEC records being returned. It\u0027s replaced by a test lower in the same file.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 1
+      },
+      "revId": "7b6c348122e31f24466e1a2b3d8f96b0decc2e8a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
