@@ -7,11 +7,20 @@
 
 #include "cast/common/channel/message_util.h"
 #include "cast/common/channel/proto/cast_channel.pb.h"
+#include "platform/base/error.h"
 
 namespace openscreen {
 namespace cast {
 
 class AuthContext;
+
+enum class AppAvailabilityResult {
+  kAvailable,
+  kUnavailable,
+  kUnknown,
+};
+
+std::string ToString(AppAvailabilityResult availability);
 
 ::cast::channel::CastMessage CreateAuthChallengeMessage(
     const AuthContext& auth_context);

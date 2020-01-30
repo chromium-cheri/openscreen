@@ -5,6 +5,7 @@
 #include "cast/sender/channel/message_util.h"
 
 #include "cast/sender/channel/cast_auth_util.h"
+#include "util/json/json_serialization.h"
 
 namespace openscreen {
 namespace cast {
@@ -12,6 +13,19 @@ namespace cast {
 using ::cast::channel::AuthChallenge;
 using ::cast::channel::CastMessage;
 using ::cast::channel::DeviceAuthMessage;
+
+std::string ToString(AppAvailabilityResult availability) {
+  switch (availability) {
+    case AppAvailabilityResult::kAvailable:
+      return "Available";
+    case AppAvailabilityResult::kUnavailable:
+      return "Unavailable";
+    case AppAvailabilityResult::kUnknown:
+      return "Unknown";
+    default:
+      return "bad value";
+  }
+}
 
 CastMessage CreateAuthChallengeMessage(const AuthContext& auth_context) {
   CastMessage message;
