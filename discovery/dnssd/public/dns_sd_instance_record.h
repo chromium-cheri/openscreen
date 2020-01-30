@@ -18,6 +18,15 @@ bool IsDomainValid(const std::string& domain);
 // Represents the data stored in DNS records of types SRV, TXT, A, and AAAA
 class DnsSdInstanceRecord {
  public:
+  struct DnsSdAddress {
+    // The addresses associated with the published service.
+    IPEndpoint endpoint_v4;
+    IPEndpoint endpoint_v6;
+
+    // The NetworkInterface to which these addresses are bound.
+    NetworkInterfaceIndex network_interface_index;
+  };
+
   // These ctors expect valid input, and will cause a crash if they are not.
   DnsSdInstanceRecord(std::string instance_id,
                       std::string service_id,
@@ -30,8 +39,6 @@ class DnsSdInstanceRecord {
   DnsSdInstanceRecord(std::string instance_id,
                       std::string service_id,
                       std::string domain_id,
-                      IPEndpoint ipv4_endpoint,
-                      IPEndpoint ipv6_endpoint,
                       DnsSdTxtRecord txt);
 
   // Returns the instance name for this DNS-SD record.
@@ -43,16 +50,17 @@ class DnsSdInstanceRecord {
   // Returns the domain id for this DNS-SD record.
   const std::string& domain_id() const { return domain_id_; }
 
-  // Returns the address associated with this DNS-SD record. In any valid
-  // record, at least one will be set.
-  const IPEndpoint& address_v4() const { return address_v4_; }
-  const IPEndpoint& address_v6() const { return address_v6_; }
-
   // Returns the TXT record associated with this DNS-SD record
   const DnsSdTxtRecord& txt() const { return txt_; }
 
-  // Returns the port associated with this instance record.
-  uint16_t port() const;
+  // Allows access and modification of the address records for this DNS-SD
+  // Instance.
+  void AddAddressRecords(NetworkInterfaceIndex index, IPEndpoint endpoint);
+  void AddAddressRecords(NetworkInterfaceIndex index,
+                         IPEndpoint endpoint_v4,
+                         IPEndpoint endpoint_v6);
+  const std::vector<DnsSdAddress>& address_records() const;
+  const DnsSdAddress& GetAddressRecord(NetworkInterfaceIndex interface_index);
 
  private:
   DnsSdInstanceRecord(std::string instance_id,
@@ -63,8 +71,6 @@ class DnsSdInstanceRecord {
   std::string instance_id_;
   std::string service_id_;
   std::string domain_id_;
-  IPEndpoint address_v4_;
-  IPEndpoint address_v6_;
   DnsSdTxtRecord txt_;
 
   friend bool operator<(const DnsSdInstanceRecord& lhs,

@@ -12,8 +12,14 @@ namespace discovery {
 
 // This struct provides parameters needed to initialize the discovery pipeline.
 struct Config {
+  struct NetworkInterfaceConfig {
+    NetworkInterfaceIndex interface_index;
+    bool allow_ipv4_connections;
+    bool allow_ipv6_connections;
+  };
+
   // Network Interface on which mDNS should be run.
-  InterfaceInfo interface;
+  std::vector<NetworkInterfaceConfig> allowed_interfaces;
 
   // Number of times new mDNS records should be announced. See RFC 6762 section
   // 8.3 for further details. Per RFC, this value is expected to be in the range
