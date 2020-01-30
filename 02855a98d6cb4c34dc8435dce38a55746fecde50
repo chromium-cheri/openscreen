@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1ab96a2_dc5750ff",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-30T19:11:01Z",
+      "side": 1,
+      "message": "Does OnDomainFound not need to be ran on the task runner? Or is it just implicit? Looks like it\u0027s a private method that implements an interface?",
+      "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aba65c77_e2581840",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-30T19:11:01Z",
+      "side": 1,
+      "message": "This pattern is super common/boilerplatey, but since c++ doesn\u0027t have decorators I\u0027m not sure how we could improve it. I\u0027m happy with how it is.",
+      "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "506d34d8_6c6f62c9",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-30T19:11:01Z",
+      "side": 1,
+      "message": "?? we don\u0027t use ref here?",
+      "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66bc756d_e027174e",
+        "filename": "platform/test/fake_task_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-30T19:11:01Z",
+      "side": 1,
+      "message": "const method?",
+      "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
