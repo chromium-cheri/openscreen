@@ -48,7 +48,7 @@ class Decoder {
     Client();
   };
 
-  Decoder();
+  explicit Decoder(const std::string& expected_codec_name);
   ~Decoder();
 
   Client* client() const { return client_; }
@@ -74,9 +74,12 @@ class Decoder {
   // notifying the Client of it.
   void OnError(const char* what, int av_errnum, FrameId frame_id);
 
-  // Auto-detects the codec needed to decode the data in |buffer|.
-  static AVCodecID Detect(const Buffer& buffer);
+  // Auto-detects the codec needed to decode the data in |buffer|. The expected
+  // codec is tried before the other possibilities.
+  static AVCodecID Detect(const std::string& expected_codec_name,
+                          const Buffer& buffer);
 
+  const std::string expected_codec_name_;
   AVCodec* codec_ = nullptr;
   AVCodecParserContextUniquePtr parser_;
   AVCodecContextUniquePtr context_;

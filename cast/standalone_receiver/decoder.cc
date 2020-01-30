@@ -36,7 +36,9 @@ absl::Span<uint8_t> Decoder::Buffer::GetSpan() {
 Decoder::Client::Client() = default;
 Decoder::Client::~Client() = default;
 
-Decoder::Decoder() = default;
+Decoder::Decoder(const std::string& expected_codec_name)
+    : expected_codec_name_(expected_codec_name) {}
+
 Decoder::~Decoder() = default;
 
 void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
@@ -96,7 +98,7 @@ void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
 }
 
 void Decoder::InitFromFirstBuffer(const Buffer& buffer) {
-  const AVCodecID codec_id = Detect(buffer);
+  const AVCodecID codec_id = Detect(expected_codec_name_, buffer);
   if (codec_id == AV_CODEC_ID_NONE) {
     return;
   }
@@ -150,18 +152,31 @@ void Decoder::OnError(const char* what, int av_errnum, FrameId frame_id) {
 }
 
 // static
-AVCodecID Decoder::Detect(const Buffer& buffer) {
-  static constexpr AVCodecID kCodecsToTry[] = {
-      AV_CODEC_ID_VP8,  AV_CODEC_ID_VP9,  AV_CODEC_ID_H264,
+AVCodecID Decoder::Detect(const std::string& expected_codec_name,
+                          const Buffer& buffer) {
+  AVCodecID codecs_to_try[] = {
+      AV_CODEC_ID_NONE, AV_CODEC_ID_VP8,  AV_CODEC_ID_VP9,  AV_CODEC_ID_H264,
       AV_CODEC_ID_H265, AV_CODEC_ID_OPUS, AV_CODEC_ID_FLAC,
   };
 
+  if (!expected_codec_name.empty()) {
+    if (AVCodec* codec =
+            avcodec_find_decoder_by_name(expected_codec_name.c_str())) {
+      codecs_to_try[0] = codec->id;
+    } else {
+      OSP_LOG_WARN << "Expected codec not available: " << expected_codec_name;
+    }
+  }
+
   const absl::Span<const uint8_t> input = buffer.GetSpan();
-  for (AVCodecID codec_id : kCodecsToTry) {
+  for (AVCodecID codec_id : codecs_to_try) {
+    if (codec_id == AV_CODEC_ID_NONE) {
+      continue;
+    }
+
     AVCodec* const codec = avcodec_find_decoder(codec_id);
     if (!codec) {
-      OSP_LOG_WARN << "Video codec not available to try: "
-                   << avcodec_get_name(codec_id);
+      OSP_LOG_WARN << "Codec not available: " << avcodec_get_name(codec_id);
       continue;
     }
     const auto parser = MakeUniqueAVCodecParserContext(codec_id);
