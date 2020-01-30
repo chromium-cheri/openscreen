@@ -2,6 +2,108 @@
   "comments": [
     {
       "key": {
+        "uuid": "e9834c04_cf0a0a8e",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-30T19:24:58Z",
+      "side": 1,
+      "message": "Both of these files seem to be part of the public API to discovery.\nCan they go into discovery/public and avoid creating another folder?",
+      "revId": "6e4f8facc9b3a48ec7becaca8c85a8bc286e115b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7cffcdd_e6149061",
+        "filename": "discovery/common/configuration_parameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-30T19:24:58Z",
+      "side": 1,
+      "message": "I would be okay shortening this to just \"Configuration\" or \"Config\".",
+      "revId": "6e4f8facc9b3a48ec7becaca8c85a8bc286e115b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09a6cd0_b5d08faa",
+        "filename": "discovery/common/reporting_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-30T19:24:58Z",
+      "side": 1,
+      "message": "Would it be more accurate to say:\n\n\"This class is implemented by the discovery client.  The discovery implementation will report errors and metrics to it.\"\n\nOr something like that?",
+      "revId": "6e4f8facc9b3a48ec7becaca8c85a8bc286e115b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb046cb7_50115db9",
+        "filename": "discovery/common/reporting_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-30T19:24:58Z",
+      "side": 1,
+      "message": "Maybe add a specific case, like:\n\nFor example, an error binding a multicast socket.",
+      "revId": "6e4f8facc9b3a48ec7becaca8c85a8bc286e115b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3034ff6d_4c51a7cc",
+        "filename": "discovery/common/reporting_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-30T19:24:58Z",
+      "side": 1,
+      "message": "OnFatalError?",
+      "revId": "6e4f8facc9b3a48ec7becaca8c85a8bc286e115b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0990f0c6_4dc1a8f2",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-01-30T19:24:58Z",
+      "side": 1,
+      "message": "s/target/max/ ?",
+      "revId": "6e4f8facc9b3a48ec7becaca8c85a8bc286e115b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be10be48_a620257e",
         "filename": "discovery/mdns/mdns_publisher.cc",
         "patchSetId": 1
