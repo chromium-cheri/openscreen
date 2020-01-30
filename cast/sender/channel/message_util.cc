@@ -48,5 +48,33 @@ CastMessage CreateAuthChallengeMessage(const AuthContext& auth_context) {
   return message;
 }
 
+ErrorOr<CastMessage> CreateAppAvailabilityRequest(const std::string& source_id,
+                                                  int32_t request_id,
+                                                  const std::string& app_id) {
+  Json::Value dict(Json::ValueType::objectValue);
+  dict[kMessageKeyType] = Json::Value(
+      CastMessageTypeToString(CastMessageType::kGetAppAvailability));
+  Json::Value app_id_value(Json::ValueType::arrayValue);
+  app_id_value.append(Json::Value(app_id));
+  dict[kMessageKeyAppId] = std::move(app_id_value);
+  dict[kMessageKeyRequestId] = Json::Value(request_id);
+
+  CastMessage message;
+  message.set_payload_type(::cast::channel::CastMessage_PayloadType_STRING);
+  ErrorOr<std::string> serialized = json::Stringify(dict);
+  if (serialized.is_error()) {
+    return serialized.error();
+  }
+  message.set_payload_utf8(serialized.value());
+
+  message.set_protocol_version(
+      ::cast::channel::CastMessage_ProtocolVersion_CASTV2_1_0);
+  message.set_source_id(source_id);
+  message.set_destination_id(kPlatformReceiverId);
+  message.set_namespace_(kReceiverNamespace);
+
+  return message;
+}
+
 }  // namespace cast
 }  // namespace openscreen

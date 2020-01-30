@@ -49,7 +49,14 @@ struct FakeCastSocket {
 // OnMessage callback on |mock_peer_client| and vice versa for |peer_socket| and
 // |mock_client|.
 struct FakeCastSocketPair {
-  FakeCastSocketPair() {
+  FakeCastSocketPair()
+      : FakeCastSocketPair({{10, 0, 1, 7}, 1234}, {{10, 0, 1, 9}, 4321}, 1, 2) {
+  }
+  FakeCastSocketPair(const IPEndpoint& local_init,
+                     const IPEndpoint& remote_init,
+                     uint32_t local_id,
+                     uint32_t remote_id)
+      : local(local_init), remote(remote_init) {
     using ::testing::_;
     using ::testing::Invoke;
 
@@ -57,13 +64,13 @@ struct FakeCastSocketPair {
         std::make_unique<::testing::NiceMock<MockTlsConnection>>(local, remote);
     connection = moved_connection.get();
     socket = std::make_unique<CastSocket>(std::move(moved_connection),
-                                          &mock_client, 1);
+                                          &mock_client, local_id);
 
     auto moved_peer =
         std::make_unique<::testing::NiceMock<MockTlsConnection>>(remote, local);
     peer_connection = moved_peer.get();
     peer_socket = std::make_unique<CastSocket>(std::move(moved_peer),
-                                               &mock_peer_client, 2);
+                                               &mock_peer_client, remote_id);
 
     ON_CALL(*connection, Send(_, _))
         .WillByDefault(Invoke([this](const void* data, size_t len) {
@@ -82,8 +89,8 @@ struct FakeCastSocketPair {
   }
   ~FakeCastSocketPair() = default;
 
-  IPEndpoint local{{10, 0, 1, 7}, 1234};
-  IPEndpoint remote{{10, 0, 1, 9}, 4321};
+  IPEndpoint local;
+  IPEndpoint remote;
 
   ::testing::NiceMock<MockTlsConnection>* connection;
   MockCastSocketClient mock_client;

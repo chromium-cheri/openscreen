@@ -25,6 +25,11 @@ std::string ToString(AppAvailabilityResult availability);
 ::cast::channel::CastMessage CreateAuthChallengeMessage(
     const AuthContext& auth_context);
 
+ErrorOr<::cast::channel::CastMessage> CreateAppAvailabilityRequest(
+    const std::string& source_id,
+    int32_t request_id,
+    const std::string& app_id);
+
 }  // namespace cast
 }  // namespace openscreen
 
