@@ -19,7 +19,7 @@ namespace openscreen {
 // interfaces, 2) an error occurred querying the system for them, or 3) Open
 // Screen features that involve broadcast listening/publishing (e.g., mDNS
 // discovery) are not being used.
-std::vector<InterfaceInfo> GetNetworkInterfaces();
+std::vector<InterfaceInfo> GetNetworkInterfaces(bool include_loopback = false);
 
 }  // namespace openscreen
 
