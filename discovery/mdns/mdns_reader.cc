@@ -148,6 +148,7 @@ bool MdnsReader::Read(AAAARecordRdata* out) {
   if (Read(&record_length) && (record_length == IPAddress::kV6Size) &&
       Read(IPAddress::Version::kV6, &address)) {
     *out = AAAARecordRdata(address);
+
     cursor.Commit();
     return true;
   }

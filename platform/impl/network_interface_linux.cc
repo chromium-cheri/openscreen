@@ -137,7 +137,7 @@ absl::optional<IPAddress> GetIPAddressOrNull(struct rtattr* rta,
   return have_local ? local : address;
 }
 
-std::vector<InterfaceInfo> GetLinkInfo() {
+std::vector<InterfaceInfo> GetLinkInfo(bool include_loopback) {
   ScopedFd fd(socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE));
   if (!fd) {
     OSP_LOG_WARN << "netlink socket() failed: " << errno << " - "
@@ -220,7 +220,7 @@ std::vector<InterfaceInfo> GetLinkInfo() {
         struct ifinfomsg* interface_info =
             static_cast<struct ifinfomsg*>(NLMSG_DATA(netlink_header));
         // Only process non-loopback interfaces which are active (up).
-        if ((interface_info->ifi_flags & IFF_LOOPBACK) ||
+        if ((!include_loopback && interface_info->ifi_flags & IFF_LOOPBACK) ||
             ((interface_info->ifi_flags & IFF_UP) == 0)) {
           continue;
         }
@@ -350,8 +350,8 @@ void PopulateSubnetsOrClearList(std::vector<InterfaceInfo>* info_list) {
 
 }  // namespace
 
-std::vector<InterfaceInfo> GetNetworkInterfaces() {
-  std::vector<InterfaceInfo> interfaces = GetLinkInfo();
+std::vector<InterfaceInfo> GetNetworkInterfaces(bool include_loopback) {
+  std::vector<InterfaceInfo> interfaces = GetLinkInfo(include_loopback);
   PopulateSubnetsOrClearList(&interfaces);
   return interfaces;
 }

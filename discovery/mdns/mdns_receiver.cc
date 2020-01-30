@@ -4,15 +4,15 @@
 
 #include "discovery/mdns/mdns_receiver.h"
 
+#include <iostream>
+
 #include "discovery/mdns/mdns_reader.h"
 #include "util/trace_logging.h"
 
 namespace openscreen {
 namespace discovery {
 
-MdnsReceiver::MdnsReceiver(UdpSocket* socket) : socket_(socket) {
-  OSP_DCHECK(socket_);
-}
+MdnsReceiver::MdnsReceiver() = default;
 
 MdnsReceiver::~MdnsReceiver() {
   if (state_ == State::kRunning) {

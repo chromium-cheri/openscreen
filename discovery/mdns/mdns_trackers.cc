@@ -5,6 +5,7 @@
 #include "discovery/mdns/mdns_trackers.h"
 
 #include <array>
+#include <iostream>
 
 #include "discovery/mdns/mdns_random.h"
 #include "discovery/mdns/mdns_record_changed_callback.h"
@@ -192,8 +193,9 @@ void MdnsQuestionTracker::SendQuery() {
     } else if (message.questions().empty() && message.answers().empty()) {
       // This case should never happen, because it means a record is too large
       // to fit into its own message.
-      OSP_LOG << "Encountered unreasonably large message in cache. Skipping "
-              << "known answer in suppressions...";
+      OSP_LOG_ERROR
+          << "Encountered unreasonably large message in cache. Skipping "
+          << "known answer in suppression...";
       it++;
     } else {
       message.set_truncated();
