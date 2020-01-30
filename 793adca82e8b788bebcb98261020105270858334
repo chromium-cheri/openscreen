@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bc5c783_5bca81f6",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-30T23:04:46Z",
+      "side": 1,
+      "message": "Why put NONE in the list at all? We shouldn\u0027t ever get uncoded content right?",
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aa04943_90046ff5",
+        "filename": "cast/standalone_receiver/decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-01-30T23:04:46Z",
+      "side": 1,
+      "message": "Can we expose a list of known codecs that the Decoder should know, so that this can be strongly typed? If the user passes a value like \"h 264\" instead of \"H264\", we should probably know ASAP and not call down through multiple layers?\n\nI know it\u0027s a suggestion here (we try other codecs), but that seems cleaner to me.",
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
