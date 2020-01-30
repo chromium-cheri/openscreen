@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "409f33d3_55699602",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-30T21:28:15Z",
+      "side": 1,
+      "message": "It seems like overkill in our case - at most three NSEC records are present in the response message (for TXT, A, and AAAA), though in practice we don\u0027t expect more than one due to our publishing flow through the DNS-SD layer\n\nAdding a TODO though, in case the case comes up later",
+      "parentUuid": "a13c43eb_e42f53c4",
+      "revId": "cc840a741f0c8b76b3b55509e503a6d319b4c3d9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd5af2a7_4e70e70d",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "cc840a741f0c8b76b3b55509e503a6d319b4c3d9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55fecf3a_3b601548",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-30T21:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd5af2a7_4e70e70d",
+      "revId": "cc840a741f0c8b76b3b55509e503a6d319b4c3d9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -80,6 +116,30 @@
       "revId": "cc840a741f0c8b76b3b55509e503a6d319b4c3d9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ac8609_bc4e528a",
+        "filename": "discovery/mdns/mdns_responder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-30T21:28:15Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not sure what to call it, but just the lines up to the HasRecords expectation get repeated a lot with only the DnsType changing, so that could be a function that returns |message|.\n\nThe EXPECT_CALL().WillOnce method can\u0027t be moved because it turns out gtest validates it when it goes out of scope. Leaving the two EXPECT_CALL lines out of the shared function, but moving the other 3 lines into one.\n\nMoving the question generation though\n\n\u003e AddQuestion(std::move(question))?\n\nDone",
+      "parentUuid": "0cf9adb4_e09a0b80",
+      "range": {
+        "startLine": 518,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 56
+      },
+      "revId": "cc840a741f0c8b76b3b55509e503a6d319b4c3d9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
