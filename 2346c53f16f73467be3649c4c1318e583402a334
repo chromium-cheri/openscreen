@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b56a8235_efc20b5c",
+        "filename": "discovery/mdns/mdns_publisher_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-01-31T18:59:51Z",
+      "side": 1,
+      "message": "Optional suggestion: we can write a helper function to factor out the repeated pattern:\n\nvoid VerifyContainedRecords(const vector\u0026 expected_records) {\n  EXPECT_EQ(publisher_.GetRecordCount(), expected_records.size());\n  for (expected_record : expected_records)\n    EXPECT_TRUE(ContainsRecord(records, expected_record));\n}\n\nI don\u0027t think !ContainsRecord() check is necessary given we\u0027re verifying the records count as well.",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 49
+      },
+      "revId": "2346c53f16f73467be3649c4c1318e583402a334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142443d5_42160545",
+        "filename": "discovery/mdns/mdns_publisher_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-01-31T18:59:51Z",
+      "side": 1,
+      "message": "Was there some reason why you couldn\u0027t do EXPECT_FALSE(ContainsRecord())?",
+      "revId": "2346c53f16f73467be3649c4c1318e583402a334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
