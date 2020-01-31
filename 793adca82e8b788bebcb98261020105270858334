@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fbd3a6d2_e87b3a54",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T01:27:59Z",
+      "side": 1,
+      "message": "Please document how this list is ordered",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 4
+      },
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7bc5c783_5bca81f6",
         "filename": "cast/standalone_receiver/decoder.cc",
         "patchSetId": 1
@@ -19,6 +42,70 @@
     },
     {
       "key": {
+        "uuid": "5e970d18_4fec2609",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T01:27:59Z",
+      "side": 1,
+      "message": "It looks like so that line 165 doesn\u0027t overwrite any of the codecs to try?\nSpent a while trying to come up with a clearer way to write this. Best I could come up with was this, though I don\u0027t know if it\u0027s actually any clearer. Your call which to use:\n\n  namespace {\n    constexpr std::array\u003cAVCodecID\u003e kCodecsToTry \u003d { ... };\n  }\n\n  ...\n\n  AVCodecID Decoder::Detect(const std::string\u0026 expected_codec_name,\n                            const Buffer\u0026 buffer) {\n    // Iterate across all valid codecs\n    auto it \u003d kCodecsToTry.first();\n\n    // Find the first codec to try\n    AVCodecID codec_to_try \u003d AV_CODEC_ID_NONE;\n    if (!expected_codec_name.empty()) {\n      if (AVCodec* codec \u003d\n              avcodec_find_decoder_by_name(expected_codec_name.c_str())) {\n        codec_to_try \u003d codec-\u003eid;\n      } else {\n        OSP_LOG_WARN \u003c\u003c \"Expected codec not available: \" \u003c\u003c expected_codec_name;\n      }\n    } \n\n    if (codec_to_try \u003d\u003d AV_CODEC_ID_NONE) {\n      codec_to_try \u003d *it++;\n    }\n\n    // Check all codecs until one works\n    for (; it !\u003d kCodecsToTry.end(); codec_to_try \u003d *it++) {\n      ...\n    }",
+      "parentUuid": "7bc5c783_5bca81f6",
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f52b861_c51e1fd1",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T01:27:59Z",
+      "side": 1,
+      "message": "All the comments will definitely make life easier - and work great as code documentation! I\u0027m going to need to go back and do the same to discovery",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 76
+      },
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b466ad9_ba7fb7e6",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T01:27:59Z",
+      "side": 1,
+      "message": "Why could this fail? Probably warrants a comment or details to the OSP_CHECK() stream",
+      "range": {
+        "startLine": 194,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 22
+      },
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7aa04943_90046ff5",
         "filename": "cast/standalone_receiver/decoder.h",
         "patchSetId": 1
@@ -30,6 +117,24 @@
       "writtenOn": "2020-01-30T23:04:46Z",
       "side": 1,
       "message": "Can we expose a list of known codecs that the Decoder should know, so that this can be strongly typed? If the user passes a value like \"h 264\" instead of \"H264\", we should probably know ASAP and not call down through multiple layers?\n\nI know it\u0027s a suggestion here (we try other codecs), but that seems cleaner to me.",
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02f8498_0a419cfb",
+        "filename": "cast/standalone_receiver/decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T01:27:59Z",
+      "side": 1,
+      "message": "+1\n\nIf not, it\u0027s probably worth DCHECK\u0027ing against a whitelist",
+      "parentUuid": "7aa04943_90046ff5",
       "revId": "793adca82e8b788bebcb98261020105270858334",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
