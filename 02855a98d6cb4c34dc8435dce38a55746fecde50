@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "0baa7ab1_ea966c1b",
+        "filename": "discovery/dnssd/impl/querier_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T00:32:10Z",
+      "side": 1,
+      "message": "I like that approach! Will plan to do this as a follow-up CL though - there are a bunch of other places in our code where the same approach would apply, and I\u0027d like to make that same change there too",
+      "parentUuid": "64d21284_c945c8bc",
+      "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe87f894_c9476a54",
         "filename": "discovery/public/dns_sd_service_publisher.h",
         "patchSetId": 4
@@ -105,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "b78bc0a9_dec10eed",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T00:32:10Z",
+      "side": 1,
+      "message": "I might be misunderstanding - The current syntax is for capture by copy:\nhttps://en.cppreference.com/w/cpp/language/lambda#Lambda_capture\n\nThough after thinking a bit more, how do you feel about updating the Register method signature to pass by move? Then we would have:\n\n  void Register(T record) {\n    if (!task_runner_-\u003eIsRunningOnTaskRunner()) {\n      task_runner_-\u003ePostTask([this, r \u003d std::move(record)]() { Register(std::move(r)); });\n      return;\n    }\n\n    // TODO(rwkeane): Report errors through the reporting API.\n    publisher_-\u003eRegister(conversion_(record));\n  }\n\nThough I\u0027m not quite sure how std::move() syntax interacts with crossing thread boundaries and whether it actually save us an extra copy. WDYT?",
+      "parentUuid": "b9d5ed40_ef9cc385",
+      "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87895160_4b391ac6",
         "filename": "discovery/public/dns_sd_service_publisher.h",
         "patchSetId": 4
@@ -119,6 +155,24 @@
       "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57ba14e5_ffce8918",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T00:32:10Z",
+      "side": 1,
+      "message": "Closing as duplicate with above",
+      "parentUuid": "87895160_4b391ac6",
+      "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +204,24 @@
       "writtenOn": "2020-01-30T23:08:21Z",
       "side": 1,
       "message": "All of these APIs should be updated to be asynchronous, i.e. results passed through a callback argument or client API.  Right now there\u0027s no way for the async invocation to return any result.",
+      "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98358123_4aa7a854",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-01-31T00:32:10Z",
+      "side": 1,
+      "message": "The reason I didn\u0027t see a need to update these methods to be async is because, once the call is bounced to the Task Runner, the only possible return result is Error::None() - so the caller isn\u0027t actually losing any information\n\nIn the event an error is needed in future, this can be provided via the reporting API introduced here: \nhttps://chromium-review.googlesource.com/c/openscreen/+/2028449\n(This approach already has a couple TODOs marked in the DnsSdServicePublisher class. I had planned to do this as a follow-up CL, because this introduces a new callback in the ReportingClient class, which might need further discussion)\n\nWDYT?",
+      "parentUuid": "45d4b875_13ff7463",
       "revId": "02855a98d6cb4c34dc8435dce38a55746fecde50",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
