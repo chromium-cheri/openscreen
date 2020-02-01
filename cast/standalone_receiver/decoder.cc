@@ -36,7 +36,9 @@ absl::Span<uint8_t> Decoder::Buffer::GetSpan() {
 Decoder::Client::Client() = default;
 Decoder::Client::~Client() = default;
 
-Decoder::Decoder() = default;
+Decoder::Decoder(const std::string& expected_codec_name)
+    : expected_codec_name_(expected_codec_name) {}
+
 Decoder::~Decoder() = default;
 
 void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
@@ -96,7 +98,7 @@ void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
 }
 
 void Decoder::InitFromFirstBuffer(const Buffer& buffer) {
-  const AVCodecID codec_id = Detect(buffer);
+  const AVCodecID codec_id = Detect(expected_codec_name_, buffer);
   if (codec_id == AV_CODEC_ID_NONE) {
     return;
   }
@@ -150,18 +152,46 @@ void Decoder::OnError(const char* what, int av_errnum, FrameId frame_id) {
 }
 
 // static
-AVCodecID Decoder::Detect(const Buffer& buffer) {
-  static constexpr AVCodecID kCodecsToTry[] = {
-      AV_CODEC_ID_VP8,  AV_CODEC_ID_VP9,  AV_CODEC_ID_H264,
-      AV_CODEC_ID_H265, AV_CODEC_ID_OPUS, AV_CODEC_ID_FLAC,
+AVCodecID Decoder::Detect(const std::string& expected_codec_name,
+                          const Buffer& buffer) {
+  AVCodecID codecs_to_try[] = {
+      // This is overwritten with a valid AVCodecID if FFMPEG can map
+      // |expected_codec_name| to an installed codec implementation.
+      AV_CODEC_ID_NONE,
+
+      // Fall-backs to try if |expected_codec_name| was not specified, or is not
+      // recognized by FFMPEG; in order of most-to-least commonly used by known
+      // Sender implementations.
+      AV_CODEC_ID_OPUS,
+      AV_CODEC_ID_VP8,
+      AV_CODEC_ID_H264,
+      AV_CODEC_ID_VP9,
+      AV_CODEC_ID_H265,
+      AV_CODEC_ID_FLAC,
   };
 
+  const AVCodecID* first_codec_to_try = &codecs_to_try[1];
+  if (!expected_codec_name.empty()) {
+    // NOTE: The codec_name values found in OFFER messages, such as "vp8" or
+    // "h264" or "opus" are valid input strings to FFMPEG's look-up function, so
+    // no translation is required here.
+    if (AVCodec* codec =
+            avcodec_find_decoder_by_name(expected_codec_name.c_str())) {
+      OSP_VLOG << "Found expected codec: " << expected_codec_name;
+      codecs_to_try[0] = codec->id;
+      first_codec_to_try = &codecs_to_try[0];
+    } else {
+      OSP_LOG_WARN << "Expected codec not available: " << expected_codec_name;
+    }
+  }
+
   const absl::Span<const uint8_t> input = buffer.GetSpan();
-  for (AVCodecID codec_id : kCodecsToTry) {
+  for (const AVCodecID* it = first_codec_to_try; it != std::end(codecs_to_try);
+       ++it) {
+    const AVCodecID codec_id = *it;
     AVCodec* const codec = avcodec_find_decoder(codec_id);
     if (!codec) {
-      OSP_LOG_WARN << "Video codec not available to try: "
-                   << avcodec_get_name(codec_id);
+      OSP_LOG_WARN << "Codec not available: " << avcodec_get_name(codec_id);
       continue;
     }
     const auto parser = MakeUniqueAVCodecParserContext(codec_id);
@@ -176,7 +206,7 @@ AVCodecID Decoder::Detect(const Buffer& buffer) {
       continue;
     }
     const auto packet = MakeUniqueAVPacket();
-    OSP_CHECK(packet);
+    OSP_CHECK(packet);  // av_packet_alloc() failed. OOM?
     if (av_parser_parse2(parser.get(), context.get(), &packet->data,
                          &packet->size, input.data(), input.size(),
                          AV_NOPTS_VALUE, AV_NOPTS_VALUE, 0) < 0 ||
