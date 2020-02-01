@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d63de73d_d9191304",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-01T00:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbd3a6d2_e87b3a54",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 4
+      },
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bc5c783_5bca81f6",
         "filename": "cast/standalone_receiver/decoder.cc",
         "patchSetId": 1
@@ -57,6 +81,24 @@
       "revId": "793adca82e8b788bebcb98261020105270858334",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e339d6a_c0fd6c96",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-01T00:50:07Z",
+      "side": 1,
+      "message": "Done: Removed the special NONE check, used an variable-start iterator to walk the whole list or skip the first NONE element.",
+      "parentUuid": "5e970d18_4fec2609",
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +148,30 @@
     },
     {
       "key": {
+        "uuid": "eb8ff3a6_9f99a8f0",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-01T00:50:07Z",
+      "side": 1,
+      "message": "Done.\n\nFFMPEG library docs say av_packet_alloc() can return NULL on failure. I\u0027d rather the app crash on OOM since it\u0027s unreasonable to handle/workaround that failure case.",
+      "parentUuid": "3b466ad9_ba7fb7e6",
+      "range": {
+        "startLine": 194,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 22
+      },
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aa04943_90046ff5",
         "filename": "cast/standalone_receiver/decoder.h",
         "patchSetId": 1
@@ -135,6 +201,24 @@
       "side": 1,
       "message": "+1\n\nIf not, it\u0027s probably worth DCHECK\u0027ing against a whitelist",
       "parentUuid": "7aa04943_90046ff5",
+      "revId": "793adca82e8b788bebcb98261020105270858334",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d355bec_31fdc346",
+        "filename": "cast/standalone_receiver/decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-01T00:50:07Z",
+      "side": 1,
+      "message": "Added some header comments to clarify intended usage. Responses to individual points:\n\n\u003e Can we expose a list of known codecs that the Decoder should know,\n\nWe could, but at this point it would be over-engineering things, IMO. FFMPEG has this known-codec list internally, and we\u0027re using its look-up function to find the codec implementation (and iff it is installed on the system).\n\nWe would only want to expose this list to compare it to OFFER messages from a Sender before sending an ANSWER that selects which streams the Receiver wants. We could add that to the standalone receiver app as a future enhancement.\n\n\u003e so that this can be strongly typed?\n\nThis string comes from an OFFER message. The Cast Streaming control message spec defines certain known/required values (e.g., \"vp8\" and \"opus\" and \"h264\"), but also leaves the field open for any arbitrary codec by any name for future use.\n\nAlso, why should this not be a string? Isn\u0027t it cool that our standalone receiver app could potentially work with ANY codec provided by FFMPEG for free? 😊\n\n\u003e If the user passes a value like...\n\nThere is no user interaction here. Passing strings with typos would be both a Sender bug (for sending an bad codec_name in an OFFER), and a Receiver bug (for sending an ANSWER choosing a stream with a bad codec_name).\n\n\u003e If not, it\u0027s probably worth DCHECK\u0027ing against a whitelist\n\nWe do not want the app to crash on an invalid (or valid, but unrecognized) external data input. We already have an OnFatalError() callback that is invoked if a codec is not available, and this bubbles up to the main receiver app workflow for handling.",
+      "parentUuid": "a02f8498_0a419cfb",
       "revId": "793adca82e8b788bebcb98261020105270858334",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
