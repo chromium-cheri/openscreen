@@ -7,10 +7,25 @@
 #include <algorithm>
 #include <utility>
 
+#include "discovery/mdns/public/mdns_constants.h"
 #include "util/logging.h"
 
 namespace openscreen {
 namespace discovery {
+namespace {
+
+bool TryParseDnsType(uint16_t to_parse, DnsType* type) {
+  for (DnsType supported_type : kSupportedDnsTypes) {
+    if (to_parse == static_cast<uint16_t>(supported_type)) {
+      *type = supported_type;
+      return true;
+    }
+  }
+
+  return false;
+}
+
+}  // namespace
 
 bool MdnsReader::Read(TxtRecordRdata::Entry* out) {
   Cursor cursor(this);
@@ -194,6 +209,26 @@ bool MdnsReader::Read(TxtRecordRdata* out) {
   return true;
 }
 
+bool MdnsReader::Read(NsecRecordRdata* out) {
+  OSP_DCHECK(out);
+  Cursor cursor(this);
+  uint16_t record_length;
+  DomainName next_record_name;
+  if (!Read(&record_length) || !Read(&next_record_name)) {
+    return false;
+  }
+
+  int remaining_length = record_length - next_record_name.MaxWireSize();
+  std::vector<DnsType> types;
+  if (Read(&types, remaining_length)) {
+    *out = NsecRecordRdata(std::move(next_record_name), std::move(types));
+    cursor.Commit();
+    return true;
+  }
+
+  return false;
+}
+
 bool MdnsReader::Read(MdnsRecord* out) {
   OSP_DCHECK(out);
   Cursor cursor(this);
@@ -281,6 +316,8 @@ bool MdnsReader::Read(DnsType type, Rdata* out) {
       return Read<PtrRecordRdata>(out);
     case DnsType::kTXT:
       return Read<TxtRecordRdata>(out);
+    case DnsType::kNSEC:
+      return Read<NsecRecordRdata>(out);
     default:
       return Read<RawRecordRdata>(out);
   }
@@ -295,6 +332,63 @@ bool MdnsReader::Read(Header* out) {
     cursor.Commit();
     return true;
   }
+  return false;
+}
+
+bool MdnsReader::Read(std::vector<DnsType>* out, int remaining_size) {
+  OSP_DCHECK(out);
+  OSP_DCHECK(remaining_size);
+  Cursor cursor(this);
+
+  *out = std::vector<DnsType>();
+  int processed_bytes = 0;
+  for (NsecBitMapField bitmap; processed_bytes < remaining_size;
+       bitmap = NsecBitMapField{}) {
+    if (!Read(&bitmap)) {
+      return false;
+    }
+
+    processed_bytes += bitmap.bitmap_length + 2;
+    if (processed_bytes > remaining_size) {
+      return false;
+    }
+
+    for (int i = 0; i < bitmap.bitmap_length * 8; i++) {
+      int current_byte = i / 8;
+      uint8_t bitmask = 0x80 >> i % 8;
+
+      DnsType type;
+      uint16_t type_index = i | bitmap.window_block * 256;
+      if ((bitmap.bitmap[current_byte] & bitmask) &&
+          TryParseDnsType(type_index, &type)) {
+        out->push_back(type);
+      }
+    }
+  }
+
+  cursor.Commit();
+  return true;
+}
+
+bool MdnsReader::Read(NsecBitMapField* out) {
+  OSP_DCHECK(out);
+  Cursor cursor(this);
+
+  if (Read(&out->window_block) && Read(&out->bitmap_length)) {
+    if (out->bitmap_length == 0 || out->bitmap_length > 32) {
+      return false;
+    }
+
+    for (int i = 0; i < out->bitmap_length; i++) {
+      if (!Read(&out->bitmap[i])) {
+        return false;
+      }
+    }
+
+    cursor.Commit();
+    return true;
+  }
+
   return false;
 }
 
