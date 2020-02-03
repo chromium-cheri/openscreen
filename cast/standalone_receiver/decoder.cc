@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "util/logging.h"
+#include "util/trace_logging.h"
 
 namespace openscreen {
 namespace cast {
@@ -40,6 +41,7 @@ Decoder::Decoder() = default;
 Decoder::~Decoder() = default;
 
 void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
+  TRACE_SCOPED_THIS(TraceCategory::kStandaloneReceiver);
   if (!codec_) {
     InitFromFirstBuffer(buffer);
     if (!codec_) {
@@ -96,6 +98,7 @@ void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
 }
 
 void Decoder::InitFromFirstBuffer(const Buffer& buffer) {
+  TRACE_SCOPED_THIS(TraceCategory::kStandaloneReceiver);
   const AVCodecID codec_id = Detect(buffer);
   if (codec_id == AV_CODEC_ID_NONE) {
     return;
@@ -151,6 +154,7 @@ void Decoder::OnError(const char* what, int av_errnum, FrameId frame_id) {
 
 // static
 AVCodecID Decoder::Detect(const Buffer& buffer) {
+  TRACE_SCOPED_THIS(TraceCategory::kStandaloneReceiver);
   static constexpr AVCodecID kCodecsToTry[] = {
       AV_CODEC_ID_VP8,  AV_CODEC_ID_VP9,  AV_CODEC_ID_H264,
       AV_CODEC_ID_H265, AV_CODEC_ID_OPUS, AV_CODEC_ID_FLAC,

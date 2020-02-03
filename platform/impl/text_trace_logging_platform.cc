@@ -13,7 +13,7 @@ namespace openscreen {
 bool TextTraceLoggingPlatform::IsTraceLoggingEnabled(
     TraceCategory::Value category) {
   constexpr uint64_t kAllLogCategoriesMask =
-      std::numeric_limits<uint64_t>::max();
+     std::numeric_limits<uint64_t>::max();
   return (kAllLogCategoriesMask & category) != 0;
 }
 

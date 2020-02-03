@@ -48,7 +48,10 @@
        ? openscreen::internal::ScopedTraceOperation::root_id() \
        : kEmptyTraceId)
 
-// Synchronous Trace Macro.
+// Synchronous Trace Macros.
+#define TRACE_SCOPED_THIS(category, ...) \
+  TRACE_SCOPED_INTERNAL(__LINE__, category, __PRETTY_FUNCTION__, ##__VA_ARGS__)
+
 #define TRACE_SCOPED(category, name, ...) \
   TRACE_SCOPED_INTERNAL(__LINE__, category, name, ##__VA_ARGS__)
 

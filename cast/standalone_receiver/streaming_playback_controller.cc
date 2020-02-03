@@ -12,6 +12,8 @@
 #include "cast/standalone_receiver/dummy_player.h"
 #endif  // defined(CAST_STANDALONE_RECEIVER_HAVE_EXTERNAL_LIBS)
 
+#include "util/trace_logging.h"
+
 namespace openscreen {
 namespace cast {
 
@@ -42,6 +44,7 @@ StreamingPlaybackController::StreamingPlaybackController(
 void StreamingPlaybackController::OnNegotiated(
     const ReceiverSession* session,
     ReceiverSession::ConfiguredReceivers receivers) {
+  TRACE_SCOPED_THIS(TraceCategory::kStandaloneReceiver);
 #if defined(CAST_STANDALONE_RECEIVER_HAVE_EXTERNAL_LIBS)
   if (receivers.audio) {
     audio_player_ = std::make_unique<SDLAudioPlayer>(

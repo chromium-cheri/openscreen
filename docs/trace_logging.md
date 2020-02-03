@@ -83,16 +83,21 @@ call. As with scoped traces, the result must be some Error::Code enum value.
 ## Tracing Functions
 All of the below functions rely on the Platform Layer's IsTraceLoggingEnabled()
 function. When logging is disabled, either for the specific category of trace
-logging which the Macro specifies or for TraceCategory::Any in all other caes,
+logging which the Macro specifies or for TraceCategory::Any in all other cases,
 the below functions will be treated as a NoOp.
 
 ### Synchronous Tracing
-  `TRACE_SCOPED(category, name)`
+  `TRACE_SCOPED_THIS(category)`
     If logging is enabled for the provided category, this function will trace
-    the current function until the current scope ends with name as provided.
-    When this call is used, the Trace ID Hierarchy will be determined
-    automatically and the caller does not need to worry about it and, as such,
+    the current function using its pretty macro name, until the current scope
+    ends with name as provided. When this call is used, the Trace ID Hierarchy
+    and function name will be determined automatically and the caller does not
+    need to worry about it and, as such,
     **this call should be used in the majority of synchronous tracing cases**.
+
+  `TRACE_SCOPED(category, name)`
+    Similar to TRACE_SCOPED_THIS, however the function name is manually given
+    instead of derived from the preprocessor.
 
   `TRACE_SCOPED(category, name, traceId, parentId, rootId)`
     If logging is enabled for the provided category, this function will trace
