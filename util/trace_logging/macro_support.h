@@ -44,7 +44,11 @@ namespace internal {
 
 inline bool IsTraceLoggingEnabled(TraceCategory::Value category) {
   const CurrentTracingDestination destination;
-  return destination && destination->IsTraceLoggingEnabled(category);
+  const bool is = destination && destination->IsTraceLoggingEnabled(category);
+  if (category == TraceCategory::Value::kStandaloneReceiver) {
+    assert(is);
+  }
+  return is;
 }
 
 }  // namespace internal
