@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62a16a59_73bec952",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "Suggest using an --enable-tracing command-line argument. Something like:\n\n  absl::optional\u003cTextTraceLoggingPlatform\u003e trace_logging_platform;\n  if (argc \u003e\u003d 2 \u0026\u0026 strcmp(argv[1], \"--enable-tracing\") \u003d\u003d 0) {\n    trace_logging_platform.emplace();\n  }\n\n...since some may not want the logging spam. :)",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95563c7e_7e68e3e4",
+        "filename": "cast/standalone_receiver/sdl_player_base.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "Please move the method comment to the header file.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 56
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "954f32a8_45ad5f2f",
+        "filename": "cast/standalone_receiver/sdl_player_base.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "1. Suggest passing EncodedFrame by const-ref since it only needs to be read-only.\n\n2. Only presentation_time is mutated in the PendingFrame struct, which means the 2nd argument should probably be \"Clock::time_point* presentation_time\". But, even better, this could just be a return value rather than mutate-via-pointer. So, I suggest, returning the computed presentation_time and let the caller set PendingFrame::presentation_time.\n\n3. This method has side-effects. I\u0027d suggest adjusting its name to at least hint at that.\n\nPutting it all together:\n\n  Clock::time_point ResyncAndDeterminePresentationTime(const EncodedFrame\u0026 frame);",
+      "range": {
+        "startLine": 71,
+        "startChar": 46,
+        "endLine": 72,
+        "endChar": 73
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19bd55e8_e14f3017",
+        "filename": "cast/standalone_receiver/sdl_player_base.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "Probably not worth tracing this method, since it does a few quick math operations. Nothing meaty, like a memcpy() or decode().",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 56
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f312746f_b813ec62",
+        "filename": "cast/standalone_receiver/sdl_player_base.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "Per above comment:\n\n  pending_frame.presentation_time \u003d ResyncAndDeterminePresentationTime(frame);",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 52
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0166a002_3dd5cb6b",
+        "filename": "cast/standalone_receiver/sdl_video_player.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "Trace this method too?",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 31
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c687a3a1_d94118f7",
+        "filename": "cast/standalone_receiver/streaming_playback_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "Not this CL, but eventually we should add async tracing to ReceiverSession, Receiver, and other parts of the streaming impl. For example, here, it would be great to do async tracing to expose how long the OFFER/ANSWER and receiver start-up takes: start when offer received, end once negotiation is complete and the players have been constructed.",
+      "range": {
+        "startLine": 44,
+        "startChar": 34,
+        "endLine": 44,
+        "endChar": 46
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a91e527_c98756aa",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "When I saw \"THIS,\" I thought the tracing was somehow referencing |this| from the class method. Maybe call this TRACE_SCOPED_FUNC, or some such?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 31
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0698256_f9acf125",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "s/the function name is manually given/a custom name for the operation is given/",
+      "range": {
+        "startLine": 99,
+        "startChar": 42,
+        "endLine": 99,
+        "endChar": 59
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fcf762e_182228b0",
+        "filename": "docs/trace_logging.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "It looks like this \"macro overload\" and the one below also work for TRACE_SCOPED_THIS(). Also, the documentation for each seems to have a lot of copy-and-paste (pre-existing documentation). Suggestion:\n\n  `TRACE_SCOPED(category, name)`\n  `TRACE_SCOPED(category, name, traceId, parentId, rootId)`\n  `TRACE_SCOPED(category, name, traceIdHierarchy)`\n  If logging is enabled for the provided |category|, trace the current scope. The scope\n  should encompass the operation described by |name|. The latter two uses of this macro are\n  for manually providing the trace ID hierarchy; the first auto-generates a new trace ID for\n  this scope and sets its parent trace ID to that of the encompassing scope (if any).\n\n  `TRACE_SCOPED_FUNC(category)`\n  `TRACE_SCOPED_FUNC(category, traceId, parentId, rootId)`\n  `TRACE_SCOPED_FUNC(category, traceIdHierarchy)`\n  Same as TRACE_SCOPED(), but use the current function/method signature as the operation\n  name.\n\n...might want to check that Gittiles renders this nicely (with reasonable format/whitespace/linespace/etc.), and try something else if not.",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 59
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10160ca7_d6369804",
+        "filename": "util/trace_logging/macro_support.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-03T23:07:52Z",
+      "side": 1,
+      "message": "I suspect you didn\u0027t mean to leave this \"pragmatic heuristic\" in-place?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
