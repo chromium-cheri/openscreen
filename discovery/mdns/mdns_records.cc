@@ -229,8 +229,9 @@ size_t SrvRecordRdata::MaxWireSize() const {
 
 ARecordRdata::ARecordRdata() = default;
 
-ARecordRdata::ARecordRdata(IPAddress ipv4_address)
-    : ipv4_address_(std::move(ipv4_address)) {
+ARecordRdata::ARecordRdata(IPAddress ipv4_address,
+                           NetworkInterfaceIndex network_index)
+    : ipv4_address_(std::move(ipv4_address)), network_index_(network_index) {
   OSP_CHECK(ipv4_address_.IsV4());
 }
 
@@ -243,7 +244,8 @@ ARecordRdata& ARecordRdata::operator=(const ARecordRdata& rhs) = default;
 ARecordRdata& ARecordRdata::operator=(ARecordRdata&& rhs) = default;
 
 bool ARecordRdata::operator==(const ARecordRdata& rhs) const {
-  return ipv4_address_ == rhs.ipv4_address_;
+  return ipv4_address_ == rhs.ipv4_address_ &&
+         network_index_ == rhs.network_index_;
 }
 
 bool ARecordRdata::operator!=(const ARecordRdata& rhs) const {
@@ -257,8 +259,9 @@ size_t ARecordRdata::MaxWireSize() const {
 
 AAAARecordRdata::AAAARecordRdata() = default;
 
-AAAARecordRdata::AAAARecordRdata(IPAddress ipv6_address)
-    : ipv6_address_(std::move(ipv6_address)) {
+AAAARecordRdata::AAAARecordRdata(IPAddress ipv6_address,
+                                 NetworkInterfaceIndex network_index)
+    : ipv6_address_(std::move(ipv6_address)), network_index_(network_index) {
   OSP_CHECK(ipv6_address_.IsV6());
 }
 
@@ -272,7 +275,8 @@ AAAARecordRdata& AAAARecordRdata::operator=(const AAAARecordRdata& rhs) =
 AAAARecordRdata& AAAARecordRdata::operator=(AAAARecordRdata&& rhs) = default;
 
 bool AAAARecordRdata::operator==(const AAAARecordRdata& rhs) const {
-  return ipv6_address_ == rhs.ipv6_address_;
+  return ipv6_address_ == rhs.ipv6_address_ &&
+         network_index_ == rhs.network_index_;
 }
 
 bool AAAARecordRdata::operator!=(const AAAARecordRdata& rhs) const {
