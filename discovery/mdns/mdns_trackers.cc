@@ -55,10 +55,14 @@ MdnsTracker::MdnsTracker(MdnsSender* sender,
       now_function_(now_function),
       send_alarm_(now_function, task_runner),
       random_delay_(random_delay) {
-  OSP_DCHECK(task_runner);
-  OSP_DCHECK(now_function);
-  OSP_DCHECK(random_delay);
-  OSP_DCHECK(sender);
+  OSP_DCHECK(task_runner_);
+  OSP_DCHECK(now_function_);
+  OSP_DCHECK(random_delay_);
+  OSP_DCHECK(sender_);
+}
+
+MdnsTracker::~MdnsTracker() {
+  send_alarm_.Cancel();
 }
 
 MdnsRecordTracker::MdnsRecordTracker(
@@ -75,6 +79,12 @@ MdnsRecordTracker::MdnsRecordTracker(
   OSP_DCHECK(record_expired_callback);
 
   send_alarm_.Schedule([this] { SendQuery(); }, GetNextSendTime());
+}
+
+MdnsRecordTracker::~MdnsRecordTracker() {
+  for (auto* query : associated_questions_) {
+    query->RemoveAssociatedRecord(this, false);
+  }
 }
 
 ErrorOr<MdnsRecordTracker::UpdateType> MdnsRecordTracker::Update(
@@ -99,8 +109,8 @@ ErrorOr<MdnsRecordTracker::UpdateType> MdnsRecordTracker::Update(
                          new_record.dns_class(), new_record.record_type(),
                          kGoodbyeRecordTtl, new_record.rdata());
 
-    // Goodbye records do not need to be requeried, set the attempt count to the
-    // last item, which is 100% of TTL, i.e. record expiration.
+    // Goodbye records do not need to be re-queried, set the attempt count to
+    // the last item, which is 100% of TTL, i.e. record expiration.
     attempt_count_ = countof(kTtlFractions) - 1;
   } else {
     record_ = new_record;
@@ -114,6 +124,54 @@ ErrorOr<MdnsRecordTracker::UpdateType> MdnsRecordTracker::Update(
   return result;
 }
 
+bool MdnsRecordTracker::AddAssociatedQuery(
+    MdnsQuestionTracker* question_tracker) {
+  return AddAssociatedQuery(question_tracker, true);
+}
+
+bool MdnsRecordTracker::RemoveAssociatedQuery(
+    MdnsQuestionTracker* question_tracker) {
+  return RemoveAssociatedQuery(question_tracker, true);
+}
+
+bool MdnsRecordTracker::AddAssociatedQuery(
+    MdnsQuestionTracker* question_tracker,
+    bool update_query) {
+  OSP_DCHECK(question_tracker);
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  auto it = std::find(associated_questions_.begin(),
+                      associated_questions_.end(), question_tracker);
+  if (it != associated_questions_.end()) {
+    return false;
+  }
+
+  if (update_query) {
+    question_tracker->AddAssociatedRecord(this, false);
+  }
+  associated_questions_.push_back(question_tracker);
+  return true;
+}
+
+bool MdnsRecordTracker::RemoveAssociatedQuery(
+    MdnsQuestionTracker* question_tracker,
+    bool update_query) {
+  OSP_DCHECK(question_tracker);
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  auto it = std::find(associated_questions_.begin(),
+                      associated_questions_.end(), question_tracker);
+  if (it == associated_questions_.end()) {
+    return false;
+  }
+
+  if (update_query) {
+    question_tracker->RemoveAssociatedRecord(this, false);
+  }
+  associated_questions_.erase(it);
+  return true;
+}
+
 void MdnsRecordTracker::ExpireSoon() {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
@@ -122,7 +180,7 @@ void MdnsRecordTracker::ExpireSoon() {
                  record_.record_type(), kGoodbyeRecordTtl, record_.rdata());
 
   // Set the attempt count to the last item, which is 100% of TTL, i.e. record
-  // expiration, to prevent any requeries
+  // expiration, to prevent any re-queries
   attempt_count_ = countof(kTtlFractions) - 1;
   start_time_ = now_function_();
   send_alarm_.Schedule([this] { SendQuery(); }, GetNextSendTime());
@@ -136,11 +194,9 @@ void MdnsRecordTracker::SendQuery() {
   const Clock::time_point expiration_time = start_time_ + record_.ttl();
   const bool is_expired = (now_function_() >= expiration_time);
   if (!is_expired) {
-    MdnsQuestion question(record_.name(), record_.dns_type(),
-                          record_.dns_class(), ResponseType::kMulticast);
-    MdnsMessage message(CreateMessageId(), MessageType::Query);
-    message.AddQuestion(std::move(question));
-    sender_->SendMulticast(message);
+    for (MdnsQuestionTracker* query : associated_questions_) {
+      query->SendQuery(true);
+    }
     send_alarm_.Schedule([this] { MdnsRecordTracker::SendQuery(); },
                          GetNextSendTime());
   } else {
@@ -164,31 +220,108 @@ Clock::time_point MdnsRecordTracker::GetNextSendTime() {
 }
 
 MdnsQuestionTracker::MdnsQuestionTracker(MdnsQuestion question,
-                                         KnownAnswerQuery query,
                                          MdnsSender* sender,
                                          TaskRunner* task_runner,
                                          ClockNowFunctionPtr now_function,
-                                         MdnsRandom* random_delay)
+                                         MdnsRandom* random_delay,
+                                         bool is_one_shot_query)
     : MdnsTracker(sender, task_runner, now_function, random_delay),
       question_(std::move(question)),
       send_delay_(kMinimumQueryInterval),
-      known_answer_query_(query) {
+      is_one_shot_query_(is_one_shot_query) {
+  // Initialize the last send time to time_point::min() so that the next call to
+  // SendQuery() is guaranteed to query the network.
+  last_send_time_ = TrivialClockTraits::time_point::min();
+
   // The initial query has to be sent after a random delay of 20-120
   // milliseconds.
-  send_alarm_.ScheduleFromNow([this] { MdnsQuestionTracker::SendQuery(); },
-                              random_delay_->GetInitialQueryDelay());
+  if (is_one_shot_query) {
+    task_runner_->PostTask([this] { MdnsQuestionTracker::SendQuery(false); });
+  } else {
+    send_alarm_.ScheduleFromNow(
+        [this] { MdnsQuestionTracker::SendQuery(false); },
+        random_delay_->GetInitialQueryDelay());
+  }
 }
 
-void MdnsQuestionTracker::SendQuery() {
+MdnsQuestionTracker::~MdnsQuestionTracker() {
+  for (auto* record : associated_records_) {
+    record->RemoveAssociatedQuery(this, false);
+  }
+}
+
+bool MdnsQuestionTracker::AddAssociatedRecord(
+    MdnsRecordTracker* record_tracker) {
+  return AddAssociatedRecord(record_tracker, true);
+}
+
+bool MdnsQuestionTracker::RemoveAssociatedRecord(
+    MdnsRecordTracker* record_tracker) {
+  return RemoveAssociatedRecord(record_tracker, true);
+}
+
+bool MdnsQuestionTracker::AddAssociatedRecord(MdnsRecordTracker* record_tracker,
+                                              bool updated_query) {
+  OSP_DCHECK(record_tracker);
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  auto it = std::find(associated_records_.begin(), associated_records_.end(),
+                      record_tracker);
+  if (it != associated_records_.end()) {
+    return false;
+  }
+
+  if (updated_query) {
+    record_tracker->AddAssociatedQuery(this, false);
+  }
+  associated_records_.push_back(record_tracker);
+  return true;
+}
+
+bool MdnsQuestionTracker::RemoveAssociatedRecord(
+    MdnsRecordTracker* record_tracker,
+    bool updated_query) {
+  OSP_DCHECK(record_tracker);
+  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  auto it = std::find(associated_records_.begin(), associated_records_.end(),
+                      record_tracker);
+  if (it == associated_records_.end()) {
+    return false;
+  }
+
+  if (updated_query) {
+    record_tracker->RemoveAssociatedQuery(this, false);
+  }
+  associated_records_.erase(it);
+  return true;
+}
+
+void MdnsQuestionTracker::SendQuery(bool is_on_demand_query) {
+  // NOTE: The RFC does not specify the minimum interval between queries for
+  // multiple records of the same query when initiated for different reasons
+  // (such as for different record refreshes or for one record refresh and the
+  // periodic re-querying for a continuous query). For this reason, a constant
+  // outside of scope of the RFC has been chosen.
+  TrivialClockTraits::time_point now = now_function_();
+  if (now < last_send_time_ + kMinimumQueryInterval) {
+    return;
+  }
+  last_send_time_ = now;
+
   MdnsMessage message(CreateMessageId(), MessageType::Query);
   message.AddQuestion(question_);
 
   // Send the message and additional known answer packets as needed.
-  std::vector<MdnsRecord::ConstRef> known_answers = known_answer_query_(
-      question_.name(), question_.dns_type(), question_.dns_class());
-  for (auto it = known_answers.begin(); it != known_answers.end();) {
-    if (message.CanAddRecord(*it)) {
-      message.AddAnswer(std::move(*it++));
+  for (auto it = associated_records_.begin();
+       it != associated_records_.end();) {
+    if ((*it)->IsNearingExpiry()) {
+      it++;
+      continue;
+    }
+
+    if (message.CanAddRecord((*it)->record())) {
+      message.AddAnswer((*it++)->record());
     } else if (message.questions().empty() && message.answers().empty()) {
       // This case should never happen, because it means a record is too large
       // to fit into its own message.
@@ -204,11 +337,13 @@ void MdnsQuestionTracker::SendQuery() {
   sender_->SendMulticast(message);
 
   // Reschedule this task to run again per FRC spec.
-  send_alarm_.ScheduleFromNow([this] { MdnsQuestionTracker::SendQuery(); },
-                              send_delay_);
-  send_delay_ = send_delay_ * kIntervalIncreaseFactor;
-  if (send_delay_ > kMaximumQueryInterval) {
-    send_delay_ = kMaximumQueryInterval;
+  if (!is_on_demand_query && !is_one_shot_query_) {
+    send_alarm_.ScheduleFromNow(
+        [this] { MdnsQuestionTracker::SendQuery(false); }, send_delay_);
+    send_delay_ = send_delay_ * kIntervalIncreaseFactor;
+    if (send_delay_ > kMaximumQueryInterval) {
+      send_delay_ = kMaximumQueryInterval;
+    }
   }
 }
 
