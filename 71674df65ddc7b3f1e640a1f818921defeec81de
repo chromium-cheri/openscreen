@@ -16,6 +16,24 @@
       "revId": "71674df65ddc7b3f1e640a1f818921defeec81de",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42357e94_6863cc13",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T18:46:05Z",
+      "side": 1,
+      "message": "\u003e Nit: Maybe interface_index, or if_index for short.\n\nDone\n\n\u003e Is zero always a valid value for it?\n\nI\u0027d have to check, but I\u0027d suspect it depends on the machine\nThis value will have no effect until it\u0027s plumbed through the mDNS layer though (at which time the default value will be removed entirely). It is only defaulted so that the existing mDNS code can be left as-is for the moment, to keep this change minimal, and will not be left this way long term",
+      "parentUuid": "71884b39_74ac8c8c",
+      "revId": "71674df65ddc7b3f1e640a1f818921defeec81de",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
