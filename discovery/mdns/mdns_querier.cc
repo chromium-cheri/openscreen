@@ -371,24 +371,46 @@ void MdnsQuerier::ProcessCallbacks(const MdnsRecord& record,
 }
 
 void MdnsQuerier::AddQuestion(const MdnsQuestion& question) {
-  const MdnsQuestionTracker::KnownAnswerQuery query(
-      [this](const DomainName& name, DnsType type, DnsClass clazz) {
-        return GetKnownAnswers(name, type, clazz);
-      });
-  questions_.emplace(question.name(),
-                     std::make_unique<MdnsQuestionTracker>(
-                         std::move(question), query, sender_, task_runner_,
-                         now_function_, random_delay_));
+  std::unique_ptr<MdnsQuestionTracker> tracker =
+      std::make_unique<MdnsQuestionTracker>(std::move(question), sender_,
+                                            task_runner_, now_function_,
+                                            random_delay_);
+  MdnsQuestionTracker* ptr = tracker.get();
+  questions_.emplace(question.name(), std::move(tracker));
+
+  auto records_it = records_.equal_range(question.name());
+  for (auto entry = records_it.first; entry != records_it.second; ++entry) {
+    const MdnsRecord& record = entry->second->record();
+    if ((question.dns_type() == DnsType::kANY ||
+         question.dns_type() == record.dns_type()) &&
+        (question.dns_class() == DnsClass::kANY ||
+         question.dns_class() == record.dns_class())) {
+      entry->second->AddAssociatedQuery(ptr);
+    }
+  }
 }
 
 void MdnsQuerier::AddRecord(const MdnsRecord& record) {
   auto expiration_callback = [this](const MdnsRecord& record) {
     MdnsQuerier::OnRecordExpired(record);
   };
-  records_.emplace(record.name(),
-                   std::make_unique<MdnsRecordTracker>(
-                       std::move(record), sender_, task_runner_, now_function_,
-                       random_delay_, expiration_callback));
+
+  auto tracker = std::make_unique<MdnsRecordTracker>(
+      std::move(record), sender_, task_runner_, now_function_, random_delay_,
+      expiration_callback);
+  auto ptr = tracker.get();
+  records_.emplace(record.name(), std::move(tracker));
+
+  auto query_it = questions_.equal_range(record.name());
+  for (auto entry = query_it.first; entry != query_it.second; ++entry) {
+    const MdnsQuestion& query = entry->second->question();
+    if ((record.dns_type() == DnsType::kANY ||
+         record.dns_type() == query.dns_type()) &&
+        (record.dns_class() == DnsClass::kANY ||
+         record.dns_class() == query.dns_class())) {
+      entry->second->AddAssociatedRecord(ptr);
+    }
+  }
 }
 
 std::vector<MdnsRecord::ConstRef> MdnsQuerier::GetKnownAnswers(
