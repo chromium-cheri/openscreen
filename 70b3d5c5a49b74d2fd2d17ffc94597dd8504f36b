@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ce9989c_e97e95b6",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b58246c9_ea0fbb4a",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1b01d74_142a64a9",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe40394_4ac5e8a0",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1b01d74_142a64a9",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "980081f4_a68ac793",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "Done\n\nThis is a pointer to data in a unique_ptr owned by this class, so it should never get invalidated. The only case where it can is when the underlying pointed-to objects get deleted, but that object\u0027s dtor removed itself from all assocaited records.",
+      "parentUuid": "33ae4fb7_7975e110",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e2ff064_c2c70129",
         "filename": "discovery/mdns/mdns_trackers.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "539c62ab_5c19d8e0",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e2ff064_c2c70129",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2d813852_d1170cae",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2b824ef_daa97a63",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "decd7084_d543f6cf",
         "filename": "discovery/mdns/mdns_trackers.h",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2020-02-04T19:34:07Z",
       "side": 1,
       "message": "A: Consider: I\u0027m not a huge fan of the friend class set up here. Maybe overkill, but all you care about is that this has an associate, right? Not anything about it? Separate the classes more by doing the following:\n\nclass Associate {\n    virtual bool AddAssociate(Associate*, bool updated) \u003d 0;\n    virtual bool RemoveAssociate(Associate* bool updated) \u003d 0;\n}\n\n    MdnsQuestionTracker : public Associate\n    MdnsRecordTracer : public Associate\n\n\nB: Also, I gotta hate on the bool parameters situation again. It looks like we use it to turn off updating the associated class when we call it from the associated class? 1. It\u0027s not obvious to me that if I call this with a question_tracker it will update the question_tracker as well, and 2. the flow is weird to me.\n\nConsider just changing to this:\n\nbool AddAssociatedQuestion(const MdnsQuestionTracker\u0026 question_tracker);\nbool RemoveAssociatedQuestion(const MdnsQuestionTracker\u0026 question_tracker);\n\nI would prefer object equivalence if possible, or just const void* parameter if you want to just store the memory address (but I\u0027m less crazy about that).\n\nAnd make it the caller\u0027s job to separately update question_tracker.",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0b5ef81_8846d6c1",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "What\u0027s happening here is that we are creating a bidirectional bipartite graph. When we add a node B to the adjacency list of A, we need to add A to B\u0027s adjacency list as-well.\nThink this would actually make a good interview question - going to have to remember it 😊\n\n\u003e I\u0027m not a huge fan of the friend class set up here [...] Separate the classes more by doing the following:\n\nDid similar by using shared base class.\n\nThough now it needs a static_cast\u003c...\u003e call. I\u0027ve added documentation why this call is safe, but let me know what you think - it\u0027s not super pretty, but I think it\u0027s clearer this way.\n\n\u003e also, I gotta hate on the bool parameters\n\nsplit into 2 methods. A bit of duplicated code, but should be clearer. PTAL\n\n\u003e It\u0027s not obvious to me that if I call this with a question_tracker it will update the question_tracker as well,\n\nI\u0027ve added documentation and updated names to be more graph-like. PTAL\n\n\u003e And make it the caller\u0027s job to separately update question_tracker.\n\nThis is dangerous. It essentially means that it\u0027s possible for our bipartite graph to become directional, which breaks the algorithms being used here.\n\nIt\u0027s easy to forget to call one or the other which won\u0027t show up until one of the objects gets destroyed and the other isn\u0027t informed correctly. This case is very hard to validate in Unit Tests, and we could very easily have bugs that don\u0027t show up until production (not to mention debugging \u0027segmanetation fault\u0027 in tens of thousands of lines of discovery code is hard)",
+      "parentUuid": "decd7084_d543f6cf",
       "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "ce207de4_88dff2bf",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "Removed per previous comment.",
+      "parentUuid": "4f1425ca_b8a2f1de",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66b2c274_6d7d0b9b",
         "filename": "discovery/mdns/mdns_trackers.h",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41222e08_359f5533",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66b2c274_6d7d0b9b",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "57d813ec_45541070",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "207a134e_e2485f19",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "916d523a_f361d6dc",
         "filename": "discovery/mdns/mdns_trackers_unittest.cc",
         "patchSetId": 2
@@ -169,6 +331,24 @@
       "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2500d233_b7505941",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T22:26:48Z",
+      "side": 1,
+      "message": "It\u0027s to ensure that it doesn\u0027t get called twice (if it somehow got scheduled again). ie that the one shot part is respected",
+      "parentUuid": "916d523a_f361d6dc",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
