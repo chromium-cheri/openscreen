@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "facbcd60_443d7855",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T18:38:44Z",
+      "side": 1,
+      "message": "Currently, we already support a command line argument for tracing :)\n\n--args\u003d\"enable_trace_logging\" defaults to false, and if it\u0027s false no trace logs are generated",
+      "parentUuid": "62a16a59_73bec952",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95563c7e_7e68e3e4",
         "filename": "cast/standalone_receiver/sdl_player_base.cc",
         "patchSetId": 2
@@ -232,6 +256,52 @@
     },
     {
       "key": {
+        "uuid": "29c04aef_ec4e991d",
+        "filename": "util/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T18:38:44Z",
+      "side": 1,
+      "message": "I see why it needs to be a separate macro call from below, but I feel like TRACE_SCOPED_THIS is a bit confusing of a name. Maybe TRACE_SCOPED_DEFAULT/DEF or TRACE_UNNAMED_SCOPED/TRACE_SCOPED_UNNAMED. WDYT?\n\nIMHO putting the new word between TRACE and SCOPED is clearer in the context of the below names, but not a strong opinion",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f55823a_35b5d43c",
+        "filename": "util/trace_logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T18:38:44Z",
+      "side": 1,
+      "message": "IMHO it would be clearer to call TRACE_SCOPED(category, __PRETTY_FUNCTION__)",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 79
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10160ca7_d6369804",
         "filename": "util/trace_logging/macro_support.h",
         "patchSetId": 2
@@ -252,6 +322,52 @@
       "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11004477_ac6d4070",
+        "filename": "util/trace_logging_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T18:38:44Z",
+      "side": 1,
+      "message": "I\u0027d personally prefer this test for TRACE_SCOPED_THIS as a separate UT just to be careful",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 1
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30041646_4c9b7c09",
+        "filename": "util/trace_logging_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-04T18:38:44Z",
+      "side": 1,
+      "message": "Good catch!",
+      "range": {
+        "startLine": 237,
+        "startChar": 23,
+        "endLine": 237,
+        "endChar": 53
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
