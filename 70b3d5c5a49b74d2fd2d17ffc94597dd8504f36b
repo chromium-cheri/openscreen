@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b58246c9_ea0fbb4a",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "Nit: auto type is appropriate here for make_unique IMO.",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b01d74_142a64a9",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "Nit: can you break up this conditional?\n\nIt\u0027s basically: (type is any or type is the right type) and (class is any or class is the right type).\n\nmaybe\n\nconst bool is_right_type \u003d foo\nconst bool is_right_class \u003d bar\nif (is_right_type \u0026\u0026 is_right_class) {\n\nOr better yet, since you do this multiple places:\n\nbool RecordMatchesQueryOrAny(const\u0026 record, const\u0026 query)",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33ae4fb7_7975e110",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "Do we have a way of knowing if the raw pointer here gets invalidated? Add a comment of why its safe would be good.",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e2ff064_c2c70129",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "Nit: Not a big fan of the bool, but I don\u0027t think it\u0027s worth it to refactor into two separate classes to avoid it. \n\nI would consider changing to a enum of QueryType.",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2b824ef_daa97a63",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "I would prefer to split into two methods here. is_on_demand_query is used to turn off scheduling a query after send_delay, right? Why not have the caller do:\n\nSendQuery\n\nand then if they want to,\n\nScheduleFollowupQuery\n\nIf you end up doing it a lot, you could always have\n\nSendQuery\nSendQueryAndScheduleFollowup",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "decd7084_d543f6cf",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "A: Consider: I\u0027m not a huge fan of the friend class set up here. Maybe overkill, but all you care about is that this has an associate, right? Not anything about it? Separate the classes more by doing the following:\n\nclass Associate {\n    virtual bool AddAssociate(Associate*, bool updated) \u003d 0;\n    virtual bool RemoveAssociate(Associate* bool updated) \u003d 0;\n}\n\n    MdnsQuestionTracker : public Associate\n    MdnsRecordTracer : public Associate\n\n\nB: Also, I gotta hate on the bool parameters situation again. It looks like we use it to turn off updating the associated class when we call it from the associated class? 1. It\u0027s not obvious to me that if I call this with a question_tracker it will update the question_tracker as well, and 2. the flow is weird to me.\n\nConsider just changing to this:\n\nbool AddAssociatedQuestion(const MdnsQuestionTracker\u0026 question_tracker);\nbool RemoveAssociatedQuestion(const MdnsQuestionTracker\u0026 question_tracker);\n\nI would prefer object equivalence if possible, or just const void* parameter if you want to just store the memory address (but I\u0027m less crazy about that).\n\nAnd make it the caller\u0027s job to separately update question_tracker.",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f1425ca_b8a2f1de",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "Comment is flipped with line 95?",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66b2c274_6d7d0b9b",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "can be const?",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "207a134e_e2485f19",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "++ for refactoring out the bool, it\u0027s non-obvious what it means here.",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "916d523a_f361d6dc",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-04T19:34:07Z",
+      "side": 1,
+      "message": "Just curious, seems like it\u0027s always two seconds?",
+      "revId": "70b3d5c5a49b74d2fd2d17ffc94597dd8504f36b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
