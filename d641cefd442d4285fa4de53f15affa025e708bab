@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65cd1758_f0556ca5",
+        "filename": "BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-04T19:22:55Z",
+      "side": 1,
+      "message": "Can this be built from a Chromium checkout?",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48f0e95c_11783fcb",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-04T19:22:55Z",
+      "side": 1,
+      "message": "This can be omitted if empty.",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b412f84_b5b86b3c",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-04T19:22:55Z",
+      "side": 1,
+      "message": "This doesn\u0027t totally make sense for an executable target.  public_deps allow targets to propagate configs, but nothing depends on discovery_demo and it\u0027s not going to be compiled or linked with anything else.\n\nI would just use deps here.",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328805a3_0c73a430",
+        "filename": "cast/common/discovery/demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-04T19:22:55Z",
+      "side": 1,
+      "message": "Can the names be more specific to avoid having a Publisher object that owns a Publisher?",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "848e52de_301037b5",
+        "filename": "cast/common/discovery/demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-04T19:22:55Z",
+      "side": 1,
+      "message": "Use platform/api/logging macros?",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97d6fee7_c829c5c6",
+        "filename": "cast/common/discovery/demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-04T19:22:55Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you return the error below?",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcdecaad_75db416c",
+        "filename": "cast/common/discovery/demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-04T19:22:55Z",
+      "side": 1,
+      "message": "Can you be consistent about logging errors from the publisher_ (or not).",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
