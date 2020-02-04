@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aac70d4_f21b5d7a",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-04T21:47:04Z",
+      "side": 1,
+      "message": "nit: couldn\u0027t this just be std::find(kSupportedDnsTypes.begin(), kSupportedDnsTypes.end(), static_cast\u003cDnsType\u003e(to_parse))?",
+      "revId": "0ed49a6c6bdc253a7536596a698e3168745bc64b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c90a313_bb4d22b7",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-04T21:47:04Z",
+      "side": 1,
+      "message": "nit: unnecessary, here and below",
+      "revId": "0ed49a6c6bdc253a7536596a698e3168745bc64b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b8e38db_4276dee9",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-04T21:47:04Z",
+      "side": 1,
+      "message": "nit: I\u0027d rather |bitmap| just be local to the loop body than init to empty and explicit clear on each iteration, but it definitely accomplishes the same thing.",
+      "revId": "0ed49a6c6bdc253a7536596a698e3168745bc64b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbba2766_4f3a6027",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-04T21:47:04Z",
+      "side": 1,
+      "message": "\u003c\u003c 8",
+      "revId": "0ed49a6c6bdc253a7536596a698e3168745bc64b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a33dca0_17b2a0ed",
+        "filename": "discovery/mdns/mdns_reader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-04T21:47:04Z",
+      "side": 1,
+      "message": "I\u0027d prefer this to be `uint8_t* bitmap` and then `Skip(bitmap_length)` rather than a copy loop.",
+      "revId": "0ed49a6c6bdc253a7536596a698e3168745bc64b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
