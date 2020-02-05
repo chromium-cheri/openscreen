@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f7fbb897_d6347f9e",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-05T21:36:05Z",
+      "side": 1,
+      "message": "It depends on what you mean by \"it\".  For users, I could imagine providing a script that takes a binary out/something/foo and automatically pulls the options from out/something/foo.options then runs the correct command line.  I\u0027m open to that, although then we need to tell people to run the fuzzer via the script and not directly, which could still be confusing.  We could also go further and define the GN targets such that the binary gets named like foo_ and we write out the aforementioned script into foo.  That seems too convoluted.  For bots, well we don\u0027t have a fuzzing bot but I imagine we\u0027re just going to try to piggy-back on ClusterFuzz? (which would do it for us)",
+      "parentUuid": "b8210645_2d3b3f69",
+      "revId": "f341e7303d0df9691b2a40b35e259857e63d5de6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ba65f1c_6f4a7287",
         "filename": "cast/common/channel/message_framer.h",
         "patchSetId": 2
