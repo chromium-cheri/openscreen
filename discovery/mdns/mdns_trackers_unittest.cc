@@ -91,10 +91,18 @@ class MdnsTrackerTest : public testing::Test {
   }
 
   std::unique_ptr<MdnsRecordTracker> CreateRecordTracker(
-      const MdnsRecord& record) {
+      const MdnsRecord& record,
+      DnsType type) {
     return std::make_unique<MdnsRecordTracker>(
-        record, &sender_, &task_runner_, &FakeClock::now, &random_,
-        [this](const MdnsRecord& record) { expiration_called_ = true; });
+        record, type, &sender_, &task_runner_, &FakeClock::now, &random_,
+        [this](MdnsRecordTracker* tracker, const MdnsRecord& record) {
+          expiration_called_ = true;
+        });
+  }
+
+  std::unique_ptr<MdnsRecordTracker> CreateRecordTracker(
+      const MdnsRecord& record) {
+    return CreateRecordTracker(record, record.dns_type());
   }
 
   std::unique_ptr<MdnsQuestionTracker> CreateQuestionTracker(
@@ -117,6 +125,10 @@ class MdnsTrackerTest : public testing::Test {
       time_passed = time_till_refresh;
       clock_.Advance(delta);
     }
+  }
+
+  const MdnsRecord& GetRecord(MdnsRecordTracker* tracker) {
+    return tracker->record();
   }
 
   // clang-format off
@@ -173,7 +185,7 @@ class MdnsTrackerTest : public testing::Test {
 
 TEST_F(MdnsTrackerTest, RecordTrackerRecordAccessor) {
   std::unique_ptr<MdnsRecordTracker> tracker = CreateRecordTracker(a_record_);
-  EXPECT_EQ(tracker->record(), a_record_);
+  EXPECT_EQ(GetRecord(tracker.get()), a_record_);
 }
 
 TEST_F(MdnsTrackerTest, RecordTrackerQueryAfterDelayPerQuestionTracker) {
