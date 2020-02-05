@@ -5,6 +5,7 @@
 #ifndef CAST_STREAMING_PACKET_UTIL_H_
 #define CAST_STREAMING_PACKET_UTIL_H_
 
+#include <string>
 #include <utility>
 
 #include "absl/types/span.h"
@@ -55,6 +56,11 @@ inline absl::Span<uint8_t> ReserveSpace(int num_bytes,
 enum class ApparentPacketType { UNKNOWN, RTP, RTCP };
 std::pair<ApparentPacketType, Ssrc> InspectPacketForRouting(
     absl::Span<const uint8_t> packet);
+
+// Returns a hex dump of the given |packet|, limited to its first 96 bytes
+// (i.e., the output can be up to 96*2=192 hex chars).
+std::string PartialHexDump(absl::Span<const uint8_t> packet);
+constexpr int kMaxPartiaHexDumpSize = 96;
 
 }  // namespace cast
 }  // namespace openscreen

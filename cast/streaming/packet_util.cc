@@ -4,6 +4,10 @@
 
 #include "cast/streaming/packet_util.h"
 
+#include <algorithm>
+#include <iomanip>
+#include <sstream>
+
 #include "cast/streaming/rtcp_common.h"
 #include "cast/streaming/rtp_defines.h"
 
@@ -36,6 +40,16 @@ std::pair<ApparentPacketType, Ssrc> InspectPacketForRouting(
   }
 
   return std::make_pair(ApparentPacketType::UNKNOWN, Ssrc{0});
+}
+
+std::string PartialHexDump(absl::Span<const uint8_t> packet) {
+  std::ostringstream hex_dump;
+  hex_dump << std::setfill('0') << std::hex;
+  for (int i = 0, len = std::min<int>(packet.size(), kMaxPartiaHexDumpSize);
+       i < len; ++i) {
+    hex_dump << std::setw(2) << static_cast<int>(packet[i]);
+  }
+  return hex_dump.str();
 }
 
 }  // namespace cast

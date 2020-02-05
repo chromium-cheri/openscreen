@@ -180,6 +180,31 @@ TEST(PacketUtilTest, InspectsGarbagePacket) {
   EXPECT_EQ(ApparentPacketType::UNKNOWN, result.first);
 }
 
+// Tests the packet hexdump utility function.
+TEST(PacketUtilTest, ProducesHexDumps) {
+  // It should produce an empty string if the input packet is empty.
+  EXPECT_EQ("", PartialHexDump({}));
+
+  // It should produce the expected hex string for input packets smaller than
+  // kMaxPartiaHexDumpSize.
+  const uint8_t kSmallPacket[] = "Hello world!";
+  const char kSmallPacketInHex[] = "48656c6c6f20776f726c642100";
+  EXPECT_EQ(kSmallPacketInHex, PartialHexDump(kSmallPacket));
+
+  // It should produce the expected hex string for the first
+  // kMaxPartiaHexDumpSize bytes in a large input packet.
+  std::vector<uint8_t> packet(std::begin(kSmallPacket), std::end(kSmallPacket));
+  std::string packet_in_hex(kSmallPacketInHex);
+  while (static_cast<int>(packet.size()) < kMaxPartiaHexDumpSize) {
+    packet.insert(packet.end(), std::begin(kSmallPacket),
+                  std::end(kSmallPacket));
+    packet_in_hex += kSmallPacketInHex;
+  }
+  constexpr int kHexCharsPerByte = 2;
+  EXPECT_EQ(packet_in_hex.substr(0, kMaxPartiaHexDumpSize * kHexCharsPerByte),
+            PartialHexDump(packet));
+}
+
 }  // namespace
 }  // namespace cast
 }  // namespace openscreen
