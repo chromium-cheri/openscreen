@@ -118,6 +118,7 @@ bool Decoder::Initialize() {
     return false;
   }
 
+  context_->thread_count = 4;
   const int open_result = avcodec_open2(context_.get(), codec_, nullptr);
   if (open_result < 0) {
     HandleInitializationError("failed to open codec", open_result);
