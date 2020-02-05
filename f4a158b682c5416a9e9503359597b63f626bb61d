@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5fe7b5f3_824c49fd",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-05T23:27:29Z",
+      "side": 1,
+      "message": "There\u0027s two different \"enablings\" here:\n\n1. Building-in support for trace logging. This is currently done via build/config/features.h. There\u0027s a TODO in there stating the header needs to be built from GN args (same strategy Chromium uses to solve this problem). I forgot to finish this...I\u0027ll get right on it.\n\n2. Enabling at runtime: Turning it on or off dynamically, generally via the command line.\n\nMy original comment was referring to #2.",
+      "parentUuid": "cab9266c_1d429dcd",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "f4a158b682c5416a9e9503359597b63f626bb61d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95563c7e_7e68e3e4",
         "filename": "cast/standalone_receiver/sdl_player_base.cc",
         "patchSetId": 2
