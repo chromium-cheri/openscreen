@@ -6,6 +6,7 @@
 
 #include <chrono>
 #include <sstream>
+#include <thread>
 
 #include "absl/types/span.h"
 #include "cast/standalone_receiver/avcodec_glue.h"
@@ -29,7 +30,7 @@ SDLPlayerBase::SDLPlayerBase(ClockNowFunctionPtr now_function,
       receiver_(receiver),
       error_callback_(std::move(error_callback)),
       media_type_(media_type),
-      decoder_(codec_name),
+      decoder_(task_runner, codec_name),
       decode_alarm_(now_, task_runner),
       render_alarm_(now_, task_runner),
       presentation_alarm_(now_, task_runner) {
@@ -111,6 +112,9 @@ void SDLPlayerBase::OnFramesReady(int buffer_size) {
   // Start decoding the frame. This call may synchronously call back into the
   // AVCodecDecoder::Client methods in this class.
   decoder_.Decode(frame.frame_id, buffer_);
+
+  std::thread decode_thread(
+      [this, id = frame.frame_id] { decoder_.Decode(id, buffer_); })
 }
 
 void SDLPlayerBase::OnFrameDecoded(FrameId frame_id, const AVFrame& frame) {

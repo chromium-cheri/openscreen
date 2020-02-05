@@ -36,8 +36,9 @@ absl::Span<uint8_t> Decoder::Buffer::GetSpan() {
 Decoder::Client::Client() = default;
 Decoder::Client::~Client() = default;
 
-Decoder::Decoder(const std::string& codec_name) : codec_name_(codec_name) {}
-
+Decoder::Decoder(openscreen::TaskRunner* task_runner,
+                 const std::string& codec_name)
+    : task_runner_(task_runner), codec_name_(codec_name) {}
 Decoder::~Decoder() = default;
 
 void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
@@ -86,7 +87,10 @@ void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
       return;
     }
     if (client_) {
-      client_->OnFrameDecoded(decoded_frame_id, *decoded_frame_);
+      task_runner_->PostTask(
+          [this, decoded_frame_id, f{std::move(decoded_frame_)}] {
+            client_->OnFrameDecoded(decoded_frame_id, *f);
+          });
     }
     av_frame_unref(decoded_frame_.get());
   }
@@ -189,10 +193,13 @@ void Decoder::OnError(const char* what, int av_errnum, FrameId frame_id) {
     case AVERROR_EOF:
     case AVERROR(EINVAL):
     case AVERROR(ENOMEM):
-      client_->OnFatalError(error.str());
+      task_runner_->PostTask(
+          [this, e{error.str()}] { client_->OnFatalError(e); });
       break;
     default:
-      client_->OnDecodeError(frame_id, error.str());
+      task_runner_->PostTask([this, frame_id, e{error.str()}] {
+        client_->OnDecodeError(frame_id, e);
+      });
       break;
   }
 }
