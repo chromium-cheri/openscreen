@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4e252ff_ed115d0f",
+        "filename": "cast/streaming/packet_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "This code is almost identical to AesHexBytesToString, can we refactor to only have one uint8_t array to std::string method?",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62bdb57d_df26953f",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "Would we ever want to send two RTCP packets from one sender in a single burst?",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb3e54aa_4c7b4559",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "Why does a burst have to be less than one second? Can you link a spec or similar?",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a636307b_5960bb66",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "NIT: return std::max(max_packets_per_second / bursts_per_second, 1)?",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeb587ce_29889f97",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "I don\u0027t understand why these are needed, aren\u0027t they initialized in the header?",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5b3f3e2_f45d0575",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "%s/lager/larger/g",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef0139c_76d10aa3",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "If it\u0027s meant to be sent immediately, why does the caller have to determine the send time?",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45650554_09110bbe",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "I\u0027d prefer no commented out code here, if anything put as suggestions in the CRBUG.",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195b9155_248f8810",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "%s/Chromium/Chrome. Chromium is the project, Chrome is the product. I\u0027ve been corrected on this numerous times now ;P",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb9a0a38_61b45374",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "Is this constant useful in other areas in streaming? Curious if it should be here, in the platform headers, in the constants.h or elsewhere.",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d66d8d9e_493a95b6",
+        "filename": "cast/streaming/sender_packet_router_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "I\u0027d prefer these broken up into separate tests, so they can fail individually.",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df46eec6_9f46ac2f",
+        "filename": "cast/streaming/sender_packet_router_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-05T17:26:33Z",
+      "side": 1,
+      "message": "Can\u0027t you just do:\n\n    // First through fifth bursts, until frame 1 is done.\n    EXPECT_CALL(*video_sender(), GetRtpPacketForImmediateSend(_, \n        _)).Times(13).WillRepeatedly(Invoke(\u0026MakeFakePacket));\n\n    // End of fifth burst, and empty sixth burst.\n    EXPECT_CALL(*video_sender(), GetRtpPacketForImmediateSend(_, \n        _)).Times(2).WillRepeatedly(Invoke(\u0026ToEmptyPacketBuffer));",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
