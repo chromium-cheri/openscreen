@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9ef8e18_3f6e2beb",
+        "filename": "cast/standalone_receiver/decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T01:14:24Z",
+      "side": 1,
+      "message": "Looks good, but consider adding a quick comment to justify the \"4.\" Something like, \"This should always be greater than zero, so that decoding doesn\u0027t block the main thread of this receiver app and cause playback timing issues. The actual number should be tuned, based on the number of CPU cores.\"",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 29
+      },
+      "revId": "5ceeb8094860dcac84595299bea7a827b3beae1e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
