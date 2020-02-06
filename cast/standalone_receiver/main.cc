@@ -13,6 +13,7 @@
 #include "cast/streaming/offer_messages.h"
 #include "cast/streaming/receiver_session.h"
 #include "cast/streaming/ssrc.h"
+#include "cxxopts.hpp"
 #include "platform/api/time.h"
 #include "platform/api/udp_socket.h"
 #include "platform/base/error.h"
@@ -98,11 +99,11 @@ constexpr int kCastStreamingPort = 2344;
 // End of Receiver Configuration.
 ////////////////////////////////////////////////////////////////////////////////
 
-void RunStandaloneReceiver(TaskRunnerImpl* task_runner) {
+void RunStandaloneReceiver(TaskRunnerImpl* task_runner, IPAddress address) {
   // Create the Environment that holds the required injected dependencies
   // (clock, task runner) used throughout the system, and owns the UDP socket
   // over which all communication occurs with the Sender.
-  const IPEndpoint receive_endpoint{IPAddress(), kCastStreamingPort};
+  const IPEndpoint receive_endpoint{address, kCastStreamingPort};
 
   auto env =
       std::make_unique<Environment>(&Clock::now, task_runner, receive_endpoint);
@@ -142,7 +143,7 @@ void RunStandaloneReceiver(TaskRunnerImpl* task_runner) {
 }  // namespace cast
 }  // namespace openscreen
 
-int main(int argc, const char* argv[]) {
+int main(int argc, char* argv[]) {
   using openscreen::Clock;
   using openscreen::TaskRunner;
   using openscreen::TaskRunnerImpl;
@@ -160,12 +161,31 @@ int main(int argc, const char* argv[]) {
   };
 
   openscreen::TextTraceLoggingPlatform platform;
+  cxxopts::Options options("Standalone Cast Streaming Receiver",
+                           "An implementation of the Cast Streaming Receiver "
+                           "in an embedded console app");
+  options.add_options()("a,address", "IP Address used for listening",
+                        cxxopts::value<std::string>());
+  auto result = options.parse(argc, argv);
+
+  openscreen::IPAddress address{};
+  if (result.count("address")) {
+    auto error_or_address =
+        openscreen::IPAddress::Parse(result["address"].as<std::string>());
+    if (!error_or_address) {
+      OSP_LOG_ERROR << "Invalid IP address given, exiting...";
+      return -1;
+    }
+    address = std::move(error_or_address.value());
+  }
+
   openscreen::SetLogLevel(openscreen::LogLevel::kInfo);
   auto* const platform_client = new PlatformClientExposingTaskRunner(
       std::make_unique<TaskRunnerImpl>(&Clock::now));
 
-  openscreen::cast::RunStandaloneReceiver(static_cast<TaskRunnerImpl*>(
-      openscreen::PlatformClientPosix::GetInstance()->GetTaskRunner()));
+  auto task_runner = static_cast<TaskRunnerImpl*>(
+      openscreen::PlatformClientPosix::GetInstance()->GetTaskRunner());
+  openscreen::cast::RunStandaloneReceiver(task_runner, address);
 
   platform_client->ShutDown();  // Deletes |platform_client|.
   return 0;
