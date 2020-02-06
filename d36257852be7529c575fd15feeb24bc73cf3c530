@@ -104,6 +104,52 @@
     },
     {
       "key": {
+        "uuid": "8e7bf6ca_b9bae7f5",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-06T01:05:51Z",
+      "side": 1,
+      "message": "Bikeshedding: IIUC we\u0027re using \"sinks\", \"devices\", and \"services\" (and maybe \"receivers\" too?) to mean the same thing in different contexts. I personally find \"services\" the most confusing and if it were up to me I think we\u0027d just use \"sinks\" everywhere, but maybe \"services\" makes sense from the service discovery perspective.\n\nAre we going to be making a distinction that a sink is a MR concept and a device is a libcast concept?",
+      "range": {
+        "startLine": 35,
+        "startChar": 43,
+        "endLine": 35,
+        "endChar": 50
+      },
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84ceea9e_c950f7e2",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-06T01:05:51Z",
+      "side": 1,
+      "message": "In the original Chromium code, we use a weakptr here. Should we not do so here as well? Or are we enforcing some destruction ordering?",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 14
+      },
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d68efd1f_58254bf2",
         "filename": "cast/sender/cast_app_discovery_service_impl.h",
         "patchSetId": 1
@@ -149,6 +195,29 @@
       "writtenOn": "2020-02-06T00:56:03Z",
       "side": 1,
       "message": "What are the keys here?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67690df1_30de7f71",
+        "filename": "cast/sender/cast_platform_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-06T01:05:51Z",
+      "side": 1,
+      "message": "Does this not need to be a weak ptr?",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 11
+      },
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -293,6 +362,29 @@
     },
     {
       "key": {
+        "uuid": "84aa393f_5f12cc07",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-06T01:05:51Z",
+      "side": 1,
+      "message": "Nit: const?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75f8f443_2411b3c0",
         "filename": "cast/sender/public/cast_app_discovery_service.h",
         "patchSetId": 1
@@ -338,6 +430,29 @@
       "writtenOn": "2020-02-06T00:56:03Z",
       "side": 1,
       "message": "1. StartObservingAvailability() ?\n\n2. If |Subscription| is move-only, does it need to be returned by unique_ptr?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebe31996_37435f6c",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-06T01:05:51Z",
+      "side": 1,
+      "message": "Nit: simply RemoveDeviceQuery()?",
+      "range": {
+        "startLine": 54,
+        "startChar": 15,
+        "endLine": 54,
+        "endChar": 40
+      },
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
