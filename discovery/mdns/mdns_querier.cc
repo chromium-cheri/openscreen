@@ -206,7 +206,12 @@ void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
     return;
   }
 
-  // TODO(crbug.com/openscreen/83): Check authority records.
+  if (!message.authority_records().empty()) {
+    // This signifies a probe query. Drop the query and let the MdnsProbeManager
+    // handle it.
+    return;
+  }
+
   // TODO(crbug.com/openscreen/84): Cap size of cache, to avoid memory blowups
   // when publishers misbehave.
   ProcessRecords(message.answers());
