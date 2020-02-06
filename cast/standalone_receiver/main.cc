@@ -20,6 +20,7 @@
 #include "platform/impl/logging.h"
 #include "platform/impl/platform_client_posix.h"
 #include "platform/impl/task_runner.h"
+#include "third_party/cxxopts/src/include/cxxopts.hpp"
 
 namespace openscreen {
 namespace cast {
@@ -96,11 +97,11 @@ constexpr int kCastStreamingPort = 2344;
 // End of Receiver Configuration.
 ////////////////////////////////////////////////////////////////////////////////
 
-void RunStandaloneReceiver(TaskRunnerImpl* task_runner) {
+void RunStandaloneReceiver(TaskRunnerImpl* task_runner, IPAddress address) {
   // Create the Environment that holds the required injected dependencies
   // (clock, task runner) used throughout the system, and owns the UDP socket
   // over which all communication occurs with the Sender.
-  const IPEndpoint receive_endpoint{IPAddress(), kCastStreamingPort};
+  const IPEndpoint receive_endpoint{address, kCastStreamingPort};
 
   auto env =
       std::make_unique<Environment>(&Clock::now, task_runner, receive_endpoint);
@@ -140,7 +141,7 @@ void RunStandaloneReceiver(TaskRunnerImpl* task_runner) {
 }  // namespace cast
 }  // namespace openscreen
 
-int main(int argc, const char* argv[]) {
+int main(int argc, char* argv[]) {
   using openscreen::Clock;
   using openscreen::TaskRunner;
   using openscreen::TaskRunnerImpl;
@@ -157,12 +158,32 @@ int main(int argc, const char* argv[]) {
     }
   };
 
+  // TODO(jophba): remove UDP option once we listen over TLS.
+  cxxopts::Options options(
+      "Standalone Libcast Receiver",
+      "An implementation of the libcast API in an embedded console app");
+  options.add_options()("a,address", "Address used for listening over UDP",
+                        cxxopts::value<std::string>());
+  auto result = options.parse(argc, argv);
+
+  openscreen::IPAddress address{};
+  if (result.count("address")) {
+    auto eoi =
+        openscreen::IPAddress::Parse(result["address"].as<std::string>());
+    if (!eoi) {
+      OSP_LOG_ERROR << "Invalid ip address given, exiting...";
+      return -1;
+    }
+    address = std::move(eoi.value());
+  }
+
   openscreen::SetLogLevel(openscreen::LogLevel::kInfo);
   auto* const platform_client = new PlatformClientExposingTaskRunner(
       std::make_unique<TaskRunnerImpl>(&Clock::now));
 
-  openscreen::cast::RunStandaloneReceiver(static_cast<TaskRunnerImpl*>(
-      openscreen::PlatformClientPosix::GetInstance()->GetTaskRunner()));
+  auto task_runner = static_cast<TaskRunnerImpl*>(
+      openscreen::PlatformClientPosix::GetInstance()->GetTaskRunner());
+  openscreen::cast::RunStandaloneReceiver(task_runner, address);
 
   platform_client->ShutDown();  // Deletes |platform_client|.
   return 0;

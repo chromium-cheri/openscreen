@@ -23,7 +23,10 @@ if (!build_with_chromium) {
       "../streaming:receiver",
     ]
 
-    defines = []
+    defines = [
+      "CXXOPTS_NO_EXCEPTIONS",
+      "CXXOPTS_NO_RTTI",
+    ]
     include_dirs = []
     lib_dirs = []
     libs = []
