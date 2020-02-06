@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c5eb00a_94e77c15",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T22:04:31Z",
+      "side": 1,
+      "message": "IMO, this should be something like:\n\n  #include \"third_party/cxxopts/src/include/cxxopts.hpp\"\n\nMeaning, it\u0027s confusing for this to act like it\u0027s in the root Open Screen directory.\n\nIMO, every third-party include, including abseil and gtest, should reference their dir in third_party. Not sure why we created aliases for those. It\u0027s inconsistent with other Chromium projects.",
+      "range": {
+        "startLine": 16,
+        "startChar": 10,
+        "endLine": 16,
+        "endChar": 21
+      },
+      "revId": "0517bcf97c7ce5f84278d6de2e826b0f780d17fd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5596403_ccd4b33f",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T22:04:31Z",
+      "side": 1,
+      "message": "nit: pass by const-ref (non-trivial sized object here)",
+      "range": {
+        "startLine": 102,
+        "startChar": 56,
+        "endLine": 102,
+        "endChar": 65
+      },
+      "revId": "0517bcf97c7ce5f84278d6de2e826b0f780d17fd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
