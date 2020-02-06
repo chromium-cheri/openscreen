@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9c5098e4_40007ca3",
+        "filename": "cast/streaming/packet_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4e252ff_ed115d0f",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62bdb57d_df26953f",
         "filename": "cast/streaming/sender_packet_router.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf3595d_a40b17aa",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Nope. RTCP packets are supposed to contain \"current state to share with the Receiver,\" and so having two RTCP packets in one burst would risk sending snapshots of old/irrelevant state to the Receiver.\n\nI\u0027ll add a comment here to document this design fact.",
+      "parentUuid": "62bdb57d_df26953f",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6bb5643b_94f5ed70",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "It\u0027s here as a stated assumption because otherwise a divide-by-zero could occur in the math below. There\u0027s no spec/design talking about this. Though, if you think about, we\u0027d have very lousy performance if packets could only be sent once per second (especially since audio or video packets are generated at an aggregate rate of 100+ per second).",
+      "parentUuid": "bb3e54aa_4c7b4559",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a636307b_5960bb66",
         "filename": "cast/streaming/sender_packet_router.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c665791e_31891b9d",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a636307b_5960bb66",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "6c2a9385_166e14a3",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "C++14 and later say they should absolutely not be required (because they are constexpr trivial types), and yet our LLVM linker complains if they are not here. Believe me, I loathe having to write these useless things. Here\u0027s what happens when I remove them:\n\n[6/6] LINK ./openscreen_unittests\nFAILED: openscreen_unittests \n../../third_party/llvm-build/Release+Asserts/bin/clang++ -Werror -fcolor-diagnostics -fsanitize\u003daddress -pthread -Wl,--fatal-warnings -stdlib\u003dlibstdc++ -latomic -m64 -Wl,-rpath\u003d$ORIGIN/ -Wl,-rpath-link\u003d -o ./openscreen_unittests -Wl,--start-group @./openscreen_unittests.rsp  -Wl,--end-group \n/usr/bin/ld: obj/cast/streaming/unittests.sender_packet_router_unittest.o: in function `openscreen::cast::(anonymous namespace)::SenderPacketRouterTest_SchedulesPeriodicTransmissionOfRTCPPackets_Test::TestBody()\u0027:\n/mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router_unittest.cc:361: undefined reference to `openscreen::cast::SenderPacketRouter::kNever\u0027\n/usr/bin/ld: obj/cast/streaming/unittests.sender_packet_router_unittest.o: in function `openscreen::cast::(anonymous namespace)::SenderPacketRouterTest_SchedulesAndTransmitsRTPBursts_Test::TestBody()\u0027:\n/mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router_unittest.cc:454: undefined reference to `openscreen::cast::SenderPacketRouter::kNever\u0027\n/usr/bin/ld: /mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router_unittest.cc:474: undefined reference to `openscreen::cast::SenderPacketRouter::kNever\u0027\n/usr/bin/ld: obj/cast/streaming/sender.sender_packet_router.o: in function `SenderPacketRouter\u0027:\n/mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router.cc:27: undefined reference to `openscreen::cast::SenderPacketRouter::kDefaultBurstInterval\u0027\n/usr/bin/ld: /mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router.cc:26: undefined reference to `openscreen::cast::SenderPacketRouter::kDefaultBurstInterval\u0027\n/usr/bin/ld: obj/cast/streaming/sender.sender_packet_router.o: in function `openscreen::cast::SenderPacketRouter::OnSenderCreated(unsigned int, openscreen::cast::SenderPacketRouter::Sender*)\u0027:\n/mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router.cc:(.text+0x36ee): undefined reference to `openscreen::cast::SenderPacketRouter::kNever\u0027\n/usr/bin/ld: /mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router.cc:53: undefined reference to `openscreen::cast::SenderPacketRouter::kNever\u0027\n/usr/bin/ld: obj/cast/streaming/sender.sender_packet_router.o: in function `openscreen::cast::SenderPacketRouter::ScheduleNextBurst()\u0027:\n/mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router.cc:(.text+0x49b1): undefined reference to `openscreen::cast::SenderPacketRouter::kNever\u0027\n/usr/bin/ld: /mnt/ssd/miu/openscreen/openscreen/out/Debug/../../cast/streaming/sender_packet_router.cc:(.text+0x4c04): undefined reference to `openscreen::cast::SenderPacketRouter::kNever\u0027\nclang: error: linker command failed with exit code 1 (use -v to see invocation)\nninja: build stopped: subcommand failed.",
+      "parentUuid": "aeb587ce_29889f97",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5b3f3e2_f45d0575",
         "filename": "cast/streaming/sender_packet_router.h",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2020-02-05T17:26:33Z",
       "side": 1,
       "message": "%s/lager/larger/g",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c54ed5d1_5a77efbc",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Done, but \"lager transmission units\" are also something I like to optimize. 😄",
+      "parentUuid": "e5b3f3e2_f45d0575",
       "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "18ebaf9b_31438ff6",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Mainly, it makes it unnecessary for the Sender to call Clock::now() redundantly for every packet in the same burst (calling Clock::now() incurs an extra runtime cost for no benefit here).\n\nIt also happens to be incredibly convenient for use in the unit tests as a unique \"burst ID.\"",
+      "parentUuid": "6ef0139c_76d10aa3",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45650554_09110bbe",
         "filename": "cast/streaming/sender_packet_router.h",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "412f7b20_40c8cd41",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45650554_09110bbe",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "5e026b0a_46346bb9",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "195b9155_248f8810",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb9a0a38_61b45374",
         "filename": "cast/streaming/sender_packet_router.h",
         "patchSetId": 1
@@ -169,6 +331,24 @@
       "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48099bc2_a1dbf765",
+        "filename": "cast/streaming/sender_packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "So far, this is the first use. I don\u0027t have any upcoming code that re-declares it for other things. We can keep an eye out for future consolidations, if they come up.",
+      "parentUuid": "bb9a0a38_61b45374",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "25785b84_f761639c",
+        "filename": "cast/streaming/sender_packet_router_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d66d8d9e_493a95b6",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df46eec6_9f46ac2f",
         "filename": "cast/streaming/sender_packet_router_unittest.cc",
         "patchSetId": 1
@@ -200,6 +398,24 @@
       "writtenOn": "2020-02-05T17:26:33Z",
       "side": 1,
       "message": "Can\u0027t you just do:\n\n    // First through fifth bursts, until frame 1 is done.\n    EXPECT_CALL(*video_sender(), GetRtpPacketForImmediateSend(_, \n        _)).Times(13).WillRepeatedly(Invoke(\u0026MakeFakePacket));\n\n    // End of fifth burst, and empty sixth burst.\n    EXPECT_CALL(*video_sender(), GetRtpPacketForImmediateSend(_, \n        _)).Times(2).WillRepeatedly(Invoke(\u0026ToEmptyPacketBuffer));",
+      "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0554731_ba3a5425",
+        "filename": "cast/streaming/sender_packet_router_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-06T03:16:17Z",
+      "side": 1,
+      "message": "Hmm...I was thinking it\u0027d be easier to understand the test to have things laid-out visually. But, since you\u0027re reading this and suggesting it needs compressing, I can go with that. 😊\n\nHowever, I tried it and it messes up Gmock because you can\u0027t do this:\n\n  EXPECT_CALL(*video_sender(), GetRtpPacketForImmediateSend(_, _))\n      .Times(14)\n      .WillRepeatedly(Invoke(\u0026MakeFakePacket))\n      .RetiresOnSaturation();\n  EXPECT_CALL(*video_sender(), GetRtpPacketForImmediateSend(_, _))\n      .Times(2)\n      .WillRepeatedly(Invoke(\u0026ToEmptyPacketBuffer));\n\nWhat happens is that the second EXPECT_CALL overwrites the first one and so all GetRtpPacketForImmediateSend() calls go to it. The first one never sees any calls.\n\nSo, I went with a similar solution that adds a lambda to decide what\u0027s returned each time.",
+      "parentUuid": "df46eec6_9f46ac2f",
       "revId": "14938bb939c911a8e0813f1d8340aeacbcd0a023",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
