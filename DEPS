@@ -96,6 +96,13 @@ deps = {
       '@' + '20de2db748ca0471cfb61cb53e813dd12938c12b',
     'condition': 'not build_with_chromium',
   },
+
+  'third_party/cxxopts/src': {
+    'url': Var('github') + '/jarro2783/cxxopts.git' +
+    '@' + '943cdcfbbaa205f9a1789d96c7a57accfabcd233',
+    'condition': 'not build_with_chromium',
+  },
+
   'third_party/libfuzzer/src': {
     'url': Var('chromium_git') +
       '/chromium/llvm-project/compiler-rt/lib/fuzzer.git' +
