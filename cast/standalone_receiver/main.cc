@@ -160,13 +160,13 @@ int main(int argc, char* argv[]) {
     }
   };
 
-  openscreen::TextTraceLoggingPlatform platform;
   // TODO(jophba): remove UDP option once we listen over TLS.
   cxxopts::Options options(
       "Standalone Libcast Receiver",
       "An implementation of the libcast API in an embedded console app");
   options.add_options()("a,address", "Address used for listening over UDP",
-                        cxxopts::value<std::string>());
+                        cxxopts::value<std::string>())("t, tracing",
+                                                       "Enable trace logging");
   auto result = options.parse(argc, argv);
 
   openscreen::IPAddress address{};
@@ -178,6 +178,11 @@ int main(int argc, char* argv[]) {
       return -1;
     }
     address = std::move(eoi.value());
+  }
+
+  std::unique_ptr<openscreen::TextTraceLoggingPlatform> platform;
+  if (result.count("tracing")) {
+    platform = std::make_unique<openscreen::TextTraceLoggingPlatform>();
   }
 
   openscreen::SetLogLevel(openscreen::LogLevel::kInfo);
