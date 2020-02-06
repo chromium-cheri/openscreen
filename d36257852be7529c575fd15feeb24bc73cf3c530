@@ -2,6 +2,159 @@
   "comments": [
     {
       "key": {
+        "uuid": "e09422ec_b8234709",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Is there a place that maps each message type and the namespace it belongs to?  (See the namespace constants at L15-L29.)\n\nThat mapping would help when constructing messages, or validating incoming messages.\n\nNo changes requested - just curious.",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ebe50b3_6c500a15",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Super nit: consistency with trailing periods",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b0b309_8f0587d8",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Error",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "908375ce_36f2f60b",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "jrw@ wrote a helper class in Chromium called EnumTable to simplify string-to-enum mappings.\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:components/cast_channel/enum_table.h\n\nWould something like that be useful here?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d99ed181_2e64fa62",
+        "filename": "cast/common/channel/testing/fake_cast_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "local_endpoint / remote_endpoint ?\n\nAlso, can you document the local_id/remote_id parameters?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4d03edb_7e0f9c34",
+        "filename": "cast/common/channel/testing/fake_cast_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "local_endpoint / remote_endpoint",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d68efd1f_58254bf2",
+        "filename": "cast/sender/cast_app_discovery_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Is |this| registered as an observer through some interface, or are these just called directly by the object\u0027s owner?\n\nIt doesn\u0027t matter much either way, but usually I see \"OnFoo\" methods have a level of indirection.\n\nWhile direct calls would be named AddOrUpdateDevice(), RemoveDevice().",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7836abde_1a1eb1de",
+        "filename": "cast/sender/cast_app_discovery_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Nit: |socket| isn\u0027t a param.",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87422e15_5073bc7d",
+        "filename": "cast/sender/cast_app_discovery_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "What are the keys here?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "472daff1_f26fe514",
         "filename": "cast/sender/cast_platform_handler.h",
         "patchSetId": 1
@@ -19,6 +172,41 @@
     },
     {
       "key": {
+        "uuid": "79de9569_142b4997",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "I\u0027m always a fan of smaller CLs to review, so yes I\u0027d prefer to split it off.",
+      "parentUuid": "472daff1_f26fe514",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9560f7d4_5c886e47",
+        "filename": "cast/sender/channel/message_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Is this possible in normal usage?  I suppose the app_id could be non-serializable?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10a93f36_e19a5a0c",
         "filename": "cast/sender/public/DEPS",
         "patchSetId": 1
@@ -30,6 +218,211 @@
       "writtenOn": "2020-01-30T01:15:14Z",
       "side": 1,
       "message": "This is for Cast\u0027s ServiceInfo struct.  Should that be in public/ or should there be an adapting struct in the middle?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92b4bf9a_07410d9e",
+        "filename": "cast/sender/public/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Let\u0027s move it to cast/common/public.",
+      "parentUuid": "10a93f36_e19a5a0c",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5020cab4_fc191ae1",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Is this used (other than inside the definition of DeviceQueryCallback?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded6f455_e0ca760f",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "AvailabilityCallback?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6907fbc3_01f6a298",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "ISTM that only implementations of CastAppDiscoveryService need to use this ctor; maybe make it private and have them friend Subscription?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f8f443_2411b3c0",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "If the CADS is destroyed with any outstanding Subscriptions, then there will be a UAF.  Since the caller owns the Subscriptions, best you can do is keep a counter and CHECK-fail?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06ab2a22_2f82561d",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "A few points that could be clarified in the comments:\n\n1. Is there any guarantee about when the callback will be invoked first (i.e. with a cached list)?\n2. Will the callback ever be invoked with an empty list?\n3. Will the device list always be different with each invocation?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d621a89d_1249b113",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "1. StartObservingAvailability() ?\n\n2. If |Subscription| is move-only, does it need to be returned by unique_ptr?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "509ba23d_81acf396",
+        "filename": "cast/sender/testing/test_helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "expected_app_id ?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b85f86eb_1bfe87b5",
+        "filename": "cast/sender/testing/test_helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "request_id_out\nsender_id_out",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35a826e_8ebc8df0",
+        "filename": "cast/sender/testing/test_helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Is the JSON::Value(\"\") argument throwaway?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e4ec536_4006ce75",
+        "filename": "cast/sender/testing/test_helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "This seems like extra work to coerce a JSON value to std::string.  Can it be put into a utility function in json_value.h?  (Low priority unless this is used repeatedly.)",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47474d2c_b007cf02",
+        "filename": "cast/sender/testing/test_helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-06T00:56:03Z",
+      "side": 1,
+      "message": "Can this go in message_util.h?  We will need it anyway for the receiver implementation.",
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
