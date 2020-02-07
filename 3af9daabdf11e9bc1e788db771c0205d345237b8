@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eac236e7_d6ad0988",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T22:40:33Z",
+      "side": 1,
+      "message": "This is the exact same discussion you two were having in the CL I linked :)",
+      "parentUuid": "5e95d925_d0ea9982",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 63
+      },
+      "revId": "3af9daabdf11e9bc1e788db771c0205d345237b8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "faae1f75_993a9c4c",
         "filename": "platform/impl/platform_client_posix.cc",
         "patchSetId": 4
@@ -106,6 +130,30 @@
       "side": 1,
       "message": "I think we have to, though, if the TaskRunner was started by the 2-arg ctor. Considerations:\n\n1. Put this LOC inside the then-clause below (just before calling join()).\n\n2. Leave this LOC here, and document in the header that, since PlatformClientPosix takes ownership of the TaskRunner (i.e., using the 3-arg ctor), it will ensure it is stopped before destruction.\n\n#2 seems more reasonable to me, since TaskRunner destruction has the prerequisite that the TaskRunner is already stopped.",
       "parentUuid": "b2b887fe_5dc35ceb",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 34
+      },
+      "revId": "3af9daabdf11e9bc1e788db771c0205d345237b8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db7d4072_5f805225",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T22:40:33Z",
+      "side": 1,
+      "message": "I\u0027d mean that 1 seemed more intuitive to me, but either SGTM as long as it\u0027s documented in the header.",
+      "parentUuid": "ea8d2be5_4487b43f",
       "range": {
         "startLine": 64,
         "startChar": 2,
