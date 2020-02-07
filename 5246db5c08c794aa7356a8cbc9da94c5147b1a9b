@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ffaba06c_19338bf6",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T20:51:02Z",
+      "side": 1,
+      "message": "Alternative idea. Not sure which is cleaner, but maybe worth considering:\n\nRather than the approach of passing in a TR, WDYT about exposing a Wait() method on PCP to call task_runner_thread_.join()? Then, a caller can block on the PCP\u0027s TR thread completing, creating a forever-blocking-call like this demo wants\n\nPlus it means we don\u0027t need to expose creation of a TR outside of PCP",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 60
+      },
+      "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0ba2407_427af795",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 3
