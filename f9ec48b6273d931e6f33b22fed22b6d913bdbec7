@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f90f7d91_8198f134",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T21:13:18Z",
+      "side": 1,
+      "message": "This already exists\n\nWe have a build flag `--args\u003d\"enable_trace_logging\u003dfalse\"`\nwhich in util/trace_logging.h enables/disables the macros\n\nhttps://chromium-review.googlesource.com/c/openscreen/+/1724273\n\nIt looks like the build flag was somehow removed from build/config/build.gn. I\u0027d suggest re-adding that instead as shown here:\nhttps://chromium-review.googlesource.com/c/openscreen/+/1733738",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 3
+      },
+      "revId": "f9ec48b6273d931e6f33b22fed22b6d913bdbec7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
