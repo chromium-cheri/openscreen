@@ -49,12 +49,14 @@ constexpr std::chrono::seconds kGoodbyeRecordTtl{1};
 MdnsTracker::MdnsTracker(MdnsSender* sender,
                          TaskRunner* task_runner,
                          ClockNowFunctionPtr now_function,
-                         MdnsRandom* random_delay)
+                         MdnsRandom* random_delay,
+                         TrackerType tracker_type)
     : sender_(sender),
       task_runner_(task_runner),
       now_function_(now_function),
       send_alarm_(now_function, task_runner),
-      random_delay_(random_delay) {
+      random_delay_(random_delay),
+      tracker_type_(tracker_type) {
   OSP_DCHECK(task_runner_);
   OSP_DCHECK(now_function_);
   OSP_DCHECK(random_delay_);
@@ -113,16 +115,34 @@ void MdnsTracker::RemovedReverseAdjacency(MdnsTracker* node) {
 
 MdnsRecordTracker::MdnsRecordTracker(
     MdnsRecord record,
+    DnsType dns_type,
     MdnsSender* sender,
     TaskRunner* task_runner,
     ClockNowFunctionPtr now_function,
     MdnsRandom* random_delay,
-    std::function<void(const MdnsRecord&)> record_expired_callback)
-    : MdnsTracker(sender, task_runner, now_function, random_delay),
+    RecordExpiredCallback record_expired_callback)
+    : MdnsTracker(sender,
+                  task_runner,
+                  now_function,
+                  random_delay,
+                  TrackerType::kRecordTracker),
       record_(std::move(record)),
+      dns_type_(dns_type),
       start_time_(now_function_()),
       record_expired_callback_(record_expired_callback) {
   OSP_DCHECK(record_expired_callback);
+
+  // RecordTrackers cannot be created for tracking NSEC types or ANY types.
+  OSP_DCHECK(dns_type_ != DnsType::kNSEC);
+  OSP_DCHECK(dns_type_ != DnsType::kANY);
+
+  if (record_.dns_type() == DnsType::kNSEC) {
+    const auto& nsec_rdata = absl::get<NsecRecordRdata>(record_.rdata());
+    OSP_DCHECK(std::find_if(nsec_rdata.types().begin(),
+                            nsec_rdata.types().end(), [dns_type](DnsType type) {
+                              return type == dns_type || type == DnsType::kANY;
+                            }) != nsec_rdata.types().end());
+  }
 
   ScheduleFollowUpQuery();
 }
@@ -132,17 +152,42 @@ MdnsRecordTracker::~MdnsRecordTracker() = default;
 ErrorOr<MdnsRecordTracker::UpdateType> MdnsRecordTracker::Update(
     const MdnsRecord& new_record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
-  bool has_same_rdata = record_.rdata() == new_record.rdata();
+  const bool has_same_rdata = record_.dns_type() == new_record.dns_type() &&
+                              record_.rdata() == new_record.rdata();
+  const bool new_is_negative_response = new_record.dns_type() == DnsType::kNSEC;
+  const bool current_is_negative_response =
+      record_.dns_type() == DnsType::kNSEC;
 
-  // Goodbye records must have the same RDATA but TTL of 0.
-  // RFC 6762 Section 10.1
-  // https://tools.ietf.org/html/rfc6762#section-10.1
-  if ((record_.dns_type() != new_record.dns_type()) ||
-      (record_.dns_class() != new_record.dns_class()) ||
-      (record_.name() != new_record.name()) ||
-      (IsGoodbyeRecord(new_record) && !has_same_rdata)) {
+  if ((record_.dns_class() != new_record.dns_class()) ||
+      (record_.name() != new_record.name())) {
     // The new record has been passed to a wrong tracker.
     return Error::Code::kParameterInvalid;
+  }
+
+  // Goodbye records must have the same RDATA but TTL of 0.
+  // RFC 6762 Section 10.1.
+  // https://tools.ietf.org/html/rfc6762#section-10.1
+  if ((!new_is_negative_response && !current_is_negative_response) &&
+      ((record_.dns_type() != new_record.dns_type()) ||
+       (IsGoodbyeRecord(new_record) && !has_same_rdata))) {
+    // The new record has been passed to a wrong tracker.
+    return Error::Code::kParameterInvalid;
+  }
+
+  if (!new_is_negative_response && current_is_negative_response &&
+      new_record.dns_type() != dns_type_) {
+    // The new record has been passed to a wrong tracker.
+    return Error::Code::kParameterInvalid;
+  }
+
+  // New NSEC records must represent the DnsType used to create this tracker.
+  if (new_is_negative_response) {
+    const auto& nsec_rdata = absl::get<NsecRecordRdata>(new_record.rdata());
+    if (std::find(nsec_rdata.types().begin(), nsec_rdata.types().end(),
+                  dns_type_) == nsec_rdata.types().end()) {
+      // The new record has been passed to a wrong tracker.
+      return Error::Code::kParameterInvalid;
+    }
   }
 
   UpdateType result = UpdateType::kGoodbye;
@@ -202,7 +247,7 @@ bool MdnsRecordTracker::SendQuery() {
       tracker->SendQuery();
     }
   } else {
-    record_expired_callback_(record_);
+    record_expired_callback_(this, record_);
   }
 
   return !is_expired;
@@ -216,6 +261,10 @@ void MdnsRecordTracker::ScheduleFollowUpQuery() {
         }
       },
       GetNextSendTime());
+}
+
+std::vector<MdnsRecord> MdnsRecordTracker::GetRecords() const {
+  return {record_};
 }
 
 Clock::time_point MdnsRecordTracker::GetNextSendTime() {
@@ -239,7 +288,11 @@ MdnsQuestionTracker::MdnsQuestionTracker(MdnsQuestion question,
                                          ClockNowFunctionPtr now_function,
                                          MdnsRandom* random_delay,
                                          QueryType query_type)
-    : MdnsTracker(sender, task_runner, now_function, random_delay),
+    : MdnsTracker(sender,
+                  task_runner,
+                  now_function,
+                  random_delay,
+                  TrackerType::kQuestionTracker),
       question_(std::move(question)),
       send_delay_(kMinimumQueryInterval),
       query_type_(query_type) {
@@ -274,6 +327,22 @@ bool MdnsQuestionTracker::RemoveAssociatedRecord(
   return RemoveAdjacentNode(record_tracker);
 }
 
+std::vector<MdnsRecord> MdnsQuestionTracker::GetRecords() const {
+  std::vector<MdnsRecord> records;
+  for (MdnsTracker* tracker : adjacent_nodes()) {
+    OSP_DCHECK(tracker->tracker_type() == TrackerType::kRecordTracker);
+
+    // This call cannot result in an infinite loop because MdnsRecordTracker
+    // instances only return a single record from this call.
+    std::vector<MdnsRecord> node_records = tracker->GetRecords();
+    OSP_DCHECK(node_records.size() == 1);
+
+    records.push_back(std::move(node_records[0]));
+  }
+
+  return records;
+}
+
 bool MdnsQuestionTracker::SendQuery() {
   // NOTE: The RFC does not specify the minimum interval between queries for
   // multiple records of the same query when initiated for different reasons
@@ -291,20 +360,21 @@ bool MdnsQuestionTracker::SendQuery() {
 
   // Send the message and additional known answer packets as needed.
   for (auto it = adjacent_nodes().begin(); it != adjacent_nodes().end();) {
-    // NOTE: This cast is safe because AddAssocaitedRecord can only called on
-    // MdnsRecordTracker objects and MdnsRecordTracker::AddAssociatedQuery() is
-    // only called on MdnsQuestionTracker objects. This creates a bipartite
-    // graph, where MdnsRecordTracker objects are only adjacent to
-    // MdnsQuestionTracker objects and the opposite, so all nodes adjacent to
-    // this one must be MdnsRecordTracker instances.
+    OSP_DCHECK((*it)->tracker_type() == TrackerType::kRecordTracker);
+
     MdnsRecordTracker* record_tracker = static_cast<MdnsRecordTracker*>(*it);
     if (record_tracker->IsNearingExpiry()) {
       it++;
       continue;
     }
 
-    if (message.CanAddRecord(record_tracker->record())) {
-      message.AddAnswer(record_tracker->record());
+    // A record tracker should only contain one record.
+    std::vector<MdnsRecord> node_records = (*it)->GetRecords();
+    OSP_DCHECK(node_records.size() == 1);
+    MdnsRecord node_record = std::move(node_records[0]);
+
+    if (message.CanAddRecord(node_record)) {
+      message.AddAnswer(std::move(node_record));
       it++;
     } else if (message.questions().empty() && message.answers().empty()) {
       // This case should never happen, because it means a record is too large
