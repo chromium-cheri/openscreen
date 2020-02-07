@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "63b59309_4df312e8",
+        "filename": "BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T23:23:25Z",
+      "side": 1,
+      "message": "It relies on platform/impl calls (impl/platform_client_posix, impl/network_interface), so not currently\n\nThough regardless, we should avoid adding it to chromium for now. We haven\u0027t implemented the discovery pipeline there yet, so it would just give us an exciting new way to break upstream without added coverage",
+      "parentUuid": "65cd1758_f0556ca5",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48f0e95c_11783fcb",
         "filename": "cast/common/BUILD.gn",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "100042de_6ce84cef",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T23:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48f0e95c_11783fcb",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "15259d97_63554422",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T23:23:25Z",
+      "side": 1,
+      "message": "Done. Yeah, that\u0027s where I found it - Good catch",
+      "parentUuid": "98136351_021b3c93",
+      "range": {
+        "startLine": 78,
+        "startChar": 67,
+        "endLine": 78,
+        "endChar": 76
+      },
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b412f84_b5b86b3c",
         "filename": "cast/common/BUILD.gn",
         "patchSetId": 5
@@ -73,6 +133,24 @@
       "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8861a249_7dffd4a4",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T23:23:25Z",
+      "side": 1,
+      "message": "Done. I\u0027ve been wondering the difference between the two - Good to know",
+      "parentUuid": "1b412f84_b5b86b3c",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "cc23f7e3_e17a47d8",
+        "filename": "cast/common/discovery/demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T23:23:25Z",
+      "side": 1,
+      "message": "The publisher parameter here is the DNS-SD layer publisher. Name updated to make this clearer. WDYT?\n\nIf you can think of a better name for this class, I am open to it, but I suspect this will be an issue going forward. One disadvantage of avoiding the discovery/public/dns_sd_publisher.h class, even if it doesn\u0027t do much.",
+      "parentUuid": "328805a3_0c73a430",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "848e52de_301037b5",
         "filename": "cast/common/discovery/demo/main.cc",
         "patchSetId": 5
@@ -107,6 +203,24 @@
       "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "915cbdf8_5f7d2929",
+        "filename": "cast/common/discovery/demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T23:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "848e52de_301037b5",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +259,24 @@
     },
     {
       "key": {
+        "uuid": "ac9adbd0_5968187e",
+        "filename": "cast/common/discovery/demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T23:23:25Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t you return the error below?\n\nDone per below comment\n\n\u003e ?: OSP_CHECK(error.ok()) \u003c\u003c \"Failed to publish..\n\nAdded where the error is now checked",
+      "parentUuid": "48bc6b02_27d4f0a4",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcdecaad_75db416c",
         "filename": "cast/common/discovery/demo/main.cc",
         "patchSetId": 5
@@ -159,6 +291,24 @@
       "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c4fa78a_ebd8285c",
+        "filename": "cast/common/discovery/demo/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T23:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcdecaad_75db416c",
+      "revId": "d641cefd442d4285fa4de53f15affa025e708bab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
