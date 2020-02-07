@@ -70,6 +70,30 @@
       "revId": "f9ec48b6273d931e6f33b22fed22b6d913bdbec7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ec626d3_dffcf430",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-07T23:06:27Z",
+      "side": 1,
+      "message": "It\u0027s been on by default since November, via build/config/features.h. 😊 There\u0027s a TODO in that file for me to add a BUILD.gn target that auto-generates that header based on GN args (same approach as Chromium).\n\nThe header file is needed to ensure that the ENABLE_TRACE_LOGGING macro is consistently present/not-present when compiling ANY file in repo. While BUILD.gn has defines\u003d[...], using that does not guarantee the macro will be present in all build targets. Therefore, some .h or .cc files that #include \"util/trace_logging.h\" will evaluate the header with it defined, but others would evaluate it NOT defined; and this can lead to big problems at link time.\n\nAlso, discussed in a recent CL: https://chromium-review.googlesource.com/c/openscreen/+/2036580/2/cast/standalone_receiver/main.cc#162",
+      "parentUuid": "5bdc1146_2eca3670",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 3
+      },
+      "revId": "f9ec48b6273d931e6f33b22fed22b6d913bdbec7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
