@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fde874a_f1eab807",
+        "filename": "testing/libfuzzer/fuzzer_test.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-07T00:18:00Z",
+      "side": 1,
+      "message": "Chromium\u0027s template does `if (archive_seed_corpus) { test_deps +\u003d ... }` however:\n 1. We don\u0027t have a good place to add that variable.  It should be defined under //build, but needs to be imported in this file, but to work in Chromium we can\u0027t import(\"//build/...\") here.\n 2. In Chromium, that variable defaults to true anyway so normal devs would always be including this step anyway.  If we want/need it to be disabled for a bot for some reason in the future, we can explore some import() hack.",
+      "revId": "7fc382f6ebda553c89f376324eb30e4dfbdca8cd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
