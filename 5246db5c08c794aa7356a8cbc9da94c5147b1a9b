@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f0ba2407_427af795",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T20:03:53Z",
+      "side": 1,
+      "message": "As long as you\u0027re changing this method, can you make it const?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1b84acd_e6b18fec",
         "filename": "platform/impl/platform_client_posix.h",
         "patchSetId": 3
@@ -13,6 +36,52 @@
       "writtenOn": "2020-02-07T19:34:26Z",
       "side": 1,
       "message": "TODO(mfoltz)? Or TODO(jophba), I\u0027d be happy to have this... definitely agree.",
+      "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11f7948_0696044a",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T20:03:53Z",
+      "side": 1,
+      "message": "I didn\u0027t realize we used FIXMEs in addition to TODOs - good to know!",
+      "range": {
+        "startLine": 105,
+        "startChar": 5,
+        "endLine": 105,
+        "endChar": 12
+      },
+      "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c096c05b_97e5bd2a",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-07T20:03:53Z",
+      "side": 1,
+      "message": "WDYT about:\n\nremove owned_task_runner_\nrename caller_provided_task_runner_ to task_runner_\n\nYou should be able to use the `task_runner_thread_.joinable()` check to know if we own the task_runner_ or not. If so, a static_cast\u003cTaskRunnerImpl\u003e should work. Else, if the thread isn\u0027t joinable either we don\u0027t own it (so no work to do) or its already joined (so the TR isn\u0027t running)",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 59
+      },
       "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
