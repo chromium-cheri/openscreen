@@ -151,6 +151,57 @@
     },
     {
       "key": {
+        "uuid": "d672de6d_e426c198",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "If we have a cached empty list, does that mean that all known receivers are kUnavailable or that some might be kUnknown?\n\nIf the former, it should be safe to return a cached empty list as we are certain that no receivers have the app available.",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae275ced_4bc5f6d3",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "Even if it won\u0027t matter because the app availablity response is async, I would slightly prefer that callback registration happens before we send off new queries (just in case there is a synchronous path possible in the future).",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efe6b5cb_1d1468c9",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "I didn\u0027t quite follow this.  If we are removing a device why do we need to update its queries? Don\u0027t we just cancel any queries in progress?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84ceea9e_c950f7e2",
         "filename": "cast/sender/cast_app_discovery_service_impl.cc",
         "patchSetId": 1
@@ -168,6 +219,108 @@
         "endLine": 100,
         "endChar": 14
       },
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec799eef_5e40bc66",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "ISTM that the AvailabilityTracker could have its own clock instance to timestamp entries, but I don\u0027t feel strongly about it.",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e589efb_40dd7bd1",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "How does AvailabilityTracker cache results?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb79f155_f1f3dd0e",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "Is this logic borrowed from Chrome?  There is probably some room for slight improvement by using an exponential backoff; some freshly booted devices respond with unavailable right away, then will respond with available 10-30 seconds later after they\u0027ve talked to DCS.",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fe778bf_736fe55c",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "Is there a background task to re-query Unknown/Unavailable entries or do we rely on the client calling Refresh()?",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "910bc95c_2b84fa4a",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "In general, we shouldn\u0027t use the lack of callbacks to erase any knowledge about availability.  We *could* use this opportunity to purge kUnknown entries but that seems like a premature optimization.\n\nHowever a zero-callback entry should not generate any new queries (either via refresh, or periodic background task).",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28cb28af_67bd9fba",
+        "filename": "cast/sender/cast_app_discovery_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T01:11:13Z",
+      "side": 1,
+      "message": "If we get a definite kUnavailable response, then that\u0027s unlikely to change for some time (it  requires a device reboot or poll of its configuration data).",
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
