@@ -66,14 +66,27 @@ source_set("discovery") {
     "discovery/service_info.h",
   ]
 
-  deps = []
-
-  public_deps = [
+  deps = [
     "../../discovery:dnssd",
     "../../discovery:public",
     "../../platform",
     "../../third_party/abseil",
   ]
+}
+
+# The following target is only activated in standalone builds.
+if (!build_with_chromium && is_posix) {
+  executable("discovery_e2e_test") {
+    sources = [
+      "discovery/e2e_test/main.cc",
+    ]
+
+    deps = [
+      ":discovery",
+      "../../discovery:dnssd",
+      "../../discovery:public",
+    ]
+  }
 }
 
 source_set("test_helpers") {
