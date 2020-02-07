@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "96751c04_caa54361",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T21:47:30Z",
+      "side": 1,
+      "message": "The solution I came up with doesn\u0027t require API changes.",
+      "parentUuid": "ffaba06c_19338bf6",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 60
+      },
+      "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0ba2407_427af795",
         "filename": "platform/api/task_runner.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cc10827_21596a57",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T21:47:30Z",
+      "side": 1,
+      "message": "It probably should be const.  But that would change the method signature and break downstream.  I\u0027d rather add the const version in a separate change.",
+      "parentUuid": "f0ba2407_427af795",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "13889ab7_8af5b32f",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T21:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1b84acd_e6b18fec",
+      "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c096c05b_97e5bd2a",
         "filename": "platform/impl/platform_client_posix.h",
         "patchSetId": 3
@@ -108,6 +174,30 @@
       "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a1a1e73_5546129c",
+        "filename": "platform/impl/platform_client_posix.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-07T21:47:30Z",
+      "side": 1,
+      "message": "My change is basically along those lines.  I now always require a TaskRunnerImpl, but I don\u0027t see any issue with that because I don\u0027t think we need to support embedder platforms using the PCP.",
+      "parentUuid": "c096c05b_97e5bd2a",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 59
+      },
+      "revId": "5246db5c08c794aa7356a8cbc9da94c5147b1a9b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
