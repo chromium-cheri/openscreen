@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_COMMON_DISCOVERY_SERVICE_INFO_H_
-#define CAST_COMMON_DISCOVERY_SERVICE_INFO_H_
+#ifndef CAST_COMMON_PUBLIC_SERVICE_INFO_H_
+#define CAST_COMMON_PUBLIC_SERVICE_INFO_H_
 
 #include <memory>
 #include <string>
@@ -117,4 +117,4 @@ ErrorOr<ServiceInfo> DnsSdRecordToServiceInfo(
 }  // namespace cast
 }  // namespace openscreen
 
-#endif  // CAST_COMMON_DISCOVERY_SERVICE_INFO_H_
+#endif  // CAST_COMMON_PUBLIC_SERVICE_INFO_H_
