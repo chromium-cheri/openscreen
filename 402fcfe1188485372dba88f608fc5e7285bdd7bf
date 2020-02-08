@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d4a0e48_96c60106",
+        "filename": "cast/common/discovery/e2e_test/main.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-08T01:19:40Z",
+      "side": 1,
+      "message": "nit: remove trailing \u0027\\n\u0027 throughout entire file (it\u0027s already added by LOG/CHECK) unless you want specific emphasis/separation.",
+      "revId": "402fcfe1188485372dba88f608fc5e7285bdd7bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99e04e1a_6d3a7e10",
+        "filename": "cast/common/discovery/e2e_test/main.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-08T01:19:40Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this has become a strong convention already, but here and below I\u0027d definitely prefer `std::chrono::milliseconds(100)` or even:\n\nusing std::chrono::milliseconds;\n...\ndelay \u003d milliseconds(100);",
+      "revId": "402fcfe1188485372dba88f608fc5e7285bdd7bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b5b32ed_270b60df",
+        "filename": "cast/common/discovery/e2e_test/main.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-08T01:19:40Z",
+      "side": 1,
+      "message": "nit: This is also free to go in the openscreen::cast namespace now, obviously, to reduce the need for all the prefixing.",
+      "revId": "402fcfe1188485372dba88f608fc5e7285bdd7bf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
