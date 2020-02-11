@@ -14,9 +14,9 @@
 #include "cast/common/channel/cast_socket.h"
 #include "cast/common/channel/proto/cast_channel.pb.h"
 #include "cast/sender/channel/cast_auth_util.h"
+#include "platform/api/task_runner.h"
 #include "platform/api/tls_connection_factory.h"
 #include "platform/base/ip_address.h"
-#include "util/logging.h"
 
 namespace openscreen {
 namespace cast {
@@ -35,18 +35,16 @@ class SenderSocketFactory final : public TlsConnectionFactory::Client,
   };
 
   enum class DeviceMediaPolicy {
+    kNone,
     kAudioOnly,
     kIncludesVideo,
   };
 
-  // |client| must outlive |this|.
-  explicit SenderSocketFactory(Client* client);
+  // |client| and |task_runner| must outlive |this|.
+  SenderSocketFactory(Client* client, TaskRunner* task_runner);
   ~SenderSocketFactory();
 
-  void set_factory(TlsConnectionFactory* factory) {
-    OSP_DCHECK(factory);
-    factory_ = factory;
-  }
+  void set_factory(TlsConnectionFactory* factory);
 
   void Connect(const IPEndpoint& endpoint,
                DeviceMediaPolicy media_policy,
@@ -91,6 +89,7 @@ class SenderSocketFactory final : public TlsConnectionFactory::Client,
                  ::cast::channel::CastMessage message) override;
 
   Client* const client_;
+  TaskRunner* const task_runner_;
   TlsConnectionFactory* factory_ = nullptr;
   std::vector<PendingConnection> pending_connections_;
   std::vector<std::unique_ptr<PendingAuth>> pending_auth_;
