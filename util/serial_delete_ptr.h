@@ -19,6 +19,8 @@ namespace openscreen {
 template <typename Type, typename DeleterType>
 class SerialDelete {
  public:
+  SerialDelete() : deleter_() {}
+
   explicit SerialDelete(TaskRunner* task_runner)
       : task_runner_(task_runner), deleter_() {
     assert(task_runner);
@@ -31,6 +33,10 @@ class SerialDelete {
   }
 
   void operator()(Type* pointer) const {
+    if (!task_runner_) {
+      return;
+    }
+
     // Deletion of the object depends on the task being run by the task runner.
     task_runner_->PostTask([pointer, deleter = deleter_] { deleter(pointer); });
   }
@@ -46,6 +52,11 @@ template <typename Type, typename DeleterType = std::default_delete<Type>>
 class SerialDeletePtr
     : public std::unique_ptr<Type, SerialDelete<Type, DeleterType>> {
  public:
+  SerialDeletePtr() noexcept
+      : std::unique_ptr<Type, SerialDelete<Type, DeleterType>>(
+            nullptr,
+            SerialDelete<Type, DeleterType>()) {}
+
   explicit SerialDeletePtr(TaskRunner* task_runner) noexcept
       : std::unique_ptr<Type, SerialDelete<Type, DeleterType>>(
             nullptr,
