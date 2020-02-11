@@ -118,5 +118,15 @@ TEST_F(VirtualConnectionRouterTest, SendMessage) {
       std::move(message));
 }
 
+TEST_F(VirtualConnectionRouterTest, CloseSocketRemovesVirtualConnections) {
+  manager_.AddConnection(
+      VirtualConnection{"receiver-1234", "sender-4321", socket_->socket_id()},
+      {});
+
+  router_.CloseSocket(socket_->socket_id());
+  EXPECT_FALSE(manager_.GetConnectionData(
+      VirtualConnection{"receiver-1234", "sender-4321", socket_->socket_id()}));
+}
+
 }  // namespace cast
 }  // namespace openscreen
