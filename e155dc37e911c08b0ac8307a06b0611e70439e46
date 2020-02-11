@@ -83,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "b9a886b3_55176f34",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-11T22:59:01Z",
+      "side": 1,
+      "message": "Sounds good. I\u0027m all for not adding it\n\nBut the idea wasn\u0027t that \"I think the bipartite graph code would be reused\", though its possible\nIt was more that \"I think this code would be cleaner if written with CRTP\" (We can get rid of all static_casts in this file), and \"It would be more readable if the bipartite graph parts were pulled out into a separate class rather than part of the MdnsTracker class\". Then, it\u0027s just a matter of if the bipartite graph class really lives in this file or not (I\u0027d vote no, since it feels more like a general util)\n\nWDYT?",
+      "parentUuid": "04f2ff34_5b916733",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 62
+      },
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bdfb30cf_abdcecb6",
         "filename": "discovery/mdns/mdns_trackers.h",
         "patchSetId": 6
