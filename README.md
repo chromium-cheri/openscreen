@@ -307,7 +307,8 @@ libsdl2 are too out of sync from the copies in the sysroot, compilation will
 succeed, but you may experience issues decoding content.
 
 To install the last known good version of the libavcodec and libsdl packages
-on a Raspberry Pi, you can run the following command:
+on a Raspberry Pi, you can run the following command (or
+`cast/standalone_receiver/install_demo_deps_raspian.sh`).
 
 ```bash
 sudo apt-get install libavcodec58=7:4.1.4* libavcodec-dev=7:4.1.4*
