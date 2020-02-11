@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "5217852b_521d764c",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-11T22:48:01Z",
+      "side": 1,
+      "message": "erase_if?",
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49882c57_4d4c4906",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-11T22:48:01Z",
+      "side": 1,
+      "message": "What is this asserting? That if this is an NSEC record type, that all types in the record are DnsType::kNSEC? \n\nWhat\u0027s the difference between dns_type_ and record_.dns_type()?\n\nSome commenting would help unfog me here I think.",
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3eddaf0f_33faebfb",
         "filename": "discovery/mdns/mdns_trackers.h",
         "patchSetId": 6
@@ -19,6 +53,64 @@
         "endLine": 42,
         "endChar": 62
       },
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04f2ff34_5b916733",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-11T22:48:01Z",
+      "side": 1,
+      "message": "I\u0027d say YAGNI--do we have any plans for bipartite_graph usage anywhere else?",
+      "parentUuid": "3eddaf0f_33faebfb",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 62
+      },
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdfb30cf_abdcecb6",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-11T22:48:01Z",
+      "side": 1,
+      "message": "What\u0027s the advantage of these passthrough methods?",
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f581425_714be9fd",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-11T22:48:01Z",
+      "side": 1,
+      "message": "Nit: should be singular like the rest or plural?",
       "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
