@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6a10ab93_45b8c75f",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Ok, I think validation of incoming messages would be a useful enhancement to add to the backlog.  At that point we should consider having a data structure to hold the mapping, versus hard coding it in two places.\n\nDo you mind filing a enhancement issue and linking it as a TODO here?",
+      "parentUuid": "e2a65297_73973de8",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ebe50b3_6c500a15",
         "filename": "cast/common/channel/message_util.h",
         "patchSetId": 1
@@ -283,6 +301,30 @@
     },
     {
       "key": {
+        "uuid": "1359b22e_0e8db2fb",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Current code looks OK except I would substitute \"receiver\" for device, while saying a receiver has a \"device ID.\"\n\nAgree that ServiceInfo should be renamed to e.g. CastReceiverInfo",
+      "parentUuid": "7923aedb_991e2eb2",
+      "range": {
+        "startLine": 35,
+        "startChar": 43,
+        "endLine": 35,
+        "endChar": 50
+      },
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d672de6d_e426c198",
         "filename": "cast/sender/cast_app_discovery_service_impl.cc",
         "patchSetId": 1
@@ -312,6 +354,24 @@
       "side": 1,
       "message": "It\u0027s the latter; this may be empty if some devices are unknown.",
       "parentUuid": "d672de6d_e426c198",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fab2371_b893f8f9",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Ok, then delaying the callback seems fine.",
+      "parentUuid": "8fe2934b_2e69880e",
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -382,6 +442,24 @@
       "side": 1,
       "message": "For example, if that device was the last one available for a particular source, we need to report that source as unavailable.",
       "parentUuid": "efe6b5cb_1d1468c9",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04cb0083_804b7c1a",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Got it.  My confusion was that UpdateAvailabilityQueries is not actually modifying the queries, it\u0027s firing the callbacks associated with existing queries.  Maybe it could use a better name?",
+      "parentUuid": "f80670e1_2dcfaa83",
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -575,6 +653,24 @@
     },
     {
       "key": {
+        "uuid": "e0fbc863_84367e91",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Feel free to add a TODO/NOTE.  In general we want to make sure that unknown/unavailable responses get checked periodically so that transient states don\u0027t make a receiver permanently unavailable.",
+      "parentUuid": "f3f7e347_8b90033a",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "910bc95c_2b84fa4a",
         "filename": "cast/sender/cast_app_discovery_service_impl.cc",
         "patchSetId": 1
@@ -604,6 +700,24 @@
       "side": 1,
       "message": "This doesn\u0027t purge availability knowledge.  UnregisterSource just prevents the tracker from ever _returning_ sources we\u0027re not interested in (e.g. your last point).",
       "parentUuid": "910bc95c_2b84fa4a",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1447394_9abdcedb",
+        "filename": "cast/sender/cast_app_discovery_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "a8839fa4_7a8d050a",
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -642,6 +756,24 @@
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9637912_46a74893",
+        "filename": "cast/sender/cast_app_discovery_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "On further thought, I think the current behavior is fine.  Unavailable responses are not the common case so it should be fine to re-query them by default.",
+      "parentUuid": "2c184fe8_8928bed4",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -744,6 +876,24 @@
       "side": 1,
       "message": "Source IDs, added to comment.",
       "parentUuid": "87422e15_5073bc7d",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67e3b900_09e55938",
+        "filename": "cast/sender/cast_app_discovery_service_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "source_id is from the CastMediaSource right?  Maybe \"media source ID\" to be more specific.",
+      "parentUuid": "d97a1a04_a67c228d",
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
@@ -1025,6 +1175,24 @@
     },
     {
       "key": {
+        "uuid": "61ecd552_c68d18cd",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "I don\u0027t think a private constructor requires a forward declaration?",
+      "parentUuid": "87070d6f_1c99607e",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84aa393f_5f12cc07",
         "filename": "cast/sender/public/cast_app_discovery_service.h",
         "patchSetId": 1
@@ -1107,6 +1275,24 @@
     },
     {
       "key": {
+        "uuid": "17e7e60d_5cbbf477",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5fc7f86b_4715820c",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06ab2a22_2f82561d",
         "filename": "cast/sender/public/cast_app_discovery_service.h",
         "patchSetId": 1
@@ -1171,6 +1357,24 @@
       "side": 1,
       "message": "1. Done.\n2. Subscription is immutable, not move-only.  It _could_ be move-only to avoid unique_ptr.  Preference?",
       "parentUuid": "d621a89d_1249b113",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ebc1857_051e100c",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Preference for move-only unless there\u0027s a need for stable pointers or passing a null unique_ptr.",
+      "parentUuid": "7cbebfa1_40b93726",
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -1393,6 +1597,24 @@
       "side": 1,
       "message": "Done, although it _does_ create the _beginnings_ of a circular dependency between sender\u003c-\u003ereceiver (test-only).  I don\u0027t think it\u0027ll be a problem though (i.e. compile order should still be independent).",
       "parentUuid": "47474d2c_b007cf02",
+      "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "938d3696_47dc5fc0",
+        "filename": "cast/sender/testing/test_helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Ok, but it looks like message_util.h ended up in cast/common/channel and message_util.cc ended up in cast/sender/channel.  Preferably they would both be in cast/common/channel?",
+      "parentUuid": "0c018785_11b199da",
       "revId": "d36257852be7529c575fd15feeb24bc73cf3c530",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false

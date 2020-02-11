@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55bc1a39_e0ec29eb",
+        "filename": "cast/sender/cast_app_discovery_service_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "ISTM the test setup could be simplified somewhat by adding APIs to FakeCastSocket or FakeCastSocketPair for common operations in this test.\n\n- socket_ is only used to get the id, which is hard coded for a fake socket anyway; maybe FakeCastSocket::id()?\n- You could have a method ExpectSendMessageSuccess(message) to call EXPECT_TRUE(peer_socket().SendMessage(availability_response).ok());",
+      "revId": "1b8d3cd40a7381783410480022bee737bcd52555",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a76734a_eb7add56",
+        "filename": "cast/sender/cast_app_discovery_service_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "receiver_",
+      "revId": "1b8d3cd40a7381783410480022bee737bcd52555",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2136fed9_d2cdfb6c",
+        "filename": "cast/sender/cast_app_discovery_service_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Where is VerifyAppAvailabilityRequest implemented?  Is that in a test helper class?",
+      "revId": "1b8d3cd40a7381783410480022bee737bcd52555",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b302059_7eefc072",
+        "filename": "cast/sender/cast_app_discovery_service_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Do you expect these unique ids to be identical?  It looks like devices1 and devices2 are actually representing two different availability callbacks, so maybe result1 and result2 instead?",
+      "revId": "1b8d3cd40a7381783410480022bee737bcd52555",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7d3f26_52d02a92",
+        "filename": "cast/sender/cast_app_discovery_service_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "L143-L163 looks identical to code in the the previous test case.  Please factor out duplicated code into the test fixture base class where practical.",
+      "revId": "1b8d3cd40a7381783410480022bee737bcd52555",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbca2974_9d3a88ae",
+        "filename": "cast/sender/cast_app_discovery_service_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Please use generic \"int\" for general IDs instead of fixed width types.",
+      "revId": "1b8d3cd40a7381783410480022bee737bcd52555",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1167dd0_733967c8",
+        "filename": "cast/sender/cast_app_discovery_service_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-11T21:03:45Z",
+      "side": 1,
+      "message": "Would it make sense to add a helper in fake_cast_socket.h to set up a fake receiver with a fake socket pair?",
+      "revId": "1b8d3cd40a7381783410480022bee737bcd52555",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
