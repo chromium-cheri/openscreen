@@ -4,8 +4,6 @@
 
 #include "cast/common/channel/cast_socket.h"
 
-#include <atomic>
-
 #include "cast/common/channel/message_framer.h"
 #include "util/logging.h"
 
@@ -15,14 +13,22 @@ namespace cast {
 using ::cast::channel::CastMessage;
 using message_serialization::DeserializeResult;
 
-uint32_t GetNextSocketId() {
-  static std::atomic<uint32_t> id(1);
-  return id++;
+static std::vector<int32_t> g_free_ids;
+
+int32_t GetNextSocketId() {
+  static int32_t id = 1;
+  if (g_free_ids.empty()) {
+    return id++;
+  } else {
+    int32_t id = g_free_ids.back();
+    g_free_ids.pop_back();
+    return id;
+  }
 }
 
 CastSocket::CastSocket(std::unique_ptr<TlsConnection> connection,
                        Client* client,
-                       uint32_t socket_id)
+                       int32_t socket_id)
     : connection_(std::move(connection)),
       client_(client),
       socket_id_(socket_id) {
@@ -32,6 +38,7 @@ CastSocket::CastSocket(std::unique_ptr<TlsConnection> connection,
 
 CastSocket::~CastSocket() {
   connection_->SetClient(nullptr);
+  g_free_ids.push_back(socket_id_);
 }
 
 Error CastSocket::SendMessage(const CastMessage& message) {

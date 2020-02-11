@@ -74,7 +74,7 @@ class VirtualConnectionRouter final : public CastSocket::Client {
   };
 
   VirtualConnectionManager* const vc_manager_;
-  std::map<uint32_t, SocketWithHandler> sockets_;
+  std::map<int32_t, SocketWithHandler> sockets_;
   std::map<std::string /* local_id */, CastMessageHandler*> endpoints_;
 };
 
