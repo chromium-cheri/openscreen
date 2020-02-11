@@ -9,6 +9,7 @@
 #include "cast/sender/channel/message_util.h"
 #include "platform/base/tls_connect_options.h"
 #include "util/crypto/certificate_utils.h"
+#include "util/logging.h"
 
 using ::cast::channel::CastMessage;
 
@@ -25,11 +26,19 @@ bool operator<(int32_t a,
   return b && a < b->socket->socket_id();
 }
 
-SenderSocketFactory::SenderSocketFactory(Client* client) : client_(client) {
+SenderSocketFactory::SenderSocketFactory(Client* client,
+                                         TaskRunner* task_runner)
+    : client_(client), task_runner_(task_runner) {
   OSP_DCHECK(client);
+  OSP_DCHECK(task_runner);
 }
 
 SenderSocketFactory::~SenderSocketFactory() = default;
+
+void SenderSocketFactory::set_factory(TlsConnectionFactory* factory) {
+  OSP_DCHECK(factory);
+  factory_ = factory;
+}
 
 void SenderSocketFactory::Connect(const IPEndpoint& endpoint,
                                   DeviceMediaPolicy media_policy,
@@ -146,13 +155,16 @@ void SenderSocketFactory::OnMessage(CastSocket* socket, CastMessage message) {
   if (!IsAuthMessage(message)) {
     client_->OnError(this, pending->endpoint,
                      Error::Code::kCastV2AuthenticationError);
+    task_runner_->PostTask([x = pending.release()]() { delete x; });
     return;
   }
 
   ErrorOr<CastDeviceCertPolicy> policy_or_error = AuthenticateChallengeReply(
-      message, (*it)->peer_cert.get(), (*it)->auth_context);
+      message, pending->peer_cert.get(), pending->auth_context);
   if (policy_or_error.is_error()) {
+    OSP_DLOG_WARN << "Authentication failed " << pending->endpoint;
     client_->OnError(this, pending->endpoint, policy_or_error.error());
+    task_runner_->PostTask([x = pending.release()]() { delete x; });
     return;
   }
 
@@ -160,8 +172,11 @@ void SenderSocketFactory::OnMessage(CastSocket* socket, CastMessage message) {
       pending->media_policy != DeviceMediaPolicy::kAudioOnly) {
     client_->OnError(this, pending->endpoint,
                      Error::Code::kCastV2ChannelPolicyMismatch);
+    task_runner_->PostTask([x = pending.release()]() { delete x; });
     return;
   }
+  pending->socket->set_audio_only(policy_or_error.value() ==
+                                  CastDeviceCertPolicy::kAudioOnly);
 
   pending->socket->SetClient(pending->client);
   client_->OnConnected(this, pending->endpoint, std::move(pending->socket));
