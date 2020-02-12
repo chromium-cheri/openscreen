@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e06cd7e8_b59d8a24",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-12T02:33:28Z",
+      "side": 1,
+      "message": "\u003e After thinking a bit more, is a user running 2 instances of Cast the expected case (OSP and Castv2 as separate threads)? Or should multiple instances share the same task runner?\n\nIf you mean using our library for the OpenScreen Protocol and CastV2 at the same, I don\u0027t know what should be expected, maybe share the same thread/sequence if some shared platform implementation requires it?  It doesn\u0027t matter for this case though, because this is Cast-specific.  Even if OSP were running on another thread (but still this executable) none of that code would touch this global.\n\n\u003e Alternatively, what about just adding a mutex here to be safe?\n\nI\u0027m okay with a mutex here.  If anyone is opposed I think the next best option is probably to revert to increment-only.",
+      "parentUuid": "57eab2c5_4cd6b551",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "5a5c78e7c848b61068975a578bffbd0b572fe312",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da76be90_58d44d15",
         "filename": "cast/common/channel/cast_socket.cc",
         "patchSetId": 3
