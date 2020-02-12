@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "57eab2c5_4cd6b551",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T01:54:57Z",
+      "side": 1,
+      "message": "\u003e Thread local storage is probably worse because Chromium doesn\u0027t actually guarantee that a \"sequence\" is 1:1 with a thread.  Consider using a thread pool to cycle through not-already-running sequences.  So that could break even the normal case.\n\nThat makes sense. \n\n\u003e Another more complicated possibility I considered was to have the socket be created with a pointer to a free list that could then live in the socket factory.  That stores an extra pointer in each socket and adds a lifetime link (though probably a small issue) between the socket and its creating factory.  WDYT about that?\n\nAfter thinking a bit more, is a user running 2 instances of Cast the expected case (OSP and Castv2 as separate threads)? Or should multiple instances share the same task runner?\n\nIf we only expect one thread in practice, that sounds like it might be overcomplicating the issue - since this is a case we don\u0027t ever actually expect to hit (It requires users run multiple instances of Cast, wh, I\u0027m open to just documenting this in code with a TODO and filing a bug\nAlternatively, what about just adding a mutex her to be safe? If I remember right, a lock is really low cost as long as there is never contention, which is the expected case here, so it should be really cheap\n\nIf we regularly expect multiple threads, it may be worth considering the more complex approach\n\n\u003e TBH the solution in Chrome right now is a static signed int with no free list, so it\u0027s also not unreasonable to just leave this off.\n\nI\u0027m not agains this either. Entirely your call here.\n\nWDYT?",
+      "parentUuid": "d08e09e7_64eabd77",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "5a5c78e7c848b61068975a578bffbd0b572fe312",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da76be90_58d44d15",
         "filename": "cast/common/channel/cast_socket.cc",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I don\u0027t think wrapping is a good solution for reusing IDs.  If one socket lives forever and some device keeps generating connect errors, IDs could wrap into the live one (though still admittedly unlikely).",
       "parentUuid": "da76be90_58d44d15",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "5a5c78e7c848b61068975a578bffbd0b572fe312",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff120cdc_64175ee8",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T01:54:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a752128e_2ccc5113",
       "range": {
         "startLine": 21,
         "startChar": 4,
