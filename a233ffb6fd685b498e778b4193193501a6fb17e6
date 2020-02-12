@@ -70,6 +70,24 @@
       "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c46caeb8_bc594699",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T21:42:02Z",
+      "side": 1,
+      "message": "Came up with a solution to avoid the copy loop. WDYT about:\n\n  if (remaining() \u003c out-\u003ebitmap_length) {\n    return false;\n  }\n  memcpy(out-\u003ebitmap, current(), out-\u003ebitmap_length);\n  bool skip_result \u003d Skip(out-\u003ebitmap_length);\n  OSP_DCHECK(skip_result);\n  \n  cursor.Commit();\n  return true;",
+      "parentUuid": "e76d22a1_4f6b3bda",
+      "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
