@@ -16,6 +16,24 @@
       "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4800786f_7f813081",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T18:44:35Z",
+      "side": 1,
+      "message": "Remaining() doesn\u0027t work here because it\u0027s associated with the full BigEndianBuffer (for the entire MdnsMessage, with one or more MdnsRecord instances). Also, the Read method already includes a Skip() call.\n\nI tried to write it using BigEndianWriter::Cursor() methods, but it ended up more complex than the current code IMHO:\n\n  uint8_t* current \u003d cursor.current();\n  for (uint8_t* bitmap_ptr \u003d out-\u003ebitmap; cursor.delta() - current \u003c out-\u003ebitmap_length \u0026\u0026 Read(bitmap_ptr++);) {}\n\nI don\u0027t have a strong opinion either way and am open to changing. WDYT?",
+      "parentUuid": "67ee4439_9c5f5b4f",
+      "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
