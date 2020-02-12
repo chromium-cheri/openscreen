@@ -32,7 +32,10 @@ class SerialDelete {
 
   void operator()(Type* pointer) const {
     // Deletion of the object depends on the task being run by the task runner.
-    task_runner_->PostTask([pointer, deleter = deleter_] { deleter(pointer); });
+    if (pointer) {
+      task_runner_->PostTask(
+          [pointer, deleter = std::move(deleter_)] { deleter(pointer); });
+    }
   }
 
  private:
