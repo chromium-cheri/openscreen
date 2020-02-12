@@ -34,6 +34,24 @@
       "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78fa80b9_813c428a",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-12T20:44:42Z",
+      "side": 1,
+      "message": "\u003e Remaining() doesn\u0027t work here because it\u0027s associated with the full BigEndianBuffer (for the entire MdnsMessage, with one or more MdnsRecord instances). Also, the Read method already includes a Skip() call.\n\nRight, but Read\u003cuint8_t\u003e() below is doing what I want, just one byte at a time.  I didn\u0027t realize Skip() actually returns a bool, so it\u0027s even simpler.  Replace this loop with:\n```\n  out-\u003ebitmap \u003d current();\n  if (!Skip(out-\u003ebitmap_length)) {\n    return false;\n  }\n  cursor.Commit();\n  return true;\n```",
+      "parentUuid": "4800786f_7f813081",
+      "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
