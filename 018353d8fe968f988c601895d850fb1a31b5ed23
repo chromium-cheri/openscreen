@@ -2,6 +2,258 @@
   "comments": [
     {
       "key": {
+        "uuid": "15d762bc_322d2d86",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Can we have a TODO to rename this per this comment thread?\nhttps://chromium-review.googlesource.com/c/openscreen/+/2029250/1/cast/sender/cast_app_discovery_service_impl.cc#35",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bfa3607_6c6959fa",
+        "filename": "cast/sender/cast_platform_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Do we need to call the outstanding request callbacks with kUnknown?",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f71021f1_c0737ba9",
+        "filename": "cast/sender/cast_platform_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Nit: I\u0027d name this something like pending_requests_it to indicate that it\u0027s an iterator",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 23
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "108dcfe0_56c4bdcb",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Nit: Can we use do \"using \u003d\" or give a parameter name here to indicate that this is the app ID?",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 42
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4028ad69_f7d1ca17",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "It\u0027d be nice if we could somehow annotate that this callback is meant to be called just once, like we do in Chromium with a OnceCallback, as opposed to getting called whenever the availability changes. Is a std::function always single-use?",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c789b78_b09e8cc4",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Dumb question, why are we wrapping this in a struct, vs doing something like \"using\u003d\"?",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d964d5d_d3eebbef",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Nit: GetNextRequestId()?",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c8c5fbf_11f68f5e",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Nit: next_request_id_",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 25
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d6eaa6_a46b2769",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Nit: socket_id_by_device_?",
+      "range": {
+        "startLine": 81,
+        "startChar": 34,
+        "endLine": 81,
+        "endChar": 40
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e47d62d0_233855cc",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "I don\u0027t know what the best practice is, but I personally prefer that these std::strings are annotated with \"using\u003d\", so that I know which of them are in the same category.\n\nThe style guide does mention a downside to that:\n\n\u003e Aliases can reduce readability by giving a familiar construct an unfamiliar name\n\nhttps://google.github.io/styleguide/cppguide.html#Aliases\n\nGiven that, maybe adding comments would be more appropriate, e.g. \"std::string /* device_id */\"",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e135856_c2067b15",
+        "filename": "cast/sender/cast_platform_handler_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "\u003d nullptr;",
+      "range": {
+        "startLine": 42,
+        "startChar": 21,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b880688_d4a81103",
+        "filename": "cast/sender/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "May be good to comment that |request_id| must be unique for the |source_id|. Also, \"sender_id\" would be clearer to me than \"source_id\".",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4447a3c_914f1b5d",
         "filename": "cast/sender/testing/DEPS",
         "patchSetId": 1
@@ -13,6 +265,46 @@
       "writtenOn": "2020-02-08T00:27:29Z",
       "side": 1,
       "message": "Actually, I wonder whether this means //cast/receiver/channel/device_auth_namespace_handler_unittest.cc should just have a `specific_include_rules` exception for using //cast/sender to get rid of the whole protobuf dance.  It makes it more of a _unit_ test the it is now, but WDYT?",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ce6cdfd_7b873f5c",
+        "filename": "cast/sender/testing/test_helpers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Suffix these param names with _out?",
+      "range": {
+        "startLine": 27,
+        "startChar": 34,
+        "endLine": 29,
+        "endChar": 58
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4504d80_aefe6e8a",
+        "filename": "util/json/json_value.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-02-12T21:02:57Z",
+      "side": 1,
+      "message": "Are we using \u003e\u003d rather than \u003e because we want to return a string_view for empty strings?\nI think we need to also check that begin is not a nullptr.",
       "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
