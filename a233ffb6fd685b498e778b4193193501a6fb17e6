@@ -88,6 +88,24 @@
       "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b97d850_92f96bd2",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T21:48:08Z",
+      "side": 1,
+      "message": "Or:\n\n  uint8_t* start \u003d current()\n  if (!Skip(out-\u003ebitmap_length)) {\n    return false;\n  }\n  memcpy(out-\u003ebitmap, start, out-\u003ebitmap_length);\n  cursor.Commit();\n  return true;",
+      "parentUuid": "c46caeb8_bc594699",
+      "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
