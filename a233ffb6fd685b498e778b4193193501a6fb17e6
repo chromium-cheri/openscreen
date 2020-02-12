@@ -52,6 +52,24 @@
       "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e76d22a1_4f6b3bda",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T21:32:20Z",
+      "side": 1,
+      "message": "Thanks for the explanation. \n\nThis change results in a segfault. Still investigating, but I can\u0027t find what\u0027s causing it yet - something related to being forced to change out-\u003ebitmap to a const uint8_t** rather than an array\nThough IMHO, if I\u0027ve spent half an hour staring at the code and can\u0027t find it, it\u0027s more complex than it needs to be just to save copying 8 bytes\n\nWDYT?",
+      "parentUuid": "78fa80b9_813c428a",
+      "revId": "a233ffb6fd685b498e778b4193193501a6fb17e6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
