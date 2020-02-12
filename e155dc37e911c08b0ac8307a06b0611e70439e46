@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8467ac83_2cac6708",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T20:56:23Z",
+      "side": 1,
+      "message": "erase_if is vector only based on what I\u0027m seeing in the documentation :)\n\nstd::remove_if would work, but that\u0027s a bit more complex - it swaps records and then expects you to call std::erase after. Which could work, but feels overly complex for this scenario. Since there is only at most one record matching this scenario, a std::find is simpler IMHO - it requires a lot more thought for me to figure out how swapping records in the middle of a std::multimap works rather than just finding one",
+      "parentUuid": "5217852b_521d764c",
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "49882c57_4d4c4906",
         "filename": "discovery/mdns/mdns_trackers.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9012f39_dfcffd83",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T20:56:23Z",
+      "side": 1,
+      "message": "Comments added. PTAL",
+      "parentUuid": "49882c57_4d4c4906",
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "bf95168b_cce0fb73",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T20:56:23Z",
+      "side": 1,
+      "message": "After thinking more, I\u0027d prefer leaving the BipartiteGraph class in the same file. I still feel like readability and code cleanliness would benefit from the change though. WDYT?",
+      "parentUuid": "b9a886b3_55176f34",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 62
+      },
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bdfb30cf_abdcecb6",
         "filename": "discovery/mdns/mdns_trackers.h",
         "patchSetId": 6
@@ -124,6 +184,24 @@
     },
     {
       "key": {
+        "uuid": "ae28ae18_1ff90305",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T20:56:23Z",
+      "side": 1,
+      "message": "These aren\u0027t all pass through (dns_type !\u003d record_.dns_type() in some cases) and are used to create a MdnsRecord object using the provided variables. Because dns_type_ can be different from MdnsRecord::DnsType() (If this tracker contains a NSEC record at the time), providing reference to the underlying mDNS Record can be error prone\n\nAdding comments",
+      "parentUuid": "bdfb30cf_abdcecb6",
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f581425_714be9fd",
         "filename": "discovery/mdns/mdns_trackers_unittest.cc",
         "patchSetId": 6
@@ -138,6 +216,24 @@
       "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d926792_5fb44a78",
+        "filename": "discovery/mdns/mdns_trackers_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T20:56:23Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9f581425_714be9fd",
+      "revId": "e155dc37e911c08b0ac8307a06b0611e70439e46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
