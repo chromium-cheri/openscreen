@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53318f7c_2bb7cfcf",
+        "filename": "cast/common/channel/cast_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T01:10:14Z",
+      "side": 1,
+      "message": "Is video-only something supported by the cast-protocol / something we want to support? If so, this might be better as an enum:\n\nenmum class CastType {\nkAudioOnly,\nkVideoOnly,\nkAudioAndVideo}\n\nI think I remember discussion of a similar enum in a previous CL - can that be reused?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 49
+      },
+      "revId": "dfd8b2bf2fcb8a7f5b914ffea05e2b86a3fc8217",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463a9929_aca7a3a2",
+        "filename": "cast/sender/channel/sender_socket_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T01:10:14Z",
+      "side": 1,
+      "message": "\u003d 0, so that it\u0027s clear this is the default value for newly created DeviceMediaPolicie instances",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 10
+      },
+      "revId": "dfd8b2bf2fcb8a7f5b914ffea05e2b86a3fc8217",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83a1c81f_517e0256",
+        "filename": "cast/sender/channel/sender_socket_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T01:10:14Z",
+      "side": 1,
+      "message": "Add documentation. Specifically that this can never be nullptr",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "dfd8b2bf2fcb8a7f5b914ffea05e2b86a3fc8217",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907bde99_5242d976",
+        "filename": "cast/sender/channel/sender_socket_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T01:10:14Z",
+      "side": 1,
+      "message": "Document public methods",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 43
+      },
+      "revId": "dfd8b2bf2fcb8a7f5b914ffea05e2b86a3fc8217",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0635b35b_062a0b77",
+        "filename": "util/serial_delete_ptr.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T01:10:14Z",
+      "side": 1,
+      "message": "Is this change needed? Based on unique_ptr documentation, this operator shouldn\u0027t be called if the type is null\n\nhttps://en.cppreference.com/w/cpp/memory/unique_ptr/~unique_ptr",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "dfd8b2bf2fcb8a7f5b914ffea05e2b86a3fc8217",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
