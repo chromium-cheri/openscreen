@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10bce27b_1fa954f1",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T00:54:33Z",
+      "side": 1,
+      "message": "Even if we expect the execution of a given instance of the library to be on this thread, is it reasonable to assume all instances will be?\n\nWDYT about thread-local instead of normal static for these variables? In the case of a single service instance it should all be the same",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "5a5c78e7c848b61068975a578bffbd0b572fe312",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da76be90_58d44d15",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-12T00:54:33Z",
+      "side": 1,
+      "message": "I was under the impression that the choice of using unit32_t was intentional. Then, wrap-around could occur without any issue (even if its unlikely we would ever get IDs that high)",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "5a5c78e7c848b61068975a578bffbd0b572fe312",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
