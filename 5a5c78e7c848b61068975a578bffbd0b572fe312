@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d08e09e7_64eabd77",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-12T01:14:06Z",
+      "side": 1,
+      "message": "Well, \"reasonable\"? IMHO yes.  Guaranteed?  Definitely not.\n\nThread local storage is probably worse because Chromium doesn\u0027t actually guarantee that a \"sequence\" is 1:1 with a thread.  Consider using a thread pool to cycle through not-already-running sequences.  So that could break even the normal case.\n\nAnother more complicated possibility I considered was to have the socket be created with a pointer to a free list that could then live in the socket factory.  That stores an extra pointer in each socket and adds a lifetime link (though probably a small issue) between the socket and its creating factory.  WDYT about that?\n\nTBH the solution in Chrome right now is a static signed int with no free list, so it\u0027s also not unreasonable to just leave this off.",
+      "parentUuid": "10bce27b_1fa954f1",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "5a5c78e7c848b61068975a578bffbd0b572fe312",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da76be90_58d44d15",
         "filename": "cast/common/channel/cast_socket.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "5a5c78e7c848b61068975a578bffbd0b572fe312",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a752128e_2ccc5113",
+        "filename": "cast/common/channel/cast_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-12T01:14:06Z",
+      "side": 1,
+      "message": "I don\u0027t think wrapping is a good solution for reusing IDs.  If one socket lives forever and some device keeps generating connect errors, IDs could wrap into the live one (though still admittedly unlikely).",
+      "parentUuid": "da76be90_58d44d15",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "5a5c78e7c848b61068975a578bffbd0b572fe312",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
