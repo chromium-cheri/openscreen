@@ -33,8 +33,7 @@ inline Integer ByteSwap(Integer x) {
   static_assert(sizeof(Integer) != sizeof(Integer),
                 "ByteSwap() specialization missing in " __FILE__
                 ". "
-                "Did you try to use a signed integer by accident? "
-                "Unsigned long long might be more than 64 bits?");
+                "Did you try to use a signed integer by accident?");
   return x;
 }
 
@@ -91,6 +90,17 @@ inline uint16_t ByteSwap(uint16_t x) {
 }
 
 #endif
+
+// NOTE: On 64-bit architectures, uint64_t is defined as unsigned long, which
+// does _not_ compare equal to unsigned long long for template resolution.
+// Force the conversion instead.
+template <>
+inline unsigned long long ByteSwap(unsigned long long x) {
+  static_assert(
+      sizeof(unsigned long long) == 8,
+      "unsigned long long isn't 8 bytes, consider updating this work-around");
+  return ByteSwap<uint64_t>(x);
+}
 
 // Read a POD integer from |src| in big-endian byte order, returning the integer
 // in native byte order.
