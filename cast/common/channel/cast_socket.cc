@@ -4,8 +4,6 @@
 
 #include "cast/common/channel/cast_socket.h"
 
-#include <atomic>
-
 #include "cast/common/channel/message_framer.h"
 #include "util/logging.h"
 
@@ -16,7 +14,7 @@ using ::cast::channel::CastMessage;
 using message_serialization::DeserializeResult;
 
 uint32_t GetNextSocketId() {
-  static std::atomic<uint32_t> id(1);
+  static uint32_t id(1);
   return id++;
 }
 
