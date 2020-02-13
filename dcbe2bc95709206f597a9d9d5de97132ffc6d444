@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94027555_2857a425",
+        "filename": "third_party/mozilla/url_parse.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-13T03:58:41Z",
+      "side": 1,
+      "message": "These could all be further collapsed since the \"Do\" functions aren\u0027t templated on the char type anymore, but that would make the diff much messier.  LMK if you\u0027d prefer that before submitting though.",
+      "revId": "dcbe2bc95709206f597a9d9d5de97132ffc6d444",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5edbae27_48710de8",
+        "filename": "third_party/mozilla/url_parse_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-13T03:58:41Z",
+      "side": 1,
+      "message": "These are things needed by url_parse.cc.  In Chromium they are actually under //url.  I was going to put them under //util, where the future URL class would go, but that would lead to a circular dependency.  Chromium gets around this by putting the third_party/mozilla files directly in the //url/BUILD.gn source set.  Doing that here would also allow the assert()s to be OSP_DCHECK()s.  WDYT about these options?",
+      "revId": "dcbe2bc95709206f597a9d9d5de97132ffc6d444",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
