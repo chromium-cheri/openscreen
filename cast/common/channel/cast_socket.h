@@ -65,6 +65,7 @@ class CastSocket : public TlsConnection::Client {
 
   const std::unique_ptr<TlsConnection> connection_;
   Client* client_;  // May never be null.
+  // FIXME: Convert to int unless we need int32_t specifically.
   const int32_t socket_id_;
   bool audio_only_ = false;
   std::vector<uint8_t> read_buffer_;

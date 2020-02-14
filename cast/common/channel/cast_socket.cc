@@ -4,8 +4,6 @@
 
 #include "cast/common/channel/cast_socket.h"
 
-#include <mutex>
-
 #include "cast/common/channel/message_framer.h"
 #include "util/logging.h"
 
@@ -15,18 +13,21 @@ namespace cast {
 using ::cast::channel::CastMessage;
 using message_serialization::DeserializeResult;
 
-static std::vector<int32_t> g_free_ids;
-static std::mutex g_free_ids_mutex;
+// FIXME: Remove ID argument from the CastSocket ctor, as otherwise these IDs
+// are not guaranteed to be free.
+static std::vector<int32_t>* g_free_ids = nullptr;
 
 int32_t GetNextSocketId() {
   static int32_t id{1};
-  std::lock_guard<std::mutex> lock(g_free_ids_mutex);
-  if (g_free_ids.empty()) {
+  static auto& free_ids = *new std::vector<int32_t>;
+  if (!g_free_ids)
+    g_free_ids = &free_ids;
+  if (free_ids.empty()) {
     return id++;
   } else {
-    int32_t id = g_free_ids.back();
-    g_free_ids.pop_back();
-    return id;
+    const int32_t free_id = free_ids.back();
+    free_ids.pop_back();
+    return free_id;
   }
 }
 
@@ -42,7 +43,8 @@ CastSocket::CastSocket(std::unique_ptr<TlsConnection> connection,
 
 CastSocket::~CastSocket() {
   connection_->SetClient(nullptr);
-  g_free_ids.push_back(socket_id_);
+  if (g_free_ids)
+    g_free_ids->push_back(socket_id_);
 }
 
 Error CastSocket::SendMessage(const CastMessage& message) {
