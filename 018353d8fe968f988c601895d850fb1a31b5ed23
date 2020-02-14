@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "970c3f03_78713d0d",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15d762bc_322d2d86",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bfa3607_6c6959fa",
         "filename": "cast/sender/cast_platform_handler.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ce64017_db9146ce",
+        "filename": "cast/sender/cast_platform_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Good idea.  Done.",
+      "parentUuid": "6bfa3607_6c6959fa",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "3fb5e94a_0385a28c",
+        "filename": "cast/sender/cast_platform_handler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f71021f1_c0737ba9",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 23
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "108dcfe0_56c4bdcb",
         "filename": "cast/sender/cast_platform_handler.h",
         "patchSetId": 1
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7e0582fe_5e1d150d",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "108dcfe0_56c4bdcb",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 42
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4028ad69_f7d1ca17",
         "filename": "cast/sender/cast_platform_handler.h",
         "patchSetId": 1
@@ -93,6 +177,30 @@
       "writtenOn": "2020-02-12T21:02:57Z",
       "side": 1,
       "message": "It\u0027d be nice if we could somehow annotate that this callback is meant to be called just once, like we do in Chromium with a OnceCallback, as opposed to getting called whenever the availability changes. Is a std::function always single-use?",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72b14f04_554a207f",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "No, std::function can always be called repeatedly.  We could introduce a wrapper around std::function that destroys it after calling.  I can also leave a TODO for adding a OnceCallback in a future change.  For now I at least added a note in a comment here.",
+      "parentUuid": "4028ad69_f7d1ca17",
       "range": {
         "startLine": 47,
         "startChar": 30,
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "c0a76051_a4ae66b5",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Yeah, I guess this looks silly right now.  The idea is that other requests (launch, stop, volume) will go here just like in Chromium.",
+      "parentUuid": "4c789b78_b09e8cc4",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d964d5d_d3eebbef",
         "filename": "cast/sender/cast_platform_handler.h",
         "patchSetId": 1
@@ -142,6 +268,30 @@
       "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32e8aec_fa805d2d",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d964d5d_d3eebbef",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "23db1064_41270ddb",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c8c5fbf_11f68f5e",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 25
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3d6eaa6_a46b2769",
         "filename": "cast/sender/cast_platform_handler.h",
         "patchSetId": 1
@@ -188,6 +362,30 @@
       "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbe43314_bbf87bac",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3d6eaa6_a46b2769",
+      "range": {
+        "startLine": 81,
+        "startChar": 34,
+        "endLine": 81,
+        "endChar": 40
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -214,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "37ef1a57_9aa0654d",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "I don\u0027t like using too many aliases either so I went the comment route.",
+      "parentUuid": "e47d62d0_233855cc",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e135856_c2067b15",
         "filename": "cast/sender/cast_platform_handler_unittest.cc",
         "patchSetId": 1
@@ -237,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "a84b19c7_278c4708",
+        "filename": "cast/sender/cast_platform_handler_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e135856_c2067b15",
+      "range": {
+        "startLine": 42,
+        "startChar": 21,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b880688_d4a81103",
         "filename": "cast/sender/channel/message_util.h",
         "patchSetId": 1
@@ -251,6 +497,24 @@
       "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94c021b3_93ed9ec2",
+        "filename": "cast/sender/channel/message_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b880688_d4a81103",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -294,6 +558,30 @@
     },
     {
       "key": {
+        "uuid": "0e2dd32a_13353916",
+        "filename": "cast/sender/testing/test_helpers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ce6cdfd_7b873f5c",
+      "range": {
+        "startLine": 27,
+        "startChar": 34,
+        "endLine": 29,
+        "endChar": 58
+      },
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4504d80_aefe6e8a",
         "filename": "util/json/json_value.cc",
         "patchSetId": 1
@@ -308,6 +596,24 @@
       "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0fa9cdf_1fd950c9",
+        "filename": "util/json/json_value.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-14T01:04:59Z",
+      "side": 1,
+      "message": "Yes to returning empty strings.  I added a test for this.\n\nbegin !\u003d nullptr done.",
+      "parentUuid": "c4504d80_aefe6e8a",
+      "revId": "018353d8fe968f988c601895d850fb1a31b5ed23",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
