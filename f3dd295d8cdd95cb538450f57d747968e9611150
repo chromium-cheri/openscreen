@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82cb9ccb_f0339668",
+        "filename": "cast/common/channel/message_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Can you add this to crbug.com/openscreen/111 and change this to TODO to reference that bug?",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2d42041_e4690989",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "TODO(https://crbug.com/openscreen/112):",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57fb0986_7bd3d53b",
+        "filename": "cast/receiver/channel/message_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Rather than create a codepath that can CHECK(), you could write this as two exported functions\n\nCreateAppAvailableResponse(request_id, sender_id, app_id)\nCreateAppUnavailableResponse(request_id, sender_id, app_id)\n\nthat call this function defined locally.",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77e4902_abb8cc6c",
+        "filename": "cast/receiver/channel/message_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Please document this method.",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c82bb60_7d6b65ae",
+        "filename": "cast/sender/cast_app_availability_tracker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "TODO(https://crbug.com/openscreen/112)",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26393ab9_871af7f3",
+        "filename": "cast/sender/cast_platform_handler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Can these objects be allocated once (holding dist by static ref)?",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c2bb8f4_7be8ef07",
+        "filename": "cast/sender/cast_platform_handler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "absl::StrCat?",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b09a34d4_92e61a59",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "I don\u0027t think other parts of the sender need to worry about these messages, they are part of the channel implementation.",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e447416_40af618a",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Would it be more accurate to name this \"CastPlatformClient\", as it\u0027s an API to make RPCs to the (remote) Cast Receiver platform?",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f711c55_4920acab",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "If you returned the request_id, you could use that as a token for the sender to cancel the request.\n\nCalling CancelRequest(request_id) would drop the callback and any future response would be ignored.\n\nWould that work?",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea784fd_607a329d",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Should socket_id be part of the ServiceInfo?",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec194cbb_f1f3788c",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Should this be private?",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ee7531_a1892627",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Does this need to be a struct?  It has one member.",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e889a22_09bec279",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "int?",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6298c68b_19b2ce6f",
+        "filename": "cast/sender/cast_platform_handler.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-19T01:38:53Z",
+      "side": 1,
+      "message": "Make static so multiple instances don\u0027t have overlapping IDs.",
+      "revId": "f3dd295d8cdd95cb538450f57d747968e9611150",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
