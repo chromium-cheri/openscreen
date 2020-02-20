@@ -61,4 +61,14 @@ bool FakeTaskRunner::IsRunningOnTaskRunner() {
   return true;
 }
 
+Clock::time_point FakeTaskRunner::GetResumeTime() const {
+  if (!ready_to_run_tasks_.empty()) {
+    return FakeClock::now();
+  }
+  if (!delayed_tasks_.empty()) {
+    return delayed_tasks_.begin()->first;
+  }
+  return Clock::time_point::max();
+}
+
 }  // namespace openscreen
