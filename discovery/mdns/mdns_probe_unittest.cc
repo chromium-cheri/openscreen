@@ -39,13 +39,13 @@ class MockObserver : public MdnsProbeImpl::Observer {
 class MdnsProbeTests : public testing::Test {
  public:
   MdnsProbeTests()
-      : socket_(FakeUdpSocket::CreateDefault()),
-        clock_(Clock::now()),
+      : clock_(Clock::now()),
         task_runner_(&clock_),
-        sender_(socket_.get()) {
-    EXPECT_EQ(task_runner_.delayed_tasks_.size(), size_t{0});
+        socket_(&task_runner_),
+        sender_(&socket_) {
+    EXPECT_EQ(task_runner_.delayed_task_count(), 0);
     probe_ = CreateProbe();
-    EXPECT_EQ(task_runner_.delayed_tasks_.size(), size_t{1});
+    EXPECT_EQ(task_runner_.delayed_task_count(), 1);
   }
 
  protected:
@@ -69,9 +69,9 @@ class MdnsProbeTests : public testing::Test {
     probe_->OnMessageReceived(message);
   }
 
-  std::unique_ptr<FakeUdpSocket> socket_;
   FakeClock clock_;
   FakeTaskRunner task_runner_;
+  FakeUdpSocket socket_;
   StrictMock<MockMdnsSender> sender_;
   MdnsReceiver receiver_;
   MdnsRandom random_;
@@ -89,22 +89,22 @@ class MdnsProbeTests : public testing::Test {
 TEST_F(MdnsProbeTests, TestNoCancelationFlow) {
   EXPECT_CALL(sender_, SendMulticast(_));
   clock_.Advance(kDelayBetweenProbeQueries);
-  EXPECT_EQ(task_runner_.delayed_tasks_.size(), size_t{1});
+  EXPECT_EQ(task_runner_.delayed_task_count(), 1);
   testing::Mock::VerifyAndClearExpectations(&sender_);
 
   EXPECT_CALL(sender_, SendMulticast(_));
   clock_.Advance(kDelayBetweenProbeQueries);
-  EXPECT_EQ(task_runner_.delayed_tasks_.size(), size_t{1});
+  EXPECT_EQ(task_runner_.delayed_task_count(), 1);
   testing::Mock::VerifyAndClearExpectations(&sender_);
 
   EXPECT_CALL(sender_, SendMulticast(_));
   clock_.Advance(kDelayBetweenProbeQueries);
-  EXPECT_EQ(task_runner_.delayed_tasks_.size(), size_t{1});
+  EXPECT_EQ(task_runner_.delayed_task_count(), 1);
   testing::Mock::VerifyAndClearExpectations(&sender_);
 
   EXPECT_CALL(observer_, OnProbeSuccess(probe_.get())).Times(1);
   clock_.Advance(kDelayBetweenProbeQueries);
-  EXPECT_EQ(task_runner_.delayed_tasks_.size(), size_t{0});
+  EXPECT_EQ(task_runner_.delayed_task_count(), 0);
 }
 
 TEST_F(MdnsProbeTests, CancelationWhenMatchingMessageReceived) {
@@ -117,7 +117,7 @@ TEST_F(MdnsProbeTests, TestNoCancelationOnUnrelatedMessages) {
 
   EXPECT_CALL(sender_, SendMulticast(_));
   clock_.Advance(kDelayBetweenProbeQueries);
-  EXPECT_EQ(task_runner_.delayed_tasks_.size(), size_t{1});
+  EXPECT_EQ(task_runner_.delayed_task_count(), 1);
   testing::Mock::VerifyAndClearExpectations(&sender_);
 }
 

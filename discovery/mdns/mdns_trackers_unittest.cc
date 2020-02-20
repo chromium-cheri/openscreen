@@ -68,10 +68,10 @@ class MockRecordChangedCallback : public MdnsRecordChangedCallback {
 class MdnsTrackerTest : public testing::Test {
  public:
   MdnsTrackerTest()
-      : socket_(FakeUdpSocket::CreateDefault()),
-        clock_(Clock::now()),
+      : clock_(Clock::now()),
         task_runner_(&clock_),
-        sender_(socket_.get()),
+        socket_(&task_runner_),
+        sender_(&socket_),
         a_question_(DomainName{"testing", "local"},
                     DnsType::kANY,
                     DnsClass::kIN,
@@ -172,9 +172,9 @@ class MdnsTrackerTest : public testing::Test {
 
   // clang-format on
   Config config_;
-  std::unique_ptr<FakeUdpSocket> socket_;
   FakeClock clock_;
   FakeTaskRunner task_runner_;
+  FakeUdpSocket socket_;
   StrictMock<MockMdnsSender> sender_;
   MdnsRandom random_;
 
