@@ -76,8 +76,8 @@ class MdnsPublisherTest : public testing::Test {
   MdnsPublisherTest()
       : clock_(Clock::now()),
         task_runner_(&clock_),
-        socket_(FakeUdpSocket::CreateDefault()),
-        sender_(socket_.get()),
+        socket_(&task_runner_),
+        sender_(&socket_),
         publisher_(&sender_,
                    &probe_manager_,
                    &task_runner_,
@@ -229,7 +229,7 @@ class MdnsPublisherTest : public testing::Test {
 
   FakeClock clock_;
   FakeTaskRunner task_runner_;
-  std::unique_ptr<FakeUdpSocket> socket_;
+  FakeUdpSocket socket_;
   StrictMock<MockMdnsSender> sender_;
   StrictMock<MockProbeManager> probe_manager_;
   Config config_;

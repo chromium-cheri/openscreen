@@ -5,7 +5,6 @@
 #ifndef PLATFORM_TEST_FAKE_CLOCK_H_
 #define PLATFORM_TEST_FAKE_CLOCK_H_
 
-#include <atomic>
 #include <vector>
 
 #include "platform/api/time.h"
@@ -19,6 +18,9 @@ class FakeClock {
   explicit FakeClock(Clock::time_point start_time);
   ~FakeClock();
 
+  // Moves the clock forward, simulating execution by running tasks in all
+  // FakeTaskRunners. The clock advances in one or more jumps, to ensure delayed
+  // tasks see the correct "now time" when they are executed.
   void Advance(Clock::duration delta);
 
   static Clock::time_point now() noexcept;
@@ -32,7 +34,7 @@ class FakeClock {
  private:
   std::vector<FakeTaskRunner*> task_runners_;
 
-  static std::atomic<Clock::time_point> now_;
+  static Clock::time_point now_;
 };
 
 }  // namespace openscreen

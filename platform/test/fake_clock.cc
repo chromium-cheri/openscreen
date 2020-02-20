@@ -12,26 +12,45 @@
 namespace openscreen {
 
 FakeClock::FakeClock(Clock::time_point start_time) {
+  OSP_CHECK_EQ(now_, Clock::time_point::min());
   now_ = start_time;
 }
 
 FakeClock::~FakeClock() {
   OSP_CHECK(task_runners_.empty());
+  now_ = Clock::time_point::min();
 }
 
 Clock::time_point FakeClock::now() noexcept {
-  return now_.load();
+  OSP_CHECK_NE(now_, Clock::time_point::min()) << "No FakeClock instance!";
+  return now_;
 }
 
 void FakeClock::Advance(Clock::duration delta) {
-  Clock::time_point x = now_.load();
-  while (!now_.compare_exchange_weak(x, x + delta)) {
-    x = now_.load();
+  const Clock::time_point stop_time = now() + delta;
+
+  for (;;) {
+    // Run tasks at the current time, since this might cause additional delayed
+    // tasks to be posted.
+    for (FakeTaskRunner* task_runner : task_runners_) {
+      task_runner->RunTasksUntilIdle();
+    }
+
+    // Find the next "step-to" time, and advance the clock to that point.
+    Clock::time_point step_to = Clock::time_point::max();
+    for (FakeTaskRunner* task_runner : task_runners_) {
+      step_to = std::min(step_to, task_runner->GetResumeTime());
+    }
+    if (step_to > stop_time) {
+      break;  // No tasks are scheduled for the remaining time range.
+    }
+
+    OSP_DCHECK_GT(step_to, now_);
+    now_ = step_to;
   }
 
-  for (FakeTaskRunner* task_runner : task_runners_) {
-    task_runner->RunTasksUntilIdle();
-  }
+  // Skip over any remaining "dead time."
+  now_ = stop_time;
 }
 
 void FakeClock::SubscribeToTimeChanges(FakeTaskRunner* task_runner) {
@@ -47,6 +66,6 @@ void FakeClock::UnsubscribeFromTimeChanges(FakeTaskRunner* task_runner) {
 }
 
 // static
-std::atomic<Clock::time_point> FakeClock::now_{Clock::time_point{}};
+Clock::time_point FakeClock::now_ = Clock::time_point::min();
 
 }  // namespace openscreen

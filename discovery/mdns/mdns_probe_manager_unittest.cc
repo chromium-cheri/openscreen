@@ -96,10 +96,10 @@ class TestMdnsProbeManager : public MdnsProbeManagerImpl {
 class MdnsProbeManagerTests : public testing::Test {
  public:
   MdnsProbeManagerTests()
-      : socket_(FakeUdpSocket::CreateDefault()),
-        clock_(Clock::now()),
+      : clock_(Clock::now()),
         task_runner_(&clock_),
-        sender_(socket_.get()),
+        socket_(&task_runner_),
+        sender_(&socket_),
         manager_(&sender_,
                  &receiver_,
                  &random_,
@@ -166,9 +166,9 @@ class MdnsProbeManagerTests : public testing::Test {
     return ongoing_probe;
   }
 
-  std::unique_ptr<FakeUdpSocket> socket_;
   FakeClock clock_;
   FakeTaskRunner task_runner_;
+  FakeUdpSocket socket_;
   StrictMock<MockMdnsSender> sender_;
   MdnsReceiver receiver_;
   MdnsRandom random_;
