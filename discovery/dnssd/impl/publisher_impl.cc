@@ -4,6 +4,7 @@
 
 #include "discovery/dnssd/impl/publisher_impl.h"
 
+#include <iostream>
 #include <map>
 #include <utility>
 #include <vector>
@@ -163,16 +164,27 @@ Error PublisherImpl::UpdatePublishedRegistration(
   }
 
   // Apply changes called out in |changed_records|.
+  Error total_result = Error::None();
   for (const auto& pair : changed_records) {
     OSP_DCHECK(pair.second.first != absl::nullopt ||
                pair.second.second != absl::nullopt);
     if (pair.second.first == absl::nullopt) {
-      mdns_publisher_->RegisterRecord(pair.second.second.value());
+      auto error = mdns_publisher_->RegisterRecord(pair.second.second.value());
+      if (!error.ok()) {
+        total_result = error;
+      }
     } else if (pair.second.second == absl::nullopt) {
-      mdns_publisher_->UnregisterRecord(pair.second.first.value());
+      auto error = mdns_publisher_->UnregisterRecord(pair.second.first.value());
+      if (!error.ok()) {
+        total_result = error;
+      }
     } else if (pair.second.first.value() != pair.second.second.value()) {
-      mdns_publisher_->UpdateRegisteredRecord(pair.second.first.value(),
-                                              pair.second.second.value());
+      std::cout << "Updating DNS-SD Layer\n";
+      auto error = mdns_publisher_->UpdateRegisteredRecord(
+          pair.second.first.value(), pair.second.second.value());
+      if (!error.ok()) {
+        total_result = error;
+      }
     }
   }
 
@@ -180,7 +192,7 @@ Error PublisherImpl::UpdatePublishedRegistration(
   published_records_.erase(published_record_it);
   published_records_.emplace(record, std::move(updated_record));
 
-  return Error::None();
+  return total_result;
 }
 
 int PublisherImpl::DeregisterAll(const std::string& service) {
