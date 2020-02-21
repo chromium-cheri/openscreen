@@ -36,8 +36,9 @@ bool HasValidDnsRecordAddress(const DomainName& domain);
 
 //*** Conversions to DNS entities from DNS-SD Entities ***
 
-// Returns the Domain Name associated with this InstanceKey.
+// Returns the Domain Name associated with this Key.
 DomainName GetDomainName(const InstanceKey& key);
+DomainName GetDomainName(const ServiceKey& key);
 
 // Returns the domain name associated with this MdnsRecord. In the case of a PTR
 // record, this is the target domain, and it is the named domain in all other

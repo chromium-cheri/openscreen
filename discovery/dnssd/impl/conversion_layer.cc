@@ -138,6 +138,10 @@ DomainName GetDomainName(const InstanceKey& key) {
                                key.domain_id());
 }
 
+DomainName GetDomainName(const ServiceKey& key) {
+  return GetPtrDomainName(key.service_id(), key.domain_id());
+}
+
 DomainName GetDomainName(const MdnsRecord& record) {
   return IsPtrRecord(record)
              ? absl::get<PtrRecordRdata>(record.rdata()).ptr_domain()
