@@ -22,6 +22,99 @@
       "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b6fd502_eeffe38a",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-21T21:46:51Z",
+      "side": 1,
+      "message": "We don\u0027t have a mechanism for aggregating and returning multiple errors, and I think we won\u0027t be adding one either, since it\u0027s hard to universally define what that aggregation would look like. In cases where multiple errors are possible, there are 4 options:\n1) Abort on first error and return it\n2) Proceed on error, but store and return the first one\n3) Proceed on error, but store and return the last one one\n4) Having an error code saying that multiple errors happened\n\nIn this case it\u0027s fine to store and return the last error. I think we should add tracing here, to at least be able to see multiple errors in the trace when things are going sour. This can be a separate work item.",
+      "parentUuid": "57f977bd_ddf99e01",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73ae50d3_24208686",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-21T21:46:51Z",
+      "side": 1,
+      "message": "nit: duration::zero()?",
+      "range": {
+        "startLine": 237,
+        "startChar": 30,
+        "endLine": 237,
+        "endChar": 48
+      },
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a476de0_e62ce433",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-21T21:46:51Z",
+      "side": 1,
+      "message": "nit: I\u0027d still put it after OSP_DCHECK(task_runner_-\u003eIsRunningOnTaskRunner());",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 3
+      },
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eee96ea_2755f31d",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-21T21:46:51Z",
+      "side": 1,
+      "message": "nit: the comment is the inverse of the if-else below",
+      "range": {
+        "startLine": 287,
+        "startChar": 2,
+        "endLine": 290,
+        "endChar": 50
+      },
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
