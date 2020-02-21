@@ -168,6 +168,7 @@ class DnsSdQuerierImplTest : public testing::Test {
         .Times(1);
     querier.StartQuery(service, &callback);
     EXPECT_TRUE(querier.IsQueryRunning(service));
+    testing::Mock::VerifyAndClearExpectations(querier.service());
 
     EXPECT_CALL(*querier.service(),
                 StartQuery(_, DnsType::kPTR, DnsClass::kANY, _))
@@ -211,10 +212,18 @@ TEST_F(DnsSdQuerierImplTest, TestStartDuplicateQueryFiresCallbacksWhenAble) {
 }
 
 TEST_F(DnsSdQuerierImplTest, TestStopQueryClearsRecords) {
+  EXPECT_CALL(*querier.service(), StartQuery(_, _, _, _));
+  querier.OnRecordChanged(CreatePtrRecord(instance, service, domain),
+                          RecordChangedEvent::kCreated);
+  testing::Mock::VerifyAndClearExpectations(querier.service());
+
   querier.CreateDnsData(instance, service, domain);
 
   EXPECT_CALL(*querier.service(),
               StopQuery(_, DnsType::kPTR, DnsClass::kANY, _))
+      .Times(1);
+  EXPECT_CALL(*querier.service(),
+              StopQuery(_, DnsType::kANY, DnsClass::kANY, _))
       .Times(1);
   querier.StopQuery(service, &callback);
   EXPECT_FALSE(querier.GetDnsData(instance, service, domain).has_value());
@@ -236,6 +245,7 @@ TEST_F(DnsSdQuerierImplTest, TestCreateDeletePtrRecord) {
               StartQuery(_, DnsType::kANY, DnsClass::kANY, _))
       .Times(1);
   querier.OnRecordChanged(ptr, RecordChangedEvent::kCreated);
+  testing::Mock::VerifyAndClearExpectations(querier.service());
 
   EXPECT_CALL(*querier.service(),
               StopQuery(_, DnsType::kANY, DnsClass::kANY, _))
@@ -256,6 +266,7 @@ TEST_F(DnsSdQuerierImplTest, CallbackCalledWhenPtrDeleted) {
               StartQuery(_, DnsType::kANY, DnsClass::kANY, _))
       .Times(1);
   querier.OnRecordChanged(ptr, RecordChangedEvent::kCreated);
+  testing::Mock::VerifyAndClearExpectations(querier.service());
 
   EXPECT_CALL(callback, OnInstanceDeleted(_)).Times(1);
   EXPECT_CALL(*querier.service(),
@@ -291,9 +302,11 @@ TEST_F(DnsSdQuerierImplTest, BothNewAndOldValidRecords) {
 
   EXPECT_CALL(callback, OnInstanceUpdated(_)).Times(1);
   querier.OnRecordChanged(a_record, RecordChangedEvent::kCreated);
+  testing::Mock::VerifyAndClearExpectations(&callback);
 
   EXPECT_CALL(callback, OnInstanceUpdated(_)).Times(1);
   querier.OnRecordChanged(a_record, RecordChangedEvent::kUpdated);
+  testing::Mock::VerifyAndClearExpectations(&callback);
 
   auto aaaa_rdata = CreateAAAARecord();
   MdnsRecord aaaa_record(kDomainName, DnsType::kAAAA, DnsClass::kIN,
@@ -302,9 +315,11 @@ TEST_F(DnsSdQuerierImplTest, BothNewAndOldValidRecords) {
 
   EXPECT_CALL(callback, OnInstanceUpdated(_)).Times(1);
   querier.OnRecordChanged(aaaa_record, RecordChangedEvent::kUpdated);
+  testing::Mock::VerifyAndClearExpectations(&callback);
 
   EXPECT_CALL(callback, OnInstanceUpdated(_)).Times(1);
   querier.OnRecordChanged(a_record, RecordChangedEvent::kExpired);
+  testing::Mock::VerifyAndClearExpectations(&callback);
 }
 
 TEST_F(DnsSdQuerierImplTest, OnlyNewRecordValid) {
@@ -347,6 +362,11 @@ TEST_F(DnsSdQuerierImplTest, HardRefresh) {
   DnsDataAccessor dns_data2 = querier.CreateDnsData(instance, service2, domain);
   dns_data2.set_srv(CreateSrvRecord());
 
+  EXPECT_CALL(*querier.service(), StartQuery(_, _, _, _));
+  querier.OnRecordChanged(CreatePtrRecord(instance, service, domain),
+                          RecordChangedEvent::kCreated);
+  testing::Mock::VerifyAndClearExpectations(querier.service());
+
   EXPECT_CALL(callback, OnInstanceCreated(_)).Times(1);
   querier.StartQuery(service, &callback);
   EXPECT_TRUE(querier.IsQueryRunning(service));
@@ -354,8 +374,9 @@ TEST_F(DnsSdQuerierImplTest, HardRefresh) {
   const DomainName ptr_domain{"_service", "_udp", "local"};
   const DomainName instance_domain{"instance", "_service", "_udp", "local"};
   EXPECT_CALL(*querier.service(), ReinitializeQueries(ptr_domain));
-  EXPECT_CALL(*querier.service(), ReinitializeQueries(instance_domain));
+  EXPECT_CALL(*querier.service(), StopQuery(instance_domain, _, _, _));
   querier.ReinitializeQueries(service);
+  testing::Mock::VerifyAndClearExpectations(querier.service());
 
   absl::optional<DnsDataAccessor> data =
       querier.GetDnsData(instance, service, domain);
