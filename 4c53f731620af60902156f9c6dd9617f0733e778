@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57f977bd_ddf99e01",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-21T00:33:36Z",
+      "side": 1,
+      "message": "It might be worth discussing if we want a behavior change here or not\n\nThis CL doesn\u0027t introduce a change - it just bubbles up the exceptions that used to be hidden\nAn alternative is to use non-fatal error reporting through the reporting API in discovery/common\n\nWDYT?",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 3
+      },
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
