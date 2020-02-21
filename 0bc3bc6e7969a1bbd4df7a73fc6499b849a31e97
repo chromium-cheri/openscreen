@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "daeb5c62_47d8fb93",
+        "filename": "cast/sender/cast_platform_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "It seems like this can only happen if the JSON fails to serialize, but I\u0027m not sure that ever can happen as we are setting all of the inputs (assuming there is some earlier validation of app_id).\n\nIf it ever did happen, it would be hard to figure out why because it would just manifest as an unknown availability.\n\nHow do you feel about making serialization failures DCHECK instead and removing the error handling code?",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7a6cc3e_24bcdd98",
+        "filename": "cast/sender/cast_platform_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "s/int32_t/int/",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e9b160d_2857396c",
+        "filename": "cast/sender/cast_platform_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "This is probably worth adding a debug log statement for.",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a257954_ae404d29",
+        "filename": "cast/sender/cast_platform_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "Is it possible that device_id is in pending_requests_by_device_id_ but request_id is not in pending_requests.availability?",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8b2d88_3784e245",
+        "filename": "cast/sender/cast_platform_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "We\u0027ll have to write this message validation code again and again, so it might be worth breaking it out now into its own function, e.g.\n\nJson::Value* GetResult(const CastMessage\u0026 message, const char* message_type)\n\n?",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c53d41f_4ba72184",
+        "filename": "cast/sender/cast_platform_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "Can you pass a const std::string\u0026 here?  jsoncpp has a non-copying operator[] that takes a const std::string\u0026.",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad1e68c1_46933980",
+        "filename": "cast/sender/cast_platform_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "It may be worth logging an error here as this means there\u0027s an invalid message.",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d331fbdf_2c2d7131",
+        "filename": "cast/sender/cast_platform_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "Is this copied from HandleResponse()?",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b50bdcf_077202dc",
+        "filename": "cast/sender/cast_platform_client_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "Nit: default ctor is the empty string here and below",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0859b166_2ea29801",
+        "filename": "util/json/json_value.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-21T00:32:39Z",
+      "side": 1,
+      "message": "Is it okay if end \u003d\u003d begin?",
+      "revId": "0bc3bc6e7969a1bbd4df7a73fc6499b849a31e97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
