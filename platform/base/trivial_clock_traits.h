@@ -54,4 +54,17 @@ std::ostream& operator<<(std::ostream& os,
 
 }  // namespace openscreen
 
+namespace std {
+namespace chrono {
+
+// Logging (and gtest pretty-printing) for several commonly-used chrono types.
+ostream& operator<<(ostream& out, const hours&);
+ostream& operator<<(ostream& out, const minutes&);
+ostream& operator<<(ostream& out, const seconds&);
+ostream& operator<<(ostream& out, const milliseconds&);
+ostream& operator<<(ostream& out, const microseconds&);
+
+}  // namespace chrono
+}  // namespace std
+
 #endif  // PLATFORM_BASE_TRIVIAL_CLOCK_TRAITS_H_

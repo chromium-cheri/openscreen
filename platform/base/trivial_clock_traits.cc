@@ -19,3 +19,29 @@ std::ostream& operator<<(std::ostream& os,
 }
 
 }  // namespace openscreen
+
+namespace std {
+namespace chrono {
+
+ostream& operator<<(ostream& out, const hours& hrs) {
+  return (out << hrs.count() << " hours");
+}
+
+ostream& operator<<(ostream& out, const minutes& mins) {
+  return (out << mins.count() << " minutes");
+}
+
+ostream& operator<<(ostream& out, const seconds& secs) {
+  return (out << secs.count() << " seconds");
+}
+
+ostream& operator<<(ostream& out, const milliseconds& millis) {
+  return (out << millis.count() << " ms");
+}
+
+ostream& operator<<(ostream& out, const microseconds& micros) {
+  return (out << micros.count() << " µs");
+}
+
+}  // namespace chrono
+}  // namespace std
