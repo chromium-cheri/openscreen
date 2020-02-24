@@ -19,6 +19,116 @@
     },
     {
       "key": {
+        "uuid": "d9851196_85866155",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-24T22:25:50Z",
+      "side": 1,
+      "message": "From the perspective of the caller StartQuery for an existing query does exactly what the caller would expect - the callback is called when a record for the query becomes known.",
+      "parentUuid": "6d4a0ff6_df812a56",
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f9ca43_6a4d821f",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-24T22:25:50Z",
+      "side": 1,
+      "message": "Um, I don\u0027t see when find possibly returns end() here.\nit-\u003efirst is already a key in received_records_ so .find will always find this item. And it\u0027s not an unordered_multimap, so there\u0027s only one item matching the key as well.\n\nShould work like this:\nfor (auto\u0026 kvp : received_records_) {\n  if (kvp.first \u003d\u003d key) {\n    ErrorOr\u003cDnsSdInstanceRecord\u003e record \u003d kvp.second.CreateRecord();\n    if (record.is_value()) {\n      callback-\u003eOnInstanceCreated(record.value());\n    }\n  }\n}",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 9
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c60b663_a86208b9",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-24T22:25:50Z",
+      "side": 1,
+      "message": "Maybe like this?\nfor (InstanceKey\u0026 ik : keys_to_remove) {\n    StopDnsQuery(std::move(ik), false);\n}",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 3
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e976183_9f046076",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-24T22:25:50Z",
+      "side": 1,
+      "message": "Just InstanceKey(record) here and below instead of a local variable + move?",
+      "range": {
+        "startLine": 123,
+        "startChar": 20,
+        "endLine": 123,
+        "endChar": 34
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2dbe079_012b184e",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-24T22:25:50Z",
+      "side": 1,
+      "message": "Would it make sense to put this at the beginning of the method to prevent any unnecessary callbacks from mDNS? Or doesn\u0027t it matter with our threading model?",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 78
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f91ad1b_cad10e06",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 3
@@ -30,6 +140,29 @@
       "writtenOn": "2020-02-24T17:28:09Z",
       "side": 1,
       "message": "Nit: pseudo code comments get out of date easily.\n\nMaybe: const bool key_is_service_from_query \u003d (key \u003d\u003d pair.first);\nif (key_is_service_from_query) {",
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1df28b84_3afca91f",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-24T22:25:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 252,
+        "startChar": 2,
+        "endLine": 254,
+        "endChar": 3
+      },
       "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
