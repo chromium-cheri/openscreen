@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d4a0ff6_df812a56",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-24T17:28:09Z",
+      "side": 1,
+      "message": "So, if the query is already running, StartQuery isn\u0027t a no-op like one might expected, but instead updates callbacks with new records?\n\nThis seems like a separate function, or at least, StartOrUpdateQuery?\n\nAlso, consider naming the overloads differently--InstanceKey is-a ServiceKey, so I found the overloads confusing until digging into the details.\n\nMaybe\n\nStartOrUpdateInstanceQuery\nStartTopLevelQuery",
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f91ad1b_cad10e06",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-24T17:28:09Z",
+      "side": 1,
+      "message": "Nit: pseudo code comments get out of date easily.\n\nMaybe: const bool key_is_service_from_query \u003d (key \u003d\u003d pair.first);\nif (key_is_service_from_query) {",
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
