@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bb95822_a5f06e42",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-24T17:50:01Z",
+      "side": 1,
+      "message": "Naming nit: records_for_key sounds like a map from key -\u003e records.\n\nnum_records_for_key?",
+      "revId": "7cfeb8c413ef4941583910fc618692a18c0b5ed2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6290d346_d4e8c96a",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-02-24T17:50:01Z",
+      "side": 1,
+      "message": "Nit: I think this method is pretty large and you should consider taking some of these comment blocks and making them either private methods or anonymous-namespaced functions as appropriate.\n\nI\u0027d love to see the control flows simplified, e.g.\n\nif (records_for_key \u003d\u003d 0) {\n    // short Add / Process flow\n} else if (records_for_key \u003d\u003d 1) {\n    UpdateForSeenRecord();\n} else {\n   ExpireAllNonMatchingRecords();\n   UpdateOrInsertRecord();\n}\n\nMy philosophy on function size is pretty well described by the recent TOTT:\n\ngo/tott/602",
+      "revId": "7cfeb8c413ef4941583910fc618692a18c0b5ed2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
