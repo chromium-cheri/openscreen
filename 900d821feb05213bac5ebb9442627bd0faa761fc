@@ -203,6 +203,29 @@
       "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bdfda0f_d8bc554c",
+        "filename": "platform/base/trivial_clock_traits.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-02-25T00:41:22Z",
+      "side": 1,
+      "message": "IIRC we are not supposed to put anything into standard namespaces.\nEssentially same thing should work if you put it into openscreen namespace.\n\nstd::ostream\u0026 operator\u003c\u003c(std::ostream\u0026 out, const std::chrono::hours\u0026);",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 18
+      },
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
