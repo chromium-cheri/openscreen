@@ -16,23 +16,6 @@ namespace discovery {
 
 namespace {
 
-inline int CompareIgnoreCase(const std::string& x, const std::string& y) {
-  size_t i = 0;
-  for (; i < x.size(); i++) {
-    if (i == y.size()) {
-      return 1;
-    }
-    const char& x_char = std::tolower(x[i]);
-    const char& y_char = std::tolower(y[i]);
-    if (x_char < y_char) {
-      return -1;
-    } else if (y_char < x_char) {
-      return 1;
-    }
-  }
-  return i == y.size() ? 0 : -1;
-}
-
 template <typename RDataType>
 bool IsGreaterThan(const Rdata& lhs, const Rdata& rhs) {
   const RDataType& lhs_cast = absl::get<RDataType>(lhs);
@@ -91,13 +74,17 @@ bool IsValidDomainLabel(absl::string_view label) {
 DomainName::DomainName() = default;
 
 DomainName::DomainName(std::vector<std::string> labels)
-    : DomainName(labels.begin(), labels.end()) {}
-
-DomainName::DomainName(const std::vector<absl::string_view>& labels)
-    : DomainName(labels.begin(), labels.end()) {}
+    : labels_(std::move(labels)) {
+  for (const std::string& label : labels_) {
+    OSP_DCHECK(IsValidDomainLabel(label));
+    // Include the length byte in the size calculation.
+    max_wire_size_ += label.length() + 1;
+  }
+  OSP_DCHECK(max_wire_size_ <= kMaxDomainNameLength);
+}
 
 DomainName::DomainName(std::initializer_list<absl::string_view> labels)
-    : DomainName(labels.begin(), labels.end()) {}
+    : DomainName(std::vector<std::string>(labels.begin(), labels.end())) {}
 
 DomainName::DomainName(const DomainName& other) = default;
 
@@ -117,7 +104,7 @@ bool DomainName::operator<(const DomainName& rhs) const {
     if (i == rhs.labels_.size()) {
       return false;
     } else {
-      int result = CompareIgnoreCase(labels_[i], rhs.labels_[i]);
+      int result = strcasecmp(labels_[i].c_str(), rhs.labels_[i].c_str());
       if (result < 0) {
         return true;
       } else if (result > 0) {
@@ -145,7 +132,7 @@ bool DomainName::operator==(const DomainName& rhs) const {
     return false;
   }
   for (size_t i = 0; i < labels_.size(); i++) {
-    if (CompareIgnoreCase(labels_[i], rhs.labels_[i]) != 0) {
+    if (strcasecmp(labels_[i].c_str(), rhs.labels_[i].c_str()) != 0) {
       return false;
     }
   }

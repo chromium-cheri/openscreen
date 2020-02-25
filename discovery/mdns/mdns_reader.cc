@@ -59,7 +59,7 @@ bool MdnsReader::Read(DomainName* out) {
   // greater than the length of the buffer.
   size_t bytes_processed = 0;
   size_t domain_name_length = 0;
-  std::vector<absl::string_view> labels;
+  std::vector<std::string> labels;
   // If we are pointing before the beginning or past the end of the buffer, we
   // hit a malformed pointer. If we have processed more bytes than there are in
   // the buffer, we are in a circular compression loop.
@@ -67,7 +67,7 @@ bool MdnsReader::Read(DomainName* out) {
          bytes_processed <= length()) {
     const uint8_t label_type = ReadBigEndian<uint8_t>(position);
     if (IsTerminationLabel(label_type)) {
-      *out = DomainName(labels);
+      *out = DomainName(std::move(labels));
       if (!bytes_consumed) {
         bytes_consumed = position + sizeof(uint8_t) - current();
       }
@@ -91,14 +91,13 @@ bool MdnsReader::Read(DomainName* out) {
       if (position + label_length >= end()) {
         return false;
       }
-      const absl::string_view label(reinterpret_cast<const char*>(position),
-                                    label_length);
+      std::string label(reinterpret_cast<const char*>(position), label_length);
       domain_name_length += label_length + 1;  // including the length byte
       if (!IsValidDomainLabel(label) ||
           domain_name_length > kMaxDomainNameLength) {
         return false;
       }
-      labels.push_back(label);
+      labels.emplace_back(std::move(label));
       bytes_processed += label_length;
       position += label_length;
     } else {

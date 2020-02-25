@@ -30,20 +30,7 @@ bool IsValidDomainLabel(absl::string_view label);
 class DomainName {
  public:
   DomainName();
-
-  template <typename IteratorType>
-  DomainName(IteratorType first, IteratorType last) {
-    labels_.reserve(std::distance(first, last));
-    for (IteratorType entry = first; entry != last; ++entry) {
-      OSP_DCHECK(IsValidDomainLabel(*entry));
-      labels_.emplace_back(*entry);
-      // Include the length byte in the size calculation.
-      max_wire_size_ += entry->size() + 1;
-    }
-    OSP_DCHECK(max_wire_size_ <= kMaxDomainNameLength);
-  }
   explicit DomainName(std::vector<std::string> labels);
-  explicit DomainName(const std::vector<absl::string_view>& labels);
   explicit DomainName(std::initializer_list<absl::string_view> labels);
   DomainName(const DomainName& other);
   DomainName(DomainName&& other);

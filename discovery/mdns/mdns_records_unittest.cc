@@ -49,7 +49,7 @@ TEST(MdnsDomainNameTest, Construct) {
   EXPECT_EQ(name2.labels()[2], "local");
   EXPECT_EQ(name2.ToString(), "MyDevice._mYSERvice.local");
 
-  std::vector<absl::string_view> labels{"OtherDevice", "_MYservice", "LOcal"};
+  std::vector<std::string> labels{"OtherDevice", "_MYservice", "LOcal"};
   DomainName name3(labels);
   EXPECT_FALSE(name3.empty());
   EXPECT_EQ(name3.MaxWireSize(), UINT64_C(30));

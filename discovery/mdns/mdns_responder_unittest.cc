@@ -117,7 +117,8 @@ class MdnsResponderTest : public testing::Test {
 
  protected:
   MdnsRecord GetFakePtrRecord(const DomainName& target) {
-    DomainName name(++target.labels().begin(), target.labels().end());
+    DomainName name(std::vector<std::string>(++target.labels().begin(),
+                                             target.labels().end()));
     PtrRecordRdata rdata(target);
     return MdnsRecord(std::move(name), DnsType::kPTR, DnsClass::kIN,
                       RecordType::kUnique, std::chrono::seconds(0), rdata);

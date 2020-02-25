@@ -20,7 +20,8 @@ TxtRecordRdata MakeTxtRecord(std::initializer_list<absl::string_view> strings) {
 
 MdnsRecord GetFakePtrRecord(const DomainName& target,
                             std::chrono::seconds ttl) {
-  DomainName name(++target.labels().begin(), target.labels().end());
+  DomainName name(std::vector<std::string>(++target.labels().begin(),
+                                           target.labels().end()));
   PtrRecordRdata rdata(target);
   return MdnsRecord(std::move(name), DnsType::kPTR, DnsClass::kIN,
                     RecordType::kShared, ttl, rdata);
