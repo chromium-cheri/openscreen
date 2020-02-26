@@ -226,6 +226,30 @@
       "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42d5efe3_1e75cbe6",
+        "filename": "platform/base/trivial_clock_traits.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-26T02:35:10Z",
+      "side": 1,
+      "message": "Done, since it\u0027s a style guide rule (and good general practice). However, C++\u0027s ADL rule makes it far less intuitive to use in code. Now I have to (in sender.cc):\n\n  namespace openscreen {\n  namespace cast {\n\n  using openscreen::operator\u003c\u003c;  // For std::chrono::duration logging.\n\n  ...\n\nOtherwise, this code:\n\n  OSP_LOG_WARN \u003c\u003c target_playout_delay_;\n\nwon\u0027t match the operator overload in the parent namespace.",
+      "parentUuid": "3bdfda0f_d8bc554c",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 18
+      },
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
