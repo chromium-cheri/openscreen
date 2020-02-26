@@ -16,6 +16,24 @@
       "revId": "c2cae5e491af651639df0aef137196f502035361",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b2053a_ad8afad6",
+        "filename": "platform/base/ip_address.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-26T23:38:13Z",
+      "side": 1,
+      "message": "Unfortunately, no. Most of the sscanf() format specifiers will skip-over leading whitespace. strtod() and atoi() also do this, so there doesn\u0027t seem to be anything in the standard library that parses ints w/o that behavior.\n\nAdded a code comment to make this clearer.\n\nAlso, looking at this again, I noticed I could make this simpler by just checking that the first char is not whitespace, since sscanf() should only match leading whitespace followed by number digits (or hypen) when parsing for %d.",
+      "parentUuid": "efa92449_afea6956",
+      "revId": "c2cae5e491af651639df0aef137196f502035361",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
