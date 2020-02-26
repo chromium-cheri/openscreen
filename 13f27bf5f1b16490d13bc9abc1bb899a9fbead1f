@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e83baebb_cf1eaa91",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-26T01:23:27Z",
+      "side": 1,
+      "message": "nit: OSP_DCHECK_LE",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 12
+      },
+      "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e471d74_3c2bb093",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-26T01:23:27Z",
+      "side": 1,
+      "message": "Not requiring any changes but some considerations:\n\n1. Note: strcasecmp() is BSD/POSIX only. I can\u0027t recall if it\u0027s available on Windows (without strings.h).\n\n2. Alternative, but I\u0027m really not happy about going against the \"less code that does more\" mantra; so, maybe don\u0027t do this:\n\n  std::lexicographical_compare(\n      labels_[i].begin(), labels_[i].end(),\n      rhs.labels_[i].begin(), rhs.labels_[i].end(),\n      [](char a, char b) { return std::tolower(a) \u003c std::tolower(b); });\n\n3. #1 and #2 assume ASCII. Is that okay?\n\nSo, I\u0027m fine if you decide to leave it as-is, and we can deal with portability issues later (e.g., for Chrome, if we want to use Open Screen mDNS instead of using Chrome\u0027s existing impl).",
+      "range": {
+        "startLine": 107,
+        "startChar": 19,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
