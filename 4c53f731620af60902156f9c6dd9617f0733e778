@@ -2,6 +2,91 @@
   "comments": [
     {
       "key": {
+        "uuid": "f6a8b5ca_d42e933a",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-26T22:23:56Z",
+      "side": 1,
+      "message": "nit: are double newlines intentional here?  OSP_VLOG adds a newline already.",
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b67e8315_f1d1c827",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-26T22:23:56Z",
+      "side": 1,
+      "message": "nit: This still waits so I prefer the old name.  The fact that |should_be_seen| could be false doesn\u0027t make that confusing either IMHO, because it just waits the total timeout duration in that case.",
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2efe763a_0a79afb3",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-26T22:23:56Z",
+      "side": 1,
+      "message": "nit: Here and elsewhere, this could be EXPECT/ASSERT since the function returns void.",
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7817ac98_d8328427",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-26T22:23:56Z",
+      "side": 1,
+      "message": "nit: ASSERT_FALSE(expect_to_be_present) \u003c\u003c message...; return;",
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91b6785b_be0c27f5",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-26T22:23:56Z",
+      "side": 1,
+      "message": "nit: Here and above, I think we settled on crbug.com/openscreen/NNN for the format.",
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57f977bd_ddf99e01",
         "filename": "discovery/dnssd/impl/publisher_impl.cc",
         "patchSetId": 2
@@ -112,6 +197,23 @@
         "endLine": 290,
         "endChar": 50
       },
+      "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74da6bca_133d3ed6",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-02-26T22:23:56Z",
+      "side": 1,
+      "message": "nit: std::move(record_expired_callback)",
       "revId": "4c53f731620af60902156f9c6dd9617f0733e778",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
