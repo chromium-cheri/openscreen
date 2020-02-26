@@ -45,6 +45,30 @@
       "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941f7c96_a594ca07",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-02-26T23:01:09Z",
+      "side": 1,
+      "message": "This saves some code, but will require a fix to compile under windows.  You also need to include \u003cstrings.h\u003e, which will have to be guarded away on windows.\n\nMaybe better to add a wrapper function for strcasecmp in util/ with a FIXME so there\u0027s one clear place to port in the future.\n\nAlso please check that strncasecmp guarantees numeric ordering for legal DNS characters, as that\u0027s required by the mDNS spec IIRC.  The POSIX locale (LC_LOCALE and LC_COLLATE) may affect the behavior which we don\u0027t want.",
+      "parentUuid": "5e471d74_3c2bb093",
+      "range": {
+        "startLine": 107,
+        "startChar": 19,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
