@@ -9,6 +9,7 @@
 #include "absl/types/span.h"
 #include "cast/streaming/constants.h"
 #include "cast/streaming/receiver_packet_router.h"
+#include "cast/streaming/session_config.h"
 #include "util/logging.h"
 #include "util/std_util.h"
 
