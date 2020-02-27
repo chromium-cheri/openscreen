@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5d20084b_37e264a2",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7474f586_d9b6505d",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "340d3a0e_be799263",
         "filename": "cast/streaming/sender.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d542327b_2e782117",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Added code comment.",
+      "parentUuid": "340d3a0e_be799263",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "879d95e9_2c88982a",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34d0cbb7_1f6b51d1",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0d6011b_e1f6c9f0",
         "filename": "cast/streaming/sender.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7335e19_eecc3a1c",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0d6011b_e1f6c9f0",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "cfbf39c5_c9736248",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Hmm...My initial thinking has been \"probably not\" because the embedder is going to act on this by setting a flag in the media encoder to produce a key frame for the next frame. So, it might as well just call NeedsKeyFrame() when its about to send the next frame to the encoder.\n\nHowever, I was also thinking about another scenario, where there are no frames currently being sent (e.g., for screen mirroring, if the user\u0027s screen isn\u0027t changing, there will be no video frames captured+encoded+enqueued). However, if the Receiver lost the picture, we do want a way for the embedder to know it needs to capture+encode+enqueue another frame (and/or re-encode the last frame as a key frame).\n\nSo, I kept NeedsKeyFrame() and also added a OnPictureLost() as an event trigger for a frame re-send.",
+      "parentUuid": "641b186d_0b25d973",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0fdb0e9_43a0bb73",
         "filename": "cast/streaming/sender.h",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88162874_cd7a2de9",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Yep, the terminology is \"canceled\" (re-transmits are no longer necessary, for whatever reason). This method does a few things all related to post-cancellation, not just remove the frame from the queue.",
+      "parentUuid": "c0fdb0e9_43a0bb73",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "99f40a0f_2cb10755",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "This is like std::ratio\u003c1, timebase\u003e, except the value changes at runtime (std::ratio is compile time). It\u0027s not RtpTimebase nor RtpTimeTicks--those are different things, but converting to/from those types requires knowing the timebase.\n\nRemoved the comment.",
+      "parentUuid": "634fd123_6693b894",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "586dc4b9_0b236610",
         "filename": "cast/streaming/sender.h",
         "patchSetId": 2
@@ -132,6 +258,24 @@
       "writtenOn": "2020-02-24T16:58:47Z",
       "side": 1,
       "message": "FrameId::first() - 1 appears to be a special value that is used frequently to represent the zeroth or \"none\" frame. Consider adding a method a la FrameId::never() or FrameId::none() to make your intention more clear here, or just in the sender kInvalidFrameId or similar.",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3133a67a_b445f60e",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "The intention really is \"one before the first.\" These members are a lot like std::iterator\u0027s or index variables. Initializing the members this way makes the code a lot simpler than having to do foo_frame_id_.is_null() checks everywhere.\n\nIf I added something special to FrameId, it\u0027d be a method like:\n\n  static FrameId FrameId::rend();\n  // STL-like naming (same concept). But, is it readable?\n\nor maybe:\n\n  static FrameId FrameId::one_before_the_first();\n  // Confusing: How can there be a frame before the first?\n\nSo, ISTM that just writing \"FrameId:first() - 1\" is much clearer. The only other thing that might work is a previous() method, so this would look like:\n\n  FrameId last_enqueued_frame_id_ \u003d FrameId::first().previous();",
+      "parentUuid": "586dc4b9_0b236610",
       "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "48ad6345_d57db2c4",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Made it zero. 😋\n\nI had an insight tonight that this cache isn\u0027t needed because the time could be back-computed from the report ID. I\u0027ve posted a separate code review for that: https://chromium-review.googlesource.com/c/openscreen/+/2077159\n\nI\u0027ll rebase this CL against that once it lands.",
+      "parentUuid": "15aebf68_f53555e3",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91cf05c2_b9ca90c5",
         "filename": "cast/streaming/sender.h",
         "patchSetId": 2
@@ -169,6 +331,24 @@
       "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c50ff665_0ca96f78",
+        "filename": "cast/streaming/sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91cf05c2_b9ca90c5",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "4955f162_1b21ba05",
+        "filename": "cast/streaming/sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deff56d8_5a0efb64",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b99a4baf_942d11a5",
         "filename": "cast/streaming/sender_unittest.cc",
         "patchSetId": 2
@@ -203,6 +401,24 @@
       "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe157eb9_6fec865a",
+        "filename": "cast/streaming/sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T06:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b99a4baf_942d11a5",
+      "revId": "900d821feb05213bac5ebb9442627bd0faa761fc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
