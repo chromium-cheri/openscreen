@@ -28,15 +28,24 @@ class ReportingClient;
 
 class MdnsService {
  public:
+  enum SupportedNetworkEndpoints : uint8_t {
+    kNone = 0,
+    kV4 = 0x01 << 0,
+    kV6 = 0x01 << 1
+  };
+
   MdnsService();
   virtual ~MdnsService();
 
   // Creates a new MdnsService instance, to be owned by the caller. On failure,
   // returns nullptr. |task_runner|, |reporting_client|, and |config| must exist
   // for the duration of the resulting instance's life.
-  static std::unique_ptr<MdnsService> Create(TaskRunner* task_runner,
-                                             ReportingClient* reporting_client,
-                                             const Config& config);
+  static std::unique_ptr<MdnsService> Create(
+      TaskRunner* task_runner,
+      ReportingClient* reporting_client,
+      const Config& config,
+      NetworkInterfaceIndex network_interface,
+      SupportedNetworkEndpoints supported_endpoints);
 
   // Starts an mDNS query with the given properties. Updated records are passed
   // to |callback|.  The caller must ensure |callback| remains alive while it is
@@ -82,6 +91,24 @@ class MdnsService {
   // the name is released.
   virtual Error UnregisterRecord(const MdnsRecord& record) = 0;
 };
+
+inline MdnsService::SupportedNetworkEndpoints operator&(
+    MdnsService::SupportedNetworkEndpoints lhs,
+    MdnsService::SupportedNetworkEndpoints rhs) {
+  return static_cast<MdnsService::SupportedNetworkEndpoints>(
+      static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
+}
+
+inline MdnsService::SupportedNetworkEndpoints operator|(
+    MdnsService::SupportedNetworkEndpoints lhs,
+    MdnsService::SupportedNetworkEndpoints rhs) {
+  return static_cast<MdnsService::SupportedNetworkEndpoints>(
+      static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
+}
+
+inline bool operator!(MdnsService::SupportedNetworkEndpoints ep) {
+  return ep == MdnsService::SupportedNetworkEndpoints::kNone;
+}
 
 }  // namespace discovery
 }  // namespace openscreen
