@@ -18,25 +18,31 @@ namespace discovery {
 std::unique_ptr<MdnsService> MdnsService::Create(
     TaskRunner* task_runner,
     ReportingClient* reporting_client,
-    const Config& config) {
-  return std::make_unique<MdnsServiceImpl>(task_runner, Clock::now,
-                                           reporting_client, config);
+    const Config& config,
+    NetworkInterfaceIndex network_interface,
+    SupportedNetworkEndpoints supported_endpoints) {
+  return std::make_unique<MdnsServiceImpl>(
+      task_runner, Clock::now, reporting_client, config, network_interface,
+      supported_endpoints);
 }
 
 MdnsServiceImpl::MdnsServiceImpl(TaskRunner* task_runner,
                                  ClockNowFunctionPtr now_function,
                                  ReportingClient* reporting_client,
-                                 const Config& config)
+                                 const Config& config,
+                                 NetworkInterfaceIndex network_interface,
+                                 SupportedNetworkEndpoints supported_endpoints)
     : task_runner_(task_runner),
       now_function_(now_function),
       reporting_client_(reporting_client) {
   OSP_DCHECK(task_runner_);
   OSP_DCHECK(reporting_client_);
+  OSP_DCHECK(!!supported_endpoints);
 
   // Create all UDP sockets needed for this object. They should not yet be bound
   // so that they do not send or receive data until the objects on which their
   // callback depends is initialized.
-  if (config.interface.HasIpV4Address()) {
+  if (!!(supported_endpoints & SupportedNetworkEndpoints::kV4)) {
     ErrorOr<std::unique_ptr<UdpSocket>> socket = UdpSocket::Create(
         task_runner, this, kDefaultMulticastGroupIPv4Endpoint);
     OSP_DCHECK(!socket.is_error());
@@ -44,14 +50,14 @@ MdnsServiceImpl::MdnsServiceImpl(TaskRunner* task_runner,
     OSP_DCHECK(socket.value()->IsIPv4());
 
     socket_v4_ = std::move(socket.value());
-    socket_v4_->SetMulticastOutboundInterface(config.interface.index);
+    socket_v4_->SetMulticastOutboundInterface(network_interface);
     socket_v4_->JoinMulticastGroup(kDefaultMulticastGroupIPv4,
-                                   config.interface.index);
+                                   network_interface);
     socket_v4_->JoinMulticastGroup(kDefaultSiteLocalGroupIPv4,
-                                   config.interface.index);
+                                   network_interface);
   }
 
-  if (config.interface.HasIpV6Address()) {
+  if (!!(supported_endpoints & SupportedNetworkEndpoints::kV6)) {
     ErrorOr<std::unique_ptr<UdpSocket>> socket = UdpSocket::Create(
         task_runner, this, kDefaultMulticastGroupIPv6Endpoint);
     OSP_DCHECK(!socket.is_error());
@@ -59,16 +65,17 @@ MdnsServiceImpl::MdnsServiceImpl(TaskRunner* task_runner,
     OSP_DCHECK(socket.value()->IsIPv6());
 
     socket_v6_ = std::move(socket.value());
-    socket_v6_->SetMulticastOutboundInterface(config.interface.index);
+    socket_v6_->SetMulticastOutboundInterface(network_interface);
     socket_v6_->JoinMulticastGroup(kDefaultMulticastGroupIPv6,
-                                   config.interface.index);
+                                   network_interface);
     socket_v6_->JoinMulticastGroup(kDefaultSiteLocalGroupIPv6,
-                                   config.interface.index);
+                                   network_interface);
   }
 
   // Initialize objects which depend on the above sockets.
   UdpSocket* socket_ptr =
       socket_v4_.get() ? socket_v4_.get() : socket_v6_.get();
+  OSP_DCHECK(socket_ptr);
   sender_ = std::make_unique<MdnsSender>(socket_ptr);
   querier_ = std::make_unique<MdnsQuerier>(
       sender_.get(), &receiver_, task_runner_, now_function_, &random_delay_,
