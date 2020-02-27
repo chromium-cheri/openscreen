@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "fc6910a6_cddc5ef6",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T18:43:32Z",
+      "side": 1,
+      "message": "+1 on Max\u0027s comment\n\nIf StartQuery is called with a different callback than the initial one, the new callback would want to know about any existing data already found",
+      "parentUuid": "d9851196_85866155",
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93f9ca43_6a4d821f",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 3
@@ -57,6 +75,30 @@
       "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "352d8502_2da2229a",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T18:43:32Z",
+      "side": 1,
+      "message": "Good catch - I\u0027ve spent 5 minutes starting at this and I can\u0027t figure out what I was trying to do here either\n\nDone",
+      "parentUuid": "93f9ca43_6a4d821f",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 9
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +125,30 @@
     },
     {
       "key": {
+        "uuid": "ce9bb384_941dd777",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T18:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c60b663_a86208b9",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 3
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e976183_9f046076",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 3
@@ -106,6 +172,30 @@
     },
     {
       "key": {
+        "uuid": "d7f788e6_bbfa62e1",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T18:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e976183_9f046076",
+      "range": {
+        "startLine": 123,
+        "startChar": 20,
+        "endLine": 123,
+        "endChar": 34
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2dbe079_012b184e",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 3
@@ -117,6 +207,30 @@
       "writtenOn": "2020-02-24T22:25:50Z",
       "side": 1,
       "message": "Would it make sense to put this at the beginning of the method to prevent any unnecessary callbacks from mDNS? Or doesn\u0027t it matter with our threading model?",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 78
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e35e140b_380f1f3e",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T18:43:32Z",
+      "side": 1,
+      "message": "With the threading model, it shouldn\u0027t matter - these will all be called before any further queries can be processed or sent out\n\nOpen to moving it if you find that more readable though. WDYT?",
+      "parentUuid": "c2dbe079_012b184e",
       "range": {
         "startLine": 229,
         "startChar": 0,
@@ -146,6 +260,24 @@
     },
     {
       "key": {
+        "uuid": "0107e848_07a7e05a",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T18:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f91ad1b_cad10e06",
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1df28b84_3afca91f",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 3
@@ -157,6 +289,30 @@
       "writtenOn": "2020-02-24T22:25:50Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 252,
+        "startChar": 2,
+        "endLine": 254,
+        "endChar": 3
+      },
+      "revId": "bf916646339675eea669eb3d60fdfe3ce6c595bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc799d1e_95501eaf",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T18:43:32Z",
+      "side": 1,
+      "message": "With the threading model, it shouldn\u0027t matter - these will all be called before any further queries can be processed or sent out\n\nThese calls are intentionally at the end here, in case the caller wants to restart the mdns query in their OnInstanceDeleted() callback (Though I can\u0027t imagine why that would ever happen). If done in the opposite order, it\u0027s possible to end up in a weird state in this edge case (The query to the mDNS layer would start a second query before the old one stopped, so there would be no chance for \u0027All queries of this type have stopped\u0027 logic to run, if we add it per a TODO in the mDNS layer)",
+      "parentUuid": "1df28b84_3afca91f",
       "range": {
         "startLine": 252,
         "startChar": 2,
