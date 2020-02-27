@@ -84,7 +84,7 @@ class IPAddress {
   static ErrorOr<IPAddress> ParseV4(const std::string& s);
   static ErrorOr<IPAddress> ParseV6(const std::string& s);
 
-  friend class IPEndpointComparator;
+  friend class IPAddressComparator;
 
   Version version_;
   std::array<uint8_t, 16> bytes_;
@@ -99,6 +99,11 @@ struct IPEndpoint {
 };
 bool operator==(const IPEndpoint& a, const IPEndpoint& b);
 bool operator!=(const IPEndpoint& a, const IPEndpoint& b);
+
+class IPAddressComparator {
+ public:
+  bool operator()(const IPAddress& a, const IPAddress& b) const;
+};
 
 class IPEndpointComparator {
  public:
