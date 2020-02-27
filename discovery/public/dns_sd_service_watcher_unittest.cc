@@ -114,7 +114,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
   }
 
  protected:
-  void CreateNewInstance(const DnsSdInstanceRecord& record) {
+  void CreateNewInstance(const DnsSdInstanceEndpoint& record) {
     const std::vector<std::string> services_before =
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
@@ -136,7 +136,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
     EXPECT_THAT(fetched_services, IsSupersetOf(services_before));
   }
 
-  void CreateExistingInstance(const DnsSdInstanceRecord& record) {
+  void CreateExistingInstance(const DnsSdInstanceEndpoint& record) {
     const std::vector<std::string> services_before =
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
@@ -158,7 +158,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
     EXPECT_THAT(fetched_services, ContainerEq(services_before));
   }
 
-  void UpdateExistingInstance(const DnsSdInstanceRecord& record) {
+  void UpdateExistingInstance(const DnsSdInstanceEndpoint& record) {
     const std::vector<std::string> services_before =
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
@@ -180,7 +180,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
     EXPECT_THAT(fetched_services, ContainerEq(services_before));
   }
 
-  void DeleteExistingInstance(const DnsSdInstanceRecord& record) {
+  void DeleteExistingInstance(const DnsSdInstanceEndpoint& record) {
     const std::vector<std::string> services_before =
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
@@ -199,7 +199,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
     EXPECT_EQ(fetched_services.size(), count - 1);
   }
 
-  void UpdateNonExistingInstance(const DnsSdInstanceRecord& record) {
+  void UpdateNonExistingInstance(const DnsSdInstanceEndpoint& record) {
     const std::vector<std::string> services_before =
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
@@ -215,7 +215,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
     EXPECT_THAT(services_before, ContainerEq(fetched_services));
   }
 
-  void DeleteNonExistingInstance(const DnsSdInstanceRecord& record) {
+  void DeleteNonExistingInstance(const DnsSdInstanceEndpoint& record) {
     const std::vector<std::string> services_before =
         ConvertRefs(watcher_.GetServices());
     const size_t count = services_before.size();
@@ -231,7 +231,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
     EXPECT_THAT(services_before, ContainerEq(fetched_services));
   }
 
-  bool ContainsService(const DnsSdInstanceRecord& record) {
+  bool ContainsService(const DnsSdInstanceEndpoint& record) {
     const std::string& service = record.instance_id();
     const std::vector<TestServiceWatcher::ConstRefT> services =
         watcher_.GetServices();
@@ -261,8 +261,8 @@ TEST(DnsSdServiceWatcherTest, RefreshFailsBeforeDiscoveryStarts) {
 }
 
 TEST_F(DnsSdServiceWatcherTests, RefreshDiscoveryWorks) {
-  const DnsSdInstanceRecord record("Instance", kCastServiceId, kCastDomainId,
-                                   kEndpointV4, DnsSdTxtRecord{});
+  const DnsSdInstanceEndpoint record("Instance", kCastServiceId, kCastDomainId,
+                                     DnsSdTxtRecord{}, kEndpointV4, 0);
   CreateNewInstance(record);
 
   // Refresh services.
@@ -278,10 +278,11 @@ TEST_F(DnsSdServiceWatcherTests, RefreshDiscoveryWorks) {
 }
 
 TEST_F(DnsSdServiceWatcherTests, CreatingUpdatingDeletingInstancesWork) {
-  const DnsSdInstanceRecord record("Instance", kCastServiceId, kCastDomainId,
-                                   kEndpointV4, DnsSdTxtRecord{});
-  const DnsSdInstanceRecord record2("Instance2", kCastServiceId, kCastDomainId,
-                                    kEndpointV4, DnsSdTxtRecord{});
+  const DnsSdInstanceEndpoint record("Instance", kCastServiceId, kCastDomainId,
+                                     DnsSdTxtRecord{}, kEndpointV4, 0);
+  const DnsSdInstanceEndpoint record2("Instance2", kCastServiceId,
+                                      kCastDomainId, DnsSdTxtRecord{},
+                                      kEndpointV4, 0);
 
   EXPECT_FALSE(ContainsService(record));
   EXPECT_FALSE(ContainsService(record2));

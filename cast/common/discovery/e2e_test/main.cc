@@ -134,7 +134,9 @@ discovery::Config GetConfigSettings() {
   // Get the loopback interface to run on.
   absl::optional<InterfaceInfo> loopback = GetLoopbackInterfaceForTesting();
   OSP_DCHECK(loopback.has_value());
-  config.interface = loopback.value();
+  discovery::Config::NetworkInfo network_config{
+      loopback.value().index, {127, 0, 0, 1}, {0, 0, 0, 0, 0, 0, 0, 1}};
+  config.network_config.push_back(std::move(network_config));
 
   return config;
 }
