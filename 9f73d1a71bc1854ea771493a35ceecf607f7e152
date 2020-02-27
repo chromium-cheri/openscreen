@@ -45,6 +45,53 @@
       "revId": "9f73d1a71bc1854ea771493a35ceecf607f7e152",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91549007_c0c21644",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T23:33:18Z",
+      "side": 1,
+      "message": "A bitset seems fine to me. (Admittedly, I don\u0027t have a higher-level overview of this part of the code base, though. Maybe Brandon or Max have a different opinion.)\n\nAlso, see comment below. I think it\u0027s fine this is an enum instead of an enum class, but that changes the C++ namespacing rules:\n\n1. When referring to these constants, you can just do MdnsService::kV4 rather than the full MdnsService::SupportedNetworkEndpoints::kV4.\n\n2. Because of #1, it might be better to rename the members to something like: kUseIpV4Multicast, kUseIpV6Multicast.\n\n3. Enum naming (of SupportedNetworkEndpoints): It\u0027s not the network endpoint that\u0027s supported. Instead, it\u0027s the address families that happen to be active on the interface. Meaning \"endpoint\" names a socket, but \"address family\" defines how endpoint names are structured.",
+      "parentUuid": "829eb319_f8651843",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 4
+      },
+      "revId": "9f73d1a71bc1854ea771493a35ceecf607f7e152",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "845b3003_5de793b5",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T23:33:18Z",
+      "side": 1,
+      "message": "Are any of these operator overloads needed? Since SupportedNetworkEndpoints is an enum and not an enum class, it should behave like a raw uint8_t.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 1
+      },
+      "revId": "9f73d1a71bc1854ea771493a35ceecf607f7e152",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
