@@ -69,6 +69,30 @@
       "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "030905fb_3471eeef",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T21:59:12Z",
+      "side": 1,
+      "message": "Suggestion: Rather than rewrite a bunch of \"should be in the standard library\" utility functions, how about depending on Abseil more?\n\nFor example, EqualsIgnoreCase() is right here, works on all platforms, is strictly ASCII, and doesn\u0027t depend on any system locale settings: https://source.chromium.org/chromium/chromium/src/+/master:third_party/abseil-cpp/absl/strings/match.h;drc\u003d6eaa04678d753386f43c69a79d398da7dd675c0f;l\u003d72?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "parentUuid": "941f7c96_a594ca07",
+      "range": {
+        "startLine": 107,
+        "startChar": 19,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
