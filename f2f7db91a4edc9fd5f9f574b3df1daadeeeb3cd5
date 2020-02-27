@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc731991_93402069",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-27T23:14:39Z",
+      "side": 1,
+      "message": "This is ok, but I\u0027m curious as to why we don\u0027t just define the comparator globally by overloading operator\u003c()?\n\n  bool operator\u003c(const IPAddress\u0026 a, const IPAddress\u0026 b);\n\nand:\n\n  bool operator\u003c(const IPEndpoint\u0026 a, const IPEndpoint\u0026 b);\n\n...then std::less would automatically use this, resulting in simpler call-into-STL code.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 2
+      },
+      "revId": "f2f7db91a4edc9fd5f9f574b3df1daadeeeb3cd5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
