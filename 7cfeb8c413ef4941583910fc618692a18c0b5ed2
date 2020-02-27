@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f04866da_d9cf27d2",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T17:57:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b6ce035_2216e299",
+      "range": {
+        "startLine": 204,
+        "startChar": 7,
+        "endLine": 204,
+        "endChar": 31
+      },
+      "revId": "7cfeb8c413ef4941583910fc618692a18c0b5ed2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c559d76_1f3464e9",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-24T22:46:35Z",
       "side": 1,
       "message": "It looks like there\u0027s a bunch of logic common between this method and ProcessSharedRecord/ProcessUniqueRecord. Do you think it might be worth to change the code to drop the records inside ProcessSharedRecord/ProcessUniqueRecord?",
+      "range": {
+        "startLine": 226,
+        "startChar": 18,
+        "endLine": 226,
+        "endChar": 47
+      },
+      "revId": "7cfeb8c413ef4941583910fc618692a18c0b5ed2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d18887da_4380408e",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T17:57:57Z",
+      "side": 1,
+      "message": "I considered that, but it ends up much less readable / harder to follow to go that way IMHO\n\nWe need to process only certain answer records (the ones that answer our questions) then either all additional records (if a question has been answered) or only some (otherwise), which introduces a lot of additional logic nto those methods\nAdditionally, It refactors a lot of NSEC-related complexity into those methods which is currently handled in ProcessRecords\n\nIt\u0027s doable, but IMHO an extra iteration through questions_ (which should be small in practice) is worth it to keep the code simpler. WDYT?",
+      "parentUuid": "1c559d76_1f3464e9",
       "range": {
         "startLine": 226,
         "startChar": 18,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "62827f88_00290a40",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T17:57:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bb95822_a5f06e42",
+      "revId": "7cfeb8c413ef4941583910fc618692a18c0b5ed2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6290d346_d4e8c96a",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2020-02-24T17:50:01Z",
       "side": 1,
       "message": "Nit: I think this method is pretty large and you should consider taking some of these comment blocks and making them either private methods or anonymous-namespaced functions as appropriate.\n\nI\u0027d love to see the control flows simplified, e.g.\n\nif (records_for_key \u003d\u003d 0) {\n    // short Add / Process flow\n} else if (records_for_key \u003d\u003d 1) {\n    UpdateForSeenRecord();\n} else {\n   ExpireAllNonMatchingRecords();\n   UpdateOrInsertRecord();\n}\n\nMy philosophy on function size is pretty well described by the recent TOTT:\n\ngo/tott/602",
+      "revId": "7cfeb8c413ef4941583910fc618692a18c0b5ed2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542c1b8d_d66e01c1",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T17:57:57Z",
+      "side": 1,
+      "message": "Will plan to address this in a follow-up CL to keep this one small",
+      "parentUuid": "6290d346_d4e8c96a",
       "revId": "7cfeb8c413ef4941583910fc618692a18c0b5ed2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
