@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4594837_895d8cd8",
+        "filename": "discovery/dnssd/impl/service_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T03:03:34Z",
+      "side": 1,
+      "message": "In the next iteration, the InterfaceInfo will not be available at this layer, so this will be calculated in a slightly different way. See linked CL for more info\n\nBut this is why the InterfaceInfo can\u0027t continue to be passed to the next layer",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 1
+      },
+      "revId": "9f73d1a71bc1854ea771493a35ceecf607f7e152",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "829eb319_f8651843",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-02-27T03:03:34Z",
+      "side": 1,
+      "message": "I find defining an enum here rather than using a vector of existing IP Address types to be much more readable. Open to changing if you disagree though. WDYT?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 4
+      },
+      "revId": "9f73d1a71bc1854ea771493a35ceecf607f7e152",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
