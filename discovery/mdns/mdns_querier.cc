@@ -209,6 +209,10 @@ void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
     }
   }
 
+  OSP_VLOG << "Received mDNS Response message with " << message.answers().size()
+           << " answers and " << message.additional_records().size()
+           << " additional records. Processing...";
+
   // If any of the message's answers are relevant, add all additional records.
   // Else, since the message has already been received and parsed, use any
   // individual records relevant to this querier to update the cache.
@@ -217,6 +221,8 @@ void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
       ProcessRecord(record);
     }
   }
+
+  OSP_VLOG << "\tmDNS Response processed!";
 
   // TODO(crbug.com/openscreen/83): Check authority records.
   // TODO(crbug.com/openscreen/84): Cap size of cache, to avoid memory blowups
@@ -269,6 +275,8 @@ bool MdnsQuerier::ShouldAnswerRecordBeProcessed(const MdnsRecord& answer) {
 void MdnsQuerier::OnRecordExpired(MdnsRecordTracker* tracker,
                                   const MdnsRecord& record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  OSP_VLOG << "OnRecordExpired called";
 
   if (!tracker->is_negative_response()) {
     ProcessCallbacks(record, RecordChangedEvent::kExpired);
@@ -421,6 +429,7 @@ void MdnsQuerier::ProcessUniqueRecord(const MdnsRecord& record,
             ProcessCallbacks(record_for_callback, RecordChangedEvent::kUpdated);
           } else if (existed_previously) {
             // Do not expire the tracker, because it still holds an NSEC record.
+            OSP_VLOG << "ProcessUniqueRecord called";
             ProcessCallbacks(record_for_callback, RecordChangedEvent::kExpired);
           } else if (will_exist) {
             ProcessCallbacks(record_for_callback, RecordChangedEvent::kCreated);
@@ -483,7 +492,7 @@ void MdnsQuerier::ProcessCallbacks(const MdnsRecord& record,
 
   auto callbacks_it = callbacks_.equal_range(record.name());
   for (auto entry = callbacks_it.first; entry != callbacks_it.second; ++entry) {
-    const CallbackInfo& callback_info = entry->second;
+    CallbackInfo& callback_info = entry->second;
     if ((callback_info.dns_type == DnsType::kANY ||
          record.dns_type() == callback_info.dns_type) &&
         (callback_info.dns_class == DnsClass::kANY ||

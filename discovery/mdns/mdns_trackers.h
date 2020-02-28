@@ -240,6 +240,12 @@ class MdnsQuestionTracker : public MdnsTracker {
   // Specifies whether this query is intended to be a one-shot query, as defined
   // in RFC 6762 section 5.1.
   const QueryType query_type_;
+
+  // Signifies the maximum number of times a record should be announced.
+  uint32_t maximum_announcement_count_;
+
+  // Number of times this query has been announced.
+  uint32_t announcements_so_far_ = 0;
 };
 
 }  // namespace discovery

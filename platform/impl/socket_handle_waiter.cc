@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <atomic>
+#include <iostream>
 
 #include "absl/algorithm/container.h"
 #include "util/logging.h"
@@ -50,6 +51,7 @@ void SocketHandleWaiter::OnHandleDeletion(Subscriber* subscriber,
     if (!disable_locking_for_testing) {
       handles_being_deleted_.push_back(handle);
 
+      OSP_VLOG << "Starting to block for Socket Deletion";
       // This code will allow us to block completion of the socket destructor
       // (and subsequent invalidation of pointers to this socket) until we no
       // longer are waiting on a SELECT(...) call to it, since we only signal
@@ -59,6 +61,7 @@ void SocketHandleWaiter::OnHandleDeletion(Subscriber* subscriber,
                          handles_being_deleted_.end(),
                          handle) == handles_being_deleted_.end();
       });
+      OSP_VLOG << "\tDone blocking for Socket Deletion!";
     }
   }
 }
