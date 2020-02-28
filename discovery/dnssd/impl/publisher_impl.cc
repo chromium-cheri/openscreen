@@ -195,15 +195,21 @@ Error PublisherImpl::UpdatePublishedRegistration(
   return total_result;
 }
 
-int PublisherImpl::DeregisterAll(const std::string& service) {
+ErrorOr<int> PublisherImpl::DeregisterAll(const std::string& service) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
   int removed_count = 0;
 
+  // TODO(crbug.com/openscreen/114): Trace each below call so multiple errors
+  // can be seen.
+  Error error = Error::None();
   for (auto it = published_records_.begin(); it != published_records_.end();) {
     if (it->second.service_id() == service) {
       for (const auto& mdns_record : GetDnsRecords(it->second)) {
-        mdns_publisher_->UnregisterRecord(mdns_record);
+        auto publisher_error = mdns_publisher_->UnregisterRecord(mdns_record);
+        if (!publisher_error.ok()) {
+          error = publisher_error;
+        }
       }
       removed_count++;
       it = published_records_.erase(it);
@@ -214,7 +220,11 @@ int PublisherImpl::DeregisterAll(const std::string& service) {
 
   removed_count += EraseRecordsWithServiceId(&pending_records_, service);
 
-  return removed_count;
+  if (!error.ok()) {
+    return error;
+  } else {
+    return removed_count;
+  }
 }
 
 void PublisherImpl::OnDomainFound(const DomainName& requested_name,

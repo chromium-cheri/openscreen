@@ -5,6 +5,7 @@
 #include "platform/impl/platform_client_posix.h"
 
 #include <functional>
+#include <iostream>
 #include <vector>
 
 #include "platform/impl/udp_socket_reader_posix.h"
@@ -59,12 +60,16 @@ TaskRunner* PlatformClientPosix::GetTaskRunner() {
 }
 
 PlatformClientPosix::~PlatformClientPosix() {
+  std::cout << "A\n";
   task_runner_->RequestStopSoon();
+  std::cout << "B\n";
   if (task_runner_thread_ && task_runner_thread_->joinable()) {
     task_runner_thread_->join();
   }
+  std::cout << "C\n";
 
   networking_loop_.RequestStopSoon();
+  std::cout << "D\n";
   networking_loop_thread_.join();
 }
 
