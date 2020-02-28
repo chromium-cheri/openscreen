@@ -209,6 +209,10 @@ void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
     }
   }
 
+  OSP_VLOG << "Received mDNS Response message with " << message.answers().size()
+           << " answers and " << message.additional_records().size()
+           << " additional records. Processing...";
+
   // If any of the message's answers are relevant, add all additional records.
   // Else, since the message has already been received and parsed, use any
   // individual records relevant to this querier to update the cache.
@@ -217,6 +221,8 @@ void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
       ProcessRecord(record);
     }
   }
+
+  OSP_VLOG << "\tmDNS Response processed!";
 
   // TODO(crbug.com/openscreen/83): Check authority records.
   // TODO(crbug.com/openscreen/84): Cap size of cache, to avoid memory blowups
