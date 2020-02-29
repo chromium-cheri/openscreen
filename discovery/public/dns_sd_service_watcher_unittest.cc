@@ -19,17 +19,6 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
-std::vector<std::string> ConvertRefs(
-    const std::vector<std::reference_wrapper<const std::string>>& value) {
-  std::vector<std::string> strings;
-
-  // This loop is required to unwrap reference_wrapper objects.
-  for (const std::string& val : value) {
-    strings.push_back(val);
-  }
-  return strings;
-}
-
 static const IPAddress kAddressV4(192, 168, 0, 0);
 static const IPEndpoint kEndpointV4{kAddressV4, 0};
 static const std::string kCastServiceId = "_googlecast._tcp";
@@ -80,8 +69,6 @@ class MockDnsSdService : public DnsSdService {
 
 class TestServiceWatcher : public DnsSdServiceWatcher<std::string> {
  public:
-  using DnsSdServiceWatcher<std::string>::ConstRefT;
-
   explicit TestServiceWatcher(MockDnsSdService* service)
       : DnsSdServiceWatcher<std::string>(
             service,
@@ -89,9 +76,11 @@ class TestServiceWatcher : public DnsSdServiceWatcher<std::string> {
             [this](const DnsSdInstanceRecord& record) {
               return Convert(record);
             },
-            [this](std::vector<ConstRefT> ref) { Callback(std::move(ref)); }) {}
+            [this](std::vector<std::string> ref) {
+              Callback(std::move(ref));
+            }) {}
 
-  MOCK_METHOD1(Callback, void(std::vector<ConstRefT>));
+  MOCK_METHOD1(Callback, void(std::vector<std::string>));
 
   using DnsSdServiceWatcher<std::string>::OnInstanceCreated;
   using DnsSdServiceWatcher<std::string>::OnInstanceUpdated;
@@ -115,21 +104,19 @@ class DnsSdServiceWatcherTests : public testing::Test {
 
  protected:
   void CreateNewInstance(const DnsSdInstanceRecord& record) {
-    const std::vector<std::string> services_before =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> services_before = watcher_.GetServices();
     const size_t count = services_before.size();
 
     std::vector<std::string> callbacked_services;
     EXPECT_CALL(watcher_, Callback(_))
-        .WillOnce([services = &callbacked_services](
-                      std::vector<TestServiceWatcher::ConstRefT> value) {
-          *services = ConvertRefs(value);
-        });
+        .WillOnce(
+            [services = &callbacked_services](std::vector<std::string> value) {
+              *services = std::move(value);
+            });
     watcher_.OnInstanceCreated(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
 
-    std::vector<std::string> fetched_services =
-        ConvertRefs(watcher_.GetServices());
+    std::vector<std::string> fetched_services = watcher_.GetServices();
     EXPECT_EQ(fetched_services.size(), count + 1);
 
     EXPECT_THAT(fetched_services, ContainerEq(callbacked_services));
@@ -137,21 +124,19 @@ class DnsSdServiceWatcherTests : public testing::Test {
   }
 
   void CreateExistingInstance(const DnsSdInstanceRecord& record) {
-    const std::vector<std::string> services_before =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> services_before = watcher_.GetServices();
     const size_t count = services_before.size();
 
     std::vector<std::string> callbacked_services;
     EXPECT_CALL(watcher_, Callback(_))
-        .WillOnce([services = &callbacked_services](
-                      std::vector<TestServiceWatcher::ConstRefT> value) {
-          *services = ConvertRefs(value);
-        });
+        .WillOnce(
+            [services = &callbacked_services](std::vector<std::string> value) {
+              *services = std::move(value);
+            });
     watcher_.OnInstanceCreated(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
 
-    const std::vector<std::string> fetched_services =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> fetched_services = watcher_.GetServices();
     EXPECT_EQ(fetched_services.size(), count);
 
     EXPECT_THAT(fetched_services, ContainerEq(callbacked_services));
@@ -159,21 +144,19 @@ class DnsSdServiceWatcherTests : public testing::Test {
   }
 
   void UpdateExistingInstance(const DnsSdInstanceRecord& record) {
-    const std::vector<std::string> services_before =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> services_before = watcher_.GetServices();
     const size_t count = services_before.size();
 
     std::vector<std::string> callbacked_services;
     EXPECT_CALL(watcher_, Callback(_))
-        .WillOnce([services = &callbacked_services](
-                      std::vector<TestServiceWatcher::ConstRefT> value) {
-          *services = ConvertRefs(value);
-        });
+        .WillOnce(
+            [services = &callbacked_services](std::vector<std::string> value) {
+              *services = std::move(value);
+            });
     watcher_.OnInstanceUpdated(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
 
-    const std::vector<std::string> fetched_services =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> fetched_services = watcher_.GetServices();
     EXPECT_EQ(fetched_services.size(), count);
 
     EXPECT_THAT(fetched_services, ContainerEq(callbacked_services));
@@ -181,51 +164,45 @@ class DnsSdServiceWatcherTests : public testing::Test {
   }
 
   void DeleteExistingInstance(const DnsSdInstanceRecord& record) {
-    const std::vector<std::string> services_before =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> services_before = watcher_.GetServices();
     const size_t count = services_before.size();
 
     std::vector<std::string> callbacked_services;
     EXPECT_CALL(watcher_, Callback(_))
-        .WillOnce([services = &callbacked_services](
-                      std::vector<TestServiceWatcher::ConstRefT> value) {
-          *services = ConvertRefs(value);
-        });
+        .WillOnce(
+            [services = &callbacked_services](std::vector<std::string> value) {
+              *services = std::move(value);
+            });
     watcher_.OnInstanceDeleted(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
 
-    const std::vector<std::string> fetched_services =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> fetched_services = watcher_.GetServices();
     EXPECT_EQ(fetched_services.size(), count - 1);
   }
 
   void UpdateNonExistingInstance(const DnsSdInstanceRecord& record) {
-    const std::vector<std::string> services_before =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> services_before = watcher_.GetServices();
     const size_t count = services_before.size();
 
     EXPECT_CALL(watcher_, Callback(_)).Times(0);
     watcher_.OnInstanceUpdated(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
 
-    const std::vector<std::string> fetched_services =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> fetched_services = watcher_.GetServices();
     EXPECT_EQ(fetched_services.size(), count);
 
     EXPECT_THAT(services_before, ContainerEq(fetched_services));
   }
 
   void DeleteNonExistingInstance(const DnsSdInstanceRecord& record) {
-    const std::vector<std::string> services_before =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> services_before = watcher_.GetServices();
     const size_t count = services_before.size();
 
     EXPECT_CALL(watcher_, Callback(_)).Times(0);
     watcher_.OnInstanceDeleted(record);
     testing::Mock::VerifyAndClearExpectations(&watcher_);
 
-    const std::vector<std::string> fetched_services =
-        ConvertRefs(watcher_.GetServices());
+    const std::vector<std::string> fetched_services = watcher_.GetServices();
     EXPECT_EQ(fetched_services.size(), count);
 
     EXPECT_THAT(services_before, ContainerEq(fetched_services));
@@ -233,8 +210,7 @@ class DnsSdServiceWatcherTests : public testing::Test {
 
   bool ContainsService(const DnsSdInstanceRecord& record) {
     const std::string& service = record.instance_id();
-    const std::vector<TestServiceWatcher::ConstRefT> services =
-        watcher_.GetServices();
+    const std::vector<std::string> services = watcher_.GetServices();
     return std::find_if(services.begin(), services.end(),
                         [&service](const std::string& ref) {
                           return service == ref;

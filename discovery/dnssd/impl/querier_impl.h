@@ -40,18 +40,15 @@ class QuerierImpl : public DnsSdQuerier, public MdnsRecordChangedCallback {
   void ReinitializeQueries(const std::string& service) override;
 
   // MdnsRecordChangedCallback overrides.
-  void OnRecordChanged(const MdnsRecord& record,
-                       RecordChangedEvent event) override;
+  void OnRecordChanged(MdnsRecord record, RecordChangedEvent event) override;
 
  private:
   // Process an OnRecordChanged event for a PTR record.
-  Error HandlePtrRecordChange(const MdnsRecord& record,
-                              RecordChangedEvent event);
+  Error HandlePtrRecordChange(MdnsRecord record, RecordChangedEvent event);
 
   // Process an OnRecordChanged event for non-PTR records (SRV, TXT, A, and AAAA
   // records).
-  Error HandleNonPtrRecordChange(const MdnsRecord& record,
-                                 RecordChangedEvent event);
+  Error HandleNonPtrRecordChange(MdnsRecord record, RecordChangedEvent event);
 
   inline bool IsQueryRunning(const ServiceKey& key) const {
     return callback_map_.find(key) != callback_map_.end();
@@ -66,8 +63,8 @@ class QuerierImpl : public DnsSdQuerier, public MdnsRecordChangedCallback {
   // Calls the appropriate callback method based on the provided Instance Record
   // values.
   void NotifyCallbacks(const std::vector<Callback*>& callbacks,
-                       const ErrorOr<DnsSdInstanceRecord>& old_record,
-                       const ErrorOr<DnsSdInstanceRecord>& new_record);
+                       ErrorOr<DnsSdInstanceRecord> old_record,
+                       ErrorOr<DnsSdInstanceRecord> new_record);
 
   // Map from a specific service instance to the data received so far about
   // that instance. The keys in this map are the instances for which an

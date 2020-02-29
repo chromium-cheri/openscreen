@@ -217,8 +217,8 @@ int PublisherImpl::DeregisterAll(const std::string& service) {
   return removed_count;
 }
 
-void PublisherImpl::OnDomainFound(const DomainName& requested_name,
-                                  const DomainName& confirmed_name) {
+void PublisherImpl::OnDomainFound(DomainName requested_name,
+                                  DomainName confirmed_name) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
   auto it = FindKey(&pending_records_, InstanceKey(requested_name));

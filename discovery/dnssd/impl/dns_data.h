@@ -31,8 +31,7 @@ class DnsData {
   // result will be an error if the change does not make sense from our current
   // data state, and Error::None() otherwise. Valid record types with which this
   // method can be called are SRV, TXT, A, and AAAA record types.
-  Error ApplyDataRecordChange(const MdnsRecord& record,
-                              RecordChangedEvent event);
+  Error ApplyDataRecordChange(MdnsRecord record, RecordChangedEvent event);
 
  private:
   absl::optional<SrvRecordRdata> srv_;
