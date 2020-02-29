@@ -22,9 +22,8 @@ class DnsSdPublisher {
     // the DnsSdInstanceRecord::instance_id() field, or to be equal. This
     // callback is purely for informational purposes and the caller is not
     // required to act on it.
-    virtual void OnInstanceClaimed(
-        const DnsSdInstanceRecord& requested_record,
-        const DnsSdInstanceRecord& claimed_record) = 0;
+    virtual void OnInstanceClaimed(DnsSdInstanceRecord requested_record,
+                                   DnsSdInstanceRecord claimed_record) = 0;
   };
 
   virtual ~DnsSdPublisher() = default;

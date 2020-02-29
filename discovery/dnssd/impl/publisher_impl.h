@@ -34,8 +34,8 @@ class PublisherImpl : public DnsSdPublisher,
   Error UpdatePublishedRegistration(const DnsSdInstanceRecord& record);
 
   // MdnsDomainConfirmedProvider overrides.
-  void OnDomainFound(const DomainName& requested_name,
-                     const DomainName& confirmed_name) override;
+  void OnDomainFound(DomainName requested_name,
+                     DomainName confirmed_name) override;
 
   // The set of records which will be published once the mDNS Probe phase
   // completes.

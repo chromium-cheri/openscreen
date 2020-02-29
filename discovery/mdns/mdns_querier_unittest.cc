@@ -64,7 +64,7 @@ class MockRecordChangedCallback : public MdnsRecordChangedCallback {
  public:
   MOCK_METHOD(void,
               OnRecordChanged,
-              (const MdnsRecord&, RecordChangedEvent event),
+              (MdnsRecord, RecordChangedEvent event),
               (override));
 };
 
@@ -267,6 +267,7 @@ TEST_F(MdnsQuerierTest, StartQueryTwice) {
   EXPECT_CALL(callback, OnRecordChanged(_, _)).Times(1);
 
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, MultipleCallbacks) {
@@ -280,21 +281,27 @@ TEST_F(MdnsQuerierTest, MultipleCallbacks) {
                       DnsClass::kIN, &callback_2);
 
   EXPECT_CALL(callback_1, OnRecordChanged(_, _)).Times(1);
-  EXPECT_CALL(callback_2, OnRecordChanged(_, _)).Times(2);
+  EXPECT_CALL(callback_2, OnRecordChanged(_, _)).Times(1);
 
   // Both callbacks will be invoked.
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  task_runner_.RunTasksUntilIdle();
+  testing::Mock::VerifyAndClearExpectations(&callback_1);
+  testing::Mock::VerifyAndClearExpectations(&callback_2);
 
   querier->StopQuery(DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
                      &callback_1);
-
   // Only callback_2 will be invoked.
+  EXPECT_CALL(callback_2, OnRecordChanged(_, _)).Times(1);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_updated_));
+  task_runner_.RunTasksUntilIdle();
+  testing::Mock::VerifyAndClearExpectations(&callback_2);
 
   querier->StopQuery(DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
                      &callback_2);
   // No callbacks will be invoked as all have been stopped.
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_updated_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, NoRecordChangesAfterStop) {
@@ -307,6 +314,7 @@ TEST_F(MdnsQuerierTest, NoRecordChangesAfterStop) {
   querier->StopQuery(DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
                      &callback);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_updated_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, StopQueryTwice) {
@@ -320,6 +328,7 @@ TEST_F(MdnsQuerierTest, StopQueryTwice) {
   querier->StopQuery(DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
                      &callback);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, StopNonExistingQuery) {
@@ -338,6 +347,7 @@ TEST_F(MdnsQuerierTest, IrrelevantRecordReceived) {
   EXPECT_CALL(callback, OnRecordChanged(_, _)).Times(1);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record1_created_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, DifferentCallersSameQuestion) {
@@ -351,6 +361,7 @@ TEST_F(MdnsQuerierTest, DifferentCallersSameQuestion) {
   EXPECT_CALL(callback1, OnRecordChanged(_, _)).Times(1);
   EXPECT_CALL(callback2, OnRecordChanged(_, _)).Times(1);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, DifferentCallersDifferentQuestions) {
@@ -365,6 +376,7 @@ TEST_F(MdnsQuerierTest, DifferentCallersDifferentQuestions) {
   EXPECT_CALL(callback2, OnRecordChanged(_, _)).Times(1);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record1_created_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, SameCallerDifferentQuestions) {
@@ -377,6 +389,7 @@ TEST_F(MdnsQuerierTest, SameCallerDifferentQuestions) {
   EXPECT_CALL(callback, OnRecordChanged(_, _)).Times(2);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record1_created_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, ReinitializeQueries) {
@@ -392,6 +405,7 @@ TEST_F(MdnsQuerierTest, ReinitializeQueries) {
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
   // Receiving the same record should only reset TTL, no callback
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  task_runner_.RunTasksUntilIdle();
   testing::Mock::VerifyAndClearExpectations(&receiver_);
 
   // Queries should still be ongoing but all received records should have been
@@ -405,6 +419,7 @@ TEST_F(MdnsQuerierTest, ReinitializeQueries) {
   // Reinitializing a different domain should not affect other queries.
   querier->ReinitializeQueries(DomainName{"testing2", "local"});
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, MessagesForUnknownQueriesDropped) {
@@ -417,6 +432,7 @@ TEST_F(MdnsQuerierTest, MessagesForUnknownQueriesDropped) {
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record1_created_));
   querier->StartQuery(DomainName{"poking", "local"}, DnsType::kA, DnsClass::kIN,
                       &callback);
+  task_runner_.RunTasksUntilIdle();
   testing::Mock::VerifyAndClearExpectations(&callback);
 
   querier->StopQuery(DomainName{"poking", "local"}, DnsType::kA, DnsClass::kIN,
@@ -429,6 +445,7 @@ TEST_F(MdnsQuerierTest, MessagesForUnknownQueriesDropped) {
       &socket_, CreatePacketWithRecords({record0_created_, record1_created_}));
   querier->StartQuery(DomainName{"poking", "local"}, DnsType::kA, DnsClass::kIN,
                       &callback);
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, MessagesForKnownRecordsAllowed) {
@@ -439,12 +456,14 @@ TEST_F(MdnsQuerierTest, MessagesForKnownRecordsAllowed) {
   querier->StartQuery(DomainName{"testing", "local"}, DnsType::kA,
                       DnsClass::kIN, &callback);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  task_runner_.RunTasksUntilIdle();
   testing::Mock::VerifyAndClearExpectations(&callback);
 
   // Stop the query and validate that record updates are still received.
   querier->StopQuery(DomainName{"testing", "local"}, DnsType::kA, DnsClass::kIN,
                      &callback);
   receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_updated_));
+  task_runner_.RunTasksUntilIdle();
   testing::Mock::VerifyAndClearExpectations(&callback);
 
   querier->StopQuery(DomainName{"poking", "local"}, DnsType::kA, DnsClass::kIN,
@@ -456,6 +475,7 @@ TEST_F(MdnsQuerierTest, MessagesForKnownRecordsAllowed) {
       .Times(1);
   querier->StartQuery(DomainName{"testing", "local"}, DnsType::kA,
                       DnsClass::kIN, &callback);
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, MessagesForUnknownKnownRecordsAllowsAdditionalRecords) {
@@ -470,7 +490,7 @@ TEST_F(MdnsQuerierTest, MessagesForUnknownKnownRecordsAllowsAdditionalRecords) {
       .Times(1);
   receiver_.OnRead(&socket_, CreatePacketWithRecords({record1_created_},
                                                      {record0_created_}));
-  testing::Mock::VerifyAndClearExpectations(&callback);
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, CallbackNotCalledOnStartQueryForNsecRecords) {
@@ -488,6 +508,7 @@ TEST_F(MdnsQuerierTest, CallbackNotCalledOnStartQueryForNsecRecords) {
   // Start new query
   querier->StartQuery(DomainName{"testing", "local"}, DnsType::kA,
                       DnsClass::kIN, &callback);
+  task_runner_.RunTasksUntilIdle();
 }
 
 TEST_F(MdnsQuerierTest, ReceiveNsecRecordFansOutToEachType) {
@@ -504,6 +525,7 @@ TEST_F(MdnsQuerierTest, ReceiveNsecRecordFansOutToEachType) {
                                  DnsType::kSRV, DnsType::kAAAA));
   auto packet = CreatePacketWithRecord(multi_type_nsec);
   receiver_.OnRead(&socket_, std::move(packet));
+  task_runner_.RunTasksUntilIdle();
   ASSERT_EQ(RecordCount(querier.get()), size_t{3});
   EXPECT_TRUE(ContainsRecord(querier.get(), multi_type_nsec, DnsType::kA));
   EXPECT_TRUE(ContainsRecord(querier.get(), multi_type_nsec, DnsType::kAAAA));
@@ -523,6 +545,7 @@ TEST_F(MdnsQuerierTest, ReceiveNsecKAnyRecordFansOutToAllTypes) {
                  NsecRecordRdata(nsec_record_created_.name(), DnsType::kANY));
   auto packet = CreatePacketWithRecord(any_type_nsec);
   receiver_.OnRead(&socket_, std::move(packet));
+  task_runner_.RunTasksUntilIdle();
   ASSERT_EQ(RecordCount(querier.get()), size_t{5});
   EXPECT_TRUE(ContainsRecord(querier.get(), any_type_nsec, DnsType::kA));
   EXPECT_TRUE(ContainsRecord(querier.get(), any_type_nsec, DnsType::kAAAA));
@@ -542,6 +565,7 @@ TEST_F(MdnsQuerierTest, CorrectCallbackCalledWhenNsecRecordReplacesNonNsec) {
               OnRecordChanged(record0_created_, RecordChangedEvent::kCreated));
   auto packet = CreatePacketWithRecord(record0_created_);
   receiver_.OnRead(&socket_, std::move(packet));
+  task_runner_.RunTasksUntilIdle();
   testing::Mock::VerifyAndClearExpectations(&callback);
   ASSERT_TRUE(ContainsRecord(querier.get(), record0_created_, DnsType::kA));
   EXPECT_FALSE(
@@ -551,6 +575,7 @@ TEST_F(MdnsQuerierTest, CorrectCallbackCalledWhenNsecRecordReplacesNonNsec) {
               OnRecordChanged(record0_created_, RecordChangedEvent::kExpired));
   packet = CreatePacketWithRecord(nsec_record_created_);
   receiver_.OnRead(&socket_, std::move(packet));
+  task_runner_.RunTasksUntilIdle();
   EXPECT_FALSE(ContainsRecord(querier.get(), record0_created_, DnsType::kA));
   EXPECT_TRUE(ContainsRecord(querier.get(), nsec_record_created_, DnsType::kA));
 }
@@ -564,6 +589,7 @@ TEST_F(MdnsQuerierTest, CorrectCallbackCalledWhenNonNsecRecordReplacesNsec) {
                       DnsClass::kIN, &callback);
   auto packet = CreatePacketWithRecord(nsec_record_created_);
   receiver_.OnRead(&socket_, std::move(packet));
+  task_runner_.RunTasksUntilIdle();
   ASSERT_TRUE(ContainsRecord(querier.get(), nsec_record_created_, DnsType::kA));
   EXPECT_FALSE(ContainsRecord(querier.get(), record0_created_, DnsType::kA));
 
@@ -571,6 +597,7 @@ TEST_F(MdnsQuerierTest, CorrectCallbackCalledWhenNonNsecRecordReplacesNsec) {
               OnRecordChanged(record0_created_, RecordChangedEvent::kCreated));
   packet = CreatePacketWithRecord(record0_created_);
   receiver_.OnRead(&socket_, std::move(packet));
+  task_runner_.RunTasksUntilIdle();
   EXPECT_FALSE(
       ContainsRecord(querier.get(), nsec_record_created_, DnsType::kA));
   EXPECT_TRUE(ContainsRecord(querier.get(), record0_created_, DnsType::kA));
@@ -591,11 +618,13 @@ TEST_F(MdnsQuerierTest, NoCallbackCalledWhenSecondNsecRecordReceived) {
                       DnsClass::kIN, &callback);
   auto packet = CreatePacketWithRecord(nsec_record_created_);
   receiver_.OnRead(&socket_, std::move(packet));
+  task_runner_.RunTasksUntilIdle();
   ASSERT_TRUE(ContainsRecord(querier.get(), nsec_record_created_, DnsType::kA));
   EXPECT_FALSE(ContainsRecord(querier.get(), multi_type_nsec, DnsType::kA));
 
   packet = CreatePacketWithRecord(multi_type_nsec);
   receiver_.OnRead(&socket_, std::move(packet));
+  task_runner_.RunTasksUntilIdle();
   EXPECT_FALSE(
       ContainsRecord(querier.get(), nsec_record_created_, DnsType::kA));
   EXPECT_TRUE(ContainsRecord(querier.get(), multi_type_nsec, DnsType::kA));
