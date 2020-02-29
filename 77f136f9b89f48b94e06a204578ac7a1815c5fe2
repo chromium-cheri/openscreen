@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f7caeea_fe5b4d06",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-29T01:43:44Z",
+      "side": 1,
+      "message": "Done. It also protects against client code that might assume this is a cheap \"getter\" and call this method frequently. I also noticed the \"in-flight frame count\" is not the same as \"in-flight FrameId span,\" so I tweaked a few comments around that.",
+      "parentUuid": "cabbde74_0d8a427e",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 33
+      },
+      "revId": "77f136f9b89f48b94e06a204578ac7a1815c5fe2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9af2dfc5_86656c1f",
         "filename": "cast/streaming/sender.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b4a85bba_6a4c8090",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-29T01:43:44Z",
+      "side": 1,
+      "message": "Done. I cheated by pivoting the math a little to make easier-to-name variables. 😉",
+      "parentUuid": "9af2dfc5_86656c1f",
+      "range": {
+        "startLine": 268,
+        "startChar": 26,
+        "endLine": 268,
+        "endChar": 53
+      },
+      "revId": "77f136f9b89f48b94e06a204578ac7a1815c5fe2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20c26549_4391c3d1",
         "filename": "cast/streaming/sender.cc",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "77f136f9b89f48b94e06a204578ac7a1815c5fe2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42fe90ef_15702c0d",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-02-29T01:43:44Z",
+      "side": 1,
+      "message": "The comment explains this, right?\n\nIf you want to know exactly where I got this value, I tested a ping on my desktop\u0027s 10gb wired Ethernet to other similar desktops nearby, and the 90th percentile was around this amount. I didn\u0027t do a strict data analysis, mostly eye-balled it.",
+      "parentUuid": "20c26549_4391c3d1",
+      "range": {
+        "startLine": 279,
+        "startChar": 46,
+        "endLine": 279,
+        "endChar": 51
+      },
+      "revId": "77f136f9b89f48b94e06a204578ac7a1815c5fe2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
