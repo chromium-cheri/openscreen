@@ -90,6 +90,10 @@ inline bool operator!=(const ServiceKey& lhs, const ServiceKey& rhs) {
   return !(lhs == rhs);
 }
 
+inline std::ostream& operator<<(std::ostream& os, const ServiceKey& key) {
+  return os << "['" << key.service_id() << "', '" << key.domain_id() << "']";
+}
+
 }  // namespace discovery
 }  // namespace openscreen
 

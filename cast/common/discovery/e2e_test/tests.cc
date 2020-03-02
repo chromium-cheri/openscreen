@@ -82,8 +82,8 @@ class Publisher : public discovery::DnsSdPublisher::Client {
  private:
   // DnsSdPublisher::Client overrides.
   void OnInstanceClaimed(
-      const discovery::DnsSdInstanceRecord& requested_record,
-      const discovery::DnsSdInstanceRecord& claimed_record) override {
+      discovery::DnsSdInstanceRecord requested_record,
+      discovery::DnsSdInstanceRecord claimed_record) override {
     instance_ids_.emplace(requested_record.instance_id(),
                           claimed_record.instance_id());
   }
@@ -100,8 +100,7 @@ class Receiver : public discovery::DnsSdServiceWatcher<ServiceInfo> {
             service,
             kCastV2ServiceId,
             DnsSdRecordToServiceInfo,
-            [this](
-                std::vector<std::reference_wrapper<const ServiceInfo>> infos) {
+            [this](std::vector<ServiceInfo> infos) {
               ProcessResults(std::move(infos));
             }) {
     OSP_LOG << "Initializing Receiver...";
@@ -116,8 +115,7 @@ class Receiver : public discovery::DnsSdServiceWatcher<ServiceInfo> {
   }
 
  private:
-  void ProcessResults(
-      std::vector<std::reference_wrapper<const ServiceInfo>> infos) {
+  void ProcessResults(std::vector<ServiceInfo> infos) {
     service_infos_ = std::vector<ServiceInfo>();
     for (const ServiceInfo& info : infos) {
       service_infos_.push_back(info);
@@ -452,6 +450,21 @@ TEST_F(DiscoveryE2ETest, ValidateAnnouncementFlow) {
   CheckForPublishedService(multi_address, &multi_address_found);
   WaitUntilSeen(true, &v4_found, &v6_found, &multi_address_found);
   OSP_LOG << "\tAll services successfully discovered!\n";
+
+  // Deregister all service instances.
+  OSP_LOG << "Deregister all services...";
+  task_runner_->PostTask([this]() {
+    auto result = publisher_->DeregisterAll();
+    ASSERT_EQ(result, 3);
+  });
+  std::this_thread::sleep_for(std::chrono::seconds(3));
+  v4_found = false;
+  v6_found = false;
+  multi_address_found = false;
+  CheckNotPublishedService(v4, &v4_found);
+  CheckNotPublishedService(v6, &v6_found);
+  CheckNotPublishedService(multi_address, &multi_address_found);
+  WaitUntilSeen(false, &v4_found, &v6_found, &multi_address_found);
 }
 
 // In this test, the following operations are performed:
@@ -518,6 +531,7 @@ TEST_F(DiscoveryE2ETest, ValidateRecordsOnlyReceivedWhenQueryRunning) {
   v4_found = false;
   v4.friendly_name = "ThirdName";
   UpdateRecords(v4);
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
   CheckNotPublishedService(v4, &v4_found);
   WaitUntilSeen(false, &v4_found);
 
@@ -525,6 +539,7 @@ TEST_F(DiscoveryE2ETest, ValidateRecordsOnlyReceivedWhenQueryRunning) {
   StartDiscovery();
   OSP_LOG << "Service discovery in progress...";
   v4_found = false;
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
   CheckNotPublishedService(updated_v4, &v4_found);
   WaitUntilSeen(false, &v4_found);
 

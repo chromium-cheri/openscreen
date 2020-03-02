@@ -24,7 +24,7 @@ using testing::StrictMock;
 class MockClient : public DnsSdPublisher::Client {
  public:
   MOCK_METHOD2(OnInstanceClaimed,
-               void(const DnsSdInstanceRecord&, const DnsSdInstanceRecord&));
+               void(DnsSdInstanceRecord, DnsSdInstanceRecord));
 };
 
 class MockMdnsService : public MdnsService {

@@ -199,7 +199,7 @@ discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
 }
 
 ErrorOr<ServiceInfo> DnsSdRecordToServiceInfo(
-    const discovery::DnsSdInstanceRecord& instance) {
+    discovery::DnsSdInstanceRecord instance) {
   if (instance.service_id() != kCastV2ServiceId) {
     return Error::Code::kParameterInvalid;
   }
