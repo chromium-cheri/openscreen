@@ -92,6 +92,11 @@ inline bool operator!=(const InstanceKey& lhs, const InstanceKey& rhs) {
   return !(lhs == rhs);
 }
 
+inline std::ostream& operator<<(std::ostream& os, const InstanceKey& key) {
+  return os << "['" << key.instance_id() << "', '" << key.service_id() << "', '"
+            << key.domain_id() << "']";
+}
+
 }  // namespace discovery
 }  // namespace openscreen
 

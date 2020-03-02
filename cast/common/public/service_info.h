@@ -113,7 +113,7 @@ discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
     const ServiceInfo& service);
 
 ErrorOr<ServiceInfo> DnsSdRecordToServiceInfo(
-    const discovery::DnsSdInstanceRecord& service);
+    discovery::DnsSdInstanceRecord service);
 
 }  // namespace cast
 }  // namespace openscreen

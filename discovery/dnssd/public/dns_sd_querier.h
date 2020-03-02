@@ -19,14 +19,13 @@ class DnsSdQuerier {
     virtual ~Callback() = default;
 
     // Callback fired when a new InstanceRecord is created.
-    virtual void OnInstanceCreated(const DnsSdInstanceRecord& new_record) = 0;
+    virtual void OnInstanceCreated(DnsSdInstanceRecord new_record) = 0;
 
     // Callback fired when an existing InstanceRecord is updated.
-    virtual void OnInstanceUpdated(
-        const DnsSdInstanceRecord& modified_record) = 0;
+    virtual void OnInstanceUpdated(DnsSdInstanceRecord modified_record) = 0;
 
     // Callback fired when an existing InstanceRecord is deleted.
-    virtual void OnInstanceDeleted(const DnsSdInstanceRecord& old_record) = 0;
+    virtual void OnInstanceDeleted(DnsSdInstanceRecord old_record) = 0;
   };
 
   virtual ~DnsSdQuerier() = default;

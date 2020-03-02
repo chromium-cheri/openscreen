@@ -109,8 +109,12 @@ void MdnsQuerier::StartQuery(const DomainName& name,
       MdnsRecord stored_record(name, tracker->dns_type(), tracker->dns_class(),
                                tracker->record_type(), tracker->ttl(),
                                tracker->rdata());
-      callback->OnRecordChanged(std::move(stored_record),
-                                RecordChangedEvent::kCreated);
+
+      // TODO(rwkeane): Use weak ptrs.
+      task_runner_->PostTask([callback, stored_record]() {
+        callback->OnRecordChanged(std::move(stored_record),
+                                  RecordChangedEvent::kCreated);
+      });
     }
   }
 
@@ -488,7 +492,10 @@ void MdnsQuerier::ProcessCallbacks(const MdnsRecord& record,
          record.dns_type() == callback_info.dns_type) &&
         (callback_info.dns_class == DnsClass::kANY ||
          record.dns_class() == callback_info.dns_class)) {
-      callback_info.callback->OnRecordChanged(record, event);
+      // TODO(rwkeane): Use weak ptrs.
+      task_runner_->PostTask([c = callback_info.callback, event, record]() {
+        c->OnRecordChanged(std::move(record), event);
+      });
     }
   }
 }
