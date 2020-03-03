@@ -117,6 +117,30 @@
       "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4fc02b5_cd875fb8",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-03T19:38:08Z",
+      "side": 1,
+      "message": "Here are a couple answers:\n\nOn Windows we would have to call stricmp instead of strcasecmp. We can put comparison function into a header in util and pick the right name based on the platform we are building for.\n\nEqualsIgnoreCase would be a great option, but it returns bool to only indicate equality or inequality.\nInternally it\u0027s using memcasecmp (strcasecmp equivalent) that is defined in an internal abseil header.\nWe can include the internal header directly and use memcasecmp.\n\nAs for ASCII vs UTF-8, I\u0027m replacing existing functionality with an equivalent.\nIf my understanding is correct, UTF-8 is structured in a such way that top bits in the encoding of a multibyte character guarantee that comparison will be correct with this approach.\n\nI\u0027d like to know your preference on this.",
+      "parentUuid": "2f7a1fc0_50bd5770",
+      "range": {
+        "startLine": 107,
+        "startChar": 19,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
