@@ -141,6 +141,30 @@
       "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c12d148_8762ac84",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-03T22:21:04Z",
+      "side": 1,
+      "message": "Abseil is very clear that clients are not to depend on internal headers.\n\nhttps://abseil.io/about/compatibility\n\nI went back to the spec and didn\u0027t see any mention of a need to sort domain names, only entire records.   What is this code used for (if anything)?  If any sort order will do, then your suggestion to wrap the POSIX functions seems fine.\n\nIf the behavior of mDNS depends on the sort order then simpler and less risky to just to revert and leave this code alone.",
+      "parentUuid": "d4fc02b5_cd875fb8",
+      "range": {
+        "startLine": 107,
+        "startChar": 19,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
