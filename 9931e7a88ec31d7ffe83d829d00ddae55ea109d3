@@ -22,6 +22,53 @@
       "revId": "9931e7a88ec31d7ffe83d829d00ddae55ea109d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9726a002_b5036966",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-04T20:20:02Z",
+      "side": 0,
+      "message": "Yes. We are using the non-blocking read, so we will read up to |byes_available| total bytes. If we used the blocking version, we would always get exactly |bytes_available|",
+      "parentUuid": "ac1490b4_9afd1da7",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "9931e7a88ec31d7ffe83d829d00ddae55ea109d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24918bf9_ef4eff9f",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-04T20:20:02Z",
+      "side": 0,
+      "message": "I seem to remember that this was here as a performance improvement - checking SSL_pending() is much cheaper than SSL_read(). Why remove it?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 66
+      },
+      "revId": "9931e7a88ec31d7ffe83d829d00ddae55ea109d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

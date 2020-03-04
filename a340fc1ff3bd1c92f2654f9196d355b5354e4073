@@ -45,6 +45,29 @@
       "revId": "a340fc1ff3bd1c92f2654f9196d355b5354e4073",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5611b48_ffa6b467",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-04T20:20:02Z",
+      "side": 1,
+      "message": "Add a TODO here and file a bug. There is work to be done around deregistering to ensure that a socket isn\u0027t deleted when we are still using the blocking posix READ call on the networking thread (which results in a segfault).\n\nI\u0027ve had a CL open for a few months related to adding this functionality in a common util class, since the same is used in a few other places (like deregistering UDP sockets) so feel free to assign it to me :) Though at this point I\u0027d sooner rewrite it than try to pick up that old of a CL",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "a340fc1ff3bd1c92f2654f9196d355b5354e4073",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
