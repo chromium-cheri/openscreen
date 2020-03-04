@@ -64,7 +64,7 @@ class MockRecordChangedCallback : public MdnsRecordChangedCallback {
  public:
   MOCK_METHOD(void,
               OnRecordChanged,
-              (const MdnsRecord&, RecordChangedEvent event),
+              (MdnsRecord, RecordChangedEvent event),
               (override));
 };
 

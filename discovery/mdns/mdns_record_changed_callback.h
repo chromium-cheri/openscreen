@@ -21,8 +21,7 @@ enum class RecordChangedEvent {
 class MdnsRecordChangedCallback {
  public:
   virtual ~MdnsRecordChangedCallback() = default;
-  virtual void OnRecordChanged(const MdnsRecord& record,
-                               RecordChangedEvent event) = 0;
+  virtual void OnRecordChanged(MdnsRecord record, RecordChangedEvent event) = 0;
 };
 
 inline std::ostream& operator<<(std::ostream& output,

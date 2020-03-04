@@ -234,8 +234,8 @@ ErrorOr<int> PublisherImpl::DeregisterAll(const std::string& service) {
   }
 }
 
-void PublisherImpl::OnDomainFound(const DomainName& requested_name,
-                                  const DomainName& confirmed_name) {
+void PublisherImpl::OnDomainFound(DomainName requested_name,
+                                  DomainName confirmed_name) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
   OSP_DVLOG << "Domain successfully claimed: '" << confirmed_name.ToString()
