@@ -20,13 +20,17 @@ TlsDataRouterPosix::~TlsDataRouterPosix() {
 }
 
 void TlsDataRouterPosix::RegisterConnection(TlsConnectionPosix* connection) {
-  // TODO(jophba, rwkeane): implement this method.
-  OSP_UNIMPLEMENTED();
+  std::lock_guard<std::mutex> lock(connections_mutex_);
+  connections_.push_back(connection);
 }
 
 void TlsDataRouterPosix::DeregisterConnection(TlsConnectionPosix* connection) {
-  // TODO(jophba, rwkeane): implement this method.
-  OSP_UNIMPLEMENTED();
+  std::lock_guard<std::mutex> lock(connections_mutex_);
+  connections_.erase(std::remove_if(connections_.begin(), connections_.end(),
+                                    [connection](TlsConnectionPosix* conn) {
+                                      return conn == connection;
+                                    }),
+                     connections_.end());
 }
 
 void TlsDataRouterPosix::RegisterSocketObserver(
