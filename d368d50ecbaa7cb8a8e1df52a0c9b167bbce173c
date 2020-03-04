@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c24eb1c5_c2516d0f",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-04T07:48:04Z",
+      "side": 1,
+      "message": "nit: our current guidance seems to be that these should either be int or int32_t",
+      "revId": "d368d50ecbaa7cb8a8e1df52a0c9b167bbce173c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6470b508_b083d6a3",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-04T07:48:04Z",
+      "side": 1,
+      "message": "I think you mean DLOG.  The compiler can\u0027t tell if verbose logging is enabled, but it can tell if debug logging is.  Also, you could put this in an #if OSP_DCHECK_IS_ON() ... #endif block.  I don\u0027t have a preference, just FYI.",
+      "revId": "d368d50ecbaa7cb8a8e1df52a0c9b167bbce173c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8fdde16_65fab019",
+        "filename": "platform/impl/platform_client_posix.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-04T07:48:04Z",
+      "side": 1,
+      "message": "nit: I\u0027d prefer these and others to be DVLOG since they\u0027re primarily for debugging.",
+      "revId": "d368d50ecbaa7cb8a8e1df52a0c9b167bbce173c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
