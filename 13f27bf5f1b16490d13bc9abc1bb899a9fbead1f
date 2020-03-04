@@ -189,6 +189,30 @@
       "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a4fe6e0_d7cb34c5",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-04T00:04:32Z",
+      "side": 1,
+      "message": "Domain name comparison is case-insensitive, but implementations must preserve case as per DNS RFC\nhttps://tools.ietf.org/html/rfc1035 section 2.3.3\n\nAs for why there\u0027s a comparison here:\nTL;DR: domain name sorting is not a part of the spec.\nIIRC, I originally only added operator\u003d\u003d and operator!\u003d to DomainName to use them in unordered_map and implemented it via absl::EqualsIgnoreCase.\nSome time later unordered_map was switched to map that requires operator\u003c as one of the alternatives to keep the data sorted. The code I\u0027m replacing now was added as implementation for operator\u003c.",
+      "parentUuid": "b92495a2_77cfdee7",
+      "range": {
+        "startLine": 107,
+        "startChar": 19,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "13f27bf5f1b16490d13bc9abc1bb899a9fbead1f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
