@@ -17,15 +17,17 @@ if (!build_with_chromium) {
         "main.cc",
         "simulated_capturer.cc",
         "simulated_capturer.h",
+        "streaming_opus_encoder.cc",
+        "streaming_opus_encoder.h",
       ]
       deps = [
         "../../platform",
         "../../util",
         "../streaming:sender",
       ]
-      include_dirs = ffmpeg_include_dirs
-      lib_dirs = ffmpeg_lib_dirs
-      libs = ffmpeg_libs
+      include_dirs = ffmpeg_include_dirs + libopus_include_dirs
+      lib_dirs = ffmpeg_lib_dirs + libopus_lib_dirs
+      libs = ffmpeg_libs + libopus_libs
     }
   }
 }
