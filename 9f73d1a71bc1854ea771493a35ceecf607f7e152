@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c8bf4d63_0cff01ba",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-04T23:12:43Z",
+      "side": 1,
+      "message": "\u003e 1. When referring to these constants, you can just do MdnsService::kV4 rather than the full MdnsService::SupportedNetworkEndpoints::kV4.\n\nDone. Good catch! This still feels like magic to me, so I always forget about it.\n\n\u003e 2. Because of #1, it might be better to rename the members to something like: kUseIpV4Multicast, kUseIpV6Multicast.\n\nDone\n\n\u003e 3. Enum naming (of SupportedNetworkEndpoints): It\u0027s not the network endpoint that\u0027s supported. Instead, it\u0027s the address families that happen to be active on the interface. Meaning \"endpoint\" names a socket, but \"address family\" defines how endpoint names are structured.\n\nUpdated to \u0027SupportedNetworkAddressFamily\u0027",
+      "parentUuid": "91549007_c0c21644",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 4
+      },
+      "revId": "9f73d1a71bc1854ea771493a35ceecf607f7e152",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "845b3003_5de793b5",
         "filename": "discovery/mdns/public/mdns_service.h",
         "patchSetId": 3
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "Agree, unless it\u0027s an enum class, I don\u0027t see a need in these operator overloads.",
       "parentUuid": "845b3003_5de793b5",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 1
+      },
+      "revId": "9f73d1a71bc1854ea771493a35ceecf607f7e152",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047f8c67_908d9157",
+        "filename": "discovery/mdns/public/mdns_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-04T23:12:43Z",
+      "side": 1,
+      "message": "Removing these gives a compile error in dnssd/impl/service_impl.cc:\n\n\u003e error: assigning to \u0027MdnsService::SupportedNetworkAddressFamily\u0027 from incompatible type \u0027int\u0027\n\u003e     supported_types \u003d supported_types | MdnsService::kUseIpV4Multicast;\n\u003e                       ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\nWithout these, \u0026 and | operations result in an int instead of the enum type, so assigning back to the enum needs a static cast. WDYT?\n\nRemoved the ! operator though",
+      "parentUuid": "eef50f5e_05569939",
       "range": {
         "startLine": 95,
         "startChar": 0,
