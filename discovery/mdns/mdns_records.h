@@ -366,11 +366,13 @@ class MdnsRecord {
 
   size_t MaxWireSize() const;
   const DomainName& name() const { return name_; }
+  DomainName& name() { return name_; }
   DnsType dns_type() const { return dns_type_; }
   DnsClass dns_class() const { return dns_class_; }
   RecordType record_type() const { return record_type_; }
   std::chrono::seconds ttl() const { return ttl_; }
   const Rdata& rdata() const { return rdata_; }
+  Rdata& rdata() { return rdata_; }
 
   template <typename H>
   friend H AbslHashValue(H h, const MdnsRecord& record) {

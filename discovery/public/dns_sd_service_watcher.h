@@ -53,25 +53,22 @@ inline std::string GetInstanceNames(
 template <typename T>
 class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
  public:
-  using ConstRefT = std::reference_wrapper<const T>;
-
   // The method which will be called when any new service instance is
   // discovered, a service instance changes its data (such as TXT or A data), or
   // a previously discovered service instance ceases to be available. The vector
   // is the set of all currently active service instances which have been
   // discovered so far.
-  using ServicesUpdatedCallback =
-      std::function<void(std::vector<ConstRefT> services)>;
+  using ServicesUpdatedCallback = std::function<void(std::vector<T> services)>;
 
   // This function type is responsible for converting from a DNS service
   // instance (received from another mDNS endpoint) to a T type to be returned
   // to the caller.
-  using ServiceConverter =
-      std::function<ErrorOr<T>(const DnsSdInstanceRecord&)>;
+  using ServiceInstanceConverter =
+      std::function<ErrorOr<T>(DnsSdInstanceRecord)>;
 
   DnsSdServiceWatcher(DnsSdService* service,
                       std::string service_name,
-                      ServiceConverter conversion,
+                      ServiceInstanceConverter conversion,
                       ServicesUpdatedCallback callback)
       : conversion_(conversion),
         service_name_(std::move(service_name)),
@@ -131,57 +128,58 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
   }
 
   // Returns the set of services which have been received so far.
-  std::vector<ConstRefT> GetServices() const {
-    std::vector<ConstRefT> refs;
+  std::vector<T> GetServices() const {
+    std::vector<T> results;
     for (const auto& pair : records_) {
-      refs.push_back(*pair.second.get());
+      results.push_back(pair.second);
     }
 
     OSP_DVLOG << "Currently " << records_.size()
               << " known service instances: [" << GetInstanceNames(records_)
               << "]";
 
-    return refs;
+    return results;
   }
 
  private:
   friend class TestServiceWatcher;
 
   // DnsSdQuerier::Callback overrides.
-  void OnInstanceCreated(const DnsSdInstanceRecord& new_record) override {
+  void OnInstanceCreated(DnsSdInstanceRecord new_record) override {
     // NOTE: existence is not checked because records may be overwritten after
     // querier_->ReinitializeQueries() is called.
-    ErrorOr<T> record = conversion_(new_record);
+    std::string instance_id = new_record.instance_id();
+    ErrorOr<T> record = conversion_(std::move(new_record));
     if (record.is_error()) {
       OSP_LOG << "Conversion of received record failed with error: "
               << record.error();
       return;
     }
-    records_[new_record.instance_id()] =
-        std::make_unique<T>(std::move(record.value()));
+    records_[std::move(instance_id)] = std::move(record.value());
     callback_(GetServices());
   }
 
-  void OnInstanceUpdated(const DnsSdInstanceRecord& modified_record) override {
+  void OnInstanceUpdated(DnsSdInstanceRecord modified_record) override {
     auto it = records_.find(modified_record.instance_id());
-    if (it != records_.end()) {
-      ErrorOr<T> record = conversion_(modified_record);
-      if (record.is_error()) {
-        OSP_LOG << "Conversion of received record failed with error: "
-                << record.error();
-        return;
-      }
-      auto ptr = std::make_unique<T>(std::move(record.value()));
-      it->second.swap(ptr);
-
-      callback_(GetServices());
-    } else {
+    if (it == records_.end()) {
       OSP_LOG << "Received modified record for non-existent DNS-SD Instance "
               << modified_record.instance_id();
+      return;
     }
+
+    ErrorOr<T> record = conversion_(std::move(modified_record));
+    if (record.is_error()) {
+      OSP_LOG << "Conversion of received record failed with error: "
+              << record.error();
+      return;
+    }
+
+    it->second = std::move(record.value());
+
+    callback_(GetServices());
   }
 
-  void OnInstanceDeleted(const DnsSdInstanceRecord& old_record) override {
+  void OnInstanceDeleted(DnsSdInstanceRecord old_record) override {
     if (records_.erase(old_record.instance_id())) {
       callback_(GetServices());
     } else {
@@ -191,18 +189,16 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
   }
 
   // Set of all instance ids found so far, mapped to the T type that it
-  // represents. unique_ptr<T> entities are used so that the const refs returned
-  // from GetServices() and the ServicesUpdatedCallback can persist even once
-  // this map is resized. NOTE: Unordered map is used because this set is in
-  // many cases expected to be large.
-  std::unordered_map<std::string, std::unique_ptr<T>> records_;
+  // represents. NOTE: Unordered map is used because this set is in many cases
+  // expected to be large.
+  std::unordered_map<std::string, T> records_;
 
   // Represents whether discovery is currently running or not.
   bool is_running_ = false;
 
   // Converts from the DNS-SD representation of a service to the outside
   // representation.
-  ServiceConverter conversion_;
+  ServiceInstanceConverter conversion_;
 
   std::string service_name_;
   ServicesUpdatedCallback callback_;

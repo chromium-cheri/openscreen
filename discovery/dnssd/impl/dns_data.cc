@@ -13,7 +13,7 @@ namespace discovery {
 namespace {
 
 template <typename T>
-inline Error CreateRecord(absl::optional<T>* stored, const MdnsRecord& record) {
+inline Error CreateRecord(absl::optional<T>* stored, MdnsRecord record) {
   if (stored->has_value()) {
     return Error::Code::kItemAlreadyExists;
   }
@@ -22,9 +22,9 @@ inline Error CreateRecord(absl::optional<T>* stored, const MdnsRecord& record) {
 }
 
 template <typename T>
-inline Error UpdateRecord(absl::optional<T>* stored, const MdnsRecord& record) {
+inline Error UpdateRecord(absl::optional<T>* stored, MdnsRecord record) {
   if (!stored->has_value()) {
-    return Error::Code::kItemNotFound;
+    return Error::Code::kOperationInvalid;
   }
   *stored = absl::get<T>(record.rdata());
   return Error::None();
@@ -33,7 +33,7 @@ inline Error UpdateRecord(absl::optional<T>* stored, const MdnsRecord& record) {
 template <typename T>
 inline Error DeleteRecord(absl::optional<T>* stored) {
   if (!stored->has_value()) {
-    return Error::Code::kItemNotFound;
+    return Error::Code::kOperationInvalid;
   }
   *stored = absl::nullopt;
   return Error::None();
@@ -41,13 +41,13 @@ inline Error DeleteRecord(absl::optional<T>* stored) {
 
 template <typename T>
 inline Error ProcessRecord(absl::optional<T>* stored,
-                           const MdnsRecord& record,
+                           MdnsRecord record,
                            RecordChangedEvent event) {
   switch (event) {
     case RecordChangedEvent::kCreated:
-      return CreateRecord(stored, record);
+      return CreateRecord(stored, std::move(record));
     case RecordChangedEvent::kUpdated:
-      return UpdateRecord(stored, record);
+      return UpdateRecord(stored, std::move(record));
     case RecordChangedEvent::kExpired:
       return DeleteRecord(stored);
   }
@@ -88,17 +88,17 @@ ErrorOr<DnsSdInstanceRecord> DnsData::CreateRecord() {
   }
 }
 
-Error DnsData::ApplyDataRecordChange(const MdnsRecord& record,
+Error DnsData::ApplyDataRecordChange(MdnsRecord record,
                                      RecordChangedEvent event) {
   switch (record.dns_type()) {
     case DnsType::kSRV:
-      return ProcessRecord(&srv_, record, event);
+      return ProcessRecord(&srv_, std::move(record), event);
     case DnsType::kTXT:
-      return ProcessRecord(&txt_, record, event);
+      return ProcessRecord(&txt_, std::move(record), event);
     case DnsType::kA:
-      return ProcessRecord(&a_, record, event);
+      return ProcessRecord(&a_, std::move(record), event);
     case DnsType::kAAAA:
-      return ProcessRecord(&aaaa_, record, event);
+      return ProcessRecord(&aaaa_, std::move(record), event);
     default:
       return Error::Code::kOperationInvalid;
   }

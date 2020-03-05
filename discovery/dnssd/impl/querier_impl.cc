@@ -43,7 +43,10 @@ void QuerierImpl::StartQuery(const std::string& service, Callback* callback) {
       if (kvp.first == key) {
         ErrorOr<DnsSdInstanceRecord> record = kvp.second.CreateRecord();
         if (record.is_value()) {
-          callback->OnInstanceCreated(record.value());
+          // TODO(crbug.com/openscreen/115): Use weak ptrs.
+          task_runner_->PostTask([callback, r = std::move(record.value())] {
+            callback->OnInstanceCreated(std::move(r));
+          });
         }
       }
     }
@@ -100,19 +103,18 @@ void QuerierImpl::ReinitializeQueries(const std::string& service) {
   mdns_querier_->ReinitializeQueries(GetPtrQueryInfo(key).name);
 }
 
-void QuerierImpl::OnRecordChanged(const MdnsRecord& record,
-                                  RecordChangedEvent event) {
+void QuerierImpl::OnRecordChanged(MdnsRecord record, RecordChangedEvent event) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
   OSP_DVLOG << "Record with name '" << record.name().ToString()
             << "' and type '" << record.dns_type()
             << "' has received change of type '" << event << "'";
 
-  IsPtrRecord(record) ? HandlePtrRecordChange(record, event)
-                      : HandleNonPtrRecordChange(record, event);
+  IsPtrRecord(record) ? HandlePtrRecordChange(std::move(record), event)
+                      : HandleNonPtrRecordChange(std::move(record), event);
 }
 
-Error QuerierImpl::HandlePtrRecordChange(const MdnsRecord& record,
+Error QuerierImpl::HandlePtrRecordChange(MdnsRecord record,
                                          RecordChangedEvent event) {
   if (!HasValidDnsRecordAddress(record)) {
     // This means that the received record is malformed.
@@ -132,7 +134,7 @@ Error QuerierImpl::HandlePtrRecordChange(const MdnsRecord& record,
   return Error::Code::kUnknownError;
 }
 
-Error QuerierImpl::HandleNonPtrRecordChange(const MdnsRecord& record,
+Error QuerierImpl::HandleNonPtrRecordChange(MdnsRecord record,
                                             RecordChangedEvent event) {
   if (!HasValidDnsRecordAddress(record)) {
     // This means that the call received had malformed data.
@@ -152,6 +154,12 @@ Error QuerierImpl::HandleNonPtrRecordChange(const MdnsRecord& record,
   ErrorOr<DnsSdInstanceRecord> old_instance_record = Error::Code::kItemNotFound;
   auto it = received_records_.find(id);
   if (it == received_records_.end()) {
+    if (event != RecordChangedEvent::kCreated) {
+      // This can happen if a PTR record deletion is received before deletion of
+      // the records associated with the pointed-to service occurs.
+      OSP_VLOG << "Received erroneous record change for instance " << id << ".";
+      return Error::Code::kOperationInvalid;
+    }
     it = received_records_.emplace(id, DnsData(id)).first;
   } else {
     old_instance_record = it->second.CreateRecord();
@@ -160,35 +168,41 @@ Error QuerierImpl::HandleNonPtrRecordChange(const MdnsRecord& record,
 
   // Apply the changes specified by the received event to the stored
   // InstanceRecord.
-  Error apply_result = data->ApplyDataRecordChange(record, event);
+  Error apply_result = data->ApplyDataRecordChange(std::move(record), event);
   if (!apply_result.ok()) {
-    OSP_LOG_ERROR << "Received erroneous record change. Error: "
-                  << apply_result;
+    OSP_LOG << "Received erroneous record change for instance " << id
+            << " with Error: " << apply_result;
     return apply_result;
   }
 
   // Send an update to the user, based on how the new and old records compare.
   ErrorOr<DnsSdInstanceRecord> new_instance_record = data->CreateRecord();
-  NotifyCallbacks(callbacks, old_instance_record, new_instance_record);
+  NotifyCallbacks(callbacks, std::move(old_instance_record),
+                  std::move(new_instance_record));
 
   return Error::None();
 }
 
-void QuerierImpl::NotifyCallbacks(
-    const std::vector<Callback*>& callbacks,
-    const ErrorOr<DnsSdInstanceRecord>& old_record,
-    const ErrorOr<DnsSdInstanceRecord>& new_record) {
+void QuerierImpl::NotifyCallbacks(const std::vector<Callback*>& callbacks,
+                                  ErrorOr<DnsSdInstanceRecord> old_record,
+                                  ErrorOr<DnsSdInstanceRecord> new_record) {
   if (old_record.is_value() && new_record.is_value()) {
     for (Callback* callback : callbacks) {
-      callback->OnInstanceUpdated(new_record.value());
+      task_runner_->PostTask([callback, r = std::move(new_record.value())] {
+        callback->OnInstanceUpdated(std::move(r));
+      });
     }
   } else if (old_record.is_value() && !new_record.is_value()) {
     for (Callback* callback : callbacks) {
-      callback->OnInstanceDeleted(old_record.value());
+      task_runner_->PostTask([callback, r = std::move(old_record.value())] {
+        callback->OnInstanceDeleted(std::move(r));
+      });
     }
   } else if (!old_record.is_value() && new_record.is_value()) {
     for (Callback* callback : callbacks) {
-      callback->OnInstanceCreated(new_record.value());
+      task_runner_->PostTask([callback, r = std::move(new_record.value())] {
+        callback->OnInstanceCreated(std::move(r));
+      });
     }
   }
 }
@@ -219,7 +233,9 @@ void QuerierImpl::StopDnsQuery(InstanceKey key, bool should_inform_callbacks) {
     const auto it = callback_map_.find(key);
     if (it != callback_map_.end()) {
       for (Callback* callback : it->second) {
-        callback->OnInstanceDeleted(instance_record.value());
+        task_runner_->PostTask([callback, r = instance_record.value()] {
+          callback->OnInstanceDeleted(std::move(r));
+        });
       }
     }
   }

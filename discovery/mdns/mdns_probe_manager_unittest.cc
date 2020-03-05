@@ -27,7 +27,7 @@ namespace discovery {
 
 class MockDomainConfirmedProvider : public MdnsDomainConfirmedProvider {
  public:
-  MOCK_METHOD2(OnDomainFound, void(const DomainName&, const DomainName&));
+  MOCK_METHOD2(OnDomainFound, void(DomainName, DomainName));
 };
 
 class MockMdnsSender : public MdnsSender {

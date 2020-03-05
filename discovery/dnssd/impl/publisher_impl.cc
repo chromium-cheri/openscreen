@@ -20,7 +20,7 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
-DnsSdInstanceRecord UpdateDomain(const DomainName& domain,
+DnsSdInstanceRecord UpdateDomain(DomainName domain,
                                  const DnsSdInstanceRecord& record) {
   InstanceKey key(domain);
   const IPEndpoint& v4 = record.address_v4();
@@ -234,8 +234,8 @@ ErrorOr<int> PublisherImpl::DeregisterAll(const std::string& service) {
   }
 }
 
-void PublisherImpl::OnDomainFound(const DomainName& requested_name,
-                                  const DomainName& confirmed_name) {
+void PublisherImpl::OnDomainFound(DomainName requested_name,
+                                  DomainName confirmed_name) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
   OSP_DVLOG << "Domain successfully claimed: '" << confirmed_name.ToString()
@@ -259,7 +259,7 @@ void PublisherImpl::OnDomainFound(const DomainName& requested_name,
 
   if (requested_name != confirmed_name) {
     OSP_DCHECK(HasValidDnsRecordAddress(confirmed_name));
-    publication = UpdateDomain(confirmed_name, requested_record);
+    publication = UpdateDomain(std::move(confirmed_name), requested_record);
   }
 
   for (const auto& mdns_record : GetDnsRecords(publication)) {
