@@ -67,7 +67,7 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
   // instance (received from another mDNS endpoint) to a T type to be returned
   // to the caller.
   using ServiceConverter =
-      std::function<ErrorOr<T>(const DnsSdInstanceRecord&)>;
+      std::function<ErrorOr<T>(const DnsSdInstanceEndpoint&)>;
 
   DnsSdServiceWatcher(DnsSdService* service,
                       std::string service_name,
@@ -148,7 +148,7 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
   friend class TestServiceWatcher;
 
   // DnsSdQuerier::Callback overrides.
-  void OnInstanceCreated(const DnsSdInstanceRecord& new_record) override {
+  void OnInstanceCreated(const DnsSdInstanceEndpoint& new_record) override {
     // NOTE: existence is not checked because records may be overwritten after
     // querier_->ReinitializeQueries() is called.
     ErrorOr<T> record = conversion_(new_record);
@@ -162,7 +162,8 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
     callback_(GetServices());
   }
 
-  void OnInstanceUpdated(const DnsSdInstanceRecord& modified_record) override {
+  void OnInstanceUpdated(
+      const DnsSdInstanceEndpoint& modified_record) override {
     auto it = records_.find(modified_record.instance_id());
     if (it != records_.end()) {
       ErrorOr<T> record = conversion_(modified_record);
@@ -181,7 +182,7 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
     }
   }
 
-  void OnInstanceDeleted(const DnsSdInstanceRecord& old_record) override {
+  void OnInstanceDeleted(const DnsSdInstanceEndpoint& old_record) override {
     if (records_.erase(old_record.instance_id())) {
       callback_(GetServices());
     } else {
