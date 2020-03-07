@@ -66,24 +66,24 @@ MdnsRecord CreateSrvRecord(const DnsSdInstanceRecord& record,
                     kSrvRecordTtl, std::move(data));
 }
 
-absl::optional<MdnsRecord> CreateARecord(const DnsSdInstanceRecord& record,
+absl::optional<MdnsRecord> CreateARecord(const DnsSdInstanceEndpoint& record,
                                          const DomainName& domain) {
   if (!record.address_v4()) {
     return absl::nullopt;
   }
 
-  ARecordRdata data(record.address_v4().address);
+  ARecordRdata data(record.address_v4());
   return MdnsRecord(domain, DnsType::kA, DnsClass::kIN, RecordType::kUnique,
                     kARecordTtl, std::move(data));
 }
 
-absl::optional<MdnsRecord> CreateAAAARecord(const DnsSdInstanceRecord& record,
+absl::optional<MdnsRecord> CreateAAAARecord(const DnsSdInstanceEndpoint& record,
                                             const DomainName& domain) {
   if (!record.address_v6()) {
     return absl::nullopt;
   }
 
-  AAAARecordRdata data(record.address_v6().address);
+  AAAARecordRdata data(record.address_v6());
   return MdnsRecord(domain, DnsType::kAAAA, DnsClass::kIN, RecordType::kUnique,
                     kAAAARecordTtl, std::move(data));
 }
@@ -169,9 +169,15 @@ bool IsPtrRecord(const MdnsRecord& record) {
 std::vector<MdnsRecord> GetDnsRecords(const DnsSdInstanceRecord& record) {
   auto domain = GetInstanceDomainName(InstanceKey(record));
 
-  std::vector<MdnsRecord> records{CreatePtrRecord(record, domain),
-                                  CreateSrvRecord(record, domain),
-                                  CreateTxtRecord(record, domain)};
+  return {CreatePtrRecord(record, domain), CreateSrvRecord(record, domain),
+          CreateTxtRecord(record, domain)};
+}
+
+std::vector<MdnsRecord> GetDnsRecords(const DnsSdInstanceEndpoint& record) {
+  auto domain = GetInstanceDomainName(InstanceKey(record));
+
+  std::vector<MdnsRecord> records =
+      GetDnsRecords(static_cast<DnsSdInstanceRecord>(record));
 
   auto v4 = CreateARecord(record, domain);
   if (v4.has_value()) {
