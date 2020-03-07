@@ -10,7 +10,7 @@
 
 #include "absl/strings/string_view.h"
 #include "discovery/dnssd/impl/constants.h"
-#include "discovery/dnssd/public/dns_sd_instance_record.h"
+#include "discovery/dnssd/public/dns_sd_instance_endpoint.h"
 #include "discovery/dnssd/public/dns_sd_txt_record.h"
 #include "discovery/mdns/mdns_records.h"
 #include "platform/base/error.h"
@@ -52,7 +52,8 @@ DnsQueryInfo GetInstanceQueryInfo(const InstanceKey& key);
 // provided key.
 DnsQueryInfo GetPtrQueryInfo(const ServiceKey& key);
 
-// Returns all MdnsRecord entities generated from this InstanceRecord.
+// Returns all MdnsRecord entities generated from this InstanceEndpoint.
+std::vector<MdnsRecord> GetDnsRecords(const DnsSdInstanceEndpoint& record);
 std::vector<MdnsRecord> GetDnsRecords(const DnsSdInstanceRecord& record);
 
 }  // namespace discovery

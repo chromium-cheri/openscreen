@@ -83,7 +83,7 @@ class Publisher : public discovery::DnsSdPublisher::Client {
   // DnsSdPublisher::Client overrides.
   void OnInstanceClaimed(
       const discovery::DnsSdInstanceRecord& requested_record,
-      const discovery::DnsSdInstanceRecord& claimed_record) override {
+      const discovery::DnsSdInstanceEndpoint& claimed_record) override {
     instance_ids_.emplace(requested_record.instance_id(),
                           claimed_record.instance_id());
   }
@@ -150,7 +150,7 @@ discovery::Config GetConfigSettings() {
   // Get the loopback interface to run on.
   absl::optional<InterfaceInfo> loopback = GetLoopbackInterfaceForTesting();
   OSP_DCHECK(loopback.has_value());
-  config.interface = loopback.value();
+  config.network_config.push_back({loopback.value(), true, true});
 
   return config;
 }
