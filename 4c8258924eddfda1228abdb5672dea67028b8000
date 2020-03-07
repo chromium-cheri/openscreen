@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ef27bc53_640c2137",
+        "filename": "cast/standalone_sender/ffmpeg_glue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-07T00:03:10Z",
+      "side": 1,
+      "message": "Two reasons I didn\u0027t change this:\n\n1. Naming-consistent with all the FFMPEG APIs (they all use \"free\").\n\n2. It\u0027s not actually a deleter in all cases. Some FFMPEG objects are ref-counted, and there may still be outstanding references (internal to their library). For our app\u0027s use cases, we only ever have one owner (and pass ownership around), so we just treat it like a unique_ptr.",
+      "parentUuid": "4bce8d50_e326494c",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "145a853c_2e991738",
         "filename": "cast/standalone_sender/ffmpeg_glue.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdff51a1_397e9c3a",
+        "filename": "cast/standalone_sender/ffmpeg_glue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-07T00:03:10Z",
+      "side": 1,
+      "message": "Done.\n\nFFMPEG\u0027s APIs are inconsisent, and before I put this change up for review, I had other macros (since removed) that took \"obj\" instead of \"\u0026obj\" as an argument.",
+      "parentUuid": "145a853c_2e991738",
+      "range": {
+        "startLine": 58,
+        "startChar": 43,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a542564_87df0475",
+        "filename": "cast/standalone_sender/simulated_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-07T00:03:10Z",
+      "side": 1,
+      "message": "No. The only public API is the ctor and dtor. So, the early return in the ctor simply means \"don\u0027t post any tasks that will keep this thing running.\" The call to OnError() will post a task to notify the Observer that the capturer has halted.\n\nI think it\u0027d help readability to note where the capturer is halting, so I\u0027ve added some inline code comments throughout this file to indicate that.",
+      "parentUuid": "35aebc71_eb362d5a",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e1b37fb_a62b50ab",
         "filename": "cast/standalone_sender/simulated_capturer.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dbbb460_7a01a467",
+        "filename": "cast/standalone_sender/simulated_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-07T00:03:10Z",
+      "side": 1,
+      "message": "No. According to the documentation, getting an EAGAIN here explicitly means that avcodec_send_frame() should be called to feed more data into the decoder.\n\nI\u0027ll add some code comments to clarify this pattern (here, and where avcodec_send_frame() is called).",
+      "parentUuid": "3e1b37fb_a62b50ab",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 157,
+        "endChar": 27
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f26d6264_59c9c707",
+        "filename": "cast/standalone_sender/simulated_capturer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-07T00:03:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cc06e79_49aac074",
+      "range": {
+        "startLine": 34,
+        "startChar": 17,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51cf659e_9c343e47",
         "filename": "cast/standalone_sender/simulated_capturer.h",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2020-03-06T20:27:49Z",
       "side": 1,
       "message": "maybe ApplyDecoderContextParameters?",
+      "range": {
+        "startLine": 54,
+        "startChar": 15,
+        "endLine": 54,
+        "endChar": 47
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e2d456_14be0f29",
+        "filename": "cast/standalone_sender/simulated_capturer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-07T00:03:10Z",
+      "side": 1,
+      "message": "Hmm...ApplyDecoderContextParameters kind of sounds like there weren\u0027t any there before.\n\nHow about SetAdditionalDecoderParameters?",
+      "parentUuid": "51cf659e_9c343e47",
       "range": {
         "startLine": 54,
         "startChar": 15,
