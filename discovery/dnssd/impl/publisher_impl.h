@@ -15,6 +15,7 @@
 namespace openscreen {
 namespace discovery {
 
+class NetworkConfig;
 class ReportingClient;
 
 class PublisherImpl : public DnsSdPublisher,
@@ -22,7 +23,8 @@ class PublisherImpl : public DnsSdPublisher,
  public:
   PublisherImpl(MdnsService* publisher,
                 ReportingClient* reporting_client,
-                TaskRunner* task_runner);
+                TaskRunner* task_runner,
+                const NetworkConfig& network_config);
   ~PublisherImpl() override;
 
   // DnsSdPublisher overrides.
@@ -44,11 +46,12 @@ class PublisherImpl : public DnsSdPublisher,
   // Maps from the requested record to the record which was published after
   // the mDNS Probe phase was completed. The only difference between these
   // records should be the instance name.
-  std::map<DnsSdInstanceRecord, DnsSdInstanceRecord> published_records_;
+  std::map<DnsSdInstanceRecord, DnsSdInstanceEndpoint> published_records_;
 
   MdnsService* const mdns_publisher_;
   ReportingClient* const reporting_client_;
   TaskRunner* const task_runner_;
+  const NetworkConfig& network_config_;
 
   friend class PublisherTesting;
 };
