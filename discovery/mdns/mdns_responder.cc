@@ -221,17 +221,70 @@ void ApplyQueryResults(MdnsMessage* message,
 
 }  // namespace
 
+MdnsResponder::RecordHandler::~RecordHandler() = default;
+
+MdnsResponder::TruncatedQuery::TruncatedQuery(MdnsResponder* responder,
+                                              TaskRunner* task_runner,
+                                              ClockNowFunctionPtr now_function,
+                                              IPEndpoint src,
+                                              const MdnsMessage& message)
+    : src_(std::move(src)),
+      responder_(responder),
+      questions_(message.questions()),
+      known_answers_(message.answers()),
+      alarm_(now_function, task_runner) {
+  OSP_DCHECK(responder_);
+
+  RescheduleSend();
+}
+
+void MdnsResponder::TruncatedQuery::SetQuery(const MdnsMessage& message) {
+  OSP_DCHECK(questions_.empty());
+  questions_.insert(questions_.end(), message.questions().begin(),
+                    message.questions().end());
+  known_answers_.insert(known_answers_.end(), message.answers().begin(),
+                        message.answers().end());
+  RescheduleSend();
+}
+
+void MdnsResponder::TruncatedQuery::AddKnownAnswers(
+    const std::vector<MdnsRecord>& records) {
+  known_answers_.insert(known_answers_.end(), records.begin(), records.end());
+  RescheduleSend();
+}
+
+void MdnsResponder::TruncatedQuery::RescheduleSend() {
+  alarm_.Cancel();
+  alarm_.ScheduleFromNow(
+      [this]() { SendResponse(); },
+      responder_->random_delay_->GetTruncatedQueryResponseDelay());
+}
+
+void MdnsResponder::TruncatedQuery::SendResponse() {
+  alarm_.Cancel();
+
+  if (questions_.empty()) {
+    OSP_DVLOG << "Known answers received for unknown query, and non received "
+                 "after delay. Dropping them...";
+    return;
+  }
+
+  responder_->ProcessTruncatedQuery(this);
+}
+
 MdnsResponder::MdnsResponder(RecordHandler* record_handler,
                              MdnsProbeManager* ownership_handler,
                              MdnsSender* sender,
                              MdnsReceiver* receiver,
                              TaskRunner* task_runner,
+                             ClockNowFunctionPtr now_function,
                              MdnsRandom* random_delay)
     : record_handler_(record_handler),
       ownership_handler_(ownership_handler),
       sender_(sender),
       receiver_(receiver),
       task_runner_(task_runner),
+      now_function_(now_function),
       random_delay_(random_delay) {
   OSP_DCHECK(record_handler_);
   OSP_DCHECK(ownership_handler_);
@@ -250,29 +303,82 @@ MdnsResponder::~MdnsResponder() {
   receiver_->SetQueryCallback(nullptr);
 }
 
-MdnsResponder::RecordHandler::~RecordHandler() = default;
-
 void MdnsResponder::OnMessageReceived(const MdnsMessage& message,
                                       const IPEndpoint& src) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
   OSP_DCHECK(message.type() == MessageType::Query);
 
-  if (message.questions().empty()) {
-    // TODO(rwkeane): Support multi-packet known answer suppression.
+  // Handle multi-packet known answer suppression
+  //
+  // First, handle the case where a packet is received specifying that more
+  // known answer packets will follow.
+  if (message.is_truncated()) {
+    OSP_DVLOG << "Received mDNS Query using multi-packet known answer "
+                 "suppression. Processing...";
+
+    auto pair = truncated_queries_.emplace(
+        src, std::make_unique<TruncatedQuery>(this, task_runner_, now_function_,
+                                              src, message));
+
+    if (!pair.second) {
+      if (pair.first->second->questions().empty()) {
+        // If there is no query associated with the stored records, then the
+        // packets were received out of order.
+        pair.first->second->SetQuery(message);
+      } else {
+        // If the item already exists, the sender must have finished sending
+        // known answers. Process it immediately and then proceed.
+        pair.first->second->SendResponse();
+        pair = truncated_queries_.emplace(
+            src, std::make_unique<TruncatedQuery>(this, task_runner_,
+                                                  now_function_, src, message));
+      }
+    }
+
     return;
   }
 
+  // Next, handle the case where those additional packets are received.
+  else if (message.questions().empty()) {
+    // In case the query and additional records messages were received out of
+    // order, store these additional records for later use.
+    auto pair = truncated_queries_.emplace(
+        src, std::make_unique<TruncatedQuery>(this, task_runner_, now_function_,
+                                              src, message));
+
+    // If the query has already been received, update it.
+    if (!pair.second) {
+      pair.first->second->AddKnownAnswers(message.answers());
+    }
+
+    return;
+  }
+
+  // If the query is a probe query, it will be handled separately by the
+  // MdnsProbeManager. Ignore it here.
   if (message.IsProbeQuery()) {
     ownership_handler_->RespondToProbeQuery(message, src);
     return;
   }
 
+  // Else, this is a normal query. Process it as such.
   OSP_DVLOG << "Received mDNS Query with " << message.questions().size()
             << " questions. Processing...";
-
   const std::vector<MdnsRecord>& known_answers = message.answers();
+  const std::vector<MdnsQuestion>& questions = message.questions();
+  ProcessQueries(src, questions, known_answers);
+}
 
-  for (const auto& question : message.questions()) {
+void MdnsResponder::ProcessTruncatedQuery(TruncatedQuery* query) {
+  ProcessQueries(query->src(), query->questions(), query->known_answers());
+  truncated_queries_.erase(query->src());
+}
+
+void MdnsResponder::ProcessQueries(
+    const IPEndpoint& src,
+    const std::vector<MdnsQuestion>& questions,
+    const std::vector<MdnsRecord>& known_answers) {
+  for (const auto& question : questions) {
     // NSEC records should not be queried for.
     if (question.dns_type() == DnsType::kNSEC) {
       continue;
