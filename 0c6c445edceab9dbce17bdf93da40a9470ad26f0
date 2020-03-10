@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c4ab726_8b45768c",
+        "filename": "cast/common/public/service_info.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T21:09:03Z",
+      "side": 1,
+      "message": "What does it mean to have an instance record without an IPv4/IPv6 address?",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c8d2d49_ca81b89f",
+        "filename": "discovery/common/config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T21:09:03Z",
+      "side": 1,
+      "message": "Style nit: since there are three legal states, an enum would be ideal.",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57fabf22_eda45b1b",
+        "filename": "discovery/dnssd/impl/network_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T21:09:03Z",
+      "side": 1,
+      "message": "How is this different from Config::NetworkConfig?",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cc3f9ba_50008b7f",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T21:09:03Z",
+      "side": 1,
+      "message": "I see some pros to splitting this type up, but it adds complexity, and you wont be able to add addresses to an existing instance record without making a copy.  At first glance, this doesn\u0027t feel like an \"is-a\" relationship.\n\nWhat about just making the addresses optional in DnsSdInstanceRecord?\n\nWill instance records without IP addresses ever be exposed to the DNS-SD layer?  ISTM that as soon as the DNS records are received from an interface, the mDNS layer can pass the IP addresss of that interface up to the DNS-SD layer.",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
