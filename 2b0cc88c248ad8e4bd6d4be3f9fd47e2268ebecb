@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed6717fb_a7e92048",
+        "filename": "platform/base/interface_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-10T23:59:16Z",
+      "side": 1,
+      "message": "Having both GetXYZ() and HasXYZ() suggests using absl::optional, especially since HasXYZ() is implemented in terms of GetXYZ(). However, we can\u0027t use absl::optional in platform/base.\n\nSuggestion: What if we delete the HasXYZ() methods and just have:\n\n  // Returns the address if one is assigned to this interface, otherwise returns the \"false\" IPAddress.\n  IPAddress GetPrimaryIpV4Address() const;\n  IPAddress GetPrimaryIpV6Address() const;\n\n(since IPAddress has operator bool() defined)",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 30
+      },
+      "revId": "2b0cc88c248ad8e4bd6d4be3f9fd47e2268ebecb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
