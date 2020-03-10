@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d48e707_ae388db0",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T20:32:54Z",
+      "side": 1,
+      "message": "Why this change? If there are no changes to the implementation, then there\u0027s no need to pass a non-const value here.\n\nQuestion applies to other changes that remove const from function signatures without changing the function.",
+      "revId": "d65dc7e363245753f278dd009ac213251858bfc9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268c6c17_29c72149",
+        "filename": "discovery/dnssd/impl/instance_key.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T20:32:54Z",
+      "side": 1,
+      "message": "Complex operator implementations should be in the .cc",
+      "revId": "d65dc7e363245753f278dd009ac213251858bfc9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc1784b6_4ce5fc21",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T20:32:54Z",
+      "side": 1,
+      "message": "Is there a reason to invoke |callback| asynchronously here?",
+      "revId": "d65dc7e363245753f278dd009ac213251858bfc9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05a58341_2cab00ff",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T20:32:54Z",
+      "side": 1,
+      "message": "OSP_DVLOG",
+      "revId": "d65dc7e363245753f278dd009ac213251858bfc9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "102a6c41_a22f9f92",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T20:32:54Z",
+      "side": 1,
+      "message": "OSP_DVLOG",
+      "revId": "d65dc7e363245753f278dd009ac213251858bfc9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "034112d2_57527037",
+        "filename": "discovery/dnssd/impl/service_key.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-10T20:32:54Z",
+      "side": 1,
+      "message": "Similar comment here",
+      "revId": "d65dc7e363245753f278dd009ac213251858bfc9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
