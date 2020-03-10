@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ca971f4a_d555bee5",
+        "filename": "cast/common/public/service_info.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-10T23:59:42Z",
+      "side": 1,
+      "message": "An InstanceRecord, per our previous discussions, is just what a service publishes to ALL network interfaces, not a single one (Which is where the IP would come in). At the embedder layer, the IP address isn\u0027t known (instead, the config just provides an InterfaceInfo), and combining these two is the job of the DNS-SD layer\u0027s implementation\n\nThe port is shared by all network interfaces, so it can be included here",
+      "parentUuid": "5c4ab726_8b45768c",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c8d2d49_ca81b89f",
         "filename": "discovery/common/config.h",
         "patchSetId": 5
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "46fd2f67_97905619",
+        "filename": "discovery/dnssd/impl/network_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-10T23:59:42Z",
+      "side": 1,
+      "message": "This limits the scope of the data that the DNS-SD layer has access to:\n- The InterfaceInfo has a lot more data than just the IP Addresses and network interface\n- Some of this information would need to be repeatedly combined and DCHECK\u0027d (ie - whether an IP family is supported vs if one is available). This centralized that logic to DnsSdServiceImpl - since we will later have one of these per Network Interface",
+      "parentUuid": "57fabf22_eda45b1b",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cc3f9ba_50008b7f",
         "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
         "patchSetId": 5
@@ -64,6 +100,24 @@
       "writtenOn": "2020-03-10T21:09:03Z",
       "side": 1,
       "message": "I see some pros to splitting this type up, but it adds complexity, and you wont be able to add addresses to an existing instance record without making a copy.  At first glance, this doesn\u0027t feel like an \"is-a\" relationship.\n\nWhat about just making the addresses optional in DnsSdInstanceRecord?\n\nWill instance records without IP addresses ever be exposed to the DNS-SD layer?  ISTM that as soon as the DNS records are received from an interface, the mDNS layer can pass the IP addresss of that interface up to the DNS-SD layer.",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f81e39_379a125e",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-10T23:59:42Z",
+      "side": 1,
+      "message": "I am happy to defer to your and Max\u0027s decision, but some of my thoughts\n\n\u003e I see some pros to splitting this type up, but it adds complexity, and you wont be able to add addresses to an existing instance record without making a copy.\n\nIf the issue is a copy, I can add a ctor taking a DnsSdInstanceRecord\u0026\u0026 and move all the data out, to avoid all copied\n\n\u003e Will instance records without IP addresses ever be exposed to the DNS-SD layer\n\nI actually avoided this question when considering the design - the DNS-SD layer is just our implementation of a public API, which the embedder can implement any way they choose\n\n\u003e What about just making the addresses optional in DnsSdInstanceRecord?\n\nI can go this route if you prefer, but IMHO this is harder for the embedder to understand than using sepeate objects - To me, it feels like an \"is-a\" relationship, with \"specific network interface endpoint of a chromecast service hosted by a device\" is a  \"chromecast service hosted by a device\"",
+      "parentUuid": "7cc3f9ba_50008b7f",
       "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
