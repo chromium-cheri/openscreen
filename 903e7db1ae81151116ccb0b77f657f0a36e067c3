@@ -39,6 +39,24 @@
       "revId": "903e7db1ae81151116ccb0b77f657f0a36e067c3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddddc5f_92ba153e",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T20:27:59Z",
+      "side": 1,
+      "message": "There is a bug somewhere which causes when binding to the mDNS IPv6 address:\n\n\u003e SocketBindFailure \u003d \"endpoint: [ff02:0000:0000:0000:0000:0000:0000:00fb]:5353, error: Invalid argument\"\n\nThis IP and endpoint are called out by RFC 6762, so we have to use it. But when binding, to loopback or to other interfaces I tested with, this issue is consistently hit. I\u0027ve dug through our platform code, and it seems to be on the posix bind() call, but I can\u0027t find what\u0027s causing it since all the code around it seems to be correct (and the IPv4 code works)\n\nFor now, I filed a bug (crbug.com/openscreen/116)",
+      "parentUuid": "4946c679_d71315a6",
+      "revId": "903e7db1ae81151116ccb0b77f657f0a36e067c3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
