@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "58838c40_033c2266",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-11T23:33:49Z",
+      "side": 1,
+      "message": "I would prefer a loop for a consistent pattern throughout libcast code and based on the fact that registering already registered connection should be a no-op, but I don\u0027t feel strongly on this one.\nAnother option is to put a DCHECK to make sure it\u0027s not registered twice.",
+      "parentUuid": "7caa554f_35f90b0e",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "a340fc1ff3bd1c92f2654f9196d355b5354e4073",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5611b48_ffa6b467",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 1
