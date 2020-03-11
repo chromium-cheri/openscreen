@@ -16,6 +16,24 @@
       "revId": "499c9a2660d5acdec34c30ee5d42382ee33565bc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecf24812_412bb8fe",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T20:46:18Z",
+      "side": 1,
+      "message": "This is actually the ctor used everywhere. It is the responsibility of the higher layer (DNS-SD) to validate that the input looks how we expect it to, so if that doesn\u0027t happen a DCHECK failure is expected - since this is a coding bug.\n\nMax is in the process of pulling this ctor out in a separate CL. Adding you there:\nhttps://chromium-review.googlesource.com/c/openscreen/+/2072614",
+      "parentUuid": "f83bebd0_3d8f06ba",
+      "revId": "499c9a2660d5acdec34c30ee5d42382ee33565bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
