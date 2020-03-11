@@ -140,6 +140,30 @@
       "revId": "a340fc1ff3bd1c92f2654f9196d355b5354e4073",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0b1666e_63ae3ebd",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T16:58:05Z",
+      "side": 1,
+      "message": "Turns out I was misremebering - the above issue is related to TlsConnectionFactory not individual connections.\n\nThe issue here is that it\u0027s possible for thread starvation to occur.\n\nIf the lock is held for the duration of the read/write, then it\u0027s possible that the RegisterConnection / DeregisterConnecton calls will never acquire the lock. To fix this, an approach similar to what\u0027s used in SocketHandleWaiter::OnHandleDeletion needs to be used. The CL I was writing was to pull this logic into a separate util where it could be shared by both SocketHandleWaiter and TlsDataRouterPosix",
+      "parentUuid": "b414aaa8_711cc807",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "a340fc1ff3bd1c92f2654f9196d355b5354e4073",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
