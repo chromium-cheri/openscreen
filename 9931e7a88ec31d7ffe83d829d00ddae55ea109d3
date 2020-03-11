@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "cc3b761d_b79a1ffd",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-11T01:55:03Z",
+      "side": 0,
+      "message": "\u003e ... since this includes the header and other non-read-related bits...\n\nFrom the man page: \"SSL_pending() returns the number of buffered and processed application data bytes\".",
+      "parentUuid": "31801127_cc10b8bb",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "9931e7a88ec31d7ffe83d829d00ddae55ea109d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24918bf9_ef4eff9f",
         "filename": "platform/impl/tls_connection_posix.cc",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "9931e7a88ec31d7ffe83d829d00ddae55ea109d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36e5ea0e_58b06345",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-11T01:55:03Z",
+      "side": 0,
+      "message": "Because SSL_pending doesn\u0027t read anything so this never works.  SSL_pending only checks whether data is _already_ buffered and available.  Its comment in ssl.h explicitly says \"It does not read from the transport\".  Also, since we\u0027re using non-blocking sockets and just reading in a fixed-time loop, polling doesn\u0027t seem expensive.\n\nI guess we could say \"check SSL_pending and if \u003e 0, only try to read that amount, otherwise try to read a default block size\", but I\u0027m not sure that\u0027s much of a positive.",
+      "parentUuid": "24918bf9_ef4eff9f",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 66
+      },
+      "revId": "9931e7a88ec31d7ffe83d829d00ddae55ea109d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

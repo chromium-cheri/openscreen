@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ffbde9c1_f5be9a8f",
+        "filename": "platform/impl/tls_connection_factory_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-11T01:55:03Z",
+      "side": 1,
+      "message": "I just didn\u0027t gravitate towards overloading the public methods.  Done.",
+      "parentUuid": "0dc6403a_f9cbcafc",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "a340fc1ff3bd1c92f2654f9196d355b5354e4073",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a51bb6a7_9e2881ce",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7caa554f_35f90b0e",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-11T01:55:03Z",
+      "side": 1,
+      "message": "I guess it depends on what you mean by \"in theory\".  Since this is a public method, you could cast a TlsConnection down and call this from PlatformClientPosix... but TlsConnectionPosix guards against multiple calls with a DCHECK and only TlsConnectionFactoryPosix calls this on handshake completion.\n\nAlso, the \"bug\" would be that you read twice per network loop and both would correctly be removed in DeregisterConnection.\n\nWould you prefer I add a loop to ensure it\u0027s unique?",
+      "parentUuid": "a51bb6a7_9e2881ce",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "a340fc1ff3bd1c92f2654f9196d355b5354e4073",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5611b48_ffa6b467",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-03-04T20:20:02Z",
       "side": 1,
       "message": "Add a TODO here and file a bug. There is work to be done around deregistering to ensure that a socket isn\u0027t deleted when we are still using the blocking posix READ call on the networking thread (which results in a segfault).\n\nI\u0027ve had a CL open for a few months related to adding this functionality in a common util class, since the same is used in a few other places (like deregistering UDP sockets) so feel free to assign it to me :) Though at this point I\u0027d sooner rewrite it than try to pick up that old of a CL",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "a340fc1ff3bd1c92f2654f9196d355b5354e4073",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b414aaa8_711cc807",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-11T01:55:03Z",
+      "side": 1,
+      "message": "Can you elaborate on what causes a segfault?  My view of the situation is:\n\n - These functions both take the lock in order to add or remove atomically.\n - PerformNetworkingOperations takes the lock for the _entire_ cycle of reads (which are non-blocking because of StreamSocketPosix, though that\u0027s not necessarily relevant).\n - Therefore, a DeregisterConnection call will only successfully execute when the network loop thread is outside PerformNetworkingOperations.",
+      "parentUuid": "e5611b48_ffa6b467",
       "range": {
         "startLine": 28,
         "startChar": 0,
