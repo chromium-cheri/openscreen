@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "63eb9a46_baab324d",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T00:07:54Z",
+      "side": 1,
+      "message": "I think I got a bit too caught up in making everything a std::move operation. The calling method changed to use a moved object rather than a reference, so I made it move the object into here too\n\nOne option is to add non-const accessor methods to DnsSdInstanceRecord / DnsSdInstanceEndpoint so that the data can be moved out, rather than copied out, and improve these methods. WDYT?",
+      "parentUuid": "7d48e707_ae388db0",
+      "revId": "d65dc7e363245753f278dd009ac213251858bfc9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "268c6c17_29c72149",
         "filename": "discovery/dnssd/impl/instance_key.h",
         "patchSetId": 6
