@@ -210,6 +210,24 @@
       "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e0c006b_719cb68c",
+        "filename": "discovery/mdns/mdns_reader_fuzztest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-11T22:05:45Z",
+      "side": 1,
+      "message": "Looks like we can remove these now. A while back, Jordan improved the BUILD.gn process/targets around all the fuzz tests: https://source.chromium.org/chromium/_/chromium/openscreen/+/87d28f259a4c5cc68e9f9b3f910c9ae974cdccff\n\nSo, we should do a clean-up to delete the #ifdefs, and all the code inside them, such as main(), is not needed anymore.",
+      "parentUuid": "e1ae908f_1adae25b",
+      "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
