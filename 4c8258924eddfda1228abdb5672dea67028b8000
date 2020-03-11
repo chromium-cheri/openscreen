@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5b35c45e_6cc0a423",
+        "filename": "cast/standalone_sender/ffmpeg_glue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-11T20:23:51Z",
+      "side": 1,
+      "message": "I suggested deleter since that\u0027s what unique_ptr is using, also deleter looks more like an actual word than freer. However, if that\u0027s terminology that comes from the dependency, it\u0027s ok to keep it.",
+      "parentUuid": "ef27bc53_640c2137",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "145a853c_2e991738",
         "filename": "cast/standalone_sender/ffmpeg_glue.h",
         "patchSetId": 2
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "ba4f16f7_ea1a84e6",
+        "filename": "cast/standalone_sender/simulated_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-11T20:23:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9a542564_87df0475",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e1b37fb_a62b50ab",
         "filename": "cast/standalone_sender/simulated_capturer.cc",
         "patchSetId": 2
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "No. According to the documentation, getting an EAGAIN here explicitly means that avcodec_send_frame() should be called to feed more data into the decoder.\n\nI\u0027ll add some code comments to clarify this pattern (here, and where avcodec_send_frame() is called).",
       "parentUuid": "3e1b37fb_a62b50ab",
+      "range": {
+        "startLine": 157,
+        "startChar": 6,
+        "endLine": 157,
+        "endChar": 27
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04f6909a_e8348d56",
+        "filename": "cast/standalone_sender/simulated_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-11T20:23:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4dbbb460_7a01a467",
       "range": {
         "startLine": 157,
         "startChar": 6,
@@ -281,6 +353,30 @@
       "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c4ae660_f3280084",
+        "filename": "cast/standalone_sender/simulated_capturer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-11T20:23:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "33e2d456_14be0f29",
+      "range": {
+        "startLine": 54,
+        "startChar": 15,
+        "endLine": 54,
+        "endChar": 47
+      },
+      "revId": "4c8258924eddfda1228abdb5672dea67028b8000",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
