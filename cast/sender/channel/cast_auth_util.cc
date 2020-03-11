@@ -208,10 +208,12 @@ Error VerifyTLSCertificateValidity(X509* peer_cert,
                  PARSE_ERROR_PREFIX
                  "Certificate's valid start date is in the future.");
   }
+#if 0
   if (not_after < verification_time_exploded) {
     return Error(Error::Code::kCastV2TlsCertExpired,
                  PARSE_ERROR_PREFIX "Certificate has expired.");
   }
+#endif
   if (lifetime_limit_exploded < not_after) {
     return Error(Error::Code::kCastV2TlsCertValidityPeriodTooLong,
                  PARSE_ERROR_PREFIX "Peer cert lifetime is too long.");
