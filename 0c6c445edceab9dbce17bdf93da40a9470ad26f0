@@ -121,6 +121,24 @@
       "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb9be300_1552f0ed",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T18:31:55Z",
+      "side": 1,
+      "message": "\u003e Will instance records without IP addresses ever be exposed to the DNS-SD layer\n\nTo further expand here, they are exposed in the public API. These are what the publisher takes in, and it is the responsibility of the embedder\u0027s impl of this public API to handle combining it with the config. The idea here is that the embedder is telling the service \"Here is a service I\u0027m hosting - you go figure out how to combine that with the network interfaces I support, and fan this publication out to all of these network interfaces\".\n\nInstead if we provide a DnsSdInstanceEndpoint as you mention, IMHO it feels like \"Here is a service instance I am hosting. If the endpoints are populated, you do whatever you think is right\" because this is the embedder-specific implementation \" and maybe publish just that endpoint, maybe error if it doesn\u0027t match an existing NetworkInterface, maybe fan out to all interfaces, but who knows because the public API doesn\u0027t force any behavior!\". While we could document expected behavior, it feels MUCH cleaner to me to not give embedders this kind of freedom. Especially if such edge cases will only pop up occasionally. While it\u0027s correct that it\u0027s the embedder\u0027s fault for implementing things wrong if they don\u0027t follow what we recommend in the dndds/public dir it would be their fault, that doesn\u0027t stop it from reflecting badly on us since it\u0027s our library they are using. Or from us receiving bug reports",
+      "parentUuid": "21f81e39_379a125e",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
