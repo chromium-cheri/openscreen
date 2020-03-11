@@ -57,6 +57,24 @@
       "revId": "903e7db1ae81151116ccb0b77f657f0a36e067c3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c61cd3e_ce4ed621",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-11T20:50:17Z",
+      "side": 1,
+      "message": "Okay, looking at this again, I don\u0027t think kDefaultMulticastGroupIPv{4,6}Endpoint is correct.  I\u0027m pretty sure you _bind_ to {{}, 5353} and just use JoinMulticastGroup for the IP.  I\u0027m not sure why the v4 case even works.  lgtm to unblock though.",
+      "parentUuid": "fddddc5f_92ba153e",
+      "revId": "903e7db1ae81151116ccb0b77f657f0a36e067c3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
