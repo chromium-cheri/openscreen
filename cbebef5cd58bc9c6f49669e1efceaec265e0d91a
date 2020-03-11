@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cf69ec9_16d26579",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T17:56:13Z",
+      "side": 1,
+      "message": "This should be the only fuzzer, based on my understanding of fuzz tests\nIIUC, only code handling deserialization of untrusted network input should be fuzz tested, which is only done in this one class\n\nWDYT?",
+      "parentUuid": "452a22ed_4a7a3bf6",
+      "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c79df8ca_83f906ed",
         "filename": "discovery/BUILD.gn",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69f73d82_de0670df",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T17:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c79df8ca_83f906ed",
+      "range": {
+        "startLine": 175,
+        "startChar": 40,
+        "endLine": 175,
+        "endChar": 50
+      },
+      "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "e1eb18d5_16792fe5",
+        "filename": "discovery/mdns/mdns_reader_fuzztest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T17:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbe516f6_c6de696b",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f5156d2_21185d9a",
         "filename": "discovery/mdns/mdns_reader_fuzztest.cc",
         "patchSetId": 4
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "13297b2b_bc5dbd91",
+        "filename": "discovery/mdns/mdns_reader_fuzztest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T17:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f5156d2_21185d9a",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7209983_764e98b8",
         "filename": "discovery/mdns/mdns_reader_fuzztest.cc",
         "patchSetId": 4
@@ -99,6 +189,24 @@
       "writtenOn": "2020-03-11T01:30:05Z",
       "side": 1,
       "message": "I know this is in the cast/streaming fuzzers but I\u0027m not sure why.  It doesn\u0027t seem like we ever define it and I didn\u0027t find it on Chromium or generally when googling for libfuzzer.  Do you know when this gets used?  If not, maybe Yuri can chime in.",
+      "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ae908f_1adae25b",
+        "filename": "discovery/mdns/mdns_reader_fuzztest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-11T17:56:13Z",
+      "side": 1,
+      "message": "I have no idea either TBH - I added them because all of our streaming fuzz tests have them\n\n@miu, what are these for?",
+      "parentUuid": "e7209983_764e98b8",
       "revId": "cbebef5cd58bc9c6f49669e1efceaec265e0d91a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
