@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25a10beb_18e359a6",
+        "filename": "platform/impl/task_runner.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-12T18:34:08Z",
+      "side": 1,
+      "message": "In the example here https://en.cppreference.com/w/cpp/utility/program/signal sig_atomic_t is used. Is this something that should be used here?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "5fb8503f40d54853108df925ab9635d4d2cfd375",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad620bbf_ea4f96b7",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-12T18:34:08Z",
+      "side": 1,
+      "message": "Understandable, that you didn\u0027t want to make it a part of TaskRunner public API.\nWhy standalone_receiver is using TaskRunnerImpl directly though?",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 13
+      },
+      "revId": "5fb8503f40d54853108df925ab9635d4d2cfd375",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
