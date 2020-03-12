@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6642606a_27543d2d",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-12T00:04:17Z",
+      "side": 1,
+      "message": "If you\u0027re using threads, ASSERT\u0027s may not cause immediate failures as DCHECKs would - not sure if this is the intended behavior or not",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 15
+      },
+      "revId": "39bed926377cb0530ca56dc8e155b8d249acc3a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86f33c0a_616afcad",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-12T00:04:17Z",
+      "side": 1,
+      "message": "I\u0027d suggest making this kInfo for the checked in value - local testing can be kVerbose\n\nWe have a lot of verbose logs that would pollute the output and make it hard to see what\u0027s going on (ie Task runner logs every time it has new tasks to process)",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 36
+      },
+      "revId": "39bed926377cb0530ca56dc8e155b8d249acc3a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fcecb4c_952773e1",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-12T00:04:17Z",
+      "side": 1,
+      "message": "It might make sense to specify either ipV4 or ipV6 here (and ideally test both). If one fails and the other succeeds, it could be nondeterministic if the test passes buildbots based on the allocated machine",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 62
+      },
+      "revId": "39bed926377cb0530ca56dc8e155b8d249acc3a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa5d944_b0d9522f",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-12T00:04:17Z",
+      "side": 1,
+      "message": "kSocketWaitDelay or similar?",
+      "range": {
+        "startLine": 266,
+        "startChar": 34,
+        "endLine": 266,
+        "endChar": 64
+      },
+      "revId": "39bed926377cb0530ca56dc8e155b8d249acc3a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d5a5c6d_6ef8f3b6",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-12T00:04:17Z",
+      "side": 1,
+      "message": "OOC, are these always expected to be deleted on the Task Runner? If so, please make sure that the dtors DCHECK this - this helped me catch bugs in Discovery, and would help embedders similarly here\n\nsame below",
+      "range": {
+        "startLine": 278,
+        "startChar": 18,
+        "endLine": 278,
+        "endChar": 37
+      },
+      "revId": "39bed926377cb0530ca56dc8e155b8d249acc3a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd4f5638_b6b750c7",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-12T00:04:17Z",
+      "side": 1,
+      "message": "Add OSP_LOG statements to explain what is happening, similar to the Discovery tests?\nI\u0027ve found it helps a lot to know which step of an E2E test fails - especially since multiple threads are being used",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 18
+      },
+      "revId": "39bed926377cb0530ca56dc8e155b8d249acc3a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3703245_12c783b7",
+        "filename": "util/crypto/certificate_utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-12T00:04:17Z",
+      "side": 1,
+      "message": "nit: GenerateRsaKeyPair?",
+      "range": {
+        "startLine": 24,
+        "startChar": 26,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "39bed926377cb0530ca56dc8e155b8d249acc3a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
