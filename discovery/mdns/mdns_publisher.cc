@@ -174,11 +174,36 @@ std::vector<MdnsRecord::ConstRef> MdnsPublisher::GetRecords(
   auto it = records_.find(name);
   if (it != records_.end()) {
     for (const RecordAnnouncerPtr& publisher : it->second) {
-      DnsType record_dns_type = publisher->record().dns_type();
-      DnsClass record_dns_class = publisher->record().dns_class();
       OSP_DCHECK(publisher.get());
+      const DnsType record_dns_type = publisher->record().dns_type();
+      const DnsClass record_dns_class = publisher->record().dns_class();
       if ((type == DnsType::kANY || type == record_dns_type) &&
           (clazz == DnsClass::kANY || clazz == record_dns_class)) {
+        records.push_back(publisher->record());
+      }
+    }
+  }
+
+  return records;
+}
+
+std::vector<MdnsRecord::ConstRef> MdnsPublisher::EnumeratePtrRecords(
+    DnsClass clazz) {
+  std::vector<MdnsRecord::ConstRef> records;
+
+  // There should be few records associated with any given domain name, so it is
+  // simpler and less error prone to iterate across all records than to check
+  // the domain name against format '[^.]+\.(_tcp)|(_udp)\..*''
+  for (auto it = records_.begin(); it != records_.end(); it++) {
+    for (const RecordAnnouncerPtr& publisher : it->second) {
+      OSP_DCHECK(publisher.get());
+      const DnsType record_dns_type = publisher->record().dns_type();
+      if (record_dns_type != DnsType::kPTR) {
+        continue;
+      }
+
+      const DnsClass record_dns_class = publisher->record().dns_class();
+      if ((clazz == DnsClass::kANY || clazz == record_dns_class)) {
         records.push_back(publisher->record());
       }
     }

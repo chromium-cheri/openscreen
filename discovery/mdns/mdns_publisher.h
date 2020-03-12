@@ -169,6 +169,8 @@ class MdnsPublisher : public MdnsResponder::RecordHandler {
   std::vector<MdnsRecord::ConstRef> GetRecords(const DomainName& name,
                                                DnsType type,
                                                DnsClass clazz) override;
+  std::vector<MdnsRecord::ConstRef> EnumeratePtrRecords(
+      DnsClass clazz) override;
 
   MdnsSender* const sender_;
   MdnsProbeManager* const ownership_manager_;

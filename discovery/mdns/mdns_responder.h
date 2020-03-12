@@ -53,6 +53,10 @@ class MdnsResponder {
     virtual std::vector<MdnsRecord::ConstRef> GetRecords(const DomainName& name,
                                                          DnsType type,
                                                          DnsClass clazz) = 0;
+
+    // Enumerates all PTR records owned by this service.
+    virtual std::vector<MdnsRecord::ConstRef> EnumeratePtrRecords(
+        DnsClass clazz) = 0;
   };
 
   // |record_handler|, |sender|, |receiver|, |task_runner|, and |random_delay|

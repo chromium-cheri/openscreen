@@ -18,6 +18,9 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
+const std::array<std::string, 3> kServiceEnumerationDomainLabels{
+    "_services", "_dns-sd", "_udp"};
+
 enum AddResult { kNonePresent = 0, kAdded, kAlreadyKnown };
 
 std::chrono::seconds GetTtlForRecordType(DnsType type) {
@@ -219,6 +222,60 @@ void ApplyQueryResults(MdnsMessage* message,
   // queries.
 }
 
+// Determines if the provided query is a type enumeration query as described in
+// RFC 6763 section 9.
+bool IsServiceTypeEnumerationQuery(const MdnsQuestion& question) {
+  if (question.dns_type() != DnsType::kPTR) {
+    return false;
+  }
+
+  if (question.name().labels().size() <
+      kServiceEnumerationDomainLabels.size()) {
+    return false;
+  }
+
+  for (size_t i = 0; i < kServiceEnumerationDomainLabels.size(); i++) {
+    if (question.name().labels()[i] != kServiceEnumerationDomainLabels[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+// Creates the expected response to a type enumeration query as described in RFC
+// 6763 section 9.
+void ApplyServiceTypeEnumerationResults(
+    MdnsMessage* message,
+    MdnsResponder::RecordHandler* record_handler,
+    const DomainName& name,
+    DnsClass clazz) {
+  std::vector<MdnsRecord::ConstRef> records =
+      record_handler->EnumeratePtrRecords(clazz);
+
+  // skip "_services._dns-sd._udp." which was already checked for in above
+  // method and just use the domain.
+  const auto domain_it = name.labels().begin() + 3;
+  for (const MdnsRecord& record : records) {
+    // Skip the 2 label service name in the PTR record's name.
+    auto record_it = record.name().labels().begin() + 2;
+
+    for (auto compare_it = domain_it; compare_it != name.labels().end();) {
+      if (record_it == record.name().labels().end() ||
+          *compare_it++ != *record_it++) {
+        goto continue_outer;
+      }
+    }
+    if (record_it == record.name().labels().end()) {
+      message->AddAnswer(MdnsRecord(name, DnsType::kPTR, record.dns_class(),
+                                    RecordType::kShared, record.ttl(),
+                                    PtrRecordRdata(record.name())));
+    }
+
+  continue_outer : {}
+  }
+}
+
 }  // namespace
 
 MdnsResponder::MdnsResponder(RecordHandler* record_handler,
@@ -278,9 +335,10 @@ void MdnsResponder::OnMessageReceived(const MdnsMessage& message,
       continue;
     }
 
+    const bool is_service_enumeration = IsServiceTypeEnumerationQuery(question);
     const bool is_exclusive_owner =
         ownership_handler_->IsDomainClaimed(question.name());
-    if (is_exclusive_owner ||
+    if (is_service_enumeration || is_exclusive_owner ||
         record_handler_->HasRecords(question.name(), question.dns_type(),
                                     question.dns_class())) {
       std::function<void(const MdnsMessage&)> send_response;
@@ -322,13 +380,19 @@ void MdnsResponder::SendResponse(
 
   MdnsMessage message(CreateMessageId(), MessageType::Response);
 
-  // NOTE: The exclusive ownership of this record cannot change before this
-  // method is called. Exclusive ownership cannot be gained for a record which
-  // has previously been published, and if this host is the exclusive owner then
-  // this method will have been called without any delay on the task runner
-  ApplyQueryResults(&message, record_handler_, question.name(), known_answers,
-                    question.dns_type(), question.dns_class(),
-                    is_exclusive_owner);
+  if (IsServiceTypeEnumerationQuery(question)) {
+    ApplyServiceTypeEnumerationResults(&message, record_handler_,
+                                       question.name(), question.dns_class());
+  } else {
+    // NOTE: The exclusive ownership of this record cannot change before this
+    // method is called. Exclusive ownership cannot be gained for a record which
+    // has previously been published, and if this host is the exclusive owner
+    // then this method will have been called without any delay on the task
+    // runner
+    ApplyQueryResults(&message, record_handler_, question.name(), known_answers,
+                      question.dns_type(), question.dns_class(),
+                      is_exclusive_owner);
+  }
 
   // Send the response only if it contains answers to the query.
   if (!message.answers().empty()) {
