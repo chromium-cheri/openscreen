@@ -117,6 +117,30 @@
       "revId": "5fb8503f40d54853108df925ab9635d4d2cfd375",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c9fbef0_ac7c0bce",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-12T22:14:00Z",
+      "side": 1,
+      "message": "\u003e If we think of the sender/receiver standalone apps as example/reference usages of our platform/api in my opinion it doesn\u0027t bode well to set the precedent of using impl instead of the interface here.\n\nI agree with your statement for library code (i.e., most Open Screen code), but not embedder code. Basically, which side of the \"platform/api boundary\" are we on? The library code that calls into it, or the embedder that implements it? The main.cc\u0027s here are on the embedder side, as they have to be able construct/own/drive some concrete impl of the public/api interface, right? And, if they have to do that, then I don\u0027t believe it\u0027s a layering violation for them to call into TaskRunnerImpl instead of the interface.\n\nFWIW, the TaskRunnerImpl type is limited to just the main.cc\u0027s (even on the embedder side, in the standalone apps, we pass just the interface outside of the main.cc\u0027s). Also, there are DEPS rules to prevent platform/impl from being used in any code outside of \"standalone applications.\"",
+      "parentUuid": "22fd1835_99c2c88f",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 13
+      },
+      "revId": "5fb8503f40d54853108df925ab9635d4d2cfd375",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
