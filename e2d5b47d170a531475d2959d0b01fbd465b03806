@@ -22,6 +22,30 @@
       "revId": "e2d5b47d170a531475d2959d0b01fbd465b03806",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b47863f2_57a55bc7",
+        "filename": "discovery/common/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-12T22:25:40Z",
+      "side": 1,
+      "message": "IIRC, Mark said that some embedders would only want publishing or receiving and we should add flags for this but doing so was low priority.\nThe idea wasn\u0027t to save memory, but to cause failures if a user tried to do operations they weren\u0027t supposed to (for instance, on a device that is never supposed to publish records and only do queries, calling DnsSdService::GetPublisher() would result in an null ptr (Allowing DCHECKS to fail, etc))\n\n\nI added the flags now because it made my life easier during manual testing, but as Mark has asked for it previously I wanted to put up a CL. If you don\u0027t see a need to check it in, I\u0027m happy to abandon it",
+      "parentUuid": "afcc950a_29a325e5",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 33
+      },
+      "revId": "e2d5b47d170a531475d2959d0b01fbd465b03806",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
