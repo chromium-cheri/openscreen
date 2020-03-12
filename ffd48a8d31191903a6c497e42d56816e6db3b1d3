@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa4affd2_aee39853",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-12T00:15:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5d30aac_758b15a0",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 47
+      },
+      "revId": "ffd48a8d31191903a6c497e42d56816e6db3b1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4cd66fb_88ebb5c9",
         "filename": "cast/standalone_sender/main.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ffd48a8d31191903a6c497e42d56816e6db3b1d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a108aa94_db79a331",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-12T00:15:19Z",
+      "side": 1,
+      "message": "I used fprintf() because I also use fflush() right after it, just to help make the connection between the two clearer.",
+      "parentUuid": "d4cd66fb_88ebb5c9",
+      "range": {
+        "startLine": 156,
+        "startChar": 6,
+        "endLine": 156,
+        "endChar": 20
+      },
+      "revId": "ffd48a8d31191903a6c497e42d56816e6db3b1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "397863a9_fedc68f5",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-12T00:15:19Z",
+      "side": 1,
+      "message": "I\u0027m comparing pointers here.\n\nThere is no pointer-to-object operator or getter in absl::optional. The only way to do it is to get the reference with operator*() and then get the address from that.",
+      "parentUuid": "3a994126_accd5bd7",
+      "range": {
+        "startLine": 183,
+        "startChar": 20,
+        "endLine": 183,
+        "endChar": 22
+      },
+      "revId": "ffd48a8d31191903a6c497e42d56816e6db3b1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7bb011b_2f0ed36e",
         "filename": "cast/standalone_sender/main.cc",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2020-03-11T22:11:23Z",
       "side": 1,
       "message": "How does it get stopped?",
+      "range": {
+        "startLine": 326,
+        "startChar": 4,
+        "endLine": 326,
+        "endChar": 35
+      },
+      "revId": "ffd48a8d31191903a6c497e42d56816e6db3b1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9b47a4b_d4c780ac",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-12T00:15:19Z",
+      "side": 1,
+      "message": "Well, technically CTRL-C aborted the process. I added a signal handler for a cleaner shutdown path. WDYT?",
+      "parentUuid": "b7bb011b_2f0ed36e",
       "range": {
         "startLine": 326,
         "startChar": 4,
@@ -114,6 +210,30 @@
       "revId": "ffd48a8d31191903a6c497e42d56816e6db3b1d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0762ef7_8c2840ff",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-12T00:15:19Z",
+      "side": 1,
+      "message": "Our root BUILD.gn pulls-in the cast/standalone_sender/BUILD.gn via \"deps \u003d [...]\" like all other subdir BUILD.gn files. So, the whole build will break if I do this:\n\n  if (have_ffmpeg \u0026\u0026 have_libopus) {\n    executable(\"cast_sender\") { ...}\n  }\n\n...because the //cast/standalone_sender:cast_sender target is missing.\n\nI could move the if-guard up into the root BUILD.gn, but then none of the code gets compiled. Generally, it\u0027s good to try to compile as much as possible on the bots (CQ, build breakage due to API changes, etc. checks).",
+      "parentUuid": "489f45e2_94344e62",
+      "range": {
+        "startLine": 334,
+        "startChar": 9,
+        "endLine": 335,
+        "endChar": 61
+      },
+      "revId": "ffd48a8d31191903a6c497e42d56816e6db3b1d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
