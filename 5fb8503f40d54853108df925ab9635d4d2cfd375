@@ -93,6 +93,30 @@
       "revId": "5fb8503f40d54853108df925ab9635d4d2cfd375",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22fd1835_99c2c88f",
+        "filename": "platform/impl/task_runner.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-12T21:44:15Z",
+      "side": 1,
+      "message": "If we think of the sender/receiver standalone apps as example/reference usages of our platform/api in my opinion it doesn\u0027t bode well to set the precedent of using impl instead of the interface here.\nExcluding RunUntilSignalled how much has to change to use TaskRunner instead of TaskRunnerImpl?",
+      "parentUuid": "e980ef26_04fbb325",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 13
+      },
+      "revId": "5fb8503f40d54853108df925ab9635d4d2cfd375",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
