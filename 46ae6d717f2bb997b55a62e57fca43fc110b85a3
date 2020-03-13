@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3cd3d5c_f1b8a46e",
+        "filename": "cast/standalone_receiver/cast_agent_publisher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-13T17:49:30Z",
+      "side": 1,
+      "message": "There are conversion methods from ServiceInfo (Cast service type) to SndSdInstanceRecord in cast/common/public/service_info.h\nYou should be able to just store the ServiceInfo\n\nWDYT about the discovery layer wrapping the publication steps in a layer so that the DnsSdInstanceRecord part is hidden and you only need to deal with ServiceInfo types (in Discovery/public)? You\u0027re the first user\nPreviously me/Mark/Brandon thought that this didn\u0027t seem quite worth it - but that was before the OnInstanceClaimed callback was added (Which often won\u0027t be needed by embedders). Also, I feel like, even if its a simple layer, it would make everything more readable/usable since embedders don\u0027t need to understand that DnsSdInstanceRecord class",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 41
+      },
+      "revId": "46ae6d717f2bb997b55a62e57fca43fc110b85a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfc07e8b_50ce1db9",
+        "filename": "discovery/dnssd/public/dns_sd_instance_record.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-13T17:49:30Z",
+      "side": 1,
+      "message": "Use the conversion methods mentioned above - direct handling of the DnsSdInstanceRecord should never need to be done by users",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 40
+      },
+      "revId": "46ae6d717f2bb997b55a62e57fca43fc110b85a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
