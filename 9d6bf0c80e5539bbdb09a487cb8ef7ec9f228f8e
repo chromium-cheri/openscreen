@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "517496d8_ac344ed0",
+        "filename": "discovery/public/dns_sd_service_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-13T23:31:44Z",
+      "side": 1,
+      "message": "This is entirely for DEPS purposes. Now, embedders can entirely avoid calling into or taking dependency on discovery/dnssd at all - see the cast/ DEPS changes in the recent iteration\n\nWDYT?",
+      "parentUuid": "ea5bdf2f_8caa8d1a",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "9d6bf0c80e5539bbdb09a487cb8ef7ec9f228f8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7780a755_d08ec0a6",
         "filename": "discovery/public/dns_sd_service_publisher.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "9d6bf0c80e5539bbdb09a487cb8ef7ec9f228f8e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3205854_e2432661",
+        "filename": "discovery/public/dns_sd_service_publisher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-13T23:31:44Z",
+      "side": 1,
+      "message": "That was a typo - fixed in the recent iteration 😊\nThe template wasn\u0027t actually compiling because it wasn\u0027t referenced anywhere",
+      "parentUuid": "7780a755_d08ec0a6",
+      "range": {
+        "startLine": 36,
+        "startChar": 20,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "9d6bf0c80e5539bbdb09a487cb8ef7ec9f228f8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
