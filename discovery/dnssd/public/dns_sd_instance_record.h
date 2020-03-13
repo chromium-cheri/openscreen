@@ -5,6 +5,8 @@
 #ifndef DISCOVERY_DNSSD_PUBLIC_DNS_SD_INSTANCE_RECORD_H_
 #define DISCOVERY_DNSSD_PUBLIC_DNS_SD_INSTANCE_RECORD_H_
 
+#include <string>
+
 #include "discovery/dnssd/public/dns_sd_txt_record.h"
 #include "platform/base/ip_address.h"
 
@@ -50,6 +52,10 @@ class DnsSdInstanceRecord {
 
   // Returns the TXT record associated with this DNS-SD record
   const DnsSdTxtRecord& txt() const { return txt_; }
+
+  // TODO: does this override make sense?? Need to mutate the txt record, don't
+  // want to rewrite the whole thing every time.
+  DnsSdTxtRecord& txt() { return txt_; }
 
   // Returns the port associated with this instance record.
   uint16_t port() const;
