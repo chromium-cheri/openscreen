@@ -49,7 +49,8 @@ ServiceImpl::ServiceImpl(TaskRunner* task_runner,
                               config.interface.index,
                               GetSupportedEndpointTypes(config.interface))) {
   if (config.enable_querying) {
-    querier_ = std::make_unique<QuerierImpl>(mdns_service_.get(), task_runner_);
+    querier_ = std::make_unique<QuerierImpl>(mdns_service_.get(), task_runner_,
+                                             config);
   }
   if (config.enable_publication) {
     publisher_ = std::make_unique<PublisherImpl>(

@@ -132,24 +132,32 @@ class MdnsQuerierTest : public testing::Test {
   bool ContainsRecord(MdnsQuerier* querier,
                       const MdnsRecord& record,
                       DnsType type = DnsType::kANY) {
-    auto records_its = querier->records_.equal_range(record.name());
+    auto records_its = querier->records_.find(record.name());
+    if (records_its == querier->records_.end()) {
+      return false;
+    }
+
     return std::find_if(
-               records_its.first, records_its.second,
-               [&record, type](
-                   const std::pair<const DomainName,
-                                   std::unique_ptr<MdnsRecordTracker>>& pair) {
-                 if (type != pair.second->dns_type() && type != DnsType::kANY) {
+               records_its->second.begin(), records_its->second.end(),
+               [&record, type](const std::unique_ptr<MdnsRecordTracker>& ptr) {
+                 if (type != ptr->dns_type() && type != DnsType::kANY) {
                    return false;
                  }
 
-                 return pair.second->dns_class() == record.dns_class() &&
-                        pair.second->record_type() == record.record_type() &&
-                        pair.second->ttl() == record.ttl() &&
-                        pair.second->rdata() == record.rdata();
-               }) != records_its.second;
+                 return ptr->dns_class() == record.dns_class() &&
+                        ptr->record_type() == record.record_type() &&
+                        ptr->ttl() == record.ttl() &&
+                        ptr->rdata() == record.rdata();
+               }) != records_its->second.end();
   }
 
-  size_t RecordCount(MdnsQuerier* querier) { return querier->records_.size(); }
+  size_t RecordCount(MdnsQuerier* querier) {
+    size_t count = 0;
+    for (const auto& pair : querier->records_) {
+      count += pair.second.size();
+    }
+    return count;
+  }
 
   Config config_;
   FakeClock clock_;
