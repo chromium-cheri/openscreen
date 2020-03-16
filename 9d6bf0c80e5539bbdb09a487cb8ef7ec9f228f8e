@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "dbb37eea_b2018330",
+        "filename": "discovery/public/dns_sd_service_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-16T22:57:52Z",
+      "side": 1,
+      "message": "They are getting a pointer to DnsSdService either way, which is an interface from their perspective. DEPS do look more straightforward, that\u0027s true.\nWhat do you thing about these options:\n1) moving necessary public interfaces to discovery/public (i.e. moving dnssdservice.h there) ?\n2) removing Create method from DnsSdService and implementing CreateDnsSdService factory method somewhere in discovery/dnssd/impl ? This would avoid any potential confusion as to how DnsSdService should be created.",
+      "parentUuid": "112d808d_b239d5bd",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "9d6bf0c80e5539bbdb09a487cb8ef7ec9f228f8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7780a755_d08ec0a6",
         "filename": "discovery/public/dns_sd_service_publisher.h",
         "patchSetId": 2
