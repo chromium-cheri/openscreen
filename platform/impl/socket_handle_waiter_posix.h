@@ -34,8 +34,6 @@ class SocketHandleWaiterPosix : public SocketHandleWaiter {
       const Clock::duration& timeout) override;
 
  private:
-  fd_set read_handles_;
-
   // Atomic so that we can perform atomic exchanges.
   std::atomic_bool is_running_;
 };

@@ -98,6 +98,15 @@ Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
     std::lock_guard<std::mutex> lock(mutex_);
     handles_being_deleted_.clear();
     handle_deletion_block_.notify_all();
+    if (changed_handles) {
+      auto& ch = changed_handles.value();
+      ch.erase(std::remove_if(ch.begin(), ch.end(),
+                              [this](const SocketHandle& handle) {
+                                return handle_mappings_.find(handle) ==
+                                       handle_mappings_.end();
+                              }),
+               ch.end());
+    }
   }
 
   if (changed_handles.is_error()) {

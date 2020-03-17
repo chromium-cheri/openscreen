@@ -43,8 +43,9 @@ TlsConnectionPosix::TlsConnectionPosix(IPAddress::Version version,
   OSP_DCHECK(task_runner_);
 }
 
-TlsConnectionPosix::TlsConnectionPosix(std::unique_ptr<StreamSocket> socket,
-                                       TaskRunner* task_runner)
+TlsConnectionPosix::TlsConnectionPosix(
+    std::unique_ptr<StreamSocketPosix> socket,
+    TaskRunner* task_runner)
     : task_runner_(task_runner), socket_(std::move(socket)) {
   OSP_DCHECK(task_runner_);
 }

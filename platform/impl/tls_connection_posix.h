@@ -41,12 +41,14 @@ class TlsConnectionPosix : public TlsConnection {
   // automatically by TlsConnectionFactoryPosix after the handshake completes.
   void RegisterConnectionWithDataRouter(PlatformClientPosix* platform_client);
 
+  const SocketHandle& socket_handle() const { return socket_->socket_handle(); }
+
  protected:
   friend class TlsConnectionFactoryPosix;
 
   TlsConnectionPosix(IPEndpoint local_address, TaskRunner* task_runner);
   TlsConnectionPosix(IPAddress::Version version, TaskRunner* task_runner);
-  TlsConnectionPosix(std::unique_ptr<StreamSocket> socket,
+  TlsConnectionPosix(std::unique_ptr<StreamSocketPosix> socket,
                      TaskRunner* task_runner);
 
  private:
@@ -59,7 +61,7 @@ class TlsConnectionPosix : public TlsConnection {
 
   Client* client_ = nullptr;
 
-  std::unique_ptr<StreamSocket> socket_;
+  std::unique_ptr<StreamSocketPosix> socket_;
   bssl::UniquePtr<SSL> ssl_;
 
   TlsWriteBuffer buffer_;

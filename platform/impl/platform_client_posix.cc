@@ -118,22 +118,11 @@ void PlatformClientPosix::PerformSocketHandleWaiterActions(
   socket_handle_waiter()->ProcessHandles(timeout);
 }
 
-void PlatformClientPosix::PerformTlsDataRouterActions(Clock::duration timeout) {
-  if (!tls_data_router_created_.load()) {
-    return;
-  }
-
-  tls_data_router()->PerformNetworkingOperations(timeout);
-}
-
 std::vector<std::function<void(Clock::duration)>>
 PlatformClientPosix::networking_operations() {
   return {[this](Clock::duration timeout) {
-            PerformSocketHandleWaiterActions(timeout);
-          },
-          [this](Clock::duration timeout) {
-            PerformTlsDataRouterActions(timeout);
-          }};
+    PerformSocketHandleWaiterActions(timeout);
+  }};
 }
 
 }  // namespace openscreen

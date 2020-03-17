@@ -134,7 +134,7 @@ void TlsConnectionFactoryPosix::Listen(const IPEndpoint& local_address,
 
   OSP_DCHECK(platform_client_);
   if (platform_client_) {
-    platform_client_->tls_data_router()->RegisterSocketObserver(
+    platform_client_->tls_data_router()->RegisterAcceptObserver(
         std::move(socket), this);
   }
 }
@@ -171,8 +171,10 @@ void TlsConnectionFactoryPosix::OnSocketAccepted(
 
   TRACE_SCOPED(TraceCategory::kSsl,
                "TlsConnectionFactoryPosix::OnSocketAccepted");
-  std::unique_ptr<TlsConnectionPosix> connection(
-      new TlsConnectionPosix(std::move(socket), task_runner_));
+  std::unique_ptr<TlsConnectionPosix> connection(new TlsConnectionPosix(
+      std::unique_ptr<StreamSocketPosix>(
+          static_cast<StreamSocketPosix*>(socket.release())),
+      task_runner_));
 
   if (!ConfigureSsl(connection.get())) {
     return;
