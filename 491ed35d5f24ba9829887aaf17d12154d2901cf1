@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14e2be92_f5acbcd2",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-17T03:22:38Z",
+      "side": 1,
+      "message": "This plus all other destruction logic would be _dramatically_ simpler if we copied handled values instead of using pointers.  This class probably _could_ be reused for Windows so I left it, but then again if SocketHandle were just a uintptr_t and reinterpreted per platform, copying would also be platform-agnostic.",
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55993cf7_0a67be54",
+        "filename": "platform/impl/socket_handle_waiter_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-17T03:22:38Z",
+      "side": 1,
+      "message": "I will also plumb this through if this CL gets traction.",
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
