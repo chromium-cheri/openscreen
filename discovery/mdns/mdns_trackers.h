@@ -137,6 +137,9 @@ class MdnsRecordTracker : public MdnsTracker {
   // Sets record to expire after 1 seconds as per RFC 6762
   void ExpireSoon();
 
+  // Expires the record now
+  void ExpireNow();
+
   // Returns true if half of the record's TTL has passed, and false otherwise.
   // Half is used due to specifications in RFC 6762 section 7.1.
   bool IsNearingExpiry();

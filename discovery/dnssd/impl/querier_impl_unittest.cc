@@ -11,6 +11,7 @@
 #include "absl/strings/str_join.h"
 #include "absl/strings/str_split.h"
 #include "absl/types/optional.h"
+#include "discovery/common/config.h"
 #include "discovery/mdns/mdns_records.h"
 #include "discovery/mdns/testing/mdns_test_util.h"
 #include "gmock/gmock.h"
@@ -127,7 +128,7 @@ class DnsDataAccessor {
 class QuerierImplTesting : public QuerierImpl {
  public:
   QuerierImplTesting()
-      : QuerierImpl(&mock_service_, &task_runner_),
+      : QuerierImpl(&mock_service_, &task_runner_, config_),
         clock_(Clock::now()),
         task_runner_(&clock_) {}
 
@@ -153,6 +154,7 @@ class QuerierImplTesting : public QuerierImpl {
   }
 
  private:
+  Config config_;
   FakeClock clock_;
   FakeTaskRunner task_runner_;
   StrictMock<MockMdnsService> mock_service_;
