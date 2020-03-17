@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "74ae7a04_fec78aaa",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-17T20:56:10Z",
+      "side": 1,
+      "message": "+1\nPlus doing it there avoids an extra iteration through the set",
+      "parentUuid": "c62299e4_ceadb8d3",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55993cf7_0a67be54",
         "filename": "platform/impl/socket_handle_waiter_posix.cc",
         "patchSetId": 1
@@ -121,6 +145,29 @@
         "startChar": 4,
         "endLine": 42,
         "endChar": 47
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f2dcde8_27bcb93a",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-17T20:56:10Z",
+      "side": 1,
+      "message": "This approach doesn\u0027t respect Clock::duration timeout, because these operations can take a long time. The round-robin approach previously used was to get around this issue. The SocketHandleWaiter can timeout, and then these callbacks can take an arbitrarily long time (blocking further UdpSocket reads)",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 3
       },
       "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
