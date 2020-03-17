@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "c62299e4_ceadb8d3",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-17T19:23:37Z",
+      "side": 1,
+      "message": "Why do you need to prune changed_handles? ProcessReadyHandles checks if the handle is present in handle_mappings_.",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55993cf7_0a67be54",
         "filename": "platform/impl/socket_handle_waiter_posix.cc",
         "patchSetId": 1
@@ -30,6 +53,98 @@
       "writtenOn": "2020-03-17T03:22:38Z",
       "side": 1,
       "message": "I will also plumb this through if this CL gets traction.",
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b83e8a_cde2fe38",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-17T19:23:37Z",
+      "side": 1,
+      "message": "This had me puzzled for a bit. Can we have two distinct constructors for SocketAddressPosix: one that accepts sockaddr and another that accepts sockaddr_in6? Or is it going to be too messy at each call site?",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 72
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57b2f0a8_baec17f1",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-17T19:23:37Z",
+      "side": 1,
+      "message": "Is this to allow access to socket_handle() ?",
+      "range": {
+        "startLine": 64,
+        "startChar": 18,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a71298eb_7f382892",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-17T19:23:37Z",
+      "side": 1,
+      "message": "Why not connections_.erase(std::remove_if()) ?",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "101c8875_ce4f0176",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-17T19:23:37Z",
+      "side": 1,
+      "message": "socket?",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 37
+      },
       "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
