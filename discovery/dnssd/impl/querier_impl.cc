@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "discovery/common/config.h"
 #include "platform/api/task_runner.h"
 #include "util/logging.h"
 
@@ -18,8 +19,10 @@ static constexpr char kLocalDomain[] = "local";
 
 }  // namespace
 
-QuerierImpl::QuerierImpl(MdnsService* mdns_querier, TaskRunner* task_runner)
-    : mdns_querier_(mdns_querier), task_runner_(task_runner) {
+QuerierImpl::QuerierImpl(MdnsService* mdns_querier,
+                         TaskRunner* task_runner,
+                         const Config& config)
+    : mdns_querier_(mdns_querier), task_runner_(task_runner), config_(config) {
   OSP_DCHECK(mdns_querier_);
   OSP_DCHECK(task_runner_);
 }
@@ -154,6 +157,8 @@ Error QuerierImpl::HandleNonPtrRecordChange(const MdnsRecord& record,
   if (it == received_records_.end()) {
     it = received_records_.emplace(id, DnsData(id)).first;
   } else {
+    OSP_DCHECK_LE(static_cast<int>(received_records_.size()),
+                  config_.querier_max_domains_tracked);
     old_instance_record = it->second.CreateRecord();
   }
   DnsData* data = &it->second;

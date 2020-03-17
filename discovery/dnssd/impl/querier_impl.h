@@ -25,11 +25,15 @@
 namespace openscreen {
 namespace discovery {
 
+struct Config;
+
 class QuerierImpl : public DnsSdQuerier, public MdnsRecordChangedCallback {
  public:
   // |querier| and |task_runner| must outlive the QuerierImpl instance
   // constructed.
-  QuerierImpl(MdnsService* querier, TaskRunner* task_runner);
+  QuerierImpl(MdnsService* querier,
+              TaskRunner* task_runner,
+              const Config& config);
   ~QuerierImpl() override;
 
   bool IsQueryRunning(const std::string& service) const;
@@ -84,6 +88,7 @@ class QuerierImpl : public DnsSdQuerier, public MdnsRecordChangedCallback {
 
   MdnsService* const mdns_querier_;
   TaskRunner* const task_runner_;
+  const Config& config_;
 
   friend class QuerierImplTesting;
 };
