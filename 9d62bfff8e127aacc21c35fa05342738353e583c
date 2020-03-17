@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4acab3a_bb8f871b",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-17T23:27:21Z",
+      "side": 1,
+      "message": "Maybe consider using std::list::splice, should work if source and destination lists are the same.\n\n\"No elements are copied or moved, only the internal pointers of the list nodes are re-pointed.\"\n\nI think then you also can have a list of MdnsRecordTracker instead of list of unique_ptr\u003cMdnsRecordTracker\u003e",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 1
+      },
+      "revId": "9d62bfff8e127aacc21c35fa05342738353e583c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bdc289d_95f46279",
+        "filename": "discovery/mdns/mdns_querier.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-17T23:27:21Z",
+      "side": 1,
+      "message": "It might be worth to create a class that encapsulates map with limits on how many elements are available for a key to reduce complexity in mDNS querier.",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 51
+      },
+      "revId": "9d62bfff8e127aacc21c35fa05342738353e583c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
