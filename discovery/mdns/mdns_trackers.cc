@@ -237,6 +237,10 @@ void MdnsRecordTracker::ExpireSoon() {
   ScheduleFollowUpQuery();
 }
 
+void MdnsRecordTracker::ExpireNow() {
+  record_expired_callback_(this, record_);
+}
+
 bool MdnsRecordTracker::IsNearingExpiry() {
   return (now_function_() - start_time_) > record_.ttl() / 2;
 }

@@ -5,6 +5,7 @@
 #ifndef DISCOVERY_MDNS_MDNS_QUERIER_H_
 #define DISCOVERY_MDNS_MDNS_QUERIER_H_
 
+#include <list>
 #include <map>
 
 #include "discovery/common/config.h"
@@ -66,6 +67,8 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
     const DnsClass dns_class;
   };
 
+  using RecordTrackerList = std::list<std::unique_ptr<MdnsRecordTracker>>;
+
   friend class MdnsQuerierTest;
 
   // MdnsReceiver::ResponseClient overrides.
@@ -92,7 +95,8 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
   // Determines the type of update being executed by this update call, then
   // fires the appropriate callback.
   void ProcessSinglyTrackedUniqueRecord(const MdnsRecord& record,
-                                        MdnsRecordTracker* tracker);
+                                        RecordTrackerList* list,
+                                        RecordTrackerList::iterator tracker_it);
 
   // Called when multiple records are associated with the same key. Expire all
   // record with non-matching RDATA. Update the record with the matching RDATA
@@ -107,7 +111,7 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
   void AddQuestion(const MdnsQuestion& question);
 
   // Begins tracking the provided record.
-  void AddRecord(const MdnsRecord& record, DnsType type);
+  Error AddRecord(const MdnsRecord& record, DnsType type);
 
   MdnsSender* const sender_;
   MdnsReceiver* const receiver_;
@@ -130,10 +134,15 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
   // name, DNS record type, and DNS record class. Multimap key is domain name
   // only to allow easy support for wildcard processing for DNS record type and
   // class and allow storing shared records that differ only in RDATA.
+  //
+  // A map of lists is used so that an LRU cache can be maintained for each
+  // individual DomainName. The list is maintained such that records_.begin()
+  // is the most recently accessed and .end() is least recently.
+  //
   // MdnsRecordTracker instances are stored as unique_ptr so they are not moved
   // around in memory when the collection is modified. This allows passing a
   // pointer to MdnsQuestionTracker to a task running on the TaskRunner.
-  std::multimap<DomainName, std::unique_ptr<MdnsRecordTracker>> records_;
+  std::map<DomainName, RecordTrackerList> records_;
 
   // A collection of callbacks passed to StartQuery method. Each is identified
   // by domain name, DNS record type, and DNS record class, but there can be
