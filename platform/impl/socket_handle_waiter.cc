@@ -12,6 +12,9 @@
 
 namespace openscreen {
 
+SocketHandleWaiter::SocketHandleWaiter(ClockNowFunctionPtr now_function)
+    : now_function_(now_function) {}
+
 void SocketHandleWaiter::Subscribe(Subscriber* subscriber,
                                    SocketHandleRef handle) {
   std::lock_guard<std::mutex> lock(mutex_);
@@ -66,9 +69,16 @@ void SocketHandleWaiter::OnHandleDeletion(Subscriber* subscriber,
 }
 
 void SocketHandleWaiter::ProcessReadyHandles(
-    const std::vector<SocketHandleRef>& handles) {
+    const std::vector<SocketHandleRef>& handles,
+    Clock::duration timeout) {
+  Clock::time_point start_time = now_function_();
   std::lock_guard<std::mutex> lock(mutex_);
   for (const SocketHandleRef& handle : handles) {
+    Clock::time_point current_time = now_function_();
+    if ((current_time - start_time) > timeout) {
+      return;
+    }
+
     auto iterator = handle_mappings_.find(handle);
     if (iterator == handle_mappings_.end()) {
       // This is OK: SocketHandle was deleted in the meantime.
@@ -80,6 +90,7 @@ void SocketHandleWaiter::ProcessReadyHandles(
 }
 
 Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
+  Clock::time_point start_time = now_function_();
   std::vector<SocketHandleRef> handles;
   {
     std::lock_guard<std::mutex> lock(mutex_);
@@ -91,20 +102,33 @@ Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
     }
   }
 
+  Clock::time_point current_time = now_function_();
+  Clock::duration remaining_timeout = timeout - (current_time - start_time);
   ErrorOr<std::vector<SocketHandleRef>> changed_handles =
-      AwaitSocketsReadable(handles, timeout);
+      AwaitSocketsReadable(handles, remaining_timeout);
 
   {
     std::lock_guard<std::mutex> lock(mutex_);
     handles_being_deleted_.clear();
     handle_deletion_block_.notify_all();
+    if (changed_handles) {
+      auto& ch = changed_handles.value();
+      ch.erase(std::remove_if(ch.begin(), ch.end(),
+                              [this](const SocketHandle& handle) {
+                                return handle_mappings_.find(handle) ==
+                                       handle_mappings_.end();
+                              }),
+               ch.end());
+    }
   }
 
   if (changed_handles.is_error()) {
     return changed_handles.error();
   }
 
-  ProcessReadyHandles(changed_handles.value());
+  current_time = now_function_();
+  remaining_timeout = timeout - (current_time - start_time);
+  ProcessReadyHandles(changed_handles.value(), remaining_timeout);
   return Error::None();
 }
 
