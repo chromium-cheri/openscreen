@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "75ceb506_f188df4a",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-18T01:58:46Z",
+      "side": 1,
+      "message": "If socket deletion is blocking on a deregister call, this will unblock it.  Since |changed_handles| holds pointers, the check in ProcessReadyHandles won\u0027t even be valid.  This is true even without the select() changes.  I believe the alternatives are:\n\n1. Hold handles by value, though that potentially introduces an ABA problem, although _that_ might not be detrimental since we have non-blocking sockets (false positives have very minor cost as long as it won\u0027t generate an error condition).\n2. Don\u0027t allow deletion here, only _before_ select().  That would definitely increase the amount of blocking the task runner thread does on each socket destroy.\n\nThoughts?",
+      "parentUuid": "74ae7a04_fec78aaa",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55993cf7_0a67be54",
         "filename": "platform/impl/socket_handle_waiter_posix.cc",
         "patchSetId": 1
@@ -106,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "d154678c_ec982296",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-18T01:58:46Z",
+      "side": 1,
+      "message": "IMO it\u0027s just messier because then we\u0027d have two paths to call getsockname + constructor.  SocketAddressPosix already acknowledges that these are all but a union.",
+      "parentUuid": "e9b83e8a_cde2fe38",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 72
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57b2f0a8_baec17f1",
         "filename": "platform/impl/tls_connection_posix.h",
         "patchSetId": 1
@@ -126,6 +174,30 @@
       "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f9436a_5608a290",
+        "filename": "platform/impl/tls_connection_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-18T01:58:46Z",
+      "side": 1,
+      "message": "Either that or some intermediate step I took.  socket_handle() is also on StreamSocket though, so reverting.",
+      "parentUuid": "57b2f0a8_baec17f1",
+      "range": {
+        "startLine": 64,
+        "startChar": 18,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -152,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "da1e1002_cd7d4051",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-18T01:58:46Z",
+      "side": 1,
+      "message": "Per your comment on the previous CL, and for consistency with the StreamSocket code below, we don\u0027t want to call OnHandleDeletion if we didn\u0027t actually know about this connection.",
+      "parentUuid": "a71298eb_7f382892",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f2dcde8_27bcb93a",
         "filename": "platform/impl/tls_data_router_posix.cc",
         "patchSetId": 1
@@ -175,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "6f15e7c8_998be9d0",
+        "filename": "platform/impl/tls_data_router_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-18T01:58:46Z",
+      "side": 1,
+      "message": "Right, I forgot to add more timeout code to SocketHandleWaiter.  PTAL there now.",
+      "parentUuid": "1f2dcde8_27bcb93a",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 3
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "101c8875_ce4f0176",
         "filename": "platform/impl/tls_data_router_posix.h",
         "patchSetId": 1
@@ -195,6 +315,30 @@
       "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b07d7e1_73f8ad61",
+        "filename": "platform/impl/tls_data_router_posix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-18T01:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "101c8875_ce4f0176",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
