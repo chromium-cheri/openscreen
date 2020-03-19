@@ -5,12 +5,14 @@
 #ifndef DISCOVERY_MDNS_MDNS_QUERIER_H_
 #define DISCOVERY_MDNS_MDNS_QUERIER_H_
 
+#include <list>
 #include <map>
 
 #include "discovery/common/config.h"
 #include "discovery/mdns/mdns_receiver.h"
 #include "discovery/mdns/mdns_record_changed_callback.h"
 #include "discovery/mdns/mdns_records.h"
+#include "discovery/mdns/mdns_trackers.h"
 #include "platform/api/task_runner.h"
 
 namespace openscreen {
@@ -66,6 +68,74 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
     const DnsClass dns_class;
   };
 
+  class RecordTrackerLruCache {
+   public:
+    using RecordTrackerConstRef =
+        std::reference_wrapper<const MdnsRecordTracker>;
+    using TrackerApplicableCheck =
+        std::function<bool(const MdnsRecordTracker&)>;
+    using TrackerChangeCallback = std::function<void(const MdnsRecordTracker&)>;
+
+    RecordTrackerLruCache(MdnsQuerier* querier,
+                          MdnsSender* sender,
+                          MdnsRandom* random_delay,
+                          TaskRunner* task_runner,
+                          ClockNowFunctionPtr now_function,
+                          ReportingClient* reporting_client,
+                          const Config& config);
+
+    // Returns all trackers with the associated |name| such that its type
+    // represents a type corresponding to |dns_type| and class corresponding to
+    // |dns_class|.
+    std::vector<RecordTrackerConstRef> Find(const DomainName& name);
+    std::vector<RecordTrackerConstRef> Find(const DomainName& name,
+                                            DnsType dns_type,
+                                            DnsClass dns_class);
+
+    // Calls ExpireSoon on all record trackers in the provided domain which
+    // match the provided applicability check. Returns the number of trackers
+    // marked for expiry.
+    int ExpireSoon(const DomainName& name, TrackerApplicableCheck check);
+
+    // Erases all record trackers in the provided domain which match the
+    // provided applicability check. Returns the number of trackers erased.
+    int Erase(const DomainName& name, TrackerApplicableCheck check);
+
+    // Updates all record trackers in the domain |record.name()| which match the
+    // provided applicability check using the provided record. Returns the
+    // number of records successfully updated.
+    int Update(const MdnsRecord& record, TrackerApplicableCheck check);
+    int Update(const MdnsRecord& record,
+               TrackerApplicableCheck check,
+               TrackerChangeCallback on_rdata_update);
+
+    // Creates a record tracker of the given type associated with the provided
+    // record.
+    const MdnsRecordTracker& StartTracking(MdnsRecord record, DnsType type);
+
+    size_t size() { return records_.size(); }
+
+   private:
+    using LruList = std::list<MdnsRecordTracker*>;
+    using RecordMap = std::multimap<
+        DomainName,
+        std::pair<LruList::iterator, std::unique_ptr<MdnsRecordTracker>>>;
+
+    void MoveToBeginning(RecordMap::iterator iterator);
+    void MoveToEnd(RecordMap::iterator iterator);
+
+    MdnsQuerier* const querier_;
+    MdnsSender* const sender_;
+    MdnsRandom* const random_delay_;
+    TaskRunner* const task_runner_;
+    ClockNowFunctionPtr now_function_;
+    ReportingClient* reporting_client_;
+    Config config_;
+
+    LruList lru_order_;
+    RecordMap records_;
+  };
+
   friend class MdnsQuerierTest;
 
   // MdnsReceiver::ResponseClient overrides.
@@ -92,7 +162,7 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
   // Determines the type of update being executed by this update call, then
   // fires the appropriate callback.
   void ProcessSinglyTrackedUniqueRecord(const MdnsRecord& record,
-                                        MdnsRecordTracker* tracker);
+                                        const MdnsRecordTracker& tracker);
 
   // Called when multiple records are associated with the same key. Expire all
   // record with non-matching RDATA. Update the record with the matching RDATA
@@ -115,7 +185,7 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
   const ClockNowFunctionPtr now_function_;
   MdnsRandom* const random_delay_;
   ReportingClient* reporting_client_;
-  Config config_;
+  const Config& config_;
 
   // A collection of active question trackers, each is uniquely identified by
   // domain name, DNS record type, and DNS record class. Multimap key is domain
@@ -130,10 +200,15 @@ class MdnsQuerier : public MdnsReceiver::ResponseClient {
   // name, DNS record type, and DNS record class. Multimap key is domain name
   // only to allow easy support for wildcard processing for DNS record type and
   // class and allow storing shared records that differ only in RDATA.
+  //
+  // A map of lists is used so that an LRU cache can be maintained for each
+  // individual DomainName. The list is maintained such that records_.begin()
+  // is the most recently accessed and .end() is least recently.
+  //
   // MdnsRecordTracker instances are stored as unique_ptr so they are not moved
   // around in memory when the collection is modified. This allows passing a
   // pointer to MdnsQuestionTracker to a task running on the TaskRunner.
-  std::multimap<DomainName, std::unique_ptr<MdnsRecordTracker>> records_;
+  RecordTrackerLruCache records_;
 
   // A collection of callbacks passed to StartQuery method. Each is identified
   // by domain name, DNS record type, and DNS record class, but there can be

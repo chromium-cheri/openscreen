@@ -85,31 +85,35 @@ MdnsTracker::~MdnsTracker() {
   }
 }
 
-bool MdnsTracker::AddAdjacentNode(MdnsTracker* node) {
+bool MdnsTracker::AddAdjacentNode(const MdnsTracker* node) {
   OSP_DCHECK(node);
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
-  auto it = std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), node);
+  MdnsTracker* mutable_node = const_cast<MdnsTracker*>(node);
+  auto it =
+      std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), mutable_node);
   if (it != adjacent_nodes_.end()) {
     return false;
   }
 
-  node->AddReverseAdjacency(this);
-  adjacent_nodes_.push_back(node);
+  adjacent_nodes_.push_back(mutable_node);
+  mutable_node->AddReverseAdjacency(this);
   return true;
 }
 
-bool MdnsTracker::RemoveAdjacentNode(MdnsTracker* node) {
+bool MdnsTracker::RemoveAdjacentNode(const MdnsTracker* node) {
   OSP_DCHECK(node);
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
-  auto it = std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), node);
+  MdnsTracker* mutable_node = const_cast<MdnsTracker*>(node);
+  auto it =
+      std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), mutable_node);
   if (it == adjacent_nodes_.end()) {
     return false;
   }
 
-  node->RemovedReverseAdjacency(this);
   adjacent_nodes_.erase(it);
+  mutable_node->RemovedReverseAdjacency(this);
   return true;
 }
 
@@ -214,12 +218,12 @@ ErrorOr<MdnsRecordTracker::UpdateType> MdnsRecordTracker::Update(
 }
 
 bool MdnsRecordTracker::AddAssociatedQuery(
-    MdnsQuestionTracker* question_tracker) {
+    const MdnsQuestionTracker* question_tracker) {
   return AddAdjacentNode(question_tracker);
 }
 
 bool MdnsRecordTracker::RemoveAssociatedQuery(
-    MdnsQuestionTracker* question_tracker) {
+    const MdnsQuestionTracker* question_tracker) {
   return RemoveAdjacentNode(question_tracker);
 }
 
@@ -235,6 +239,10 @@ void MdnsRecordTracker::ExpireSoon() {
   attempt_count_ = countof(kTtlFractions) - 1;
   start_time_ = now_function_();
   ScheduleFollowUpQuery();
+}
+
+void MdnsRecordTracker::ExpireNow() {
+  record_expired_callback_(this, record_);
 }
 
 bool MdnsRecordTracker::IsNearingExpiry() {
@@ -328,12 +336,12 @@ MdnsQuestionTracker::MdnsQuestionTracker(MdnsQuestion question,
 MdnsQuestionTracker::~MdnsQuestionTracker() = default;
 
 bool MdnsQuestionTracker::AddAssociatedRecord(
-    MdnsRecordTracker* record_tracker) {
+    const MdnsRecordTracker* record_tracker) {
   return AddAdjacentNode(record_tracker);
 }
 
 bool MdnsQuestionTracker::RemoveAssociatedRecord(
-    MdnsRecordTracker* record_tracker) {
+    const MdnsRecordTracker* record_tracker) {
   return RemoveAdjacentNode(record_tracker);
 }
 
