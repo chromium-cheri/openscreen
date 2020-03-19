@@ -90,6 +90,30 @@
     },
     {
       "key": {
+        "uuid": "b8199914_555e95bd",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-19T19:07:55Z",
+      "side": 1,
+      "message": "I probably don\u0027t get something here\n\nThe pruning of changed_handles does this comparison:\n\nhandle_mappings_.find(handle) \u003d\u003d handle_mappings_.end()\n\nAnd this is exactly the same comparison as in ProcessReadyHandles:\n\nauto iterator \u003d handle_mappings_.find(handle);\nif (iterator \u003d\u003d handle_mappings_.end()) {\n  // This is OK: SocketHandle was deleted in the meantime.\n  continue;\n}",
+      "parentUuid": "75ceb506_f188df4a",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55993cf7_0a67be54",
         "filename": "platform/impl/socket_handle_waiter_posix.cc",
         "patchSetId": 1
@@ -142,6 +166,30 @@
       "side": 1,
       "message": "IMO it\u0027s just messier because then we\u0027d have two paths to call getsockname + constructor.  SocketAddressPosix already acknowledges that these are all but a union.",
       "parentUuid": "e9b83e8a_cde2fe38",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 72
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54d440d7_d55bfb27",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-19T19:07:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d154678c_ec982296",
       "range": {
         "startLine": 164,
         "startChar": 4,
