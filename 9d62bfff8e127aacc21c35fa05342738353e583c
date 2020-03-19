@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19b39c03_b566c9e8",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-19T21:01:07Z",
+      "side": 1,
+      "message": "\u003e Maybe consider using std::list::splice, should work if source and destination lists are the same.\n\nDone\n\n\u003e I think then you also can have a list of MdnsRecordTracker instead of list of unique_ptr\u003cMdnsRecordTracker\u003e\n\nPer top level comment, I went back to using an unordered_multimap",
+      "parentUuid": "a4acab3a_bb8f871b",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 1
+      },
+      "revId": "9d62bfff8e127aacc21c35fa05342738353e583c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9048241_6e6e5696",
         "filename": "discovery/mdns/mdns_querier.h",
         "patchSetId": 5
@@ -107,6 +131,30 @@
       "writtenOn": "2020-03-17T23:27:21Z",
       "side": 1,
       "message": "It might be worth to create a class that encapsulates map with limits on how many elements are available for a key to reduce complexity in mDNS querier.",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 51
+      },
+      "revId": "9d62bfff8e127aacc21c35fa05342738353e583c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99f2b5e6_49d1ea29",
+        "filename": "discovery/mdns/mdns_querier.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-19T21:01:07Z",
+      "side": 1,
+      "message": "Good idea - this made the code much more readable IMHO.\n\nIt does require a few extra walks over the records_ multimap, nothing that should change the runtime complexity and definitely worth the cost for more readable code. PTAL and make sure I\u0027m not missing anything obvious though :)",
+      "parentUuid": "3bdc289d_95f46279",
       "range": {
         "startLine": 145,
         "startChar": 2,
