@@ -72,8 +72,8 @@ class MdnsTracker {
 
   // These methods create a bidirectional adjacency with another node in the
   // graph.
-  bool AddAdjacentNode(MdnsTracker* tracker);
-  bool RemoveAdjacentNode(MdnsTracker* tracker);
+  bool AddAdjacentNode(const MdnsTracker* tracker);
+  bool RemoveAdjacentNode(const MdnsTracker* tracker);
 
   const std::vector<MdnsTracker*>& adjacent_nodes() const {
     return adjacent_nodes_;
@@ -131,11 +131,14 @@ class MdnsRecordTracker : public MdnsTracker {
   ErrorOr<UpdateType> Update(const MdnsRecord& new_record);
 
   // Adds or removed a question which this record answers.
-  bool AddAssociatedQuery(MdnsQuestionTracker* question_tracker);
-  bool RemoveAssociatedQuery(MdnsQuestionTracker* question_tracker);
+  bool AddAssociatedQuery(const MdnsQuestionTracker* question_tracker);
+  bool RemoveAssociatedQuery(const MdnsQuestionTracker* question_tracker);
 
   // Sets record to expire after 1 seconds as per RFC 6762
   void ExpireSoon();
+
+  // Expires the record now
+  void ExpireNow();
 
   // Returns true if half of the record's TTL has passed, and false otherwise.
   // Half is used due to specifications in RFC 6762 section 7.1.
@@ -158,6 +161,8 @@ class MdnsRecordTracker : public MdnsTracker {
   RecordType record_type() const { return record_.record_type(); }
   std::chrono::seconds ttl() const { return record_.ttl(); }
   const Rdata& rdata() const { return record_.rdata(); }
+  const DomainName& name() const { return record_.name(); }
+
   bool is_negative_response() const {
     return record_.dns_type() == DnsType::kNSEC;
   }
@@ -209,8 +214,8 @@ class MdnsQuestionTracker : public MdnsTracker {
   ~MdnsQuestionTracker() override;
 
   // Adds or removed an answer to a the question posed by this tracker.
-  bool AddAssociatedRecord(MdnsRecordTracker* record_tracker);
-  bool RemoveAssociatedRecord(MdnsRecordTracker* record_tracker);
+  bool AddAssociatedRecord(const MdnsRecordTracker* record_tracker);
+  bool RemoveAssociatedRecord(const MdnsRecordTracker* record_tracker);
 
   // Returns a reference to the tracked question.
   const MdnsQuestion& question() const { return question_; }
