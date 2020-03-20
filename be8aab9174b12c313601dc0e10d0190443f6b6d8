@@ -22,6 +22,30 @@
       "revId": "be8aab9174b12c313601dc0e10d0190443f6b6d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a52af326_cd854177",
+        "filename": "cast/streaming/bandwidth_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-20T20:51:47Z",
+      "side": 1,
+      "message": "Hmm...I like the idea. However, I worry that the saturate_cast\u003c\u003e might come into play and make the logic a bit more complex to manage the rolling sum.\n\nSo, I\u0027ll leave things as-is. I\u0027m not too worried about the Sum() call frequency. It\u0027d be like a few times a second at most.\n\nWe can (and will) want to profile the sender app at some point, which will give us better information about whether we need to come back to this. Note that Jordan already did a profiling on the receiver app to tease-out waste for the Raspberry Pi 2, and the codec far overshadowed everything else.",
+      "parentUuid": "37e3cf96_16d2a985",
+      "range": {
+        "startLine": 148,
+        "startChar": 41,
+        "endLine": 148,
+        "endChar": 46
+      },
+      "revId": "be8aab9174b12c313601dc0e10d0190443f6b6d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
