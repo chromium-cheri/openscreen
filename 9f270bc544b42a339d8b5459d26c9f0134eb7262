@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86fcd3e3_c2b4b9c0",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-20T17:25:35Z",
+      "side": 1,
+      "message": "Can this be changed to use a round robin approach as was previously done in TlsDataRouter?\n\nIf the TlS Sockets all consistently end up earlier in the handles vector than the udp sockets, its possible that all time is being used up on TLS Socket processing and none is ever used for UDP traffic so that data is never read. Or similar starvation cases",
+      "range": {
+        "startLine": 75,
+        "startChar": 43,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b673a99d_cef9616c",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-20T17:25:35Z",
+      "side": 1,
+      "message": "We always should process at least one handle, even if it puts us over the timeout. Else, we can hit a state where our network data is never read because timeouts are hit before we process data each iteration",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 5
+      },
+      "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05126a9_00acd5ae",
+        "filename": "platform/impl/socket_handle_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-20T17:25:35Z",
+      "side": 1,
+      "message": "Worth adding a comment that handles are processed only until the timeout is hit",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08b3952f_7d4a7945",
+        "filename": "platform/impl/socket_handle_waiter_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-20T17:25:35Z",
+      "side": 1,
+      "message": "Worth adding a comment to explain that that if data wasn\u0027t read/written after a socket was found with select() during a previous iteration, it will still be marked for future iterations",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

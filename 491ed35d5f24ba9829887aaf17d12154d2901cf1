@@ -138,6 +138,30 @@
     },
     {
       "key": {
+        "uuid": "18ef4b9a_f023a464",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-20T17:25:35Z",
+      "side": 1,
+      "message": "Good catch! I\u0027m surprised this didn\u0027t get hit since this code is being used in the demos + E2E tests\n\nIt looks like this approach requires an extra iteration through socket_handles_. Can we either remove the find call in ProcessReadyHandles or remove this call and change line 72 to check by pointer equality with\n\n\u003e auto iterator \u003d std::find_if(handle_mappings_.begin(), handle_mappings_.end(), [ptr \u003d \u0026handle](const auto\u0026 h) { return \u0026h \u003d\u003d ptr; });",
+      "parentUuid": "60537205_b6c186bb",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55993cf7_0a67be54",
         "filename": "platform/impl/socket_handle_waiter_posix.cc",
         "patchSetId": 1
