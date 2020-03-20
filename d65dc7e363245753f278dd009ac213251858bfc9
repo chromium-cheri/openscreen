@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3e0eea07_c9a80a18",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-20T20:19:29Z",
+      "side": 1,
+      "message": "As a rule of thumb, a method should accept a parameter by value in the following cases:\n1) it\u0027s a trivial or small type, e.g. int/double/string_view or a small struct/pair/tuple of trivial types.\n2) method knows it will make a copy of the argument for local modification anyway\n3) method plans to take ownership of the passed object and keep it (this way with pass-by-value the object can be moved into the method to store it in a member field, e.g. setter methods)\n\nOf course, in/out and out parameters are different.",
+      "parentUuid": "63eb9a46_baab324d",
+      "revId": "d65dc7e363245753f278dd009ac213251858bfc9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "268c6c17_29c72149",
         "filename": "discovery/dnssd/impl/instance_key.h",
         "patchSetId": 6
