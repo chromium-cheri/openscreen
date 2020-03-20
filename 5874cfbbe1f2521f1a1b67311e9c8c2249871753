@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2cb5905b_d47b07b5",
+        "filename": "discovery/mdns/mdns_querier.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-20T21:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c45311dc_caf3a67b",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 72
+      },
+      "revId": "5874cfbbe1f2521f1a1b67311e9c8c2249871753",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7b52f3c_1a067ece",
         "filename": "discovery/mdns/mdns_trackers.cc",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-20T18:56:53Z",
       "side": 1,
       "message": "Why did you have to add const here?",
+      "range": {
+        "startLine": 88,
+        "startChar": 34,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "5874cfbbe1f2521f1a1b67311e9c8c2249871753",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "921c7ab8_60cbf1bb",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-20T21:21:12Z",
+      "side": 1,
+      "message": "MdnsQuerier::RecordTrackerLruCache methods only give back const refs so that the underlying MdnsRecordTracker objects aren\u0027t modified in unexpected ways. These const refs become const pointers and are used to call MdnsQuestionTracker::AddAssociatedRecord() which calls this method\n\nAdding the reverse-direction adjacencies really is an under-the-hood detail callers shouldn\u0027t care about, so IMHO it makes sense for this to be const. WDYT?",
+      "parentUuid": "a7b52f3c_1a067ece",
       "range": {
         "startLine": 88,
         "startChar": 34,
@@ -68,6 +116,30 @@
       "revId": "5874cfbbe1f2521f1a1b67311e9c8c2249871753",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdd75b3a_e25dfff1",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-20T21:21:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a87df9c_69db488c",
+      "range": {
+        "startLine": 164,
+        "startChar": 2,
+        "endLine": 164,
+        "endChar": 59
+      },
+      "revId": "5874cfbbe1f2521f1a1b67311e9c8c2249871753",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
