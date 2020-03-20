@@ -114,6 +114,30 @@
     },
     {
       "key": {
+        "uuid": "60537205_b6c186bb",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-20T06:37:27Z",
+      "side": 1,
+      "message": "The scenario to consider is:\n\n1. TlsConnectionPosix is trying to destroy itself on the task runner, but needs to call DeregisterConnection, which will block in SocketHandleWaiter::OnHandleDeletion via the handle_deletion_block_ condition variable until SocketHandleWaiter removes it from handles_being_deleted_.\n2. If the SocketHandleWaiter on the network thread was in a select() during this, it will remove the above socket from handle_being_deleted_ here.\n3. As soon as it releases the lock, the task runner thread is free to continue deleting the TlsConnectionPosix.\n4. The network thread (here) enters ProcessReadyHandles and checks handle_mappings_ with a now-invalid reference from changed_handles.\n\nLike I said, this is not so much an issue with using select() more, because the accept-only sockets still followed this path.  AFAICT it just wasn\u0027t caught until now because no one ever calls DeregisterAcceptObserver except tests, which are single-threaded and disable the locking.",
+      "parentUuid": "b8199914_555e95bd",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55993cf7_0a67be54",
         "filename": "platform/impl/socket_handle_waiter_posix.cc",
         "patchSetId": 1
