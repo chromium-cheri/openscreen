@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c45311dc_caf3a67b",
+        "filename": "discovery/mdns/mdns_querier.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-20T18:56:53Z",
+      "side": 1,
+      "message": "Maybe have a multimap of DomainName to iterators only, and either have std::list\u003cMdnsRecordTracker\u003e or std::list\u003cstd::unique_ptr\u003cMdnsRecordTracker\u003e\u003e? I think you can get away without having a unique_ptr in the list, since the elements should not be moved in memory and iterators and the address of MdnsRecordTracker should not change.",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 72
+      },
+      "revId": "5874cfbbe1f2521f1a1b67311e9c8c2249871753",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b52f3c_1a067ece",
+        "filename": "discovery/mdns/mdns_trackers.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-20T18:56:53Z",
+      "side": 1,
+      "message": "Why did you have to add const here?",
+      "range": {
+        "startLine": 88,
+        "startChar": 34,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "5874cfbbe1f2521f1a1b67311e9c8c2249871753",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a87df9c_69db488c",
+        "filename": "discovery/mdns/mdns_trackers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-20T18:56:53Z",
+      "side": 1,
+      "message": "nit: Please put it above dns_type accessor, as that\u0027s the order of the members in record_",
+      "range": {
+        "startLine": 164,
+        "startChar": 2,
+        "endLine": 164,
+        "endChar": 59
+      },
+      "revId": "5874cfbbe1f2521f1a1b67311e9c8c2249871753",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
