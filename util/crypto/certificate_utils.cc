@@ -127,9 +127,7 @@ ErrorOr<bssl::UniquePtr<EVP_PKEY>> ImportRSAPrivateKey(
     return Error::Code::kParameterInvalid;
   }
 
-  CBS cbs;
-  CBS_init(&cbs, der_rsa_private_key, key_length);
-  RSA* rsa = RSA_parse_private_key(&cbs);
+  RSA* rsa = RSA_private_key_from_bytes(der_rsa_private_key, key_length);
   if (!rsa) {
     return Error::Code::kRSAKeyParseError;
   }

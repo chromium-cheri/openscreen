@@ -245,20 +245,20 @@ TEST_F(ReceiverSessionTest, RegistersSelfOnMessagePump) {
   auto message_port = std::make_unique<SimpleMessagePort>();
   // This should be safe, since the message_port location should not move
   // just because of being moved into the ReceiverSession.
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
 
+  auto environment = MakeEnvironment();
   auto session = std::make_unique<ReceiverSession>(
-      &client, MakeEnvironment(), std::move(message_port),
+      &client, environment.get(), message_port.get(),
       ReceiverSession::Preferences{});
-  EXPECT_EQ(raw_port->client(), session.get());
+  EXPECT_EQ(message_port->client(), session.get());
 }
 
 TEST_F(ReceiverSessionTest, CanNegotiateWithDefaultPreferences) {
   auto message_port = std::make_unique<SimpleMessagePort>();
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
-  ReceiverSession session(&client, MakeEnvironment(), std::move(message_port),
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
                           ReceiverSession::Preferences{});
 
   EXPECT_CALL(client, OnNegotiated(&session, _))
@@ -292,9 +292,9 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithDefaultPreferences) {
       });
   EXPECT_CALL(client, OnReceiversDestroyed(&session)).Times(1);
 
-  raw_port->ReceiveMessage(kValidOfferMessage);
+  message_port->ReceiveMessage(kValidOfferMessage);
 
-  const auto& messages = raw_port->posted_messages();
+  const auto& messages = message_port->posted_messages();
   ASSERT_EQ(1u, messages.size());
 
   auto message_body = json::Parse(messages[0]);
@@ -327,10 +327,10 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithDefaultPreferences) {
 
 TEST_F(ReceiverSessionTest, CanNegotiateWithCustomCodecPreferences) {
   auto message_port = std::make_unique<SimpleMessagePort>();
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
   ReceiverSession session(
-      &client, MakeEnvironment(), std::move(message_port),
+      &client, environment.get(), message_port.get(),
       ReceiverSession::Preferences{{ReceiverSession::VideoCodec::kVp9},
                                    {ReceiverSession::AudioCodec::kOpus}});
 
@@ -351,12 +351,11 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomCodecPreferences) {
         EXPECT_EQ(cr.video.value().receiver_config.rtp_timebase, 90000);
       });
   EXPECT_CALL(client, OnReceiversDestroyed(&session)).Times(1);
-  raw_port->ReceiveMessage(kValidOfferMessage);
+  message_port->ReceiveMessage(kValidOfferMessage);
 }
 
 TEST_F(ReceiverSessionTest, CanNegotiateWithCustomConstraints) {
   auto message_port = std::make_unique<SimpleMessagePort>();
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
 
   auto constraints = std::unique_ptr<Constraints>{new Constraints{
@@ -369,8 +368,9 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomConstraints) {
       Dimensions{640, 480, SimpleFraction{60, 1}}, AspectRatio{16, 9},
       AspectRatioConstraint::kFixed}};
 
+  auto environment = MakeEnvironment();
   ReceiverSession session(
-      &client, MakeEnvironment(), std::move(message_port),
+      &client, environment.get(), message_port.get(),
       ReceiverSession::Preferences{{ReceiverSession::VideoCodec::kVp9},
                                    {ReceiverSession::AudioCodec::kOpus},
                                    std::move(constraints),
@@ -378,9 +378,9 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomConstraints) {
 
   EXPECT_CALL(client, OnNegotiated(&session, _)).Times(1);
   EXPECT_CALL(client, OnReceiversDestroyed(&session)).Times(1);
-  raw_port->ReceiveMessage(kValidOfferMessage);
+  message_port->ReceiveMessage(kValidOfferMessage);
 
-  const auto& messages = raw_port->posted_messages();
+  const auto& messages = message_port->posted_messages();
   EXPECT_EQ(1u, messages.size());
 
   auto message_body = json::Parse(messages[0]);
@@ -428,16 +428,16 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithCustomConstraints) {
 
 TEST_F(ReceiverSessionTest, HandlesNoValidAudioStream) {
   auto message_port = std::make_unique<SimpleMessagePort>();
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
-  ReceiverSession session(&client, MakeEnvironment(), std::move(message_port),
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
                           ReceiverSession::Preferences{});
 
   EXPECT_CALL(client, OnNegotiated(&session, _)).Times(1);
   EXPECT_CALL(client, OnReceiversDestroyed(&session)).Times(1);
 
-  raw_port->ReceiveMessage(kNoAudioOfferMessage);
-  const auto& messages = raw_port->posted_messages();
+  message_port->ReceiveMessage(kNoAudioOfferMessage);
+  const auto& messages = message_port->posted_messages();
   EXPECT_EQ(1u, messages.size());
 
   auto message_body = json::Parse(messages[0]);
@@ -454,16 +454,16 @@ TEST_F(ReceiverSessionTest, HandlesNoValidAudioStream) {
 
 TEST_F(ReceiverSessionTest, HandlesNoValidVideoStream) {
   auto message_port = std::make_unique<SimpleMessagePort>();
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
-  ReceiverSession session(&client, MakeEnvironment(), std::move(message_port),
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
                           ReceiverSession::Preferences{});
 
   EXPECT_CALL(client, OnNegotiated(&session, _)).Times(1);
   EXPECT_CALL(client, OnReceiversDestroyed(&session)).Times(1);
 
-  raw_port->ReceiveMessage(kNoVideoOfferMessage);
-  const auto& messages = raw_port->posted_messages();
+  message_port->ReceiveMessage(kNoVideoOfferMessage);
+  const auto& messages = message_port->posted_messages();
   EXPECT_EQ(1u, messages.size());
 
   auto message_body = json::Parse(messages[0]);
@@ -480,17 +480,18 @@ TEST_F(ReceiverSessionTest, HandlesNoValidVideoStream) {
 
 TEST_F(ReceiverSessionTest, HandlesNoValidStreams) {
   auto message_port = std::make_unique<SimpleMessagePort>();
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
-  ReceiverSession session(&client, MakeEnvironment(), std::move(message_port),
+
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
                           ReceiverSession::Preferences{});
 
   // We shouldn't call OnNegotiated if we failed to negotiate any streams.
   EXPECT_CALL(client, OnNegotiated(&session, _)).Times(0);
   EXPECT_CALL(client, OnReceiversDestroyed(&session)).Times(0);
 
-  raw_port->ReceiveMessage(kNoAudioOrVideoOfferMessage);
-  const auto& messages = raw_port->posted_messages();
+  message_port->ReceiveMessage(kNoAudioOrVideoOfferMessage);
+  const auto& messages = message_port->posted_messages();
   EXPECT_EQ(1u, messages.size());
 
   auto message_body = json::Parse(messages[0]);
@@ -499,9 +500,9 @@ TEST_F(ReceiverSessionTest, HandlesNoValidStreams) {
 
 TEST_F(ReceiverSessionTest, HandlesMalformedOffer) {
   auto message_port = std::make_unique<SimpleMessagePort>();
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
-  ReceiverSession session(&client, MakeEnvironment(), std::move(message_port),
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
                           ReceiverSession::Preferences{});
 
   // We shouldn't call OnNegotiated if we failed to negotiate any streams.
@@ -512,21 +513,21 @@ TEST_F(ReceiverSessionTest, HandlesMalformedOffer) {
   EXPECT_CALL(client, OnError(&session, Error(Error::Code::kJsonParseError)))
       .Times(1);
 
-  raw_port->ReceiveMessage(kInvalidJsonOfferMessage);
+  message_port->ReceiveMessage(kInvalidJsonOfferMessage);
 }
 
 TEST_F(ReceiverSessionTest, NotifiesReceiverDestruction) {
   auto message_port = std::make_unique<SimpleMessagePort>();
-  SimpleMessagePort* raw_port = message_port.get();
   StrictMock<FakeClient> client;
-  ReceiverSession session(&client, MakeEnvironment(), std::move(message_port),
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
                           ReceiverSession::Preferences{});
 
   EXPECT_CALL(client, OnNegotiated(&session, _)).Times(2);
   EXPECT_CALL(client, OnReceiversDestroyed(&session)).Times(2);
 
-  raw_port->ReceiveMessage(kNoAudioOfferMessage);
-  raw_port->ReceiveMessage(kValidOfferMessage);
+  message_port->ReceiveMessage(kNoAudioOfferMessage);
+  message_port->ReceiveMessage(kValidOfferMessage);
 }
 }  // namespace cast
 }  // namespace openscreen
