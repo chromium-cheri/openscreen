@@ -80,48 +80,55 @@ MdnsTracker::MdnsTracker(MdnsSender* sender,
 MdnsTracker::~MdnsTracker() {
   send_alarm_.Cancel();
 
-  for (MdnsTracker* node : adjacent_nodes_) {
+  for (const MdnsTracker* node : adjacent_nodes_) {
     node->RemovedReverseAdjacency(this);
   }
 }
 
-bool MdnsTracker::AddAdjacentNode(MdnsTracker* node) {
+bool MdnsTracker::AddAdjacentNode(const MdnsTracker* node) const {
   OSP_DCHECK(node);
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
-  auto it = std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), node);
+  MdnsTracker* mutable_node = const_cast<MdnsTracker*>(node);
+  auto it =
+      std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), mutable_node);
   if (it != adjacent_nodes_.end()) {
     return false;
   }
 
-  node->AddReverseAdjacency(this);
-  adjacent_nodes_.push_back(node);
+  adjacent_nodes_.push_back(mutable_node);
+  mutable_node->AddReverseAdjacency(this);
   return true;
 }
 
-bool MdnsTracker::RemoveAdjacentNode(MdnsTracker* node) {
+bool MdnsTracker::RemoveAdjacentNode(const MdnsTracker* node) const {
   OSP_DCHECK(node);
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
-  auto it = std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), node);
+  MdnsTracker* mutable_node = const_cast<MdnsTracker*>(node);
+  auto it =
+      std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), mutable_node);
   if (it == adjacent_nodes_.end()) {
     return false;
   }
 
-  node->RemovedReverseAdjacency(this);
   adjacent_nodes_.erase(it);
+  mutable_node->RemovedReverseAdjacency(this);
   return true;
 }
 
-void MdnsTracker::AddReverseAdjacency(MdnsTracker* node) {
-  OSP_DCHECK(std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), node) ==
-             adjacent_nodes_.end());
+void MdnsTracker::AddReverseAdjacency(const MdnsTracker* node) const {
+  MdnsTracker* mutable_node = const_cast<MdnsTracker*>(node);
+  OSP_DCHECK(std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(),
+                       mutable_node) == adjacent_nodes_.end());
 
-  adjacent_nodes_.push_back(node);
+  adjacent_nodes_.push_back(mutable_node);
 }
 
-void MdnsTracker::RemovedReverseAdjacency(MdnsTracker* node) {
-  auto it = std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), node);
+void MdnsTracker::RemovedReverseAdjacency(const MdnsTracker* node) const {
+  MdnsTracker* mutable_node = const_cast<MdnsTracker*>(node);
+  auto it =
+      std::find(adjacent_nodes_.begin(), adjacent_nodes_.end(), mutable_node);
   OSP_DCHECK(it != adjacent_nodes_.end());
 
   adjacent_nodes_.erase(it);
@@ -214,12 +221,12 @@ ErrorOr<MdnsRecordTracker::UpdateType> MdnsRecordTracker::Update(
 }
 
 bool MdnsRecordTracker::AddAssociatedQuery(
-    MdnsQuestionTracker* question_tracker) {
+    const MdnsQuestionTracker* question_tracker) const {
   return AddAdjacentNode(question_tracker);
 }
 
 bool MdnsRecordTracker::RemoveAssociatedQuery(
-    MdnsQuestionTracker* question_tracker) {
+    const MdnsQuestionTracker* question_tracker) const {
   return RemoveAdjacentNode(question_tracker);
 }
 
@@ -237,7 +244,11 @@ void MdnsRecordTracker::ExpireSoon() {
   ScheduleFollowUpQuery();
 }
 
-bool MdnsRecordTracker::IsNearingExpiry() {
+void MdnsRecordTracker::ExpireNow() {
+  record_expired_callback_(this, record_);
+}
+
+bool MdnsRecordTracker::IsNearingExpiry() const {
   return (now_function_() - start_time_) > record_.ttl() / 2;
 }
 
@@ -328,18 +339,18 @@ MdnsQuestionTracker::MdnsQuestionTracker(MdnsQuestion question,
 MdnsQuestionTracker::~MdnsQuestionTracker() = default;
 
 bool MdnsQuestionTracker::AddAssociatedRecord(
-    MdnsRecordTracker* record_tracker) {
+    const MdnsRecordTracker* record_tracker) const {
   return AddAdjacentNode(record_tracker);
 }
 
 bool MdnsQuestionTracker::RemoveAssociatedRecord(
-    MdnsRecordTracker* record_tracker) {
+    const MdnsRecordTracker* record_tracker) const {
   return RemoveAdjacentNode(record_tracker);
 }
 
 std::vector<MdnsRecord> MdnsQuestionTracker::GetRecords() const {
   std::vector<MdnsRecord> records;
-  for (MdnsTracker* tracker : adjacent_nodes()) {
+  for (const MdnsTracker* tracker : adjacent_nodes()) {
     OSP_DCHECK(tracker->tracker_type() == TrackerType::kRecordTracker);
 
     // This call cannot result in an infinite loop because MdnsRecordTracker
@@ -372,7 +383,8 @@ bool MdnsQuestionTracker::SendQuery() {
   for (auto it = adjacent_nodes().begin(); it != adjacent_nodes().end();) {
     OSP_DCHECK((*it)->tracker_type() == TrackerType::kRecordTracker);
 
-    MdnsRecordTracker* record_tracker = static_cast<MdnsRecordTracker*>(*it);
+    const MdnsRecordTracker* record_tracker =
+        static_cast<MdnsRecordTracker*>(*it);
     if (record_tracker->IsNearingExpiry()) {
       it++;
       continue;
