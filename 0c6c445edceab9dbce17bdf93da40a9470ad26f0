@@ -89,6 +89,29 @@
     },
     {
       "key": {
+        "uuid": "da0e788c_0a3c39bb",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-24T21:49:27Z",
+      "side": 1,
+      "message": "These functions look very similar to me. Could you please have another look if you can minimize code duplication here?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cc3f9ba_50008b7f",
         "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
         "patchSetId": 5
@@ -136,6 +159,47 @@
       "side": 1,
       "message": "\u003e Will instance records without IP addresses ever be exposed to the DNS-SD layer\n\nTo further expand here, they are exposed in the public API. These are what the publisher takes in, and it is the responsibility of the embedder\u0027s impl of this public API to handle combining it with the config. The idea here is that the embedder is telling the service \"Here is a service I\u0027m hosting - you go figure out how to combine that with the network interfaces I support, and fan this publication out to all of these network interfaces\".\n\nInstead if we provide a DnsSdInstanceEndpoint as you mention, IMHO it feels like \"Here is a service instance I am hosting. If the endpoints are populated, you do whatever you think is right\" because this is the embedder-specific implementation \" and maybe publish just that endpoint, maybe error if it doesn\u0027t match an existing NetworkInterface, maybe fan out to all interfaces, but who knows because the public API doesn\u0027t force any behavior!\". While we could document expected behavior, it feels MUCH cleaner to me to not give embedders this kind of freedom. Especially if such edge cases will only pop up occasionally. While it\u0027s correct that it\u0027s the embedder\u0027s fault for implementing things wrong if they don\u0027t follow what we recommend in the dndds/public dir it would be their fault, that doesn\u0027t stop it from reflecting badly on us since it\u0027s our library they are using. Or from us receiving bug reports",
       "parentUuid": "21f81e39_379a125e",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d46494_3e68aabc",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-24T21:49:27Z",
+      "side": 1,
+      "message": "I think this is in general a correct use of inheritance. DnsSdInstanceEndpoint is a DnsSdInstanceRecord + address(es).\nI wonder if aggregation instead of inheritance would be more compact code-wise, since this is essentially a data structure with minimal logic.\nIMHO optional fields add to complexity all the same, with code having to check everywhere if optional has a value.",
+      "parentUuid": "eb9be300_1552f0ed",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f0cc116_5b9945a4",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-24T21:49:27Z",
+      "side": 1,
+      "message": "I know that std does not provide a function for combining hash values, which is quite unfortunate. However, XOR for hash values is not a safe strategy for collision avoidance.\n\nYou can see a way to combine hashes in ComputeDomainNameSubhashes in mdsn_writer. Or you can use absl::hash instead of EndpointKeyHash, absl::hash supports all std types that have std::hash specialized for them and it has automatic hash combining for pairs and tuples.\n\nAlso, I was under impression that std::hash works for pairs and tuples automatically if they consist of hashable types, but I guess I\u0027m wrong on this.",
+      "range": {
+        "startLine": 133,
+        "startChar": 13,
+        "endLine": 134,
+        "endChar": 60
+      },
       "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
