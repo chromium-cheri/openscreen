@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2025d3bf_f577b0e6",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-24T22:28:34Z",
+      "side": 1,
+      "message": "Round robin defeats the purpose of select/poll/epoll.  I\u0027m okay adding a TODO to track either explicit or implicit time since last handled, and then sort ready handles based on that.",
+      "parentUuid": "86fcd3e3_c2b4b9c0",
+      "range": {
+        "startLine": 75,
+        "startChar": 43,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b673a99d_cef9616c",
         "filename": "platform/impl/socket_handle_waiter.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14379598_be108cc7",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-24T22:28:34Z",
+      "side": 1,
+      "message": "IMO that would only happen if the timeout is set so low that we can\u0027t even do a select() and a few loops, in which case this is a band-aid, or we get a lot of lock contention which shouldn\u0027t be sustainable.  Done though.",
+      "parentUuid": "b673a99d_cef9616c",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 5
+      },
+      "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c5d49f6f_a8644af8",
+        "filename": "platform/impl/socket_handle_waiter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-24T22:28:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e05126a9_00acd5ae",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08b3952f_7d4a7945",
         "filename": "platform/impl/socket_handle_waiter_posix.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a59d051_598c7abc",
+        "filename": "platform/impl/socket_handle_waiter_posix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-24T22:28:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08b3952f_7d4a7945",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "9f270bc544b42a339d8b5459d26c9f0134eb7262",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
