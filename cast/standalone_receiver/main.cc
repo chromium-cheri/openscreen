@@ -94,7 +94,11 @@ ErrorOr<std::unique_ptr<DiscoveryState>> StartDiscovery(
 void RunStandaloneReceiver(TaskRunnerImpl* task_runner,
                            InterfaceInfo interface) {
   CastAgent agent(task_runner, interface);
-  agent.Start();
+  const auto error = agent.Start();
+  if (!error.ok()) {
+    OSP_LOG_ERROR << "Error occurred while starting agent: " << error;
+    return;
+  }
 
   // Run the event loop until an exit is requested (e.g., the video player GUI
   // window is closed, a SIGINT or SIGTERM is received, or whatever other
