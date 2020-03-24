@@ -10,7 +10,10 @@
 config("openscreen_include_dirs") {
   openscreen_root = get_path_info("../", "abspath")
 
-  defines = [ "OPENSCREEN_TEST_DATA_DIR=\".${openscreen_root}test/data/\"" ]
+  defines = [
+    "OPENSCREEN_TEST_DATA_DIR=\".${openscreen_root}test/data/\"",
+    "OPENSCREEN_ROOT=\".${openscreen_root}\"",
+  ]
 
   include_dirs = [
     "$openscreen_root",
