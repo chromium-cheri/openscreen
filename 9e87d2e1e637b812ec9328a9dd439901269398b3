@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc771656_3497ab9b",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-25T22:35:33Z",
+      "side": 1,
+      "message": "Should this be at least 4? I don\u0027t recall if the domain can be empty here (root domain)",
+      "range": {
+        "startLine": 232,
+        "startChar": 6,
+        "endLine": 232,
+        "endChar": 37
+      },
+      "revId": "9e87d2e1e637b812ec9328a9dd439901269398b3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97dfd029_b59c2344",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-25T22:35:33Z",
+      "side": 1,
+      "message": "DCHECK that record.name().labels() has more than 2 labels?",
+      "range": {
+        "startLine": 261,
+        "startChar": 21,
+        "endLine": 261,
+        "endChar": 55
+      },
+      "revId": "9e87d2e1e637b812ec9328a9dd439901269398b3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79994dc1_14dfb068",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-25T22:35:33Z",
+      "side": 1,
+      "message": "std::equal(name.labels().begin() + 3,\nname.labels().end(),\nrecord.name().labels().begin() + 2,\nrecord.name().labels().end());",
+      "range": {
+        "startLine": 261,
+        "startChar": 4,
+        "endLine": 268,
+        "endChar": 5
+      },
+      "revId": "9e87d2e1e637b812ec9328a9dd439901269398b3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
