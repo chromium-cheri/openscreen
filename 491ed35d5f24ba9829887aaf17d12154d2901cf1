@@ -162,6 +162,30 @@
     },
     {
       "key": {
+        "uuid": "3de126f2_da15c616",
+        "filename": "platform/impl/socket_handle_waiter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-25T01:27:57Z",
+      "side": 1,
+      "message": "Pointer comparison introduces a minor ABA problem.  Instead, I combined this filter with capturing the Subscriber.  This also means holding the lock to prevent anyone unsubbing between the collection and processing.  I don\u0027t think that lock gap was doing anything meaningful before though.  WDYT?",
+      "parentUuid": "18ef4b9a_f023a464",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55993cf7_0a67be54",
         "filename": "platform/impl/socket_handle_waiter_posix.cc",
         "patchSetId": 1
@@ -176,6 +200,24 @@
       "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1712b53f_6917ccf6",
+        "filename": "platform/impl/socket_handle_waiter_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-03-25T01:27:57Z",
+      "side": 1,
+      "message": "Delaying to go with \"fairness\" CL since we may want this to affect sorting.",
+      "parentUuid": "55993cf7_0a67be54",
+      "revId": "491ed35d5f24ba9829887aaf17d12154d2901cf1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
