@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e0653a22_ff6ef033",
+        "filename": "cast/standalone_sender/streaming_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-26T20:50:49Z",
+      "side": 1,
+      "message": "Yes, because of C++ ADL rules: https://en.cppreference.com/w/cpp/language/adl\n\nIt wouldn\u0027t be necessary if our time operator\u003c\u003c() overloads were in the std::chrono namespace, but that would be against the style guide. I want to revisit this issue at some point. Some random ideas:\n\nIn platform/api/time.h or thereabouts:\n\n  namespace openscreen {\n    using duration_cast \u003d std::chrono::duration_cast;\n    using seconds \u003d std::chrono::seconds;\n    using milliseconds \u003d std::chrono::milliseconds;\n    ...\n\n    std::ostream\u0026 operator\u003c\u003c(std::ostream\u0026, openscreen::seconds);\n    ...\n  }\n\nThis might allow the ADL rules to match things. As an added bonus, we\u0027d be able to remove all the \"using std::chrono::XYZ\" statements peppered in a lot of our files.",
+      "parentUuid": "fb6c3c8b_3420bd72",
+      "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17d96918_b202b0b4",
         "filename": "cast/standalone_sender/streaming_vp8_encoder.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-25T21:07:17Z",
       "side": 1,
       "message": "should these be set in the header?",
+      "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9172e170_13b6ec47",
+        "filename": "cast/standalone_sender/streaming_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-26T20:50:49Z",
+      "side": 1,
+      "message": "Since this is a struct defined in libvpx, I don\u0027t see that we can do that.",
+      "parentUuid": "17d96918_b202b0b4",
       "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "62e518ac_965db291",
+        "filename": "cast/standalone_sender/streaming_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-26T20:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67e8cbc5_f8b04f89",
+      "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66a852f2_c87f07b7",
         "filename": "cast/standalone_sender/streaming_vp8_encoder.h",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2020-03-25T21:07:17Z",
       "side": 1,
       "message": "to be clear, the quantizer is the algorithm right? Isn\u0027t this QP, the quantization parameter?",
+      "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf3975c_632d1782",
+        "filename": "cast/standalone_sender/streaming_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-26T20:50:49Z",
+      "side": 1,
+      "message": "The terms are used interchangeably. This is actually consistent with the naming in libvpx\u0027s API (they use \"quantizer\" instead of \"qp\").",
+      "parentUuid": "66a852f2_c87f07b7",
       "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a3e29c1b_9016611e",
+        "filename": "cast/standalone_sender/streaming_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-26T20:50:49Z",
+      "side": 1,
+      "message": "time_utilization() and space_utilization() are called in the .cc file, as part of the math going into other things.\n\nIf we want to add a convenience method to do the max of the three, we can add that when/if it\u0027s needed in future CLs.",
+      "parentUuid": "66b977fe_c7813978",
+      "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54d32b44_d145756b",
         "filename": "cast/standalone_sender/streaming_vp8_encoder.h",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74e2f31d_dd2e1b32",
+        "filename": "cast/standalone_sender/streaming_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-26T20:50:49Z",
+      "side": 1,
+      "message": "Done.\n\n\u003e these should have the same syntax, right? if bitrate is a simple property, target_bitrate and set_target_bitrate, or if it isn\u0027t TargetBitrate and SetTargetBitrate.\n\nI\u0027m not sure they have to be the same. The style guide doesn\u0027t state that they have to be. I\u0027ll change it since I don\u0027t feel strongly about it. This will add function call overhead, but I don\u0027t believe calling this getter will ever be a \"hot\" code path.",
+      "parentUuid": "54d32b44_d145756b",
+      "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "7cf40123_556d62b6",
+        "filename": "cast/standalone_sender/streaming_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-26T20:50:49Z",
+      "side": 1,
+      "message": "It\u0027s a \"static\" method, so no |this| pointer. I left it as-is because I want to use the VpxImageUniquePtr type, and only private class members can use it.",
+      "parentUuid": "1f637cc7_f351b88a",
+      "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25e0cd00_96f204b1",
         "filename": "cast/standalone_sender/streaming_vp8_encoder.h",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe64f0e0_36bb3814",
+        "filename": "cast/standalone_sender/streaming_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-03-26T20:50:49Z",
+      "side": 1,
+      "message": "It should be ABSL_GUARDED_BY. Abseil *does* define GUARDED_BY, but only for backwards compatibility. According to comments in its header files, GUARDED_BY is deprecated.",
+      "parentUuid": "25e0cd00_96f204b1",
+      "revId": "efae2bc9e1f63333318beb80016760efa4cf6e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
