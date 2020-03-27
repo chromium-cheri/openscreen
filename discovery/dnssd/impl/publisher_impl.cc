@@ -12,6 +12,7 @@
 #include "discovery/common/reporting_client.h"
 #include "discovery/dnssd/impl/conversion_layer.h"
 #include "discovery/dnssd/impl/instance_key.h"
+#include "discovery/dnssd/impl/network_config.h"
 #include "discovery/mdns/public/mdns_constants.h"
 #include "platform/api/task_runner.h"
 #include "platform/base/error.h"
@@ -20,19 +21,37 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
-DnsSdInstanceRecord UpdateDomain(const DomainName& domain,
-                                 const DnsSdInstanceRecord& record) {
-  InstanceKey key(domain);
-  const IPEndpoint& v4 = record.address_v4();
-  const IPEndpoint& v6 = record.address_v6();
-  if (v4 && v6) {
-    return DnsSdInstanceRecord(key.instance_id(), key.service_id(),
-                               key.domain_id(), v4, v6, record.txt());
+DnsSdInstanceEndpoint CreateEndpoint(DnsSdInstanceRecord record,
+                                     InstanceKey key,
+                                     const NetworkConfig& network_config_) {
+  if (!network_config_.address_v4() || !network_config_.address_v6()) {
+    const IPAddress& address = network_config_.address_v4()
+                                   ? network_config_.address_v4()
+                                   : network_config_.address_v6();
+    OSP_DCHECK(address);
+    IPEndpoint endpoint{address, record.port()};
+    return DnsSdInstanceEndpoint(key.instance_id(), key.service_id(),
+                                 key.domain_id(), record.txt(), endpoint,
+                                 network_config_.network_interface());
   } else {
-    const IPEndpoint& endpoint = v4 ? v4 : v6;
-    return DnsSdInstanceRecord(key.instance_id(), key.service_id(),
-                               key.domain_id(), endpoint, record.txt());
+    IPEndpoint endpoint_v4{network_config_.address_v4(), record.port()};
+    IPEndpoint endpoint_v6{network_config_.address_v6(), record.port()};
+    return DnsSdInstanceEndpoint(
+        key.instance_id(), key.service_id(), key.domain_id(), record.txt(),
+        endpoint_v4, endpoint_v6, network_config_.network_interface());
   }
+}
+
+DnsSdInstanceEndpoint UpdateDomain(const DomainName& name,
+                                   DnsSdInstanceRecord record,
+                                   const NetworkConfig& network_config_) {
+  return CreateEndpoint(std::move(record), InstanceKey(name), network_config_);
+}
+
+DnsSdInstanceEndpoint CreateEndpoint(DnsSdInstanceRecord record,
+                                     const NetworkConfig& network_config_) {
+  InstanceKey key(record);
+  return CreateEndpoint(std::move(record), std::move(key), network_config_);
 }
 
 template <typename T>
@@ -65,10 +84,12 @@ int EraseRecordsWithServiceId(std::map<DnsSdInstanceRecord, T>* records,
 
 PublisherImpl::PublisherImpl(MdnsService* publisher,
                              ReportingClient* reporting_client,
-                             TaskRunner* task_runner)
+                             TaskRunner* task_runner,
+                             const NetworkConfig& network_config)
     : mdns_publisher_(publisher),
       reporting_client_(reporting_client),
-      task_runner_(task_runner) {
+      task_runner_(task_runner),
+      network_config_(network_config) {
   OSP_DCHECK(mdns_publisher_);
   OSP_DCHECK(reporting_client_);
   OSP_DCHECK(task_runner_);
@@ -82,20 +103,21 @@ Error PublisherImpl::Register(const DnsSdInstanceRecord& record,
   OSP_DCHECK(client != nullptr);
 
   if (published_records_.find(record) != published_records_.end()) {
-    return Error::Code::kItemAlreadyExists;
+    UpdateRegistration(record);
   } else if (pending_records_.find(record) != pending_records_.end()) {
     return Error::Code::kOperationInProgress;
   }
 
   InstanceKey key(record);
-  IPEndpoint endpoint =
-      record.address_v4() ? record.address_v4() : record.address_v6();
-  pending_records_.emplace(record, client);
+  const IPAddress& address_v4 = network_config_.address_v4();
+  const IPAddress& address_v6 = network_config_.address_v6();
+  const IPAddress& address = address_v4 ? address_v4 : address_v6;
+  OSP_DCHECK(address);
+  pending_records_.emplace(CreateEndpoint(record, network_config_), client);
 
   OSP_DVLOG << "Registering instance '" << record.instance_id() << "'";
 
-  return mdns_publisher_->StartProbe(this, GetDomainName(key),
-                                     endpoint.address);
+  return mdns_publisher_->StartProbe(this, GetDomainName(key), address);
 }
 
 Error PublisherImpl::UpdateRegistration(const DnsSdInstanceRecord& record) {
@@ -114,7 +136,7 @@ Error PublisherImpl::UpdateRegistration(const DnsSdInstanceRecord& record) {
     // modified.
     Client* const client = it->second;
     pending_records_.erase(it);
-    pending_records_.emplace(record, client);
+    pending_records_.emplace(CreateEndpoint(record, network_config_), client);
     return Error::None();
   } else {
     return UpdatePublishedRegistration(record);
@@ -129,8 +151,14 @@ Error PublisherImpl::UpdatePublishedRegistration(
 
   // Check preconditions called out in header. Specifically, the updated record
   // must be making changes to an already published record.
-  if (published_record_it == published_records_.end() ||
-      published_record_it->first == record) {
+  if (published_record_it == published_records_.end()) {
+    return Error::Code::kParameterInvalid;
+  }
+
+  const DnsSdInstanceEndpoint updated_record =
+      UpdateDomain(GetDomainName(InstanceKey(published_record_it->second)),
+                   record, network_config_);
+  if (published_record_it->second == updated_record) {
     return Error::Code::kParameterInvalid;
   }
 
@@ -142,8 +170,6 @@ Error PublisherImpl::UpdatePublishedRegistration(
       changed_records;
   const std::vector<MdnsRecord> old_records =
       GetDnsRecords(published_record_it->second);
-  const DnsSdInstanceRecord updated_record = UpdateDomain(
-      GetDomainName(InstanceKey(published_record_it->second)), record);
   const std::vector<MdnsRecord> new_records = GetDnsRecords(updated_record);
 
   // Populate the first part of each pair in |changed_records|.
@@ -245,13 +271,14 @@ void PublisherImpl::OnDomainFound(const DomainName& requested_name,
   auto it = FindKey(&pending_records_, InstanceKey(requested_name));
 
   if (it == pending_records_.end()) {
-    // This will be hit if the record was deregistered before the probe phase
+    // This will be hit if the record was deregister'd before the probe phase
     // was completed.
     return;
   }
 
   DnsSdInstanceRecord requested_record = std::move(it->first);
-  DnsSdInstanceRecord publication = requested_record;
+  DnsSdInstanceEndpoint publication =
+      CreateEndpoint(requested_record, network_config_);
   Client* const client = it->second;
   pending_records_.erase(it);
 
@@ -259,7 +286,8 @@ void PublisherImpl::OnDomainFound(const DomainName& requested_name,
 
   if (requested_name != confirmed_name) {
     OSP_DCHECK(HasValidDnsRecordAddress(confirmed_name));
-    publication = UpdateDomain(confirmed_name, requested_record);
+    publication =
+        UpdateDomain(confirmed_name, requested_record, network_config_);
   }
 
   for (const auto& mdns_record : GetDnsRecords(publication)) {

@@ -12,22 +12,6 @@
 
 namespace openscreen {
 namespace discovery {
-namespace {
-
-MdnsService::SupportedNetworkAddressFamily GetSupportedEndpointTypes(
-    const InterfaceInfo& interface) {
-  MdnsService::SupportedNetworkAddressFamily supported_types =
-      MdnsService::kNoAddressFamily;
-  if (interface.GetIpAddressV4()) {
-    supported_types = supported_types | MdnsService::kUseIpV4Multicast;
-  }
-  if (interface.GetIpAddressV6()) {
-    supported_types = supported_types | MdnsService::kUseIpV6Multicast;
-  }
-  return supported_types;
-}
-
-}  // namespace
 
 // static
 SerialDeletePtr<DnsSdService> CreateDnsSdService(
@@ -42,18 +26,34 @@ ServiceImpl::ServiceImpl(TaskRunner* task_runner,
                          ReportingClient* reporting_client,
                          const Config& config)
     : task_runner_(task_runner),
-      mdns_service_(
-          MdnsService::Create(task_runner,
-                              reporting_client,
-                              config,
-                              config.interface.index,
-                              GetSupportedEndpointTypes(config.interface))) {
+      mdns_service_(MdnsService::Create(
+          task_runner,
+          reporting_client,
+          config,
+          config.network_config[0].interface.index,
+          config.network_config[0].supported_address_families)) {
+  OSP_DCHECK_EQ(config.network_config.size(), 1);
+  network_interface_ = config.network_config[0].interface.index;
+  const auto supported_address_families =
+      config.network_config[0].supported_address_families;
+
+  if (supported_address_families & Config::NetworkInfo::kUseIpV4Multicast) {
+    address_v4_ = config.network_config[0].interface.GetIpAddressV4();
+    OSP_DCHECK(address_v4_);
+  }
+
+  if (supported_address_families & Config::NetworkInfo::kUseIpV6Multicast) {
+    address_v6_ = config.network_config[0].interface.GetIpAddressV6();
+    OSP_DCHECK(address_v6_);
+  }
+
   if (config.enable_querying) {
-    querier_ = std::make_unique<QuerierImpl>(mdns_service_.get(), task_runner_);
+    querier_ =
+        std::make_unique<QuerierImpl>(mdns_service_.get(), task_runner_, *this);
   }
   if (config.enable_publication) {
     publisher_ = std::make_unique<PublisherImpl>(
-        mdns_service_.get(), reporting_client, task_runner_);
+        mdns_service_.get(), reporting_client, task_runner_, *this);
   }
 }
 

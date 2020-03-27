@@ -24,7 +24,7 @@ class DnsSdPublisher {
     // required to act on it.
     virtual void OnInstanceClaimed(
         const DnsSdInstanceRecord& requested_record,
-        const DnsSdInstanceRecord& claimed_record) = 0;
+        const DnsSdInstanceEndpoint& claimed_record) = 0;
   };
 
   virtual ~DnsSdPublisher() = default;
