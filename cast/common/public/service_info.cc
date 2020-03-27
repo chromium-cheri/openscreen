@@ -159,7 +159,7 @@ bool ServiceInfo::IsValid() const {
     return false;
   }
 
-  return v4_endpoint || v6_endpoint;
+  return port;
 }
 
 discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
@@ -184,29 +184,21 @@ discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
       !IsError(txt.SetValue(kModelNameId, service.model_name), &error);
   OSP_DCHECK(set_txt);
 
-  OSP_DCHECK(service.v4_endpoint || service.v6_endpoint);
-  if (service.v4_endpoint && service.v6_endpoint) {
-    return discovery::DnsSdInstanceRecord(instance_id, kCastV2ServiceId,
-                                          kCastV2DomainId, service.v4_endpoint,
-                                          service.v6_endpoint, std::move(txt));
-  } else {
-    const IPEndpoint& endpoint =
-        service.v4_endpoint ? service.v4_endpoint : service.v6_endpoint;
-    return discovery::DnsSdInstanceRecord(instance_id, kCastV2ServiceId,
-                                          kCastV2DomainId, endpoint,
-                                          std::move(txt));
-  }
+  return discovery::DnsSdInstanceRecord(instance_id, kCastV2ServiceId,
+                                        kCastV2DomainId, std::move(txt),
+                                        service.port);
 }
 
 ErrorOr<ServiceInfo> DnsSdRecordToServiceInfo(
-    const discovery::DnsSdInstanceRecord& instance) {
+    const discovery::DnsSdInstanceEndpoint& instance) {
   if (instance.service_id() != kCastV2ServiceId) {
     return Error::Code::kParameterInvalid;
   }
 
   ServiceInfo record;
-  record.v4_endpoint = instance.address_v4();
-  record.v6_endpoint = instance.address_v6();
+  record.v4_address = instance.address_v4();
+  record.v6_address = instance.address_v6();
+  record.port = instance.port();
 
   const auto& txt = instance.txt();
   std::string capabilities_base64;

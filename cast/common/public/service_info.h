@@ -8,6 +8,7 @@
 #include <memory>
 #include <string>
 
+#include "discovery/dnssd/public/dns_sd_instance_endpoint.h"
 #include "discovery/dnssd/public/dns_sd_instance_record.h"
 #include "platform/base/ip_address.h"
 
@@ -64,10 +65,15 @@ struct ServiceInfo {
   // Returns whether all fields of this ServiceInfo are valid.
   bool IsValid() const;
 
-  // Endpoints for the service. Present if an endpoint of this address type
-  // exists and empty otherwise.
-  IPEndpoint v4_endpoint;
-  IPEndpoint v6_endpoint;
+  // Addresses for the service. Present if an address of this address type
+  // exists and empty otherwise. When publishing a service instance, these
+  // values will be overridden based on |network_config| values provided in the
+  // discovery::Config object used to initialize discovery.
+  IPAddress v4_address;
+  IPAddress v6_address;
+
+  // Port at which this service can be reached.
+  uint16_t port;
 
   // A UUID for the Cast receiver. This should be a universally unique
   // identifier for the receiver, and should (but does not have to be) be stable
@@ -95,8 +101,8 @@ struct ServiceInfo {
 };
 
 inline bool operator==(const ServiceInfo& lhs, const ServiceInfo& rhs) {
-  return lhs.v4_endpoint == rhs.v4_endpoint &&
-         lhs.v6_endpoint == rhs.v6_endpoint && lhs.unique_id == rhs.unique_id &&
+  return lhs.v4_address == rhs.v4_address && lhs.v6_address == rhs.v6_address &&
+         lhs.port == rhs.port && lhs.unique_id == rhs.unique_id &&
          lhs.protocol_version == rhs.protocol_version &&
          lhs.capabilities == rhs.capabilities && lhs.status == rhs.status &&
          lhs.model_name == rhs.model_name &&
@@ -113,7 +119,7 @@ discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
     const ServiceInfo& service);
 
 ErrorOr<ServiceInfo> DnsSdRecordToServiceInfo(
-    const discovery::DnsSdInstanceRecord& service);
+    const discovery::DnsSdInstanceEndpoint& service);
 
 }  // namespace cast
 }  // namespace openscreen
