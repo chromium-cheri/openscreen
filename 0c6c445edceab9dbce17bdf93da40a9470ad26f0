@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "cd30018a_314ddf7e",
+        "filename": "cast/common/public/service_info.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-27T23:11:38Z",
+      "side": 1,
+      "message": "I\u0027ve split the port into a separate field as part of a parallel CL to make this clearer (and rebased this one on top). Also, I\u0027ve added comments",
+      "parentUuid": "ca971f4a_d555bee5",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c8d2d49_ca81b89f",
         "filename": "discovery/common/config.h",
         "patchSetId": 5
@@ -51,6 +69,24 @@
       "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e19b2551_e8092dc2",
+        "filename": "discovery/common/config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-27T23:11:38Z",
+      "side": 1,
+      "message": "Done\n\nPulled the existing MdnsService enum up a level to here :)",
+      "parentUuid": "7c8d2d49_ca81b89f",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -109,6 +145,30 @@
       "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78f97978_43575a50",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-27T23:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da0e788c_0a3c39bb",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 1
+      },
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -201,6 +261,24 @@
     },
     {
       "key": {
+        "uuid": "8a89edab_d8f3e1ad",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-27T23:11:38Z",
+      "side": 1,
+      "message": "For now, I will proceed with inheritance and address all other comments. If either of you would like me to change to aggregation or would like names changed, I will address it as those comments come up",
+      "parentUuid": "8cf5f02f_a0a52d91",
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f0cc116_5b9945a4",
         "filename": "discovery/public/dns_sd_service_watcher.h",
         "patchSetId": 5
@@ -221,6 +299,30 @@
       "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2c866fa_9c93c55e",
+        "filename": "discovery/public/dns_sd_service_watcher.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-27T23:11:38Z",
+      "side": 1,
+      "message": "\u003e You can see a way to combine hashes in ComputeDomainNameSubhashes in mdsn_writer\n\nDone. Put up a parallel CL to split this logic into a separate file and rebasing this CL on top of it\n\n\u003e Or you can use absl::hash instead of EndpointKeyHash\n\nUnfortunately because this is embedder-exposed, abseil can\u0027t be used. \n\n\u003e Also, I was under impression that std::hash works for pairs and tuples automatically if they consist of hashable types\n\nValidated again to confirm that this is needed. Unfortunately it is",
+      "parentUuid": "7f0cc116_5b9945a4",
+      "range": {
+        "startLine": 133,
+        "startChar": 13,
+        "endLine": 134,
+        "endChar": 60
+      },
+      "revId": "0c6c445edceab9dbce17bdf93da40a9470ad26f0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
