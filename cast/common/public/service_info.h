@@ -8,6 +8,7 @@
 #include <memory>
 #include <string>
 
+#include "discovery/dnssd/public/dns_sd_instance_endpoint.h"
 #include "discovery/dnssd/public/dns_sd_instance_record.h"
 #include "platform/base/ip_address.h"
 
@@ -65,7 +66,9 @@ struct ServiceInfo {
   bool IsValid() const;
 
   // Addresses for the service. Present if an address of this address type
-  // exists and empty otherwise.
+  // exists and empty otherwise. When publishing a service instance, these
+  // values will be overridden based on |network_config| values provided in the
+  // discovery::Config object used to initialize discovery.
   IPAddress v4_address;
   IPAddress v6_address;
 
@@ -116,7 +119,7 @@ discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
     const ServiceInfo& service);
 
 ErrorOr<ServiceInfo> DnsSdRecordToServiceInfo(
-    const discovery::DnsSdInstanceRecord& service);
+    const discovery::DnsSdInstanceEndpoint& service);
 
 }  // namespace cast
 }  // namespace openscreen

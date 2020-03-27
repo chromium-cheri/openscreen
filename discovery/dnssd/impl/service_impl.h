@@ -7,6 +7,7 @@
 
 #include <memory>
 
+#include "discovery/dnssd/impl/network_config.h"
 #include "discovery/dnssd/impl/publisher_impl.h"
 #include "discovery/dnssd/impl/querier_impl.h"
 #include "discovery/dnssd/public/dns_sd_service.h"
@@ -20,7 +21,7 @@ namespace discovery {
 
 class MdnsService;
 
-class ServiceImpl final : public DnsSdService {
+class ServiceImpl final : public DnsSdService, public NetworkConfig {
  public:
   ServiceImpl(TaskRunner* task_runner,
               ReportingClient* reporting_client,
@@ -31,6 +32,13 @@ class ServiceImpl final : public DnsSdService {
   DnsSdQuerier* GetQuerier() override { return querier_.get(); }
   DnsSdPublisher* GetPublisher() override { return publisher_.get(); }
 
+  // NetworkConfig overrides.
+  NetworkInterfaceIndex network_interface() const override {
+    return network_interface_;
+  }
+  const IPAddress& address_v4() const override { return address_v4_; }
+  const IPAddress& address_v6() const override { return address_v6_; }
+
  private:
   TaskRunner* const task_runner_;
 
@@ -38,6 +46,10 @@ class ServiceImpl final : public DnsSdService {
 
   std::unique_ptr<QuerierImpl> querier_;
   std::unique_ptr<PublisherImpl> publisher_;
+
+  NetworkInterfaceIndex network_interface_;
+  IPAddress address_v4_;
+  IPAddress address_v6_;
 };
 
 }  // namespace discovery
