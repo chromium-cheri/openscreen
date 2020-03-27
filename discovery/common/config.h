@@ -12,12 +12,27 @@ namespace discovery {
 
 // This struct provides parameters needed to initialize the discovery pipeline.
 struct Config {
+  struct NetworkInfo {
+    enum SupportedNetworkAddressFamily : uint8_t {
+      kNoAddressFamily = 0,
+      kUseIpV4Multicast = 0x01 << 0,
+      kUseIpV6Multicast = 0x01 << 1
+    };
+
+    // Network Interface on which discovery should be run.
+    InterfaceInfo interface;
+
+    // Addresses on which the service associated with this interface is running.
+    SupportedNetworkAddressFamily supported_address_families;
+  };
+
   /*****************************************
    * Networking Settings
    *****************************************/
 
-  // Network Interface on which mDNS should be run.
-  InterfaceInfo interface;
+  // Interfaces on which services should be published, and on which discovery
+  // should listen for announced service instances.
+  std::vector<NetworkInfo> network_config;
 
   /*****************************************
    * Publisher Settings
@@ -40,8 +55,6 @@ struct Config {
 
   // Number of times new mDNS records should be announced, using an exponential
   // back off. -1 signifies that there should be no maximum.
-  // NOTE: This is expected to be -1 in all production scenarios and only be a
-  // different value during testing.
   int new_query_announcement_count = -1;
 
   // Limit on the size to which the mDNS Querier Cache may grow. This is used to
@@ -49,6 +62,20 @@ struct Config {
   // used by mDNS to grow in an unbounded fashion.
   int querier_max_records_cached = 1024;
 };
+
+inline Config::NetworkInfo::SupportedNetworkAddressFamily operator&(
+    Config::NetworkInfo::SupportedNetworkAddressFamily lhs,
+    Config::NetworkInfo::SupportedNetworkAddressFamily rhs) {
+  return static_cast<Config::NetworkInfo::SupportedNetworkAddressFamily>(
+      static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
+}
+
+inline Config::NetworkInfo::SupportedNetworkAddressFamily operator|(
+    Config::NetworkInfo::SupportedNetworkAddressFamily lhs,
+    Config::NetworkInfo::SupportedNetworkAddressFamily rhs) {
+  return static_cast<Config::NetworkInfo::SupportedNetworkAddressFamily>(
+      static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs));
+}
 
 }  // namespace discovery
 }  // namespace openscreen

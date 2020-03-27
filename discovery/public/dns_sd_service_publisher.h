@@ -72,7 +72,7 @@ class DnsSdServicePublisher : public DnsSdPublisher::Client {
   // Embedders who care about the instance id with which the service was
   // published may override this method.
   void OnInstanceClaimed(const DnsSdInstanceRecord& requested_record,
-                         const DnsSdInstanceRecord& claimed_record) {
+                         const DnsSdInstanceEndpoint& claimed_record) override {
     OSP_DVLOG << "Instance ID '" << claimed_record.instance_id()
               << "' claimed for requested ID '"
               << requested_record.instance_id() << "'";

@@ -11,6 +11,7 @@
 #include "absl/strings/str_join.h"
 #include "absl/strings/str_split.h"
 #include "absl/types/optional.h"
+#include "discovery/dnssd/testing/fake_network_config.h"
 #include "discovery/mdns/mdns_records.h"
 #include "discovery/mdns/testing/mdns_test_util.h"
 #include "gmock/gmock.h"
@@ -25,9 +26,9 @@ namespace {
 
 class MockCallback : public DnsSdQuerier::Callback {
  public:
-  MOCK_METHOD1(OnInstanceCreated, void(const DnsSdInstanceRecord&));
-  MOCK_METHOD1(OnInstanceUpdated, void(const DnsSdInstanceRecord&));
-  MOCK_METHOD1(OnInstanceDeleted, void(const DnsSdInstanceRecord&));
+  MOCK_METHOD1(OnInstanceCreated, void(const DnsSdInstanceEndpoint&));
+  MOCK_METHOD1(OnInstanceUpdated, void(const DnsSdInstanceEndpoint&));
+  MOCK_METHOD1(OnInstanceDeleted, void(const DnsSdInstanceEndpoint&));
 };
 
 class MockMdnsService : public MdnsService {
@@ -127,7 +128,7 @@ class DnsDataAccessor {
 class QuerierImplTesting : public QuerierImpl {
  public:
   QuerierImplTesting()
-      : QuerierImpl(&mock_service_, &task_runner_),
+      : QuerierImpl(&mock_service_, &task_runner_, network_config_),
         clock_(Clock::now()),
         task_runner_(&clock_) {}
 
@@ -137,7 +138,10 @@ class QuerierImplTesting : public QuerierImpl {
                                 const std::string& service,
                                 const std::string& domain) {
     InstanceKey key{instance, service, domain};
-    auto it = received_records_.emplace(key, DnsData(key)).first;
+    auto it =
+        received_records_
+            .emplace(key, DnsData(key, network_config_.network_interface()))
+            .first;
     return DnsDataAccessor(&it->second);
   }
 
@@ -155,6 +159,7 @@ class QuerierImplTesting : public QuerierImpl {
  private:
   FakeClock clock_;
   FakeTaskRunner task_runner_;
+  FakeNetworkConfig network_config_;
   StrictMock<MockMdnsService> mock_service_;
 };
 
