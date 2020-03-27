@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "44adbc31_e24b4d5f",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-27T20:38:50Z",
+      "side": 1,
+      "message": "this will always create a truncated query even if it doesn\u0027t end up emplacing anything. I suggest using find by src instead. same for the emplace call above.",
+      "range": {
+        "startLine": 346,
+        "startChar": 13,
+        "endLine": 347,
+        "endChar": 59
+      },
+      "revId": "6dd440002b04e6a90c0e16d19fb2b1dd670b87e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aaab5183_e9ab9327",
         "filename": "discovery/mdns/mdns_responder.h",
         "patchSetId": 5
@@ -13,6 +36,30 @@
       "writtenOn": "2020-03-17T23:06:54Z",
       "side": 1,
       "message": "A follow-up CL will introduce size constraints on this map similar to the ones being introduced on the MdnsQuerier cache in parallel CL",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 75
+      },
+      "revId": "6dd440002b04e6a90c0e16d19fb2b1dd670b87e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d59d1df_48b11dfc",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-03-27T20:38:50Z",
+      "side": 1,
+      "message": "This definitely needs it. Otherwise, a carefully crafted truncated query that never sends the last packet with TC not set can cause out of memory.",
+      "parentUuid": "aaab5183_e9ab9327",
       "range": {
         "startLine": 136,
         "startChar": 2,
