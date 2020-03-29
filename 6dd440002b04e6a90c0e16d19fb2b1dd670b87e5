@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74915d7e_d4570930",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-29T20:30:25Z",
+      "side": 1,
+      "message": "I went this approach to avoid the extra lookup for a find call.\n\nUpdated to instead emplace an empty unique_ptr then swap this new one in if it\u0027s created. This way it avoids the extra lookup and the extra creation. WDYT?",
+      "parentUuid": "44adbc31_e24b4d5f",
+      "range": {
+        "startLine": 346,
+        "startChar": 13,
+        "endLine": 347,
+        "endChar": 59
+      },
+      "revId": "6dd440002b04e6a90c0e16d19fb2b1dd670b87e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aaab5183_e9ab9327",
         "filename": "discovery/mdns/mdns_responder.h",
         "patchSetId": 5
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "This definitely needs it. Otherwise, a carefully crafted truncated query that never sends the last packet with TC not set can cause out of memory.",
       "parentUuid": "aaab5183_e9ab9327",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 75
+      },
+      "revId": "6dd440002b04e6a90c0e16d19fb2b1dd670b87e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57b08f40_a16eff53",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-03-29T20:30:25Z",
+      "side": 1,
+      "message": "+1. Adding it here just to be safe - don\u0027t want it to fall through the cracks as I\u0027m starting up new projects",
+      "parentUuid": "0d59d1df_48b11dfc",
       "range": {
         "startLine": 136,
         "startChar": 2,
