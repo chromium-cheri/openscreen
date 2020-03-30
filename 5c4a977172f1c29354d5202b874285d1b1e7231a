@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de345260_12985680",
+        "filename": "build/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-30T20:28:32Z",
+      "side": 1,
+      "message": "It looks like this is to find a private key .der file and read it off the disk.  \n\nIt\u0027s a little awkward to bake in paths to the binary with a preprocessor macro, because it means that the binary will only run successfully in one path.\n\nWhat about converting the .der to a .cc file so it can be linked into the binary?  Or failing that, locating the .der with a commandline flag?",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc87b743_c1564061",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-30T20:28:32Z",
+      "side": 1,
+      "message": "Can you add some class level documentation?  What are the responsibilities of this class?",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bcd4c54_1b482eb2",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-30T20:28:32Z",
+      "side": 1,
+      "message": "Can receivers be passed by const ref?",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "185a5cdb_d9aada64",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-30T20:28:32Z",
+      "side": 1,
+      "message": "The name of this API is \"Receivers\", but it takes a single session.\nShould it be just OnDestoyed to parallel On{Connected,Error,Negotiated}?",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "005e1d31_51a42add",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-30T20:28:32Z",
+      "side": 1,
+      "message": "Side comment: Name conflicts like this one are why a client interface for Foo is often OnFooError instead of just OnError.  However this doesn\u0027t feel like a pervasive problem that requires going through and renaming a bunch of stuff.",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a2e08_862e436e",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-30T20:28:32Z",
+      "side": 1,
+      "message": "Nit on documentation: does this agent support a single sender connection and a single streaming session?  Maybe clarify.",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
