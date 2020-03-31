@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a963c72_26b1dbaa",
+        "filename": "build/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-03-31T01:41:52Z",
+      "side": 1,
+      "message": "I\u0027ll have to give this some more thought, since it\u0027s a binary string due to being in DER format.",
+      "parentUuid": "de345260_12985680",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc87b743_c1564061",
         "filename": "cast/standalone_receiver/cast_agent.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28629bc1_4e96b2af",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-03-31T01:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc87b743_c1564061",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1bb2e0cb_69c6c73e",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-03-31T01:41:52Z",
+      "side": 1,
+      "message": "We could, but the challenge here is that the ReceiverSession doesn\u0027t care about the configuration after it is constructed, and the video and audio receivers are dumb pointers since the session manages their lifetime. We would have to have the ReceiverSession keep the configurations alive, even though it doesn\u0027t care.",
+      "parentUuid": "8bcd4c54_1b482eb2",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "185a5cdb_d9aada64",
         "filename": "cast/standalone_receiver/cast_agent.h",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2020-03-30T20:28:32Z",
       "side": 1,
       "message": "The name of this API is \"Receivers\", but it takes a single session.\nShould it be just OnDestoyed to parallel On{Connected,Error,Negotiated}?",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17567d58_82d36d35",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-03-31T01:41:52Z",
+      "side": 1,
+      "message": "The session is not destroyed, just the audio and video receivers for that session. The client should know to throw away the audio and video recievers for that session, and wait for a new ConfiguredRecievers object on negotiation.\n\nDo you think this needs different naming?",
+      "parentUuid": "185a5cdb_d9aada64",
       "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -101,6 +173,24 @@
       "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0e9f303_4ef5f011",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-03-31T01:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c0a2e08_862e436e",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
