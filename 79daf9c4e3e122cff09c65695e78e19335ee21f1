@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a078e3c6_76d7fa5a",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Which certificate is this for?  If it\u0027s the TLS self-signed cert, that has a maximum lifetime of 4 days (enforced by the sender).  See cast_auth_util.cc:34 in Chrome.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec825e1c_c2e1b356",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Can you elaborate what key is stored in this file?  Is this just a self-signed key for TLS?",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18dc89c7_f2e739b5",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Nit: I would just drop the part after \"source control\" as common implementations the keys are not accessible to source code at all (i.e. they are in a TEE).",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfd6c155_7521d735",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "See comments in earlier patchset about the perils of hard coding paths in source code.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ea78962_6d62e6de",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "If you are converting to std::string inside anyway, maybe just pass as const std::string\u0026",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db1e07df_dc99cd23",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "This is allocating space for the entire file on the stack, which is probably fine if the file is small.  Usually I\u0027ve seen code like this give the caller the choice to stack or heap allocate by passing an output param.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b72160c8_2992c1da",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "How about adding e.g. std::string IPEndpoint::ToString()? Just because that makes it more obvious how to do a string conversion, and makes the code here much easier to read.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a1616c5_2938d244",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "- Use an explicit type here for readabilty.\n- Prefer to name this private_key, and the variable above private_key_data or some such.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6543b7d9_17f2256b",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "If we are reading a hard coded private key for a standalone demo, it might be simpler just to CHECK-fail on error versus handling code for all of the invalid-key cases.  I don\u0027t feel strongly though as the total code size isn\u0027t that different.\n\nMaybe if we had an OSP_CHECK_RESULT macro that would let you write:\n\nFoo foo \u003d OSP_CHECK_RESULT(SomeFunction())\n\nWhere SomeFunction returns ErrorOr\u003cFoo\u003e, and the macro would CHECK-fail if it returns an error.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27fd2067_b1e7ab18",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Ditto about not using auto here.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d95d009_1da716a8",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Where is this declared?  \"CreateCertificate\" is a little generic as Cast deals with certificates of multiple types.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b29d8b1_3d8f1228",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2172f52_a56a1e73",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "What public key is sent by TLS if not the public key for private_key?",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ed169ef_9cc9f8d7",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Nit: I am okay with a ternary expression here.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8079eae_38ff75ea",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "+1",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec182a52_1e72fcbc",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Nit: TLS",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a13f2ca_933fa375",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Is this being run in a thread other than the current thread?  If so do you need to move the factory construction into the task?",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80586302_2d45b9f0",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "OSP_DCHECK(factory)",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ed04063_7175bdaf",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Can you be more specific?  Where is OnNegotiated actually handled?",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "656dc015_dac00296",
+        "filename": "cast/standalone_receiver/cast_socket_message_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "But you\u0027re assigning it to nullptr?  Did you mean to write CHECK(client_ \u003d\u003d this)?",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a014213_62287eb6",
+        "filename": "cast/standalone_receiver/cast_socket_message_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "Now I\u0027m a little confused by the comment above.",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379092aa_3858ce97",
+        "filename": "cast/standalone_receiver/cast_socket_message_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "I like this nice clean implementation :-)",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4cda307_f29c5cf0",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-03-31T00:03:45Z",
+      "side": 1,
+      "message": "I kind of prefer having ReceiverSession own the MessagePort.\n\nIt might be okay to think of a MessagePort as a wrapper around the underlying communication mechanism (has-a vs. is-a).  That way a caller can own a MessagePort and doesn\u0027t have to worry about its lifetime.   The MessagePort becomes closed when the transport goes away (the MP would have to observe the CastSocket to know when to close itself).\n\nIs that a big change from current behavior? Would it simplify the client-handling code in CastMessagePort?",
+      "revId": "79daf9c4e3e122cff09c65695e78e19335ee21f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
