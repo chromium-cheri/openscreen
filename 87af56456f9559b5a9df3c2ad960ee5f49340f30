@@ -45,6 +45,30 @@
       "revId": "87af56456f9559b5a9df3c2ad960ee5f49340f30",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a64bea96_21b90153",
+        "filename": "discovery/dnssd/impl/service_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-01T17:17:33Z",
+      "side": 1,
+      "message": "It\u0027s not guaranteed, but this is just a temporary fix to keep the code compiling. Regardless, it would crash on the DCHECK below\n\nIn the follow up CL, this will be removed, as one instance of this class will be created for each network interface",
+      "parentUuid": "e8c62ff1_36919ceb",
+      "range": {
+        "startLine": 33,
+        "startChar": 17,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "87af56456f9559b5a9df3c2ad960ee5f49340f30",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
