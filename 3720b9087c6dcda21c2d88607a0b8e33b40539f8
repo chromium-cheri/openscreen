@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2ddca4c_2d8b16e8",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "Super nit: sometimes it\u0027s nice to write these constants out as 3 * 24 * 60 * 60 (the compiler will do the math).  So if it ever changes to a different number days, it\u0027s easy to fix.",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea1e0d32_bd84352f",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "Since it\u0027s self-signed, it\u0027s also possible to generate it on the fly.  But that\u0027s expensive, so good idea to use a pre-generated key.\n\nThe self-signed certs (whether pre-generated or created on the fly) aren\u0027t offering much in the way of security BTW.",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f0810b_24973f45",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "I\u0027m still a little confused as to what this function does.  It says it creates a self-signed certificate, but passes in a pre-generated private key.   What is |private_key| used for?\n\nDo you mind documenting CreateSelfSignedX509Certificate more completely?",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2083ae9_577748eb",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "Normally unprivileged processes can\u0027t bind ports under 1024 on *nix systems.\n\nDid you mean to bind the default Cast port: 8009\n\nOr you could pick a different port \u003e 1024 for the demo to not conflict with other Cast receivers on the same interface?",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "233c2ebe_5747171f",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "Please move the LHS out of the ternary, e.g.\n\nreceive_endpoint.address \u003d interface.GetIpAddressV4() ? ...",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd19ddc_3e58ec54",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "Nit: Prefer to pass the interface type (TaskRunner) to simplify dependency injection for tests.",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

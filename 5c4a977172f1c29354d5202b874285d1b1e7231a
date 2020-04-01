@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b97117de_eb490c6a",
+        "filename": "build/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "Reading a binary file off of disk shouldn\u0027t be a major issue...",
+      "parentUuid": "3a963c72_26b1dbaa",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc87b743_c1564061",
         "filename": "cast/standalone_receiver/cast_agent.h",
         "patchSetId": 4
@@ -107,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "a35b6947_e4c203e6",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "Ok, seems like the right semantics here are for the caller to move the ConfiguredReceivers value into |receivers| since the caller doesn\u0027t need it any more.",
+      "parentUuid": "1bb2e0cb_69c6c73e",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "185a5cdb_d9aada64",
         "filename": "cast/standalone_receiver/cast_agent.h",
         "patchSetId": 4
@@ -136,6 +172,24 @@
       "side": 1,
       "message": "The session is not destroyed, just the audio and video receivers for that session. The client should know to throw away the audio and video recievers for that session, and wait for a new ConfiguredRecievers object on negotiation.\n\nDo you think this needs different naming?",
       "parentUuid": "185a5cdb_d9aada64",
+      "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a0d8eed_2b633316",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-01T19:58:22Z",
+      "side": 1,
+      "message": "I think \"receivers\" is ambiguous in this context which prompted my comment.  How about OnConfiguredReceiversDestroyed?",
+      "parentUuid": "17567d58_82d36d35",
       "revId": "5c4a977172f1c29354d5202b874285d1b1e7231a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
