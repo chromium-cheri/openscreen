@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "70150896_ad1bf872",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-01T22:19:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2ddca4c_2d8b16e8",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea1e0d32_bd84352f",
         "filename": "cast/standalone_receiver/cast_agent.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "545b747b_0d47d610",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-01T22:19:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea1e0d32_bd84352f",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f18e0090_68dbe8c0",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-01T22:19:37Z",
+      "side": 1,
+      "message": "Hmmm, I added some more documentation. The certificate is generated from the private key.",
+      "parentUuid": "35f0810b_24973f45",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2083ae9_577748eb",
         "filename": "cast/standalone_receiver/cast_agent.cc",
         "patchSetId": 6
@@ -67,6 +121,24 @@
       "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71af6555_9e940447",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-01T22:19:37Z",
+      "side": 1,
+      "message": "Sounds good, I\u0027ll go with 8010.",
+      "parentUuid": "b2083ae9_577748eb",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a1ae271a_6f4edcd5",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-01T22:19:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "233c2ebe_5747171f",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edd19ddc_3e58ec54",
         "filename": "cast/standalone_receiver/cast_agent.h",
         "patchSetId": 6
@@ -101,6 +191,24 @@
       "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e02438f_a9831388",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-01T22:19:37Z",
+      "side": 1,
+      "message": "The StreamingPlaybackController calls the RequestStopSoon on the TaskRunnerImpl class, which is why we are passing this around.\n\nI think the right fix is to change the StreamingPlaybackController to pass back a notification that it wants to teardown, and have the main class actually handle the task runner stopping.",
+      "parentUuid": "edd19ddc_3e58ec54",
+      "revId": "3720b9087c6dcda21c2d88607a0b8e33b40539f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
