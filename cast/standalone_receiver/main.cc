@@ -55,22 +55,26 @@ ErrorOr<std::unique_ptr<DiscoveryState>> StartDiscovery(
     const InterfaceInfo& interface) {
   discovery::Config config;
 
-  config.interface = interface;
+  discovery::Config::NetworkInfo::AddressFamilies supported_address_families =
+      discovery::Config::NetworkInfo::kNoAddressFamily;
+  if (interface.GetIpAddressV4()) {
+    supported_address_families |= discovery::Config::NetworkInfo::kUseIpV4;
+  }
+  if (interface.GetIpAddressV6()) {
+    supported_address_families |= discovery::Config::NetworkInfo::kUseIpV6;
+  }
+  OSP_CHECK(supported_address_families !=
+            discovery::Config::NetworkInfo::kNoAddressFamily)
+      << "No address families supported by the selected interface";
+  config.network_info.push_back({interface, supported_address_families});
 
   auto state = std::make_unique<DiscoveryState>();
   state->reporting_client = std::make_unique<DiscoveryReportingClient>();
   state->service = discovery::CreateDnsSdService(
       task_runner, state->reporting_client.get(), config);
 
-  // TODO(jophba): update after ServiceInfo update patch lands.
   ServiceInfo info;
   info.port = kCastTlsPort;
-  if (interface.GetIpAddressV4()) {
-    info.v4_address = interface.GetIpAddressV4();
-  }
-  if (interface.GetIpAddressV6()) {
-    info.v6_address = interface.GetIpAddressV6();
-  }
 
   OSP_CHECK(std::any_of(interface.hardware_address.begin(),
                         interface.hardware_address.end(),

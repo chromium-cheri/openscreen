@@ -159,11 +159,10 @@ bool ServiceInfo::IsValid() const {
     return false;
   }
 
-  return port && (v4_address || v6_address);
+  return port;
 }
 
-discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
-    const ServiceInfo& service) {
+discovery::DnsSdInstance ServiceInfoToDnsSdRecord(const ServiceInfo& service) {
   OSP_DCHECK(discovery::IsServiceValid(kCastV2ServiceId));
   OSP_DCHECK(discovery::IsDomainValid(kCastV2DomainId));
 
@@ -184,33 +183,21 @@ discovery::DnsSdInstanceRecord ServiceInfoToDnsSdRecord(
       !IsError(txt.SetValue(kModelNameId, service.model_name), &error);
   OSP_DCHECK(set_txt);
 
-  OSP_DCHECK(service.port);
-  OSP_DCHECK(service.v4_address || service.v6_address);
-  if (service.v4_address && service.v6_address) {
-    return discovery::DnsSdInstanceRecord(
-        instance_id, kCastV2ServiceId, kCastV2DomainId,
-        {service.v4_address, service.port}, {service.v6_address, service.port},
-        std::move(txt));
-  } else {
-    const IPAddress& address =
-        service.v4_address ? service.v4_address : service.v6_address;
-    return discovery::DnsSdInstanceRecord(
-        instance_id, kCastV2ServiceId, kCastV2DomainId, {address, service.port},
-        std::move(txt));
-  }
+  return discovery::DnsSdInstance(instance_id, kCastV2ServiceId,
+                                  kCastV2DomainId, std::move(txt),
+                                  service.port);
 }
 
 ErrorOr<ServiceInfo> DnsSdRecordToServiceInfo(
-    const discovery::DnsSdInstanceRecord& instance) {
+    const discovery::DnsSdInstanceEndpoint& instance) {
   if (instance.service_id() != kCastV2ServiceId) {
     return Error::Code::kParameterInvalid;
   }
 
   ServiceInfo record;
-  record.v4_address = instance.address_v4().address;
-  record.v6_address = instance.address_v6().address;
-  record.port = instance.address_v4().port ? instance.address_v4().port
-                                           : instance.address_v6().port;
+  record.v4_address = instance.address_v4();
+  record.v6_address = instance.address_v6();
+  record.port = instance.port();
 
   const auto& txt = instance.txt();
   std::string capabilities_base64;
