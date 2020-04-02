@@ -46,6 +46,30 @@
       "revId": "d2a7de4d9ecf988bf34adf985abef13b749b5e44",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e3a5eb1_ffd38ae9",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1336186
+      },
+      "writtenOn": "2020-04-02T20:33:32Z",
+      "side": 1,
+      "message": "I think of this code as at least somewhat exposed to the network. Plus a future limitation on the number of truncated queries doesn\u0027t really help with the size of the single query.\nI would prefer deduping here as a more correct way, but a hard limit on number of entries would work as well (i.e. stop adding them after a certain number has been accumulated).\nDuplicates might happen even with a valid client due packet loss in conjunction with how queries are resent after 1, 2, 4, 8 etc. seconds.",
+      "parentUuid": "123717c0_f405aaa8",
+      "range": {
+        "startLine": 314,
+        "startChar": 2,
+        "endLine": 314,
+        "endChar": 23
+      },
+      "revId": "d2a7de4d9ecf988bf34adf985abef13b749b5e44",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
