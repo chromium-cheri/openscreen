@@ -22,6 +22,30 @@
       "revId": "d2a7de4d9ecf988bf34adf985abef13b749b5e44",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "123717c0_f405aaa8",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-02T20:26:51Z",
+      "side": 1,
+      "message": "If the same answer is sent multiple times, it\u0027s possible that it would get inserted here multiple times. That shouldn\u0027t affect the results though - and given how small the known_answers_ list is expected to be, using a vector with duplicated should still be faster than using a set to dedup them\n\nWDYT?",
+      "parentUuid": "ae87b16a_6c5aff52",
+      "range": {
+        "startLine": 314,
+        "startChar": 2,
+        "endLine": 314,
+        "endChar": 23
+      },
+      "revId": "d2a7de4d9ecf988bf34adf985abef13b749b5e44",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
