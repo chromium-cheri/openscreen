@@ -70,6 +70,30 @@
       "revId": "d2a7de4d9ecf988bf34adf985abef13b749b5e44",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69deea8a_4e741e4d",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-03T02:42:34Z",
+      "side": 1,
+      "message": "\u003e I would prefer deduping here as a more correct way, but a hard limit on number of entries would work as well (i.e. stop adding them after a certain number has been accumulated).\n\nChanged to a soft limit of 256 (May add more than 256, but sends after processing the message) and plumbed this through to the config file. WDYT?",
+      "parentUuid": "9e3a5eb1_ffd38ae9",
+      "range": {
+        "startLine": 314,
+        "startChar": 2,
+        "endLine": 314,
+        "endChar": 23
+      },
+      "revId": "d2a7de4d9ecf988bf34adf985abef13b749b5e44",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
