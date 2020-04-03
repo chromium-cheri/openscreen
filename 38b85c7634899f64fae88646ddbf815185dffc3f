@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ac99d71_8d122fb5",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-03T21:08:37Z",
+      "side": 1,
+      "message": "DnsSdInstance?",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e26cb74_7b70307e",
+        "filename": "discovery/dnssd/impl/network_interface_config.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-03T21:08:37Z",
+      "side": 1,
+      "message": "s/false/empty/",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6113f4ef_61a8caf3",
+        "filename": "discovery/dnssd/impl/network_interface_config.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-03T21:08:37Z",
+      "side": 1,
+      "message": "Does this need to be private?",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5775cc22_9eefb890",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-03T21:08:37Z",
+      "side": 1,
+      "message": "Can this be passed by const ref instead?",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a23eca_b19a46aa",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-03T21:08:37Z",
+      "side": 1,
+      "message": "Or:\n\nconst IPAddress\u0026 single_address \u003d network_config-\u003eGetAddress();\nif (single_address) {\n ...\n} else {\n ...\n}",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25b8d9ea_7e4f8a1c",
+        "filename": "discovery/dnssd/testing/fake_network_interface_config.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-04-03T21:08:37Z",
+      "side": 1,
+      "message": "Is this class necessary, or can tests just construct a NetworkInterfaceConfig with specific values?",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
