@@ -301,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "6dbf8efd_bc24301e",
+        "filename": "util/url.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-03T15:41:01Z",
+      "side": 1,
+      "message": "Ack\n\nNot for this CL, but it might be worth writing our own simple optional implementation. Even a simple implementation like\n\n\u003e  template\u003ctypename T\u003e\n\u003e  class optional {\n\u003e    void set_value(T type);\n\u003e    T\u0026 value() const;\n\u003e    bool has_value() const;\n\u003e  }\n\nwould fix a problem that\u0027s come up in a lot of CLs",
+      "parentUuid": "c29327cd_b777f3e4",
+      "revId": "ec66cb6f672492fd1476a1426d2084902e5fd062",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a16c9ea6_b4b59f4f",
         "filename": "util/url.h",
         "patchSetId": 2
@@ -336,6 +354,30 @@
       "side": 1,
       "message": "The style guide wants unsigned only if you need wrapping behavior or to ease STL integration.",
       "parentUuid": "a16c9ea6_b4b59f4f",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 9
+      },
+      "revId": "ec66cb6f672492fd1476a1426d2084902e5fd062",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "828315c7_676a8623",
+        "filename": "util/url.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-03T15:41:01Z",
+      "side": 1,
+      "message": "Ack\n\nWe should probably decide on a standard for our library. There are a lot of places where uint16_t is used for a port number, and probably others where an int / int32 / etc is used",
+      "parentUuid": "2c1709f2_8e564ac3",
       "range": {
         "startLine": 52,
         "startChar": 2,
