@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "91d4fd2f_8d9a76d7",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-06T15:31:13Z",
+      "side": 1,
+      "message": "Done here and below. Good catch - I missed this one",
+      "parentUuid": "2ac99d71_8d122fb5",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e26cb74_7b70307e",
         "filename": "discovery/dnssd/impl/network_interface_config.h",
         "patchSetId": 11
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ad15d45c_776fe883",
+        "filename": "discovery/dnssd/impl/network_interface_config.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-06T15:31:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e26cb74_7b70307e",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6113f4ef_61a8caf3",
         "filename": "discovery/dnssd/impl/network_interface_config.h",
         "patchSetId": 11
@@ -47,6 +83,24 @@
       "writtenOn": "2020-04-03T21:08:37Z",
       "side": 1,
       "message": "Does this need to be private?",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da470d42_ae285613",
+        "filename": "discovery/dnssd/impl/network_interface_config.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-06T15:31:13Z",
+      "side": 1,
+      "message": "It needs to be private because there is no other way to set the below variables\nThis ctor only exists for use with the friend class which also has setters. If that class ends up being removed (per below thread) then this can be pulled out entirely",
+      "parentUuid": "6113f4ef_61a8caf3",
       "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "0ba923f7_cf723d45",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-06T15:31:13Z",
+      "side": 1,
+      "message": "Done here and below",
+      "parentUuid": "5775cc22_9eefb890",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62a23eca_b19a46aa",
         "filename": "discovery/dnssd/impl/publisher_impl.cc",
         "patchSetId": 11
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "738ddde7_7a4dd30e",
+        "filename": "discovery/dnssd/impl/publisher_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-06T15:31:13Z",
+      "side": 1,
+      "message": "This is a different check\n\n\u003e single_address\n\u003e \u003d\u003d network_config-\u003eHasAddressV4() || network_config-\u003eHasAddressV6()\n\u003e \u003d\u003d at least one present\n\nThe two here are for \"exactly one is present\" and \"exactly two are present\"",
+      "parentUuid": "62a23eca_b19a46aa",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25b8d9ea_7e4f8a1c",
         "filename": "discovery/dnssd/testing/fake_network_interface_config.h",
         "patchSetId": 11
@@ -98,6 +188,24 @@
       "writtenOn": "2020-04-03T21:08:37Z",
       "side": 1,
       "message": "Is this class necessary, or can tests just construct a NetworkInterfaceConfig with specific values?",
+      "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463d9cc2_a69f9846",
+        "filename": "discovery/dnssd/testing/fake_network_interface_config.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-06T15:31:13Z",
+      "side": 1,
+      "message": "IMHO it improves the readability of the Unit Tests - This way, the code shared between all tests can initialize shared variables (ie querier or publisher instances) and test-specific configurations can happen after in individual tests\n\nCan put out a follow-up CL to pull it out if you\u0027d prefer though",
+      "parentUuid": "25b8d9ea_7e4f8a1c",
       "revId": "38b85c7634899f64fae88646ddbf815185dffc3f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
