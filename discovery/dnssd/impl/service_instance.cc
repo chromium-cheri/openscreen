@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "discovery/dnssd/impl/service_impl.h"
+#include "discovery/dnssd/impl/service_instance.h"
 
 #include <utility>
 
@@ -13,31 +13,23 @@
 namespace openscreen {
 namespace discovery {
 
-// static
-SerialDeletePtr<DnsSdService> CreateDnsSdService(
-    TaskRunner* task_runner,
-    ReportingClient* reporting_client,
-    const Config& config) {
-  return SerialDeletePtr<DnsSdService>(
-      task_runner, new ServiceImpl(task_runner, reporting_client, config));
-}
-
-ServiceImpl::ServiceImpl(TaskRunner* task_runner,
-                         ReportingClient* reporting_client,
-                         const Config& config)
+ServiceInstance::ServiceInstance(TaskRunner* task_runner,
+                                 ReportingClient* reporting_client,
+                                 const Config& config,
+                                 const Config::NetworkInfo& network_info)
     : task_runner_(task_runner),
-      mdns_service_(MdnsService::Create(
-          task_runner,
-          reporting_client,
-          config,
-          config.network_info[0].interface.index,
-          config.network_info[0].supported_address_families)),
-      network_config_(config.network_info[0].interface.index,
-                      config.network_info[0].interface.GetIpAddressV4(),
-                      config.network_info[0].interface.GetIpAddressV6()) {
+      mdns_service_(
+          MdnsService::Create(task_runner,
+                              reporting_client,
+                              config,
+                              network_info.interface.index,
+                              network_info.supported_address_families)),
+      network_config_(network_info.interface.index,
+                      network_info.interface.GetIpAddressV4(),
+                      network_info.interface.GetIpAddressV6()) {
   OSP_DCHECK_EQ(config.network_info.size(), 1);
   const auto supported_address_families =
-      config.network_info[0].supported_address_families;
+      network_info.supported_address_families;
 
   OSP_DCHECK((supported_address_families & Config::NetworkInfo::kUseIpV4) |
              !network_config_.HasAddressV4());
@@ -54,7 +46,7 @@ ServiceImpl::ServiceImpl(TaskRunner* task_runner,
   }
 }
 
-ServiceImpl::~ServiceImpl() {
+ServiceInstance::~ServiceInstance() {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 }
 
