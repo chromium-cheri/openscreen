@@ -22,6 +22,7 @@
 #include "platform/impl/network_interface.h"
 #include "platform/impl/scoped_pipe.h"
 #include "util/logging.h"
+#include "util/stringprintf.h"
 
 namespace openscreen {
 
@@ -70,7 +71,12 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
 
   // Walk the |interfaces| linked list, creating the hierarchical structure.
   std::vector<InterfaceInfo> results;
+  int i = 0;
   for (ifaddrs* cur = interfaces; cur; cur = cur->ifa_next) {
+    OSP_LOG_WARN << "addr #" << i;
+    OSP_LOG_WARN << "  flags: " << cur->ifa_flags
+                 << " (running: " << (cur->ifa_flags & IFF_RUNNING) << ")";
+    ++i;
     // Skip: 1) interfaces that are down, 2) interfaces with no address
     // configured.
     if (!(IFF_RUNNING & cur->ifa_flags) || !cur->ifa_addr) {
@@ -80,11 +86,13 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
     // Look-up the InterfaceInfo entry by name. Auto-create a new one if none by
     // the current name exists in |results|.
     const std::string name = cur->ifa_name;
+    OSP_LOG_WARN << "  name: " << name;
     const auto it = std::find_if(
         results.begin(), results.end(),
         [&name](const InterfaceInfo& info) { return info.name == name; });
     InterfaceInfo* interface;
     if (it == results.end()) {
+      OSP_LOG_WARN << "  new interface";
       // Query for the interface media type and status. If not valid/active,
       // skip further processing. Note that "active" here means the media is
       // connected to the interface, which is different than the interface being
@@ -95,18 +103,26 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
       // ifmr.ifm_name string, and it will always be NUL terminated.
       memcpy(ifmr.ifm_name, name.data(),
              std::min(name.size(), sizeof(ifmr.ifm_name) - 1));
-      if (ioctl(ioctl_socket.get(), SIOCGIFMEDIA, &ifmr) < 0 ||
-          !((ifmr.ifm_status & IFM_AVALID) && (ifmr.ifm_status & IFM_ACTIVE))) {
+      if (ioctl(ioctl_socket.get(), SIOCGIFMEDIA, &ifmr) < 0) {
+        continue;
+      }
+      OSP_LOG_WARN << "  ifm_status: " << ifmr.ifm_status
+                   << " (valid: " << (ifmr.ifm_status & IFM_AVALID)
+                   << ", active: " << (ifmr.ifm_status & IFM_ACTIVE) << ")";
+      if (!((ifmr.ifm_status & IFM_AVALID) && (ifmr.ifm_status & IFM_ACTIVE))) {
         continue;  // Skip this interface since it's not valid or active.
       }
       InterfaceInfo::Type type = InterfaceInfo::Type::kOther;
       if (ifmr.ifm_current & IFM_IEEE80211) {
+        OSP_LOG_WARN << "  wifi";
         type = InterfaceInfo::Type::kWifi;
       }
       if (ifmr.ifm_current & IFM_ETHER) {
+        OSP_LOG_WARN << "  ethernet";
         type = InterfaceInfo::Type::kEthernet;
       }
       if (cur->ifa_flags & IFF_LOOPBACK) {
+        OSP_LOG_WARN << "  loopback";
         type = InterfaceInfo::Type::kLoopback;
       }
 
@@ -120,10 +136,14 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
       interface = &(results.back());
     } else {
       interface = &(*it);
+      OSP_LOG_WARN << "  extending interface of type: " << interface->type;
     }
 
     // Add another address to the list of addresses for the current interface.
     if (cur->ifa_addr->sa_family == AF_LINK) {  // Hardware ethernet address.
+      OSP_LOG_WARN << "  mac address: "
+                   << HexEncode(
+                          absl::Span<uint8_t>((uint8_t*)cur->ifa_addr, 6));
       auto* const addr_dl = reinterpret_cast<const sockaddr_dl*>(cur->ifa_addr);
       const caddr_t lladdr = LLADDR(addr_dl);
       static_assert(sizeof(lladdr) >= sizeof(interface->hardware_address),
@@ -143,6 +163,7 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
                      ->sin6_addr.s6_addr),
                sizeof(tmp));
       }
+      OSP_LOG_WARN << "  ipv6 address: " << ip;
       interface->addresses.emplace_back(ip, ToPrefixLength(tmp));
     } else if (cur->ifa_addr->sa_family == AF_INET) {  // Ipv4 address.
       auto* const addr_in = reinterpret_cast<const sockaddr_in*>(cur->ifa_addr);
@@ -156,6 +177,7 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
                      ->sin_addr.s_addr),
                sizeof(tmp));
       }
+      OSP_LOG_WARN << "  ipv4 address: " << ip;
       interface->addresses.emplace_back(ip, ToPrefixLength(tmp));
     }
   }
