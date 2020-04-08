@@ -250,5 +250,11 @@ config("sysroot_runtime_libraries") {
       ld_path = rebase_path(ld_path, root_build_dir)
       ldflags += [ "-L" + ld_path ]
     }
+
+    # The bots are pinned to an older version of Debian, and must be statically
+    # linked due to glib versioning issues.
+    if (sysroot_platform == "stretch") {
+      ldflags += [ "-static" ]
+    }
   }
 }
