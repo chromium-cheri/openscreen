@@ -255,17 +255,17 @@ class CastSocketE2ETest : public ::testing::Test {
  protected:
   IPAddress GetLoopbackV4Address() {
     absl::optional<InterfaceInfo> loopback = GetLoopbackInterfaceForTesting();
-    OSP_DCHECK(loopback);
+    OSP_CHECK(loopback);
     auto address = loopback->GetIpAddressV4();
-    OSP_DCHECK(address);
+    OSP_CHECK(address);
     return address;
   }
 
   IPAddress GetLoopbackV6Address() {
     absl::optional<InterfaceInfo> loopback = GetLoopbackInterfaceForTesting();
-    OSP_DCHECK(loopback);
+    OSP_CHECK(loopback);
     auto address = loopback->GetIpAddressV6();
-    OSP_DCHECK(address);
+    OSP_CHECK(address);
     return address;
   }
 
