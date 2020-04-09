@@ -121,7 +121,7 @@ discovery::Config GetConfigSettings() {
 
   // Get the loopback interface to run on.
   absl::optional<InterfaceInfo> loopback = GetLoopbackInterfaceForTesting();
-  OSP_DCHECK(loopback.has_value());
+  OSP_CHECK(loopback.has_value());
   discovery::Config::NetworkInfo::AddressFamilies address_families =
       discovery::Config::NetworkInfo::kUseIpV4 |
       discovery::Config::NetworkInfo::kUseIpV6;
