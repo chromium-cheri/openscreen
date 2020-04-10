@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "790ddcf9_2149d9c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "563f214c_999e103c",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a97ca8f_e3ad12fb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -39,6 +63,24 @@
       "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b28ed3_5c15dbac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a97ca8f_e3ad12fb",
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "f48633d9_87ef2d0d",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "It shouldn\u0027t be :) Each question is short (\"Send me records of a given type (a couple ints) and domain name (bounded size)\"). If there are multiple questions, it can just be split into multiple messages",
+      "parentUuid": "834753b3_d5198229",
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb9ba6c4_60f470f0",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 8
@@ -70,6 +130,24 @@
       "writtenOn": "2020-04-08T18:47:58Z",
       "side": 1,
       "message": "IMO, this would be more readable if structured as:\n\n  \nif (questions.empty())\n  if (new_query() \u0026\u0026 reached_max_truncated_queries)\n    return;\n  HandleMessageOfKnownAnswers();\n  return;\nif (is_truncated())\n  if (new_query() \u0026\u0026 reached_max_truncated_queries)\n    return;\n  HandleTruncatedQuery();\n  return;\n// Proceed to handle single-packet queries",
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22006b73_0483e078",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "It\u0027s actually structured this way because it would have to be:\n\n\u003e if (questions.empty() \u0026\u0026 !is_truncated()) {\n\u003e   ...\n\u003e   return;\n\u003e }\n\u003e if(is_truncated()) {\n\u003e   ...\n\u003e   return;\n\u003e }\n\nOpen to that if you find it more readable though. I\u0027ve also added a bunch of comments that I hope make it clearer too. WDYT?",
+      "parentUuid": "bb9ba6c4_60f470f0",
       "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "bdd98809_3582a86d",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "The emplace logic is used to prevent an extra lookup in truncated_queries_ (O(log(n) comparisons, each of which involve a bunch of checks). And the same truncated_queries_.end() check doesn\u0027t work with the emplace call.",
+      "parentUuid": "18e3554f_13ae9a02",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 24
+      },
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7303966_7f48a9ce",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 8
@@ -113,6 +215,24 @@
       "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8788360e_659710c6",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "The RFC says that the source should be used as the key to identify the question associated with the query. It\u0027s possible that they will later send more known answers, but at that point there will be no way to identify whether they are associated with the \"old\" query or the \"new\" one in many cases.\n\nBecause this is only an optimization on top of base mDNS functionality (that I suspect will only be used on networks with a LOT of chromecast devices), it is overkill to try and optimize for that one cast",
+      "parentUuid": "d7303966_7f48a9ce",
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "d1888d39_63b92cb8",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "Adding some comments to make this clearer. It\u0027s an optimization trick\n\ntruncated_queries_.emplace(...) returns std::pair\u003cwas_a_new_element_added, iterator_to_new_or_existing_element\u003e\nSo this part is \"A new element was added\" (line 414) and \"The new message has a question\" (Line 419\n\nAfter the previous line, the pointers have swapped. So the code ends up with\n422: iterator -\u003e old_query, query -\u003e new_query\n424: iterator -\u003e new_query, query -\u003e old_query\n425: query (now containing old_query) -\u003e send (and then let it get deleted)",
+      "parentUuid": "268beadb_83b2559d",
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55c1252a_46a43549",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 8
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "1dac2a14_f323171b",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "That - or that it\u0027s a normal message with no known answers or a non-truncated message.\nIn practice, the cases you describe should never happen (adding comments about this)\n\nTruncated messages should be pretty rare, and hitting the maximum number of them shouldn\u0027t happen unless a host on the network is an attacker or is somehow misbehaving (And in that case, we probably want to focus on \"Go Fast\" rather than \"use all optimizations we can\")",
+      "parentUuid": "55c1252a_46a43549",
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "353002e8_f0977449",
         "filename": "discovery/mdns/mdns_responder.h",
         "patchSetId": 8
@@ -164,6 +320,24 @@
       "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "080a7f00_3463beb7",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "353002e8_f0977449",
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +361,30 @@
       "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b30f05bf_7749e676",
+        "filename": "discovery/mdns/mdns_responder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-10T00:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43d3ab04_4f9fe9f4",
+      "range": {
+        "startLine": 106,
+        "startChar": 27,
+        "endLine": 106,
+        "endChar": 28
+      },
+      "revId": "f9b7b9891c161821d7bd78a564d80fd1e2a0038d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
