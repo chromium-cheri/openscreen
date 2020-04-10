@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a9517ab_4fcf9ecf",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-10T17:04:43Z",
+      "side": 1,
+      "message": "The body of all of the querier methods is almost the same, and the body of all the publisher methods is also almost completely the same.\n\n\nCould you refactor these to private DispatchToQueriers and DispatchToPublishers methods and pass the function name/a one line lambda? Might make it more clear here as well, that ServiceDispatcher just masquerades as a querier and a publisher to forward to a group of queriers and publishers, respectively.",
+      "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0ca06fe_d682ba37",
+        "filename": "discovery/dnssd/impl/service_instance.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-10T17:04:43Z",
+      "side": 1,
+      "message": "NIT: since it is so tightly scoped, this could be `const auto families`, though I would like tot know the type (instead of auto) since it\u0027s not clear.",
+      "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2042b35_78faaf71",
+        "filename": "discovery/dnssd/impl/service_instance.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-10T17:04:43Z",
+      "side": 1,
+      "message": "Do you need to keep this around? network_config_ only gets used in the ctor?",
+      "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
