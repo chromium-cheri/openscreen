@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5cc1ad4b_d769f5a0",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-14T23:27:29Z",
+      "side": 1,
+      "message": "Yeah that\u0027s definitely messier in that case. I think the lambdas are generally better but it\u0027s definitely up to you. In my mind I see the act of iterating and checking queriers as separate from the act of what I want to do with them... so having a lambda and calling ForAllQueries looks good to me.\n\nConsider naming the lambda for code clarity, e.g.\n\n auto reinitialize_queries \u003d [\u0026service](DnsSdQuerier* querier) {\n   querier-\u003eReinitializeQueries(service);\n };\n\nthen the for all call becomes almost plain english:\n\n ForAllQueriers(\u0026service_instances, reinitialize_queries);\n\nExtending that to the above case helps, but final call up to you:\n\n int total \u003d 0;\n auto register_and_tally \u003d [\u0026total, \u0026service](DnsSdPublisher* publisher) mutable {\n   ErrorOr\u003cint\u003e result \u003d publisher-\u003eRegister(instance, client);\n   if (result.is_error()) {\n     return result.error();\n   } else {\n     total +\u003d result.value();\n     return Error::None();\n   }\n }\n\n Error failure \u003d ForAllPublishers(\u0026service_instances_, register_and_tally);\n if (!failure.ok()) {\n   return failure;\n } else {\n   return total;\n }",
+      "parentUuid": "f6180f9b_aff36d8f",
+      "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0ca06fe_d682ba37",
         "filename": "discovery/dnssd/impl/service_instance.cc",
         "patchSetId": 4
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "I am planning to add a use case for this as soon as this CL is in to address referenced bug crbug.com/openscreen/114 (This is needed since it\u0027s the only way to get the network interface associated with each endpoint for that tracing). Adding getter now to this point though\n\nIf you prefer, I can pull it out here and re-add it in the follow up CL. WDYT?",
       "parentUuid": "f2042b35_78faaf71",
+      "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "932beebf_c4b2df92",
+        "filename": "discovery/dnssd/impl/service_instance.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-14T23:27:29Z",
+      "side": 1,
+      "message": "Ehh, I think this is fine assuming we are doing it soon--nothing is actually wrong with it currently just extra memory storage.",
+      "parentUuid": "e2ae3655_7aeeba04",
       "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
