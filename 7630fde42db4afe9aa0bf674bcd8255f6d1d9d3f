@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f6180f9b_aff36d8f",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-14T17:47:57Z",
+      "side": 1,
+      "message": "Done. Let me know if you find this readable - IMHO the few extra lines are more readable than the extra layer of abstraction, but happy to go either way.\n\nDid not update DeregsiterAll because it ends up looking like this which IMHO is less readable. WDYT?\n\n\u003e  int total \u003d 0;\n\u003e  Error faulure \u003d ForAllPublishers(\u0026service_instances_, [\u0026total, \u0026service](DnsSdPublisher* publisher) mutable {\n\u003e    ErrorOr\u003cint\u003e result \u003d publisher-\u003eRegister(instance, client);\n\u003e    if (result.is_error()) {\n\u003e      return result.error();\n\u003e    } else {\n\u003e      total +\u003d result.value();\n\u003e      return Error::None();\n\u003e    }\n\u003e  });\n\u003e  if (!failure.ok()) {\n\u003e    return failure;\n\u003e  } else {\n\u003e    return total;\n\u003e  }",
+      "parentUuid": "7a9517ab_4fcf9ecf",
+      "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0ca06fe_d682ba37",
         "filename": "discovery/dnssd/impl/service_instance.cc",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ea779c60_7e0a5f51",
+        "filename": "discovery/dnssd/impl/service_instance.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-14T17:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0ca06fe_d682ba37",
+      "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2042b35_78faaf71",
         "filename": "discovery/dnssd/impl/service_instance.h",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2ae3655_7aeeba04",
+        "filename": "discovery/dnssd/impl/service_instance.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-14T17:47:57Z",
+      "side": 1,
+      "message": "I am planning to add a use case for this as soon as this CL is in to address referenced bug crbug.com/openscreen/114 (This is needed since it\u0027s the only way to get the network interface associated with each endpoint for that tracing). Adding getter now to this point though\n\nIf you prefer, I can pull it out here and re-add it in the follow up CL. WDYT?",
+      "parentUuid": "f2042b35_78faaf71",
+      "revId": "7630fde42db4afe9aa0bf674bcd8255f6d1d9d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
