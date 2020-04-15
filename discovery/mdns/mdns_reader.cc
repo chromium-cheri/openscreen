@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <utility>
 
+#include "discovery/common/config.h"
 #include "discovery/mdns/public/mdns_constants.h"
 #include "util/logging.h"
 
@@ -26,6 +27,15 @@ bool TryParseDnsType(uint16_t to_parse, DnsType* type) {
 }
 
 }  // namespace
+
+MdnsReader::MdnsReader(const Config& config,
+                       const uint8_t* buffer,
+                       size_t length)
+    : BigEndianReader(buffer, length),
+      kMaximumAllowedRdataSize(
+          static_cast<size_t>(config.maximum_valid_rdata_size)) {
+  OSP_DCHECK_GT(config.maximum_valid_rdata_size, 0);
+}
 
 bool MdnsReader::Read(TxtRecordRdata::Entry* out) {
   Cursor cursor(this);
@@ -125,6 +135,9 @@ bool MdnsReader::Read(RawRecordRdata* out) {
       if (rdata.is_error()) {
         return false;
       }
+      if (rdata.value().MaxWireSize() > kMaximumAllowedRdataSize) {
+        return false;
+      }
       *out = std::move(rdata.value());
       cursor.Commit();
       return true;
@@ -145,6 +158,10 @@ bool MdnsReader::Read(SrvRecordRdata* out) {
       Read(&target) &&
       (cursor.delta() == sizeof(record_length) + record_length)) {
     *out = SrvRecordRdata(priority, weight, port, std::move(target));
+
+    // SRV records are of a bounded size and are required for this receiver's
+    // functioning.
+    OSP_DCHECK_LE(out->MaxWireSize(), kMaximumAllowedRdataSize);
     cursor.Commit();
     return true;
   }
@@ -159,6 +176,10 @@ bool MdnsReader::Read(ARecordRdata* out) {
   if (Read(&record_length) && (record_length == IPAddress::kV4Size) &&
       Read(IPAddress::Version::kV4, &address)) {
     *out = ARecordRdata(address);
+
+    // A records are of a bounded size and are required for this receiver's
+    // functioning.
+    OSP_DCHECK_LE(out->MaxWireSize(), kMaximumAllowedRdataSize);
     cursor.Commit();
     return true;
   }
@@ -173,6 +194,10 @@ bool MdnsReader::Read(AAAARecordRdata* out) {
   if (Read(&record_length) && (record_length == IPAddress::kV6Size) &&
       Read(IPAddress::Version::kV6, &address)) {
     *out = AAAARecordRdata(address);
+
+    // AAAA records are of a bounded size and are required for this receiver's
+    // functioning.
+    OSP_DCHECK_LE(out->MaxWireSize(), kMaximumAllowedRdataSize);
     cursor.Commit();
     return true;
   }
@@ -187,6 +212,10 @@ bool MdnsReader::Read(PtrRecordRdata* out) {
   if (Read(&record_length) && Read(&ptr_domain) &&
       (cursor.delta() == sizeof(record_length) + record_length)) {
     *out = PtrRecordRdata(std::move(ptr_domain));
+
+    // PTR records are of a bounded size and are required for this receiver's
+    // functioning.
+    OSP_DCHECK_LE(out->MaxWireSize(), kMaximumAllowedRdataSize);
     cursor.Commit();
     return true;
   }
@@ -218,6 +247,9 @@ bool MdnsReader::Read(TxtRecordRdata* out) {
   if (rdata.is_error()) {
     return false;
   }
+  if (rdata.value().MaxWireSize() > kMaximumAllowedRdataSize) {
+    return false;
+  }
   *out = std::move(rdata.value());
   cursor.Commit();
   return true;
@@ -247,7 +279,12 @@ bool MdnsReader::Read(NsecRecordRdata* out) {
 
   std::vector<DnsType> types;
   if (Read(&types, remaining_length)) {
-    *out = NsecRecordRdata(std::move(next_record_name), std::move(types));
+    NsecRecordRdata rdata(std::move(next_record_name), std::move(types));
+    if (rdata.MaxWireSize() > kMaximumAllowedRdataSize) {
+      return false;
+    }
+
+    *out = std::move(rdata);
     cursor.Commit();
     return true;
   }
