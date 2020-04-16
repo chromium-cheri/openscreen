@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81713030_bbc8ab66",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-16T02:28:55Z",
+      "side": 1,
+      "message": "Here and elsewhere can we actually check (and even early exit on) record_length, then just make these MaxWireSize() checks before return a DCHECK?  The only situation I can think of where we might disagree about wire size is when compression for domain names is possible, and I\u0027m not sure which way the policy should fall there.",
+      "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f6a478b_724f5732",
+        "filename": "discovery/mdns/mdns_receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-16T02:28:55Z",
+      "side": 1,
+      "message": "explicit",
+      "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
