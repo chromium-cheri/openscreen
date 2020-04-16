@@ -52,9 +52,15 @@ bool DateTimeFromSeconds(uint64_t seconds, DateTime* time) {
   time_t sec = static_cast<time_t>(seconds);
   OSP_DCHECK_GE(sec, 0);
   OSP_DCHECK_EQ(static_cast<uint64_t>(sec), seconds);
+#if defined(_WIN32)
+  if (!gmtime_s(&tm, &sec)) {
+    return false;
+  }
+#else
   if (!gmtime_r(&sec, &tm)) {
     return false;
   }
+#endif
 
   time->second = tm.tm_sec;
   time->minute = tm.tm_min;
