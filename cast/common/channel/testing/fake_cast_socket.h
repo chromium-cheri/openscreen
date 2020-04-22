@@ -7,8 +7,8 @@
 
 #include <memory>
 
-#include "cast/common/channel/cast_socket.h"
 #include "cast/common/channel/proto/cast_channel.pb.h"
+#include "cast/common/public/cast_socket.h"
 #include "gmock/gmock.h"
 #include "platform/test/mock_tls_connection.h"
 
@@ -22,7 +22,7 @@ class MockCastSocketClient final : public CastSocket::Client {
   MOCK_METHOD(void, OnError, (CastSocket * socket, Error error), (override));
   MOCK_METHOD(void,
               OnMessage,
-              (CastSocket * socket, ::cast::channel::CastMessage message),
+              (CastSocket * socket, ::cast::channel::CastMessage&& message),
               (override));
 };
 

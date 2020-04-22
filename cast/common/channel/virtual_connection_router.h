@@ -10,8 +10,8 @@
 #include <memory>
 #include <string>
 
-#include "cast/common/channel/cast_socket.h"
 #include "cast/common/channel/proto/cast_channel.pb.h"
+#include "cast/common/public/cast_socket.h"
 
 namespace openscreen {
 namespace cast {
@@ -65,7 +65,7 @@ class VirtualConnectionRouter final : public CastSocket::Client {
   // CastSocket::Client overrides.
   void OnError(CastSocket* socket, Error error) override;
   void OnMessage(CastSocket* socket,
-                 ::cast::channel::CastMessage message) override;
+                 ::cast::channel::CastMessage&& message) override;
 
  private:
   struct SocketWithHandler {

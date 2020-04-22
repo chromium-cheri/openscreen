@@ -5,7 +5,6 @@
 #include "cast/common/channel/virtual_connection_router.h"
 
 #include "cast/common/channel/cast_message_handler.h"
-#include "cast/common/channel/cast_socket.h"
 #include "cast/common/channel/message_util.h"
 #include "cast/common/channel/proto/cast_channel.pb.h"
 #include "cast/common/channel/virtual_connection_manager.h"
@@ -83,7 +82,7 @@ void VirtualConnectionRouter::OnError(CastSocket* socket, Error error) {
 }
 
 void VirtualConnectionRouter::OnMessage(CastSocket* socket,
-                                        CastMessage message) {
+                                        CastMessage&& message) {
   // TODO(btolsch): Check for broadcast message.
   VirtualConnection virtual_conn{message.destination_id(), message.source_id(),
                                  socket->socket_id()};

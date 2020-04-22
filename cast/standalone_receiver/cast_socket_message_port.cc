@@ -6,6 +6,8 @@
 
 #include <utility>
 
+#include "cast/common/channel/proto/cast_channel.pb.h"
+
 namespace openscreen {
 namespace cast {
 
@@ -33,7 +35,7 @@ void CastSocketMessagePort::OnError(CastSocket* socket, Error error) {
 }
 
 void CastSocketMessagePort::OnMessage(CastSocket* socket,
-                                      ::cast::channel::CastMessage message) {
+                                      ::cast::channel::CastMessage&& message) {
   if (client_) {
     client_->OnMessage(message.source_id(), message.namespace_(),
                        message.payload_utf8());

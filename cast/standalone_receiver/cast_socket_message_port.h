@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "cast/common/channel/cast_socket.h"
+#include "cast/common/public/cast_socket.h"
 #include "cast/streaming/receiver_session.h"
 
 namespace openscreen {
@@ -31,7 +31,7 @@ class CastSocketMessagePort : public MessagePort, public CastSocket::Client {
   // CastSocket::Client overrides.
   void OnError(CastSocket* socket, Error error) override;
   void OnMessage(CastSocket* socket,
-                 ::cast::channel::CastMessage message) override;
+                 ::cast::channel::CastMessage&& message) override;
 
  private:
   MessagePort::Client* client_ = nullptr;
