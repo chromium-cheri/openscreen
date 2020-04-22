@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "91187b56_e3774544",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-22T17:54:34Z",
+      "side": 1,
+      "message": "\u003e This can\u0027t be DCHECK\u0027d - it potentially lets user input crash the receiver...\n\nI still think domain name compression is the only place these can diverge, and that wouldn\u0027t result in a crash.  In any case, this is fine.",
+      "parentUuid": "7100ab9e_4a802210",
+      "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2e61c55_adce7c1d",
         "filename": "discovery/mdns/mdns_reader.cc",
         "patchSetId": 3
@@ -48,6 +66,30 @@
       "writtenOn": "2020-04-22T16:14:13Z",
       "side": 1,
       "message": "Removed these DCHECKs - this is stated as a requirement in the config file, so IMHO it makes more sense to assume the user followed it, than to check on every call. WDYT?",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 64
+      },
+      "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ee85f52_a38f2a57",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-22T17:54:34Z",
+      "side": 1,
+      "message": "If you made MaxWireSize() static for records that don\u0027t vary in size, you could do these DCHECKs in the MdnsReader ctor, but I don\u0027t feel strongly because that config is kind of silly.",
+      "parentUuid": "d2e61c55_adce7c1d",
       "range": {
         "startLine": 198,
         "startChar": 0,
