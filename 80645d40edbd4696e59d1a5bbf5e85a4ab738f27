@@ -102,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "0a92f598_767cf4fd",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-22T18:08:45Z",
+      "side": 1,
+      "message": "\u003e If you made MaxWireSize() static for records that don\u0027t vary in size, you could do these DCHECKs in the MdnsReader ctor\n\nMakes sense, but outside the scope of this CL. Adding a TODO\n\n\u003e that config is kind of silly\n\n+1. My main reasoning for adding that config is for low-memory devices. The CastV2 TXT record size is bounded (per the spec), so this config value can be set to a lower value, lowering the maximum size of the caches in MdnsQuerier + MdnsResponder",
+      "parentUuid": "2ee85f52_a38f2a57",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 64
+      },
+      "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f6a478b_724f5732",
         "filename": "discovery/mdns/mdns_receiver.h",
         "patchSetId": 3
