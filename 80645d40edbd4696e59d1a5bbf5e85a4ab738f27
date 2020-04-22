@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "7100ab9e_4a802210",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-22T16:14:13Z",
+      "side": 1,
+      "message": "\u003e Here and elsewhere can we actually check (and even early exit on) record_length\n\nDone\n\n\u003e just make these MaxWireSize() checks before return a DCHECK\n\nThis can\u0027t be DCHECK\u0027d - it potentially lets user input crash the receiver (And fuzz tests would eventually catch it)\nIMHO we really only need to check one of the two though (But I agree it isn\u0027t clear which should be checked)\n\nWDYT?",
+      "parentUuid": "81713030_bbc8ab66",
+      "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e61c55_adce7c1d",
+        "filename": "discovery/mdns/mdns_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-22T16:14:13Z",
+      "side": 1,
+      "message": "Removed these DCHECKs - this is stated as a requirement in the config file, so IMHO it makes more sense to assume the user followed it, than to check on every call. WDYT?",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 64
+      },
+      "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f6a478b_724f5732",
         "filename": "discovery/mdns/mdns_receiver.h",
         "patchSetId": 3
@@ -33,6 +74,24 @@
       "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46140c34_2d102d2c",
+        "filename": "discovery/mdns/mdns_receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-22T16:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f6a478b_724f5732",
+      "revId": "80645d40edbd4696e59d1a5bbf5e85a4ab738f27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
