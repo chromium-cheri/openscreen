@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <getopt.h>
 #include <poll.h>
 #include <signal.h>
 #include <unistd.h>
@@ -560,16 +561,48 @@ void PublisherDemo(absl::string_view friendly_name) {
 struct InputArgs {
   absl::string_view friendly_server_name;
   bool is_verbose;
+  bool is_help;
+  bool tracing_enabled;
 };
+
+void LogUsage(const char* argv0) {
+  std::cerr << R"(
+usage: )" << argv0
+            << R"( <options> <friendly_name>
+
+    friendly_name
+        Server name, runs the publisher demo. Omission runs the listener demo.
+
+    -t, --tracing: Enable performance trace logging.
+
+    -v, --verbose: Enable verbose logging.
+
+    -h, --help: Show this help message.
+  )";
+}
 
 InputArgs GetInputArgs(int argc, char** argv) {
   InputArgs args = {};
+  const struct option argument_options[] = {
+      {"tracing", no_argument, nullptr, 't'},
+      {"verbose", no_argument, nullptr, 'v'},
+      {"help", no_argument, nullptr, 'h'},
+      {nullptr, 0, nullptr, 0}};
 
-  int c;
-  while ((c = getopt(argc, argv, "v")) != -1) {
-    switch (c) {
+  int ch = -1;
+  while ((ch = getopt_long(argc, argv, "tvh", argument_options, nullptr)) !=
+         -1) {
+    switch (ch) {
+      case 't':
+        args.tracing_enabled = true;
+        break;
+
       case 'v':
         args.is_verbose = true;
+        break;
+
+      case 'h':
+        args.is_help = true;
         break;
     }
   }
@@ -586,29 +619,34 @@ int main(int argc, char** argv) {
   using openscreen::LogLevel;
   using openscreen::PlatformClientPosix;
 
-  std::cout << "Usage: osp_demo [-v] [friendly_name]" << std::endl
-            << "-v: enable more verbose logging" << std::endl
-            << "friendly_name: server name, runs the publisher demo."
-            << std::endl
-            << "               omitting runs the listener demo." << std::endl
-            << std::endl;
-
   InputArgs args = GetInputArgs(argc, argv);
+  if (args.is_help) {
+    LogUsage(argv[0]);
+    return 1;
+  }
+
+  std::unique_ptr<openscreen::TextTraceLoggingPlatform> trace_logging_platform;
+  if (args.tracing_enabled) {
+    trace_logging_platform =
+        std::make_unique<openscreen::TextTraceLoggingPlatform>();
+  }
+
+  const LogLevel level = args.is_verbose ? LogLevel::kVerbose : LogLevel::kInfo;
+  openscreen::SetLogLevel(level);
 
   const bool is_receiver_demo = !args.friendly_server_name.empty();
   const char* log_filename =
       is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
+  // TODO(jophba): Mac on Mojave hangs on this command forever.
   openscreen::SetLogFifoOrDie(log_filename);
-
-  LogLevel level = args.is_verbose ? LogLevel::kVerbose : LogLevel::kInfo;
-  openscreen::SetLogLevel(level);
-  openscreen::TextTraceLoggingPlatform text_logging_platform;
 
   PlatformClientPosix::Create(Clock::duration{50}, Clock::duration{50});
 
   if (is_receiver_demo) {
+    OSP_LOG_INFO << "Running publisher demo...";
     openscreen::osp::PublisherDemo(args.friendly_server_name);
   } else {
+    OSP_LOG_INFO << "Running listener demo...";
     openscreen::osp::ListenerDemo();
   }
 
