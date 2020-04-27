@@ -57,26 +57,29 @@ void ClearOpenSSLERRStack(const Location& location) {
 }
 
 Error GetSSLError(const SSL* ssl, int return_code) {
-  switch (SSL_get_error(ssl, return_code)) {
+  int error_code = SSL_get_error(ssl, return_code);
+  std::string message = ERR_lib_error_string(error_code);
+
+  switch (error_code) {
     case SSL_ERROR_NONE:
       return Error::None();
 
     case SSL_ERROR_ZERO_RETURN:
-      return Error::Code::kSocketClosedFailure;
+      return Error(Error::Code::kSocketClosedFailure, message);
 
     case SSL_ERROR_WANT_READ:     // fallthrough
     case SSL_ERROR_WANT_WRITE:    // fallthrough
     case SSL_ERROR_WANT_CONNECT:  // fallthrough
     case SSL_ERROR_WANT_ACCEPT:   // fallthrough
     case SSL_ERROR_WANT_X509_LOOKUP:
-      return Error::Code::kAgain;
+      return Error(Error::Code::kAgain, message);
 
     case SSL_ERROR_SYSCALL:  // fallthrough
     case SSL_ERROR_SSL:
-      return Error::Code::kFatalSSLError;
+      return Error(Error::Code::kFatalSSLError, message);
   }
 
   OSP_NOTREACHED();
-  return Error::Code::kUnknownError;
+  return Error(Error::Code::kUnknownError, message);
 }
 }  // namespace openscreen
