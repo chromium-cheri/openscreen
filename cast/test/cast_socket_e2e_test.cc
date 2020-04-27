@@ -271,7 +271,7 @@ class CastSocketE2ETest : public ::testing::Test {
 
   void WaitForCastSocket() {
     int attempts = 1;
-    constexpr int kMaxAttempts = 8;
+    constexpr int kMaxAttempts = 20;
     constexpr std::chrono::milliseconds kSocketWaitDelay(250);
     do {
       OSP_LOG_INFO << "\tChecking for CastSocket, attempt " << attempts << "/"
