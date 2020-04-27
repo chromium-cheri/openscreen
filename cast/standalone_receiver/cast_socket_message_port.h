@@ -15,12 +15,12 @@
 namespace openscreen {
 namespace cast {
 
-class CastSocketMessagePort : public MessagePort, public CastSocket::Client {
+class CastSocketMessagePort : public MessagePort {
  public:
   CastSocketMessagePort();
   ~CastSocketMessagePort() override;
 
-  void SetSocket(std::unique_ptr<CastSocket> socket);
+  void SetSocket(CastSocket* socket);
 
   // MessagePort overrides.
   void SetClient(MessagePort::Client* client) override;
@@ -28,14 +28,9 @@ class CastSocketMessagePort : public MessagePort, public CastSocket::Client {
                    absl::string_view message_namespace,
                    absl::string_view message) override;
 
-  // CastSocket::Client overrides.
-  void OnError(CastSocket* socket, Error error) override;
-  void OnMessage(CastSocket* socket,
-                 ::cast::channel::CastMessage message) override;
-
  private:
   MessagePort::Client* client_ = nullptr;
-  std::unique_ptr<CastSocket> socket_;
+  CastSocket* socket_;
 };
 
 }  // namespace cast
