@@ -9,7 +9,10 @@
 
 #include <memory>
 
+#include "cast/common/channel/virtual_connection_manager.h"
+#include "cast/common/channel/virtual_connection_router.h"
 #include "cast/common/public/cast_socket.h"
+#include "cast/receiver/channel/device_auth_namespace_handler.h"
 #include "cast/receiver/public/receiver_socket_factory.h"
 #include "cast/standalone_receiver/cast_socket_message_port.h"
 #include "cast/standalone_receiver/streaming_playback_controller.h"
@@ -19,6 +22,7 @@
 #include "platform/api/serial_delete_ptr.h"
 #include "platform/base/error.h"
 #include "platform/base/interface_info.h"
+#include "platform/base/tls_credentials.h"
 #include "platform/impl/task_runner.h"
 
 namespace openscreen {
@@ -31,9 +35,10 @@ namespace cast {
 // Consumers of this class are expected to provide a single threaded task runner
 // implementation, and a network interface information struct that will be used
 // both for TLS listening and UDP messaging.
-class CastAgent : public ReceiverSocketFactory::Client,
-                  public ReceiverSession::Client,
-                  public StreamingPlaybackController::Client {
+class CastAgent final : public ReceiverSocketFactory::Client,
+                        public VirtualConnectionRouter::SocketErrorHandler,
+                        public ReceiverSession::Client,
+                        public StreamingPlaybackController::Client {
  public:
   CastAgent(TaskRunner* task_runner, InterfaceInfo interface);
   ~CastAgent();
@@ -49,6 +54,10 @@ class CastAgent : public ReceiverSocketFactory::Client,
                    std::unique_ptr<CastSocket> socket) override;
   void OnError(ReceiverSocketFactory* factory, Error error) override;
 
+  // VirtualConnectionRouter::SocketErrorHandler overrides.
+  void OnClose(CastSocket* cast_socket) override;
+  void OnError(CastSocket* socket, Error error) override;
+
   // ReceiverSession::Client overrides.
   void OnNegotiated(const ReceiverSession* session,
                     ReceiverSession::ConfiguredReceivers receivers) override;
@@ -59,6 +68,11 @@ class CastAgent : public ReceiverSocketFactory::Client,
   void OnPlaybackError(StreamingPlaybackController* controller,
                        Error error) override;
 
+  // Necessary so that the fake sender in tests can valid the root certificate.
+  std::vector<uint8_t> GetRootTlsCertAsDerForTesting() {
+    return root_cert_bytes_;
+  }
+
  private:
   // Member variables set as part of construction.
   std::unique_ptr<Environment> environment_;
@@ -67,15 +81,23 @@ class CastAgent : public ReceiverSocketFactory::Client,
   CastSocketMessagePort message_port_;
 
   // Member variables set as part of starting up.
-  std::unique_ptr<TlsConnectionFactory> connection_factory_;
-  std::unique_ptr<ReceiverSocketFactory> socket_factory_;
-  std::unique_ptr<ScopedWakeLock> wake_lock_;
+  // TODO: fix creds for cast socket.
+  SerialDeletePtr<DeviceAuthNamespaceHandler> auth_handler_;
+  SerialDeletePtr<TlsConnectionFactory> connection_factory_;
+  VirtualConnectionManager connection_manager_;
+  StaticCredentialsProvider credentials_provider_;
+  SerialDeletePtr<VirtualConnectionRouter> router_;
+  SerialDeletePtr<ReceiverSocketFactory> socket_factory_;
+  SerialDeletePtr<ScopedWakeLock> wake_lock_;
 
   // Member variables set as part of a sender connection.
   // NOTE: currently we only support a single sender connection and a
   // single streaming session.
   std::unique_ptr<ReceiverSession> current_session_;
   std::unique_ptr<StreamingPlaybackController> controller_;
+
+  // Testing only properties.
+  std::vector<uint8_t> root_cert_bytes_;
 };
 
 }  // namespace cast

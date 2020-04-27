@@ -139,14 +139,14 @@ class CastSocketE2ETest : public ::testing::Test {
     ASSERT_TRUE(device_key);
 
     ErrorOr<bssl::UniquePtr<X509>> root_cert_or_error =
-        CreateSelfSignedX509CertificateForTest(
-            "Cast Root CA", kCertificateDuration, *root_key,
-            GetWallTimeSinceUnixEpoch(), true);
+        CreateSelfSignedX509Certificate("Cast Root CA", kCertificateDuration,
+                                        *root_key, GetWallTimeSinceUnixEpoch(),
+                                        true);
     ASSERT_TRUE(root_cert_or_error);
     bssl::UniquePtr<X509> root_cert = std::move(root_cert_or_error.value());
 
     ErrorOr<bssl::UniquePtr<X509>> intermediate_cert_or_error =
-        CreateSelfSignedX509CertificateForTest(
+        CreateSelfSignedX509Certificate(
             "Cast Intermediate", kCertificateDuration, *intermediate_key,
             GetWallTimeSinceUnixEpoch(), true, root_cert.get(), root_key.get());
     ASSERT_TRUE(intermediate_cert_or_error);
@@ -154,7 +154,7 @@ class CastSocketE2ETest : public ::testing::Test {
         std::move(intermediate_cert_or_error.value());
 
     ErrorOr<bssl::UniquePtr<X509>> device_cert_or_error =
-        CreateSelfSignedX509CertificateForTest(
+        CreateSelfSignedX509Certificate(
             "Test Device", kCertificateDuration, *device_key,
             GetWallTimeSinceUnixEpoch(), false, intermediate_cert.get(),
             intermediate_key.get());
