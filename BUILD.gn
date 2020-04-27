@@ -16,7 +16,7 @@ declare_args() {
 # All compilable non-test targets in the repository (both executables and
 # source_sets).
 group("gn_all") {
-  testonly = true
+  testonly = false
 
   deps = [
     "cast/common:certificate",
@@ -64,10 +64,6 @@ group("gn_all") {
       "third_party/zlib",
     ]
 
-    if (is_posix) {
-      deps += [ "cast/test:make_crl_tests($host_toolchain)" ]
-    }
-
     # TODO(crbug.com/openscreen/86): Build for Mac too once the mac buildbot
     # compiler is upgraded.
     if (!is_mac || force_build_standalone_receiver) {
@@ -96,6 +92,10 @@ source_set("openscreen_unittests_all") {
     "util:unittests",
   ]
 
+  if (!build_with_chromium && is_posix) {
+    public_deps += [ "cast/test:make_crl_tests($host_toolchain)" ]
+  }
+
   if (use_mdns_responder) {
     public_deps += [
       "osp/impl/discovery/mdns:unittests",
@@ -123,6 +123,10 @@ if (!build_with_chromium && is_posix) {
       "cast/test:e2e_tests",
       "third_party/googletest:gtest_main",
     ]
+
+    if (!build_with_chromium && is_posix) {
+      public_deps += [ "cast/test:make_crl_tests($host_toolchain)" ]
+    }
   }
 
   executable("e2e_tests") {

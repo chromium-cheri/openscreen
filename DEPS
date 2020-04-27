@@ -25,7 +25,7 @@ vars = {
 
   # Needed to download additional clang binaries for processing coverage data
   # (from binaries with GN arg `use_coverage=true`).
-  'checkout_clang_coverage_tools': False,
+  'checkout_clang_coverage_tools': True,
 }
 
 deps = {

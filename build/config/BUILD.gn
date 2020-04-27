@@ -19,6 +19,8 @@ declare_args() {
   use_libfuzzer = false
 
   # Enables clang's source-based coverage (requires is_clang=true).
+  # NOTE: This will slow down the build and increase binary size
+  # significantly.
   use_coverage = false
 }
 
@@ -158,6 +160,14 @@ config("openscreen_code") {
     # C-style assertions in the standard library should match the behavior of
     # OSP_DCHECKs. Thus, turn them off whenever OSP_DCHECKs would be turned off.
     defines += [ "NDEBUG" ]
+  }
+
+  if (use_coverage) {
+    cflags += [
+      "-fprofile-instr-generate",
+      "-fcoverage-mapping",
+    ]
+    ldflags += [ "-fprofile-instr-generate" ]
   }
 }
 
