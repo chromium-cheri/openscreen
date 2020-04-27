@@ -146,19 +146,6 @@ ErrorOr<bssl::UniquePtr<X509>> CreateSelfSignedX509Certificate(
     absl::string_view name,
     std::chrono::seconds duration,
     const EVP_PKEY& key_pair,
-    std::chrono::seconds time_since_unix_epoch) {
-  bssl::UniquePtr<X509> certificate = CreateCertificateInternal(
-      name, duration, key_pair, time_since_unix_epoch, false, nullptr, nullptr);
-  if (!certificate) {
-    return Error::Code::kCertificateCreationError;
-  }
-  return certificate;
-}
-
-ErrorOr<bssl::UniquePtr<X509>> CreateSelfSignedX509CertificateForTest(
-    absl::string_view name,
-    std::chrono::seconds duration,
-    const EVP_PKEY& key_pair,
     std::chrono::seconds time_since_unix_epoch,
     bool make_ca,
     X509* issuer,
@@ -205,11 +192,13 @@ ErrorOr<bssl::UniquePtr<EVP_PKEY>> ImportRSAPrivateKey(
     const uint8_t* der_rsa_private_key,
     int key_length) {
   if (!der_rsa_private_key || key_length == 0) {
+    OSP_LOG_WARN << "Invalid DER RSA private key, length: " << key_length;
     return Error::Code::kParameterInvalid;
   }
 
   RSA* rsa = RSA_private_key_from_bytes(der_rsa_private_key, key_length);
   if (!rsa) {
+    OSP_LOG_WARN << "Failed to parse RSA key from bytes";
     return Error::Code::kRSAKeyParseError;
   }
   bssl::UniquePtr<EVP_PKEY> pkey(EVP_PKEY_new());
