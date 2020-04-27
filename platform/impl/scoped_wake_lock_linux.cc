@@ -12,8 +12,9 @@ namespace openscreen {
 
 int ScopedWakeLockLinux::reference_count_ = 0;
 
-std::unique_ptr<ScopedWakeLock> ScopedWakeLock::Create() {
-  return std::make_unique<ScopedWakeLockLinux>();
+SerialDeletePtr<ScopedWakeLock> ScopedWakeLock::Create(
+    TaskRunner* task_runner) {
+  return MakeSerialDelete<ScopedWakeLockLinux>(task_runner);
 }
 
 namespace {
