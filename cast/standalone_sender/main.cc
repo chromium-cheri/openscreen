@@ -9,6 +9,7 @@
 #include <csignal>
 #include <cstdio>
 #include <cstring>
+#include <iostream>
 #include <sstream>
 
 #include "cast/streaming/constants.h"
@@ -339,21 +340,23 @@ void LogUsage(const char* argv0) {
   const char kUsageMessageFormat[] = R"(
     usage: %s <options> <media_file>
 
-      --remote=addr[:port]
+      -r, --remote=addr[:port]
            Specify the destination (e.g., 192.168.1.22:9999 or [::1]:12345).
 
            Default if not set: %s
 
-      --max-bitrate=N
+      -m, --max-bitrate=N
            Specifies the maximum bits per second for the media streams.
 
            Default if not set: %d.
 
-      --android-hack:
+      -a, --android-hack:
            Use the wrong RTP payload types, for compatibility with older Android
            TV receivers.
 
-      --tracing: Enable performance tracing logging.
+      -t, --tracing: Enable performance tracing logging.
+
+      -v, --verbose: Enable verbose logging.
   )";
   // TODO(https://crbug.com/openscreen/122): absl::StreamFormat() would be much
   // cleaner here. For example, all the code here could be replaced with:
@@ -374,26 +377,26 @@ void LogUsage(const char* argv0) {
   const std::unique_ptr<char[]> usage_cstr(new char[formatted_length_with_nul]);
   snprintf(usage_cstr.get(), formatted_length_with_nul, kUsageMessageFormat,
            argv0, endpoint.c_str(), kDefaultMaxBitrate);
-  OSP_LOG_ERROR << usage_cstr.get();
+  std::cerr << usage_cstr.get();
 }
 
 int StandaloneSenderMain(int argc, char* argv[]) {
-  SetLogLevel(LogLevel::kInfo);
-
   const struct option argument_options[] = {
       {"remote", required_argument, nullptr, 'r'},
       {"max-bitrate", required_argument, nullptr, 'm'},
       {"android-hack", no_argument, nullptr, 'a'},
       {"tracing", no_argument, nullptr, 't'},
+      {"verbose", no_argument, nullptr, 'v'},
       {"help", no_argument, nullptr, 'h'},
       {nullptr, 0, nullptr, 0}};
 
+  bool is_verbose = false;
   IPEndpoint remote_endpoint = GetDefaultEndpoint();
   [[maybe_unused]] bool use_android_rtp_hack = false;
   [[maybe_unused]] int max_bitrate = kDefaultMaxBitrate;
   std::unique_ptr<TextTraceLoggingPlatform> trace_logger;
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "r:ath", argument_options, nullptr)) !=
+  while ((ch = getopt_long(argc, argv, "r:atvh", argument_options, nullptr)) !=
          -1) {
     switch (ch) {
       case 'r': {
@@ -427,12 +430,17 @@ int StandaloneSenderMain(int argc, char* argv[]) {
       case 't':
         trace_logger = std::make_unique<TextTraceLoggingPlatform>();
         break;
+      case 'v':
+        is_verbose = true;
+        break;
       case 'h':
         LogUsage(argv[0]);
         return 1;
     }
   }
 
+  openscreen::SetLogLevel(is_verbose ? openscreen::LogLevel::kVerbose
+                                     : openscreen::LogLevel::kInfo);
   // The last command line argument must be the path to the file.
   const char* path = nullptr;
   if (optind == (argc - 1)) {

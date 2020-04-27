@@ -4,6 +4,7 @@
 
 import("//build/config/arm.gni")
 import("//build/config/sysroot.gni")
+import("//build_overrides/build.gni")
 
 declare_args() {
   # Enable OSP_DCHECKs to be compiled in, even if it's not a debug build.
@@ -20,6 +21,11 @@ declare_args() {
 
   # Enables clang's source-based coverage (requires is_clang=true).
   use_coverage = false
+
+  # Enables trace logging in build. This is true by default, unless
+  # we are built against Chrome--we have no way to link their platform
+  # implementation into our binaries so trace logging is not possible.
+  enable_trace_logging = !build_with_chromium
 }
 
 assert(!use_coverage || is_clang)
@@ -158,6 +164,10 @@ config("openscreen_code") {
     # C-style assertions in the standard library should match the behavior of
     # OSP_DCHECKs. Thus, turn them off whenever OSP_DCHECKs would be turned off.
     defines += [ "NDEBUG" ]
+  }
+
+  if (enable_trace_logging) {
+    defines += [ "ENABLE_TRACE_LOGGING" ]
   }
 }
 

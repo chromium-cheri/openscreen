@@ -6,6 +6,7 @@
 
 #include <array>
 #include <chrono>  // NOLINT
+#include <iostream>
 
 #include "cast/common/public/service_info.h"
 #include "cast/standalone_receiver/cast_agent.h"
@@ -125,11 +126,13 @@ void LogUsage(const char* argv0) {
 
       -t, --tracing: Enable performance tracing logging.
 
+      -v, --verbose: Enable verbose logging.
+
       -h, --help: Show this help message.
   )";
   std::string message = kUsageMessage;
   message.replace(message.find(kExecutableTag), strlen(kExecutableTag), argv0);
-  OSP_LOG_INFO << message;
+  std::cerr << message;
 }
 
 }  // namespace
@@ -144,27 +147,33 @@ int main(int argc, char* argv[]) {
   using openscreen::PlatformClientPosix;
   using openscreen::TaskRunnerImpl;
 
-  openscreen::SetLogLevel(openscreen::LogLevel::kInfo);
-
   const struct option argument_options[] = {
       {"tracing", no_argument, nullptr, 't'},
+      {"verbose", no_argument, nullptr, 'v'},
       {"help", no_argument, nullptr, 'h'},
       {nullptr, 0, nullptr, 0}};
 
+  bool is_verbose = false;
   InterfaceInfo interface_info;
   std::unique_ptr<openscreen::TextTraceLoggingPlatform> trace_logger;
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "th", argument_options, nullptr)) !=
+  while ((ch = getopt_long(argc, argv, "tvh", argument_options, nullptr)) !=
          -1) {
     switch (ch) {
       case 't':
         trace_logger = std::make_unique<openscreen::TextTraceLoggingPlatform>();
+        break;
+      case 'v':
+        is_verbose = true;
         break;
       case 'h':
         LogUsage(argv[0]);
         return 1;
     }
   }
+  openscreen::SetLogLevel(is_verbose ? openscreen::LogLevel::kVerbose
+                                     : openscreen::LogLevel::kInfo);
+
   char* interface_argument = argv[optind];
   OSP_CHECK(interface_argument != nullptr)
       << "Missing mandatory argument: interface.";
@@ -176,6 +185,7 @@ int main(int argc, char* argv[]) {
       break;
     }
   }
+
   OSP_CHECK(!interface_info.name.empty()) << "Invalid interface specified.";
 
   auto* const task_runner = new TaskRunnerImpl(&Clock::now);
