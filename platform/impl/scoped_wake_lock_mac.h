@@ -8,6 +8,7 @@
 #include <IOKit/pwr_mgt/IOPMLib.h>
 
 #include "platform/api/scoped_wake_lock.h"
+#include "util/weak_ptr.h"
 
 namespace openscreen {
 
