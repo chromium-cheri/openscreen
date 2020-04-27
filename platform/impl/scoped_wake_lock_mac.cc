@@ -31,10 +31,11 @@ TaskRunner* GetTaskRunner() {
 }  // namespace
 
 ScopedWakeLockMac::ScopedWakeLockMac() : ScopedWakeLock() {
-  OSP_DCHECK(GetTaskRunner()->IsRunningOnTaskRunner());
-  if (lock_state_.reference_count++ == 0) {
-    AcquireWakeLock();
-  }
+  GetTaskRunner()->PostTask([] {
+    if (lock_state_.reference_count++ == 0) {
+      AcquireWakeLock();
+    }
+  });
 }
 
 ScopedWakeLockMac::~ScopedWakeLockMac() {

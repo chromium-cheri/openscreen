@@ -80,8 +80,7 @@ CastAgent::~CastAgent() = default;
 Error CastAgent::Start() {
   OSP_DCHECK(!current_session_);
 
-  task_runner_->PostTask(
-      [this] { this->wake_lock_ = ScopedWakeLock::Create(); });
+  this->wake_lock_ = ScopedWakeLock::Create();
 
   // TODO(jophba): add command line argument for setting the private key.
   ErrorOr<TlsCredentials> credentials = CreateCredentials(receive_endpoint_);
@@ -89,8 +88,6 @@ Error CastAgent::Start() {
     return credentials.error();
   }
 
-  // TODO(jophba, rwkeane): begin discovery process before creating TLS
-  // connection factory instance.
   socket_factory_ =
       std::make_unique<ReceiverSocketFactory>(this, &message_port_);
   task_runner_->PostTask([this, creds = std::move(credentials.value())] {

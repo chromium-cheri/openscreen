@@ -67,8 +67,10 @@ class CastAgent : public ReceiverSocketFactory::Client,
   CastSocketMessagePort message_port_;
 
   // Member variables set as part of starting up.
-  std::unique_ptr<TlsConnectionFactory> connection_factory_;
-  std::unique_ptr<ReceiverSocketFactory> socket_factory_;
+  // TODO: fix creds for cast socket.
+  VirtualConnectionManager connection_manager_;
+  SerialDeletePtr<TlsConnectionFactory> connection_factory_;
+  SerialDeletePtr<ReceiverSocketFactory> socket_factory_;
   std::unique_ptr<ScopedWakeLock> wake_lock_;
 
   // Member variables set as part of a sender connection.
