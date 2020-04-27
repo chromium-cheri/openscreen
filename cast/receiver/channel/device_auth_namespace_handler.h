@@ -51,6 +51,23 @@ class DeviceAuthNamespaceHandler final : public CastMessageHandler {
   CredentialsProvider* const creds_provider_;
 };
 
+class StaticCredentialsProvider final
+    : public DeviceAuthNamespaceHandler::CredentialsProvider {
+ public:
+  StaticCredentialsProvider() = default;
+  ~StaticCredentialsProvider() = default;
+
+  absl::Span<const uint8_t> GetCurrentTlsCertAsDer() override {
+    return absl::Span<uint8_t>(tls_cert_der);
+  }
+  const DeviceCredentials& GetCurrentDeviceCredentials() override {
+    return device_creds;
+  }
+
+  DeviceCredentials device_creds;
+  std::vector<uint8_t> tls_cert_der;
+};
+
 }  // namespace cast
 }  // namespace openscreen
 
