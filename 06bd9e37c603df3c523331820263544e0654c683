@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7d25340f_701c4d1d",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-27T23:24:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc2affa6_8424875d",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80c383bc_7824d4f6",
         "filename": "test/test_main.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "06bd9e37c603df3c523331820263544e0654c683",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6702bf60_8d0aa6d6",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-27T23:24:53Z",
+      "side": 1,
+      "message": "If you look at the main function, InitGoogleTest dumps out oodles of help. In practice this makes the log flow better IMO.",
+      "parentUuid": "80c383bc_7824d4f6",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c1053f5a_987c625c",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-27T23:24:53Z",
+      "side": 1,
+      "message": "Added some notes. Currently, the e2e_tests and openscreen_unittests binaries have to link gtest_main, so this is just a dropin replacement for that dependency. The binaries themselves should be largely unchanged, and should just get trace logging, verbose logging, and help options by default. Currently e2e_tests and openscreen_unittests only support gtest help, you can\u0027t set logging, etc.\n\nI agree about buildbots, for sure! should be 4 lines of changes to openscreen.py in the infra repo once this lands.",
+      "parentUuid": "ee1beb57_9a8418a3",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 36
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81a01344_a2ff52f4",
         "filename": "test/test_main.cc",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "32b165db_6a439028",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-27T23:24:53Z",
+      "side": 1,
+      "message": "In some tests we manually set to info. I\u0027ll set default to WARN so debugging bots, etc. is easier, but we don\u0027t get info spam.",
+      "parentUuid": "81a01344_a2ff52f4",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 55
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09332b52_f19b71e5",
         "filename": "test/test_main.cc",
         "patchSetId": 3
@@ -114,6 +210,30 @@
       "revId": "06bd9e37c603df3c523331820263544e0654c683",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd6a5df8_8d3e2a3f",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-27T23:24:53Z",
+      "side": 1,
+      "message": "No, this has to be bundled into the executable. See the main BUILD.gn for references to this package.",
+      "parentUuid": "09332b52_f19b71e5",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 25
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
