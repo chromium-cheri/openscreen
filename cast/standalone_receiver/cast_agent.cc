@@ -75,7 +75,9 @@ CastAgent::CastAgent(TaskRunner* task_runner, InterfaceInfo interface)
   receive_endpoint_ = std::move(receive_endpoint);
 }
 
-CastAgent::~CastAgent() = default;
+CastAgent::~CastAgent() {
+  wake_lock_.reset();
+}
 
 Error CastAgent::Start() {
   OSP_DCHECK(!current_session_);
@@ -89,8 +91,6 @@ Error CastAgent::Start() {
     return credentials.error();
   }
 
-  // TODO(jophba, rwkeane): begin discovery process before creating TLS
-  // connection factory instance.
   socket_factory_ =
       std::make_unique<ReceiverSocketFactory>(this, &message_port_);
   task_runner_->PostTask([this, creds = std::move(credentials.value())] {
