@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc2affa6_8424875d",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-27T23:09:33Z",
+      "side": 1,
+      "message": "If you name it \u0027test\u0027, I\u0027m pretty sure that the root BUILD file can just reference \u0027test\u0027 instead of \u0027test:test_main\u0027. IMHO cleaner, but not a strong opinion",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80c383bc_7824d4f6",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-27T23:09:33Z",
+      "side": 1,
+      "message": "Is there supposed to be a link here?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee1beb57_9a8418a3",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-27T23:09:33Z",
+      "side": 1,
+      "message": "A few questions:\n- This looks like the same \u0027main\u0027 method is used for Unit Tests and E2E tests? Please add a comment about what this means / how it works / etc\n- Is the same executable going to be used to run E2Es and UTs after this change, instead of 2 separate ones as is currently done? If so, there will also need to be updates to the buildbots\n\nAlso, once this is in, I think updating the buildbot to have verbose logging would be really helpful! WDYT?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 36
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a01344_a2ff52f4",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-27T23:09:33Z",
+      "side": 1,
+      "message": "With this change, will UTs start logging where they didn\u0027t before (without the -v parameter)? IMHO it\u0027s really nice that the current UTs have minimal output",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 55
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09332b52_f19b71e5",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-27T23:09:33Z",
+      "side": 1,
+      "message": "Does a single call start both UTs and E2E tests now? If so, a flag to specify which to run (-e2e, -ut or similar) would be helpful",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 25
+      },
+      "revId": "06bd9e37c603df3c523331820263544e0654c683",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
