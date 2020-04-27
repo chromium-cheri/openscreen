@@ -4,3 +4,8 @@
 
 # Set to false to build OpenScreen targets as a standalone library.
 build_with_chromium = false
+
+# Enables trace logging in build. This is true by default, unless
+# we are built against Chrome--we have no way to link their platform
+# implementation into our binaries so trace logging is not possible.
+enable_trace_logging = !build_with_chromium

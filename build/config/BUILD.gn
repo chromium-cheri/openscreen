@@ -4,6 +4,7 @@
 
 import("//build/config/arm.gni")
 import("//build/config/sysroot.gni")
+import("//build_overrides/build.gni")
 
 declare_args() {
   # Enable OSP_DCHECKs to be compiled in, even if it's not a debug build.
@@ -158,6 +159,10 @@ config("openscreen_code") {
     # C-style assertions in the standard library should match the behavior of
     # OSP_DCHECKs. Thus, turn them off whenever OSP_DCHECKs would be turned off.
     defines += [ "NDEBUG" ]
+  }
+
+  if (enable_trace_logging) {
+    defines += [ "ENABLE_TRACE_LOGGING" ]
   }
 }
 
