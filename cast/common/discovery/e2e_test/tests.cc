@@ -136,9 +136,6 @@ class DiscoveryE2ETest : public testing::Test {
     // Sleep to let any packets clear off the network before further tests.
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
-    // Set log level so info logs go to stdout.
-    SetLogLevel(LogLevel::kInfo);
-
     PlatformClientPosix::Create(Clock::duration{50}, Clock::duration{50});
     task_runner_ = PlatformClientPosix::GetInstance()->GetTaskRunner();
   }
