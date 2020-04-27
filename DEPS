@@ -151,7 +151,6 @@ recursedeps = [
 ]
 
 include_rules = [
-  '+build/config/features.h',
   '+util',
   '+platform/api',
   '+platform/base',
