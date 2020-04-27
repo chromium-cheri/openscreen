@@ -19,27 +19,13 @@ CastSocketMessagePort::~CastSocketMessagePort() = default;
 // since sockets should map one to one with receiver sessions, we reset our
 // client. The consumer of this message port should call SetClient with the new
 // message port client after setting the socket.
-void CastSocketMessagePort::SetSocket(std::unique_ptr<CastSocket> socket) {
+void CastSocketMessagePort::SetSocket(CastSocket* socket) {
   client_ = nullptr;
-  socket_ = std::move(socket);
+  socket_ = socket;
 }
 
 void CastSocketMessagePort::SetClient(MessagePort::Client* client) {
   client_ = client;
-}
-
-void CastSocketMessagePort::OnError(CastSocket* socket, Error error) {
-  if (client_) {
-    client_->OnError(error);
-  }
-}
-
-void CastSocketMessagePort::OnMessage(CastSocket* socket,
-                                      ::cast::channel::CastMessage message) {
-  if (client_) {
-    client_->OnMessage(message.source_id(), message.namespace_(),
-                       message.payload_utf8());
-  }
 }
 
 void CastSocketMessagePort::PostMessage(absl::string_view sender_id,
