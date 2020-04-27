@@ -587,7 +587,7 @@ int main(int argc, char** argv) {
   using openscreen::PlatformClientPosix;
 
   std::cout << "Usage: osp_demo [-v] [friendly_name]" << std::endl
-            << "-v: enable more verbose logging" << std::endl
+            << "-v, --verbose: enable more verbose logging" << std::endl
             << "friendly_name: server name, runs the publisher demo."
             << std::endl
             << "               omitting runs the listener demo." << std::endl
@@ -600,7 +600,7 @@ int main(int argc, char** argv) {
       is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
   openscreen::SetLogFifoOrDie(log_filename);
 
-  LogLevel level = args.is_verbose ? LogLevel::kVerbose : LogLevel::kInfo;
+  const LogLevel level = args.is_verbose ? LogLevel::kVerbose : LogLevel::kInfo;
   openscreen::SetLogLevel(level);
   openscreen::TextTraceLoggingPlatform text_logging_platform;
 
