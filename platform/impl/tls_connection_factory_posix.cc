@@ -106,6 +106,11 @@ void TlsConnectionFactoryPosix::SetListenCredentials(
       ImportRSAPrivateKey(credentials.der_rsa_private_key.data(),
                           credentials.der_rsa_private_key.size());
 
+  OSP_DCHECK(cert);
+  OSP_DCHECK(pkey);
+  OSP_DCHECK(SSL_CTX_use_certificate(ssl_context_.get(), cert.value().get()) == 1);
+  OSP_DCHECK(SSL_CTX_use_PrivateKey(ssl_context_.get(), pkey.value().get()) == 1);
+
   if (!cert || !pkey ||
       SSL_CTX_use_certificate(ssl_context_.get(), cert.value().get()) != 1 ||
       SSL_CTX_use_PrivateKey(ssl_context_.get(), pkey.value().get()) != 1) {
