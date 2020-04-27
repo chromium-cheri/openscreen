@@ -67,7 +67,7 @@ void TlsConnectionPosix::TryReceiveMessage() {
   // action.
   if (bytes_read <= 0) {
     const Error error = GetSSLError(ssl_.get(), bytes_read);
-    if (!error.ok() && (error != Error::Code::kAgain)) {
+    if (!error.ok() && (error.code() != Error::Code::kAgain)) {
       DispatchError(error);
     }
     return;
