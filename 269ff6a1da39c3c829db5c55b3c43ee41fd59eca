@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4c996a74_69912b1f",
+        "filename": "BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-28T19:59:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2838cd7c_4345b87d",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9704a752_d78934a1",
         "filename": "BUILD.gn",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c4fe5b3_5aa21f1f",
+        "filename": "BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-28T19:59:04Z",
+      "side": 1,
+      "message": "Done. Good catch!",
+      "parentUuid": "9704a752_d78934a1",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b7a6c1b9_4c43076a",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-28T19:59:04Z",
+      "side": 1,
+      "message": "\u003e Chromium still has a False default, so how do they do it?  Maybe they\u0027re calling update.py manually in the recipe?\n\nThat\u0027s what they seem to do. For now, I\u0027m trying to add the extra dependency / failure point to the buildbot python scripts, at least until the new buildbot changes have been in and working for a bit.\n\n\u003e It\u0027s not a huge download, but I\u0027d prefer to leave the default as False\n\nI will add a TODO here and file a bug. I\u0027m not sure exactly how to make this work and need to do a bit more investigation, and don\u0027t want to block the remaining work on this\n\nFor now, it shouldn\u0027t hold up trybots at all - the OSP bots are already much faster than our chromium bots.",
+      "parentUuid": "ec9810a5_75b67785",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac97c234_5a747ef7",
         "filename": "build/code_coverage/merge_results.py",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e0d1a3_b098bc01",
+        "filename": "build/code_coverage/merge_results.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-28T19:59:04Z",
+      "side": 1,
+      "message": "Leaving this as-is. It is taken directly from the chromium script with the same name, and I want to make that clear to readers.\nAlso adding file-level comment to this effect",
+      "parentUuid": "ac97c234_5a747ef7",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "6f40c1e7_b6964810",
+        "filename": "build/code_coverage/merge_results.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-28T19:59:04Z",
+      "side": 1,
+      "message": "Same as above - leaving as-is to keep in sync with Chromium script. Also, to ensure that logs here (for the relevant steps at least) match up with that of Chromium, to simplify debugging",
+      "parentUuid": "32ed5fee_a2d4b785",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "338fbbcc_679ab0a3",
         "filename": "build/config/BUILD.gn",
         "patchSetId": 3
@@ -139,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "9ea3660f_f503032e",
+        "filename": "build/config/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-28T19:59:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "338fbbcc_679ab0a3",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1714ad22_5e45844b",
         "filename": "infra/config/global/cr-buildbucket.cfg",
         "patchSetId": 3
@@ -153,6 +261,24 @@
       "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "024d07cb_95b7214a",
+        "filename": "infra/config/global/cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-28T19:59:04Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct. Need these scripts in to fully test it though, because they are dependencies of the chromium code_coverage module that it calls into\n\nPlanning to put that CL out as soon as I finish the second half of testing it",
+      "parentUuid": "1714ad22_5e45844b",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
