@@ -120,9 +120,15 @@ if (!build_with_chromium && is_posix) {
     testonly = true
     public_deps = [
       "cast/common:discovery_e2e_test",
-      "cast/test:e2e_tests",
       "third_party/googletest:gtest_main",
     ]
+
+    # TODO(issuetracker.google.com/155214294): reenable cast socket tests on Mac
+    # and ARM once they are fixed.
+    is_arm = target_cpu == "arm" || target_cpu == "arm64"
+    if (!is_arm && is_linux) {
+      public_deps += [ "cast/test:e2e_tests" ]
+    }
   }
 
   executable("e2e_tests") {
