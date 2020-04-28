@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "2838cd7c_4345b87d",
+        "filename": "BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-28T12:31:14Z",
+      "side": 1,
+      "message": "nit: typically just omitted when false.",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9704a752_d78934a1",
         "filename": "BUILD.gn",
         "patchSetId": 3
@@ -13,6 +30,23 @@
       "writtenOn": "2020-04-27T23:45:58Z",
       "side": 1,
       "message": "This check is already covered by line 118?",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9810a5_75b67785",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-28T12:31:14Z",
+      "side": 1,
+      "message": "It\u0027s not a huge download, but I\u0027d prefer to leave the default as False.  I assume this is so the tools will be downloaded by the bots, but Chromium still has a False default, so how do they do it?  Maybe they\u0027re calling update.py manually in the recipe?",
       "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "1b6b0115_a581fea2",
+        "filename": "build/code_coverage/merge_results.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-28T12:31:14Z",
+      "side": 1,
+      "message": "Same reason.",
+      "parentUuid": "5f604a12_872b6e3e",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32ed5fee_a2d4b785",
         "filename": "build/code_coverage/merge_results.py",
         "patchSetId": 3
@@ -64,6 +116,40 @@
       "writtenOn": "2020-04-27T23:45:58Z",
       "side": 1,
       "message": "Nit: move this logging config statement to main?",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "338fbbcc_679ab0a3",
+        "filename": "build/config/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-28T12:31:14Z",
+      "side": 1,
+      "message": "This is already defined by the target `default_coverage` below and included as a baseline config in BUILDCONFIG.gn.",
+      "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1714ad22_5e45844b",
+        "filename": "infra/config/global/cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-04-28T12:31:14Z",
+      "side": 1,
+      "message": "There is going to be a follow-up in our recipe then and this isn\u0027t part of the existing chromium recipe?",
       "revId": "269ff6a1da39c3c829db5c55b3c43ee41fd59eca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
