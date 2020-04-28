@@ -3,6 +3,7 @@
 # found in the LICENSE file.
 
 import("//build_overrides/build.gni")
+import("build/config/sysroot.gni")
 import("osp/build/config/services.gni")
 
 declare_args() {
@@ -120,9 +121,14 @@ if (!build_with_chromium && is_posix) {
     testonly = true
     public_deps = [
       "cast/common:discovery_e2e_test",
-      "cast/test:e2e_tests",
       "third_party/googletest:gtest_main",
     ]
+
+    # TODO(issuetracker.google.com/155214294): reenable cast socket tests on Mac
+    # and ARM64 once they are fixed.
+    if (is_linux && !use_sysroot) {
+      public_deps += [ "cast/test:e2e_tests" ]
+    }
   }
 
   executable("e2e_tests") {
