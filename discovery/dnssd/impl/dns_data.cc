@@ -12,6 +12,7 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
+// New Comment
 template <typename T>
 inline Error CreateRecord(absl::optional<T>* stored, const MdnsRecord& record) {
   if (stored->has_value()) {
