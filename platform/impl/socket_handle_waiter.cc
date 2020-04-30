@@ -82,7 +82,8 @@ void SocketHandleWaiter::ProcessReadyHandles(
     }
 
     processed_one = true;
-    handle.subscriber->ProcessReadyHandle(handle.handle);
+    handle.subscriber->ProcessReadyHandle(handle.ready_handle.handle,
+                                          handle.ready_handle.flags);
 
     current_time = now_function_();
     if ((current_time - start_time) > timeout) {
@@ -106,8 +107,9 @@ Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
 
   Clock::time_point current_time = now_function_();
   Clock::duration remaining_timeout = timeout - (current_time - start_time);
-  ErrorOr<std::vector<SocketHandleRef>> changed_handles =
+  ErrorOr<std::vector<ReadyHandle>> changed_handles =
       AwaitSocketsReadable(handles, remaining_timeout);
+  OSP_LOG_WARN << "Await sockets done";
 
   std::vector<HandleWithSubscriber> ready_handles;
   {
@@ -118,7 +120,7 @@ Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
       auto& ch = changed_handles.value();
       ready_handles.reserve(ch.size());
       for (const auto& handle : ch) {
-        auto mapping_it = handle_mappings_.find(handle);
+        auto mapping_it = handle_mappings_.find(handle.handle);
         if (mapping_it != handle_mappings_.end()) {
           ready_handles.push_back(
               HandleWithSubscriber{handle, mapping_it->second});
