@@ -93,8 +93,9 @@ void TlsDataRouterPosix::OnSocketDestroyed(StreamSocketPosix* socket,
 }
 
 void TlsDataRouterPosix::ProcessReadyHandle(
-    SocketHandleWaiter::SocketHandleRef handle) {
-  {
+    SocketHandleWaiter::SocketHandleRef handle,
+    uint32_t flags) {
+  if (flags & SocketHandleWaiter::Flags::kReadable) {
     std::unique_lock<std::mutex> lock(accept_socket_mutex_);
     for (const auto& pair : accept_socket_mappings_) {
       if (pair.first->socket_handle() == handle) {
@@ -107,8 +108,16 @@ void TlsDataRouterPosix::ProcessReadyHandle(
     std::lock_guard<std::mutex> lock(connections_mutex_);
     for (TlsConnectionPosix* connection : connections_) {
       if (connection->socket_handle() == handle) {
-        connection->TryReceiveMessage();
-        connection->SendAvailableBytes();
+        if (flags & SocketHandleWaiter::Flags::kReadable) {
+          OSP_LOG_WARN << "TLS recv: " << connection->GetLocalEndpoint() << ","
+                       << connection->GetRemoteEndpoint();
+          connection->TryReceiveMessage();
+        }
+        if (flags & SocketHandleWaiter::Flags::kWriteable) {
+          OSP_LOG_WARN << "TLS send: " << connection->GetLocalEndpoint() << ","
+                       << connection->GetRemoteEndpoint();
+          connection->SendAvailableBytes();
+        }
         return;
       }
     }

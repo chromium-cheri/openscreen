@@ -73,6 +73,8 @@ void TlsConnectionFactoryPosix::Connect(const IPEndpoint& remote_address,
   IPAddress::Version version = remote_address.address.version();
   std::unique_ptr<TlsConnectionPosix> connection(
       new TlsConnectionPosix(version, task_runner_));
+  OSP_LOG_WARN << "TLS connect: " << remote_address << ", "
+               << connection->socket_handle().fd;
   Error connect_error = connection->socket_->Connect(remote_address);
   if (!connect_error.ok()) {
     TRACE_SET_RESULT(connect_error);
@@ -179,6 +181,9 @@ void TlsConnectionFactoryPosix::OnSocketAccepted(
     return;
   }
 
+  OSP_LOG_WARN << "TLS accept: (" << connection->GetLocalEndpoint() << ","
+               << connection->GetRemoteEndpoint() << "), "
+               << connection->socket_handle().fd;
   Accept(std::move(connection));
 }
 
