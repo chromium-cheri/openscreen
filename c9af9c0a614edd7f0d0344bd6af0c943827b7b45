@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a58f9bb2_5708448c",
+        "filename": "platform/base/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-30T20:09:28Z",
+      "side": 1,
+      "message": "Can we instead overload value()? Two reasons:\n - IMHO it seems cleaner 😊\n - This avoids the issue where ValueType doesn\u0027t have a default ctor\n\nthat make this \n\u003e  const ValueType value(ValueType fallback) const {",
+      "range": {
+        "startLine": 315,
+        "startChar": 18,
+        "endLine": 315,
+        "endChar": 32
+      },
+      "revId": "c9af9c0a614edd7f0d0344bd6af0c943827b7b45",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81739b4b_b94053ae",
+        "filename": "platform/base/error.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-04-30T20:09:28Z",
+      "side": 1,
+      "message": "This approach forces a copy on value() which may not be valid. We should write this in a more generic fashion\n\nSomething like:\n\n\u003e  ValueType\u0026\u0026 ValueOrDefault(ValueType\u0026\u0026 fallback) const {\n\u003e   if (is_value()) {\n\u003e     return value()\n\u003e   }\n\u003e   return std::forward\u003cValueType\u003e(fallback)\n\u003e }\n\nThough I\u0027m a bit confused of the right way to write this if fallback is an ValueType and value() is a ValueType\u0026\nWe might need some template magic to solve this correctly\n\n@btolsch, WDYT?",
+      "range": {
+        "startLine": 315,
+        "startChar": 2,
+        "endLine": 315,
+        "endChar": 74
+      },
+      "revId": "c9af9c0a614edd7f0d0344bd6af0c943827b7b45",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
