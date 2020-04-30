@@ -107,6 +107,8 @@ void TlsDataRouterPosix::ProcessReadyHandle(
     std::lock_guard<std::mutex> lock(connections_mutex_);
     for (TlsConnectionPosix* connection : connections_) {
       if (connection->socket_handle() == handle) {
+        OSP_LOG_WARN << "TLS send/recv: " << connection->GetLocalEndpoint()
+                     << "," << connection->GetRemoteEndpoint();
         connection->TryReceiveMessage();
         connection->SendAvailableBytes();
         return;

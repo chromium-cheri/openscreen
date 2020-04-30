@@ -63,6 +63,12 @@ SocketHandleWaiterPosix::AwaitSocketsReadable(
   for (const SocketHandleRef& handle : socket_handles) {
     if (FD_ISSET(handle.get().fd, &read_handles) ||
         FD_ISSET(handle.get().fd, &write_handles)) {
+      if (FD_ISSET(handle.get().fd, &read_handles)) {
+        OSP_LOG_WARN << "fd readable: " << handle.get().fd;
+      }
+      if (FD_ISSET(handle.get().fd, &write_handles)) {
+        OSP_LOG_WARN << "fd writeable: " << handle.get().fd;
+      }
       // TODO(btolsch): Distinguish between read and write.
       changed_handles.push_back(handle);
     }

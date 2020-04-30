@@ -108,6 +108,7 @@ Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
   Clock::duration remaining_timeout = timeout - (current_time - start_time);
   ErrorOr<std::vector<SocketHandleRef>> changed_handles =
       AwaitSocketsReadable(handles, remaining_timeout);
+  OSP_LOG_WARN << "Await sockets done";
 
   std::vector<HandleWithSubscriber> ready_handles;
   {
