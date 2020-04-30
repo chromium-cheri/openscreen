@@ -182,9 +182,10 @@ source_set("test") {
   }
   if (is_linux) {
     sources += [ "test/paths_internal_linux.cc" ]
-  }
-  if (is_mac) {
+  } else if (is_mac) {
     sources += [ "test/paths_internal_mac.cc" ]
+  } else {
+    sources += [ "test/paths_internal_other.cc" ]
   }
 
   deps = [

@@ -1,0 +1,15 @@
+// Copyright 2020 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "platform/test/paths_internal.h"
+#include "util/logging.h"
+
+namespace openscreen {
+
+std::string GetExePath() {
+  OSP_NOTREACHED();
+  return {};
+}
+
+}  // namespace openscreen
