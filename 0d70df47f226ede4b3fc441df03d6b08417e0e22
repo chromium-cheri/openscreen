@@ -33,6 +33,24 @@
       "revId": "0d70df47f226ede4b3fc441df03d6b08417e0e22",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd2ca384_331dab05",
+        "filename": "platform/impl/socket_handle_waiter_posix_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-04-30T10:15:49Z",
+      "side": 1,
+      "message": "This was one way to fix the issue I was seeing with the SocketHandleWaiter not executing on the handles.\n\nTurns out, you are completely right that this isn\u0027t necessary. I just needed to change my boundary checks from:\n\nhandle already updated (start time, infinity)\nprocess handles [0, timeout)\nto:\nhandle already updated [start time, infinity)\nprocess handles [0, timeout]\n\nBasically just including the start time and the timeout when appropriate, so in cases where we have a fake clock the zero case works properly.\n\nThis actually fixes a very unlikely potential bug, I think this is better with fake clock.",
+      "parentUuid": "1c3bdf76_cc869497",
+      "revId": "0d70df47f226ede4b3fc441df03d6b08417e0e22",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
