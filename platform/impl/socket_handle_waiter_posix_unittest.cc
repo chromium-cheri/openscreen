@@ -9,12 +9,13 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include <vector>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
+#include "platform/api/time.h"
 #include "platform/impl/socket_handle_posix.h"
 #include "platform/impl/timeval_posix.h"
-#include "platform/test/fake_clock.h"
 
 namespace openscreen {
 namespace {
@@ -32,14 +33,12 @@ class TestingSocketHandleWaiter : public SocketHandleWaiter {
  public:
   using SocketHandleRef = SocketHandleWaiter::SocketHandleRef;
 
-  TestingSocketHandleWaiter() : SocketHandleWaiter(&FakeClock::now) {}
+  TestingSocketHandleWaiter() : SocketHandleWaiter(&Clock::now) {}
 
   MOCK_METHOD2(
       AwaitSocketsReadable,
       ErrorOr<std::vector<SocketHandleRef>>(const std::vector<SocketHandleRef>&,
                                             const Clock::duration&));
-
-  FakeClock fake_clock{Clock::time_point{Clock::duration{1234567}}};
 };
 
 }  // namespace
@@ -61,7 +60,7 @@ TEST(SocketHandleWaiterTest, BubblesUpAwaitSocketsReadableErrors) {
   EXPECT_CALL(subscriber, ProcessReadyHandle(_)).Times(0);
   EXPECT_CALL(waiter, AwaitSocketsReadable(_, _))
       .WillOnce(Return(ByMove(response)));
-  waiter.ProcessHandles(Clock::duration{0});
+  waiter.ProcessHandles(Clock::duration{500});
 }
 
 TEST(SocketHandleWaiterTest, WatchedSocketsReturnedToCorrectSubscribers) {
@@ -89,7 +88,7 @@ TEST(SocketHandleWaiterTest, WatchedSocketsReturnedToCorrectSubscribers) {
       .WillOnce(Return(ByMove(std::vector<SocketHandleWaiter::SocketHandleRef>{
           std::cref(handle0_ref), std::cref(handle1_ref),
           std::cref(handle2_ref), std::cref(handle3_ref)})));
-  waiter.ProcessHandles(Clock::duration{0});
+  waiter.ProcessHandles(Clock::duration{500});
 }
 
 }  // namespace openscreen
