@@ -312,6 +312,13 @@ class ErrorOr {
     return value_;
   }
 
+  const ValueType ValueOrDefault(ValueType fallback = ValueType{}) const {
+    if (is_value()) {
+      return value();
+    }
+    return fallback;
+  }
+
  private:
   // Only one of these is an active member, determined by |is_value_|. Since
   // they are union'ed, they must be explicitly constructed and destroyed.

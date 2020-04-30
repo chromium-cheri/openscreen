@@ -148,17 +148,17 @@ ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
   auto receiver_rtcp_dscp = ParseString(value, "receiverRtcpDscp");
   return Stream{index.value(),
                 type,
-                ValueOrDefault(channels, type == Stream::Type::kAudioSource
-                                             ? kDefaultNumAudioChannels
-                                             : kDefaultNumVideoChannels),
+                channels.ValueOrDefault(type == Stream::Type::kAudioSource
+                                            ? kDefaultNumAudioChannels
+                                            : kDefaultNumVideoChannels),
                 codec_name.value(),
                 rtp_payload_type.value(),
                 ssrc.value(),
                 target_delay_ms,
                 aes_key.value(),
                 aes_iv_mask.value(),
-                ValueOrDefault(receiver_rtcp_event_log),
-                ValueOrDefault(receiver_rtcp_dscp),
+                receiver_rtcp_event_log.ValueOrDefault(),
+                receiver_rtcp_dscp.ValueOrDefault(),
                 rtp_timebase.value()};
 }
 
@@ -239,12 +239,12 @@ ErrorOr<VideoStream> ParseVideoStream(const Json::Value& value) {
   auto error_recovery_mode = ParseString(value, "errorRecoveryMode");
   return VideoStream{stream.value(),
                      max_frame_rate,
-                     ValueOrDefault(max_bit_rate, 4 << 20),
-                     ValueOrDefault(protection),
-                     ValueOrDefault(profile),
-                     ValueOrDefault(level),
+                     max_bit_rate.ValueOrDefault(4 << 20),
+                     protection.ValueOrDefault(),
+                     profile.ValueOrDefault(),
+                     level.ValueOrDefault(),
                      resolutions.value(),
-                     ValueOrDefault(error_recovery_mode)};
+                     error_recovery_mode.ValueOrDefault()};
 }
 
 absl::string_view ToString(Stream::Type type) {
@@ -403,7 +403,7 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
     }
   }
 
-  return Offer{cast_mode, ValueOrDefault(get_status), std::move(audio_streams),
+  return Offer{cast_mode, get_status.ValueOrDefault(), std::move(audio_streams),
                std::move(video_streams)};
 }
 
