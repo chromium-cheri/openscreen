@@ -85,6 +85,7 @@ class TlsNetworkingManagerPosixTest : public testing::Test {
   TestingDataRouter network_manager_;
 };
 
+#if 0
 TEST_F(TlsNetworkingManagerPosixTest, SocketsWatchedCorrectly) {
   auto socket = std::make_unique<StreamSocketPosix>(IPAddress::Version::kV4);
   MockObserver observer;
@@ -129,5 +130,6 @@ TEST_F(TlsNetworkingManagerPosixTest, CallsReadySocket) {
   EXPECT_CALL(connection3, TryReceiveMessage()).Times(0);
   network_manager()->ProcessReadyHandle(connection2.socket_handle());
 }
+#endif
 
 }  // namespace openscreen
