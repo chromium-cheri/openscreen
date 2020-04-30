@@ -113,7 +113,7 @@ class ReceiverSocketsClient final
 class CastSocketE2ETest : public ::testing::Test {
  public:
   void SetUp() override {
-    PlatformClientPosix::Create(Clock::duration{50}, Clock::duration{50});
+    PlatformClientPosix::Create(Clock::duration{50000}, Clock::duration{0});
     task_runner_ = PlatformClientPosix::GetInstance()->GetTaskRunner();
 
     sender_router_ = MakeSerialDelete<VirtualConnectionRouter>(

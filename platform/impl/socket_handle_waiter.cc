@@ -72,17 +72,25 @@ void SocketHandleWaiter::ProcessReadyHandles(
     const std::vector<HandleWithSubscriber>& handles,
     Clock::duration timeout) {
   Clock::time_point start_time = now_function_();
+  OSP_LOG_WARN
+      << "timeout: "
+      << std::chrono::duration_cast<std::chrono::milliseconds>(timeout).count();
   bool processed_one = false;
   // TODO(btolsch): Track explicit or implicit time since last handled on each
   // watched handle so we can sort by it here for better fairness.
   for (const HandleWithSubscriber& handle : handles) {
     Clock::time_point current_time = now_function_();
+    OSP_LOG_WARN << "time elapsed: "
+                 << std::chrono::duration_cast<std::chrono::milliseconds>(
+                        current_time - start_time)
+                        .count();
     if (processed_one && (current_time - start_time) > timeout) {
       return;
     }
 
     processed_one = true;
-    handle.subscriber->ProcessReadyHandle(handle.handle);
+    handle.subscriber->ProcessReadyHandle(handle.ready_handle.handle,
+                                          handle.ready_handle.flags);
 
     current_time = now_function_();
     if ((current_time - start_time) > timeout) {
@@ -106,8 +114,9 @@ Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
 
   Clock::time_point current_time = now_function_();
   Clock::duration remaining_timeout = timeout - (current_time - start_time);
-  ErrorOr<std::vector<SocketHandleRef>> changed_handles =
+  ErrorOr<std::vector<ReadyHandle>> changed_handles =
       AwaitSocketsReadable(handles, remaining_timeout);
+  OSP_LOG_WARN << "Await sockets done";
 
   std::vector<HandleWithSubscriber> ready_handles;
   {
@@ -118,7 +127,7 @@ Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
       auto& ch = changed_handles.value();
       ready_handles.reserve(ch.size());
       for (const auto& handle : ch) {
-        auto mapping_it = handle_mappings_.find(handle);
+        auto mapping_it = handle_mappings_.find(handle.handle);
         if (mapping_it != handle_mappings_.end()) {
           ready_handles.push_back(
               HandleWithSubscriber{handle, mapping_it->second});

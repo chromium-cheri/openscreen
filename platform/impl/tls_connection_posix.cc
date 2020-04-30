@@ -97,7 +97,7 @@ bool TlsConnectionPosix::Send(const void* data, size_t len) {
 }
 
 IPEndpoint TlsConnectionPosix::GetLocalEndpoint() const {
-  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  // OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
   absl::optional<IPEndpoint> endpoint = socket_->local_address();
   OSP_DCHECK(endpoint.has_value());
@@ -105,7 +105,7 @@ IPEndpoint TlsConnectionPosix::GetLocalEndpoint() const {
 }
 
 IPEndpoint TlsConnectionPosix::GetRemoteEndpoint() const {
-  OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  // OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
   absl::optional<IPEndpoint> endpoint = socket_->remote_address();
   OSP_DCHECK(endpoint.has_value());
@@ -121,6 +121,7 @@ void TlsConnectionPosix::RegisterConnectionWithDataRouter(
 
 void TlsConnectionPosix::SendAvailableBytes() {
   absl::Span<const uint8_t> sendable_bytes = buffer_.GetReadableRegion();
+  OSP_LOG_WARN << "bytes to send: " << sendable_bytes.size();
   if (sendable_bytes.empty()) {
     return;
   }
@@ -130,10 +131,12 @@ void TlsConnectionPosix::SendAvailableBytes() {
       SSL_write(ssl_.get(), sendable_bytes.data(), sendable_bytes.size());
   if (result <= 0) {
     const Error result_error = GetSSLError(ssl_.get(), result);
+    OSP_LOG_WARN << "send error";
     if (!result_error.ok() && (result_error.code() != Error::Code::kAgain)) {
       DispatchError(result_error);
     }
   } else {
+    OSP_LOG_WARN << "bytes sent: " << result;
     buffer_.Consume(static_cast<size_t>(result));
   }
 }
