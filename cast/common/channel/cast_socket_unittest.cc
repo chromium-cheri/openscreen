@@ -58,6 +58,7 @@ TEST_F(CastSocketTest, SendMessage) {
         return true;
       }));
   ASSERT_TRUE(socket().Send(message_).ok());
+  ASSERT_TRUE(false);
 }
 
 TEST_F(CastSocketTest, SendMessageEventuallyBlocks) {
