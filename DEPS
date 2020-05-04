@@ -46,7 +46,7 @@ deps = {
   'third_party/protobuf/src': {
     'url': Var('chromium_git') +
       '/external/github.com/protocolbuffers/protobuf.git' +
-      '@' + 'd09d649aea36f02c03f8396ba39a8d4db8a607e4', # version 3.10.1
+      '@' + 'ed5c874de356e27bc4da77f56f813ad18bc541c5', # version 3.10.1
     'condition': 'not build_with_chromium',
   },
 
@@ -60,14 +60,14 @@ deps = {
   'third_party/jsoncpp/src': {
     'url': Var('chromium_git') +
       '/external/github.com/open-source-parsers/jsoncpp.git' +
-      '@' + '2eb20a938c454411c1d416caeeb2a6511daab5cb', # version 1.9.0
+      '@' + 'd2d4c74a03036c18d7171993bfaa6e0bea38e07d', # version 1.9.0
     'condition': 'not build_with_chromium',
   },
 
   'third_party/googletest/src': {
     'url': Var('chromium_git') +
       '/external/github.com/google/googletest.git' +
-      '@' + '8697709e0308af4cd5b09dc108480804e5447cf0',
+      '@' + '0eea2e9fc63461761dea5f2f517bd6af2ca024fa',
     'condition': 'not build_with_chromium',
   },
 
@@ -95,12 +95,12 @@ deps = {
 
   'third_party/tinycbor/src':
     Var('chromium_git') + '/external/github.com/intel/tinycbor.git' +
-    '@' + '755f9ef932f9830a63a712fd2ac971d838b131f1',
+    '@' + 'e608465164f3886541f3a0fcacbb6b7b31888b5a',
 
   'third_party/abseil/src': {
     'url': Var('chromium_git') +
       '/external/github.com/abseil/abseil-cpp.git' +
-      '@' + '20de2db748ca0471cfb61cb53e813dd12938c12b',
+      '@' + 'a1d6689907864974118e592ef2ac7d716c576aad',
     'condition': 'not build_with_chromium',
   },
 
