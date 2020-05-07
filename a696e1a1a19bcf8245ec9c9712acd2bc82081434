@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a87c8fb_1f7078d6",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-05-07T22:50:53Z",
+      "side": 1,
+      "message": "Might make more sense to exclude all of third_party/, since we don\u0027t own the code. WDYT?",
+      "range": {
+        "startLine": 8,
+        "startChar": 12,
+        "endLine": 8,
+        "endChar": 23
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "349a472c_585663de",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-05-07T22:50:53Z",
+      "side": 1,
+      "message": "It looks like there are more checks being run here than were run previously\n\nDoes our repo pass the new checks too?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a76f904_ce05b83a",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-05-07T22:50:53Z",
+      "side": 1,
+      "message": "Cool! Didn\u0027t realize we had a check for this",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 22
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b15e09fa_51cf863c",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-05-07T22:50:53Z",
+      "side": 1,
+      "message": "Can\u0027t 100% tell what this means\n\nIf it\u0027s a description of what the following line does, please clarify\n\nIf this is a TODO for this file, maybe:\n\u003e TODO(issuetracker.google.com/\u003cfile a bug\u003e): enforce TODOs all use issuetracker links",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 58
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ffb332_090a5e5c",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-05-07T22:50:53Z",
+      "side": 1,
+      "message": "Where does the list of \u0027illegal includes\u0027 come from?\n\nIf it\u0027s chromium, we are already using some illegal includes (like std::chrono) which might cause problems\nIf it\u0027s our own list, can we make it check that absl isn\u0027t used in public dirs?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 54
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
