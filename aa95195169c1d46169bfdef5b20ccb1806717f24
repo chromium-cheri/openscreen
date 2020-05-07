@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f7acad68_0d5b0d10",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-05-07T20:37:23Z",
+      "side": 1,
+      "message": "In practice, I\u0027m not sure it\u0027s that helpful. It would let us log \"these 3 errors occurred\" instead of \"this error occurred\" (which Trace Logging already gives us), but from an embedder perspective there isn\u0027t much more they can do\n\nNot against the idea though - a general `AggregateException : public Exception` is pretty standard for most error handling schemes\n\nWDYT?",
+      "parentUuid": "f2dd11c1_8ea25ac1",
+      "revId": "aa95195169c1d46169bfdef5b20ccb1806717f24",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c0902c9_3f322fb9",
         "filename": "discovery/dnssd/impl/service_dispatcher.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9cbedc78_75a32f98",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-05-07T20:37:23Z",
+      "side": 1,
+      "message": "If this is empty it means that discovery has been started with no associated network interfaces - so all discovery calls will not actually be sent anywhere :) In this case, tracing wouldn\u0027t actually be useful since no downstream calls would ever be made\n\nBut, in practice, we DCHECK above that it\u0027s non-empty, so it shouldn\u0027t happen (and also because it would be useless for the embedder)",
+      "parentUuid": "8c0902c9_3f322fb9",
+      "revId": "aa95195169c1d46169bfdef5b20ccb1806717f24",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "355d68e1_59fd97a6",
         "filename": "discovery/dnssd/impl/service_dispatcher.cc",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "aa95195169c1d46169bfdef5b20ccb1806717f24",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3679c089_8113d7c0",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-05-07T20:37:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "355d68e1_59fd97a6",
+      "revId": "aa95195169c1d46169bfdef5b20ccb1806717f24",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
