@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2dd11c1_8ea25ac1",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-07T17:40:03Z",
+      "side": 1,
+      "message": "Should we have an aggregate error type, like stack\u003cError\u003e or is it only interesting for trace logging?",
+      "revId": "aa95195169c1d46169bfdef5b20ccb1806717f24",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c0902c9_3f322fb9",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-07T17:40:03Z",
+      "side": 1,
+      "message": "What happens if this is empty? Would we ever want to trace log when DCHECKs are off, or is that not a realistic scenario?",
+      "revId": "aa95195169c1d46169bfdef5b20ccb1806717f24",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "355d68e1_59fd97a6",
+        "filename": "discovery/dnssd/impl/service_dispatcher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-07T17:40:03Z",
+      "side": 1,
+      "message": "Nit: you do this check twice. Maybe consider:\n  if (result.is_error()) {\n    TRACE_SET_RESULT(result.error());\n    failure \u003d std::move(result.error());\n  } else {\n    TRACE_SET_RESULT(Error::None());\n    total +\u003d result.value();\n  }",
+      "revId": "aa95195169c1d46169bfdef5b20ccb1806717f24",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
