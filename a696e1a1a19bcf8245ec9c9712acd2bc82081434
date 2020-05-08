@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "531749c3_e715082d",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-08T00:10:34Z",
+      "side": 1,
+      "message": "The idea here is to still run checks on the BUILD.gn files we maintain in the root of third_party directories.  I tweaked the regular expressions to try to accomplish that.",
+      "parentUuid": "8a87c8fb_1f7078d6",
+      "range": {
+        "startLine": 8,
+        "startChar": 12,
+        "endLine": 8,
+        "endChar": 23
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "349a472c_585663de",
         "filename": "PRESUBMIT.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-05-07T22:50:53Z",
       "side": 1,
       "message": "It looks like there are more checks being run here than were run previously\n\nDoes our repo pass the new checks too?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "416bc799_2b774cd2",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-08T00:10:34Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem to be trivial to run the checks on the entire repo, as the entire system seems to require a git diff for any file you\u0027re checking.\n\nMost of the new checks are minor formatting or whitespace issues that should have already been fixed by clang-format or gn format.\n\nOne of the benefits is that the checks get applied incrementally on diffs, so code improves as it gets touched.  We could run the cpp linter on the codebase to clean up existing code that\u0027s flagged.",
+      "parentUuid": "349a472c_585663de",
       "range": {
         "startLine": 42,
         "startChar": 4,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "060840db_0f5366fa",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-08T00:10:34Z",
+      "side": 1,
+      "message": "I updated this comment since we\u0027re not planning on rewriting existing TODOs with issuetracker links.  The existing check should be fine.",
+      "parentUuid": "b15e09fa_51cf863c",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 58
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8ffb332_090a5e5c",
         "filename": "PRESUBMIT.py",
         "patchSetId": 1
@@ -114,6 +186,30 @@
       "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8395b13_4a23c0dd",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-08T00:10:34Z",
+      "side": 1,
+      "message": "Sorry if this comment was misleading.   #includes are enforced on a folder by folder basis using rules contained in DEPS files.  That\u0027s why there is a separate tool to enforce them.\n\nWe should put -abseil in all our public/DEPS.",
+      "parentUuid": "d8ffb332_090a5e5c",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 54
+      },
+      "revId": "a696e1a1a19bcf8245ec9c9712acd2bc82081434",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
