@@ -43,6 +43,8 @@ def main():
   parser = _MergeAPIArgumentParser(description=desc)
   params = parser.parse_args()
 
+  os.sync()
+
   output_prodata_filename = 'default.profdata'
   invalid_profiles, counter_overflows = coverage_merger.merge_profiles(
       params.task_output_dir,

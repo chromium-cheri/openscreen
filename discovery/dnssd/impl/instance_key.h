@@ -68,7 +68,6 @@ inline bool operator<(const InstanceKey& lhs, const InstanceKey& rhs) {
   if (comp != 0) {
     return comp < 0;
   }
-
   return lhs.instance_id_ < rhs.instance_id_;
 }
 
