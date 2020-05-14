@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9cfab6f4_b86fabda",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-14T17:13:32Z",
+      "side": 1,
+      "message": "I always forget about DVLOG, I\u0027ll think of that next time I add gratuitous logging. I used to add these statements for my personal debugging then delete them all to \"clean up\", I\u0027m thinking I want to be a little more judicious and add them when I. think they may be helpful for future devs with similar issues.\n\nDVLOG is definitely the right place for them.",
+      "parentUuid": "b2240b15_03da3697",
+      "range": {
+        "startLine": 384,
+        "startChar": 4,
+        "endLine": 384,
+        "endChar": 12
+      },
+      "revId": "b94f360ad46fe01be1d36244f80c730a5fbd20b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbdd4c13_f1f1b3e7",
         "filename": "cast/standalone_receiver/cast_agent.cc",
         "patchSetId": 9
@@ -59,6 +83,30 @@
       "writtenOn": "2020-05-13T21:25:09Z",
       "side": 1,
       "message": "This is a SerialDeletePtr\u003cTlsConnectionFactory\u003e, so owned by the task_runner thread, so reset() can only be called from the TaskRunner thread.\nSame for others below\n\nIt might be worth overriding the SerialDeletePtr\u003c...\u003e\u0027s methods reset(), swap(), and release() to always run on the Task Runner (as a separate patch) - WDYT?",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 32
+      },
+      "revId": "b94f360ad46fe01be1d36244f80c730a5fbd20b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d63f1601_f0454a25",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-14T17:13:32Z",
+      "side": 1,
+      "message": "Yeah, anything that can make them more idiot proof would help me a lot 😊.\n\nIt\u0027s not clear to me from the code what the intended usage is like. The deleter method posts a task to the task runner, shouldn\u0027t that get called from reset()? And I can\u0027t see any construction requirements in the header. I definitely think there needs to be some rework of the serial_delete_ptr if it\u0027s this vague.",
+      "parentUuid": "927a7969_77da6639",
       "range": {
         "startLine": 187,
         "startChar": 0,
