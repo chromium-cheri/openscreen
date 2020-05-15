@@ -18,10 +18,14 @@
 #include "third_party/mDNSResponder/src/mDNSCore/mDNSEmbeddedAPI.h"
 #include "util/osp_logging.h"
 
+namespace {
+
 using std::chrono::duration_cast;
 using std::chrono::hours;
 using std::chrono::milliseconds;
 using std::chrono::seconds;
+
+}  // namespace
 
 extern "C" {
 

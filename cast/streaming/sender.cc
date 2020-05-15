@@ -14,10 +14,6 @@
 namespace openscreen {
 namespace cast {
 
-using std::chrono::duration_cast;
-using std::chrono::microseconds;
-using std::chrono::milliseconds;
-
 using openscreen::operator<<;  // For std::chrono::duration logging.
 
 Sender::Sender(Environment* environment,

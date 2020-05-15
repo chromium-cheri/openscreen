@@ -16,7 +16,6 @@ namespace openscreen {
 namespace {
 
 using namespace ::testing;
-using std::chrono::milliseconds;
 using ::testing::_;
 
 const auto kTaskRunnerSleepTime = milliseconds(1);
