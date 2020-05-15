@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "180a985f_ac8c1c5e",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-05-15T12:22:35Z",
+      "side": 1,
+      "message": "Maybe I don\u0027t 100% understand where this will be used, but I think this should not be used directly in CastAgent.  I think CastAgent should take a CredentialsProvider interface from the embedder (which could be lifted to a more obviously-public place).",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f465d87b_fc14b338",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-05-15T12:22:35Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to allow this.  Does this work around a problem with the existing include path?  If not, I think you should remove this and keep include paths relative to the source root.",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e735ced_49acbd3f",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-05-15T12:22:35Z",
+      "side": 1,
+      "message": "nit: move log into task above?",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "395941e5_e25627ee",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-05-15T12:22:35Z",
+      "side": 1,
+      "message": "nit: |factory| is unused and is also the entity calling us back, so can\u0027t be null (it should\u0027ve accessed its member variables to find this callback).",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7939277b_1a40fea4",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-05-15T12:22:35Z",
+      "side": 1,
+      "message": "I\u0027d prefer const vector\u0026 since this isn\u0027t moving.",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7282b3d9_4d9ac798",
+        "filename": "cast/standalone_receiver/cast_agent_integration_tests.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-05-15T12:22:35Z",
+      "side": 1,
+      "message": "IMO it\u0027s better not to use Clock::duration for constants due to recent bugs (i.e. it\u0027s microseconds which is unintuitive and may be too short to be practical).",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3019661_ddf1f8f1",
+        "filename": "cast/standalone_receiver/cast_socket_message_port.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-05-15T12:22:35Z",
+      "side": 1,
+      "message": "return?",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77a4e04b_7d6614ca",
+        "filename": "platform/impl/scoped_wake_lock_mac.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-05-15T12:22:35Z",
+      "side": 1,
+      "message": "nit: unnecessary extra include; not explicitly used here",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
