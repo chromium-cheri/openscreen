@@ -132,29 +132,20 @@ def _validate_and_convert_profraws(profraw_files, profdata_tool_path):
     if not profraw_file.endswith('.profraw'):
       raise RuntimeError('%r is expected to be a .profraw file.' % profraw_file)
 
-  cpu_count = multiprocessing.cpu_count()
-  counts = max(10, cpu_count - 5)  # Use 10+ processes, but leave 5 cpu cores.
-  pool = multiprocessing.Pool(counts)
-  output_profdata_files = multiprocessing.Manager().list()
-  invalid_profraw_files = multiprocessing.Manager().list()
-  counter_overflows = multiprocessing.Manager().list()
+  output_profdata_files = []
+  invalid_profraw_files = []
+  counter_overflows = []
 
   for profraw_file in profraw_files:
     logging.info('Converting profraw file: %r', profraw_file)
-    pool.apply_async(
-        _validate_and_convert_profraw,
-        (profraw_file, output_profdata_files, invalid_profraw_files,
-         counter_overflows, profdata_tool_path))
-
-  pool.close()
-  pool.join()
+    _validate_and_convert_profraw(profraw_file, output_profdata_files,
+         invalid_profraw_files, counter_overflows, profdata_tool_path)
 
   # Remove inputs, as they won't be needed and they can be pretty large.
   for input_file in profraw_files:
     os.remove(input_file)
 
-  return list(output_profdata_files), list(invalid_profraw_files), list(
-      counter_overflows)
+  return output_profdata_files, invalid_profraw_files, counter_overflows
 
 
 def _validate_and_convert_profraw(profraw_file, output_profdata_files,
