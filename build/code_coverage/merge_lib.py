@@ -149,10 +149,6 @@ def _validate_and_convert_profraws(profraw_files, profdata_tool_path):
   pool.close()
   pool.join()
 
-  # Remove inputs, as they won't be needed and they can be pretty large.
-  for input_file in profraw_files:
-    os.remove(input_file)
-
   return list(output_profdata_files), list(invalid_profraw_files), list(
       counter_overflows)
 
