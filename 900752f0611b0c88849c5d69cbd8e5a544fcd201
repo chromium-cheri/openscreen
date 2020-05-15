@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d0ce5271_b1cd8d64",
+        "filename": "cast/receiver/channel/device_auth_namespace_handler.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-15T19:15:08Z",
+      "side": 1,
+      "message": "My intention with the CastAgent is that it is essentially a reference embedder implementation, I don\u0027t actually see any embedders directly using our CastAgent implementation.\n\nI do agree with your conclusion regardless, I\u0027ll refactor it out.",
+      "parentUuid": "180a985f_ac8c1c5e",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f465d87b_fc14b338",
         "filename": "cast/standalone_receiver/BUILD.gn",
         "patchSetId": 21
@@ -33,6 +51,24 @@
       "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a060add8_b4b2d59a",
+        "filename": "cast/standalone_receiver/BUILD.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-15T19:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f465d87b_fc14b338",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "57fa95f8_4bb4f8d2",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-15T19:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e735ced_49acbd3f",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "395941e5_e25627ee",
         "filename": "cast/standalone_receiver/cast_agent.cc",
         "patchSetId": 21
@@ -67,6 +121,24 @@
       "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48356ef5_63560d3a",
+        "filename": "cast/standalone_receiver/cast_agent.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-15T19:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "395941e5_e25627ee",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "b1b483f8_5e4e8d01",
+        "filename": "cast/standalone_receiver/cast_agent.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-15T19:15:08Z",
+      "side": 1,
+      "message": "After other refactor, this is no longer needed. Definitely cleaner, thanks for the feedback!",
+      "parentUuid": "7939277b_1a40fea4",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7282b3d9_4d9ac798",
         "filename": "cast/standalone_receiver/cast_agent_integration_tests.cc",
         "patchSetId": 21
@@ -98,6 +188,24 @@
       "writtenOn": "2020-05-15T12:22:35Z",
       "side": 1,
       "message": "IMO it\u0027s better not to use Clock::duration for constants due to recent bugs (i.e. it\u0027s microseconds which is unintuitive and may be too short to be practical).",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7d2b15_8fc785c3",
+        "filename": "cast/standalone_receiver/cast_agent_integration_tests.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-15T19:15:08Z",
+      "side": 1,
+      "message": "Agreed. I\u0027ll leave this unresolved and put a separate patch up to refactor everywhere using this pattern.",
+      "parentUuid": "7282b3d9_4d9ac798",
       "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "64449da1_ff9c9917",
+        "filename": "cast/standalone_receiver/cast_socket_message_port.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-15T19:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3019661_ddf1f8f1",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77a4e04b_7d6614ca",
         "filename": "platform/impl/scoped_wake_lock_mac.h",
         "patchSetId": 21
@@ -135,6 +261,24 @@
       "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "863b10d8_43d3a52e",
+        "filename": "platform/impl/scoped_wake_lock_mac.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-05-15T19:15:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77a4e04b_7d6614ca",
+      "revId": "900752f0611b0c88849c5d69cbd8e5a544fcd201",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
