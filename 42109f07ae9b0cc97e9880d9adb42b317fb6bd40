@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "495ba0c8_4267d723",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-19T20:47:56Z",
+      "side": 1,
+      "message": "maybe: [Chromium C++ coding style] which, in turn, defers to the [Google C++ Style Guide].\n\nNit: wrap at 80 cols.",
+      "revId": "42109f07ae9b0cc97e9880d9adb42b317fb6bd40",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7493bc3_29dba02d",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-19T20:47:56Z",
+      "side": 1,
+      "message": "Seems like callers would #include api/time.h to get the platform Clock API which already includes trivial_clock_traits.h.",
+      "revId": "42109f07ae9b0cc97e9880d9adb42b317fb6bd40",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4252332e_43254f0f",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-19T20:47:56Z",
+      "side": 1,
+      "message": "Maybe:\n\nopenscreen::Clock defines aliases for common std::chrono types, like Clock::hours, Clock::milliseconds, etc.",
+      "revId": "42109f07ae9b0cc97e9880d9adb42b317fb6bd40",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f29e12_00cf705e",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-19T20:47:56Z",
+      "side": 1,
+      "message": "More specifically, Clock::hours, Clock::milliseconds, right?",
+      "revId": "42109f07ae9b0cc97e9880d9adb42b317fb6bd40",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26d4a3f4_e9e24505",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-19T20:47:56Z",
+      "side": 1,
+      "message": "It seems to me that we should just replace Clock::duration with Clock::microseconds (or Clock::micros?) to clear up any confusion. Or is the duration declaration required by std::chrono?",
+      "revId": "42109f07ae9b0cc97e9880d9adb42b317fb6bd40",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26052df5_0117480f",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-19T20:47:56Z",
+      "side": 1,
+      "message": "Maybe a future improvement would be to write Clock::micros foo \u003d Clock::AsMicros(seconds(2))?",
+      "revId": "42109f07ae9b0cc97e9880d9adb42b317fb6bd40",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2031198_b5b2a43f",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-19T20:47:56Z",
+      "side": 1,
+      "message": "This paragraph repeats the previous advice around the rule of 3/5/0. Can you edit to make it clearer?\n\nHowever the last sentence can stand as-is.",
+      "revId": "42109f07ae9b0cc97e9880d9adb42b317fb6bd40",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "530f734f_ef784957",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-05-19T20:47:56Z",
+      "side": 1,
+      "message": "I think the Chromium guidance is the right approach in general.  Maybe this paragraph could be written as:\n\nUse OSP_DCHECK and OSP_CHECK in accordance with the [Chromium guidance for DCHECK/CHECK](https://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#check_dcheck_and-notreached)",
+      "revId": "42109f07ae9b0cc97e9880d9adb42b317fb6bd40",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
