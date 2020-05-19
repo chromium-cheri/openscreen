@@ -1,7 +1,8 @@
 # Open Screen Library Style Guide
 
 The Open Screen Library follows the
-[Chromium C++ coding style](https://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md).
+[Chromium C++ coding style](https://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md) and, when not overridden by the Chromium guide, the
+[Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html).
 We also follow the
 [Chromium C++ Do's and Don'ts](https://sites.google.com/a/chromium.org/dev/developers/coding-style/cpp-dos-and-donts).
 
@@ -19,6 +20,21 @@ according to the
   library only needs to handle threading in very specific places;
   see [threading.md](threading.md).
 
+## Interacting with std::chrono
+
+One of the trickier parts of the Open Screen Library is using time and clock
+functionality. Most of the interesting clock information is in
+`platform/base/trivial_clock_traits.h`, with the following highlights:
+
+- When using common `std::chrono` types, the platform defines using statements
+  for them already, so they can just be referred to as `hours`, `milliseconds`,
+  etc.
+- `Clock::duration` is defined currently as `std::chrono::microseconds`, and
+  thus is generally not suitable as a time type (developers generally think in
+  milliseconds). Prefer casting from explicit time types (e.g.
+  `Clock::duration foo = duration_cast<Clock::duration>(seconds(2))` instead
+  of using `Clock::duration` types directly.
+
 ## Open Screen Library Features
 
 - For public API functions that return values or errors, please return
@@ -32,10 +48,10 @@ according to the
 - Braces are optional for single-line if statements; follow the style of
   surrounding code.
 
-## Copy and Move Operators
+## Copy and Move Operators (CMOs)
 
 Use the following guidelines when deciding on copy and move semantics for
-objects.
+objects:
 
 - Objects with data members greater than 32 bytes should be move-able.
 - Known large objects (I/O buffers, etc.) should be be move-only.
@@ -45,14 +61,14 @@ objects.
 
 We [prefer the use of `default` and `delete`](https://sites.google.com/a/chromium.org/dev/developers/coding-style/cpp-dos-and-donts#TOC-Prefer-to-use-default)
 to declare the copy and move semantics of objects.  See
-[Stoustrop's C++ FAQ](http://www.stroustrup.com/C++11FAQ.html#default)
+[Stroustrup's C++ FAQ](http://www.stroustrup.com/C++11FAQ.html#default)
 for details on how to do that.
 
 ### User Defined Copy and Move Operators
 
 Classes should follow the [rule of
 three/five/zero](https://en.cppreference.com/w/cpp/language/rule_of_three),
-meaning that if it has a custom destructor, copy contructor, or copy
+meaning that if it has a custom destructor, copy constructor, or copy
 assignment operator:
 
 - All three operators must be defined (and not defaulted).
@@ -60,7 +76,15 @@ assignment operator:
     - Have a custom move constructor *and* move assignment operator;
     - Delete both of them if move semantics are not desired (in rare cases).
 - Polymorphic base classes with virtual destructors should declare all
-  contructors, destructors and assignment operators as defaulted.
+  constructors, destructors and assignment operators as defaulted.
+
+To reiterate, remember the "rule of 5" when declaring
+CMOs: you should either declare all five (destructor, copy constructor,
+move constructor, copy assignment, move assignment) or none of them. Both
+`default` and `delete` are valid declarations. Note that operator
+definitions belong in the source (`.cc`) file, including `default`, with the
+exception of  `delete`, because it is not a definition, rather a declaration
+that there is no definition, and thus belongs in the header (`.h) file.
 
 ## Noexcept
 
@@ -107,3 +131,9 @@ strip-out unused functions and constants referenced in OSP_DCHECK expressions
 run-time/space overhead when the program runs. For this reason, a developer need
 not explicitly sprinkle "#if OSP_DCHECK_IS_ON()" guards all around any
 functions, variables, etc. that will be unused in "DCHECK off" builds.
+
+When deciding whether to use OSP_CHECK or OSP_DCHECK, consider the desired
+behavior in release build--remember that OSP_DCHECK does nothing in this
+configuration. Common code issues such as access violations will crash the
+program as surely as an OSP_CHECK would, in a less informative way. Make sure
+that code behaves as expected in both debug and release builds.
