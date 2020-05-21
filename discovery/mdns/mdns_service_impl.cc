@@ -49,7 +49,6 @@ MdnsServiceImpl::MdnsServiceImpl(
     OSP_DCHECK(!socket.is_error());
     OSP_DCHECK(socket.value().get());
     OSP_DCHECK(socket.value()->IsIPv4());
-
     socket_v4_ = std::move(socket.value());
   }
 
@@ -59,14 +58,13 @@ MdnsServiceImpl::MdnsServiceImpl(
     OSP_DCHECK(!socket.is_error());
     OSP_DCHECK(socket.value().get());
     OSP_DCHECK(socket.value()->IsIPv6());
-
     socket_v6_ = std::move(socket.value());
   }
 
   // Initialize objects which depend on the above sockets.
   UdpSocket* socket_ptr =
       socket_v4_.get() ? socket_v4_.get() : socket_v6_.get();
-  OSP_DCHECK(socket_ptr);
+  OSP_CHECK(socket_ptr);
   sender_ = std::make_unique<MdnsSender>(socket_ptr);
   if (config.enable_querying) {
     querier_ = std::make_unique<MdnsQuerier>(
@@ -91,6 +89,8 @@ MdnsServiceImpl::MdnsServiceImpl(
   // NOTE: Although only one of these sockets is used for sending, both will be
   // used for reading on the mDNS v4 and v6 addresses and ports.
   if (socket_v4_.get()) {
+    OSP_DCHECK(socket_v4_.get());
+
     socket_v4_->Bind();
 
     // This configuration must happen after the socket is bound for
@@ -102,6 +102,8 @@ MdnsServiceImpl::MdnsServiceImpl(
                                    network_interface);
   }
   if (socket_v6_.get()) {
+    OSP_DCHECK(socket_v6_.get());
+
     socket_v6_->Bind();
 
     // This configuration must happen after the socket is bound for
