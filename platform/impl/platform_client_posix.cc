@@ -66,6 +66,8 @@ PlatformClientPosix::~PlatformClientPosix() {
     OSP_DVLOG << "\tTask Runner shutdown complete!";
   }
 
+  OSP_DVLOG << "Test Log";
+
   OSP_DVLOG << "Shutting down network operations...";
   networking_loop_.RequestStopSoon();
   networking_loop_thread_.join();
