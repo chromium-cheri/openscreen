@@ -5,6 +5,7 @@
 #ifndef CAST_STREAMING_MESSAGE_UTIL_H_
 #define CAST_STREAMING_MESSAGE_UTIL_H_
 
+#include <string>
 #include <vector>
 
 #include "absl/strings/string_view.h"
@@ -17,47 +18,82 @@ namespace openscreen {
 namespace cast {
 
 inline Error CreateParseError(const std::string& type) {
-  return Error(Error::Code::kJsonParseError, "Failed to parse " + type);
+  return Error(Error::Code::kJsonParseError,
+               "Failed to parse field, expected " + type);
 }
 
 inline Error CreateParameterError(const std::string& type) {
   return Error(Error::Code::kParameterInvalid, "Invalid parameter: " + type);
 }
 
-inline ErrorOr<bool> ParseBool(const Json::Value& parent,
-                               const std::string& field) {
-  const Json::Value& value = parent[field];
+inline ErrorOr<bool> ParseBool(const Json::Value& value) {
   if (!value.isBool()) {
-    return CreateParseError("bool field " + field);
+    return CreateParseError("bool");
   }
   return value.asBool();
 }
 
-inline ErrorOr<int> ParseInt(const Json::Value& parent,
-                             const std::string& field) {
-  const Json::Value& value = parent[field];
+inline ErrorOr<double> ParseDouble(const Json::Value& value) {
+  if (!value.isDouble()) {
+    return CreateParseError("double");
+  }
+  return value.asDouble();
+}
+
+inline ErrorOr<int> ParseInt(const Json::Value& value) {
   if (!value.isInt()) {
-    return CreateParseError("integer field: " + field);
+    return CreateParseError("integer");
   }
   return value.asInt();
 }
 
-inline ErrorOr<uint32_t> ParseUint(const Json::Value& parent,
-                                   const std::string& field) {
-  const Json::Value& value = parent[field];
+inline ErrorOr<uint32_t> ParseUint(const Json::Value& value) {
   if (!value.isUInt()) {
-    return CreateParseError("unsigned integer field: " + field);
+    return CreateParseError("unsigned integer");
   }
   return value.asUInt();
 }
 
-inline ErrorOr<std::string> ParseString(const Json::Value& parent,
-                                        const std::string& field) {
-  const Json::Value& value = parent[field];
+inline ErrorOr<std::string> ParseString(const Json::Value& value) {
   if (!value.isString()) {
-    return CreateParseError("string field: " + field);
+    return CreateParseError("string");
   }
   return value.asString();
+}
+
+template <typename T>
+using Parser = std::function<ErrorOr<T>(const Json::Value&)>;
+
+template <typename T>
+ErrorOr<std::vector<T>> ParseArray(const Json::Value& value, Parser<T> parser) {
+  if (!value.isArray() || value.empty()) {
+    return Error::Code::kParameterInvalid;
+  }
+
+  std::vector<T> out;
+  out.reserve(value.size());
+  for (Json::ArrayIndex i = 0; i < value.size(); ++i) {
+    auto v = parser(value[i]);
+    if (!v) {
+      return v.error();
+    }
+    out.emplace_back(v.value());
+  }
+
+  return out;
+}
+
+inline ErrorOr<std::vector<int>> ParseIntArray(const Json::Value& value) {
+  return ParseArray<int>(value, ParseInt);
+}
+
+inline ErrorOr<std::vector<uint32_t>> ParseUintArray(const Json::Value& value) {
+  return ParseArray<uint32_t>(value, ParseUint);
+}
+
+inline ErrorOr<std::vector<std::string>> ParseStringArray(
+    const Json::Value& value) {
+  return ParseArray<std::string>(value, ParseString);
 }
 
 }  // namespace cast

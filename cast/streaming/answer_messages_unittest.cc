@@ -14,6 +14,46 @@ namespace openscreen {
 namespace cast {
 
 namespace {
+constexpr char kValidAnswerJson[] = R"({
+  "udpPort": 1234,
+  "sendIndexes": [1, 3],
+  "ssrcs": [1233324, 2234222],
+  "constraints": {
+    "audio": {
+      "maxSampleRate": 96000,
+      "maxChannels": 5,
+      "minBitRate": 32000,
+      "maxBitRate": 320000,
+      "maxDelay": 5000
+    },
+    "video": {
+      "maxPixelsPerSecond": 62208000,
+      "minDimensions": {
+        "width": 320,
+        "height": 180,
+        "frameRate": 0
+      },
+      "maxDimensions": {
+        "width": 1920,
+        "height": 1080,
+        "frameRate": "60"
+      },
+      "minBitRate": 300000,
+      "maxBitRate": 10000000,
+      "maxDelay": 5000
+    }
+  },
+  "display": {
+    "dimensions": {
+      "width": 1920,
+      "height": 1080,
+      "frameRate": "60000/1001"
+    },
+    "aspectRatio": "64:27",
+    "scaling": "sender"
+  },
+  "receiverGetStatus": true
+})";
 
 const Answer kValidAnswer{
     CastMode{CastMode::Type::kMirroring},
@@ -59,6 +99,30 @@ const Answer kValidAnswer{
     true,                                   // receiver_get_status
     std::vector<std::string>{"foo", "bar"}  // rtp_extensions
 };
+
+void ExpectEqualsValidAnswerJson(const Answer& answer) {
+  EXPECT_EQ(1234, answer.udp_port);
+
+  ASSERT_EQ(2u, answer.send_indexes.size());
+  EXPECT_EQ(1, answer.send_indexes[0]);
+  EXPECT_EQ(3, answer.send_indexes[1]);
+
+  ASSERT_EQ(2u, answer.ssrcs.size());
+  EXPECT_EQ(1233324u, answer.ssrcs[0]);
+  EXPECT_EQ(2234222u, answer.ssrcs[1]);
+
+  ASSERT_TRUE(answer.display);
+  ASSERT_TRUE(answer.display->dimensions);
+  EXPECT_EQ(1920, answer.display->dimensions->width);
+  EXPECT_EQ(1080, answer.display->dimensions->height);
+  EXPECT_EQ((SimpleFraction{60000, 1001}),
+            answer.display->dimensions->frame_rate);
+  EXPECT_EQ((AspectRatio{64, 27}), answer.display->aspect_ratio.value());
+  EXPECT_EQ(AspectRatioConstraint::kFixed,
+            answer.display->aspect_ratio_constraint);
+
+  EXPECT_TRUE(answer.supports_wifi_status_reporting);
+}
 
 }  // anonymous namespace
 
@@ -142,7 +206,7 @@ TEST(AnswerMessagesTest, ProperlyPopulatedAnswerSerializesProperly) {
 
 TEST(AnswerMessagesTest, InvalidDimensionsCauseError) {
   Answer invalid_dimensions = kValidAnswer;
-  invalid_dimensions.display.value().dimensions.width = -1;
+  invalid_dimensions.display.value().dimensions->width = -1;
   auto value_or_error = invalid_dimensions.ToJson();
   EXPECT_TRUE(value_or_error.is_error());
 }
@@ -176,5 +240,12 @@ TEST(AnswerMessagesTest, InvalidUdpPortsCauseError) {
   EXPECT_TRUE(value_or_error.is_error());
 }
 
+TEST(AnswerMessagesTest, CanParseValidAnswerJson) {
+  ErrorOr<Json::Value> root = json::Parse(kValidAnswerJson);
+  ASSERT_TRUE(root);
+  ErrorOr<Answer> answer = Answer::Parse(root.value());
+  ASSERT_TRUE(answer);
+  ExpectEqualsValidAnswerJson(answer.value());
+}
 }  // namespace cast
 }  // namespace openscreen
