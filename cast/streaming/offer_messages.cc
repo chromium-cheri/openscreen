@@ -31,9 +31,8 @@ constexpr char kAudioSourceType[] = "audio_source";
 constexpr char kVideoSourceType[] = "video_source";
 constexpr char kStreamType[] = "type";
 
-ErrorOr<RtpPayloadType> ParseRtpPayloadType(const Json::Value& parent,
-                                            const std::string& field) {
-  auto t = ParseInt(parent, field);
+ErrorOr<RtpPayloadType> ParseRtpPayloadType(const Json::Value& value) {
+  auto t = ParseInt(value);
   if (!t) {
     return t.error();
   }
@@ -47,9 +46,8 @@ ErrorOr<RtpPayloadType> ParseRtpPayloadType(const Json::Value& parent,
   return static_cast<RtpPayloadType>(t_small);
 }
 
-ErrorOr<int> ParseRtpTimebase(const Json::Value& parent,
-                              const std::string& field) {
-  auto error_or_raw = ParseString(parent, field);
+ErrorOr<int> ParseRtpTimebase(const Json::Value& value) {
+  auto error_or_raw = ParseString(value);
   if (!error_or_raw) {
     return error_or_raw.error();
   }
@@ -69,9 +67,8 @@ constexpr int kHexDigitsPerByte = 2;
 constexpr int kAesBytesSize = 16;
 constexpr int kAesStringLength = kAesBytesSize * kHexDigitsPerByte;
 ErrorOr<std::array<uint8_t, kAesBytesSize>> ParseAesHexBytes(
-    const Json::Value& parent,
-    const std::string& field) {
-  auto hex_string = ParseString(parent, field);
+    const Json::Value& value) {
+  auto hex_string = ParseString(value);
   if (!hex_string) {
     return hex_string.error();
   }
@@ -95,45 +92,45 @@ ErrorOr<std::array<uint8_t, kAesBytesSize>> ParseAesHexBytes(
 }
 
 ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
-  auto index = ParseInt(value, "index");
+  auto index = ParseInt(value["index"]);
   if (!index) {
     return index.error();
   }
   // If channel is omitted, the default value is used later.
-  auto channels = ParseInt(value, "channels");
+  auto channels = ParseInt(value["channels"]);
   if (channels.is_value() && channels.value() <= 0) {
     return CreateParameterError("channel");
   }
-  auto codec_name = ParseString(value, "codecName");
+  auto codec_name = ParseString(value["codecName"]);
   if (!codec_name) {
     return codec_name.error();
   }
-  auto rtp_profile = ParseString(value, "rtpProfile");
+  auto rtp_profile = ParseString(value["rtpProfile"]);
   if (!rtp_profile) {
     return rtp_profile.error();
   }
-  auto rtp_payload_type = ParseRtpPayloadType(value, "rtpPayloadType");
+  auto rtp_payload_type = ParseRtpPayloadType(value["rtpPayloadType"]);
   if (!rtp_payload_type) {
     return rtp_payload_type.error();
   }
-  auto ssrc = ParseUint(value, "ssrc");
+  auto ssrc = ParseUint(value["ssrc"]);
   if (!ssrc) {
     return ssrc.error();
   }
-  auto aes_key = ParseAesHexBytes(value, "aesKey");
+  auto aes_key = ParseAesHexBytes(value["aesKey"]);
   if (!aes_key) {
     return aes_key.error();
   }
-  auto aes_iv_mask = ParseAesHexBytes(value, "aesIvMask");
+  auto aes_iv_mask = ParseAesHexBytes(value["aesIvMask"]);
   if (!aes_iv_mask) {
     return aes_iv_mask.error();
   }
-  auto rtp_timebase = ParseRtpTimebase(value, "timeBase");
+  auto rtp_timebase = ParseRtpTimebase(value["timeBase"]);
   if (!rtp_timebase) {
     return rtp_timebase.error();
   }
 
-  auto target_delay = ParseInt(value, "targetDelay");
+  auto target_delay = ParseInt(value["targetDelay"]);
   std::chrono::milliseconds target_delay_ms = kDefaultTargetPlayoutDelay;
   if (target_delay) {
     auto d = std::chrono::milliseconds(target_delay.value());
@@ -144,8 +141,8 @@ ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
     }
   }
 
-  auto receiver_rtcp_event_log = ParseBool(value, "receiverRtcpEventLog");
-  auto receiver_rtcp_dscp = ParseString(value, "receiverRtcpDscp");
+  auto receiver_rtcp_event_log = ParseBool(value["receiverRtcpEventLog"]);
+  auto receiver_rtcp_dscp = ParseString(value["receiverRtcpDscp"]);
   return Stream{index.value(),
                 type,
                 channels.value(type == Stream::Type::kAudioSource
@@ -167,7 +164,7 @@ ErrorOr<AudioStream> ParseAudioStream(const Json::Value& value) {
   if (!stream) {
     return stream.error();
   }
-  auto bit_rate = ParseInt(value, "bitRate");
+  auto bit_rate = ParseInt(value["bitRate"]);
   if (!bit_rate) {
     return bit_rate.error();
   }
@@ -179,11 +176,11 @@ ErrorOr<AudioStream> ParseAudioStream(const Json::Value& value) {
 }
 
 ErrorOr<Resolution> ParseResolution(const Json::Value& value) {
-  auto width = ParseInt(value, "width");
+  auto width = ParseInt(value["width"]);
   if (!width) {
     return width.error();
   }
-  auto height = ParseInt(value, "height");
+  auto height = ParseInt(value["height"]);
   if (!height) {
     return height.error();
   }
@@ -193,24 +190,14 @@ ErrorOr<Resolution> ParseResolution(const Json::Value& value) {
   return Resolution{width.value(), height.value()};
 }
 
-ErrorOr<std::vector<Resolution>> ParseResolutions(const Json::Value& parent,
-                                                  const std::string& field) {
-  std::vector<Resolution> resolutions;
-  // Some legacy senders don't provide resolutions, so just return empty.
-  const Json::Value& value = parent[field];
-  if (!value.isArray() || value.empty()) {
-    return resolutions;
+ErrorOr<std::vector<Resolution>> ParseResolutions(const Json::Value& value) {
+  auto resolutions_or_error =
+      ParseArray(value, Parser<Resolution>(ParseResolution));
+  if (resolutions_or_error.is_error() &&
+      resolutions_or_error.error() == Error::Code::kParameterInvalid) {
+    return std::vector<Resolution>{};
   }
-
-  for (Json::ArrayIndex i = 0; i < value.size(); ++i) {
-    auto r = ParseResolution(value[i]);
-    if (!r) {
-      return r.error();
-    }
-    resolutions.push_back(r.value());
-  }
-
-  return resolutions;
+  return resolutions_or_error;
 }
 
 ErrorOr<VideoStream> ParseVideoStream(const Json::Value& value) {
@@ -218,12 +205,12 @@ ErrorOr<VideoStream> ParseVideoStream(const Json::Value& value) {
   if (!stream) {
     return stream.error();
   }
-  auto resolutions = ParseResolutions(value, "resolutions");
+  auto resolutions = ParseResolutions(value["resolutions"]);
   if (!resolutions) {
     return resolutions.error();
   }
 
-  auto raw_max_frame_rate = ParseString(value, "maxFrameRate");
+  auto raw_max_frame_rate = ParseString(value["maxFrameRate"]);
   SimpleFraction max_frame_rate{kDefaultMaxFrameRate, 1};
   if (raw_max_frame_rate.is_value()) {
     auto parsed = SimpleFraction::FromString(raw_max_frame_rate.value());
@@ -232,11 +219,11 @@ ErrorOr<VideoStream> ParseVideoStream(const Json::Value& value) {
     }
   }
 
-  auto profile = ParseString(value, "profile");
-  auto protection = ParseString(value, "protection");
-  auto max_bit_rate = ParseInt(value, "maxBitRate");
-  auto level = ParseString(value, "level");
-  auto error_recovery_mode = ParseString(value, "errorRecoveryMode");
+  auto profile = ParseString(value["profile"]);
+  auto protection = ParseString(value["protection"]);
+  auto max_bit_rate = ParseInt(value["maxBitRate"]);
+  auto level = ParseString(value["level"]);
+  auto error_recovery_mode = ParseString(value["errorRecoveryMode"]);
   return VideoStream{stream.value(),
                      max_frame_rate,
                      max_bit_rate.value(4 << 20),
@@ -372,7 +359,7 @@ ErrorOr<Json::Value> VideoStream::ToJson() const {
 ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
   CastMode cast_mode = CastMode::Parse(root["castMode"].asString());
 
-  const ErrorOr<bool> get_status = ParseBool(root, "receiverGetStatus");
+  const ErrorOr<bool> get_status = ParseBool(root["receiverGetStatus"]);
 
   Json::Value supported_streams = root[kSupportedStreams];
   if (!supported_streams.isArray()) {
@@ -383,7 +370,7 @@ ErrorOr<Offer> Offer::Parse(const Json::Value& root) {
   std::vector<VideoStream> video_streams;
   for (Json::ArrayIndex i = 0; i < supported_streams.size(); ++i) {
     const Json::Value& fields = supported_streams[i];
-    auto type = ParseString(fields, kStreamType);
+    auto type = ParseString(fields[kStreamType]);
     if (!type) {
       return type.error();
     }

@@ -129,13 +129,13 @@ void ReceiverSession::OnMessage(absl::string_view sender_id,
   }
 
   // TODO(jophba): add sender connected/disconnected messaging.
-  auto sequence_number = ParseInt(message_json.value(), kSequenceNumber);
+  auto sequence_number = ParseInt(message_json.value()[kSequenceNumber]);
   if (!sequence_number) {
     OSP_LOG_WARN << "Invalid message sequence number";
     return;
   }
 
-  auto key_or_error = ParseString(message_json.value(), kKeyType);
+  auto key_or_error = ParseString(message_json.value()[kKeyType]);
   if (!key_or_error) {
     OSP_LOG_WARN << "Invalid message key";
     return;
