@@ -4,6 +4,7 @@
 
 #include "cast/streaming/offer_messages.h"
 
+#include <limits>
 #include <utility>
 
 #include "cast/streaming/rtp_defines.h"
@@ -182,7 +183,7 @@ TEST(OfferTest, ErrorOnEmptyOffer) {
 }
 
 TEST(OfferTest, ErrorOnMissingMandatoryFields) {
-  // It's okay if castMode is omitted, but if supportedStreams isanne  //
+  // It's okay if castMode is omitted, but if supportedStreams is
   // omitted we should fail here.
   ExpectFailureOnParse(R"({
     "castMode": "mirroring"

@@ -15,6 +15,52 @@ namespace cast {
 
 namespace {
 
+using ::testing::ElementsAre;
+
+constexpr char kValidAnswerJson[] = R"({
+  "udpPort": 1234,
+  "sendIndexes": [1, 3],
+  "ssrcs": [1233324, 2234222],
+  "constraints": {
+    "audio": {
+      "maxSampleRate": 96000,
+      "maxChannels": 5,
+      "minBitRate": 32000,
+      "maxBitRate": 320000,
+      "maxDelay": 5000
+    },
+    "video": {
+      "maxPixelsPerSecond": 62208000,
+      "minDimensions": {
+        "width": 320,
+        "height": 180,
+        "frameRate": 0
+      },
+      "maxDimensions": {
+        "width": 1920,
+        "height": 1080,
+        "frameRate": "60"
+      },
+      "minBitRate": 300000,
+      "maxBitRate": 10000000,
+      "maxDelay": 5000
+    }
+  },
+  "display": {
+    "dimensions": {
+      "width": 1920,
+      "height": 1080,
+      "frameRate": "60000/1001"
+    },
+    "aspectRatio": "64:27",
+    "scaling": "sender"
+  },
+  "receiverRtcpEventLog": [0, 1],
+  "receiverRtcpDscp": [234, 567],
+  "receiverGetStatus": true,
+  "rtpExtensions": ["adaptive_playout_delay"]
+})";
+
 const Answer kValidAnswer{
     CastMode{CastMode::Type::kMirroring},
     1234,                         // udp_port
@@ -60,6 +106,70 @@ const Answer kValidAnswer{
     std::vector<std::string>{"foo", "bar"}  // rtp_extensions
 };
 
+void ExpectEqualsValidAnswerJson(const Answer& answer) {
+  EXPECT_EQ(1234, answer.udp_port);
+
+  EXPECT_THAT(answer.send_indexes, ElementsAre(1, 3));
+  EXPECT_THAT(answer.ssrcs, ElementsAre(1233324u, 2234222u));
+  ASSERT_TRUE(answer.constraints);
+  const auto audio = answer.constraints->audio;
+  EXPECT_EQ(96000, audio.max_sample_rate);
+  EXPECT_EQ(5, audio.max_channels);
+  EXPECT_EQ(32000, audio.min_bit_rate);
+  EXPECT_EQ(320000, audio.max_bit_rate);
+  EXPECT_EQ(std::chrono::milliseconds{5000}, audio.max_delay);
+
+  const auto video = answer.constraints->video;
+  EXPECT_EQ(62208000, video.max_pixels_per_second);
+  ASSERT_TRUE(video.min_dimensions);
+  EXPECT_EQ(320, video.min_dimensions->width);
+  EXPECT_EQ(180, video.min_dimensions->height);
+  EXPECT_EQ((SimpleFraction{0, 1}), video.min_dimensions->frame_rate);
+  EXPECT_EQ(1920, video.max_dimensions.width);
+  EXPECT_EQ(1080, video.max_dimensions.height);
+  EXPECT_EQ((SimpleFraction{60, 1}), video.max_dimensions.frame_rate);
+  EXPECT_EQ(300000, video.min_bit_rate);
+  EXPECT_EQ(10000000, video.max_bit_rate);
+  EXPECT_EQ(std::chrono::milliseconds{5000}, video.max_delay);
+
+  const auto display = answer.display;
+  ASSERT_TRUE(display);
+  ASSERT_TRUE(display->dimensions);
+  EXPECT_EQ(1920, display->dimensions->width);
+  EXPECT_EQ(1080, display->dimensions->height);
+  EXPECT_EQ((SimpleFraction{60000, 1001}), display->dimensions->frame_rate);
+  EXPECT_EQ((AspectRatio{64, 27}), display->aspect_ratio.value());
+  EXPECT_EQ(AspectRatioConstraint::kFixed, display->aspect_ratio_constraint);
+
+  EXPECT_THAT(answer.receiver_rtcp_event_log, ElementsAre(0, 1));
+  EXPECT_THAT(answer.receiver_rtcp_dscp, ElementsAre(234, 567));
+  EXPECT_TRUE(answer.supports_wifi_status_reporting);
+  EXPECT_THAT(answer.rtp_extensions, ElementsAre("adaptive_playout_delay"));
+}
+
+void ExpectFailureOnParse(absl::string_view raw_json) {
+  ErrorOr<Json::Value> root = json::Parse(raw_json);
+  // Must be a valid JSON object, but not a valid answer.
+  ASSERT_TRUE(root.is_value());
+
+  ErrorOr<Answer> answer = Answer::Parse(std::move(root.value()));
+  EXPECT_TRUE(answer.is_error());
+}
+
+// Functions that use ASSERT_* must return void, so we use an out parameter
+// here instead of returning.
+void ExpectSuccessOnParse(absl::string_view raw_json, Answer* out = nullptr) {
+  ErrorOr<Json::Value> root = json::Parse(raw_json);
+  // Must be a valid JSON object, but not a valid answer.
+  ASSERT_TRUE(root.is_value());
+
+  ErrorOr<Answer> answer = Answer::Parse(std::move(root.value()));
+  ASSERT_TRUE(answer.is_value());
+
+  if (out) {
+    *out = std::move(answer.value());
+  }
+}
 }  // anonymous namespace
 
 TEST(AnswerMessagesTest, ProperlyPopulatedAnswerSerializesProperly) {
@@ -142,7 +252,7 @@ TEST(AnswerMessagesTest, ProperlyPopulatedAnswerSerializesProperly) {
 
 TEST(AnswerMessagesTest, InvalidDimensionsCauseError) {
   Answer invalid_dimensions = kValidAnswer;
-  invalid_dimensions.display.value().dimensions.width = -1;
+  invalid_dimensions.display.value().dimensions->width = -1;
   auto value_or_error = invalid_dimensions.ToJson();
   EXPECT_TRUE(value_or_error.is_error());
 }
@@ -176,5 +286,90 @@ TEST(AnswerMessagesTest, InvalidUdpPortsCauseError) {
   EXPECT_TRUE(value_or_error.is_error());
 }
 
+TEST(AnswerMessagesTest, CanParseValidAnswerJson) {
+  Answer answer;
+  ExpectSuccessOnParse(kValidAnswerJson, &answer);
+  ExpectEqualsValidAnswerJson(answer);
+}
+
+// In practice, the rtpExtensions, receiverRtcpDscp, and receiverRtcpEventLog
+// fields may be missing from some receivers. We handle this case by treating
+// them as empty.
+TEST(AnswerMessagesTest, SucceedsWithMissingRtpFields) {
+  ExpectSuccessOnParse(R"({
+  "udpPort": 1234,
+  "sendIndexes": [1, 3],
+  "ssrcs": [1233324, 2234222],
+  "receiverGetStatus": true
+  })");
+}
+
+TEST(AnswerMessagesTest, ErrorOnEmptyAnswer) {
+  ExpectFailureOnParse("{}");
+}
+
+TEST(AnswerMessagesTest, ErrorOnMissingUdpPort) {
+  ExpectFailureOnParse(R"({
+    "sendIndexes": [1, 3],
+    "ssrcs": [1233324, 2234222],
+    "receiverGetStatus": true
+  })");
+}
+
+TEST(AnswerMessagesTest, ErrorOnMissingSendIndexes) {
+  ExpectFailureOnParse(R"({
+    "udpPort": 1234,
+    "sendIndexes": [1, 3],
+    "receiverGetStatus": true
+  })");
+}
+
+TEST(AnswerMessagesTest, ErrorOnMissingSsrcs) {
+  ExpectFailureOnParse(R"({
+    "udpPort": 1234,
+    "ssrcs": [1233324, 2234222],
+    "receiverGetStatus": true
+  })");
+}
+
+TEST(AnswerMessagesTest, ErrorOnMissingReceiverGetStatus) {
+  ExpectFailureOnParse(R"({
+    "udpPort": 1234,
+    "sendIndexes": [1, 3],
+    "ssrcs": [1233324, 2234222]
+  })");
+}
+
+TEST(AnswerMessagesTest, AssumesMinBitRateIfOmitted) {
+  Answer answer;
+  ExpectSuccessOnParse(R"({
+    "udpPort": 1234,
+    "sendIndexes": [1, 3],
+    "ssrcs": [1233324, 2234222],
+    "constraints": {
+      "audio": {
+        "maxSampleRate": 96000,
+        "maxChannels": 5,
+        "maxBitRate": 320000,
+        "maxDelay": 5000
+      },
+      "video": {
+        "maxPixelsPerSecond": 62208000,
+        "maxDimensions": {
+          "width": 1920,
+          "height": 1080,
+          "frameRate": "60"
+        },
+        "maxBitRate": 10000000,
+        "maxDelay": 5000
+      }
+    },
+    "receiverGetStatus": true
+  })",
+                       &answer);
+
+  EXPECT_EQ(32000, answer.constraints->audio.min_bit_rate);
+  EXPECT_EQ(300000, answer.constraints->video.min_bit_rate);
+}
 }  // namespace cast
 }  // namespace openscreen
