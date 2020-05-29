@@ -22,8 +22,7 @@ namespace discovery {
 namespace {
 
 constexpr Clock::duration kOneSecond =
-    std::chrono::duration_cast<Clock::duration>(std::chrono::seconds(1));
-
+    Clock::to_duration(std::chrono::seconds(1));
 }
 
 using testing::_;
@@ -130,8 +129,7 @@ class MdnsTrackerTest : public testing::Test {
     constexpr double kTtlFractions[] = {0.83, 0.88, 0.93, 0.98, 1.00};
     Clock::duration time_passed{0};
     for (double fraction : kTtlFractions) {
-      Clock::duration time_till_refresh =
-          std::chrono::duration_cast<Clock::duration>(ttl * fraction);
+      Clock::duration time_till_refresh = Clock::to_duration(ttl * fraction);
       Clock::duration delta = time_till_refresh - time_passed;
       time_passed = time_till_refresh;
       clock_.Advance(delta);
@@ -251,8 +249,7 @@ TEST_F(MdnsTrackerTest, RecordTrackerSendsMessage) {
         return Error::None();
       });
 
-  clock_.Advance(
-      std::chrono::duration_cast<Clock::duration>(a_record_.ttl() * 0.83));
+  clock_.Advance(Clock::to_duration(a_record_.ttl() * 0.83));
 }
 
 TEST_F(MdnsTrackerTest, RecordTrackerNoQueryAfterDestruction) {
@@ -274,8 +271,7 @@ TEST_F(MdnsTrackerTest, RecordTrackerUpdateResetsTtl) {
   expiration_called_ = false;
   std::unique_ptr<MdnsRecordTracker> tracker = CreateRecordTracker(a_record_);
   // Advance time by 60% of record's TTL
-  Clock::duration advance_time =
-      std::chrono::duration_cast<Clock::duration>(a_record_.ttl() * 0.6);
+  Clock::duration advance_time = Clock::to_duration(a_record_.ttl() * 0.6);
   clock_.Advance(advance_time);
   // Now update the record, this must reset expiration time
   EXPECT_EQ(tracker->Update(a_record_).value(),

@@ -4,8 +4,9 @@
 
 #include "cast/standalone_receiver/sdl_audio_player.h"
 
-#include <chrono>
+#include <chrono>  // NOLINT
 #include <sstream>
+#include <utility>
 
 #include "absl/types/span.h"
 #include "cast/standalone_receiver/avcodec_glue.h"
@@ -113,9 +114,9 @@ ErrorOr<Clock::time_point> SDLAudioPlayer::RenderNextFrame(
       pending_audio_spec_.samples *= 2;
     }
 
-    approximate_lead_time_ = (pending_audio_spec_.samples *
-                              duration_cast<Clock::duration>(kOneSecond)) /
-                             pending_audio_spec_.freq;
+    approximate_lead_time_ =
+        (pending_audio_spec_.samples * Clock::to_duration(kOneSecond)) /
+        pending_audio_spec_.freq;
   }
 
   // If the decoded audio is in planar format, interleave it for SDL.
