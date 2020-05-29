@@ -5,7 +5,7 @@
 #ifndef PLATFORM_API_TIME_H_
 #define PLATFORM_API_TIME_H_
 
-#include <chrono>
+#include <chrono>  // NOLINT
 
 #include "platform/base/trivial_clock_traits.h"
 
@@ -30,7 +30,7 @@ class Clock : public TrivialClockTraits {
 // Note that this is NOT necessarily the same time source as Clock::now() above,
 // and is NOT guaranteed to be monotonically non-decreasing; it is "calendar
 // time."
-seconds GetWallTimeSinceUnixEpoch() noexcept;
+std::chrono::seconds GetWallTimeSinceUnixEpoch() noexcept;
 
 }  // namespace openscreen
 

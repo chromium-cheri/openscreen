@@ -5,20 +5,10 @@
 #ifndef PLATFORM_BASE_TRIVIAL_CLOCK_TRAITS_H_
 #define PLATFORM_BASE_TRIVIAL_CLOCK_TRAITS_H_
 
-#include <chrono>
+#include <chrono>  // NOLINT
 #include <ostream>
 
 namespace openscreen {
-
-// Common time types used throughout Open Screen. We should always use these
-// types for time, if there is ever a namespace collision we have done something
-// horribly wrong.
-using std::chrono::duration_cast;
-using std::chrono::hours;
-using std::chrono::microseconds;
-using std::chrono::milliseconds;
-using std::chrono::nanoseconds;
-using std::chrono::seconds;
 
 // The Open Screen monotonic clock traits description, providing all the C++14
 // requirements of a TrivialClock, for use with STL <chrono>.
@@ -29,13 +19,18 @@ class TrivialClockTraits {
   // don't want to use these types, and instead should reference the std::chrono
   // types directly.
   using duration = std::chrono::microseconds;
+  template <typename D>
+  static constexpr duration to_duration(D d) {
+    return std::chrono::duration_cast<duration>(d);
+  }
+
   using rep = duration::rep;
   using period = duration::period;
   using time_point = std::chrono::time_point<TrivialClockTraits, duration>;
   static constexpr bool is_steady = true;
 
   // Time point values from the clock use microsecond precision, as a reasonably
-  // high-resoulution clock is required. The time source must tick forward at
+  // high-resolution clock is required. The time source must tick forward at
   // least 10000 times per second.
   using kRequiredResolution = std::ratio<1, 10000>;
 
