@@ -41,5 +41,11 @@ InstanceKey::InstanceKey(InstanceKey&& other) = default;
 InstanceKey& InstanceKey::operator=(const InstanceKey& rhs) = default;
 InstanceKey& InstanceKey::operator=(InstanceKey&& rhs) = default;
 
+DomainName InstanceKey::GetName() const {
+  std::vector<std::string> labels = ServiceKey::GetName().labels();
+  labels.insert(labels.begin(), instance_id());
+  return DomainName(std::move(labels));
+}
+
 }  // namespace discovery
 }  // namespace openscreen
