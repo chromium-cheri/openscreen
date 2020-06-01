@@ -4,18 +4,17 @@
 
 #include "platform/impl/timeval_posix.h"
 
-#include <chrono>
+#include <chrono>  // NOLINT
+
+#include "util/chrono_helpers.h"
 
 namespace openscreen {
 
 struct timeval ToTimeval(const Clock::duration& timeout) {
   struct timeval tv;
-  const auto whole_seconds =
-      std::chrono::duration_cast<std::chrono::seconds>(timeout);
+  const auto whole_seconds = to_seconds(timeout);
   tv.tv_sec = whole_seconds.count();
-  tv.tv_usec = std::chrono::duration_cast<std::chrono::microseconds>(
-                   timeout - whole_seconds)
-                   .count();
+  tv.tv_usec = to_microseconds(timeout - whole_seconds).count();
 
   return tv;
 }

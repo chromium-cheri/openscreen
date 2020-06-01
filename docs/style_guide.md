@@ -24,13 +24,19 @@ https://chromium-cpp.appspot.com#core-whitelist) guidelines.
 One of the trickier parts of the Open Screen Library is using time and clock
 functionality provided by `platform/api/time.h`.
 
-- The platform defines aliases in the openscreen namespace for `std::chrono`
-  types, so they can just be referred to as `hours`, `milliseconds`, etc.
+- When working extensively with std::chrono types in an non-API file, the
+  `util/chrono_helpers.h` header can be included for access to type aliases for
+  common `std::chrono` types, so they can just be referred to as `hours`,
+  `milliseconds`, etc. This header also includes helpful conversion functions,
+  such as `to_milliseconds` instead of
+  `std::chrono::duration_cast<std::chrono::milliseconds>`. NOTE: this file
+  should not be exposed to embedders, and this restriction is enforced
+  using DEPS rules for its inclusion.
 - `Clock::duration` is defined currently as `std::chrono::microseconds`, and
   thus is generally not suitable as a time type (developers generally think in
-  milliseconds). Prefer casting from explicit time types (e.g.
-  `Clock::duration foo = duration_cast<Clock::duration>(seconds(2))` instead
-  of using `Clock::duration` types directly.
+  milliseconds). Prefer casting from explicit time types using the helper
+  function defined on the clock, e.g. `Clock::to_duration(seconds{2})`
+  instead of using `Clock::duration` types directly.
 
 ## Open Screen Library Features
 

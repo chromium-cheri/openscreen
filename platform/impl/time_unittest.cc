@@ -4,9 +4,11 @@
 
 #include "platform/api/time.h"
 
+#include <chrono>  // NOLINT
 #include <ctime>
 
 #include "gtest/gtest.h"
+#include "util/chrono_helpers.h"
 
 namespace openscreen {
 
@@ -40,11 +42,11 @@ TEST(TimeTest, TimeTMeetsTheCpp20Standard) {
   epoch_tm.tm_year += epoch_tm.tm_year - wrong_tm->tm_year;
 
   const std::time_t epoch = std::mktime(&epoch_tm);
-  EXPECT_EQ(seconds(0), seconds(epoch));
+  EXPECT_EQ(seconds{0}, seconds(epoch));
 
   ++epoch_tm.tm_sec;
   const std::time_t epoch_plus_one_second = std::mktime(&epoch_tm);
-  EXPECT_EQ(seconds(1), seconds(epoch_plus_one_second));
+  EXPECT_EQ(seconds{1}, seconds(epoch_plus_one_second));
 }
 #endif
 
