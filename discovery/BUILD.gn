@@ -11,9 +11,7 @@ source_set("common") {
     "common/reporting_client.h",
   ]
 
-  deps = [
-    "../util",
-  ]
+  deps = [ "../util" ]
 
   public_deps = [
     "../platform",
@@ -47,6 +45,8 @@ source_set("mdns") {
     "mdns/mdns_service_impl.h",
     "mdns/mdns_trackers.cc",
     "mdns/mdns_trackers.h",
+    "mdns/mdns_utils.cc",
+    "mdns/mdns_utils.h",
     "mdns/mdns_writer.cc",
     "mdns/mdns_writer.h",
     "mdns/public/mdns_constants.h",
@@ -54,9 +54,7 @@ source_set("mdns") {
     "mdns/public/mdns_service.h",
   ]
 
-  deps = [
-    "../util",
-  ]
+  deps = [ "../util" ]
 
   public_deps = [
     ":common",
@@ -170,13 +168,9 @@ source_set("unittests") {
 }
 
 openscreen_fuzzer_test("mdns_fuzzer") {
-  sources = [
-    "mdns/mdns_reader_fuzztest.cc",
-  ]
+  sources = [ "mdns/mdns_reader_fuzztest.cc" ]
 
-  deps = [
-    ":mdns",
-  ]
+  deps = [ ":mdns" ]
 
   seed_corpus = "mdns/fuzzer_seeds"
 
