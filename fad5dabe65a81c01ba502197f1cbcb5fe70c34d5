@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a37febe3_66575991",
+        "filename": "cast/standalone_receiver/dummy_player.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "Lint shouldn\u0027t be flagging this header.  What is the warning category?",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "493cecb2_1372e777",
+        "filename": "cast/streaming/sender_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "Should this be Clock::to_nanoseconds ?",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37474e41_00bca612",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "types in implementation code,",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8add97_6947e00f",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "Maybe:\n\n`util/chrono_helpers.h` cannot be used in headers exposed to embedders, and this is enforced by DEPS.",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b4f2ff8_1989c2ea",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "...time types using `Clock::to_duration`, e.g.",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5f3bd0a_1102e657",
+        "filename": "osp/impl/presentation/url_availability_requester_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "Is this used?",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8185fdb_159a89d6",
+        "filename": "platform/impl/time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "This seems weird, to log a runtime error for a compile-time assertion.\nMaybe we need a COMPILE_WARNING macro (like COMPILE_ASSERT in other codebases).",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e234bcf1_27741887",
+        "filename": "util/chrono_helpers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "Nothing in util/ can be used from public folders, so I don\u0027t think this statement is necessary.\n(If there is a README.md in util/, then it could go there.)",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da2a89f3_c886e59b",
+        "filename": "util/chrono_helpers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "Nit: newline after namespace",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "facf9d6f_ada04bdd",
+        "filename": "util/chrono_helpers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "Nit: newline before namespace",
+      "revId": "fad5dabe65a81c01ba502197f1cbcb5fe70c34d5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

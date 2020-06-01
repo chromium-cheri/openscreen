@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e75ba256_e85cc1ff",
+        "filename": "cast/streaming/ntp_time_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-01T22:22:42Z",
+      "side": 1,
+      "message": "milliseconds is an alias for std::chrono::duration, which is class type. \n\nSo what {10} is doing is forcing list-initialization [*], which eventually falls through to the declared constructors of std::chrono::duration.  Since std::chrono::duration is a single value, not an aggregate, I don\u0027t see it actually needing list initialization in the future (when a braced-init-list would make sense.)\n\nSince we initialize all other objects the normal way - with ctor(foo) - I don\u0027t think this needs to be a special case.\n\n[*] https://en.cppreference.com/w/cpp/language/list_initialization",
+      "parentUuid": "d834b933_d197d315",
+      "range": {
+        "startLine": 89,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 28
+      },
+      "revId": "df5bee2fc9ce6b0ae3c8720868c9e9dbc9bde961",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c413de50_8e57b565",
         "filename": "platform/base/trivial_clock_traits.h",
         "patchSetId": 3
