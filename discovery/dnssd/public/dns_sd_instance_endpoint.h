@@ -23,11 +23,11 @@ class DnsSdInstanceEndpoint : public DnsSdInstance {
                         std::string service_id,
                         std::string domain_id,
                         DnsSdTxtRecord txt,
-                        IPEndpoint endpoint,
-                        NetworkInterfaceIndex network_interface);
+                        NetworkInterfaceIndex network_interface,
+                        std::vector<IPAddress> addresses);
   DnsSdInstanceEndpoint(DnsSdInstance record,
-                        IPAddress address,
-                        NetworkInterfaceIndex network_interface);
+                        NetworkInterfaceIndex network_interface,
+                        std::vector<IPAddress> addresses);
 
   // NOTE: These constructors expects one endpoint to be an IPv4 address and the
   // other to be an IPv6 address.
@@ -35,29 +35,28 @@ class DnsSdInstanceEndpoint : public DnsSdInstance {
                         std::string service_id,
                         std::string domain_id,
                         DnsSdTxtRecord txt,
-                        IPEndpoint ipv4_endpoint,
-                        IPEndpoint ipv6_endpoint,
-                        NetworkInterfaceIndex network_interface);
+                        NetworkInterfaceIndex network_interface,
+                        std::vector<IPAddress> addresses);
   DnsSdInstanceEndpoint(DnsSdInstance instance,
-                        IPAddress address_v4,
-                        IPAddress address_v6,
-                        NetworkInterfaceIndex network_interface);
+                        NetworkInterfaceIndex network_interface,
+                        std::vector<IPAddress> addresses);
+
+  // TODO(rwkeane): More useful ctor overloads.
 
   ~DnsSdInstanceEndpoint() override;
 
-  // Returns the address associated with this DNS-SD record. In any valid
-  // record, at least one will be set.
-  const IPAddress& address_v4() const { return address_v4_; }
-  const IPAddress& address_v6() const { return address_v6_; }
-  IPEndpoint endpoint_v4() const;
-  IPEndpoint endpoint_v6() const;
+  // Returns the addresses associated with this endpoint.
+  const std::vector<IPAddress>& addresses addresses() const {
+    return addresses;
+  }
+  bool HasAddressV4() const;
+  bool HasAddressV6() const;
 
   // Network Interface associated with this endpoint.
   NetworkInterfaceIndex network_interface() const { return network_interface_; }
 
  private:
-  IPAddress address_v4_;
-  IPAddress address_v6_;
+  std::vector<IPAddress> addresses_;
 
   NetworkInterfaceIndex network_interface_;
 
