@@ -4,12 +4,14 @@
 
 #include "cast/streaming/bandwidth_estimator.h"
 
+#include <chrono>  // NOLINT
 #include <limits>
 #include <random>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
+#include "util/chrono_helpers.h"
 
 namespace openscreen {
 namespace cast {
@@ -19,15 +21,15 @@ using openscreen::operator<<;  // For std::chrono::duration gtest pretty-print.
 
 // BandwidthEstimator configuration common to all tests.
 constexpr int kMaxPacketsPerTimeslice = 10;
-constexpr Clock::duration kTimesliceDuration = milliseconds(10);
-constexpr int kTimeslicesPerSecond = seconds(1) / kTimesliceDuration;
+constexpr Clock::duration kTimesliceDuration = milliseconds{10};
+constexpr int kTimeslicesPerSecond = seconds{1} / kTimesliceDuration;
 
 // Use a fake, fixed start time.
 constexpr Clock::time_point kStartTime =
     Clock::time_point() + Clock::duration(1234567890);
 
 // Range of "fuzz" to add to timestamps in BandwidthEstimatorTest::AddFuzz().
-constexpr Clock::duration kMaxFuzzOffset = milliseconds(15);
+constexpr Clock::duration kMaxFuzzOffset = milliseconds{15};
 constexpr int kFuzzLowerBoundClockTicks = (-kMaxFuzzOffset).count();
 constexpr int kFuzzUpperBoundClockTicks = kMaxFuzzOffset.count();
 
@@ -77,7 +79,7 @@ TEST_F(BandwidthEstimatorTest, DoesNotEstimateWithoutFeedback) {
 // has been confirmed (because RTCP packets are coming in), but the Receiver has
 // not successfully received anything.
 TEST_F(BandwidthEstimatorTest, DoesNotEstimateIfNothingSuccessfullyReceived) {
-  const Clock::duration kRoundTripTime = milliseconds(1);
+  const Clock::duration kRoundTripTime = milliseconds{1};
 
   Clock::time_point now = kStartTime;
   for (int i = 0; i < 3; ++i) {
@@ -102,7 +104,7 @@ TEST_F(BandwidthEstimatorTest, EstimatesAtVariousBurstSaturations) {
       5,  // Burst 20% of max possible packets.
   };
 
-  const Clock::duration kRoundTripTime = milliseconds(1);
+  const Clock::duration kRoundTripTime = milliseconds{1};
 
   constexpr int kReceivedBytesPerSecond = 256000;
   constexpr int kReceivedBytesPerTimeslice =
@@ -143,8 +145,8 @@ TEST_F(BandwidthEstimatorTest, EstimatesIndependentOfFeedbackDelays) {
   constexpr int kPacketsPerBurst = kMaxPacketsPerTimeslice / kFactor;
   static_assert(kMaxPacketsPerTimeslice % kFactor == 0, "wanted exactly half");
 
-  constexpr milliseconds kRoundTripTimes[3] = {milliseconds(1), milliseconds(9),
-                                               milliseconds(42)};
+  constexpr milliseconds kRoundTripTimes[3] = {milliseconds{1}, milliseconds{9},
+                                               milliseconds{42}};
 
   constexpr int kReceivedBytesPerSecond = 2000000;
   constexpr int kReceivedBytesPerTimeslice =
@@ -186,7 +188,7 @@ TEST_F(BandwidthEstimatorTest, EstimatesIndependentOfFeedbackDelays) {
 TEST_F(BandwidthEstimatorTest, ClampsEstimateToMaxInt) {
   constexpr int kPacketsPerBurst = kMaxPacketsPerTimeslice / 5;
   static_assert(kMaxPacketsPerTimeslice % 5 == 0, "wanted exactly 20%");
-  const Clock::duration kRoundTripTime = milliseconds(1);
+  const Clock::duration kRoundTripTime = milliseconds{1};
 
   int last_estimate = estimator()->ComputeNetworkBandwidth();
   ASSERT_EQ(last_estimate, 0);

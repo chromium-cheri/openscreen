@@ -4,7 +4,10 @@
 
 #include "osp/impl/presentation/url_availability_requester.h"
 
+#include <chrono>  // NOLINT
 #include <memory>
+#include <utility>
+#include <vector>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
@@ -15,6 +18,7 @@
 #include "osp/public/testing/message_demuxer_test_support.h"
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
+#include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {
@@ -43,8 +47,8 @@ class MockReceiverObserver : public ReceiverObserver {
 class UrlAvailabilityRequesterTest : public Test {
  public:
   UrlAvailabilityRequesterTest() {
-    fake_clock_ =
-        std::make_unique<FakeClock>(Clock::time_point(milliseconds(1298424)));
+    fake_clock_ = std::make_unique<FakeClock>(
+        Clock::time_point(std::chrono::milliseconds{1298424}));
     task_runner_ = std::make_unique<FakeTaskRunner>(fake_clock_.get());
     quic_bridge_ =
         std::make_unique<FakeQuicBridge>(task_runner_.get(), FakeClock::now);

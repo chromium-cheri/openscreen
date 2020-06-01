@@ -4,7 +4,10 @@
 
 #include "cast/streaming/rtp_time.h"
 
+#include <chrono>  // NOLINT
+
 #include "gtest/gtest.h"
+#include "util/chrono_helpers.h"
 
 namespace openscreen {
 namespace cast {
@@ -18,18 +21,18 @@ TEST(RtpTimeDeltaTest, ConversionToAndFromDurations) {
   // Origin in both timelines is equivalent.
   ASSERT_EQ(RtpTimeDelta(), RtpTimeDelta::FromTicks(0));
   ASSERT_EQ(RtpTimeDelta(),
-            RtpTimeDelta::FromDuration(microseconds(0), kTimebase));
+            RtpTimeDelta::FromDuration(microseconds{0}, kTimebase));
   ASSERT_EQ(microseconds::zero(),
             RtpTimeDelta::FromTicks(0).ToDuration<microseconds>(kTimebase));
 
   // Conversions that are exact (i.e., do not require rounding).
   ASSERT_EQ(RtpTimeDelta::FromTicks(480),
-            RtpTimeDelta::FromDuration(milliseconds(10), kTimebase));
+            RtpTimeDelta::FromDuration(milliseconds{10}, kTimebase));
   ASSERT_EQ(RtpTimeDelta::FromTicks(96000),
-            RtpTimeDelta::FromDuration(seconds(2), kTimebase));
-  ASSERT_EQ(milliseconds(10),
+            RtpTimeDelta::FromDuration(seconds{2}, kTimebase));
+  ASSERT_EQ(milliseconds{10},
             RtpTimeDelta::FromTicks(480).ToDuration<microseconds>(kTimebase));
-  ASSERT_EQ(seconds(2),
+  ASSERT_EQ(seconds{2},
             RtpTimeDelta::FromTicks(96000).ToDuration<microseconds>(kTimebase));
 
   // Conversions that are approximate (i.e., are rounded).
@@ -54,13 +57,13 @@ TEST(RtpTimeDeltaTest, ConversionToAndFromDurations) {
         RtpTimeDelta::FromDuration(
             microseconds(INT64_C(233333333333333) + error_us), kTimebase));
   }
-  ASSERT_EQ(microseconds(21),
+  ASSERT_EQ(microseconds{21},
             RtpTimeDelta::FromTicks(1).ToDuration<microseconds>(kTimebase));
-  ASSERT_EQ(microseconds(42),
+  ASSERT_EQ(microseconds{42},
             RtpTimeDelta::FromTicks(2).ToDuration<microseconds>(kTimebase));
-  ASSERT_EQ(microseconds(63),
+  ASSERT_EQ(microseconds{63},
             RtpTimeDelta::FromTicks(3).ToDuration<microseconds>(kTimebase));
-  ASSERT_EQ(microseconds(83),
+  ASSERT_EQ(microseconds{83},
             RtpTimeDelta::FromTicks(4).ToDuration<microseconds>(kTimebase));
   ASSERT_EQ(microseconds(INT64_C(233333333333333)),
             RtpTimeDelta::FromTicks(11200000000000)
