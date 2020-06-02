@@ -7,21 +7,22 @@
 #include <unistd.h>
 
 #include <atomic>
-#include <thread>  // NOLINT
+#include <chrono>
+#include <string>
+#include <thread>
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "platform/api/time.h"
 #include "platform/test/fake_clock.h"
-
+#include "util/chrono_helpers.h"
 namespace openscreen {
 namespace {
 
-using namespace ::testing;
 using ::testing::_;
 
-const auto kTaskRunnerSleepTime = milliseconds(1);
-constexpr Clock::duration kWaitTimeout = milliseconds(1000);
+const auto kTaskRunnerSleepTime = milliseconds{1};
+constexpr Clock::duration kWaitTimeout = milliseconds{1000};
 
 void WaitUntilCondition(std::function<bool()> predicate) {
   while (!predicate()) {
@@ -86,7 +87,7 @@ std::unique_ptr<FakeTaskWaiter> TaskRunnerWithWaiterFactory::fake_waiter;
 }  // anonymous namespace
 
 TEST(TaskRunnerImplTest, TaskRunnerExecutesTaskAndStops) {
-  FakeClock fake_clock{Clock::time_point(milliseconds(1337))};
+  FakeClock fake_clock{Clock::time_point(milliseconds{1337})};
   TaskRunnerImpl runner(&fake_clock.now);
 
   std::string ran_tasks = "";
@@ -98,14 +99,14 @@ TEST(TaskRunnerImplTest, TaskRunnerExecutesTaskAndStops) {
 }
 
 TEST(TaskRunnerImplTest, TaskRunnerRunsDelayedTasksInOrder) {
-  FakeClock fake_clock{Clock::time_point(milliseconds(1337))};
+  FakeClock fake_clock{Clock::time_point(milliseconds{1337})};
   TaskRunnerImpl runner(&fake_clock.now);
 
   std::thread t([&runner] { runner.RunUntilStopped(); });
 
   std::string ran_tasks = "";
 
-  const auto kDelayTime = milliseconds(5);
+  const auto kDelayTime = milliseconds{5};
   const auto task_one = [&ran_tasks] { ran_tasks += "1"; };
   runner.PostTaskWithDelay(task_one, kDelayTime);
 
@@ -126,7 +127,7 @@ TEST(TaskRunnerImplTest, TaskRunnerRunsDelayedTasksInOrder) {
 }
 
 TEST(TaskRunnerImplTest, SingleThreadedTaskRunnerRunsSequentially) {
-  FakeClock fake_clock{Clock::time_point(milliseconds(1337))};
+  FakeClock fake_clock{Clock::time_point(milliseconds{1337})};
   TaskRunnerImpl runner(&fake_clock.now);
 
   std::string ran_tasks;
@@ -149,7 +150,7 @@ TEST(TaskRunnerImplTest, SingleThreadedTaskRunnerRunsSequentially) {
 }
 
 TEST(TaskRunnerImplTest, RunsAllImmediateTasksBeforeStopping) {
-  FakeClock fake_clock{Clock::time_point(milliseconds(1337))};
+  FakeClock fake_clock{Clock::time_point(milliseconds{1337})};
   TaskRunnerImpl runner(&fake_clock.now);
 
   std::string result;
@@ -181,7 +182,7 @@ TEST(TaskRunnerImplTest, RunsAllImmediateTasksBeforeStopping) {
 }
 
 TEST(TaskRunnerImplTest, TaskRunnerIsStableWithLotsOfTasks) {
-  FakeClock fake_clock{Clock::time_point(milliseconds(1337))};
+  FakeClock fake_clock{Clock::time_point(milliseconds{1337})};
   TaskRunnerImpl runner(&fake_clock.now);
 
   const int kNumberOfTasks = 500;
@@ -206,7 +207,7 @@ TEST(TaskRunnerImplTest, TaskRunnerDelayedTasksDontBlockImmediateTasks) {
   const auto task = [&ran_tasks] { ran_tasks += "1"; };
   const auto delayed_task = [&ran_tasks] { ran_tasks += "A"; };
 
-  runner.PostTaskWithDelay(delayed_task, milliseconds(10000));
+  runner.PostTaskWithDelay(delayed_task, milliseconds{10000});
   runner.PostTask(task);
 
   runner.RequestStopSoon();

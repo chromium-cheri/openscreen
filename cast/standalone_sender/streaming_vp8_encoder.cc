@@ -8,12 +8,14 @@
 #include <string.h>
 #include <vpx/vp8cx.h>
 
+#include <chrono>
 #include <cmath>
 #include <utility>
 
 #include "cast/streaming/encoded_frame.h"
 #include "cast/streaming/environment.h"
 #include "cast/streaming/sender.h"
+#include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 #include "util/saturate_cast.h"
 
@@ -31,8 +33,8 @@ constexpr int kBytesPerKilobyte = 1024;
 // Lower and upper bounds to the frame duration passed to vpx_codec_encode(), to
 // ensure sanity. Note that the upper-bound is especially important in cases
 // where the video paused for some lengthy amount of time.
-constexpr Clock::duration kMinFrameDuration = milliseconds(1);
-constexpr Clock::duration kMaxFrameDuration = milliseconds(125);
+constexpr Clock::duration kMinFrameDuration = milliseconds{1};
+constexpr Clock::duration kMaxFrameDuration = milliseconds{125};
 
 // Highest/lowest allowed encoding speed set to the encoder. The valid range is
 // [4, 16], but experiments show that with speed higher than 12, the saving of
@@ -367,7 +369,7 @@ void StreamingVp8Encoder::ComputeFrameEncodeStats(
 
   constexpr double kBytesPerBit = 1.0 / CHAR_BIT;
   constexpr double kSecondsPerClockTick =
-      1.0 / duration_cast<Clock::duration>(seconds(1)).count();
+      1.0 / Clock::to_duration(seconds{1}).count();
   const double target_bytes_per_clock_tick =
       target_bitrate * (kBytesPerBit * kSecondsPerClockTick);
   stats.target_size = target_bytes_per_clock_tick * work_unit->duration.count();
@@ -404,7 +406,7 @@ void StreamingVp8Encoder::UpdateSpeedSettingForNextFrame(const Stats& stats) {
   // Update the ideal speed setting, to be used for the next frame. An
   // exponentially-decaying weighted average is used here to smooth-out noise.
   // The weight is based on the duration of the frame that was encoded.
-  constexpr Clock::duration kDecayHalfLife = milliseconds(120);
+  constexpr Clock::duration kDecayHalfLife = milliseconds{120};
   const double ticks = stats.frame_duration.count();
   const double weight = ticks / (ticks + kDecayHalfLife.count());
   ideal_speed_setting_ =

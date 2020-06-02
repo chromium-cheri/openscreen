@@ -6,6 +6,7 @@
 
 #include <array>
 #include <limits>
+#include <utility>
 
 #include "discovery/common/config.h"
 #include "discovery/mdns/mdns_random.h"
@@ -284,7 +285,7 @@ Clock::time_point MdnsRecordTracker::GetNextSendTime() {
   }
 
   const Clock::duration delay =
-      std::chrono::duration_cast<Clock::duration>(record_.ttl() * ttl_fraction);
+      Clock::to_duration(record_.ttl() * ttl_fraction);
   return start_time_ + delay;
 }
 

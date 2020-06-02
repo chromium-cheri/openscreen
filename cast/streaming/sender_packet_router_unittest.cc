@@ -4,6 +4,8 @@
 
 #include "cast/streaming/sender_packet_router.h"
 
+#include <chrono>
+
 #include "cast/streaming/constants.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
@@ -11,6 +13,7 @@
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
 #include "util/big_endian.h"
+#include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 
 using testing::_;
@@ -32,7 +35,7 @@ const IPEndpoint kUnexpectedEndpoint{
 
 // Limited burst parameters to simplify unit testing.
 constexpr int kMaxPacketsPerBurst = 3;
-constexpr auto kBurstInterval = milliseconds(10);
+constexpr auto kBurstInterval = milliseconds{10};
 
 constexpr Ssrc kAudioReceiverSsrc = 2;
 constexpr Ssrc kVideoReceiverSsrc = 32;
@@ -294,7 +297,7 @@ TEST_F(SenderPacketRouterTest, RoutesRTCPPacketsFromReceivers) {
     Mock::VerifyAndClear(video_sender());
   }
 
-  AdvanceClockAndRunTasks(seconds(1));
+  AdvanceClockAndRunTasks(seconds{1});
 
   // Register the video Sender with the router. Now, confirm audio RTCP packets
   // still go to the audio Sender and video RTCP packets go to the video Sender.
@@ -318,7 +321,7 @@ TEST_F(SenderPacketRouterTest, RoutesRTCPPacketsFromReceivers) {
     const Clock::time_point expected_audio_arrival_time = env()->now();
     SimulatePacketArrivedNow(kRemoteEndpoint, audio_rtcp_packet);
 
-    AdvanceClockAndRunTasks(milliseconds(11));
+    AdvanceClockAndRunTasks(milliseconds{11});
 
     const Clock::time_point expected_video_arrival_time = env()->now();
     SimulatePacketArrivedNow(kRemoteEndpoint, video_rtcp_packet);
@@ -426,7 +429,7 @@ TEST_F(SenderPacketRouterTest, SchedulesAndTransmitsRTPBursts) {
             return ToEmptyPacketBuffer(send_time, buffer);
           }));
   const Clock::time_point kickstart_time =
-      start_time + 4 * kBurstInterval + milliseconds(25);
+      start_time + 4 * kBurstInterval + milliseconds{25};
   int num_get_resume_calls = 0;
   EXPECT_CALL(*video_sender(), GetRtpResumeTime())
       .Times(4 + 1 + 1)
@@ -469,14 +472,14 @@ TEST_F(SenderPacketRouterTest, SchedulesAndTransmitsRTPBursts) {
       .WillOnce(Return(SenderPacketRouter::kNever));
   // Advance to the resume time. Nothing should happen until RequestRtpSend() is
   // called.
-  const Clock::time_point resume_time = start_time + milliseconds(100);
+  const Clock::time_point resume_time = start_time + milliseconds{100};
   AdvanceClockAndRunTasks(resume_time - env()->now());
   router()->RequestRtpSend(kVideoReceiverSsrc);
   // Execute seventh burst.
   RunTasksUntilIdle();
   // Run for one more second, but nothing should be happening since sending is
   // paused.
-  AdvanceClockAndRunTasks(seconds(1));
+  AdvanceClockAndRunTasks(seconds{1});
   Mock::VerifyAndClear(video_sender());
 
   // Confirm 15 packets got sent and contain the expected data (which tracks
@@ -518,8 +521,8 @@ TEST_F(SenderPacketRouterTest, SchedulesAndTransmitsAccountingForPriority) {
       }));
 
   // These indicate how often one packet will be sent from each Sender.
-  constexpr Clock::duration kAudioRtpInterval = milliseconds(10);
-  constexpr Clock::duration kVideoRtpInterval = milliseconds(33);
+  constexpr Clock::duration kAudioRtpInterval = milliseconds{10};
+  constexpr Clock::duration kVideoRtpInterval = milliseconds{33};
 
   // Note: The priority flags used in this test ('0'..'3') indicate
   // lowest-to-highest priority.
@@ -572,8 +575,8 @@ TEST_F(SenderPacketRouterTest, SchedulesAndTransmitsAccountingForPriority) {
   router()->RequestRtpSend(kVideoReceiverSsrc);
 
   // Run the SenderPacketRouter for 3 seconds.
-  constexpr Clock::duration kSimulationDuration = seconds(3);
-  constexpr Clock::duration kSimulationStepPeriod = milliseconds(1);
+  constexpr Clock::duration kSimulationDuration = seconds{3};
+  constexpr Clock::duration kSimulationStepPeriod = milliseconds{1};
   const Clock::time_point start_time = env()->now();
   RunTasksUntilIdle();
   const Clock::time_point end_time = start_time + kSimulationDuration;

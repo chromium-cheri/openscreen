@@ -35,6 +35,7 @@
 #include "platform/base/udp_packet.h"
 #include "platform/test/fake_clock.h"
 #include "platform/test/fake_task_runner.h"
+#include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 
 using testing::_;
@@ -66,7 +67,7 @@ constexpr RtpPayloadType kRtpPayloadType = RtpPayloadType::kVideoVp8;
 constexpr int kMaxRtpPacketSize = 64;
 
 // A simulated one-way network delay, and round-trip network delay.
-constexpr auto kOneWayNetworkDelay = milliseconds(3);
+constexpr auto kOneWayNetworkDelay = milliseconds{3};
 constexpr auto kRoundTripNetworkDelay = 2 * kOneWayNetworkDelay;
 static_assert(kRoundTripNetworkDelay < kTargetPlayoutDelay &&
                   kRoundTripNetworkDelay < kTargetPlayoutDelayChange,
@@ -79,8 +80,8 @@ static_assert(kRoundTripNetworkDelay < kTargetPlayoutDelay &&
 // to 800 ms. Frames with different IDs will contain vary in their payload data
 // size, but are always 3 or more packets' worth of data.
 struct SimulatedFrame : public EncodedFrame {
-  static constexpr milliseconds kFrameDuration = milliseconds(10);
-  static constexpr milliseconds kTargetPlayoutDelayChange = milliseconds(800);
+  static constexpr milliseconds kFrameDuration = milliseconds{10};
+  static constexpr milliseconds kTargetPlayoutDelayChange = milliseconds{800};
 
   static constexpr int kPlayoutChangeAtFrame = 5;
 
@@ -110,7 +111,7 @@ struct SimulatedFrame : public EncodedFrame {
   }
 
   static RtpTimeTicks GetRtpStartTime() {
-    return RtpTimeTicks::FromTimeSinceOrigin(seconds(0), kRtpTimebase);
+    return RtpTimeTicks::FromTimeSinceOrigin(seconds{0}, kRtpTimebase);
   }
 
   static milliseconds GetExpectedPlayoutDelay(int which) {
@@ -378,7 +379,7 @@ TEST_F(ReceiverTest, ReceivesAndSendsRtcpPackets) {
   // Have the MockSender send a Sender Report with lip-sync timing information.
   const Clock::time_point sender_reference_time = FakeClock::now();
   const RtpTimeTicks sender_rtp_timestamp =
-      RtpTimeTicks::FromTimeSinceOrigin(seconds(1), kRtpTimebase);
+      RtpTimeTicks::FromTimeSinceOrigin(seconds{1}, kRtpTimebase);
   const StatusReportId sender_report_id =
       sender()->SendSenderReport(sender_reference_time, sender_rtp_timestamp);
 
@@ -398,12 +399,11 @@ TEST_F(ReceiverTest, ReceivesAndSendsRtcpPackets) {
   // Note: The offset can be affected by the lossy conversion when going to and
   // from the wire-format NtpTimestamps. See the unit tests in
   // ntp_time_unittest.cc for further discussion.
-  constexpr auto kAllowedNtpRoundingError = microseconds(2);
-  EXPECT_NEAR(duration_cast<microseconds>(kOneWayNetworkDelay).count(),
-              duration_cast<microseconds>(receiver_reference_time -
-                                          sender_reference_time)
-                  .count(),
-              kAllowedNtpRoundingError.count());
+  constexpr auto kAllowedNtpRoundingError = microseconds{2};
+  EXPECT_NEAR(
+      to_microseconds(kOneWayNetworkDelay).count(),
+      to_microseconds(receiver_reference_time - sender_reference_time).count(),
+      kAllowedNtpRoundingError.count());
 
   // Without the Sender doing anything, the Receiver should continue providing
   // RTCP reports at regular intervals. Simulate three intervals of time,
@@ -738,7 +738,7 @@ TEST_F(ReceiverTest, DropsLateFrames) {
 
   // Set a ridiculously-large estimated player processing time so that the logic
   // thinks every frame going to play out too late.
-  receiver()->SetPlayerProcessingTime(seconds(3));
+  receiver()->SetPlayerProcessingTime(seconds{3});
 
   // In this test there are eight frames total:
   //   - Frame 0: Key frame.

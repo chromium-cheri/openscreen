@@ -6,11 +6,13 @@
 
 #include <chrono>
 #include <sstream>
+#include <utility>
 
 #include "absl/types/span.h"
 #include "cast/standalone_receiver/avcodec_glue.h"
 #include "cast/streaming/encoded_frame.h"
 #include "util/big_endian.h"
+#include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 #include "util/trace_logging.h"
 
@@ -65,14 +67,13 @@ void SDLPlayerBase::OnFatalError(std::string message) {
 
 Clock::time_point SDLPlayerBase::ResyncAndDeterminePresentationTime(
     const EncodedFrame& frame) {
-  constexpr auto kMaxPlayoutDrift = milliseconds(100);
+  constexpr auto kMaxPlayoutDrift = milliseconds{100};
   const auto media_time_since_last_sync =
       (frame.rtp_timestamp - last_sync_rtp_timestamp_)
           .ToDuration<Clock::duration>(receiver_->rtp_timebase());
   Clock::time_point presentation_time =
       last_sync_reference_time_ + media_time_since_last_sync;
-  const auto drift =
-      duration_cast<milliseconds>(frame.reference_time - presentation_time);
+  const auto drift = to_microseconds(frame.reference_time - presentation_time);
   if (drift > kMaxPlayoutDrift || drift < -kMaxPlayoutDrift) {
     // Only log if not the very first frame.
     OSP_LOG_IF(INFO, frame.frame_id != FrameId::first())
@@ -157,7 +158,7 @@ void SDLPlayerBase::RenderAndSchedulePresentation() {
       // minimize redraw/etc. resource usage while doing "idle mode" play-out.
       // The interval here, is "lengthy" from the program's perspective, but
       // reasonably "snappy" from the user's perspective.
-      constexpr auto kIdlePresentInterval = milliseconds(250);
+      constexpr auto kIdlePresentInterval = milliseconds{250};
       presentation_alarm_.ScheduleFromNow(
           [this] {
             Present();

@@ -5,7 +5,7 @@
 #include <getopt.h>
 
 #include <array>
-#include <chrono>  // NOLINT
+#include <chrono>
 #include <iostream>
 
 #include "absl/strings/str_cat.h"
@@ -26,6 +26,7 @@
 #include "platform/impl/platform_client_posix.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
+#include "util/chrono_helpers.h"
 #include "util/stringprintf.h"
 #include "util/trace_logging.h"
 
