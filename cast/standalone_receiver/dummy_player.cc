@@ -31,7 +31,7 @@ void DummyPlayer::OnFramesReady(int buffer_size) {
   // Convert the RTP timestamp to a human-readable timestamp (in µs) and log
   // some short information about the frame.
   const auto media_timestamp =
-      frame.rtp_timestamp.ToTimeSinceOrigin<microseconds>(
+      frame.rtp_timestamp.ToTimeSinceOrigin<std::chrono::microseconds>(
           receiver_->rtp_timebase());
   OSP_LOG_INFO << "[SSRC " << receiver_->ssrc() << "] "
                << (frame.dependency == EncodedFrame::KEY_FRAME ? "KEY " : "")
