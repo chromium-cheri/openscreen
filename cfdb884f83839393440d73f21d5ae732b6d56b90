@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae1b7bb6_e02f8ba1",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Is this part of a range, or does min \u003d\u003d max?",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8308bac0_4aaa4aee",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "That is very low.  Is this also part of a range?  Where is the maximum defined?",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "939d8280_32ee558a",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "use chrono_helper.h?",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2e0d903_f6221f43",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "What does error() return?  You shouldn\u0027t need to move it since it\u0027s not an lvalue.",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f490dfbf_e8c2cb11",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Ditto with value().",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d13c21_d12ded7f",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Please use explicit type.",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fac4b851_ced47fe5",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "It\u0027s not totally clear if the job of Parse is to return all possible dimensions, or if it also validates that it falls within some reasonable range of values.  Maybe add some comments to explain parsing vs. validation.",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "066a188c_0c4c884d",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Why does aspectRatio parsing call two parsing functions?  Can they be combined?",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea34e06d_a999db17",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "The overall code would be simpler if this would always generate JSON, i.e. no error was possible.",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cb665b3_f8f1fb35",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "When would this be false?",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2832ff87_be6bb0c4",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Similar comments here.  If value() is returning by value, no need to move.  If it is returning an rvalue reference, also no need to move.",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f522d1c_a3bf197a",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Can you add comments on how this relates to AspectRatioConstraint?\nIn particular:\nWhat does kFixed mean if this is not 16:9?\nWhat does AspectRatio mean for kVariable (since frames are \"arbitrarily sized\")?",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2102938_ffd308f4",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Is this part of the public API for streaming?  (How do you currently identify the public API for the streaming module?)\n\nabsl:: names should be avoided in public APIs.",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "782ce1d3_dd48b343",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Avoid absl:: types in public APIs",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b481160_a51edd54",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "Maybe this belongs in the receiver session, especially since it also requires CreateInvalidAnswer below.",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24c9c08d_288e048a",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-02T19:43:51Z",
+      "side": 1,
+      "message": "This looks like a copy, not construction.  Prefer push_back().\n\nRef: https://groups.google.com/a/chromium.org/d/msgid/blink-dev/CAAHOzFBxh70Q7vkZDA1OCmC2KA4c%2BiPjXPwMeO26XuWGAVJ0Fg%40mail.gmail.com?utm_medium\u003demail\u0026utm_source\u003dfooter",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
