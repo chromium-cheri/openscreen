@@ -151,6 +151,24 @@
     },
     {
       "key": {
+        "uuid": "9bef183f_ff912d9b",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T17:02:21Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t realize it was an lvalue reference.  It would be really convienent to be able to consume an ErrorOr value without writing std::move *every* *single* *time*.\n\nOption 1:  Add an rvalue reference overload: ValueType\u0026\u0026 value()\n\nThe question is whether the lvalue (copy) or rvalue (move) overload of value() is used when calling a function foo(ValueType v) as foo(bar.value())?  stackoverflow thinks that rvalues bind to rvalues over lvalues so it might work.\n\nOption 2:  Add a ValueType\u0026\u0026 Take() method to make ownership transfer explicit.  (The original design of ErrorOr had a function like this.  Was it removed?)\n\n(Note, we would want to do the same thing for error() too.)\n\nAnyway, this can be improved after landing this patch, but then we\u0027d need to go back and convert these uses of std::move(foo.value())...",
+      "parentUuid": "52c1b5e9_c196fc34",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6d13c21_d12ded7f",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 5
