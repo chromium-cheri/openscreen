@@ -169,6 +169,24 @@
     },
     {
       "key": {
+        "uuid": "d5cd8e49_4caa4df0",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-03T17:12:46Z",
+      "side": 1,
+      "message": "\u003e Option 1:  Add an rvalue reference overload: ValueType\u0026\u0026 value()\n\nThis sounds good to me, as long as we add a bunch of documentation in ErrorOr about when the compiler picks which one. And Unit Tests to validate we are right.\n\n\n\u003e Option 2:  Add a ValueType\u0026\u0026 Take() method to make ownership transfer explicit.\n\nI actually find std::move(object.value()) to be much clearer than object.take_value() - the former uses the standard C++ syntax rather than something openscreen-specific.\nEspecially because we don\u0027t always need to move it - Recently, I\u0027ve started writing:\n\n\u003e auto\u0026 value \u003d value_or_error.value()\n\nwithout ever needing to invoke the move ctor, which I expect should be faster because a new object is never even constructed. WDYT?",
+      "parentUuid": "9bef183f_ff912d9b",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6d13c21_d12ded7f",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 5
