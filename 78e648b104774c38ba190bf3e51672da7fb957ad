@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "816dd194_5a634875",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "1. Internal link won\u0027t be usable outside of corp; maybe add a TODO to document the protocol in our own repo.\n2. Prefer https://goto.google.com/foo to avoid an insecure redirect.",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f236eb37_6b5ab73f",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "WDYT of having a specific naming for dictionary key constants?\n\nOption #1: kFooKey\nOption #2: \nnamespace key {\n...\n} \n\nIt depends on readability of the code that uses these, your call.",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c72be02b_6ed10a95",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "Since this is for the ANSWER, do you mean \"receiver defaults\"?  Or, I guess what this means is that it\u0027s what the receiver assumes the sender will provide unless otherwise specified.",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "968b67c9_84a73e81",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "Weird there aren\u0027t numerical kDefaultAudioMaxBitRate and kDefaultVideoMaxBitRate...  Are the maximum values mandatory?",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed099bd8_5397a968",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "Not sure this constant is necessary, unless this it\u0027s used more than once.",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b5cbb2_1fa0523e",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "Scaling and letterboxing are slightly different things.  I read the spec, and this is my understanding:\n\nif scaling \u003d\u003d sender:\n   if dimensions is set:\n      always send frames with an aspect ratio matching dimensions (maybe scaling first)?\n   else:\n      ???\nelse if scaling \u003d\u003d receiver:\n   sender is free to ignore dimensions (but maybe scale down to save bandwidth)\n\nWhat is your understanding, and what does the implementation do?",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a17e9e4_9596ab57",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "This is -1 when assigned to a signed integer.\n\nDo you mean any 32-bit unsigned integer is OK?  Do we need these constants after all?",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64cfad40_8b501f13",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "Can you just return Optional\u003cT\u003e here?",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd74ef9a_5929b07d",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "Extra ()",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f30b4f_3ab0d1c4",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "It\u0027s a little tricky to write an Optional class correctly.  I agree we shouldn\u0027t hold these optional values by unique_ptr, but did you consider holding them by raw pointers, which would essentially serve the same purpose (nullptr vs. set)?",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b42ea309_08313066",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "If we\u0027re going to write our own optional class, I\u0027d be OK replacing absl::optional with our own implementation throughout.  But we\u0027d also want ours to be forward-compatible with c++17 std::optional so we can upgrade later.\n\nhttps://en.cppreference.com/w/cpp/utility/optional\n\nForward-compatible \u003d implement subset of API with identical signatures.\nI didn\u0027t go through the API below myself to verify what\u0027s compatible and what\u0027s not.",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59be682_dbda9f76",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "You need to declare this as a union with a sentinel char or similar to avoid default-constructing T with Optional().\n\nSee other implementations:\n\nhttps://github.com/llvm/llvm-project/blob/master/libcxx/include/optional\nhttps://source.chromium.org/chromium/chromium/src/+/master:base/optional.h;drc\u003da33bc999edd57ddf2c0c3d335ce70c4af91684e0;l\u003d69",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58af8d3c_c72b4a16",
+        "filename": "cast/streaming/answer_messages_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "Can you wrap to the previous line?",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10bb1d0a_d506a4dc",
+        "filename": "cast/streaming/answer_messages_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d765c7_8bb0f05f",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-03T22:37:49Z",
+      "side": 1,
+      "message": "These parsing utility functions are not specific to offer/answer parsing AFAICT.\n\nIf this is not part of the \"public API\", they could go in util/json, but I don\u0027t feel strongly.",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
