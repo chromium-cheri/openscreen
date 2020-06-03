@@ -36,6 +36,52 @@
     },
     {
       "key": {
+        "uuid": "dfefbc34_14a17eb0",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-03T01:29:05Z",
+      "side": 1,
+      "message": "change these \u0027magic constants\u0027 into const variables kReceiver and kSender or similar, commented as to what they mean / where they come from? Putting all the magic constants together with a link to the spec is good enough\n\nHere and elsewhere in file",
+      "range": {
+        "startLine": 49,
+        "startChar": 22,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c037d360_6137d648",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-03T01:29:05Z",
+      "side": 1,
+      "message": "More magic constants here and below",
+      "range": {
+        "startLine": 90,
+        "startChar": 39,
+        "endLine": 90,
+        "endChar": 54
+      },
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "939d8280_32ee558a",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 5
@@ -81,6 +127,24 @@
       "writtenOn": "2020-06-02T19:43:51Z",
       "side": 1,
       "message": "Ditto with value().",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52c1b5e9_c196fc34",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-03T01:29:05Z",
+      "side": 1,
+      "message": "I might be misunderstanding - because value() returns a non-const lvalue reference (through call to ErrorOr\u003c...\u003e\u0027s `ValueType\u0026 value() { return value_; }`), wouldn\u0027t this be appropriate here?",
+      "parentUuid": "f490dfbf_e8c2cb11",
       "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -183,6 +247,29 @@
       "writtenOn": "2020-06-02T19:43:51Z",
       "side": 1,
       "message": "Similar comments here.  If value() is returning by value, no need to move.  If it is returning an rvalue reference, also no need to move.",
+      "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9434330_6179de27",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-03T01:29:05Z",
+      "side": 1,
+      "message": "Comments on methods, here and below",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 38
+      },
       "revId": "cfdb884f83839393440d73f21d5ae732b6d56b90",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
