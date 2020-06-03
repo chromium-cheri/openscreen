@@ -129,21 +129,22 @@ void ReceiverSession::OnMessage(absl::string_view sender_id,
   }
 
   // TODO(jophba): add sender connected/disconnected messaging.
-  auto sequence_number = ParseInt(message_json.value(), kSequenceNumber);
-  if (!sequence_number) {
+  int sequence_number;
+  if (!ParseAndValidateInt(message_json.value()[kSequenceNumber],
+                           &sequence_number)) {
     OSP_LOG_WARN << "Invalid message sequence number";
     return;
   }
 
-  auto key_or_error = ParseString(message_json.value(), kKeyType);
-  if (!key_or_error) {
+  std::string key;
+  if (!ParseAndValidateString(message_json.value()[kKeyType], &key)) {
     OSP_LOG_WARN << "Invalid message key";
     return;
   }
 
   Message parsed_message{sender_id.data(), message_namespace.data(),
-                         sequence_number.value()};
-  if (key_or_error.value() == kMessageTypeOffer) {
+                         sequence_number};
+  if (key == kMessageTypeOffer) {
     parsed_message.body = std::move(message_json.value()[kOfferMessageBody]);
     if (parsed_message.body.isNull()) {
       OSP_LOG_WARN << "Invalid message offer body";
@@ -180,7 +181,6 @@ void ReceiverSession::OnOffer(Message* message) {
         SelectStream(preferences_.video_codecs, offer.value().video_streams);
   }
 
-  cast_mode_ = offer.value().cast_mode;
   auto receivers =
       TrySpawningReceivers(selected_audio_stream, selected_video_stream);
   if (receivers) {
@@ -264,22 +264,21 @@ Answer ReceiverSession::ConstructAnswer(
     stream_ssrcs.push_back(selected_video_stream->stream.ssrc + 1);
   }
 
-  absl::optional<Constraints> constraints;
+  Optional<Constraints> constraints;
   if (preferences_.constraints) {
     constraints = *preferences_.constraints;
   }
 
-  absl::optional<DisplayDescription> display;
+  Optional<DisplayDescription> display;
   if (preferences_.display_description) {
     display = *preferences_.display_description;
   }
 
-  return Answer{cast_mode_,
-                environment_->GetBoundLocalEndpoint().port,
+  return Answer{environment_->GetBoundLocalEndpoint().port,
                 std::move(stream_indexes),
                 std::move(stream_ssrcs),
-                constraints,
-                display,
+                std::move(constraints),
+                std::move(display),
                 std::vector<int>{},  // receiver_rtcp_event_log
                 std::vector<int>{},  // receiver_rtcp_dscp
                 supports_wifi_status_reporting_};
