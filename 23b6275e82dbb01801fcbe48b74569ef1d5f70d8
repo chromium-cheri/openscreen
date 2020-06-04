@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0998a4c8_e3e83051",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:15:42Z",
+      "side": 1,
+      "message": "Have we considered having PtrMdnsRecord : public MdnsRecord? this kind of switching code implies that the separate types are really subclass candidates.",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c246a3fc_60e96acd",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:15:42Z",
+      "side": 1,
+      "message": "Why tab in here? I get the below indentation to show children but not sure why we need it here.",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98d90e39_5dc5abfb",
+        "filename": "platform/base/udp_packet.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:15:42Z",
+      "side": 1,
+      "message": "Don\u0027t we have several hex bytes to string functions already? I would like to avoid having more implementations of the same method.",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8df47c1d_304f7fae",
+        "filename": "platform/base/udp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:15:42Z",
+      "side": 1,
+      "message": "Can you add some edge case tests? E.g. empty packet.",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
