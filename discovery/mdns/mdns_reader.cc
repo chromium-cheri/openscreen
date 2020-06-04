@@ -15,6 +15,8 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
+constexpr uint16_t kOptType = 41;
+
 bool TryParseDnsType(uint16_t to_parse, DnsType* type) {
   auto it = std::find(kSupportedDnsTypes.begin(), kSupportedDnsTypes.end(),
                       static_cast<DnsType>(to_parse));
@@ -287,13 +289,24 @@ bool MdnsReader::Read(MdnsRecord* out) {
   Rdata rdata;
   if (Read(&name) && Read(&type) && Read(&rrclass) && Read(&ttl) &&
       Read(static_cast<DnsType>(type), &rdata)) {
-    ErrorOr<MdnsRecord> record = MdnsRecord::TryCreate(
-        std::move(name), static_cast<DnsType>(type), GetDnsClass(rrclass),
-        GetRecordType(rrclass), std::chrono::seconds(ttl), std::move(rdata));
-    if (record.is_error()) {
-      return false;
+    if (type == kOptType) {
+      // Special case kOptType because the RFC does as-well. See:
+      // https://tools.ietf.org/html/rfc2671#section-4.3
+      if (name != DomainName()) {
+        return false;
+      }
+
+      *out =
+          MdnsOptPseudoRecord(type, rrclass, absl::get<RawRecordRdata>(rdata));
+    } else {
+      ErrorOr<MdnsRecord> record = MdnsRecord::TryCreate(
+          std::move(name), static_cast<DnsType>(type), GetDnsClass(rrclass),
+          GetRecordType(rrclass), std::chrono::seconds(ttl), std::move(rdata));
+      if (record.is_error()) {
+        return false;
+      }
+      *out = std::move(record.value());
     }
-    *out = std::move(record.value());
 
     cursor.Commit();
     return true;

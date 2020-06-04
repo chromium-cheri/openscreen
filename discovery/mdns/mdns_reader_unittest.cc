@@ -5,6 +5,7 @@
 #include "discovery/mdns/mdns_reader.h"
 
 #include <memory>
+#include <utility>
 
 #include "discovery/common/config.h"
 #include "discovery/mdns/testing/mdns_test_util.h"
@@ -574,6 +575,39 @@ TEST(MdnsReaderTest, ReadMdnsQuestion) {
                    ResponseType::kUnicast));
 }
 
+TEST(MdnsReaderTest, ReadMdnsOptPseudoRecord_Success) {
+  // clang-format off
+  constexpr uint8_t kRecord[] {
+      0x00,  // Empty domain
+      0x00, 0x29,  // OPT code
+      0x05, 0xA0,  // Payload Size
+      0x00, 0x00, 0x11, 0x94,  // RCode and Flags
+      0x00, 0x02,  // RData Length
+      0x00, 0x04
+  };
+  // clang-format on
+  TestReadEntrySucceeds<MdnsRecord>(
+      kRecord, sizeof(kRecord),
+      MdnsOptPseudoRecord(0x05A0, 0x00001194,
+                          RawRecordRdata(std::vector<uint8_t>{0x00, 0x04})));
+}
+
+TEST(MdnsReaderTest, ReadMdnsOptPseudoRecord_InvalidName) {
+  // clang-format off
+  constexpr uint8_t kRecord[] {
+      0x07, 't', 'e', 's', 't', 'i', 'n', 'g',
+      0x05, 'l', 'o', 'c', 'a', 'l',
+      0x00,
+      0x00, 0x29,  // OPT code
+      0x05, 0xA0,  // Payload Size
+      0x00, 0x00, 0x11, 0x94,  // RCode and Flags
+      0x00, 0x02,  // RData Length
+      0x00, 0x04
+  };
+  // clang-format on
+  TestReadEntryFails<MdnsRecord>(kRecord, sizeof(kRecord));
+}
+
 TEST(MdnsReaderTest, ReadMdnsQuestion_CompressedNames) {
   // clang-format off
   constexpr uint8_t kTestQuestions[] = {
@@ -699,6 +733,89 @@ TEST(MdnsReaderTest, ReadMdnsMessage_MissingAdditionalRecord) {
   };
   // clang-format on
   TestReadEntryFails<MdnsMessage>(kInvalidMessage, sizeof(kInvalidMessage));
+}
+
+// This test is based on failing input from issuetracker.google.com/157683753.
+TEST(MdnsReaderTest, ReadMdnsMessageFromBug157683753) {
+  // clang-format off
+  constexpr uint8_t kMessage[] = {
+    0x00, 0x00,  // ID
+    0x00, 0x00,  // Flags
+    0x00, 0x08,  // Question Count
+    0x00, 0x00,  // Answer Count
+    0x00, 0x00,  // Authority Records Count
+    0x00, 0x01,  // Additional Records Count
+    0x0F, '_', 'c', 'o', 'm', 'p', 'a', 'n', 'i', 'o', 'n', '-', 'l', 'i', 'n', 'k',  // NOLINT
+    0x04, '_', 't', 'c', 'p',
+    0x05, 'l', 'o', 'c', 'a', 'l',
+    0x00,
+    0x00, 0x0C,  // TYPE = PTR (12)
+    0x80, 0x01,  // CLASS = IN (1), Unicast response
+    0x08, '_', 'h', 'o', 'm', 'e', 'k', 'i', 't',
+    0xC0, 0x1C,  // pointer to '._tcp.local'
+    0x00, 0x0C,  // TYPE = PTR (12)
+    0x80, 0x01,  // CLASS = IN (1), Unicast response
+    0x08, '_', 'a', 'i', 'r', 'p', 'l', 'a', 'y',
+    0xC0, 0x1C,  // pointer to '._tcp.local'
+    0x00, 0x0C,  // TYPE = PTR (12)
+    0x80, 0x01,  // CLASS = IN (1), Unicast response
+    0x05, '_', 'r', 'a', 'o', 'p',
+    0xC0, 0x1C,  // pointer to '._tcp.local'
+    0x00, 0x0C,  // TYPE = PTR (12)
+    0x80, 0x01,  // CLASS = IN (1), Unicast response
+    0x0F, 'M', 'a', 'c', 'B', 'o', 'o', 'k', ' ', 'P', 'r', 'o', ' ', '(', '2', ')',  // NOLINT
+    0xC0, 0x0C,  // pointer to '_companion-link._tcp.local'
+    0x00, 0x21,  // Unknown record type
+    0x80, 0x01,  // CLASS = IN (1), Unicast response
+    0x0D, 'M', 'a', 'c', 'B', 'o', 'o', 'k', '-', 'P', 'r', 'o', '-', '2',
+    0xC0, 0x21,  // pointer to .local
+    0x00, 0x1C,  // Unknown record type
+    0x80, 0x01,  // CLASS = IN (1), Unicast response
+    0xC0, 0x6C,  // Pointer to Macbook-Pro-2.local
+    0x00, 0x01,  // Type = A (1)
+    0x80, 0x01,  // CLASS = IN (1), Unicast response
+    0x0C, '_', 's', 'l', 'e', 'e', 'p', '-', 'p', 'r', 'o', 'x', 'y',
+    0x04, '_', 'u', 'd', 'p',
+    0xC0, 0x21,  // pointer to .local
+    0x00, 0x0C,  // TYPE = PTR (12)
+    0x80, 0x01,  // CLASS = IN (1), Unicast response
+    0x00,  // Empty domain
+    0x00, 0x29,  // OPT code
+    0x05, 0xA0,  // Payload Size
+    0x00, 0x00, 0x11, 0x94,  // RCode and Flags
+    0x00, 0x12,  // RData Length
+    0x00, 0x04, 0x00, 0x0E, 0x00, 0x20, 0xB6, 0xF6, 0x1C, 0x5D, 0xF7, 0x87, 0xB4, 0xF6, 0x1C, 0x5D, 0xF7, 0x87  // NOLINT
+  };
+  // clang-format on
+
+  std::vector<MdnsQuestion> questions{
+      MdnsQuestion(DomainName{"_companion-link", "_tcp", "local"},
+                   DnsType::kPTR, DnsClass::kIN, ResponseType::kUnicast),
+      MdnsQuestion(DomainName{"_homekit", "_tcp", "local"}, DnsType::kPTR,
+                   DnsClass::kIN, ResponseType::kUnicast),
+      MdnsQuestion(DomainName{"_airplay", "_tcp", "local"}, DnsType::kPTR,
+                   DnsClass::kIN, ResponseType::kUnicast),
+      MdnsQuestion(DomainName{"_raop", "_tcp", "local"}, DnsType::kPTR,
+                   DnsClass::kIN, ResponseType::kUnicast),
+      MdnsQuestion(
+          DomainName{"MacBook Pro (2)", "_companion-link", "_tcp", "local"},
+          static_cast<DnsType>(0x21), DnsClass::kIN, ResponseType::kUnicast),
+      MdnsQuestion(DomainName{"MacBook-Pro-2", "local"},
+                   static_cast<DnsType>(0x1C), DnsClass::kIN,
+                   ResponseType::kUnicast),
+      MdnsQuestion(DomainName{"MacBook-Pro-2", "local"}, DnsType::kA,
+                   DnsClass::kIN, ResponseType::kUnicast),
+      MdnsQuestion(DomainName{"_sleep-proxy", "_udp", "local"}, DnsType::kPTR,
+                   DnsClass::kIN, ResponseType::kUnicast),
+  };
+  std::vector<MdnsRecord> additional{MdnsOptPseudoRecord(
+      0x05A0, 0x00001194,
+      RawRecordRdata({0x00, 0x04, 0x00, 0x0E, 0x00, 0x20, 0xB6, 0xF6, 0x1C,
+                      0x5D, 0xF7, 0x87, 0xB4, 0xF6, 0x1C, 0x5D, 0xF7, 0x87}))};
+  MdnsMessage message(0, MessageType::Query, std::move(questions), {}, {},
+                      std::move(additional));
+
+  TestReadEntrySucceeds(kMessage, sizeof(kMessage), message);
 }
 
 }  // namespace discovery
