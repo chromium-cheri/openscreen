@@ -163,6 +163,30 @@
     },
     {
       "key": {
+        "uuid": "9aad47b0_a938d154",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:58:56Z",
+      "side": 1,
+      "message": "Typos in the first part. Either:\n- Eliminate the empty ctor (to force explicit creation)\n- Allow a non-empty ctor (I prefer to use absl::optional\u003cT\u003e(absl::nullopt) sometimes to be explicit in code. Similarly for assignment operators)\n\nI think the latter makes more sense. But open to the former",
+      "parentUuid": "f83de7ec_f4f592f4",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2381a20_6f8b470d",
         "filename": "util/json/parsing_helpers.h",
         "patchSetId": 11
