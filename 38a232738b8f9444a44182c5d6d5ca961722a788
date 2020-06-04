@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "891f6e28_9eb87289",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T19:16:20Z",
+      "side": 1,
+      "message": "I address this in the above comments. C++ will make these not PODs, which means that list initialization is broken/no longer free, so I have to define all the constructors, and I really dislike stuff like:\n\n    AudioConstraints::AudioConstraints(int max_sample_rate, int max_channels, int min_bit_rate, int max_bit_rate, std::chrono::milliseconds max_delay) : max_sample_rate(max_sample_rate), max_channels(max_channels), min_bit_rate(min_bit_rate), max_bit_rate(max_bit_rate), max_delay(max_delay {}\n    AudioConstraints::AudioConstraints(const AudioConstraints\u0026) \u003d default;\n    AudioConstraints::AudioConstraints(const AudioConstraints\u0026) \u003d default;\n    AudioConstraints\u0026 AudioConstraints::operator\u003d(const AudioConstraints\u0026) \u003d default;\n    AudioConstraints\u0026 AudioConstraints::operator\u003d(AudioConstraints\u0026\u0026) \u003d default;\n    AudioConstraints::~AudioConstraints() \u003d default;\n\n\nOr even worse, it\u0027s definitely a class now, so the definition becomes:\n\n  class AudioConstraints : JsonParseable\u003cAudioConstraints\u003e {\n   public:\n    AudioConstraints::AudioConstraints(int max_sample_rate, int max_channels, int min_bit_rate, int max_bit_rate, std::chrono::milliseconds max_delay);\n    AudioConstraints::AudioConstraints();\n    AudioConstraints::AudioConstraints(const AudioConstraints\u0026);\n    AudioConstraints::AudioConstraints(AudioConstraints\u0026\u0026);\n    AudioConstraints\u0026 AudioConstraints::operator\u003d(const AudioConstraints\u0026);\n    AudioConstraints\u0026 AudioConstraints::operator\u003d(AudioConstraints\u0026\u0026);\n    AudioConstraints::~AudioConstraints();\n\n    // JsonParseable\n    static bool ParseAndValidate(const Json::Value\u0026 value, AudioConstraints* out) override;\n    Json::Value ToJson() const override;\n    bool IsValid() const override;\n\n      int max_sample_rate();\n    int max_channels();\n    int min_bit_rate();\n    int max_bit_rate();\n    std::chrono::milliseconds max_delay();\n\n   private:\n    int max_sample_rate_ \u003d 0;\n    int max_channels_ \u003d 0;\n    // Technically optional, sender will assume 32kbps if omitted.\n    int min_bit_rate_ \u003d 0;\n    int max_bit_rate_ \u003d 0;\n    std::chrono::milliseconds max_delay_ \u003d {};\n  };",
+      "parentUuid": "78043c38_f2cc8b10",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c7be9cd_ef57e1e8",
         "filename": "cast/streaming/offer_messages.cc",
         "patchSetId": 11
@@ -82,6 +106,30 @@
       "writtenOn": "2020-06-04T16:54:49Z",
       "side": 1,
       "message": "It\u0027s not immediately clear if the check is\n`if (ssrc \u003d\u003d 0)` or `if (ssrc \u003d\u003d Optional::NullOpt)` or `if (ssrc.is_error())`\nThis would especially be true for external contributors not super familiar with our Error classes\n\nIMHO\n\n\u003e  if (ssrc.is_error())\n\nis more readable, but explicitly typing the above also works.\n\nI\u0027d actually be in favor of getting rid of the bool overload for ErrorOr\u003c...\u003e to force more readable code. What does everyone else think?",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 14
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aca2c6b1_b133793b",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T19:16:20Z",
+      "side": 1,
+      "message": "I should probably just remove auto here. IMO, ErrorOr works like pointers right now which I find nice, you have the same problem with:\n\nstd::unique_ptr\u003cuint32_t\u003e ssrc;\nif (!ssrc) {\n   return nullptr;\n}\n\n*ssrc \u003d 123;\n\nThough what I am planning on doing is changing offer_messages.cc to use the new parse methods I added, so I think we should resolve this in a separate patch.",
+      "parentUuid": "8c7be9cd_ef57e1e8",
       "range": {
         "startLine": 121,
         "startChar": 0,
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "15eb7522_492840d2",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T19:16:20Z",
+      "side": 1,
+      "message": "It will block checkin of my answer work, so hoping I can get it in uncontroversially...",
+      "parentUuid": "e9c407d5_7910f707",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90843592_031457ad",
         "filename": "platform/base/optional.h",
         "patchSetId": 11
@@ -137,6 +209,30 @@
       "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7b3ef5e_c5a504b6",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T19:16:20Z",
+      "side": 1,
+      "message": "I don\u0027t really feel strongly either way, so I\u0027m going to delete the bool() operator. I do think it can lead to some unintuitive states, if the type optional points to is also convertible to bool.",
+      "parentUuid": "90843592_031457ad",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "c6fea8fd_66e4a8a8",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T19:16:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9aad47b0_a938d154",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2381a20_6f8b470d",
         "filename": "util/json/parsing_helpers.h",
         "patchSetId": 11
@@ -207,6 +327,30 @@
       "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5ecb9a2_9aaf498e",
+        "filename": "util/json/parsing_helpers.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T19:16:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2381a20_6f8b470d",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 5
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
