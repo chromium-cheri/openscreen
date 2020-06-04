@@ -6,6 +6,7 @@
 
 #include <inttypes.h>
 
+#include <limits>
 #include <string>
 #include <utility>
 
@@ -13,11 +14,11 @@
 #include "absl/strings/numbers.h"
 #include "absl/strings/str_split.h"
 #include "cast/streaming/constants.h"
-#include "cast/streaming/message_util.h"
 #include "cast/streaming/receiver_session.h"
 #include "platform/base/error.h"
 #include "util/big_endian.h"
 #include "util/json/json_serialization.h"
+#include "util/json/parsing_helpers.h"
 #include "util/osp_logging.h"
 #include "util/stringprintf.h"
 
