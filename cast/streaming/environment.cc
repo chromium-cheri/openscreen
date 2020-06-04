@@ -4,24 +4,36 @@
 
 #include "cast/streaming/environment.h"
 
+#include <utility>
+
 #include "cast/streaming/rtp_defines.h"
 #include "platform/api/task_runner.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {
 namespace cast {
+namespace {
 
-Environment::Environment(ClockNowFunctionPtr now_function,
-                         TaskRunner* task_runner)
+const IPEndpoint kIPEndpointAny = IPEndpoint{IPAddress{0, 0, 0, 0}, 0};
+
+}
+// This constructor should not be called, except by tests and other
+// constructors.
+Environment::Environment(TaskRunner* task_runner,
+                         ClockNowFunctionPtr now_function)
     : now_function_(now_function), task_runner_(task_runner) {
   OSP_DCHECK(now_function_);
   OSP_DCHECK(task_runner_);
 }
 
 Environment::Environment(ClockNowFunctionPtr now_function,
+                         TaskRunner* task_runner)
+    : Environment(now_function, task_runner, kIPEndpointAny) {}
+
+Environment::Environment(ClockNowFunctionPtr now_function,
                          TaskRunner* task_runner,
                          const IPEndpoint& local_endpoint)
-    : Environment(now_function, task_runner) {
+    : Environment(task_runner, now_function) {
   ErrorOr<std::unique_ptr<UdpSocket>> result =
       UdpSocket::Create(task_runner_, this, local_endpoint);
   const_cast<std::unique_ptr<UdpSocket>&>(socket_) = std::move(result.value());

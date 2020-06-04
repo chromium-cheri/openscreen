@@ -9,6 +9,7 @@
 
 #include <functional>
 #include <memory>
+#include <vector>
 
 #include "absl/types/span.h"
 #include "platform/api/time.h"
@@ -34,7 +35,9 @@ class Environment : public UdpSocket::Client {
 
   // Construct with the given clock source and TaskRunner. Creates and
   // internally-owns a UdpSocket, and immediately binds it to the given
-  // |local_endpoint|.
+  // |local_endpoint|. If embedders do not care what interface/address the UDP
+  // socket is bound on, they may omit that argument.
+  Environment(ClockNowFunctionPtr now_function, TaskRunner* task_runner);
   Environment(ClockNowFunctionPtr now_function,
               TaskRunner* task_runner,
               const IPEndpoint& local_endpoint);
@@ -89,8 +92,11 @@ class Environment : public UdpSocket::Client {
  protected:
   // Common constructor that just stores the injected dependencies and does not
   // create a socket. Subclasses use this to provide an alternative packet
-  // receive/send mechanism (e.g., for testing).
-  Environment(ClockNowFunctionPtr now_function, TaskRunner* task_runner);
+  // receive/send mechanism (e.g., for testing). Unfortunately we don't have a
+  // great way to distinguish this from the case where the embedder doesn't care
+  // about what IPEndpoint is used, so we differentiate to the compiler by
+  // parameter ordering.
+  Environment(TaskRunner* task_runner, ClockNowFunctionPtr now_function);
 
  private:
   // UdpSocket::Client implementation.

@@ -129,7 +129,7 @@ absl::Span<uint8_t> ToEmptyPacketBuffer(Clock::time_point send_time,
 class MockEnvironment : public Environment {
  public:
   MockEnvironment(ClockNowFunctionPtr now_function, TaskRunner* task_runner)
-      : Environment(now_function, task_runner) {}
+      : Environment(task_runner, now_function) {}
 
   ~MockEnvironment() override = default;
 

@@ -9,7 +9,7 @@ namespace cast {
 
 MockEnvironment::MockEnvironment(ClockNowFunctionPtr now_function,
                                  TaskRunner* task_runner)
-    : Environment(now_function, task_runner) {}
+    : Environment(task_runner, now_function) {}
 
 MockEnvironment::~MockEnvironment() = default;
 
