@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "util/simple_fraction.h"
+#include "platform/base/simple_fraction.h"
 
 #include <limits>
 
@@ -15,16 +15,15 @@ namespace {
 constexpr int kMin = std::numeric_limits<int>::min();
 constexpr int kMax = std::numeric_limits<int>::max();
 
-void ExpectFromStringEquals(absl::string_view s,
-                            const SimpleFraction& expected) {
-  const ErrorOr<SimpleFraction> f = SimpleFraction::FromString(s);
-  EXPECT_TRUE(f.is_value());
+void ExpectFromStringEquals(const char* s, const SimpleFraction& expected) {
+  const ErrorOr<SimpleFraction> f = SimpleFraction::FromString(std::string(s));
+  EXPECT_TRUE(f.is_value()) << "from string: '" << s << "'";
   EXPECT_EQ(expected, f.value());
 }
 
-void ExpectFromStringError(absl::string_view s) {
-  const auto f = SimpleFraction::FromString(s);
-  EXPECT_TRUE(f.is_error());
+void ExpectFromStringError(const char* s) {
+  const auto f = SimpleFraction::FromString(std::string(s));
+  EXPECT_TRUE(f.is_error()) << "from string: '" << s << "'";
 }
 }  // namespace
 
