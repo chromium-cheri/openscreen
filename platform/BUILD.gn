@@ -17,6 +17,9 @@ source_set("base") {
     "base/ip_address.h",
     "base/location.cc",
     "base/location.h",
+    "base/optional.h",
+    "base/simple_fraction.cc",
+    "base/simple_fraction.h",
     "base/socket_state.h",
     "base/tls_connect_options.h",
     "base/tls_credentials.cc",
@@ -202,6 +205,8 @@ source_set("unittests") {
     "base/error_unittest.cc",
     "base/ip_address_unittest.cc",
     "base/location_unittest.cc",
+    "base/optional_unittest.cc",
+    "base/simple_fraction_unittest.cc",
   ]
 
   # The socket integration tests assume that you can Bind with UDP sockets,
