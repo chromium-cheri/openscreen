@@ -387,6 +387,7 @@ class MdnsRecord {
              Rdata rdata);
   MdnsRecord(const MdnsRecord& other);
   MdnsRecord(MdnsRecord&& other);
+  virtual ~MdnsRecord();
 
   MdnsRecord& operator=(const MdnsRecord& rhs);
   MdnsRecord& operator=(MdnsRecord&& rhs);
@@ -412,11 +413,21 @@ class MdnsRecord {
                       record.rdata_);
   }
 
+ protected:
+  MdnsRecord(DomainName name,
+             DnsType dns_type,
+             DnsClass dns_class,
+             RecordType record_type,
+             std::chrono::seconds ttl,
+             Rdata rdata,
+             bool allow_empty_name);
+
  private:
   static bool IsValidConfig(const DomainName& name,
                             DnsType dns_type,
                             std::chrono::seconds ttl,
-                            const Rdata& rdata);
+                            const Rdata& rdata,
+                            bool allow_empty_name);
 
   DomainName name_;
   DnsType dns_type_ = static_cast<DnsType>(0);
@@ -426,6 +437,64 @@ class MdnsRecord {
   // Default-constructed Rdata contains default-constructed RawRecordRdata
   // as it is the first alternative type and it is default-constructible.
   Rdata rdata_;
+
+  // Determines whether an empty |name_| is valid for this record.
+  bool allow_empty_name_ = false;
+};
+
+// The OPT code provides a special record type, which overrides the standard
+// meaning of some standard MdnsRecord fields. For this reason, it must be
+// parsed separately. The differences are as follows, as taken from:
+// https://tools.ietf.org/html/rfc2671#section-4.3
+//
+// 4.3. The fixed part of an OPT RR is structured as follows:
+//
+//      Field Name   Field Type     Description
+//      ------------------------------------------------------
+//      NAME         domain name    empty (root domain)
+//      TYPE         u_int16_t      OPT
+//      CLASS        u_int16_t      sender's UDP payload size
+//      TTL          u_int32_t      extended RCODE and flags
+//      RDLEN        u_int16_t      describes RDATA
+//      RDATA        octet stream   {attribute,value} pairs
+//
+// 4.4. The variable part of an OPT RR is encoded in its RDATA and is
+//      structured as zero or more of the following:
+//
+//                 +0 (MSB)                            +1 (LSB)
+//      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+//   0: |                          OPTION-CODE                          |
+//      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+//   2: |                         OPTION-LENGTH                         |
+//      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+//   4: |                                                               |
+//      /                          OPTION-DATA                          /
+//      /                                                               /
+//      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+//
+//    OPTION-CODE    (Assigned by IANA.)
+//    OPTION-LENGTH  Size (in octets) of OPTION-DATA.
+//    OPTION-DATA    Varies per OPTION-CODE.
+//
+// Essentially stating that the meanings of the CLASS and TTL fields have been
+// changed to mean something entirely different.
+//
+// NOTE: OptPseudoRecord types are only to be used for parsing purposes.
+class MdnsOptPseudoRecord : public MdnsRecord {
+ public:
+  MdnsOptPseudoRecord(uint16_t payload_size,
+                      uint32_t rcode,
+                      RawRecordRdata rdata);
+
+  uint16_t payload_size() { return payload_size_; }
+  uint32_t rcode() { return rcode_; }
+
+ private:
+  using MdnsRecord::dns_class;
+  using MdnsRecord::record_type;
+
+  uint16_t payload_size_;
+  uint32_t rcode_;
 };
 
 // Creates an A or AAAA record as appropriate for the provided parameters.
