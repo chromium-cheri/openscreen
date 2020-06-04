@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0d4e4b7_4379addd",
+        "filename": "cast/streaming/environment.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-04T23:52:25Z",
+      "side": 1,
+      "message": "1. This should be declared constexpr to guarantee static initialization.   It doesn\u0027t need the initializer as the no-arg ctor for IPEndpoint results in the same object.\n\n2. The no-arg ctors for IPEndpoint and IPAddress should be marked constexpr so the compiler can check static initialization.\n\n3. If there are already other uses for the kAny endpoint, it could be declared in ip_address.h.\n\nRef: https://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables",
+      "revId": "67077505d26a91a88f0938038539967eed29a901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "421bbe5f_8691a491",
+        "filename": "cast/streaming/environment.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-04T23:52:25Z",
+      "side": 1,
+      "message": "Newline after namespace.",
+      "revId": "67077505d26a91a88f0938038539967eed29a901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00517e35_4ec0103d",
+        "filename": "cast/streaming/environment.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-04T23:52:25Z",
+      "side": 1,
+      "message": "This is implicit by declaring it protected.",
+      "revId": "67077505d26a91a88f0938038539967eed29a901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d49d2dc6_5a0e75bf",
+        "filename": "cast/streaming/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-04T23:52:25Z",
+      "side": 1,
+      "message": "This would be a good place for a default argument.",
+      "revId": "67077505d26a91a88f0938038539967eed29a901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92b791b4_b5e6ea2a",
+        "filename": "cast/streaming/environment.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-04T23:52:25Z",
+      "side": 1,
+      "message": "This duplicates the existing ctor with the argument order reversed?",
+      "revId": "67077505d26a91a88f0938038539967eed29a901",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
