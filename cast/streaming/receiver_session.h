@@ -10,6 +10,9 @@
 #include <utility>
 #include <vector>
 
+// TODO(jophba): remove public abseil dependencies.
+#include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
 #include "cast/streaming/answer_messages.h"
 #include "cast/streaming/message_port.h"
 #include "cast/streaming/offer_messages.h"
@@ -153,7 +156,6 @@ class ReceiverSession final : public MessagePort::Client {
   MessagePort* const message_port_;
   const Preferences preferences_;
 
-  CastMode cast_mode_;
   bool supports_wifi_status_reporting_ = false;
   ReceiverPacketRouter packet_router_;
 
