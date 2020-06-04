@@ -5,6 +5,7 @@
 #include "discovery/mdns/mdns_records.h"
 
 #include <cctype>
+#include <limits>
 
 #include "absl/strings/ascii.h"
 #include "absl/strings/match.h"
@@ -462,11 +463,11 @@ ErrorOr<MdnsRecord> MdnsRecord::TryCreate(DomainName name,
                                           RecordType record_type,
                                           std::chrono::seconds ttl,
                                           Rdata rdata) {
-  if (!IsValidConfig(name, dns_type, ttl, rdata)) {
+  if (!IsValidConfig(name, dns_type, ttl, rdata, false)) {
     return Error::Code::kParameterInvalid;
   } else {
     return MdnsRecord(std::move(name), dns_type, dns_class, record_type, ttl,
-                      std::move(rdata));
+                      std::move(rdata), false);
   }
 }
 
@@ -478,18 +479,36 @@ MdnsRecord::MdnsRecord(DomainName name,
                        RecordType record_type,
                        std::chrono::seconds ttl,
                        Rdata rdata)
+    : MdnsRecord(std::move(name),
+                 dns_type,
+                 dns_class,
+                 record_type,
+                 ttl,
+                 std::move(rdata),
+                 false) {}
+
+MdnsRecord::MdnsRecord(DomainName name,
+                       DnsType dns_type,
+                       DnsClass dns_class,
+                       RecordType record_type,
+                       std::chrono::seconds ttl,
+                       Rdata rdata,
+                       bool allow_empty_name)
     : name_(std::move(name)),
       dns_type_(dns_type),
       dns_class_(dns_class),
       record_type_(record_type),
       ttl_(ttl),
-      rdata_(std::move(rdata)) {
-  OSP_DCHECK(IsValidConfig(name_, dns_type, ttl_, rdata_));
+      rdata_(std::move(rdata)),
+      allow_empty_name_(allow_empty_name) {
+  OSP_DCHECK(IsValidConfig(name_, dns_type, ttl_, rdata_, allow_empty_name_));
 }
 
 MdnsRecord::MdnsRecord(const MdnsRecord& other) = default;
 
 MdnsRecord::MdnsRecord(MdnsRecord&& other) = default;
+
+MdnsRecord::~MdnsRecord() = default;
 
 MdnsRecord& MdnsRecord::operator=(const MdnsRecord& rhs) = default;
 
@@ -499,8 +518,10 @@ MdnsRecord& MdnsRecord::operator=(MdnsRecord&& rhs) = default;
 bool MdnsRecord::IsValidConfig(const DomainName& name,
                                DnsType dns_type,
                                std::chrono::seconds ttl,
-                               const Rdata& rdata) {
-  return !name.empty() && ttl.count() <= std::numeric_limits<uint32_t>::max() &&
+                               const Rdata& rdata,
+                               bool allow_empty_name) {
+  return (allow_empty_name || !name.empty()) &&
+         ttl.count() <= std::numeric_limits<uint32_t>::max() &&
          ((dns_type == DnsType::kSRV &&
            absl::holds_alternative<SrvRecordRdata>(rdata)) ||
           (dns_type == DnsType::kA &&
@@ -579,6 +600,19 @@ MdnsRecord CreateAddressRecord(DomainName name, const IPAddress& address) {
   return MdnsRecord(std::move(name), type, DnsClass::kIN, RecordType::kUnique,
                     ttl, std::move(rdata));
 }
+
+MdnsOptPseudoRecord::MdnsOptPseudoRecord(uint16_t payload_size,
+                                         uint32_t rcode,
+                                         RawRecordRdata rdata)
+    : MdnsRecord({},
+                 static_cast<DnsType>(41),
+                 static_cast<DnsClass>(0),
+                 RecordType::kShared,
+                 std::chrono::seconds(0),
+                 std::move(rdata),
+                 true),
+      payload_size_(payload_size),
+      rcode_(rcode) {}
 
 // static
 ErrorOr<MdnsQuestion> MdnsQuestion::TryCreate(DomainName name,
