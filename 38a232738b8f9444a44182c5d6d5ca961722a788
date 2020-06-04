@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11698318_5752abaf",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:54:49Z",
+      "side": 1,
+      "message": "I know I was the one who suggested this, but thinking now this might warrant a larger discussion for the team\nAll of the CastV2 docs should probably be publicised if we plan to use them, or none of them - landing in some middle ground doesn\u0027t quite make sense\n\n@mfoltz, WDYT?",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 62
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9ea364d_cc33cbdc",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:54:49Z",
+      "side": 1,
+      "message": "I like it! Very clean!",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 434,
+        "endChar": 63
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78043c38_f2cc8b10",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:54:49Z",
+      "side": 1,
+      "message": "Can you define an interface as a base class? Even if its never referenced outside this file, it would be nice to enforce these assumptions at compile-time\n\nsomething like:\n\n\u003e  template\u003ctypename T\u003e\n\u003e  class JsonParsable {\n\u003e   public:\n\u003e    static bool ParseAndValidate(const Json::Value\u0026 value, T* out) {\n\u003e      return T::ParseAndValidate(value, out);\n\u003e    }\n\u003e  \n\u003e    virtual Json::Value ToJson() const \u003d 0;\n\u003e    virtual bool IsValid() const \u003d 0;\n\u003e  }",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c7be9cd_ef57e1e8",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:54:49Z",
+      "side": 1,
+      "message": "It\u0027s not immediately clear if the check is\n`if (ssrc \u003d\u003d 0)` or `if (ssrc \u003d\u003d Optional::NullOpt)` or `if (ssrc.is_error())`\nThis would especially be true for external contributors not super familiar with our Error classes\n\nIMHO\n\n\u003e  if (ssrc.is_error())\n\nis more readable, but explicitly typing the above also works.\n\nI\u0027d actually be in favor of getting rid of the bool overload for ErrorOr\u003c...\u003e to force more readable code. What does everyone else think?",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 14
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9c407d5_7910f707",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:54:49Z",
+      "side": 1,
+      "message": "Thank you! I think we\u0027ve needed one of these for a while!\n\nI expect there will be a lot of discussion around this file though. If that ends up being the case, it might save you time to split this into its own CL",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90843592_031457ad",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:54:49Z",
+      "side": 1,
+      "message": "As long as we are re-writing optional, I\u0027m in favor of removing this operator\nIt\u0027s a few extra characters when we use it to call \u0027.has_value()\u0027, but much more readable code.\n\nWhat does everyone else think?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f83de7ec_f4f592f4",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:54:49Z",
+      "side": 1,
+      "message": "WDYT about making this public, renaming it NullOpt (or similar) and eliminating the empty ctor (or at least allowing an empty ctor)?\nThen, we need to explicitly create an empty Optional object\n\nSimilar to the absl / std optional\u0027s nullopt\n\n\u003e  struct nullopt_t {\n\u003e    explicit constexpr nullopt_t(int) {}\n\u003e  };\n\nAlso, then we could add an \u003d\u003d overload to allow for checking (Optional\u003cT\u003e \u003d\u003d Nullopt) like with absl",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2381a20_6f8b470d",
+        "filename": "util/json/parsing_helpers.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-04T16:54:49Z",
+      "side": 1,
+      "message": "This one is doing enough it might warrant a UT",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 5
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
