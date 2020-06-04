@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "411b1463_4ee2e2b2",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Test with bad record?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64849742_e67e0b4c",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Test with valid update record?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe46305b_380c13f2",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Break into separate method?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "091457e0_eaae487a",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "NIT: zero or one? Less \u003d 0 specifically, right?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d920754b_7143168d",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Consider breaking each case into a separate helper method, switches like this end up being massive (this one is already too large IMO).",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb91188_6b70e1dd",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Why not combine? I feel like this is more readable, but YMMV:\n\n  if (!srv || srv-\u003etarget() !\u003d address-\u003ename() || !txt || (!a \u0026\u0026 !aaaa)) {\n     continue;\n  }\n\nI think you can also simplify the last case? Looks like it has to have a SRC, has to have a target, and has to have an A or AAAA, but not both?\n\n  if (!src || src-\u003etarget() !\u003d address-\u003ename() || !text || !(a || aaaa)) {\n    continue;\n  }",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46533d33_5934119f",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "No test coverage?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd3083c_94cfc78c",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Where is this bound set?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "347b1b38_5c8731ce",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Needed?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "351fd8f3_abc0ede7",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Can this be in an anonymous namespace in the cpp file? Or associated with a class?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85205232_c732eda8",
+        "filename": "discovery/dnssd/impl/dns_data_graph_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Delete or use?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c312f4b0_fe964970",
+        "filename": "discovery/dnssd/impl/dns_data_graph_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Delete or use?",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6838613_223b1e15",
+        "filename": "discovery/dnssd/impl/dns_data_graph_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T17:50:07Z",
+      "side": 1,
+      "message": "Does this mean not being covered mean it can be deleted or that the test needs to be fixed? I would think we want 100% coverage of all of our tests.",
+      "revId": "ed8253b889e6246bf0020bc788158961686afac0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
