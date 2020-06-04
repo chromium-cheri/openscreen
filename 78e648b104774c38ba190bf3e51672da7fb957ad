@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2ab5e7ad_c43cdb1e",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "816dd194_5a634875",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f236eb37_6b5ab73f",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012adb4f_aee5b0a9",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "I would prefer option 2, but I think it doesn\u0027t add any clarity in my opinion--all of these values are used only in this file, and almost all of the constexpr statics are \"key\" types, so it\u0027s just more dereferencing.",
+      "parentUuid": "f236eb37_6b5ab73f",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d27736aa_f40cdb8f",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "The sender offers, the receiver answers. If the receiver omits these fields, the sender will assume these values.",
+      "parentUuid": "c72be02b_6ed10a95",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "968b67c9_84a73e81",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2fedfc9_90608e2b",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Yes, maximum values are mandatory.",
+      "parentUuid": "968b67c9_84a73e81",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "89147aad_158a0e90",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "It is used twice: for parsing and for serializing.",
+      "parentUuid": "ed099bd8_5397a968",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4b5cbb2_1fa0523e",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 7
@@ -101,6 +191,24 @@
       "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c9bab5e_da9489ae",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Agreed they are separate things.\n\nI think it\u0027s not clear what the receiver is asking for if it demands that the sender scales to the specific aspect ratio.\n\nMy read of the spec is that it is unclear about scaling, and this field is poorly named. It\u0027s an aspect ratio constraint, and seems like the sender is clear to scale as it see fits in either case, and just has to provide the correct aspect ratio.\n\nI\u0027ll add some checking.",
+      "parentUuid": "a4b5cbb2_1fa0523e",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "f8dc678a_5ce8a00b",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Yeah, we don\u0027t need these. Realized that when writing more tests... deleting.",
+      "parentUuid": "8a17e9e4_9596ab57",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64cfad40_8b501f13",
         "filename": "cast/streaming/answer_messages.cc",
         "patchSetId": 7
@@ -135,6 +261,24 @@
       "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e81f744_b81b24f2",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64cfad40_8b501f13",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "9579d20b_2baf053c",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd74ef9a_5929b07d",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21f30b4f_3ab0d1c4",
         "filename": "cast/streaming/answer_messages.h",
         "patchSetId": 7
@@ -169,6 +331,24 @@
       "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4879083_50daad0b",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Yes. Raw pointers would also be tricky, and require custom constructors to ensure that they are deleted properly. My biggest goal here is to avoid craploads of boilerplate (which, as you know, has had various levels of success throughout the lifetime of this patch). \n\nI think moving to raw pointers would mean having to define a destructor, so due to rule of five I would have to write massive constructors that take all the fields in, as well as all the copy and move stuff that I currently get for free.\n\nI definitely would prefer our own optional, it\u0027s cleaner and more along what we actually want IMO.",
+      "parentUuid": "21f30b4f_3ab0d1c4",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "9a6d4043_2805cc55",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "I based this implementation off of my experience with the Abseil one. I made a few tweaks to get it 100% similar to the STL one, I definitely wasn\u0027t completely correct.",
+      "parentUuid": "b42ea309_08313066",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e59be682_dbda9f76",
         "filename": "cast/streaming/answer_messages.h",
         "patchSetId": 7
@@ -203,6 +401,24 @@
       "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b8f6e7d_00358ecd",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e59be682_dbda9f76",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "b9053c18_4da9335f",
+        "filename": "cast/streaming/answer_messages_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "No, not without adding clang format on and off things. I also dislike the way this looks, but not sure it\u0027s worth that just to get the alignment more aesthetically pleasing.",
+      "parentUuid": "58af8d3c_c72b4a16",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10bb1d0a_d506a4dc",
         "filename": "cast/streaming/answer_messages_unittest.cc",
         "patchSetId": 7
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "6fe3deaa_63d89cdf",
+        "filename": "cast/streaming/answer_messages_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "10bb1d0a_d506a4dc",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6d765c7_8bb0f05f",
         "filename": "cast/streaming/message_util.h",
         "patchSetId": 7
@@ -254,6 +506,24 @@
       "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b08b2374_4fa64c94",
+        "filename": "cast/streaming/message_util.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-04T00:40:12Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "b6d765c7_8bb0f05f",
+      "revId": "78e648b104774c38ba190bf3e51672da7fb957ad",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
