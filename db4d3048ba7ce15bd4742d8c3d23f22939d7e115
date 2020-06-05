@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4e0d163_c7c4c217",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "Maybe:\n\n// An optional field representing the minimum bits per second. If not specified\n// by the receiver, the sender will use kDefaultAudioMinBitRate and\n// kDefaultVideoMinBitRate, which represent the true operational minimum.",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4acfd76_0b45656e",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "// scaling \u003d \"sender\" means that ...\n// In this case, the dimensions object...",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fe1fd61_3a1fa9e4",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "// scaling \u003d \"receiver\" means that",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58516578_27a21c11",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "uint32_t values specifying ... \n\n(and drop the last sentence)",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f57535_39921db4",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "What happens if ToJson is called and !IsValid() is true?",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a077bf25_c511b545",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "It would be nice to get some feedback on which part of the answer is wrong, e.g. by passing an output parameter to IsValid().  That can be done later though.",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2349ea32_99449ed2",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "Are parsed answer messages exposed to clients?  I would prefer keeping this in util/ until we\u0027ve determined that it needs to be part of the platform API",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f28f2f4_1a9f0b38",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "Prefer to use \u003d default for compiler-generated functions",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfc2cec9_3c2a62d8",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "Is this part of the comment or can it be deleted?",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3958970_5bac4446",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "To move the value do you need to write:\n\nstd::move(optional.value())\n\n?",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab5e047d_c2ad8cb8",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "I wonder, what is sizeof(NullOpt)?  It has no vtable and no members.  Other implementations to use char to guarantee that the union size is no greater than sizeof(T).",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea85c04b_72825a2b",
+        "filename": "platform/base/optional_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "Please test:\n- All constructors (w/values and NullOpt)\n- All assignment operators (w/values and NullOpt)",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5365cc01_c4ec825c",
+        "filename": "platform/base/optional_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "I\u0027d like to see a test or assertion that:\n\nsizeof(Optional(nullopt)) \u003d\u003d sizeof(char) + sizeof(bool))\nsizeof(Optional(Dummy())) \u003d\u003d sizeof(Dummy) + sizeof(bool))\n\nThat way we can guarantee that no one makes any changes to increase storage size, which would have a big impact given how frequently it will be used.",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f4d15c8_56e5d11a",
+        "filename": "platform/base/simple_fraction.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "Does this need to be in platform/base?",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c8d5d5_6975a6b5",
+        "filename": "util/json/parsing_helpers.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T00:30:25Z",
+      "side": 1,
+      "message": "Let\u0027s call this json_helpers.h for consistency with chrono_helpers.h",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
