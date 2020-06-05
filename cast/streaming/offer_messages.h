@@ -15,7 +15,7 @@
 #include "cast/streaming/session_config.h"
 #include "json/value.h"
 #include "platform/base/error.h"
-#include "util/simple_fraction.h"
+#include "platform/base/simple_fraction.h"
 
 // This file contains the implementation of the Cast V2 Mirroring Control
 // Protocol offer object definition.
