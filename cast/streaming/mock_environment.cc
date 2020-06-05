@@ -8,8 +8,10 @@ namespace openscreen {
 namespace cast {
 
 MockEnvironment::MockEnvironment(ClockNowFunctionPtr now_function,
-                                 TaskRunner* task_runner)
-    : Environment(now_function, task_runner) {}
+                                 TaskRunner* task_runner) {
+  SetTaskRunnerForTesting(task_runner);
+  SetNowFunctionForTesting(now_function);
+}
 
 MockEnvironment::~MockEnvironment() = default;
 

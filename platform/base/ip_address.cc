@@ -24,7 +24,6 @@ const IPAddress IPAddress::kV4LoopbackAddress{127, 0, 0, 1};
 // static
 const IPAddress IPAddress::kV6LoopbackAddress{0, 0, 0, 0, 0, 0, 0, 1};
 
-IPAddress::IPAddress() : version_(Version::kV4), bytes_({}) {}
 IPAddress::IPAddress(const std::array<uint8_t, 4>& bytes)
     : version_(Version::kV4),
       bytes_{{bytes[0], bytes[1], bytes[2], bytes[3]}} {}
@@ -211,6 +210,9 @@ ErrorOr<IPAddress> IPAddress::Parse(const std::string& s) {
 
   return v4 ? std::move(v4) : ParseV6(s);
 }
+
+// static
+const IPEndpoint IPEndpoint::kAny{};
 
 IPEndpoint::operator bool() const {
   return address || port;
