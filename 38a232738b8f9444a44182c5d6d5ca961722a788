@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8baa55e6_1fe5eb38",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-05T17:11:42Z",
+      "side": 1,
+      "message": "I think the style guide prefers to avoid macros? If macros are on the table then that changes literally everything... I could avoid so much boilerplate.",
+      "parentUuid": "99df4a31_f180f2dc",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c7be9cd_ef57e1e8",
         "filename": "cast/streaming/offer_messages.cc",
         "patchSetId": 11
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "\u003e I should probably just remove auto here\n\neliminating auto is just as good as using `is_error()` here\n\n\u003e ErrorOr works like pointers right now which I find nice, you have the same problem with:\n\nI actually do have the same problem there, but I get that it\u0027s just me. Try to avoid mentioning it in code reviews unless the meaning of the code is obscured\n\n\u003e so I think we should resolve this in a separate patch\n\nSGTM. Though I\u0027m perfectly happy not changing ErrorOr\u003c...\u003e Too. Was just curious what you thought as code readability vs code usability",
       "parentUuid": "aca2c6b1_b133793b",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 14
+      },
+      "revId": "38a232738b8f9444a44182c5d6d5ca961722a788",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88f05ea_0d8f6606",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-05T17:11:42Z",
+      "side": 1,
+      "message": "I agree that is_error is probably better. I\u0027d be down to remove operator bool in another patch :).",
+      "parentUuid": "df7282ec_390eb52f",
       "range": {
         "startLine": 121,
         "startChar": 0,
