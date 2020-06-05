@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "55aa472d_97d7d1d6",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-05T06:05:47Z",
+      "side": 1,
+      "message": "This is actually intentionally not done - At the mDNS layer, all records are treated as the same. The mDNS protocol doesn\u0027t actually treat any records as different and they all respect the same spec. There isn\u0027t actually any meaning applied to the different record types until the DNS-SD layer. \n\nThe only reason we ever want to separate them out at this layer is for logging purposes (and arguably one case in the publishing flow, though that\u0027s mostly a matter of opinion about our specific use case). I considered adding a \u003c\u003c operator or ToString to all RData types to keep this generic, but that is adding a lot of extra code (and logging a lot of extra data) that we don\u0027t need. But for catching errors it is VERY helpful to see what domain a record is pointing to (for example, this was required to debug the attached bug)\n\nI can pull this out into a new file (mdns_utils.h) if you\u0027d prefer, so this can be done separately from MdnsRecord class? WDYT",
+      "parentUuid": "0998a4c8_e3e83051",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c246a3fc_60e96acd",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2020-06-04T17:15:42Z",
       "side": 1,
       "message": "Why tab in here? I get the below indentation to show children but not sure why we need it here.",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20552744_7330dbbd",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-05T06:05:47Z",
+      "side": 1,
+      "message": "Because the calling file (MdnsReceiver) has a top-level message without a tab. This is intended to be a child of that\n\nI can remove the tabs here if that\u0027s clearer. WDYT?",
+      "parentUuid": "c246a3fc_60e96acd",
       "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "798b3b6e_ff342e9f",
+        "filename": "platform/base/udp_packet.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-05T06:05:47Z",
+      "side": 1,
+      "message": "Currently, we\u0027ve got one in util that makes use of abseil. None that are accessible from platform/base\n\nI can add a TODO to clean this up or do it as a follow-up, but moving the file, removing abseil, and touching the extra files that use it is outside the scope of this CL. Though that kind of parsing tool doesn\u0027t really fit how we\u0027re currently using platform/base. WDYT?",
+      "parentUuid": "98d90e39_5dc5abfb",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8df47c1d_304f7fae",
         "filename": "platform/base/udp_packet_unittest.cc",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97090e50_5ffd50dd",
+        "filename": "platform/base/udp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-05T06:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8df47c1d_304f7fae",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
