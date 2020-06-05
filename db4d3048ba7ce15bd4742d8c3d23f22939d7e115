@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "b115930a_b27f61e3",
+        "filename": "cast/streaming/answer_messages.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "Finish sentence here?",
+      "parentUuid": "335a38a9_d524745f",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a077bf25_c511b545",
         "filename": "cast/streaming/receiver_session.cc",
         "patchSetId": 15
@@ -352,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "376465eb_0d4db8aa",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll add an item to our style agenda since I have opinions about making this less verbose.",
+      "parentUuid": "63cd8916_794f068b",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab5e047d_c2ad8cb8",
         "filename": "platform/base/optional.h",
         "patchSetId": 15
@@ -451,6 +487,24 @@
       "side": 1,
       "message": "Hmm... seems like this is not guaranteed due to alignment concerns.\n\nIn these cases the size is actually two DWORDS/64 bits.",
       "parentUuid": "5365cc01_c4ec825c",
+      "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3282e15f_d0dd716c",
+        "filename": "platform/base/optional_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "Ok, see comments on the test case - maybe add some more documentation there.\n\nWe can look at other implementations to see if there is anything clever we can do with alignas, but I doubt it since we don\u0027t know the alignment constraints of the stored value.",
+      "parentUuid": "5c1e9590_479035b8",
       "revId": "db4d3048ba7ce15bd4742d8c3d23f22939d7e115",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false

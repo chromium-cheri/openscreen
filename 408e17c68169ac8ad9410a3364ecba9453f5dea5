@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32fee18e_911897b9",
+        "filename": "platform/base/optional.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "Are you sure this can be constexpr? It has an assignment statement. The std::optional version is also not constexpr.\n\nhttps://en.cppreference.com/w/cpp/language/constexpr\n\nhttps://en.cppreference.com/w/cpp/utility/optional/operator%3D",
+      "revId": "408e17c68169ac8ad9410a3364ecba9453f5dea5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef304f36_39a5bdb6",
+        "filename": "platform/base/optional_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "In Chromium, I often see these put into the implementation (.h) instead of the unit test.\n\nThere\u0027s a chance that it would catch some issue with an embedder toolchain change that doesn\u0027t run the unit tests (even though that\u0027s a bad idea).\n\nI don\u0027t feel strongly though.",
+      "revId": "408e17c68169ac8ad9410a3364ecba9453f5dea5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06be6828_e1d0172f",
+        "filename": "platform/base/optional_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "I am not sure how portable this test is.  It probably works on all the platforms we care about, but I think to get it 100% right you would need to check alignment of Optional and/or Dummy and/or handle weird architectures where size_t is not a word size.  Stackoverflow was not conclusive on that.",
+      "revId": "408e17c68169ac8ad9410a3364ecba9453f5dea5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f1bd15_4029c820",
+        "filename": "platform/base/optional_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "Where does sizeof(size_t) come in here and below?\n\nISTM that sizeof(kEmpty) \u003d\u003d sizeof(Dummy)",
+      "revId": "408e17c68169ac8ad9410a3364ecba9453f5dea5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c83307d_a95bf29c",
+        "filename": "platform/base/optional_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "Doesn\u0027t sizeof(kEmpty) \u003d\u003d sizeof(kNullOptDummy) by definition because kEmpty \u003d\u003d kNullOptDummy?",
+      "revId": "408e17c68169ac8ad9410a3364ecba9453f5dea5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f96246a2_fd166336",
+        "filename": "platform/base/optional_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-05T19:35:40Z",
+      "side": 1,
+      "message": "Probably enough to say sizeof(kDummy) \u003d\u003d sizeof(kEmpty) since setting a POD value doesn\u0027t allocate.",
+      "revId": "408e17c68169ac8ad9410a3364ecba9453f5dea5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
