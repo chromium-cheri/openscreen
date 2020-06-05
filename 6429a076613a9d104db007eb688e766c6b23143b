@@ -22,6 +22,30 @@
       "revId": "6429a076613a9d104db007eb688e766c6b23143b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f252fd_dc6e44f1",
+        "filename": "cast/streaming/environment.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-05T17:02:08Z",
+      "side": 1,
+      "message": "Because the current constructor that MockEnvironment uses is one I want to expose to embedders with a different meaning--I want \"no IPEndpoint\" to mean that we will pick one ourselves, not that we won\u0027t instantiate a UDPSocket.\n\nThis way I get the new constructor for the embedder, and we have a more obvious way to say that the environment doesn\u0027t have a udpsocket: you use the empty constructor and set the other fields.",
+      "parentUuid": "835fddb7_8edcbf4a",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "6429a076613a9d104db007eb688e766c6b23143b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
