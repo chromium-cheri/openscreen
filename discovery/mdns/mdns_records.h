@@ -82,6 +82,7 @@ class DomainName {
   // compression the actual space taken in on-the-wire format is smaller.
   size_t MaxWireSize() const;
   bool empty() const { return labels_.empty(); }
+  bool is_root_name() const { return labels_.empty(); }
   const std::vector<std::string>& labels() const { return labels_; }
 
   template <typename H>
@@ -352,13 +353,114 @@ class NsecRecordRdata {
   DomainName next_domain_name_;
 };
 
+// The OPT pseudo-record / meta-record as defined by RFC6891.
+class OptRecordRdata {
+ public:
+  struct Option {
+    size_t MaxWireSize() const;
+
+    bool operator>(const Option& rhs) const;
+    bool operator<(const Option& rhs) const;
+    bool operator>=(const Option& rhs) const;
+    bool operator<=(const Option& rhs) const;
+    bool operator==(const Option& rhs) const;
+    bool operator!=(const Option& rhs) const;
+
+    template <typename H>
+    friend H AbslHashValue(H h, const Option& option) {
+      return H::combine(std::move(h), option.code, option.length, option.data);
+    }
+
+    // Code assigned by the Expert Review process as defined by the DNSEXT
+    // working group and the IESG.
+    uint16_t code;
+
+    // Size (in octets) of |data|.
+    uint16_t length;
+
+    // Bit Field with meaning varying based on |code|.
+    std::vector<uint8_t> data;
+  };
+
+  OptRecordRdata();
+
+  // Constructor that takes zero or more Option parameters.
+  template <typename... Types>
+  OptRecordRdata(uint16_t requestor_payload_size,
+                 uint32_t rcode_and_flags,
+                 Types... types)
+      : OptRecordRdata(requestor_payload_size,
+                       rcode_and_flags,
+                       std::vector<Option>{std::move(types)...}) {}
+  OptRecordRdata(uint16_t requestor_payload_size,
+                 uint32_t rcode_and_flags,
+                 std::vector<Option> options);
+  OptRecordRdata(const OptRecordRdata& other);
+  OptRecordRdata(OptRecordRdata&& other);
+
+  OptRecordRdata& operator=(const OptRecordRdata& rhs);
+  OptRecordRdata& operator=(OptRecordRdata&& rhs);
+
+  // NOTE: Only the options field is technically considered part of the rdata,
+  // so only this field is considered for equality comparison. The other fields
+  // are included here solely because their meaning differs for OPT pseudo-
+  // records and normal record types.
+  bool operator==(const OptRecordRdata& rhs) const;
+  bool operator!=(const OptRecordRdata& rhs) const;
+
+  uint16_t requestor_payload_size() { return requestor_payload_size_; }
+
+  // Forms the upper 8 bits of extended 12-bit RCODE (together with the 4 bits
+  // defined in RFC1035 as part of the header. Note that a value of 0 indicates
+  // that an unextended rcode is in use (values 0 through 15).
+  uint8_t extended_rcode() const { return extended_rcode_; }
+
+  // Indicates the implementation level of the setter. Full conformance with
+  // RFC6891 is indicated by version '0'. Requesters are encouraged to set this
+  // to the lowest implemented level capable of expressing a transaction, to
+  // minimize the responder and network load of discovering the greatest common
+  // implementation level between requester and responder.
+  uint8_t version() const { return version_; }
+
+  // Returns whether the version stored in this instance is BADVERS as defined
+  // in RFC6891 section 9.
+  bool is_bad_version() const { return version_ == kVersionBadvers; }
+
+  // DNSSEC OK bit as defined by RFC3225.
+  bool ok() const { return ok_; }
+
+  size_t MaxWireSize() const { return max_wire_size_; }
+
+  // Set of options stored in this OPT record.
+  const std::vector<Option>& options() { return options_; }
+
+  template <typename H>
+  friend H AbslHashValue(H h, const OptRecordRdata& rdata) {
+    return H::combine(std::move(h), rdata.options_);
+  }
+
+ private:
+  uint16_t requestor_payload_size_;
+
+  uint8_t extended_rcode_;
+  uint8_t version_;
+  bool ok_;
+
+  // NOTE: The elements of |options_| are stored is sorted order to simplify the
+  // comparison operators of OptRecordRdata.
+  std::vector<Option> options_;
+
+  size_t max_wire_size_;
+};
+
 using Rdata = absl::variant<RawRecordRdata,
                             SrvRecordRdata,
                             ARecordRdata,
                             AAAARecordRdata,
                             PtrRecordRdata,
                             TxtRecordRdata,
-                            NsecRecordRdata>;
+                            NsecRecordRdata,
+                            OptRecordRdata>;
 
 // Resource record top level format (http://www.ietf.org/rfc/rfc1035.txt):
 // name: the name of the node to which this resource record pertains.
