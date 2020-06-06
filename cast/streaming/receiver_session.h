@@ -83,6 +83,8 @@ class ReceiverSession final : public MessagePort::Client {
   // preferences for selecting from the offer.
   enum class AudioCodec : int { kAac, kOpus };
   enum class VideoCodec : int { kH264, kVp8, kHevc, kVp9 };
+  static std::string CodecToString(AudioCodec codec);
+  static std::string CodecToString(VideoCodec codec);
 
   // Note: embedders are required to implement the following
   // codecs to be Cast V2 compliant: H264, VP8, AAC, Opus.
