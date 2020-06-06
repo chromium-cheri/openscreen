@@ -83,6 +83,8 @@ class ReceiverSession final : public MessagePort::Client {
   // preferences for selecting from the offer.
   enum class AudioCodec : int { kAac, kOpus };
   enum class VideoCodec : int { kH264, kVp8, kHevc, kVp9 };
+  static std::string CodecToString(AudioCodec codec);
+  static std::string CodecToString(VideoCodec codec);
 
   // Note: embedders are required to implement the following
   // codecs to be Cast V2 compliant: H264, VP8, AAC, Opus.
@@ -140,10 +142,8 @@ class ReceiverSession final : public MessagePort::Client {
   std::pair<SessionConfig, std::unique_ptr<Receiver>> ConstructReceiver(
       const Stream& stream);
 
-  // Either stream input to this method may be null, however if both
-  // are null this method returns error.
-  ErrorOr<ConfiguredReceivers> TrySpawningReceivers(const AudioStream* audio,
-                                                    const VideoStream* video);
+  ConfiguredReceivers SpawnReceivers(const AudioStream* audio,
+                                     const VideoStream* video);
 
   // Callers of this method should ensure at least one stream is non-null.
   Answer ConstructAnswer(Message* message,
