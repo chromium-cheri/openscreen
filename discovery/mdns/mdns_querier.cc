@@ -18,6 +18,10 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
+const std::vector<DnsType> kQueryableTypes = {DnsType::kA,   DnsType::kPTR,
+                                              DnsType::kTXT, DnsType::kAAAA,
+                                              DnsType::kSRV, DnsType::kANY};
+
 const std::vector<DnsType> kTranslatedNsecAnyQueryTypes = {
     DnsType::kA, DnsType::kPTR, DnsType::kTXT, DnsType::kAAAA, DnsType::kSRV};
 
@@ -242,7 +246,8 @@ void MdnsQuerier::StartQuery(const DomainName& name,
                              MdnsRecordChangedCallback* callback) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
   OSP_DCHECK(callback);
-  OSP_DCHECK(dns_type != DnsType::kNSEC);
+  OSP_DCHECK(std::find(kQueryableTypes.begin(), kQueryableTypes.end(),
+                       dns_type) != kQueryableTypes.end());
 
   // Add a new callback if haven't seen it before
   auto callbacks_it = callbacks_.equal_range(name);
