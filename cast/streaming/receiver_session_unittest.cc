@@ -123,6 +123,38 @@ constexpr char kNoAudioOfferMessage[] = R"({
   }
 })";
 
+constexpr char kInvalidCodecOfferMessage[] = R"({
+  "type": "OFFER",
+  "seqNum": 1337,
+  "offer": {
+    "castMode": "mirroring",
+    "receiverGetStatus": true,
+    "supportedStreams": [
+      {
+        "index": 31338,
+        "type": "video_source",
+        "codecName": "vp12",
+        "rtpProfile": "cast",
+        "rtpPayloadType": 127,
+        "ssrc": 19088745,
+        "maxFrameRate": "60000/1000",
+        "timeBase": "1/90000",
+        "maxBitRate": 5000000,
+        "profile": "main",
+        "level": "4",
+        "aesKey": "040d756791711fd3adb939066e6d8690",
+        "aesIvMask": "9ff0f022a959150e70a2d05a6c184aed",
+        "resolutions": [
+          {
+            "width": 1280,
+            "height": 720
+          }
+        ]
+      }
+    ]
+  }
+})";
+
 constexpr char kNoVideoOfferMessage[] = R"({
   "type": "OFFER",
   "seqNum": 1337,
@@ -159,12 +191,42 @@ constexpr char kNoAudioOrVideoOfferMessage[] = R"({
 
 constexpr char kInvalidJsonOfferMessage[] = R"({
   "type": "OFFER",
-  "seqNum": 1337,,,
-  "offer":
+  "seqNum": 1337,
+  "offer": {
     "castMode": "mirroring",
     "receiverGetStatus": true,
     "supportedStreams": [
   }
+})";
+
+constexpr char kValidJsonInvalidFormatOfferMessage[] = R"({
+  "type": "OFFER",
+  "seqNum": 1337,
+  "offer": {
+    "castMode": "mirroring",
+    "receiverGetStatus": true,
+    "supportedStreams": "anything"
+  }
+})";
+
+constexpr char kNullJsonOfferMessage[] = R"({
+  "type": "OFFER",
+  "seqNum": 1337
+})";
+
+constexpr char kInvalidSequenceNumberMessage[] = R"({
+  "type": "OFFER",
+  "seqNum": "not actually a number"
+})";
+
+constexpr char kUnknownTypeMessage[] = R"({
+  "type": "OFFER_VERSION_2",
+  "seqNum": 1337
+})";
+
+constexpr char kInvalidTypeMessage[] = R"({
+  "type": 39,
+  "seqNum": 1337
 })";
 
 class SimpleMessagePort : public MessagePort {
@@ -222,7 +284,6 @@ void ExpectIsErrorAnswerMessage(const ErrorOr<Json::Value>& message_or_error) {
   const Json::Value& error = message["error"];
   EXPECT_TRUE(error.isObject());
   EXPECT_GT(error["code"].asInt(), 0);
-  EXPECT_EQ("", error["description"].asString());
 }
 
 }  // namespace
@@ -244,6 +305,21 @@ class ReceiverSessionTest : public ::testing::Test {
   FakeClock clock_;
   FakeTaskRunner task_runner_;
 };
+
+TEST_F(ReceiverSessionTest, CodecToString) {
+  EXPECT_EQ("aac",
+            ReceiverSession::CodecToString(ReceiverSession::AudioCodec::kAac));
+  EXPECT_EQ("opus",
+            ReceiverSession::CodecToString(ReceiverSession::AudioCodec::kOpus));
+  EXPECT_EQ("h264",
+            ReceiverSession::CodecToString(ReceiverSession::VideoCodec::kH264));
+  EXPECT_EQ("vp8",
+            ReceiverSession::CodecToString(ReceiverSession::VideoCodec::kVp8));
+  EXPECT_EQ("hevc",
+            ReceiverSession::CodecToString(ReceiverSession::VideoCodec::kHevc));
+  EXPECT_EQ("vp9",
+            ReceiverSession::CodecToString(ReceiverSession::VideoCodec::kVp9));
+}
 
 TEST_F(ReceiverSessionTest, RegistersSelfOnMessagePump) {
   auto message_port = std::make_unique<SimpleMessagePort>();
@@ -459,6 +535,26 @@ TEST_F(ReceiverSessionTest, HandlesNoValidAudioStream) {
   EXPECT_EQ(19088746, answer_body["ssrcs"][0].asInt());
 }
 
+TEST_F(ReceiverSessionTest, HandlesInvalidCodec) {
+  auto message_port = std::make_unique<SimpleMessagePort>();
+  StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
+                          ReceiverSession::Preferences{});
+
+  // We didn't select any streams, but didn't have any errors either.
+  message_port->ReceiveMessage(kInvalidCodecOfferMessage);
+  const auto& messages = message_port->posted_messages();
+  EXPECT_EQ(1u, messages.size());
+
+  auto message_body = json::Parse(messages[0]);
+  EXPECT_TRUE(message_body.is_value());
+
+  // We should have failed to produce a valid answer message due to not
+  // selecting any stream.
+  EXPECT_EQ("error", message_body.value()["result"].asString());
+}
+
 TEST_F(ReceiverSessionTest, HandlesNoValidVideoStream) {
   auto message_port = std::make_unique<SimpleMessagePort>();
   StrictMock<FakeClient> client;
@@ -494,9 +590,6 @@ TEST_F(ReceiverSessionTest, HandlesNoValidStreams) {
                           ReceiverSession::Preferences{});
 
   // We shouldn't call OnNegotiated if we failed to negotiate any streams.
-  EXPECT_CALL(client, OnNegotiated(&session, _)).Times(0);
-  EXPECT_CALL(client, OnConfiguredReceiversDestroyed(&session)).Times(0);
-
   message_port->ReceiveMessage(kNoAudioOrVideoOfferMessage);
   const auto& messages = message_port->posted_messages();
   EXPECT_EQ(1u, messages.size());
@@ -515,12 +608,90 @@ TEST_F(ReceiverSessionTest, HandlesMalformedOffer) {
   // We shouldn't call OnNegotiated if we failed to negotiate any streams.
   // Note that unlike when we simply don't select any streams, when the offer
   // is actually completely invalid we call OnError.
-  EXPECT_CALL(client, OnNegotiated(&session, _)).Times(0);
-  EXPECT_CALL(client, OnConfiguredReceiversDestroyed(&session)).Times(0);
   EXPECT_CALL(client, OnError(&session, Error(Error::Code::kJsonParseError)))
       .Times(1);
 
   message_port->ReceiveMessage(kInvalidJsonOfferMessage);
+}
+
+TEST_F(ReceiverSessionTest, HandlesImproperlyFormattedOffer) {
+  auto message_port = std::make_unique<SimpleMessagePort>();
+  StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
+                          ReceiverSession::Preferences{});
+
+  // We shouldn't call OnNegotiated if we failed to negotiate any streams.
+  // Note that unlike when we simply don't select any streams, when the offer
+  // is actually completely invalid we call OnError.
+  EXPECT_CALL(
+      client,
+      OnError(&session, Error(Error::Code::kJsonParseError,
+                              "Failed to parse supported streams in offer")))
+      .Times(1);
+
+  message_port->ReceiveMessage(kValidJsonInvalidFormatOfferMessage);
+}
+
+TEST_F(ReceiverSessionTest, HandlesNullOffer) {
+  auto message_port = std::make_unique<SimpleMessagePort>();
+  StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
+                          ReceiverSession::Preferences{});
+
+  // We shouldn't call OnNegotiated if we failed to negotiate any streams.
+  // Note that unlike when we simply don't select any streams, when the offer
+  // is actually completely invalid we call OnError.
+  EXPECT_CALL(client,
+              OnError(&session, Error(Error::Code::kJsonParseError,
+                                      "Received offer missing offer body")))
+      .Times(1);
+
+  message_port->ReceiveMessage(kNullJsonOfferMessage);
+}
+
+TEST_F(ReceiverSessionTest, HandlesInvalidSequenceNumber) {
+  auto message_port = std::make_unique<SimpleMessagePort>();
+  StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
+                          ReceiverSession::Preferences{});
+
+  // We should just discard messages with an invalid sequence number.
+  message_port->ReceiveMessage(kInvalidSequenceNumberMessage);
+}
+
+TEST_F(ReceiverSessionTest, HandlesUnknownTypeMessage) {
+  auto message_port = std::make_unique<SimpleMessagePort>();
+  StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
+                          ReceiverSession::Preferences{});
+
+  // We should just discard messages with an unknown message type.
+  message_port->ReceiveMessage(kUnknownTypeMessage);
+}
+
+TEST_F(ReceiverSessionTest, HandlesInvalidTypeMessage) {
+  auto message_port = std::make_unique<SimpleMessagePort>();
+  StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
+                          ReceiverSession::Preferences{});
+
+  // We should just discard messages with an invalid message type.
+  message_port->ReceiveMessage(kInvalidTypeMessage);
+}
+
+TEST_F(ReceiverSessionTest, DoesntCrashOnMessagePumpError) {
+  auto message_port = std::make_unique<SimpleMessagePort>();
+  StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
+                          ReceiverSession::Preferences{});
+
+  message_port->ReceiveError(Error(Error::Code::kUnknownError));
 }
 
 TEST_F(ReceiverSessionTest, NotifiesReceiverDestruction) {
@@ -535,6 +706,30 @@ TEST_F(ReceiverSessionTest, NotifiesReceiverDestruction) {
 
   message_port->ReceiveMessage(kNoAudioOfferMessage);
   message_port->ReceiveMessage(kValidOfferMessage);
+}
+
+TEST_F(ReceiverSessionTest, HandlesInvalidAnswer) {
+  auto message_port = std::make_unique<SimpleMessagePort>();
+  StrictMock<FakeClient> client;
+  auto environment = MakeEnvironment();
+  ReceiverSession session(&client, environment.get(), message_port.get(),
+                          ReceiverSession::Preferences{});
+
+  // Simulate an unbound local endpoint.
+  EXPECT_CALL(*environment, GetBoundLocalEndpoint).WillOnce([]() {
+    return IPEndpoint{};
+  });
+
+  message_port->ReceiveMessage(kValidOfferMessage);
+  const auto& messages = message_port->posted_messages();
+  ASSERT_EQ(1u, messages.size());
+
+  auto message_body = json::Parse(messages[0]);
+  EXPECT_TRUE(message_body.is_value());
+  const Json::Value answer = std::move(message_body.value());
+
+  EXPECT_EQ("ANSWER", answer["type"].asString());
+  EXPECT_EQ("error", answer["result"].asString());
 }
 }  // namespace cast
 }  // namespace openscreen
