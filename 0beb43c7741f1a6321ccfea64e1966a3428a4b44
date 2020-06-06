@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6345f468_95f9f880",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-06T02:11:13Z",
+      "side": 1,
+      "message": "This has the issue I mentioned in chat. Copying here for documentation purposes:\n\nIn Openscreen, I\u0027m using a new abseil import we don\u0027t currently use. It\u0027s a header-only file that contains a lot of templates, and for which we are also not building the imports it calls out. Without updating the abseil BUILD file (so it shouldn\u0027t be building), the build works.\n\nThis file (absl/hash/hash_testing.h) uses another file\u0027s functions (absl/hash/internal/spy_cache_state.h) which imports another and uses its functions (absl/strings/str_format.h) all of which aren\u0027t in the BUILD\nBecause the first 2 files are header-only, and str_format is only used for a method defined + implemented in the header without using any of str_format.h\u0027s unsupported imports, this works without any linker errors\n\nNow the question: How do we want to handle this case? Do we want to import the 3 headers explicitly (and the extra files they depend on, etc), continue using this bug to get our code compiling with fewer imports, or something else?",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 30
+      },
+      "revId": "0beb43c7741f1a6321ccfea64e1966a3428a4b44",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
