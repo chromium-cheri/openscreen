@@ -116,4 +116,11 @@ source_set("unittests") {
     "../third_party/googletest:gtest",
     "../third_party/jsoncpp",
   ]
+
+  # Fixes issues with the bots sometimes not linking the math.h library on
+  # linux.
+  libs = []
+  if (is_linux) {
+    libs += [ "m" ]
+  }
 }
