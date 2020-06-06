@@ -4,8 +4,7 @@
 
 #include "util/simple_fraction.h"
 
-#include <math.h>
-
+#include <cmath>
 #include <limits>
 
 #include "gtest/gtest.h"
@@ -92,7 +91,7 @@ TEST(SimpleFractionTest, Positivity) {
 TEST(SimpleFractionTest, CastToDouble) {
   EXPECT_DOUBLE_EQ(0.0, static_cast<double>(SimpleFraction{0, 1}));
   EXPECT_DOUBLE_EQ(1.0, static_cast<double>(SimpleFraction{1, 1}));
-  EXPECT_TRUE(isnan(static_cast<double>(SimpleFraction{1, 0})));
+  EXPECT_TRUE(std::isnan(static_cast<double>(SimpleFraction{1, 0})));
   EXPECT_DOUBLE_EQ(1.0, static_cast<double>(SimpleFraction{kMax, kMax}));
   EXPECT_DOUBLE_EQ(1.0, static_cast<double>(SimpleFraction{kMin, kMin}));
 }
