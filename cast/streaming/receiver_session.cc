@@ -49,39 +49,11 @@ using ConfiguredReceivers = ReceiverSession::ConfiguredReceivers;
 
 namespace {
 
-std::string GetCodecName(ReceiverSession::AudioCodec codec) {
-  switch (codec) {
-    case ReceiverSession::AudioCodec::kAac:
-      return "aac";
-    case ReceiverSession::AudioCodec::kOpus:
-      return "opus";
-  }
-
-  OSP_NOTREACHED() << "Codec not accounted for in switch statement.";
-  return {};
-}
-
-std::string GetCodecName(ReceiverSession::VideoCodec codec) {
-  switch (codec) {
-    case ReceiverSession::VideoCodec::kH264:
-      return "h264";
-    case ReceiverSession::VideoCodec::kVp8:
-      return "vp8";
-    case ReceiverSession::VideoCodec::kHevc:
-      return "hevc";
-    case ReceiverSession::VideoCodec::kVp9:
-      return "vp9";
-  }
-
-  OSP_NOTREACHED() << "Codec not accounted for in switch statement.";
-  return {};
-}
-
 template <typename Stream, typename Codec>
 const Stream* SelectStream(const std::vector<Codec>& preferred_codecs,
                            const std::vector<Stream>& offered_streams) {
   for (Codec codec : preferred_codecs) {
-    const std::string codec_name = GetCodecName(codec);
+    const std::string codec_name = ReceiverSession::CodecToString(codec);
     for (const Stream& offered_stream : offered_streams) {
       if (offered_stream.stream.codec_name == codec_name) {
         OSP_VLOG << "Selected " << codec_name << " as codec for streaming.";
@@ -91,6 +63,7 @@ const Stream* SelectStream(const std::vector<Codec>& preferred_codecs,
   }
   return nullptr;
 }
+
 // Helper method that creates an invalid Answer response.
 Json::Value CreateInvalidAnswerMessage(Error error) {
   Json::Value message_root;
@@ -116,6 +89,36 @@ Json::Value CreateAnswerMessage(const Answer& answer) {
   return message_root;
 }
 }  // namespace
+
+// static
+std::string ReceiverSession::CodecToString(ReceiverSession::AudioCodec codec) {
+  switch (codec) {
+    case ReceiverSession::AudioCodec::kAac:
+      return "aac";
+    case ReceiverSession::AudioCodec::kOpus:
+      return "opus";
+  }
+
+  OSP_NOTREACHED() << "Codec not accounted for in switch statement.";
+  return {};
+}
+
+// static
+std::string ReceiverSession::CodecToString(ReceiverSession::VideoCodec codec) {
+  switch (codec) {
+    case ReceiverSession::VideoCodec::kH264:
+      return "h264";
+    case ReceiverSession::VideoCodec::kVp8:
+      return "vp8";
+    case ReceiverSession::VideoCodec::kHevc:
+      return "hevc";
+    case ReceiverSession::VideoCodec::kVp9:
+      return "vp9";
+  }
+
+  OSP_NOTREACHED() << "Codec not accounted for in switch statement.";
+  return {};
+}
 
 Preferences::Preferences() = default;
 Preferences::Preferences(std::vector<VideoCodec> video_codecs,
@@ -185,6 +188,8 @@ void ReceiverSession::OnMessage(absl::string_view sender_id,
   if (key == kMessageTypeOffer) {
     parsed_message.body = std::move(message_json.value()[kOfferMessageBody]);
     if (parsed_message.body.isNull()) {
+      client_->OnError(this, Error(Error::Code::kJsonParseError,
+                                   "Received offer missing offer body"));
       OSP_LOG_WARN << "Invalid message offer body";
       return;
     }
@@ -193,7 +198,7 @@ void ReceiverSession::OnMessage(absl::string_view sender_id,
 }
 
 void ReceiverSession::OnError(Error error) {
-  OSP_LOG_WARN << "ReceiverSession's MessagePump encountered an error:"
+  OSP_LOG_WARN << "ReceiverSession's MessagePump encountered an error: "
                << error;
 }
 
@@ -225,7 +230,6 @@ void ReceiverSession::OnOffer(Message* message) {
     const Answer answer =
         ConstructAnswer(message, selected_audio_stream, selected_video_stream);
     client_->OnNegotiated(this, std::move(receivers.value()));
-
     message->body = CreateAnswerMessage(answer);
   } else {
     message->body = CreateInvalidAnswerMessage(receivers.error());
