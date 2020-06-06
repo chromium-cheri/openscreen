@@ -41,10 +41,13 @@ std::chrono::seconds GetTtlForRecordType(DnsType type) {
       // If no records are present, re-querying should happen at the minimum
       // of any record that might be retrieved at that time.
       return kSrvRecordTtl;
-    default:
-      OSP_NOTREACHED();
-      return std::chrono::seconds(0);
+    case DnsType::kNSEC:
+    case DnsType::kOPT:
+      break;
   }
+
+  OSP_NOTREACHED();
+  return std::chrono::seconds(0);
 }
 
 MdnsRecord CreateNsecRecord(DomainName target_name,

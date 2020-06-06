@@ -18,6 +18,9 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
+const std::vector<DnsType> kPublishableTypes = {
+    DnsType::kA, DnsType::kPTR, DnsType::kTXT, DnsType::kAAAA, DnsType::kSRV};
+
 // Minimum delay between announcements of a given record in seconds.
 constexpr std::chrono::seconds kMinAnnounceDelay{1};
 
@@ -40,11 +43,6 @@ inline MdnsRecord CreateGoodbyeRecord(const MdnsRecord& record) {
   }
   return MdnsRecord(record.name(), record.dns_type(), record.dns_class(),
                     record.record_type(), kGoodbyeTtl, record.rdata());
-}
-
-inline void ValidateRecord(const MdnsRecord& record) {
-  OSP_DCHECK(record.dns_type() != DnsType::kANY);
-  OSP_DCHECK(record.dns_class() != DnsClass::kANY);
 }
 
 }  // namespace
@@ -74,11 +72,12 @@ MdnsPublisher::~MdnsPublisher() {
 
 Error MdnsPublisher::RegisterRecord(const MdnsRecord& record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(record.dns_class() != DnsClass::kANY);
 
-  if (record.dns_type() == DnsType::kNSEC) {
+  if (std::find(kPublishableTypes.begin(), kPublishableTypes.end(),
+                record.dns_type()) == kPublishableTypes.end()) {
     return Error::Code::kParameterInvalid;
   }
-  ValidateRecord(record);
 
   if (!IsRecordNameClaimed(record)) {
     return Error::Code::kParameterInvalid;
@@ -101,11 +100,12 @@ Error MdnsPublisher::RegisterRecord(const MdnsRecord& record) {
 
 Error MdnsPublisher::UnregisterRecord(const MdnsRecord& record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+  OSP_DCHECK(record.dns_class() != DnsClass::kANY);
 
-  if (record.dns_type() == DnsType::kNSEC) {
+  if (std::find(kPublishableTypes.begin(), kPublishableTypes.end(),
+                record.dns_type()) == kPublishableTypes.end()) {
     return Error::Code::kParameterInvalid;
   }
-  ValidateRecord(record);
 
   OSP_DVLOG << "Unregistering record of type '" << record.dns_type() << "'";
 
@@ -116,7 +116,8 @@ Error MdnsPublisher::UpdateRegisteredRecord(const MdnsRecord& old_record,
                                             const MdnsRecord& new_record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
 
-  if (old_record.dns_type() == DnsType::kNSEC) {
+  if (std::find(kPublishableTypes.begin(), kPublishableTypes.end(),
+                record.dns_type()) == kPublishableTypes.end()) {
     return Error::Code::kParameterInvalid;
   }
 

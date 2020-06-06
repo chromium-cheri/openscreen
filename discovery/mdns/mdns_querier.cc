@@ -18,6 +18,14 @@ namespace openscreen {
 namespace discovery {
 namespace {
 
+const std::vector<DnsType> kProcessableRecordTypes = {
+    DnsType::kA,    DnsType::kPTR, DnsType::kTXT,
+    DnsType::kAAAA, DnsType::kSRV, DnsType::kNSEC};
+
+const std::vector<DnsType> kQueryableTypes = {DnsType::kA,   DnsType::kPTR,
+                                              DnsType::kTXT, DnsType::kAAAA,
+                                              DnsType::kSRV, DnsType::kANY};
+
 const std::vector<DnsType> kTranslatedNsecAnyQueryTypes = {
     DnsType::kA, DnsType::kPTR, DnsType::kTXT, DnsType::kAAAA, DnsType::kSRV};
 
@@ -242,7 +250,8 @@ void MdnsQuerier::StartQuery(const DomainName& name,
                              MdnsRecordChangedCallback* callback) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
   OSP_DCHECK(callback);
-  OSP_DCHECK(dns_type != DnsType::kNSEC);
+  OSP_DCHECK(std::find(kQueryableTypes.begin(), kQueryableTypes.end(),
+                       dns_type) != kQueryableTypes.end());
 
   // Add a new callback if haven't seen it before
   auto callbacks_it = callbacks_.equal_range(name);
@@ -300,7 +309,10 @@ void MdnsQuerier::StopQuery(const DomainName& name,
                             MdnsRecordChangedCallback* callback) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
   OSP_DCHECK(callback);
-  OSP_DCHECK(dns_type != DnsType::kNSEC);
+  if (std::find(kQueryableTypes.begin(), kQueryableTypes.end(), dns_type) ==
+      kQueryableTypes.end()) {
+    return;
+  }
 
   // Find and remove the callback.
   int callbacks_for_key = 0;
@@ -453,6 +465,12 @@ void MdnsQuerier::OnRecordExpired(const MdnsRecordTracker* tracker,
 
 void MdnsQuerier::ProcessRecord(const MdnsRecord& record) {
   OSP_DCHECK(task_runner_->IsRunningOnTaskRunner());
+
+  // Skip all records that can't be processed.
+  if (std::find(kProcessableRecordTypes.begin(), kProcessableRecordTypes.end(),
+                record.dns_type()) == kProcessableRecordTypes.end()) {
+    return;
+  }
 
   // Get the types which the received record is associated with. In most cases
   // this will only be the type of the provided record, but in the case of
