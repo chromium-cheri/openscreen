@@ -4,7 +4,9 @@
 
 #include "discovery/mdns/mdns_records.h"
 
+#include <algorithm>
 #include <cctype>
+#include <limits>
 
 #include "absl/strings/ascii.h"
 #include "absl/strings/match.h"
@@ -455,6 +457,97 @@ size_t NsecRecordRdata::MaxWireSize() const {
   return next_domain_name_.MaxWireSize() + encoded_types_.size();
 }
 
+size_t OptRecordRdata::Option::MaxWireSize() const {
+  return data.size() + 2 * sizeof(uint16_t);
+}
+
+bool OptRecordRdata::Option::operator>(
+    const OptRecordRdata::Option& rhs) const {
+  if (code != rhs.code) {
+    return code > rhs.code;
+  } else if (length != rhs.length) {
+    return length > rhs.length;
+  } else if (data.size() != rhs.data.size()) {
+    return data.size() > rhs.data.size();
+  }
+
+  for (int i = 0; i < static_cast<int>(data.size()); i++) {
+    if (data[i] != rhs.data[i]) {
+      return data[i] > rhs.data[i];
+    }
+  }
+
+  return false;
+}
+
+bool OptRecordRdata::Option::operator<(
+    const OptRecordRdata::Option& rhs) const {
+  return rhs > *this;
+}
+
+bool OptRecordRdata::Option::operator>=(
+    const OptRecordRdata::Option& rhs) const {
+  return !(*this < rhs);
+}
+
+bool OptRecordRdata::Option::operator<=(
+    const OptRecordRdata::Option& rhs) const {
+  return !(*this > rhs);
+}
+
+bool OptRecordRdata::Option::operator==(
+    const OptRecordRdata::Option& rhs) const {
+  return *this >= rhs && *this <= rhs;
+}
+
+bool OptRecordRdata::Option::operator!=(
+    const OptRecordRdata::Option& rhs) const {
+  return !(*this == rhs);
+}
+
+OptRecordRdata::OptRecordRdata() = default;
+
+OptRecordRdata::OptRecordRdata(uint16_t requestor_payload_size,
+                               uint32_t rcode_and_flags,
+                               std::vector<Option> options)
+    : requestor_payload_size_(requestor_payload_size),
+      extended_rcode_(MakeExtendedRcode(rcode_and_flags)),
+      version_(MakeVersion(rcode_and_flags)),
+      ok_(MakeOkBit(rcode_and_flags)),
+      options_(std::move(options)),
+      max_wire_size_(0) {
+  std::sort(options_.begin(), options_.end());
+  for (const auto& option : options_) {
+    max_wire_size_ += option.MaxWireSize();
+  }
+}
+
+OptRecordRdata::OptRecordRdata(const OptRecordRdata& other) = default;
+
+OptRecordRdata::OptRecordRdata(OptRecordRdata&& other) = default;
+
+OptRecordRdata& OptRecordRdata::operator=(const OptRecordRdata& rhs) = default;
+
+OptRecordRdata& OptRecordRdata::operator=(OptRecordRdata&& rhs) = default;
+
+bool OptRecordRdata::operator==(const OptRecordRdata& rhs) const {
+  if (options_.size() != rhs.options_.size()) {
+    return false;
+  }
+
+  for (int i = 0; i < static_cast<int>(options_.size()); i++) {
+    if (options_[i] != rhs.options_[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool OptRecordRdata::operator!=(const OptRecordRdata& rhs) const {
+  return !(*this == rhs);
+}
+
 // static
 ErrorOr<MdnsRecord> MdnsRecord::TryCreate(DomainName name,
                                           DnsType dns_type,
@@ -500,7 +593,12 @@ bool MdnsRecord::IsValidConfig(const DomainName& name,
                                DnsType dns_type,
                                std::chrono::seconds ttl,
                                const Rdata& rdata) {
-  return !name.empty() && ttl.count() <= std::numeric_limits<uint32_t>::max() &&
+  // NOTE: Although the name_ field was initially expected to be non-empty, this
+  // validation is no longer accurate for some record types (such as OPT
+  // records). To ensure that future record types correctly parse into
+  // RawRecordData types and do not invalidate the received message, this check
+  // has been removed.
+  return ttl.count() <= std::numeric_limits<uint32_t>::max() &&
          ((dns_type == DnsType::kSRV &&
            absl::holds_alternative<SrvRecordRdata>(rdata)) ||
           (dns_type == DnsType::kA &&
@@ -513,6 +611,8 @@ bool MdnsRecord::IsValidConfig(const DomainName& name,
            absl::holds_alternative<TxtRecordRdata>(rdata)) ||
           (dns_type == DnsType::kNSEC &&
            absl::holds_alternative<NsecRecordRdata>(rdata)) ||
+          (dns_type == DnsType::kOPT &&
+           absl::holds_alternative<OptRecordRdata>(rdata)) ||
           absl::holds_alternative<RawRecordRdata>(rdata));
 }
 
