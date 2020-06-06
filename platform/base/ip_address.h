@@ -61,6 +61,9 @@ class IPAddress {
   bool operator==(const IPAddress& o) const;
   bool operator!=(const IPAddress& o) const;
 
+  // IP address comparison rules are based on the following two principles:
+  // 1. newer versions are greater, e.g. IPv6 > IPv4
+  // 2. higher numerical values are greater, e.g. 192.168.0.1 > 10.0.0.1
   bool operator<(const IPAddress& other) const;
   bool operator>(const IPAddress& other) const { return other < *this; }
   bool operator<=(const IPAddress& other) const { return !(other < *this); }
