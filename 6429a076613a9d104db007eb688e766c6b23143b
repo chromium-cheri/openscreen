@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5880acf2_6dc70e09",
+        "filename": "cast/streaming/environment.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-06T01:40:55Z",
+      "side": 1,
+      "message": "I like that better.",
+      "parentUuid": "e3f76ed5_96617c4c",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "6429a076613a9d104db007eb688e766c6b23143b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7883226_8f2bb1ae",
         "filename": "platform/base/ip_address.h",
         "patchSetId": 2
@@ -90,6 +114,24 @@
     },
     {
       "key": {
+        "uuid": "a777ef58_ad71b5fe",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-06T01:40:55Z",
+      "side": 1,
+      "message": "No, because constexpr is implicitly inline.\n\n   ../../platform/base/ip_address.h:31:13: error: inline function \n  \u0027openscreen::IPAddress::IPAddress\u0027 is not defined [-Werror,-Wundefined-inline]\n  constexpr IPAddress();",
+      "parentUuid": "d7883226_8f2bb1ae",
+      "revId": "6429a076613a9d104db007eb688e766c6b23143b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73088485_a6029a3a",
         "filename": "platform/base/ip_address.h",
         "patchSetId": 2
@@ -104,6 +146,24 @@
       "revId": "6429a076613a9d104db007eb688e766c6b23143b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bc278fb_4adc0ae7",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-06T01:40:55Z",
+      "side": 1,
+      "message": "Done, kind of. you can\u0027t have constexpr in the header, it\u0027s an incomplete type? But was able to constexpr the impl.\n\nhttps://stackoverflow.com/questions/29432283/c-static-constexpr-field-with-incomplete-type",
+      "parentUuid": "73088485_a6029a3a",
+      "revId": "6429a076613a9d104db007eb688e766c6b23143b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
