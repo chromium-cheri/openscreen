@@ -16,6 +16,24 @@
       "revId": "779a3ed7e050499e2c9f4e76d474714f3f149dab",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be349283_aee39295",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:43:52Z",
+      "side": 1,
+      "message": "Code shouldn\u0027t be in the public API just so it can be tested.   If it\u0027s not activated from the existing public API, then either it isn\u0027t necessary, or it doesn\u0027t actually affect the behavior (i.e. it\u0027s only for logging).\n\nFull coverage is ideal, but API design and implementation hiding are more important.",
+      "parentUuid": "f1083c2f_eefbc5c1",
+      "revId": "779a3ed7e050499e2c9f4e76d474714f3f149dab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
