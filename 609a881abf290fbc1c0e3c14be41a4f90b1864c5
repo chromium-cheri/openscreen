@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "0d51ff36_33859314",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "auto is okay in range for loops",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d31f86a_51214459",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "OSP_DVLOG",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7065b19d_b506cc38",
         "filename": "cast/streaming/receiver_session.cc",
         "patchSetId": 4
@@ -13,6 +47,160 @@
       "writtenOn": "2020-06-06T22:40:46Z",
       "side": 1,
       "message": "Not sure how to get coverage for these?",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbb474bf_943f1cbc",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "You can\u0027t really test code that is unreachable by design...",
+      "parentUuid": "7065b19d_b506cc38",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4499b938_bf705c76",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "Nit: Prefer using default",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e607ccb_aa8ad3c8",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "Side comment: we need to go through and clean up logging, either make it debug logging, or go through reporting APIs if it is useful in production.",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46b47d96_b7c67977",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "What is a MessagePump?",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c70b80f7_c1156ab4",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "nit: int should not be necessary as it\u0027s the default storage type for scoped enumerations.\n\nhttps://en.cppreference.com/w/cpp/language/enum",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d96741d8_1105ae63",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "Can this be moved to the .cc?\n\nSide comment: There\u0027s a class in Chromium called EnumTable that simplifies enum\u003c\u003d\u003d\u003estring conversions, we might want to land a version of it in util/ if this is a common pattern.",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b73dcfa_e127ce2a",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "Please document this method.",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "944a5bba_87c01e56",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "Please factor out this setup code into the test fixture.",
+      "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56acc9b1_b22e52a5",
+        "filename": "cast/streaming/receiver_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T21:41:03Z",
+      "side": 1,
+      "message": "This comment looks like copy-pasta.  Can it be customized or removed?  I think most of these test cases are self-documenting because the error message is included.",
       "revId": "609a881abf290fbc1c0e3c14be41a4f90b1864c5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
