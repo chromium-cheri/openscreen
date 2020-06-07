@@ -2,6 +2,142 @@
   "comments": [
     {
       "key": {
+        "uuid": "a45f46c6_49562ea9",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "Can you do this with methods like CanBeRegistered(type) in mdns_records.h with switch statements?  That avoid allocating/iterating over vectors.\n\nThe compiler will hopefully optimize them down to:\n\nif (dns_type \u003e \u003cvalue\u003e) return Error",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f3ea1b_f0ab9ef3",
+        "filename": "discovery/mdns/mdns_publisher.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "SGTM to not support publishing OPT records for the time being.",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6721daae_1f77121b",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "I would just add CanBeRegistered(), CanBeQueried(), CanBeProcessed() etc. to mdns_records.h",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1964782c_797bf281",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "Prefer IsRoot()",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e2e1a2e_6c155f04",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "I believe these are kept by IANA.  Can you link to the appropriate part of the registry?  I can dig it up if you are not sure of where that is.",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "087e5bb0_7ab043d1",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "Maybe data_size?  I don\u0027t feel strongly",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "603db04e_85ec0cc4",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "Can this just take std::vector\u003cOption\u003e since you are moving the values into one anyway?",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57c7b876_77d1cec8",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "Can you use public fields vs. getters like the the other Rdata structs?",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2cfd9e6_c5dd2638",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -19,6 +155,81 @@
         "endLine": 430,
         "endChar": 33
       },
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0de68c82_2149bea2",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "This approach LGTM.",
+      "parentUuid": "b2cfd9e6_c5dd2638",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 33
+      },
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2108a499_121d433d",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "Nit: extra newline",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "723abca0_48dfce94",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "I usually prefer using default: as a not-reachable fallthrough... not sure if there is a style consensus on this...",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd13263c_38657314",
+        "filename": "discovery/mdns/mdns_writer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-07T22:00:12Z",
+      "side": 1,
+      "message": "OSP_NOTIMPLEMENTED()",
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
