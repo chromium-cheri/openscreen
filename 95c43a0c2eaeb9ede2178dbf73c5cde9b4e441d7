@@ -159,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "7850b3d4_3abe224a",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-09T18:31:26Z",
+      "side": 1,
+      "message": "Here is the link I was referring to.\n\nhttps://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-11",
+      "parentUuid": "dd9d71ab_33f9a656",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "087e5bb0_7ab043d1",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -194,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "46c68e00_df41e3ba",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-09T18:31:26Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "2b673de2_97c7a51e",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "603db04e_85ec0cc4",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -223,6 +259,24 @@
       "side": 1,
       "message": "I also have an overload for that below. To clarify, would you like me to remove this ctor?\n\nI included both here because in the case of NSEC records, having this ctor option too made for much more readable code in places",
       "parentUuid": "603db04e_85ec0cc4",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "404660e5_8ab35691",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-09T18:31:26Z",
+      "side": 1,
+      "message": "Can you point out the code that uses the variable length arguments ctor?",
+      "parentUuid": "01c49d84_a3137092",
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -335,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "ce24b198_490c319c",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-09T18:31:26Z",
+      "side": 1,
+      "message": "I can\u0027t really tell without seeing the code that would use these functions.  In general, though, it is much preferred to define class-specific functions on the class itself.",
+      "parentUuid": "0df653d5_c0c0af6a",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 33
+      },
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2108a499_121d433d",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -399,6 +477,24 @@
       "side": 1,
       "message": "The reason I want to avoid default here is that this approach will trigger a compiler failure if further DnsType enum values are added and not handled in the switch. It\u0027s easy to forget to update this switch statement otherwise, which can lead to unexpected bugs\n\nAdding comment to this effect.\n\nWDYT?",
       "parentUuid": "723abca0_48dfce94",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88495267_387e5f45",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-09T18:31:26Z",
+      "side": 1,
+      "message": "Compiler checks are even better.\n\nI\u0027m still a little confused by this function because it calls NOTREACHED() for some legitimate DNS types.",
+      "parentUuid": "04dde375_5786fd75",
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
