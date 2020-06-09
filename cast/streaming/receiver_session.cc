@@ -222,6 +222,7 @@ void ReceiverSession::OnOffer(Message* message) {
   if (!selected_audio_stream && !selected_video_stream) {
     message->body = CreateInvalidAnswerMessage(
         Error(Error::Code::kParseError, "No selected streams"));
+    OSP_LOG_ERROR << "Failed to select any streams";
     SendMessage(message);
     return;
   }
@@ -231,6 +232,7 @@ void ReceiverSession::OnOffer(Message* message) {
   if (!answer.IsValid()) {
     message->body = CreateInvalidAnswerMessage(
         Error(Error::Code::kParseError, "Invalid answer message"));
+    OSP_LOG_ERROR << "Failed to construct an ANSWER message";
     SendMessage(message);
     return;
   }
@@ -242,6 +244,7 @@ void ReceiverSession::OnOffer(Message* message) {
   // negotiation because the sender won't be able to connect to it.
   client_->OnNegotiated(this, std::move(receivers));
   message->body = CreateAnswerMessage(answer);
+  OSP_LOG_INFO << "Successfully created an ANSWER message";
   SendMessage(message);
 }
 
@@ -336,9 +339,13 @@ void ReceiverSession::SendMessage(Message* message) {
 
   auto body_or_error = json::Stringify(message->body);
   if (body_or_error.is_value()) {
+    OSP_LOG_INFO << "Posting a message to message port:\n"
+                 << body_or_error.value();
     message_port_->PostMessage(message->sender_id, message->message_namespace,
                                body_or_error.value());
   } else {
+    OSP_LOG_WARN << "Failed to post a message due to serialization error:\n"
+                 << body_or_error.error().message();
     client_->OnError(this, body_or_error.error());
   }
 }
