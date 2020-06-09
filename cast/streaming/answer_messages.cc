@@ -96,6 +96,10 @@ static constexpr char kScalingSender[] = "sender";
 static constexpr char kScalingReceiver[] = "receiver";
 
 /// Answer properties.
+// Cast mode is a legacy field that is required by some senders, although
+// it should always be set to kCastModeMirroring.
+static constexpr char kCastMode[] = "castMode";
+static constexpr char kCastModeMirroring[] = "mirroring";
 // A number specifying the UDP port used for all streams in this session.
 // Must have a value between kUdpPortMin and kUdpPortMax.
 static constexpr char kUdpPort[] = "udpPort";
@@ -437,6 +441,9 @@ Json::Value Answer::ToJson() const {
   if (display.has_value()) {
     root[kDisplay] = display->ToJson();
   }
+  // TODO(jophba): refactor to share cast mode treatment with OFFER. Both
+  // should use the same constants, and not represent it in code.
+  root[kCastMode] = kCastModeMirroring;
   root[kUdpPort] = udp_port;
   root[kReceiverGetStatus] = supports_wifi_status_reporting;
   root[kSendIndexes] = PrimitiveVectorToJson(send_indexes);
