@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "19bf0b30_5f4fd837",
+        "filename": "discovery/mdns/mdns_publisher.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a45f46c6_49562ea9",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14f3ea1b_f0ab9ef3",
         "filename": "discovery/mdns/mdns_publisher.h",
         "patchSetId": 5
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "4e2dfb47_9424b615",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6721daae_1f77121b",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1964782c_797bf281",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "456ae367_5657555f",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1964782c_797bf281",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e2e1a2e_6c155f04",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -81,6 +135,24 @@
       "writtenOn": "2020-06-07T22:00:12Z",
       "side": 1,
       "message": "I believe these are kept by IANA.  Can you link to the appropriate part of the registry?  I can dig it up if you are not sure of where that is.",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9d71ab_33f9a656",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "I wasn\u0027t able to find them, but I did find some examples of OPT code RFCs:\n- https://tools.ietf.org/html/rfc7828\n- https://tools.ietf.org/html/rfc7830\n- https://tools.ietf.org/html/rfc7871\n\nCan link these if you\u0027d like\n\nThe line here is directly from RFC6891. Adding a link to that section.",
+      "parentUuid": "8e2e1a2e_6c155f04",
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "2b673de2_97c7a51e",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "I used length here because \"option length\" is the name used in the RFC, so it seems clearer IMHO: https://tools.ietf.org/html/rfc6891#section-6.1.2\nAdding this link to the struct itself for clarity\n\nDefinitely open to changing - your call.\n\nWDYT?",
+      "parentUuid": "087e5bb0_7ab043d1",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "603db04e_85ec0cc4",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "01c49d84_a3137092",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "I also have an overload for that below. To clarify, would you like me to remove this ctor?\n\nI included both here because in the case of NSEC records, having this ctor option too made for much more readable code in places",
+      "parentUuid": "603db04e_85ec0cc4",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57c7b876_77d1cec8",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -132,6 +240,24 @@
       "writtenOn": "2020-06-07T22:00:12Z",
       "side": 1,
       "message": "Can you use public fields vs. getters like the the other Rdata structs?",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec87c64_9cb4cfb1",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "These fields have been removed per below comment. Leaving open pending your response to that.",
+      "parentUuid": "57c7b876_77d1cec8",
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -185,6 +311,30 @@
     },
     {
       "key": {
+        "uuid": "0df653d5_c0c0af6a",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "After looking at the reader code, I think the above alternative would be much cleaner and much more consistent with the other rdata classes.\n\nFor now, I\u0027ve switched to that. If you prefer, I can change back to the approach in this iteration.",
+      "parentUuid": "0de68c82_2149bea2",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 33
+      },
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2108a499_121d433d",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -199,6 +349,24 @@
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0691f614_bc97410b",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2108a499_121d433d",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +387,24 @@
     },
     {
       "key": {
+        "uuid": "04dde375_5786fd75",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "The reason I want to avoid default here is that this approach will trigger a compiler failure if further DnsType enum values are added and not handled in the switch. It\u0027s easy to forget to update this switch statement otherwise, which can lead to unexpected bugs\n\nAdding comment to this effect.\n\nWDYT?",
+      "parentUuid": "723abca0_48dfce94",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd13263c_38657314",
         "filename": "discovery/mdns/mdns_writer.cc",
         "patchSetId": 5
@@ -233,6 +419,24 @@
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a3865da_762242ad",
+        "filename": "discovery/mdns/mdns_writer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd13263c_38657314",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -259,6 +463,30 @@
     },
     {
       "key": {
+        "uuid": "d036a4e3_a92d8acc",
+        "filename": "discovery/mdns/public/mdns_constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69b8f99f_225d57ab",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 50
+      },
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6480f5a6_df211ae2",
         "filename": "third_party/abseil/BUILD.gn",
         "patchSetId": 5
@@ -279,6 +507,30 @@
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "215ba0e2_7c78cbc5",
+        "filename": "third_party/abseil/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-09T02:49:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6480f5a6_df211ae2",
+      "range": {
+        "startLine": 48,
+        "startChar": 6,
+        "endLine": 48,
+        "endChar": 37
+      },
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
