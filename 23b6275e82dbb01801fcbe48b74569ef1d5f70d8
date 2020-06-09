@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "eb06b127_377c1aca",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-09T23:40:05Z",
+      "side": 1,
+      "message": "It\u0027s fine as is here then, I think.",
+      "parentUuid": "55aa472d_97d7d1d6",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c246a3fc_60e96acd",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 5
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "c814c0a6_5e5907b7",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-09T23:40:05Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly about it.",
+      "parentUuid": "20552744_7330dbbd",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98d90e39_5dc5abfb",
         "filename": "platform/base/udp_packet.cc",
         "patchSetId": 5
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "Currently, we\u0027ve got one in util that makes use of abseil. None that are accessible from platform/base\n\nI can add a TODO to clean this up or do it as a follow-up, but moving the file, removing abseil, and touching the extra files that use it is outside the scope of this CL. Though that kind of parsing tool doesn\u0027t really fit how we\u0027re currently using platform/base. WDYT?",
       "parentUuid": "98d90e39_5dc5abfb",
+      "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fae466f8_fbf2f862",
+        "filename": "platform/base/udp_packet.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-09T23:40:05Z",
+      "side": 1,
+      "message": "We should consider writing one that doesn\u0027t depend on abseil, putting in platform base, and removing the abseil one. I would love to only have one hex bytes to string method.",
+      "parentUuid": "798b3b6e_ff342e9f",
       "revId": "23b6275e82dbb01801fcbe48b74569ef1d5f70d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
