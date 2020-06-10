@@ -473,6 +473,30 @@
     },
     {
       "key": {
+        "uuid": "f31a3204_f1bfd743",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-10T22:51:26Z",
+      "side": 1,
+      "message": "Removing SGTM, best to include them in a patch that actually uses them.",
+      "parentUuid": "aa8389d5_4037fb22",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 33
+      },
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2108a499_121d433d",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -573,6 +597,24 @@
       "side": 1,
       "message": "This GetTtlForRecordType() method will only be called when creating NSEC record types. We never expect an incoming query to be asking for NSEC or OPT records (the former doesn\u0027t make sense, and the latter we don\u0027t support), so we should never be adding a negative response for either of the two record types. Because NSEC records are only used for this case, these two unsupported types should never get hit\n\nUpdating method name and adding comment to this effect",
       "parentUuid": "88495267_387e5f45",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34a4d5ef_9894d1ca",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-06-10T22:51:26Z",
+      "side": 1,
+      "message": "Okay, that makes sense. Maybe write:\n\nOSP_NOTREACHED() \u003c\u003c \"NSEC TTL not supported for \" \u003c\u003c type",
+      "parentUuid": "542f490b_935cf7ff",
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
