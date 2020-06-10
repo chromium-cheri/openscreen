@@ -16,8 +16,8 @@ TEST(ServiceInfoTests, ConvertValidFromDnsSd) {
   std::string instance = "InstanceId";
   discovery::DnsSdTxtRecord txt = CreateValidTxt();
   discovery::DnsSdInstanceEndpoint record(instance, kCastV2ServiceId,
-                                          kCastV2DomainId, txt, kEndpointV4,
-                                          kEndpointV6, 0);
+                                          kCastV2DomainId, txt, 0, kEndpointV4,
+                                          kEndpointV6);
   ErrorOr<ServiceInfo> info = DnsSdInstanceEndpointToServiceInfo(record);
   ASSERT_TRUE(info.is_value());
   EXPECT_EQ(info.value().unique_id, kTestUniqueId);
@@ -34,8 +34,7 @@ TEST(ServiceInfoTests, ConvertValidFromDnsSd) {
   EXPECT_EQ(info.value().friendly_name, kFriendlyName);
 
   record = discovery::DnsSdInstanceEndpoint(
-      instance, kCastV2ServiceId, kCastV2DomainId, txt, kEndpointV4, 0);
-  ASSERT_FALSE(record.address_v6());
+      instance, kCastV2ServiceId, kCastV2DomainId, txt, 0, kEndpointV4);
   info = DnsSdInstanceEndpointToServiceInfo(record);
   ASSERT_TRUE(info.is_value());
   EXPECT_EQ(info.value().unique_id, kTestUniqueId);
@@ -50,8 +49,7 @@ TEST(ServiceInfoTests, ConvertValidFromDnsSd) {
   EXPECT_EQ(info.value().friendly_name, kFriendlyName);
 
   record = discovery::DnsSdInstanceEndpoint(
-      instance, kCastV2ServiceId, kCastV2DomainId, txt, kEndpointV6, 0);
-  ASSERT_FALSE(record.address_v4());
+      instance, kCastV2ServiceId, kCastV2DomainId, txt, 0, kEndpointV6);
   info = DnsSdInstanceEndpointToServiceInfo(record);
   ASSERT_TRUE(info.is_value());
   EXPECT_EQ(info.value().unique_id, kTestUniqueId);
@@ -71,43 +69,43 @@ TEST(ServiceInfoTests, ConvertInvalidFromDnsSd) {
   discovery::DnsSdTxtRecord txt = CreateValidTxt();
   txt.ClearValue(kUniqueIdKey);
   discovery::DnsSdInstanceEndpoint record(instance, kCastV2ServiceId,
-                                          kCastV2DomainId, txt, kEndpointV4,
-                                          kEndpointV6, 0);
+                                          kCastV2DomainId, txt, 0, kEndpointV4,
+                                          kEndpointV6);
   EXPECT_TRUE(DnsSdInstanceEndpointToServiceInfo(record).is_error());
 
   txt = CreateValidTxt();
   txt.ClearValue(kVersionId);
   record = discovery::DnsSdInstanceEndpoint(instance, kCastV2ServiceId,
-                                            kCastV2DomainId, txt, kEndpointV4,
-                                            kEndpointV6, 0);
+                                            kCastV2DomainId, txt, 0,
+                                            kEndpointV4, kEndpointV6);
   EXPECT_TRUE(DnsSdInstanceEndpointToServiceInfo(record).is_error());
 
   txt = CreateValidTxt();
   txt.ClearValue(kCapabilitiesId);
   record = discovery::DnsSdInstanceEndpoint(instance, kCastV2ServiceId,
-                                            kCastV2DomainId, txt, kEndpointV4,
-                                            kEndpointV6, 0);
+                                            kCastV2DomainId, txt, 0,
+                                            kEndpointV4, kEndpointV6);
   EXPECT_TRUE(DnsSdInstanceEndpointToServiceInfo(record).is_error());
 
   txt = CreateValidTxt();
   txt.ClearValue(kStatusId);
   record = discovery::DnsSdInstanceEndpoint(instance, kCastV2ServiceId,
-                                            kCastV2DomainId, txt, kEndpointV4,
-                                            kEndpointV6, 0);
+                                            kCastV2DomainId, txt, 0,
+                                            kEndpointV4, kEndpointV6);
   EXPECT_TRUE(DnsSdInstanceEndpointToServiceInfo(record).is_error());
 
   txt = CreateValidTxt();
   txt.ClearValue(kFriendlyNameId);
   record = discovery::DnsSdInstanceEndpoint(instance, kCastV2ServiceId,
-                                            kCastV2DomainId, txt, kEndpointV4,
-                                            kEndpointV6, 0);
+                                            kCastV2DomainId, txt, 0,
+                                            kEndpointV4, kEndpointV6);
   EXPECT_TRUE(DnsSdInstanceEndpointToServiceInfo(record).is_error());
 
   txt = CreateValidTxt();
   txt.ClearValue(kModelNameId);
   record = discovery::DnsSdInstanceEndpoint(instance, kCastV2ServiceId,
-                                            kCastV2DomainId, txt, kEndpointV4,
-                                            kEndpointV6, 0);
+                                            kCastV2DomainId, txt, 0,
+                                            kEndpointV4, kEndpointV6);
   EXPECT_TRUE(DnsSdInstanceEndpointToServiceInfo(record).is_error());
 }
 

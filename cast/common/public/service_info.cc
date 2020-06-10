@@ -196,9 +196,17 @@ ErrorOr<ServiceInfo> DnsSdInstanceEndpointToServiceInfo(
   }
 
   ServiceInfo record;
-  record.v4_address = endpoint.address_v4();
-  record.v6_address = endpoint.address_v6();
   record.port = endpoint.port();
+  for (const IPAddress& address : endpoint.addresses()) {
+    if (!record.v4_address && address.IsV4()) {
+      record.v4_address = address;
+    } else if (!record.v6_address && address.IsV6()) {
+      record.v6_address = address;
+    }
+  }
+  if (!record.v4_address && !record.v6_address) {
+    return Error::Code::kParameterInvalid;
+  }
 
   const auto& txt = endpoint.txt();
   std::string capabilities_base64;
