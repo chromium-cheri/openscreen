@@ -4,6 +4,7 @@
 
 #include "discovery/mdns/mdns_records.h"
 
+#include <algorithm>
 #include <cctype>
 #include <limits>
 #include <sstream>
@@ -88,6 +89,15 @@ bool IsGreaterThan(DnsType type, const Rdata& lhs, const Rdata& rhs) {
       return IsGreaterThan<RawRecordRdata>(lhs, rhs);
   }
 }
+
+uint32_t GetExtendedRcodeAndFlags(const MdnsRecord& record) {
+  return record.ttl().count();
+}
+
+// The minimum number of octets of the largest UDP payload that can be
+// reassembled and delivered in the requestor's network stack for any valid mDNS
+// client, as defined in RFC6891 section 6.2.3.
+constexpr uint16_t kMinimumRequestorPayloadSize = 512;
 
 }  // namespace
 
@@ -458,6 +468,90 @@ size_t NsecRecordRdata::MaxWireSize() const {
   return next_domain_name_.MaxWireSize() + encoded_types_.size();
 }
 
+size_t OptRecordRdata::Option::MaxWireSize() const {
+  return data.size() + 2 * sizeof(uint16_t);
+}
+
+bool OptRecordRdata::Option::operator>(
+    const OptRecordRdata::Option& rhs) const {
+  if (code != rhs.code) {
+    return code > rhs.code;
+  } else if (length != rhs.length) {
+    return length > rhs.length;
+  } else if (data.size() != rhs.data.size()) {
+    return data.size() > rhs.data.size();
+  }
+
+  for (int i = 0; i < static_cast<int>(data.size()); i++) {
+    if (data[i] != rhs.data[i]) {
+      return data[i] > rhs.data[i];
+    }
+  }
+
+  return false;
+}
+
+bool OptRecordRdata::Option::operator<(
+    const OptRecordRdata::Option& rhs) const {
+  return rhs > *this;
+}
+
+bool OptRecordRdata::Option::operator>=(
+    const OptRecordRdata::Option& rhs) const {
+  return !(*this < rhs);
+}
+
+bool OptRecordRdata::Option::operator<=(
+    const OptRecordRdata::Option& rhs) const {
+  return !(*this > rhs);
+}
+
+bool OptRecordRdata::Option::operator==(
+    const OptRecordRdata::Option& rhs) const {
+  return *this >= rhs && *this <= rhs;
+}
+
+bool OptRecordRdata::Option::operator!=(
+    const OptRecordRdata::Option& rhs) const {
+  return !(*this == rhs);
+}
+
+OptRecordRdata::OptRecordRdata() = default;
+
+OptRecordRdata::OptRecordRdata(std::vector<Option> options)
+    : options_(std::move(options)) {
+  for (const auto& option : options_) {
+    max_wire_size_ += option.MaxWireSize();
+  }
+  std::sort(options_.begin(), options_.end());
+}
+
+OptRecordRdata::OptRecordRdata(const OptRecordRdata& other) = default;
+
+OptRecordRdata::OptRecordRdata(OptRecordRdata&& other) = default;
+
+OptRecordRdata& OptRecordRdata::operator=(const OptRecordRdata& rhs) = default;
+
+OptRecordRdata& OptRecordRdata::operator=(OptRecordRdata&& rhs) = default;
+
+bool OptRecordRdata::operator==(const OptRecordRdata& rhs) const {
+  if (options_.size() != rhs.options_.size()) {
+    return false;
+  }
+
+  for (int i = 0; i < static_cast<int>(options_.size()); i++) {
+    if (options_[i] != rhs.options_[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool OptRecordRdata::operator!=(const OptRecordRdata& rhs) const {
+  return !(*this == rhs);
+}
+
 // static
 ErrorOr<MdnsRecord> MdnsRecord::TryCreate(DomainName name,
                                           DnsType dns_type,
@@ -503,7 +597,12 @@ bool MdnsRecord::IsValidConfig(const DomainName& name,
                                DnsType dns_type,
                                std::chrono::seconds ttl,
                                const Rdata& rdata) {
-  return !name.empty() && ttl.count() <= std::numeric_limits<uint32_t>::max() &&
+  // NOTE: Although the name_ field was initially expected to be non-empty, this
+  // validation is no longer accurate for some record types (such as OPT
+  // records). To ensure that future record types correctly parse into
+  // RawRecordData types and do not invalidate the received message, this check
+  // has been removed.
+  return ttl.count() <= std::numeric_limits<uint32_t>::max() &&
          ((dns_type == DnsType::kSRV &&
            absl::holds_alternative<SrvRecordRdata>(rdata)) ||
           (dns_type == DnsType::kA &&
@@ -516,6 +615,8 @@ bool MdnsRecord::IsValidConfig(const DomainName& name,
            absl::holds_alternative<TxtRecordRdata>(rdata)) ||
           (dns_type == DnsType::kNSEC &&
            absl::holds_alternative<NsecRecordRdata>(rdata)) ||
+          (dns_type == DnsType::kOPT &&
+           absl::holds_alternative<OptRecordRdata>(rdata)) ||
           absl::holds_alternative<RawRecordRdata>(rdata));
 }
 
@@ -770,6 +871,95 @@ bool MdnsMessage::CanAddRecord(const MdnsRecord& record) {
 uint16_t CreateMessageId() {
   static uint16_t id(0);
   return id++;
+}
+
+bool CanBePublished(DnsType type) {
+  // NOTE: A 'default' switch statement has intentionally been avoided below to
+  // enforce that new DnsTypes added must be added below through a compile-time
+  // check.
+  switch (type) {
+    case DnsType::kA:
+    case DnsType::kAAAA:
+    case DnsType::kPTR:
+    case DnsType::kTXT:
+    case DnsType::kSRV:
+      return true;
+    case DnsType::kOPT:
+    case DnsType::kNSEC:
+    case DnsType::kANY:
+      break;
+  }
+
+  return false;
+}
+
+bool CanBePublished(const MdnsRecord& record) {
+  return CanBePublished(record.dns_type());
+}
+
+bool CanBeQueried(DnsType type) {
+  // NOTE: A 'default' switch statement has intentionally been avoided below to
+  // enforce that new DnsTypes added must be added below through a compile-time
+  // check.
+  switch (type) {
+    case DnsType::kA:
+    case DnsType::kAAAA:
+    case DnsType::kPTR:
+    case DnsType::kTXT:
+    case DnsType::kSRV:
+    case DnsType::kANY:
+      return true;
+    case DnsType::kOPT:
+    case DnsType::kNSEC:
+      break;
+  }
+
+  return false;
+}
+
+bool CanBeProcessed(DnsType type) {
+  // NOTE: A 'default' switch statement has intentionally been avoided below to
+  // enforce that new DnsTypes added must be added below through a compile-time
+  // check.
+  switch (type) {
+    case DnsType::kA:
+    case DnsType::kAAAA:
+    case DnsType::kPTR:
+    case DnsType::kTXT:
+    case DnsType::kSRV:
+    case DnsType::kNSEC:
+      return true;
+    case DnsType::kOPT:
+    case DnsType::kANY:
+      break;
+  }
+
+  return false;
+}
+
+uint16_t GetOptRequestorPayloadSize(const MdnsRecord& record) {
+  OSP_DCHECK(record.dns_type() == DnsType::kOPT);
+  uint16_t sent_max = static_cast<uint16_t>(record.dns_class());
+  return std::max(sent_max, kMinimumRequestorPayloadSize);
+}
+
+uint8_t GetOptExtendedRcode(const MdnsRecord& record) {
+  OSP_DCHECK(record.dns_type() == DnsType::kOPT);
+  return MakeExtendedRcode(GetExtendedRcodeAndFlags(record));
+}
+
+uint8_t GetOptVersion(const MdnsRecord& record) {
+  OSP_DCHECK(record.dns_type() == DnsType::kOPT);
+  return MakeVersion(GetExtendedRcodeAndFlags(record));
+}
+
+bool IsOptBadVersion(const MdnsRecord& record) {
+  return GetOptVersion(record) == kVersionBadvers;
+}
+
+bool IsOptOk(const MdnsRecord& record) {
+  OSP_DCHECK(record.dns_type() == DnsType::kOPT);
+  return MakeOkBit(GetExtendedRcodeAndFlags(record));
 }
 
 }  // namespace discovery
