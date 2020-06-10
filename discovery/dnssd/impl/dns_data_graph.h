@@ -117,6 +117,11 @@ class DnsDataGraph {
 
   size_t tracked_domain_count() const { return nodes_.size(); }
 
+  // Returns whether the provided domain is tracked or not. This may either be
+  // due to a direct call to StartTracking() or due to the result of a received
+  // record.
+  bool IsTracked(const DomainName& name) const;
+
  private:
   friend class DnsDataGraphTests;
 

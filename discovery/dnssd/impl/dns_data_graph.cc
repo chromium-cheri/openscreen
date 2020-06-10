@@ -328,6 +328,10 @@ std::vector<ErrorOr<DnsSdInstanceEndpoint>> DnsDataGraph::CreateEndpoints(
   return endpoints;
 }
 
+bool DnsDataGraph::IsTracked(const DomainName& name) const {
+  return nodes_.find(name) != nodes_.end();
+}
+
 // static
 bool DnsDataGraph::IsValidAddressNode(Node* node) {
   const absl::optional<ARecordRdata> a =
