@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6cc9f9d7_3ab46bc9",
+        "filename": "discovery/dnssd/impl/dns_data.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-10T03:08:25Z",
+      "side": 1,
+      "message": "NOTE: Duplicate code between this class and dns_data_graph is expected (and same for their tests)\n\nDnsDataGraph is a replacement for DnsData (to fix an open bug), and a CL to make this replacement happen will be up soon. At that point, DnsData will be deleted entirely",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 48
+      },
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4376f4e1_50718e9d",
+        "filename": "discovery/dnssd/public/dns_sd_instance.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-10T03:08:25Z",
+      "side": 1,
+      "message": "I know coverage is missing for this method. UTs for this method will come in a follow-up CL. The next one will be touching this file, so I plan to wait until then to make these changes",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 67
+      },
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ece067f2_ed415f05",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-10T03:08:25Z",
+      "side": 1,
+      "message": "The name here intentionally deviates from the guidance for naming\nThis is a public API (exposed to embedders, and they may be interacting with it)\n\nI think that a common-sense and consistent API here (where addresses() and endpoints() are the same) makes more sense to embedders than an arbitrary difference (endpoints() vs GetAddresses()). WDYT?",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 50
+      },
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
