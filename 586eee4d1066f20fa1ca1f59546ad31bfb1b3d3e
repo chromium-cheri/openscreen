@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "990cb197_5430909c",
+        "filename": "platform/base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-06-10T03:36:01Z",
+      "side": 1,
+      "message": "Const is no longer necessary. You could potentially convert this to a const reference or something. See below.",
+      "revId": "586eee4d1066f20fa1ca1f59546ad31bfb1b3d3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b53a759a_0e1f13bb",
+        "filename": "platform/base/ip_address.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-06-10T03:36:01Z",
+      "side": 1,
+      "message": "Depending on which version of C++ openscreen supports, you could use a static local variable then return that, avoiding the construction. You\u0027d need to evaluate the tradeoffs related to use, though.",
+      "revId": "586eee4d1066f20fa1ca1f59546ad31bfb1b3d3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ec6c224_c2bb3542",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-06-10T03:36:01Z",
+      "side": 1,
+      "message": "These names are no longer consistent with the style guide.",
+      "revId": "586eee4d1066f20fa1ca1f59546ad31bfb1b3d3e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
