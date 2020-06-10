@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "bb33922c_e1745d2b",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-10T18:35:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7850b3d4_3abe224a",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "087e5bb0_7ab043d1",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -277,6 +295,24 @@
       "side": 1,
       "message": "Can you point out the code that uses the variable length arguments ctor?",
       "parentUuid": "01c49d84_a3137092",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa6c6ec_a61c93bb",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-10T18:35:09Z",
+      "side": 1,
+      "message": "The short version is this makes ctor calls with only 1 or 2 elements more readable. An alternative is to special-case those out as separate ctors, if you prefer.\n\nFor OPT, see Unit Tests file below (lines 458, 478-480) in this CL iteration\n\nFor NSEC, this is actually the primary ctor used. I can dig up UT occurrences if you like, but outside of UTs, though, we rarely create NSEC records (they are only used to respond negatively to incoming queries):\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/openscreen/src/discovery/mdns/mdns_responder.cc;l\u003d53?q\u003dmdns_responder.cc\u0026ss\u003dchromium\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "parentUuid": "404660e5_8ab35691",
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -413,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "aa8389d5_4037fb22",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-10T18:35:09Z",
+      "side": 1,
+      "message": "Good point about \"seeing the code\". I agree it\u0027s hard to know before that - right now, these functions are being added for completeness rather than for use.\n\nWDYT about removing them from this CL entirely and filing a bug with a link to this CL? Then, when they are needed, we will have both approaches documented and can pick whichever one is better suited to the using code",
+      "parentUuid": "ce24b198_490c319c",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 33
+      },
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2108a499_121d433d",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 5
@@ -495,6 +555,24 @@
       "side": 1,
       "message": "Compiler checks are even better.\n\nI\u0027m still a little confused by this function because it calls NOTREACHED() for some legitimate DNS types.",
       "parentUuid": "04dde375_5786fd75",
+      "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542f490b_935cf7ff",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-10T18:35:09Z",
+      "side": 1,
+      "message": "This GetTtlForRecordType() method will only be called when creating NSEC record types. We never expect an incoming query to be asking for NSEC or OPT records (the former doesn\u0027t make sense, and the latter we don\u0027t support), so we should never be adding a negative response for either of the two record types. Because NSEC records are only used for this case, these two unsupported types should never get hit\n\nUpdating method name and adding comment to this effect",
+      "parentUuid": "88495267_387e5f45",
       "revId": "95c43a0c2eaeb9ede2178dbf73c5cde9b4e441d7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
