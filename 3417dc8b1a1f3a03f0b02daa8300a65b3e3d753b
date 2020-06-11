@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b914bd9_3557c9bb",
+        "filename": "platform/base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-11T20:58:59Z",
+      "side": 1,
+      "message": "We need to better define operator\u003d\u003d for Error, right now I think it factors in message. I would prefer this to be:\n\n    lhs.error() \u003d\u003d rhs.error()\n\nAnd change Error\u0027s operator\u003d\u003d to not care about message? Though not 100%. Definitely want consistency.",
+      "revId": "3417dc8b1a1f3a03f0b02daa8300a65b3e3d753b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15c00a3f_6eca87ad",
+        "filename": "platform/base/error_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-11T20:58:59Z",
+      "side": 1,
+      "message": "Add one with a message to ensure correct behavior?",
+      "revId": "3417dc8b1a1f3a03f0b02daa8300a65b3e3d753b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
