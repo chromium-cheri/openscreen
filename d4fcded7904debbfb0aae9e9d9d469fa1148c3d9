@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7fd3f3f2_e500bd3a",
+        "filename": "infra/config/global/cr-buildbucket.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000329
+      },
+      "writtenOn": "2020-06-12T03:20:21Z",
+      "side": 1,
+      "message": "One reason might be that the Mac build requires non-ATS settings, while Win build requires ATS settings. (Linux can use either ATS or non-ATS; we prefer to use ATS for Linux.)\n\nRight now there\u0027s only one \"buckets\" entry with recipe config. We might have to create a second one to accommodate the different ATS vs non-ATS setting.",
+      "parentUuid": "a19e8ee5_9a44f38e",
+      "revId": "d4fcded7904debbfb0aae9e9d9d469fa1148c3d9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0732d315_f138c2a6",
         "filename": "infra/config/global/cr-buildbucket.cfg",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2020-06-11T18:07:11Z",
       "side": 1,
       "message": "Missing mixin here? Or do we not use goma with GCC?",
+      "revId": "d4fcded7904debbfb0aae9e9d9d469fa1148c3d9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e41497_1f557792",
+        "filename": "infra/config/global/cr-buildbucket.cfg",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000329
+      },
+      "writtenOn": "2020-06-12T03:20:21Z",
+      "side": 1,
+      "message": "We don\u0027t support Goma with gcc, due to the latter using absolute paths under /usr.\n\nIn Chromium builders, we\u0027ve moved the gcc builders to local build. I suggest that the same be done with the gcc builders here.",
+      "parentUuid": "0732d315_f138c2a6",
       "revId": "d4fcded7904debbfb0aae9e9d9d469fa1148c3d9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
