@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a1860e3_3de1aca5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T18:26:39Z",
+      "side": 1,
+      "message": "@mfotlz has pushed for a very flat namespace structure - Are you sure this can\u0027t live in namespace cast?\n\nDiscovery has done this by prefacing classes with Mdns or DnsSd as needed for clarity. Not sure it\u0027s better, but it would fit with OpenScreen\u0027s approach so far better",
+      "range": {
+        "startLine": 9,
+        "startChar": 22,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "035cdb92_07e41b52",
+        "filename": "cast/streaming/capture_recommendations.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T18:26:39Z",
+      "side": 1,
+      "message": "This should probably be logged if it occurs\n\nAlso, probably worth adding a TODO to add a callback method for embedders to receive these errors? For an example, see: https://source.chromium.org/chromium/chromium/src/+/master:third_party/openscreen/src/discovery/common/reporting_client.h",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 70
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7642ab64_96467c35",
+        "filename": "cast/streaming/capture_recommendations.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T18:26:39Z",
+      "side": 1,
+      "message": "We\u0027re already in the cast namespace",
+      "range": {
+        "startLine": 58,
+        "startChar": 30,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18f25091_e2502374",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T18:26:39Z",
+      "side": 1,
+      "message": "Great comments in this file!",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 74
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf3dcded_58d4b4c9",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T18:26:39Z",
+      "side": 1,
+      "message": "It\u0027s going to take some time for me to get used to seeing this without a !\u003d, even if the \u003c operator being alone I am fine with",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e174bd27_b54294cc",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T18:26:39Z",
+      "side": 1,
+      "message": "nit: Would be clearer as 41000",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab9e9cb5_2a3cc340",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T18:26:39Z",
+      "side": 1,
+      "message": "Move to cc, because it\u0027s more complex than a simple setter/getter:\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md\n\nSame for below",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8475b7fa_b4f8287e",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T18:26:39Z",
+      "side": 1,
+      "message": "Move to cc.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 3
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
