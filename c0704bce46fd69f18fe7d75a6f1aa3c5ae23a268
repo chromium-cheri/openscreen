@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "65af3731_55693b94",
+        "filename": "cast/common/public/service_info.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "Add coverage for invalid record?",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84ac9fba_d9d437db",
+        "filename": "cast/common/public/service_info_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "what is zero? make a constant if possible, otherwise comment.",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4780ae2f_ef5006f1",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "You could mess around with copy_if and stuff here if you are interested.\n\nhttps://stackoverflow.com/questions/40901615/how-to-replicate-map-filter-and-reduce-behaviors-in-c-using-stl",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6cc9f9d7_3ab46bc9",
         "filename": "discovery/dnssd/impl/dns_data.cc",
         "patchSetId": 1
@@ -22,6 +73,47 @@
       "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b882fce_facf05ec",
+        "filename": "discovery/dnssd/impl/dns_data.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "6cc9f9d7_3ab46bc9",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 48
+      },
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a1b2529_7e2089d7",
+        "filename": "discovery/dnssd/impl/dns_data_graph_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "Could you ever have two IPv4 addresses?",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
@@ -65,6 +157,81 @@
         "endLine": 68,
         "endChar": 50
       },
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8004aff3_820ad69b",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "The purpose of the naming difference in the style guide, IIRC, is that addresses() is trivial and GetAddresses() is non-trivial, e.g. involves creating a new struct, etc.\n\nSince addresses() is not inline in the header, it implies something similarly. Since you aren\u0027t just retrieving the value of an addresses_ vector then I would encourage you to name it GetAddresses().",
+      "parentUuid": "ece067f2_ed415f05",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 50
+      },
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0001cc_e927aecf",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "I see these bugs a lot, we should definitely YAGNI comparators.",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cdeee3e_574e2095",
+        "filename": "discovery/public/dns_sd_service_watcher_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "add comment for what 0 is? I still don\u0027t know from the call site here.",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8ee80dd_cbe9d53b",
+        "filename": "discovery/public/dns_sd_service_watcher_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-12T00:09:13Z",
+      "side": 1,
+      "message": "Same here.",
       "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
