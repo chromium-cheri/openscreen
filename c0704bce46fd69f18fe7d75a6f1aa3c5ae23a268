@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0a5f604f_2500bf84",
+        "filename": "cast/common/public/service_info.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T00:45:09Z",
+      "side": 1,
+      "message": "This is actually an invalid state. Updating to DCHECK",
+      "parentUuid": "65af3731_55693b94",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84ac9fba_d9d437db",
         "filename": "cast/common/public/service_info_unittest.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "02d651e4_5933a994",
+        "filename": "cast/common/public/service_info_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T00:45:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84ac9fba_d9d437db",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4780ae2f_ef5006f1",
         "filename": "discovery/dnssd/impl/conversion_layer.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2020-06-12T00:09:13Z",
       "side": 1,
       "message": "You could mess around with copy_if and stuff here if you are interested.\n\nhttps://stackoverflow.com/questions/40901615/how-to-replicate-map-filter-and-reduce-behaviors-in-c-using-stl",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71a12f90_47a4cf83",
+        "filename": "discovery/dnssd/impl/conversion_layer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T00:45:09Z",
+      "side": 1,
+      "message": "I feel like that\u0027s clever (and will keep it in mind for future - didn\u0027t even know it existed), but IMHO less readable\nIf you\u0027d like I can go that route, but I think this approach improves readability (at least in this specific case)\n\nWDYT?",
+      "parentUuid": "4780ae2f_ef5006f1",
       "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -114,6 +168,24 @@
       "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0afd3a91_811a3bf0",
+        "filename": "discovery/dnssd/impl/dns_data_graph_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T00:45:09Z",
+      "side": 1,
+      "message": "Current code, no. Future code, yes. Until that change, there is no reason to overcomplicate these tests.\n\nSee task b/158532090",
+      "parentUuid": "6a1b2529_7e2089d7",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "9280ef7e_7f93a1cb",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T00:45:09Z",
+      "side": 1,
+      "message": "Updating the ctor to populate addresses because we already need to iterate through them all, eliminating lazy initialization, and moving the getter entirely to the header.\n\nI think it\u0027s worth a separate team-level discussion about if lazy-initialized variables can be inlined in the header - with branch prediction for the ternary, they should be no slower than normal getters.",
+      "parentUuid": "8004aff3_820ad69b",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 50
+      },
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa0001cc_e927aecf",
         "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
         "patchSetId": 1
@@ -201,6 +297,24 @@
       "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79dd16cf_83c22c3b",
+        "filename": "discovery/dnssd/public/dns_sd_instance_endpoint.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T00:45:09Z",
+      "side": 1,
+      "message": "That change is outside the scope of this CL\nBut agree. Plus a macro for when we do need multiple would also be useful",
+      "parentUuid": "fa0001cc_e927aecf",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -221,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "2fce2d7f_be37f9d0",
+        "filename": "discovery/public/dns_sd_service_watcher_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T00:45:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cdeee3e_574e2095",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8ee80dd_cbe9d53b",
         "filename": "discovery/public/dns_sd_service_watcher_unittest.cc",
         "patchSetId": 1
@@ -235,6 +367,24 @@
       "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c8d4954_593aa7e6",
+        "filename": "discovery/public/dns_sd_service_watcher_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-12T00:45:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8ee80dd_cbe9d53b",
+      "revId": "c0704bce46fd69f18fe7d75a6f1aa3c5ae23a268",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
