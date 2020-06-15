@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e6188d59_04382206",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Well, it can by doing the class prefixing. I\u0027m using capture_recommendations the same way you could have a CaptureRecommender static class. \n\nI think we have gone back and forth on this several times. Personally I prefer a separate namespace so it\u0027s obvious they are grouped other than by name, E.g. this would have to be:\n\nCaptureGetRecommendations\nCaptureVideo\nCapture...\n\nor similar.\n\nThere is precedent for this namespace approach, I use it in json_serialization.h, it\u0027s in message_framer.h.\n\nI think Mark is fine with namespaces used for replacing static classes with functions-as-first-order citizens, I\u0027m happy to take it up with him when he\u0027s back.",
+      "parentUuid": "3a1860e3_3de1aca5",
+      "range": {
+        "startLine": 9,
+        "startChar": 22,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a83ceeca_35fd5b99",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "f56367ad_2cf6998a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a83ceeca_35fd5b99",
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "035cdb92_07e41b52",
         "filename": "cast/streaming/capture_recommendations.cc",
         "patchSetId": 6
@@ -53,6 +95,30 @@
       "writtenOn": "2020-06-12T18:26:39Z",
       "side": 1,
       "message": "This should probably be logged if it occurs\n\nAlso, probably worth adding a TODO to add a callback method for embedders to receive these errors? For an example, see: https://source.chromium.org/chromium/chromium/src/+/master:third_party/openscreen/src/discovery/common/reporting_client.h",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 70
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ef8300_27741514",
+        "filename": "cast/streaming/capture_recommendations.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "I\u0027ll leave this open. I originally talked about that with Yuri, and he suggested that we don\u0027t since it\u0027s not clear what the embedder would actually do about this.",
+      "parentUuid": "035cdb92_07e41b52",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "ef09197c_1c035c13",
+        "filename": "cast/streaming/capture_recommendations.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe48c9e4_79b3c07a",
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7642ab64_96467c35",
         "filename": "cast/streaming/capture_recommendations.cc",
         "patchSetId": 6
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "b60373b4_7bf55920",
+        "filename": "cast/streaming/capture_recommendations.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "I\u0027ll rename to resolution to make more obvious.",
+      "parentUuid": "7642ab64_96467c35",
+      "range": {
+        "startLine": 58,
+        "startChar": 30,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "705f0bc5_c99d590e",
         "filename": "cast/streaming/capture_recommendations.cc",
         "patchSetId": 6
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "841000b0_58632626",
+        "filename": "cast/streaming/capture_recommendations.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "705f0bc5_c99d590e",
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f25091_e2502374",
         "filename": "cast/streaming/capture_recommendations.h",
         "patchSetId": 6
@@ -133,6 +259,30 @@
       "writtenOn": "2020-06-12T18:26:39Z",
       "side": 1,
       "message": "Great comments in this file!",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 74
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1abb8320_6e2fe0d4",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Thanks 😊",
+      "parentUuid": "18f25091_e2502374",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -191,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "7bd66b4d_48435c6e",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e174bd27_b54294cc",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab9e9cb5_2a3cc340",
         "filename": "cast/streaming/capture_recommendations.h",
         "patchSetId": 6
@@ -211,6 +385,30 @@
       "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e27b93_5401d90d",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab9e9cb5_2a3cc340",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -237,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "7b130844_78418f41",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8475b7fa_b4f8287e",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 3
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f92a0abd_556a08ea",
         "filename": "cast/streaming/capture_recommendations.h",
         "patchSetId": 6
@@ -257,6 +479,30 @@
       "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a85bb0_dccdb2f5",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-15T19:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f92a0abd_556a08ea",
+      "range": {
+        "startLine": 186,
+        "startChar": 16,
+        "endLine": 186,
+        "endChar": 25
+      },
+      "revId": "8812b6be36c2a5490262a4fbbfd5d73f08431463",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
