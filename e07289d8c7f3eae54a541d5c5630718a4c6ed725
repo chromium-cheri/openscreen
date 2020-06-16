@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "09212bb0_6ed56b7a",
+        "filename": "cast/streaming/capture_recommendations.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-16T20:03:25Z",
+      "side": 1,
+      "message": "You are right, we fail in that case currently and end up setting it to 1080P.",
+      "parentUuid": "21ae465c_5fa657d2",
+      "revId": "e07289d8c7f3eae54a541d5c5630718a4c6ed725",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06e6bfaf_3b8b3645",
         "filename": "cast/streaming/capture_recommendations.h",
         "patchSetId": 8
@@ -39,6 +57,30 @@
       "revId": "e07289d8c7f3eae54a541d5c5630718a4c6ed725",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0277eb7_01318061",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-16T20:03:25Z",
+      "side": 1,
+      "message": "It is, because otherwise the compiler can cast frame_rate to an int instead of casting width * height to a double, so it ends up potentially changing the value.\n\nE.g.\nwidth \u003d 10, height \u003d 10, frame_rate \u003d 0.4\nwidth * height * frame \u003d 0\nstatic_cast\u003cdouble\u003e(width * height) * frame_rate \u003d 40",
+      "parentUuid": "06e6bfaf_3b8b3645",
+      "range": {
+        "startLine": 89,
+        "startChar": 28,
+        "endLine": 89,
+        "endChar": 63
+      },
+      "revId": "e07289d8c7f3eae54a541d5c5630718a4c6ed725",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
