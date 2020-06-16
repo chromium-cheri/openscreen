@@ -43,6 +43,12 @@ ServiceKey::ServiceKey(ServiceKey&& other) = default;
 ServiceKey& ServiceKey::operator=(const ServiceKey& rhs) = default;
 ServiceKey& ServiceKey::operator=(ServiceKey&& rhs) = default;
 
+DomainName ServiceKey::GetName() const {
+  std::string service_type = service_id().substr(0, service_id().size() - 5);
+  std::string protocol = service_id().substr(service_id().size() - 4);
+  return DomainName{service_type, protocol, domain_id_};
+}
+
 // static
 ErrorOr<ServiceKey> ServiceKey::TryCreate(const MdnsRecord& record) {
   return TryCreate(GetDomainName(record));
