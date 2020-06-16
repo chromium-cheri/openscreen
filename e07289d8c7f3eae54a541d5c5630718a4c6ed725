@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21ae465c_5fa657d2",
+        "filename": "cast/streaming/capture_recommendations.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-06-16T17:45:59Z",
+      "side": 1,
+      "message": "We\u0027re missing the max \u003d\u003d kDefaultMinResolution case.\nWe could say:\n \nif (max \u003c kDefaultMinResolution) {\n  recommendations-\u003evideo.maximum \u003d kDefaultMinResolution;\n} else if (max \u003c recommendations-\u003evideo.maximum) {\n  recommendations-\u003evideo.maximum \u003d std::move(max);\n}",
+      "revId": "e07289d8c7f3eae54a541d5c5630718a4c6ed725",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06e6bfaf_3b8b3645",
+        "filename": "cast/streaming/capture_recommendations.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2020-06-16T17:45:59Z",
+      "side": 1,
+      "message": "This might just be me not having a good understanding of C++, but isn\u0027t this cast unnecessary?",
+      "range": {
+        "startLine": 89,
+        "startChar": 28,
+        "endLine": 89,
+        "endChar": 63
+      },
+      "revId": "e07289d8c7f3eae54a541d5c5630718a4c6ed725",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
