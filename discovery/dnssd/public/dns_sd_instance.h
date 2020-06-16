@@ -50,6 +50,11 @@ class DnsSdInstance {
   // Returns the port associated with this instance record.
   uint16_t port() const { return port_; }
 
+  // Address for this instance.
+  std::string name() {
+    return instance_id_ + "." + service_id_ + "." + domain_id_;
+  }
+
  private:
   std::string instance_id_;
   std::string service_id_;
