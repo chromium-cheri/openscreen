@@ -4,6 +4,8 @@
 
 #include "discovery/dnssd/public/dns_sd_instance.h"
 
+#include <vector>
+
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -162,6 +164,86 @@ TEST(DnsSdInstanceTests, DomainUTF8) {
 
     EXPECT_FALSE(IsDomainValid(test_string));
   }
+}
+
+TEST(DnsSdInstanceTests, SubtypeCharacters) {
+  EXPECT_TRUE(IsSubtypeValid("IncludingSpecialCharacters+ =*&<<+`~\\/"));
+  EXPECT_TRUE(IsSubtypeValid("+ =*&<<+`~\\/ "));
+
+  EXPECT_FALSE(IsSubtypeValid("foo.bar"));
+  EXPECT_FALSE(IsSubtypeValid(std::string(1, uint8_t{0x7F})));
+  EXPECT_FALSE(IsSubtypeValid(std::string("name with ") +
+                              std::string(1, uint8_t{0x7F}) +
+                              " in the middle"));
+  for (uint8_t bad_char = 0x0; bad_char <= 0x1F; bad_char++) {
+    EXPECT_FALSE(IsSubtypeValid(std::string(1, bad_char)));
+    EXPECT_FALSE(IsSubtypeValid(std::string("name with ") +
+                                std::string(1, bad_char) + " in the middle"));
+  }
+}
+
+TEST(DnsSdInstanceTests, SubtypeUTF8) {
+  std::vector<uint8_t> char_sets[] = {
+      {0x80},
+      {0xC0},
+      {0xC0, 0xFF},
+      {0xE0},
+      {0xE0, 0xFF},
+      {0xE0, 0x80, 0x00},
+      {0xF0},
+      {0xF0, 0x00},
+      {0xF0, 0x80, 0xFF},
+      {0xF0, 0x80, 0x80, 0x0A},
+  };
+
+  for (const auto& set : char_sets) {
+    std::string test_string = "start";
+    for (uint8_t ch : set) {
+      test_string.append(std::string(1, ch));
+    }
+
+    EXPECT_FALSE(IsSubtypeValid(test_string));
+  }
+}
+
+TEST(DnsSdInstanceTests, SubtypeLength) {
+  std::string chars63 =
+      "123456989012345678901234567890123456789012345678901234567890123";
+
+  ASSERT_EQ(chars63.size(), size_t{63});
+  EXPECT_TRUE(IsSubtypeValid(chars63));
+  EXPECT_FALSE(IsSubtypeValid(chars63 + "4"));
+}
+
+TEST(DnsSdInstanceTests, ComparisonTests) {
+  DnsSdTxtRecord set_record;
+  set_record.SetValue("foo", "bar");
+
+  DnsSdInstance in1("instance", "_service._tcp", "local", {}, 80);
+  DnsSdInstance in2("instance", "_service._tcp", "local", {}, 80);
+  DnsSdInstance in3("instance2", "_service._tcp", "local", {}, 80);
+  DnsSdInstance in4("instance", "_service2._tcp", "local", {}, 80);
+  DnsSdInstance in5("instance", "_service._tcp", "local2", {}, 80);
+  DnsSdInstance in6("instance", "_service._tcp", "local", set_record, 80);
+  DnsSdInstance in7("instance", "_service._tcp", "local", {}, 79);
+  DnsSdInstance in8("instance", "_service._tcp", "local", {}, 80, "foo");
+  DnsSdInstance in9("instance", "_service._tcp", "local", {}, 80, "foobar");
+  DnsSdInstance in10("instance", "_service._tcp", "local", {}, 80, "foo",
+                     "bar");
+
+  EXPECT_EQ(in1, in2);
+  EXPECT_LT(in1, in3);
+  EXPECT_LT(in1, in4);
+  EXPECT_LT(in1, in5);
+  EXPECT_LT(in1, in6);
+  EXPECT_GT(in1, in7);
+  EXPECT_LT(in1, in8);
+  EXPECT_LT(in1, in9);
+  EXPECT_LT(in1, in10);
+
+  EXPECT_LT(in8, in9);
+  EXPECT_LT(in8, in10);
+  EXPECT_LT(in9, in10);
 }
 
 }  // namespace discovery
