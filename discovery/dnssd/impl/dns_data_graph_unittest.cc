@@ -26,39 +26,33 @@ class DomainChangeImpl {
 
 class DnsDataGraphTests : public testing::Test {
  public:
-  DnsDataGraphTests() : graph_(network_interface_) {
+  DnsDataGraphTests() : graph_(DnsDataGraph::Create(network_interface_)) {
     EXPECT_CALL(callbacks_, OnStartTracking(ptr_domain_));
     StartTracking(ptr_domain_);
     testing::Mock::VerifyAndClearExpectations(&callbacks_);
-    EXPECT_EQ(graph_.tracked_domain_count(), size_t{1});
-  }
-
-  ~DnsDataGraphTests() {
-    // The |graph_| object going out of scope causes a large number of deletion
-    // callbacks that are unrelated to the ongoing test.
-    graph_.on_node_deletion_ = [](const DomainName& domain) {};
+    EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{1});
   }
 
  protected:
   void TriggerRecordCreation(MdnsRecord record,
                              Error::Code result_code = Error::Code::kNone) {
-    size_t size = graph_.tracked_domain_count();
+    size_t size = graph_->GetTrackedDomainCount();
     Error result =
         ApplyDataRecordChange(std::move(record), RecordChangedEvent::kCreated);
     EXPECT_EQ(result.code(), result_code)
         << "Failed with error code " << result.code();
-    size_t new_size = graph_.tracked_domain_count();
+    size_t new_size = graph_->GetTrackedDomainCount();
     EXPECT_EQ(size, new_size);
   }
 
   void TriggerRecordCreationWithCallback(MdnsRecord record,
                                          const DomainName& target_domain) {
     EXPECT_CALL(callbacks_, OnStartTracking(target_domain));
-    size_t size = graph_.tracked_domain_count();
+    size_t size = graph_->GetTrackedDomainCount();
     Error result =
         ApplyDataRecordChange(std::move(record), RecordChangedEvent::kCreated);
     EXPECT_TRUE(result.ok()) << "Failed with error code " << result.code();
-    size_t new_size = graph_.tracked_domain_count();
+    size_t new_size = graph_->GetTrackedDomainCount();
     EXPECT_EQ(size + 1, new_size);
   }
 
@@ -71,7 +65,7 @@ class DnsDataGraphTests : public testing::Test {
   }
 
   Error ApplyDataRecordChange(MdnsRecord record, RecordChangedEvent event) {
-    return graph_.ApplyDataRecordChange(
+    return graph_->ApplyDataRecordChange(
         std::move(record), event,
         [this](const DomainName& domain) {
           callbacks_.OnStartTracking(domain);
@@ -82,20 +76,20 @@ class DnsDataGraphTests : public testing::Test {
   }
 
   void StartTracking(const DomainName& domain) {
-    graph_.StartTracking(domain, [this](const DomainName& domain) {
+    graph_->StartTracking(domain, [this](const DomainName& domain) {
       callbacks_.OnStartTracking(domain);
     });
   }
 
   void StopTracking(const DomainName& domain) {
-    graph_.StopTracking(domain, [this](const DomainName& domain) {
+    graph_->StopTracking(domain, [this](const DomainName& domain) {
       callbacks_.OnStopTracking(domain);
     });
   }
 
   StrictMock<DomainChangeImpl> callbacks_;
   NetworkInterfaceIndex network_interface_ = 1234;
-  DnsDataGraph graph_;
+  std::unique_ptr<DnsDataGraph> graph_;
   DomainName ptr_domain_{"_cast", "_tcp", "local"};
   DomainName primary_domain_{"test", "_cast", "_tcp", "local"};
   DomainName secondary_domain_{"test2", "_cast", "_tcp", "local"};
@@ -106,14 +100,14 @@ TEST_F(DnsDataGraphTests, CallbacksCalledForStartStopTracking) {
   EXPECT_CALL(callbacks_, OnStopTracking(ptr_domain_));
   StopTracking(ptr_domain_);
 
-  EXPECT_EQ(graph_.tracked_domain_count(), size_t{0});
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{0});
 }
 
 TEST_F(DnsDataGraphTests, ApplyChangeForUntrackedDomainError) {
   Error result = ApplyDataRecordChange(GetFakeSrvRecord(primary_domain_),
                                        RecordChangedEvent::kCreated);
   EXPECT_EQ(result.code(), Error::Code::kOperationCancelled);
-  EXPECT_EQ(graph_.tracked_domain_count(), size_t{1});
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{1});
 }
 
 TEST_F(DnsDataGraphTests, ChildrenStopTrackingWhenRootQueryStopped) {
@@ -131,7 +125,24 @@ TEST_F(DnsDataGraphTests, ChildrenStopTrackingWhenRootQueryStopped) {
   StopTracking(ptr_domain_);
   testing::Mock::VerifyAndClearExpectations(&callbacks_);
 
-  EXPECT_EQ(graph_.tracked_domain_count(), size_t{0});
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{0});
+}
+
+TEST_F(DnsDataGraphTests, CyclicSrvStopsTrackingWhenRootQueryStopped) {
+  auto ptr = GetFakePtrRecord(primary_domain_);
+  auto srv = GetFakeSrvRecord(primary_domain_);
+  auto a = GetFakeARecord(primary_domain_);
+
+  TriggerRecordCreationWithCallback(ptr, primary_domain_);
+  TriggerRecordCreation(srv);
+  TriggerRecordCreation(a);
+
+  EXPECT_CALL(callbacks_, OnStopTracking(ptr_domain_));
+  EXPECT_CALL(callbacks_, OnStopTracking(primary_domain_));
+  StopTracking(ptr_domain_);
+  testing::Mock::VerifyAndClearExpectations(&callbacks_);
+
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{0});
 }
 
 TEST_F(DnsDataGraphTests, ChildrenStopTrackingWhenParentDeleted) {
@@ -149,7 +160,7 @@ TEST_F(DnsDataGraphTests, ChildrenStopTrackingWhenParentDeleted) {
   EXPECT_TRUE(result.ok()) << "Failed with error code " << result.code();
   testing::Mock::VerifyAndClearExpectations(&callbacks_);
 
-  EXPECT_EQ(graph_.tracked_domain_count(), size_t{1});
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{1});
 }
 
 TEST_F(DnsDataGraphTests, OnlyAffectedNodesChangedWhenParentDeleted) {
@@ -166,7 +177,7 @@ TEST_F(DnsDataGraphTests, OnlyAffectedNodesChangedWhenParentDeleted) {
   EXPECT_TRUE(result.ok()) << "Failed with error code " << result.code();
   testing::Mock::VerifyAndClearExpectations(&callbacks_);
 
-  EXPECT_EQ(graph_.tracked_domain_count(), size_t{2});
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{2});
 }
 
 TEST_F(DnsDataGraphTests, CreateFailsForExistingRecord) {
@@ -178,7 +189,7 @@ TEST_F(DnsDataGraphTests, CreateFailsForExistingRecord) {
 
   auto result = ApplyDataRecordChange(srv, RecordChangedEvent::kCreated);
   EXPECT_FALSE(result.ok());
-  EXPECT_EQ(graph_.tracked_domain_count(), size_t{2});
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{2});
 }
 
 TEST_F(DnsDataGraphTests, UpdateFailsForNonExistingRecord) {
@@ -189,7 +200,7 @@ TEST_F(DnsDataGraphTests, UpdateFailsForNonExistingRecord) {
 
   auto result = ApplyDataRecordChange(srv, RecordChangedEvent::kUpdated);
   EXPECT_FALSE(result.ok());
-  EXPECT_EQ(graph_.tracked_domain_count(), size_t{2});
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{2});
 }
 
 TEST_F(DnsDataGraphTests, DeleteFailsForNonExistingRecord) {
@@ -200,7 +211,7 @@ TEST_F(DnsDataGraphTests, DeleteFailsForNonExistingRecord) {
 
   auto result = ApplyDataRecordChange(srv, RecordChangedEvent::kExpired);
   EXPECT_FALSE(result.ok());
-  EXPECT_EQ(graph_.tracked_domain_count(), size_t{2});
+  EXPECT_EQ(graph_->GetTrackedDomainCount(), size_t{2});
 }
 
 TEST_F(DnsDataGraphTests, UpdateEndpointsWorksAsExpected) {
@@ -215,8 +226,8 @@ TEST_F(DnsDataGraphTests, UpdateEndpointsWorksAsExpected) {
   TriggerRecordCreation(a);
 
   std::vector<ErrorOr<DnsSdInstanceEndpoint>> endpoints =
-      graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
-                             primary_domain_);
+      graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
+                              primary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{1});
   ErrorOr<DnsSdInstanceEndpoint> endpoint_or_error = std::move(endpoints[0]);
   ASSERT_TRUE(endpoint_or_error.is_value());
@@ -228,8 +239,8 @@ TEST_F(DnsDataGraphTests, UpdateEndpointsWorksAsExpected) {
                    std::move(rdata));
   auto result = ApplyDataRecordChange(new_a, RecordChangedEvent::kUpdated);
 
-  endpoints = graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
-                                     primary_domain_);
+  endpoints = graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
+                                      primary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{1});
   endpoint_or_error = std::move(endpoints[0]);
   ASSERT_TRUE(endpoint_or_error.is_value());
@@ -254,13 +265,13 @@ TEST_F(DnsDataGraphTests, CreateEndpointsGeneratesCorrectRecords) {
   TriggerRecordCreationWithCallback(srv, secondary_domain_);
 
   std::vector<ErrorOr<DnsSdInstanceEndpoint>> endpoints =
-      graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
-                             primary_domain_);
+      graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
+                              primary_domain_);
   EXPECT_EQ(endpoints.size(), size_t{0});
 
   TriggerRecordCreation(a);
-  endpoints = graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
-                                     primary_domain_);
+  endpoints = graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
+                                      primary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{1});
   ErrorOr<DnsSdInstanceEndpoint> endpoint_or_error = std::move(endpoints[0]);
   ASSERT_TRUE(endpoint_or_error.is_value());
@@ -272,8 +283,8 @@ TEST_F(DnsDataGraphTests, CreateEndpointsGeneratesCorrectRecords) {
   EXPECT_EQ(endpoint_a.port(), kFakeSrvRecordPort);
 
   TriggerRecordCreation(aaaa);
-  endpoints = graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
-                                     primary_domain_);
+  endpoints = graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
+                                      primary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{1});
   endpoint_or_error = std::move(endpoints[0]);
   ASSERT_TRUE(endpoint_or_error.is_value());
@@ -287,8 +298,8 @@ TEST_F(DnsDataGraphTests, CreateEndpointsGeneratesCorrectRecords) {
 
   auto result = ApplyDataRecordChange(a, RecordChangedEvent::kExpired);
   EXPECT_TRUE(result.ok()) << "Failed with error code " << result.code();
-  endpoints = graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
-                                     primary_domain_);
+  endpoints = graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
+                                      primary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{1});
   endpoint_or_error = std::move(endpoints[0]);
   ASSERT_TRUE(endpoint_or_error.is_value());
@@ -301,8 +312,8 @@ TEST_F(DnsDataGraphTests, CreateEndpointsGeneratesCorrectRecords) {
 
   result = ApplyDataRecordChange(aaaa, RecordChangedEvent::kExpired);
   EXPECT_TRUE(result.ok()) << "Failed with error code " << result.code();
-  endpoints = graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
-                                     primary_domain_);
+  endpoints = graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
+                                      primary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{0});
 }
 
@@ -319,8 +330,8 @@ TEST_F(DnsDataGraphTests, CreateEndpointsHandlesSelfLoops) {
   TriggerRecordCreation(a);
   TriggerRecordCreation(aaaa);
 
-  auto endpoints = graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
-                                          primary_domain_);
+  auto endpoints = graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(srv),
+                                           primary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{1});
   ASSERT_TRUE(endpoints[0].is_value());
   DnsSdInstanceEndpoint endpoint = std::move(endpoints[0].value());
@@ -331,7 +342,7 @@ TEST_F(DnsDataGraphTests, CreateEndpointsHandlesSelfLoops) {
   EXPECT_EQ(endpoint.port(), kFakeSrvRecordPort);
 
   auto endpoints2 =
-      graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(ptr), ptr_domain_);
+      graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(ptr), ptr_domain_);
   ASSERT_EQ(endpoints2.size(), size_t{1});
   ASSERT_TRUE(endpoints2[0].is_value());
   DnsSdInstanceEndpoint endpoint2 = std::move(endpoints[0].value());
@@ -349,16 +360,16 @@ TEST_F(DnsDataGraphTests, CreateEndpointsWithMultipleParents) {
   auto aaaa = GetFakeAAAARecord(tertiary_domain_);
 
   TriggerRecordCreationWithCallback(ptr, primary_domain_);
-  TriggerRecordCreationWithCallback(ptr2, secondary_domain_);
   TriggerRecordCreationWithCallback(srv, tertiary_domain_);
-  TriggerRecordCreation(srv2);
   TriggerRecordCreation(txt);
+  TriggerRecordCreationWithCallback(ptr2, secondary_domain_);
+  TriggerRecordCreation(srv2);
   TriggerRecordCreation(txt2);
   TriggerRecordCreation(a);
   TriggerRecordCreation(aaaa);
 
-  auto endpoints =
-      graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(a), tertiary_domain_);
+  auto endpoints = graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(a),
+                                           tertiary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{2});
   ASSERT_TRUE(endpoints[0].is_value());
   ASSERT_TRUE(endpoints[1].is_value());
@@ -407,8 +418,8 @@ TEST_F(DnsDataGraphTests, FailedConversionOnlyFailsSingleEndpointCreation) {
   TriggerRecordCreation(a);
   TriggerRecordCreation(aaaa);
 
-  auto endpoints =
-      graph_.CreateEndpoints(DnsDataGraph::GetDomainGroup(a), tertiary_domain_);
+  auto endpoints = graph_->CreateEndpoints(DnsDataGraph::GetDomainGroup(a),
+                                           tertiary_domain_);
   ASSERT_EQ(endpoints.size(), size_t{2});
   ASSERT_TRUE(endpoints[0].is_error() || endpoints[1].is_error());
   ASSERT_TRUE(endpoints[0].is_value() || endpoints[1].is_value());
