@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "aca0933b_2b1b2780",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "Can you poll instead of just sleeping? The discovery e2e tests take a LONG time already.",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31f18e9b_dfbb5a0c",
+        "filename": "discovery/dnssd/impl/instance_key.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "Coverage?",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f47cd6a_7bc569c6",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 5
@@ -25,6 +59,91 @@
     },
     {
       "key": {
+        "uuid": "237e20f2_37a02223",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "I\u0027m assuming the sort function treats errors as less than values, and this is the first non-error? \n\nProbably worth a comment.",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b1a098e_bb07f52a",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "This is an implicit else, right? new_ep \u003e old_ep. Comment probably worthwhile.",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b86da05_2da8b894",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "I really wanted std::find_if to be cleaner than this but it definitely is worse.",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b557225_58c2eea0",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "You could also do:\n\n  if (!first.has_value()) {\n    return !second.has_value();\n  }",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c1653f_1dc705c1",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "Does DnsSdInstanceEndpoint have an operator\u003d\u003d?",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "285488b3_74c832a4",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 5
@@ -42,6 +161,200 @@
         "endLine": 118,
         "endChar": 24
       },
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12224c59_68e80952",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "Since they are sorted, can\u0027t you just iterate once? Something like this maybe?\n\n  auto old_it \u003d old_endpoints.begin();\n  auto new_it \u003d new_endpoints.begin();\n\n  while (old_it !\u003d old_endpoints.end() \u0026\u0026 new_it !\u003d new_endpoints.end()) {\n    // Deleted case \n    if (*old_it \u003c *new_it) {\n      deleted_out.push_back(*old_it);\n      ++old_it;\n\n    // Added case\n    } else if (*new_it \u003c *old_it) {\n      created_out.push_back(*new_it);\n\n    // Updated\n    } else if (IsEqualOrUpdate(*old_it, *new_it)) {\n      updated_out.push_back(*new_it);\n    }\n  }",
+      "parentUuid": "285488b3_74c832a4",
+      "range": {
+        "startLine": 118,
+        "startChar": 5,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de91e6d_5abda18e",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f71ecfd_6919a233",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "std::move value? or const above, either or probz",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "897bf1be_4cf2e565",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "Nit: You could flatten this by returning if end.\n\n\n  if (it \u003d\u003d callbacks.end()) {\n    return;\n  }\n\n  callbacks.erase(it);\n  ...",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d1356c4_c4f1279e",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "Nit: %s/mdns_query/stop_mdns_query/",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c8f7b67_b3b12be4",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9376160c_35da4b15",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd04cb2e_127724e9",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "Nit: else not necessary here.",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "989d30c0_02e0f97c",
+        "filename": "discovery/dnssd/impl/querier_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "Nit: weird name. Callbacks are method you execute to inform a consumer about changes, not something you inform themselves?\n\nMaybe InvokeChangeCallbacks or InformConsumers?",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce21a07a_05050654",
+        "filename": "discovery/dnssd/impl/service_key.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "std::move service_type and protocol? Or make them const?",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "133bd39b_238c98b6",
+        "filename": "discovery/dnssd/public/dns_sd_instance.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:35:56Z",
+      "side": 1,
+      "message": "We don\u0027t have a good string printf in the public files, right? if this were private I would suggest absl::StrCat or similar.\n\nYou could reserve the space still though, up to you.\n\n   std::string name;\n   name.reserve(instance_id_.length() + service_id_.length() + domain_id_.length() + 2);\n   name.append(instance_id).append(\".\").append(service_id).append(\".\").append(domain_id_);\n   return name;",
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
