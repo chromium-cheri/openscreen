@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba9b2173_8472e340",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:42:28Z",
+      "side": 1,
+      "message": "Are these handlers unused? Auto lacks clarity here, are these unique_ptrs you are holding until they go out of scope?",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82c6f430_4c14ac55",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:42:28Z",
+      "side": 1,
+      "message": "Nit: replace \"this CL\" with \"patch 2246653.\"\n\nIIRC TODOs should be pick uppable by anyone, e.g. I could pick this up if needed, so having a little more context is worth it IMO.",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9f65ce0_279e212c",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T21:42:28Z",
+      "side": 1,
+      "message": "Any reason these classes can\u0027t be movable? Just preference?",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
