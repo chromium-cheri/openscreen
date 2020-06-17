@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a116326c_39dfbd28",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "Done\n\nChanged for the sake of CL speed, but I\u0027d argue actually that a DCHECK doesn\u0027t make much sense here - You can\u0027t start a query for these types, but the method definition for StopQuery is just that it stops a query if it\u0027s ongoing. So failing in some cases actually goes against the method definition, even if they aren\u0027t expected cases.",
+      "parentUuid": "ab2c9f2f_03e5db60",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "037015ed_a89f33cf",
         "filename": "discovery/mdns/mdns_records.cc",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2020-06-17T19:23:38Z",
       "side": 1,
       "message": "What\u0027s 2 * sizeof(uint16_t)?",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a42449e0_723a8192",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "Adding comments inline\nI think it\u0027s much more readable to comment and define here, but open to defining a constant. WDYT? Open to whichever you\u0027d like",
+      "parentUuid": "037015ed_a89f33cf",
       "revId": "b75f64877c321508466292b3468274fdd0682638",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "dfa9ad49_e6a341e4",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "+1, but outside the scope of this CL",
+      "parentUuid": "2a99a82b_83406ab2",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63d4fe49_35a058fe",
         "filename": "discovery/mdns/mdns_records.cc",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "b75f64877c321508466292b3468274fdd0682638",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f629aa_3d10c94b",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "Done\n\ncool, didn\u0027t realize vector operator\u003d\u003d worked that way!",
+      "parentUuid": "63d4fe49_35a058fe",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "13da1d16_dfb83885",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "Per the above guide, this is one of those cases where it isn\u0027t needed. That recommendation is only needed to annotate \"non-trivial fall-through between cases\" and \"A common exception is consecutive case labels without intervening code, in which case no annotation is needed.\"",
+      "parentUuid": "90f24429_8c9d3bc8",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23463874_35602ce6",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 9
@@ -101,6 +191,24 @@
       "revId": "b75f64877c321508466292b3468274fdd0682638",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c4e8f61_fb3350cf",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "This is used for consistency with the spec. Per RFC, this is a uint16: https://tools.ietf.org/html/rfc6891#section-6.1.2",
+      "parentUuid": "23463874_35602ce6",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "87568f69_ff86f6b8",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "Can\u0027t be const because we want a move operator",
+      "parentUuid": "5083422f_b9580a78",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37734c9b_6839ff39",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 9
@@ -135,6 +261,24 @@
       "revId": "b75f64877c321508466292b3468274fdd0682638",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f8c0e75_9e2e566f",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "Done. Removed these methods per below comment",
+      "parentUuid": "37734c9b_6839ff39",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "e80e5255_b5323115",
+        "filename": "discovery/mdns/public/mdns_constants.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "I removed the methods calling into these, so these aren\u0027t technically needed now. Wanted them for completeness, but probably better to just pull them out and add them when needed as part of b/159174385",
+      "parentUuid": "ef321202_b4ace582",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c1b2df8_689b1056",
         "filename": "discovery/mdns/public/mdns_constants.h",
         "patchSetId": 9
@@ -169,6 +331,24 @@
       "revId": "b75f64877c321508466292b3468274fdd0682638",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44e7db96_18075664",
+        "filename": "discovery/mdns/public/mdns_constants.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T21:43:13Z",
+      "side": 1,
+      "message": "Done. Removed per above comment.",
+      "parentUuid": "9c1b2df8_689b1056",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
