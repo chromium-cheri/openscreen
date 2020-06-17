@@ -83,6 +83,7 @@ class DomainName {
   // compression the actual space taken in on-the-wire format is smaller.
   size_t MaxWireSize() const;
   bool empty() const { return labels_.empty(); }
+  bool IsRoot() const { return labels_.empty(); }
   const std::vector<std::string>& labels() const { return labels_; }
 
   template <typename H>
@@ -359,13 +360,84 @@ class NsecRecordRdata {
   DomainName next_domain_name_;
 };
 
+// The OPT pseudo-record / meta-record as defined by RFC6891.
+class OptRecordRdata {
+ public:
+  // A single option as defined in RFC6891 section 6.1.2.
+  struct Option {
+    size_t MaxWireSize() const;
+
+    bool operator>(const Option& rhs) const;
+    bool operator<(const Option& rhs) const;
+    bool operator>=(const Option& rhs) const;
+    bool operator<=(const Option& rhs) const;
+    bool operator==(const Option& rhs) const;
+    bool operator!=(const Option& rhs) const;
+
+    template <typename H>
+    friend H AbslHashValue(H h, const Option& option) {
+      return H::combine(std::move(h), option.code, option.length, option.data);
+    }
+
+    // Code assigned by the Expert Review process as defined by the DNSEXT
+    // working group and the IESG, as specified in RFC6891 section 9.1. For
+    // specific assignments, see:
+    // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml
+    uint16_t code;
+
+    // Size (in octets) of |data|.
+    uint16_t length;
+
+    // Bit Field with meaning varying based on |code|.
+    std::vector<uint8_t> data;
+  };
+
+  OptRecordRdata();
+
+  // Constructor that takes zero or more Option parameters.
+  template <typename... Types>
+  explicit OptRecordRdata(Types... types)
+      : OptRecordRdata(std::vector<Option>{std::move(types)...}) {}
+  explicit OptRecordRdata(std::vector<Option> options);
+  OptRecordRdata(const OptRecordRdata& other);
+  OptRecordRdata(OptRecordRdata&& other);
+
+  OptRecordRdata& operator=(const OptRecordRdata& rhs);
+  OptRecordRdata& operator=(OptRecordRdata&& rhs);
+
+  // NOTE: Only the options field is technically considered part of the rdata,
+  // so only this field is considered for equality comparison. The other fields
+  // are included here solely because their meaning differs for OPT pseudo-
+  // records and normal record types.
+  bool operator==(const OptRecordRdata& rhs) const;
+  bool operator!=(const OptRecordRdata& rhs) const;
+
+  size_t MaxWireSize() const { return max_wire_size_; }
+
+  // Set of options stored in this OPT record.
+  const std::vector<Option>& options() { return options_; }
+
+  template <typename H>
+  friend H AbslHashValue(H h, const OptRecordRdata& rdata) {
+    return H::combine(std::move(h), rdata.options_);
+  }
+
+ private:
+  // NOTE: The elements of |options_| are stored is sorted order to simplify the
+  // comparison operators of OptRecordRdata.
+  std::vector<Option> options_;
+
+  size_t max_wire_size_ = 0;
+};
+
 using Rdata = absl::variant<RawRecordRdata,
                             SrvRecordRdata,
                             ARecordRdata,
                             AAAARecordRdata,
                             PtrRecordRdata,
                             TxtRecordRdata,
-                            NsecRecordRdata>;
+                            NsecRecordRdata,
+                            OptRecordRdata>;
 
 // Resource record top level format (http://www.ietf.org/rfc/rfc1035.txt):
 // name: the name of the node to which this resource record pertains.
@@ -566,6 +638,43 @@ class MdnsMessage {
 };
 
 uint16_t CreateMessageId();
+
+// Determines whether a record of the given type can be published.
+bool CanBePublished(DnsType type);
+
+// Determines whether a record of the given type can be queried for.
+bool CanBeQueried(DnsType type);
+
+// Determines whether a record of the given type received over the network
+// should be processed.
+bool CanBeProcessed(DnsType type);
+
+// The below functions are only valid for records with DnsType kOPT, and act as
+// defined in RFC6891 section 6.1.2.
+//
+// The number of octets of the largest UDP payload that can be reassembled and
+// delivered in the requestor's network stack. Note that path MTU, with or
+// without fragmentation, could be smaller than this.
+uint16_t GetOptRequestorPayloadSize(const MdnsRecord& record);
+
+// Forms the upper 8 bits of extended 12-bit RCODE (together with the 4 bits
+// defined in RFC1035 as part of the header. Note that a value of 0 indicates
+// that an unextended rcode is in use (values 0 through 15).
+uint8_t GetOptExtendedRcode(const MdnsRecord& record);
+
+// Indicates the implementation level of the setter. Full conformance with
+// RFC6891 is indicated by version '0'. Requesters are encouraged to set this
+// to the lowest implemented level capable of expressing a transaction, to
+// minimize the responder and network load of discovering the greatest common
+// implementation level between requester and responder.
+uint8_t GetOptVersion(const MdnsRecord& record);
+
+// Returns whether the version stored in this instance is BADVERS as defined in
+// RFC6891 section 9.
+bool IsOptBadVersion(const MdnsRecord& record);
+
+// DNSSEC OK bit as defined by RFC3225.
+bool IsOptOk(const MdnsRecord& record);
 
 }  // namespace discovery
 }  // namespace openscreen
