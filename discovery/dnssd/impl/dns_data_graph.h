@@ -73,8 +73,6 @@ namespace discovery {
 */
 class DnsDataGraph {
  public:
-  using DomainChangeCallback = std::function<void(const DomainName&)>;
-
   // The set of valid groups of domains, as called out in the hierarchy
   // described above.
   enum class DomainGroup { kNone = 0, kPtr, kSrvAndTxt, kAddress };
@@ -83,23 +81,29 @@ class DnsDataGraph {
   static DomainGroup GetDomainGroup(DnsType type);
   static DomainGroup GetDomainGroup(const MdnsRecord record);
 
-  explicit DnsDataGraph(NetworkInterfaceIndex network_interface);
-  ~DnsDataGraph();
+  // Creates a new DnsDataGraph.
+  static std::unique_ptr<DnsDataGraph> Create(
+      NetworkInterfaceIndex network_index);
+
+  // Callback to use when a domain change occurs.
+  using DomainChangeCallback = std::function<void(DomainName)>;
+
+  virtual ~DnsDataGraph();
 
   // Manually starts or stops tracking the provided domain. These methods should
   // only be called for top-level PTR domains.
-  void StartTracking(const DomainName& domain,
-                     DomainChangeCallback on_start_tracking);
-  void StopTracking(const DomainName& domain,
-                    DomainChangeCallback on_stop_tracking);
+  virtual void StartTracking(const DomainName& domain,
+                             DomainChangeCallback on_start_tracking) = 0;
+  virtual void StopTracking(const DomainName& domain,
+                            DomainChangeCallback on_stop_tracking) = 0;
 
   // Attempts to create all DnsSdInstanceEndpoint objects with |name| associated
   // with the provided |domain_group|. If all required data for one such
   // endpoint has been received, and an error occurs while parsing this data,
   // then an error is returned in place of that endpoint.
-  std::vector<ErrorOr<DnsSdInstanceEndpoint>> CreateEndpoints(
+  virtual std::vector<ErrorOr<DnsSdInstanceEndpoint>> CreateEndpoints(
       DomainGroup domain_group,
-      const DomainName& name) const;
+      const DomainName& name) const = 0;
 
   // Modifies this entity with the provided DnsRecord. If called with a valid
   // record type, the provided change will only be applied if the provided event
@@ -110,21 +114,69 @@ class DnsDataGraph {
   //
   // TODO(issuetracker.google.com/157822423): Allow for duplicate records of
   // non-PTR types.
+  virtual Error ApplyDataRecordChange(
+      MdnsRecord record,
+      RecordChangedEvent event,
+      DomainChangeCallback on_start_tracking,
+      DomainChangeCallback on_stop_tracking) = 0;
+
+  virtual size_t GetTrackedDomainCount() const = 0;
+
+  // Returns whether the provided domain is tracked or not. This may either be
+  // due to a direct call to StartTracking() or due to the result of a received
+  // record.
+  virtual bool IsTracked(const DomainName& name) const = 0;
+};
+
+// TODO(rwkeane): Move to the .cc once patch 2246653 gets in.
+class DnsDataGraphImpl : public DnsDataGraph {
+ public:
+  using DnsDataGraph::DomainChangeCallback;
+
+  explicit DnsDataGraphImpl(NetworkInterfaceIndex network_interface)
+      : network_interface_(network_interface) {}
+  DnsDataGraphImpl(const DnsDataGraphImpl& other) = delete;
+  DnsDataGraphImpl(DnsDataGraphImpl&& other) = delete;
+
+  ~DnsDataGraphImpl() override { is_dtor_running_ = true; }
+
+  DnsDataGraphImpl& operator=(const DnsDataGraphImpl& rhs) = delete;
+  DnsDataGraphImpl& operator=(DnsDataGraphImpl&& rhs) = delete;
+
+  // DnsDataGraph overrides.
+  void StartTracking(const DomainName& domain,
+                     DomainChangeCallback on_start_tracking) override;
+
+  void StopTracking(const DomainName& domain,
+                    DomainChangeCallback on_stop_tracking) override;
+
+  std::vector<ErrorOr<DnsSdInstanceEndpoint>> CreateEndpoints(
+      DomainGroup domain_group,
+      const DomainName& name) const override;
+
   Error ApplyDataRecordChange(MdnsRecord record,
                               RecordChangedEvent event,
                               DomainChangeCallback on_start_tracking,
-                              DomainChangeCallback on_stop_tracking);
+                              DomainChangeCallback on_stop_tracking) override;
 
-  size_t tracked_domain_count() const { return nodes_.size(); }
+  size_t GetTrackedDomainCount() const override { return nodes_.size(); }
+
+  bool IsTracked(const DomainName& name) const override {
+    return nodes_.find(name) != nodes_.end();
+  }
 
  private:
-  friend class DnsDataGraphTests;
-
   // A single node of the graph represented by this type.
   class Node {
    public:
-    Node(DomainName name, DnsDataGraph* graph);
+    Node(DomainName name, DnsDataGraphImpl* graph);
+    Node(const Node& other) = delete;
+    Node(Node&& other) = delete;
+
     ~Node();
+
+    Node& operator=(const Node& rhs) = delete;
+    Node& operator=(Node&& rhs) = delete;
 
     // Applies a record change for this node.
     Error ApplyDataRecordChange(MdnsRecord record, RecordChangedEvent event);
@@ -174,7 +226,31 @@ class DnsDataGraph {
     std::vector<Node*> children_;
 
     // Graph containing this node.
-    DnsDataGraph* graph_;
+    DnsDataGraphImpl* graph_;
+  };
+
+  // Wrapper to handle the creation and deletion callbacks. When the object is
+  // created, it sets the callback to use, and erases the callback when it goes
+  // out of scope. This class allows all node creations to complete before
+  // calling the user-provided callback to ensure there are no race-conditions.
+  class NodeLifetimeHandler {
+   public:
+    NodeLifetimeHandler(DomainChangeCallback* callback_ptr,
+                        DomainChangeCallback callback);
+
+    NodeLifetimeHandler(const NodeLifetimeHandler& other) = delete;
+    NodeLifetimeHandler(NodeLifetimeHandler&& other) = delete;
+
+    ~NodeLifetimeHandler();
+
+    NodeLifetimeHandler operator=(const NodeLifetimeHandler& other) = delete;
+    NodeLifetimeHandler operator=(NodeLifetimeHandler&& other) = delete;
+
+   private:
+    std::vector<DomainName> domains_changed;
+
+    DomainChangeCallback* callback_ptr_;
+    DomainChangeCallback callback_;
   };
 
   // Determines whether the provided node has the necessary records to be a
