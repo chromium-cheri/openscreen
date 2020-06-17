@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab2c9f2f_03e5db60",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "If it can\u0027t be queried, we should have never started querying right? So we shouldn\u0027t even call StopQuery?",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "037015ed_a89f33cf",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "What\u0027s 2 * sizeof(uint16_t)?",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a99a82b_83406ab2",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "+1 on fancy templating to avoid this",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d4fe49_35a058fe",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "can\u0027t you just do vector operator\u003d\u003d?\n\nreturn options_ \u003d\u003d rhs.options_;\n\nhttps://stackoverflow.com/questions/5228269/check-if-two-vectors-are-equal",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90f24429_8c9d3bc8",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "Should we annotate these with ABSL_FALLTHROUGH_INTENDED?\n\nhttps://google.github.io/styleguide/cppguide.html\n\nOr comment // fallthrough?",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23463874_35602ce6",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "NIT: Prefer int for length. \n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\nYou should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N. In particular, do not use unsigned types to say a number will never be negative. Instead, use assertions for this.",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5083422f_b9580a78",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "Const? Definitely want to make sure it\u0027s not mutated after sorted, and it looks like it\u0027s only used in the ctor?",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37734c9b_6839ff39",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "Should these methods be on the MdnsRecord class itself?",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef321202_b4ace582",
+        "filename": "discovery/mdns/public/mdns_constants.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "Coverage? Would be good to make sure we are getting the field properly.",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c1b2df8_689b1056",
+        "filename": "discovery/mdns/public/mdns_constants.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-17T19:23:38Z",
+      "side": 1,
+      "message": "Nit: I\u0027d prefer Get or Extract over Make, since this is extracting it from the TTL field and not making anything.",
+      "revId": "b75f64877c321508466292b3468274fdd0682638",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
