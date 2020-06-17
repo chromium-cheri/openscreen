@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1cc83413_2753555c",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T03:32:06Z",
+      "side": 1,
+      "message": "Good to know. Though this constant has been removed per other decision to remove the below functions.",
+      "parentUuid": "b386324e_3b3d9641",
+      "revId": "7d51c76aa2443c75e71af208823056cd9c97b4d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95f23a59_c7919228",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "7d51c76aa2443c75e71af208823056cd9c97b4d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a4cc412_390f293b",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T03:32:06Z",
+      "side": 1,
+      "message": "This is the method signature expected by abseil: https://abseil.io/docs/cpp/guides/hash#making-hashable-types\n\nFWIW, this change results in a compile failure",
+      "parentUuid": "95f23a59_c7919228",
+      "revId": "7d51c76aa2443c75e71af208823056cd9c97b4d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ef2d828b_bb20da3d",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T03:32:06Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "477b6263_2beac291",
+      "revId": "7d51c76aa2443c75e71af208823056cd9c97b4d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7a21b2a_258224c1",
         "filename": "discovery/mdns/mdns_records.h",
         "patchSetId": 8
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "a4faca0f_9cf88148",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T03:32:06Z",
+      "side": 1,
+      "message": "Will address this as a follow-up CL, because there are a few other places in Discovery I seem to remember this should be changed as-well. For now, filing a bug on myself: b/159173306\n\nIf this is the approach we consistently want to take throughout OSP, we should add it to the style guide",
+      "parentUuid": "b7a21b2a_258224c1",
+      "revId": "7d51c76aa2443c75e71af208823056cd9c97b4d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a65a3e00_1f0da592",
         "filename": "discovery/mdns/mdns_responder.cc",
         "patchSetId": 8
@@ -81,6 +153,24 @@
       "writtenOn": "2020-06-10T22:51:26Z",
       "side": 1,
       "message": "Please remove temporary debug logging before submitting.",
+      "revId": "7d51c76aa2443c75e71af208823056cd9c97b4d3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92eaaed0_92d6e034",
+        "filename": "discovery/mdns/mdns_responder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T03:32:06Z",
+      "side": 1,
+      "message": "I\u0027ve filed a task to do this: b/159172782\n\nWe have similar DVLOG statements throughout discovery, streaming, and platform which were added intentionally. Additionally, these logs have been helpful when other teams tried to pick up and use our library (the case I am thinking of was how Discovery publishing is being prototyped in Chromium)\n\nIf we want to make this change, a team discussion should probably happen prior to removing them.",
+      "parentUuid": "a65a3e00_1f0da592",
       "revId": "7d51c76aa2443c75e71af208823056cd9c97b4d3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
