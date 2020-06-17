@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "94f17857_d6c24b50",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T22:37:36Z",
+      "side": 1,
+      "message": "Looking now, this is definitely hard to read\n\nSpent a while trying to figure out how to make what\u0027s happening here clearer. Realized I could replace the SetCreationCallback / SetDeletionCallback with macros\nNow IMHO it\u0027s much clearer what\u0027s happening (and the creation of an object is hidden), plus now no unique_ptr is needed which saves a heap allocation\n\nWDYT?",
+      "parentUuid": "ba9b2173_8472e340",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82c6f430_4c14ac55",
         "filename": "discovery/dnssd/impl/dns_data_graph.h",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ec298bcf_b9f6cd6b",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T22:37:36Z",
+      "side": 1,
+      "message": "Done\n\nI was actually going to this the moment it got checked in. Originally had it in this CL until I realized it made the diff way bigger and the CL much harder to review. So split it up. But it\u0027s too much of a change for gerrit rebase to like it :)",
+      "parentUuid": "82c6f430_4c14ac55",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9f65ce0_279e212c",
         "filename": "discovery/dnssd/impl/dns_data_graph.h",
         "patchSetId": 5
@@ -50,6 +86,24 @@
       "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f793a975_76a35644",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T22:37:36Z",
+      "side": 1,
+      "message": "The pointers to this node in other nodes\u0027 |parent_| and |child_| vectors are invalidated if the nodes moves",
+      "parentUuid": "f9f65ce0_279e212c",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
