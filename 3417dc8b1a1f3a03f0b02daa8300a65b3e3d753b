@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "85c1bf65_46255a06",
+        "filename": "platform/base/error.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T03:02:45Z",
+      "side": 1,
+      "message": "For now I\u0027ve updated to just\n\n\u003e  lhs.error() \u003d\u003d rhs.error()\n\nAnd not touched the Error operator\u003d\u003d. Though it might be worth revisiting later on\n\nDo you think it\u0027s worth defining the \u003e, ... operators for Error (also to use the string) and using that in the ErrorOr comparison, or is that overkill? I can\u0027t decide, but open to either approach.",
+      "parentUuid": "0b914bd9_3557c9bb",
+      "revId": "3417dc8b1a1f3a03f0b02daa8300a65b3e3d753b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15c00a3f_6eca87ad",
         "filename": "platform/base/error_unittest.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "3417dc8b1a1f3a03f0b02daa8300a65b3e3d753b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84f74d42_7bf53bdf",
+        "filename": "platform/base/error_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-17T03:02:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15c00a3f_6eca87ad",
+      "revId": "3417dc8b1a1f3a03f0b02daa8300a65b3e3d753b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
