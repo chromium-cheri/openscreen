@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b346f973_c7775d76",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-18T18:42:18Z",
+      "side": 1,
+      "message": "Hmmm. Generally I would vote for not having macros (style guide quote below). I read this as the creation and delete callbacks are only set while the object is alive? This is a scope-level object similar to std::lock_guard in a sense right (https://en.cppreference.com/w/cpp/thread/lock_guard)?\n\n  #define SET_CREATION_CALLBACK(callback) \\\n    NodeLifetimeHandler creation_handler(\u0026on_node_creation_, callback)\n  #define SET_DELETION_CALLBACK(callback) \\\n    NodeLifetimeHandler deletion_handler(\u0026on_node_deletion_, callback)\n\nhow about a rename and return a stack object instead of a heap object:\n\n  // Return lifetime objects that ensure that the associated callback is ran when\n  // nodes are created or deleted, respectively. Note that the callbacks will no\n  // longer be ran when the NodeLifetimeHandler goes out of scope.\n  NodeLifetimeHandler ScopedCreationHandler(DomainChangeCallback creation_cb);\n  NodeLifetimeHandler ScopedDeletionHandler(DomainChangeCallback  deletion_cb);\n\n  auto lifetime_handler \u003d ScopedCreationHandler(std::move(on_start_tracking));\n\n\n\"Avoid defining macros, especially in headers; prefer inline functions, enums, and const variables. Name macros with a project-specific prefix. Do not use macros to define pieces of a C++ API.\n\nMacros mean that the code you see is not the same as the code the compiler sees. This can introduce unexpected behavior, especially since macros have global scope.\"\nhttps://google.github.io/styleguide/cppguide.html#Preprocessor_Macros",
+      "parentUuid": "94f17857_d6c24b50",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82c6f430_4c14ac55",
         "filename": "discovery/dnssd/impl/dns_data_graph.h",
         "patchSetId": 5
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "The pointers to this node in other nodes\u0027 |parent_| and |child_| vectors are invalidated if the nodes moves",
       "parentUuid": "f9f65ce0_279e212c",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00c1f4ed_4d83ec17",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-18T18:42:18Z",
+      "side": 1,
+      "message": "Might be worth a comment.",
+      "parentUuid": "f793a975_76a35644",
       "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
