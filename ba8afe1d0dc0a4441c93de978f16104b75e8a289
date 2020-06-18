@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "04a14112_2d20ad7f",
+        "filename": "discovery/dnssd/public/dns_sd_instance.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T00:05:56Z",
+      "side": 1,
+      "message": "Done\n\nAdded documentation, and renamed to match constant in mdns_constants (which we unfortunately can\u0027t reference due to DEPS rules)",
+      "parentUuid": "e0c7c305_aa026f13",
+      "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2814e5e9_970929ca",
         "filename": "discovery/dnssd/public/dns_sd_instance.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef8947c3_c16cf0a2",
+        "filename": "discovery/dnssd/public/dns_sd_instance.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T00:05:56Z",
+      "side": 1,
+      "message": "Guessing this is a poor variable naming issue (since you\u0027ve reviewed other CLs with similar variadic template -\u003e vector parameter passing trick recently)\n\nIt\u0027s a vector of Subtypes, which the parameter type is TSubtype. renaming to T instead of TSubtype for clarity",
+      "parentUuid": "2814e5e9_970929ca",
+      "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c625783f_3525e5ed",
+        "filename": "discovery/dnssd/public/dns_sd_instance_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T00:05:56Z",
+      "side": 1,
+      "message": "Added documentation\n\nNo specific line has any specific meaning - they are all just various byte strings that don\u0027t match the expected form of UTF8 encoded chars.",
+      "parentUuid": "e8bd7c7c_28725e2b",
+      "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb17162e_e31eee24",
         "filename": "discovery/dnssd/public/dns_sd_instance_unittest.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3710fb7_ded020ac",
+        "filename": "discovery/dnssd/public/dns_sd_instance_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T00:05:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb17162e_e31eee24",
+      "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "01a908eb_105c039b",
+        "filename": "discovery/dnssd/public/dns_sd_instance_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T00:05:56Z",
+      "side": 1,
+      "message": "Done here and below",
+      "parentUuid": "12a56b2a_f4ed90c5",
+      "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3135e5aa_450fbaf1",
         "filename": "util/std_util.h",
         "patchSetId": 4
@@ -101,6 +191,24 @@
       "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "538dd164_538dafba",
+        "filename": "util/std_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T00:05:56Z",
+      "side": 1,
+      "message": "\u003e This is the base case, right? Might be worth a comment on this template specialization.\n\nDone\n\n\u003e Ideally you could reserve the size of all of the elements to avoid copies, but I get that that\u0027s difficult/impossible.\n\nInitially I didn\u0027t think it was possible either. But think I\u0027ve got something - It over-allocates both vectors, but don\u0027t think that\u0027s a problem given that vector already does so internally when resizing. PTAL @ newest iteration",
+      "parentUuid": "3135e5aa_450fbaf1",
+      "revId": "ba8afe1d0dc0a4441c93de978f16104b75e8a289",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
