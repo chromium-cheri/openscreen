@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8154ea2d_f05a6503",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Filed b/159256503 to make that change and added a TODO - changing the file to use polling for the negative cases like this one would be nontrivial and require some thinking, but I agree it\u0027s a good idea. Could then remove all of the waits in this file.\n\nFor now, the wait is important. There is an edge case that needs to be tested, and it only intermittently gets hit without the wait.",
+      "parentUuid": "aca0933b_2b1b2780",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31f18e9b_dfbb5a0c",
         "filename": "discovery/dnssd/impl/instance_key.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fdc88f4_f9af448e",
+        "filename": "discovery/dnssd/impl/instance_key.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31f18e9b_dfbb5a0c",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "47113a50_e558e072",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "237e20f2_37a02223",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b1a098e_bb07f52a",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 5
@@ -90,6 +144,24 @@
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3f65f15_2a2ce0da",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b1a098e_bb07f52a",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +199,24 @@
     },
     {
       "key": {
+        "uuid": "836ade2c_a39fac78",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done.\n\nThought about this a bit more and realized I can get these checks down to even less lines. Changing to:\n\n\u003e  if (!first.has_value() || !second.has_value()) {\n\u003e    return !first.has_value() \u0026\u0026 !second.has_value();\n\u003e  }",
+      "parentUuid": "1b557225_58c2eea0",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43c1653f_1dc705c1",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 5
@@ -141,6 +231,24 @@
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe0594b8_9737cdf8",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "It does, but we aren\u0027t checking all fields of DnsSdInstanceEndpoint. The point here is that they may not be equal - the instance to which they are referring may have been updated.",
+      "parentUuid": "43c1653f_1dc705c1",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +299,30 @@
     },
     {
       "key": {
+        "uuid": "4f44912e_82453703",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "With the current operator\u003c on DnsSdInstanceEndpoint that won\u0027t work, but I could define a function for this file. We might be able to get away with that\n\nThe edge case I\u0027m concerned about is lets say:\n\n\u003e old \u003d A, B, C, D\n\u003e new \u003d A, B\u0027, C, D\n\nB\u0027 is the new B, but B\u0027 \u003e C, so sorted they become\n\n\u003e old \u003d A, B, C, D\n\u003e new \u003d A, C, B\u0027, D\n\nThen, we get either B updated to C, C updated to B\u0027, or lots of creations and deletions\n\nI can write a comparison function so that can only happen if we return 2 DnsSdInstanceEndpoints B, C such that IsEqualOrUpdate(B, C) is true. I think that can only happen if we receive 2 SRV records associated with the same domain? And support for that is still pending b/158533685 - so no need to worry about it now\n\nI\u0027m going to think this one over tonight and try to find another counterexample where that can occur. If that\u0027s the only case we need to worry about, then this approach will work and I can update it in the morning :)",
+      "parentUuid": "12224c59_68e80952",
+      "range": {
+        "startLine": 118,
+        "startChar": 5,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6de91e6d_5abda18e",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 5
@@ -205,6 +337,24 @@
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "439f3430_3f271b3c",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6de91e6d_5abda18e",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -225,6 +375,24 @@
     },
     {
       "key": {
+        "uuid": "6b476412_c6681f35",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f71ecfd_6919a233",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "897bf1be_4cf2e565",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 5
@@ -239,6 +407,24 @@
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26342f78_39862349",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "897bf1be_4cf2e565",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -259,6 +445,24 @@
     },
     {
       "key": {
+        "uuid": "c6caa3c0_2dff2fd3",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d1356c4_c4f1279e",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c8f7b67_b3b12be4",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 5
@@ -273,6 +477,24 @@
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1c5d1f8_dc12159c",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c8f7b67_b3b12be4",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -293,6 +515,24 @@
     },
     {
       "key": {
+        "uuid": "c7ad602c_7fe39a11",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9376160c_35da4b15",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd04cb2e_127724e9",
         "filename": "discovery/dnssd/impl/querier_impl.cc",
         "patchSetId": 5
@@ -307,6 +547,24 @@
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d786708e_6f8e39e3",
+        "filename": "discovery/dnssd/impl/querier_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd04cb2e_127724e9",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -327,6 +585,24 @@
     },
     {
       "key": {
+        "uuid": "b7d9a956_379e6a22",
+        "filename": "discovery/dnssd/impl/querier_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "989d30c0_02e0f97c",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce21a07a_05050654",
         "filename": "discovery/dnssd/impl/service_key.cc",
         "patchSetId": 5
@@ -344,6 +620,24 @@
     },
     {
       "key": {
+        "uuid": "2181e4dd_32d8724b",
+        "filename": "discovery/dnssd/impl/service_key.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Done. Good catch",
+      "parentUuid": "ce21a07a_05050654",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "133bd39b_238c98b6",
         "filename": "discovery/dnssd/public/dns_sd_instance.h",
         "patchSetId": 5
@@ -358,6 +652,24 @@
       "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62db283d_245ea24d",
+        "filename": "discovery/dnssd/public/dns_sd_instance.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-18T01:40:53Z",
+      "side": 1,
+      "message": "Removed this method after changes in other file",
+      "parentUuid": "133bd39b_238c98b6",
+      "revId": "f88b4d0f7cd6726eaf22903ad7ed7b08b01858db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
