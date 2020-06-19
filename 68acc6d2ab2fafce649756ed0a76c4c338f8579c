@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "dd155880_edfb9288",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-19T04:07:59Z",
+      "side": 1,
+      "message": "\u003e Generally I would vote for not having macros\n\nDefinitely happy to remove the macros. I hate macros for that reason, and just thought it was the less of two evils here :) \n\n\u003e return a stack object instead of a heap object\n\nIt can\u0027t return a stack allocated object, because it has to be non-copyable, non-movable (it\u0027s doing pointer logic, so move would invalidate the pointers. Copy would fail a dcheck because the callback would already be set, or get into a weird state if it weren\u0027t). So need to stick with a heap-allocated object. Adding comment about these ctor/operator deletions\n\n\u003e how about a rename\n\nDone. Also, a using statement to hide the unique_ptr part and improve readability more",
+      "parentUuid": "b346f973_c7775d76",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82c6f430_4c14ac55",
         "filename": "discovery/dnssd/impl/dns_data_graph.h",
         "patchSetId": 5
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "Might be worth a comment.",
       "parentUuid": "f793a975_76a35644",
+      "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "944f6727_e3675a9a",
+        "filename": "discovery/dnssd/impl/dns_data_graph.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-19T04:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00c1f4ed_4d83ec17",
       "revId": "68acc6d2ab2fafce649756ed0a76c4c338f8579c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
