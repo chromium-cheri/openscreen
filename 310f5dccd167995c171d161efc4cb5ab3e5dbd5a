@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff5ed9b9_61842cc8",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-06-22T15:28:05Z",
+      "side": 1,
+      "message": "1. nit: ifdef lowercase and we actually define _DEBUG not DEBUG.\n2. I haven\u0027t seen this recommendation before and it seems cumbersome if we want to toggle to release mode logging of some object for debugging/logging, because then we have some operators that _are_ debug-only and some that aren\u0027t.  Not a big deal, just seems strange to me.",
+      "revId": "310f5dccd167995c171d161efc4cb5ab3e5dbd5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd617782_ef8200b3",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-06-22T15:28:05Z",
+      "side": 1,
+      "message": "OSP_DLOG and OSP_DVLOG are both debug-only.  Did you intend this to be OSP_LOG or are you recommending the lowest log priority (verbose) vs. default (info) to make filtering more automatic?",
+      "revId": "310f5dccd167995c171d161efc4cb5ab3e5dbd5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7055567_82ae70f2",
+        "filename": "docs/style_guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-06-22T15:28:05Z",
+      "side": 1,
+      "message": "nit: I think we usually use \"embedder\" or possibly \"client\" for this.",
+      "range": {
+        "startLine": 146,
+        "startChar": 69,
+        "endLine": 146,
+        "endChar": 77
+      },
+      "revId": "310f5dccd167995c171d161efc4cb5ab3e5dbd5a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
