@@ -129,3 +129,20 @@ functions, variables, etc. that will be unused in "DCHECK off" builds.
 
 Use OSP_DCHECK and OSP_CHECK in accordance with the
 [Chromium guidance for DCHECK/CHECK](https://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#check_dcheck_and-notreached).
+
+## Printing Objects
+
+When defining methods to print user-defined objects, prefer defining
+`operator<<` for the object rather than writing a `ToString()` method.
+Additionally, these methods should be protected by `#IFDEF DEBUG` compile time
+checks to ensure that the logging methods are only invoked in debug builds.
+
+## Debug Logging
+
+All debug logging should be done using `OSP_DVLOG` statements rather than
+`OSP_DLOG` statements. This will ensure that the logged code is only invoked in
+debug builds and will not impact the performance of production builds. These
+statements may be left in code once development has been completed if they act
+as code documentation, if they may be helpful in debugging issues in customer
+implementations, or if they may be useful for customers integrating the relevant
+module into their own code, but should be removed in all other cases.
