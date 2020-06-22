@@ -51,6 +51,9 @@ class TaskRunner {
   // Return true if the calling thread is the thread that task runner is using
   // to run tasks, false otherwise.
   virtual bool IsRunningOnTaskRunner() = 0;
+
+  template <typename Type, typename DeleterType>
+  class OwnedPtr;
 };
 
 }  // namespace openscreen

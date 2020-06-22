@@ -46,6 +46,7 @@ source_set("api") {
     "api/scoped_wake_lock.h",
     "api/serial_delete_ptr.h",
     "api/task_runner.h",
+    "api/task_runner_owned_ptr.h",
     "api/time.h",
     "api/tls_connection.cc",
     "api/tls_connection.h",
@@ -198,6 +199,7 @@ source_set("unittests") {
 
   sources = [
     "api/serial_delete_ptr_unittest.cc",
+    "api/task_runner_owned_ptr_unittest.cc",
     "api/time_unittest.cc",
     "base/error_unittest.cc",
     "base/ip_address_unittest.cc",
