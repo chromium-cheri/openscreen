@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc7137f1_4d06fabc",
+        "filename": "platform/api/task_runner.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-22T19:22:56Z",
+      "side": 1,
+      "message": "If we want to land this patch, definitely want test coverage.",
+      "revId": "a7f5527951380cf62de55ef2a7786fdd387b6d0f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "764379e6_6e0df223",
+        "filename": "platform/api/task_runner_owned_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-22T19:22:56Z",
+      "side": 1,
+      "message": "Hmmm... shouldn\u0027t this have a const and non-const version? We shouldn\u0027t return a mutable pointer if we have a const reference to this ownedptr, otherwise you could do:\n\n  const OwnedPtr\u003cFoo\u003e foo;\n  Foo* bar \u003d foo.get();\n  bar-\u003ebaz \u003d 123;",
+      "revId": "a7f5527951380cf62de55ef2a7786fdd387b6d0f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365924b4_79228c31",
+        "filename": "platform/api/task_runner_owned_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-22T19:22:56Z",
+      "side": 1,
+      "message": "Same as above, we should be able to const dereference:\n\n  inline const Type* const operator-\u003e() const;\n  inline const Type\u0026 operator*() const;",
+      "revId": "a7f5527951380cf62de55ef2a7786fdd387b6d0f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c45e33e_f1619baa",
+        "filename": "platform/api/task_runner_owned_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-22T19:22:56Z",
+      "side": 1,
+      "message": "Let me get this right...\n\nis_maybe_owned \u003d\u003d is a boolean const type, is TRUE iff T is a pointer or a copy-constructible lvalue.\n\nis_maybe_thread_owned \u003d\u003d if is_maybe_owned, is the type of is_maybe_thread_owned, which is a true type. If not is_maybe_owned, is a false type, disabling the template.\n\nI would recommend commenting each case of the is_maybe_thread_owned struct, maybe?\n\n  // Default template, will decay to one of the two below cases.\n  template \u003ctypename... TArgs\u003e\n  struct is_maybe_thread_owned;\n\n  // Conditional template: if type is_maybe_owned, decays to true_type, else\n  // decays to false_type.\n  template \u003ctypename TArg, typename... TArgs\u003e\n  struct is_maybe_thread_owned\u003cTArg, TArgs...\u003e\n    : std::conditional\u003cis_maybe_owned\u003cTArg\u003e::value,\n                       typename is_maybe_thread_owned\u003cTArgs...\u003e::type,\n                       std::false_type\u003e {};\n\n  // Empty case: is true_type.\n  template \u003c\u003e\n  struct is_maybe_thread_owned\u003c\u003e : std::true_type {};",
+      "revId": "a7f5527951380cf62de55ef2a7786fdd387b6d0f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbf96bd9_a58685e1",
+        "filename": "platform/api/task_runner_owned_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-22T19:22:56Z",
+      "side": 1,
+      "message": "note?",
+      "revId": "a7f5527951380cf62de55ef2a7786fdd387b6d0f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
