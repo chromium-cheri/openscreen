@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ae63d11_7351436c",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-29T21:47:54Z",
+      "side": 1,
+      "message": "This means we will always use 255 chars for each, so compared to now it\u0027s increasing memory usage quite a bit right?\n\nLet\u0027s say there are ~100 errors with ~25 chars each. Currently that\u0027s 2,600 bytes roughly, or 2.6 kilobytes. If instead we are using 255 chars each, that becomes 25,600 bytes, or 26kB.\n\nIf we have to do it this way I\u0027m not sure this approach is worth it.",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65988612_93ab67fb",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-29T21:47:54Z",
+      "side": 1,
+      "message": "Definitely worth a comment, this is pretty hacky IMO.\n\nCould you do a find last of Error::Code::?",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "729ce03f_bcde1001",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-29T21:47:54Z",
+      "side": 1,
+      "message": "Looks like this is not happy on gcc? This approach may not work unforunately.\n\n  \"Failure: AddressInUse \u003d \\\"\\\"\"\n  error.ToString()\n    Which is: \"Failure: een::Error::Code)12; uint8_t \u003d unsigned char \u003d \\\"\\\"\"\n../../platform/base/error_unittest.cc:73: Failure",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4588e05_5d8a6d6e",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-29T21:47:54Z",
+      "side": 1,
+      "message": "Double checking: the 100 versions of this template method go away after linking?",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "198e097b_66c50236",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-29T21:47:54Z",
+      "side": 1,
+      "message": "Definitely worth a comment that we are storing the size of the name as a char in the first byte of it. Implies a max size of 255 which shouldn\u0027t be a problem.\n\nyou could do a:\n\n  struct CodeName {\n    // max length \u003d kMaxCharSize.\n    uint8_t size;\n \n    char[kMaxCharSize] buf;\n  }",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad63266_318a1fd1",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-29T21:47:54Z",
+      "side": 1,
+      "message": "static_assert?",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "665a907f_927ece0a",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-06-29T21:47:54Z",
+      "side": 1,
+      "message": "Nit: to avoid having failure twice, could append first:\n\n  os \u003c\u003c \"Failure: \";\n  if (code \u003d\u003d Error::Code::kAgain) {\n    return os \u003c\u003c \"Transient\";\n  }\n\n  //static_asserts....\n\n  return kErrorNames.PrintName(os, code);",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
