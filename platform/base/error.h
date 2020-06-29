@@ -176,6 +176,10 @@ class Error {
     kOperationInvalid,
     kOperationInProgress,
     kOperationCancelled,
+
+    // NOTE: Do NOT use the following type. It must have the highest valid value
+    // for this enum.
+    kLastDoNotUse
   };
 
   Error();
