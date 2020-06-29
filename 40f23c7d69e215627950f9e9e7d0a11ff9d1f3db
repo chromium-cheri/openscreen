@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ac35ba02_1678cadb",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-29T22:12:59Z",
+      "side": 1,
+      "message": "It would, though I\u0027m not sure if this hit is the biggest deal\n\nAn alternative is maintain a mapping of pointers to a single static array of fixed size. If we ever hit a compilation error, up the size. Not ideal, but an option. WDYT?",
+      "parentUuid": "5ae63d11_7351436c",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65988612_93ab67fb",
         "filename": "platform/base/error.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ac8fdbcc_a82b7bb4",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-29T22:12:59Z",
+      "side": 1,
+      "message": "Yes (and that would solve below problem too), and it\u0027s definitely hacky, but I wanted to optimize for execution time.\nWe could do this, but it would involve either converting to strings or iterating across the array at runtime (at least the first time when we populate the arrays. Open to it, and definitely agree it\u0027s more readable, but it seemed like an unnecessary hit to execution time\n\nWDYT?",
+      "parentUuid": "65988612_93ab67fb",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "729ce03f_bcde1001",
         "filename": "platform/base/error.cc",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2020-06-29T21:47:54Z",
       "side": 1,
       "message": "Looks like this is not happy on gcc? This approach may not work unforunately.\n\n  \"Failure: AddressInUse \u003d \\\"\\\"\"\n  error.ToString()\n    Which is: \"Failure: een::Error::Code)12; uint8_t \u003d unsigned char \u003d \\\"\\\"\"\n../../platform/base/error_unittest.cc:73: Failure",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15624b19_24b5ce18",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-29T22:12:59Z",
+      "side": 1,
+      "message": "Hmm. It should be a per-compiler constant, so we could use `#ifdef`s to solve this. Or the approach mentioned above. WDYT?",
+      "parentUuid": "729ce03f_bcde1001",
       "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -115,6 +169,24 @@
       "writtenOn": "2020-06-29T21:47:54Z",
       "side": 1,
       "message": "Nit: to avoid having failure twice, could append first:\n\n  os \u003c\u003c \"Failure: \";\n  if (code \u003d\u003d Error::Code::kAgain) {\n    return os \u003c\u003c \"Transient\";\n  }\n\n  //static_asserts....\n\n  return kErrorNames.PrintName(os, code);",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f315736_bd3259c1",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-06-29T22:12:59Z",
+      "side": 1,
+      "message": "kAgain \u003c 0, so the asserts can\u0027t go first\n\nI wanted to keep the asserts together for readability, but open to splitting them up. WDYT?",
+      "parentUuid": "665a907f_927ece0a",
       "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
