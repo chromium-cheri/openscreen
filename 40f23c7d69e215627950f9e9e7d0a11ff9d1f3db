@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "bbd631d9_a66175e7",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-07-06T18:04:38Z",
+      "side": 1,
+      "message": "26kB is a lot of space to use up for basically no reason, so I don\u0027t really want to do that.\n\nStatic array of fixed size sounds ok if we have to do that.",
+      "parentUuid": "ac35ba02_1678cadb",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65988612_93ab67fb",
         "filename": "platform/base/error.cc",
         "patchSetId": 3
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Yes (and that would solve below problem too), and it\u0027s definitely hacky, but I wanted to optimize for execution time.\nWe could do this, but it would involve either converting to strings or iterating across the array at runtime (at least the first time when we populate the arrays. Open to it, and definitely agree it\u0027s more readable, but it seemed like an unnecessary hit to execution time\n\nWDYT?",
       "parentUuid": "65988612_93ab67fb",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86aac10c_75844348",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-07-06T18:04:38Z",
+      "side": 1,
+      "message": "Isn\u0027t this all done at compile time? If not, can we do that?\n\nIf it has to be runtime, I\"d probably prefer a macro-based approach instead or using std::string",
+      "parentUuid": "ac8fdbcc_a82b7bb4",
       "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -187,6 +223,24 @@
       "side": 1,
       "message": "kAgain \u003c 0, so the asserts can\u0027t go first\n\nI wanted to keep the asserts together for readability, but open to splitting them up. WDYT?",
       "parentUuid": "665a907f_927ece0a",
+      "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de31caa1_94dc898b",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-07-06T18:04:38Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s a good reason for kAgain to be negative, since we should NEVER have code like:\n\n   if (error.code() \u003c 0) {\n     // probably fine, try again I guess? IDK?\n     doThingAgain();\n   }\n\nand should only compare against kAgain directly. \n\nI would vote for changing kAgain\u0027s value.",
+      "parentUuid": "0f315736_bd3259c1",
       "revId": "40f23c7d69e215627950f9e9e7d0a11ff9d1f3db",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
