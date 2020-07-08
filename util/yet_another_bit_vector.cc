@@ -270,8 +270,8 @@ const uint64_t* YetAnotherBitVector::Select(int* pos) const {
 // the linker.
 //
 // TODO(crbug.com/openscreen/40): Remove these once toolchains are upgraded.
-constexpr int YetAnotherBitVector::kBitsPerInteger;
-constexpr uint64_t YetAnotherBitVector::kAllBitsSet;
-constexpr uint64_t YetAnotherBitVector::kNoBitsSet;
+// constexpr int YetAnotherBitVector::kBitsPerInteger;
+// constexpr uint64_t YetAnotherBitVector::kAllBitsSet;
+// constexpr uint64_t YetAnotherBitVector::kNoBitsSet;
 
 }  // namespace openscreen
