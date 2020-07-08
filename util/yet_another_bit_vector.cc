@@ -265,13 +265,4 @@ const uint64_t* YetAnotherBitVector::Select(int* pos) const {
   return &bits_.as_integer;
 }
 
-// These are declared here to placate old buggy compilers that insist static
-// constexpr members have storage (against the C++14 spec), and this confuses
-// the linker.
-//
-// TODO(crbug.com/openscreen/40): Remove these once toolchains are upgraded.
-constexpr int YetAnotherBitVector::kBitsPerInteger;
-constexpr uint64_t YetAnotherBitVector::kAllBitsSet;
-constexpr uint64_t YetAnotherBitVector::kNoBitsSet;
-
 }  // namespace openscreen
