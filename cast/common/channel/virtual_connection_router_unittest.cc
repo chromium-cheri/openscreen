@@ -4,6 +4,8 @@
 
 #include "cast/common/channel/virtual_connection_router.h"
 
+#include <utility>
+
 #include "cast/common/channel/proto/cast_channel.pb.h"
 #include "cast/common/channel/testing/fake_cast_socket.h"
 #include "cast/common/channel/testing/mock_cast_message_handler.h"
@@ -111,7 +113,7 @@ TEST_F(VirtualConnectionRouterTest, SendMessage) {
         EXPECT_EQ(message.destination_id(), "sender-4321");
         ASSERT_EQ(message.payload_type(),
                   ::cast::channel::CastMessage_PayloadType_STRING);
-        EXPECT_EQ(message.payload_utf8(), "cnlybnq");
+        EXPECT_EQ(message.payload_utf8(), "cnlybnqa");
       }));
   router_.Send(
       VirtualConnection{"receiver-1234", "sender-4321", socket_->socket_id()},
