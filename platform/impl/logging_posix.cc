@@ -20,6 +20,8 @@ namespace {
 
 int g_log_fd = STDERR_FILENO;
 LogLevel g_log_level = LogLevel::kWarning;
+std::vector<std::string>* g_log_messages_for_test = nullptr;
+bool* g_break_was_called_for_test = nullptr;
 
 std::ostream& operator<<(std::ostream& os, const LogLevel& level) {
   const char* level_string = "";
@@ -79,6 +81,10 @@ void SetLogLevel(LogLevel level) {
   g_log_level = level;
 }
 
+LogLevel GetLogLevel() {
+  return g_log_level;
+}
+
 bool IsLoggingOn(LogLevel level, const char* file) {
   // Possible future enhancement: Use glob patterns passed on the command-line
   // to use a different logging level for certain files, like in Chromium.
@@ -98,14 +104,29 @@ void LogWithLevel(LogLevel level,
   const auto ss_str = ss.str();
   const auto bytes_written = write(g_log_fd, ss_str.c_str(), ss_str.size());
   OSP_DCHECK(bytes_written);
+  if (g_log_messages_for_test) {
+    g_log_messages_for_test->push_back(ss_str);
+  }
 }
 
 void Break() {
+  if (g_break_was_called_for_test) {
+    *g_break_was_called_for_test = true;
+    return;
+  }
 #if defined(_DEBUG)
   __builtin_trap();
 #else
   std::abort();
 #endif
+}
+
+void SetLogBufferForTest(std::vector<std::string>* messages) {
+  g_log_messages_for_test = messages;
+}
+
+void DisableBreakForTest(bool* break_was_called) {
+  g_break_was_called_for_test = break_was_called;
 }
 
 }  // namespace openscreen
