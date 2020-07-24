@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "41fc7c98_f0a666e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-07-24T17:34:28Z",
+      "side": 1,
+      "message": "nit: Can you also remove the TODO there about adding tests? :)",
+      "revId": "d60321bd865545079c5bbedcaea11568715ec958",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fab41ad0_afc94db2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -16,6 +33,74 @@
       "revId": "d60321bd865545079c5bbedcaea11568715ec958",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35cd663f_56148de1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-07-24T17:34:28Z",
+      "side": 1,
+      "message": "Sorry for the delay, looks good overall.",
+      "revId": "d60321bd865545079c5bbedcaea11568715ec958",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "135156b0_17e2499b",
+        "filename": "platform/impl/logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-07-24T17:34:28Z",
+      "side": 1,
+      "message": "Not something we normally do and this is already under impl/, but you could also put the last two in a logging_test.h which you could then DEPS-restrict to logging_*.cc and tests.",
+      "revId": "d60321bd865545079c5bbedcaea11568715ec958",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c7a19ad_34a89765",
+        "filename": "platform/impl/logging_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-07-24T17:34:28Z",
+      "side": 1,
+      "message": "Since this seems more about testing plumbing (i.e. the last stringstream step isn\u0027t that important) maybe just change the \"for test\" code to store the level, file, line, and message separately in a struct that can more easily be checked here.",
+      "revId": "d60321bd865545079c5bbedcaea11568715ec958",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c97fdd18_84518cd5",
+        "filename": "platform/impl/logging_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-07-24T17:34:28Z",
+      "side": 1,
+      "message": "Here and below I believe this should still be OSP_DCHECK_IS_ON() since `!_DEBUG \u0026\u0026 DCHECK_ALWAYS_ON` still triggers DLOG + DCHECK.",
+      "revId": "d60321bd865545079c5bbedcaea11568715ec958",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
