@@ -9,3 +9,10 @@ include_rules = [
     # BoringSSL includes
     '+openssl'
 ]
+
+specific_include_rules = {
+    'logging_(unittest|posix).cc': [
+        '+logging_test.h',
+    ],
+}
+
