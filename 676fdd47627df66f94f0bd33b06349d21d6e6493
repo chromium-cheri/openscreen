@@ -89,6 +89,23 @@
     },
     {
       "key": {
+        "uuid": "7dd61c25_dd501bdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-08-18T21:50:11Z",
+      "side": 1,
+      "message": "Thanks all for the review.",
+      "revId": "676fdd47627df66f94f0bd33b06349d21d6e6493",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ad1cec6_ef1f70e5",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 1
@@ -100,6 +117,24 @@
       "writtenOn": "2020-08-17T17:21:13Z",
       "side": 1,
       "message": "Side comment: it seems like |session| can never be nullptr here, so normally I would expect it to be passed by const reference.\n\nBut clearer for now to keep consistent with the other Client APIs, and suspect any API changes would be a breaking change for embedders.",
+      "revId": "676fdd47627df66f94f0bd33b06349d21d6e6493",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a4f4b29_36055e4c",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-08-18T21:50:11Z",
+      "side": 1,
+      "message": "Ack. Yes, I was going for consistency for now. I imagine some impls of this interface might want to compare pointer values, to make sure they\u0027re on the same page, but they could also use the address-of operator on a reference for that...",
+      "parentUuid": "7ad1cec6_ef1f70e5",
       "revId": "676fdd47627df66f94f0bd33b06349d21d6e6493",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
