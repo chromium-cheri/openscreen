@@ -181,8 +181,8 @@ void ReceiverSession::OnMessage(absl::string_view sender_id,
     return;
   }
 
-  Message parsed_message{sender_id.data(), message_namespace.data(),
-                         sequence_number};
+  JsonMessage parsed_message{sender_id.data(), message_namespace.data(),
+                             sequence_number};
   if (key == kMessageTypeOffer) {
     parsed_message.body = std::move(message_json.value()[kOfferMessageBody]);
     if (parsed_message.body.isNull()) {
@@ -199,7 +199,7 @@ void ReceiverSession::OnError(Error error) {
   OSP_DLOG_WARN << "ReceiverSession message port error: " << error;
 }
 
-void ReceiverSession::OnOffer(Message* message) {
+void ReceiverSession::OnOffer(JsonMessage* message) {
   ErrorOr<Offer> offer = Offer::Parse(std::move(message->body));
   if (!offer) {
     client_->OnError(this, offer.error());
@@ -296,7 +296,7 @@ void ReceiverSession::ResetReceivers(Client::ReceiversDestroyingReason reason) {
 }
 
 Answer ReceiverSession::ConstructAnswer(
-    Message* message,
+    JsonMessage* message,
     const AudioStream* selected_audio_stream,
     const VideoStream* selected_video_stream) {
   OSP_DCHECK(selected_audio_stream || selected_video_stream);
@@ -334,7 +334,7 @@ Answer ReceiverSession::ConstructAnswer(
                 supports_wifi_status_reporting_};
 }
 
-void ReceiverSession::SendMessage(Message* message) {
+void ReceiverSession::SendMessage(JsonMessage* message) {
   // All messages have the sequence number embedded.
   message->body[kSequenceNumber] = message->sequence_number;
 

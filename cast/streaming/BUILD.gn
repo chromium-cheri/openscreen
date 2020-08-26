@@ -95,6 +95,8 @@ source_set("sender") {
     "sender_packet_router.h",
     "sender_report_builder.cc",
     "sender_report_builder.h",
+    "sender_session.cc",
+    "sender_session.h",
   ]
 
   public_deps = [ ":common" ]
@@ -127,6 +129,7 @@ source_set("unittests") {
     "rtp_time_unittest.cc",
     "sender_packet_router_unittest.cc",
     "sender_report_unittest.cc",
+    "sender_session_unittest.cc",
     "sender_unittest.cc",
     "ssrc_unittest.cc",
   ]
