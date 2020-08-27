@@ -19,6 +19,7 @@ class MessagePort {
  public:
   class Client {
    public:
+    // TODO(jophba): remove ABSL dependency, as this is used in public classes.
     virtual void OnMessage(absl::string_view sender_id,
                            absl::string_view message_namespace,
                            absl::string_view message) = 0;
