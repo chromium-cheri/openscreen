@@ -99,6 +99,9 @@ class Error {
     kFatalSSLError,
     kFileLoadFailure,
 
+    // Failed to generate random bytes.
+    kRandomBytesFailure,
+
     // Cast certificate errors.
 
     // Certificates were not provided for verification.
