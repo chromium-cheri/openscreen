@@ -144,6 +144,8 @@ std::ostream& operator<<(std::ostream& os, const Error::Code& code) {
       return os << "Sha256HashFailure";
     case Error::Code::kFileLoadFailure:
       return os << "FileLoadFailure";
+    case Error::Code::kRandomBytesFailure:
+      return os << "RandomBytesFailure";
     case Error::Code::kErrCertsMissing:
       return os << "ErrCertsMissing";
     case Error::Code::kErrCertsParse:
