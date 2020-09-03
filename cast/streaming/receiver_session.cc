@@ -11,6 +11,7 @@
 #include "absl/strings/match.h"
 #include "absl/strings/numbers.h"
 #include "cast/streaming/environment.h"
+#include "cast/streaming/message_fields.h"
 #include "cast/streaming/message_port.h"
 #include "cast/streaming/offer_messages.h"
 #include "cast/streaming/receiver.h"
@@ -20,35 +21,14 @@
 namespace openscreen {
 namespace cast {
 
-/// NOTE: Constants here are all taken from the Cast V2: Mirroring Control
-// JSON message field values specific to the Receiver Session.
-static constexpr char kMessageTypeOffer[] = "OFFER";
-
-// List of OFFER message fields.
-static constexpr char kOfferMessageBody[] = "offer";
-static constexpr char kKeyType[] = "type";
-static constexpr char kSequenceNumber[] = "seqNum";
-
-/// Protocol specification: http://goto.google.com/mirroring-control-protocol
-// TODO(jophba): document the protocol in a public repository.
-static constexpr char kMessageKeyType[] = "type";
-static constexpr char kMessageTypeAnswer[] = "ANSWER";
-
-/// ANSWER message fields.
-static constexpr char kAnswerMessageBody[] = "answer";
-static constexpr char kResult[] = "result";
-static constexpr char kResultOk[] = "ok";
-static constexpr char kResultError[] = "error";
-static constexpr char kErrorMessageBody[] = "error";
-static constexpr char kErrorCode[] = "code";
-static constexpr char kErrorDescription[] = "description";
-
 // Using statements for constructor readability.
 using Preferences = ReceiverSession::Preferences;
 using ConfiguredReceivers = ReceiverSession::ConfiguredReceivers;
 
 namespace {
 
+// TODO(jophba): delete after moving ReceiverSession
+// to using session_base.
 std::string CodecToString(ReceiverSession::AudioCodec codec) {
   switch (codec) {
     case ReceiverSession::AudioCodec::kAac:
@@ -181,8 +161,8 @@ void ReceiverSession::OnMessage(const std::string& sender_id,
     return;
   }
 
-  Message parsed_message{sender_id.data(), message_namespace.data(),
-                         sequence_number};
+  JsonMessage parsed_message{sender_id.data(), message_namespace.data(),
+                             sequence_number};
   if (key == kMessageTypeOffer) {
     parsed_message.body = std::move(message_json.value()[kOfferMessageBody]);
     if (parsed_message.body.isNull()) {
@@ -199,7 +179,7 @@ void ReceiverSession::OnError(Error error) {
   OSP_DLOG_WARN << "ReceiverSession message port error: " << error;
 }
 
-void ReceiverSession::OnOffer(Message* message) {
+void ReceiverSession::OnOffer(JsonMessage* message) {
   ErrorOr<Offer> offer = Offer::Parse(std::move(message->body));
   if (!offer) {
     client_->OnError(this, offer.error());
@@ -296,7 +276,7 @@ void ReceiverSession::ResetReceivers(Client::ReceiversDestroyingReason reason) {
 }
 
 Answer ReceiverSession::ConstructAnswer(
-    Message* message,
+    JsonMessage* message,
     const AudioStream* selected_audio_stream,
     const VideoStream* selected_video_stream) {
   OSP_DCHECK(selected_audio_stream || selected_video_stream);
@@ -334,7 +314,7 @@ Answer ReceiverSession::ConstructAnswer(
                 supports_wifi_status_reporting_};
 }
 
-void ReceiverSession::SendMessage(Message* message) {
+void ReceiverSession::SendMessage(JsonMessage* message) {
   // All messages have the sequence number embedded.
   message->body[kSequenceNumber] = message->sequence_number;
 
