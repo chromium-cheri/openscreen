@@ -37,6 +37,8 @@ source_set("common") {
     "rtp_defines.h",
     "rtp_time.cc",
     "rtp_time.h",
+    "session_base.cc",
+    "session_base.h",
     "session_config.cc",
     "session_config.h",
     "ssrc.cc",
@@ -95,9 +97,13 @@ source_set("sender") {
     "sender_packet_router.h",
     "sender_report_builder.cc",
     "sender_report_builder.h",
+    "sender_session.cc",
+    "sender_session.h",
   ]
 
   public_deps = [ ":common" ]
+
+  deps = [ "../../util" ]
 }
 
 source_set("unittests") {
@@ -127,7 +133,9 @@ source_set("unittests") {
     "rtp_time_unittest.cc",
     "sender_packet_router_unittest.cc",
     "sender_report_unittest.cc",
+    "sender_session_unittest.cc",
     "sender_unittest.cc",
+    "session_test_support.h",
     "ssrc_unittest.cc",
   ]
 
