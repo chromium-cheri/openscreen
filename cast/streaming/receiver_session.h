@@ -18,17 +18,15 @@
 #include "cast/streaming/message_port.h"
 #include "cast/streaming/offer_messages.h"
 #include "cast/streaming/receiver_packet_router.h"
+#include "cast/streaming/session_base.h"
 #include "cast/streaming/session_config.h"
 #include "util/json/json_serialization.h"
 
 namespace openscreen {
 namespace cast {
 
-class CastSocket;
 class Environment;
 class Receiver;
-class VirtualConnectionRouter;
-struct VirtualConnection;
 
 class ReceiverSession final : public MessagePort::Client {
  public:
@@ -136,7 +134,8 @@ class ReceiverSession final : public MessagePort::Client {
   void OnError(Error error) override;
 
  private:
-  struct Message {
+  // TODO(jophba): refactor into message channel client?
+  struct JsonMessage {
     const std::string sender_id = {};
     const std::string message_namespace = {};
     const int sequence_number = 0;
@@ -144,7 +143,7 @@ class ReceiverSession final : public MessagePort::Client {
   };
 
   // Specific message type handler methods.
-  void OnOffer(Message* message);
+  void OnOffer(JsonMessage* message);
 
   // Used by SpawnReceivers to generate a receiver for a specific stream.
   std::pair<SessionConfig, std::unique_ptr<Receiver>> ConstructReceiver(
@@ -156,12 +155,12 @@ class ReceiverSession final : public MessagePort::Client {
                                      const VideoStream* video);
 
   // Callers of this method should ensure at least one stream is non-null.
-  Answer ConstructAnswer(Message* message,
+  Answer ConstructAnswer(JsonMessage* message,
                          const AudioStream* audio,
                          const VideoStream* video);
 
   // Sends a message over the message port.
-  void SendMessage(Message* message);
+  void SendMessage(JsonMessage* message);
 
   // Handles resetting receivers and notifying the client.
   void ResetReceivers(Client::ReceiversDestroyingReason reason);
