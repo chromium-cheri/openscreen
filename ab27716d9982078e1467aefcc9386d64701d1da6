@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "9f9f8486_ecc05f3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "I like to put the module I\u0027m patching in brackets, like:\n\n[Cast Streaming] Implement sender session class",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "597b7049_e01cfb06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Maybe add a sentence about what the SenderSession class does, which is helpful as documentation.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "414d3fae_3c8b3388",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 14
@@ -16,6 +50,958 @@
       "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73a3f36f_455133e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Overall no major issues, style / tactical / organizational stuff.  Didn\u0027t review tests in detail yet.\n\nI\u0027m not sure how we\u0027re choosing to document the streaming module or how to use it.  Since there\u0027s no clear public/private distinction in this module, I\u0027m not sure what parts clients are expected to call/use and which are implementation details.  The standalone sender will point to some of the necessary APIs, but I\u0027d like to hear thoughts on how we can provide reference documentation on the sender APIs so clients know what they are allowed to tweak.\n\nOne area that I struggled with on this CL is the proliferation \"config\" structs.  Some seem to be temporary for holding state during negotiation, some seem to be for defining a specific stream and some seem to hold the current configuration of the sender object.  Clarification on the roles each of them play would be helpful, then we can see if there is an opportunity to simplify.\n",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc804282_da237b24",
+        "filename": "cast/streaming/message_fields.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Declarations at namespace scope automatically have static storage duration, so the \"static\" keyword is redundant.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77983251_58db0de5",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "This is something we should definitely take care of as we don\u0027t want to force abseil on clients.\n\nIs there a Buganizer bug for it yet?  If not, do you mind creating one and linking it here?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb680b3_b07dfc66",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "1. Can you use TODO(issuetracker.google.com/XXX)?\n2. I\u0027m not sure TODO provides enough context for someone else to fix.  Can you elaborate?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae1a5cd7_b6fb52dd",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Why this change?  The struct isn\u0027t just JSON.\n\nIt may also break clients.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00d257f9_aa39db8f",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Will other code need to know this namespace? If so, let\u0027s put it in constants.h.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1bd8332_7bba27b4",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "I think these two numeric constants belong in constants.h",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6483eedc_bcda6559",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Is the reason for this behavior documented (bug link)?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed0d7ff9_83d588f7",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "What is this value?  Does the receiver actually care what it is?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db6948a7_a5276a89",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "The GetPayloadType functions might fit better in rtp_defines.h",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f9293fe_f387c6f8",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "CreateAudioStream?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9e21ab9_86ff1502",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "I wonder if we should replace the Error\u0026 return value with Error\u0026\u0026.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3444361c_b7420584",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Do we need both Resolution and DisplayResolution as distinct types?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aed5f4e_28984f99",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "CreateVideoStream?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c5b107_4db5dc50",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "How does the caller set an alternative target delay?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b70973_c07214fb",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Are you sure S is always going to be moved when the vector is copied or resized?\n\nI remember there is something subtle about noexcept ctors in these cases.\n\nThat\u0027s why I slightly prefer to pass in a pointer to an output vector that you can emplace_back directly.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f946787_ae4e025d",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Can you use a descriptive variable name here?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04a8406d_821d9de3",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "You are basically asserting that CreateStream will never return an error.  Suggest:\n\n1. Handling the error case through an error reporting API (SenderSession::OnError?)\n2. Moving the DCHECK into CreateStream() and having it just return S.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc9dd74a_0b27d27e",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "1. RAND_pseudo_bytes is deprecated.\nhttps://www.openssl.org/docs/man1.1.1/man3/RAND_pseudo_bytes.html\n\n2. RAND_bytes uses the device\u0027s entropy pool, which ideally should be preserved for when we really need cryptographically strong random values.\n\n3. What is this used for? Can we use a counter instead?\n\n4. To be pedantic, you could say sizeof\u003cint16_t\u003e instead of 2.  I don\u0027t remember if int16 is guaranteed to be 2 bytes.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25a9b7fe_d1b1d2fb",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "I prefer to keep constants that govern the behavior of the overall module together in constants.h or a similar file.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd5fbfb3_4548351a",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Is the same number used for all messages? I would expect this to increment in OnMessage/SendMessage if they are intended to sequence message handling.  Maybe check the spec document to see if it has any details.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78ad7046_a20a1b34",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "s/jsonified/json_offer/",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea6c953_14a93408",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "ISTM that the offer should be passed in the ctor to Negotation.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eda7847a_e7de1c78",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Same with audio_configs and video_configs.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fd713d3_55529138",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Where is sender_id and message_namespace verified?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beaf90f8_5e41f597",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "How similar is the code here to the receiver session?\n\nWould like to see a function that does these validations with an expected sender/namespace/sequence/key and returns the parsed body.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efcd82fd_392c34a6",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Is there a way to bubble up a more specific error here (i.e. what part of the answer failed to validate)?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88ba6cc3_133ffb81",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "The whitespace here looks a little funny.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69adcb58_22da5d98",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "What is the type of answer.udp_port?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ec3de7_bfcd8f04",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Use find() to return an iterator pointing to the value you want.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "079f307e_876059f1",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "This object takes ownership of current_audio_sender_, but then passes it into ConfiguredSender...",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960b15d3_697e80f0",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "std::make_unique?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13057cb6_6e45ebe2",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "capture_recommendations::Recommendations is a little redundant for my taste, but I don\u0027t feel strongly about it, and it\u0027s not worth trying changing an API that already has callers downstream.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd14df68_e254a97e",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "What are the possible values of C?\n\nIt would be simpler to have AudioConfig*/VideoConfig* in ConfiguredSenders, which handles all the cases mentioned below.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a05e010a_89faa1be",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Slightly prefer declaring ConfiguredSenders/ConfiguredSender in the cast namespace.\n\nThey don\u0027t look to me like an implementation detail of SenderSession: they are passed out of its API, and also include config objects defined elsehwere.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef8d9cdf_142304c8",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "handling the negotiation.   When the negotiation is complete,",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "532ea211_8df2e200",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "...used by the sender to provide an optimal video stream for the receiver.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e8fc1ec_b60193df",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "|session| could own the last negotiated |senders|, instead of relying on the caller to keep track of them.   (Or the caller could make a copy if it needs to.)",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e48a73e4_8d43afaa",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Can you be a bit more specific?  Will negotiation restart, or does the caller have to call Negotiate() again?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "248f51a1_dc0c48c7",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Please document lifetime assumptions about passed-in pointers.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0d44e5e_492fd1ac",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Banning move *and* copy is pretty restrictive.  Can it be made move-only, or are there members that can\u0027t be moved?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "743b6e44_dc3e3a8c",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Clients may want a callback in ::Client telling them when session re-negotiation has started so they can clean up anything that was based on the previous ConfiguredSenders.\n\nCan always be added later, of course, if there\u0027s no code that would use it now.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33563a5d_22e5ee9e",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "It looks like MessagePort is a string-based API, while the code that actually does negotation produces/consumes JSON.  \n\nA MessagePort wrapper that does the conversion to/from Cast messages (including JSON parse/serialize) might be useful?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0222a072_af3d0af4",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "This looks similar to Message in ReceiverSession.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58153fa5_17a55a5d",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "The default ctor for std::string already creates an empty string.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab27cb9f_ffe594c4",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "How many stream IDs will there be?  unordered_map is hash-based and adds overhead.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2eedbd3_493faff7",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Where is SpawnSenders() declared?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c3499c_412655c3",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "1. Returning a std::pair is a little awkward for callers.  Should SessionConfig just be part fo the Sender?\n\n2. I\u0027m having a hard time wrapping my head around the various config objects that hold session metadata: AudioConfig, VideoConfig, SessionConfig and Stream.  How do they relate to one another?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7a69431_cf4822de",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Let\u0027s put these into constants.h or their own header.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc39ec1_bdd40c9e",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Receivers must implement all.  Senders must implement at least one of each for audio and video.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ee8e184_d3a94a86",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "s/libcast/Cast Streaming/",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f32c9518_f51ce055",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Provide a default.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01869964_dd038200",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b031e061_7f20ce62",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Typo in this",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58fe4fe2_2b5cb08c",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Is there any reference defining the syntax of this field?  Please link/reference it.  Otherwise this will be a total mystery to library users.\n\nSame applies to profile, level.  At least for profile, there are some RFCs providing a reference, but I don\u0027t know if these fields follow that or if the protocol authors came up with something completely proprietary.",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdf267f6_577f9ae7",
+        "filename": "cast/streaming/session_test_support.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-09T23:49:37Z",
+      "side": 1,
+      "message": "Can we just call this testing/simple_message_port.h?",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
