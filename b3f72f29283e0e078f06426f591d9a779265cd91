@@ -1,0 +1,579 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67809400_e13065ec",
+        "filename": "cast/streaming/message_fields.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "These are not used.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 0
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43a00bbd_d82205aa",
+        "filename": "cast/streaming/message_fields.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "While this is useful, I\u0027m not sure we should have internal links in open source code.",
+      "range": {
+        "startLine": 15,
+        "startChar": 28,
+        "endLine": 15,
+        "endChar": 77
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec0ecad8_5bf13175",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Should this go in message_fileds.h?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 76
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79060007_bfa7b3dd",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "These two constants are already defined in cast/streaming/constants.h.",
+      "range": {
+        "startLine": 40,
+        "startChar": 1,
+        "endLine": 44,
+        "endChar": 35
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a0a552a_28e0fd9e",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "This should be the sample rate of the audio, not 90 kHz.",
+      "range": {
+        "startLine": 74,
+        "startChar": 28,
+        "endLine": 74,
+        "endChar": 40
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb85f4cb_cb130d13",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Note: CreateStream() only fails if the crypto RNG fails. If we can guarantee it never fails (see comments in aeskey.h/.cc), then this code simplifies to:\n\n  for (...) {\n    streams.push_back(CreateStream(i + offset_index, configs[i]));\n  }",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 5
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1adda82_b56ee1cb",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "naming nit: How about AreAllValid()?",
+      "range": {
+        "startLine": 166,
+        "startChar": 5,
+        "endLine": 166,
+        "endChar": 12
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a08d2d9f_22429ad0",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Since the only errors are synchronous ones, could we return an Error instead of calling client_-\u003eOnError() here, and throughout this method?",
+      "range": {
+        "startLine": 206,
+        "startChar": 4,
+        "endLine": 206,
+        "endChar": 20
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62dc59d7_977d5a61",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "If audio_configs were a vector, you could just std::move(audio_configs). FWIW, a vector can be thought of as a mapping from an int to a value.",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 3
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b0526ab_010e3a81",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Looks like this should be: i + audio_configs.size()\n\n...or better yet, IMHO, use a vector for video_configs and then subtract audio_configs.size() from the stream_index later to access the elements.",
+      "range": {
+        "startLine": 230,
+        "startChar": 40,
+        "endLine": 230,
+        "endChar": 41
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d2f328_919d7238",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "It seems this check only applies to ANSWER messages (and not other messages we will want to account for in future work). Suggest moving this near the end of this method (when key \u003d\u003d kMessageTypeAnswer).",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 0
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3816d38_846d905a",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "There are a two reset() calls in different methods, and a third one is missing (for when the negotiation succeeds). Let\u0027s change the code structure slightly to guarantee the reset() call always happens, and is only in one place:\n\n  if (key \u003d\u003d kMessageTypeAnswer) {\n    const Json::Value body \u003d ...;\n    if (body.isNull()) {\n      client_-\u003eOnError(...);\n      OSP_DLOG_WARN...;\n      // NOTE: no return statement here.\n    } else {\n      OnAnswer(body);\n    }\n    current_negotiation_.reset();\n  }",
+      "range": {
+        "startLine": 285,
+        "startChar": 6,
+        "endLine": 285,
+        "endChar": 35
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef1d4957_001c6ccb",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "It looks like this comment should move up to L305 (just before the return statement above).\n\nOr, maybe just delete the comment (unless you feel it\u0027s not clear what the behavior should be)?",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 67
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4695dda_ca0541c1",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "kRtpTimebase should be stream.rtp_timebase",
+      "range": {
+        "startLine": 320,
+        "startChar": 43,
+        "endLine": 320,
+        "endChar": 55
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7634b6_6317d8a4",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Add: break;",
+      "range": {
+        "startLine": 358,
+        "startChar": 8,
+        "endLine": 358,
+        "endChar": 9
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a40e9e_f6470fbb",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Here too (add break).",
+      "range": {
+        "startLine": 375,
+        "startChar": 8,
+        "endLine": 375,
+        "endChar": 9
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e35f68_e39c1d3e",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "s/An/A/",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 7
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d8dd07c_ded6958e",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "naming nit: Instead of \"C\" how about \"AudioOrVideoConfig\" or \"Config\"?",
+      "range": {
+        "startLine": 36,
+        "startChar": 21,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44cd2bec_292df43c",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "naming nit: How about \"media_config\" or \"streaming_config\" to better distinguish it from the \"session_config\" member?",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 21
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a1f02f_b775a5fd",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Mild temporal suggestion: s/are now invalid after/become invalid when/",
+      "range": {
+        "startLine": 92,
+        "startChar": 76,
+        "endLine": 93,
+        "endChar": 22
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6aa9e79_36c4f428",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "By the name of this file, I was expecting to see a SessionBase class. Since this file is a collection of common types and (de)serializer functions for message fields, how about just merging it all into message_fields.h?",
+      "range": {
+        "startLine": 5,
+        "startChar": 23,
+        "endLine": 5,
+        "endChar": 38
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e71656b_e14aa043",
+        "filename": "cast/streaming/session_base.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "We\u0027ll also need sample rate (for audio rtp timebase).",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 2
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2595479_97ef75e6",
+        "filename": "util/crypto/aes_key.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Other crypto code uses OSP_CHECK() rather than return an error. IMHO, that would be appropriate (since crypto RNG is something we want to require the platform always provide).",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 44
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5830ce3_0b8fa69f",
+        "filename": "util/crypto/aes_key.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Rather than a global, IMHO, this should be a constant declared within the class. Note that it can be declared at the top of the \"public:\" section, per https://google.github.io/styleguide/cppguide.html#Declaration_Order, so that you can use it in the std::array\u003c...\u003e type.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f706881_6a97c3fa",
+        "filename": "util/crypto/aes_key.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-10T23:38:47Z",
+      "side": 1,
+      "message": "Instead of the class-level comment, how about naming this class AES128Key?\n\n...but looking at the code within the class, it seems it is much more than just the key (it\u0027s also the IV). Also, the key and IV are generated exactly the same way. So, what if we simplified everything by not having the class and just having a function like:\n\n  namespace openscreen {\n  namespace crypto {\n  \n  Error GenerateRandomBytes(int count, uint8_t* out);\n  \n  }\n  }\n\nAnd, note that cast/streaming/frame_crypto.cc has a GenerateRandomBytes() function that could use this. Also, cast/sender/channel/cast_auth_util.cc has CastNonce...",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 12
+      },
+      "revId": "b3f72f29283e0e078f06426f591d9a779265cd91",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
