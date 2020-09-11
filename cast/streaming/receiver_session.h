@@ -18,17 +18,15 @@
 #include "cast/streaming/message_port.h"
 #include "cast/streaming/offer_messages.h"
 #include "cast/streaming/receiver_packet_router.h"
+#include "cast/streaming/session_base.h"
 #include "cast/streaming/session_config.h"
 #include "util/json/json_serialization.h"
 
 namespace openscreen {
 namespace cast {
 
-class CastSocket;
 class Environment;
 class Receiver;
-class VirtualConnectionRouter;
-struct VirtualConnection;
 
 class ReceiverSession final : public MessagePort::Client {
  public:
@@ -55,8 +53,8 @@ class ReceiverSession final : public MessagePort::Client {
 
     // If the receiver is audio- or video-only, either of the receivers
     // may be nullptr. However, in the majority of cases they will be populated.
-    // TODO(jophba): remove AudioStream, VideoStream from public API.
-    // TODO(jophba): remove absl::optional from public API.
+    // TODO(https://issuetracker.google.com/166640702): remove absl::optional
+    // as well as VideoStream, AudioSTream from public API.
     absl::optional<ConfiguredReceiver<AudioStream>> audio;
     absl::optional<ConfiguredReceiver<VideoStream>> video;
   };
