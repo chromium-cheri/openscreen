@@ -15,8 +15,6 @@ namespace openscreen {
 namespace cast {
 namespace {
 
-constexpr int kSomeRtpTimebase = static_cast<int>(kVideoTimebase::den);
-
 // Returns a RtcpReportBlock with all fields set to known values to see how the
 // fields are modified by functions called during the tests.
 RtcpReportBlock GetSentinel() {
@@ -66,7 +64,7 @@ RtcpReportBlock GetSentinel() {
   } while (false)
 
 TEST(PacketReceiveStatsTrackerTest, DoesNotPopulateReportWithoutData) {
-  PacketReceiveStatsTracker tracker(kSomeRtpTimebase);
+  PacketReceiveStatsTracker tracker(kRtpTimebase);
   RtcpReportBlock report = GetSentinel();
   tracker.PopulateNextReport(&report);
   EXPECT_FIELDS_NOT_POPULATED(report);
@@ -78,7 +76,7 @@ TEST(PacketReceiveStatsTrackerTest, PopulatesReportWithOnePacketTracked) {
       RtpTimeTicks() + RtpTimeDelta::FromTicks(42);
   constexpr auto kArrivalTime = Clock::time_point() + seconds(3600);
 
-  PacketReceiveStatsTracker tracker(kSomeRtpTimebase);
+  PacketReceiveStatsTracker tracker(kRtpTimebase);
   tracker.OnReceivedValidRtpPacket(kSequenceNumber, kRtpTimestamp,
                                    kArrivalTime);
 
@@ -99,14 +97,14 @@ TEST(PacketReceiveStatsTrackerTest, WhenReceivingAllPackets) {
       RtpTimeTicks() + RtpTimeDelta::FromTicks(42);
   constexpr auto kFirstArrivalTime = Clock::time_point() + seconds(3600);
 
-  PacketReceiveStatsTracker tracker(kSomeRtpTimebase);
+  PacketReceiveStatsTracker tracker(kRtpTimebase);
 
   // Record 10 packets arrived exactly one second apart with media timestamps
   // also exactly one second apart.
   for (int i = 0; i < 10; ++i) {
     tracker.OnReceivedValidRtpPacket(
         kFirstSequenceNumber + i,
-        kFirstRtpTimestamp + RtpTimeDelta::FromTicks(kSomeRtpTimebase) * i,
+        kFirstRtpTimestamp + RtpTimeDelta::FromTicks(kRtpTimebase) * i,
         kFirstArrivalTime + seconds(i));
   }
 
@@ -133,7 +131,7 @@ TEST(PacketReceiveStatsTrackerTest, WhenReceivingAboutHalfThePackets) {
       RtpTimeTicks() + RtpTimeDelta::FromTicks(99);
   constexpr auto kFirstArrivalTime = Clock::time_point() + seconds(8888);
 
-  PacketReceiveStatsTracker tracker(kSomeRtpTimebase);
+  PacketReceiveStatsTracker tracker(kRtpTimebase);
 
   // Record 10 packet arrivals whose sequence numbers step by 2, which should
   // indicate half of the packets didn't arrive.
@@ -143,7 +141,7 @@ TEST(PacketReceiveStatsTrackerTest, WhenReceivingAboutHalfThePackets) {
   for (int i = 0; i < 10; ++i) {
     tracker.OnReceivedValidRtpPacket(
         kFirstSequenceNumber + (i * 2 + 1),
-        kFirstRtpTimestamp + RtpTimeDelta::FromTicks(kSomeRtpTimebase) * i,
+        kFirstRtpTimestamp + RtpTimeDelta::FromTicks(kRtpTimebase) * i,
         kFirstArrivalTime + seconds(i));
   }
 
@@ -168,21 +166,20 @@ TEST(PacketReceiveStatsTrackerTest, ComputesJitterCorrectly) {
   // timestamps are progressing 2 seconds forward. Thus, the jitter calculation
   // should gradually converge towards a difference of one second.
   constexpr auto kTrueJitter = Clock::to_duration(seconds(1));
-  PacketReceiveStatsTracker tracker(kSomeRtpTimebase);
+  PacketReceiveStatsTracker tracker(kRtpTimebase);
   Clock::duration last_diff = Clock::duration::max();
   for (int i = 0; i < 100; ++i) {
     tracker.OnReceivedValidRtpPacket(
         kFirstSequenceNumber + i,
-        kFirstRtpTimestamp +
-            RtpTimeDelta::FromTicks(kSomeRtpTimebase) * (i * 2),
+        kFirstRtpTimestamp + RtpTimeDelta::FromTicks(kRtpTimebase) * (i * 2),
         kFirstArrivalTime + seconds(i));
 
     // Expect that the jitter is becoming closer to the actual value in each
     // iteration.
     RtcpReportBlock report;
     tracker.PopulateNextReport(&report);
-    const auto diff = kTrueJitter - report.jitter.ToDuration<Clock::duration>(
-                                        kSomeRtpTimebase);
+    const auto diff =
+        kTrueJitter - report.jitter.ToDuration<Clock::duration>(kRtpTimebase);
     EXPECT_LT(diff, last_diff);
     last_diff = diff;
   }
@@ -194,7 +191,7 @@ TEST(PacketReceiveStatsTrackerTest, ComputesJitterCorrectly) {
   RtcpReportBlock report;
   tracker.PopulateNextReport(&report);
   const auto diff =
-      kTrueJitter - report.jitter.ToDuration<Clock::duration>(kSomeRtpTimebase);
+      kTrueJitter - report.jitter.ToDuration<Clock::duration>(kRtpTimebase);
   constexpr auto kMaxDiffAtEnd = Clock::to_duration(milliseconds(2));
   EXPECT_NEAR(0, diff.count(), kMaxDiffAtEnd.count());
 }
