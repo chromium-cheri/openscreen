@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "537c6069_65e00271",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Getting close, mostly some style related commentary and making the sender session more robust to misbehaving (or malicious) receivers.  I\u0027ll look at the unit tests in the last pass.\n\n",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "128ca06d_b8927779",
         "filename": "cast/streaming/capture_options.h",
         "patchSetId": 20
@@ -59,6 +76,57 @@
     },
     {
       "key": {
+        "uuid": "c6810b25_61efd361",
+        "filename": "cast/streaming/capture_options.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "I\u0027m assuming that 0 is not valid for bit_rate or sample_rate.  In that case, value-initialization of this struct will create one with set but invalid values.\n\nNormally, I would prefer that these mandatory values without reasonable defaults be set always through a user-defined ctor.\n\nOtherwise, you could pick a reasonable default value.\n \nWDYT?",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "054ca5ba_e3847864",
+        "filename": "cast/streaming/capture_options.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8d774ed_194034b8",
+        "filename": "cast/streaming/capture_options.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa3aa098_5c48c0f6",
         "filename": "cast/streaming/constants.h",
         "patchSetId": 20
@@ -76,6 +144,74 @@
         "endLine": 52,
         "endChar": 26
       },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac7ba4e_df28252f",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "TODO(issuetracker.google.com/XXX)?  It\u0027s a judgement call if you are planning on doing this right away in another patch.",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e81f4fa9_fdee78f3",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Super-nits:\n- You can drop https:// and it should still autolink\n- Typo in AudioStream",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14be61a6_b4ac9f0a",
+        "filename": "cast/streaming/rtp_defines.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Nit: Can you note in the crbug that libcast will need whatever fix lands in Chromium?",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cb40982_342e88db",
+        "filename": "cast/streaming/rtp_defines.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Can the bug tracking the work above include this as well?  Or is migrating payload types a bigger fix?\n\nSide note: changes that require code changes on the sender and receiver(s) may need special care:  a way to opt-in sessions that are known to use libcast on both sides, and opt-out sessions that require legacy hacks for backwards compatibility.\n\nThis change feels like one of those...",
       "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -197,6 +333,40 @@
     },
     {
       "key": {
+        "uuid": "cd331fa7_befc98c3",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Does the sender validate that:\n\n1. The remote_address_ is the same one that we did offer/answer negotiation with?\n2. The udp_port is in a valid range (1024-65535)?",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "657a9688_2eafcd1d",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Is send_index controlled by the receiver implementation?\n\nIt should be validated before being used to dereference anything to prevent a buggy/compromised receiver from out of bounds memory access.\n\nIf the value was validated earlier (during parsing), then you can add a CHECK for belt-and-suspenders prevention of OOB access.",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33596ce5_c8fdf44f",
         "filename": "cast/streaming/sender_session.cc",
         "patchSetId": 20
@@ -220,6 +390,40 @@
     },
     {
       "key": {
+        "uuid": "d08a25b2_d9829190",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "It seems possible that this is processing an ANSWER to a previous call to Negotiate().  Is there any way to determine which ANSWER corresponds to which OFFER?  \n\nDoes the sequence number check handle any possible race condition?  I\u0027m not really sure because it\u0027s only incremented on SendMessage().\n\nE.g. is the following possible?\n\n1. Negotiate()\n2. Send OFFER, seq_num \u003d 101\n3. Negotiate() (resets current_negotiation_)\n4. Receive ANSWER, seq_num \u003d 101 \u003c\u003d\u003d\u003d Mismatch between current_negotiation_ and ANSWER\n5. Send OFFER, seq_num \u003d 102\n\nIf there is a 1:1 relationship between a current_negotiation and the sequence_number, suggest adding the sequence_number to the Negotiation struct and checking the ANSWER\u0027s sequence_number against it to rule out any race conditions in negotiation.  WDYT?",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7c6fdcd_e90e210c",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Its a little confusing to code with a mix of config_index and send_index.  Is it possible to simplify usage?",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d96a654_036bd503",
         "filename": "cast/streaming/sender_session.cc",
         "patchSetId": 20
@@ -237,6 +441,23 @@
         "endLine": 319,
         "endChar": 16
       },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a417153_71a03592",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "Similar comment to the above, bounds check of a receiver controlled value should either be an early exit or a CHECK if this was validated earlier.",
       "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -289,6 +510,23 @@
     },
     {
       "key": {
+        "uuid": "489a9f1b_e688819e",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "audio_sender?",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32c0db40_0ce972a1",
         "filename": "cast/streaming/sender_session.h",
         "patchSetId": 20
@@ -329,6 +567,23 @@
         "endLine": 67,
         "endChar": 34
       },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08dcfc8d_5000da82",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-14T23:37:25Z",
+      "side": 1,
+      "message": "...any ConfiguredSenders become invalid...",
       "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
