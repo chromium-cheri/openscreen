@@ -16,6 +16,483 @@
       "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2368ee95_80a68580",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "Structurally, all good! Just a bunch of little things. I still need to TAL at sender_session_unittest.cc, but I\u0027ve gone through everything else.",
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "128ca06d_b8927779",
+        "filename": "cast/streaming/capture_options.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "In the Chromium sender, IIRC, we use 0 to mean \"automatically select bitrate,\" which some audio codecs (Opus) provide. Might be good to document that here instead of \"Mandatory field.\"",
+      "range": {
+        "startLine": 28,
+        "startChar": 69,
+        "endLine": 29,
+        "endChar": 11
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3aa098_5c48c0f6",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "naming nit: kRtpVideoTimebase (since it\u0027s the video RTP timebase and never the audio RTP timebase).",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aaaa7f1_16fb5228",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "std::move(sender_id)",
+      "range": {
+        "startLine": 144,
+        "startChar": 17,
+        "endLine": 144,
+        "endChar": 26
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ac50353_7edaa319",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "nit: std::move() these, or do we want the args to this method to be const-ref?",
+      "range": {
+        "startLine": 180,
+        "startChar": 40,
+        "endLine": 180,
+        "endChar": 68
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8a9c396_75ff44cb",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "This check should go right after the parse, since all other fields are meaningless if we\u0027re in the wrong namespace.",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 3
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad388c72_755c55dd",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "Need to remove this, or current_negotiation_.reset() won\u0027t be called. (also means that the OnAnswer(body) should be in an else clause)",
+      "range": {
+        "startLine": 252,
+        "startChar": 6,
+        "endLine": 252,
+        "endChar": 13
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d2dceb3_bd9c7c2a",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "nit: s/how to connect to it over UDP/where to send the separate UDP stream/",
+      "range": {
+        "startLine": 292,
+        "startChar": 51,
+        "endLine": 292,
+        "endChar": 64
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33596ce5_c8fdf44f",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be a DCHECK() since the data comes from outside the program. Suggest removing it since it\u0027ll just cast to a large bogus unsigned int and then not match any of the audio/video configs below.",
+      "range": {
+        "startLine": 301,
+        "startChar": 4,
+        "endLine": 301,
+        "endChar": 32
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d96a654_036bd503",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "ditto here (no DCHECK). Probably simplest to just:\n\n  const size_t array_index \u003d config_index - audio_configs_size;\n  if (array_index \u003c video_configs.size()) {\n    ...",
+      "range": {
+        "startLine": 319,
+        "startChar": 6,
+        "endLine": 319,
+        "endChar": 16
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2e8f30_17985bc2",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "Looks like this #include can be removed now.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba5a39c_8bd53e4c",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "Up to you, but IMHO, it feels like this should be a nested struct in SenderSession, like SenderSession::Client.",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c0db40_0ce972a1",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "Looks like audio_config and video_config are not being set in SpawnSenders(). Also, it might be better to provide the value rather than the pointer here, since it would become invalid once current_negotiation_ is reset.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96bbf0f2_4473865f",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "This is only if the sender wants to re-establish streaming after an error, right?",
+      "range": {
+        "startLine": 67,
+        "startChar": 29,
+        "endLine": 67,
+        "endChar": 34
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "810804d7_ed214803",
+        "filename": "cast/streaming/testing/simple_message_port.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "std::move() doesn\u0027t do anything here, since a copy must always be made.",
+      "range": {
+        "startLine": 43,
+        "startChar": 34,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "782679d0_2d5acf54",
+        "filename": "platform/base/error.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "This file and error.cc can be reverted now.",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e505c4_0b047f61",
+        "filename": "util/crypto/random_bytes.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "These can go in the .cc file.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d216de63_efa7ba3a",
+        "filename": "util/crypto/random_bytes.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "Seems this #include is not needed.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919399ac_b6807696",
+        "filename": "util/crypto/random_bytes.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "This isn\u0027t needed, either.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 32
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0da7c169_98e6cd41",
+        "filename": "util/crypto/random_bytes_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "We can delete this one too.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 32
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa48e8a1_237fea71",
+        "filename": "util/crypto/random_bytes_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "FWIW, I don\u0027t think we should test the RNG values against expected values since RNG is all about never getting expected values. 😊\n\nIn each of these tests, it\u0027s possible (abeit, improbable) that they will fail for a working implementation (i.e., GenerateRandomBytes() could return all zeros once in a long while, or it could return two successive results that are equal).\n\nWhat matters is to test the plumbing. So, we could loop until each of the byte indices eventually change. Something like:\n\n  bool did_change[kKeyLength] \u003d {};\n  while (std::find(std::begin(did_change), std::end(did_change), false) !\u003d\n             std::end(did_change)) {\n    std::array\u003cuint8_t, kKeyLength\u003e a, b;\n    GenerateRandomBytes(a.begin(), kKeyLength);\n    GenerateRandomBytes(b.begin(), kKeyLength);\n    for (int i \u003d 0; i \u003c kKeyLength; ++i) {\n      did_change[i] |\u003d a[i] !\u003d b[i];\n    }\n  }\n  PASS();",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

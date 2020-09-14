@@ -545,6 +545,24 @@
     },
     {
       "key": {
+        "uuid": "57b44360_97d77528",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-14T23:06:10Z",
+      "side": 1,
+      "message": "It\u0027s best to keep it the way it is, returning Error\u0026, since the calling code already sees it as an rvalue (i.e., it\u0027s the result of a method call, so it must be an unnamed right-hand-side reference).\n\nThe bigger issue: Do not \"return std::move(any rvalue).\" Relevant discussion: https://www.chromium.org/rvalue-references#TOC-11.-Don-t-return-references.-Don-t-use-std::move-on-rvalues.",
+      "parentUuid": "f2eebf2b_a4730f2c",
+      "revId": "ab27716d9982078e1467aefcc9386d64701d1da6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3444361c_b7420584",
         "filename": "cast/streaming/sender_session.cc",
         "patchSetId": 14
