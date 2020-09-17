@@ -16,6 +16,121 @@
       "revId": "3241f149bbd96d58199b814541a19004bb4bc2cd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b874f73_c899c440",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-17T01:46:15Z",
+      "side": 1,
+      "message": "For Cast streaming, we\u0027ve always used 48000.\n\nref: https://source.chromium.org/chromium/chromium/src/+/master:components/mirroring/service/mirror_settings.cc;drc\u003d9dd74d3bb3c8bf000ae975ac9a309adf226e5ce9;l\u003d30",
+      "range": {
+        "startLine": 68,
+        "startChar": 40,
+        "endLine": 68,
+        "endChar": 45
+      },
+      "revId": "3241f149bbd96d58199b814541a19004bb4bc2cd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7039aeb0_25aae5b5",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-17T01:46:15Z",
+      "side": 1,
+      "message": "oops: Delete this (it\u0027s was moved near the top of the method).",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 3
+      },
+      "revId": "3241f149bbd96d58199b814541a19004bb4bc2cd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c95395ad_5c11ac80",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-17T01:46:15Z",
+      "side": 1,
+      "message": "very nit: To avoid the \"if (!something)...else...\" pattern, how about:\n\n  if (body.isObject()) {",
+      "range": {
+        "startLine": 255,
+        "startChar": 8,
+        "endLine": 255,
+        "endChar": 22
+      },
+      "revId": "3241f149bbd96d58199b814541a19004bb4bc2cd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c579bf3_ccd57ae8",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-17T01:46:15Z",
+      "side": 1,
+      "message": "The 4th arg should be send_index too. Element |i| in the ANSWER doesn\u0027t correspond to the elements audio_configs since things could be shuffled and/or omitted in the ANSWER.",
+      "range": {
+        "startLine": 354,
+        "startChar": 60,
+        "endLine": 354,
+        "endChar": 61
+      },
+      "revId": "3241f149bbd96d58199b814541a19004bb4bc2cd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6d14f60_40c79ac7",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-17T01:46:15Z",
+      "side": 1,
+      "message": "Here too (|i| isn\u0027t going to work).\n\nSuggestion: Make the 4th arg send_index - audio_configs.size(). Then, in SpawnVideoSender(), the first LOC becomes almost the same as in SpawnAudioSender() (much simpler).",
+      "range": {
+        "startLine": 357,
+        "startChar": 60,
+        "endLine": 357,
+        "endChar": 61
+      },
+      "revId": "3241f149bbd96d58199b814541a19004bb4bc2cd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

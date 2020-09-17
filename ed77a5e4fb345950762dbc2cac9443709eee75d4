@@ -943,6 +943,30 @@
     },
     {
       "key": {
+        "uuid": "8d4782ee_3ab0c770",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-17T01:46:15Z",
+      "side": 1,
+      "message": "Chromium has a PRESUBMIT for IWYU (include-what-you-use), IIRC. I\u0027m not sure how easy it would be to bring that into openscreen.",
+      "parentUuid": "587d64b9_08808305",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eba5a39c_8bd53e4c",
         "filename": "cast/streaming/sender_session.h",
         "patchSetId": 20
@@ -978,6 +1002,30 @@
       "side": 1,
       "message": "I pulled it out at Mark\u0027s suggestion, I originally had it nested. I don\u0027t have strong feelings either way.",
       "parentUuid": "eba5a39c_8bd53e4c",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8de48d3d_75a70792",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-17T01:46:15Z",
+      "side": 1,
+      "message": "Up to you.\n\nTo expand on my suggestion: For someone that has no familiarity with the code base and came across ConfiguredSenders in an outside module, they\u0027d wonder what this was for, what code generates/uses it, etc. If you see SenderSession::ConfiguredSenders, then it\u0027s immediately obvious that not only does it have to do with SenderSession, but it\u0027s very likely to either be an input or output to SenderSesion objects.\n\nThis pattern is very common throughout Chromium code. A lot of classes have \"input\" or \"output\" structs declared this way. Input ex: base::Thread::Options (base/threading/thread.h). Output ex: base::File::Info (base/file/file.h).",
+      "parentUuid": "3b61b38c_5f5219db",
       "range": {
         "startLine": 36,
         "startChar": 7,
@@ -1543,6 +1591,30 @@
       "side": 1,
       "message": "I\u0027m happy to do this if you like, but the probability that they are all zeros is (1/255)^16, or 3.1286509e-39, which is unlikely enough to not really worth being considered IMO.\n\nThis last test is more interesting. It\u0027s basically the birthday paradox with 100 people and 2^128 days in the year.\n\n1-((2^128 - 1)/(2^128))^(100*99/2) \u003d 1.45467e-35\n\nWhich is orders of magnitude more likely, but is about as likely as getting hit by lightning 6 times in a single year or winning the massive Powerball jackpot prize 4 times.\n\nIf we actually get a failure here then I would take that as a clue that RAND_bytes is a pretty low quality implementation and we should consider using something else.",
       "parentUuid": "aa48e8a1_237fea71",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "ed77a5e4fb345950762dbc2cac9443709eee75d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "965bed65_9ee3e687",
+        "filename": "util/crypto/random_bytes_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-17T01:46:15Z",
+      "side": 1,
+      "message": "Instead of this (no two successive keys are the same):\n\n  for (int i \u003d 1; i \u003c kNumKeys; ++i) {\n    ASSERT_TRUE(keys[i - 1] !\u003d keys[i]);\n  }\n\nFrom what you\u0027re saying, it sounds like you meant (no two keys in the array are the same):\n\n  for (int i \u003d 1; i \u003c kNumKeys; ++i) {\n    for (int j \u003d 0; j \u003c i; ++j) {\n      ASSERT_TRUE(keys[j] !\u003d keys[i]);\n    }\n  }\n\nI\u0027ll leave this all up to you. FWIW, RAND_bytes() should already have been tested in the boringssl project and we can assume it\u0027s good. I agree the probability of flakes is practically non-existent.\n\nBTW, instead of nested loops, consider:\n\n  std::sort(std::begin(keys), std::end(keys));\n  ASSERT_TRUE(std::adjacent_find(std::begin(keys), std::end(keys)) \u003d\u003d std::end(keys));",
+      "parentUuid": "87f9292d_f08f122b",
       "range": {
         "startLine": 24,
         "startChar": 0,
