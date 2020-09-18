@@ -9,8 +9,12 @@ source_set("common") {
   sources = [
     "answer_messages.cc",
     "answer_messages.h",
+    "capture_options.cc",
+    "capture_options.h",
     "capture_recommendations.cc",
     "capture_recommendations.h",
+    "cast_socket_message_port.cc",
+    "cast_socket_message_port.h",
     "clock_drift_smoother.cc",
     "clock_drift_smoother.h",
     "constants.h",
@@ -23,6 +27,7 @@ source_set("common") {
     "frame_crypto.h",
     "frame_id.cc",
     "frame_id.h",
+    "message_port.h",
     "ntp_time.cc",
     "ntp_time.h",
     "offer_messages.cc",
@@ -48,6 +53,8 @@ source_set("common") {
   public_deps = [
     "../../third_party/abseil",
     "../../third_party/boringssl",
+    "../common:channel",
+    "../common/certificate/proto:certificate_proto",
   ]
 
   deps = [
@@ -95,9 +102,13 @@ source_set("sender") {
     "sender_packet_router.h",
     "sender_report_builder.cc",
     "sender_report_builder.h",
+    "sender_session.cc",
+    "sender_session.h",
   ]
 
   public_deps = [ ":common" ]
+
+  deps = [ "../../util" ]
 }
 
 source_set("unittests") {
@@ -127,8 +138,10 @@ source_set("unittests") {
     "rtp_time_unittest.cc",
     "sender_packet_router_unittest.cc",
     "sender_report_unittest.cc",
+    "sender_session_unittest.cc",
     "sender_unittest.cc",
     "ssrc_unittest.cc",
+    "testing/simple_message_port.h",
   ]
 
   deps = [
