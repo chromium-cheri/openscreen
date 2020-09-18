@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "d4555c25_1236f8fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-18T22:52:09Z",
+      "side": 1,
+      "message": "lgtm % two little things:",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cdf4338_f6690a02",
         "filename": "cast/streaming/capture_options.h",
         "patchSetId": 23
@@ -47,6 +64,24 @@
       "writtenOn": "2020-09-18T18:18:13Z",
       "side": 1,
       "message": "...selected by the receiver\n\n(if I read Yuri\u0027s comment correctly)",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77d1a56f_06a2502c",
+        "filename": "cast/streaming/capture_options.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-18T22:52:09Z",
+      "side": 1,
+      "message": "Actually, it\u0027s the sender (the audio codec).",
+      "parentUuid": "1cdf4338_f6690a02",
       "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -132,6 +167,29 @@
       "writtenOn": "2020-09-18T18:18:13Z",
       "side": 1,
       "message": "Nit: I think this would be slightly more readable using sprintf vs. a mix of StrCat and string literals, but I don\u0027t feel strongly about it.",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "281ab88c_5c986195",
+        "filename": "util/crypto/random_bytes_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-18T22:52:09Z",
+      "side": 1,
+      "message": "Don\u0027t need this loop, since it\u0027s accounted for in the sort+adjacent_find below.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 3
+      },
       "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
