@@ -8,7 +8,6 @@
 #include <chrono>
 #include <iostream>
 
-#include "absl/strings/str_cat.h"
 #include "cast/common/public/service_info.h"
 #include "cast/standalone_receiver/cast_agent.h"
 #include "cast/standalone_receiver/static_credentials.h"
@@ -181,11 +180,11 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   // make this standalone receiver visible to senders on the network.
   std::unique_ptr<DiscoveryState> discovery_state;
   std::unique_ptr<CastAgent> cast_agent;
+  std::string interface_name = argv[optind];
+  auto creds = GenerateCredentials("Standalone Receiver on " + interface_name);
+  OSP_CHECK(creds.is_value()) << creds.error();
   task_runner->PostTask(
-      [&, interface = GetInterfaceInfoFromName(argv[optind])] {
-        auto creds = GenerateCredentials(
-            absl::StrCat("Standalone Receiver on ", interface.name));
-        OSP_CHECK(creds.is_value()) << creds.error();
+      [&, interface = GetInterfaceInfoFromName(interface_name.c_str())] {
         cast_agent = StartCastAgent(task_runner, interface, &(creds.value()));
         OSP_CHECK(cast_agent) << "Failed to start CastAgent.";
         auto result = StartDiscovery(task_runner, interface);
