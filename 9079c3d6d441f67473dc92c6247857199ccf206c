@@ -16,6 +16,125 @@
       "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0d79712_9885b811",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T18:18:13Z",
+      "side": 1,
+      "message": "All looks good!  Super minor things that are optional to fix noted\n\n",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cdf4338_f6690a02",
+        "filename": "cast/streaming/capture_options.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T18:18:13Z",
+      "side": 1,
+      "message": "...selected by the receiver\n\n(if I read Yuri\u0027s comment correctly)",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d58329f_8d4fc7a3",
+        "filename": "cast/streaming/capture_options.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T18:18:13Z",
+      "side": 1,
+      "message": "Same comment as above (clarify who selects the bitrate)",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a5a94ec_e63b49c1",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T18:18:13Z",
+      "side": 1,
+      "message": "Nit: I find k1080pWidth \u003d 1920 a little confusing, and would be okay just using 1920 and 1080 inline as they are commonly known as the pixel resolution of 1080p displays.",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c19f2c5_9faffcf1",
+        "filename": "cast/streaming/sender_session_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T18:18:13Z",
+      "side": 1,
+      "message": "This is a really well written unit test!  The setup code is factored out so the test cases are easy to read and expectations are easy to understand.  If I wanted to point someone to how to write a good unit test, I would point them at this one :-)",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e426a5e_dbbee220",
+        "filename": "cast/streaming/sender_session_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T18:18:13Z",
+      "side": 1,
+      "message": "Can you add a test case that requests audio capture only?",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92f564f3_813b1e91",
+        "filename": "cast/streaming/sender_session_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T18:18:13Z",
+      "side": 1,
+      "message": "Nit: I think this would be slightly more readable using sprintf vs. a mix of StrCat and string literals, but I don\u0027t feel strongly about it.",
+      "revId": "9079c3d6d441f67473dc92c6247857199ccf206c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
