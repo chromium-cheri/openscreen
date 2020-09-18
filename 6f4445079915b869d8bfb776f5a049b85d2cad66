@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "5c46508f_4894562f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T17:49:57Z",
+      "side": 1,
+      "message": "I believe NSEC is an optimization, so if the goal is to unblock usage by a client, then the short term fix may be to disable NSEC handling globally, until we can implement a more comprehensive fix to \nsuppress conflicting NSEC records.\n\nIIRC, records are dispatched to different parts of the library by type, so the more comprehensive fix will likely require more bookkeeping and/or coordination between those methods :-(\n",
+      "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "537e99b2_4df9b69e",
         "filename": "discovery/common/config.h",
         "patchSetId": 1
@@ -50,6 +67,24 @@
       "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13b90219_24fd5db7",
+        "filename": "discovery/common/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-18T17:49:57Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "537e99b2_4df9b69e",
+      "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
