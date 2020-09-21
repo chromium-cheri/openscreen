@@ -85,6 +85,24 @@
       "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d6bd179_b1da841e",
+        "filename": "discovery/common/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-09-21T19:02:10Z",
+      "side": 1,
+      "message": "That SGTM. I\u0027m happy to go that route and parsing the full request (though it won\u0027t be the prettiest like Mark said). Will try to push a follow-up CL with this change later today\n\nBut I would like to leave this flag in too in case it\u0027s needed in future - if this bug exists, I can see similar cases where specific senders don\u0027t respect NSEC records correctly and I\u0027d like to maximize the usability of the library since it\u0027s open source. And so people don\u0027t get blocked with similar bugs.\n\nie the bug here only seems to affect old versions of the MdnsResponder library - other similar bugs might occur, and it\u0027s reasonable to say \"don\u0027t use the old buggy version of that library\" if an external user of the open-source library hits issues (or say \"that\u0027s not to spec, which I\u0027ve been told before when reporting similar bugs), but giving this kind of workaround if they know that their application is forced to rely on it also seems like a helpful middle-ground.\n\nWDYT?",
+      "parentUuid": "13b90219_24fd5db7",
+      "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
