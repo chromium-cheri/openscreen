@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fb86e3d_97fe7b8f",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "nit: Hyphen instead of underscore.",
+      "range": {
+        "startLine": 165,
+        "startChar": 15,
+        "endLine": 165,
+        "endChar": 16
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a37c34c_1153e0e5",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "Add an \u0027x\u0027 in the 3rd arg string of getopt_long().",
+      "range": {
+        "startLine": 172,
+        "startChar": 43,
+        "endLine": 172,
+        "endChar": 44
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d6a1bb2_2c45e824",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "I just realized: What if argv[optind] is null (i.e., user didn\u0027t include it in the command line)?",
+      "range": {
+        "startLine": 200,
+        "startChar": 31,
+        "endLine": 200,
+        "endChar": 43
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c0a744c_b10f7c6e",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "Looks like we don\u0027t need the extra |interface_name| string, if we just:\n\n  ... \u003d GenerateCredentials(\"Standalone Receiver on \" + std::string(argv[optind]));\n\nOr, maybe absl::StrCat(\"Standalone Receiver on \", argv[optind]) would work?",
+      "range": {
+        "startLine": 201,
+        "startChar": 63,
+        "endLine": 201,
+        "endChar": 77
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3954668_07d69a79",
+        "filename": "cast/standalone_sender/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "Looks like these #includes are not used.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 18
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57b28e1c_02f6a22c",
+        "filename": "cast/standalone_sender/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "Most of these aren\u0027t used, either. (Looks like just: looping_file_sender.h, capture_recommendations.h, constants.h, offer_messages.h)",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec6b05d8_717d3d3c",
+        "filename": "cast/standalone_sender/cast_agent.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "The Environment should be created just before the SenderSession (in CreateAndStartSession()). Note that each different connection will need a new Environment because the networking could be different each time (e.g., Receiver supplies a different UDP port, so packets from old sessions don\u0027t get received; Sender is assigned a different local UDP port for the same reason).",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 77
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fba0d9ed_05e1fcc4",
+        "filename": "cast/standalone_sender/cast_agent.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "naming: We shouldn\u0027t use the exact same name as the similar thing that runs on the Receiver--it\u0027ll get confusing. This is basically all about connecting the LoopingFileSender to the Receiver, so how about LoopingFileSenderAgent? (The \"Agent\" part hints at a relationship to the functionality in the receiver\u0027s agent.)",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 15
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa9694f3_838ecd25",
+        "filename": "cast/standalone_sender/cast_agent.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "Side note: Ultimately, we\u0027ll want to just name a receiver, and go through Discovery to figure out its IP, etc.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 33
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b46f94d_1cf60ab3",
+        "filename": "cast/standalone_sender/looping_file_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "I\u0027m assuming none of this code changed. Let me know if I need to look at anything. 😊\n\nAlso, don\u0027t forget to split this into .h + .cc files.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f78d65d4_0ca5c045",
+        "filename": "cast/streaming/cast_socket_message_port.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T21:49:43Z",
+      "side": 1,
+      "message": "Let\u0027s put this code in cast/common/channel, since it\u0027s about cast channel messaging and not streaming.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "7d39049c19e0c53f35797c6e6223ae9eff140c6f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
