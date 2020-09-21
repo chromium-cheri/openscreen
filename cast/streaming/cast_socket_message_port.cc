@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/standalone_receiver/cast_socket_message_port.h"
+#include "cast/streaming/cast_socket_message_port.h"
 
 #include <utility>
 
