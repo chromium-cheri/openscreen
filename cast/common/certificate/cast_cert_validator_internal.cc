@@ -500,7 +500,7 @@ Error FindCertificatePath(const std::vector<std::string>& der_certs,
         if (last_error == Error::Code::kNone) {
           OSP_DVLOG << "FindCertificatePath: Failed after trying all "
                        "certificate paths, no matches";
-          return Error::Code::kErrCertsVerifyGeneric;
+          return Error::Code::kErrCertsVerifyUntrustedCert;
         }
         return last_error;
       } else {

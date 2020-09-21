@@ -94,7 +94,10 @@ void RunTest(Error::Code expected_result,
   // Test that the context is good.
   EXPECT_EQ(expected_common_name, context->GetCommonName());
 
-#define DATA_SPAN_FROM_LITERAL(s) ConstDataSpan{(uint8_t*)s, sizeof(s) - 1}
+#define DATA_SPAN_FROM_LITERAL(s)                                          \
+  ConstDataSpan{const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(s)), \
+                sizeof(s) - 1}
+
   // Test verification of some invalid signatures.
   EXPECT_FALSE(context->VerifySignatureOverData(
       DATA_SPAN_FROM_LITERAL("bogus signature"),
@@ -233,7 +236,7 @@ TEST(VerifyCastDeviceCertTest, Fugu) {
 // This is invalid because it does not chain to a trust anchor.
 TEST(VerifyCastDeviceCertTest, Unchained) {
   std::string data_path = GetSpecificTestDataPath();
-  RunTest(Error::Code::kErrCertsVerifyGeneric, "",
+  RunTest(Error::Code::kErrCertsVerifyUntrustedCert, "",
           CastDeviceCertPolicy::kUnrestricted,
           data_path + "certificates/unchained.pem", AprilFirst2016(),
           TRUST_STORE_BUILTIN, "");
