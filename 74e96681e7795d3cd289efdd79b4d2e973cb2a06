@@ -16,6 +16,86 @@
       "revId": "74e96681e7795d3cd289efdd79b4d2e973cb2a06",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67b68e05_afa8de47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T23:17:42Z",
+      "side": 1,
+      "message": "LGTM, with a few things left before commit:",
+      "revId": "74e96681e7795d3cd289efdd79b4d2e973cb2a06",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b70caa2c_034b27ab",
+        "filename": "cast/sender/channel/cast_auth_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T23:17:42Z",
+      "side": 1,
+      "message": "Looks like some of your self-signed cert work got mixed into this PS: this file, and two in cast/common/certificate/*, and two in platform/base/*.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "74e96681e7795d3cd289efdd79b4d2e973cb2a06",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557ccbc2_22f095f5",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T23:17:42Z",
+      "side": 1,
+      "message": "Also need to environment_.reset() after current_session_.reset().",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 27
+      },
+      "revId": "74e96681e7795d3cd289efdd79b4d2e973cb2a06",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2febc8b3_17a1d25a",
+        "filename": "cast/streaming/cast_socket_message_port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-21T23:17:42Z",
+      "side": 1,
+      "message": "Hmm...This file got moved, but it still shows up in this patch. Do you need to `git rm \u003cthis file\u003e`?",
+      "revId": "74e96681e7795d3cd289efdd79b4d2e973cb2a06",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
