@@ -8,7 +8,6 @@
 #include <chrono>
 #include <iostream>
 
-#include "absl/strings/str_cat.h"
 #include "cast/common/public/service_info.h"
 #include "cast/standalone_receiver/cast_agent.h"
 #include "cast/standalone_receiver/static_credentials.h"
@@ -138,6 +137,15 @@ InterfaceInfo GetInterfaceInfoFromName(const char* name) {
       break;
     }
   }
+
+  if (interface_info.name.empty()) {
+    auto error_or_info = GetLoopbackInterfaceForTesting();
+    if (error_or_info.has_value()) {
+      if (error_or_info.value().name == name) {
+        interface_info = std::move(error_or_info.value());
+      }
+    }
+  }
   OSP_CHECK(!interface_info.name.empty()) << "Invalid interface specified.";
   return interface_info;
 }
@@ -151,9 +159,14 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
       {"tracing", no_argument, nullptr, 't'},
       {"verbose", no_argument, nullptr, 'v'},
       {"help", no_argument, nullptr, 'h'},
+
+      // Discovery is enabled by default, however there are cases where it
+      // needs to be disabled, such as on Mac OS X.
+      {"disable_discovery", no_argument, nullptr, 'x'},
       {nullptr, 0, nullptr, 0}};
 
   bool is_verbose = false;
+  bool discovery_enabled = true;
   std::unique_ptr<openscreen::TextTraceLoggingPlatform> trace_logger;
   int ch = -1;
   while ((ch = getopt_long(argc, argv, "tvh", kArgumentOptions, nullptr)) !=
@@ -164,6 +177,9 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
         break;
       case 'v':
         is_verbose = true;
+        break;
+      case 'x':
+        discovery_enabled = false;
         break;
       case 'h':
         LogUsage(argv[0]);
@@ -181,16 +197,19 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   // make this standalone receiver visible to senders on the network.
   std::unique_ptr<DiscoveryState> discovery_state;
   std::unique_ptr<CastAgent> cast_agent;
+  std::string interface_name = argv[optind];
+  auto creds = GenerateCredentials("Standalone Receiver on " + interface_name);
+  OSP_CHECK(creds.is_value()) << creds.error();
   task_runner->PostTask(
-      [&, interface = GetInterfaceInfoFromName(argv[optind])] {
-        auto creds = GenerateCredentials(
-            absl::StrCat("Standalone Receiver on ", interface.name));
-        OSP_CHECK(creds.is_value()) << creds.error();
+      [&, interface = GetInterfaceInfoFromName(interface_name.c_str())] {
         cast_agent = StartCastAgent(task_runner, interface, &(creds.value()));
         OSP_CHECK(cast_agent) << "Failed to start CastAgent.";
-        auto result = StartDiscovery(task_runner, interface);
-        OSP_CHECK(result.is_value()) << "Failed to start discovery.";
-        discovery_state = std::move(result.value());
+
+        if (discovery_enabled) {
+          auto result = StartDiscovery(task_runner, interface);
+          OSP_CHECK(result.is_value()) << "Failed to start discovery.";
+          discovery_state = std::move(result.value());
+        }
       });
 
   // Run the event loop until an exit is requested (e.g., the video player GUI
