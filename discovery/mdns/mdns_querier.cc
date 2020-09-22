@@ -4,7 +4,9 @@
 
 #include "discovery/mdns/mdns_querier.h"
 
+#include <algorithm>
 #include <memory>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -13,6 +15,7 @@
 #include "discovery/mdns/mdns_random.h"
 #include "discovery/mdns/mdns_receiver.h"
 #include "discovery/mdns/mdns_sender.h"
+#include "discovery/mdns/public/mdns_constants.h"
 
 namespace openscreen {
 namespace discovery {
@@ -41,6 +44,80 @@ bool IsNegativeResponseFor(const MdnsRecord& record, DnsType type) {
                         return stored_type == type ||
                                stored_type == DnsType::kANY;
                       }) != nsec.types().end();
+}
+
+// Helper used for sorting MDNS records. This function guarantees the following:
+// - All MdnsRecords with the same name appear adjacent to each-other.
+// - An NSEC record with a given name appears before all other records with the
+//   same name.
+bool CompareRecordByNameAndType(const MdnsRecord& first,
+                                const MdnsRecord& second) {
+  if (first.name() != second.name()) {
+    return first < second;
+  }
+
+  if ((first.dns_type() == DnsType::kNSEC) !=
+      (second.dns_type() == DnsType::kNSEC)) {
+    return first.dns_type() == DnsType::kNSEC;
+  } else {
+    return first < second;
+  }
+}
+
+// Modifies |records| such that no NSEC record signifies the nonexistance of a
+// record which is also present in the same message. Order of the input vector
+// is NOT preserved.
+void RemoveInvalidNsecFlags(std::vector<MdnsRecord>* records) {
+  std::sort(records->begin(), records->end(), CompareRecordByNameAndType);
+
+  for (auto it = records->begin(); it != records->end();) {
+    if (it->dns_type() != DnsType::kNSEC) {
+      it++;
+      break;
+    }
+
+    // Track whether the NSEC record in the input vector needs to be updated.
+    bool has_changed = false;
+
+    // The types for the new record to create, if |has_changed|.
+    // NOTE: unordered_set is used because all operations on this set will be
+    // adds and removes, so it should be most performant.
+    const NsecRecordRdata& nsec_rdata = absl::get<NsecRecordRdata>(it->rdata());
+    std::unordered_set<DnsType> types(nsec_rdata.types().begin(),
+                                      nsec_rdata.types().end());
+    auto nsec = it;
+    it++;
+
+    // Combine multiple NSECs to simplify the following code. This probably
+    // won't happen, but the RFC doesn't exclude the possibility, so account for
+    // it.
+    while (it != records->end() && it->name() == nsec->name() &&
+           it->dns_type() == DnsType::kNSEC) {
+      for (DnsType type : absl::get<NsecRecordRdata>(it->rdata()).types()) {
+        if (types.find(type) != types.end()) {
+          has_changed |= types.insert(type).second;
+        }
+      }
+      it = records->erase(it);
+    }
+
+    // Remove any types associated with a known record type.
+    while (it != records->end() && it->name() == nsec->name()) {
+      has_changed |= !!types.erase(it++->dns_type());
+    }
+
+    // Modify the stored NSEC record, if needed.
+    if (has_changed && types.empty()) {
+      records->erase(nsec);
+    } else if (has_changed) {
+      NsecRecordRdata new_rdata(
+          nsec_rdata.next_domain_name(),
+          std::vector<DnsType>(types.begin(), types.end()));
+      *nsec =
+          MdnsRecord(nsec->name(), nsec->dns_type(), nsec->dns_class(),
+                     nsec->record_type(), nsec->ttl(), std::move(new_rdata));
+    }
+  }
 }
 
 }  // namespace
@@ -369,15 +446,15 @@ void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
             << message.additional_records().size()
             << " additional records. Processing...";
 
+  std::vector<MdnsRecord> records_to_process;
+
   // Add any records that are relevant for this querier.
   bool found_relevant_records = false;
-  int processed_count = 0;
   for (const MdnsRecord& record : message.answers()) {
     if (ShouldAnswerRecordBeProcessed(record)) {
-      ProcessRecord(record);
-      OSP_DVLOG << "\tProcessing answer record (" << record.ToString() << ")";
+      records_to_process.push_back(record);
+      OSP_DVLOG << "\tWill process answer record (" << record.ToString() << ")";
       found_relevant_records = true;
-      processed_count++;
     }
   }
 
@@ -386,14 +463,22 @@ void MdnsQuerier::OnMessageReceived(const MdnsMessage& message) {
   // individual records relevant to this querier to update the cache.
   for (const MdnsRecord& record : message.additional_records()) {
     if (found_relevant_records || ShouldAnswerRecordBeProcessed(record)) {
-      OSP_DVLOG << "\tProcessing additional record (" << record.ToString()
+      OSP_DVLOG << "\tWill process additional record (" << record.ToString()
                 << ")";
-      ProcessRecord(record);
-      processed_count++;
+      records_to_process.push_back(std::cref(record));
     }
   }
 
-  OSP_DVLOG << "\tmDNS Response processed (" << processed_count
+  // Drop NSEC records associated with a non-NSEC record of the same type.
+  RemoveInvalidNsecFlags(&records_to_process);
+
+  // Process all remaining records.
+  for (const MdnsRecord& record_to_process : records_to_process) {
+    OSP_DVLOG << "\tProcessing record (" << record_to_process.ToString() << ")";
+    ProcessRecord(record_to_process);
+  }
+
+  OSP_DVLOG << "\tmDNS Response processed (" << records_to_process.size()
             << " records accepted)!";
 
   // TODO(crbug.com/openscreen/83): Check authority records.

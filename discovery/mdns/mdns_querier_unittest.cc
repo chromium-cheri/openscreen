@@ -469,21 +469,57 @@ TEST_F(MdnsQuerierTest, MessagesForUnknownKnownRecordsAllowsAdditionalRecords) {
   testing::Mock::VerifyAndClearExpectations(&callback);
 }
 
+TEST_F(MdnsQuerierTest, NsecDroppedWhenCorrespondsToNonNsec) {
+  std::unique_ptr<MdnsQuerier> querier = CreateQuerier();
+  MockRecordChangedCallback callback;
+
+  querier->StartQuery(DomainName{"testing", "local"}, DnsType::kA,
+                      DnsClass::kIN, &callback);
+
+  EXPECT_CALL(callback, OnRecordChanged(_, RecordChangedEvent::kCreated))
+      .WillOnce(WithArgs<0>(PartialCompareRecords(record0_created_)));
+  EXPECT_CALL(callback, OnRecordChanged(_, RecordChangedEvent::kUpdated))
+      .WillOnce(WithArgs<0>(PartialCompareRecords(record0_updated_)));
+  EXPECT_CALL(callback, OnRecordChanged(_, RecordChangedEvent::kExpired))
+      .WillOnce(WithArgs<0>(PartialCompareRecords(record0_deleted_)));
+
+  receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  // Receiving the same record should only reset TTL, no callback
+  receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_created_));
+  receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_updated_));
+  receiver_.OnRead(&socket_, CreatePacketWithRecord(record0_deleted_));
+
+  // Advance clock for expiration to happen, since it's delayed by 1 second as
+  // per RFC 6762.
+  clock_.Advance(std::chrono::seconds(1));
+}
+
 TEST_F(MdnsQuerierTest, CallbackNotCalledOnStartQueryForNsecRecords) {
   std::unique_ptr<MdnsQuerier> querier = CreateQuerier();
-
-  // Set up so an NSEC record has been received
   StrictMock<MockRecordChangedCallback> callback;
   querier->StartQuery(DomainName{"testing", "local"}, DnsType::kA,
                       DnsClass::kIN, &callback);
-  auto packet = CreatePacketWithRecord(nsec_record_created_);
+  auto packet = CreatePacketWithRecords(
+      {std::cref(record0_created_), std::cref(nsec_record_created_)});
+
+  EXPECT_CALL(callback, OnRecordChanged(_, RecordChangedEvent::kCreated))
+      .WillOnce(WithArgs<0>(PartialCompareRecords(record0_created_)));
   receiver_.OnRead(&socket_, std::move(packet));
   ASSERT_EQ(RecordCount(querier.get()), size_t{1});
-  EXPECT_TRUE(ContainsRecord(querier.get(), nsec_record_created_, DnsType::kA));
+  EXPECT_TRUE(ContainsRecord(querier.get(), record0_created_, DnsType::kA));
 
-  // Start new query
+  // Do it again in the reverse record order.
+  querier = CreateQuerier();
   querier->StartQuery(DomainName{"testing", "local"}, DnsType::kA,
                       DnsClass::kIN, &callback);
+  packet = CreatePacketWithRecords(
+      {std::cref(record0_created_), std::cref(nsec_record_created_)});
+
+  EXPECT_CALL(callback, OnRecordChanged(_, RecordChangedEvent::kCreated))
+      .WillOnce(WithArgs<0>(PartialCompareRecords(record0_created_)));
+  receiver_.OnRead(&socket_, std::move(packet));
+  ASSERT_EQ(RecordCount(querier.get()), size_t{1});
+  EXPECT_TRUE(ContainsRecord(querier.get(), record0_created_, DnsType::kA));
 }
 
 TEST_F(MdnsQuerierTest, ReceiveNsecRecordFansOutToEachType) {
