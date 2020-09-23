@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5684010_be852bc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T22:04:22Z",
+      "side": 1,
+      "message": "This looks really nice, thank you for following up with cleanups after the big sender session patch :-)\n\nMinor comments that are optional to fix",
+      "revId": "f73d872cdf8d96090a07d246adb4119618387b1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e4595a9_0c4e40ed",
+        "filename": "cast/streaming/message_fields.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T22:04:22Z",
+      "side": 1,
+      "message": "jrw@ has a nice utility function in Chromium to map between enums and strings.  It is probably time to land it in our util/.  Not blocking for this patch though.",
+      "revId": "f73d872cdf8d96090a07d246adb4119618387b1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e70382d_5bb1ec52",
+        "filename": "cast/streaming/message_fields.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T22:04:22Z",
+      "side": 1,
+      "message": "OSP_NOTREACHED uses __func__, so the log message will be clearer if it\u0027s used inline (versus in this function).",
+      "revId": "f73d872cdf8d96090a07d246adb4119618387b1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7c9d294_71f9ba48",
+        "filename": "cast/streaming/receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T22:04:22Z",
+      "side": 1,
+      "message": "Usually I would see a non-const value or a const reference returned from a getter.  Is a const value preferred here?",
+      "revId": "f73d872cdf8d96090a07d246adb4119618387b1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98df9b22_4997fdd8",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T22:04:22Z",
+      "side": 1,
+      "message": "Maybe just add a DisplayResolution(const Resolution\u0026) ctor?",
+      "revId": "f73d872cdf8d96090a07d246adb4119618387b1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f414e9a_e3d6bf40",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T22:04:22Z",
+      "side": 1,
+      "message": "I agree this code is cleaner overall, but now ConfiguredReceivers will always have an audio_config and video_config, even if there is only an audio receiver.   I guess just make sure it\u0027s clear that you should check the Receiver* to figure out if the config is actually meaningful.",
+      "revId": "f73d872cdf8d96090a07d246adb4119618387b1c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
