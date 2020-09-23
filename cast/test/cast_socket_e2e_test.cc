@@ -182,7 +182,7 @@ class CastSocketE2ETest : public ::testing::Test {
     std::vector<uint8_t> trust_anchor_der(cert_length);
     out = &trust_anchor_der[0];
     i2d_X509(root_cert.get(), &out);
-    CastTrustStore::CreateInstanceForTest(trust_anchor_der);
+    CastTrustStore::CreateInstance(trust_anchor_der);
 
     // NOTE: TLS key pair + certificate generation.
     bssl::UniquePtr<EVP_PKEY> tls_key = GenerateRsaKeyPair();

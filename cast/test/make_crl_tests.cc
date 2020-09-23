@@ -11,6 +11,7 @@
 #include "platform/test/paths.h"
 #include "util/crypto/certificate_utils.h"
 #include "util/crypto/digest_sign.h"
+#include "util/crypto/pem_helpers.h"
 #include "util/crypto/sha2.h"
 #include "util/osp_logging.h"
 
@@ -95,16 +96,16 @@ void PackCrlIntoFile(const std::string& filename,
 int CastMain() {
   const std::string data_path = GetTestDataPath() + "cast/receiver/channel/";
   bssl::UniquePtr<EVP_PKEY> inter_key =
-      testing::ReadKeyFromPemFile(data_path + "inter_key.pem");
+      ReadKeyFromPemFile(data_path + "inter_key.pem");
   bssl::UniquePtr<EVP_PKEY> crl_inter_key =
-      testing::ReadKeyFromPemFile(data_path + "crl_inter_key.pem");
+      ReadKeyFromPemFile(data_path + "crl_inter_key.pem");
   OSP_DCHECK(inter_key);
   OSP_DCHECK(crl_inter_key);
 
   std::vector<std::string> chain_der =
-      testing::ReadCertificatesFromPemFile(data_path + "device_chain.pem");
+      ReadCertificatesFromPemFile(data_path + "device_chain.pem");
   std::vector<std::string> crl_inter_der =
-      testing::ReadCertificatesFromPemFile(data_path + "crl_inter.pem");
+      ReadCertificatesFromPemFile(data_path + "crl_inter.pem");
   OSP_DCHECK_EQ(chain_der.size(), 3u);
   OSP_DCHECK_EQ(crl_inter_der.size(), 1u);
 

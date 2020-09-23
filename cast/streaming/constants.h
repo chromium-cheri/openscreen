@@ -29,7 +29,7 @@ constexpr int kDefaultCastStreamingPort = 2344;
 // Default TCP port, bound at the TLS server socket level, for Cast Streaming.
 // An implementation must use the port specified in the DNS-SD published record
 // for connecting over TLS, which may or may not match this port number here.
-constexpr int kDefaultCastPort = 8010;
+constexpr int kDefaultCastPort = 8011;
 
 // Target number of milliseconds between the sending of RTCP reports.  Both
 // senders and receivers regularly send RTCP reports to their peer.
@@ -64,6 +64,11 @@ constexpr int kDefaultAudioSampleRate = 480000;
 
 // The default audio number of channels is set to stereo.
 constexpr int kDefaultAudioChannels = 2;
+
+// TODO(jophba): migrate to discovering a randomly generated streaming
+// sender id. This will require communicating the ID to the sender so that
+// it can send messages appropriately.
+constexpr char kDefaultStreamingReceiverSenderId[] = "receiver-streaming";
 
 // Codecs known and understood by cast senders and receivers. Note: receivers
 // are required to implement the following codecs to be Cast V2 compliant: H264,
