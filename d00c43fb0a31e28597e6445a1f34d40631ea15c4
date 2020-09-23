@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7d9b567_cd0d22f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T20:40:45Z",
+      "side": 1,
+      "message": "This makes sense - I added a couple of drive by comments, mostly seeing if the algorithm can be made more efficient.  If the N is small, it probably doesn\u0027t matter too much, but it\u0027s always preferable to land an efficient implementation instead of having to optimize later.",
+      "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2ade769_d8e220ec",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T20:40:45Z",
+      "side": 1,
+      "message": "Can we implement this in O(N) where N is the number of records?",
+      "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "883c1966_a8c6a350",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T20:40:45Z",
+      "side": 1,
+      "message": "What are the possible numeric values of interesting record types in the NSEC?  \"Interesting\" means would be included in an mDNS message.\n\nI am wondering if using a std::set is overkill if there are only 4-5 types that are possible.  A bitset would work just as well.",
+      "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe1b9a1e_010cd59a",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T20:40:45Z",
+      "side": 1,
+      "message": "Can we do this in at most two passes over the records?  E.g. one pass to collect records by names and record types, and another pass to prune out or modify the NSEC records that match.\n\nSee comment about overall complexity.",
+      "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
