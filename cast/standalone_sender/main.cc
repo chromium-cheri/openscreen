@@ -4,6 +4,7 @@
 
 #include "platform/impl/logging.h"
 
+#define CAST_STANDALONE_SENDER_HAVE_EXTERNAL_LIBS 1
 #if defined(CAST_STANDALONE_SENDER_HAVE_EXTERNAL_LIBS)
 #include <getopt.h>
 
@@ -15,6 +16,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "cast/common/certificate/cast_trust_store.h"
 #include "cast/standalone_sender/constants.h"
 #include "cast/standalone_sender/looping_file_cast_agent.h"
 #include "cast/streaming/constants.h"
@@ -57,6 +59,11 @@ void LogUsage(const char* argv0) {
            Default if not set: )"
             << kDefaultMaxBitrate << R"(.
 
+      -s, --server-certificate=path-to-cert
+           Specifies the path to the server certificate used by the receiver.
+           If omitted, only connections to receivers using an official
+           Google-signed cast certificate chain will be permitted.
+
       -a, --android-hack:
            Use the wrong RTP payload types, for compatibility with older Android
            TV receivers.
@@ -77,6 +84,7 @@ int StandaloneSenderMain(int argc, char* argv[]) {
   const struct option kArgumentOptions[] = {
       {"remote", required_argument, nullptr, 'r'},
       {"max-bitrate", required_argument, nullptr, 'm'},
+      {"server-certificate", required_argument, nullptr, 's'},
       {"android-hack", no_argument, nullptr, 'a'},
       {"tracing", no_argument, nullptr, 't'},
       {"verbose", no_argument, nullptr, 'v'},
@@ -85,12 +93,13 @@ int StandaloneSenderMain(int argc, char* argv[]) {
 
   bool is_verbose = false;
   IPEndpoint remote_endpoint = GetDefaultEndpoint();
+  std::string server_certificate_path;
   [[maybe_unused]] bool use_android_rtp_hack = false;
   [[maybe_unused]] int max_bitrate = kDefaultMaxBitrate;
   std::unique_ptr<TextTraceLoggingPlatform> trace_logger;
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "r:atvh", kArgumentOptions, nullptr)) !=
-         -1) {
+  while ((ch = getopt_long(argc, argv, "r:m:s:atvh", kArgumentOptions,
+                           nullptr)) != -1) {
     switch (ch) {
       case 'r': {
         const ErrorOr<IPEndpoint> parsed_endpoint = IPEndpoint::Parse(optarg);
@@ -117,6 +126,9 @@ int StandaloneSenderMain(int argc, char* argv[]) {
           return 1;
         }
         break;
+      case 's':
+        server_certificate_path = optarg;
+        break;
       case 'a':
         use_android_rtp_hack = true;
         break;
@@ -131,7 +143,6 @@ int StandaloneSenderMain(int argc, char* argv[]) {
         return 1;
     }
   }
-
   openscreen::SetLogLevel(is_verbose ? openscreen::LogLevel::kVerbose
                                      : openscreen::LogLevel::kInfo);
   // The last command line argument must be the path to the file.
@@ -143,6 +154,11 @@ int StandaloneSenderMain(int argc, char* argv[]) {
   if (!path || !remote_endpoint.port) {
     LogUsage(argv[0]);
     return 1;
+  }
+
+  if (!server_certificate_path.empty()) {
+    CastTrustStore::CreateInstanceFromPemFile(
+        server_certificate_path, TrustStore::Mode::kAllowSelfSigned);
   }
 
   auto* const task_runner = new TaskRunnerImpl(&Clock::now);
