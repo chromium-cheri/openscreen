@@ -4,6 +4,9 @@
 
 #include "cast/common/certificate/cast_trust_store.h"
 
+#include <utility>
+
+#include "util/crypto/pem_helpers.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {
@@ -41,10 +44,20 @@ void CastTrustStore::ResetInstance() {
 }
 
 // static
-CastTrustStore* CastTrustStore::CreateInstanceForTest(
+CastTrustStore* CastTrustStore::CreateInstance(
     const std::vector<uint8_t>& trust_anchor_der) {
   OSP_DCHECK(!store_);
   store_ = new CastTrustStore(trust_anchor_der);
+  return store_;
+}
+
+// static
+CastTrustStore* CastTrustStore::CreateInstanceFromPemFile(
+    absl::string_view file_path,
+    TrustStore::Mode mode) {
+  OSP_DCHECK(!store_);
+  store_ = new CastTrustStore();
+  store_->trust_store_ = TrustStore::CreateInstanceFromPemFile(file_path, mode);
   return store_;
 }
 
@@ -56,6 +69,9 @@ CastTrustStore::CastTrustStore() {
 CastTrustStore::CastTrustStore(const std::vector<uint8_t>& trust_anchor_der) {
   trust_store_.certs.emplace_back(MakeTrustAnchor(trust_anchor_der));
 }
+
+CastTrustStore::CastTrustStore(TrustStore trust_store)
+    : trust_store_(std::move(trust_store)) {}
 
 CastTrustStore::~CastTrustStore() = default;
 

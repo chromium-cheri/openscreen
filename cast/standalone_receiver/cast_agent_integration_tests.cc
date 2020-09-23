@@ -127,7 +127,7 @@ TEST_F(CastAgentIntegrationTest, CanConnect) {
   ErrorOr<GeneratedCredentials> creds =
       GenerateCredentials("Test Device Certificate");
   ASSERT_TRUE(creds.is_value());
-  CastTrustStore::CreateInstanceForTest(creds.value().root_cert_der);
+  CastTrustStore::CreateInstance(creds.value().root_cert_der);
 
   auto agent = MakeSerialDelete<CastAgent>(
       task_runner_, task_runner_, loopback.value(),
