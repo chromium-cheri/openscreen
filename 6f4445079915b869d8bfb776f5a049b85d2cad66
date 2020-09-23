@@ -120,6 +120,41 @@
       "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21928dd1_5aa73fb2",
+        "filename": "discovery/common/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T17:48:33Z",
+      "side": 1,
+      "message": "Ok. Again, in most practical situations the embedder of the library can\u0027t control what version(s) of mDNSResponder they might encounter in real world use, so the choice is to disable NSEC with this flag (and live with worse performance), or enable it and miss out on discovery of some publishers...\n\nSeems like this patch isn\u0027t necessary once the duplicate suppression is landed.",
+      "parentUuid": "4d6bd179_b1da841e",
+      "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b01511_ec95b7c4",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-23T17:48:33Z",
+      "side": 1,
+      "message": "Maybe:\n\n// Ignore NSEC records if the embedder has configured us to do so.",
+      "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
