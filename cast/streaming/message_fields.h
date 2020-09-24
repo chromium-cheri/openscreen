@@ -5,6 +5,11 @@
 #ifndef CAST_STREAMING_MESSAGE_FIELDS_H_
 #define CAST_STREAMING_MESSAGE_FIELDS_H_
 
+#include <string>
+
+#include "cast/streaming/constants.h"
+#include "platform/base/error.h"
+
 namespace openscreen {
 namespace cast {
 
@@ -15,7 +20,7 @@ namespace cast {
 constexpr char kCastWebrtcNamespace[] = "urn:x-cast:com.google.cast.webrtc";
 
 // JSON message field values specific to the Sender Session.
-constexpr char kMessageKeyType[] = "type";
+constexpr char kMessageType[] = "type";
 constexpr char kMessageTypeOffer[] = "OFFER";
 constexpr char kMessageTypeAnswer[] = "ANSWER";
 
@@ -32,6 +37,13 @@ constexpr char kResultError[] = "error";
 constexpr char kErrorMessageBody[] = "error";
 constexpr char kErrorCode[] = "code";
 constexpr char kErrorDescription[] = "description";
+
+// Conversion methods for codec message fields.
+std::string CodecToString(AudioCodec codec);
+AudioCodec StringToAudioCodec(const std::string& name);
+
+std::string CodecToString(VideoCodec codec);
+VideoCodec StringToVideoCodec(const std::string& name);
 
 }  // namespace cast
 }  // namespace openscreen
