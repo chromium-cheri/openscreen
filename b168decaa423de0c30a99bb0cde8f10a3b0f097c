@@ -50,6 +50,23 @@
       "revId": "b168decaa423de0c30a99bb0cde8f10a3b0f097c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca0d45c4_2d93549d",
+        "filename": "discovery/mdns/mdns_records_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-09-24T18:15:55Z",
+      "side": 1,
+      "message": "had another idea: what if you just put all the records in a sorted array and then compare them that way?\n\nE.g.\n\n  for (int i \u003d 0; i \u003c records.size(); ++i) {\n    for (int j \u003d i + 1; j \u003c records.size(); ++i) {\n         const auto\u0026 ri \u003d records[i];\n         const auto\u0026 rj \u003d records[j];\n         EXPECT_NE(...\n    }\n  }",
+      "revId": "b168decaa423de0c30a99bb0cde8f10a3b0f097c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
