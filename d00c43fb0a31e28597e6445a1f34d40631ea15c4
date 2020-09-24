@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d0d7e317_c3882f7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-09-24T04:12:06Z",
+      "side": 1,
+      "message": "Responded to comments. I think you might have misread, because it is O(n) aside from the sort.",
+      "parentUuid": "e7d9b567_cd0d22f9",
+      "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2ade769_d8e220ec",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2020-09-23T20:40:45Z",
       "side": 1,
       "message": "Can we implement this in O(N) where N is the number of records?",
+      "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2c0bab0_918fe0cb",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-09-24T04:12:06Z",
+      "side": 1,
+      "message": "The current algorithm takes O(nlogn) time (nlogn for the sort, then iterates through all elements twice)\n\nWe could throw them all into a map instead of sorting, but it\u0027s still O(nlogn) because maps internally use \u0027\u003c\u0027 comparisons to maintain element ordering. If I had to guess this won\u0027t be any faster (probably slower because sort is optimized in the stdlib), but I\u0027m happy to do some testing around both approaches and get the timing\n\nAn unordered_map for comparisons should get us O(n) time, but given the expected number of elements this is probably slower in practice even if it is O(n) (In general, n will be less than 10. We only expect PTR, SRV, TXT, A, AAAA, NSEC records here, and for LibCast probably not more than 5 at any given time because any endpoint would only have a single address and service hosted)\n\nWDYT?",
+      "parentUuid": "b2ade769_d8e220ec",
       "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e8049395_e364d907",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-09-24T04:12:06Z",
+      "side": 1,
+      "message": "Good point. We\u0027ve only got \u003c10 valid types.\nUpdated to bitset, but wrapping it in a class to improve readability",
+      "parentUuid": "883c1966_a8c6a350",
+      "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe1b9a1e_010cd59a",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f07311df_500c0290",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-09-24T04:12:06Z",
+      "side": 1,
+      "message": "This actually is only two passes over the data - as you describe\n\nThe same iterator is used throughout the entire method - we just bail out of multiple loops early depending on the current iterator value. This is why I need to sort it first\n\nThe short summary is:\n\n\u003e  Loop over records (1 iteration) {\n\u003e   if this isn\u0027t an nsec, iterate\n\u003e   combine this record with the next if both are NSEC for the same name\n\u003e   compare this new NSEC with all remaining records with the same name\n\u003e   update NSEC if it needs to be updated\n\u003e  }\n\u003e  \n\u003e  delete NSECs that are no longer needed (1 iteration)",
+      "parentUuid": "fe1b9a1e_010cd59a",
+      "revId": "d00c43fb0a31e28597e6445a1f34d40631ea15c4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
