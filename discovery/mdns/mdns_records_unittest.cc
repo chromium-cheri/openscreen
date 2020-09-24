@@ -563,6 +563,14 @@ TEST(MdnsRecordTest, Compare) {
   MdnsRecord record7(DomainName{"hostname", "local"}, DnsType::kPTR,
                      DnsClass::kIN, RecordType::kShared, kTtl,
                      PtrRecordRdata(DomainName{"device", "local"}));
+  MdnsRecord record8(
+      DomainName{"testing", "local"}, DnsType::kNSEC, DnsClass::kIN,
+      RecordType::kUnique, std::chrono::seconds(120),
+      NsecRecordRdata(DomainName{"testing", "local"}, DnsType::kA));
+  MdnsRecord record9(
+      DomainName{"testing", "local"}, DnsType::kNSEC, DnsClass::kIN,
+      RecordType::kUnique, std::chrono::seconds(120),
+      NsecRecordRdata(DomainName{"testing", "local"}, DnsType::kAAAA));
 
   EXPECT_EQ(record1, record2);
   EXPECT_NE(record1, record3);
@@ -570,9 +578,23 @@ TEST(MdnsRecordTest, Compare) {
   EXPECT_NE(record1, record5);
   EXPECT_NE(record1, record6);
   EXPECT_NE(record1, record7);
+  EXPECT_NE(record1, record8);
+  EXPECT_NE(record1, record9);
+
+  EXPECT_GT(record9, record8);
+  EXPECT_LT(record8, record9);
+  EXPECT_GT(record3, record1);
+  EXPECT_LT(record1, record3);
+  EXPECT_GT(record1, record4);
+  EXPECT_LT(record4, record1);
+  EXPECT_GT(record5, record1);
+  EXPECT_LT(record1, record5);
+  EXPECT_GT(record1, record7);
+  EXPECT_LT(record7, record1);
 
   EXPECT_TRUE(absl::VerifyTypeImplementsAbslHashCorrectly(
-      {record1, record2, record3, record4, record5, record6, record7}));
+      {record1, record2, record3, record4, record5, record6, record7, record8,
+       record9}));
 }
 
 TEST(MdnsRecordTest, CopyAndMove) {

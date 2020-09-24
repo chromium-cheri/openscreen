@@ -56,9 +56,15 @@ bool IsGreaterThan(const Rdata& lhs, const Rdata& rhs) {
   MdnsWriter lhs_writer(lhs_bytes, lhs_size);
   MdnsWriter rhs_writer(rhs_bytes, rhs_size);
 
-  lhs_writer.Write(lhs_cast);
-  rhs_writer.Write(rhs_cast);
-  for (size_t i = 0; i < min_size; i++) {
+  // Write the record to get its serialized form. The Extra 3 in length is from
+  // the record size that Write() prepends to the result.
+  bool lhs_write = lhs_writer.Write(lhs_cast) + 3;
+  bool rhs_write = rhs_writer.Write(rhs_cast) + 3;
+  OSP_DCHECK(lhs_write);
+  OSP_DCHECK(rhs_write);
+
+  // Skip the size bits.
+  for (size_t i = 2; i < min_size; i++) {
     if (lhs_bytes[i] != rhs_bytes[i]) {
       return lhs_bytes[i] > rhs_bytes[i];
     }
@@ -619,6 +625,15 @@ bool MdnsRecord::operator>(const MdnsRecord& rhs) const {
   // "lexicographically later" is performed by first comparing the record class,
   // then the record type, then raw comparison of the binary content of the
   // rdata without regard for meaning or structure.
+  // NOTE: Per RFC, the TTL is not included in this comparison.
+  if (name() != rhs.name()) {
+    return name() > rhs.name();
+  }
+
+  if (record_type() != rhs.record_type()) {
+    return record_type() == RecordType::kUnique;
+  }
+
   if (dns_class() != rhs.dns_class()) {
     return dns_class() > rhs.dns_class();
   }
