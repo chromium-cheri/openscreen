@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bdd56b8f_12f430c3",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-09-24T20:26:41Z",
+      "side": 1,
+      "message": "Here and below: this should be a proper bounds check since the rest of the input pipeline still allows 65-254 and std::bitset will (try to) throw an exception for out-of-bounds accesses.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc7b544b_69d184d7",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-09-24T20:26:41Z",
+      "side": 1,
+      "message": "Handling this is definitely a weird situation but there\u0027s currently a problem for (has_changed \u0026\u0026 !types.IsEmpty()).  If has_changed is true, it could be because one of the merged NSEC records had a record type that was removed.  Then we reassign |nsec| as this \"union minus conflicts\" record, which fails to actually remove the type from its source NSEC record.  For that matter, (has_changed \u0026\u0026 types.IsEmpty()) should also remove any merged NSEC records.\n\nMy thoughts are:\n 1. Still do the union, but also take the min ttl.  If we have to overwrite |nsec|, use the min ttl and remove the others that were merged.\n 2. Process them separately.  This has the disadvantage that it\u0027s a little awkward to skip the other NSEC records then reset |it| if there were skipped NSEC records, plus it\u0027s extra iteration.\n\nOf those, my preference is 1.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
