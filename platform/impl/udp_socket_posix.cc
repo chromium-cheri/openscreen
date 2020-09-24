@@ -372,29 +372,37 @@ bool IsPacketInfo<in6_pktinfo>(cmsghdr* cmh) {
 }
 
 template <class SockAddrType, class PktInfoType>
-Error ReceiveMessageInternal(int fd, UdpPacket* packet) {
-  SockAddrType sa;
-  iovec iov = {packet->data(), packet->size()};
-  alignas(alignof(cmsghdr)) uint8_t control_buffer[1024];
-  msghdr msg;
-  msg.msg_name = &sa;
-  msg.msg_namelen = sizeof(sa);
-  msg.msg_iov = &iov;
-  msg.msg_iovlen = 1;
-  msg.msg_control = control_buffer;
-  msg.msg_controllen = sizeof(control_buffer);
-  msg.msg_flags = 0;
-
-  ssize_t bytes_received = recvmsg(fd, &msg, 0);
-  if (bytes_received == -1) {
+ErrorOr<UdpPacket> ReceiveMessageInternal(int fd) {
+  // It's difficult to actually tell the size of the available packet, but
+  // this check should get a buffer of at least the size of this message packet.
+  int bytes_available;
+  socklen_t optlen = sizeof(bytes_available);
+  if (getsockopt(fd, SOL_SOCKET, SO_SNDBUF, &bytes_available, &optlen) == -1) {
+    OSP_DVLOG << "Failed to check socket bytes available.";
     return ChooseError(errno, Error::Code::kSocketReadFailure);
   }
+  UdpPacket packet(bytes_available);
 
-  OSP_DCHECK_EQ(static_cast<size_t>(bytes_received), packet->size());
+  msghdr msg = {};
+  SockAddrType sa;
+  msg.msg_name = &sa;
+  msg.msg_namelen = sizeof(sa);
+  iovec iov = {packet.data(), packet.size()};
+  msg.msg_iov = &iov;
+  msg.msg_iovlen = 1;
+
+  const ssize_t bytes_received = recvmsg(fd, &msg, 0);
+  if (bytes_received == -1) {
+    OSP_DVLOG << "Failed to read from socket.";
+    return ChooseError(errno, Error::Code::kSocketReadFailure);
+  }
+  // We may not populate the entire packet.
+  OSP_DCHECK_LE(static_cast<size_t>(bytes_received), packet.size());
+  packet.resize(bytes_received);
 
   IPEndpoint source_endpoint = {.address = GetIPAddressFromSockAddr(sa),
                                 .port = GetPortFromFromSockAddr(sa)};
-  packet->set_source(std::move(source_endpoint));
+  packet.set_source(std::move(source_endpoint));
 
   // For multicast sockets, the packet's original destination address may be
   // the host address (since we called bind()) but it may also be a
@@ -412,11 +420,11 @@ Error ReceiveMessageInternal(int fd, UdpPacket* packet) {
       IPEndpoint destination_endpoint = {
           .address = GetIPAddressFromPktInfo(*pktinfo),
           .port = GetPortFromFromSockAddr(sa)};
-      packet->set_destination(std::move(destination_endpoint));
+      packet.set_destination(std::move(destination_endpoint));
       break;
     }
   }
-  return Error::Code::kNone;
+  return std::move(packet);
 }
 
 }  // namespace
@@ -436,32 +444,15 @@ void UdpSocketPosix::ReceiveMessage() {
     return;
   }
 
-  ssize_t bytes_available = recv(handle_.fd, nullptr, 0, MSG_PEEK | MSG_TRUNC);
-  if (bytes_available == -1) {
-    task_runner_->PostTask(
-        [weak_this = weak_factory_.GetWeakPtr(),
-         error =
-             ChooseError(errno, Error::Code::kSocketReadFailure)]() mutable {
-          if (auto* self = weak_this.get()) {
-            if (auto* client = self->client_) {
-              client->OnRead(self, std::move(error));
-            }
-          }
-        });
-    return;
-  }
-  UdpPacket packet(bytes_available);
-  packet.set_socket(this);
-  Error result = Error::Code::kUnknownError;
+  ErrorOr<UdpPacket> read_result = Error::Code::kUnknownError;
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
-      result =
-          ReceiveMessageInternal<sockaddr_in, in_pktinfo>(handle_.fd, &packet);
+      read_result = ReceiveMessageInternal<sockaddr_in, in_pktinfo>(handle_.fd);
       break;
     }
     case UdpSocket::Version::kV6: {
-      result = ReceiveMessageInternal<sockaddr_in6, in6_pktinfo>(handle_.fd,
-                                                                 &packet);
+      read_result =
+          ReceiveMessageInternal<sockaddr_in6, in6_pktinfo>(handle_.fd);
       break;
     }
     default: {
@@ -469,17 +460,14 @@ void UdpSocketPosix::ReceiveMessage() {
     }
   }
 
-  task_runner_->PostTask(
-      [weak_this = weak_factory_.GetWeakPtr(),
-       read_result = result.ok()
-                         ? ErrorOr<UdpPacket>(std::move(packet))
-                         : ErrorOr<UdpPacket>(std::move(result))]() mutable {
-        if (auto* self = weak_this.get()) {
-          if (auto* client = self->client_) {
-            client->OnRead(self, std::move(read_result));
-          }
-        }
-      });
+  task_runner_->PostTask([weak_this = weak_factory_.GetWeakPtr(),
+                          read_result = std::move(read_result)]() mutable {
+    if (auto* self = weak_this.get()) {
+      if (auto* client = self->client_) {
+        client->OnRead(self, std::move(read_result));
+      }
+    }
+  });
 }
 
 void UdpSocketPosix::SendMessage(const void* data,
