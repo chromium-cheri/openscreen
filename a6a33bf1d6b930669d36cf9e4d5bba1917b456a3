@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "bc617586_d4561363",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "Overall looks good, suggestions for additional test cases to cover multiple scenarios - since the logic in the loop is kind of tricky.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdd56b8f_12f430c3",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 7
@@ -19,6 +36,74 @@
     },
     {
       "key": {
+        "uuid": "3e18706b_ffe49854",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "I\u0027ve argued this at length elsewhere, but most of the time using a uint64_t and doing bitwise operators is just as readable and far fewer lines of code that writing a custom class that wraps an STL bitset object.\n\nI think the special logic around DnsType::ANY might sway me to make an exception in this case though.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21757742_edd406af",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "Could there be more than one NSEC record that needs to be updated?  It looks like there is a merge step that handles that case.  Maybe elaborate this comment.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9f061f8_d3db687f",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "Does this need to be updated?",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd474e2_8a0be454",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "Can Insert take a container or pair of iterators? Looks like you are always inserting a container of types into |types|.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc7b544b_69d184d7",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 7
@@ -30,6 +115,91 @@
       "writtenOn": "2020-09-24T20:26:41Z",
       "side": 1,
       "message": "Handling this is definitely a weird situation but there\u0027s currently a problem for (has_changed \u0026\u0026 !types.IsEmpty()).  If has_changed is true, it could be because one of the merged NSEC records had a record type that was removed.  Then we reassign |nsec| as this \"union minus conflicts\" record, which fails to actually remove the type from its source NSEC record.  For that matter, (has_changed \u0026\u0026 types.IsEmpty()) should also remove any merged NSEC records.\n\nMy thoughts are:\n 1. Still do the union, but also take the min ttl.  If we have to overwrite |nsec|, use the min ttl and remove the others that were merged.\n 2. Process them separately.  This has the disadvantage that it\u0027s a little awkward to skip the other NSEC records then reset |it| if there were skipped NSEC records, plus it\u0027s extra iteration.\n\nOf those, my preference is 1.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cbc57e0_de544334",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "Maybe DCHECK that is not pointing to an NSEC, or update the loop condition to make sure you won\u0027t skip any NSEC records here.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67998054_487237dc",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "Please use a different name for the iterator to avoid shadowing.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd20d206_0609fc0a",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "It\u0027s a little unfortunate that this requires copying all records in the message.\n\nIs |message| used after OnMessageReceived(), or would it be possible for this function to take ownership of it?  In that case, you could mutate he records in-place.\n\nFine to leave as a future improvement, if an API change is out of scope for this bugfix.",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b029cfc_8ea9733b",
+        "filename": "discovery/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "Please factor out a function to create an NSEC record of a given name/types",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7618ce_9f3f01d7",
+        "filename": "discovery/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-09-25T23:10:32Z",
+      "side": 1,
+      "message": "Please test:\n- Deletion of an individual NSEC record if all of its types have records in the message\n- Handling update of multiple NSEC records for 2 distinct names in the same message\n- Handling deletion of multiple NSEC records for 2 distinct names in the same message\n- Optional: handling update of one NSEC and deletion of the other for 2 names\n\nFactoring out some of the logic to construct the records and querier, would help shorten the amount of total test code",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
