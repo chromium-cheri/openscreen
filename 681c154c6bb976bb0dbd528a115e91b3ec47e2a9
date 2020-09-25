@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66c3a6ac_0908a5b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T18:37:13Z",
+      "side": 1,
+      "message": "Just noticed one last thing, before you commit...",
+      "revId": "681c154c6bb976bb0dbd528a115e91b3ec47e2a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2e921c3_df299253",
+        "filename": "cast/streaming/message_fields_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T18:37:13Z",
+      "side": 1,
+      "message": "This might work (pointer comparison), if the linker de-dupes C-style strings (it will in optimized builds, IIRC). However, I think what you want here is EXPECT_STREQ(...) to compare the chars of the two strings.\n\n...and the three other places below...",
+      "range": {
+        "startLine": 20,
+        "startChar": 9,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "681c154c6bb976bb0dbd528a115e91b3ec47e2a9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
