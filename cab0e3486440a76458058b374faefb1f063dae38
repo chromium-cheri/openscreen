@@ -16,6 +16,190 @@
       "revId": "cab0e3486440a76458058b374faefb1f063dae38",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b907584_3b28e2f2",
+        "filename": "cast/common/certificate/cast_trust_store.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T07:40:32Z",
+      "side": 1,
+      "message": "Side note for future TODOing...\n\nIt\u0027s unfortunate that all of these singletons are creating memory leaks. At some point, we may want to provide a utility similar to Chromium\u0027s base::NoDestructor\u003cT\u003e, which would reserve the memory in the static data segment of the process instead of using the heap and failing LEAK_SANITIZER.\n\nAlternately, perhaps they don\u0027t need to be singletons and can become owned by something in the application\u0027s object graph? I don\u0027t see that they would be frequently created/destroyed any more often than a Cast Channel over TLS connection is established...",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "cab0e3486440a76458058b374faefb1f063dae38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ead9ff25_f4b314b6",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T07:40:32Z",
+      "side": 1,
+      "message": "Cool! This change solves a problem I was having w/ my current WIP too. 😊",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "cab0e3486440a76458058b374faefb1f063dae38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c29c634_2e738aaf",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T07:40:32Z",
+      "side": 1,
+      "message": "FYI--This method seems to duplicate some of the functionality found in VirtualConnectionRouter::Send():\n\n  1. VCR::Send() sets the source_id and destination_id in the CastMessage.\n  2. VCR::Send() sends through the CastSocket.\n\nAdditionally, VCR::Send() will check that there exists a valid VirtualConnection before sending the message. Thus, it feels like we should delegate to calling router_-\u003eSend(...) instead of the direct call to CastSocket::Send().\n\nMaybe this is something to fix in a follow-up CL, though?",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 44
+      },
+      "revId": "cab0e3486440a76458058b374faefb1f063dae38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b6073cc_c2ddca64",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T07:40:32Z",
+      "side": 1,
+      "message": "Suggest making this \"receiver-12345\" to meet the formatting requirements (cast/common/channel/virtual_connection.h, line 91).",
+      "range": {
+        "startLine": 71,
+        "startChar": 54,
+        "endLine": 71,
+        "endChar": 72
+      },
+      "revId": "cab0e3486440a76458058b374faefb1f063dae38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "608478a4_b8f51c8d",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T07:40:32Z",
+      "side": 1,
+      "message": "This should be value \u003e\u003d 0 for audio, and value \u003e kDefaultVideoBitRateLimits.minimum for video. Note that libopus (audio encoder) interprets 0 bitrate as \"automatic, whatever is needed to give approx. CD quality.\"\n\nIt might be better to just inline the expression instead of having this helper function...",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "cab0e3486440a76458058b374faefb1f063dae38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a08ffed_2a3de588",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T07:40:32Z",
+      "side": 1,
+      "message": "More than zero, this should be: max_bit_rate \u003e kDefaultVideoBitRateLimits.minimum",
+      "range": {
+        "startLine": 132,
+        "startChar": 50,
+        "endLine": 132,
+        "endChar": 74
+      },
+      "revId": "cab0e3486440a76458058b374faefb1f063dae38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22ed8bd2_cd753e04",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T07:40:32Z",
+      "side": 1,
+      "message": "Note the comments in cast/common/channel/virtual_connection.h, line 91 regarding formats.\n\nThis seems fin for a transport_id, but should have \"sender-\" prepended to it.\n\nIn the Chrome sender, it\u0027s a full GUID (in the usual format w/ the hyphens and all). That feels a bit overkill unless we plan on having lots of simultaneous SenderSessions. Though maybe there\u0027s some other reason.",
+      "range": {
+        "startLine": 173,
+        "startChar": 33,
+        "endLine": 173,
+        "endChar": 60
+      },
+      "revId": "cab0e3486440a76458058b374faefb1f063dae38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ccfa57_9563ad3c",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-25T07:40:32Z",
+      "side": 1,
+      "message": "This gets the size of the send buffer, and should have nothing to do with the size of the next UDP packet waiting to be received from the OS buffers.\n\nOn Linux, the recv(MSG_PEEK | MSG_TRUNC) call should be working (otherwise the standalone_sender/receiver would never have worked). FWIW, this is the standard way to detect the size of the next UDP packet waiting to be received from the OS networking layer.\n\nHowever, is the problem that this is not working on MacOS? I looked at the man pages, and it seems MacOS doesn\u0027t support MSG_TRUNC. Doing some web searches, it seems the only practical way to receive UDP packets of any size is to allocate a buffer at least as large as the largest UDP packet you expect to receive. Yuk...what a waste. There is also a ioctl(FIONREAD), but on MacOS it will always return a value greater or equal to the size of the next datagram. That\u0027s better than 64 KB, so maybe try something like:\n\n    int upper_bound_bytes;\n  #if defined(OS_LINUX)\n    // This should return the exact size of the next message.\n    upper_bound_bytes \u003d recv(handle_.fd, nullptr, 0, MSG_PEEK | MSG_TRUNC);\n    if (upper_bound_bytes \u003d\u003d -1) {\n      return Error...;\n    }\n  #elsif defined(MAC_OSX)\n    // Can\u0027t use MSG_TRUNC in recv(). Use the FIONREAD ioctl() to get an upper-bound.\n    if (ioctl(handle_.fd, FIONREAD, \u0026upper_bound_bytes) \u003d\u003d -1 ||\n        upper_bound_bytes \u003c 0) {\n      return Error...;\n    }\n    upper_bound_bytes \u003d std::min(upper_bound_bytes, 64 \u003c\u003c 10);\n  #else  // Other POSIX platforms (neither MSG_TRUNC nor FIONREAD available).\n    // 64 KB is the maximum possible UDP datagram size.\n    upper_bound_bytes \u003d 64 \u003c\u003c 10;\n  #endif\n  \n   UdpPacket packet(upper_bound_bytes);\n   ...msghdr foo...\n   const ssize_t bytes_received \u003d recvmsg(fd, \u0026msg, 0);\n   if (bytes_received \u003d\u003d -1) { ... }\n   OSP_DCHECK_LE(bytes_received, upper_bound_bytes);\n   packet.resize(bytes_received);",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 383,
+        "endChar": 3
+      },
+      "revId": "cab0e3486440a76458058b374faefb1f063dae38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
