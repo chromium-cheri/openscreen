@@ -2,6 +2,8 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+import("buildflag_header.gni")
+
 config("base_config") {
   cflags_cc = []
   cflags_objcc = []
@@ -36,6 +38,71 @@ config("base_config") {
   } else if (is_mac) {
     include_dirs = [ "../../src/base/third_party/libevent/mac" ]
   }
+}
+
+buildflag_header("clang_profiling_buildflags") {
+  header = "clang_profiling_buildflags.h"
+  header_dir = "base"
+
+  flags = [
+    "CLANG_PROFILING=false",
+    "CLANG_PROFILING_INSIDE_SANDBOX=false",
+    "USE_CLANG_COVERAGE=false",
+  ]
+}
+
+buildflag_header("logging_buildflags") {
+  header = "logging_buildflags.h"
+  header_dir = "base"
+
+  flags = [ "ENABLE_LOG_ERROR_NOT_REACHED=false" ]
+}
+
+buildflag_header("allocator_buildflags") {
+  header = "buildflags.h"
+  header_dir = "base/allocator"
+
+  flags = [
+    "USE_ALLOCATOR_SHIM=false",
+    "USE_TCMALLOC=false",
+    "USE_PARTITION_ALLOC_AS_MALLOC=false",
+  ]
+}
+
+buildflag_header("cfi_buildflags") {
+  header = "cfi_buildflags.h"
+
+  flags = [
+    "CFI_CAST_CHECK=false",
+    "CFI_ICALL_CHECK=false",
+    "CFI_ENFORCEMENT_TRAP=false",
+    "CFI_ENFORCEMENT_DIAGNOSTIC=false",
+  ]
+}
+
+buildflag_header("debugging_buildflags") {
+  header = "debugging_buildflags.h"
+  header_dir = "base/debug"
+
+  flags = [
+    "ENABLE_LOCATION_SOURCE=true",
+    "FROM_HERE_USES_LOCATION_BUILTINS=false",
+    "ENABLE_PROFILING=false",
+    "CAN_UNWIND_WITH_FRAME_POINTERS=true",
+    "UNSAFE_DEVELOPER_BUILD=false",
+    "CAN_UNWIND_WITH_CFI_TABLE=false",
+    "EXCLUDE_UNWIND_TABLES=false",
+    "ENABLE_GDBINIT_WARNING=false",
+    "ENABLE_LLDBINIT_WARNING=false"
+  ]
+}
+
+buildflag_header("synchronization_buildflags") {
+  header = "synchronization_buildflags.h"
+  header_dir = "base/synchronization"
+
+  flags =
+      [ "ENABLE_MUTEX_PRIORITY_INHERITANCE=false", ]
 }
 
 source_set("base") {
@@ -104,10 +171,8 @@ source_set("base") {
     "../../src/base/debug/profiler.h",
     "../../src/base/debug/stack_trace.cc",
     "../../src/base/debug/stack_trace.h",
-    "../../src/base/debug/task_annotator.cc",
-    "../../src/base/debug/task_annotator.h",
-    "../../src/base/debug/thread_heap_usage_tracker.cc",
-    "../../src/base/debug/thread_heap_usage_tracker.h",
+    "../../src/base/task/common/task_annotator.cc",
+    "../../src/base/task/common/task_annotator.h",
     "../../src/base/environment.cc",
     "../../src/base/environment.h",
     "../../src/base/export_template.h",
@@ -124,6 +189,8 @@ source_set("base") {
     "../../src/base/files/file_tracing.h",
     "../../src/base/files/file_util.cc",
     "../../src/base/files/file_util.h",
+    "../../src/base/notreached.h",
+    "../../src/base/notreached.cc",
     "../../src/base/files/important_file_writer.cc",
     "../../src/base/files/important_file_writer.h",
     "../../src/base/files/memory_mapped_file.cc",
@@ -133,8 +200,8 @@ source_set("base") {
     "../../src/base/files/scoped_file.h",
     "../../src/base/format_macros.h",
     "../../src/base/gtest_prod_util.h",
-    "../../src/base/hash.cc",
-    "../../src/base/hash.h",
+    "../../src/base/hash/hash.cc",
+    "../../src/base/hash/hash.h",
     "../../src/base/json/json_parser.cc",
     "../../src/base/json/json_parser.h",
     "../../src/base/json/json_reader.cc",
@@ -168,8 +235,6 @@ source_set("base") {
     "../../src/base/memory/ref_counted_memory.h",
     "../../src/base/memory/scoped_refptr.h",
     "../../src/base/memory/shared_memory.h",
-    "../../src/base/memory/shared_memory_handle.cc",
-    "../../src/base/memory/shared_memory_handle.h",
     "../../src/base/memory/shared_memory_helper.cc",
     "../../src/base/memory/shared_memory_helper.h",
     "../../src/base/memory/shared_memory_mapping.cc",
@@ -193,8 +258,6 @@ source_set("base") {
     "../../src/base/message_loop/message_pump_for_ui.h",
     "../../src/base/message_loop/message_pump_libevent.cc",
     "../../src/base/message_loop/message_pump_libevent.h",
-    "../../src/base/message_loop/pending_task_queue.cc",
-    "../../src/base/message_loop/pending_task_queue.h",
     "../../src/base/message_loop/sequenced_task_source.h",
     "../../src/base/message_loop/timer_slack.h",
     "../../src/base/metrics/bucket_ranges.cc",
@@ -277,7 +340,6 @@ source_set("base") {
     "../../src/base/process/process.h",
     "../../src/base/process/process_handle.cc",
     "../../src/base/process/process_handle.h",
-    "../../src/base/process/process_info.h",
     "../../src/base/process/process_iterator.cc",
     "../../src/base/process/process_iterator.h",
     "../../src/base/process/process_metrics.cc",
@@ -297,9 +359,9 @@ source_set("base") {
     "../../src/base/sequenced_task_runner.cc",
     "../../src/base/sequenced_task_runner.h",
     "../../src/base/sequenced_task_runner_helpers.h",
-    "../../src/base/sha1.cc",
-    "../../src/base/sha1.h",
-    "../../src/base/single_thread_task_runner.h",
+    "../../src/base/hash/sha1.cc",
+    "../../src/base/hash/sha1.h",
+    "../../src/base/task/single_thread_task_runner.h",
     "../../src/base/stl_util.h",
     "../../src/base/strings/char_traits.h",
     "../../src/base/strings/pattern.cc",
@@ -334,9 +396,9 @@ source_set("base") {
     "../../src/base/synchronization/lock_impl.h",
     "../../src/base/synchronization/waitable_event.h",
     "../../src/base/sys_byteorder.h",
-    "../../src/base/sys_info.cc",
-    "../../src/base/sys_info.h",
-    "../../src/base/sys_info_internal.h",
+    "../../src/base/system/sys_info.cc",
+    "../../src/base/system/sys_info.h",
+    "../../src/base/system/sys_info_internal.h",
     "../../src/base/task/post_task.cc",
     "../../src/base/task/post_task.h",
     "../../src/base/task/scoped_set_task_priority_for_current_thread.cc",
@@ -378,54 +440,18 @@ source_set("base") {
     "../../src/base/task/sequence_manager/work_queue_sets.cc",
     "../../src/base/task/sequence_manager/work_queue_sets.h",
     "../../src/base/task/single_thread_task_runner_thread_mode.h",
-    "../../src/base/task/task_scheduler/can_schedule_sequence_observer.h",
-    "../../src/base/task/task_scheduler/delayed_task_manager.cc",
-    "../../src/base/task/task_scheduler/delayed_task_manager.h",
-    "../../src/base/task/task_scheduler/environment_config.cc",
-    "../../src/base/task/task_scheduler/environment_config.h",
-    "../../src/base/task/task_scheduler/priority_queue.cc",
-    "../../src/base/task/task_scheduler/priority_queue.h",
-    "../../src/base/task/task_scheduler/scheduler_lock.h",
-    "../../src/base/task/task_scheduler/scheduler_lock_impl.cc",
-    "../../src/base/task/task_scheduler/scheduler_lock_impl.h",
-    "../../src/base/task/task_scheduler/scheduler_single_thread_task_runner_manager.cc",
-    "../../src/base/task/task_scheduler/scheduler_single_thread_task_runner_manager.h",
-    "../../src/base/task/task_scheduler/scheduler_worker.cc",
-    "../../src/base/task/task_scheduler/scheduler_worker.h",
-    "../../src/base/task/task_scheduler/scheduler_worker_observer.h",
-    "../../src/base/task/task_scheduler/scheduler_worker_params.h",
-    "../../src/base/task/task_scheduler/scheduler_worker_pool.cc",
-    "../../src/base/task/task_scheduler/scheduler_worker_pool.h",
-    "../../src/base/task/task_scheduler/scheduler_worker_pool_impl.cc",
-    "../../src/base/task/task_scheduler/scheduler_worker_pool_impl.h",
-    "../../src/base/task/task_scheduler/scheduler_worker_pool_params.cc",
-    "../../src/base/task/task_scheduler/scheduler_worker_pool_params.h",
-    "../../src/base/task/task_scheduler/scheduler_worker_stack.cc",
-    "../../src/base/task/task_scheduler/scheduler_worker_stack.h",
-    "../../src/base/task/task_scheduler/sequence.cc",
-    "../../src/base/task/task_scheduler/sequence.h",
-    "../../src/base/task/task_scheduler/sequence_sort_key.cc",
-    "../../src/base/task/task_scheduler/sequence_sort_key.h",
-    "../../src/base/task/task_scheduler/service_thread.cc",
-    "../../src/base/task/task_scheduler/service_thread.h",
-    "../../src/base/task/task_scheduler/task.cc",
-    "../../src/base/task/task_scheduler/task.h",
-    "../../src/base/task/task_scheduler/task_scheduler.cc",
-    "../../src/base/task/task_scheduler/task_scheduler.h",
-    "../../src/base/task/task_scheduler/task_scheduler_impl.cc",
-    "../../src/base/task/task_scheduler/task_scheduler_impl.h",
-    "../../src/base/task/task_scheduler/task_tracker.cc",
-    "../../src/base/task/task_scheduler/task_tracker.h",
-    "../../src/base/task/task_scheduler/tracked_ref.h",
     "../../src/base/task/task_traits.cc",
+    "../../src/base/task/task_executor.cc",
+    "../../src/base/task/task_executor.h",
+    "../../src/base/task/task_features.h",
+    "../../src/base/task/task_features.cc",
+    "../../src/base/task/task_observer.h",
     "../../src/base/task/task_traits.h",
     "../../src/base/task/task_traits_details.h",
     "../../src/base/task_runner.cc",
     "../../src/base/task_runner.h",
     "../../src/base/task_runner_util.h",
     "../../src/base/template_util.h",
-    "../../src/base/test/fuzzed_data_provider.cc",
-    "../../src/base/test/fuzzed_data_provider.h",
     "../../src/base/third_party/dynamic_annotations/dynamic_annotations.h",
     "../../src/base/third_party/icu/icu_utf.cc",
     "../../src/base/third_party/icu/icu_utf.h",
@@ -505,8 +531,8 @@ source_set("base") {
     "../../src/base/trace_event/memory_dump_request_args.h",
     "../../src/base/trace_event/memory_dump_scheduler.cc",
     "../../src/base/trace_event/memory_dump_scheduler.h",
-    "../../src/base/trace_event/memory_infra_background_whitelist.cc",
-    "../../src/base/trace_event/memory_infra_background_whitelist.h",
+    "../../src/base/trace_event/memory_infra_background_allowlist.cc",
+    "../../src/base/trace_event/memory_infra_background_allowlist.h",
     "../../src/base/trace_event/memory_usage_estimator.cc",
     "../../src/base/trace_event/memory_usage_estimator.h",
     "../../src/base/trace_event/process_memory_dump.cc",
@@ -519,16 +545,12 @@ source_set("base") {
     "../../src/base/trace_event/trace_config_category_filter.cc",
     "../../src/base/trace_event/trace_config_category_filter.h",
     "../../src/base/trace_event/trace_event.h",
-    "../../src/base/trace_event/trace_event_argument.cc",
-    "../../src/base/trace_event/trace_event_argument.h",
     "../../src/base/trace_event/trace_event_filter.cc",
     "../../src/base/trace_event/trace_event_filter.h",
     "../../src/base/trace_event/trace_event_impl.cc",
     "../../src/base/trace_event/trace_event_impl.h",
     "../../src/base/trace_event/trace_event_memory_overhead.cc",
     "../../src/base/trace_event/trace_event_memory_overhead.h",
-    "../../src/base/trace_event/trace_event_system_stats_monitor.cc",
-    "../../src/base/trace_event/trace_event_system_stats_monitor.h",
     "../../src/base/trace_event/trace_log.cc",
     "../../src/base/trace_event/trace_log.h",
     "../../src/base/trace_event/trace_log_constants.cc",
@@ -540,11 +562,7 @@ source_set("base") {
     "../../src/base/values.h",
     "../../src/base/vlog.cc",
     "../../src/base/vlog.h",
-    "allocator/buildflags.h",
-    "cfi_buildflags.h",
-    "debug/debugging_buildflags.h",
     "generated_build_date.h",
-    "synchronization/synchronization_buildflags.h",
   ]
 
   if (is_posix) {
@@ -552,7 +570,7 @@ source_set("base") {
       cflags_cc = [ "-D_FILE_OFFSET_BITS=64" ]
     }
 
-    sources += [
+   sources += [
       "../../src/base/base_paths_posix.h",
       "../../src/base/debug/debugger_posix.cc",
       "../../src/base/debug/stack_trace_posix.cc",
@@ -575,9 +593,7 @@ source_set("base") {
       "../../src/base/strings/string_util_posix.h",
       "../../src/base/synchronization/condition_variable_posix.cc",
       "../../src/base/synchronization/lock_impl_posix.cc",
-      "../../src/base/sys_info_posix.cc",
-      "../../src/base/task/task_scheduler/task_tracker_posix.cc",
-      "../../src/base/task/task_scheduler/task_tracker_posix.h",
+      "../../src/base/system/sys_info_posix.cc",
       "../../src/base/threading/platform_thread_posix.cc",
       "../../src/base/time/time_conversion_posix.cc",
       "../../src/base/time/time_exploded_posix.cc",
@@ -592,13 +608,11 @@ source_set("base") {
       "../../src/base/files/dir_reader_linux.h",
       "../../src/base/files/file_util_linux.cc",
       "../../src/base/memory/platform_shared_memory_region_posix.cc",
-      "../../src/base/memory/shared_memory_handle_posix.cc",
       "../../src/base/memory/shared_memory_posix.cc",
       "../../src/base/process/internal_linux.cc",
       "../../src/base/process/internal_linux.h",
       "../../src/base/process/memory_linux.cc",
       "../../src/base/process/process_handle_linux.cc",
-      "../../src/base/process/process_info_linux.cc",
       "../../src/base/process/process_iterator_linux.cc",
       "../../src/base/process/process_linux.cc",
       "../../src/base/process/process_metrics_linux.cc",
@@ -662,7 +676,6 @@ source_set("base") {
       "../../src/base/mac/scoped_nsautorelease_pool.h",
       "../../src/base/mac/scoped_nsautorelease_pool.mm",
       "../../src/base/mac/scoped_nsobject.h",
-      "../../src/base/mac/scoped_nsobject.mm",
       "../../src/base/mac/scoped_objc_class_swizzler.h",
       "../../src/base/mac/scoped_objc_class_swizzler.mm",
       "../../src/base/mac/scoped_sending_event.h",
@@ -671,8 +684,6 @@ source_set("base") {
       "../../src/base/mac/sdk_forward_declarations.h",
       "../../src/base/mac/sdk_forward_declarations.mm",
       "../../src/base/memory/platform_shared_memory_region_mac.cc",
-      "../../src/base/memory/shared_memory_handle_mac.cc",
-      "../../src/base/memory/shared_memory_mac.cc",
       "../../src/base/message_loop/message_pump_mac.h",
       "../../src/base/message_loop/message_pump_mac.mm",
       "../../src/base/process/kill_mac.cc",
@@ -680,13 +691,12 @@ source_set("base") {
       "../../src/base/process/port_provider_mac.cc",
       "../../src/base/process/port_provider_mac.h",
       "../../src/base/process/process_handle_mac.cc",
-      "../../src/base/process/process_info_mac.cc",
       "../../src/base/process/process_iterator_mac.cc",
       "../../src/base/process/process_mac.cc",
       "../../src/base/process/process_metrics_mac.cc",
       "../../src/base/strings/sys_string_conversions_mac.mm",
       "../../src/base/synchronization/waitable_event_mac.cc",
-      "../../src/base/sys_info_mac.mm",
+      "../../src/base/system/sys_info_mac.mm",
       "../../src/base/threading/platform_thread_mac.mm",
       "../../src/base/time/time_mac.cc",
     ]
@@ -702,7 +712,6 @@ source_set("base") {
   } else if (is_posix) {  # And !is_linux and !is_mac.
     sources += [
       "../../src/base/memory/platform_shared_memory_region_posix.cc",
-      "../../src/base/memory/shared_memory_handle_posix.cc",
       "../../src/base/memory/shared_memory_posix.cc",
       "../../src/base/strings/sys_string_conversions_posix.cc",
       "../../src/base/synchronization/waitable_event_posix.cc",
@@ -713,25 +722,15 @@ source_set("base") {
   }
 
   deps = [
-    ":dmg_fp",
     ":libevent",
+    ":cfi_buildflags",
+    ":allocator_buildflags",
+    ":clang_profiling_buildflags",
+    ":logging_buildflags",
     "../../src/third_party",
   ]
 
   configs += [ ":base_config" ]
-}
-
-source_set("dmg_fp") {
-  cflags = [ "-Wno-error=attributes" ]
-  defines = [
-    "FALLTHROUGH=[[fallthrough]]",
-    "INT_MAX=0x7fffffff",
-  ]
-  sources = [
-    "../../src/base/third_party/dmg_fp/dmg_fp.h",
-    "../../src/base/third_party/dmg_fp/dtoa.cc",
-    "../../src/base/third_party/dmg_fp/g_fmt.cc",
-  ]
 }
 
 source_set("libevent") {
