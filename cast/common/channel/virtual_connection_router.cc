@@ -4,6 +4,8 @@
 
 #include "cast/common/channel/virtual_connection_router.h"
 
+#include <utility>
+
 #include "cast/common/channel/cast_message_handler.h"
 #include "cast/common/channel/message_util.h"
 #include "cast/common/channel/proto/cast_channel.pb.h"
@@ -36,6 +38,7 @@ bool VirtualConnectionRouter::RemoveHandlerForLocalId(
 
 void VirtualConnectionRouter::TakeSocket(SocketErrorHandler* error_handler,
                                          std::unique_ptr<CastSocket> socket) {
+  OSP_DCHECK(socket);
   int id = socket->socket_id();
   socket->SetClient(this);
   sockets_.emplace(id, SocketWithHandler{std::move(socket), error_handler});
@@ -55,22 +58,46 @@ void VirtualConnectionRouter::CloseSocket(int id) {
 
 Error VirtualConnectionRouter::Send(VirtualConnection virtual_conn,
                                     CastMessage message) {
-  // TODO(btolsch): Check for broadcast message.
-  if (!IsTransportNamespace(message.namespace_()) &&
+  const bool is_broadcast_message = (virtual_conn.peer_id == kBroadcastId);
+  if (!is_broadcast_message && !IsTransportNamespace(message.namespace_()) &&
       !vc_manager_->GetConnectionData(virtual_conn)) {
     return Error::Code::kNoActiveConnection;
   }
-  auto it = sockets_.find(virtual_conn.socket_id);
-  if (it == sockets_.end()) {
-    return Error::Code::kItemNotFound;
-  }
+
   message.set_source_id(std::move(virtual_conn.local_id));
   message.set_destination_id(std::move(virtual_conn.peer_id));
-  return it->second.socket->Send(message);
+
+  if (is_broadcast_message) {
+    // Broadcast to local endpoints.
+    for (const auto& entry : endpoints_) {
+      if (entry.first == message.source_id()) {
+        continue;
+      }
+      entry.second->OnMessage(this, nullptr, message);
+    }
+
+    // Broadcast to remote endpoints. If an Error occurs, continue broadcasting,
+    // and later return the first Error that occurred.
+    Error error;
+    for (const auto& entry : sockets_) {
+      auto result = entry.second.socket->Send(message);
+      if (!result.ok() && error.ok()) {
+        error = result;
+      }
+    }
+    return error;
+  } else {
+    auto it = sockets_.find(virtual_conn.socket_id);
+    if (it == sockets_.end()) {
+      return Error::Code::kItemNotFound;
+    }
+    return it->second.socket->Send(std::move(message));
+  }
 }
 
 void VirtualConnectionRouter::OnError(CastSocket* socket, Error error) {
-  int id = socket->socket_id();
+  OSP_DCHECK(socket);
+  const int id = socket->socket_id();
   auto it = sockets_.find(id);
   if (it != sockets_.end()) {
     vc_manager_->RemoveConnectionsBySocketId(id, VirtualConnection::kUnknown);
@@ -83,17 +110,25 @@ void VirtualConnectionRouter::OnError(CastSocket* socket, Error error) {
 
 void VirtualConnectionRouter::OnMessage(CastSocket* socket,
                                         CastMessage message) {
-  // TODO(btolsch): Check for broadcast message.
-  VirtualConnection virtual_conn{message.destination_id(), message.source_id(),
-                                 socket->socket_id()};
-  if (!IsTransportNamespace(message.namespace_()) &&
-      !vc_manager_->GetConnectionData(virtual_conn)) {
-    return;
-  }
+  OSP_DCHECK(socket);
+
   const std::string& local_id = message.destination_id();
-  auto it = endpoints_.find(local_id);
-  if (it != endpoints_.end()) {
-    it->second->OnMessage(this, socket, std::move(message));
+  const bool is_broadcast_message = (local_id == kBroadcastId);
+
+  if (is_broadcast_message) {
+    for (const auto& entry : endpoints_) {
+      entry.second->OnMessage(this, socket, message);
+    }
+  } else {
+    if (!IsTransportNamespace(message.namespace_()) &&
+        !vc_manager_->GetConnectionData(VirtualConnection{
+            local_id, message.source_id(), socket->socket_id()})) {
+      return;
+    }
+    auto it = endpoints_.find(local_id);
+    if (it != endpoints_.end()) {
+      it->second->OnMessage(this, socket, std::move(message));
+    }
   }
 }
 
