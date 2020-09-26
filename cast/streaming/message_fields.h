@@ -5,6 +5,11 @@
 #ifndef CAST_STREAMING_MESSAGE_FIELDS_H_
 #define CAST_STREAMING_MESSAGE_FIELDS_H_
 
+#include <string>
+
+#include "absl/strings/string_view.h"
+#include "cast/streaming/constants.h"
+
 namespace openscreen {
 namespace cast {
 
@@ -15,7 +20,7 @@ namespace cast {
 constexpr char kCastWebrtcNamespace[] = "urn:x-cast:com.google.cast.webrtc";
 
 // JSON message field values specific to the Sender Session.
-constexpr char kMessageKeyType[] = "type";
+constexpr char kMessageType[] = "type";
 constexpr char kMessageTypeOffer[] = "OFFER";
 constexpr char kMessageTypeAnswer[] = "ANSWER";
 
@@ -32,6 +37,13 @@ constexpr char kResultError[] = "error";
 constexpr char kErrorMessageBody[] = "error";
 constexpr char kErrorCode[] = "code";
 constexpr char kErrorDescription[] = "description";
+
+// Conversion methods for codec message fields.
+const char* CodecToString(AudioCodec codec);
+AudioCodec StringToAudioCodec(absl::string_view name);
+
+const char* CodecToString(VideoCodec codec);
+VideoCodec StringToVideoCodec(absl::string_view name);
 
 }  // namespace cast
 }  // namespace openscreen

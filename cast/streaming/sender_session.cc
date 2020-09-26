@@ -17,10 +17,10 @@
 
 #include "absl/strings/match.h"
 #include "absl/strings/numbers.h"
+#include "cast/common/public/message_port.h"
 #include "cast/streaming/capture_recommendations.h"
 #include "cast/streaming/environment.h"
 #include "cast/streaming/message_fields.h"
-#include "cast/streaming/message_port.h"
 #include "cast/streaming/offer_messages.h"
 #include "cast/streaming/sender.h"
 #include "util/crypto/random_bytes.h"
@@ -33,27 +33,30 @@ namespace cast {
 
 namespace {
 
-AudioStream CreateStream(int index, const AudioCaptureOption& config) {
-  return AudioStream{Stream{index,
-                            Stream::Type::kAudioSource,
-                            config.channels,
-                            CodecToString(config.codec),
-                            GetPayloadType(config.codec),
-                            GenerateSsrc(true /*high_priority*/),
-                            config.target_playout_delay,
-                            crypto::GenerateRandomBytes16(),
-                            crypto::GenerateRandomBytes16(),
-                            false /* receiver_rtcp_event_log */,
-                            {} /* receiver_rtcp_dscp */,
-                            config.sample_rate},
-                     config.bit_rate};
+AudioStream CreateStream(int index, const AudioCaptureConfig& config) {
+  return AudioStream{
+      Stream{index,
+             Stream::Type::kAudioSource,
+             config.channels,
+             CodecToString(config.codec),
+             GetPayloadType(config.codec),
+             GenerateSsrc(true /*high_priority*/),
+             config.target_playout_delay,
+             GenerateRandomBytes16(),
+             GenerateRandomBytes16(),
+             false /* receiver_rtcp_event_log */,
+             {} /* receiver_rtcp_dscp */,
+             config.sample_rate},
+      (config.bit_rate >= capture_recommendations::kDefaultAudioMinBitRate)
+          ? config.bit_rate
+          : capture_recommendations::kDefaultAudioMaxBitRate};
 }
 
 Resolution ToResolution(const DisplayResolution& display_resolution) {
   return Resolution{display_resolution.width, display_resolution.height};
 }
 
-VideoStream CreateStream(int index, const VideoCaptureOption& config) {
+VideoStream CreateStream(int index, const VideoCaptureConfig& config) {
   std::vector<Resolution> resolutions;
   std::transform(config.resolutions.begin(), config.resolutions.end(),
                  std::back_inserter(resolutions), ToResolution);
@@ -67,17 +70,20 @@ VideoStream CreateStream(int index, const VideoCaptureOption& config) {
              GetPayloadType(config.codec),
              GenerateSsrc(false /*high_priority*/),
              config.target_playout_delay,
-             crypto::GenerateRandomBytes16(),
-             crypto::GenerateRandomBytes16(),
+             GenerateRandomBytes16(),
+             GenerateRandomBytes16(),
              false /* receiver_rtcp_event_log */,
              {} /* receiver_rtcp_dscp */,
              kRtpVideoTimebase},
       SimpleFraction{config.max_frame_rate.numerator,
                      config.max_frame_rate.denominator},
-      config.max_bit_rate,
-      {},
-      {},
-      {},  //  protection, profile, level
+      (config.max_bit_rate >
+       capture_recommendations::kDefaultVideoBitRateLimits.minimum)
+          ? config.max_bit_rate
+          : capture_recommendations::kDefaultVideoBitRateLimits.maximum,
+      {},  //  protection
+      {},  //  profile
+      {},  //  protection
       std::move(resolutions),
       {} /* error_recovery mode, always "castv2" */
   };
@@ -93,8 +99,8 @@ void CreateStreamList(int offset_index,
   }
 }
 
-Offer CreateOffer(const std::vector<AudioCaptureOption>& audio_configs,
-                  const std::vector<VideoCaptureOption>& video_configs) {
+Offer CreateOffer(const std::vector<AudioCaptureConfig>& audio_configs,
+                  const std::vector<VideoCaptureConfig>& video_configs) {
   Offer offer{
       {CastMode::Type::kMirroring},
       false /* supports_wifi_status_reporting */,
@@ -110,8 +116,8 @@ Offer CreateOffer(const std::vector<AudioCaptureOption>& audio_configs,
   return offer;
 }
 
-bool IsValidAudioCaptureOption(const AudioCaptureOption& config) {
-  return config.channels >= 1 && config.bit_rate > 0;
+bool IsValidAudioCaptureConfig(const AudioCaptureConfig& config) {
+  return config.channels >= 1 && config.bit_rate >= 0;
 }
 
 bool IsValidResolution(const DisplayResolution& resolution) {
@@ -119,20 +125,23 @@ bool IsValidResolution(const DisplayResolution& resolution) {
          resolution.height > kMinVideoHeight;
 }
 
-bool IsValidVideoCaptureOption(const VideoCaptureOption& config) {
+bool IsValidVideoCaptureConfig(const VideoCaptureConfig& config) {
   return config.max_frame_rate.numerator > 0 &&
-         config.max_frame_rate.denominator > 0 && config.max_bit_rate > 0 &&
+         config.max_frame_rate.denominator > 0 &&
+         ((config.max_bit_rate == 0) ||
+          (config.max_bit_rate >=
+           capture_recommendations::kDefaultVideoBitRateLimits.minimum)) &&
          !config.resolutions.empty() &&
          std::all_of(config.resolutions.begin(), config.resolutions.end(),
                      IsValidResolution);
 }
 
-bool AreAllValid(const std::vector<AudioCaptureOption>& audio_configs,
-                 const std::vector<VideoCaptureOption>& video_configs) {
+bool AreAllValid(const std::vector<AudioCaptureConfig>& audio_configs,
+                 const std::vector<VideoCaptureConfig>& video_configs) {
   return std::all_of(audio_configs.begin(), audio_configs.end(),
-                     IsValidAudioCaptureOption) &&
+                     IsValidAudioCaptureConfig) &&
          std::all_of(video_configs.begin(), video_configs.end(),
-                     IsValidVideoCaptureOption);
+                     IsValidVideoCaptureConfig);
 }
 
 int GenerateSessionId() {
@@ -162,15 +171,15 @@ SenderSession::SenderSession(IPAddress remote_address,
   OSP_DCHECK(message_port_);
   OSP_DCHECK(environment_);
 
-  message_port_->SetClient(this);
+  message_port_->SetClient(this, "sender-" + std::to_string(session_id_));
 }
 
 SenderSession::~SenderSession() {
-  message_port_->SetClient(nullptr);
+  message_port_->ResetClient();
 }
 
-Error SenderSession::Negotiate(std::vector<AudioCaptureOption> audio_configs,
-                               std::vector<VideoCaptureOption> video_configs) {
+Error SenderSession::Negotiate(std::vector<AudioCaptureConfig> audio_configs,
+                               std::vector<VideoCaptureConfig> video_configs) {
   // Negotiating with no streams doesn't make any sense.
   if (audio_configs.empty() && video_configs.empty()) {
     return Error(Error::Code::kParameterInvalid,
@@ -190,11 +199,14 @@ Error SenderSession::Negotiate(std::vector<AudioCaptureOption> audio_configs,
       std::move(offer), std::move(audio_configs), std::move(video_configs)});
 
   Json::Value message_body;
-  message_body[kMessageKeyType] = kMessageTypeOffer;
+  message_body[kMessageType] = kMessageTypeOffer;
   message_body[kOfferMessageBody] = std::move(json_offer.value());
 
   Message message;
-  message.sender_id = std::to_string(session_id_);
+  // Currently we don't have a way to discover the ID of the receiver we
+  // are connected to, since we have to send the first message.
+  // TODO(jophba): migrate to discovered receiver ID when available.
+  message.sender_id = kDefaultStreamingReceiverSenderId;
   message.message_namespace = kCastWebrtcNamespace;
   message.body = std::move(message_body);
   SendMessage(&message);
@@ -305,7 +317,7 @@ void SenderSession::SpawnAudioSender(ConfiguredSenders* senders,
                                      Ssrc receiver_ssrc,
                                      int send_index,
                                      int config_index) {
-  const AudioCaptureOption& config =
+  const AudioCaptureConfig& config =
       current_negotiation_->audio_configs[config_index];
   const RtpPayloadType payload_type = GetPayloadType(config.codec);
   for (const AudioStream& stream : current_negotiation_->offer.audio_streams) {
@@ -323,7 +335,7 @@ void SenderSession::SpawnVideoSender(ConfiguredSenders* senders,
                                      Ssrc receiver_ssrc,
                                      int send_index,
                                      int config_index) {
-  const VideoCaptureOption& config =
+  const VideoCaptureConfig& config =
       current_negotiation_->video_configs[config_index];
   const RtpPayloadType payload_type = GetPayloadType(config.codec);
   for (const VideoStream& stream : current_negotiation_->offer.video_streams) {

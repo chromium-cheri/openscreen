@@ -10,8 +10,8 @@
 
 #include "absl/strings/str_cat.h"
 #include "cast/common/public/service_info.h"
+#include "cast/receiver/channel/static_credentials.h"
 #include "cast/standalone_receiver/cast_agent.h"
-#include "cast/standalone_receiver/static_credentials.h"
 #include "cast/streaming/ssrc.h"
 #include "discovery/common/config.h"
 #include "discovery/common/reporting_client.h"
@@ -117,8 +117,14 @@ usage: )" << argv0
 options:
     interface
         Specifies the network interface to bind to. The interface is
-        looked up from the system interface registry. This argument is
-        mandatory, as it must be known for publishing discovery.
+        looked up from the system interface registry.
+        Mandatory, as it must be known for publishing discovery.
+
+    -p, --private-key=path-to-key: Path to OpenSSL-generated private key to be
+                    used for TLS authentication.
+
+    -s, --server-certificate=path-to-cert: Path to PEM file containing a
+                           server certificate to be used for TLS authentication.
 
     -t, --tracing: Enable performance tracing logging.
 
@@ -138,6 +144,15 @@ InterfaceInfo GetInterfaceInfoFromName(const char* name) {
       break;
     }
   }
+
+  if (interface_info.name.empty()) {
+    auto error_or_info = GetLoopbackInterfaceForTesting();
+    if (error_or_info.has_value()) {
+      if (error_or_info.value().name == name) {
+        interface_info = std::move(error_or_info.value());
+      }
+    }
+  }
   OSP_CHECK(!interface_info.name.empty()) << "Invalid interface specified.";
   return interface_info;
 }
@@ -148,27 +163,50 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   // being exposed, consider if it applies to the standalone receiver,
   // standalone sender, osp demo, and test_main argument options.
   const struct option kArgumentOptions[] = {
+      {"private-key", required_argument, nullptr, 'p'},
+      {"server-certificate", required_argument, nullptr, 's'},
       {"tracing", no_argument, nullptr, 't'},
       {"verbose", no_argument, nullptr, 'v'},
       {"help", no_argument, nullptr, 'h'},
+
+      // Discovery is enabled by default, however there are cases where it
+      // needs to be disabled, such as on Mac OS X.
+      {"disable-discovery", no_argument, nullptr, 'x'},
       {nullptr, 0, nullptr, 0}};
 
   bool is_verbose = false;
+  bool discovery_enabled = true;
+  std::string private_key_path;
+  std::string server_certificate_path;
   std::unique_ptr<openscreen::TextTraceLoggingPlatform> trace_logger;
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "tvh", kArgumentOptions, nullptr)) !=
-         -1) {
+  while ((ch = getopt_long(argc, argv, "p:s:tvhx", kArgumentOptions,
+                           nullptr)) != -1) {
     switch (ch) {
+      case 'p':
+        private_key_path = optarg;
+        break;
+      case 's':
+        server_certificate_path = optarg;
+        break;
       case 't':
         trace_logger = std::make_unique<openscreen::TextTraceLoggingPlatform>();
         break;
       case 'v':
         is_verbose = true;
         break;
+      case 'x':
+        discovery_enabled = false;
+        break;
       case 'h':
         LogUsage(argv[0]);
         return 1;
     }
+  }
+  if (private_key_path.empty() != server_certificate_path.empty()) {
+    OSP_LOG_ERROR << "If a private key or server certificate path is provided, "
+                     "both are required.";
+    return 1;
   }
   SetLogLevel(is_verbose ? openscreen::LogLevel::kVerbose
                          : openscreen::LogLevel::kInfo);
@@ -181,16 +219,30 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   // make this standalone receiver visible to senders on the network.
   std::unique_ptr<DiscoveryState> discovery_state;
   std::unique_ptr<CastAgent> cast_agent;
+  const char* interface_name = argv[optind];
+  OSP_CHECK(interface_name && strlen(interface_name) > 0)
+      << "No interface name provided.";
+
+  std::string device_id =
+      absl::StrCat("Standalone Receiver on ", interface_name);
+  ErrorOr<GeneratedCredentials> creds = Error::Code::kEVPInitializationError;
+  if (private_key_path.empty()) {
+    creds = GenerateCredentials(device_id);
+  } else {
+    creds = GenerateCredentials(device_id, private_key_path,
+                                server_certificate_path);
+  }
+  OSP_CHECK(creds.is_value()) << creds.error();
   task_runner->PostTask(
-      [&, interface = GetInterfaceInfoFromName(argv[optind])] {
-        auto creds = GenerateCredentials(
-            absl::StrCat("Standalone Receiver on ", interface.name));
-        OSP_CHECK(creds.is_value()) << creds.error();
+      [&, interface = GetInterfaceInfoFromName(interface_name)] {
         cast_agent = StartCastAgent(task_runner, interface, &(creds.value()));
         OSP_CHECK(cast_agent) << "Failed to start CastAgent.";
-        auto result = StartDiscovery(task_runner, interface);
-        OSP_CHECK(result.is_value()) << "Failed to start discovery.";
-        discovery_state = std::move(result.value());
+
+        if (discovery_enabled) {
+          auto result = StartDiscovery(task_runner, interface);
+          OSP_CHECK(result.is_value()) << "Failed to start discovery.";
+          discovery_state = std::move(result.value());
+        }
       });
 
   // Run the event loop until an exit is requested (e.g., the video player GUI

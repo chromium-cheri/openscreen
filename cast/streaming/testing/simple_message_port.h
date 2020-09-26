@@ -9,8 +9,8 @@
 #include <utility>
 #include <vector>
 
+#include "cast/common/public/message_port.h"
 #include "cast/streaming/message_fields.h"
-#include "cast/streaming/message_port.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -20,7 +20,12 @@ namespace cast {
 class SimpleMessagePort : public MessagePort {
  public:
   ~SimpleMessagePort() override {}
-  void SetClient(MessagePort::Client* client) override { client_ = client; }
+  void SetClient(MessagePort::Client* client,
+                 std::string client_sender_id) override {
+    client_ = client;
+  }
+
+  void ResetClient() override { client_ = nullptr; }
 
   void ReceiveMessage(const std::string& message) {
     ReceiveMessage(kCastWebrtcNamespace, message);

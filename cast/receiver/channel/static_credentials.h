@@ -2,13 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_STANDALONE_RECEIVER_STATIC_CREDENTIALS_H_
-#define CAST_STANDALONE_RECEIVER_STATIC_CREDENTIALS_H_
+#ifndef CAST_RECEIVER_CHANNEL_STATIC_CREDENTIALS_H_
+#define CAST_RECEIVER_CHANNEL_STATIC_CREDENTIALS_H_
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "cast/common/certificate/cast_cert_validator_internal.h"
 #include "cast/receiver/channel/device_auth_namespace_handler.h"
 #include "platform/base/error.h"
 #include "platform/base/tls_credentials.h"
@@ -52,9 +54,14 @@ struct GeneratedCredentials {
 // stored in private_key_der.h. The certificate is valid for
 // kCertificateDuration from when this function is called.
 ErrorOr<GeneratedCredentials> GenerateCredentials(
-    absl::string_view device_certificate_id);
+    const std::string& device_certificate_id);
+
+ErrorOr<GeneratedCredentials> GenerateCredentials(
+    const std::string& device_certificate_id,
+    const std::string& private_key_path,
+    const std::string& server_certificate_path);
 
 }  // namespace cast
 }  // namespace openscreen
 
-#endif  // CAST_STANDALONE_RECEIVER_STATIC_CREDENTIALS_H_
+#endif  // CAST_RECEIVER_CHANNEL_STATIC_CREDENTIALS_H_
