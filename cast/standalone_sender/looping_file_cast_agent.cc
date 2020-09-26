@@ -25,8 +25,8 @@ LoopingFileCastAgent::LoopingFileCastAgent(TaskRunner* task_runner)
     : task_runner_(task_runner) {
   router_ = MakeSerialDelete<VirtualConnectionRouter>(task_runner_,
                                                       &connection_manager_);
-  message_port_ =
-      MakeSerialDelete<CastSocketMessagePort>(task_runner_, router_.get());
+  message_port_ = MakeSerialDelete<CastSocketMessagePort>(
+      task_runner_, router_.get(), &connection_manager_);
   socket_factory_ =
       MakeSerialDelete<SenderSocketFactory>(task_runner_, this, task_runner_);
   connection_factory_ = SerialDeletePtr<TlsConnectionFactory>(
