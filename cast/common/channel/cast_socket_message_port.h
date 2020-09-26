@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "cast/common/channel/cast_message_handler.h"
+#include "cast/common/channel/virtual_connection_manager.h"
 #include "cast/common/channel/virtual_connection_router.h"
 #include "cast/common/public/cast_socket.h"
 #include "cast/common/public/message_port.h"
@@ -21,7 +22,8 @@ namespace cast {
 class CastSocketMessagePort : public MessagePort, public CastMessageHandler {
  public:
   // The router is expected to outlive this message port.
-  explicit CastSocketMessagePort(VirtualConnectionRouter* router);
+  explicit CastSocketMessagePort(VirtualConnectionRouter* router,
+                                 VirtualConnectionManager* manager);
   ~CastSocketMessagePort() override;
 
   void SetSocket(WeakPtr<CastSocket> socket);
@@ -44,6 +46,7 @@ class CastSocketMessagePort : public MessagePort, public CastMessageHandler {
 
  private:
   VirtualConnectionRouter* const router_;
+  VirtualConnectionManager* const manager_;
   std::string client_sender_id_;
   MessagePort::Client* client_ = nullptr;
   WeakPtr<CastSocket> socket_;

@@ -59,8 +59,8 @@ Error CastAgent::Start() {
         task_runner_, credentials_provider_);
     router_ = MakeSerialDelete<VirtualConnectionRouter>(task_runner_,
                                                         &connection_manager_);
-    message_port_ =
-        MakeSerialDelete<CastSocketMessagePort>(task_runner_, router_.get());
+    message_port_ = MakeSerialDelete<CastSocketMessagePort>(
+        task_runner_, router_.get(), &connection_manager_);
     router_->AddHandlerForLocalId(kPlatformReceiverId, auth_handler_.get());
     socket_factory_ = MakeSerialDelete<ReceiverSocketFactory>(
         task_runner_, this, router_.get());
