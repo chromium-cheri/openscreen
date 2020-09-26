@@ -53,6 +53,7 @@ struct DiscoveryState {
 ErrorOr<std::unique_ptr<DiscoveryState>> StartDiscovery(
     TaskRunner* task_runner,
     const InterfaceInfo& interface) {
+  TRACE_DEFAULT_SCOPED(TraceCategory::kStandaloneReceiver);
   discovery::Config config;
 
   discovery::Config::NetworkInfo::AddressFamilies supported_address_families =
@@ -99,6 +100,7 @@ ErrorOr<std::unique_ptr<DiscoveryState>> StartDiscovery(
 std::unique_ptr<CastAgent> StartCastAgent(TaskRunnerImpl* task_runner,
                                           const InterfaceInfo& interface,
                                           GeneratedCredentials* creds) {
+  TRACE_DEFAULT_SCOPED(TraceCategory::kStandaloneReceiver);
   auto agent = std::make_unique<CastAgent>(
       task_runner, interface, creds->provider.get(), creds->tls_credentials);
   const auto error = agent->Start();
