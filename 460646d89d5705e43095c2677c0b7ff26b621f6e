@@ -16,6 +16,69 @@
       "revId": "460646d89d5705e43095c2677c0b7ff26b621f6e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4eb532f3_d0caca2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-26T00:04:10Z",
+      "side": 1,
+      "message": "lgtm % a couple things before commit:",
+      "revId": "460646d89d5705e43095c2677c0b7ff26b621f6e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7afbeb9_b7bdea07",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-26T00:04:10Z",
+      "side": 1,
+      "message": "naming nit: kMaxUdpBufferSize",
+      "range": {
+        "startLine": 33,
+        "startChar": 15,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "460646d89d5705e43095c2677c0b7ff26b621f6e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e637372a_05488ff7",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-26T00:04:10Z",
+      "side": 1,
+      "message": "Oh, I just realized: You\u0027ll need to add defines to the BUILD.gn. Something like:\n\n  defines \u003d []\n  if (is_linux) {\n    defines +\u003d [\"OS_LINUX\"]\n  } else if (is_mac) {\n    defines +\u003d [\"MAC_OSX\"]\n  }\n\n(The compiler will silently use the final #else clause in all cases, if you don\u0027t. Yay macros!)",
+      "range": {
+        "startLine": 380,
+        "startChar": 12,
+        "endLine": 380,
+        "endChar": 20
+      },
+      "revId": "460646d89d5705e43095c2677c0b7ff26b621f6e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
