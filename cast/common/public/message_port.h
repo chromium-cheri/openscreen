@@ -20,15 +20,22 @@ class MessagePort {
  public:
   class Client {
    public:
+    // Receive a message from another peer.
     virtual void OnMessage(const std::string& sender_id,
                            const std::string& message_namespace,
                            const std::string& message) = 0;
+
+    // Called when an error has occured.
     virtual void OnError(Error error) = 0;
   };
 
   virtual ~MessagePort() = default;
+
   virtual void SetClient(Client* client) = 0;
-  virtual void PostMessage(const std::string& sender_id,
+
+  // Send a message from the local peer to the given |destination_id|, which
+  // refers to another peer.
+  virtual void PostMessage(const std::string& destination_id,
                            const std::string& message_namespace,
                            const std::string& message) = 0;
 };

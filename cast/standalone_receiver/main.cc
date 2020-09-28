@@ -11,7 +11,7 @@
 #include "absl/strings/str_cat.h"
 #include "cast/common/public/service_info.h"
 #include "cast/receiver/channel/static_credentials.h"
-#include "cast/standalone_receiver/cast_agent.h"
+//TODO#include "cast/standalone_receiver/cast_agent.h"
 #include "cast/streaming/ssrc.h"
 #include "discovery/common/config.h"
 #include "discovery/common/reporting_client.h"
@@ -197,7 +197,7 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   // Post tasks to kick-off the CastAgent and, if successful, start discovery to
   // make this standalone receiver visible to senders on the network.
   std::unique_ptr<DiscoveryState> discovery_state;
-  std::unique_ptr<CastAgent> cast_agent;
+  //std::unique_ptr<CastAgent> cast_agent;
   const char* interface_name = argv[optind];
   OSP_CHECK(interface_name && strlen(interface_name) > 0)
       << "No interface name provided.";
@@ -207,8 +207,8 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   OSP_CHECK(creds.is_value()) << creds.error();
   task_runner->PostTask(
       [&, interface = GetInterfaceInfoFromName(interface_name)] {
-        cast_agent = StartCastAgent(task_runner, interface, &(creds.value()));
-        OSP_CHECK(cast_agent) << "Failed to start CastAgent.";
+        // cast_agent = StartCastAgent(task_runner, interface, &(creds.value()));
+        // OSP_CHECK(cast_agent) << "Failed to start CastAgent.";
 
         if (discovery_enabled) {
           auto result = StartDiscovery(task_runner, interface);
@@ -226,7 +226,7 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
   // or more tasks to be posted, and so the TaskRunner is spun to give them a
   // chance to execute.
   discovery_state.reset();
-  cast_agent.reset();
+  ////////////////////////////////////////////// cast_agent.reset();
   task_runner->PostTask([task_runner] { task_runner->RequestStopSoon(); });
   task_runner->RunUntilStopped();
 

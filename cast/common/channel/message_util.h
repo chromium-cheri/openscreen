@@ -49,6 +49,9 @@ static constexpr char kMessageKeyReasonCode[] = "reasonCode";
 static constexpr char kMessageKeyAppId[] = "appId";
 static constexpr char kMessageKeyRequestId[] = "requestId";
 static constexpr char kMessageKeyAvailability[] = "availability";
+static constexpr char kMessageKeyResponseType[] = "responseType";
+static constexpr char kMessageKeyTransportId[] = "transportId";
+static constexpr char kMessageKeySessionId[] = "sessionId";
 
 // JSON message field values.
 static constexpr char kMessageTypeConnect[] = "CONNECT";
