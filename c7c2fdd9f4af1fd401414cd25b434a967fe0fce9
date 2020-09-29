@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "a5f462d5_80fa5702",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-29T21:18:08Z",
+      "side": 1,
+      "message": "Suggestion: Instead of adding the 2nd argument, how about just adding an accessor to get the VCManager from VCRouter? That way, the code structure ensures both this class and the router are using the same manager.",
+      "range": {
+        "startLine": 17,
+        "startChar": 45,
+        "endLine": 17,
+        "endChar": 78
+      },
+      "revId": "c7c2fdd9f4af1fd401414cd25b434a967fe0fce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "478843f5_06bbe613",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-29T21:18:08Z",
+      "side": 1,
+      "message": "Instead of defaulting, it looks like we should call ResetClient() here to execute any lingering cleanup.",
+      "range": {
+        "startLine": 20,
+        "startChar": 48,
+        "endLine": 20,
+        "endChar": 57
+      },
+      "revId": "c7c2fdd9f4af1fd401414cd25b434a967fe0fce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "924b83d6_124a3366",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-29T21:18:08Z",
+      "side": 1,
+      "message": "Before this, let\u0027s call ResetClient() to remove any prior routing.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "c7c2fdd9f4af1fd401414cd25b434a967fe0fce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d1acfe8_947b0d5f",
         "filename": "cast/common/channel/cast_socket_message_port.cc",
         "patchSetId": 3
@@ -37,6 +106,30 @@
       "side": 1,
       "message": "If |client_sender_id_| is specific to the mirroring app (and it sounds like it is), you could use RemoveConnectionsByLocalId(client_sender_id_) on shutdown instead of tracking them.",
       "parentUuid": "6d1acfe8_947b0d5f",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 61,
+        "endChar": 27
+      },
+      "revId": "c7c2fdd9f4af1fd401414cd25b434a967fe0fce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3f3ed2b_d8e6de44",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-29T21:18:08Z",
+      "side": 1,
+      "message": "Ah, okay. Then, we can keep this, but add the manager_-\u003eRemoveConnectionsByLocalId() call in this class\u0027 ResetClient() method.",
+      "parentUuid": "34765695_006f8f97",
       "range": {
         "startLine": 61,
         "startChar": 14,
