@@ -13,8 +13,9 @@
 namespace openscreen {
 namespace cast {
 
-CastSocketMessagePort::CastSocketMessagePort(VirtualConnectionRouter* router)
-    : router_(router) {}
+CastSocketMessagePort::CastSocketMessagePort(VirtualConnectionRouter* router,
+                                             VirtualConnectionManager* manager)
+    : router_(router), manager_(manager) {}
 
 CastSocketMessagePort::~CastSocketMessagePort() = default;
 
@@ -49,26 +50,21 @@ void CastSocketMessagePort::PostMessage(
     const std::string& destination_sender_id,
     const std::string& message_namespace,
     const std::string& message) {
-  ::cast::channel::CastMessage cast_message;
-  cast_message.set_protocol_version(::cast::channel::CastMessage::CASTV2_1_0);
-  cast_message.set_namespace_(message_namespace.data(),
-                              message_namespace.size());
-  cast_message.set_source_id(client_sender_id_.data(),
-                             client_sender_id_.size());
-  cast_message.set_destination_id(destination_sender_id.data(),
-                                  destination_sender_id.size());
-  cast_message.set_payload_type(::cast::channel::CastMessage::STRING);
-  cast_message.set_payload_utf8(message.data(), message.size());
-
   if (!socket_) {
     client_->OnError(Error::Code::kAlreadyClosed);
     return;
   }
 
-  // TODO(jophba): migrate to using VirtualConnectionRouter::Send().
-  Error error = socket_->Send(cast_message);
-  if (!error.ok()) {
-    client_->OnError(error);
+  VirtualConnection connection{client_sender_id_, destination_sender_id,
+                               socket_->socket_id()};
+  if (!manager_->GetConnectionData(connection)) {
+    manager_->AddConnection(connection, VirtualConnection::AssociatedData{});
+  }
+
+  const Error send_error = router_->Send(
+      std::move(connection), MakeSimpleUTF8Message(message_namespace, message));
+  if (!send_error.ok()) {
+    client_->OnError(std::move(send_error));
   }
 }
 
