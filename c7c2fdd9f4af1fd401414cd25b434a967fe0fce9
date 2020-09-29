@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d1acfe8_947b0d5f",
+        "filename": "cast/common/channel/cast_socket_message_port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-09-29T18:52:00Z",
+      "side": 1,
+      "message": "Somewhere, we should also be calling RemoveConnection(). However, that\u0027s going to really complicate things here because CastSocketMessagePort will have to track all the VirtualConnections it added so it can delete them later. Then, I also wonder if it\u0027s the app that needs to be explicitly adding/removing the connection; but, then this smells like layering violations are brewing (if doing it through CastSocketMessagePort)...\n\nThinking about this more, it seems like the entity that constructs/initializes the CastSocketMessagePort should have these responsibilities instead. Meaning, it seems I should be handling this in the cast agent I\u0027m working on: When the \"mirroring app\" starts, the agent could auto-generate the local peer\u0027s \"sender-12345\" sender_id, call VCManager::AddConnection(), and when the app stops, the agent could call RemoveConnection().\n\nWDYT?",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 61,
+        "endChar": 27
+      },
+      "revId": "c7c2fdd9f4af1fd401414cd25b434a967fe0fce9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
