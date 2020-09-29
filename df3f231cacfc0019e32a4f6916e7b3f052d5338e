@@ -34,6 +34,24 @@
       "revId": "df3f231cacfc0019e32a4f6916e7b3f052d5338e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cad368b_17017419",
+        "filename": "util/crypto/pem_helpers.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1232524
+      },
+      "writtenOn": "2020-09-29T18:32:57Z",
+      "side": 1,
+      "message": "That\u0027s probably because long might not be 64 bits w/ all compilers. You should change the decl on line 28 to \"long\" instead of \"int64_t\". Then, you don\u0027t even need the cast.",
+      "parentUuid": "0af93430_8c9ec386",
+      "revId": "df3f231cacfc0019e32a4f6916e7b3f052d5338e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
