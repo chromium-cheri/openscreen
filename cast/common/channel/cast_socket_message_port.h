@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "cast/common/channel/cast_message_handler.h"
+#include "cast/common/channel/virtual_connection_manager.h"
 #include "cast/common/channel/virtual_connection_router.h"
 #include "cast/common/public/cast_socket.h"
 #include "cast/common/public/message_port.h"
