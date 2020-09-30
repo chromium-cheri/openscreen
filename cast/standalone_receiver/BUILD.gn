@@ -18,11 +18,7 @@ if (!build_with_chromium) {
     ]
 
     deps = [
-      "../../platform",
-      "../../third_party/jsoncpp",
       "../common:public",
-      "../common/channel/proto:channel_proto",
-      "../receiver:channel",
       "../streaming:receiver",
     ]
 
@@ -58,14 +54,35 @@ if (!build_with_chromium) {
 
   source_set("e2e_tests") {
     testonly = true
+
     sources = [ "cast_agent_integration_tests.cc" ]
 
     deps = [
-      ":standalone_receiver",
       "../../third_party/boringssl",
       "../../third_party/googletest:gtest",
       "../receiver:channel",
     ]
+
+    # We duplicate some of the sources here because we don't want to use
+    # external libs as part of testing, so we need to recompile the source
+    # files with the preprocessor definition disabled.
+    if (have_ffmpeg && have_libsdl2) {
+      sources += [
+        "cast_agent.cc",
+        "cast_agent.h",
+        "dummy_player.cc",
+        "dummy_player.h",
+        "streaming_playback_controller.cc",
+        "streaming_playback_controller.h",
+      ]
+
+      deps += [
+        "../common:public",
+        "../streaming:receiver",
+      ]
+    } else {
+      deps += [ ":standalone_receiver" ]
+    }
   }
 
   executable("cast_receiver") {
