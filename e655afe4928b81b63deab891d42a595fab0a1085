@@ -16,6 +16,24 @@
       "revId": "e655afe4928b81b63deab891d42a595fab0a1085",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "007983dc_85343793",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-01T07:50:18Z",
+      "side": 1,
+      "message": "Not that clever but still would reduce duplication which would help future additions/changes: like protobuf, put the sources (and possibly deps) into a global list, then create two source_sets using that list but with different configs/defines/etc., then standalone_receiver as-is becomes a group that picks between standalone_receiver_dummy and standalone_receiver_sdl.  Finally, e2e_tests can explicitly depend on standalone_receiver_dummy.",
+      "parentUuid": "1833a31e_982a6d54",
+      "revId": "e655afe4928b81b63deab891d42a595fab0a1085",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
