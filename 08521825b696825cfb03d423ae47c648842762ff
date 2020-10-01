@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19916cad_f24e4634",
+        "filename": "platform/base/socket_state.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-01T16:55:04Z",
+      "side": 1,
+      "message": "Just to be clear for my understanding--TLS server sockets are the only kind of socket that listen, right? And they don\u0027t transition to kConnecting or kConnected, it spawns a child socket that is connecting or connected?\n\nJust want to double check there isn\u0027t a possibly a socket will be both listening and connected.",
+      "revId": "08521825b696825cfb03d423ae47c648842762ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5926f626_8389970e",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-01T16:55:04Z",
+      "side": 1,
+      "message": "What does it mean if is_initialized_ and handle_.fd \u003d\u003d kUnsetHandleFd? That it started and is already closed?\n\nLooking at this file, it seems we use them interchangeably? it might make sense to have\n\n  is_initialized() { return handle_.fd !\u003d kUnsetHandleFd; }",
+      "revId": "08521825b696825cfb03d423ae47c648842762ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
