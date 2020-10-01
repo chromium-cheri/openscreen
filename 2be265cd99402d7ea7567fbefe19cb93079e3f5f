@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5d9c44f4_f0e459ba",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-01T20:43:06Z",
+      "side": 1,
+      "message": "I added the decorator for this file, but the general problem is that our logging produces a variable width prefix so lining up log statements doesn\u0027t actually work that well :(.",
+      "parentUuid": "1bd6f12e_85debd1d",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7e483b2_4e78f517",
         "filename": "cast/test/cast_socket_e2e_test.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d348fd5f_323e3d9c",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-01T20:43:06Z",
+      "side": 1,
+      "message": "Well, it\u0027s not a huge problem, since the implementation will probably the same in both cases other than logging.  I think we would either switch to only OnError and maybe rename the \"error\" to kSocketClosed to imply less of a \"failure\" or make sure \"close failures\" get routed to OnClose.  The only \"problem\" is that it seems surprising to me because the read end closing seems more like a close than an error.  I don\u0027t feel it warrants a bug yet.",
+      "parentUuid": "f7e483b2_4e78f517",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "efff8939_4135caff",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-01T20:43:06Z",
+      "side": 1,
+      "message": "I added a TODO to follow up but yes, it looks like other e2e/integration tests could use this at least a little.",
+      "parentUuid": "c6488db8_f130a62d",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f240899_72b1452d",
         "filename": "cast/test/cast_socket_e2e_test.cc",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "ba61469d_0f3a4b58",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-01T20:43:06Z",
+      "side": 1,
+      "message": "Did something similar.",
+      "parentUuid": "3f240899_72b1452d",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8156f93_99beffce",
         "filename": "platform/impl/tls_connection_posix.cc",
         "patchSetId": 1
@@ -84,6 +156,24 @@
       "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1a96f47_a4534017",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-01T20:43:06Z",
+      "side": 1,
+      "message": "No, this a bssl::UniquePtr.",
+      "parentUuid": "c8156f93_99beffce",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
