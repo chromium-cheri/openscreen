@@ -49,7 +49,7 @@ StreamSocketPosix::StreamSocketPosix(SocketAddressPosix local_address,
 }
 
 StreamSocketPosix::~StreamSocketPosix() {
-  if (state_ == SocketState::kConnected) {
+  if (state_ == SocketState::kConnected || state_ == SocketState::kListening) {
     Close();
   }
 }
@@ -114,7 +114,7 @@ Error StreamSocketPosix::Bind() {
 }
 
 Error StreamSocketPosix::Close() {
-  if (!EnsureInitialized()) {
+  if (!is_initialized_ || handle_.fd == kUnsetHandleFd) {
     return ReportSocketClosedError();
   }
 
@@ -175,6 +175,7 @@ Error StreamSocketPosix::Listen() {
 }
 
 Error StreamSocketPosix::Listen(int max_backlog_size) {
+  OSP_DCHECK(state_ == SocketState::kNotConnected);
   if (!EnsureInitialized()) {
     return ReportSocketClosedError();
   }
@@ -184,6 +185,7 @@ Error StreamSocketPosix::Listen(int max_backlog_size) {
         Error(Error::Code::kSocketListenFailure, strerror(errno)));
   }
 
+  state_ = SocketState::kListening;
   return Error::None();
 }
 
