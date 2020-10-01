@@ -33,6 +33,11 @@
 
 namespace openscreen {
 namespace cast {
+namespace {
+
+constexpr char kLogDecorator[] = "--- ";
+
+}  // namespace
 
 class SenderSocketsClient final
     : public SenderSocketFactory::Client,
@@ -49,7 +54,8 @@ class SenderSocketsClient final
                    const IPEndpoint& endpoint,
                    std::unique_ptr<CastSocket> socket) {
     OSP_CHECK(!socket_);
-    OSP_LOG_INFO << "\tSender connected to endpoint: " << endpoint;
+    OSP_LOG_INFO << kLogDecorator
+                 << "Sender connected to endpoint: " << endpoint;
     socket_ = socket.get();
     router_->TakeSocket(this, std::move(socket));
   }
@@ -61,9 +67,10 @@ class SenderSocketsClient final
   }
 
   // VirtualConnectionRouter::SocketErrorHandler overrides.
-  void OnClose(CastSocket* socket) override {}
+  void OnClose(CastSocket* socket) override { socket_ = nullptr; }
   void OnError(CastSocket* socket, Error error) override {
-    OSP_NOTREACHED() << error;
+    OSP_DCHECK_EQ(error.code(), Error::Code::kSocketClosedFailure) << error;
+    socket_ = nullptr;
   }
 
  private:
@@ -87,7 +94,8 @@ class ReceiverSocketsClient final
                    const IPEndpoint& endpoint,
                    std::unique_ptr<CastSocket> socket) override {
     OSP_CHECK(!socket_);
-    OSP_LOG_INFO << "\tReceiver got connection from endpoint: " << endpoint;
+    OSP_LOG_INFO << kLogDecorator
+                 << "Receiver got connection from endpoint: " << endpoint;
     endpoint_ = endpoint;
     socket_ = socket.get();
     router_->TakeSocket(this, std::move(socket));
@@ -98,9 +106,12 @@ class ReceiverSocketsClient final
   }
 
   // VirtualConnectionRouter::SocketErrorHandler overrides.
-  void OnClose(CastSocket* socket) override {}
+  void OnClose(CastSocket* socket) override { socket_ = nullptr; }
   void OnError(CastSocket* socket, Error error) override {
-    OSP_NOTREACHED() << error;
+    // TODO(btolsch): Close behavior is inconsistent between intentional close
+    // and read-end close.
+    OSP_DCHECK_EQ(error.code(), Error::Code::kSocketClosedFailure) << error;
+    socket_ = nullptr;
   }
 
  private:
@@ -179,39 +190,62 @@ class CastSocketE2ETest : public ::testing::Test {
     return address;
   }
 
-  void WaitForCastSocket() {
+  // TODO(btolsch): Pull this into a helper file for use by other tests.
+  template <typename Cond>
+  void WaitForCondition(Cond condition,
+                        Clock::duration delay = std::chrono::milliseconds(250),
+                        int max_attempts = 8) {
     int attempts = 1;
-    constexpr int kMaxAttempts = 8;
-    constexpr std::chrono::milliseconds kSocketWaitDelay(250);
     do {
-      OSP_LOG_INFO << "\tChecking for CastSocket, attempt " << attempts << "/"
-                   << kMaxAttempts;
-      if (sender_client_->socket()) {
+      OSP_LOG_INFO << kLogDecorator << "Checking condition, attempt "
+                   << attempts << "/" << max_attempts;
+      if (condition()) {
         break;
       }
-      std::this_thread::sleep_for(kSocketWaitDelay);
-    } while (attempts++ < kMaxAttempts);
-    ASSERT_TRUE(sender_client_->socket());
+      std::this_thread::sleep_for(delay);
+    } while (attempts++ < max_attempts);
+    ASSERT_TRUE(condition());
   }
 
   void Connect(const IPAddress& address) {
     uint16_t port = 65321;
-    OSP_LOG_INFO << "\tStarting socket factories";
+    OSP_LOG_INFO << kLogDecorator << "Starting socket factories";
     task_runner_->PostTask([this, &address, port]() {
-      OSP_LOG_INFO << "\tReceiver TLS factory Listen()";
+      OSP_LOG_INFO << kLogDecorator << "Receiver TLS factory Listen()";
       receiver_tls_factory_->SetListenCredentials(credentials_.tls_credentials);
       receiver_tls_factory_->Listen(IPEndpoint{address, port},
                                     TlsListenOptions{1u});
     });
 
     task_runner_->PostTask([this, &address, port]() {
-      OSP_LOG_INFO << "\tSender CastSocket factory Connect()";
+      OSP_LOG_INFO << kLogDecorator << "Sender CastSocket factory Connect()";
       sender_factory_->Connect(IPEndpoint{address, port},
                                SenderSocketFactory::DeviceMediaPolicy::kNone,
                                sender_router_.get());
     });
 
-    WaitForCastSocket();
+    WaitForCondition([this]() { return sender_client_->socket(); });
+  }
+
+  void ConnectSocketsV4() {
+    OSP_LOG_INFO << "Getting loopback IPv4 address";
+    IPAddress loopback_address = GetLoopbackV4Address();
+    OSP_LOG_INFO << "Connecting CastSockets";
+    Connect(loopback_address);
+  }
+
+  void CloseSocketsFromOneEnd(VirtualConnectionRouter* router,
+                              CastSocket* socket) {
+    int32_t id = socket->socket_id();
+    std::atomic_bool did_run{false};
+    task_runner_->PostTask([id, router, &did_run]() {
+      router->CloseSocket(id);
+      did_run = true;
+    });
+    OSP_LOG_INFO << "Waiting for socket to close";
+    WaitForCondition([&did_run]() { return did_run.load(); });
+    EXPECT_FALSE(sender_client_->socket());
+    EXPECT_FALSE(receiver_client_->socket());
   }
 
   TaskRunner* task_runner_;
@@ -238,10 +272,7 @@ class CastSocketE2ETest : public ::testing::Test {
 // TLS connection to a known port over the loopback device, and checking device
 // authentication.
 TEST_F(CastSocketE2ETest, ConnectV4) {
-  OSP_LOG_INFO << "Getting loopback IPv4 address";
-  IPAddress loopback_address = GetLoopbackV4Address();
-  OSP_LOG_INFO << "Connecting CastSockets";
-  Connect(loopback_address);
+  ConnectSocketsV4();
 }
 
 TEST_F(CastSocketE2ETest, ConnectV6) {
@@ -253,6 +284,18 @@ TEST_F(CastSocketE2ETest, ConnectV6) {
   } else {
     OSP_LOG_WARN << "Test skipped due to missing IPv6 loopback address";
   }
+}
+
+TEST_F(CastSocketE2ETest, SenderClose) {
+  ConnectSocketsV4();
+
+  CloseSocketsFromOneEnd(sender_router_.get(), sender_client_->socket());
+}
+
+TEST_F(CastSocketE2ETest, ReceiverClose) {
+  ConnectSocketsV4();
+
+  CloseSocketsFromOneEnd(receiver_router_.get(), receiver_client_->socket());
 }
 
 }  // namespace cast
