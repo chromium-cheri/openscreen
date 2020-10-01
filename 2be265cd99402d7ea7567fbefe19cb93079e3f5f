@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bd6f12e_85debd1d",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-01T17:13:09Z",
+      "side": 1,
+      "message": "Nit: consider \n \n  constexpr char kDecorator[] \u003d \"---\"; \n\nor some other way of streaming how we do logging decoration. It seems all over the place throughout the code base and would love to organize it a bit.",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7e483b2_4e78f517",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-01T17:13:09Z",
+      "side": 1,
+      "message": "Just curious, is that a problem? I\u0027m wondering if we should file a bug, or accept the behavior. What would an ideal solution be?",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6488db8_f130a62d",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-01T17:13:09Z",
+      "side": 1,
+      "message": "Should this be in a general helper class, like an stl_test_helpers.h? I bet we could refactor some e2e things with this.",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f240899_72b1452d",
+        "filename": "cast/test/cast_socket_e2e_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-01T17:13:09Z",
+      "side": 1,
+      "message": "Consider refactoring into a shared TestClose method, maybe something like:\n\n\n// Not sure if we have a good CloseReason enum for this already?\nvoid TestSocketClose(CloseReason reason) {\n  OSP_LOG_INFO \u003c\u003c \"Getting loopback IPv4 address\";\n  IPAddress loopback_address \u003d GetLoopbackV4Address();\n  OSP_LOG_INFO \u003c\u003c \"Connecting CastSockets\";\n  Connect(loopback_address);\n\n  int32_t id \u003d receiver_client_-\u003esocket()-\u003esocket_id();\n  std::atomic_bool did_run{false};\n  task_runner_-\u003ePostTask([this, id, \u0026did_run, reason]() {\n    switch(reason) {\n      case SenderClose:\n        sender_router-\u003eCloseSocket(id);\n        break;\n      case ReceiverClose:\n        receiver_router_-\u003eCloseSocket(id);\n        break;\n    }\n    did_run \u003d true;\n  });\n  OSP_LOG_INFO \u003c\u003c \"Waiting for socket to close\";\n  WaitForCondition([\u0026did_run]() { return did_run.load(); });\n  EXPECT_FALSE(sender_client_-\u003esocket());\n  EXPECT_FALSE(receiver_client_-\u003esocket());\n}\n\nThen you can have just\n\n  TEST_F(CastSocketE2ETest, SenderClose) {\n    TestSocketClose(CloseReason::SenderClosed);\n  }\n\n  TEST_F(CastSocketE2ETest, ReceiverClose) {\n    TestSocketClose(CloseReason::ReceiverClosed);\n  }",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8156f93_99beffce",
+        "filename": "platform/impl/tls_connection_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-01T17:13:09Z",
+      "side": 1,
+      "message": "Do you also need SSL_free here?",
+      "revId": "2be265cd99402d7ea7567fbefe19cb93079e3f5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
