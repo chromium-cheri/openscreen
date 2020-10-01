@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "abcba7bd_25df208b",
+        "filename": "platform/base/socket_state.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-01T20:43:18Z",
+      "side": 1,
+      "message": "That\u0027s correct; a socket will either go to listening or connecting/connected, not both.",
+      "parentUuid": "19916cad_f24e4634",
+      "revId": "08521825b696825cfb03d423ae47c648842762ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5926f626_8389970e",
         "filename": "platform/impl/stream_socket_posix.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "08521825b696825cfb03d423ae47c648842762ff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1d91fea_d4eaba25",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-01T20:43:18Z",
+      "side": 1,
+      "message": "\u003e ... That it started and is already closed?\nYes.\n\n\u003e ... it seems we use them interchangeably?\nOther than EnsureInitialized, yes, but that\u0027s doable as well without the bool.\n\nDone.",
+      "parentUuid": "5926f626_8389970e",
+      "revId": "08521825b696825cfb03d423ae47c648842762ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
