@@ -309,6 +309,11 @@ std::unique_ptr<Sender> SenderSession::CreateSender(Ssrc receiver_ssrc,
       stream.ssrc,         receiver_ssrc,  stream.rtp_timebase, stream.channels,
       stream.target_delay, stream.aes_key, stream.aes_iv_mask};
 
+  const Error error = config.CheckValidity();
+  if (!error.ok()) {
+    OSP_LOG_WARN << "Not creating sender due to bad SessionConfig: " << error;
+    return nullptr;
+  }
   return std::make_unique<Sender>(environment_, &packet_router_,
                                   std::move(config), type);
 }
