@@ -16,6 +16,52 @@
       "revId": "c152a8edbf5719985c7bf5ec74da7683f59afac9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e66b88d_866b16b0",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-02T23:06:11Z",
+      "side": 1,
+      "message": "Seems this could be removed, and just let OnOffer() deal with it. The only thing we lose is \"null/missing\" detection versus \"exists but malformed\" detection; but, that should still be actionable-enough IMHO.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 5
+      },
+      "revId": "c152a8edbf5719985c7bf5ec74da7683f59afac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78fcb5e6_d9a4a893",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-02T23:06:11Z",
+      "side": 1,
+      "message": "Per the prior comment, I\u0027d suggest adding this to the top of Offer::Parse():\n\n  ErrorOr\u003cOffer\u003e Offer::Parse(const Json::Value\u0026 root) {\n    if (!root.isObject()) {\n      return Error...;  // null, or some other unexpected data type\n    }\n    ...\n  }",
+      "range": {
+        "startLine": 160,
+        "startChar": 25,
+        "endLine": 160,
+        "endChar": 37
+      },
+      "revId": "c152a8edbf5719985c7bf5ec74da7683f59afac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
