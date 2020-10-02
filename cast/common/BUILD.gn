@@ -21,6 +21,8 @@ source_set("certificate") {
   ]
   public_deps = [ "../../third_party/boringssl" ]
 
+  configs += [ "../../build/config:feature_defines" ]
+
   deps = [
     "../../platform",
     "../../third_party/abseil",

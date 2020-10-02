@@ -76,6 +76,8 @@ if (!build_with_chromium) {
 
     deps = [ "../receiver:channel" ]
 
+    configs += [ "../../build/config:feature_defines" ]
+
     if (have_external_libs) {
       deps += [ ":standalone_receiver_sdl" ]
     } else {
