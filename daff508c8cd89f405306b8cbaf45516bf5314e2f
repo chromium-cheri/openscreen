@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bdd23e01_cb388a27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-10-02T23:20:59Z",
+      "side": 1,
+      "message": "@mfoltz\n\nI spent a while thinking about your comments and I\u0027ve got some thoughts\n\n\u003e  Suggestions for additional test cases to cover multiple scenarios - since the logic in the loop is kind of tricky.\n\nCompletely agree on both. I think this logic might work better as its own file rather than anonymous methods hidden inside another .cc file, so we can test it more extensively. As it is right now, testing is a bit difficult because there are a bunch of other methods that mutate the result of the call\n\nI\u0027ve avoided making Unit Test changes pending your response here - will do so in the next iteration. Want to resolve these high-level comments first to avoid duplicate work if I move the code around\n\n\u003e  It\u0027s a little unfortunate that this requires copying all records in the message\n\u003e \n\u003e  Is |message| used after OnMessageReceived(), or would it be possible for this function to take ownership of it?  In that case, you could mutate he records in-place.\n\nGood point for sure. I really like the idea of avoiding extra copies of MdnsRecords, but I don\u0027t think allowing the records to be moved out of the MdnsMessage is the right way to do it. This would be a pretty big change from the current design, and I feel like that\u0027s going to have unexpected implications down the line. Plus IMHO the interface isn\u0027t as clean - the records should be owned by the message and users shouldn\u0027t be able to modify it, let alone take records out\n\nAs an alternative, what do you think about moving this logic? This really shouldn\u0027t be in the querier - it has to do with validating the message itself, not responding to it. Instead, it could go in the MdnsReader (which reads the message off the wire) or in the MdnsMessage itself (Making it part of the MdnsMessage ctor isn\u0027t ideal, but it seems no worse than putting it in MdnsQuerier). Either of those would have direct access to the records without exposing them outside of the MdnsMessage, so the ownership of the records would never need to change\n\nThe catch with either of those approaches is:\n- As the code is written now, we only process records we care about (ie we don\u0027t look at answers that aren\u0027t related to a question we care about). In either of those places, we\u0027d need to process all records, whether or not they answer a question we\u0027ve queried for.\n- The logic will get slightly more complex, because in either of those spots the Additional Records and Answer Records are separate fields, while in MdnsQuerier we\u0027ve aggregated all of the records we care about into a single vector.\n\nWDYT? IMHO it should go in MdnsReader (then the contact can be \"Whatever you get out of MdnsReader is a valid MdnsMessage\", and we don\u0027t need to expect the message\u0027s reader to validate it) even at the cost of a bit more processing. But I\u0027m open to other options",
+      "revId": "daff508c8cd89f405306b8cbaf45516bf5314e2f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    }
+  ]
+}
