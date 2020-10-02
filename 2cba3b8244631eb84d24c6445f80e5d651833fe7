@@ -33,6 +33,75 @@
       "revId": "2cba3b8244631eb84d24c6445f80e5d651833fe7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ec90437_5f544248",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-02T22:54:37Z",
+      "side": 1,
+      "message": "It seems that we would want to do this check before calling SpawnReceivers(), so an ANSWER with an error could be sent back to the sender (with nothing happening on the receiver).",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 3
+      },
+      "revId": "2cba3b8244631eb84d24c6445f80e5d651833fe7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "464d59eb_ecfe0085",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-02T22:54:37Z",
+      "side": 1,
+      "message": "Likewise, it seems this should have been checked before the OFFER was sent to the receiver (note: all of these parameters are unchanging since they were sent in the OFFER).",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 3
+      },
+      "revId": "2cba3b8244631eb84d24c6445f80e5d651833fe7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ed3d14f_87edfbc2",
+        "filename": "cast/streaming/session_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-02T22:54:37Z",
+      "side": 1,
+      "message": "Suggest checking both ends. Meaning:\n\n  if (rtp_timebase \u003c capture_recommendations::kDefaultAudioMinSampleRate ||\n      rtp_timebase \u003e kRtpVideoTimebase) {\n    return ParamError(\"RTP timebase out-of-range.\");\n  }",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "2cba3b8244631eb84d24c6445f80e5d651833fe7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
