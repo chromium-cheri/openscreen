@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "587317a2_fcff2322",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-02T22:35:56Z",
+      "side": 1,
+      "message": "When all the code is built w/o self-signed certs, how will integration tests be able to run? Or, are we going to disable building all integration tests (and some unit tests) when this is false? If so, what is our testing plan for ensuring platform integration with Chromium, where I assume we\u0027ll have this set to false? We\u0027ll lose a lot of testing when \"rolls\" happen.\n\nInstead, how about we just have embedders only create CastTrustStores with TrustStore::Mode::kStrict? Meaning, they can just call TrustStore::CreateInstanceFromPemFile(path, mode) with a fixed 2nd arg (kStrict). The effect would be the same: a build-time restriction on disallowing self-signed certs.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 1
+      },
+      "revId": "d9f095745f09f6d49ebce5867db74fbfd908a344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
