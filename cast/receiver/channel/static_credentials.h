@@ -49,17 +49,13 @@ struct GeneratedCredentials {
   std::vector<uint8_t> root_cert_der;
 };
 
-// Generates a valid set of credentials for use with the TLS Server socket,
-// including a generated X509 certificate generated from the static private key
-// stored in private_key_der.h. The certificate is valid for
-// kCertificateDuration from when this function is called.
-ErrorOr<GeneratedCredentials> GenerateCredentials(
-    const std::string& device_certificate_id);
-
+// Generates a valid set of credentials for use with cast sockets/TLS.
+// If the |server_certificate_path| is populated, the |private_key_path| is
+// also required. Otherwise, missing fields are generated randomly.
 ErrorOr<GeneratedCredentials> GenerateCredentials(
     const std::string& device_certificate_id,
-    const std::string& private_key_path,
-    const std::string& server_certificate_path);
+    const std::string& private_key_path = "",
+    const std::string& server_certificate_path = "");
 
 }  // namespace cast
 }  // namespace openscreen

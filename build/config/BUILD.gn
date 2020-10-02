@@ -21,6 +21,10 @@ declare_args() {
   # significantly. For more details, see:
   # https://chromium.googlesource.com/chromium/src/+/refs/heads/master/docs/clang_code_coverage_wrapper.md
   use_coverage = false
+
+  # Whether or not self-signed certificates are enabled for the receiver
+  # and sender implementations.
+  cast_enable_alternate_certificate = false
 }
 
 assert(!use_coverage || is_clang)
@@ -261,5 +265,12 @@ config("operating_system_defines") {
     defines += [ "OS_LINUX" ]
   } else if (is_mac) {
     defines += [ "MAC_OSX" ]
+  }
+}
+
+config("feature_defines") {
+  defines = []
+  if (cast_enable_alternate_certificate) {
+    defines += [ "CAST_ENABLE_ALTERNATE_CERTIFICATE" ]
   }
 }
