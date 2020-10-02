@@ -56,6 +56,10 @@ CastTrustStore* CastTrustStore::CreateInstanceFromPemFile(
     absl::string_view file_path,
     TrustStore::Mode mode) {
   OSP_DCHECK(!store_);
+#if !defined(CAST_ENABLE_ALTERNATE_CERTIFICATE)
+  OSP_CHECK(mode == TrustStore::Mode::kStrict);
+#endif
+
   store_ = new CastTrustStore();
   store_->trust_store_ = TrustStore::CreateInstanceFromPemFile(file_path, mode);
   return store_;
