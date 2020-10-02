@@ -20,9 +20,10 @@
 namespace openscreen {
 namespace cast {
 namespace {
-
 using FileUniquePtr = std::unique_ptr<FILE, decltype(&fclose)>;
 
+constexpr char kGeneratedRootCertificateName[] =
+    "generated_root_cast_receiver.crt";
 constexpr int kThreeDaysInSeconds = 3 * 24 * 60 * 60;
 constexpr auto kCertificateDuration = std::chrono::seconds(kThreeDaysInSeconds);
 
@@ -123,6 +124,14 @@ bssl::UniquePtr<X509> GenerateRootCert(const EVP_PKEY& root_key) {
                                       root_key, GetWallTimeSinceUnixEpoch(),
                                       true);
   OSP_CHECK(root_cert_or_error);
+
+  FileUniquePtr cert_file(fopen(kGeneratedRootCertificateName, "w"), &fclose);
+  if (PEM_write_X509(cert_file.get(), root_cert_or_error.value().get()) != 1) {
+    return nullptr;
+  }
+
+  OSP_LOG_INFO << "Generated new root certificate for session: "
+               << kGeneratedRootCertificateName;
   return std::move(root_cert_or_error.value());
 }
 }  // namespace
@@ -141,38 +150,42 @@ StaticCredentialsProvider& StaticCredentialsProvider::operator=(
 StaticCredentialsProvider::~StaticCredentialsProvider() = default;
 
 ErrorOr<GeneratedCredentials> GenerateCredentials(
-    const std::string& device_certificate_id) {
-  bssl::UniquePtr<EVP_PKEY> root_key = GenerateRsaKeyPair();
-  OSP_CHECK(root_key);
-
-  bssl::UniquePtr<X509> root_cert = GenerateRootCert(*root_key);
-  OSP_CHECK(root_cert);
-
-  return GenerateCredentials(device_certificate_id, root_key.get(),
-                             root_cert.get());
-}
-
-ErrorOr<GeneratedCredentials> GenerateCredentials(
     const std::string& device_certificate_id,
     const std::string& private_key_path,
     const std::string& server_certificate_path) {
-  OSP_CHECK(!private_key_path.empty() && !server_certificate_path.empty());
-
-  FileUniquePtr key_file(fopen(private_key_path.c_str(), "r"), &fclose);
-  if (!key_file) {
+  if (private_key_path.empty() && !server_certificate_path.empty()) {
     return Error(Error::Code::kParameterInvalid,
-                 "Missing private key file path");
+                 "Received a server certificate but not a private key.");
   }
-  bssl::UniquePtr<EVP_PKEY> root_key(PEM_read_PrivateKey(
-      key_file.get(), nullptr /* x */, nullptr /* cb */, nullptr /* u */));
 
-  FileUniquePtr cert_file(fopen(server_certificate_path.c_str(), "r"), &fclose);
-  if (!cert_file) {
-    return Error(Error::Code::kParameterInvalid,
-                 "Missing server certificate file path");
+  bssl::UniquePtr<EVP_PKEY> root_key;
+  if (private_key_path.empty()) {
+    OSP_DVLOG << "Generating random private key...";
+    root_key = GenerateRsaKeyPair();
+  } else {
+    FileUniquePtr key_file(fopen(private_key_path.c_str(), "r"), &fclose);
+    if (!key_file) {
+      return Error(Error::Code::kParameterInvalid,
+                   "Missing private key file path");
+    }
+    root_key = bssl::UniquePtr<EVP_PKEY>(PEM_read_PrivateKey(
+        key_file.get(), nullptr /* x */, nullptr /* cb */, nullptr /* u */));
   }
-  bssl::UniquePtr<X509> root_cert(PEM_read_X509(
-      cert_file.get(), nullptr /* x */, nullptr /* cb */, nullptr /* u */));
+
+  bssl::UniquePtr<X509> root_cert;
+  if (server_certificate_path.empty()) {
+    root_cert = GenerateRootCert(*root_key);
+    OSP_CHECK(root_cert);
+  } else {
+    FileUniquePtr cert_file(fopen(server_certificate_path.c_str(), "r"),
+                            &fclose);
+    if (!cert_file) {
+      return Error(Error::Code::kParameterInvalid,
+                   "Missing server certificate file path");
+    }
+    root_cert = bssl::UniquePtr<X509>(PEM_read_X509(
+        cert_file.get(), nullptr /* x */, nullptr /* cb */, nullptr /* u */));
+  }
 
   return GenerateCredentials(device_certificate_id, root_key.get(),
                              root_cert.get());

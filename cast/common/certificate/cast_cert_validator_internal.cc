@@ -10,6 +10,7 @@
 #include <openssl/x509v3.h>
 #include <time.h>
 
+#include <chrono>
 #include <string>
 #include <vector>
 
@@ -22,6 +23,8 @@ namespace cast {
 namespace {
 
 constexpr static int32_t kMinRsaModulusLengthBits = 2048;
+
+constexpr auto kMaxSelfSignedCertificateDuration = std::chrono::hours(48);
 
 // Stores intermediate state while attempting to find a valid certificate chain
 // from a set of trusted certificates to a target certificate.  Together, a
@@ -63,12 +66,42 @@ uint8_t ParseAsn1TimeDoubleDigit(ASN1_GENERALIZEDTIME* time, int index) {
   return (time->data[index] - '0') * 10 + (time->data[index + 1] - '0');
 }
 
-Error::Code VerifyCertTime(X509* cert, const DateTime& time) {
+bssl::UniquePtr<BASIC_CONSTRAINTS> GetConstraints(X509* issuer) {
+  const int basic_constraints_index =
+      X509_get_ext_by_NID(issuer, NID_basic_constraints, -1);
+  if (basic_constraints_index == -1) {
+    return nullptr;
+  }
+
+  X509_EXTENSION* const basic_constraints_extension =
+      X509_get_ext(issuer, basic_constraints_index);
+  return bssl::UniquePtr<BASIC_CONSTRAINTS>{
+      reinterpret_cast<BASIC_CONSTRAINTS*>(
+          X509V3_EXT_d2i(basic_constraints_extension))};
+}
+
+Error::Code VerifyCertTime(X509* cert,
+                           const DateTime& time,
+                           bool is_self_signed = false) {
   DateTime not_before;
   DateTime not_after;
   if (!GetCertValidTimeRange(cert, &not_before, &not_after)) {
     return Error::Code::kErrCertsVerifyGeneric;
   }
+
+  // Self signed certificates are only honored for a short time, to decrease
+  // security risks.
+  if (is_self_signed) {
+    auto not_before_time = DateTimeToSeconds(not_before);
+    if (!DateTimeFromSeconds(
+            std::chrono::seconds(not_before_time +
+                                 kMaxSelfSignedCertificateDuration)
+                .count(),
+            &not_after)) {
+      return Error::Code::kErrCertsDateInvalid;
+    }
+  }
+
   if ((time < not_before) || (not_after < time)) {
     return Error::Code::kErrCertsDateInvalid;
   }
@@ -137,20 +170,10 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
     // Certificates issued by a valid CA authority shall have the
     // basicConstraints property present with the CA bit set. Self-signed
     // certificates do not have this property present.
+    auto basic_constraints = GetConstraints(issuer);
+    const bool has_ca_constraint = basic_constraints && basic_constraints->ca;
     if (mode == TrustStore::Mode::kStrict) {
-      const int basic_constraints_index =
-          X509_get_ext_by_NID(issuer, NID_basic_constraints, -1);
-      if (basic_constraints_index == -1) {
-        return Error::Code::kErrCertsVerifyGeneric;
-      }
-
-      X509_EXTENSION* const basic_constraints_extension =
-          X509_get_ext(issuer, basic_constraints_index);
-      bssl::UniquePtr<BASIC_CONSTRAINTS> basic_constraints{
-          reinterpret_cast<BASIC_CONSTRAINTS*>(
-              X509V3_EXT_d2i(basic_constraints_extension))};
-
-      if (!basic_constraints || !basic_constraints->ca) {
+      if (!has_ca_constraint) {
         return Error::Code::kErrCertsVerifyGeneric;
       }
 
@@ -166,6 +189,16 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
             max_pathlen = pathlen;
           }
         }
+      }
+    } else {
+      // Basic checks on the target certificate. If the CA field is missing
+      // on the certificate, it is assumed to be self signed and thus is subject
+      // to tighter time restrictions.
+      const bool can_assume_self_signed = !has_ca_constraint;
+      const Error::Code error_code =
+          VerifyCertTime(issuer, time, can_assume_self_signed);
+      if (error_code != Error::Code::kNone) {
+        return error_code;
       }
     }
 
@@ -364,6 +397,10 @@ bool GetCertValidTimeRange(X509* cert,
 // static
 TrustStore TrustStore::CreateInstanceFromPemFile(absl::string_view file_path,
                                                  TrustStore::Mode mode) {
+#if !defined(CAST_ENABLE_ALTERNATE_CERTIFICATE)
+  OSP_CHECK(mode == Mode::kStrict)
+      << "Cannot set self-signed mode with associated build flag.";
+#endif
   TrustStore store;
 
   std::vector<std::string> certs = ReadCertificatesFromPemFile(file_path);
