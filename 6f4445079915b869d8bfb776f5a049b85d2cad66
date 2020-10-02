@@ -87,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "bbe8fc06_e0c27d21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-10-02T16:05:40Z",
+      "side": 1,
+      "message": "I agree they usually won\u0027t both be useful. Even with the other patch, though, I think there are still additional use cases for this one, such as:\n- A user (internal or external) finds a bug with NSEC records (either in our library OR in theirs), and it takes us some time to find/fix the bug, this will give a short-term workaround that can be used to unblock them until we (or they) can code up a fix and get it through code review. This  MdnsResonder interop bug is a good example - the user has been able to continue testing while the suppression patch is still making its way through code review.\n- An external user wants to interop with a library we don\u0027t want to support for their specific use case (eg a personal implementation of mDNS that isn\u0027t widely used, a very old version of a library that has been deprecated and we made the decision that we don\u0027t want to support, etc) when they don\u0027t want to code up a libcast-library-wide fix (I know I\u0027d fall into this bucket if I wanted to use it for a personal project). This will give that ability\n- NSEC handling is one of the sticky points for interoperability of our library with standard DNS as opposed to mDNS (NSEC has a different meaning in that case. It\u0027s possible to differentiate the two per RFC 6762, but it also calls out that if you receive the \"DNS\" one as opposed to \"mDNS\", you should pretend it\u0027s actually just the \"mDNS\" one ¯\\_(ツ)_/¯), which some users may eventually want to use it for. It\u0027s hard to say the direction an Open Source project will go once external contributors can get their hands on it\n- As a general preference, I like to give the embedder a choice to disable \"optional\" optimizations if they want to for some reason. For instance if the memory overhead of this feature turns out to be larger than anticipated and the user doesn\u0027t want to deal with it on a memory constrained device\n\nGiven it\u0027s a small change that doesn\u0027t hurt anything, I\u0027d prefer to add it. No reason not to make users lives easier if we can :)\n\nUpdated patch description to describe these use cases",
+      "parentUuid": "8e3656c2_84650e50",
+      "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "537e99b2_4df9b69e",
         "filename": "discovery/common/config.h",
         "patchSetId": 1
@@ -158,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "dc8d8398_eff9d3d5",
+        "filename": "discovery/common/config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-10-02T16:05:40Z",
+      "side": 1,
+      "message": "See CL-level comment below for use-cases outside this specific bug",
+      "parentUuid": "21928dd1_5aa73fb2",
+      "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4b01511_ec95b7c4",
         "filename": "discovery/mdns/mdns_querier.cc",
         "patchSetId": 1
@@ -172,6 +208,24 @@
       "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8203ab2f_75b70425",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-10-02T16:05:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4b01511_ec95b7c4",
+      "revId": "6f4445079915b869d8bfb776f5a049b85d2cad66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
