@@ -110,6 +110,30 @@
     },
     {
       "key": {
+        "uuid": "6f741c81_7a25c1e0",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-03T00:01:18Z",
+      "side": 1,
+      "message": "This is all a little strange to me, so maybe someone can explain the reasoning here (which is related to how behavior with this flag differs from our testing setup).  ISTM that the functionality we want already exists in CastTrustStore::CreateInstanceForTest.  For example, the cast_cert_validator_internal.cc changes to avoid the CA check are unnecessary because GenerateRootCert() _does_ set the CA info (which made it work up to this point in integration tests).  CreateInstanceForTest is already something embedders shouldn\u0027t call, although it might still work to have it set the mode flag to kAllowSelfSigned and OSP_CHECK that somewhere based on the build flag if we really think that\u0027s worthwhile.\n\nAlso, if the issue is whether you can \"naively\" generate a self-signed certificate with command-line openssl that works, we could always add a little utility that just calls GenerateRootCert() and exits (although, also saving the key).\n\nSo I think the bottom line is: 1. do we _need_ plain self-signed certificates to work as opposed to certificates from GenerateCredentials? 2. am I missing some other point of this flag?",
+      "parentUuid": "587317a2_fcff2322",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 1
+      },
+      "revId": "d9f095745f09f6d49ebce5867db74fbfd908a344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c16793e9_97f6e7da",
         "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
         "patchSetId": 6
@@ -195,6 +219,23 @@
     },
     {
       "key": {
+        "uuid": "719752e5_1dca8e91",
+        "filename": "cast/receiver/channel/static_credentials.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-03T00:01:18Z",
+      "side": 1,
+      "message": "Should this get written to a file as well for re-use across receiver restarts without restarting the sender to reload another generated cert?  Of course, making this on the command-line is simpler than the cert...",
+      "revId": "d9f095745f09f6d49ebce5867db74fbfd908a344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d7d0868_6d297409",
         "filename": "cast/standalone_receiver/main.cc",
         "patchSetId": 6
@@ -223,6 +264,23 @@
       "writtenOn": "2020-10-02T22:38:40Z",
       "side": 1,
       "message": "OSP_LOG_FATAL?",
+      "revId": "d9f095745f09f6d49ebce5867db74fbfd908a344",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3953b9a2_a389e210",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-03T00:01:18Z",
+      "side": 1,
+      "message": "s/build/built/",
       "revId": "d9f095745f09f6d49ebce5867db74fbfd908a344",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
