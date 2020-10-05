@@ -121,10 +121,16 @@ options:
         Mandatory, as it must be known for publishing discovery.
 
     -p, --private-key=path-to-key: Path to OpenSSL-generated private key to be
-                    used for TLS authentication.
+                    used for TLS authentication. If a private key is not
+                    provided, a randomly generated one will be used for this
+                    session.
 
     -s, --server-certificate=path-to-cert: Path to PEM file containing a
                            server certificate to be used for TLS authentication.
+                           If a root server certificate is not provided, one
+                           will be generated using a randomly generated
+                           private key. Note that if a certificate path is
+                           passed, the private key path is a mandatory field.
 
     -f, --friendly-name: Friendly name to be used for device discovery.
 
@@ -162,6 +168,15 @@ InterfaceInfo GetInterfaceInfoFromName(const char* name) {
 }
 
 int RunStandaloneReceiver(int argc, char* argv[]) {
+#if !defined(CAST_ALLOW_DEVELOPER_CERTIFICATE)
+  OSP_LOG_FATAL
+      << "It compiled! However cast_receiver currently only supports using a "
+         "passed-in certificate and private key, and must be built with "
+         "cast_allow_developer_certificate=true set in the GN args to "
+         "actually do anything interesting.";
+  return 1;
+#endif
+
   // A note about modifying command line arguments: consider uniformity
   // between all Open Screen executables. If it is a platform feature
   // being exposed, consider if it applies to the standalone receiver,
@@ -217,9 +232,9 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
         return 1;
     }
   }
-  if (private_key_path.empty() != server_certificate_path.empty()) {
-    OSP_LOG_ERROR << "If a private key or server certificate path is provided, "
-                     "both are required.";
+  if (private_key_path.empty() && !server_certificate_path.empty()) {
+    OSP_LOG_FATAL << "Passing a root certificate but not its associated "
+                     "private key results in undefined behavior.";
     return 1;
   }
   SetLogLevel(is_verbose ? openscreen::LogLevel::kVerbose
@@ -239,13 +254,8 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
 
   std::string device_id =
       absl::StrCat("Standalone Receiver on ", interface_name);
-  ErrorOr<GeneratedCredentials> creds = Error::Code::kEVPInitializationError;
-  if (private_key_path.empty()) {
-    creds = GenerateCredentials(device_id);
-  } else {
-    creds = GenerateCredentials(device_id, private_key_path,
-                                server_certificate_path);
-  }
+  ErrorOr<GeneratedCredentials> creds =
+      GenerateCredentials(device_id, private_key_path, server_certificate_path);
   OSP_CHECK(creds.is_value()) << creds.error();
   task_runner->PostTask(
       [&, interface = GetInterfaceInfoFromName(interface_name)] {
