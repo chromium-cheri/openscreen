@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "180286c4_8eb9643e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "\u003e I\u0027m assuming we will need a similar agent for the sender side code, or some sort of application launcher?\n\nPerhaps. It could be as simple as some code that sends a LAUNCH message, waits for the RECEIVER_STATUS to indicate the receiver mirroring app is running, and then sends the OFFER as we have now.\n\nNot sure if it\u0027ll be a small amount of code, or if we need something with more structure.\n\n\u003e I think this will get more interesting integrating this with the mirroring app.\n\nYep! Next patch. 😊",
+      "parentUuid": "21176a81_a9a73e47",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14bb6b60_3b5ed1e7",
         "filename": "cast/common/channel/message_util.cc",
         "patchSetId": 3
@@ -50,6 +68,24 @@
       "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62bb9470_e74d420f",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "No. They only have to be unique over the same CastSocket. The \"primary key\" is \u003cCastSocket, peer_id\u003e.\n\nNote: https://source.chromium.org/chromium/chromium/src/+/master:third_party/openscreen/src/cast/common/channel/virtual_connection_manager.h;drc\u003d3aa23228350c41da8b42d199a4904bfd0144a75e;l\u003d53",
+      "parentUuid": "14bb6b60_3b5ed1e7",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "a0051213_c50b7209",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1540b53_f6e12a41",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b8f9fe7_414a9701",
         "filename": "cast/receiver/application_agent.cc",
         "patchSetId": 3
@@ -84,6 +138,24 @@
       "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aabaac61_52322744",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "I decided not to, since everything in OnMessage() is about dispatching to a delegate. I feel it\u0027s appropriately scoped.",
+      "parentUuid": "3b8f9fe7_414a9701",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "1c410061_7ffd50ab",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6a52897_410b0ab9",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c37495d5_93c09c55",
         "filename": "cast/receiver/application_agent.cc",
         "patchSetId": 3
@@ -118,6 +208,24 @@
       "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c340bd_18c5da2f",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c37495d5_93c09c55",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "c047f680_85d905cb",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "It\u0027s not always the idle screen. It\u0027s null if there\u0027s no idle screen app registered, or during the final call to this method from the destructor.\n\nI can\u0027t call GoIdle() since GoIdle() delegates to this method --\u003e infinite recursion.",
+      "parentUuid": "a6ef0257_d45bfc73",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85d787cb_c8a579c7",
         "filename": "cast/receiver/application_agent.cc",
         "patchSetId": 3
@@ -152,6 +278,24 @@
       "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0140801b_4b2b0ab0",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85d787cb_c8a579c7",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "9c087b7c_d0cd4f3d",
+        "filename": "cast/receiver/application_agent.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5002ba97_be1cacc7",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e10b45f3_bc69e6b1",
         "filename": "cast/receiver/application_agent.h",
         "patchSetId": 3
@@ -186,6 +348,24 @@
       "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6325c38f_cdd7e19f",
+        "filename": "cast/receiver/application_agent.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "Unlike GetAppIds(), these could mutate depending on how the app is launched (i.e., which app ID is used). So, I think it\u0027s appropriate to keep them non-const, non-ref-returns.",
+      "parentUuid": "e10b45f3_bc69e6b1",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +386,24 @@
     },
     {
       "key": {
+        "uuid": "0fbec368_38a981e2",
+        "filename": "cast/receiver/application_agent_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "GetTestDataPath() returns a std::string at runtime, so it can\u0027t be a constexpr constant.\n\nOtherwise, \"Done\" if I correctly grokked your intentions here. 😊",
+      "parentUuid": "42492fe0_2e2b9f6b",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "625d9f38_f964e315",
         "filename": "cast/receiver/application_agent_unittest.cc",
         "patchSetId": 3
@@ -220,6 +418,24 @@
       "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a211ed38_a312b628",
+        "filename": "cast/receiver/application_agent_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-05T22:16:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "625d9f38_f964e315",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
