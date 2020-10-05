@@ -16,6 +16,210 @@
       "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21176a81_a9a73e47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "Overall looks good, LGTM after addressing my comments. I\u0027m assuming we will need a similar agent for the sender side code, or some sort of application launcher?\n\nI think this will get more interesting integrating this with the mirroring app.",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14bb6b60_3b5ed1e7",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "Do the sender IDs need to be unique between different cast senders and receivers? This method would mean two receivers would both send 10000 for the first session.",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1540b53_f6e12a41",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "Ternary operator?",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b8f9fe7_414a9701",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "Nit: consider separate function for this:\n\n  const Json::Value response \u003d HandleRequest(request, namespace_);",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a52897_410b0ab9",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "You should just be able to do:\n\n  for (app_id : app_ids) {\n\n  }\n\nIf that\u0027s not working for some reason, JsonCpp\u0027s arrayValue supports `.size()`",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c37495d5_93c09c55",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "Nit: INVALID_SESSION_ID and the other reason codes should probably be constexpr chars?",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6ef0257_d45bfc73",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "Is fallback_app always the idle screen?\n\nIf so, you could move the check here and just call GoIdle?\n\n  if (!launched_app_ \u0026\u0026 desired_app !\u003d idle_screen_app_) {\n    GoIdle();\n  }",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85d787cb_c8a579c7",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "Nit: these should be constexpr chars.",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5002ba97_be1cacc7",
+        "filename": "cast/receiver/application_agent.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "should this be:\n\n  const std::vector\u003cstd::string\u003e\u0026 GetAppIds() const?",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e10b45f3_bc69e6b1",
+        "filename": "cast/receiver/application_agent.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "const std::string\u0026 GetSessionId const? These getters shouldn\u0027t require a non-const ref.",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42492fe0_2e2b9f6b",
+        "filename": "cast/receiver/application_agent_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "This data path is used in three places, consider having a separate string for it, e.g.\n\n    constexpr char kCastReceiverChannelTestDataPath[] \u003d GetTestDataPath() + \"cast/receiver/channel\";",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "625d9f38_f964e315",
+        "filename": "cast/receiver/application_agent_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-05T20:19:28Z",
+      "side": 1,
+      "message": "constexpr chars?",
+      "revId": "e4a262d36b9cda01fa8e833d1bb5e267f53ef356",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
