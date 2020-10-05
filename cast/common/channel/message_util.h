@@ -5,6 +5,8 @@
 #ifndef CAST_COMMON_CHANNEL_MESSAGE_UTIL_H_
 #define CAST_COMMON_CHANNEL_MESSAGE_UTIL_H_
 
+#include <string>
+
 #include "absl/strings/string_view.h"
 #include "cast/common/channel/proto/cast_channel.pb.h"
 
@@ -49,6 +51,9 @@ static constexpr char kMessageKeyReasonCode[] = "reasonCode";
 static constexpr char kMessageKeyAppId[] = "appId";
 static constexpr char kMessageKeyRequestId[] = "requestId";
 static constexpr char kMessageKeyAvailability[] = "availability";
+static constexpr char kMessageKeyResponseType[] = "responseType";
+static constexpr char kMessageKeyTransportId[] = "transportId";
+static constexpr char kMessageKeySessionId[] = "sessionId";
 
 // JSON message field values.
 static constexpr char kMessageTypeConnect[] = "CONNECT";
@@ -197,6 +202,11 @@ inline bool IsTransportNamespace(absl::string_view namespace_) {
 ::cast::channel::CastMessage MakeCloseMessage(
     const std::string& source_id,
     const std::string& destination_id);
+
+// Returns a session/transport ID string that is unique within this application
+// instance, having the format "prefix-12345". For example, calling this with a
+// |prefix| of "sender" will result in a string like "sender-12345".
+std::string MakeUniqueSessionId(const char* prefix);
 
 }  // namespace cast
 }  // namespace openscreen
