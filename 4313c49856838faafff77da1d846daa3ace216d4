@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "905c4e1b_0e1b9c7f",
         "filename": "/PATCHSET_LEVEL",
@@ -14,8 +15,228 @@
       "side": 1,
       "message": "removed not_after check.",
       "revId": "4313c49856838faafff77da1d846daa3ace216d4",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e5f360_11a4c595",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "The code looks fine, I have a few questions about command-line ergonomics, which largely come down to expected use patterns and developer preferences.  So don\u0027t take my suggestions as the last word on them.\n",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41eaff6a_2721237b",
+        "filename": "cast/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "I think it improve the organization to put the documentation of key generation and use into its own section, like ## Developer Certificate Generation and Use",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d032db57_672db67b",
+        "filename": "cast/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "I thought only 2048 bits are required?  And that would be faster.",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8c87504_2f063421",
+        "filename": "cast/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "It would be simpler to document a single preferred usage than give developers multiple options.",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4977a269_6ac6b4ab",
+        "filename": "cast/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "It\u0027s a little weird that running the cast_receiver has this side effect, without the developer explicitly giving guidance to generate keys.  But that\u0027s just my personal opinion.",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "934b08b8_4c94b81c",
+        "filename": "cast/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "It occurs to me that \u003cinterface\u003e isn\u0027t documented.  Maybe add a comment explaining what values are legal.\n\nShould \u003cinterface\u003e have its own -i argument?",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "302e6da4_166da0f6",
+        "filename": "cast/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "I think ssh-keygen generates raw keys in PGP format, not PEM-encoded certificates.  Can you document how the output of ssh-keygen feeds into these commandlines?",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f774540e_d743fa0c",
+        "filename": "cast/receiver/channel/static_credentials.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "OSP_LOG_INFO",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24911bd7_56666cd8",
+        "filename": "cast/receiver/channel/static_credentials.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "If the cast_receiver is run without arguments in a read-only folder, it looks like it will try to write a key file, which will fail and the binary will CHECK-abort below without an explanation of of why.\n\nSee earlier comments about maybe asking developers to opt in to key generation through the commandline.",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f69441_06fa0540",
+        "filename": "cast/receiver/channel/static_credentials.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "750f65a2_71034340",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "--developer-certificate?",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73775c08_26d4a5ab",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "Is this the path to the certificate passed into TLS?  Or is that server certificate generated on the fly and signed by this certificate?  Just want to be precise with the terminology.",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aa534b6_b20de9e0",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-10-06T23:46:57Z",
+      "side": 1,
+      "message": "developer-certificate?",
+      "revId": "4313c49856838faafff77da1d846daa3ace216d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
