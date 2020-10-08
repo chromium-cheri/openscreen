@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "0e73ec45_0e32b185",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "PTAL. I\u0027ve tested all of the different scenarios locally.",
       "revId": "dc6f31c7f0ec7689379cf0d6b4a5b3a9343da0cd",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7ea88fb3_f1e53524",
         "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
@@ -31,10 +32,10 @@
       "side": 1,
       "message": "I think to test the changes I made to cast_cert_validator_internal, I\u0027d have to build with the alternate certificate flags enabled. @mfoltz, do you think we should do this on one of the bots? @btolsch, any feedback on this?",
       "revId": "dc6f31c7f0ec7689379cf0d6b4a5b3a9343da0cd",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9143716b_0f1af135",
         "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
@@ -49,10 +50,10 @@
       "message": "I think changing the not_after time is unnecessary; we\u0027ve already conceded to allowing self-signed roots.  However, if we keep this, it should probably be an _actual_ max() w/ not_after, or rename it to kForceSelfSignedCertificateDuration or similar.",
       "parentUuid": "7ea88fb3_f1e53524",
       "revId": "dc6f31c7f0ec7689379cf0d6b4a5b3a9343da0cd",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "257e47d4_c1ae0657",
         "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
@@ -67,8 +68,25 @@
       "message": "Updated, LMK what you think of the new revision.",
       "parentUuid": "9143716b_0f1af135",
       "revId": "dc6f31c7f0ec7689379cf0d6b4a5b3a9343da0cd",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1956f39_3f351c4f",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-10-08T15:36:01Z",
+      "side": 1,
+      "message": "Looks fine.",
+      "parentUuid": "257e47d4_c1ae0657",
+      "revId": "dc6f31c7f0ec7689379cf0d6b4a5b3a9343da0cd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
