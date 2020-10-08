@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "bc617586_d4561363",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Overall looks good, suggestions for additional test cases to cover multiple scenarios - since the logic in the loop is kind of tricky.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bdd56b8f_12f430c3",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -31,10 +32,10 @@
       "side": 1,
       "message": "Here and below: this should be a proper bounds check since the rest of the input pipeline still allows 65-254 and std::bitset will (try to) throw an exception for out-of-bounds accesses.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bc206be6_a84ed9fb",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -49,10 +50,10 @@
       "message": "I\u0027m not quite sure what you mean by \"proper bounds check\"?",
       "parentUuid": "bdd56b8f_12f430c3",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bd8fe916_6eba0b7a",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -67,10 +68,28 @@
       "message": "\"Proper\" meaning not-debug-only, e.g. `if (bit \u003c\u003d 64) { ... } else { return false; }`, or some variation of that which does the right thing for bit \u003e\u003d 65.",
       "parentUuid": "bc206be6_a84ed9fb",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d5a0b87_1f8bd30a",
+        "filename": "discovery/mdns/mdns_querier.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-10-08T01:34:08Z",
+      "side": 1,
+      "message": "Changing to `test` per @mfoltz\u0027s comment",
+      "parentUuid": "bd8fe916_6eba0b7a",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
       "key": {
         "uuid": "3e18706b_ffe49854",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -84,10 +103,10 @@
       "side": 1,
       "message": "I\u0027ve argued this at length elsewhere, but most of the time using a uint64_t and doing bitwise operators is just as readable and far fewer lines of code that writing a custom class that wraps an STL bitset object.\n\nI think the special logic around DnsType::ANY might sway me to make an exception in this case though.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "21757742_edd406af",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -101,10 +120,10 @@
       "side": 1,
       "message": "Could there be more than one NSEC record that needs to be updated?  It looks like there is a merge step that handles that case.  Maybe elaborate this comment.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "161d294b_bb49a71a",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -119,10 +138,10 @@
       "message": "Done",
       "parentUuid": "21757742_edd406af",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d9f061f8_d3db687f",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -136,10 +155,10 @@
       "side": 1,
       "message": "Does this need to be updated?",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "98b9b143_6b171a70",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -154,10 +173,10 @@
       "message": "Done. Good catch",
       "parentUuid": "d9f061f8_d3db687f",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ecd474e2_8a0be454",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -171,10 +190,10 @@
       "side": 1,
       "message": "Can Insert take a container or pair of iterators? Looks like you are always inserting a container of types into |types|.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d38ddeea_b307e84a",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -189,10 +208,10 @@
       "message": "Done. Went with a const ref to a container to ensure the Insert method doesn\u0027t accidentally change the source object",
       "parentUuid": "ecd474e2_8a0be454",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dc7b544b_69d184d7",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -206,10 +225,10 @@
       "side": 1,
       "message": "Handling this is definitely a weird situation but there\u0027s currently a problem for (has_changed \u0026\u0026 !types.IsEmpty()).  If has_changed is true, it could be because one of the merged NSEC records had a record type that was removed.  Then we reassign |nsec| as this \"union minus conflicts\" record, which fails to actually remove the type from its source NSEC record.  For that matter, (has_changed \u0026\u0026 types.IsEmpty()) should also remove any merged NSEC records.\n\nMy thoughts are:\n 1. Still do the union, but also take the min ttl.  If we have to overwrite |nsec|, use the min ttl and remove the others that were merged.\n 2. Process them separately.  This has the disadvantage that it\u0027s a little awkward to skip the other NSEC records then reset |it| if there were skipped NSEC records, plus it\u0027s extra iteration.\n\nOf those, my preference is 1.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "371312eb_8b970626",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -224,10 +243,10 @@
       "message": "Good point - I completely forgot about the TTL. Updating to 1",
       "parentUuid": "dc7b544b_69d184d7",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1cbc57e0_de544334",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -241,10 +260,10 @@
       "side": 1,
       "message": "Maybe DCHECK that is not pointing to an NSEC, or update the loop condition to make sure you won\u0027t skip any NSEC records here.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ef28b619_7fbb4d9c",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -259,10 +278,10 @@
       "message": "Done",
       "parentUuid": "1cbc57e0_de544334",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "67998054_487237dc",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -276,10 +295,10 @@
       "side": 1,
       "message": "Please use a different name for the iterator to avoid shadowing.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "60d642ec_40c547d0",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -294,10 +313,10 @@
       "message": "Done",
       "parentUuid": "67998054_487237dc",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cd20d206_0609fc0a",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -311,10 +330,10 @@
       "side": 1,
       "message": "It\u0027s a little unfortunate that this requires copying all records in the message.\n\nIs |message| used after OnMessageReceived(), or would it be possible for this function to take ownership of it?  In that case, you could mutate he records in-place.\n\nFine to leave as a future improvement, if an API change is out of scope for this bugfix.",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a40a077e_213190b9",
         "filename": "discovery/mdns/mdns_querier.cc",
@@ -329,10 +348,10 @@
       "message": "I spent a while thinking about this. I agree the extra copy isn\u0027t the best, but I\u0027m not sure moving the records out of the MdnsMessage is the best approach\n\nClosing this comment as duplicate with the CL-level comment",
       "parentUuid": "cd20d206_0609fc0a",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": false
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6b029cfc_8ea9733b",
         "filename": "discovery/mdns/mdns_querier_unittest.cc",
@@ -346,10 +365,10 @@
       "side": 1,
       "message": "Please factor out a function to create an NSEC record of a given name/types",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3ac4a490_46b1c539",
         "filename": "discovery/mdns/mdns_querier_unittest.cc",
@@ -364,10 +383,28 @@
       "message": "Pending resolution of CL-level comment",
       "parentUuid": "6b029cfc_8ea9733b",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ef9ab9_e9bd45c4",
+        "filename": "discovery/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-10-08T01:34:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ac4a490_46b1c539",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "8e7618ce_9f3f01d7",
         "filename": "discovery/mdns/mdns_querier_unittest.cc",
@@ -381,10 +418,10 @@
       "side": 1,
       "message": "Please test:\n- Deletion of an individual NSEC record if all of its types have records in the message\n- Handling update of multiple NSEC records for 2 distinct names in the same message\n- Handling deletion of multiple NSEC records for 2 distinct names in the same message\n- Optional: handling update of one NSEC and deletion of the other for 2 names\n\nFactoring out some of the logic to construct the records and querier, would help shorten the amount of total test code",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c8d64e1a_3149938d",
         "filename": "discovery/mdns/mdns_querier_unittest.cc",
@@ -399,8 +436,25 @@
       "message": "Pending resolution of CL-level comment",
       "parentUuid": "8e7618ce_9f3f01d7",
       "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
-      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
-      "unresolved": true
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99414429_c378aeb7",
+        "filename": "discovery/mdns/mdns_querier_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-10-08T01:34:08Z",
+      "side": 1,
+      "message": "Done for all 4. The optional case is definitely good for this complex of logic",
+      "parentUuid": "c8d64e1a_3149938d",
+      "revId": "a6a33bf1d6b930669d36cf9e4d5bba1917b456a3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
