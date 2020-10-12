@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81ed2f61_8e4262dc",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-12T22:33:20Z",
+      "side": 1,
+      "message": "This looks very similar to: https://source.chromium.org/chromium/chromium/src/+/master:components/mirroring/service/message_dispatcher.h\n\nSessionMessager::SetHandler\n  --\u003e MessageDispatcher::Subscribe\n\nSessionMessager::SendMessage\n  --\u003e MessageDispatcher::SendOutboundMessage (one-off)\n  --\u003e MessageDispatcher::RequestReply (expecting a response, or timeout)\n\nAnd MessageDispatcher provides the sequence numbers, and confirms reply messages, such as an ANSWER, have matching sequence numbers to the original request.\n\nSo, I\u0027m wondering if it\u0027d be better to port MessageDispatcher over into this code base (to communicate via MessagePort, instead of the mojo pipes)?",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "7f4d2d73f177358da1fcda4d17f8bab1590f9ff8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6c17193_17d7eda4",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-12T22:33:20Z",
+      "side": 1,
+      "message": "Do we need this struct? Seems we could just pass the message_namespace and Json::Value in arguments to MessageCallback and SendMessage(), and let this class fill-in the rest of the details before I/O through the message_port_.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 16
+      },
+      "revId": "7f4d2d73f177358da1fcda4d17f8bab1590f9ff8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
