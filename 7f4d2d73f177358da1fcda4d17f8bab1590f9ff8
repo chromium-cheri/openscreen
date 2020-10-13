@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bba688b6_de24f679",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-13T19:55:51Z",
+      "side": 1,
+      "message": "I think it will be a rewrite to make it work more like the MessageDispatcher, since we will need a SendReply method as well and a complete unit test suite for it.\n\nI think we should do this as part of adding more message types, right now it\u0027s overkill:\n\nhttps://b.corp.google.com/issues/170756458",
+      "parentUuid": "81ed2f61_8e4262dc",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "7f4d2d73f177358da1fcda4d17f8bab1590f9ff8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6c17193_17d7eda4",
         "filename": "cast/streaming/session_messager.h",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2020-10-12T22:33:20Z",
       "side": 1,
       "message": "Do we need this struct? Seems we could just pass the message_namespace and Json::Value in arguments to MessageCallback and SendMessage(), and let this class fill-in the rest of the details before I/O through the message_port_.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 16
+      },
+      "revId": "7f4d2d73f177358da1fcda4d17f8bab1590f9ff8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6c61c2_2ace5c6e",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-13T19:55:51Z",
+      "side": 1,
+      "message": "I think we should keep this for now, the sender ID is necessary unless the session_messager also knows where all messages are coming from and going.",
+      "parentUuid": "c6c17193_17d7eda4",
       "range": {
         "startLine": 23,
         "startChar": 0,
