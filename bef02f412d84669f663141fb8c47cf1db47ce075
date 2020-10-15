@@ -22,6 +22,30 @@
       },
       "revId": "bef02f412d84669f663141fb8c47cf1db47ce075",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31ffed02_09a20684",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-10-15T18:42:58Z",
+      "side": 1,
+      "message": "I think they are pretty similar, but I actually like std::all_of better:\n\n\"if all of hardware address is 0\"\n\nversus\n\n\"if none of hardware address is something\"\n\nAs far as removing the predicate, in C++20 we could use std::identity :P",
+      "parentUuid": "e793e527_d12bd4b3",
+      "range": {
+        "startLine": 82,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 47
+      },
+      "revId": "bef02f412d84669f663141fb8c47cf1db47ce075",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
