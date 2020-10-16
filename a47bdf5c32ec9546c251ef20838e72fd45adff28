@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24e75e1f_eeccf0eb",
+        "filename": "cast/streaming/sender_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-16T21:57:36Z",
+      "side": 1,
+      "message": "Suggestion: Use absl::StrFormat() here, to simplify things.",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 12
+      },
+      "revId": "a47bdf5c32ec9546c251ef20838e72fd45adff28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "827d78d1_414cdb25",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-16T21:57:36Z",
+      "side": 1,
+      "message": "Maybe this should be:\n\n  OSP_DCHECK(std::none_of(callbacks_, [\u0026](pair) { pair.first \u003d\u003d message_type; }));\n\n...since we\u0027d want to know if we wrote [buggy] code that tried to take-over another module\u0027s messages?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "a47bdf5c32ec9546c251ef20838e72fd45adff28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "731cfe05_7f47e4ba",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-16T21:57:36Z",
+      "side": 1,
+      "message": "Suggest returning this directly, rather than indirectly through a callback.",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 43
+      },
+      "revId": "a47bdf5c32ec9546c251ef20838e72fd45adff28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf08d263_bbc5d033",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-16T21:57:36Z",
+      "side": 1,
+      "message": "I think you meant \"type\" (or \"message_type\") and not \"key\" everywhere?",
+      "range": {
+        "startLine": 91,
+        "startChar": 14,
+        "endLine": 91,
+        "endChar": 17
+      },
+      "revId": "a47bdf5c32ec9546c251ef20838e72fd45adff28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58747bed_4dabe18a",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-16T21:57:36Z",
+      "side": 1,
+      "message": "const auto\u0026",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 11
+      },
+      "revId": "a47bdf5c32ec9546c251ef20838e72fd45adff28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad67652d_fe0df737",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-16T21:57:36Z",
+      "side": 1,
+      "message": "IMHO, it\u0027s not clear to readers if this is a filter for inbound messages, or a property always being set on the outbound messages. (See other comment.)",
+      "range": {
+        "startLine": 48,
+        "startChar": 30,
+        "endLine": 48,
+        "endChar": 39
+      },
+      "revId": "a47bdf5c32ec9546c251ef20838e72fd45adff28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
