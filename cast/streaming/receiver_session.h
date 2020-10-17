@@ -129,6 +129,8 @@ class ReceiverSession final : public MessagePort::Client {
   ReceiverSession& operator=(ReceiverSession&&) = delete;
   ~ReceiverSession();
 
+  const std::string& session_id() const { return session_id_; }
+
   // MessagePort::Client overrides
   void OnMessage(const std::string& sender_id,
                  const std::string& message_namespace,
@@ -169,6 +171,7 @@ class ReceiverSession final : public MessagePort::Client {
   Environment* const environment_;
   MessagePort* const message_port_;
   const Preferences preferences_;
+  const std::string session_id_;
 
   bool supports_wifi_status_reporting_ = false;
   ReceiverPacketRouter packet_router_;

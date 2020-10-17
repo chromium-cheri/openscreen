@@ -11,6 +11,7 @@
 
 #include "absl/strings/match.h"
 #include "absl/strings/numbers.h"
+#include "cast/common/channel/message_util.h"
 #include "cast/common/public/message_port.h"
 #include "cast/streaming/environment.h"
 #include "cast/streaming/message_fields.h"
@@ -97,12 +98,18 @@ ReceiverSession::ReceiverSession(Client* const client,
       environment_(environment),
       message_port_(message_port),
       preferences_(std::move(preferences)),
+      session_id_(MakeUniqueSessionId("streaming_receiver")),
       packet_router_(environment_) {
   OSP_DCHECK(client_);
   OSP_DCHECK(message_port_);
   OSP_DCHECK(environment_);
 
-  message_port_->SetClient(this, kDefaultStreamingReceiverSenderId);
+  message_port_->SetClient(this, session_id_);
+  // Note: This ReceiverSession can now have messages delivered to OnMessage()
+  // if their destination is the same as |session_id_|. However, it is up to the
+  // sender to set up the virtual connection by first issuing a CONNECT request.
+  // See ApplicationAgent::PopulateReceiverStatus() comments for further
+  // details.
 }
 
 ReceiverSession::~ReceiverSession() {
