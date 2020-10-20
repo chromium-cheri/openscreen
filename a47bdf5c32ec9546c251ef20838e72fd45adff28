@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5bd8a7c_95306d3a",
+        "filename": "cast/streaming/sender_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-20T22:42:49Z",
+      "side": 1,
+      "message": "Oh, that\u0027s right. Sigh.\n\nYou know, I\u0027ve seen us use/need this (i.e., allocate buffer and call sprintf()) in lots of places. I\u0027m going to whip-up a quick CL in util/... to do a simple StringPrintf() as a simple wrapper around the standard library (rather than us including a whole separate 2MB printf parser/generator).",
+      "parentUuid": "4ef67509_3a28cc45",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 12
+      },
+      "revId": "a47bdf5c32ec9546c251ef20838e72fd45adff28",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "827d78d1_414cdb25",
         "filename": "cast/streaming/session_messager.cc",
         "patchSetId": 4
