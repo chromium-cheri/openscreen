@@ -70,6 +70,25 @@ class SenderSession final : public MessagePort::Client {
     virtual ~Client();
   };
 
+  // The embedder may provide a client for handling remoting negotiation.
+  class RemotingClient {
+   public:
+    virtual void OnRemotingFailed(const SenderSession* session,
+                                  Error error) = 0;
+
+   protected:
+    virtual ~RemotingClient();
+  };
+
+  enum class State {
+    // A mirroring session is starting or has started.
+    kMirroring,
+    // A remoting session is starting or has started.
+    kRemoting,
+    // No session is running, either due to user request or an error.
+    kStopped
+  };
+
   // The SenderSession assumes that the passed in client, environment, and
   // message port persist for at least the lifetime of the SenderSession. If
   // one of these classes needs to be reset, a new SenderSession should be
@@ -86,9 +105,17 @@ class SenderSession final : public MessagePort::Client {
 
   // Starts an OFFER/ANSWER exchange with the already configured receiver
   // over the message port. The caller should assume any configured senders
-  // become invalid when calling this method.
+  // become invalid when calling this method. Note that if the sender is
+  // in remoting mode, this will also switch the session back to mirroring
+  // mode.
   Error Negotiate(std::vector<AudioCaptureConfig> audio_configs,
                   std::vector<VideoCaptureConfig> video_configs);
+
+  // Starts an remoting-specific OFFER/ANSWER exchange with the already
+  // configured over the message port. Any configured senders become invalid
+  // when calling this method, and the sender session switches to remoting
+  // mode.
+  Error NegotiateRemoting();
 
   // MessagePort::Client overrides
   void OnMessage(const std::string& sender_id,
