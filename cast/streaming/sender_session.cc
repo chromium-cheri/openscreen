@@ -29,6 +29,8 @@
 namespace openscreen {
 namespace cast {
 
+class RemotingSender {};
+
 namespace {
 
 AudioStream CreateStream(int index, const AudioCaptureConfig& config) {
@@ -149,11 +151,13 @@ SenderSession::Client::~Client() = default;
 SenderSession::SenderSession(IPAddress remote_address,
                              Client* const client,
                              Environment* environment,
-                             MessagePort* message_port)
+                             MessagePort* message_port,
+                             RemotingClient* const remoting_client)
     : remote_address_(remote_address),
       client_(client),
       environment_(environment),
       message_port_(message_port),
+      remoting_client_(remoting_client),
       packet_router_(environment_) {
   OSP_DCHECK(client_);
   OSP_DCHECK(message_port_);

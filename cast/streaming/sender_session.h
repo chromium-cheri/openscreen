@@ -29,6 +29,7 @@ struct Recommendations;
 
 class Environment;
 class Sender;
+class RemotingSender;
 
 class SenderSession final : public MessagePort::Client {
  public:
@@ -70,6 +71,33 @@ class SenderSession final : public MessagePort::Client {
     virtual ~Client();
   };
 
+  // The embedder may provide a client for handling remoting negotiation.
+  class RemotingClient {
+   public:
+    // TODO: RemotingSender is a new class that will subclass the normal Sender,
+    // and expose the ability to add data to be sent as RPC calls.
+    virtual void OnNegotiated(const SenderSession* session,
+                              RemotingSender* audio_sender,
+                              RemotingSender* video_sender) = 0;
+
+    // If remoting fails we report and stop the session. The caller must
+    // call Negotiate() or NegotiateRemoting() to continue streaming content.
+    virtual void OnRemotingFailed(const SenderSession* session,
+                                  Error error) = 0;
+
+   protected:
+    virtual ~RemotingClient();
+  };
+
+  enum class State {
+    // A mirroring session is starting or has started.
+    kMirroring,
+    // A remoting session is starting or has started.
+    kRemoting,
+    // No session is running, either due to user request or an error.
+    kStopped
+  };
+
   // The SenderSession assumes that the passed in client, environment, and
   // message port persist for at least the lifetime of the SenderSession. If
   // one of these classes needs to be reset, a new SenderSession should be
@@ -77,7 +105,8 @@ class SenderSession final : public MessagePort::Client {
   SenderSession(IPAddress remote_address,
                 Client* const client,
                 Environment* environment,
-                MessagePort* message_port);
+                MessagePort* message_port,
+                RemotingClient* const remoting_client = nullptr);
   SenderSession(const SenderSession&) = delete;
   SenderSession(SenderSession&&) = delete;
   SenderSession& operator=(const SenderSession&) = delete;
@@ -86,9 +115,17 @@ class SenderSession final : public MessagePort::Client {
 
   // Starts an OFFER/ANSWER exchange with the already configured receiver
   // over the message port. The caller should assume any configured senders
-  // become invalid when calling this method.
+  // become invalid when calling this method. Note that if the sender is
+  // in remoting mode, this will also switch the session back to mirroring
+  // mode.
   Error Negotiate(std::vector<AudioCaptureConfig> audio_configs,
                   std::vector<VideoCaptureConfig> video_configs);
+
+  // Starts an remoting-specific OFFER/ANSWER exchange with the already
+  // configured over the message port. Any configured senders become invalid
+  // when calling this method, and the sender session switches to remoting
+  // mode.
+  Error NegotiateRemoting();
 
   // MessagePort::Client overrides
   void OnMessage(const std::string& sender_id,
@@ -138,6 +175,9 @@ class SenderSession final : public MessagePort::Client {
   // Sends a message over the message port.
   void SendMessage(Message* message);
 
+  // The current state of the session, used to keep track of transitions.
+  State state_ = State::kMirroring;
+
   // The sender ID of the Receiver for this session.
   std::string receiver_sender_id_;
 
@@ -147,10 +187,13 @@ class SenderSession final : public MessagePort::Client {
 
   // The embedder is expected to provide us a client for notifications about
   // negotiations and errors, a valid cast environment, and a messaging
-  // port for communicating to the Receiver over TLS.
+  // port for communicating to the Receiver over TLS. A client to be used
+  // for remoting is optional, and may be passed in if the embedder supports
+  // remoting.
   Client* const client_;
   Environment* const environment_;
   MessagePort* const message_port_;
+  RemotingClient* const remoting_client_;
 
   // The packet router used for messaging across all senders.
   SenderPacketRouter packet_router_;
@@ -168,6 +211,9 @@ class SenderSession final : public MessagePort::Client {
   // senders used for this session. Either or both may be nullptr.
   std::unique_ptr<Sender> current_audio_sender_;
   std::unique_ptr<Sender> current_video_sender_;
+
+  std::unique_ptr<RemotingSender> current_audio_remoting_sender_;
+  std::unique_ptr<RemotingSender> current_video_remoting_sender_;
 };  // namespace cast
 
 }  // namespace cast

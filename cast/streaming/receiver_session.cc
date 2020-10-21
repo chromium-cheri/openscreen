@@ -26,6 +26,7 @@ namespace cast {
 using Preferences = ReceiverSession::Preferences;
 using ConfiguredReceivers = ReceiverSession::ConfiguredReceivers;
 
+class RemotingReceiver {};
 namespace {
 
 template <typename Stream, typename Codec>
@@ -92,11 +93,13 @@ Preferences& Preferences::operator=(Preferences&&) noexcept = default;
 ReceiverSession::ReceiverSession(Client* const client,
                                  Environment* environment,
                                  MessagePort* message_port,
-                                 Preferences preferences)
+                                 Preferences preferences,
+                                 RemotingClient* const remoting_client)
     : client_(client),
       environment_(environment),
       message_port_(message_port),
       preferences_(std::move(preferences)),
+      remoting_client_(remoting_client),
       packet_router_(environment_) {
   OSP_DCHECK(client_);
   OSP_DCHECK(message_port_);

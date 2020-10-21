@@ -23,6 +23,7 @@ namespace cast {
 
 class Environment;
 class Receiver;
+class RemotingReceiver;
 
 class ReceiverSession final : public MessagePort::Client {
  public:
@@ -75,6 +76,22 @@ class ReceiverSession final : public MessagePort::Client {
     virtual ~Client();
   };
 
+  class RemotingClient {
+    // TODO: implement the RemotingReceiver API. Should be a subclass of
+    // the Receiver.
+    virtual void OnNegotiated(const ReceiverSession* session,
+                              RemotingReceiver* audio_receiver,
+                              RemotingReceiver* video_receiver);
+
+    // If remoting fails we report and stop the session. The sender must
+    // send a new OFFER to continue streaming content.
+    virtual void OnRemotingFailed(const ReceiverSession* session,
+                                  Error error) = 0;
+
+   protected:
+    virtual ~RemotingClient();
+  };
+
   // Note: embedders are required to implement the following
   // codecs to be Cast V2 compliant: H264, VP8, AAC, Opus.
   struct Preferences {
@@ -101,10 +118,23 @@ class ReceiverSession final : public MessagePort::Client {
     std::unique_ptr<DisplayDescription> display_description;
   };
 
+  enum class State {
+    // A mirroring session is starting or has started.
+    kMirroring,
+    // A remoting session is starting or has started.
+    kRemoting,
+    // No session is running, either due to user request or an error.
+    kStopped
+  };
+
   ReceiverSession(Client* const client,
                   Environment* environment,
                   MessagePort* message_port,
-                  Preferences preferences);
+                  Preferences preferences,
+
+                  // A nullptr RemotingClient indicates that we don't support
+                  // remoting, so we will not accept remoting offers.
+                  RemotingClient* const remoting_client = nullptr);
   ReceiverSession(const ReceiverSession&) = delete;
   ReceiverSession(ReceiverSession&&) = delete;
   ReceiverSession& operator=(const ReceiverSession&) = delete;
@@ -151,12 +181,16 @@ class ReceiverSession final : public MessagePort::Client {
   Environment* const environment_;
   MessagePort* const message_port_;
   const Preferences preferences_;
+  RemotingClient* const remoting_client_;
 
+  State state_ = State::kMirroring;
   bool supports_wifi_status_reporting_ = false;
   ReceiverPacketRouter packet_router_;
 
   std::unique_ptr<Receiver> current_audio_receiver_;
   std::unique_ptr<Receiver> current_video_receiver_;
+  std::unique_ptr<RemotingReceiver> current_audio_remoting_receiver_;
+  std::unique_ptr<RemotingReceiver> current_video_remoting_receiver_;
 };
 
 }  // namespace cast
