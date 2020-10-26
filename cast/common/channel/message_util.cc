@@ -4,6 +4,7 @@
 
 #include "cast/common/channel/message_util.h"
 
+#include <atomic>
 #include <sstream>
 #include <utility>
 
@@ -71,7 +72,7 @@ CastMessage MakeCloseMessage(const std::string& source_id,
 }
 
 std::string MakeUniqueSessionId(const char* prefix) {
-  static int next_id = 10000;
+  static std::atomic<int> next_id(10000);
 
   std::ostringstream oss;
   oss << prefix << '-' << (next_id++);
