@@ -16,6 +16,63 @@
       "message": "Let\u0027s chat tomorrow about the direction we want to take remoting in, my spec is pretty close to together.\n",
       "revId": "0f77c68ee4c7828d6a995fff168cd2b099e15253",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0bbbf0c_1ebd9c82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-26T21:00:04Z",
+      "side": 1,
+      "message": "lgtm % some suggestions to preserve history/linkage to where this all came from.\n\nFWIW, I ran a diff against Chromium\u0027s media/remoting/media_remoting_rpc.proto for review:\n\n  diff -w -y --minimal --color\u003dalways -W`tput cols` \\\n    ~/chromium/src/media/remoting/media_remoting_rpc.proto \\\n    ~/openscreen/openscreen/cast/streaming/remoting.proto \\\n  | less -R\n",
+      "revId": "0f77c68ee4c7828d6a995fff168cd2b099e15253",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30dcd402_d1f343f6",
+        "filename": "cast/streaming/remoting.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-26T21:00:04Z",
+      "side": 1,
+      "message": "I\u0027d suggest adding a \"preamble comment\" here explaining:\n\n1. This is based on the file from the Chromium project, media/remoting/\u003cfile\u003e.proto.\n2. Structurally, messaging and enums are a reflection of Chromium\u0027s media stack.\n3. All content encryption-related messaging has been removed (hence, all the reserved stuff).",
+      "revId": "0f77c68ee4c7828d6a995fff168cd2b099e15253",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ea353a5_d9db38b1",
+        "filename": "cast/streaming/remoting.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-10-26T21:00:04Z",
+      "side": 1,
+      "message": "Throughout this file, references to media::Foo don\u0027t make sense inside the openscreen repo. Might want to change these to something like:\n\n  // Proto version of Chromium\u0027s media::codec.",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 37,
+        "endChar": 34
+      },
+      "revId": "0f77c68ee4c7828d6a995fff168cd2b099e15253",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
