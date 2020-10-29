@@ -119,6 +119,12 @@ deps = {
       '@' + 'debe7d2d1982e540fbd6bd78604bf001753f9e74',
     'condition': 'not build_with_chromium',
   },
+
+  'third_party/modp_b64': {
+    'url': Var('chromium_git') + '/chromium/src/third_party/modp_b64'
+    '@' + '85754265d3847383704d19232e1ab873547cda9d',
+    'condition': 'not build_with_chromium'
+  }
 }
 
 hooks = [

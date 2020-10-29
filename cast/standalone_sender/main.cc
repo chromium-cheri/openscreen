@@ -32,6 +32,7 @@
 #include "platform/impl/text_trace_logging_platform.h"
 #include "util/alarm.h"
 #include "util/chrono_helpers.h"
+#include "util/stringprintf.h"
 
 namespace openscreen {
 namespace cast {
