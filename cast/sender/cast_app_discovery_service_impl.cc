@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <utility>
 
 #include "cast/sender/public/cast_media_source.h"
 #include "util/osp_logging.h"
@@ -62,7 +63,7 @@ CastAppDiscoveryServiceImpl::StartObservingAvailability(
     }
   }
 
-  return MakeSubscription(this, query_id);
+  return Subscription(this, query_id);
 }
 
 void CastAppDiscoveryServiceImpl::Refresh() {
