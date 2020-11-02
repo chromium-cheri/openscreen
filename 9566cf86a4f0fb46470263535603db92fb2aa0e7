@@ -16,6 +16,24 @@
       "message": "I\u0027m fine with this change, because it\u0027s more explicit about 3/5, but the existing code is also move-only and is not the source of the msan error.",
       "revId": "9566cf86a4f0fb46470263535603db92fb2aa0e7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "131d66e0_bcf7281d",
+        "filename": "cast/sender/public/cast_app_discovery_service.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-02T18:32:20Z",
+      "side": 1,
+      "message": "Hm, you\u0027re right about the msan error.  I have a new patchset which eliminates the only way I could see the error could be triggered.  I\u0027ll try to patch it into an msan Chromium build to verify the fix.",
+      "parentUuid": "8f554741_955fd201",
+      "revId": "9566cf86a4f0fb46470263535603db92fb2aa0e7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
