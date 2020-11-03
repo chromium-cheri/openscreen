@@ -18,6 +18,9 @@ namespace cast {
 
 // Namespace for OFFER/ANSWER messages.
 constexpr char kCastWebrtcNamespace[] = "urn:x-cast:com.google.cast.webrtc";
+constexpr char kCastRemotingNamespace[] = "urn:x-cast:com.google.cast.remoting";
+
+// JSON message field values specific to the Sender Session.
 constexpr char kMessageType[] = "type";
 
 // List of OFFER message fields.

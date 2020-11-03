@@ -10,7 +10,12 @@
 #include <utility>
 #include <vector>
 
+#include "absl/types/variant.h"
 #include "cast/common/public/message_port.h"
+#include "cast/streaming/answer_messages.h"
+#include "cast/streaming/offer_messages.h"
+#include "cast/streaming/receiver_message.h"
+#include "cast/streaming/sender_message.h"
 #include "json/value.h"
 
 namespace openscreen {
@@ -35,7 +40,7 @@ class SessionMessager : public MessagePort::Client {
     // The sequence number of the message. This is important currently for
     // ensuring we reply to the proper request message, such as for OFFER/ANSWER
     // exchanges.
-    int sequence_number = 0;
+    int32_t sequence_number = -1;
 
     // The body of the message, as a JSON object.
     Json::Value body;
@@ -44,16 +49,26 @@ class SessionMessager : public MessagePort::Client {
   using MessageCallback = std::function<void(Message)>;
   using ErrorCallback = std::function<void(Error)>;
 
+  using RequestCallback = std::function<void(SenderMessage)>;
+  using ReplyCallback = std::function<void(ReceiverMessage)>;
+
   SessionMessager(MessagePort* message_port,
                   std::string source_id,
                   ErrorCallback cb);
   ~SessionMessager();
 
-  // Set a message callback, such as OnOffer or OnAnswer.
-  void SetHandler(std::string message_type, MessageCallback cb);
+  // TODO: Interface segragation?
+  // SENDER INTERFACE
+  void SendRequest(SenderMessage message,
+                   ReceiverMessage::Type reply_type,
+                   ReplyCallback cb);
+
+  // RECEIVER INTERFACE
+  // Set sender message handler.
+  void SetHandler(SenderMessage::Type type, RequestCallback cb);
 
   // Send a JSON message.
-  Error SendMessage(Message message);
+  Error SendMessage(ReceiverMessage message);
 
   // MessagePort::Client overrides
   void OnMessage(const std::string& source_id,
@@ -62,9 +77,12 @@ class SessionMessager : public MessagePort::Client {
   void OnError(Error error) override;
 
  private:
+  // TODO: receiver only
   // Since the number of message callbacks is expected to be low,
   // we use a vector of key, value pairs instead of a map.
-  std::vector<std::pair<std::string, MessageCallback>> callbacks_;
+  std::vector<std::pair<SenderMessage::Type, RequestCallback>> callbacks_;
+
+  // TODO: sender only
 
   MessagePort* const message_port_;
   ErrorCallback error_callback_;

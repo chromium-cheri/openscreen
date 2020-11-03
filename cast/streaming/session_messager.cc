@@ -26,15 +26,14 @@ SessionMessager::~SessionMessager() {
   message_port_->ResetClient();
 }
 
-void SessionMessager::SetHandler(std::string message_type,
+void SessionMessager::SetHandler(SenderMessage::Type type,
                                  SessionMessager::MessageCallback cb) {
-  OSP_DCHECK(std::none_of(
-      callbacks_.begin(), callbacks_.end(),
-      [message_type](std::pair<std::string, MessageCallback> pair) {
-        return pair.first == message_type;
-      }));
+  OSP_DCHECK(std::none_of(callbacks_.begin(), callbacks_.end(),
+                          [type](std::pair<std::string, MessageCallback> pair) {
+                            return pair.first == type;
+                          }));
 
-  callbacks_.emplace_back(message_type, std::move(cb));
+  callbacks_.emplace_back(type, std::move(cb));
 }
 
 Error SessionMessager::SendMessage(SessionMessager::Message message) {

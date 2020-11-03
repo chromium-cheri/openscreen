@@ -16,6 +16,7 @@
 #include "cast/streaming/message_fields.h"
 #include "cast/streaming/offer_messages.h"
 #include "cast/streaming/receiver.h"
+#include "cast/streaming/sender_message.h"
 #include "util/json/json_helpers.h"
 #include "util/osp_logging.h"
 
@@ -106,26 +107,28 @@ ReceiverSession::ReceiverSession(Client* const client,
   OSP_DCHECK(client_);
   OSP_DCHECK(environment_);
 
-  messager_.SetHandler(kMessageTypeOffer,
-                       [this](SessionMessager::Message message) {
-                         OnOffer(std::move(message));
-                       });
+  messager_.SetHandler(
+      SenderMessage::Type::kOffer,
+      [this](SenderMessage message) { OnOffer(std::move(message)); });
 }
 
 ReceiverSession::~ReceiverSession() {
   ResetReceivers(Client::kEndOfSession);
+  SenderMessage
 }
 
-void ReceiverSession::OnOffer(SessionMessager::Message message) {
+void ReceiverSession::OnOffer(SenderMessage message) {
   ErrorOr<Offer> offer = Offer::Parse(std::move(message.body));
-  if (!offer) {
-    client_->OnError(this, offer.error());
-    OSP_DLOG_WARN << "Could not parse offer" << offer.error();
-    message.body = CreateInvalidAnswerMessage(
-        Error(Error::Code::kParseError, "Failed to parse malformed OFFER"));
-    messager_.SendMessage(std::move(message));
-    return;
+  if (!message.valid) {
   }
+  const Error error(Error::Code::kParseError,
+                    "Failed to parse malformed OFFER");
+  client_->OnError(this, error);
+  messager_.SendMessage(ReceiverMessage{ReceiverMessage::Type::kAnswer,
+                                        message.sequence_number,
+                                        false /* valid */, error});
+  return;
+}
 
   const AudioStream* selected_audio_stream = nullptr;
   if (!offer.value().audio_streams.empty() &&

@@ -162,11 +162,6 @@ SenderSession::SenderSession(IPAddress remote_address,
       packet_router_(environment_) {
   OSP_DCHECK(client_);
   OSP_DCHECK(environment_);
-
-  messager_.SetHandler(kMessageTypeAnswer,
-                       [this](SessionMessager::Message message) {
-                         OnAnswer(std::move(message));
-                       });
 }
 
 SenderSession::~SenderSession() = default;
@@ -198,13 +193,16 @@ Error SenderSession::Negotiate(std::vector<AudioCaptureConfig> audio_configs,
   // Currently we don't have a way to discover the ID of the receiver we
   // are connected to, since we have to send the first message.
   // TODO(jophba): migrate to discovered receiver ID when available.
-  messager_.SendMessage(SessionMessager::Message{
-      kDefaultStreamingReceiverSenderId, kCastWebrtcNamespace,
-      ++current_sequence_number_, std::move(message_body)});
+  messager_.SendMessage(
+      SessionMessager::Message{kDefaultStreamingReceiverSenderId,
+                               kCastWebrtcNamespace, ++current_sequence_number_,
+                               std::move(message_body)},
+      ReceiverMessage::Type::kAnswer,
+      [this](ReceiverMessage message) { OnAnswer(message); });
   return Error::None();
 }
 
-void SenderSession::OnAnswer(SessionMessager::Message message) {
+void SenderSession::OnAnswer(ReceiverMessage message) {
   if (message.sequence_number != current_sequence_number_) {
     OSP_DLOG_WARN << "Received a stale answer message, dropping.";
     return;
