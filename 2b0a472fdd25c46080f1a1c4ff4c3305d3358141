@@ -16,6 +16,40 @@
       "message": "PTAL.\n\nI intend to use this as part of refactoring all of my other messaging classes. It should allow use to get validation with really in-depth error messaging and make it easier to control versioning. Eventually we could use this to write a Rust (or other language) sender or receiver, which would be fun!",
       "revId": "2b0a472fdd25c46080f1a1c4ff4c3305d3358141",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbc0c652_23b9043b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-05T18:13:39Z",
+      "side": 1,
+      "message": "This is cool!  Here are a few thoughts on how we could organize these going forward.\n\n- Cast control messages are organized into namespaces.\n- Only the \"webrtc\" and \"remoting\" namespaces are specific to controlling streaming.\n- The other messages belong to the \"receiver\" namespace and relate to generic device/app control.\n- A full JSON message sent from device-to-device includes routing information and namespace.  I don\u0027t feel it\u0027s necessary to validate them for every message, but they are important to their meaning.\nLet\u0027s discuss whether we want the schema validator to consider those parts of the message as well.\n\nHere\u0027s one proposal:\n\ncast/protocol/castv2/streaming/... (for remoting/webrtc messages)\n                    /receiver/...\ncast/protocol/streaming/...  (in the future, if we want to formally define the media protocol) \n",
+      "revId": "2b0a472fdd25c46080f1a1c4ff4c3305d3358141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09f04741_9c75ed55",
+        "filename": "cast/streaming/control_protocol/app_examples/app_availability.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-05T18:13:39Z",
+      "side": 1,
+      "message": "So this is a fragment of a full message payload, which includes the senderId/receiverId/namespace.\n\n\nCould we name the file after the message type?  E.g. get_app_availability_response.json",
+      "revId": "2b0a472fdd25c46080f1a1c4ff4c3305d3358141",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
