@@ -4,6 +4,8 @@
 
 #include "osp/public/endpoint_request_ids.h"
 
+#include <utility>
+
 namespace openscreen {
 namespace osp {
 
@@ -11,10 +13,13 @@ EndpointRequestIds::EndpointRequestIds(Role role) : role_(role) {}
 EndpointRequestIds::~EndpointRequestIds() = default;
 
 uint64_t EndpointRequestIds::GetNextRequestId(uint64_t endpoint_id) {
-  uint64_t& next_request_id = request_ids_by_endpoint_id_[endpoint_id];
-  uint64_t request_id = next_request_id + (role_ == Role::kServer);
+  auto& next_request_id = request_ids_by_endpoint_id_[endpoint_id];
+  if (next_request_id == 0UL && role_ == Role::kServer) {
+    next_request_id = 1UL;
+  }
+  uint64_t result = next_request_id;
   next_request_id += 2;
-  return request_id;
+  return result;
 }
 
 void EndpointRequestIds::ResetRequestId(uint64_t endpoint_id) {
