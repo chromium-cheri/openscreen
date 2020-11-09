@@ -9,11 +9,9 @@
 
 #include "absl/strings/string_view.h"
 #include "json/value.h"
+#include "platform/base/error.h"
 
 namespace openscreen {
-template <typename T>
-class ErrorOr;
-
 namespace json {
 
 ErrorOr<Json::Value> Parse(absl::string_view value);
