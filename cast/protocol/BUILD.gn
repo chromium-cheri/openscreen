@@ -1,0 +1,37 @@
+# Copyright 2020 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//build_overrides/build.gni")
+assert(!build_with_chromium)
+
+action_foreach("convert_castv2_schemas") {
+  script = "../../tools/convert_to_data_file.py"
+  sources = [
+    "castv2/receiver_schema.json",
+    "castv2/streaming_schema.json",
+  ]
+  outputs = [ "{{source_gen_dir}}/{{source_name_part}}_data.cc" ]
+  args = [
+    "{{source}}",
+    "{{source_gen_dir}}/{{source_name_part}}_data.cc",
+  ]
+}
+
+source_set("castv2") {
+  sources = [
+    "castv2/validation.cc",
+    "castv2/validation.h",
+  ]
+
+  deps = [
+    ":convert_castv2_schemas",
+    "../../third_party/jsoncpp",
+    "../../util",
+  ]
+
+  data = [
+    "castv2/streaming_schema.json",
+    "castv2/receiver_schema.json",
+  ]
+}
