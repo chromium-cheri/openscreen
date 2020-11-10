@@ -42,6 +42,8 @@ source_set("util") {
     "crypto/sha2.h",
     "hashing.h",
     "integer_division.h",
+
+    # TODO(jophba): remove redundant json_ prefix from files.
     "json/json_helpers.h",
     "json/json_serialization.cc",
     "json/json_serialization.h",
@@ -67,12 +69,24 @@ source_set("util") {
     "yet_another_bit_vector.h",
   ]
 
-  public_deps = [ "../third_party/jsoncpp" ]
+  # TODO(jophba): remove !build_with_chromium check when we pass Chrome
+  # engineering review.
+  if (!build_with_chromium) {
+    sources += [
+      "json/json_validation.cc",
+      "json/json_validation.h",
+    ]
+  }
+
+  public_deps = [
+    "../third_party/abseil",
+    "../third_party/jsoncpp",
+  ]
 
   deps = [
-    "../third_party/abseil",
     "../third_party/boringssl",
     "../third_party/mozilla",
+    "../third_party/valijson",
   ]
 
   public_configs = [
@@ -115,6 +129,11 @@ source_set("unittests") {
   # bot, needs to be diagnosed and reenabled in Chrome.
   if (!build_with_chromium) {
     sources += [ "crypto/certificate_utils_unittest.cc" ]
+  }
+
+  # TODO(jophba): Remove !build_with_chromium check when we pass eng review.
+  if (!build_with_chromium) {
+    sources += [ "json/json_validation_unittest.cc" ]
   }
 
   deps = [
