@@ -41,6 +41,74 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "228c9a76_c587ee53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-10T17:52:31Z",
+      "side": 1,
+      "message": "I had a few questions about the overall plan for integration with our library, and Chromium in general.",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6866fe7c_3baf3bc9",
+        "filename": "DEPS",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-10T17:52:31Z",
+      "side": 1,
+      "message": "Does this need to be in top-level DEPS?  Could it go into cast/DEPS if it is only used for cast?",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0972576_8f7d7b73",
+        "filename": "DEPS",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-10T17:52:31Z",
+      "side": 1,
+      "message": "I think we want to end up hosting a mirror on Chromium (/external/github.com/).",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be7708f3_85ac980e",
+        "filename": "DEPS",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-10T17:52:31Z",
+      "side": 1,
+      "message": "I don\u0027t think embedders need to check this out, if validation is only happening as a presumbit check for Open Screen developers...",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35aeeedb_6adf643b",
@@ -60,6 +128,23 @@
         "endLine": 19,
         "endChar": 56
       },
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e023c3a3_6c292759",
+        "filename": "cast/streaming/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-10T17:52:31Z",
+      "side": 1,
+      "message": "Is the schema/message validation code necessary for the functionality of the streaming module?  I wonder if this should go into a test-only target.",
       "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -106,6 +191,23 @@
         "endLine": 28,
         "endChar": 46
       },
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34e816f6_39e8d57b",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-10T17:52:31Z",
+      "side": 1,
+      "message": "If we want to share this infrastructure between Chrome and Open Screen, would it make more sense to check it into a shared repository?",
       "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
