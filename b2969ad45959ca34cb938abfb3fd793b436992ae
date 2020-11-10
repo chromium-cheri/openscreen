@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2087ed60_d52ad2f5",
+        "filename": ".gitignore",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-10T06:21:44Z",
+      "side": 1,
+      "message": "Is this needed, if these files are supposed to go into out/\u003cbuilddir\u003e/gen/...?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47dd197d_4fa97ff7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-10T06:21:44Z",
+      "side": 1,
+      "message": "Cool stuff! Glad StringPrintf() was useful here. 😊",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35aeeedb_6adf643b",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-10T06:21:44Z",
+      "side": 1,
+      "message": "Could the entire statement be placed in the included file? Then, all you need is a #include \"streaming_schema_data.h\" here (and no extra code comment nor anonymous namespace).\n\nAlso, note that the output of the script should be .h files, not .cc, since the C++ code is being included in other files.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 56
+      },
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0c119c_3ace22f3",
+        "filename": "third_party/valijson/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-10T06:21:44Z",
+      "side": 1,
+      "message": "ccflags",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa19e0b1_71822e19",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-10T06:21:44Z",
+      "side": 1,
+      "message": "Per prior comment (in validation.cc), I suggest `import re` and then here:\n\n  # Derive name of constant from output path.\n  #   Ex: /path/to/my_awesome_thing.ext --\u003e kMyAwesomeThing\n  konstant_name \u003d re.sub(\u0027[.].*$\u0027, \u0027\u0027, os.path.basename(output_path))\n  konstant_name \u003d \u0027k\u0027 + re.sub(\u0027[^A-Za-z]+\u0027, \u0027\u0027, konstant_name.title())\n\n  f.write(\"\"\"#pragma once\n    \n    namespace openscreen {{\n    namespace cast {{\n    \n    constexpr char {0}[] \u003d R\"({1})\";\n    \n    }}  // namespace cast\n    }}  // namespace openscreen\n    \"\"\".format(konstant_name, content))",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9ef306_670bc13f",
+        "filename": "util/json/json_validation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-10T06:21:44Z",
+      "side": 1,
+      "message": "IIRC, you can simplify this with for-each syntax (compiler will translate into code that calls begin() and end()):\n\n  for (const auto\u0026 result : results) {\n    ...\n  }",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 78
+      },
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
