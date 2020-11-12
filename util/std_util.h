@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "util/stringprintf.h"
 
 namespace openscreen {
 
@@ -30,6 +31,15 @@ constexpr size_t countof(T (&array)[N]) {
 template <typename CharT, typename Traits, typename Allocator>
 CharT* data(std::basic_string<CharT, Traits, Allocator>& str) {
   return std::addressof(str[0]);
+}
+
+inline std::string Join(const std::vector<std::string>& strings,
+                        const char* delimiter) {
+  return std::accumulate(
+      strings.begin(), strings.end(), std::string{},
+      [=](const std::string& a, const std::string& b) -> std::string {
+        return StringPrintf(R"("%s"%s"%s")", a.c_str(), delimiter, b.c_str());
+      });
 }
 
 template <typename Key, typename Value>

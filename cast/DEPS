@@ -1,5 +1,13 @@
 # -*- Mode: Python; -*-
 
+use_relative_paths = True
+
+vars = {
+  'build_with_chromium': False,
+  'chromium_git': 'https://chromium.googlesource.com',
+  'github': 'https://github.com',
+}
+
 include_rules = [
   # OSP code is strictly verboten.
   '-api',
@@ -12,4 +20,15 @@ include_rules = [
 
   # All libcast code can use cast/third_party.
   '+cast/third_party',
+  '+valijson',
+  '+json',
 ]
+
+deps = {
+  'third_party/valijson/src': {
+    'url': Var('github') +
+      '/tristanpenman/valijson.git' +
+      '@' + 'c1e75c700ff68c85610c70b1bab1997737955f0f', # Tip-of-tree
+    'condition': 'not build_with_chromium',
+  }
+}
