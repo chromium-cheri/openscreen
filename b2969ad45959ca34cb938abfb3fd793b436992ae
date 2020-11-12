@@ -119,6 +119,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b166efb_edbda88a",
+        "filename": "DEPS",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-12T18:22:24Z",
+      "side": 1,
+      "message": "If a DEP is only used by a module (like cast) it should be defined by that module, so that the main DEPS isn\u0027t a dumping ground of various libraries with unclear ownership.    Since there\u0027s no need for JSON in either mDNS or OSP, it makes most sense to put it in //cast.",
+      "parentUuid": "430a5523_305454d0",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0972576_8f7d7b73",
         "filename": "DEPS",
         "patchSetId": 6
@@ -394,6 +412,24 @@
       "side": 1,
       "message": "Isn\u0027t Open Screen a shared repository? I\u0027m not sure what would be a better fit. I could put this in Chrome third_party eventually and have Open Screen clone it potentially as well?",
       "parentUuid": "34e816f6_39e8d57b",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d2276c_1007d560",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-12T18:22:24Z",
+      "side": 1,
+      "message": "//util is part of the library implementation, not the public API.  I don\u0027t think JSON validation is a core API/feature we want the library to support in the long term.  Let\u0027s discuss the options here as part of a broader review.",
+      "parentUuid": "85e9db4c_64a707e0",
       "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
