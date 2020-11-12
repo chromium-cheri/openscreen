@@ -137,6 +137,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea6ca5fd_cedde249",
+        "filename": "DEPS",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-12T22:15:25Z",
+      "side": 1,
+      "message": "Fair enough. I was following the pattern used in chrome, where all third party dependencies are in the root DEPS. Do we want to move openscreen out of the root Chrome DEPS, or is that a separate pattern?",
+      "parentUuid": "1b166efb_edbda88a",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0972576_8f7d7b73",
         "filename": "DEPS",
         "patchSetId": 6
@@ -430,6 +448,24 @@
       "side": 1,
       "message": "//util is part of the library implementation, not the public API.  I don\u0027t think JSON validation is a core API/feature we want the library to support in the long term.  Let\u0027s discuss the options here as part of a broader review.",
       "parentUuid": "85e9db4c_64a707e0",
+      "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeab46fc_dc9cf94e",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-12T22:15:25Z",
+      "side": 1,
+      "message": "The code in util is pretty minimal and provides wrappers around using valijson directly. I\u0027m not sure it\u0027s complicated enough to warrant being in a separate shareable repository, especially since in Chrome we wouldn\u0027t want to use Error.\n\nAFAIK, all of the mirroring service JSON code will eventually live in libcast, so I don\u0027t think we need to expose these as part of our public API. Other consumers that want to use valijson can write their own wrappers, as they may or may not want to use JsonCpp.",
+      "parentUuid": "99d2276c_1007d560",
       "revId": "b2969ad45959ca34cb938abfb3fd793b436992ae",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
