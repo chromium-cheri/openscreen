@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5d076ad_a367b840",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-14T17:11:18Z",
+      "side": 1,
+      "message": "I was looking through the code trying to find reasons why the TSAN bot doesn\u0027t pass tests. Aside from using EXPECT_STREQ() instead of EXPECT_EQ() (from yesterday\u0027s chat), I noticed there also seem to be many changes that are using heap-allocated stuff, instead of constant data stuff. That could be causing unintended run-time consequences, if the algorithms depend on the specific data layout (of the constant data stuff).",
+      "revId": "69a4c9217f87757bc09664cfb2b9929f24ce33fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ff6e3db_9110fb5d",
+        "filename": "util/enum_table.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-14T17:11:18Z",
+      "side": 1,
+      "message": "Not sure why this is necessary (even in the original code, since the compiler should alignas(16) automatically). The comment on L131 and this seem unrelated to changes made from the original?",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 15
+      },
+      "revId": "69a4c9217f87757bc09664cfb2b9929f24ce33fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "661f95eb_14be955d",
+        "filename": "util/enum_table.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-14T17:11:18Z",
+      "side": 1,
+      "message": "This will cause all instantiations to require static initializers + allocation on the heap. The original impl used a const char*.",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 25
+      },
+      "revId": "69a4c9217f87757bc09664cfb2b9929f24ce33fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aed7931b_4a0576ac",
+        "filename": "util/enum_table.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-14T17:11:18Z",
+      "side": 1,
+      "message": "This was initializer_list in the original code. Using vector instead will result in the static initializer + heap usage problem here too.",
+      "range": {
+        "startLine": 276,
+        "startChar": 6,
+        "endLine": 276,
+        "endChar": 17
+      },
+      "revId": "69a4c9217f87757bc09664cfb2b9929f24ce33fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eecc7b2e_38867fdb",
+        "filename": "util/enum_table.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-14T17:11:18Z",
+      "side": 1,
+      "message": "This should be a template parameter, rather than a class member.",
+      "range": {
+        "startLine": 277,
+        "startChar": 2,
+        "endLine": 277,
+        "endChar": 18
+      },
+      "revId": "69a4c9217f87757bc09664cfb2b9929f24ce33fa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
