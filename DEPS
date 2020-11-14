@@ -118,7 +118,7 @@ deps = {
       '/chromium/llvm-project/compiler-rt/lib/fuzzer.git' +
       '@' + 'debe7d2d1982e540fbd6bd78604bf001753f9e74',
     'condition': 'not build_with_chromium',
-  },
+  }
 }
 
 hooks = [
