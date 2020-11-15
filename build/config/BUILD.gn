@@ -50,14 +50,16 @@ config("compiler_defaults") {
 config("compiler_cpu_abi") {
   cflags = []
   ldflags = []
-
+  defines = []
   if (current_cpu == "x64") {
     # These are explicitly specified in case of cross-compiling.
     cflags += [ "-m64" ]
     ldflags += [ "-m64" ]
+    defines += [ "ARCH_CPU_64_BITS" ]
   } else if (current_cpu == "x86") {
     cflags += [ "-m32" ]
     ldflags += [ "-m32" ]
+    defines += [ "ARCH_CPU_32_BITS" ]
   } else if (current_cpu == "arm") {
     cflags += [
       "--target=arm-linux-gnueabihf",
@@ -66,9 +68,11 @@ config("compiler_cpu_abi") {
       "-mtune=$arm_tune",
     ]
     ldflags += [ "--target=arm-linux-gnueabihf" ]
+    defines += [ "ARCH_CPU_32_BITS" ]
   } else if (current_cpu == "arm64") {
     cflags += [ "--target=aarch64-linux-gnu" ]
     ldflags += [ "--target=aarch64-linux-gnu" ]
+    defines += [ "ARCH_CPU_64_BITS" ]
   }
 }
 
