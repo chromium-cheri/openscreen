@@ -1,9 +1,9 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2020 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef OSP_IMPL_MDNS_RESPONDER_SERVICE_H_
-#define OSP_IMPL_MDNS_RESPONDER_SERVICE_H_
+#ifndef OSP_IMPL_MDNS_SERVICE_H_
+#define OSP_IMPL_MDNS_SERVICE_H_
 
 #include <array>
 #include <map>
@@ -12,8 +12,6 @@
 #include <string>
 #include <vector>
 
-#include "osp/impl/discovery/mdns/mdns_responder_adapter.h"
-#include "osp/impl/mdns_platform_service.h"
 #include "osp/impl/service_listener_impl.h"
 #include "osp/impl/service_publisher_impl.h"
 #include "platform/api/network_interface.h"
@@ -25,36 +23,19 @@
 namespace openscreen {
 namespace osp {
 
-class MdnsResponderAdapterFactory {
+class MdnsService : public ServiceListenerImpl::Delegate,
+                    public ServicePublisherImpl::Delegate {
  public:
-  virtual ~MdnsResponderAdapterFactory() = default;
-
-  virtual std::unique_ptr<MdnsResponderAdapter> Create() = 0;
-};
-
-class MdnsResponderService : public ServiceListenerImpl::Delegate,
-                             public ServicePublisherImpl::Delegate,
-                             public UdpSocket::Client {
- public:
-  MdnsResponderService(
-      ClockNowFunctionPtr now_function,
-      TaskRunner* task_runner,
-      const std::string& service_name,
-      const std::string& service_protocol,
-      std::unique_ptr<MdnsResponderAdapterFactory> mdns_responder_factory,
-      std::unique_ptr<MdnsPlatformService> platform);
-  ~MdnsResponderService() override;
+  MdnsService(TaskRunner* task_runner,
+              const std::string& service_name,
+              const std::string& service_protocol);
+  ~MdnsService() override;
 
   void SetServiceConfig(const std::string& hostname,
                         const std::string& instance,
                         uint16_t port,
                         const std::vector<NetworkInterfaceIndex> allowlist,
                         const std::map<std::string, std::string>& txt_data);
-
-  // UdpSocket::Client overrides.
-  void OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet) override;
-  void OnSendError(UdpSocket* socket, Error error) override;
-  void OnError(UdpSocket* socket, Error error) override;
 
   // ServiceListenerImpl::Delegate overrides.
   void StartListener() override;
@@ -72,27 +53,8 @@ class MdnsResponderService : public ServiceListenerImpl::Delegate,
   void ResumePublisher() override;
 
  protected:
-  void HandleMdnsEvents();
-
-  std::unique_ptr<MdnsResponderAdapter> mdns_responder_;
-
  private:
-  // Create internal versions of all public methods. These are used to push all
-  // calls to these methods to the task runner.
-  // TODO(rwkeane): Clean up these methods. Some result in multiple pushes to
-  // the task runner when just one would suffice.
-  // ServiceListenerImpl::Delegate overrides.
-  void StartListenerInternal();
-  void StartAndSuspendListenerInternal();
-  void StopListenerInternal();
-  void SuspendListenerInternal();
-  void ResumeListenerInternal();
-  void SearchNowInternal(ServiceListener::State from);
-  void StartPublisherInternal();
-  void StartAndSuspendPublisherInternal();
-  void StopPublisherInternal();
-  void SuspendPublisherInternal();
-  void ResumePublisherInternal();
+  SerialDeletePtr<discovery::DnsSdService> dns_sd_service_;
 
   // NOTE: service_instance implicit in map key.
   struct ServiceInstance {
@@ -166,7 +128,7 @@ class MdnsResponderService : public ServiceListenerImpl::Delegate,
   // listening and publishing (e.g. {"_openscreen", "_udp"}).
   std::array<std::string, 2> service_type_;
 
-  // The following variables all relate to what MdnsResponderService publishes,
+  // The following variables all relate to what MdnsService publishes,
   // if anything.
   std::string service_hostname_;
   std::string service_instance_name_;
@@ -200,10 +162,10 @@ class MdnsResponderService : public ServiceListenerImpl::Delegate,
   // Scheduled to run periodic background tasks.
   Alarm background_tasks_alarm_;
 
-  friend class TestingMdnsResponderService;
+  friend class TestingMdnsService;
 };
 
 }  // namespace osp
 }  // namespace openscreen
 
-#endif  // OSP_IMPL_MDNS_RESPONDER_SERVICE_H_
+#endif  // OSP_IMPL_MDNS_SERVICE_H_

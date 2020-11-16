@@ -1,14 +1,13 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2020 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "osp/impl/mdns_responder_service.h"
+#include "osp/impl/mdns_service.h"
 
 #include <algorithm>
 #include <memory>
 #include <utility>
 
-#include "osp/impl/internal_services.h"
 #include "platform/base/error.h"
 #include "util/osp_logging.h"
 #include "util/trace_logging.h"
@@ -30,22 +29,15 @@ std::string ServiceIdFromServiceInstanceName(
 
 }  // namespace
 
-MdnsResponderService::MdnsResponderService(
-    ClockNowFunctionPtr now_function,
-    TaskRunner* task_runner,
-    const std::string& service_name,
-    const std::string& service_protocol,
-    std::unique_ptr<MdnsResponderAdapterFactory> mdns_responder_factory,
-    std::unique_ptr<MdnsPlatformService> platform)
+MdnsService::MdnsService(TaskRunner* task_runner,
+                         const std::string& service_name,
+                         const std::string& service_protocol)
     : service_type_{{service_name, service_protocol}},
-      mdns_responder_factory_(std::move(mdns_responder_factory)),
-      platform_(std::move(platform)),
-      task_runner_(task_runner),
-      background_tasks_alarm_(now_function, task_runner) {}
+      task_runner_(task_runner) {}
 
-MdnsResponderService::~MdnsResponderService() = default;
+MdnsService::~MdnsService() = default;
 
-void MdnsResponderService::SetServiceConfig(
+void MdnsService::SetServiceConfig(
     const std::string& hostname,
     const std::string& instance,
     uint16_t port,
@@ -61,9 +53,8 @@ void MdnsResponderService::SetServiceConfig(
   service_txt_data_ = txt_data;
 }
 
-void MdnsResponderService::OnRead(UdpSocket* socket,
-                                  ErrorOr<UdpPacket> packet) {
-  TRACE_SCOPED(TraceCategory::kMdns, "MdnsResponderService::OnRead");
+void MdnsService::OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet) {
+  TRACE_SCOPED(TraceCategory::kMdns, "MdnsService::OnRead");
   if (!mdns_responder_) {
     return;
   }
@@ -72,60 +63,60 @@ void MdnsResponderService::OnRead(UdpSocket* socket,
   HandleMdnsEvents();
 }
 
-void MdnsResponderService::OnSendError(UdpSocket* socket, Error error) {
+void MdnsService::OnSendError(UdpSocket* socket, Error error) {
   mdns_responder_->OnSendError(socket, std::move(error));
 }
 
-void MdnsResponderService::OnError(UdpSocket* socket, Error error) {
+void MdnsService::OnError(UdpSocket* socket, Error error) {
   mdns_responder_->OnError(socket, std::move(error));
 }
 
-void MdnsResponderService::StartListener() {
+void MdnsService::StartListener() {
   task_runner_->PostTask([this]() { this->StartListenerInternal(); });
 }
 
-void MdnsResponderService::StartAndSuspendListener() {
+void MdnsService::StartAndSuspendListener() {
   task_runner_->PostTask([this]() { this->StartAndSuspendListenerInternal(); });
 }
 
-void MdnsResponderService::StopListener() {
+void MdnsService::StopListener() {
   task_runner_->PostTask([this]() { this->StopListenerInternal(); });
 }
 
-void MdnsResponderService::SuspendListener() {
+void MdnsService::SuspendListener() {
   task_runner_->PostTask([this]() { this->SuspendListenerInternal(); });
 }
 
-void MdnsResponderService::ResumeListener() {
+void MdnsService::ResumeListener() {
   task_runner_->PostTask([this]() { this->ResumeListenerInternal(); });
 }
 
-void MdnsResponderService::SearchNow(ServiceListener::State from) {
+void MdnsService::SearchNow(ServiceListener::State from) {
   task_runner_->PostTask([this, from]() { this->SearchNowInternal(from); });
 }
 
-void MdnsResponderService::StartPublisher() {
+void MdnsService::StartPublisher() {
   task_runner_->PostTask([this]() { this->StartPublisherInternal(); });
 }
 
-void MdnsResponderService::StartAndSuspendPublisher() {
+void MdnsService::StartAndSuspendPublisher() {
   task_runner_->PostTask(
       [this]() { this->StartAndSuspendPublisherInternal(); });
 }
 
-void MdnsResponderService::StopPublisher() {
+void MdnsService::StopPublisher() {
   task_runner_->PostTask([this]() { this->StopPublisherInternal(); });
 }
 
-void MdnsResponderService::SuspendPublisher() {
+void MdnsService::SuspendPublisher() {
   task_runner_->PostTask([this]() { this->SuspendPublisherInternal(); });
 }
 
-void MdnsResponderService::ResumePublisher() {
+void MdnsService::ResumePublisher() {
   task_runner_->PostTask([this]() { this->ResumePublisherInternal(); });
 }
 
-void MdnsResponderService::StartListenerInternal() {
+void MdnsService::StartListenerInternal() {
   if (!mdns_responder_) {
     mdns_responder_ = mdns_responder_factory_->Create();
   }
@@ -135,12 +126,12 @@ void MdnsResponderService::StartListenerInternal() {
   RunBackgroundTasks();
 }
 
-void MdnsResponderService::StartAndSuspendListenerInternal() {
+void MdnsService::StartAndSuspendListenerInternal() {
   mdns_responder_ = mdns_responder_factory_->Create();
   ServiceListenerImpl::Delegate::SetState(ServiceListener::State::kSuspended);
 }
 
-void MdnsResponderService::StopListenerInternal() {
+void MdnsService::StopListenerInternal() {
   StopListening();
   if (!publisher_ || publisher_->state() == ServicePublisher::State::kStopped ||
       publisher_->state() == ServicePublisher::State::kSuspended) {
@@ -151,21 +142,21 @@ void MdnsResponderService::StopListenerInternal() {
   ServiceListenerImpl::Delegate::SetState(ServiceListener::State::kStopped);
 }
 
-void MdnsResponderService::SuspendListenerInternal() {
+void MdnsService::SuspendListenerInternal() {
   StopMdnsResponder();
   ServiceListenerImpl::Delegate::SetState(ServiceListener::State::kSuspended);
 }
 
-void MdnsResponderService::ResumeListenerInternal() {
+void MdnsService::ResumeListenerInternal() {
   StartListening();
   ServiceListenerImpl::Delegate::SetState(ServiceListener::State::kRunning);
 }
 
-void MdnsResponderService::SearchNowInternal(ServiceListener::State from) {
+void MdnsService::SearchNowInternal(ServiceListener::State from) {
   ServiceListenerImpl::Delegate::SetState(from);
 }
 
-void MdnsResponderService::StartPublisherInternal() {
+void MdnsService::StartPublisherInternal() {
   if (!mdns_responder_) {
     mdns_responder_ = mdns_responder_factory_->Create();
   }
@@ -175,12 +166,12 @@ void MdnsResponderService::StartPublisherInternal() {
   RunBackgroundTasks();
 }
 
-void MdnsResponderService::StartAndSuspendPublisherInternal() {
+void MdnsService::StartAndSuspendPublisherInternal() {
   mdns_responder_ = mdns_responder_factory_->Create();
   ServicePublisherImpl::Delegate::SetState(ServicePublisher::State::kSuspended);
 }
 
-void MdnsResponderService::StopPublisherInternal() {
+void MdnsService::StopPublisherInternal() {
   StopService();
   if (!listener_ || listener_->state() == ServiceListener::State::kStopped ||
       listener_->state() == ServiceListener::State::kSuspended) {
@@ -191,17 +182,17 @@ void MdnsResponderService::StopPublisherInternal() {
   ServicePublisherImpl::Delegate::SetState(ServicePublisher::State::kStopped);
 }
 
-void MdnsResponderService::SuspendPublisherInternal() {
+void MdnsService::SuspendPublisherInternal() {
   StopService();
   ServicePublisherImpl::Delegate::SetState(ServicePublisher::State::kSuspended);
 }
 
-void MdnsResponderService::ResumePublisherInternal() {
+void MdnsService::ResumePublisherInternal() {
   StartService();
   ServicePublisherImpl::Delegate::SetState(ServicePublisher::State::kRunning);
 }
 
-bool MdnsResponderService::NetworkScopedDomainNameComparator::operator()(
+bool MdnsService::NetworkScopedDomainNameComparator::operator()(
     const NetworkScopedDomainName& a,
     const NetworkScopedDomainName& b) const {
   if (a.socket != b.socket) {
@@ -210,18 +201,18 @@ bool MdnsResponderService::NetworkScopedDomainNameComparator::operator()(
   return DomainNameComparator()(a.domain_name, b.domain_name);
 }
 
-void MdnsResponderService::HandleMdnsEvents() {
-  TRACE_SCOPED(TraceCategory::kMdns, "MdnsResponderService::HandleMdnsEvents");
+void MdnsService::HandleMdnsEvents() {
+  TRACE_SCOPED(TraceCategory::kMdns, "MdnsService::HandleMdnsEvents");
   // NOTE: In the common case, we will get a single combined packet for
-  // PTR/SRV/TXT/A and then no other packets.  If we don't loop here, we would
-  // start SRV/TXT queries based on the PTR response, but never check for events
-  // again.  This should no longer be a problem when we have correct scheduling
-  // of RunTasks.
+  // PTR/SRV/TXT/A and then no other packets.  If we don't loop here, we
+  // would start SRV/TXT queries based on the PTR response, but never check
+  // for events again.  This should no longer be a problem when we have
+  // correct scheduling of RunTasks.
   bool events_possible = false;
-  // NOTE: This set will track which service instances were changed by all the
-  // events throughout all the loop iterations.  At the end, we can dispatch our
-  // ServiceInfo updates to |listener_| just once (e.g. instead of
-  // OnReceiverChanged, OnReceiverChanged, ..., just a single
+  // NOTE: This set will track which service instances were changed by all
+  // the events throughout all the loop iterations.  At the end, we can
+  // dispatch our ServiceInfo updates to |listener_| just once (e.g. instead
+  // of OnReceiverChanged, OnReceiverChanged, ..., just a single
   // OnReceiverChanged).
   InstanceNameSet modified_instance_names;
   do {
@@ -247,8 +238,9 @@ void MdnsResponderService::HandleMdnsEvents() {
                         events_possible;
     }
     if (events_possible) {
-      // NOTE: This still needs to be called here, even though it runs in the
-      // background regularly, because we just finished processing MDNS events.
+      // NOTE: This still needs to be called here, even though it runs in
+      // the background regularly, because we just finished processing MDNS
+      // events.
       RunBackgroundTasks();
     }
   } while (events_possible);
@@ -297,10 +289,10 @@ void MdnsResponderService::HandleMdnsEvents() {
   }
 }
 
-void MdnsResponderService::StartListening() {
-  // TODO(btolsch): This needs the same |interface_index_allowlist_| logic as
-  // StartService, but this can also wait until the network-change TODO is
-  // addressed.
+void MdnsService::StartListening() {
+  // TODO(btolsch): This needs the same |interface_index_allowlist_| logic
+  // as StartService, but this can also wait until the network-change TODO
+  // is addressed.
   if (bound_interfaces_.empty()) {
     mdns_responder_->Init();
     bound_interfaces_ = platform_->RegisterInterfaces({});
@@ -317,7 +309,7 @@ void MdnsResponderService::StartListening() {
   }
 }
 
-void MdnsResponderService::StopListening() {
+void MdnsService::StopListening() {
   ErrorOr<DomainName> service_type =
       DomainName::FromLabels(service_type_.begin(), service_type_.end());
   OSP_CHECK(service_type);
@@ -342,14 +334,15 @@ void MdnsResponderService::StopListening() {
   RemoveAllReceivers();
 }
 
-void MdnsResponderService::StartService() {
+void MdnsService::StartService() {
   // TODO(crbug.com/openscreen/45): This should really be a library-wide
   // allowed list.
   if (!bound_interfaces_.empty() && !interface_index_allowlist_.empty()) {
-    // TODO(btolsch): New interfaces won't be picked up on this path, but this
-    // also highlights a larger issue of the interface list being frozen while
-    // no state transitions are being made.  There should be another interface
-    // on MdnsPlatformService for getting network interface updates.
+    // TODO(btolsch): New interfaces won't be picked up on this path, but
+    // this also highlights a larger issue of the interface list being
+    // frozen while no state transitions are being made.  There should be
+    // another interface on MdnsPlatformService for getting network
+    // interface updates.
     std::vector<MdnsPlatformService::BoundInterface> deregistered_interfaces;
     for (auto it = bound_interfaces_.begin(); it != bound_interfaces_.end();) {
       if (std::find(interface_index_allowlist_.begin(),
@@ -388,12 +381,12 @@ void MdnsResponderService::StartService() {
                                    service_txt_data_);
 }
 
-void MdnsResponderService::StopService() {
+void MdnsService::StopService() {
   mdns_responder_->DeregisterService(service_instance_name_, service_type_[0],
                                      service_type_[1]);
 }
 
-void MdnsResponderService::StopMdnsResponder() {
+void MdnsService::StopMdnsResponder() {
   mdns_responder_->Close();
   platform_->DeregisterInterfaces(bound_interfaces_);
   bound_interfaces_.clear();
@@ -402,7 +395,7 @@ void MdnsResponderService::StopMdnsResponder() {
   RemoveAllReceivers();
 }
 
-void MdnsResponderService::UpdatePendingServiceInfoSet(
+void MdnsService::UpdatePendingServiceInfoSet(
     InstanceNameSet* modified_instance_names,
     const DomainName& domain_name) {
   for (auto& entry : service_by_name_) {
@@ -414,16 +407,15 @@ void MdnsResponderService::UpdatePendingServiceInfoSet(
   }
 }
 
-void MdnsResponderService::RemoveAllReceivers() {
+void MdnsService::RemoveAllReceivers() {
   bool had_receivers = !receiver_info_.empty();
   receiver_info_.clear();
   if (had_receivers)
     listener_->OnAllReceiversRemoved();
 }
 
-bool MdnsResponderService::HandlePtrEvent(
-    const PtrEvent& ptr_event,
-    InstanceNameSet* modified_instance_names) {
+bool MdnsService::HandlePtrEvent(const PtrEvent& ptr_event,
+                                 InstanceNameSet* modified_instance_names) {
   bool events_possible = false;
   const auto& instance_name = ptr_event.service_instance;
   UdpSocket* const socket = ptr_event.header.socket;
@@ -454,14 +446,15 @@ bool MdnsResponderService::HandlePtrEvent(
       if (entry->second->ptr_socket != socket)
         break;
       entry->second->has_ptr_record = false;
-      // NOTE: Occasionally, we can observe this situation in the wild where the
-      // PTR for a service is removed and then immediately re-added (like an odd
-      // refresh).  Additionally, the recommended TTL of PTR records is much
-      // shorter than the other records.  This means that short network drops or
-      // latency spikes could cause the PTR refresh queries and/or responses to
-      // be lost so the record isn't quite refreshed in time.  The solution here
-      // and in HandleSrvEvent is to only remove the service records completely
-      // when both the PTR and SRV have been removed.
+      // NOTE: Occasionally, we can observe this situation in the wild where
+      // the PTR for a service is removed and then immediately re-added
+      // (like an odd refresh).  Additionally, the recommended TTL of PTR
+      // records is much shorter than the other records.  This means that
+      // short network drops or latency spikes could cause the PTR refresh
+      // queries and/or responses to be lost so the record isn't quite
+      // refreshed in time.  The solution here and in HandleSrvEvent is to
+      // only remove the service records completely when both the PTR and
+      // SRV have been removed.
       if (!entry->second->has_srv()) {
         mdns_responder_->StopSrvQuery(socket, instance_name);
         mdns_responder_->StopTxtQuery(socket, instance_name);
@@ -472,9 +465,8 @@ bool MdnsResponderService::HandlePtrEvent(
   return events_possible;
 }
 
-bool MdnsResponderService::HandleSrvEvent(
-    const SrvEvent& srv_event,
-    InstanceNameSet* modified_instance_names) {
+bool MdnsService::HandleSrvEvent(const SrvEvent& srv_event,
+                                 InstanceNameSet* modified_instance_names) {
   bool events_possible = false;
   auto& domain_name = srv_event.domain_name;
   const auto& instance_name = srv_event.service_instance;
@@ -536,9 +528,8 @@ bool MdnsResponderService::HandleSrvEvent(
   return events_possible;
 }
 
-bool MdnsResponderService::HandleTxtEvent(
-    const TxtEvent& txt_event,
-    InstanceNameSet* modified_instance_names) {
+bool MdnsService::HandleTxtEvent(const TxtEvent& txt_event,
+                                 InstanceNameSet* modified_instance_names) {
   bool events_possible = false;
   const auto& instance_name = txt_event.service_instance;
   auto entry = service_by_name_.find(instance_name);
@@ -564,13 +555,12 @@ bool MdnsResponderService::HandleTxtEvent(
   return events_possible;
 }
 
-bool MdnsResponderService::HandleAddressEvent(
-    UdpSocket* socket,
-    QueryEventHeader::Type response_type,
-    const DomainName& domain_name,
-    bool a_event,
-    const IPAddress& address,
-    InstanceNameSet* modified_instance_names) {
+bool MdnsService::HandleAddressEvent(UdpSocket* socket,
+                                     QueryEventHeader::Type response_type,
+                                     const DomainName& domain_name,
+                                     bool a_event,
+                                     const IPAddress& address,
+                                     InstanceNameSet* modified_instance_names) {
   bool events_possible = false;
   switch (response_type) {
     case QueryEventHeader::Type::kAddedNoCache:
@@ -598,33 +588,30 @@ bool MdnsResponderService::HandleAddressEvent(
   return events_possible;
 }
 
-bool MdnsResponderService::HandleAEvent(
-    const AEvent& a_event,
-    InstanceNameSet* modified_instance_names) {
+bool MdnsService::HandleAEvent(const AEvent& a_event,
+                               InstanceNameSet* modified_instance_names) {
   return HandleAddressEvent(a_event.header.socket, a_event.header.response_type,
                             a_event.domain_name, true, a_event.address,
                             modified_instance_names);
 }
 
-bool MdnsResponderService::HandleAaaaEvent(
-    const AaaaEvent& aaaa_event,
-    InstanceNameSet* modified_instance_names) {
+bool MdnsService::HandleAaaaEvent(const AaaaEvent& aaaa_event,
+                                  InstanceNameSet* modified_instance_names) {
   return HandleAddressEvent(aaaa_event.header.socket,
                             aaaa_event.header.response_type,
                             aaaa_event.domain_name, false, aaaa_event.address,
                             modified_instance_names);
 }
 
-MdnsResponderService::HostInfo* MdnsResponderService::AddOrGetHostInfo(
+MdnsService::HostInfo* MdnsService::AddOrGetHostInfo(
     UdpSocket* socket,
     const DomainName& domain_name) {
   return &network_scoped_domain_to_host_[NetworkScopedDomainName{socket,
                                                                  domain_name}];
 }
 
-MdnsResponderService::HostInfo* MdnsResponderService::GetHostInfo(
-    UdpSocket* socket,
-    const DomainName& domain_name) {
+MdnsService::HostInfo* MdnsService::GetHostInfo(UdpSocket* socket,
+                                                const DomainName& domain_name) {
   auto kv = network_scoped_domain_to_host_.find(
       NetworkScopedDomainName{socket, domain_name});
   if (kv == network_scoped_domain_to_host_.end())
@@ -633,13 +620,13 @@ MdnsResponderService::HostInfo* MdnsResponderService::GetHostInfo(
   return &kv->second;
 }
 
-bool MdnsResponderService::IsServiceReady(const ServiceInstance& instance,
-                                          HostInfo* host) const {
+bool MdnsService::IsServiceReady(const ServiceInstance& instance,
+                                 HostInfo* host) const {
   return (host && instance.has_ptr_record && instance.has_srv() &&
           !instance.txt_info.empty() && (host->v4_address || host->v6_address));
 }
 
-NetworkInterfaceIndex MdnsResponderService::GetNetworkInterfaceIndexFromSocket(
+NetworkInterfaceIndex MdnsService::GetNetworkInterfaceIndexFromSocket(
     const UdpSocket* socket) const {
   auto it = std::find_if(
       bound_interfaces_.begin(), bound_interfaces_.end(),
@@ -651,7 +638,7 @@ NetworkInterfaceIndex MdnsResponderService::GetNetworkInterfaceIndexFromSocket(
   return it->interface_info.index;
 }
 
-void MdnsResponderService::RunBackgroundTasks() {
+void MdnsService::RunBackgroundTasks() {
   if (!mdns_responder_) {
     return;
   }
