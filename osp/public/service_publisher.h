@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "osp/public/timestamp.h"
-#include "platform/api/network_interface.h"
+#include "platform/base/interface_info.h"
 #include "platform/base/macros.h"
 
 namespace openscreen {
@@ -103,11 +103,11 @@ class ServicePublisher {
     // configured in the ProtocolConnectionServer.
     uint16_t connection_server_port = 0;
 
-    // A list of network interface names that the publisher should use.
+    // A list of network interfaces that the publisher should use.
     // By default, all enabled Ethernet and WiFi interfaces are used.
     // This configuration must be identical to the interfaces configured
     // in the ScreenConnectionServer.
-    std::vector<NetworkInterfaceIndex> network_interface_indices;
+    std::vector<InterfaceInfo> network_interfaces;
   };
 
   virtual ~ServicePublisher();

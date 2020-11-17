@@ -14,6 +14,8 @@ namespace discovery {
 
 // This struct provides parameters needed to initialize the discovery pipeline.
 struct Config {
+  // TODO: Remove this struct; it's redundant with openscreen::InterfaceInfo
+  // which already knows which addresses it supports.
   struct NetworkInfo {
     enum AddressFamilies : uint8_t {
       kNoAddressFamily = 0,
