@@ -9,7 +9,6 @@
 #include <utility>
 
 #include "absl/strings/str_cat.h"
-#include "cast/common/channel/virtual_connection_manager.h"
 #include "cast/common/channel/virtual_connection_router.h"
 #include "cast/common/public/cast_socket.h"
 #include "cast/common/public/service_info.h"
@@ -23,15 +22,13 @@ namespace cast {
 static constexpr std::chrono::seconds kRequestTimeout = std::chrono::seconds(5);
 
 CastPlatformClient::CastPlatformClient(VirtualConnectionRouter* router,
-                                       VirtualConnectionManager* manager,
                                        ClockNowFunctionPtr clock,
                                        TaskRunner* task_runner)
     : sender_id_(MakeUniqueSessionId("sender")),
       virtual_conn_router_(router),
-      virtual_conn_manager_(manager),
       clock_(clock),
       task_runner_(task_runner) {
-  OSP_DCHECK(virtual_conn_manager_);
+  OSP_DCHECK(virtual_conn_router_);
   OSP_DCHECK(clock_);
   OSP_DCHECK(task_runner_);
   virtual_conn_router_->AddHandlerForLocalId(sender_id_, this);
@@ -73,9 +70,9 @@ absl::optional<int> CastPlatformClient::RequestAppAvailability(
       request_id, app_id, std::move(timeout), std::move(callback)});
 
   VirtualConnection virtual_conn{sender_id_, kPlatformReceiverId, socket_id};
-  if (!virtual_conn_manager_->GetConnectionData(virtual_conn)) {
-    virtual_conn_manager_->AddConnection(virtual_conn,
-                                         VirtualConnection::AssociatedData{});
+  if (!virtual_conn_router_->GetConnectionData(virtual_conn)) {
+    virtual_conn_router_->AddConnection(virtual_conn,
+                                        VirtualConnection::AssociatedData{});
   }
 
   virtual_conn_router_->Send(std::move(virtual_conn),
