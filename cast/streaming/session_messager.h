@@ -10,7 +10,13 @@
 #include <utility>
 #include <vector>
 
+#include "absl/types/optional.h"
+#include "absl/types/variant.h"
 #include "cast/common/public/message_port.h"
+#include "cast/streaming/answer_messages.h"
+#include "cast/streaming/offer_messages.h"
+#include "cast/streaming/receiver_message.h"
+#include "cast/streaming/sender_message.h"
 #include "json/value.h"
 
 namespace openscreen {
@@ -35,7 +41,7 @@ class SessionMessager : public MessagePort::Client {
     // The sequence number of the message. This is important currently for
     // ensuring we reply to the proper request message, such as for OFFER/ANSWER
     // exchanges.
-    int sequence_number = 0;
+    int32_t sequence_number = -1;
 
     // The body of the message, as a JSON object.
     Json::Value body;
@@ -44,16 +50,12 @@ class SessionMessager : public MessagePort::Client {
   using MessageCallback = std::function<void(Message)>;
   using ErrorCallback = std::function<void(Error)>;
 
+  using ReplyCallback = std::function<void(ReceiverMessage)>;
+
   SessionMessager(MessagePort* message_port,
                   std::string source_id,
                   ErrorCallback cb);
-  ~SessionMessager();
-
-  // Set a message callback, such as OnOffer or OnAnswer.
-  void SetHandler(std::string message_type, MessageCallback cb);
-
-  // Send a JSON message.
-  Error SendMessage(Message message);
+  virtual ~SessionMessager();
 
   // MessagePort::Client overrides
   void OnMessage(const std::string& source_id,
@@ -61,13 +63,41 @@ class SessionMessager : public MessagePort::Client {
                  const std::string& message) override;
   void OnError(Error error) override;
 
- private:
-  // Since the number of message callbacks is expected to be low,
-  // we use a vector of key, value pairs instead of a map.
-  std::vector<std::pair<std::string, MessageCallback>> callbacks_;
-
+ protected:
   MessagePort* const message_port_;
   ErrorCallback error_callback_;
+};
+
+class SenderSessionMessager final : public SessionMessager {
+ public:
+  SenderSessionMessager(MessagePort* message_port,
+                        std::string source_id,
+                        ErrorCallback cb);
+
+  // Send a request (with optional reply callback)
+  void SendRequest(SenderMessage message,
+                   ReceiverMessage::Type reply_type,
+                   absl::optional<ReplyCallback> cb);
+
+  // TODO: private callback list with timeout options?
+};
+
+class ReceiverSessionMessager final : public SessionMessager {
+ public:
+  using RequestCallback = std::function<void(SenderMessage)>;
+  ReceiverSessionMessager(MessagePort* message_port,
+                          std::string source_id,
+                          ErrorCallback cb);
+
+  // Set sender message handler.
+  void SetHandler(SenderMessage::Type type, RequestCallback cb);
+
+  // Send a JSON message.
+  Error SendMessage(ReceiverMessage message);
+
+ private:
+  std::vector<std::pair<SenderMessage::Type, RequestCallback>> callbacks_;
+  std::string sender_id_;
 };
 
 }  // namespace cast

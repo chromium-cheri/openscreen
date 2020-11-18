@@ -26,39 +26,6 @@ SessionMessager::~SessionMessager() {
   message_port_->ResetClient();
 }
 
-void SessionMessager::SetHandler(std::string message_type,
-                                 SessionMessager::MessageCallback cb) {
-  OSP_DCHECK(std::none_of(
-      callbacks_.begin(), callbacks_.end(),
-      [message_type](std::pair<std::string, MessageCallback> pair) {
-        return pair.first == message_type;
-      }));
-
-  callbacks_.emplace_back(message_type, std::move(cb));
-}
-
-Error SessionMessager::SendMessage(SessionMessager::Message message) {
-  if (message.message_namespace != kCastWebrtcNamespace) {
-    return Error(Error::Code::kParameterInvalid, "Invalid namespace");
-  }
-  if (message.body.isNull()) {
-    return Error(Error::Code::kParameterInvalid, "No body");
-  }
-  message.body[kSequenceNumber] = message.sequence_number;
-
-  auto body_or_error = json::Stringify(message.body);
-  if (body_or_error.is_error()) {
-    return std::move(body_or_error.error());
-  }
-
-  OSP_DVLOG << "Sending message: DESTINATION[" << message.sender_id
-            << "], NAMESPACE[" << message.message_namespace << "], BODY:\n"
-            << body_or_error.value();
-  message_port_->PostMessage(message.sender_id, message.message_namespace,
-                             body_or_error.value());
-  return Error::None();
-}
-
 void SessionMessager::OnMessage(const std::string& source_id,
                                 const std::string& message_namespace,
                                 const std::string& message) {
@@ -96,26 +63,73 @@ void SessionMessager::OnMessage(const std::string& source_id,
     result.clear();
   }
 
-  for (const auto& pair : callbacks_) {
-    if (pair.first == type) {
-      // Currently all body keys are the lowercase version of the message type
-      // key. This may need to be refactored if this is no longer the case.
-      absl::AsciiStrToLower(&type);
-      Json::Value body;
-      if (result.empty() || result == kResultOk) {
-        body = message_json.value()[type];
-      } else {
-        body = message_json.value()[kErrorMessageBody];
-      }
-      pair.second(Message{source_id.data(), message_namespace.data(),
-                          sequence_number, std::move(body)});
-      return;
-    }
-  }
+  // TODO: whatttt
+  // for (const auto& pair : callbacks_) {
+  //   if (pair.first == type) {
+  //     // Currently all body keys are the lowercase version of the message
+  //     type
+  //     // key. This may need to be refactored if this is no longer the case.
+  //     absl::AsciiStrToLower(&type);
+  //     Json::Value body;
+  //     if (result.empty() || result == kResultOk) {
+  //       body = message_json.value()[type];
+  //     } else {
+  //       body = message_json.value()[kErrorMessageBody];
+  //     }
+  //     pair.second(Message{source_id.data(), message_namespace.data(),
+  //                         sequence_number, std::move(body)});
+  //     return;
+  //   }
+  // }
 }
 
 void SessionMessager::OnError(Error error) {
   OSP_DLOG_WARN << "Received an error in the session messager: " << error;
+}
+
+SenderSessionMessager::SenderSessionMessager(MessagePort* message_port,
+                                             std::string source_id,
+                                             ErrorCallback cb)
+    : SessionMessager(message_port, std::move(source_id), std::move(cb)) {}
+
+void SenderSessionMessager::SendRequest(SenderMessage message,
+                                        ReceiverMessage::Type reply_type,
+                                        absl::optional<ReplyCallback> cb) {}
+
+ReceiverSessionMessager::ReceiverSessionMessager(MessagePort* message_port,
+                                                 std::string source_id,
+                                                 ErrorCallback cb)
+    : SessionMessager(message_port, std::move(source_id), std::move(cb)) {}
+
+void ReceiverSessionMessager::SetHandler(SenderMessage::Type type,
+                                         RequestCallback cb) {
+  OSP_DCHECK(std::none_of(
+      callbacks_.begin(), callbacks_.end(),
+      [type](std::pair<SenderMessage::Type, RequestCallback> pair) {
+        return pair.first == type;
+      }));
+
+  callbacks_.emplace_back(type, std::move(cb));
+}
+
+Error ReceiverSessionMessager::SendMessage(ReceiverMessage message) {
+  if (sender_id_.empty()) {
+    return Error(Error::Code::kInvalidConnectionState,
+                 "Cannot send a message without first receiving one");
+  }
+  const auto namespace_ = (message.type == ReceiverMessage::Type::kRpc)
+                              ? kCastRemotingNamespace
+                              : kCastWebrtcNamespace;
+
+  auto body_or_error = json::Stringify(message.ToJson());
+  if (body_or_error.is_error()) {
+    return std::move(body_or_error.error());
+  }
+  OSP_DVLOG << "Sending message: DESTINATION[" << sender_id_ << "], NAMESPACE["
+            << namespace_ << "], BODY:\n"
+            << body_or_error.value();
+  message_port_->PostMessage(sender_id_, namespace_, body_or_error.value());
+  return Error::None();
 }
 
 }  // namespace cast

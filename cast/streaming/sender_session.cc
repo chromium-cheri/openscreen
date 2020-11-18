@@ -20,6 +20,7 @@
 #include "cast/streaming/message_fields.h"
 #include "cast/streaming/offer_messages.h"
 #include "cast/streaming/sender.h"
+#include "cast/streaming/sender_message.h"
 #include "util/crypto/random_bytes.h"
 #include "util/json/json_helpers.h"
 #include "util/json/json_serialization.h"
@@ -162,11 +163,6 @@ SenderSession::SenderSession(IPAddress remote_address,
       packet_router_(environment_) {
   OSP_DCHECK(client_);
   OSP_DCHECK(environment_);
-
-  messager_.SetHandler(kMessageTypeAnswer,
-                       [this](SessionMessager::Message message) {
-                         OnAnswer(std::move(message));
-                       });
 }
 
 SenderSession::~SenderSession() = default;
@@ -183,29 +179,23 @@ Error SenderSession::Negotiate(std::vector<AudioCaptureConfig> audio_configs,
   }
 
   Offer offer = CreateOffer(audio_configs, video_configs);
-  ErrorOr<Json::Value> json_offer = offer.ToJson();
-  if (json_offer.is_error()) {
-    return std::move(json_offer.error());
-  }
-
   current_negotiation_ = std::unique_ptr<Negotiation>(new Negotiation{
-      std::move(offer), std::move(audio_configs), std::move(video_configs)});
-
-  Json::Value message_body;
-  message_body[kMessageType] = kMessageTypeOffer;
-  message_body[kOfferMessageBody] = std::move(json_offer.value());
+      offer, std::move(audio_configs), std::move(video_configs)});
 
   // Currently we don't have a way to discover the ID of the receiver we
   // are connected to, since we have to send the first message.
   // TODO(jophba): migrate to discovered receiver ID when available.
-  static constexpr char kPlaceholderReceiverSenderId[] = "receiver-12345";
-  messager_.SendMessage(SessionMessager::Message{
-      kPlaceholderReceiverSenderId, kCastWebrtcNamespace,
-      ++current_sequence_number_, std::move(message_body)});
+  // static constexpr char kPlaceholderReceiverSenderId[] = "receiver-12345";
+  // TODO: put this in sender session messager??
+  messager_.SendRequest(
+      SenderMessage{SenderMessage::Type::kOffer, ++current_sequence_number_,
+                    true, std::move(offer)},
+      ReceiverMessage::Type::kAnswer,
+      [this](ReceiverMessage message) { OnAnswer(message); });
   return Error::None();
 }
 
-void SenderSession::OnAnswer(SessionMessager::Message message) {
+void SenderSession::OnAnswer(ReceiverMessage message) {
   if (message.sequence_number != current_sequence_number_) {
     OSP_DLOG_WARN << "Received a stale answer message, dropping.";
     return;
@@ -215,16 +205,18 @@ void SenderSession::OnAnswer(SessionMessager::Message message) {
     return;
   }
 
-  Answer answer;
-  if (!Answer::ParseAndValidate(message.body, &answer)) {
+  if (!message.valid) {
+    // TODO: make sure this gets populated.
+    //  Answer answer;
+    //  if (!Answer::ParseAndValidate(message.body, &answer)) {
     client_->OnError(this, Error(Error::Code::kJsonParseError,
                                  "Received invalid answer message"));
     OSP_DLOG_WARN << "Received invalid answer message";
     return;
   }
 
+  const Answer& answer = absl::get<Answer>(message.body);
   ConfiguredSenders senders = SpawnSenders(answer);
-
   // If we didn't select any senders, the negotiation was unsuccessful.
   if (senders.audio_sender == nullptr && senders.video_sender == nullptr) {
     return;
