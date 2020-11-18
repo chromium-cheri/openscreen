@@ -18,6 +18,23 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd63920c_5a3cd976",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-18T23:40:26Z",
+      "side": 1,
+      "message": "Thanks, this looks reasonable, and thanks for fixing deps checking in our PRESUMBIT :-)",
+      "revId": "83308e253745430ee209da82ea55f15d997f0114",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6904bc9a_834bd33d",
@@ -31,6 +48,91 @@
       "writtenOn": "2020-11-18T20:39:09Z",
       "side": 1,
       "message": "Check DEPS should actually work locally now as well--the try..finally was hiding the fact that the imports threw an exception. Now the imports actually work so we can actually check DEPS as part of uploading.",
+      "revId": "83308e253745430ee209da82ea55f15d997f0114",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97d62628_d55c5594",
+        "filename": "third_party/jsoncpp/README.chromium",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-18T23:40:26Z",
+      "side": 1,
+      "message": "Is this identical to Chromium\u0027s copy?",
+      "revId": "83308e253745430ee209da82ea55f15d997f0114",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4340278_ba698e07",
+        "filename": "tools/licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-18T23:40:26Z",
+      "side": 1,
+      "message": "Is there any version of this in depot_tools or another repo that doesn\u0027t require us to maintain our own copy?",
+      "revId": "83308e253745430ee209da82ea55f15d997f0114",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c89175e9_423d416a",
+        "filename": "tools/licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-18T23:40:26Z",
+      "side": 1,
+      "message": "We may want to require python3 for Open Screen, as python2 is at end of life.  I don\u0027t think that will break anyone working on the library today.",
+      "revId": "83308e253745430ee209da82ea55f15d997f0114",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "277b6550_4e522e91",
+        "filename": "tools/licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-18T23:40:26Z",
+      "side": 1,
+      "message": "There are a lot of paths and special cases for Chromium in here.  I think this script would be more maintainable if they were removed or updated.\n\nMostly this is ADDITIONAL_PATHS and PRUNE_DIRS.",
+      "revId": "83308e253745430ee209da82ea55f15d997f0114",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f2ec4ac_d8583b5e",
+        "filename": "tools/licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-18T23:40:26Z",
+      "side": 1,
+      "message": "We won\u0027t ever have .svn directories.",
       "revId": "83308e253745430ee209da82ea55f15d997f0114",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
