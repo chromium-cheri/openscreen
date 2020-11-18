@@ -91,13 +91,34 @@ ConnectionNamespaceHandler::ConnectionNamespaceHandler(
 
 ConnectionNamespaceHandler::~ConnectionNamespaceHandler() = default;
 
+void ConnectionNamespaceHandler::OpenRemoteConnection(
+    VirtualConnection conn,
+    RemoteConnectionResultCallback result_callback) {
+  OSP_DCHECK(!vc_router_->GetConnectionData(conn));
+  OSP_DCHECK(std::none_of(
+      pending_remote_requests_.begin(), pending_remote_requests_.end(),
+      [&](const PendingRequest& request) { return request.conn == conn; }));
+  pending_remote_requests_.push_back({conn, std::move(result_callback)});
+
+  SendConnect(conn);
+}
+
+void ConnectionNamespaceHandler::CloseRemoteConnection(VirtualConnection conn) {
+  if (CloseConnection(conn, VirtualConnection::kClosedBySelf)) {
+    SendClose(conn);
+  }
+}
+
 void ConnectionNamespaceHandler::OnMessage(VirtualConnectionRouter* router,
                                            CastSocket* socket,
                                            CastMessage message) {
-  if (message.payload_type() !=
-      CastMessage_PayloadType::CastMessage_PayloadType_STRING) {
+  if (message.destination_id() == kBroadcastId ||
+      message.source_id() == kBroadcastId ||
+      message.payload_type() !=
+          CastMessage_PayloadType::CastMessage_PayloadType_STRING) {
     return;
   }
+
   ErrorOr<Json::Value> result = json::Parse(message.payload_utf8());
   if (result.is_error()) {
     return;
@@ -123,6 +144,8 @@ void ConnectionNamespaceHandler::OnMessage(VirtualConnectionRouter* router,
     HandleConnect(socket, std::move(message), std::move(value));
   } else if (type_str == kMessageTypeClose) {
     HandleClose(socket, std::move(message), std::move(value));
+  } else if (type_str == kMessageTypeConnected) {
+    HandleConnectedResponse(socket, std::move(message), std::move(value));
   } else {
     // NOTE: Unknown message type so ignore it.
     // TODO(btolsch): Should be included in future error reporting.
@@ -210,34 +233,52 @@ void ConnectionNamespaceHandler::HandleConnect(CastSocket* socket,
 void ConnectionNamespaceHandler::HandleClose(CastSocket* socket,
                                              CastMessage message,
                                              Json::Value parsed_message) {
-  VirtualConnection virtual_conn{std::move(message.destination_id()),
-                                 std::move(message.source_id()),
-                                 ToCastSocketId(socket)};
-  if (!vc_router_->GetConnectionData(virtual_conn)) {
+  const VirtualConnection conn{std::move(message.destination_id()),
+                               std::move(message.source_id()),
+                               ToCastSocketId(socket)};
+  const auto reason = GetCloseReason(parsed_message);
+  if (CloseConnection(conn, reason)) {
+    OSP_DVLOG << "Connection closed (reason: " << reason
+              << "): " << conn.local_id << ", " << conn.peer_id << ", "
+              << conn.socket_id;
+  }
+}
+
+void ConnectionNamespaceHandler::HandleConnectedResponse(
+    CastSocket* socket,
+    CastMessage message,
+    Json::Value parsed_message) {
+  const VirtualConnection conn{std::move(message.destination_id()),
+                               std::move(message.source_id()),
+                               ToCastSocketId(socket)};
+  const auto it = std::find_if(
+      pending_remote_requests_.begin(), pending_remote_requests_.end(),
+      [&](const PendingRequest& request) { return request.conn == conn; });
+  if (it == pending_remote_requests_.end()) {
     return;
   }
 
-  VirtualConnection::CloseReason reason = GetCloseReason(parsed_message);
+  vc_router_->AddConnection(conn,
+                            {VirtualConnection::Type::kStrong,
+                             {},
+                             {},
+                             VirtualConnection::ProtocolVersion::kV2_1_3});
 
-  OSP_DVLOG << "Connection closed (reason: " << reason
-            << "): " << virtual_conn.local_id << ", " << virtual_conn.peer_id
-            << ", " << virtual_conn.socket_id;
-  vc_router_->RemoveConnection(virtual_conn, reason);
+  const auto callback = std::move(it->result_callback);
+  pending_remote_requests_.erase(it);
+  callback(true);
+}
+
+void ConnectionNamespaceHandler::SendConnect(
+    const VirtualConnection& virtual_conn) {
+  vc_router_->Send(virtual_conn, MakeConnectMessage(virtual_conn.local_id,
+                                                    virtual_conn.peer_id));
 }
 
 void ConnectionNamespaceHandler::SendClose(
     const VirtualConnection& virtual_conn) {
-  Json::Value close_message(Json::ValueType::objectValue);
-  close_message[kMessageKeyType] = kMessageTypeClose;
-
-  ErrorOr<std::string> result = json::Stringify(close_message);
-  if (result.is_error()) {
-    return;
-  }
-
-  vc_router_->Send(
-      std::move(virtual_conn),
-      MakeSimpleUTF8Message(kConnectionNamespace, std::move(result.value())));
+  vc_router_->Send(virtual_conn, MakeCloseMessage(virtual_conn.local_id,
+                                                  virtual_conn.peer_id));
 }
 
 void ConnectionNamespaceHandler::SendConnectedResponse(
@@ -256,6 +297,29 @@ void ConnectionNamespaceHandler::SendConnectedResponse(
   vc_router_->Send(
       virtual_conn,
       MakeSimpleUTF8Message(kConnectionNamespace, std::move(result.value())));
+}
+
+bool ConnectionNamespaceHandler::CloseConnection(
+    const VirtualConnection& conn,
+    VirtualConnection::CloseReason reason) {
+  bool found_connection = false;
+  if (vc_router_->GetConnectionData(conn)) {
+    vc_router_->RemoveConnection(conn, reason);
+    found_connection = true;
+  }
+
+  // Cancel pending remote request, if any.
+  const auto it = std::find_if(
+      pending_remote_requests_.begin(), pending_remote_requests_.end(),
+      [&](const PendingRequest& request) { return request.conn == conn; });
+  if (it != pending_remote_requests_.end()) {
+    const auto callback = std::move(it->result_callback);
+    pending_remote_requests_.erase(it);
+    callback(false);
+    found_connection = true;
+  }
+
+  return found_connection;
 }
 
 }  // namespace cast
