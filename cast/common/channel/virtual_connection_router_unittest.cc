@@ -44,11 +44,8 @@ class VirtualConnectionRouterTest : public ::testing::Test {
 
   MockSocketErrorHandler mock_error_handler_;
 
-  VirtualConnectionManager local_manager_;
-  VirtualConnectionRouter local_router_{&local_manager_};
-
-  VirtualConnectionManager remote_manager_;
-  VirtualConnectionRouter remote_router_{&remote_manager_};
+  VirtualConnectionRouter local_router_;
+  VirtualConnectionRouter remote_router_;
 };
 
 }  // namespace
@@ -56,9 +53,9 @@ class VirtualConnectionRouterTest : public ::testing::Test {
 TEST_F(VirtualConnectionRouterTest, LocalIdHandler) {
   MockCastMessageHandler mock_message_handler;
   local_router_.AddHandlerForLocalId("receiver-1234", &mock_message_handler);
-  local_manager_.AddConnection(VirtualConnection{"receiver-1234", "sender-9873",
-                                                 local_socket_->socket_id()},
-                               {});
+  local_router_.AddConnection(VirtualConnection{"receiver-1234", "sender-9873",
+                                                local_socket_->socket_id()},
+                              {});
 
   CastMessage message;
   message.set_protocol_version(
@@ -84,9 +81,9 @@ TEST_F(VirtualConnectionRouterTest, LocalIdHandler) {
 TEST_F(VirtualConnectionRouterTest, RemoveLocalIdHandler) {
   MockCastMessageHandler mock_message_handler;
   local_router_.AddHandlerForLocalId("receiver-1234", &mock_message_handler);
-  local_manager_.AddConnection(VirtualConnection{"receiver-1234", "sender-9873",
-                                                 local_socket_->socket_id()},
-                               {});
+  local_router_.AddConnection(VirtualConnection{"receiver-1234", "sender-9873",
+                                                local_socket_->socket_id()},
+                              {});
 
   CastMessage message;
   message.set_protocol_version(
@@ -108,16 +105,15 @@ TEST_F(VirtualConnectionRouterTest, RemoveLocalIdHandler) {
 }
 
 TEST_F(VirtualConnectionRouterTest, SendMessage) {
-  local_manager_.AddConnection(VirtualConnection{"receiver-1234", "sender-4321",
-                                                 local_socket_->socket_id()},
-                               {});
+  local_router_.AddConnection(VirtualConnection{"receiver-1234", "sender-4321",
+                                                local_socket_->socket_id()},
+                              {});
 
   MockCastMessageHandler destination;
   remote_router_.AddHandlerForLocalId("sender-4321", &destination);
-  remote_manager_.AddConnection(
-      VirtualConnection{"sender-4321", "receiver-1234",
-                        remote_socket_->socket_id()},
-      {});
+  remote_router_.AddConnection(VirtualConnection{"sender-4321", "receiver-1234",
+                                                 remote_socket_->socket_id()},
+                               {});
 
   CastMessage message;
   message.set_protocol_version(
@@ -142,15 +138,15 @@ TEST_F(VirtualConnectionRouterTest, SendMessage) {
 }
 
 TEST_F(VirtualConnectionRouterTest, CloseSocketRemovesVirtualConnections) {
-  local_manager_.AddConnection(VirtualConnection{"receiver-1234", "sender-4321",
-                                                 local_socket_->socket_id()},
-                               {});
+  local_router_.AddConnection(VirtualConnection{"receiver-1234", "sender-4321",
+                                                local_socket_->socket_id()},
+                              {});
 
   EXPECT_CALL(mock_error_handler_, OnClose(local_socket_)).Times(1);
 
   int id = local_socket_->socket_id();
   local_router_.CloseSocket(id);
-  EXPECT_FALSE(local_manager_.GetConnectionData(
+  EXPECT_FALSE(local_router_.GetConnectionData(
       VirtualConnection{"receiver-1234", "sender-4321", id}));
 }
 

@@ -11,14 +11,14 @@
 #include <string>
 
 #include "cast/common/channel/proto/cast_channel.pb.h"
+#include "cast/common/channel/virtual_connection.h"
+#include "cast/common/channel/virtual_connection_manager.h"
 #include "cast/common/public/cast_socket.h"
 
 namespace openscreen {
 namespace cast {
 
 class CastMessageHandler;
-struct VirtualConnection;
-class VirtualConnectionManager;
 
 // Handles CastSockets by routing received messages to appropriate message
 // handlers based on the VirtualConnection's local ID and sending messages over
@@ -39,7 +39,8 @@ class VirtualConnectionManager;
 //    VCRouter::Send via an appropriate VC.  The virtual connection is not
 //    created automatically, so Foo should either ensure its existence via logic
 //    or check with the VirtualConnectionManager first.
-class VirtualConnectionRouter final : public CastSocket::Client {
+class VirtualConnectionRouter final : public VirtualConnectionManager,
+                                      public CastSocket::Client {
  public:
   class SocketErrorHandler {
    public:
@@ -47,7 +48,7 @@ class VirtualConnectionRouter final : public CastSocket::Client {
     virtual void OnError(CastSocket* socket, Error error) = 0;
   };
 
-  explicit VirtualConnectionRouter(VirtualConnectionManager* vc_manager);
+  VirtualConnectionRouter();
   ~VirtualConnectionRouter() override;
 
   // These return whether the given |local_id| was successfully added/removed.
@@ -70,15 +71,12 @@ class VirtualConnectionRouter final : public CastSocket::Client {
   void OnMessage(CastSocket* socket,
                  ::cast::channel::CastMessage message) override;
 
-  VirtualConnectionManager* manager() { return vc_manager_; }
-
  private:
   struct SocketWithHandler {
     std::unique_ptr<CastSocket> socket;
     SocketErrorHandler* error_handler;
   };
 
-  VirtualConnectionManager* const vc_manager_;
   std::map<int, SocketWithHandler> sockets_;
   std::map<std::string /* local_id */, CastMessageHandler*> endpoints_;
 };

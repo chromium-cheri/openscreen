@@ -9,7 +9,6 @@
 #include "cast/common/channel/cast_message_handler.h"
 #include "cast/common/channel/message_util.h"
 #include "cast/common/channel/proto/cast_channel.pb.h"
-#include "cast/common/channel/virtual_connection_manager.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {
@@ -17,11 +16,7 @@ namespace cast {
 
 using ::cast::channel::CastMessage;
 
-VirtualConnectionRouter::VirtualConnectionRouter(
-    VirtualConnectionManager* vc_manager)
-    : vc_manager_(vc_manager) {
-  OSP_DCHECK(vc_manager);
-}
+VirtualConnectionRouter::VirtualConnectionRouter() = default;
 
 VirtualConnectionRouter::~VirtualConnectionRouter() = default;
 
@@ -46,8 +41,7 @@ void VirtualConnectionRouter::TakeSocket(SocketErrorHandler* error_handler,
 void VirtualConnectionRouter::CloseSocket(int id) {
   auto it = sockets_.find(id);
   if (it != sockets_.end()) {
-    vc_manager_->RemoveConnectionsBySocketId(
-        id, VirtualConnection::kTransportClosed);
+    RemoveConnectionsBySocketId(id, VirtualConnection::kTransportClosed);
     std::unique_ptr<CastSocket> socket = std::move(it->second.socket);
     SocketErrorHandler* error_handler = it->second.error_handler;
     sockets_.erase(it);
@@ -63,7 +57,7 @@ Error VirtualConnectionRouter::Send(VirtualConnection virtual_conn,
   }
 
   if (!IsTransportNamespace(message.namespace_()) &&
-      !vc_manager_->GetConnectionData(virtual_conn)) {
+      !GetConnectionData(virtual_conn)) {
     return Error::Code::kNoActiveConnection;
   }
   auto it = sockets_.find(virtual_conn.socket_id);
@@ -104,7 +98,7 @@ void VirtualConnectionRouter::OnError(CastSocket* socket, Error error) {
   const int id = socket->socket_id();
   auto it = sockets_.find(id);
   if (it != sockets_.end()) {
-    vc_manager_->RemoveConnectionsBySocketId(id, VirtualConnection::kUnknown);
+    RemoveConnectionsBySocketId(id, VirtualConnection::kUnknown);
     std::unique_ptr<CastSocket> socket_owned = std::move(it->second.socket);
     SocketErrorHandler* error_handler = it->second.error_handler;
     sockets_.erase(it);
@@ -123,8 +117,8 @@ void VirtualConnectionRouter::OnMessage(CastSocket* socket,
     }
   } else {
     if (!IsTransportNamespace(message.namespace_()) &&
-        !vc_manager_->GetConnectionData(VirtualConnection{
-            local_id, message.source_id(), socket->socket_id()})) {
+        !GetConnectionData(VirtualConnection{local_id, message.source_id(),
+                                             socket->socket_id()})) {
       return;
     }
     auto it = endpoints_.find(local_id);
