@@ -16,6 +16,75 @@
       "message": "Simple patch, but was already doing this in one place and want to do it elsewhere so figured it would be a good candidate for util.",
       "revId": "dbbc8ffc6ce986ba01c7a5aba401d7281d3136c5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d132e3_8cbae3a8",
+        "filename": "cast/streaming/message_fields.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-19T04:21:09Z",
+      "side": 1,
+      "message": "Wrote up a way to do this with a variadic template to avoid the template parameters / syntactic sugar... but looking now, it\u0027s really not worth the complexity",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "dbbc8ffc6ce986ba01c7a5aba401d7281d3136c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "768218f2_2d6efb88",
+        "filename": "util/enum_name_table.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-19T04:21:09Z",
+      "side": 1,
+      "message": "IMHO a more object-oriented approach would be more readable + cleaner\n\n\u003e  template \u003ctypename Enum\u003e\n\u003e  class EnumTable {\n\u003e    ErrorOr\u003cconst char*\u003e GetEnumName(Enum enum_);\n\u003e    ErrorOr\u003cEnum\u003e GetEnum(absl::string_view name);\n\u003e  }\n\nWDYT?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "dbbc8ffc6ce986ba01c7a5aba401d7281d3136c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37dd9639_ee7a5b38",
+        "filename": "util/enum_name_table.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-19T04:21:09Z",
+      "side": 1,
+      "message": "Please add documentation throughout the file, or at least a summary at the top of the file",
+      "range": {
+        "startLine": 23,
+        "startChar": 21,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "dbbc8ffc6ce986ba01c7a5aba401d7281d3136c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
