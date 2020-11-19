@@ -41,6 +41,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a2ff513_1e3fb2ca",
+        "filename": "cast/streaming/message_fields.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-19T23:24:28Z",
+      "side": 1,
+      "message": "Yeah, that was my conclusion too.",
+      "parentUuid": "f3d132e3_8cbae3a8",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "dbbc8ffc6ce986ba01c7a5aba401d7281d3136c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "768218f2_2d6efb88",
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92609407_392585f7",
+        "filename": "util/enum_name_table.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-19T23:24:28Z",
+      "side": 1,
+      "message": "On first blush I totally agreed with you, until I realized that it actually makes things more complicated and annoying: std::array is an aggregate type and has no constructors to inherit from... so subclassing it is more annoying. Adding it as a member property is also annoying, but less so\u003e\n\n\"\"\"\nWhy do you need to inherit from std::array anyway? Do you plan to add any private members? If not, then you could just build your framework around free functions operating on std::array, or perhaps a typedef to it.\n\nIf you really want to inherit from std::array, you\u0027ll have to accept losing the aggregate status and provide any constructors you want yourself.\n\"\"\"\nhttps://stackoverflow.com/questions/24280521/stdarray-constructor-inheritance\n\nAttempt two is using a std::initializer_list instead of a std::array. The problem with this is that the std::initializer_list is a temporary, so we have to create a std::vector to copy it into... which kind of ruins the point really.\n\nI think we should keep it as is, until we are on C++17 and can inherit from std::array properly.",
+      "parentUuid": "768218f2_2d6efb88",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "dbbc8ffc6ce986ba01c7a5aba401d7281d3136c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37dd9639_ee7a5b38",
         "filename": "util/enum_name_table.h",
         "patchSetId": 1
@@ -77,6 +125,30 @@
       "writtenOn": "2020-11-19T04:21:09Z",
       "side": 1,
       "message": "Please add documentation throughout the file, or at least a summary at the top of the file",
+      "range": {
+        "startLine": 23,
+        "startChar": 21,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "dbbc8ffc6ce986ba01c7a5aba401d7281d3136c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffdaf63c_1b934260",
+        "filename": "util/enum_name_table.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-19T23:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37dd9639_ee7a5b38",
       "range": {
         "startLine": 23,
         "startChar": 21,
