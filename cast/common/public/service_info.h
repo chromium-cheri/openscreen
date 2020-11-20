@@ -22,11 +22,11 @@ static constexpr char kCastV2DomainId[] = "local";
 
 // Constants to be used as keys when storing data inside of a DNS-SD TXT record.
 static constexpr char kUniqueIdKey[] = "id";
-static constexpr char kVersionId[] = "ve";
-static constexpr char kCapabilitiesId[] = "ca";
-static constexpr char kStatusId[] = "st";
-static constexpr char kFriendlyNameId[] = "fn";
-static constexpr char kModelNameId[] = "mn";
+static constexpr char kVersionKey[] = "ve";
+static constexpr char kCapabilitiesKey[] = "ca";
+static constexpr char kStatusKey[] = "st";
+static constexpr char kFriendlyNameKey[] = "fn";
+static constexpr char kModelNameKey[] = "md";
 
 // This represents the ‘st’ flag in the CastV2 TXT record.
 enum ReceiverStatus {
@@ -85,8 +85,8 @@ struct ServiceInfo {
   // each version.
   uint8_t protocol_version = kCurrentCastVersion;
 
-  // Capabilities supported by this service instance.
-  ReceiverCapabilities capabilities = kDefaultCapabilities;
+  // Bitfield of ReceiverCapabilities supported by this service instance.
+  uint64_t capabilities = kDefaultCapabilities;
 
   // Status of the service instance.
   ReceiverStatus status = ReceiverStatus::kIdle;
