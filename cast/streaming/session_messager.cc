@@ -28,13 +28,8 @@ SessionMessager::~SessionMessager() {
 
 void SessionMessager::SetHandler(std::string message_type,
                                  SessionMessager::MessageCallback cb) {
-  OSP_DCHECK(std::none_of(
-      callbacks_.begin(), callbacks_.end(),
-      [message_type](std::pair<std::string, MessageCallback> pair) {
-        return pair.first == message_type;
-      }));
-
-  callbacks_.emplace_back(message_type, std::move(cb));
+  OSP_DCHECK(!callbacks_.Contains(message_type));
+  callbacks_.emplace_back(std::move(message_type), std::move(cb));
 }
 
 Error SessionMessager::SendMessage(SessionMessager::Message message) {
