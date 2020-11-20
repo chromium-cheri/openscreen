@@ -95,7 +95,7 @@ deps = {
 
   'third_party/chromium_quic/src': {
     'url': Var('chromium_git') + '/openscreen/quic.git' +
-      '@' + '1bd3640a8eeb9d7c36e4ecb48f6ebab5d9694002',
+      '@' + '',
     'condition': 'not build_with_chromium',
   },
 
@@ -119,6 +119,13 @@ deps = {
       '@' + 'debe7d2d1982e540fbd6bd78604bf001753f9e74',
     'condition': 'not build_with_chromium',
   },
+
+  'third_party/valijson/src': {
+    'url': Var('github') +
+      '/tristanpenman/valijson.git' +
+      '@' + 'c1e75c700ff68c85610c70b1bab1997737955f0f', # Tip-of-tree
+    'condition': 'not build_with_chromium',
+  }
 }
 
 hooks = [
@@ -170,6 +177,7 @@ hooks = [
 
 recursedeps = [
   'third_party/chromium_quic/src',
+  'cast',
   'buildtools',
 ]
 
