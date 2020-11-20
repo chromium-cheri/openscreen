@@ -5,6 +5,8 @@
 #ifndef CAST_COMMON_PUBLIC_TESTING_DISCOVERY_UTILS_H_
 #define CAST_COMMON_PUBLIC_TESTING_DISCOVERY_UTILS_H_
 
+#include <string>
+
 #include "cast/common/public/service_info.h"
 #include "discovery/dnssd/public/dns_sd_txt_record.h"
 #include "gmock/gmock.h"
@@ -24,7 +26,7 @@ static constexpr char kTestUniqueId[] = "1234";
 static constexpr char kFriendlyName[] = "Friendly Name 123";
 static constexpr char kModelName[] = "Openscreen";
 static constexpr char kInstanceId[] = "Openscreen-1234";
-static constexpr uint8_t kTestVersion = 0;
+static constexpr uint8_t kTestVersion = 5;
 static constexpr char kCapabilitiesString[] = "3";
 static constexpr char kCapabilitiesStringLong[] = "000003";
 static constexpr ReceiverCapabilities kCapabilitiesParsed =
@@ -40,7 +42,7 @@ void CompareTxtString(const discovery::DnsSdTxtRecord& txt,
 
 void CompareTxtInt(const discovery::DnsSdTxtRecord& txt,
                    const std::string& key,
-                   uint8_t expected);
+                   int expected);
 
 }  // namespace cast
 }  // namespace openscreen
