@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f04fbd5f_506e5012",
+        "filename": "util/maplike_vector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-23T23:09:23Z",
+      "side": 1,
+      "message": "This sounds similar to base::flat_map: https://chromium.googlesource.com/chromium/src/+/master/base/containers/flat_map.h\n\nCan we copy their implementation? Or at least rename this class FlatMap for consistency?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 57
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce81335e_7b677896",
+        "filename": "util/maplike_vector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-23T23:09:23Z",
+      "side": 1,
+      "message": "explicit dtor because vtable\n\n~MaplikeVector override \u003d default",
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "873cf188_10875c4d",
+        "filename": "util/maplike_vector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-23T23:09:23Z",
+      "side": 1,
+      "message": "Get(key).value()? Or an approach like below",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 20
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31db1e6c_9b8b2ad2",
+        "filename": "util/maplike_vector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-23T23:09:23Z",
+      "side": 1,
+      "message": "Can you make this more like map::find? IMHO an iterator would be cleaner and more consistent with other containers\n\n\u003e  return std::find_if(this.begin(), this.end(), [key](const std::pair\u003cKey, Value\u003e\u0026 pair) {\n\u003e    return key \u003d\u003d pair.first;\n\u003e  }",
+      "range": {
+        "startLine": 73,
+        "startChar": 24,
+        "endLine": 73,
+        "endChar": 27
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feab7f57_cc0a2dda",
+        "filename": "util/maplike_vector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-23T23:09:23Z",
+      "side": 1,
+      "message": "erase, for consistency with map\n\nI\u0027d prefer you also add an iterator overload, but up to you",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 84,
+        "endChar": 13
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dffa96ef_6ed541bb",
+        "filename": "util/maplike_vector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-23T23:09:23Z",
+      "side": 1,
+      "message": "Remove and use one of the options above. This limits map usage to template types with an empty ctor",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 19
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3f6d511_7002775b",
+        "filename": "util/maplike_vector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2020-11-23T23:09:23Z",
+      "side": 1,
+      "message": "Add a test case for a type with no empty ctor",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 22
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
