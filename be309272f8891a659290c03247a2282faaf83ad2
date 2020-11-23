@@ -16,6 +16,23 @@
       "message": "I split this into 3 CLs, to make it easier for review. This is all needed for letting Cast sender applications (e.g., our standalone Cast Streaming sender app) to establish virtual connection routes to the \"mirroring app\" running on a receiver. PTAL.",
       "revId": "be309272f8891a659290c03247a2282faaf83ad2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fff1eec_ec524517",
+        "filename": "cast/common/channel/virtual_connection_router.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-11-23T22:06:37Z",
+      "side": 1,
+      "message": "I\u0027d prefer to avoid implementation inheritance and instead make this an owned member, leaving in the accessor.  Admittedly, this is partially style, but I also feel it\u0027s easier to have an erroneous `reinterpret_cast\u003cManager*\u003e(router_ptr)` somewhere this way.  WDYT?",
+      "revId": "be309272f8891a659290c03247a2282faaf83ad2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
