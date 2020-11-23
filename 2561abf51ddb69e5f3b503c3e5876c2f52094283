@@ -54,6 +54,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fdb59de_10c767a4",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2020-11-23T22:34:32Z",
+      "side": 1,
+      "message": "\u003e If we need to refactor an API that you depend on, we will provide a tool that should be able to perform the refactoring for well-behaved code.\n\nIn other words, old commits are free to break.  The argument for living at head is:\n\n\u003e ...dependency management is brutally complex.\n\nMaybe in general, but for Abseil we will _generally_ just bump the revision periodically.  OTOH, Abseil definitely seems stable in general so you could argue even the periodic bump is just unnecessary overhead.  Lastly, though, I\u0027m not sure I really read \"encouraged to live at HEAD\" as counter to what we\u0027re doing now.\n\nIt\u0027s probably worth getting Ryan/Mark/someone else to weigh in.",
+      "parentUuid": "2c8d37ae_95ac96b8",
+      "revId": "2561abf51ddb69e5f3b503c3e5876c2f52094283",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7994c2aa_ac279263",
