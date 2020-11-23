@@ -22,8 +22,6 @@ constexpr std::array<std::pair<const char*, VideoCodec>, 4> kVideoCodecNames{
      {"hevc", VideoCodec::kHevc},
      {"vp9", VideoCodec::kVp9}}};
 
-constexpr char kUnknownCodecError[] = "Codec not accounted for in name array.";
-
 template <typename T, size_t size>
 const char* GetCodecName(
     const std::array<std::pair<const char*, T>, size>& codecs,
@@ -33,8 +31,7 @@ const char* GetCodecName(
       return pair.first;
     }
   }
-  OSP_NOTREACHED() << kUnknownCodecError;
-  return {};
+  OSP_NOTREACHED();
 }
 
 template <typename T, size_t size>
@@ -45,8 +42,7 @@ T GetCodec(const std::array<std::pair<const char*, T>, size>& codecs,
       return pair.second;
     }
   }
-  OSP_NOTREACHED() << kUnknownCodecError;
-  return {};
+  OSP_NOTREACHED();
 }
 
 }  // namespace
