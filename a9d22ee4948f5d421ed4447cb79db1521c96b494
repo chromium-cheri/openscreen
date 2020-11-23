@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4133df18_10d5f8fd",
+        "filename": "cast/streaming/message_fields.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-23T22:11:22Z",
+      "side": 1,
+      "message": "I couldn\u0027t figure out an elegant way to have OSP_NOTREACHED() both be marked [[noreturn]] and have optional logging strings.\n\nI think this approach is probably better, even if we lose the strings.",
+      "parentUuid": "da5f3c6d_2b60a0dc",
+      "revId": "a9d22ee4948f5d421ed4447cb79db1521c96b494",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09dad2d8_0f3c0c6d",
         "filename": "util/osp_logging.h",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2020-11-23T21:56:02Z",
       "side": 1,
       "message": "I guess this is probably a -O0 problem because OSP_LOG_FATAL already calls Break()?",
+      "revId": "a9d22ee4948f5d421ed4447cb79db1521c96b494",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2222f3f9_82f34828",
+        "filename": "util/osp_logging.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-23T22:11:22Z",
+      "side": 1,
+      "message": "OSP_LOG_FATAL does call Break(), but it\u0027s buried too deep for the [[noreturn]] annotation to show up here. This gives us the [[noreturn]] directly.",
+      "parentUuid": "09dad2d8_0f3c0c6d",
       "revId": "a9d22ee4948f5d421ed4447cb79db1521c96b494",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
