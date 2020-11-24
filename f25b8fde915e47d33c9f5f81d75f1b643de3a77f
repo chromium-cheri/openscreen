@@ -16,6 +16,159 @@
       "message": "PTAL. Adding discovery and a console-interactive menu to the standalone sender! 😊\n\nExample output:\n\n$ out/Default/cast_sender eno2 foo.mp4\n[INFO:../../cast/standalone_sender/receiver_chooser.cc(46):T0] Starting discovery. Note that it can take dozens of seconds to detect anything on some networks!\n[INFO:../../cast/standalone_sender/receiver_chooser.cc(76):T0] Discovered: ⚡ Yurovision® ULTRA™ (id: Chromecast-Ultra-4ef599944a5a875835994222d44406fd)\n[INFO:../../cast/standalone_sender/receiver_chooser.cc(76):T0] Discovered: Keen (id: Chromecast-e922599c2cdcd4f7cbbff9c18d5aaa9c)\n[INFO:../../cast/standalone_sender/receiver_chooser.cc(76):T0] Discovered: Mario (id: Chromecast-5f23230973b8933b1b753fc77737c0bb)\n[INFO:../../cast/standalone_sender/receiver_chooser.cc(76):T0] Discovered: Celeste (id: Chromecast-a088a020d0870b8a30ea0808c7a00db1)\n\n[0]: ⚡ Yurovision® ULTRA™ @ 192.168.1.159:8009\n[1]: Keen @ 192.168.1.230:8009\n[2]: Mario @ 192.168.1.244:8009\n[3]: Celeste @ 192.168.1.60:8009\n\nEnter choice, or nothing to wait longer: 0\n\n[INFO:../../cast/standalone_sender/looping_file_cast_agent.cc(76):T0] Received connection from peer at: 192.168.1.159:8009\n",
       "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c1e68d_18498f9d",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "remove const and do a std::move?",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c1a85b6_5050e362",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "Should we just have a helper for this, like\n\nConfig::NetworkInfo::GetFamilies(interface)?",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb1c846_10d1877a",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "emplace_back?",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97d538f3_e199c2b3",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "NIT: Is this NOTREACHED or just a OSP_LOG_FATAL? I view OSP_NOTREACHED() as this code should literally never be reached, whereas this will be reached occasionally.",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2f00dba_3f5dd55f",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "do we have an operator\u003c\u003c for info?",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e15f4e5_7b0cc547",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "Why not just OSP_LOG_INFO? maybe with a stringstream? I get that we can only use this on the console, so not sure how we want to handle this.",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c526d11_0808823b",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "Input is the numerical index of the chosen receiver, right? This should be 10 or 19?\n\nhttps://stackoverflow.com/questions/43787672/the-max-number-of-digits-in-an-int-based-on-number-of-bits\n\nOr just skip it entirely and make input std::string, which works fine with getline.",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad3ee39_cd107dd1",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "OK, third option:\n\n  int menu_choice;\n  std::cin \u003e\u003e menu_choice;",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae591f25_8b5d924a",
+        "filename": "cast/standalone_sender/receiver_chooser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T18:32:03Z",
+      "side": 1,
+      "message": "NIT: we only use these usings in the declarations?, consider removing them and just using the types directly.",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
