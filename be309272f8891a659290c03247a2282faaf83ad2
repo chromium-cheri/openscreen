@@ -33,6 +33,24 @@
       "message": "I\u0027d prefer to avoid implementation inheritance and instead make this an owned member, leaving in the accessor.  Admittedly, this is partially style, but I also feel it\u0027s easier to have an erroneous `reinterpret_cast\u003cManager*\u003e(router_ptr)` somewhere this way.  WDYT?",
       "revId": "be309272f8891a659290c03247a2282faaf83ad2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33502522_f4d9700c",
+        "filename": "cast/common/channel/virtual_connection_router.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T13:28:55Z",
+      "side": 1,
+      "message": "Hmmm...Well, there isn\u0027t *any* code that cares about referring to the VCManager directly. The inheritance is public, so all public methods of VCManager are also public in VCRouter, and all the code seems to be fine calling into VCR.\n\nThinking about this some more, it makes sense to me to just merge the methods/member of VCM into VCR and not have separate classes at all. Notice that:\n\n1. VCM\u0027s only functionality is to track open virtual connections.\n2. VCR tracks the CastSockets and local CastMessageHandler\u0027s.\n3. VCR handles all the routing using both #1 and #2.\n\nThus, it seems natural for #1 to be a part of VCR.\n\nPTAL at the latest patch set. Does this look better to you?",
+      "parentUuid": "6fff1eec_ec524517",
+      "revId": "be309272f8891a659290c03247a2282faaf83ad2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
