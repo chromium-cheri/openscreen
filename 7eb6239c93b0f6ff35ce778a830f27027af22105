@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "abf43dc2_d181c77c",
+        "filename": "build/toolchain/mac/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T16:06:01Z",
+      "side": 1,
+      "message": "This file, and several others seemed to have accidentally been included in this patch (DEPS, BUILD.gn files, fuzzer_test.gni, etc.)",
+      "range": {
+        "startLine": 138,
+        "startChar": 134,
+        "endLine": 138,
+        "endChar": 149
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "714ca800_d2f604d6",
+        "filename": "cast/streaming/receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T16:06:01Z",
+      "side": 1,
+      "message": "This isn\u0027t a map, even though it\u0027s declaration looks like it is. 😊\n\nIt\u0027s a sorted list of things, with special semantics about when elements are added/removed and their position is important.",
+      "range": {
+        "startLine": 325,
+        "startChar": 2,
+        "endLine": 325,
+        "endChar": 75
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f04fbd5f_506e5012",
         "filename": "util/maplike_vector.h",
         "patchSetId": 2
@@ -43,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4274d470_dffc7f8a",
+        "filename": "util/maplike_vector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T16:06:01Z",
+      "side": 1,
+      "message": "Another alternative to consider: Abseil has absl::btree_map, absl::flat_hash_map, etc.; depending on the access patterns and size of keys/values.",
+      "parentUuid": "f04fbd5f_506e5012",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 57
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce81335e_7b677896",
         "filename": "util/maplike_vector.h",
         "patchSetId": 2
@@ -54,6 +124,24 @@
       "writtenOn": "2020-11-23T23:09:23Z",
       "side": 1,
       "message": "explicit dtor because vtable\n\n~MaplikeVector override \u003d default",
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75989a5c_2847ba7d",
+        "filename": "util/maplike_vector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T16:06:01Z",
+      "side": 1,
+      "message": "Not needed since there aren\u0027t any virtual functions in this class or the parent class.",
+      "parentUuid": "ce81335e_7b677896",
       "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
