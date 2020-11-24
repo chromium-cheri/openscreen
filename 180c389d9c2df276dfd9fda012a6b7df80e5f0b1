@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "994073c7_3d518538",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T12:35:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure. I wasn\u0027t involved in the original protocol design for mDNS records.",
+      "parentUuid": "a0128644_7f8358a4",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "180c389d9c2df276dfd9fda012a6b7df80e5f0b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4cdb9ee1_ea843dc1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -66,6 +90,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "514d454e_7443b33d",
+        "filename": "cast/common/public/service_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T12:35:38Z",
+      "side": 1,
+      "message": "An enum variable is meant to hold one value, not be a bitfield. The compiler assumes this when doing things like checking that all cases in a switch statement are being handled.\n\nIn fact, I meant to go a little further: There shouldn\u0027t be an enum definition for this (each bit should be a constexpr instead). I\u0027ve cleaned that up.",
+      "parentUuid": "d5429889_371cc1b2",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 10
+      },
+      "revId": "180c389d9c2df276dfd9fda012a6b7df80e5f0b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bed9f8db_28013ac3",
         "filename": "cast/common/public/service_info_unittest.cc",
         "patchSetId": 2
@@ -89,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "329aaa22_742ab0d1",
+        "filename": "cast/common/public/service_info_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T12:35:38Z",
+      "side": 1,
+      "message": "Thanks! 😊 It\u0027s been very useful to sanity-check the string-handling/char-encoding in all Cast implementations.",
+      "parentUuid": "bed9f8db_28013ac3",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 39
+      },
+      "revId": "180c389d9c2df276dfd9fda012a6b7df80e5f0b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "69f61d2b_f4ce7993",
         "filename": "cast/common/public/service_info_unittest.cc",
         "patchSetId": 2
@@ -100,6 +172,30 @@
       "writtenOn": "2020-11-20T19:22:44Z",
       "side": 1,
       "message": "FYI: The discovery code was written for version 0 because I couldn\u0027t find any documentation for changes in the later versions. Some of these will need to be added later on as we find/need them, so please add them to the spec (and sometimes correct it - it\u0027s been wrong about required fields before) as you figure out what they are: https://docs.google.com/document/d/1d1wuxHioJ9cBVBQ6UwqBFVMrn48Nb3Yp5k1a_eTXsHE/edit#heading\u003dh.1xq8e1wp5pic",
+      "range": {
+        "startLine": 160,
+        "startChar": 14,
+        "endLine": 160,
+        "endChar": 16
+      },
+      "revId": "180c389d9c2df276dfd9fda012a6b7df80e5f0b1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2745b372_d2a10964",
+        "filename": "cast/common/public/service_info_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-24T12:35:38Z",
+      "side": 1,
+      "message": "Done.\n\nBTW--The \"05\" is weird: The spec just says that the \"ve\" (version) field is 2 bytes, but doesn\u0027t specify whether that is the maximum size, or a fixed size. Seems weird to require the 0 l-padding--none of the other decimal number fields do this--so, I wrote the parser code to be permissive about this.",
+      "parentUuid": "69f61d2b_f4ce7993",
       "range": {
         "startLine": 160,
         "startChar": 14,
