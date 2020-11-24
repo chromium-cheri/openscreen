@@ -64,6 +64,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c4eaacb_4b00b8f3",
+        "filename": "cast/receiver/channel/receiver_socket_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T20:09:36Z",
+      "side": 1,
+      "message": "We can\u0027t have NOTREACHED with comments now, that\u0027s the tradeoff.",
+      "parentUuid": "9f3b98e7_741e9984",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 19
+      },
+      "revId": "a9d22ee4948f5d421ed4447cb79db1521c96b494",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da5f3c6d_2b60a0dc",
@@ -117,6 +141,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b88198_b756d246",
+        "filename": "cast/streaming/message_fields.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T20:09:36Z",
+      "side": 1,
+      "message": "Yeah, they don\u0027t. I find that pretty frustrating because you have to provide a return value that will never be used. If you have a NOTREACHED in a method that returns a reference, you have to have a static type to pass the reference back to, even though it\u0027s never gonna be used.",
+      "parentUuid": "b562d9a3_5208d5fe",
+      "revId": "a9d22ee4948f5d421ed4447cb79db1521c96b494",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09dad2d8_0f3c0c6d",
@@ -165,6 +207,30 @@
       "writtenOn": "2020-11-23T23:17:32Z",
       "side": 1,
       "message": "Previously it returned an ostream stream so we can output logging statements for further info, as used in some places above. Why the change?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 0
+      },
+      "revId": "a9d22ee4948f5d421ed4447cb79db1521c96b494",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "692be1d3_1f6f9a19",
+        "filename": "util/osp_logging.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-24T20:09:36Z",
+      "side": 1,
+      "message": "Because you can\u0027t make an ostream [[noreturn]]. Making it not an ostream allows us to actually have the compiler ensure that the code is not reached. We could make a logging statement mandatory, but having an optional one in the macro turns out to be a huge pain.",
+      "parentUuid": "48c4af20_4a58747c",
       "range": {
         "startLine": 139,
         "startChar": 0,
