@@ -26,9 +26,9 @@ namespace cast {
 // [kMinTargetDelay, kMaxTargetDelay], it will be set to
 // kDefaultTargetPlayoutDelay.
 constexpr auto kMinTargetPlayoutDelay = std::chrono::milliseconds(0);
-constexpr auto kMaxTargetPlayoutDelay = std::chrono::milliseconds(2000);
+constexpr auto kMaxTargetPlayoutDelay = std::chrono::milliseconds(5000);
 
-// If the sender provides an invalid maximum frame rate, it will
+// If the sender provides an invalid maximum frame rate, it ill
 // be set to kDefaultMaxFrameRate.
 constexpr int kDefaultMaxFrameRate = 30;
 
