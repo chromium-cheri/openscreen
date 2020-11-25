@@ -1,0 +1,52 @@
+# Copyright 2020 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//build/config/data_headers_template.gni")
+import("//build_overrides/build.gni")
+assert(!build_with_chromium)
+
+data_headers("castv2_schema_headers") {
+  namespace = "cast"
+  sources = [
+    "castv2/receiver_schema.json",
+    "castv2/streaming_schema.json",
+  ]
+}
+
+source_set("castv2") {
+  sources = [
+    "castv2/validation.cc",
+    "castv2/validation.h",
+  ]
+
+  public_deps = [ "../../third_party/jsoncpp" ]
+
+  deps = [
+    ":castv2_schema_headers",
+    "../../util",
+    "//third_party/valijson",
+  ]
+
+  cflags_cc = [ "-Wno-extra-semi" ]
+
+  data = [
+    "castv2/streaming_schema.json",
+    "castv2/receiver_schema.json",
+  ]
+
+  public_configs = [ "../../build:openscreen_include_dirs" ]
+}
+
+source_set("unittests") {
+  testonly = true
+
+  sources = [ "castv2/validation_unittest.cc" ]
+
+  deps = [
+    ":castv2",
+    "../../third_party/abseil",
+    "../../third_party/googletest:gmock",
+    "../../third_party/googletest:gtest",
+  ]
+}
