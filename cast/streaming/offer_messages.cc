@@ -146,10 +146,8 @@ ErrorOr<Stream> ParseStream(const Json::Value& value, Stream::Type type) {
   std::chrono::milliseconds target_delay_ms = kDefaultTargetPlayoutDelay;
   if (target_delay) {
     auto d = std::chrono::milliseconds(target_delay.value());
-    if (d >= kMinTargetPlayoutDelay && d <= kMaxTargetPlayoutDelay) {
+    if (kMinTargetPlayoutDelay <= d && d <= kMaxTargetPlayoutDelay) {
       target_delay_ms = d;
-    } else {
-      return json::CreateParameterError("target delay");
     }
   }
 
