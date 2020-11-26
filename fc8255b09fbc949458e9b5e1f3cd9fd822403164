@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e7948a_b68e8d82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-11-26T00:40:22Z",
+      "side": 1,
+      "message": "Thank you. I reviewed at a high level.",
+      "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a9ecccf_0bed212a",
@@ -32,6 +49,125 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "8a9ecccf_0bed212a",
+      "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f508df_3ddd477d",
+        "filename": "third_party/chromium_quic/README.chromium",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-11-26T00:40:22Z",
+      "side": 1,
+      "message": "Adding this is fine, but FYI this dependency does not appear to be used/needed by WebEngine.",
+      "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f09661a8_b7057faf",
+        "filename": "third_party/libfuzzer/LICENSE",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-11-26T00:40:22Z",
+      "side": 1,
+      "message": "I suggest leaving the filename exactly as it is in the third-party repo.",
+      "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7833c0e1_3aa16f0b",
+        "filename": "third_party/mozilla/README.chromium",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-11-26T00:40:22Z",
+      "side": 1,
+      "message": "Security Critical: yes\nright?\nWebEngine apparently uses this.",
+      "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b799271d_8dc3ac08",
+        "filename": "third_party/protobuf/README.chromium",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-11-26T00:40:22Z",
+      "side": 1,
+      "message": "As above, this is fine but appears to be unnecessary as WebEngine does not appear to depend on the next three directories.",
+      "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9abc57f0_3b91910a",
+        "filename": "third_party/zlib/LICENSE",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-11-26T00:40:22Z",
+      "side": 1,
+      "message": "This is Chromium\u0027s README.chromium, not the LICENSE.\n\nI don\u0027t know that you need a LICENSE as it appears in the same directory as the files in Chromium.",
+      "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ffabb47_c8581480",
+        "filename": "tools/licenses.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-11-26T00:40:22Z",
+      "side": 1,
+      "message": "Should this be in a third-party directory?",
+      "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1497498b_9ca3ee35",
+        "filename": "tools/licenses.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000158
+      },
+      "writtenOn": "2020-11-26T00:40:22Z",
+      "side": 1,
+      "message": "As this is modified from Chrome\u0027s version, I wonder if Chrome would be open to breaking the SPECIAL_CASES out into a separate file so the logic can be used unmodified. Are there any other changes you meade?",
       "revId": "fc8255b09fbc949458e9b5e1f3cd9fd822403164",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
