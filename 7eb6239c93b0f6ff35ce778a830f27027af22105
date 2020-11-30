@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afe30246_32f9bb67",
+        "filename": "cast/streaming/receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T16:46:20Z",
+      "side": 1,
+      "message": "Whoops! No, I meant that this LOC shouldn\u0027t be changed. The implementation did not intend for this to be a map of any kind. It internally manages the sort order of the elements. Can you revert it back to:\n\n  std::vector\u003cstd::pair\u003cFrameId, std::chrono::milliseconds\u003e\u003e\n      playout_delay_changes_;",
+      "parentUuid": "389fc640_d79dc407",
+      "range": {
+        "startLine": 325,
+        "startChar": 2,
+        "endLine": 325,
+        "endChar": 75
+      },
+      "revId": "7eb6239c93b0f6ff35ce778a830f27027af22105",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f04fbd5f_506e5012",
         "filename": "util/maplike_vector.h",
         "patchSetId": 2
