@@ -1,0 +1,242 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2fd478d_9730bed0",
+        "filename": "build/config/data_headers_template.gni",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "It\u0027s a little odd to generate the data file into a .h; it would be more efficient to generate into a .cc so it will be parsed/compiled only once per build.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0848974a_0eb96c21",
+        "filename": "cast/protocol/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "Why is this warning turned off?  Is this because of third party headers?  In that case, it should probably go in a public_config for those headers.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56390480_29e9cb61",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "Is it worth reserving errors to match the size of results?",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae9f6088_b5da028b",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "push_back",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f8a4a85_50b01034",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "OSP_DVLOG",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557b15aa_606203fd",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "What happens if the schema is invalid?",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4a5fc74_51b2d85a",
+        "filename": "cast/test/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "Does valijson not build on Chromium build recipes?",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9be0e8c_dc6eb2cd",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "This is a cool utility :-)",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21badced_f86181a1",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "Style: Function names should be CamelCase.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea828fe5_af73e01a",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "Docstrings should end with a period.  \n\nFull docstrings should document arguments and return values as well; see https://stackoverflow.com/questions/20230097/how-do-i-write-a-map-literal-in-c11 for the rules.\n\nFWIW, I\u0027m fine using a shorter form for functions inside self-contained scripts, the full docstrings are much more helpful for modules that are used as libraries.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a137fb5_16e1e136",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "It\u0027s more UNIX-y to have this script read standard input and write to standard output, so that it can be used in a pipe.  But the flags are more self-documenting.  You can have it both ways with optional flags.  It depends on usage and I don\u0027t feel strongly about it either way.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6b06b6c_158fc2f7",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "I didn\u0027t see any changes to abseil GN configs.  Is this necessary?",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2a8a67_8cd216e6",
+        "filename": "util/std_util.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "If this is using std::string operator+ underneath, it could be O(N^2) in time and space.  Can you reserve space and use +\u003d instead?\n\nIt would also be simpler to read as std::accumulate is an uncommon operator.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395b2947_c3bc6946",
+        "filename": "util/std_util.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T21:28:27Z",
+      "side": 1,
+      "message": "Can you use explicit capture of delimiter here?",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
