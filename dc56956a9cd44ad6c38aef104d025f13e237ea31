@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42961187_7ab047f1",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-30T20:32:01Z",
+      "side": 1,
+      "message": "I don\u0027t think we actually need this now, but you wouldn\u0027t see any usages even if we needed it:\n\nhttps://stackoverflow.com/questions/33743880/what-does-from-future-import-absolute-import-actually-do\n\nI think the solution I ended up with doesn\u0027t need absolute imports enabled, we will see if the bots agree soon.",
+      "parentUuid": "dae87312_7f24e20b",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca1cc007_74f2f352",
@@ -48,6 +66,24 @@
       "writtenOn": "2020-11-30T19:43:58Z",
       "side": 1,
       "message": "Is there anything special about __file__? Would sys.argv[0] work as well?",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1af0fa56_30cdad6c",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-30T20:32:01Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s special: __file__ is always where this PRESUBMIT.py is, where sys.argv[0] is the name of the executing script, in this case one of the GN depot_tools scripts.\n\nhttps://stackoverflow.com/questions/5851588/difference-between-file-and-sys-argv0",
+      "parentUuid": "ca1cc007_74f2f352",
       "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33efc64d_4c3247b0",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-30T20:32:01Z",
+      "side": 1,
+      "message": "I can if you prefer, I like having it split up more.",
+      "parentUuid": "03b51c8c_e2946e40",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d552773_ed185071",
         "filename": "PRESUBMIT.py",
         "patchSetId": 9
@@ -82,6 +136,24 @@
       "writtenOn": "2020-11-30T19:43:58Z",
       "side": 1,
       "message": "Nit: Docstrings should end with punctuation",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed15fc12_5636cf2d",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-30T20:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d552773_ed185071",
       "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -103,6 +175,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3d8eae_277e854d",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-30T20:32:01Z",
+      "side": 1,
+      "message": "This is the result of:\n\n  git cl format --py\n\nI think it looks OK, not great. I will shorten violation to v to make it a one liner.",
+      "parentUuid": "67e42da3_72231efb",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52cbc37e_46d05742",
@@ -120,6 +210,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "484fdb59_432179b5",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-30T20:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52cbc37e_46d05742",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d413e1d_2a57d854",
@@ -133,6 +241,24 @@
       "writtenOn": "2020-11-30T19:43:58Z",
       "side": 1,
       "message": "Nit: this can be simplified to just return _CommonChecks.",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e8585e7_085ba052",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-11-30T20:32:01Z",
+      "side": 1,
+      "message": "Agreed, I\u0027ll clean up this file. Didn\u0027t really look at the current functions too hard.",
+      "parentUuid": "0d413e1d_2a57d854",
       "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
