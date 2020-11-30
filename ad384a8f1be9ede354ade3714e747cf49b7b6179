@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56853c13_659caa3d",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T16:30:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22252f3a_dfb3ba82",
+      "revId": "ad384a8f1be9ede354ade3714e747cf49b7b6179",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f37b6f4f_f0da6642",
@@ -48,6 +66,24 @@
       "writtenOn": "2020-11-24T23:53:43Z",
       "side": 1,
       "message": "Either make SendClose take by value and move or make this take a const\u0026.  Other uses also agree with taking by value.",
+      "revId": "ad384a8f1be9ede354ade3714e747cf49b7b6179",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be91bf6_b94602aa",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T16:30:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f37b6f4f_f0da6642",
       "revId": "ad384a8f1be9ede354ade3714e747cf49b7b6179",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -69,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a27a2bc1_d6b5b519",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T16:30:36Z",
+      "side": 1,
+      "message": "Done. Too bad protobuf doesn\u0027t have non-const overloads, but there are legacy reasons for that...",
+      "parentUuid": "9c707ad7_c9756013",
+      "revId": "ad384a8f1be9ede354ade3714e747cf49b7b6179",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9554108_4975ec40",
@@ -86,6 +140,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f0b8ad9_6651abd5",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T16:30:36Z",
+      "side": 1,
+      "message": "Done. (and SendClose() too)",
+      "parentUuid": "f9554108_4975ec40",
+      "revId": "ad384a8f1be9ede354ade3714e747cf49b7b6179",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da27f9a2_d242f207",
@@ -99,6 +171,24 @@
       "writtenOn": "2020-11-24T23:53:43Z",
       "side": 1,
       "message": "nit: It was slightly confusing at first that this didn\u0027t call SendClose, maybe CloseLocalConnection?",
+      "revId": "ad384a8f1be9ede354ade3714e747cf49b7b6179",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e18e5636_69dde824",
+        "filename": "cast/common/channel/connection_namespace_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T16:30:36Z",
+      "side": 1,
+      "message": "Done. I went with RemoveConnection (since the reason can be \"caused locally\" or \"cause by remote\").",
+      "parentUuid": "da27f9a2_d242f207",
       "revId": "ad384a8f1be9ede354ade3714e747cf49b7b6179",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
