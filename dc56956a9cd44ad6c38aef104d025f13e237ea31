@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f5e568_d6268b6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T19:43:58Z",
+      "side": 1,
+      "message": "A few nit picks around Python style/idioms, LGTM\n\n",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dae87312_7f24e20b",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T19:43:58Z",
+      "side": 1,
+      "message": "I don\u0027t see any usages of names from the absolute_import module here.  Is this necessary?",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca1cc007_74f2f352",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T19:43:58Z",
+      "side": 1,
+      "message": "Is there anything special about __file__? Would sys.argv[0] work as well?",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03b51c8c_e2946e40",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T19:43:58Z",
+      "side": 1,
+      "message": "I would be okay inlining this list into the sys.path call below.",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d552773_ed185071",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T19:43:58Z",
+      "side": 1,
+      "message": "Nit: Docstrings should end with punctuation",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67e42da3_72231efb",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T19:43:58Z",
+      "side": 1,
+      "message": "Nit: the line wrapping looks odd here.",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52cbc37e_46d05742",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T19:43:58Z",
+      "side": 1,
+      "message": "results.extend([output_api.PresubmitError(violation) for violation in deps_results]) is more idiomatic.",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d413e1d_2a57d854",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-11-30T19:43:58Z",
+      "side": 1,
+      "message": "Nit: this can be simplified to just return _CommonChecks.",
+      "revId": "dc56956a9cd44ad6c38aef104d025f13e237ea31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
