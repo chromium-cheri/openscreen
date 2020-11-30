@@ -16,6 +16,253 @@
       "message": "I won\u0027t get to a patch this big for a few days, maybe Yuri can do the first pass :-)",
       "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54f6dbfb_6a7f8c01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "I started w/ the session_messager and b64 files; others not yet looked at...",
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2da5355_10a42f96",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "Should this be OSP_DCHECK(!jsonified.is_error())? If the JSON coming out of our code is malformed, that\u0027s a serious logic flaw.",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e074a69c_fe9af983",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "This can be simplified to: receiver_message.value({})\n\n...and on L173 below.\n\n(IMHO, it would have been better if we had named the ErrorOr::value() method value_or(), like std::optional, for readability reasons.)",
+      "range": {
+        "startLine": 162,
+        "startChar": 20,
+        "endLine": 163,
+        "endChar": 67
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edf4c540_e1c1262f",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "std::move() is not needed here: https://www.chromium.org/rvalue-references#TOC-11.-Don-t-return-references.-Don-t-use-std::move-on-rvalues.",
+      "range": {
+        "startLine": 206,
+        "startChar": 11,
+        "endLine": 206,
+        "endChar": 20
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46272ae6_5127765f",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "Looks like this should be:\n\n  ~SessionManager() override;",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d17cc79_afc35009",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "Suggest adding [[nodiscard]] to this, and similar other methods. Gives us the compile-time check that the Errors aren\u0027t getting ignored.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11aae88e_35cad032",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "Google C++ Style nit: These need to be private. If they are accessed by subclasses, you\u0027ll need message_port() and Has/TakeErrorCallback() methods in the protected section.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc583651_c5fbb3d8",
+        "filename": "util/base64.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "IIRC, these can be static_cast instead of reinterpret_cast. Special case for char\u003c--\u003euint8_t.",
+      "range": {
+        "startLine": 17,
+        "startChar": 29,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09f8d1e1_aa564600",
+        "filename": "util/base64.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "input.begin() is an iterator. Did you mean \u0026*input.begin(), or input.data()?\n\n...and for input.end()...",
+      "range": {
+        "startLine": 17,
+        "startChar": 62,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07954731_7b657319",
+        "filename": "util/base64.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "Hmm...This is casting from uint8_t* to char*. The other Encode() has to cast from char* to uint8_t* and then calls this. So, we\u0027re casting away from what we want and then right back to it.\n\nSo, what if we put this code in Encode(string_view)? Then, we don\u0027t need to do any casting for that case. This function can just do one uint8_t* to char* cast, delegating to the other:\n\n  return Encode(absl::string_view(static_cast\u003cconst char*\u003e(input.data()), input.size()));",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2832da7d_7abe72ff",
+        "filename": "util/base64.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T21:55:28Z",
+      "side": 1,
+      "message": "This should be unnecessary, right? (Unless there\u0027s a bug in the b64 library!) Maybe just have:\n\n  OSP_DCHECK_EQ(output_size, out.size());",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
