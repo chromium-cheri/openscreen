@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50e313b8_57378299",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "For IPAddress, the move ctor is just a copy ctor. There\u0027s no benefit to std::move(any_ip_address).",
+      "parentUuid": "89c1e68d_18498f9d",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c1a85b6_5050e362",
@@ -48,6 +66,24 @@
       "writtenOn": "2020-11-24T18:32:03Z",
       "side": 1,
       "message": "Should we just have a helper for this, like\n\nConfig::NetworkInfo::GetFamilies(interface)?",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c9234e4_894f2eeb",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "Even better, let\u0027s remove this from the Config. 😊 Every client does the same thing as this code here. So, that suggests it\u0027s not something any client needs/wants to micro-manage; and the service code can just extrapolate which address families to use from the InterfaceInfo.\n\nI\u0027ll do this as a follow-up CL...",
+      "parentUuid": "8c1a85b6_5050e362",
       "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -69,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78a6506a_eb29110e",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "There\u0027s no 2-arg constructor for Config::NetworkInfo, which would be needed for emplace_back(). This is structure-initialization here.",
+      "parentUuid": "2fb1c846_10d1877a",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97d538f3_e199c2b3",
@@ -82,6 +136,24 @@
       "writtenOn": "2020-11-24T18:32:03Z",
       "side": 1,
       "message": "NIT: Is this NOTREACHED or just a OSP_LOG_FATAL? I view OSP_NOTREACHED() as this code should literally never be reached, whereas this will be reached occasionally.",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc1894f_462f2133",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97d538f3_e199c2b3",
       "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -103,6 +175,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76ff18c9_bdc54516",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "Nope (AFAICT).\n\nAs for adding one: I didn\u0027t want to spam the console with a lot of data here, since it\u0027s more of a \"in-progress\" indicator for the user.",
+      "parentUuid": "d2f00dba_3f5dd55f",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e15f4e5_7b0cc547",
@@ -116,6 +206,24 @@
       "writtenOn": "2020-11-24T18:32:03Z",
       "side": 1,
       "message": "Why not just OSP_LOG_INFO? maybe with a stringstream? I get that we can only use this on the console, so not sure how we want to handle this.",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee3b8b56_c6f23e7b",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "Logging goes to stderr, but this is meant for stdout.\n\nThe other issue is the prompt, which leaves the cursor at the end of the line rather than a new line.",
+      "parentUuid": "5e15f4e5_7b0cc547",
       "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -137,6 +245,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9f16a9_df95e5cc",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "Ah, yes! The other getline(). Forgot about that.\n\nDone.",
+      "parentUuid": "0c526d11_0808823b",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bad3ee39_cd107dd1",
@@ -154,6 +280,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c819c2ee_8503cdd3",
+        "filename": "cast/standalone_sender/receiver_chooser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bad3ee39_cd107dd1",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae591f25_8b5d924a",
@@ -167,6 +311,24 @@
       "writtenOn": "2020-11-24T18:32:03Z",
       "side": 1,
       "message": "NIT: we only use these usings in the declarations?, consider removing them and just using the types directly.",
+      "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4a8e906_75eeeb49",
+        "filename": "cast/standalone_sender/receiver_chooser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-11-30T17:51:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae591f25_8b5d924a",
       "revId": "f25b8fde915e47d33c9f5f81d75f1b643de3a77f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
