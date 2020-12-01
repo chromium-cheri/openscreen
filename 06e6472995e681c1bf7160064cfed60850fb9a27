@@ -58,6 +58,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4cdd2df_c3c0f1f8",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2da5355_10a42f96",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e074a69c_fe9af983",
@@ -71,6 +95,30 @@
       "writtenOn": "2020-11-30T21:55:28Z",
       "side": 1,
       "message": "This can be simplified to: receiver_message.value({})\n\n...and on L173 below.\n\n(IMHO, it would have been better if we had named the ErrorOr::value() method value_or(), like std::optional, for readability reasons.)",
+      "range": {
+        "startLine": 162,
+        "startChar": 20,
+        "endLine": 163,
+        "endChar": 67
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b85ed089_8423f54f",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Oh yeah, I added value(Default) in a previous patch, where we decided against value_or:\n\nhttps://chromium-review.googlesource.com/c/openscreen/+/2174070\n\nI\u0027m happy to revisit, it\u0027s a pretty trivial change at this point.",
+      "parentUuid": "e074a69c_fe9af983",
       "range": {
         "startLine": 162,
         "startChar": 20,
@@ -104,6 +152,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04f0ecb5_00071c2b",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Oh interesting. Maybe we can add a presubmit check?",
+      "parentUuid": "edf4c540_e1c1262f",
+      "range": {
+        "startLine": 206,
+        "startChar": 11,
+        "endLine": 206,
+        "endChar": 20
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46272ae6_5127765f",
@@ -117,6 +189,30 @@
       "writtenOn": "2020-11-30T21:55:28Z",
       "side": 1,
       "message": "Looks like this should be:\n\n  ~SessionManager() override;",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d879cd09_867ee691",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46272ae6_5127765f",
       "range": {
         "startLine": 37,
         "startChar": 2,
@@ -150,6 +246,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26e83f61_c7a22995",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d17cc79_afc35009",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11aae88e_35cad032",
@@ -163,6 +283,30 @@
       "writtenOn": "2020-11-30T21:55:28Z",
       "side": 1,
       "message": "Google C++ Style nit: These need to be private. If they are accessed by subclasses, you\u0027ll need message_port() and Has/TakeErrorCallback() methods in the protected section.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d7ff36d_5511b8fe",
+        "filename": "cast/streaming/session_messager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11aae88e_35cad032",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -219,6 +363,54 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9f7622a_bf599643",
+        "filename": "util/base64.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc583651_c5fbb3d8",
+      "range": {
+        "startLine": 17,
+        "startChar": 29,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f64774d_d073bc04",
+        "filename": "util/base64.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Yes, it\u0027s an iterator:\n\nhttps://github.com/abseil/abseil-cpp/blob/master/absl/strings/string_view.h\n\n  using const_iterator \u003d const char*;\n  using iterator \u003d const_iterator;\n\nI can de and reference if we want, but I think since the iterator is const char* this is fine.",
+      "parentUuid": "09f8d1e1_aa564600",
+      "range": {
+        "startLine": 17,
+        "startChar": 62,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07954731_7b657319",
@@ -242,6 +434,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd2dd9d3_5ae31606",
+        "filename": "util/base64.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Thanks, that is definitely better.",
+      "parentUuid": "07954731_7b657319",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2832da7d_7abe72ff",
@@ -255,6 +471,30 @@
       "writtenOn": "2020-11-30T21:55:28Z",
       "side": 1,
       "message": "This should be unnecessary, right? (Unless there\u0027s a bug in the b64 library!) Maybe just have:\n\n  OSP_DCHECK_EQ(output_size, out.size());",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "06e6472995e681c1bf7160064cfed60850fb9a27",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1fe2250_85402d0d",
+        "filename": "util/base64.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-01T21:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2832da7d_7abe72ff",
       "range": {
         "startLine": 51,
         "startChar": 0,
