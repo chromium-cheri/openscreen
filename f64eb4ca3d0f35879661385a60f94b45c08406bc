@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9fcd0ad_389a8604",
+        "filename": "cast/streaming/message_fields.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T20:22:18Z",
+      "side": 1,
+      "message": "Should we be making this change everywhere?\n\nFor instance, doing it in CodecToString() above is fine, because it would be a logic flaw in our code to provide an invalid enum value. Thus, there must always be a valid string result returned there.\n\nHowever, here, IIUC, this is for the \"parse a string that came from somewhere external to this program\" case. In this case, whatever generated the string could be buggy, but it\u0027s not a bug in our code. It\u0027s an untrusted input where we should probably bubble-up an error, or at least return a result that means \"unknown\" or \"invalid\" for bad string inputs.\n\nIn other words, I think the original code shouldn\u0027t have used OSP_DCHECK() here either: We don\u0027t want to allow bad external inputs to crash the program.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 49
+      },
+      "revId": "f64eb4ca3d0f35879661385a60f94b45c08406bc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
