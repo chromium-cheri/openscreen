@@ -182,6 +182,7 @@ class Error {
     kOperationInvalid,
     kOperationInProgress,
     kOperationCancelled,
+    kTypeError,
   };
 
   Error();
