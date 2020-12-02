@@ -6,6 +6,7 @@
 #define UTIL_JSON_JSON_HELPERS_H_
 
 #include <chrono>
+#include <cmath>
 #include <functional>
 #include <string>
 #include <utility>
@@ -81,12 +82,17 @@ inline bool ParseBool(const Json::Value& value, bool* out) {
 // currently no cases in our usage of JSON strings where we accept negative
 // values. If this changes in the future, care must be taken to ensure
 // that we don't break anything in existing code.
-inline bool ParseAndValidateDouble(const Json::Value& value, double* out) {
+inline bool ParseAndValidateDouble(const Json::Value& value,
+                                   double* out,
+                                   bool allow_negative = false) {
   if (!value.isDouble()) {
     return false;
   }
   const double d = value.asDouble();
-  if (d < 0) {
+  if (std::isnan(d)) {
+    return false;
+  }
+  if (!allow_negative && d < 0) {
     return false;
   }
   *out = d;
