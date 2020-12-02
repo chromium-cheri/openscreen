@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9620f3e_24243a1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T19:03:38Z",
+      "side": 1,
+      "message": "Moar! 😊",
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aa40659_d40eda59",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T19:03:38Z",
+      "side": 1,
+      "message": "Since Offer::ToJson() should always be generating valid json (and never using an enum value outside of kCastModeNames), how about simplifying this to just:\n\n  root[\"castMode\"] \u003d GetEnumName(kCastModeNames, cast_mode).value();\n\n(Note: value() does an assert() already, so there is sanity-checking in debug builds.)",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 46
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7242b74c_fd780ae1",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T19:03:38Z",
+      "side": 1,
+      "message": "Side note: The true upper limit is generally lower, because of the very small max unACK\u0027ed frames number, 120 (in constants.h). This is a hard design constraint.\n\nDoing some math, for audio: 120 frames of 10ms audio is 1200ms. So, the TPD for audio can\u0027t be any more than 1200ms (and this assumes 100% reliable transmission).\n\nAll said, what you have here is fine for receiver-side message validation (since it\u0027s up to the sender to make sure its media frame rate jives with its TPD).",
+      "range": {
+        "startLine": 29,
+        "startChar": 66,
+        "endLine": 29,
+        "endChar": 70
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7f3e86c_89041a0c",
+        "filename": "cast/streaming/receiver_message.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T19:03:38Z",
+      "side": 1,
+      "message": "IIRC, they aren\u0027t supposed to have a result field. They are in a different message namespace. 😊 \"ok\" indicators would be in their protobufs (in the rpc field).",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 80
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "797f279d_4f33f463",
+        "filename": "cast/streaming/receiver_message.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T19:03:38Z",
+      "side": 1,
+      "message": "here too:\n\n  root[kMessageType] \u003d GetEnumName(kMessageTypeNames, type).value();",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 36
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aced2ffb_573a1ef6",
+        "filename": "cast/streaming/receiver_message.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T19:03:38Z",
+      "side": 1,
+      "message": "here too: RPC messages don\u0027t have a result field (it\u0027s in the PB).",
+      "range": {
+        "startLine": 249,
+        "startChar": 6,
+        "endLine": 250,
+        "endChar": 42
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a775e381_7e37929e",
+        "filename": "util/json/json_helpers.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T19:03:38Z",
+      "side": 1,
+      "message": "Side concerns: 1) is +/- inf valid? 2) is nan valid?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 33
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
