@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df812b7_58ebf7dc",
+        "filename": "cast/protocol/BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T17:01:44Z",
+      "side": 1,
+      "message": "It looks like there is no runtime dependency on these json files. If that\u0027s correct, this isn\u0027t needed here: The target on L12-13 mentions these files in sources[] for the \"input files\" dependency.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "65ce7d0b12b490b9bc7305214fadedd0b3ede60d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00aca287_326be96a",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T17:01:44Z",
+      "side": 1,
+      "message": "Suggest making this just:\n\n  static Json::Value root \u003d json::Parse(kStreamingSchema).value();\n\nReasons:\n\n1. ErrorOr\u003c\u003e::value() already has an assert statement.\n2. The assertion is only evaluated once (static initialization time), rather than on every call to this method (with the OSP_CHECK).\n\n...and same in ValidateReceiverMessage()...",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 29
+      },
+      "revId": "65ce7d0b12b490b9bc7305214fadedd0b3ede60d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc707128_1faebab9",
+        "filename": "util/std_util.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T17:01:44Z",
+      "side": 1,
+      "message": "IMHO, this feels like too much to inline. I suggest splitting into declaration (here) + definition (in the .cc file).",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 1
+      },
+      "revId": "65ce7d0b12b490b9bc7305214fadedd0b3ede60d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
