@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb397d76_e2040739",
+        "filename": "build/config/data_headers_template.gni",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "I originally had it as a cc file, @miu said I should switch it to a header.",
+      "parentUuid": "e2fd478d_9730bed0",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0848974a_0eb96c21",
         "filename": "cast/protocol/BUILD.gn",
         "patchSetId": 18
@@ -31,6 +49,24 @@
       "writtenOn": "2020-11-30T21:28:27Z",
       "side": 1,
       "message": "Why is this warning turned off?  Is this because of third party headers?  In that case, it should probably go in a public_config for those headers.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed9d56c_7567cbeb",
+        "filename": "cast/protocol/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848974a_0eb96c21",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -52,6 +88,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08876031_28b6d1e2",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "56390480_29e9cb61",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae9f6088_b5da028b",
@@ -65,6 +119,24 @@
       "writtenOn": "2020-11-30T21:28:27Z",
       "side": 1,
       "message": "push_back",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "293a0f79_703e6990",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "made it an actual emplace_back call instead.",
+      "parentUuid": "ae9f6088_b5da028b",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -86,6 +158,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "222f0c61_bb01db35",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f8a4a85_50b01034",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "557b15aa_606203fd",
@@ -99,6 +189,24 @@
       "writtenOn": "2020-11-30T21:28:27Z",
       "side": 1,
       "message": "What happens if the schema is invalid?",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18e9dd1_61679872",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Valijson will assert. Since we control the schemas this shouldn\u0027t happen in production, and in testing the errors will be pretty obvious.",
+      "parentUuid": "557b15aa_606203fd",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -120,6 +228,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cb8be10_8cd9b002",
+        "filename": "cast/test/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Not yet. I need to get the security thing approved. Hopefully this week.\n\nAdded validation of the example json files in validation_unittest. Worst case scenario is we decide valijson is too heavy to use for production validation, in which case we can just use it for testing schemas as part of checkin (which will happen in this patch onwards).",
+      "parentUuid": "c4a5fc74_51b2d85a",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c9be0e8c_dc6eb2cd",
@@ -133,6 +259,24 @@
       "writtenOn": "2020-11-30T21:28:27Z",
       "side": 1,
       "message": "This is a cool utility :-)",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcb1d263_cbf2c761",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Thanks! I figured something like this would be helpful and writing it wasn\u0027t too crazy.",
+      "parentUuid": "c9be0e8c_dc6eb2cd",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -154,6 +298,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32047eae_66794b0e",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "I always forget how different Google python style is from the standard.",
+      "parentUuid": "21badced_f86181a1",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea828fe5_af73e01a",
@@ -171,6 +333,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b1821ac_b836c4ef",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Wrong link? \n\nSGTM, I don\u0027t think we need more indepth ones here.",
+      "parentUuid": "ea828fe5_af73e01a",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a137fb5_16e1e136",
@@ -184,6 +364,24 @@
       "writtenOn": "2020-11-30T21:28:27Z",
       "side": 1,
       "message": "It\u0027s more UNIX-y to have this script read standard input and write to standard output, so that it can be used in a pipe.  But the flags are more self-documenting.  You can have it both ways with optional flags.  It depends on usage and I don\u0027t feel strongly about it either way.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93350e4b_03f2ca8e",
+        "filename": "tools/convert_to_data_file.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Fair enough. I think you are right, but this was cleaner in the build system IMO.",
+      "parentUuid": "3a137fb5_16e1e136",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -207,6 +405,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "451a3ea5_8e67028a",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Basically, to use util you need abseil. Moving this to public indicates to consuming source_sets and other targets that they need abseil to compile. Without this, any consumer of util classes needs to include abseil even if they don\u0027t use it, only util does.\n\nIn file included from ../../cast/protocol/castv2/validation.cc:11:\n../../util/json/json_serialization.h:10:10: fatal error: \u0027absl/strings/string_view.h\u0027 file not found\n#include \"absl/strings/string_view.h\"\n\nOr\n\nIn file included from ../../cast/protocol/castv2/validation.cc:13:\n../../util/std_util.h:14:10: fatal error: \u0027absl/algorithm/container.h\u0027 file not found\n#include \"absl/algorithm/container.h\"\n         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n\nWe don\u0027t need this--I can certainly put abseil in the DEPS of the cast protocol BUILD.gn, but I thought this was reasonable.",
+      "parentUuid": "d6b06b6c_158fc2f7",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb2a8a67_8cd216e6",
         "filename": "util/std_util.h",
         "patchSetId": 18
@@ -218,6 +434,24 @@
       "writtenOn": "2020-11-30T21:28:27Z",
       "side": 1,
       "message": "If this is using std::string operator+ underneath, it could be O(N^2) in time and space.  Can you reserve space and use +\u003d instead?\n\nIt would also be simpler to read as std::accumulate is an uncommon operator.",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "173c5141_30d1d2de",
+        "filename": "util/std_util.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s totally valid. I got too fancy at the cost of actual perf.",
+      "parentUuid": "eb2a8a67_8cd216e6",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -235,6 +469,24 @@
       "writtenOn": "2020-11-30T21:28:27Z",
       "side": 1,
       "message": "Can you use explicit capture of delimiter here?",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e7b9203_5992528e",
+        "filename": "util/std_util.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T15:12:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "395b2947_c3bc6946",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
