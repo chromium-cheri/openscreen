@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81e76b29_3f69f359",
+        "filename": "build/config/data_headers_template.gni",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-02T16:46:38Z",
+      "side": 1,
+      "message": "Some context is missing on this. PS6 had a single statement split across two files, e.g.:\n\n  constexpr char kStreamingSchema[] \u003d\n  #include \"cast/protocol/castv2/streaming_schema_data.cc\"\n\nThe streaming_schema_data.cc file did not actually contain a complete C++ statement (just a multiline C++ string literal).\n\nMy suggestion was to have the python program that generated streaming_scheda_data.cc generate a complete C++ statement in one file. Then, the Google C++ Style Guide rules (https://google.github.io/styleguide/cppguide.html#Self_contained_Headers) for inlined globals (constexpr \u003d\u003d inline) says to put the full definition in .h files not .cc files. So, that\u0027s why I was suggesting it be in a .h file.\n\nFor this, we could:\n\n1. Do nothing: The tools/convert_to_data_file.py program correctly generates a header file with a global constexpr char[] object in the correct namespace. Thus, the linker will do normal C++ inline definition de-duping, and there will be only one copy of the string in the final output.\n\n2. Split the statement into separate foo_data.h (with an \u0027extern const char[]\u0027 declaration) and foo_data.cc files. This just means that we\u0027re doing the de-duping for the linker by-hand. There is an advantage in interim .o/.obj file sizes, since each will contain only an extern symbol reference instead of the full copy of the string.\n\nThus, we only really need to do the extra work (#2) if the strings are being used in more than just a few files, and we\u0027d only be doing it to save disk space (and a few ms of build time?) during a build.",
+      "parentUuid": "bb397d76_e2040739",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0848974a_0eb96c21",
         "filename": "cast/protocol/BUILD.gn",
         "patchSetId": 18
