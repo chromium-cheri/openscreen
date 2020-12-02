@@ -90,6 +90,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d4f6ecd_03833f9b",
+        "filename": "build/config/data_headers_template.gni",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T20:22:25Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "425c0ee7_bc8028a9",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0848974a_0eb96c21",
@@ -525,6 +543,24 @@
       "side": 1,
       "message": "Whether it\u0027s in public_deps or deps, both tell targets what the requirements are for compilation and linking.  What moving to public does is tell util to inherit the abseil GN config, so the absl/ include path is picked up.  It also says that these absl headers are part of the public API for util/.\n\nhttps://gn.googlesource.com/gn/+/master/docs/reference.md#var_public_deps\n\nSo what you\u0027re saying is that absl was part of the public API all along, but now there\u0027s a target that needs that explicitly?",
       "parentUuid": "451a3ea5_8e67028a",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17a60020_56719b2a",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T20:22:25Z",
+      "side": 1,
+      "message": "Up until now, all consumers of util that use a util interface that has abseil have to add it to their own dependencies, even just to call a util function that takes an absl::string_view.\n\nThis just more clearly states that if you use util, you have to use abseil. I definitely think it belongs in public_deps since it is part of the public API.",
+      "parentUuid": "6d9c02db_9a497aed",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
