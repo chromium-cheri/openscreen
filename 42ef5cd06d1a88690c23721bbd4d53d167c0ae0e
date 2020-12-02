@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cdc067d2_a6516247",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T20:08:37Z",
+      "side": 1,
+      "message": "https://chromium-review.googlesource.com/c/openscreen/+/2569369",
+      "parentUuid": "1aa40659_d40eda59",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 46
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7242b74c_fd780ae1",
         "filename": "cast/streaming/offer_messages.h",
         "patchSetId": 11
@@ -54,6 +78,30 @@
       "writtenOn": "2020-12-02T19:03:38Z",
       "side": 1,
       "message": "Side note: The true upper limit is generally lower, because of the very small max unACK\u0027ed frames number, 120 (in constants.h). This is a hard design constraint.\n\nDoing some math, for audio: 120 frames of 10ms audio is 1200ms. So, the TPD for audio can\u0027t be any more than 1200ms (and this assumes 100% reliable transmission).\n\nAll said, what you have here is fine for receiver-side message validation (since it\u0027s up to the sender to make sure its media frame rate jives with its TPD).",
+      "range": {
+        "startLine": 29,
+        "startChar": 66,
+        "endLine": 29,
+        "endChar": 70
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b48de91_ec686dc0",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T20:08:37Z",
+      "side": 1,
+      "message": "Do you think I should lower it?",
+      "parentUuid": "7242b74c_fd780ae1",
       "range": {
         "startLine": 29,
         "startChar": 66,
@@ -87,6 +135,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a95b76d9_f91b2feb",
+        "filename": "cast/streaming/receiver_message.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T20:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7f3e86c_89041a0c",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 80
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "797f279d_4f33f463",
@@ -100,6 +172,30 @@
       "writtenOn": "2020-12-02T19:03:38Z",
       "side": 1,
       "message": "here too:\n\n  root[kMessageType] \u003d GetEnumName(kMessageTypeNames, type).value();",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 36
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a3eb5d_bcfce769",
+        "filename": "cast/streaming/receiver_message.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T20:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "797f279d_4f33f463",
       "range": {
         "startLine": 218,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b997d7a_8350abd2",
+        "filename": "cast/streaming/receiver_message.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T20:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aced2ffb_573a1ef6",
+      "range": {
+        "startLine": 249,
+        "startChar": 6,
+        "endLine": 250,
+        "endChar": 42
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a775e381_7e37929e",
@@ -146,6 +266,30 @@
       "writtenOn": "2020-12-02T19:03:38Z",
       "side": 1,
       "message": "Side concerns: 1) is +/- inf valid? 2) is nan valid?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 33
+      },
+      "revId": "42ef5cd06d1a88690c23721bbd4d53d167c0ae0e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "491add6d_a70bc72f",
+        "filename": "util/json/json_helpers.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-02T20:08:37Z",
+      "side": 1,
+      "message": "Great question. I think +/- inf is probably good, but NaN is bad.",
+      "parentUuid": "a775e381_7e37929e",
       "range": {
         "startLine": 91,
         "startChar": 0,
