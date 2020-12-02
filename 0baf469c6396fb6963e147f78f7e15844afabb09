@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90406bbf_514bf844",
+        "filename": "third_party/valijson/BUILD.gn",
+        "patchSetId": 24
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-12-02T21:29:50Z",
+      "side": 1,
+      "message": "Sorry for the late comment - but I prefer not to use configs to shorten include paths unless it\u0027s absolutely necessary, since they make it harder to track down where includes come from.   For example, readers will see #include \"valijson/foo.hpp\" and not know that valijson is in third_party.\n\nThis is required by the Google style guide:\n\nhttps://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes\n\nFor well-known libraries like abseil or gtest/gmock, exceptions seem okay.",
+      "revId": "0baf469c6396fb6963e147f78f7e15844afabb09",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
