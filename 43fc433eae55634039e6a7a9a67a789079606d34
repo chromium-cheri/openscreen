@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "425c0ee7_bc8028a9",
+        "filename": "build/config/data_headers_template.gni",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-12-02T19:55:49Z",
+      "side": 1,
+      "message": "The style guide talks about inlining templates and function globals into .h files, not explicitly about constant data.\n\nMost of my reasoning was to save build time, if the string is large and/or the header gets transitively included in many translation units.   However it does make things more complex since you\u0027ll have to manually add the extern declaration and keep it in sync with the generated  definition.\n\nI don\u0027t feel strongly about this.  It\u0027s probably a premature optimization to split the declaration and definition until compilation time becomes a real issue.  In this CL, for example, the generated headers are only included once so there\u0027s no benefit to splitting.",
+      "parentUuid": "81e76b29_3f69f359",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0848974a_0eb96c21",
         "filename": "cast/protocol/BUILD.gn",
         "patchSetId": 18
@@ -247,6 +265,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ada885b_95510d50",
+        "filename": "cast/protocol/castv2/validation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-12-02T19:55:49Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "b18e9dd1_61679872",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4a5fc74_51b2d85a",
@@ -278,6 +314,24 @@
       "side": 1,
       "message": "Not yet. I need to get the security thing approved. Hopefully this week.\n\nAdded validation of the example json files in validation_unittest. Worst case scenario is we decide valijson is too heavy to use for production validation, in which case we can just use it for testing schemas as part of checkin (which will happen in this patch onwards).",
       "parentUuid": "c4a5fc74_51b2d85a",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db51112d_3cd623a6",
+        "filename": "cast/test/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-12-02T19:55:49Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "8cb8be10_8cd9b002",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -453,6 +507,24 @@
       "side": 1,
       "message": "Basically, to use util you need abseil. Moving this to public indicates to consuming source_sets and other targets that they need abseil to compile. Without this, any consumer of util classes needs to include abseil even if they don\u0027t use it, only util does.\n\nIn file included from ../../cast/protocol/castv2/validation.cc:11:\n../../util/json/json_serialization.h:10:10: fatal error: \u0027absl/strings/string_view.h\u0027 file not found\n#include \"absl/strings/string_view.h\"\n\nOr\n\nIn file included from ../../cast/protocol/castv2/validation.cc:13:\n../../util/std_util.h:14:10: fatal error: \u0027absl/algorithm/container.h\u0027 file not found\n#include \"absl/algorithm/container.h\"\n         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n\nWe don\u0027t need this--I can certainly put abseil in the DEPS of the cast protocol BUILD.gn, but I thought this was reasonable.",
       "parentUuid": "d6b06b6c_158fc2f7",
+      "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9c02db_9a497aed",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2020-12-02T19:55:49Z",
+      "side": 1,
+      "message": "Whether it\u0027s in public_deps or deps, both tell targets what the requirements are for compilation and linking.  What moving to public does is tell util to inherit the abseil GN config, so the absl/ include path is picked up.  It also says that these absl headers are part of the public API for util/.\n\nhttps://gn.googlesource.com/gn/+/master/docs/reference.md#var_public_deps\n\nSo what you\u0027re saying is that absl was part of the public API all along, but now there\u0027s a target that needs that explicitly?",
+      "parentUuid": "451a3ea5_8e67028a",
       "revId": "43fc433eae55634039e6a7a9a67a789079606d34",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
