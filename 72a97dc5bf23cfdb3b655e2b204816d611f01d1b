@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "573fb4e5_5a0d2b76",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-11T20:34:01Z",
+      "side": 1,
+      "message": "Yeah, they\u0027re in like 6-7 different files! 😂",
+      "parentUuid": "ba9e6641_3e86e887",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "85cf178b_6724fc9b",
         "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2020-12-11T19:12:32Z",
       "side": 1,
       "message": "I\u0027m happy to take these on, should all be in https://source.chromium.org/chromium/chromium/src/+/master:/third_party/openscreen/src/util/json/json_helpers.h",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b37cc1bf_3171fed0",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-11T20:34:01Z",
+      "side": 1,
+      "message": "Sure, have at it. They might look similar to the other things there, but are different in that they purposely do NOT have an error path and are very permissive.",
+      "parentUuid": "85cf178b_6724fc9b",
       "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -69,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "480a270f_f607a74a",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-11T20:34:01Z",
+      "side": 1,
+      "message": "The ToCastSocketId(nullptr) is on-purpose. I introduced it several months ago because there was some code using 0 and a some other code using -1 as the \"null\" ID. Instead, there\u0027s now a centralized location to get it, and that ensures consistency across all the code.",
+      "parentUuid": "824d79c0_9ca54725",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7da69f6d_1123ff2d",
@@ -86,6 +140,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "528d4042_b3fab80e",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-11T20:34:01Z",
+      "side": 1,
+      "message": "Done.\n\nInteresting: I wasn\u0027t aware compiler optimizers had to deal with that \"distinct address\" requirement. All the more reason to use static (instead of assume it doesn\u0027t matter), as an explicit statement of intention to the compiler! 😜\n\nhttps://godbolt.org/z/M7vEWz",
+      "parentUuid": "7da69f6d_1123ff2d",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c17cf38e_c61f0a7b",
@@ -99,6 +171,24 @@
       "writtenOn": "2020-12-11T19:12:32Z",
       "side": 1,
       "message": "Is this a good candidate for the serial delete pointer?",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3954aa_bed622ab",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2020-12-11T20:34:01Z",
+      "side": 1,
+      "message": "This is a workaround for all the code we have that has dtors with:\n\n  OSP_DCHECK(task_runner_-\u003eIsRunningOnTaskRunner());\n\nIt\u0027s something I\u0027ve been meaning to clean-up, since we shouldn\u0027t require a dtor to run anywhere specific (like, only be able to run from a Task). Doing so breaks RAII, and then further complicates the shutdown in all our apps because: 1) we have to remember when to \"spin the TaskRunner\" (once? twice? how many times?) in order to avoid segfaults or memory leaks; and 2) requires extra boilerplate code to mitigate the issue (e.g., this ugly code here).\n\nAlso, the DCHECK(...) is kind of silly because often times we are destroying objects on the same thread that was running Tasks anyway. Why run via the TaskRunner when we could just keep it simple and let the local scope unwind?\n\nSerialDeletePtr only exacerbates the issue since it\u0027s passing the ownership of objects to the TaskRunner when their actual owner is being destroyed, rather than destroying them synchronously. IMHO, we should remove SerialDeletePtr entirely, and fix the object graph, thread-safety, and/or shutdown code paths that necessitated it.",
+      "parentUuid": "c17cf38e_c61f0a7b",
       "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
