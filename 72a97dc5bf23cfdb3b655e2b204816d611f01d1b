@@ -16,6 +16,108 @@
       "message": "PTAL.",
       "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba9e6641_3e86e887",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-11T19:12:32Z",
+      "side": 1,
+      "message": "SGTM. I was surprised to find they aren\u0027t in any headers yet.",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85cf178b_6724fc9b",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-11T19:12:32Z",
+      "side": 1,
+      "message": "I\u0027m happy to take these on, should all be in https://source.chromium.org/chromium/chromium/src/+/master:/third_party/openscreen/src/util/json/json_helpers.h",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "824d79c0_9ca54725",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-11T19:12:32Z",
+      "side": 1,
+      "message": "Having to call ToCastSocketId(nullptr) to check if uninitialized seems odd. Doesn\u0027t have to be in this patch, but would love to just have the contract for GetSocketId to explicitly state will return 0 if not set.",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da69f6d_1123ff2d",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-11T19:12:32Z",
+      "side": 1,
+      "message": "static constexpr? \n\nhttps://stackoverflow.com/q/13865842/888386",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c17cf38e_c61f0a7b",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-11T19:12:32Z",
+      "side": 1,
+      "message": "Is this a good candidate for the serial delete pointer?",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a4d9d34_f57933f5",
+        "filename": "cast/streaming/session_messager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2020-12-11T19:12:32Z",
+      "side": 1,
+      "message": "Thanks for the cleanup here.",
+      "revId": "72a97dc5bf23cfdb3b655e2b204816d611f01d1b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
