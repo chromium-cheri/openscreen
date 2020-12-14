@@ -21,6 +21,8 @@ if (!build_with_chromium) {
   }
 
   source_set("standalone_sender") {
+    assert(!defined(include_external_libs))
+
     deps = [
       "../../platform",
       "../../third_party/jsoncpp",
