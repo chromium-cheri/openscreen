@@ -47,7 +47,7 @@ class UdpPacket : public std::vector<uint8_t> {
 
   std::string ToString() const;
 
-  static constexpr size_type kUdpMaxPacketSize = 1 << 16;
+  static const size_type kUdpMaxPacketSize;
 
  private:
   IPEndpoint source_ = {};
