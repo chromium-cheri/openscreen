@@ -87,6 +87,9 @@ Clock::duration Sender::GetMaxInFlightMediaDuration() const {
 }
 
 bool Sender::NeedsKeyFrame() const {
+  if (!config_.is_pli_enabled) {
+    return false;
+  }
   return last_enqueued_key_frame_id_ <= picture_lost_at_frame_id_;
 }
 
@@ -168,6 +171,13 @@ Sender::EnqueueFrameResult Sender::EnqueueFrame(const EncodedFrame& frame) {
   packet_router_->RequestRtpSend(rtcp_session_.receiver_ssrc());
 
   return OK;
+}
+
+void Sender::CancelInFlightData() {
+  while (checkpoint_frame_id_ <= last_enqueued_frame_id_) {
+    ++checkpoint_frame_id_;
+    CancelPendingFrame(checkpoint_frame_id_);
+  }
 }
 
 void Sender::OnReceivedRtcpPacket(Clock::time_point arrival_time,
@@ -308,6 +318,13 @@ void Sender::OnReceiverReport(const RtcpReportBlock& receiver_report) {
 }
 
 void Sender::OnReceiverIndicatesPictureLoss() {
+  // Getting a PLI event when PLI is disabled should not happen and is
+  // considered a developer error.
+  OSP_DCHECK(config_.is_pli_enabled);
+  if (!config_.is_pli_enabled) {
+    return;
+  }
+
   // The Receiver will continue the PLI notifications until it has received a
   // key frame. Thus, if a key frame is already in-flight, don't make a state
   // change that would cause this Sender to force another expensive key frame.
