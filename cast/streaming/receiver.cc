@@ -72,7 +72,10 @@ void Receiver::SetPlayerProcessingTime(Clock::duration needed_time) {
 }
 
 void Receiver::RequestKeyFrame() {
-  if (!last_key_frame_received_.is_null() &&
+  // If we don't have picture loss indication enabled, we should not request
+  // any key frames.
+  OSP_DCHECK(config_.is_pli_enabled);
+  if (config_.is_pli_enabled && !last_key_frame_received_.is_null() &&
       last_frame_consumed_ >= last_key_frame_received_ &&
       !rtcp_builder_.is_picture_loss_indicator_set()) {
     rtcp_builder_.SetPictureLossIndicator(true);
@@ -268,7 +271,9 @@ void Receiver::OnReceivedRtpPacket(Clock::time_point arrival_time,
   // Whenever a key frame has been received, the decoder has what it needs to
   // recover. In this case, clear the PLI condition.
   if (encrypted_frame.dependency == EncryptedFrame::KEY_FRAME) {
-    rtcp_builder_.SetPictureLossIndicator(false);
+    if (config_.is_pli_enabled) {
+      rtcp_builder_.SetPictureLossIndicator(false);
+    }
     last_key_frame_received_ = part->frame_id;
   }
 

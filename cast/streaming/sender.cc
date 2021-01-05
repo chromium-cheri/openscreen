@@ -170,6 +170,12 @@ Sender::EnqueueFrameResult Sender::EnqueueFrame(const EncodedFrame& frame) {
   return OK;
 }
 
+void Sender::CancelInFlightData() {
+  for (auto i = pending_frames_.size() - 1; i >= 0; --i) {
+    pending_frames_[i].frame = absl::nullopt;
+  }
+}
+
 void Sender::OnReceivedRtcpPacket(Clock::time_point arrival_time,
                                   absl::Span<const uint8_t> packet) {
   rtcp_packet_arrival_time_ = arrival_time;
@@ -308,6 +314,8 @@ void Sender::OnReceiverReport(const RtcpReportBlock& receiver_report) {
 }
 
 void Sender::OnReceiverIndicatesPictureLoss() {
+  OSP_DCHECK(config_.is_pli_enabled);
+
   // The Receiver will continue the PLI notifications until it has received a
   // key frame. Thus, if a key frame is already in-flight, don't make a state
   // change that would cause this Sender to force another expensive key frame.

@@ -266,6 +266,7 @@ class Receiver {
   RtpPacketParser rtp_parser_;
   const int rtp_timebase_;    // RTP timestamp ticks per second.
   const FrameCrypto crypto_;  // Decrypts assembled frames.
+  bool is_pli_enabled_;       // Whether picture loss indication is enabled.
 
   // Buffer for serializing/sending RTCP packets.
   const int rtcp_buffer_capacity_;
