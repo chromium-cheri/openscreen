@@ -16,6 +16,75 @@
       "message": "Is this what you were thinking?",
       "revId": "182fa4bd9f36300b6c008ca804b39b2777e89bf6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0dae827_1c7fc2bd",
+        "filename": "cast/streaming/receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2021-01-07T22:23:39Z",
+      "side": 1,
+      "message": "For simplicity\u0027s sake, I wouldn\u0027t add this guard here. It doesn\u0027t hurt anything. And, IIRC, remoting never has a \"Cast Streaming key frame\" (except for the first one).",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 26
+      },
+      "revId": "182fa4bd9f36300b6c008ca804b39b2777e89bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77895a65_615bf494",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2021-01-07T22:23:39Z",
+      "side": 1,
+      "message": "Actually, this should always be true for the very first frame (for the protocol inter-frame dependency logic). I would just remove this added code, and let the return expr do the right thing.\n\nLooking at other PLI-related changes, I would suggest not having the Sender be aware of whether PLI is enabled at all. The Receiver has to request it during streaming, and if it is configured never to do so, then the Sender will never act (which makes all the force-disable-PLI code in the Sender moot).",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "182fa4bd9f36300b6c008ca804b39b2777e89bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ed06911_ca642a4d",
+        "filename": "cast/streaming/sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1002076
+      },
+      "writtenOn": "2021-01-07T22:23:39Z",
+      "side": 1,
+      "message": "Suggest removing, per above comment.",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 0
+      },
+      "revId": "182fa4bd9f36300b6c008ca804b39b2777e89bf6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
