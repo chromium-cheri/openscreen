@@ -13,7 +13,9 @@
 #include "cast/common/public/message_port.h"
 #include "cast/streaming/answer_messages.h"
 #include "cast/streaming/capture_configs.h"
+#include "cast/streaming/capture_recommendations.h"
 #include "cast/streaming/offer_messages.h"
+#include "cast/streaming/rpc_broker.h"
 #include "cast/streaming/sender.h"
 #include "cast/streaming/sender_packet_router.h"
 #include "cast/streaming/session_config.h"
@@ -23,10 +25,6 @@
 
 namespace openscreen {
 namespace cast {
-
-namespace capture_recommendations {
-struct Recommendations;
-}
 
 class Environment;
 class Sender;
@@ -49,6 +47,13 @@ class SenderSession final {
     VideoCaptureConfig video_config;
   };
 
+  // In remoting, we still use the same sender and configuration objects,
+  // however input is handled by the RpcBroker.
+  struct RemotingConfiguration {
+    ConfiguredSenders senders;
+    RpcBroker broker;
+  };
+
   // The embedder should provide a client for handling the negotiation.
   // When the negotiation is complete, the OnNegotiated callback is called.
   class Client {
@@ -62,6 +67,14 @@ class SenderSession final {
         const SenderSession* session,
         ConfiguredSenders senders,
         capture_recommendations::Recommendations capture_recommendations) = 0;
+
+    // Called when a new set of remoting senders has been negotiated. Since
+    // remoting is an optional feature, the default behavior here is to leave
+    // this method unhandled.
+    virtual void OnRemotingNegotiated(
+        const SenderSession* session,
+        RemotingConfiguration senders,
+        capture_recommendations::Recommendations capture_recommendations) {}
 
     // Called whenever an error occurs. Ends the ongoing session, and the caller
     // must call Negotiate() again if they wish to re-establish streaming.
@@ -97,6 +110,7 @@ class SenderSession final {
   // become invalid when calling this method.
   Error Negotiate(std::vector<AudioCaptureConfig> audio_configs,
                   std::vector<VideoCaptureConfig> video_configs);
+  Error NegotiateRemoting();
 
  private:
   // We store the current negotiation, so that when we get an answer from the
@@ -108,6 +122,8 @@ class SenderSession final {
     std::vector<AudioCaptureConfig> audio_configs;
     std::vector<VideoCaptureConfig> video_configs;
   };
+
+  enum class State { kIdle, kMirroring, kRemoting };
 
   // Specific message type handler methods.
   void OnAnswer(ReceiverMessage message);
@@ -152,6 +168,9 @@ class SenderSession final {
   // The current negotiation. If present, we are expected an ANSWER from
   // the receiver. If not present, any provided ANSWERS are rejected.
   std::unique_ptr<Negotiation> current_negotiation_;
+
+  // The current state of the session.
+  State state_ = State::kIdle;
 
   // If the negotiation has succeeded, we store the current audio and video
   // senders used for this session. Either or both may be nullptr.

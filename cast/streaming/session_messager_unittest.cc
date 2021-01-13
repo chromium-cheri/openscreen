@@ -207,7 +207,9 @@ TEST_F(SessionMessagerTest, CapabilitiesMessaging) {
   ASSERT_TRUE(receiver_messager_
                   .SendMessage(ReceiverMessage{
                       ReceiverMessage::Type::kCapabilitiesResponse, 1337,
-                      true /* valid */, ReceiverCapability{47, {"ac3", "4k"}}})
+                      true /* valid */,
+                      ReceiverCapability{
+                          47, {MediaCapability::kAac, MediaCapability::k4k}}})
                   .ok());
 
   ASSERT_TRUE(message_store_.sender_messages.empty());
@@ -219,7 +221,8 @@ TEST_F(SessionMessagerTest, CapabilitiesMessaging) {
   const auto& capability =
       absl::get<ReceiverCapability>(message_store_.receiver_messages[0].body);
   EXPECT_EQ(47, capability.remoting_version);
-  EXPECT_THAT(capability.media_capabilities, ElementsAre("ac3", "4k"));
+  EXPECT_THAT(capability.media_capabilities,
+              ElementsAre(MediaCapability::kAac, MediaCapability::k4k));
 }
 
 TEST_F(SessionMessagerTest, OfferAnswerMessaging) {
