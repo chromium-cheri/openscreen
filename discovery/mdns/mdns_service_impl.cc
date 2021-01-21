@@ -5,10 +5,13 @@
 #include "discovery/mdns/mdns_service_impl.h"
 
 #include <memory>
+#include <utility>
+#include <vector>
 
 #include "discovery/common/reporting_client.h"
 #include "discovery/mdns/mdns_records.h"
 #include "discovery/mdns/public/mdns_constants.h"
+#include "platform/api/network_interface.h"
 
 namespace openscreen {
 namespace discovery {
@@ -40,12 +43,23 @@ MdnsServiceImpl::MdnsServiceImpl(
   OSP_DCHECK(reporting_client_);
   OSP_DCHECK(supported_address_types);
 
+  // Get the IP address associated with the network interface index, for
+  // proper socket binding later.
+  const std::vector<InterfaceInfo> interfaces = GetNetworkInterfaces();
+  const auto interface =
+      std::find_if(interfaces.begin(), interfaces.end(),
+                   [network_interface](const InterfaceInfo& i) {
+                     return i.index == network_interface;
+                   });
+  OSP_DCHECK(interface != interfaces.end());
+
   // Create all UDP sockets needed for this object. They should not yet be bound
   // so that they do not send or receive data until the objects on which their
   // callback depends is initialized.
   if (supported_address_types & Config::NetworkInfo::kUseIpV4) {
     ErrorOr<std::unique_ptr<UdpSocket>> socket = UdpSocket::Create(
-        task_runner, this, kDefaultMulticastGroupIPv4Endpoint);
+        task_runner, this,
+        IPEndpoint{interface->GetIpAddressV4(), kDefaultMulticastPort});
     OSP_DCHECK(!socket.is_error());
     OSP_DCHECK(socket.value().get());
     OSP_DCHECK(socket.value()->IsIPv4());
@@ -55,7 +69,8 @@ MdnsServiceImpl::MdnsServiceImpl(
 
   if (supported_address_types & Config::NetworkInfo::kUseIpV6) {
     ErrorOr<std::unique_ptr<UdpSocket>> socket = UdpSocket::Create(
-        task_runner, this, kDefaultMulticastGroupIPv6Endpoint);
+        task_runner, this,
+        IPEndpoint{interface->GetIpAddressV6(), kDefaultMulticastPort});
     OSP_DCHECK(!socket.is_error());
     OSP_DCHECK(socket.value().get());
     OSP_DCHECK(socket.value()->IsIPv6());
