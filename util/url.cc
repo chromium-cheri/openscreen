@@ -74,7 +74,7 @@ Url::Url(const std::string& source) {
 
 Url::Url(const Url&) = default;
 
-Url::Url(Url&& other)
+Url::Url(Url&& other) noexcept
     : is_valid_(other.is_valid_),
       has_host_(other.has_host_),
       has_port_(other.has_port_),
