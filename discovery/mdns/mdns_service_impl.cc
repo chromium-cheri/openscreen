@@ -5,10 +5,13 @@
 #include "discovery/mdns/mdns_service_impl.h"
 
 #include <memory>
+#include <utility>
+#include <vector>
 
 #include "discovery/common/reporting_client.h"
 #include "discovery/mdns/mdns_records.h"
 #include "discovery/mdns/public/mdns_constants.h"
+#include "platform/api/network_interface.h"
 
 namespace openscreen {
 namespace discovery {
@@ -40,12 +43,23 @@ MdnsServiceImpl::MdnsServiceImpl(
   OSP_DCHECK(reporting_client_);
   OSP_DCHECK(supported_address_types);
 
+  // Get the IP address associated with the network interface index, for
+  // proper socket binding later.
+  const auto network_info =
+      std::find_if(config.network_info.begin(), config.network_info.end(),
+                   [network_interface](const Config::NetworkInfo& n) {
+                     return n.interface.index == network_interface;
+                   });
+  OSP_DCHECK(network_info != config.network_info.end());
+
   // Create all UDP sockets needed for this object. They should not yet be bound
   // so that they do not send or receive data until the objects on which their
   // callback depends is initialized.
   if (supported_address_types & Config::NetworkInfo::kUseIpV4) {
-    ErrorOr<std::unique_ptr<UdpSocket>> socket = UdpSocket::Create(
-        task_runner, this, kDefaultMulticastGroupIPv4Endpoint);
+    ErrorOr<std::unique_ptr<UdpSocket>> socket =
+        UdpSocket::Create(task_runner, this,
+                          IPEndpoint{network_info->interface.GetIpAddressV4(),
+                                     kDefaultMulticastPort});
     OSP_DCHECK(!socket.is_error());
     OSP_DCHECK(socket.value().get());
     OSP_DCHECK(socket.value()->IsIPv4());
@@ -54,8 +68,10 @@ MdnsServiceImpl::MdnsServiceImpl(
   }
 
   if (supported_address_types & Config::NetworkInfo::kUseIpV6) {
-    ErrorOr<std::unique_ptr<UdpSocket>> socket = UdpSocket::Create(
-        task_runner, this, kDefaultMulticastGroupIPv6Endpoint);
+    ErrorOr<std::unique_ptr<UdpSocket>> socket =
+        UdpSocket::Create(task_runner, this,
+                          IPEndpoint{network_info->interface.GetIpAddressV6(),
+                                     kDefaultMulticastPort});
     OSP_DCHECK(!socket.is_error());
     OSP_DCHECK(socket.value().get());
     OSP_DCHECK(socket.value()->IsIPv6());
