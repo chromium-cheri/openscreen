@@ -40,19 +40,20 @@ namespace discovery {
 // See RFC 6762, Section 2
 constexpr uint16_t kDefaultMulticastPort = 5353;
 
-// IPv4 group address for joining mDNS multicast group, given as byte array in
+// IPv4 group address for sending mDNS messages, given as byte array in
 // network-order. This is a link-local multicast address, so messages will not
 // be forwarded outside local network. See RFC 6762, section 3.
 const IPAddress kDefaultMulticastGroupIPv4{224, 0, 0, 251};
-const IPEndpoint kDefaultMulticastGroupIPv4Endpoint{{}, kDefaultMulticastPort};
+const IPEndpoint kDefaultMulticastGroupIPv4Endpoint{kDefaultMulticastGroupIPv4,
+                                                    kDefaultMulticastPort};
 
-// IPv6 group address for joining mDNS multicast group. This is a link-local
+// IPv6 group address for sending mDNS messages. This is a link-local
 // multicast address, so messages will not be forwarded outside local network.
 // See RFC 6762, section 3.
 const IPAddress kDefaultMulticastGroupIPv6{
     0xFF02, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x00FB,
 };
-const IPEndpoint kDefaultMulticastGroupIPv6Endpoint{{0, 0, 0, 0, 0, 0, 0, 0},
+const IPEndpoint kDefaultMulticastGroupIPv6Endpoint{kDefaultMulticastGroupIPv6,
                                                     kDefaultMulticastPort};
 
 // IPv4 group address for joining cast-specific site-local mDNS multicast group,
