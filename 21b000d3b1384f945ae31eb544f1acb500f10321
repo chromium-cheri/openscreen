@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa2d2434_cd6c7802",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-22T23:30:59Z",
+      "side": 1,
+      "message": "Can you add more detail in the commit message?  Is the new behavior:\n\n1. Bind the interface local address\n2. Join the multicast group with the default group address\n3. Send to the default group address/port\n\n",
+      "revId": "21b000d3b1384f945ae31eb544f1acb500f10321",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08942be2_9b5fde35",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-22T23:30:59Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "revId": "21b000d3b1384f945ae31eb544f1acb500f10321",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe198ad9_6fa172f9",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-22T23:30:59Z",
+      "side": 1,
+      "message": "I don\u0027t see a call to GetNetworkInterfaces().",
+      "revId": "21b000d3b1384f945ae31eb544f1acb500f10321",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b4f9a7d_6d9ce4c8",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-22T23:30:59Z",
+      "side": 1,
+      "message": "What the implementation actually needs is the Config::NetworkInfo to start the service.  Is it easy for callers to pass that instead of the NetworkInterfaceIndex?",
+      "revId": "21b000d3b1384f945ae31eb544f1acb500f10321",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d8b80e_04393d5d",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-22T23:30:59Z",
+      "side": 1,
+      "message": "IWYU for \u003calgorithm\u003e",
+      "revId": "21b000d3b1384f945ae31eb544f1acb500f10321",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9945c4b6_cadf60fb",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-22T23:30:59Z",
+      "side": 1,
+      "message": "Config could be refactored to expose AddNetworkInterface()/GetNetworkInterface(index) to ensure there are no duplicates by index, and make it easy for clients to do the lookup.  (Without changing the Create() API above).\n\nFine to do in different patch (since it\u0027s tangential to the bugfix).",
+      "revId": "21b000d3b1384f945ae31eb544f1acb500f10321",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
