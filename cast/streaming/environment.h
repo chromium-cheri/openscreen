@@ -97,10 +97,10 @@ class Environment : public UdpSocket::Client {
 
  private:
   // UdpSocket::Client implementation.
+  void OnBound(UdpSocket* socket) final;
   void OnError(UdpSocket* socket, Error error) final;
   void OnSendError(UdpSocket* socket, Error error) final;
   void OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet_or_error) final;
-
 
   // The UDP socket bound to the local endpoint that was passed into the
   // constructor, or null if socket creation failed.

@@ -74,6 +74,8 @@ void Environment::SendPacket(absl::Span<const uint8_t> packet) {
 
 Environment::PacketConsumer::~PacketConsumer() = default;
 
+void Environment::OnBound(UdpSocket* socket) {}
+
 void Environment::OnError(UdpSocket* socket, Error error) {
   // Usually OnError() is only called for non-recoverable Errors. However,
   // OnSendError() and OnRead() delegate to this method, to handle their hard
