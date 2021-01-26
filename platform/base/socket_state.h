@@ -11,10 +11,10 @@
 
 namespace openscreen {
 
-// SocketState should be used by TCP and TLS sockets for indicating
+// TcpSocketState should be used by TCP and TLS sockets for indicating
 // current state. NOTE: socket state transitions should only happen in
 // the listed order. New states should be added in appropriate order.
-enum class SocketState {
+enum class TcpSocketState {
   // Socket is not connected.
   kNotConnected = 0,
 
@@ -29,6 +29,17 @@ enum class SocketState {
 
   // The socket connection has been terminated, either by Close() or
   // by the remote side.
+  kClosed
+};
+
+enum class UdpSocketState {
+  // Socket has been created but is not bound to anything.
+  kNotReady,
+
+  // Socket is successfully bound to an address.
+  kBound,
+
+  // The socket connection has been closed.
   kClosed
 };
 

@@ -4,6 +4,7 @@
 
 #include "cast/streaming/environment.h"
 
+#include <algorithm>
 #include <utility>
 
 #include "cast/streaming/rtp_defines.h"
@@ -37,6 +38,19 @@ IPEndpoint Environment::GetBoundLocalEndpoint() const {
     return socket_->GetLocalEndpoint();
   }
   return IPEndpoint{};
+}
+
+void Environment::SubscribeToSocketChanges(SocketSubscriber* subscriber) {
+  OSP_DCHECK(std::find(socket_subscribers_.begin(), socket_subscribers_.end(),
+                       subscriber) == socket_subscribers_.end());
+  socket_subscribers_.push_back(subscriber);
+}
+
+void Environment::UnsubscribeToSocketChanges(SocketSubscriber* subscriber) {
+  auto s = std::find(socket_subscribers_.begin(), socket_subscribers_.end(),
+                     subscriber);
+  OSP_DCHECK(s != socket_subscribers_.end());
+  socket_subscribers_.erase(s);
 }
 
 void Environment::ConsumeIncomingPackets(PacketConsumer* packet_consumer) {
@@ -74,7 +88,17 @@ void Environment::SendPacket(absl::Span<const uint8_t> packet) {
 
 Environment::PacketConsumer::~PacketConsumer() = default;
 
+void Environment::OnBound(UdpSocket* socket) {
+  OSP_DCHECK(socket == socket_.get());
+  socket_state_ = UdpSocketState::kBound;
+
+  for (auto* subscriber : socket_subscribers_) {
+    subscriber->OnSocketBound();
+  }
+}
+
 void Environment::OnError(UdpSocket* socket, Error error) {
+  OSP_DCHECK(socket == socket_.get());
   // Usually OnError() is only called for non-recoverable Errors. However,
   // OnSendError() and OnRead() delegate to this method, to handle their hard
   // error cases as well. So, return early here if |error| is recoverable.
@@ -82,14 +106,16 @@ void Environment::OnError(UdpSocket* socket, Error error) {
     return;
   }
 
-  if (socket_error_handler_) {
-    socket_error_handler_(error);
-    return;
+  socket_state_ = UdpSocketState::kClosed;
+  for (auto* subscriber : socket_subscribers_) {
+    subscriber->OnSocketClose(error);
   }
 
-  // Default behavior when no error handler is set.
-  OSP_LOG_ERROR << "For UDP socket bound to " << socket_->GetLocalEndpoint()
-                << ": " << error;
+  if (socket_subscribers_.empty()) {
+    // Default behavior when there are no subscribers.
+    OSP_LOG_ERROR << "For UDP socket bound to " << socket_->GetLocalEndpoint()
+                  << ": " << error;
+  }
 }
 
 void Environment::OnSendError(UdpSocket* socket, Error error) {

@@ -5,6 +5,7 @@
 #include "discovery/mdns/mdns_service_impl.h"
 
 #include <memory>
+#include <utility>
 
 #include "discovery/common/reporting_client.h"
 #include "discovery/mdns/mdns_records.h"
@@ -35,7 +36,8 @@ MdnsServiceImpl::MdnsServiceImpl(
     : task_runner_(task_runner),
       now_function_(now_function),
       reporting_client_(reporting_client),
-      receiver_(config) {
+      receiver_(config),
+      interface_(network_interface) {
   OSP_DCHECK(task_runner_);
   OSP_DCHECK(reporting_client_);
   OSP_DCHECK(supported_address_types);
@@ -90,27 +92,11 @@ MdnsServiceImpl::MdnsServiceImpl(
   // objects have all been created, it they should be able to safely do so.
   // NOTE: Although only one of these sockets is used for sending, both will be
   // used for reading on the mDNS v4 and v6 addresses and ports.
-  if (socket_v4_.get()) {
+  if (socket_v4_) {
     socket_v4_->Bind();
-
-    // This configuration must happen after the socket is bound for
-    // compatibility with chromium.
-    socket_v4_->SetMulticastOutboundInterface(network_interface);
-    socket_v4_->JoinMulticastGroup(kDefaultMulticastGroupIPv4,
-                                   network_interface);
-    socket_v4_->JoinMulticastGroup(kDefaultSiteLocalGroupIPv4,
-                                   network_interface);
   }
-  if (socket_v6_.get()) {
+  if (socket_v6_) {
     socket_v6_->Bind();
-
-    // This configuration must happen after the socket is bound for
-    // compatibility with chromium.
-    socket_v6_->SetMulticastOutboundInterface(network_interface);
-    socket_v6_->JoinMulticastGroup(kDefaultMulticastGroupIPv6,
-                                   network_interface);
-    socket_v6_->JoinMulticastGroup(kDefaultSiteLocalGroupIPv6,
-                                   network_interface);
   }
 }
 
@@ -164,6 +150,24 @@ void MdnsServiceImpl::OnSendError(UdpSocket* socket, Error error) {
 
 void MdnsServiceImpl::OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet) {
   receiver_.OnRead(socket, std::move(packet));
+}
+
+void MdnsServiceImpl::OnBound(UdpSocket* socket) {
+  // Socket configuration must occur after the socket has been bound
+  // successfully.
+  if (socket == socket_v4_.get()) {
+    socket_v4_->SetMulticastOutboundInterface(interface_);
+    socket_v4_->JoinMulticastGroup(kDefaultMulticastGroupIPv4, interface_);
+    socket_v4_->JoinMulticastGroup(kDefaultSiteLocalGroupIPv4, interface_);
+  } else if (socket == socket_v6_.get()) {
+    socket_v6_->SetMulticastOutboundInterface(interface_);
+    socket_v6_->JoinMulticastGroup(kDefaultMulticastGroupIPv6, interface_);
+    socket_v6_->JoinMulticastGroup(kDefaultSiteLocalGroupIPv6, interface_);
+  } else {
+    // Sanity check: we shouldn't be called for sockets we haven't subscribed
+    // to.
+    OSP_NOTREACHED();
+  }
 }
 
 }  // namespace discovery
