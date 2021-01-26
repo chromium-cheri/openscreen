@@ -15,6 +15,7 @@
 #include "platform/api/time.h"
 #include "platform/api/udp_socket.h"
 #include "platform/base/ip_address.h"
+#include "platform/base/socket_state.h"
 
 namespace openscreen {
 namespace cast {
@@ -31,6 +32,12 @@ class Environment : public UdpSocket::Client {
 
    protected:
     virtual ~PacketConsumer();
+  };
+
+  class SocketSubscriber {
+   public:
+    virtual void OnSocketBound() = 0;
+    virtual void OnSocketClose(Error error) = 0;
   };
 
   // Construct with the given clock source and TaskRunner. Creates and
@@ -54,12 +61,6 @@ class Environment : public UdpSocket::Client {
   // is a bound socket.
   virtual IPEndpoint GetBoundLocalEndpoint() const;
 
-  // Set a handler function to run whenever non-recoverable socket errors occur.
-  // If never set, the default is to emit log messages at error priority.
-  void set_socket_error_handler(std::function<void(Error)> handler) {
-    socket_error_handler_ = handler;
-  }
-
   // Get/Set the remote endpoint. This is separate from the constructor because
   // the remote endpoint is, in some cases, discovered only after receiving a
   // packet.
@@ -67,6 +68,14 @@ class Environment : public UdpSocket::Client {
   void set_remote_endpoint(const IPEndpoint& endpoint) {
     remote_endpoint_ = endpoint;
   }
+
+  // Returns the current state of the UDP socket. This method is virtual
+  // to allow tests to simulate socket state.
+  virtual UdpSocketState socket_state() const { return socket_state_; }
+
+  // Un/subscribe to changes to the UDP socket.
+  void SubscribeToSocketChanges(SocketSubscriber* subscriber);
+  void UnsubscribeToSocketChanges(SocketSubscriber* subscriber);
 
   // Start/Resume delivery of incoming packets to the given |packet_consumer|.
   // Delivery will continue until DropIncomingPackets() is called.
@@ -97,10 +106,10 @@ class Environment : public UdpSocket::Client {
 
  private:
   // UdpSocket::Client implementation.
+  void OnBound(UdpSocket* socket) final;
   void OnError(UdpSocket* socket, Error error) final;
   void OnSendError(UdpSocket* socket, Error error) final;
   void OnRead(UdpSocket* socket, ErrorOr<UdpPacket> packet_or_error) final;
-
 
   // The UDP socket bound to the local endpoint that was passed into the
   // constructor, or null if socket creation failed.
@@ -108,9 +117,10 @@ class Environment : public UdpSocket::Client {
 
   // These are externally set/cleared. Behaviors are described in getter/setter
   // method comments above.
-  std::function<void(Error)> socket_error_handler_;
   IPEndpoint remote_endpoint_{};
   PacketConsumer* packet_consumer_ = nullptr;
+  UdpSocketState socket_state_ = UdpSocketState::kNotReady;
+  std::vector<SocketSubscriber*> socket_subscribers_;
 };
 
 }  // namespace cast

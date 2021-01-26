@@ -188,6 +188,7 @@ void UdpSocketPosix::Bind() {
     OnError(Error::Code::kSocketOptionSettingFailure);
   }
 
+  bool is_bound = false;
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
       struct sockaddr_in address;
@@ -196,29 +197,29 @@ void UdpSocketPosix::Bind() {
       local_endpoint_.address.CopyToV4(
           reinterpret_cast<uint8_t*>(&address.sin_addr.s_addr));
       if (bind(handle_.fd, reinterpret_cast<struct sockaddr*>(&address),
-               sizeof(address)) == -1) {
-        OnError(Error::Code::kSocketBindFailure);
+               sizeof(address)) != -1) {
+        is_bound = true;
       }
-      return;
     }
 
     case UdpSocket::Version::kV6: {
-      struct sockaddr_in6 address;
+      struct sockaddr_in6 address {};
       address.sin6_family = AF_INET6;
-      address.sin6_flowinfo = 0;
       address.sin6_port = htons(local_endpoint_.port);
       local_endpoint_.address.CopyToV6(
           reinterpret_cast<uint8_t*>(&address.sin6_addr));
-      address.sin6_scope_id = 0;
       if (bind(handle_.fd, reinterpret_cast<struct sockaddr*>(&address),
-               sizeof(address)) == -1) {
-        OnError(Error::Code::kSocketBindFailure);
+               sizeof(address)) != -1) {
+        is_bound = true;
       }
-      return;
     }
   }
 
-  OSP_NOTREACHED();
+  if (is_bound) {
+    client_->OnBound(this);
+  } else {
+    OnError(Error::Code::kSocketBindFailure);
+  }
 }
 
 void UdpSocketPosix::SetMulticastOutboundInterface(
