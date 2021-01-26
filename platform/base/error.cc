@@ -254,6 +254,8 @@ std::ostream& operator<<(std::ostream& os, const Error::Code& code) {
       return os << "ProcessReceivedRecordFailure";
     case Error::Code::kUnknownCodec:
       return os << "UnknownCodec";
+    case Error::Code::kEnvironmentFailure:
+      return os << "EnvironmentFailure";
     case Error::Code::kNone:
       break;
   }
