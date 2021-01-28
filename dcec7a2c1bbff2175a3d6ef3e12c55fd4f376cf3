@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c886b155_7e594e7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Current round of comments is on platform/ - a few questions around legal state transitions for the TLS socket.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fd7b907_9bd6b457",
+        "filename": "platform/base/error.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "This is OK but it could end up lumping together more specific error conditions.  I would be okay with kSocketFailure, for example, if this is triggered only by socket failures.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e9cf6b_007cc16f",
+        "filename": "platform/impl/stream_socket.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Make sure to update the .cc as well for c++17 compat.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3286f07f_f665fb4c",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Maybe is_bound_ could be replaced by a kBound socket state; bind() has to come before connect()/listen() IIRC?\n\nTangential to this patch however.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9ecf66d_2b78e7dc",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Should we check for a closed socket before calling Bind()/Listen() or will those be no-ops?",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8cef1f4_61f56629",
+        "filename": "platform/impl/stream_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Maybe just check if state() !\u003d kListening above.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79f6f745_5633e672",
+        "filename": "platform/impl/stream_socket_posix.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f403e86a_87bb7a4a",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b98d257_01de0662",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "I am wondering if this should be a DCHECK - could the socket be closed?",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5003c391_5b81440b",
+        "filename": "platform/impl/tls_connection_factory_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Similar comment here.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "658f27f7_e481d3c8",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-28T18:11:59Z",
+      "side": 1,
+      "message": "Nit: Would prefer to use an initializer for sockaddr_in above as well for consistency.",
+      "revId": "dcec7a2c1bbff2175a3d6ef3e12c55fd4f376cf3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
