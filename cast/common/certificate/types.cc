@@ -55,11 +55,11 @@ bool DateTimeFromSeconds(uint64_t seconds, DateTime* time) {
 #if defined(_WIN32)
   // NOTE: This is for compiling in Chromium and is not validated in any direct
   // libcast Windows build.
-  if (!gmtime_s(&tm, &sec)) {
+  if (!localtime_s(&tm, &sec)) {
     return false;
   }
 #else
-  if (!gmtime_r(&sec, &tm)) {
+  if (!localtime_r(&sec, &tm)) {
     return false;
   }
 #endif
