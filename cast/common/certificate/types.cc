@@ -4,6 +4,8 @@
 
 #include "cast/common/certificate/types.h"
 
+#include <stdlib.h>
+
 #include "util/osp_logging.h"
 
 namespace openscreen {
@@ -88,6 +90,7 @@ std::chrono::seconds DateTimeToSeconds(const DateTime& time) {
   tm.tm_mday = time.day;
   tm.tm_mon = time.month - 1;
   tm.tm_year = time.year - 1900;
+  setenv("TZ", "UTC", 1);
   return std::chrono::seconds(mktime(&tm));
 }
 
