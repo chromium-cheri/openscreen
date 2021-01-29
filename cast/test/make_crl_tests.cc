@@ -135,6 +135,7 @@ int CastMain() {
   july2020.month = 7;
   july2020.year = 2020;
   july2020.day = 23;
+
   std::chrono::seconds not_before = DateTimeToSeconds(july2019);
   std::chrono::seconds not_after = DateTimeToSeconds(july2020);
   TbsCrl tbs_crl = MakeTbsCrl(not_before.count(), not_after.count(),
