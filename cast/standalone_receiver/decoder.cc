@@ -44,7 +44,9 @@ absl::Span<uint8_t> Decoder::Buffer::GetSpan() {
 Decoder::Client::Client() = default;
 Decoder::Client::~Client() = default;
 
-Decoder::Decoder(const std::string& codec_name) : codec_name_(codec_name) {}
+Decoder::Decoder(const std::string& codec_name) : codec_name_(codec_name) {
+  avcodec_register_all();
+}
 
 Decoder::~Decoder() = default;
 
