@@ -12,6 +12,7 @@ namespace internal {
 
 AVFormatContext* CreateAVFormatContextForFile(const char* path) {
   AVFormatContext* format_context = nullptr;
+  av_register_all();
   int result = avformat_open_input(&format_context, path, nullptr, nullptr);
   if (result < 0) {
     OSP_LOG_ERROR << "Cannot open " << path << ": " << av_err2str(result);
