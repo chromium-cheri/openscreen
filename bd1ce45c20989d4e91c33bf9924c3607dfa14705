@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67e2e766_2ab81aac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "Looks good with a few documentation suggestions\n",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af4b03bf_a6c127e7",
+        "filename": "cast/streaming/environment.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "If the socket is closed normally/intentionally, does it also become kInvalid?  Maybe update the docs to cover this case.",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42cde2f_b9342d48",
+        "filename": "cast/streaming/environment.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "Can we name this OnSocketInvalid so it\u0027s consistent with the state enum?",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f48f614_a8e99b20",
+        "filename": "cast/streaming/environment.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "Update comment to be specific about how the caller unsubscribes",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7c859ea_b69dedca",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "The environment is invalid and should...",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29279c89_35047e74",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "\"for the UDP socket to be ready\" (to keep with the terminology in the API)",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b69de5a_80c357d0",
+        "filename": "osp/impl/discovery/mdns/mdns_responder_adapter_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "I have a patch in progress to remove this whole class, so not a big deal to leave this unimplemented. :-)",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c2d4d4_0103a3f5",
+        "filename": "platform/base/error.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "Update string?",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeac6415_5285049d",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-01-29T19:28:23Z",
+      "side": 1,
+      "message": "I got curious so looked up some stuff to see if you can allocate and initialize a struct one statement.   You could use brace initialization here with a list, but it would be less self-documenting.\n\nThe best solution here IMO would be designated initializers.  Unfortunatly they are only in C99 and not available until C++20 it seems.\n\nhttps://www.modernescpp.com/index.php/designated-initializers\n\nMaybe I missed something though.",
+      "revId": "bd1ce45c20989d4e91c33bf9924c3607dfa14705",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
