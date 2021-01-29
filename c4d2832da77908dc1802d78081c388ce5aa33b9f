@@ -16,6 +16,24 @@
       "message": "Curios: is it more efficient to use an initializer above for sockaddr_in6, versus setting two of its fields to zero?",
       "revId": "c4d2832da77908dc1802d78081c388ce5aa33b9f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543976bb_1d9cf7fa",
+        "filename": "platform/impl/udp_socket_posix.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-01-29T04:17:23Z",
+      "side": 0,
+      "message": "That\u0027s a good question. My hunch would be that setting the fields to zero might be faster, but I think zero initialization is clearer to me.",
+      "parentUuid": "e8ad1229_74812db9",
+      "revId": "c4d2832da77908dc1802d78081c388ce5aa33b9f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
