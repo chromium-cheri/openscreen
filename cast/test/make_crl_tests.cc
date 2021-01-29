@@ -135,6 +135,18 @@ int CastMain() {
   july2020.month = 7;
   july2020.year = 2020;
   july2020.day = 23;
+
+  // Check DateTime conversion
+  {
+    DateTime july2020_new;
+    auto sec = DateTimeToSeconds(july2020);
+    DateTimeFromSeconds(sec.count(), &july2020_new);
+    OSP_DCHECK_EQ(july2020.year, july2020_new.year) << "Year is Not matched!";
+    OSP_DCHECK_EQ(july2020.month, july2020_new.month)
+        << "Month is Not matched!";
+    OSP_DCHECK_EQ(july2020.day, july2020_new.day) << "Day is Not matched!";
+  }
+
   std::chrono::seconds not_before = DateTimeToSeconds(july2019);
   std::chrono::seconds not_after = DateTimeToSeconds(july2020);
   TbsCrl tbs_crl = MakeTbsCrl(not_before.count(), not_after.count(),
