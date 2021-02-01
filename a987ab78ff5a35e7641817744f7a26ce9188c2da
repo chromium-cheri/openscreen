@@ -50,6 +50,24 @@
       "message": "Can you elaborate on when gmtime is wrong?  The unit test you added passes for me with the code as-is.  Also, for certificate time comparisons we use \"now\" as `std::system_clock::now()` which should use UTC time as well.  Is it possible the system time was set incorrectly on the system where you saw a failure?",
       "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94b8649a_f68cd140",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1172439
+      },
+      "writtenOn": "2021-02-01T23:27:16Z",
+      "side": 1,
+      "message": "When I type \u0027timedatect\u0027 in my environment,\nI got the below result\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n                      Local time: 화 2021-02-02 08:23:41 KST\n                  Universal time: 월 2021-02-01 23:23:41 UTC\n                        RTC time: 월 2021-02-01 23:23:41\n                       Time zone: Asia/Seoul (KST, +0900)\n       System clock synchronized: yes\nsystemd-timesyncd.service active: yes\n                 RTC in local TZ: no\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nLocal time is 2/2 and Universal time is 2/1.\nIf I make certificate with ./cast_receiver -g,\nit\u0027s before date has today. (2/2).\nBut call mktim -\u003e gmtime return 2/1 and certificate failed.",
+      "parentUuid": "e786dd2e_cc1a2ac8",
+      "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
