@@ -33,6 +33,23 @@
       "message": "I think btolsch@ is more familiar with the certificate handling code.  In general I don\u0027t think we want timezone dependencies in our certificates?\n",
       "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e786dd2e_cc1a2ac8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-02-01T21:17:11Z",
+      "side": 1,
+      "message": "Can you elaborate on when gmtime is wrong?  The unit test you added passes for me with the code as-is.  Also, for certificate time comparisons we use \"now\" as `std::system_clock::now()` which should use UTC time as well.  Is it possible the system time was set incorrectly on the system where you saw a failure?",
+      "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
