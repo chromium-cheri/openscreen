@@ -118,22 +118,19 @@ class FailOnErrorReporting : public discovery::ReportingClient {
 };
 
 discovery::Config GetConfigSettings() {
-  discovery::Config config;
-
   // Get the loopback interface to run on.
-  absl::optional<InterfaceInfo> loopback = GetLoopbackInterfaceForTesting();
-  OSP_CHECK(loopback.has_value());
+  InterfaceInfo loopback = GetLoopbackInterfaceForTesting().value();
+  OSP_LOG_INFO << "Selected network interface for testing: " << loopback;
   discovery::Config::NetworkInfo::AddressFamilies address_families =
       discovery::Config::NetworkInfo::kNoAddressFamily;
-  if (loopback->GetIpAddressV4()) {
+  if (loopback.GetIpAddressV4()) {
     address_families |= discovery::Config::NetworkInfo::kUseIpV4;
   }
-  if (loopback->GetIpAddressV6()) {
+  if (loopback.GetIpAddressV6()) {
     address_families |= discovery::Config::NetworkInfo::kUseIpV6;
   }
-  config.network_info.push_back({loopback.value(), address_families});
 
-  return config;
+  return discovery::Config{{{std::move(loopback), address_families}}};
 }
 
 class DiscoveryE2ETest : public testing::Test {
@@ -174,7 +171,7 @@ class DiscoveryE2ETest : public testing::Test {
     });
     WaitForCondition([&done]() { return done.load(); }, kWaitLoopSleepTime,
                      kMaxWaitLoopIterations);
-    OSP_CHECK(done);
+    ASSERT_TRUE(done);
   }
 
   void StartDiscovery() {
@@ -191,8 +188,8 @@ class DiscoveryE2ETest : public testing::Test {
     for (ServiceInfo& record : record_set) {
       task_runner_->PostTask([this, r = std::move(record)]() {
         auto error = publisher_->UpdateRegistration(r);
-        OSP_CHECK(error.ok()) << "\tFailed to update service instance '"
-                              << r.friendly_name << "': " << error << "!";
+        ASSERT_TRUE(error.ok()) << "\tFailed to update service instance '"
+                                << r.friendly_name << "': " << error << "!";
       });
     }
   }
@@ -206,8 +203,8 @@ class DiscoveryE2ETest : public testing::Test {
     for (ServiceInfo& record : record_set) {
       task_runner_->PostTask([this, r = std::move(record)]() {
         auto error = publisher_->Register(r);
-        OSP_CHECK(error.ok()) << "\tFailed to publish service instance '"
-                              << r.friendly_name << "': " << error << "!";
+        ASSERT_TRUE(error.ok()) << "\tFailed to publish service instance '"
+                                << r.friendly_name << "': " << error << "!";
       });
     }
   }
@@ -222,7 +219,7 @@ class DiscoveryE2ETest : public testing::Test {
       waiting_on = atomic_bools.size();
       for (std::atomic_bool* atomic : atomic_bools) {
         if (*atomic) {
-          OSP_CHECK(should_be_seen) << "Found service instance!";
+          ASSERT_TRUE(should_be_seen) << "Found service instance!";
           waiting_on--;
         }
       }
@@ -234,7 +231,7 @@ class DiscoveryE2ETest : public testing::Test {
       }
       return;
     }
-    OSP_CHECK(!should_be_seen)
+    ASSERT_TRUE(!should_be_seen)
         << "Could not find " << waiting_on << " service instances!";
   }
 
@@ -283,7 +280,7 @@ class DiscoveryE2ETest : public testing::Test {
       return;
     }
 
-    OSP_CHECK_LE(attempts++, kMaxCheckLoopIterations)
+    ASSERT_TRUE(attempts++ <= kMaxCheckLoopIterations)
         << "Service " << service_info.friendly_name << " publication failed.";
     task_runner_->PostTaskWithDelay(
         [this, info = std::move(service_info), has_been_seen,
@@ -299,7 +296,7 @@ class DiscoveryE2ETest : public testing::Test {
                                 bool expect_to_be_present) {
     if (!receiver_->IsServiceFound(service_info)) {
       if (attempts++ > kMaxCheckLoopIterations) {
-        OSP_CHECK(!expect_to_be_present)
+        ASSERT_TRUE(!expect_to_be_present)
             << "Service " << service_info.friendly_name << " discovery failed.";
         return;
       }
