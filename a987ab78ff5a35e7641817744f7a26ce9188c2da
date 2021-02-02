@@ -68,6 +68,24 @@
       "parentUuid": "e786dd2e_cc1a2ac8",
       "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f59806e8_00292d12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-02-02T19:56:26Z",
+      "side": 1,
+      "message": "Thank you for that info.  `cast_receiver -g` also uses `system_clock::now()`, so it sounds like the libc `time()` function returns a different value than `system_clock::now()` on your system.  Is that the case?  If not, I\u0027ll have to think more about how this can happen.",
+      "parentUuid": "94b8649a_f68cd140",
+      "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
