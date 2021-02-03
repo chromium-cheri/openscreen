@@ -86,6 +86,24 @@
       "parentUuid": "94b8649a_f68cd140",
       "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8197b613_9a30b1c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1172439
+      },
+      "writtenOn": "2021-02-03T01:07:09Z",
+      "side": 1,
+      "message": "OK, your right. It\u0027s not resolved via localtime().\nI checked some state.\nCertification use UTS time.\nIn my research, mktime use local time.\nSo, when I insert below code in AuthenticateChallengeReply(), tmp and now is different.\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nDateTime tmp{};\nDateTimeFromSeconds(DateTimeToSeconds(now).count(), \u0026tmp);\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nI update new patch, but I think it is not graceful solution....",
+      "parentUuid": "f59806e8_00292d12",
+      "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
