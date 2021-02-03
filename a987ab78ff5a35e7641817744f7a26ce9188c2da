@@ -104,6 +104,24 @@
       "parentUuid": "f59806e8_00292d12",
       "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be0fc3ef_cbbd1166",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-02-03T16:45:02Z",
+      "side": 1,
+      "message": "Ah, okay, so `mktime` is definitely the issue.  Setting the environment variable (even if we added a restoration step) isn\u0027t great.  I think it\u0027s better to use `timegm()` and `_mkgmtime()` on Windows.",
+      "parentUuid": "8197b613_9a30b1c3",
+      "revId": "a987ab78ff5a35e7641817744f7a26ce9188c2da",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
