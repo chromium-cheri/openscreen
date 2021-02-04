@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0241746_2e892090",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-02-04T00:36:58Z",
+      "side": 1,
+      "message": "Asserts cause tests failures, DCHECKs crash the entire binary causing every other e2e test in the run to also fail--at least that\u0027s what I was seeing locally.\n\nI can switch them back, but I prefer asserting here because it allows us to run the other end to end tests and see what tests are failing, instead of just the first failing test.",
+      "parentUuid": "1acb07d4_45671aa5",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 15
+      },
+      "revId": "f0a5d2fc5ed4dfb4c5fa4f88e8820e54e19dc919",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c45c1eee_de6fafed",
         "filename": "discovery/mdns/mdns_service_impl.cc",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-02-02T21:07:21Z",
       "side": 1,
       "message": "Please manually validate when publishing over 2 network interfaces, data is only received from the correct one",
+      "range": {
+        "startLine": 49,
+        "startChar": 19,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "f0a5d2fc5ed4dfb4c5fa4f88e8820e54e19dc919",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142be376_862711df",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-02-04T00:36:58Z",
+      "side": 1,
+      "message": "I\u0027d love to say I can do this, but couldn\u0027t really figure out a solid way to to do this with my work machine. If we really want this, I can try setting up and building on my Chromebook tomorrow.\n\nI did some more digging and found some helpful docs: https://tldp.org/HOWTO/Multicast-HOWTO-6.html.\n\nWe set the multicast outbound interface (SetMulticastOutboundInterface) for the socket in the udp_socket_posix implementation using IP_MULTICAST_IF, which overrides the send interface. Multigrams are only sent on one interface for the socket, not for all interfaces.\n\nListening wise we only get multicast packets for interfaces we subscribe on (JoinMulticastGroup) using the IP_ADD_MEMBERSHIP socket option. It would be a socket API violation to get multicast packets for an interface we haven\u0027t added membership on.\n\nI am pretty confident that we are doing it right now and won\u0027t get duplicates, but I am not sure how best to test it. I don\u0027t think we can do an e2e test since it would require having two guaranteed interfaces.",
+      "parentUuid": "c45c1eee_de6fafed",
       "range": {
         "startLine": 49,
         "startChar": 19,
