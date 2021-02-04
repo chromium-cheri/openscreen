@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09005a1b_a1ad8c02",
+        "filename": "cast/common/discovery/e2e_test/tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-02-04T00:54:05Z",
+      "side": 1,
+      "message": "That\u0027s an intentional decision me + btolsch made when writing these\n\n\u003e Asserts cause tests failures, DCHECKs crash the entire binary causing every other e2e test in the run to also fail-\n\nThe trade off is that it crashes everything vs the failures are often useless\n\nWithout assert instead of DCHECK, the cause of the failure can be completely obscured to the point where the test no longer helps with debugging. From what I + btolsch ran into, gtest doesn\u0027t always play well with the STL threading libraries - due to timing issues associated with multithreading I ran into a number of cases where a failed assert doesn\u0027t actually cause a test crash, or doesn\u0027t stop the test\u0027s ongoing run, or other weirdness leading to the failure being obscured a lot. DCHECK immediately kills all threads and stops everything, getting around these issues\n\nIMHO it feels like a bug in gtest, but I\u0027m sure it was an intentional decision on their part\n\nWDYT?",
+      "parentUuid": "a0241746_2e892090",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 15
+      },
+      "revId": "f0a5d2fc5ed4dfb4c5fa4f88e8820e54e19dc919",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c45c1eee_de6fafed",
         "filename": "discovery/mdns/mdns_service_impl.cc",
         "patchSetId": 3
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "I\u0027d love to say I can do this, but couldn\u0027t really figure out a solid way to to do this with my work machine. If we really want this, I can try setting up and building on my Chromebook tomorrow.\n\nI did some more digging and found some helpful docs: https://tldp.org/HOWTO/Multicast-HOWTO-6.html.\n\nWe set the multicast outbound interface (SetMulticastOutboundInterface) for the socket in the udp_socket_posix implementation using IP_MULTICAST_IF, which overrides the send interface. Multigrams are only sent on one interface for the socket, not for all interfaces.\n\nListening wise we only get multicast packets for interfaces we subscribe on (JoinMulticastGroup) using the IP_ADD_MEMBERSHIP socket option. It would be a socket API violation to get multicast packets for an interface we haven\u0027t added membership on.\n\nI am pretty confident that we are doing it right now and won\u0027t get duplicates, but I am not sure how best to test it. I don\u0027t think we can do an e2e test since it would require having two guaranteed interfaces.",
       "parentUuid": "c45c1eee_de6fafed",
+      "range": {
+        "startLine": 49,
+        "startChar": 19,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "f0a5d2fc5ed4dfb4c5fa4f88e8820e54e19dc919",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1fec6b8_a6fa8ce6",
+        "filename": "discovery/mdns/mdns_service_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-02-04T00:54:05Z",
+      "side": 1,
+      "message": "\u003e I am pretty confident that we are doing it right now and won\u0027t get duplicates\n\nSGTM. Let\u0027s go as-is then\n\nMaybe we can ask @joshuaduong to try it post-check-in, if his current setup supports this? I would expect it to be a blocker for Android usage if duplicates were appearing",
+      "parentUuid": "142be376_862711df",
       "range": {
         "startLine": 49,
         "startChar": 19,
