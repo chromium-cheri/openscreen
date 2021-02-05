@@ -72,6 +72,7 @@ source_set("channel") {
   deps = [ "certificate/proto:certificate_proto" ]
 
   public_deps = [
+    ":public",
     "../../platform",
     "../../third_party/abseil",
     "../../util",
@@ -128,6 +129,7 @@ source_set("test_helpers") {
     ":certificate",
     ":channel",
     ":public",
+    "../../discovery:dnssd",
     "../../platform:test",
     "../../testing/util",
     "../../third_party/abseil",
