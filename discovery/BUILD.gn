@@ -95,6 +95,7 @@ source_set("dnssd") {
   public_deps = [
     ":common",
     ":mdns",
+    "../util",
   ]
 }
 
@@ -108,6 +109,7 @@ source_set("public") {
   public_deps = [
     ":common",
     ":dnssd",
+    "../util",
   ]
 }
 
@@ -159,7 +161,10 @@ source_set("unittests") {
   deps = [
     ":dnssd",
     ":mdns",
+    ":public",
     ":testing",
+    "../platform:test",
+    "../third_party/abseil",
     "../third_party/googletest:gmock",
     "../third_party/googletest:gtest",
     "../util",
