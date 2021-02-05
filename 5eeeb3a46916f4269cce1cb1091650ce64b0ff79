@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3ded1f2_13fb59d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-02-05T22:15:22Z",
+      "side": 1,
+      "message": "PTAL, thanks!  The non-trivial parts are moving request_response_handler.h and message_demuxer.cc, the latter is to break the public-\u003eimpl-\u003epublic dependency cycle.  ATM I don\u0027t think MessageDemuxer should be an interface and move completely to impl/, so this seemed like the best compromise, but LMK.",
+      "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
