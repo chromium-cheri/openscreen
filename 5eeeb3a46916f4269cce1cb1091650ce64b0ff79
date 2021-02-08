@@ -16,6 +16,74 @@
       "message": "PTAL, thanks!  The non-trivial parts are moving request_response_handler.h and message_demuxer.cc, the latter is to break the public-\u003eimpl-\u003epublic dependency cycle.  ATM I don\u0027t think MessageDemuxer should be an interface and move completely to impl/, so this seemed like the best compromise, but LMK.",
       "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "145304d6_4f597ddd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-02-08T19:20:30Z",
+      "side": 1,
+      "message": "Thanks for this cleanup!  I didn\u0027t look at the entire files, so check that you aren\u0027t propagating any public_configs that will do something unexpected.\n\nOur GN files could use some more refactoring to better define public/private targets but that is for another day.\n",
+      "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7edaaa02_cab02dbb",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-02-08T19:20:30Z",
+      "side": 1,
+      "message": "Should this be part of :public? Not sure what is included in the \"public\" part of this module.",
+      "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecf6c8dd_80578437",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-02-08T19:20:30Z",
+      "side": 1,
+      "message": "In other modules we\u0027ve tried to split up code into :public and implementation targets (with an eye to enforcing DEPS upstream and linker visibility).  Looks like that was skipped here.\n\nNot something to fix now, but this would improve long term maintainability for embedders like AOSP.",
+      "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c7d84fd_fdb2ec66",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-02-08T19:20:30Z",
+      "side": 1,
+      "message": "util/ types should normally not be exposed to embedders.  Is this included by the code above in impl/, public/ or both?",
+      "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
