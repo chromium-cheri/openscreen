@@ -54,6 +54,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0f7487e3_ff17479e",
+        "filename": "cast/common/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-02-09T18:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7edaaa02_cab02dbb",
+      "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ecf6c8dd_80578437",
         "filename": "discovery/BUILD.gn",
         "patchSetId": 4
@@ -65,6 +83,24 @@
       "writtenOn": "2021-02-08T19:20:30Z",
       "side": 1,
       "message": "In other modules we\u0027ve tried to split up code into :public and implementation targets (with an eye to enforcing DEPS upstream and linker visibility).  Looks like that was skipped here.\n\nNot something to fix now, but this would improve long term maintainability for embedders like AOSP.",
+      "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "031d09ea_a6b59817",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-02-09T18:40:00Z",
+      "side": 1,
+      "message": "Added b/179705382 for this.",
+      "parentUuid": "ecf6c8dd_80578437",
       "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -82,6 +118,24 @@
       "writtenOn": "2021-02-08T19:20:30Z",
       "side": 1,
       "message": "util/ types should normally not be exposed to embedders.  Is this included by the code above in impl/, public/ or both?",
+      "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c49f57_416f0c22",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-02-09T18:40:00Z",
+      "side": 1,
+      "message": "Both impl/ and public/, but public/ only uses std_util.h and osp_logging.h, which don\u0027t expose types (directly), just helper functions.\n\nI didn\u0027t remember this restriction on util/ and none of the */public/DEPS files exclude util/.  I remember there being discussions about platform/api, platform/base, and util/ relationships, but the only doc I could find was the original repo structure doc which doesn\u0027t mention util/.  Is there a strong reason we should explicitly block this going forward?",
+      "parentUuid": "7c7d84fd_fdb2ec66",
       "revId": "5eeeb3a46916f4269cce1cb1091650ce64b0ff79",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
