@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a4c426_4c80eede",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-02-11T20:28:56Z",
+      "side": 1,
+      "message": "Even though it\u0027s testonly, including abseil\u0027s hash_testing.h is currently prohibited in Chromium due to their component build setup.  This solution is not ideal, but seems reasonable to me.  I think the alternatives are: 1. move all the hash checking calls into a separate test file that\u0027s only included outside chromium, 2. leave as-is with gn check disabled for discovery/.  PTAL, thanks!",
+      "revId": "14dafc80759ba0d9a8ac38b86e8eb5f04cf9731b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
