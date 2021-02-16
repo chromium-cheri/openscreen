@@ -18,6 +18,23 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f2745a2_d822649c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1116524
+      },
+      "writtenOn": "2021-02-16T21:22:39Z",
+      "side": 1,
+      "message": "Fixed in https://chromium-review.googlesource.com/c/openscreen/+/2698270\nI can never get openscreen git cl upload to work properly.",
+      "revId": "e32775d1262714a73a75ce2b7e401670f3dba80b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e212173d_ef9d77f8",
@@ -31,6 +48,24 @@
       "writtenOn": "2021-02-16T20:02:03Z",
       "side": 1,
       "message": "Nit: if the result is value and the socket_ is nullptr, that\u0027s a developer error right?\n\nMaybe:\n\n  if (result.is_error()) {\n    OSP_LOG_ERROR \u003c\u003c \"...\";\n    return;\n  }\n\n  const_cast\u003cstd::unique_ptr\u003cUdpSocket\u003e\u0026\u003e(socket_) \u003d std::move(result.value());\n  OSP_DCHECK(socket_);\n  socket_-\u003eBind();",
+      "revId": "e32775d1262714a73a75ce2b7e401670f3dba80b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e43ea23a_5f2e5c80",
+        "filename": "cast/streaming/environment.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1116524
+      },
+      "writtenOn": "2021-02-16T21:22:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e212173d_ef9d77f8",
       "revId": "e32775d1262714a73a75ce2b7e401670f3dba80b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
