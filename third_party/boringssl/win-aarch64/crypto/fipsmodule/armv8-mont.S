@@ -9,6 +9,7 @@
 #endif
 
 #if !defined(OPENSSL_NO_ASM)
+#if defined(__aarch64__)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
@@ -16,11 +17,13 @@
 
 .text
 
-.globl	_bn_mul_mont
-.private_extern	_bn_mul_mont
+.globl	bn_mul_mont
 
+.def bn_mul_mont
+   .type 32
+.endef
 .align	5
-_bn_mul_mont:
+bn_mul_mont:
 	AARCH64_SIGN_LINK_REGISTER
 	tst	x5,#7
 	b.eq	__bn_sqr8x_mont
@@ -222,7 +225,9 @@ Lcond_copy:
 	AARCH64_VALIDATE_LINK_REGISTER
 	ret
 
-
+.def __bn_sqr8x_mont
+   .type 32
+.endef
 .align	5
 __bn_sqr8x_mont:
 	// Not adding AARCH64_SIGN_LINK_REGISTER here because __bn_sqr8x_mont is jumped to
@@ -984,7 +989,9 @@ Lsqr8x_done:
 	AARCH64_VALIDATE_LINK_REGISTER
 	ret
 
-
+.def __bn_mul4x_mont
+   .type 32
+.endef
 .align	5
 __bn_mul4x_mont:
 	// Not adding AARCH64_SIGN_LINK_REGISTER here because __bn_mul4x_mont is jumped to
@@ -1430,4 +1437,5 @@ Lmul4x_done:
 .byte	77,111,110,116,103,111,109,101,114,121,32,77,117,108,116,105,112,108,105,99,97,116,105,111,110,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
 .align	2
 .align	4
+#endif
 #endif  // !OPENSSL_NO_ASM
