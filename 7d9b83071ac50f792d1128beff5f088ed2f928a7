@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23f80acb_b87021c8",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2021-03-04T20:36:49Z",
+      "side": 1,
+      "message": "Yeah, this API is absurd. Go OpenSSL. :-(",
+      "revId": "7d9b83071ac50f792d1128beff5f088ed2f928a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0df6ac48_39fdf98d",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2021-03-04T20:36:49Z",
+      "side": 1,
+      "message": "I haven\u0027t done this here, but if we use X509_verify, BoringSSL will bundle the verification and the sigalg check (why are there two of them...) in one function.",
+      "revId": "7d9b83071ac50f792d1128beff5f088ed2f928a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "175bda6a_be91ebd5",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2021-03-04T20:36:49Z",
+      "side": 1,
+      "message": "Under the hood, this uses |enc| when available. |enc| is really just a cache, though one that, in this context will always be filled in. It\u0027s kind of goofy.",
+      "revId": "7d9b83071ac50f792d1128beff5f088ed2f928a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbeeae30_f7953e36",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2021-03-04T20:36:49Z",
+      "side": 1,
+      "message": "(I figure getting it into a string_view sooner rather than later would be clearer.)",
+      "revId": "7d9b83071ac50f792d1128beff5f088ed2f928a7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
