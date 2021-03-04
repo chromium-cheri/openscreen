@@ -22,6 +22,30 @@
       },
       "revId": "d7afb3c3a275bd6cc7ee885159c68ccda0d61d3f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4640d2df_3eafc5b9",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-03-04T21:31:51Z",
+      "side": 1,
+      "message": "\u003e Did you find that re-parsing the name constraints was a problem, or was this just noticing the x509-\u003enc field and opportunistically using it?\nYeah, I have no idea why I wrote it this way.  It looks very weird and I don\u0027t remember there being a specific problem with name constraints.\n\nWe only depend on it being in path_name_constraints, so just dropping issuer-\u003enc seems fine to me.\n\nSomething like a ParsedCertificate seems nice, but I also don\u0027t know ATM if we have a perf concern about reparsing these extensions.",
+      "parentUuid": "a82750c0_00ea0abf",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 18
+      },
+      "revId": "d7afb3c3a275bd6cc7ee885159c68ccda0d61d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
