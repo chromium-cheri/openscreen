@@ -18,8 +18,10 @@
 .text
 
 .globl	gcm_init_neon
-.hidden	gcm_init_neon
-.type	gcm_init_neon,%function
+
+.def gcm_init_neon
+   .type 32
+.endef
 .align	4
 gcm_init_neon:
 	AARCH64_VALID_CALL_TARGET
@@ -41,51 +43,55 @@ gcm_init_neon:
 	eor	v5.16b, v3.16b, v16.16b	// twisted H
 	st1	{v5.2d}, [x0]			// store Htable[0]
 	ret
-.size	gcm_init_neon,.-gcm_init_neon
+
 
 .globl	gcm_gmult_neon
-.hidden	gcm_gmult_neon
-.type	gcm_gmult_neon,%function
+
+.def gcm_gmult_neon
+   .type 32
+.endef
 .align	4
 gcm_gmult_neon:
 	AARCH64_VALID_CALL_TARGET
 	ld1	{v3.16b}, [x0]		// load Xi
 	ld1	{v5.1d}, [x1], #8		// load twisted H
 	ld1	{v6.1d}, [x1]
-	adrp	x9, .Lmasks		// load constants
-	add	x9, x9, :lo12:.Lmasks
+	adrp	x9, Lmasks		// load constants
+	add	x9, x9, :lo12:Lmasks
 	ld1	{v24.2d, v25.2d}, [x9]
 	rev64	v3.16b, v3.16b		// byteswap Xi
 	ext	v3.16b, v3.16b, v3.16b, #8
 	eor	v7.8b, v5.8b, v6.8b	// Karatsuba pre-processing
 
 	mov	x3, #16
-	b	.Lgmult_neon
-.size	gcm_gmult_neon,.-gcm_gmult_neon
+	b	Lgmult_neon
+
 
 .globl	gcm_ghash_neon
-.hidden	gcm_ghash_neon
-.type	gcm_ghash_neon,%function
+
+.def gcm_ghash_neon
+   .type 32
+.endef
 .align	4
 gcm_ghash_neon:
 	AARCH64_VALID_CALL_TARGET
 	ld1	{v0.16b}, [x0]		// load Xi
 	ld1	{v5.1d}, [x1], #8		// load twisted H
 	ld1	{v6.1d}, [x1]
-	adrp	x9, .Lmasks		// load constants
-	add	x9, x9, :lo12:.Lmasks
+	adrp	x9, Lmasks		// load constants
+	add	x9, x9, :lo12:Lmasks
 	ld1	{v24.2d, v25.2d}, [x9]
 	rev64	v0.16b, v0.16b		// byteswap Xi
 	ext	v0.16b, v0.16b, v0.16b, #8
 	eor	v7.8b, v5.8b, v6.8b	// Karatsuba pre-processing
 
-.Loop_neon:
+Loop_neon:
 	ld1	{v3.16b}, [x2], #16	// load inp
 	rev64	v3.16b, v3.16b		// byteswap inp
 	ext	v3.16b, v3.16b, v3.16b, #8
 	eor	v3.16b, v3.16b, v0.16b	// inp ^= Xi
 
-.Lgmult_neon:
+Lgmult_neon:
 	// Split the input into v3 and v4. (The upper halves are unused,
 	// so it is okay to leave them alone.)
 	ins	v4.d[0], v3.d[1]
@@ -322,18 +328,18 @@ gcm_ghash_neon:
 	eor	v0.16b, v0.16b, v18.16b	//
 
 	subs	x3, x3, #16
-	bne	.Loop_neon
+	bne	Loop_neon
 
 	rev64	v0.16b, v0.16b		// byteswap Xi and write
 	ext	v0.16b, v0.16b, v0.16b, #8
 	st1	{v0.16b}, [x0]
 
 	ret
-.size	gcm_ghash_neon,.-gcm_ghash_neon
+
 
 .section	.rodata
 .align	4
-.Lmasks:
+Lmasks:
 .quad	0x0000ffffffffffff	// k48
 .quad	0x00000000ffffffff	// k32
 .quad	0x000000000000ffff	// k16
@@ -343,4 +349,3 @@ gcm_ghash_neon:
 .align	2
 #endif
 #endif  // !OPENSSL_NO_ASM
-.section	.note.GNU-stack,"",%progbits

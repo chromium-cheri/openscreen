@@ -9,6 +9,7 @@
 #endif
 
 #if !defined(OPENSSL_NO_ASM)
+#if defined(__aarch64__)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
@@ -17,20 +18,22 @@
 .text
 
 
-.private_extern	_OPENSSL_armcap_P
-.globl	_sha1_block_data_order
-.private_extern	_sha1_block_data_order
 
+.globl	sha1_block_data_order
+
+.def sha1_block_data_order
+   .type 32
+.endef
 .align	6
-_sha1_block_data_order:
+sha1_block_data_order:
 	// Armv8.3-A PAuth: even though x30 is pushed to stack it is not popped later.
 	AARCH64_VALID_CALL_TARGET
 #if __has_feature(hwaddress_sanitizer) && __clang_major__ >= 10
-	adrp	x16,:pg_hi21_nc:_OPENSSL_armcap_P
+	adrp	x16,:pg_hi21_nc:OPENSSL_armcap_P
 #else
-	adrp	x16,_OPENSSL_armcap_P@PAGE
+	adrp	x16,OPENSSL_armcap_P
 #endif
-	ldr	w16,[x16,_OPENSSL_armcap_P@PAGEOFF]
+	ldr	w16,[x16,:lo12:OPENSSL_armcap_P]
 	tst	w16,#ARMV8_SHA1
 	b.ne	Lv8_entry
 
@@ -1089,7 +1092,9 @@ Loop:
 	ldr	x29,[sp],#96
 	ret
 
-
+.def sha1_block_armv8
+   .type 32
+.endef
 .align	6
 sha1_block_armv8:
 	// Armv8.3-A PAuth: even though x30 is pushed to stack it is not popped later.
@@ -1098,8 +1103,8 @@ Lv8_entry:
 	stp	x29,x30,[sp,#-16]!
 	add	x29,sp,#0
 
-	adrp	x4,Lconst@PAGE
-	add	x4,x4,Lconst@PAGEOFF
+	adrp	x4,Lconst
+	add	x4,x4,:lo12:Lconst
 	eor	v1.16b,v1.16b,v1.16b
 	ld1	{v0.4s},[x0],#16
 	ld1	{v1.s}[0],[x0]
@@ -1222,7 +1227,7 @@ Loop_hw:
 	ldr	x29,[sp],#16
 	ret
 
-.section	__TEXT,__const
+.section	.rodata
 .align	6
 Lconst:
 .long	0x5a827999,0x5a827999,0x5a827999,0x5a827999	//K_00_19
@@ -1232,4 +1237,5 @@ Lconst:
 .byte	83,72,65,49,32,98,108,111,99,107,32,116,114,97,110,115,102,111,114,109,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
 .align	2
 .align	2
+#endif
 #endif  // !OPENSSL_NO_ASM

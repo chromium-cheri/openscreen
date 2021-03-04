@@ -9,6 +9,7 @@
 #endif
 
 #if !defined(OPENSSL_NO_ASM)
+#if defined(__aarch64__)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
@@ -58,12 +59,14 @@
 .text
 
 
-.private_extern	_OPENSSL_armcap_P
-.globl	_sha512_block_data_order
-.private_extern	_sha512_block_data_order
 
+.globl	sha512_block_data_order
+
+.def sha512_block_data_order
+   .type 32
+.endef
 .align	6
-_sha512_block_data_order:
+sha512_block_data_order:
 	AARCH64_SIGN_LINK_REGISTER
 	stp	x29,x30,[sp,#-128]!
 	add	x29,sp,#0
@@ -80,8 +83,8 @@ _sha512_block_data_order:
 	ldp	x24,x25,[x0,#4*8]
 	add	x2,x1,x2,lsl#7	// end of input
 	ldp	x26,x27,[x0,#6*8]
-	adrp	x30,LK512@PAGE
-	add	x30,x30,LK512@PAGEOFF
+	adrp	x30,LK512
+	add	x30,x30,:lo12:LK512
 	stp	x0,x2,[x29,#96]
 
 Loop:
@@ -1029,7 +1032,7 @@ Loop_16_xx:
 	ret
 
 
-.section	__TEXT,__const
+.section	.rodata
 .align	6
 
 LK512:
@@ -1078,4 +1081,5 @@ LK512:
 .byte	83,72,65,53,49,50,32,98,108,111,99,107,32,116,114,97,110,115,102,111,114,109,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
 .align	2
 .align	2
+#endif
 #endif  // !OPENSSL_NO_ASM

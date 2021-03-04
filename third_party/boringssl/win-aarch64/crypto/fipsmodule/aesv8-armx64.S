@@ -9,6 +9,7 @@
 #endif
 
 #if !defined(OPENSSL_NO_ASM)
+#if defined(__aarch64__)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
@@ -16,8 +17,8 @@
 
 #if __ARM_MAX_ARCH__>=7
 .text
-
-.section	__TEXT,__const
+.arch	armv8-a+crypto
+.section	.rodata
 .align	5
 Lrcon:
 .long	0x01,0x01,0x01,0x01
@@ -26,11 +27,13 @@ Lrcon:
 
 .text
 
-.globl	_aes_hw_set_encrypt_key
-.private_extern	_aes_hw_set_encrypt_key
+.globl	aes_hw_set_encrypt_key
 
+.def aes_hw_set_encrypt_key
+   .type 32
+.endef
 .align	5
-_aes_hw_set_encrypt_key:
+aes_hw_set_encrypt_key:
 Lenc_key:
 	// Armv8.3-A PAuth: even though x30 is pushed to stack it is not popped later.
 	AARCH64_VALID_CALL_TARGET
@@ -49,8 +52,8 @@ Lenc_key:
 	tst	w1,#0x3f
 	b.ne	Lenc_key_abort
 
-	adrp	x3,Lrcon@PAGE
-	add	x3,x3,Lrcon@PAGEOFF
+	adrp	x3,Lrcon
+	add	x3,x3,:lo12:Lrcon
 	cmp	w1,#192
 
 	eor	v0.16b,v0.16b,v0.16b
@@ -197,11 +200,13 @@ Lenc_key_abort:
 	ret
 
 
-.globl	_aes_hw_set_decrypt_key
-.private_extern	_aes_hw_set_decrypt_key
+.globl	aes_hw_set_decrypt_key
 
+.def aes_hw_set_decrypt_key
+   .type 32
+.endef
 .align	5
-_aes_hw_set_decrypt_key:
+aes_hw_set_decrypt_key:
 	AARCH64_SIGN_LINK_REGISTER
 	stp	x29,x30,[sp,#-16]!
 	add	x29,sp,#0
@@ -239,11 +244,13 @@ Ldec_key_abort:
 	AARCH64_VALIDATE_LINK_REGISTER
 	ret
 
-.globl	_aes_hw_encrypt
-.private_extern	_aes_hw_encrypt
+.globl	aes_hw_encrypt
 
+.def aes_hw_encrypt
+   .type 32
+.endef
 .align	5
-_aes_hw_encrypt:
+aes_hw_encrypt:
 	AARCH64_VALID_CALL_TARGET
 	ldr	w3,[x2,#240]
 	ld1	{v0.4s},[x2],#16
@@ -270,11 +277,13 @@ Loop_enc:
 	st1	{v2.16b},[x1]
 	ret
 
-.globl	_aes_hw_decrypt
-.private_extern	_aes_hw_decrypt
+.globl	aes_hw_decrypt
 
+.def aes_hw_decrypt
+   .type 32
+.endef
 .align	5
-_aes_hw_decrypt:
+aes_hw_decrypt:
 	AARCH64_VALID_CALL_TARGET
 	ldr	w3,[x2,#240]
 	ld1	{v0.4s},[x2],#16
@@ -301,11 +310,13 @@ Loop_dec:
 	st1	{v2.16b},[x1]
 	ret
 
-.globl	_aes_hw_cbc_encrypt
-.private_extern	_aes_hw_cbc_encrypt
+.globl	aes_hw_cbc_encrypt
 
+.def aes_hw_cbc_encrypt
+   .type 32
+.endef
 .align	5
-_aes_hw_cbc_encrypt:
+aes_hw_cbc_encrypt:
 	// Armv8.3-A PAuth: even though x30 is pushed to stack it is not popped later.
 	AARCH64_VALID_CALL_TARGET
 	stp	x29,x30,[sp,#-16]!
@@ -594,11 +605,13 @@ Lcbc_abort:
 	ldr	x29,[sp],#16
 	ret
 
-.globl	_aes_hw_ctr32_encrypt_blocks
-.private_extern	_aes_hw_ctr32_encrypt_blocks
+.globl	aes_hw_ctr32_encrypt_blocks
 
+.def aes_hw_ctr32_encrypt_blocks
+   .type 32
+.endef
 .align	5
-_aes_hw_ctr32_encrypt_blocks:
+aes_hw_ctr32_encrypt_blocks:
 	// Armv8.3-A PAuth: even though x30 is pushed to stack it is not popped later.
 	AARCH64_VALID_CALL_TARGET
 	stp	x29,x30,[sp,#-16]!
@@ -795,5 +808,6 @@ Lctr32_done:
 	ldr	x29,[sp],#16
 	ret
 
+#endif
 #endif
 #endif  // !OPENSSL_NO_ASM

@@ -9,15 +9,16 @@
 #endif
 
 #if !defined(OPENSSL_NO_ASM)
+#if defined(__aarch64__)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
 #include <openssl/arm_arch.h>
 
 
-.private_extern	_OPENSSL_armcap_P
 
-.section	__TEXT,__const
+
+.section	.rodata
 
 .align	5
 Lsigma:
@@ -29,21 +30,23 @@ Lone:
 
 .text
 
-.globl	_ChaCha20_ctr32
-.private_extern	_ChaCha20_ctr32
+.globl	ChaCha20_ctr32
 
+.def ChaCha20_ctr32
+   .type 32
+.endef
 .align	5
-_ChaCha20_ctr32:
+ChaCha20_ctr32:
 	AARCH64_VALID_CALL_TARGET
 	cbz	x2,Labort
 #if __has_feature(hwaddress_sanitizer) && __clang_major__ >= 10
-	adrp	x5,:pg_hi21_nc:_OPENSSL_armcap_P
+	adrp	x5,:pg_hi21_nc:OPENSSL_armcap_P
 #else
-	adrp	x5,_OPENSSL_armcap_P@PAGE
+	adrp	x5,OPENSSL_armcap_P
 #endif
 	cmp	x2,#192
 	b.lo	Lshort
-	ldr	w17,[x5,_OPENSSL_armcap_P@PAGEOFF]
+	ldr	w17,[x5,:lo12:OPENSSL_armcap_P]
 	tst	w17,#ARMV7_NEON
 	b.ne	ChaCha20_neon
 
@@ -52,8 +55,8 @@ Lshort:
 	stp	x29,x30,[sp,#-96]!
 	add	x29,sp,#0
 
-	adrp	x5,Lsigma@PAGE
-	add	x5,x5,Lsigma@PAGEOFF
+	adrp	x5,Lsigma
+	add	x5,x5,:lo12:Lsigma
 	stp	x19,x20,[sp,#16]
 	stp	x21,x22,[sp,#32]
 	stp	x23,x24,[sp,#48]
@@ -322,15 +325,17 @@ Loop_tail:
 	ret
 
 
-
+.def ChaCha20_neon
+   .type 32
+.endef
 .align	5
 ChaCha20_neon:
 	AARCH64_SIGN_LINK_REGISTER
 	stp	x29,x30,[sp,#-96]!
 	add	x29,sp,#0
 
-	adrp	x5,Lsigma@PAGE
-	add	x5,x5,Lsigma@PAGEOFF
+	adrp	x5,Lsigma
+	add	x5,x5,:lo12:Lsigma
 	stp	x19,x20,[sp,#16]
 	stp	x21,x22,[sp,#32]
 	stp	x23,x24,[sp,#48]
@@ -819,15 +824,17 @@ Ldone_neon:
 	AARCH64_VALIDATE_LINK_REGISTER
 	ret
 
-
+.def ChaCha20_512_neon
+   .type 32
+.endef
 .align	5
 ChaCha20_512_neon:
 	AARCH64_SIGN_LINK_REGISTER
 	stp	x29,x30,[sp,#-96]!
 	add	x29,sp,#0
 
-	adrp	x5,Lsigma@PAGE
-	add	x5,x5,Lsigma@PAGEOFF
+	adrp	x5,Lsigma
+	add	x5,x5,:lo12:Lsigma
 	stp	x19,x20,[sp,#16]
 	stp	x21,x22,[sp,#32]
 	stp	x23,x24,[sp,#48]
@@ -1989,4 +1996,5 @@ Ldone_512_neon:
 	AARCH64_VALIDATE_LINK_REGISTER
 	ret
 
+#endif
 #endif  // !OPENSSL_NO_ASM

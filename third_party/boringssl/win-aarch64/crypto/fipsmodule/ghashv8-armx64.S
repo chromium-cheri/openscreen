@@ -9,18 +9,21 @@
 #endif
 
 #if !defined(OPENSSL_NO_ASM)
+#if defined(__aarch64__)
 #if defined(BORINGSSL_PREFIX)
 #include <boringssl_prefix_symbols_asm.h>
 #endif
 #include <openssl/arm_arch.h>
 
 .text
+.arch	armv8-a+crypto
+.globl	gcm_init_v8
 
-.globl	_gcm_init_v8
-.private_extern	_gcm_init_v8
-
+.def gcm_init_v8
+   .type 32
+.endef
 .align	4
-_gcm_init_v8:
+gcm_init_v8:
 	AARCH64_VALID_CALL_TARGET
 	ld1	{v17.2d},[x1]		//load input H
 	movi	v19.16b,#0xe1
@@ -68,11 +71,13 @@ _gcm_init_v8:
 
 	ret
 
-.globl	_gcm_gmult_v8
-.private_extern	_gcm_gmult_v8
+.globl	gcm_gmult_v8
 
+.def gcm_gmult_v8
+   .type 32
+.endef
 .align	4
-_gcm_gmult_v8:
+gcm_gmult_v8:
 	AARCH64_VALID_CALL_TARGET
 	ld1	{v17.2d},[x0]		//load Xi
 	movi	v19.16b,#0xe1
@@ -111,11 +116,13 @@ _gcm_gmult_v8:
 
 	ret
 
-.globl	_gcm_ghash_v8
-.private_extern	_gcm_ghash_v8
+.globl	gcm_ghash_v8
 
+.def gcm_ghash_v8
+   .type 32
+.endef
 .align	4
-_gcm_ghash_v8:
+gcm_ghash_v8:
 	AARCH64_VALID_CALL_TARGET
 	ld1	{v0.2d},[x0]		//load [rotated] Xi
 						//"[rotated]" means that
@@ -246,4 +253,5 @@ Ldone_v8:
 .byte	71,72,65,83,72,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
 .align	2
 .align	2
+#endif
 #endif  // !OPENSSL_NO_ASM
