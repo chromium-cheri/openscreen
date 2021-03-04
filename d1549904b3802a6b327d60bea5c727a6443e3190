@@ -16,6 +16,24 @@
       "message": "By the way, I had to upload with --no-hooks because crypto_test_data.cc is getting big enough to make clang-format take forever. In Chromium, we\u0027ve excluded that file in favor of:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/boringssl/test_data_chromium.cc;drc\u003dc5691bdf6d4c9adc50550efa456be52e1c21ac9a;l\u003d11\n\nIf you all have a similar pattern for picking up data files with tests, we can do something similar here. (Why oh why is stapling providing test data to tests so difficult?)",
       "revId": "d1549904b3802a6b327d60bea5c727a6443e3190",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78778989_a52f9f1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-03-04T19:47:02Z",
+      "side": 1,
+      "message": "We almost have the pieces for that, we\u0027d just need to change our path function slightly.  I\u0027m fine if we do that as a follow-up.  We don\u0027t actually compile any boringssl tests though, so also this file isn\u0027t used atm.\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/openscreen/src/platform/test/paths.h?q\u003dgettestdatapath",
+      "parentUuid": "09f8d131_52b89321",
+      "revId": "d1549904b3802a6b327d60bea5c727a6443e3190",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
