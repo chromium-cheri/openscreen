@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a82750c0_00ea0abf",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2021-03-04T20:44:01Z",
+      "side": 1,
+      "message": "For the next CL, but I\u0027m not sure what to do with this last one. The simplest option would be to just move it to a local variable.\n\nIt means you parse the name constraints each path attempt. It\u0027s probably not a big deal, but I don\u0027t know the history here. Did you find that re-parsing the name constraints was a problem, or was this just noticing the x509-\u003enc field and opportunistically using it? (You do end up, e.g., re-parsing the basic constraints and policy mappings each time.)\n\nAnother option would pre-parse some fields into a ParsedCertificate structure and redoing all the path-building logic with that. I started that but it got a little tricky because I\u0027d need to make ParsedCertificate objects for the trust anchors.\n\nAnother option would be to add an accessor to BoringSSL and integrate it with this logic which populates the cache for the internal verifier. But error-handling here is subtle and you\u0027ll end up bundling together a few error conditions. Also we\u0027d need to do a big multi-sided change between BoringSSL, Chromium, and Open Screen.\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/x509v3/v3_purp.c#415\n(That code is why this pattern is scary. If you end up triggering this codepath, you\u0027ll confuse that built-in logic.)\n\nThoughts?\n\n(Long-term, I\u0027d like to move you to the Chromium verifier, but I guess that requires that we extract it into BoringSSL first...)",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 18
+      },
+      "revId": "d7afb3c3a275bd6cc7ee885159c68ccda0d61d3f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
