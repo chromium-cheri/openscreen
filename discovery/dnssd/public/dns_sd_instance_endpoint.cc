@@ -61,8 +61,8 @@ DnsSdInstanceEndpoint::DnsSdInstanceEndpoint(
 DnsSdInstanceEndpoint::DnsSdInstanceEndpoint(
     const DnsSdInstanceEndpoint& other) = default;
 
-DnsSdInstanceEndpoint::DnsSdInstanceEndpoint(DnsSdInstanceEndpoint&& other) =
-    default;
+DnsSdInstanceEndpoint::DnsSdInstanceEndpoint(
+    DnsSdInstanceEndpoint&& other) noexcept = default;
 
 DnsSdInstanceEndpoint::~DnsSdInstanceEndpoint() = default;
 
@@ -70,7 +70,7 @@ DnsSdInstanceEndpoint& DnsSdInstanceEndpoint::operator=(
     const DnsSdInstanceEndpoint& rhs) = default;
 
 DnsSdInstanceEndpoint& DnsSdInstanceEndpoint::operator=(
-    DnsSdInstanceEndpoint&& rhs) = default;
+    DnsSdInstanceEndpoint&& rhs) noexcept = default;
 
 void DnsSdInstanceEndpoint::InitializeEndpoints() {
   OSP_CHECK(!endpoints_.empty());

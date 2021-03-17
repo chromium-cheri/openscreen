@@ -74,12 +74,12 @@ class DnsSdInstanceEndpoint : public DnsSdInstance {
             std::move(types)...) {}
 
   DnsSdInstanceEndpoint(const DnsSdInstanceEndpoint& other);
-  DnsSdInstanceEndpoint(DnsSdInstanceEndpoint&& other);
+  DnsSdInstanceEndpoint(DnsSdInstanceEndpoint&& other) noexcept;
 
   ~DnsSdInstanceEndpoint() override;
 
   DnsSdInstanceEndpoint& operator=(const DnsSdInstanceEndpoint& rhs);
-  DnsSdInstanceEndpoint& operator=(DnsSdInstanceEndpoint&& rhs);
+  DnsSdInstanceEndpoint& operator=(DnsSdInstanceEndpoint&& rhs) noexcept;
 
   // Returns the address associated with this DNS-SD record. In any valid
   // record, at least one will be set.
@@ -131,9 +131,6 @@ class DnsSdInstanceEndpoint : public DnsSdInstance {
                               Append(std::move(subtypes),
                                      std::move(subtype),
                                      std::move(types)...)) {}
-
-  // Lazy Initializes the |addresses_| vector.
-  const std::vector<IPAddress>& CalculateAddresses() const;
 
   // Initialized the |endpoints_| vector after construction.
   void InitializeEndpoints();
