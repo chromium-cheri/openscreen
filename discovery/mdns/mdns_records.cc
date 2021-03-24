@@ -654,6 +654,12 @@ bool MdnsRecord::operator>=(const MdnsRecord& rhs) const {
   return !(*this < rhs);
 }
 
+bool MdnsRecord::IsUpdateOf(const MdnsRecord& rhs) const {
+  return dns_type_ == rhs.dns_type_ && dns_class_ == rhs.dns_class_ &&
+         record_type_ == rhs.record_type_ && name_ == rhs.name_ &&
+         rdata_ == rhs.rdata_;
+}
+
 size_t MdnsRecord::MaxWireSize() const {
   auto wire_size_visitor = [](auto&& arg) { return arg.MaxWireSize(); };
   // NAME size, 2-byte TYPE, 2-byte CLASS, 4-byte TTL, RDATA size
