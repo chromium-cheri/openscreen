@@ -89,6 +89,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b07457d9_9a8c2f4c",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-03-25T17:50:17Z",
+      "side": 1,
+      "message": "+1 \nI\u0027m excited to see how this all performs!",
+      "parentUuid": "aa8c5219_ea4d29de",
+      "range": {
+        "startLine": 255,
+        "startChar": 9,
+        "endLine": 255,
+        "endChar": 22
+      },
+      "revId": "9241c00c70bfe75cd4c47c4f7f168f9d3248c0af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2ac3e57_704e4b04",
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "Can\u0027t do an anonymous due to reference to self. I\u0027ll have operator\u003d\u003d use IsUpdateOf though.",
       "parentUuid": "b2ac3e57_704e4b04",
+      "range": {
+        "startLine": 658,
+        "startChar": 0,
+        "endLine": 660,
+        "endChar": 30
+      },
+      "revId": "9241c00c70bfe75cd4c47c4f7f168f9d3248c0af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1338031f_b5f98842",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-03-25T17:50:17Z",
+      "side": 1,
+      "message": "\u003e I\u0027ll have operator\u003d\u003d use IsUpdateOf\n\nIMHO it feels a bit weird to call IsUpdateOf() when its used for non-update related cases. Don\u0027t feel super strongly though\n\n\u003e Can\u0027t do an anonymous due to reference to self\n\nAll of the variables used here should be exposed in the public section as getters. So you should be able to write it as \n\n\u003e  first.dns_type() \u003d\u003d second.dns_type() \u0026\u0026 first.dns_class() \u003d\u003d second.dns_class() \u0026\u0026 ...\n\nAlternatively we could forward declare a MdnsDataTypeComparisonHelper class in the header (or something with a better name), friend it from MdnsRecord, and implement it with that static helper functions in the .cc file\n\nI feel like there should be some way to friend an anonymous namespace function, but can\u0027t seem to find a way to do it...\n\nWDYT?",
+      "parentUuid": "40625af3_971978ac",
       "range": {
         "startLine": 658,
         "startChar": 0,
