@@ -16,6 +16,75 @@
       "message": "@rwkeane, I went for the most targeted fix--was nervous about the potential implications of changing MdnsRecord::operator\u003d\u003d. LMK what you think, and if a broader scoped fix is appropriate.",
       "revId": "9241c00c70bfe75cd4c47c4f7f168f9d3248c0af",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad5c0fb_77cfd70f",
+        "filename": "discovery/dnssd/impl/dns_data_graph.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-03-25T04:05:46Z",
+      "side": 1,
+      "message": "@Joshua, the code is currently written to assume there are relatively few PTR records for a given domain name, because we iterate through them all in O(n) time. If this isn\u0027t true for your use case, we may need to update to a different solution\n\nWDYT?",
+      "range": {
+        "startLine": 255,
+        "startChar": 9,
+        "endLine": 255,
+        "endChar": 22
+      },
+      "revId": "9241c00c70bfe75cd4c47c4f7f168f9d3248c0af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2ac3e57_704e4b04",
+        "filename": "discovery/mdns/mdns_records.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-03-25T04:05:46Z",
+      "side": 1,
+      "message": "Add an anonymous namespace function to re-use code with this and operator\u003d\u003d",
+      "range": {
+        "startLine": 658,
+        "startChar": 0,
+        "endLine": 660,
+        "endChar": 30
+      },
+      "revId": "9241c00c70bfe75cd4c47c4f7f168f9d3248c0af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "959f7002_d403e66d",
+        "filename": "discovery/mdns/mdns_records.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-03-25T04:05:46Z",
+      "side": 1,
+      "message": "`IsReannouncement` or similar\n\nThe process of sending out the same record either as a repeat or when there\u0027s an update is \"announcing\", so I\u0027m sure there is a good name here based on that, but I\u0027m not sure what it is",
+      "range": {
+        "startLine": 480,
+        "startChar": 7,
+        "endLine": 480,
+        "endChar": 17
+      },
+      "revId": "9241c00c70bfe75cd4c47c4f7f168f9d3248c0af",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
