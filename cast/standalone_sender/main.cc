@@ -97,6 +97,7 @@ IPEndpoint ParseAsEndpoint(const char* string_form) {
       result = {parsed_address.value(), kDefaultCastPort};
     }
   }
+  OSP_LOG_INFO << "Parsed as: " << result;
   return result;
 }
 

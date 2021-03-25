@@ -380,6 +380,7 @@ bool IsPacketInfo<in6_pktinfo>(cmsghdr* cmh) {
 
 template <class SockAddrType, class PktInfoType>
 ErrorOr<UdpPacket> ReceiveMessageInternal(int fd) {
+  OSP_LOG_INFO << "Receiving a message...";
   int upper_bound_bytes;
 #if defined(OS_LINUX)
   // This should return the exact size of the next message.
@@ -422,9 +423,9 @@ ErrorOr<UdpPacket> ReceiveMessageInternal(int fd) {
   // We may not populate the entire packet.
   OSP_DCHECK_LE(static_cast<size_t>(bytes_received), packet.size());
   packet.resize(bytes_received);
-
   IPEndpoint source_endpoint = {.address = GetIPAddressFromSockAddr(sa),
                                 .port = GetPortFromFromSockAddr(sa)};
+  OSP_LOG_INFO << "Received " << bytes_received << " bytes from source " << source_endpoint;
   packet.set_source(std::move(source_endpoint));
 
   // For multicast sockets, the packet's original destination address may be
@@ -496,6 +497,7 @@ void UdpSocketPosix::ReceiveMessage() {
 void UdpSocketPosix::SendMessage(const void* data,
                                  size_t length,
                                  const IPEndpoint& dest) {
+  OSP_LOG_INFO << "Sending UDP packet of size " << length << " to " << dest;
   if (is_closed()) {
     if (client_) {
       client_->OnSendError(this, Error::Code::kSocketClosedFailure);

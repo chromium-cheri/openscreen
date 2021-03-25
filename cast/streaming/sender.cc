@@ -105,6 +105,7 @@ Sender::EnqueueFrameResult Sender::EnqueueFrame(const EncodedFrame& frame) {
   }
   OSP_DCHECK(frame.data.data());
 
+  OSP_LOG_INFO << "Enqueueing frame with id: " << frame.frame_id;
   // Check whether enqueuing the frame would exceed the design limit for the
   // span of FrameIds. Even if |num_frames_in_flight_| is less than
   // kMaxUnackedFrames, it's the span of FrameIds that is restricted.
@@ -114,8 +115,12 @@ Sender::EnqueueFrameResult Sender::EnqueueFrame(const EncodedFrame& frame) {
 
   // Check whether enqueuing the frame would exceed the current maximum media
   // duration limit.
-  if (GetInFlightMediaDuration(frame.rtp_timestamp) >
-      GetMaxInFlightMediaDuration()) {
+  const auto in_flight = GetInFlightMediaDuration(frame.rtp_timestamp);
+  const auto max_in_flight = GetMaxInFlightMediaDuration();
+  if (in_flight > max_in_flight) {
+    OSP_LOG_INFO << "Exceeded max flight " << max_in_flight.count()
+                 << "us, currently " << in_flight.count() << "us";
+    // NOTE: OK.
     return MAX_DURATION_IN_FLIGHT;
   }
 
@@ -125,6 +130,7 @@ Sender::EnqueueFrameResult Sender::EnqueueFrame(const EncodedFrame& frame) {
   slot->frame = crypto_.Encrypt(frame);
   const int packet_count = rtp_packetizer_.ComputeNumberOfPackets(*slot->frame);
   if (packet_count <= 0) {
+    OSP_LOG_ERROR << "Payload is too large, choking";
     slot->frame.reset();
     return PAYLOAD_TOO_LARGE;
   }
@@ -232,6 +238,8 @@ absl::Span<uint8_t> Sender::GetRtpPacketForImmediateSend(
     OSP_DCHECK(chosen);
   }
 
+  OSP_LOG_INFO << "Generating packet from frame "
+               << chosen.slot->frame->frame_id;
   const absl::Span<uint8_t> result = rtp_packetizer_.GeneratePacket(
       *chosen.slot->frame, chosen.packet_id, buffer);
   chosen.slot->send_flags.Clear(chosen.packet_id);
@@ -287,6 +295,11 @@ void Sender::OnReceiverReport(const RtcpReportBlock& receiver_report) {
   const Clock::duration measurement =
       std::max(total_delay - non_network_delay, kNearZeroRoundTripTime);
 
+  OSP_LOG_INFO << "Timing notes: total delay " << total_delay
+               << ", arrival time " << rtcp_packet_arrival_time_
+               << ", non network delay " << non_network_delay
+               << ", measurement: " << measurement;
+
   // Validate the measurement by using the current target playout delay as a
   // "reasonable upper-bound." It's certainly possible that the actual network
   // round-trip time could exceed the target playout delay, but that would mean
@@ -315,6 +328,7 @@ void Sender::OnReceiverReport(const RtcpReportBlock& receiver_report) {
 }
 
 void Sender::OnReceiverIndicatesPictureLoss() {
+  OSP_LOG_WARN << "Received PLI";
   // The Receiver will continue the PLI notifications until it has received a
   // key frame. Thus, if a key frame is already in-flight, don't make a state
   // change that would cause this Sender to force another expensive key frame.
@@ -342,6 +356,7 @@ void Sender::OnReceiverIndicatesPictureLoss() {
 
 void Sender::OnReceiverCheckpoint(FrameId frame_id,
                                   milliseconds playout_delay) {
+  OSP_LOG_INFO << "received a receiver checkpoint for frame id: " << frame_id;
   if (frame_id > last_enqueued_frame_id_) {
     OSP_LOG_ERROR
         << "Ignoring checkpoint for " << latest_expected_frame_id_
@@ -357,6 +372,8 @@ void Sender::OnReceiverCheckpoint(FrameId frame_id,
     CancelPendingFrame(checkpoint_frame_id_);
   }
   latest_expected_frame_id_ = std::max(latest_expected_frame_id_, frame_id);
+
+  OSP_LOG_INFO << "updating latest expected to: " << latest_expected_frame_id_;
 
   if (playout_delay != target_playout_delay_ &&
       frame_id >= playout_delay_change_at_frame_id_) {
@@ -422,7 +439,6 @@ void Sender::OnReceiverIsMissingPackets(std::vector<PacketNack> nacks) {
       continue;
     }
 
-    // NOLINTNEXTLINE
     latest_expected_frame_id_ = std::max(latest_expected_frame_id_, frame_id);
 
     const auto HandleIndividualNack = [&](FramePacketId packet_id) {
@@ -462,14 +478,18 @@ Sender::ChosenPacket Sender::ChooseNextRtpPacketNeedingSend() {
        frame_id <= last_enqueued_frame_id_; ++frame_id) {
     PendingFrameSlot* const slot = get_slot_for(frame_id);
     if (!slot->is_active_for_frame(frame_id)) {
+      OSP_LOG_WARN << "Frame " << frame_id << " has been cancelled...";
       continue;  // Frame was canceled. None of its packets need to be sent.
     }
     const FramePacketId packet_id = slot->send_flags.FindFirstSet();
     if (packet_id < slot->send_flags.size()) {
+      OSP_LOG_INFO << "Chose to send packet ID " << packet_id << " at slot " << slot
+      << "/" << slot->send_flags.size();
       return {slot, packet_id};
     }
   }
 
+  OSP_LOG_INFO << "No packets need to be sent--we have checked everything between checkpoint and enqueued";
   return {};  // Nothing needs to be sent.
 }
 

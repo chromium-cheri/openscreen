@@ -95,7 +95,10 @@ void SDLPlayerBase::OnFramesReady(int buffer_size) {
   TRACE_DEFAULT_SCOPED(TraceCategory::kStandaloneReceiver);
   // Do not consume anything if there are too many frames in the pipeline
   // already.
+  OSP_LOG_INFO << "Frames in buffer: " << frames_to_render_.size();
   if (static_cast<int>(frames_to_render_.size()) > kMaxFramesInPipeline) {
+    OSP_LOG_ERROR << "Too many frames in pipeline already: "
+                  << frames_to_render_.size();
     return;
   }
 
@@ -109,10 +112,12 @@ void SDLPlayerBase::OnFramesReady(int buffer_size) {
   PendingFrame& pending_frame = frames_to_render_[frame.frame_id];
   pending_frame.start_time = start_time;
 
+  // NOT THE PROBLEM.
   pending_frame.presentation_time = ResyncAndDeterminePresentationTime(frame);
 
   // Start decoding the frame. This call may synchronously call back into the
   // AVCodecDecoder::Client methods in this class.
+  OSP_LOG_INFO << "Decoding frame " << frame.frame_id;
   decoder_.Decode(frame.frame_id, buffer_);
 }
 
@@ -122,6 +127,7 @@ void SDLPlayerBase::OnFrameDecoded(FrameId frame_id, const AVFrame& frame) {
   if (it == frames_to_render_.end()) {
     return;
   }
+  OSP_LOG_INFO << "Decoded frame_id " << frame_id;
   OSP_DCHECK(!it->second.decoded_frame);
   // av_clone_frame() does a shallow copy here, incrementing a ref-count on the
   // memory backing the frame.
@@ -174,6 +180,8 @@ void SDLPlayerBase::RenderAndSchedulePresentation() {
   // are late, skip-forward to the least-late frame.
   const Clock::time_point now = now_();
   while (it->second.presentation_time < now) {
+    OSP_LOG_INFO << "Dropping frame with presentation time: "
+                 << it->second.presentation_time;
     const auto next_it = std::next(it);
     if (next_it == frames_to_render_.end() || !next_it->second.decoded_frame) {
       break;
@@ -185,6 +193,9 @@ void SDLPlayerBase::RenderAndSchedulePresentation() {
   // Remove the frame from the queue, making it the |current_frame_|. Then,
   // render it and, if successful, schedule its presentation.
   current_frame_ = std::move(it->second);
+  OSP_LOG_INFO << "Set current frame to present at: "
+               << current_frame_.presentation_time
+               << ", start time at: " << current_frame_.start_time;
   frames_to_render_.erase(it);
   const ErrorOr<Clock::time_point> presentation_time =
       RenderNextFrame(current_frame_);
@@ -201,6 +212,7 @@ void SDLPlayerBase::RenderAndSchedulePresentation() {
         }
         ResumeRendering();
       },
+      // NOTE: OK.
       presentation_time.value());
 
   // Resume consuming/decoding frames, since some of the prior OnFramesReady()

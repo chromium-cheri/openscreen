@@ -19,7 +19,7 @@ namespace cast {
 
 // Default target playout delay. The playout delay is the window of time between
 // capture from the source until presentation at the receiver.
-constexpr std::chrono::milliseconds kDefaultTargetPlayoutDelay(400);
+constexpr std::chrono::milliseconds kDefaultTargetPlayoutDelay(4000);
 
 // Default UDP port, bound at the Receiver, for Cast Streaming. An
 // implementation is required to use the port specified by the Receiver in its
@@ -33,7 +33,7 @@ constexpr int kDefaultCastPort = 8010;
 
 // Target number of milliseconds between the sending of RTCP reports.  Both
 // senders and receivers regularly send RTCP reports to their peer.
-constexpr std::chrono::milliseconds kRtcpReportInterval(500);
+constexpr std::chrono::milliseconds kRtcpReportInterval(50);
 
 // This is an important system-wide constant.  This limits how much history
 // the implementation must retain in order to process the acknowledgements of

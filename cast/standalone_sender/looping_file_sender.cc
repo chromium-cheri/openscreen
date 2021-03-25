@@ -140,9 +140,9 @@ void LoopingFileSender::UpdateStatusOnConsole() {
   // partially overwritten).
   fprintf(stdout,
           "\r\x1b[2K\rLoopingFileSender: At %01" PRId64
-          ".%03ds in file (est. network bandwidth: %d kbps). \n",
+          ".%03ds in file (est. network bandwidth: %f kbps). \n",
           static_cast<int64_t>(seconds_part.count()),
-          static_cast<int>(millis_part.count()), bandwidth_estimate_ / 1024);
+          static_cast<int>(millis_part.count()), bandwidth_estimate_ / 1024.0f);
   fflush(stdout);
 
   console_update_task_.ScheduleFromNow([this] { UpdateStatusOnConsole(); },

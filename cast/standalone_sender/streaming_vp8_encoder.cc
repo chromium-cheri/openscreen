@@ -159,6 +159,7 @@ void StreamingVp8Encoder::EncodeAndSend(
       sender_->GetMaxInFlightMediaDuration()) {
     OSP_LOG_WARN << "VIDEO[" << sender_->ssrc()
                  << "] Dropping: In-flight media duration would be too high.";
+    // NOTE: OK.
     return;
   }
 
@@ -412,6 +413,9 @@ void StreamingVp8Encoder::UpdateSpeedSettingForNextFrame(const Stats& stats) {
   ideal_speed_setting_ =
       weight * perfect_speed + (1.0 - weight) * ideal_speed_setting_;
   OSP_DCHECK(std::isfinite(ideal_speed_setting_));
+
+  OSP_LOG_INFO << "Speed settings: ideal=" << ideal_speed_setting_
+               << ", perfect_speed = " << perfect_speed << ", speed = " << speed;
 }
 
 void StreamingVp8Encoder::SendEncodedFrame(WorkUnitWithResults results) {

@@ -69,10 +69,12 @@ void Receiver::SetConsumer(Consumer* consumer) {
 }
 
 void Receiver::SetPlayerProcessingTime(Clock::duration needed_time) {
+  OSP_LOG_INFO << "Set player processing time: " << needed_time.count() << "µs";
   player_processing_time_ = std::max(Clock::duration::zero(), needed_time);
 }
 
 void Receiver::RequestKeyFrame() {
+  OSP_LOG_INFO << "Requesting PLI";
   // If we don't have picture loss indication enabled, we should not request
   // any key frames.
   OSP_DCHECK(is_pli_enabled_) << "PLI is not enabled.";
@@ -95,6 +97,7 @@ int Receiver::AdvanceToNextFrame() {
     if (entry.collector.is_complete()) {
       const EncryptedFrame& encrypted_frame =
           entry.collector.PeekAtAssembledFrame();
+
       if (f == immediate_next_frame) {  // Typical case.
         RECEIVER_VLOG << "AdvanceToNextFrame: Next in sequence (" << f << ')';
         return FrameCrypto::GetPlaintextSize(encrypted_frame);
@@ -125,6 +128,7 @@ int Receiver::AdvanceToNextFrame() {
     const auto playout_time =
         *entry.estimated_capture_time + ResolveTargetPlayoutDelay(f);
     if (playout_time > (now_() + player_processing_time_)) {
+      OSP_LOG_INFO << "Frame is here but too early: " << playout_time;
       ScheduleFrameReadyCheck(playout_time);
       break;
     }
@@ -175,6 +179,7 @@ void Receiver::OnReceivedRtpPacket(Clock::time_point arrival_time,
                                    std::vector<uint8_t> packet) {
   const absl::optional<RtpPacketParser::ParseResult> part =
       rtp_parser_.Parse(packet);
+  OSP_LOG_INFO << "received rtp packet with frame id " << part->frame_id;
   if (!part) {
     RECEIVER_LOG(WARN) << "Parsing of " << packet.size()
                        << " bytes as an RTP packet failed.";
@@ -185,6 +190,8 @@ void Receiver::OnReceivedRtpPacket(Clock::time_point arrival_time,
 
   // Ignore packets for frames the Receiver is no longer interested in.
   if (part->frame_id <= checkpoint_frame()) {
+    OSP_LOG_ERROR << "Frame id is no longer interesting... " << part->frame_id
+                  << "<=" << checkpoint_frame();
     return;
   }
 
@@ -194,6 +201,7 @@ void Receiver::OnReceivedRtpPacket(Clock::time_point arrival_time,
   if (part->frame_id > latest_frame_expected_) {
     const FrameId max_allowed_frame_id =
         last_frame_consumed_ + kMaxUnackedFrames;
+    OSP_LOG_INFO << "Updating max allowed frame id: " << max_allowed_frame_id;
     if (part->frame_id > max_allowed_frame_id) {
       RECEIVER_VLOG << "Dropping RTP packet for " << part->frame_id
                     << ": Too many frames are already in-flight.";
@@ -225,6 +233,7 @@ void Receiver::OnReceivedRtpPacket(Clock::time_point arrival_time,
   PendingFrame& pending_frame = GetQueueEntry(part->frame_id);
   FrameCollector& collector = pending_frame.collector;
   if (collector.is_complete()) {
+    OSP_LOG_INFO << "Dumping complete packet...";
     // An extra, redundant |packet| was received. Do nothing since the frame was
     // already complete.
     return;
@@ -265,6 +274,7 @@ void Receiver::OnReceivedRtpPacket(Clock::time_point arrival_time,
   }
 
   if (!collector.is_complete()) {
+    OSP_LOG_INFO << "Not complete, so waiting...";
     return;  // Wait for the rest of the packets to come in.
   }
   const EncryptedFrame& encrypted_frame = collector.PeekAtAssembledFrame();
@@ -308,6 +318,8 @@ void Receiver::OnReceivedRtcpPacket(Clock::time_point arrival_time,
   // network. The calculation here just ignores that, and so the
   // |measured_offset| below will be larger than the true value by that amount.
   // This will have the effect of a later-than-configured playout delay.
+
+  // TODO: this keeps drifting further and getting worse...
   const Clock::duration measured_offset =
       arrival_time - last_sender_report_->reference_time;
   smoothed_clock_offset_.Update(arrival_time, measured_offset);
@@ -337,6 +349,14 @@ void Receiver::SendRtcp() {
     } else {
       collector.GetMissingPackets(&packet_nacks);
     }
+  }
+
+  // We should also acknowledge the checkpoint frame.
+  frame_acks.push_back(checkpoint_frame());
+
+  OSP_LOG_INFO << "Frame acks are: (" << frame_acks.size() << ")";
+  for (auto ack : frame_acks) {
+    OSP_LOG_INFO << "\"" << ack << "\"";
   }
 
   // Build and send a compound RTCP packet.

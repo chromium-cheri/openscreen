@@ -97,7 +97,10 @@ int BandwidthEstimator::ComputeNetworkBandwidth() const {
                                             num_packets_transmitted /
                                             max_packets_per_history_window_;
   const int32_t num_bytes_received = feedback_history_.Sum();
-  return ToClampedBitsPerSecond(num_bytes_received, transmit_duration);
+  const auto bps =
+      ToClampedBitsPerSecond(num_bytes_received, transmit_duration);
+  OSP_LOG_INFO << "Bits per seconds computed: " << bps;
+  return bps;
 }
 
 // static

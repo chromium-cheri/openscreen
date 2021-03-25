@@ -84,6 +84,7 @@ void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
 
   // Receive zero or more frames from the decoder.
   for (;;) {
+    OSP_LOG_INFO << "Looking for decoded packets";
     const int receive_frame_result =
         avcodec_receive_frame(context_.get(), decoded_frame_.get());
     if (receive_frame_result == AVERROR(EAGAIN)) {
@@ -95,6 +96,7 @@ void Decoder::Decode(FrameId frame_id, const Decoder::Buffer& buffer) {
       return;
     }
     if (client_) {
+      OSP_LOG_INFO << "Decoded frame " << decoded_frame_id;
       client_->OnFrameDecoded(decoded_frame_id, *decoded_frame_);
     }
     av_frame_unref(decoded_frame_.get());
@@ -202,6 +204,8 @@ void Decoder::OnError(const char* what, int av_errnum, FrameId frame_id) {
   av_make_error_string(human_readable_error, AV_ERROR_MAX_STRING_SIZE,
                        av_errnum);
   error << "what: " << what << "; error: " << human_readable_error;
+
+  OSP_LOG_INFO << "Decoder error: " << error.str();
 
   // Dispatch to either the fatal error handler, or the one for decode errors,
   // as appropriate.

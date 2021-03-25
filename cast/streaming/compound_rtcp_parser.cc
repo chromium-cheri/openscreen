@@ -88,6 +88,8 @@ CompoundRtcpParser::~CompoundRtcpParser() = default;
 
 bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
                                FrameId max_feedback_frame_id) {
+  OSP_LOG_INFO << "Parsing RTCP event.";
+
   // These will contain the results from the various ParseXYZ() methods. None of
   // the results will be dispatched to the Client until the entire parse
   // succeeds.
@@ -117,6 +119,7 @@ bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
 
     switch (header->packet_type) {
       case RtcpPacketType::kReceiverReport:
+        OSP_LOG_INFO << "Received receiver report";
         if (!ParseReceiverReport(payload, header->with.report_count,
                                  &receiver_report)) {
           return false;
@@ -124,6 +127,7 @@ bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
         break;
 
       case RtcpPacketType::kPayloadSpecific:
+        OSP_LOG_INFO << "Received payload specific";
         switch (header->with.subtype) {
           case RtcpSubtype::kPictureLossIndicator:
             if (!ParsePictureLossIndicator(payload, &picture_loss_indicator)) {
@@ -144,12 +148,15 @@ bool CompoundRtcpParser::Parse(absl::Span<const uint8_t> buffer,
         break;
 
       case RtcpPacketType::kExtendedReports:
+        OSP_LOG_INFO << "Received extended report";
         if (!ParseExtendedReports(payload, &receiver_reference_time)) {
           return false;
         }
         break;
 
       default:
+        OSP_LOG_INFO << "Received unknown packet type: "
+                     << static_cast<int>(header->packet_type);
         // Ignored, unimplemented or not part of the Cast Streaming spec.
         break;
     }
@@ -202,6 +209,7 @@ bool CompoundRtcpParser::ParseReceiverReport(
     int num_report_blocks,
     absl::optional<RtcpReportBlock>* receiver_report) {
   if (in.size() < kRtcpReceiverReportSize) {
+    OSP_LOG_ERROR << "Report is of the wrong size";
     return false;
   }
   if (ConsumeField<uint32_t>(&in) == session_->receiver_ssrc()) {

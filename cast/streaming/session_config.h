@@ -53,7 +53,7 @@ struct SessionConfig final {
   std::array<uint8_t, 16> aes_iv_mask{};
 
   // Whether picture loss indication (PLI) should be used for this session.
-  bool is_pli_enabled = false;
+  bool is_pli_enabled = true;
 };
 
 }  // namespace cast

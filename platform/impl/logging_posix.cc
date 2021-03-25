@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 #include <cstdlib>
 #include <iostream>
@@ -99,6 +100,20 @@ void LogWithLevel(LogLevel level,
     return;
 
   std::stringstream ss;
+#if defined(_DEBUG)
+    struct timeval tv;
+    time_t nowtime;
+    struct tm *nowtm;
+    char tmbuf[64], buf[64];
+
+    gettimeofday(&tv, nullptr);
+    nowtime = tv.tv_sec;
+    nowtm = localtime(&nowtime);
+    strftime(tmbuf, sizeof tmbuf, "%H:%M:%S", nowtm);
+    snprintf(buf, sizeof buf, "%s.%06d", tmbuf, tv.tv_usec);
+    ss << buf << " ";
+#endif
+
   ss << "[" << level << ":" << file << "(" << line << "):T" << std::hex
      << TRACE_CURRENT_ID << "] " << message.rdbuf() << '\n';
   const auto ss_str = ss.str();

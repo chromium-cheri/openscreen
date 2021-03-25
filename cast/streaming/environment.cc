@@ -115,10 +115,12 @@ void Environment::OnSendError(UdpSocket* socket, Error error) {
 void Environment::OnRead(UdpSocket* socket,
                          ErrorOr<UdpPacket> packet_or_error) {
   if (!packet_consumer_) {
+    OSP_LOG_ERROR << "No packet consumer";
     return;
   }
 
   if (packet_or_error.is_error()) {
+    OSP_LOG_ERROR << "packet is error: " << packet_or_error.error();
     OnError(socket, packet_or_error.error());
     return;
   }

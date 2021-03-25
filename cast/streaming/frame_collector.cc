@@ -55,6 +55,12 @@ bool FrameCollector::CollectRtpPacket(const RtpPacketParser::ParseResult& part,
     }
   }
 
+  OSP_LOG_INFO << "Collecting a packet for frame [" << part.frame_id
+               << "]. Packet count: " << frame_packet_count
+               << ", max packet ID: " << part.max_packet_id
+               << " chunks size: " << chunks_.size()
+               << " packet ID: " << part.packet_id;
+
   // The packet ID must not be greater than the max packet ID.
   if (part.packet_id >= chunks_.size()) {
     OSP_LOG_WARN
@@ -65,6 +71,7 @@ bool FrameCollector::CollectRtpPacket(const RtpPacketParser::ParseResult& part,
 
   // Don't process duplicate packets.
   if (chunks_[part.packet_id].has_data()) {
+    OSP_LOG_INFO << "NO DATA";
     // Note: No logging here because this is a common occurrence that is not
     // indicative of any problem in the system.
     return true;

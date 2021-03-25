@@ -145,8 +145,14 @@ void SenderPacketRouter::ScheduleNextBurst() {
   // Schedule the alarm for the next burst time unless none of the Senders has
   // anything to send.
   if (next_burst_time == kNever) {
+    OSP_LOG_INFO << "Cancelling all alarms";
     alarm_.Cancel();
   } else {
+    OSP_LOG_INFO << "Scheduling packet burst for " << next_burst_time
+                 << ", first allowable: " << earliest_allowed_burst_time;
+
+    // TODO: It's not the packet router's fault, changing to immediately has no
+    // effect.
     alarm_.Schedule([this] { SendBurstOfPackets(); }, next_burst_time);
   }
 }
@@ -163,6 +169,8 @@ void SenderPacketRouter::SendBurstOfPackets() {
       burst_time, max_packets_per_burst_ - num_rtcp_packets_sent);
   last_burst_time_ = burst_time;
 
+  OSP_LOG_INFO << "Sent packets over sender packet router: RTCP "
+               << num_rtcp_packets_sent << ", RCP: " << num_rtp_packets_sent;
   BandwidthEstimator::OnBurstComplete(
       num_rtcp_packets_sent + num_rtp_packets_sent, burst_time);
 
@@ -197,12 +205,16 @@ int SenderPacketRouter::SendJustTheRtcpPackets(Clock::time_point send_time) {
 
 int SenderPacketRouter::SendJustTheRtpPackets(Clock::time_point send_time,
                                               int num_packets_to_send) {
+  OSP_LOG_INFO << "Sending " << num_packets_to_send << " RTP packets at time "
+               << send_time;
   int num_sent = 0;
   for (SenderEntry& entry : senders_) {
     if (num_sent >= num_packets_to_send) {
+      OSP_LOG_INFO << "Skipping... sent too many packets already";
       break;
     }
     if (entry.next_rtp_send_time > send_time) {
+      OSP_LOG_INFO << "Skipping... nothing else is ready";
       continue;
     }
 
@@ -212,6 +224,7 @@ int SenderPacketRouter::SendJustTheRtpPackets(Clock::time_point send_time,
               send_time,
               absl::Span<uint8_t>(packet_buffer_.get(), packet_buffer_size_));
       if (packet.empty()) {
+        OSP_LOG_WARN << "Not sending empty packet.";
         break;
       }
       environment_->SendPacket(packet);
@@ -219,6 +232,7 @@ int SenderPacketRouter::SendJustTheRtpPackets(Clock::time_point send_time,
     entry.next_rtp_send_time = entry.sender->GetRtpResumeTime();
   }
 
+  OSP_LOG_INFO << "Sent " << num_sent << " packets.";
   return num_sent;
 }
 
@@ -239,6 +253,9 @@ int SenderPacketRouter::ComputeMaxPacketsPerBurst(int max_burst_bitrate,
   const int max_packets_per_second =
       max_burst_bitrate / kBitsPerByte / packet_size;
   const int bursts_per_second = kOneSecondInMilliseconds / burst_interval;
+  OSP_LOG_INFO << "Max packets per second=" << max_packets_per_second
+  << ", max bursts per second=" << bursts_per_second;
+  // NOTE: this seems fine.
   return std::max(max_packets_per_second / bursts_per_second, 1);
 }
 

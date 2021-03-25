@@ -172,7 +172,7 @@ class SDLPlayerBase : public Receiver::Consumer, public Decoder::Client {
   // making sure the player uses resources efficiently: It is better for frames
   // to remain in the Receiver's queue until this player is ready to process
   // them.
-  static constexpr int kMaxFramesInPipeline = 8;
+  static constexpr int kMaxFramesInPipeline = 50;
 };
 
 }  // namespace cast

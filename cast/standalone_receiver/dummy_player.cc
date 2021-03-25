@@ -34,6 +34,8 @@ void DummyPlayer::OnFramesReady(int buffer_size) {
   const auto media_timestamp =
       frame.rtp_timestamp.ToTimeSinceOrigin<microseconds>(
           receiver_->rtp_timebase());
+
+  // TODO: it's keyframes all the way down.
   OSP_LOG_INFO << "[SSRC " << receiver_->ssrc() << "] "
                << (frame.dependency == EncodedFrame::KEY_FRAME ? "KEY " : "")
                << frame.frame_id << " at " << media_timestamp.count() << "µs, "
