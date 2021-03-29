@@ -144,7 +144,9 @@ class Environment : public UdpSocket::Client {
   IPEndpoint local_endpoint_{};
   IPEndpoint remote_endpoint_{};
   PacketConsumer* packet_consumer_ = nullptr;
-  SocketState state_ = SocketState::kStarting;
+
+  // Fake socket being ready.
+  SocketState state_ = SocketState::kReady;
   SocketSubscriber* socket_subscriber_ = nullptr;
 };
 

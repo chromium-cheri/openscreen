@@ -13,7 +13,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <algorithm>
 #include <cstring>
 #include <memory>
 #include <sstream>
@@ -29,11 +28,6 @@
 
 namespace openscreen {
 namespace {
-
-// 64 KB is the maximum possible UDP datagram size.
-#if !defined(OS_LINUX)
-constexpr int kMaxUdpBufferSize = 64 << 10;
-#endif
 
 constexpr bool IsPowerOf2(uint32_t x) {
   return (x > 0) && ((x & (x - 1)) == 0);
@@ -188,38 +182,37 @@ void UdpSocketPosix::Bind() {
     OnError(Error::Code::kSocketOptionSettingFailure);
   }
 
-  bool is_bound = false;
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
-      struct sockaddr_in address {};
+      struct sockaddr_in address;
       address.sin_family = AF_INET;
       address.sin_port = htons(local_endpoint_.port);
       local_endpoint_.address.CopyToV4(
           reinterpret_cast<uint8_t*>(&address.sin_addr.s_addr));
       if (bind(handle_.fd, reinterpret_cast<struct sockaddr*>(&address),
-               sizeof(address)) != -1) {
-        is_bound = true;
+               sizeof(address)) == -1) {
+        OnError(Error::Code::kSocketBindFailure);
       }
-    } break;
+      return;
+    }
 
     case UdpSocket::Version::kV6: {
-      struct sockaddr_in6 address {};
+      struct sockaddr_in6 address;
       address.sin6_family = AF_INET6;
+      address.sin6_flowinfo = 0;
       address.sin6_port = htons(local_endpoint_.port);
       local_endpoint_.address.CopyToV6(
           reinterpret_cast<uint8_t*>(&address.sin6_addr));
+      address.sin6_scope_id = 0;
       if (bind(handle_.fd, reinterpret_cast<struct sockaddr*>(&address),
-               sizeof(address)) != -1) {
-        is_bound = true;
+               sizeof(address)) == -1) {
+        OnError(Error::Code::kSocketBindFailure);
       }
-    } break;
+      return;
+    }
   }
 
-  if (is_bound) {
-    client_->OnBound(this);
-  } else {
-    OnError(Error::Code::kSocketBindFailure);
-  }
+  OSP_NOTREACHED();
 }
 
 void UdpSocketPosix::SetMulticastOutboundInterface(
@@ -379,53 +372,29 @@ bool IsPacketInfo<in6_pktinfo>(cmsghdr* cmh) {
 }
 
 template <class SockAddrType, class PktInfoType>
-ErrorOr<UdpPacket> ReceiveMessageInternal(int fd) {
-  int upper_bound_bytes;
-#if defined(OS_LINUX)
-  // This should return the exact size of the next message.
-  upper_bound_bytes = recv(fd, nullptr, 0, MSG_PEEK | MSG_TRUNC);
-  if (upper_bound_bytes == -1) {
-    return ChooseError(errno, Error::Code::kSocketReadFailure);
-  }
-#elif defined(MAC_OSX)
-  // Can't use MSG_TRUNC in recv(). Use the FIONREAD ioctl() to get an
-  // upper-bound.
-  if (ioctl(fd, FIONREAD, &upper_bound_bytes) == -1 || upper_bound_bytes < 0) {
-    return ChooseError(errno, Error::Code::kSocketReadFailure);
-  }
-  upper_bound_bytes = std::min(upper_bound_bytes, kMaxUdpBufferSize);
-#else  // Other POSIX platforms (neither MSG_TRUNC nor FIONREAD available).
-  upper_bound_bytes = kMaxUdpBufferSize;
-#endif
-
-  UdpPacket packet(upper_bound_bytes);
-  msghdr msg = {};
+Error ReceiveMessageInternal(int fd, UdpPacket* packet) {
   SockAddrType sa;
+  iovec iov = {packet->data(), packet->size()};
+  alignas(alignof(cmsghdr)) uint8_t control_buffer[1024];
+  msghdr msg;
   msg.msg_name = &sa;
   msg.msg_namelen = sizeof(sa);
-  iovec iov = {packet.data(), packet.size()};
   msg.msg_iov = &iov;
   msg.msg_iovlen = 1;
-
-  // Although we don't do anything with the control buffer, on Linux
-  // it is required for the message to be properly read.
-#if defined(OS_LINUX)
-  alignas(alignof(cmsghdr)) uint8_t control_buffer[1024];
   msg.msg_control = control_buffer;
   msg.msg_controllen = sizeof(control_buffer);
-#endif
-  const ssize_t bytes_received = recvmsg(fd, &msg, 0);
+  msg.msg_flags = 0;
+
+  ssize_t bytes_received = recvmsg(fd, &msg, 0);
   if (bytes_received == -1) {
-    OSP_DVLOG << "Failed to read from socket.";
     return ChooseError(errno, Error::Code::kSocketReadFailure);
   }
-  // We may not populate the entire packet.
-  OSP_DCHECK_LE(static_cast<size_t>(bytes_received), packet.size());
-  packet.resize(bytes_received);
+
+  OSP_DCHECK_EQ(static_cast<size_t>(bytes_received), packet->size());
 
   IPEndpoint source_endpoint = {.address = GetIPAddressFromSockAddr(sa),
                                 .port = GetPortFromFromSockAddr(sa)};
-  packet.set_source(std::move(source_endpoint));
+  packet->set_source(std::move(source_endpoint));
 
   // For multicast sockets, the packet's original destination address may be
   // the host address (since we called bind()) but it may also be a
@@ -443,11 +412,11 @@ ErrorOr<UdpPacket> ReceiveMessageInternal(int fd) {
       IPEndpoint destination_endpoint = {
           .address = GetIPAddressFromPktInfo(*pktinfo),
           .port = GetPortFromFromSockAddr(sa)};
-      packet.set_destination(std::move(destination_endpoint));
+      packet->set_destination(std::move(destination_endpoint));
       break;
     }
   }
-  return std::move(packet);
+  return Error::Code::kNone;
 }
 
 }  // namespace
@@ -467,15 +436,32 @@ void UdpSocketPosix::ReceiveMessage() {
     return;
   }
 
-  ErrorOr<UdpPacket> read_result = Error::Code::kUnknownError;
+  ssize_t bytes_available = recv(handle_.fd, nullptr, 0, MSG_PEEK | MSG_TRUNC);
+  if (bytes_available == -1) {
+    task_runner_->PostTask(
+        [weak_this = weak_factory_.GetWeakPtr(),
+         error =
+             ChooseError(errno, Error::Code::kSocketReadFailure)]() mutable {
+          if (auto* self = weak_this.get()) {
+            if (auto* client = self->client_) {
+              client->OnRead(self, std::move(error));
+            }
+          }
+        });
+    return;
+  }
+  UdpPacket packet(bytes_available);
+  packet.set_socket(this);
+  Error result = Error::Code::kUnknownError;
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
-      read_result = ReceiveMessageInternal<sockaddr_in, in_pktinfo>(handle_.fd);
+      result =
+          ReceiveMessageInternal<sockaddr_in, in_pktinfo>(handle_.fd, &packet);
       break;
     }
     case UdpSocket::Version::kV6: {
-      read_result =
-          ReceiveMessageInternal<sockaddr_in6, in6_pktinfo>(handle_.fd);
+      result = ReceiveMessageInternal<sockaddr_in6, in6_pktinfo>(handle_.fd,
+                                                                 &packet);
       break;
     }
     default: {
@@ -483,16 +469,21 @@ void UdpSocketPosix::ReceiveMessage() {
     }
   }
 
-  task_runner_->PostTask([weak_this = weak_factory_.GetWeakPtr(),
-                          read_result = std::move(read_result)]() mutable {
-    if (auto* self = weak_this.get()) {
-      if (auto* client = self->client_) {
-        client->OnRead(self, std::move(read_result));
-      }
-    }
-  });
+  task_runner_->PostTask(
+      [weak_this = weak_factory_.GetWeakPtr(),
+       read_result = result.ok()
+                         ? ErrorOr<UdpPacket>(std::move(packet))
+                         : ErrorOr<UdpPacket>(std::move(result))]() mutable {
+        if (auto* self = weak_this.get()) {
+          if (auto* client = self->client_) {
+            client->OnRead(self, std::move(read_result));
+          }
+        }
+      });
 }
 
+// TODO(yakimakha): Consider changing the interface to accept UdpPacket as
+// an input parameter.
 void UdpSocketPosix::SendMessage(const void* data,
                                  size_t length,
                                  const IPEndpoint& dest) {
@@ -514,9 +505,10 @@ void UdpSocketPosix::SendMessage(const void* data,
   ssize_t num_bytes_sent = -2;
   switch (local_endpoint_.address.version()) {
     case UdpSocket::Version::kV4: {
-      struct sockaddr_in sa {};
-      sa.sin_family = AF_INET;
-      sa.sin_port = htons(dest.port);
+      struct sockaddr_in sa = {
+          .sin_family = AF_INET,
+          .sin_port = htons(dest.port),
+      };
       dest.address.CopyToV4(reinterpret_cast<uint8_t*>(&sa.sin_addr.s_addr));
       msg.msg_name = &sa;
       msg.msg_namelen = sizeof(sa);
@@ -525,8 +517,10 @@ void UdpSocketPosix::SendMessage(const void* data,
     }
 
     case UdpSocket::Version::kV6: {
-      struct sockaddr_in6 sa {};
+      struct sockaddr_in6 sa = {};
       sa.sin6_family = AF_INET6;
+      sa.sin6_flowinfo = 0;
+      sa.sin6_scope_id = 0;
       sa.sin6_port = htons(dest.port);
       dest.address.CopyToV6(reinterpret_cast<uint8_t*>(&sa.sin6_addr.s6_addr));
       msg.msg_name = &sa;
