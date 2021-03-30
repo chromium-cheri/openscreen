@@ -174,6 +174,7 @@ IPEndpoint UdpSocketPosix::GetLocalEndpoint() const {
 }
 
 void UdpSocketPosix::Bind() {
+  OSP_LOG_INFO << "Binding UDP socket to " << local_endpoint_;
   if (is_closed()) {
     OnError(Error::Code::kSocketClosedFailure);
     return;
