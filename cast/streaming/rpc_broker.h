@@ -5,6 +5,7 @@
 #ifndef CAST_STREAMING_RPC_BROKER_H_
 #define CAST_STREAMING_RPC_BROKER_H_
 
+#include <string>
 #include <vector>
 
 #include "cast/streaming/remoting.pb.h"
@@ -29,7 +30,7 @@ class RpcBroker {
  public:
   using Handle = int;
   using ReceiveMessageCallback = std::function<void(const RpcMessage&)>;
-  using SendMessageCallback = std::function<void(std::vector<uint8_t>)>;
+  using SendMessageCallback = std::function<void(std::string)>;
 
   explicit RpcBroker(SendMessageCallback send_message_cb);
   RpcBroker(const RpcBroker&) = delete;
@@ -53,7 +54,9 @@ class RpcBroker {
   void UnregisterMessageReceiverCallback(Handle handle);
 
   // Distributes an incoming RPC message to the registered (if any) component.
-  void ProcessMessageFromRemote(const RpcMessage& message);
+  // The |serialized_message| should be already base64-decoded and ready for
+  // deserialization by protobuf.
+  void ProcessMessageFromRemote(const std::string& serialized_message);
 
   // Executes the |send_message_cb_| using |message|.
   void SendMessageToRemote(const RpcMessage& message);

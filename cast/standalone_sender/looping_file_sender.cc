@@ -140,7 +140,7 @@ void LoopingFileSender::UpdateStatusOnConsole() {
   // there might sometimes be old status lines not getting erased (i.e., just
   // partially overwritten).
   fprintf(stdout,
-          "\r\x1b[2K\rLoopingFileSender: At %01" PRId64
+          "\x1b[2J\rLoopingFileSender: At %01" PRId64
           ".%03ds in file (est. network bandwidth: %d kbps). \n",
           static_cast<int64_t>(seconds_part.count()),
           static_cast<int>(millis_part.count()), bandwidth_estimate_ / 1024);

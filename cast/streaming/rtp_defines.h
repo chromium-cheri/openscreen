@@ -108,10 +108,8 @@ enum class RtpPayloadType : uint8_t {
 // sending the audio and video hacks for AndroidTV, however we should migrate
 // to using proper rtp payload types. New payload types for new codecs, such
 // as VP9, should also be defined.
-// TODO(crbug.com/1127978): RTP payload types need to represent actual type,
-// as well as have options for new codecs like VP9.
-RtpPayloadType GetPayloadType(AudioCodec codec);
-RtpPayloadType GetPayloadType(VideoCodec codec);
+RtpPayloadType GetPayloadType(AudioCodec codec, bool use_android_rtp_hack);
+RtpPayloadType GetPayloadType(VideoCodec codec, bool use_android_rtp_hack);
 
 // Returns true if the |raw_byte| can be type-casted to a RtpPayloadType, and is
 // also not RtpPayloadType::kNull. The caller should mask the byte, to select
