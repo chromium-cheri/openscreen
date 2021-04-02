@@ -69,8 +69,10 @@ constexpr int kDefaultAudioChannels = 2;
 // are required to implement the following codecs to be Cast V2 compliant: H264,
 // VP8, AAC, Opus. Senders have to implement at least one codec for audio and
 // video to start a session.
-enum class AudioCodec { kAac, kOpus };
-enum class VideoCodec { kH264, kVp8, kHevc, kVp9 };
+// |kRemote| means that the video frame data is not modified from the original
+// content and is not encoded in Cast Streaming.
+enum class AudioCodec { kAac, kOpus, kRemote };
+enum class VideoCodec { kH264, kVp8, kHevc, kVp9, kRemote };
 
 }  // namespace cast
 }  // namespace openscreen

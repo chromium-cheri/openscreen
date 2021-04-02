@@ -4,6 +4,7 @@
 
 #include "cast/streaming/rpc_broker.h"
 
+#include <string>
 #include <utility>
 
 #include "util/osp_logging.h"
@@ -35,6 +36,11 @@ std::ostream& operator<<(std::ostream& out, const RpcMessage& message) {
 
 }  // namespace
 
+constexpr RpcBroker::Handle RpcBroker::kInvalidHandle;
+constexpr RpcBroker::Handle RpcBroker::kAcquireRendererHandle;
+constexpr RpcBroker::Handle RpcBroker::kAcquireDemuxerHandle;
+constexpr RpcBroker::Handle RpcBroker::kFirstHandle;
+
 RpcBroker::RpcBroker(SendMessageCallback send_message_cb)
     : next_handle_(kFirstHandle),
       send_message_cb_(std::move(send_message_cb)) {}
@@ -61,8 +67,15 @@ void RpcBroker::UnregisterMessageReceiverCallback(RpcBroker::Handle handle) {
   receive_callbacks_.erase_key(handle);
 }
 
-void RpcBroker::ProcessMessageFromRemote(const RpcMessage& message) {
+void RpcBroker::ProcessMessageFromRemote(
+    const std::string& serialized_message) {
+  RpcMessage message;
+  if (!message.ParseFromString(serialized_message)) {
+    OSP_LOG_WARN << "Failed to parse RPC message from remote: " << message;
+    return;
+  }
   OSP_DVLOG << "received message: " << message;
+
   const auto entry = receive_callbacks_.find(message.handle());
   if (entry == receive_callbacks_.end()) {
     OSP_DVLOG << "unregistered handle: " << message.handle();
@@ -72,11 +85,9 @@ void RpcBroker::ProcessMessageFromRemote(const RpcMessage& message) {
 }
 
 void RpcBroker::SendMessageToRemote(const RpcMessage& message) {
-  OSP_DVLOG << "sending message message: " << message;
-  std::vector<uint8_t> serialized_message(message.ByteSizeLong());
-  OSP_CHECK(message.SerializeToArray(serialized_message.data(),
-                                     serialized_message.size()));
-  send_message_cb_(std::move(serialized_message));
+  OSP_DVLOG << "sending message: " << message;
+
+  send_message_cb_(message.SerializeAsString());
 }
 
 bool RpcBroker::IsRegisteredForTesting(RpcBroker::Handle handle) {
