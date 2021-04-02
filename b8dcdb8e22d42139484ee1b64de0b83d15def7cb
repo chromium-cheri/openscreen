@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18f6abca_5718ab9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "Sending partial comments before I go OOO.  I reviewed up through rtp_defines.cc",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27353a71_2a514039",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "Specifically, senders have to implement at least one codec from that list for audio and/or video.",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8ca8827_ec352f38",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "What codec does kRemote correspond to?",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7eb4da5_c8a839f5",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56ecdae3_f25bbe0b",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "This seems to be a mix of codecs, media types (audio/video), and \"4k\".\n\nIs this enumeration part of the streaming control protocol?  If not, can we split it up into more specific types?",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ca51b3d_1cc193d4",
+        "filename": "cast/streaming/remoting_capabilities.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "What does this mean?",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88f7cce_778af4b9",
+        "filename": "cast/streaming/remoting_capabilities.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed93b30a_49ff2e89",
+        "filename": "cast/streaming/remoting_capabilities.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "Is this an attribute of the receiver display, the receiver decoding/rendering implementation, or the codec?  All of these codecs support 4k.",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7161b3f_8fd6d6ac",
+        "filename": "cast/streaming/rpc_broker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "Prefer uint8_t for binary payloads (unless you know for certain that the content is a UTF-8 string).",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8371553_303f74bc",
+        "filename": "cast/streaming/rpc_broker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "So serialized_message is probably an encoded protocol message, and should be passed as uint8_t",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fda04e2_f61cc9fa",
+        "filename": "cast/streaming/rtp_defines.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "The sender and receiver of the remoting stream have to agree on the codec before media can be sent.   For now that is limited to the mandatory to implement codecs and they should have well defined RTP types.\n\nSo I can understand wanting to be future proof by adding a wildcard type, but allowing anonymous audio data to be sent is opening a can of worms for interop.",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29dcff04_2f3c7fb8",
+        "filename": "cast/streaming/rtp_defines.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "Same comments apply here.",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6e74f0d_c191e602",
+        "filename": "cast/streaming/rtp_defines.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-02T22:09:42Z",
+      "side": 1,
+      "message": "Can you link a bug or some other explanation of use_android_rtp_hack?\n\nIf this is specific to Android, can we make it a platform-specific global configuration set by #define?",
+      "revId": "b8dcdb8e22d42139484ee1b64de0b83d15def7cb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
