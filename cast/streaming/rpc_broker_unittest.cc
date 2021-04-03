@@ -5,6 +5,7 @@
 #include "cast/streaming/rpc_broker.h"
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "cast/streaming/remoting.pb.h"
@@ -17,7 +18,6 @@ using testing::Return;
 
 namespace openscreen {
 namespace cast {
-
 namespace {
 
 class FakeMessager {
@@ -27,8 +27,8 @@ class FakeMessager {
     received_count_++;
   }
 
-  void OnSentRpc(const std::vector<uint8_t>& message) {
-    EXPECT_TRUE(sent_rpc_.ParseFromArray(message.data(), message.size()));
+  void OnSentRpc(const std::string& message) {
+    EXPECT_TRUE(sent_rpc_.ParseFromString(message));
     sent_count_++;
   }
 
@@ -60,7 +60,7 @@ class RpcBrokerTest : public testing::Test {
     ASSERT_FALSE(fake_messager_->received_count());
 
     rpc_broker_ = std::make_unique<RpcBroker>(
-        [p = fake_messager_.get()](std::vector<uint8_t> message) {
+        [p = fake_messager_.get()](std::string message) {
           p->OnSentRpc(message);
         });
 
@@ -79,14 +79,14 @@ class RpcBrokerTest : public testing::Test {
 TEST_F(RpcBrokerTest, TestProcessMessageFromRemoteRegistered) {
   RpcMessage rpc;
   rpc.set_handle(fake_messager_->handle());
-  rpc_broker_->ProcessMessageFromRemote(rpc);
+  rpc_broker_->ProcessMessageFromRemote(rpc.SerializeAsString());
   ASSERT_EQ(1, fake_messager_->received_count());
 }
 
 TEST_F(RpcBrokerTest, TestProcessMessageFromRemoteUnregistered) {
   RpcMessage rpc;
   rpc_broker_->UnregisterMessageReceiverCallback(fake_messager_->handle());
-  rpc_broker_->ProcessMessageFromRemote(rpc);
+  rpc_broker_->ProcessMessageFromRemote(rpc.SerializeAsString());
   ASSERT_EQ(0, fake_messager_->received_count());
 }
 
@@ -119,7 +119,7 @@ TEST_F(RpcBrokerTest, ProcessMessageWithRegisteredHandle) {
   sent_rpc.set_handle(fake_messager_->handle());
   sent_rpc.set_proc(RpcMessage::RPC_R_SETVOLUME);
   sent_rpc.set_double_value(3.4);
-  rpc_broker_->ProcessMessageFromRemote(sent_rpc);
+  rpc_broker_->ProcessMessageFromRemote(sent_rpc.SerializeAsString());
 
   // Checks if received message is identical to the one sent earlier.
   ASSERT_EQ(1, fake_messager_->received_count());
@@ -136,7 +136,7 @@ TEST_F(RpcBrokerTest, ProcessMessageWithUnregisteredHandle) {
   sent_rpc.set_handle(different_handle);
   sent_rpc.set_proc(RpcMessage::RPC_R_SETVOLUME);
   sent_rpc.set_double_value(4.5);
-  rpc_broker_->ProcessMessageFromRemote(sent_rpc);
+  rpc_broker_->ProcessMessageFromRemote(sent_rpc.SerializeAsString());
 
   // We shouldn't have gotten the message since the handle is different.
   ASSERT_EQ(0, fake_messager_->received_count());
