@@ -5,6 +5,7 @@
 #ifndef CAST_STREAMING_RPC_BROKER_H_
 #define CAST_STREAMING_RPC_BROKER_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -29,7 +30,8 @@ namespace cast {
 class RpcBroker {
  public:
   using Handle = int;
-  using ReceiveMessageCallback = std::function<void(const RpcMessage&)>;
+  using ReceiveMessageCallback =
+      std::function<void(std::unique_ptr<RpcMessage>)>;
   using SendMessageCallback = std::function<void(std::vector<uint8_t>)>;
 
   explicit RpcBroker(SendMessageCallback send_message_cb);
