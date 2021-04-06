@@ -29,6 +29,15 @@ struct SimpleFraction {
   static ErrorOr<SimpleFraction> FromString(absl::string_view value);
   std::string ToString() const;
 
+  SimpleFraction();
+  SimpleFraction(int numerator, int denominator);
+  SimpleFraction(int numerator);  // NOLINT
+  SimpleFraction(const SimpleFraction&);
+  SimpleFraction(SimpleFraction&&) noexcept;
+  SimpleFraction& operator=(const SimpleFraction&);
+  SimpleFraction& operator=(SimpleFraction&&);
+  ~SimpleFraction();
+
   bool operator==(const SimpleFraction& other) const;
   bool operator!=(const SimpleFraction& other) const;
 
