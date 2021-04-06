@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cddd743f_f777a317",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-06T23:51:56Z",
+      "side": 1,
+      "message": "The motivation for this is I am currently modifying media/remoting and realized I have to change something hilarious like 10% of all lines to make the RpcBroker use const RpcMessage\u0026. Considering that the code is functionally very similar and std::unique_ptr does make usage clearer in some instances, I\u0027m fine doing this instead.\n\nPTAL, and LMK if I am asking for too many reviews. Other than mfoltz@, there\u0027s not that much experience with remoting on our team excepting me.",
+      "revId": "e4b27a067bdf056989fb699d2ecd384ce9c865ab",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
