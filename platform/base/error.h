@@ -9,6 +9,7 @@
 #include <ostream>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "platform/base/macros.h"
 
@@ -231,8 +232,8 @@ class Error {
 };
 
 std::ostream& operator<<(std::ostream& os, const Error::Code& code);
-
-std::ostream& operator<<(std::ostream& out, const Error& error);
+std::ostream& operator<<(std::ostream& os, const Error& error);
+std::ostream& operator<<(std::ostream& os, const std::vector<Error>& error);
 
 // A convenience function to return a single value from a function that can
 // return a value or an error.  For normal results, construct with a ValueType*

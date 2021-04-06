@@ -35,14 +35,15 @@ void ApplyDisplay(const DisplayDescription& description,
   // We should never exceed the display's resolution, since it will always
   // force scaling.
   if (description.dimensions) {
-    const double frame_rate =
-        static_cast<double>(description.dimensions->frame_rate);
-    recommendations->video.maximum =
-        Resolution{description.dimensions->width,
-                   description.dimensions->height, frame_rate};
+    recommendations->video.maximum = description.dimensions.value();
     recommendations->video.bit_rate_limits.maximum =
         recommendations->video.maximum.effective_bit_rate();
-    recommendations->video.minimum.set_minimum(recommendations->video.maximum);
+
+    if (recommendations->video.maximum.resolution <
+        recommendations->video.minimum) {
+      recommendations->video.minimum =
+          recommendations->video.maximum.resolution;
+    }
   }
 
   // If the receiver gives us an aspect ratio that doesn't match the display
@@ -56,27 +57,23 @@ void ApplyDisplay(const DisplayDescription& description,
 #if OSP_DCHECK_IS_ON()
     if (description.dimensions) {
       const double from_dims =
-          static_cast<double>(description.dimensions->width) /
-          description.dimensions->height;
+          static_cast<double>(description.dimensions->width()) /
+          description.dimensions->height();
       if (!DoubleEquals(from_dims, aspect_ratio)) {
         OSP_DLOG_WARN << "Received mismatched aspect ratio from the receiver.";
       }
     }
 #endif
-    recommendations->video.maximum.width =
-        recommendations->video.maximum.height * aspect_ratio;
+    recommendations->video.maximum.resolution.width =
+        recommendations->video.maximum.height() * aspect_ratio;
   } else if (description.dimensions) {
-    aspect_ratio = static_cast<double>(description.dimensions->width) /
-                   description.dimensions->height;
+    aspect_ratio = static_cast<double>(description.dimensions->width()) /
+                   description.dimensions->height();
   } else {
     return;
   }
   recommendations->video.minimum.width =
       recommendations->video.minimum.height * aspect_ratio;
-}
-
-Resolution ToResolution(const Dimensions& dims) {
-  return {dims.width, dims.height, static_cast<double>(dims.frame_rate)};
 }
 
 void ApplyConstraints(const Constraints& constraints,
@@ -109,16 +106,15 @@ void ApplyConstraints(const Constraints& constraints,
                              recommendations->video.bit_rate_limits.minimum),
                     std::min(constraints.video.max_bit_rate,
                              recommendations->video.bit_rate_limits.maximum)};
-  Resolution max = ToResolution(constraints.video.max_dimensions);
-  if (max <= kDefaultMinResolution) {
-    recommendations->video.maximum = kDefaultMinResolution;
-  } else if (max < recommendations->video.maximum) {
-    recommendations->video.maximum = std::move(max);
+  Dimensions dimensions = constraints.video.max_dimensions;
+  if (dimensions.resolution <= kDefaultMinResolution) {
+    recommendations->video.maximum = {kDefaultMinResolution, kDefaultFrameRate};
+  } else if (dimensions < recommendations->video.maximum) {
+    recommendations->video.maximum = std::move(dimensions);
   }
-  // Implicit else: maximum = kDefaultMaxResolution.
 
-  if (constraints.video.min_dimensions) {
-    Resolution min = ToResolution(constraints.video.min_dimensions.value());
+  if (constraints.video.min_resolution) {
+    const Resolution& min = constraints.video.min_resolution->resolution;
     if (kDefaultMinResolution < min) {
       recommendations->video.minimum = std::move(min);
     }
@@ -135,25 +131,6 @@ bool Audio::operator==(const Audio& other) const {
   return std::tie(bit_rate_limits, max_delay, max_channels, max_sample_rate) ==
          std::tie(other.bit_rate_limits, other.max_delay, other.max_channels,
                   other.max_sample_rate);
-}
-
-bool Resolution::operator==(const Resolution& other) const {
-  return (std::tie(width, height) == std::tie(other.width, other.height)) &&
-         DoubleEquals(frame_rate, other.frame_rate);
-}
-
-bool Resolution::operator<(const Resolution& other) const {
-  return effective_bit_rate() < other.effective_bit_rate();
-}
-
-bool Resolution::operator<=(const Resolution& other) const {
-  return (*this == other) || (*this < other);
-}
-
-void Resolution::set_minimum(const Resolution& other) {
-  if (other < *this) {
-    *this = other;
-  }
 }
 
 bool Video::operator==(const Video& other) const {

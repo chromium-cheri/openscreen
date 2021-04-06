@@ -43,6 +43,20 @@ std::string SimpleFraction::ToString() const {
   return absl::StrCat(numerator, "/", denominator);
 }
 
+SimpleFraction::SimpleFraction() : numerator(0), denominator(1) {}
+
+SimpleFraction::SimpleFraction(int numerator, int denominator)
+    : numerator(numerator), denominator(denominator) {}
+
+SimpleFraction::SimpleFraction(int numerator)
+    : numerator(numerator), denominator(1) {}
+
+SimpleFraction::SimpleFraction(const SimpleFraction&) = default;
+SimpleFraction::SimpleFraction(SimpleFraction&&) = default;
+SimpleFraction& SimpleFraction::operator=(const SimpleFraction&) = default;
+SimpleFraction& SimpleFraction::operator=(SimpleFraction&&) = default;
+SimpleFraction::~SimpleFraction() = default;
+
 bool SimpleFraction::operator==(const SimpleFraction& other) const {
   return numerator == other.numerator && denominator == other.denominator;
 }

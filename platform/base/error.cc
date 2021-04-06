@@ -276,9 +276,18 @@ std::string Error::ToString() const {
   return ss.str();
 }
 
-std::ostream& operator<<(std::ostream& out, const Error& error) {
-  out << error.code() << " = \"" << error.message() << "\"";
-  return out;
+std::ostream& operator<<(std::ostream& os, const Error& error) {
+  os << error.code() << " = \"" << error.message() << "\"";
+  return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const std::vector<Error>& errors) {
+  os << "[";
+  for (const Error& error : errors) {
+    os << "{ " << error << " }, ";
+  }
+  os << "]";
+  return os;
 }
 
 // static
