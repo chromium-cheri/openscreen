@@ -100,6 +100,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfcb59b3_75684f6f",
+        "filename": "cast/protocol/castv2/streaming_schema.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-04-07T00:17:41Z",
+      "side": 1,
+      "message": "Interesting, good to know",
+      "parentUuid": "fc91afd8_1608da1c",
+      "range": {
+        "startLine": 118,
+        "startChar": 9,
+        "endLine": 118,
+        "endChar": 22
+      },
+      "revId": "6187df41231507e3544913322f029f5da24bf821",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f055921e_7e304a28",
@@ -142,6 +166,75 @@
         "startChar": 9,
         "endLine": 119,
         "endChar": 61
+      },
+      "revId": "6187df41231507e3544913322f029f5da24bf821",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec0ac77_f607afe7",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-04-07T00:17:41Z",
+      "side": 1,
+      "message": "IMHO 2398/100 would be more readable / intuitive?",
+      "range": {
+        "startLine": 51,
+        "startChar": 10,
+        "endLine": 51,
+        "endChar": 20
+      },
+      "revId": "6187df41231507e3544913322f029f5da24bf821",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82639bfc_c17cd526",
+        "filename": "cast/streaming/resolution.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-04-07T00:17:41Z",
+      "side": 1,
+      "message": "This setup isn\u0027t logically consistent for boolean arithmetic - which IMHO makes it super hard to reason about\n\nIt\u0027s possible for (a \u003c b \u003d\u003d false), (b \u003c a \u003d\u003d false), and (a !\u003d b) all at the same time\n\nSo if a \u003c b \u003d\u003d false, it implies b \u003c\u003d a which isn\u0027t always true\ne.g.\na \u003d (1,2), b \u003d (2,1)",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 1
+      },
+      "revId": "6187df41231507e3544913322f029f5da24bf821",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caf2278f_a42392eb",
+        "filename": "cast/streaming/resolution.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-04-07T00:17:41Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 1
       },
       "revId": "6187df41231507e3544913322f029f5da24bf821",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
