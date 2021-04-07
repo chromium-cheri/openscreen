@@ -37,7 +37,7 @@ constexpr char kValidAnswerJson[] = R"({
     },
     "video": {
       "maxPixelsPerSecond": 62208000,
-      "minDimensions": {
+      "minResolution": {
         "width": 320,
         "height": 180,
         "frameRate": 0
@@ -82,14 +82,10 @@ const Answer kValidAnswer{
         VideoConstraints{
             40000.0,  // max_pixels_per_second
             absl::optional<Dimensions>(Dimensions{
-                320,                        // width
-                480,                        // height
-                SimpleFraction{15000, 101}  // frame_rate
-            }),                             // min_dimensions
+                Resolution{320, 480}, SimpleFraction{15000, 101}  // frame_rate
+            }),
             Dimensions{
-                1920,                   // width
-                1080,                   // height
-                SimpleFraction{288, 2}  // frame_rate
+                Resolution{1920, 1080}, SimpleFraction{288, 2}  // frame_rate
             },
             300000,             // min_bit_rate
             144000000,          // max_bit_rate
@@ -98,9 +94,7 @@ const Answer kValidAnswer{
     }),                         // constraints
     absl::optional<DisplayDescription>(DisplayDescription{
         absl::optional<Dimensions>(Dimensions{
-            640,                   // width
-            480,                   // height
-            SimpleFraction{30, 1}  // frame_rate
+            Resolution{640, 480}, SimpleFraction{30, 1}  // frame_rate
         }),
         absl::optional<AspectRatio>(AspectRatio{16, 9}),  // aspect_ratio
         absl::optional<AspectRatioConstraint>(
@@ -113,7 +107,8 @@ const Answer kValidAnswer{
 };
 
 constexpr int kValidMaxPixelsPerSecond = 1920 * 1080 * 30;
-constexpr Dimensions kValidDimensions{1920, 1080, SimpleFraction{60, 1}};
+const Dimensions kValidDimensions{Resolution{1920, 1080},
+                                  SimpleFraction{60, 1}};
 static const VideoConstraints kValidVideoConstraints{
     kValidMaxPixelsPerSecond, absl::optional<Dimensions>(kValidDimensions),
     kValidDimensions,         300 * 1000,
@@ -137,12 +132,12 @@ void ExpectEqualsValidAnswerJson(const Answer& answer) {
 
   const VideoConstraints& video = answer.constraints->video;
   EXPECT_EQ(62208000, video.max_pixels_per_second);
-  ASSERT_TRUE(video.min_dimensions.has_value());
-  EXPECT_EQ(320, video.min_dimensions->width);
-  EXPECT_EQ(180, video.min_dimensions->height);
-  EXPECT_EQ((SimpleFraction{0, 1}), video.min_dimensions->frame_rate);
-  EXPECT_EQ(1920, video.max_dimensions.width);
-  EXPECT_EQ(1080, video.max_dimensions.height);
+  ASSERT_TRUE(video.min_resolution.has_value());
+  EXPECT_EQ(320, video.min_resolution->resolution.width);
+  EXPECT_EQ(180, video.min_resolution->resolution.height);
+  EXPECT_EQ((SimpleFraction{0, 1}), video.min_resolution->frame_rate);
+  EXPECT_EQ(1920, video.max_dimensions.resolution.width);
+  EXPECT_EQ(1080, video.max_dimensions.resolution.height);
   EXPECT_EQ((SimpleFraction{60, 1}), video.max_dimensions.frame_rate);
   EXPECT_EQ(300000, video.min_bit_rate);
   EXPECT_EQ(10000000, video.max_bit_rate);
@@ -151,8 +146,8 @@ void ExpectEqualsValidAnswerJson(const Answer& answer) {
   ASSERT_TRUE(answer.display.has_value());
   const DisplayDescription& display = answer.display.value();
   ASSERT_TRUE(display.dimensions.has_value());
-  EXPECT_EQ(1920, display.dimensions->width);
-  EXPECT_EQ(1080, display.dimensions->height);
+  EXPECT_EQ(1920, display.dimensions->resolution.width);
+  EXPECT_EQ(1080, display.dimensions->resolution.height);
   EXPECT_EQ((SimpleFraction{60000, 1001}), display.dimensions->frame_rate);
   EXPECT_EQ((AspectRatio{64, 27}), display.aspect_ratio.value());
   EXPECT_EQ(AspectRatioConstraint::kFixed,
@@ -223,11 +218,11 @@ TEST(AnswerMessagesTest, ProperlyPopulatedAnswerSerializesProperly) {
   EXPECT_EQ(video["maxBitRate"], 144000000);
   EXPECT_EQ(video["maxDelay"], 3000);
 
-  Json::Value min_dimensions = std::move(video["minDimensions"]);
-  EXPECT_EQ(min_dimensions.type(), Json::ValueType::objectValue);
-  EXPECT_EQ(min_dimensions["width"], 320);
-  EXPECT_EQ(min_dimensions["height"], 480);
-  EXPECT_EQ(min_dimensions["frameRate"], "15000/101");
+  Json::Value min_resolution = std::move(video["minResolution"]);
+  EXPECT_EQ(min_resolution.type(), Json::ValueType::objectValue);
+  EXPECT_EQ(min_resolution["width"], 320);
+  EXPECT_EQ(min_resolution["height"], 480);
+  EXPECT_EQ(min_resolution["frameRate"], "15000/101");
 
   Json::Value max_dimensions = std::move(video["maxDimensions"]);
   EXPECT_EQ(max_dimensions.type(), Json::ValueType::objectValue);
@@ -288,7 +283,7 @@ TEST(AnswerMessagesTest, EmptyArraysOmitted) {
 
 TEST(AnswerMessagesTest, InvalidDimensionsCauseInvalid) {
   Answer invalid_dimensions = kValidAnswer;
-  invalid_dimensions.display->dimensions->width = -1;
+  invalid_dimensions.display->dimensions->resolution.width = -1;
   EXPECT_FALSE(invalid_dimensions.IsValid());
 }
 
@@ -453,15 +448,15 @@ TEST(AnswerMessagesTest, AudioConstraintsIsValid) {
 
 TEST(AnswerMessagesTest, DimensionsIsValid) {
   // NOTE: in some cases (such as min dimensions) a frame rate of zero is valid.
-  constexpr Dimensions kValidZeroFrameRate{1920, 1080, SimpleFraction{0, 60}};
-  constexpr Dimensions kInvalidWidth{0, 1080, SimpleFraction{60, 1}};
-  constexpr Dimensions kInvalidHeight{1920, 0, SimpleFraction{60, 1}};
-  constexpr Dimensions kInvalidFrameRateZeroDenominator{1920, 1080,
-                                                        SimpleFraction{60, 0}};
-  constexpr Dimensions kInvalidFrameRateNegativeNumerator{
-      1920, 1080, SimpleFraction{-1, 30}};
-  constexpr Dimensions kInvalidFrameRateNegativeDenominator{
-      1920, 1080, SimpleFraction{30, -1}};
+  const Dimensions kValidZeroFrameRate{{1920, 1080}, SimpleFraction{0, 60}};
+  const Dimensions kInvalidWidth{{0, 1080}, SimpleFraction{60, 1}};
+  const Dimensions kInvalidHeight{{1920, 0}, SimpleFraction{60, 1}};
+  const Dimensions kInvalidFrameRateZeroDenominator{{1920, 1080},
+                                                    SimpleFraction{60, 0}};
+  const Dimensions kInvalidFrameRateNegativeNumerator{{1920, 1080},
+                                                      SimpleFraction{-1, 30}};
+  const Dimensions kInvalidFrameRateNegativeDenominator{{1920, 1080},
+                                                        SimpleFraction{30, -1}};
 
   EXPECT_TRUE(kValidDimensions.IsValid());
   EXPECT_TRUE(kValidZeroFrameRate.IsValid());
@@ -476,11 +471,11 @@ TEST(AnswerMessagesTest, VideoConstraintsIsValid) {
   VideoConstraints invalid_max_pixels_per_second = kValidVideoConstraints;
   invalid_max_pixels_per_second.max_pixels_per_second = 0;
 
-  VideoConstraints invalid_min_dimensions = kValidVideoConstraints;
-  invalid_min_dimensions.min_dimensions->width = 0;
+  VideoConstraints invalid_min_resolution = kValidVideoConstraints;
+  invalid_min_resolution.min_resolution->resolution.width = 0;
 
   VideoConstraints invalid_max_dimensions = kValidVideoConstraints;
-  invalid_max_dimensions.max_dimensions.height = 0;
+  invalid_max_dimensions.max_dimensions.resolution.height = 0;
 
   VideoConstraints invalid_min_bit_rate = kValidVideoConstraints;
   invalid_min_bit_rate.min_bit_rate = 0;
@@ -493,7 +488,7 @@ TEST(AnswerMessagesTest, VideoConstraintsIsValid) {
 
   EXPECT_TRUE(kValidVideoConstraints.IsValid());
   EXPECT_FALSE(invalid_max_pixels_per_second.IsValid());
-  EXPECT_FALSE(invalid_min_dimensions.IsValid());
+  EXPECT_FALSE(invalid_min_resolution.IsValid());
   EXPECT_FALSE(invalid_max_dimensions.IsValid());
   EXPECT_FALSE(invalid_min_bit_rate.IsValid());
   EXPECT_FALSE(invalid_max_bit_rate.IsValid());
@@ -597,8 +592,8 @@ TEST(AnswerMessagesTest, DisplayDescriptionParseAndValidate) {
 
   ASSERT_TRUE(DisplayDescription::ParseAndValidate(valid_dimensions, &out));
   ASSERT_TRUE(out.dimensions.has_value());
-  EXPECT_EQ(1920, out.dimensions->width);
-  EXPECT_EQ(1080, out.dimensions->height);
+  EXPECT_EQ(1920, out.dimensions->width());
+  EXPECT_EQ(1080, out.dimensions->height());
   EXPECT_EQ((SimpleFraction{30, 1}), out.dimensions->frame_rate);
 
   EXPECT_FALSE(DisplayDescription::ParseAndValidate(invalid_dimensions, &out));
@@ -620,7 +615,7 @@ TEST(AnswerMessagesTest, DisplayDescriptionIsValid) {
   DisplayDescription has_invalid_dimensions = kInvalidEmptyDescription;
   has_invalid_dimensions.dimensions =
       absl::optional<Dimensions>(kValidDimensions);
-  has_invalid_dimensions.dimensions->width = 0;
+  has_invalid_dimensions.dimensions->resolution.width = 0;
 
   DisplayDescription has_aspect_ratio = kInvalidEmptyDescription;
   has_aspect_ratio.aspect_ratio =
