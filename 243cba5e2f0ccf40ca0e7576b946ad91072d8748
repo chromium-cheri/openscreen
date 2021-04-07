@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1a5ebb7_9ad598b7",
+        "filename": "cast/streaming/resolution.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-04-07T19:41:58Z",
+      "side": 1,
+      "message": "Why? This seems like another case where (a \u003d\u003d b) \u003d\u003d false and (a !\u003d b) \u003d\u003d false\n\nShould this be comparing this.width to other.width, and same for height?",
+      "range": {
+        "startLine": 103,
+        "startChar": 10,
+        "endLine": 103,
+        "endChar": 33
+      },
+      "revId": "243cba5e2f0ccf40ca0e7576b946ad91072d8748",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a953937_4d100dba",
+        "filename": "cast/streaming/resolution.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-04-07T19:41:58Z",
+      "side": 1,
+      "message": "didn\u0027t we decide we just aren\u0027t defining \u003e\u003d, \u003e, \u003c\u003d - I though we still were defining !\u003d when we defined \u003d\u003d",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 49
+      },
+      "revId": "243cba5e2f0ccf40ca0e7576b946ad91072d8748",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d270808c_62f89a5d",
+        "filename": "util/simple_fraction.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-04-07T19:41:58Z",
+      "side": 1,
+      "message": "nit: I\u0027d actually be in favor of removing the aggregate ctor entirely, now that we have a ctor to account for all valid creation scenarios. Even if this means you need to change it to a class\n\nThough not a strong opinion. I\u0027ll leave it to you to decide",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "243cba5e2f0ccf40ca0e7576b946ad91072d8748",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
