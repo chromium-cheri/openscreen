@@ -254,9 +254,14 @@ ErrorOr<Json::Value> ReceiverMessage::ToJson() const {
       break;
 
     case ReceiverMessage::Type::kCapabilitiesResponse:
-      root[kResult] = kResultOk;
-      root[kCapabilitiesMessageBody] =
-          absl::get<ReceiverCapability>(body).ToJson();
+      if (valid) {
+        root[kResult] = kResultOk;
+        root[kCapabilitiesMessageBody] =
+            absl::get<ReceiverCapability>(body).ToJson();
+      } else {
+        root[kResult] = kResultError;
+        root[kErrorMessageBody] = absl::get<ReceiverError>(body).ToJson();
+      }
       break;
 
     // NOTE: RPC messages do NOT have a result field.
