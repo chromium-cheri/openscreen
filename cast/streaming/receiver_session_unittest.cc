@@ -33,7 +33,6 @@ constexpr char kValidOfferMessage[] = R"({
   "seqNum": 1337,
   "offer": {
     "castMode": "mirroring",
-    "receiverGetStatus": true,
     "supportedStreams": [
       {
         "index": 31337,
@@ -99,7 +98,6 @@ constexpr char kNoAudioOfferMessage[] = R"({
   "seqNum": 1337,
   "offer": {
     "castMode": "mirroring",
-    "receiverGetStatus": true,
     "supportedStreams": [
       {
         "index": 31338,
@@ -131,7 +129,6 @@ constexpr char kInvalidCodecOfferMessage[] = R"({
   "seqNum": 1337,
   "offer": {
     "castMode": "mirroring",
-    "receiverGetStatus": true,
     "supportedStreams": [
       {
         "index": 31338,
@@ -163,7 +160,6 @@ constexpr char kNoVideoOfferMessage[] = R"({
   "seqNum": 1337,
   "offer": {
     "castMode": "mirroring",
-    "receiverGetStatus": true,
     "supportedStreams": [
       {
         "index": 1337,
@@ -187,7 +183,6 @@ constexpr char kNoAudioOrVideoOfferMessage[] = R"({
   "seqNum": 1337,
   "offer": {
     "castMode": "mirroring",
-    "receiverGetStatus": true,
     "supportedStreams": []
   }
 })";
@@ -197,7 +192,6 @@ constexpr char kInvalidJsonOfferMessage[] = R"({
   "seqNum": 1337,
   "offer": {
     "castMode": "mirroring",
-    "receiverGetStatus": true,
     "supportedStreams": [
   }
 })";
@@ -211,7 +205,6 @@ constexpr char kMissingSeqNumOfferMessage[] = R"({
   "type": "OFFER",
   "offer": {
     "castMode": "mirroring",
-    "receiverGetStatus": true,
     "supportedStreams": []
   }
 })";
@@ -221,7 +214,6 @@ constexpr char kValidJsonInvalidFormatOfferMessage[] = R"({
   "seqNum": 1337,
   "offer": {
     "castMode": "mirroring",
-    "receiverGetStatus": true,
     "supportedStreams": "anything"
   }
 })";
@@ -363,9 +355,6 @@ TEST_F(ReceiverSessionTest, CanNegotiateWithDefaultPreferences) {
   EXPECT_EQ(31338, answer_body["sendIndexes"][1].asInt());
   EXPECT_LT(0, answer_body["udpPort"].asInt());
   EXPECT_GT(65535, answer_body["udpPort"].asInt());
-
-  // Get status should always be false, as we have no plans to implement it.
-  EXPECT_EQ(false, answer_body["receiverGetStatus"].asBool());
 
   // Constraints and display should not be present with no preferences.
   EXPECT_TRUE(answer_body["constraints"].isNull());
