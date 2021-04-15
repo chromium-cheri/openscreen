@@ -114,6 +114,7 @@ struct Answer {
   absl::optional<DisplayDescription> display;
   std::vector<int> receiver_rtcp_event_log;
   std::vector<int> receiver_rtcp_dscp;
+  bool supports_wifi_status_reporting = false;
 
   // RTP extensions should be empty, but not null.
   std::vector<std::string> rtp_extensions = {};

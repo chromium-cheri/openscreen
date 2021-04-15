@@ -28,6 +28,9 @@ struct SenderMessage {
     // OFFER request message.
     kOffer,
 
+    // GET_STATUS request message.
+    kGetStatus,
+
     // GET_CAPABILITIES request message.
     kGetCapabilities,
 

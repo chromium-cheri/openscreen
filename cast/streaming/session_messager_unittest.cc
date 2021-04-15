@@ -24,6 +24,7 @@ constexpr char kReceiverId[] = "receiver-12345";
 // simply because it is massive.
 Offer kExampleOffer{
     CastMode::kMirroring,
+    false,
     {AudioStream{Stream{0,
                         Stream::Type::kAudioSource,
                         2,
@@ -103,6 +104,8 @@ class SessionMessagerTest : public ::testing::Test {
                                 message_store_.GetReplyCallback());
     receiver_messager_.SetHandler(SenderMessage::Type::kOffer,
                                   message_store_.GetRequestCallback());
+    receiver_messager_.SetHandler(SenderMessage::Type::kGetStatus,
+                                  message_store_.GetRequestCallback());
     receiver_messager_.SetHandler(SenderMessage::Type::kGetCapabilities,
                                   message_store_.GetRequestCallback());
     receiver_messager_.SetHandler(SenderMessage::Type::kRpc,
@@ -151,6 +154,40 @@ TEST_F(SessionMessagerTest, RpcMessaging) {
   EXPECT_TRUE(message_store_.receiver_messages[0].valid);
   EXPECT_EQ(kReceiverResponse, absl::get<std::vector<uint8_t>>(
                                    message_store_.receiver_messages[0].body));
+}
+
+TEST_F(SessionMessagerTest, StatusMessaging) {
+  ASSERT_TRUE(sender_messager_
+                  .SendRequest(SenderMessage{SenderMessage::Type::kGetStatus,
+                                             3123, true /* valid */},
+                               ReceiverMessage::Type::kStatusResponse,
+                               message_store_.GetReplyCallback())
+                  .ok());
+
+  ASSERT_EQ(1u, message_store_.sender_messages.size());
+  ASSERT_TRUE(message_store_.receiver_messages.empty());
+  EXPECT_EQ(SenderMessage::Type::kGetStatus,
+            message_store_.sender_messages[0].type);
+  EXPECT_TRUE(message_store_.sender_messages[0].valid);
+
+  message_store_.sender_messages.clear();
+  ASSERT_TRUE(
+      receiver_messager_
+          .SendMessage(ReceiverMessage{
+              ReceiverMessage::Type::kStatusResponse, 3123, true /* valid */,
+              ReceiverWifiStatus{-5.7, std::vector<int32_t>{1200, 1300, 1250}}})
+          .ok());
+
+  ASSERT_TRUE(message_store_.sender_messages.empty());
+  ASSERT_EQ(1u, message_store_.receiver_messages.size());
+  EXPECT_EQ(ReceiverMessage::Type::kStatusResponse,
+            message_store_.receiver_messages[0].type);
+  EXPECT_TRUE(message_store_.receiver_messages[0].valid);
+
+  const auto& status =
+      absl::get<ReceiverWifiStatus>(message_store_.receiver_messages[0].body);
+  EXPECT_DOUBLE_EQ(-5.7, status.wifi_snr);
+  EXPECT_THAT(status.wifi_speed, ElementsAre(1200, 1300, 1250));
 }
 
 TEST_F(SessionMessagerTest, CapabilitiesMessaging) {
@@ -267,12 +304,12 @@ TEST_F(SessionMessagerTest, OfferAndReceiverError) {
 }
 
 TEST_F(SessionMessagerTest, UnexpectedMessagesAreIgnored) {
-  EXPECT_FALSE(receiver_messager_
-                   .SendMessage(ReceiverMessage{
-                       ReceiverMessage::Type::kCapabilitiesResponse, 3123,
-                       true /* valid */,
-                       ReceiverCapability{2, {MediaCapability::kH264}}})
-                   .ok());
+  EXPECT_FALSE(
+      receiver_messager_
+          .SendMessage(ReceiverMessage{
+              ReceiverMessage::Type::kStatusResponse, 3123, true /* valid */,
+              ReceiverWifiStatus{-5.7, std::vector<int32_t>{1200, 1300, 1250}}})
+          .ok());
 
   // The message gets dropped and thus won't be in the store.
   EXPECT_TRUE(message_store_.sender_messages.empty());
@@ -356,20 +393,19 @@ TEST_F(SessionMessagerTest, SenderHandlesMessageMissingSequenceNumber) {
 
 TEST_F(SessionMessagerTest, ReceiverCannotSendFirst) {
   const Error error = receiver_messager_.SendMessage(ReceiverMessage{
-      ReceiverMessage::Type::kCapabilitiesResponse, 3123, true /* valid */,
-      ReceiverCapability{2, {MediaCapability::kAudio}}});
+      ReceiverMessage::Type::kStatusResponse, 3123, true /* valid */,
+      ReceiverWifiStatus{-5.7, std::vector<int32_t>{1200, 1300, 1250}}});
 
   EXPECT_EQ(Error::Code::kInitializationFailure, error.code());
 }
 
 TEST_F(SessionMessagerTest, ErrorMessageLoggedIfTimeout) {
-  ASSERT_TRUE(
-      sender_messager_
-          .SendRequest(SenderMessage{SenderMessage::Type::kGetCapabilities,
-                                     3123, true /* valid */},
-                       ReceiverMessage::Type::kCapabilitiesResponse,
-                       message_store_.GetReplyCallback())
-          .ok());
+  ASSERT_TRUE(sender_messager_
+                  .SendRequest(SenderMessage{SenderMessage::Type::kGetStatus,
+                                             3123, true /* valid */},
+                               ReceiverMessage::Type::kStatusResponse,
+                               message_store_.GetReplyCallback())
+                  .ok());
 
   ASSERT_EQ(1u, message_store_.sender_messages.size());
   ASSERT_TRUE(message_store_.receiver_messages.empty());
@@ -378,7 +414,7 @@ TEST_F(SessionMessagerTest, ErrorMessageLoggedIfTimeout) {
   ASSERT_EQ(1u, message_store_.sender_messages.size());
   ASSERT_EQ(1u, message_store_.receiver_messages.size());
   EXPECT_EQ(3123, message_store_.receiver_messages[0].sequence_number);
-  EXPECT_EQ(ReceiverMessage::Type::kCapabilitiesResponse,
+  EXPECT_EQ(ReceiverMessage::Type::kStatusResponse,
             message_store_.receiver_messages[0].type);
   EXPECT_FALSE(message_store_.receiver_messages[0].valid);
 }
@@ -387,14 +423,15 @@ TEST_F(SessionMessagerTest, ReceiverRejectsMessageFromWrongSender) {
   SimpleMessagePort port(kReceiverId);
   ReceiverSessionMessager messager(&port, kReceiverId,
                                    message_store_.GetErrorCallback());
-  messager.SetHandler(SenderMessage::Type::kGetCapabilities,
+  messager.SetHandler(SenderMessage::Type::kGetStatus,
                       message_store_.GetRequestCallback());
 
   // The first message should be accepted since we don't have a set sender_id
   // yet.
   port.ReceiveMessage("sender-31337", kCastWebrtcNamespace, R"({
+        "get_status": ["wifiSnr", "wifiSpeed"],
         "seqNum": 820263769,
-        "type": "GET_CAPABILITIES"
+        "type": "GET_STATUS"
       })");
   ASSERT_TRUE(message_store_.errors.empty());
   ASSERT_EQ(1u, message_store_.sender_messages.size());
@@ -402,8 +439,9 @@ TEST_F(SessionMessagerTest, ReceiverRejectsMessageFromWrongSender) {
 
   // The second message should just be ignored.
   port.ReceiveMessage("sender-42", kCastWebrtcNamespace, R"({
+        "get_status": ["wifiSnr"],
         "seqNum": 1234,
-        "type": "GET_CAPABILITIES"
+        "type": "GET_STATUS"
       })");
   ASSERT_TRUE(message_store_.errors.empty());
   ASSERT_TRUE(message_store_.sender_messages.empty());
@@ -411,8 +449,9 @@ TEST_F(SessionMessagerTest, ReceiverRejectsMessageFromWrongSender) {
   // But the third message should be accepted again since it's from the
   // first sender.
   port.ReceiveMessage("sender-31337", kCastWebrtcNamespace, R"({
+        "get_status": ["wifiSnr", "wifiSpeed"],
         "seqNum": 820263769,
-        "type": "GET_CAPABILITIES"
+        "type": "GET_STATUS"
       })");
   ASSERT_TRUE(message_store_.errors.empty());
   ASSERT_EQ(1u, message_store_.sender_messages.size());
@@ -442,14 +481,15 @@ TEST_F(SessionMessagerTest, ReceiverRejectsMessagesWithoutHandler) {
   SimpleMessagePort port(kReceiverId);
   ReceiverSessionMessager messager(&port, kReceiverId,
                                    message_store_.GetErrorCallback());
-  messager.SetHandler(SenderMessage::Type::kGetCapabilities,
+  messager.SetHandler(SenderMessage::Type::kGetStatus,
                       message_store_.GetRequestCallback());
 
   // The first message should be accepted since we don't have a set sender_id
   // yet.
   port.ReceiveMessage("sender-31337", kCastWebrtcNamespace, R"({
+        "get_status": ["wifiSnr", "wifiSpeed"],
         "seqNum": 820263769,
-        "type": "GET_CAPABILITIES"
+        "type": "GET_STATUS"
       })");
   ASSERT_TRUE(message_store_.errors.empty());
   ASSERT_EQ(1u, message_store_.sender_messages.size());
@@ -458,7 +498,7 @@ TEST_F(SessionMessagerTest, ReceiverRejectsMessagesWithoutHandler) {
   // The second message should be rejected since it doesn't have a handler.
   port.ReceiveMessage("sender-31337", kCastWebrtcNamespace, R"({
         "seqNum": 820263770,
-        "type": "RPC"
+        "type": "GET_CAPABILITIES"
       })");
   ASSERT_TRUE(message_store_.errors.empty());
   ASSERT_TRUE(message_store_.sender_messages.empty());
