@@ -31,7 +31,10 @@ namespace cast {
 
 namespace {
 
-constexpr int kSupportedRemotingVersion = 3;
+// TODO(issuetracker.google.com/184189100): As part of updating remoting
+// OFFER/ANSWER and capabilities exchange, remoting version should be updated
+// to 3.
+constexpr int kSupportedRemotingVersion = 2;
 
 AudioStream CreateStream(int index,
                          const AudioCaptureConfig& config,

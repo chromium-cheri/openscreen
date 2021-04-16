@@ -143,6 +143,39 @@ class ReceiverSession final : public Environment::SocketSubscriber {
     std::chrono::milliseconds max_delay = kDefaultMaxDelayMs;
   };
 
+  // This struct is used to provide preferences for setting up and running
+  // remoting streams. The kludgy properties are based on the current control
+  // protocol and allow remoting with current senders. Once libcast has
+  // been adopted in Chrome, new, cleaner APIs will be added here to replace
+  // these.
+  //
+  // TODO(issuetracker.google.com/184759616): Chrome should use libcast
+  // for mirroring and remoting.
+  // TODO(issuetracker.google.com/184429130): the mirroring control
+  // protocol needs to be updated to allow more discrete support.
+  struct RemotingPreferences {
+    // Current remoting senders take an "all or nothing" support for audio
+    // codec support. While Opus and AAC support is handled in our Preferences'
+    // |audio_codecs| property, support for the following codecs must be
+    // enabled or disabled all together:
+    // MP3
+    // PCM, including Mu-Law, S16BE, S24BE, and ALAW variants
+    // Ogg Vorbis
+    // FLAC
+    // AMR, including narrow band (NB) and wide band (WB) variants
+    // GSM Mobile Station (MS)
+    // EAC3 (Dolby Digital Plus)
+    // ALAC (Apple Lossless)
+    // AC-3 (Dolby Digital)
+    // These properties are tied directly to what Chrome supports. See:
+    // https://source.chromium.org/chromium/chromium/src/+/master:media/base/audio_codecs.h
+    bool supports_audio_baseline_set = false;
+
+    // Current remoting senders assume that the receiver supports 4K for all
+    // video codecs supplied in |video_codecs|, or none of them.
+    bool supports_4k = false;
+  };
+
   // Note: embedders are required to implement the following
   // codecs to be Cast V2 compliant: H264, VP8, AAC, Opus.
   struct Preferences {
@@ -171,6 +204,11 @@ class ReceiverSession final : public Environment::SocketSubscriber {
     std::vector<AudioLimits> audio_limits;
     std::vector<VideoLimits> video_limits;
     std::unique_ptr<Display> display_description;
+
+    // Libcast remoting support is opt-in: embedders wishing to field remoting
+    // offers may provide a set of remoting preferences, or leave nullptr for
+    // all remoting OFFERs to be rejected in favor of continuing mirroring.
+    std::unique_ptr<RemotingPreferences> remoting;
   };
 
   ReceiverSession(Client* const client,
@@ -190,9 +228,18 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   void OnSocketInvalid(Error error) override;
 
  private:
+  // In some cases, such as waiting for the UDP socket to be bound, we
+  // may have a pending session that cannot start yet. This class provides
+  // all necessary info to instantiate a session.
   struct SessionProperties {
+    // The cast mode the OFFER was sent for.
+    CastMode mode;
+
+    // The selected audio and video streams from the original OFFER message.
     std::unique_ptr<AudioStream> selected_audio;
     std::unique_ptr<VideoStream> selected_video;
+
+    // The sequence number of the OFFER that produced these properties.
     int sequence_number;
 
     // To be valid either the audio or video must be selected, and we must
@@ -202,6 +249,7 @@ class ReceiverSession final : public Environment::SocketSubscriber {
 
   // Specific message type handler methods.
   void OnOffer(SenderMessage message);
+  void OnCapabilitiesRequest(SenderMessage message);
 
   // Creates receivers and sends an appropriate Answer message using the
   // session properties.
@@ -217,18 +265,33 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   // Callers of this method should ensure at least one stream is non-null.
   Answer ConstructAnswer(const SessionProperties& properties);
 
+  // Callers of this method should ensure we support remoting--senders use
+  // a valid reply to this method as a signal that the receiver supports
+  // remoting.
+  ReceiverCapability ConstructCapability();
+
   // Handles resetting receivers and notifying the client.
   void ResetReceivers(Client::ReceiversDestroyingReason reason);
 
   // Sends an error answer reply and notifies the client of the error.
   void SendErrorAnswerReply(int sequence_number, const char* message);
 
+  // The owner of this session is expected to provide a client for
+  // updates, an environment for getting UDP socket information (as well as
+  // other OS dependencies), and a set of preferences to be used for
+  // negotiation.
   Client* const client_;
   Environment* const environment_;
   const Preferences preferences_;
+
   // The sender_id of this session.
   const std::string session_id_;
+
+  // The session messager used for the lifetime of this session.
   ReceiverSessionMessager messager_;
+
+  // The packet router to be used for all Receivers spawned by this session.
+  ReceiverPacketRouter packet_router_;
 
   // In some cases, the session initialization may be pending waiting for the
   // UDP socket to be ready. In this case, the receivers and the answer
@@ -236,8 +299,8 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   // binding.
   std::unique_ptr<SessionProperties> pending_session_;
 
-  ReceiverPacketRouter packet_router_;
-
+  // The receiver session owns the currently negotiated receivers, and provides
+  // destruction notices through |Client::OnReceiversDestroying|.
   std::unique_ptr<Receiver> current_audio_receiver_;
   std::unique_ptr<Receiver> current_video_receiver_;
 };
