@@ -12,6 +12,7 @@
 #include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 #include "util/std_util.h"
+#include "util/trace_logging.h"
 
 namespace openscreen {
 namespace cast {
@@ -311,7 +312,7 @@ void Sender::OnReceiverReport(const RtcpReportBlock& receiver_report) {
     round_trip_time_ =
         (kInertia * round_trip_time_ + measurement) / (kInertia + 1);
   }
-  // TODO(miu): Add tracing event here to note the updated RTT.
+  TRACE_DEFAULT_SCOPED(TraceCategory::kSender);
 }
 
 void Sender::OnReceiverIndicatesPictureLoss() {
@@ -415,7 +416,7 @@ void Sender::OnReceiverIsMissingPackets(std::vector<PacketNack> nacks) {
     // happen in rare cases where RTCP packets arrive out-of-order (i.e., the
     // network shuffled them).
     if (!slot) {
-      // TODO(miu): Add tracing event here to record this.
+      TRACE_DEFAULT_SCOPED(TraceCategory::kSender);
       for (++nack_it; nack_it != nacks.end() && nack_it->frame_id == frame_id;
            ++nack_it) {
       }
