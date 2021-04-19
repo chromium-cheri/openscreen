@@ -33,6 +33,24 @@
       "message": "nit: I would just rebase inline.",
       "revId": "7aa9279ba9ba11c7822624e1063e78c67c2934eb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "442943e5_bf9eea86",
+        "filename": "build/config/data_headers_template.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-19T20:37:37Z",
+      "side": 1,
+      "message": "Agreed, the problem is that in the template if you rebase, ../../ is two directories up from where the template is used in a target, not the template definition... for example if I use the template in components/cast_channel in Chrome, I would get \"//\", not \"//third_party/openscreen/src/\"",
+      "parentUuid": "7397b8ae_480c08ec",
+      "revId": "7aa9279ba9ba11c7822624e1063e78c67c2934eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
