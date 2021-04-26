@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26058f90_6f4d0c94",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Currently NOTREACHED() does not support operator\u003c\u003c due to it using break as [[noreturn]] (thus avoiding the annoyance of having to do things like this:\n\n  OSP_NOTREACHED();\n  return MediaCapability::NotARealOneButTheCompilerNeedsAnErrorOneJustInCase;\n\nAdded DLOGs, happy to remove or change.",
+      "parentUuid": "a9be7a47_52a6dd26",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "667a7bbb_bd3c3e4e",
         "filename": "cast/streaming/receiver_session.cc",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-26T19:16:44Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffffe22a_044b3f83",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "667a7bbb_bd3c3e4e",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22a36beb_8f6201f4",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Agreed--I think it\u0027s an unfortunate byproduct of the way remoting was designed. There is no way that I can see to reply with a capability that indicates that remoting is not supported at all--the current Chrome sender assumes that if you don\u0027t set a valid remoting version that you DO support remoting, see:\n\nhttps://osscs.corp.google.com/chromium/chromium/src/+/master:components/mirroring/service/session.cc;drc\u003d209037d6dd693dd5811f00c8c2df527cb001f418;l\u003d995\n\nOther than an error, the only obvious options I can see is either (1) returning a remoting version higher than the Sender reports (e.g. version 1000), or (2) just ignoring the capabilities request and waiting for the Sender-side timeout.\n\nIf you have a better idea I\u0027m all ears--I am not a fan of the way things currently work with remoting negotiation and am excited about fixing it up to a new version that is cleaner and easier to understand and use.",
+      "parentUuid": "b100df63_91001254",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9de1d47f_ad3e54a6",
         "filename": "cast/streaming/receiver_session.cc",
         "patchSetId": 6
@@ -65,6 +119,24 @@
       "writtenOn": "2021-04-26T19:16:44Z",
       "side": 1,
       "message": "Maybe CreateLegacyRemotingCapability, or CreateRemotingCapabilityV2, or something to reflect the fact that this is not the long term plan.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d1067e_17055dd0",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9de1d47f_ad3e54a6",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -82,6 +154,24 @@
       "writtenOn": "2021-04-26T19:16:44Z",
       "side": 1,
       "message": "supports_chrome_audio_codecs?",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "757c7f43_4e0fe0ef",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dd89c14_937420d3",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce031ad0_4e141ffd",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "I was thinking of keeping RemotingPreferences and adding to it--we won\u0027t be able to remove the deprecated fields until all senders are on libcast and we can completely change the remoting flow. At least that\u0027s my understanding, we have some remoting versioning but it\u0027s not clear to me how well supported or respected it is by cast devices.\n\nThat being said, when we do eventually change the flow (e.g. remoting V3?) we could probably just add all of these codecs to the ReceiverSession::Preferences and deprecate RemotingPreferences--at that point we can add a supports_remoting flag or similar?",
+      "parentUuid": "0158332e_cfaff1dc",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "afa7f9d6_2ea798dd",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 6
@@ -116,6 +224,24 @@
       "writtenOn": "2021-04-26T19:16:44Z",
       "side": 1,
       "message": "Who is \"we\" here - an embedder implementing a streaming receiver?\n\nAlso this is a private method, so not sure this comment is necessary?",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f420cd56_f20328ff",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afa7f9d6_2ea798dd",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -137,6 +263,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea8f3e9_790c9611",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b34a6b09_97de9d23",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "740a9cc8_5a52100d",
@@ -150,6 +294,24 @@
       "writtenOn": "2021-04-26T19:16:44Z",
       "side": 1,
       "message": "This comment would better fit at the top of the file or maybe on the constructor that takes a Client.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "450aeb4e_f7aab39e",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "740a9cc8_5a52100d",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -173,6 +335,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32a394d5_4fce54d0",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "https://en.wiktionary.org/wiki/messager\n\nI think messenger is more common though and messager is not frequently used, so happy to rename--we can track that in a separate patch though since it will be larger in scope.",
+      "parentUuid": "10c3eea6_30d36b30",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f1260f8d_2f213abb",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 6
@@ -184,6 +364,24 @@
       "writtenOn": "2021-04-26T19:16:44Z",
       "side": 1,
       "message": "This could also go at the top of the file, with a shorter note here:\n\n// Any session pending while the UDP socket is bound.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff3709d4_c2a6e17f",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1260f8d_2f213abb",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -205,6 +403,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6560ffcf_4998c56d",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1998679e_4eddb365",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fadc15d_7148acb6",
@@ -218,6 +434,24 @@
       "writtenOn": "2021-04-26T19:16:44Z",
       "side": 1,
       "message": "Will sender and receiver sessions be upgraded at the same time?  If so, it would make more sense to define this constant in one place.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "385f30fc_4f4527f3",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fadc15d_7148acb6",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }

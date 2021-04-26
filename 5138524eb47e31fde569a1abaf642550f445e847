@@ -87,6 +87,24 @@
       "parentUuid": "b25a0592_098ad7ea",
       "revId": "5138524eb47e31fde569a1abaf642550f445e847",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c027d96_8b21407c",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T20:05:34Z",
+      "side": 1,
+      "message": "Protocol spec just says \u003cint32\u003e but I have notes in the protocol around what Eureka currently uses:\n\n-1: Still initializing. Try again later.\n-2: Invalid or missing codec.\n-3: Startup failure.\n-4: Cast transport creation error.\n\n\nThe reason I want to resolve this separately is the case where a libcast Chrome instance is connected to a Eureka receiver, and we try to parse error code X as something meaningful to libcast when it is actually something else, or worse is invalid. What do we return if we get -2, which is not a valid openscreen::Error at all? \n\nI have some ideas and I don\u0027t think it\u0027s going to be a big problem (e.g. just return a generic error if we can\u0027t parse, and make it clear the error code may or may not mean anything) but was tracking separately because of this.",
+      "parentUuid": "c54ab901_a915168d",
+      "revId": "5138524eb47e31fde569a1abaf642550f445e847",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
