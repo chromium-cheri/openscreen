@@ -285,6 +285,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1842553c_1ffc2740",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-04-26T22:45:05Z",
+      "side": 1,
+      "message": "I like Mark\u0027s idea, but at the same time I worry that it will lead to some pretty hard-to-read spaghetti code - it was a problem we ran into in my previous team due to taking this approach. We ended up with cases like \"If their min supported version is at least 3 and no greater than 5, do X, else if it\u0027s equal to 6 do Y, and if it\u0027s greater than 7 do Z\" or similar\n\nThough in that case, we also had dozens of versions. If we expect to only have a few here it probably isn\u0027t a concern\n\nWDYT?\n\n\u003e we won\u0027t be able to remove the deprecated fields until all senders are on libcast\n\nIIUC, we can\u0027t even then. We will always have some users on the current version of Chrome who don\u0027t update, so we will have to support legacy code forever... :(\n\n\u003e That being said, when we do eventually change the flow (e.g. remoting V3?) we could probably just add all of these codecs to the ReceiverSession::Preferences and deprecate RemotingPreferences\n\nWe could also add them to the mDNS TXT field - so that an embedder doesn\u0027t even need to connect to know these details, and cast senders can make decisions based on that data",
+      "parentUuid": "6f382cc1_ef335fc5",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "afa7f9d6_2ea798dd",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 6
