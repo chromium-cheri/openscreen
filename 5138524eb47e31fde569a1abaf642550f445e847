@@ -69,6 +69,24 @@
       "parentUuid": "6ac36bfc_0b9343b8",
       "revId": "5138524eb47e31fde569a1abaf642550f445e847",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c54ab901_a915168d",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Can you be more specific?  Does the protocol specification have defined error codes or is it just an arbitrary integer?  If there are error codes then the code is going to be much nicer by following the openscreen::Error pattern.\n\n\nThere is a TODO somewhere to split up Error::Code enum into sub-types so that individual code modules can define their own errors, but the tradeoff is having Error/ErrorOr take a template argument, or devising some other way to pass type information in and out of the Error object.",
+      "parentUuid": "b25a0592_098ad7ea",
+      "revId": "5138524eb47e31fde569a1abaf642550f445e847",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9be7a47_52a6dd26",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Nit: Might be helpful to \u003c\u003c codec here to figure out what went wrong?  \n\nDon\u0027t remember if the extra logging strings are stripped out in release builds or not.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "667a7bbb_bd3c3e4e",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b100df63_91001254",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "It\u0027s a little odd to report a lack of remoting support as an \"error\" as opposed to a missing capability.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de1d47f_ad3e54a6",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Maybe CreateLegacyRemotingCapability, or CreateRemotingCapabilityV2, or something to reflect the fact that this is not the long term plan.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dd89c14_937420d3",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "supports_chrome_audio_codecs?",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0158332e_cfaff1dc",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Since we are going to replace RemotingPreferences with something better (at least that\u0027s the plan), maybe have a separate boolean to signal remoting support?  Or is the idea to keep RemotingPreferences and add to it?\n\nIdeally: capabilities should be converged so that the receiver advertises one set of codecs that are available for both mirroring and remoting streams.  In this case, the existing codec list in offer/answer should be sufficient?\n\nTo what extent will codec support for mirroring and remoting remain distinct in the future?",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa7f9d6_2ea798dd",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Who is \"we\" here - an embedder implementing a streaming receiver?\n\nAlso this is a private method, so not sure this comment is necessary?",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b34a6b09_97de9d23",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "CreateRemotingCapability()?",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "740a9cc8_5a52100d",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "This comment would better fit at the top of the file or maybe on the constructor that takes a Client.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10c3eea6_30d36b30",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Not sure what a \"messager\" is :-)\nMessenger?",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1260f8d_2f213abb",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "This could also go at the top of the file, with a shorter note here:\n\n// Any session pending while the UDP socket is bound.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1998679e_4eddb365",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Maybe:\n\n// The currently negotiated receivers we own.  Destruction is notified through ...",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fadc15d_7148acb6",
+        "filename": "cast/streaming/sender_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T19:16:44Z",
+      "side": 1,
+      "message": "Will sender and receiver sessions be upgraded at the same time?  If so, it would make more sense to define this constant in one place.",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
