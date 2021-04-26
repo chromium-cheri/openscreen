@@ -36,6 +36,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22d905a5_c094c513",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T20:30:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26058f90_6f4d0c94",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "667a7bbb_bd3c3e4e",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Agreed--I think it\u0027s an unfortunate byproduct of the way remoting was designed. There is no way that I can see to reply with a capability that indicates that remoting is not supported at all--the current Chrome sender assumes that if you don\u0027t set a valid remoting version that you DO support remoting, see:\n\nhttps://osscs.corp.google.com/chromium/chromium/src/+/master:components/mirroring/service/session.cc;drc\u003d209037d6dd693dd5811f00c8c2df527cb001f418;l\u003d995\n\nOther than an error, the only obvious options I can see is either (1) returning a remoting version higher than the Sender reports (e.g. version 1000), or (2) just ignoring the capabilities request and waiting for the Sender-side timeout.\n\nIf you have a better idea I\u0027m all ears--I am not a fan of the way things currently work with remoting negotiation and am excited about fixing it up to a new version that is cleaner and easier to understand and use.",
       "parentUuid": "b100df63_91001254",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91c724e2_f204d936",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T20:30:27Z",
+      "side": 1,
+      "message": "Out of scope to change the remoting V2 protocol now, let\u0027s clean this up in V3.",
+      "parentUuid": "22a36beb_8f6201f4",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -207,6 +243,24 @@
       "side": 1,
       "message": "I was thinking of keeping RemotingPreferences and adding to it--we won\u0027t be able to remove the deprecated fields until all senders are on libcast and we can completely change the remoting flow. At least that\u0027s my understanding, we have some remoting versioning but it\u0027s not clear to me how well supported or respected it is by cast devices.\n\nThat being said, when we do eventually change the flow (e.g. remoting V3?) we could probably just add all of these codecs to the ReceiverSession::Preferences and deprecate RemotingPreferences--at that point we can add a supports_remoting flag or similar?",
       "parentUuid": "0158332e_cfaff1dc",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "426c4c5d_2c4c5210",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T20:30:27Z",
+      "side": 1,
+      "message": "The most flexible way would be to have a config for the embedder to be explicit about its level of remoting support, and a separate object for it to set preferences.  These two things would be linked.\n\nSince the embedder has to set preferences, it has to \"opt-in\" to each remoting version.\n\nSomething like:\n\nenum RemotingVersion {\n  kNone \u003d 0,\n  kVersion2 \u003d 2,\n  kVersion3 \u003d 3\n}\n\n// Minimum/maximum level of remoting support\nRemotingVersion min_remoting_version \u003d kNone;\nRemotingVersion max_remoting_version \u003d kNone;\n\n(You could also use a bit-set)\n\n// Required to be set when kVersion2 is supported\nstd::unique_ptr\u003cRemotingPreferences\u003e remoting_preferences\n\nThen you can decide later whether to add preferences specific to V3 or not.",
+      "parentUuid": "ce031ad0_4e141ffd",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -347,6 +401,24 @@
       "side": 1,
       "message": "https://en.wiktionary.org/wiki/messager\n\nI think messenger is more common though and messager is not frequently used, so happy to rename--we can track that in a separate patch though since it will be larger in scope.",
       "parentUuid": "10c3eea6_30d36b30",
+      "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c056534_b292e0c6",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T20:30:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "32a394d5_4fce54d0",
       "revId": "a8bb854409b185e7c5ac43e51f50fa998b0d477b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },

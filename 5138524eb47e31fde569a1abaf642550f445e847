@@ -105,6 +105,24 @@
       "parentUuid": "c54ab901_a915168d",
       "revId": "5138524eb47e31fde569a1abaf642550f445e847",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ecf3904_61fe51b8",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-04-26T20:30:27Z",
+      "side": 1,
+      "message": "Ok, so these are defined by protocol and not defined by the library, and so they don\u0027t make sense to be put into an openscreen::Error.\n\nWhere we report them up to the caller, we can wrap them in an Error and stick the lower-level code in the error message.\n\nSo, fine to keep this code as-is, but maybe update the issuetracker bug with the Eureka definitions for future reference.",
+      "parentUuid": "2c027d96_8b21407c",
+      "revId": "5138524eb47e31fde569a1abaf642550f445e847",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
