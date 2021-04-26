@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22db607f_63a38091",
+        "filename": "cast/streaming/receiver_message.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T17:05:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db63f667_764f63e7",
+      "revId": "5138524eb47e31fde569a1abaf642550f445e847",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ac36bfc_0b9343b8",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-22T20:30:28Z",
       "side": 1,
       "message": "Is there a reason why this couldn\u0027t be just an an openscreen::Error, which does have error codes defined?",
+      "revId": "5138524eb47e31fde569a1abaf642550f445e847",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b25a0592_098ad7ea",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-26T17:05:25Z",
+      "side": 1,
+      "message": "The reason why there is a TODO is because this is part of the current control protocol specification--meaning that if we connect to a libcast-powered Cast device, then yes it can be an openscreen::Error, but legacy devices will not be an open screen error.\n\nI am leaning towards using openscreen::Error--but I\u0027m not completely convinced as is.",
+      "parentUuid": "6ac36bfc_0b9343b8",
       "revId": "5138524eb47e31fde569a1abaf642550f445e847",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
