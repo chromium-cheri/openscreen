@@ -16,6 +16,57 @@
       "message": "Quick CL to clean up BUILD rules for Openscreen\n\nFor why this is important, see: https://chromium-review.googlesource.com/c/chromium/src/+/2862323",
       "revId": "86cd799e10b273be9158ecd4691c9efd466ddcfe",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c92d84bc_1fef0e2a",
+        "filename": "cast/streaming/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-30T20:25:07Z",
+      "side": 1,
+      "message": "When I see config here I think GN config, not cast streaming config, which is confusing because it\u0027s a source set and not a config.\n\nMaybe \"constants\" or \"streaming_configs\"?",
+      "revId": "86cd799e10b273be9158ecd4691c9efd466ddcfe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c31be8f5_4a0d5d8a",
+        "filename": "platform/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-30T20:25:07Z",
+      "side": 1,
+      "message": "NIT: you can leave this line unchanged.",
+      "revId": "86cd799e10b273be9158ecd4691c9efd466ddcfe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a087e0e_f359febe",
+        "filename": "util/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-04-30T20:25:07Z",
+      "side": 1,
+      "message": "Do you need modp_b64 in both? I wouldn\u0027t think so.",
+      "revId": "86cd799e10b273be9158ecd4691c9efd466ddcfe",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
