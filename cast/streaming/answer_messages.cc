@@ -9,9 +9,9 @@
 #include "absl/strings/str_cat.h"
 #include "absl/strings/str_split.h"
 #include "platform/base/error.h"
+#include "util/enum_name_table.h"
 #include "util/json/json_helpers.h"
 #include "util/osp_logging.h"
-
 namespace openscreen {
 namespace cast {
 
@@ -110,35 +110,29 @@ static constexpr char kReceiverRtcpDscp[] = "receiverRtcpDscp";
 // RTP extensions (such as adaptive playout delay).
 static constexpr char kRtpExtensions[] = "rtpExtensions";
 
+EnumNameTable<AspectRatioConstraint, 2> kAspectRatioConstraintNames{
+    {{kScalingReceiver, AspectRatioConstraint::kVariable},
+     {kScalingSender, AspectRatioConstraint::kFixed}}};
+
 Json::Value AspectRatioConstraintToJson(AspectRatioConstraint aspect_ratio) {
-  switch (aspect_ratio) {
-    case AspectRatioConstraint::kVariable:
-      return Json::Value(kScalingReceiver);
-    case AspectRatioConstraint::kFixed:
-    default:
-      return Json::Value(kScalingSender);
-  }
+  return Json::Value(GetEnumName(kAspectRatioConstraintNames, aspect_ratio)
+                         .value(kScalingSender));
 }
 
 bool AspectRatioConstraintParseAndValidate(const Json::Value& value,
                                            AspectRatioConstraint* out) {
-  // the aspect ratio constraint is an optional field.
-  if (!value) {
-    return true;
-  }
-
   std::string aspect_ratio;
   if (!json::ParseAndValidateString(value, &aspect_ratio)) {
     return false;
   }
-  if (aspect_ratio == kScalingReceiver) {
-    *out = AspectRatioConstraint::kVariable;
-    return true;
-  } else if (aspect_ratio == kScalingSender) {
-    *out = AspectRatioConstraint::kFixed;
-    return true;
+
+  ErrorOr<AspectRatioConstraint> constraint =
+      GetEnum(kAspectRatioConstraintNames, aspect_ratio);
+  if (constraint.is_error()) {
+    return false;
   }
-  return false;
+  *out = constraint.value();
+  return true;
 }
 
 template <typename T>

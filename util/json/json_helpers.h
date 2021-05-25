@@ -24,52 +24,6 @@
 namespace openscreen {
 namespace json {
 
-// TODO(jophba): remove these methods after refactoring offer messaging.
-inline Error CreateParseError(const std::string& type) {
-  return Error(Error::Code::kJsonParseError, "Failed to parse " + type);
-}
-
-inline Error CreateParameterError(const std::string& type) {
-  return Error(Error::Code::kParameterInvalid, "Invalid parameter: " + type);
-}
-
-inline ErrorOr<bool> ParseBool(const Json::Value& parent,
-                               const std::string& field) {
-  const Json::Value& value = parent[field];
-  if (!value.isBool()) {
-    return CreateParseError("bool field " + field);
-  }
-  return value.asBool();
-}
-
-inline ErrorOr<int> ParseInt(const Json::Value& parent,
-                             const std::string& field) {
-  const Json::Value& value = parent[field];
-  if (!value.isInt()) {
-    return CreateParseError("integer field: " + field);
-  }
-  return value.asInt();
-}
-
-inline ErrorOr<uint32_t> ParseUint(const Json::Value& parent,
-                                   const std::string& field) {
-  const Json::Value& value = parent[field];
-  if (!value.isUInt()) {
-    return CreateParseError("unsigned integer field: " + field);
-  }
-  return value.asUInt();
-}
-
-inline ErrorOr<std::string> ParseString(const Json::Value& parent,
-                                        const std::string& field) {
-  const Json::Value& value = parent[field];
-  if (!value.isString()) {
-    return CreateParseError("string field: " + field);
-  }
-  return value.asString();
-}
-
-// TODO(jophba): offer messaging should use these methods instead.
 inline bool ParseBool(const Json::Value& value, bool* out) {
   if (!value.isBool()) {
     return false;
