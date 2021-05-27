@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de13d717_c4c04d0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-05-27T21:25:06Z",
+      "side": 1,
+      "message": "I can\u0027t, buildtools has to be rolled to support Python3. It\u0027s all or nothing unfortunately.",
+      "parentUuid": "8d297198_60156ee3",
+      "revId": "b7d7d34a9aee70c984bdd53878808a684ffcd5bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "487276c7_b66a2c36",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-05-27T19:24:48Z",
       "side": 1,
       "message": "So rolling this SHA forward looks like it breaks CI because you will need to add specific DEPS rules to install GN as is done in Chromium DEPS:\n\nhttps://chromium.googlesource.com/chromium/src/+/refs/heads/main/DEPS#419\n\nThe gn.py script in depot_tools looks for GN here.\n\nI believe you can just copy-paste the downstream DEPS rules for GN and they should just work.",
+      "revId": "b7d7d34a9aee70c984bdd53878808a684ffcd5bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14e56ca3_133fdd16",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-05-27T21:25:06Z",
+      "side": 1,
+      "message": "Ahh fair, that\u0027s a bummer.",
+      "parentUuid": "487276c7_b66a2c36",
       "revId": "b7d7d34a9aee70c984bdd53878808a684ffcd5bb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
