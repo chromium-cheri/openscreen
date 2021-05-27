@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a60c23_c1cb7ef3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-05-27T21:11:31Z",
+      "side": 1,
+      "message": "FWIW if you add my @google account instead of my @chromium account, I respond to CLs much faster",
+      "revId": "bcbce065a42b3171afde3595de1a2c7f1713522b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "505aa5bb_a606d6b0",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-05-27T21:11:31Z",
+      "side": 1,
+      "message": "Probably outside the scope of this CL... but I tend to subscribe to the philosophy that functions should start with verbs. So \"ParseAndValidateAspectRation\"\n\nOr better yet, in C# a function with this signature would be \"TryParseAspectRationConstraints\". That would be my preference",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 42
+      },
+      "revId": "bcbce065a42b3171afde3595de1a2c7f1713522b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8159739b_2e027963",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-05-27T21:11:31Z",
+      "side": 1,
+      "message": "TryParseRtpPayloadType? Here and below\n\nThough keeping naming consistent with the rest of the code is better than renaming it here, if there is a lot of existing code that uses the current naming scheme with this same method signature",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "bcbce065a42b3171afde3595de1a2c7f1713522b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10615f53_a5533156",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-05-27T21:11:31Z",
+      "side": 1,
+      "message": "It feels like the method signature here is a bit inconsistent with the ones used elsewhere\n\nI\u0027d expect this to use the same Try* method signature (something like `bool TryParseStream(const Json::Value\u0026 value, Stream::Type type, Stream* stream)`) and the errors to log to DLOG / DVLOG instead",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 74
+      },
+      "revId": "bcbce065a42b3171afde3595de1a2c7f1713522b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8f52484_a3650fb2",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-05-27T21:11:31Z",
+      "side": 1,
+      "message": "+1. This reads much more cleanly",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 57
+      },
+      "revId": "bcbce065a42b3171afde3595de1a2c7f1713522b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
