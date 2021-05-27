@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d297198_60156ee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-05-27T19:24:48Z",
+      "side": 1,
+      "message": "I suggest holding off on the DEPS change if you can do the migration without it since rolling buildtools forward requires a bunch of DEPS munging, and the possibility of some further breakage.\n",
+      "revId": "b7d7d34a9aee70c984bdd53878808a684ffcd5bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "487276c7_b66a2c36",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-05-27T19:24:48Z",
+      "side": 1,
+      "message": "So rolling this SHA forward looks like it breaks CI because you will need to add specific DEPS rules to install GN as is done in Chromium DEPS:\n\nhttps://chromium.googlesource.com/chromium/src/+/refs/heads/main/DEPS#419\n\nThe gn.py script in depot_tools looks for GN here.\n\nI believe you can just copy-paste the downstream DEPS rules for GN and they should just work.",
+      "revId": "b7d7d34a9aee70c984bdd53878808a684ffcd5bb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
