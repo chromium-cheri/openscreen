@@ -199,6 +199,8 @@ def _CommonChecks(input_api, output_api):
     results.extend(_CheckDeps(input_api, output_api))
 
     # Run tools/licenses on code change.
+    # TODO(b/): licenses check is confused by our buildtools checkout.
+    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'));
     results.extend(_CheckLicenses(input_api, output_api))
 
     return results
