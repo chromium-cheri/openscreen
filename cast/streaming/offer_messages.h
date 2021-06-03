@@ -95,7 +95,7 @@ struct VideoStream {
 enum class CastMode : uint8_t { kMirroring, kRemoting };
 
 struct Offer {
-  static ErrorOr<Offer> Parse(const Json::Value& root);
+  static ErrorOr<Offer> TryParse(const Json::Value& root);
   Json::Value ToJson() const;
   bool IsValid() const;
 
