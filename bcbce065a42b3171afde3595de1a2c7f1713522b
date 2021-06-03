@@ -41,6 +41,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6934577d_4ff7e3b5",
+        "filename": "cast/streaming/answer_messages.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-03T17:25:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "505aa5bb_a606d6b0",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 42
+      },
+      "revId": "bcbce065a42b3171afde3595de1a2c7f1713522b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8159739b_2e027963",
@@ -64,6 +88,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4bd4918_406a710e",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-03T17:25:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8159739b_2e027963",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "bcbce065a42b3171afde3595de1a2c7f1713522b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10615f53_a5533156",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-05-27T21:11:31Z",
       "side": 1,
       "message": "It feels like the method signature here is a bit inconsistent with the ones used elsewhere\n\nI\u0027d expect this to use the same Try* method signature (something like `bool TryParseStream(const Json::Value\u0026 value, Stream::Type type, Stream* stream)`) and the errors to log to DLOG / DVLOG instead",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 74
+      },
+      "revId": "bcbce065a42b3171afde3595de1a2c7f1713522b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c146a26_d75daf0c",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-03T17:25:23Z",
+      "side": 1,
+      "message": "Ack. I need an error return because we differentiate unencrypted offer to consumers.",
+      "parentUuid": "10615f53_a5533156",
       "range": {
         "startLine": 98,
         "startChar": 0,
