@@ -16,6 +16,7 @@
 #include "cast/streaming/offer_messages.h"
 #include "cast/streaming/receiver_packet_router.h"
 #include "cast/streaming/resolution.h"
+#include "cast/streaming/rpc_broker.h"
 #include "cast/streaming/sender_message.h"
 #include "cast/streaming/session_config.h"
 #include "cast/streaming/session_messager.h"
@@ -62,16 +63,32 @@ class ReceiverSession final : public Environment::SocketSubscriber {
     VideoCaptureConfig video_config;
   };
 
+  // This struct contains all of the information necessary to begin remoting
+  // once we get a remoting request from a Sender.
+  struct RemotingNegotiation {
+    ConfiguredReceivers receivers;
+
+    // The RPC broker to be used for subscribing to remoting proto messages.
+    RpcBroker* broker;
+  };
+
   // The embedder should provide a client for handling connections.
   // When a connection is established, the OnNegotiated callback is called.
   class Client {
    public:
     enum ReceiversDestroyingReason { kEndOfSession, kRenegotiated };
 
-    // Called when a new set of receivers has been negotiated. This may be
-    // called multiple times during a session, as renegotiations occur.
+    // Called when a set of mirroring receivers has been negotiated. Both this
+    // and |OnRemotingNegotiated| may be called repeatedly as negotiations occur
+    // through the life of a session.
     virtual void OnNegotiated(const ReceiverSession* session,
                               ConfiguredReceivers receivers) = 0;
+
+    // Called when a set of remoting receivers has been negotiated. This will
+    // only be called if |RemotingPreferences| are provided as part of
+    // constructing the ReceiverSession object.
+    virtual void OnRemotingNegotiated(const ReceiverSession* session,
+                                      RemotingNegotiation negotiation) {}
 
     // Called immediately preceding the destruction of this session's receivers.
     // If |reason| is |kEndOfSession|, OnNegotiated() will never be called
@@ -166,6 +183,13 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   // TODO(issuetracker.google.com/184429130): the mirroring control
   // protocol needs to be updated to allow more discrete support.
   struct RemotingPreferences {
+    RemotingPreferences();
+    RemotingPreferences(bool supports_chrome_audio_codecs, bool supports_4k);
+    RemotingPreferences(RemotingPreferences&&) noexcept;
+    RemotingPreferences(const RemotingPreferences&) = delete;
+    RemotingPreferences& operator=(RemotingPreferences&&) noexcept;
+    RemotingPreferences& operator=(const RemotingPreferences&) = delete;
+
     // Current remoting senders take an "all or nothing" support for audio
     // codec support. While Opus and AAC support is handled in our Preferences'
     // |audio_codecs| property, support for the following codecs must be
@@ -263,6 +287,10 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   void OnOffer(SenderMessage message);
   void OnCapabilitiesRequest(SenderMessage message);
 
+  // Selects streams from an offer based on its configuration, and sets
+  // them in the session properties.
+  void SelectStreams(const Offer& offer, SessionProperties* properties);
+
   // Creates receivers and sends an appropriate Answer message using the
   // session properties.
   void InitializeSession(const SessionProperties& properties);
@@ -307,6 +335,10 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   // through |Client::OnReceiversDestroying|.
   std::unique_ptr<Receiver> current_audio_receiver_;
   std::unique_ptr<Receiver> current_video_receiver_;
+
+  // If remoting, we store the RpcBroker used by the embedder to send RPC
+  // messages from the remoting protobuf specification.
+  std::unique_ptr<RpcBroker> broker_;
 };
 
 }  // namespace cast

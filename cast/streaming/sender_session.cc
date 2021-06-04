@@ -96,6 +96,7 @@ Offer CreateMirroringOffer(const std::vector<AudioCaptureConfig>& audio_configs,
   Offer offer;
   offer.cast_mode = CastMode::kMirroring;
 
+  OSP_LOG_INFO << "Creating a mirroring offer...";
   // NOTE here: IDs will always follow the pattern:
   // [0.. audio streams... N - 1][N.. video streams.. K]
   CreateStreamList(0, audio_configs, use_android_rtp_hack,
@@ -112,6 +113,7 @@ Offer CreateRemotingOffer(const AudioCaptureConfig& audio_config,
   Offer offer;
   offer.cast_mode = CastMode::kRemoting;
 
+  OSP_LOG_INFO << "Creating a remoting offer...";
   AudioStream audio_stream =
       CreateStream(0, audio_config, use_android_rtp_hack);
   audio_stream.codec = AudioCodec::kNotSpecified;
