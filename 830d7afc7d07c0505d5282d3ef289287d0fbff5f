@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6468b17_0685da0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-07T18:29:53Z",
+      "side": 1,
+      "message": "A couple of minor style things noted.  Do you have an idea of how this will embed yet into Chromium?\n\nLooking at the current state of //components/cast_streaming and //media/remoting with Ryan will give you a roadmap of the integration points to manage the session, but still need to figure out the glue code to initialize and switch between renderers.",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f443a5c5_5d19eefe",
+        "filename": "cast/standalone_receiver/cast_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-07T18:29:53Z",
+      "side": 1,
+      "message": "Maybe we should move the supporting classes like these out of standalone_receiver and into its own cast/receiver/service folder, if these objects were useful for running a receiver in-process in an embedder (versus running as a standalone application).\n\nI\u0027m thinking about Ryan\u0027s need to do some end to end testing of the streaming receiver in the Web runtime.\n\nNot sure as it look like we would need to enable more config variables like the TCP port number.  Probably best to do as a separate patch/project after talking to Ryan.",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "562964b8_9850493d",
+        "filename": "cast/standalone_receiver/cast_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-07T18:29:53Z",
+      "side": 1,
+      "message": "Not a big fan of references in structs, it\u0027s too easy for this to outlive a stack allocated string.",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30a81b0_ffb6bc1b",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-07T18:29:53Z",
+      "side": 1,
+      "message": "I would have to dig into the remoting renderer to see how it behaves with audio or video only tracks.  It *should* work but I don\u0027t know if there are actual tests that verify this.",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c13745a4_bcca5b91",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-07T18:29:53Z",
+      "side": 1,
+      "message": "I guess we\u0027ve committed to \"mirroring\" in the receiver code :-P",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6486f1d4_1c27dba6",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-07T18:29:53Z",
+      "side": 1,
+      "message": "Is the expectation that SendMessage will synchronously send the RPC?  It\u0027s likely that\u0027s going to be async in Chrome.",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b718dd_b5c46057",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-07T18:29:53Z",
+      "side": 1,
+      "message": "Trying not to be pedantic, but I\u0027ve been trying to call non-remoting sessions just \"streaming receivers\" since mirroring/content capture is really a feature of the sender, not the receiver.",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40893478_b4372ba9",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-07T18:29:53Z",
+      "side": 1,
+      "message": "I don\u0027t like flag parameters.  Can these be removed from the ctor and overridden explicitly as needed?",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
