@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8541f5d0_66ec1747",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-08T04:38:01Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m slowly piecing it together. I am planning on the next patch being figuring out the rest of the integration workflow, I still have a few questions I need to answer for myself.",
+      "parentUuid": "e6468b17_0685da0d",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f443a5c5_5d19eefe",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-06-07T18:29:53Z",
       "side": 1,
       "message": "Maybe we should move the supporting classes like these out of standalone_receiver and into its own cast/receiver/service folder, if these objects were useful for running a receiver in-process in an embedder (versus running as a standalone application).\n\nI\u0027m thinking about Ryan\u0027s need to do some end to end testing of the streaming receiver in the Web runtime.\n\nNot sure as it look like we would need to enable more config variables like the TCP port number.  Probably best to do as a separate patch/project after talking to Ryan.",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062bdcbc_db818543",
+        "filename": "cast/standalone_receiver/cast_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-08T04:38:01Z",
+      "side": 1,
+      "message": "Agreed, I\u0027ll leave this open.",
+      "parentUuid": "f443a5c5_5d19eefe",
       "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -52,6 +88,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b319fe_6345cd5c",
+        "filename": "cast/standalone_receiver/cast_service.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-08T04:38:01Z",
+      "side": 1,
+      "message": "Yeah, I didn\u0027t remove the references when I moved it into a struct. 10000% agree.",
+      "parentUuid": "562964b8_9850493d",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f30a81b0_ffb6bc1b",
@@ -65,6 +119,24 @@
       "writtenOn": "2021-06-07T18:29:53Z",
       "side": 1,
       "message": "I would have to dig into the remoting renderer to see how it behaves with audio or video only tracks.  It *should* work but I don\u0027t know if there are actual tests that verify this.",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1909ca39_d73997b8",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-08T04:38:01Z",
+      "side": 1,
+      "message": "I\u0027ll change to an AND.",
+      "parentUuid": "f30a81b0_ffb6bc1b",
       "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -103,6 +175,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e9582d3_d72b12d5",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-08T04:38:01Z",
+      "side": 1,
+      "message": "No, it doesn\u0027t have to be synchronous. The SessionMessager can return an error immediately if it knows that it is already in a bad state, but also can report async errors.",
+      "parentUuid": "6486f1d4_1c27dba6",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61b718dd_b5c46057",
@@ -120,6 +210,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc192dc_597b3f06",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-08T04:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61b718dd_b5c46057",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40893478_b4372ba9",
@@ -133,6 +241,24 @@
       "writtenOn": "2021-06-07T18:29:53Z",
       "side": 1,
       "message": "I don\u0027t like flag parameters.  Can these be removed from the ctor and overridden explicitly as needed?",
+      "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb211b42_31732a7d",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-08T04:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40893478_b4372ba9",
       "revId": "830d7afc7d07c0505d5282d3ef289287d0fbff5f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
