@@ -24,6 +24,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52d44075_379c98bd",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-10T14:31:33Z",
+      "side": 1,
+      "message": "I\u0027ll follow up with this in a separate patch after looking at the AV settings.",
+      "parentUuid": "cb81c339_8a6c1c74",
+      "range": {
+        "startLine": 79,
+        "startChar": 21,
+        "endLine": 79,
+        "endChar": 40
+      },
+      "revId": "73a5717f85147c19e06278a0621ce20e0d3956b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d2cbd97_f94b0e42",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-09T05:05:24Z",
       "side": 1,
       "message": "Can we call this something else? I\u0027ve already had instances where openscreen::cast::MessagePort and cast_api_bindings::MessagePort were confused or miscommunicated, and I\u0027d like to avoid the same here / going forward if possible",
+      "range": {
+        "startLine": 260,
+        "startChar": 18,
+        "endLine": 260,
+        "endChar": 27
+      },
+      "revId": "73a5717f85147c19e06278a0621ce20e0d3956b4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccff3606_ccd6ab70",
+        "filename": "cast/streaming/sender_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-10T14:31:33Z",
+      "side": 1,
+      "message": "Yeah, but let\u0027s rename it in a separate patch. I think we can do RpcMessenger.",
+      "parentUuid": "0d2cbd97_f94b0e42",
       "range": {
         "startLine": 260,
         "startChar": 18,
