@@ -42,7 +42,6 @@ if (current_toolchain == host_toolchain) {
   # features (such as reflection).  The plugin simply compiles a proto library
   # as normal but ensures that is compiled with the full protobuf runtime.
   executable("override_lite_runtime_plugin") {
-    sources = [ "protoc_plugin/protoc_plugin.cc" ]
     deps = [ "//third_party/protobuf:protoc_lib" ]
     public_configs = [ "//third_party/protobuf:protobuf_config" ]
   }
