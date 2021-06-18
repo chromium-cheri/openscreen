@@ -20,6 +20,7 @@
 #include "cast/common/public/cast_socket.h"
 #include "cast/sender/public/sender_socket_factory.h"
 #include "cast/standalone_sender/looping_file_sender.h"
+#include "cast/standalone_sender/remoting_initializer.h"
 #include "cast/streaming/environment.h"
 #include "cast/streaming/sender_session.h"
 #include "platform/api/scoped_wake_lock.h"
@@ -156,6 +157,15 @@ class LoopingFileCastAgent final
       SenderSession::RemotingNegotiation negotiation) override;
   void OnError(const SenderSession* session, Error error) override;
 
+  // Callback for when the RemotingInitializer indicates that the receiver
+  // is ready.
+  void OnRemotingReady();
+
+  // Helper for actually starting remoting sending. This may occur when remoting
+  // is "ready" if the session is already negotiated, or upon session
+  // negotiation if the receiver is already ready.
+  void StartRemotingSenders();
+
   // Helper for stopping the current session, and/or unwinding a remote
   // connection request (pre-session). This ensures LoopingFileCastAgent is in a
   // terminal shutdown state.
@@ -190,6 +200,17 @@ class LoopingFileCastAgent final
   std::unique_ptr<Environment> environment_;
   std::unique_ptr<SenderSession> current_session_;
   std::unique_ptr<LoopingFileSender> file_sender_;
+
+  // Remoting specific member variables.
+  std::unique_ptr<RemotingInitializer> initializer_;
+
+  // We cache the current negotiation between getting the OnRemotingNegotiation
+  // callback and the |initializer_| indicating the receiver is ready for
+  // messages.
+  std::unique_ptr<SenderSession::RemotingNegotiation> current_negotiation_;
+
+  // Set when we are ready for remoting but don't have a current negotiation.
+  bool is_ready_for_remoting_ = false;
 };
 
 }  // namespace cast
