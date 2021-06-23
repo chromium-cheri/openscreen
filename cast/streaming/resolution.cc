@@ -70,6 +70,10 @@ bool Resolution::operator!=(const Resolution& other) const {
   return !(*this == other);
 }
 
+bool Resolution::SupportsAllAllowedBy(const Resolution& other) const {
+  return width >= other.width && height >= other.height;
+}
+
 bool Dimensions::TryParse(const Json::Value& root, Dimensions* out) {
   if (!json::TryParseInt(root[kWidth], &(out->width)) ||
       !json::TryParseInt(root[kHeight], &(out->height)) ||
@@ -102,6 +106,16 @@ bool Dimensions::operator==(const Dimensions& other) const {
 
 bool Dimensions::operator!=(const Dimensions& other) const {
   return !(*this == other);
+}
+
+bool Dimensions::SupportsAllAllowedBy(const Dimensions& other) const {
+  if (static_cast<double>(frame_rate) !=
+      static_cast<double>(other.frame_rate)) {
+    return static_cast<double>(frame_rate) >=
+           static_cast<double>(other.frame_rate);
+  }
+
+  return ToResolution().SupportsAllAllowedBy(other.ToResolution());
 }
 
 }  // namespace cast
