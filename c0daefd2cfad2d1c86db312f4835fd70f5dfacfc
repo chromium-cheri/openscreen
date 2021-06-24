@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b46a16e0_8338b331",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-24T02:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be0a83e6_2773d85a",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06bb73fb_a5ac572a",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-06-24T02:06:22Z",
       "side": 1,
       "message": "Naming preferences are always tricky, but I\u0027m not a big fan of this name for this method--it\u0027s verbose and not particularly clear to my brain at least.\n\nI would prefer Intersects(), Contains(), IsMoreRestrictiveThan() or IsStricterThan()/IsSupersetOf().",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba06c40_4035ed3e",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-24T02:25:40Z",
+      "side": 1,
+      "message": "Done\n\nI actually had IsSupersetOf() when first writing it, and ended on \"that\u0027s not quite clear enough and I\u0027m going to be asked to be more specific during code review\" - so happy to go back to that",
+      "parentUuid": "06bb73fb_a5ac572a",
       "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -52,6 +88,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca555fd5_0f26332e",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-24T02:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d4c72e5_c6d4807e",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f5f4b4f_8177cd7d",
@@ -69,6 +123,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d462c51_8bda0bcf",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-24T02:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f5f4b4f_8177cd7d",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73bce197_69342a98",
@@ -82,6 +154,24 @@
       "writtenOn": "2021-06-24T02:06:22Z",
       "side": 1,
       "message": "Same as above.",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e9fdb0b_09896fb7",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-24T02:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73bce197_69342a98",
       "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "135c2a62_82883d79",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-24T02:25:40Z",
+      "side": 1,
+      "message": "If you mean getting rid of the unique_ptrs, I\u0027m not against it, but I think wrapping our own absl::optional is outside the scope of this CL. This has been on the team\u0027s backlog for a while though, so this might be a good excuse to do it",
+      "parentUuid": "c1fc494e_1332bf3d",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6aaa59c0_1aabf808",
         "filename": "cast/streaming/receiver_session.h",
         "patchSetId": 3
@@ -116,6 +224,24 @@
       "writtenOn": "2021-06-24T02:06:22Z",
       "side": 1,
       "message": "Same nit as above, just marking all the instances.",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c93ed85_78c83eda",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-24T02:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aaa59c0_1aabf808",
       "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
