@@ -28,6 +28,7 @@
         "index": {"type": "integer", "minimum": 0},
         "type": {"type": "string", "enum": ["audio_source", "video_source"]},
         "codecName": {"type": "string"},
+        "codecParameter": {"type": "string"},
         "rtpProfile": {"type": "string", "enum": ["cast"]},
         "rtpPayloadType": {"type": "integer", "minimum": 96, "maximum": 127},
         "ssrc": {"$ref": "#/definitions/ssrc"},

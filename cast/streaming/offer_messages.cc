@@ -175,14 +175,10 @@ Error Stream::TryParse(const Json::Value& value,
     }
   }
 
-  if (!json::TryParseBool(value["receiverRtcpEventLog"],
-                          &out->receiver_rtcp_event_log)) {
-    out->receiver_rtcp_event_log = false;
-  }
-  if (!json::TryParseString(value["receiverRtcpDscp"],
-                            &out->receiver_rtcp_dscp)) {
-    out->receiver_rtcp_dscp = {};
-  }
+  json::TryParseBool(value["receiverRtcpEventLog"],
+                     &out->receiver_rtcp_event_log);
+  json::TryParseString(value["receiverRtcpDscp"], &out->receiver_rtcp_dscp);
+  json::TryParseString(value["codecParameter"], &out->codec_parameter);
 
   return Error::None();
 }
@@ -207,6 +203,7 @@ Json::Value Stream::ToJson() const {
   root["receiverRtcpEventLog"] = receiver_rtcp_event_log;
   root["receiverRtcpDscp"] = receiver_rtcp_dscp;
   root["timeBase"] = "1/" + std::to_string(rtp_timebase);
+  root["codecParameter"] = codec_parameter;
   return root;
 }
 
