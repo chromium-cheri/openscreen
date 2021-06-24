@@ -1,0 +1,463 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c68ec552_c6f70e66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Overall structure looks good - mostly a lot of comments around naming and comments, and I\u0027d like to minimize the passing around of RpcMessenger by pointer when possible.  Also check callbacks that bind pointers carefully for lifetime issues.",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ebe5c59_4fce8bef",
+        "filename": "cast/standalone_receiver/remoting_initializee.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Do you need to unregister this callback in the dtor to prevent a dangling pointer to |this|?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "345ba4ac_fe4163f7",
+        "filename": "cast/standalone_receiver/remoting_initializee.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "A little more compact:\n\naudio_codec \u003d callback_message.has_audio_decoder_config() ?         ParseProtoCodec(callback_message.audio_decoder_config().codec()) : kNotSpecified;",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21ca1896_86d66061",
+        "filename": "cast/standalone_receiver/remoting_initializee.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Can we call this SimpleRemotingReceiver (or something that more accurately describes its role)?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9655ec0f_2562a811",
+        "filename": "cast/standalone_receiver/remoting_initializee.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Is \"the receiver\" the client of this class?  Maybe \"The standalone receiver indicates...\"",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "149092c0_67fc1588",
+        "filename": "cast/standalone_receiver/remoting_initializee.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Is the standalone sender responsible for sending the message, or that the job of this class?  The documentation is somewhat ambiguous.",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "842858a9_c8e2111f",
+        "filename": "cast/standalone_receiver/remoting_initializee.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Maybe:\n\n...with an initialization message containing configurations, which is passed to |initialize_cb|.",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e976205_de5f2a18",
+        "filename": "cast/standalone_receiver/remoting_initializee.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "SendInitializeMessage()?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58b00b9b_5a8499c3",
+        "filename": "cast/standalone_receiver/remoting_initializee.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Maybe this callback could be an argument to the constructor or IndicateReady()?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "874a4796_851f1f65",
+        "filename": "cast/standalone_receiver/streaming_playback_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "What is the lifetime of |messenger|?  Is it on the stack along with |negotation|?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1df425ae_2484720f",
+        "filename": "cast/standalone_receiver/streaming_playback_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Can you just pass negotation.receivers here (instead of copying them to a temporary object) as this is pass-by-value?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa5365b_fa60691b",
+        "filename": "cast/standalone_receiver/streaming_playback_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "remoting_receiver_ ?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86689040_a1f6da02",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "I normally don\u0027t bother to dcheck preconditions on private APIs, since all the callers are located in the same file.  But they can also serve as useful documentation, so I\u0027m not opposed to them either.",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bef96cfb_037cdc8c",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "OnRemotingReceiverReady()",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91ac6b80_d5a0e509",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Starts the remoting sender.  This may occur...",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "391f34de_26d06d68",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "How is |initializer_| related to |is_ready_for_remoting_|?  Is the boolean variable redundant?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ec0b81b_2fd72e16",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Maybe: \n\nSet to true when the remoting receiver is ready.  However, remoting streams won\u0027t start until |current_negotiation_| is set.",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee412a9_2e4879ad",
+        "filename": "cast/standalone_sender/remoting_initializer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Pass in ctor?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e101ef22_881cbe8a",
+        "filename": "cast/standalone_sender/remoting_initializer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "The sender won\u0027t be too bad if you can demux a .webm file and extract the raw frames.   There are 4-5 RPCs that the sender uses to control playback, but they aren\u0027t too bad.\n\nA standalone receiver will be trickier as there are a bunch more remoting RPCs, which are basically relaying the internal state of the Chromium video stack during playback.  Most of them aren\u0027t necessary to get media to play out from a standalone sender, but you\u0027ll likely have no way of interoperating with Chrome as a sender unless you fake them out somehow.\n\nFor the standalone receiver, probably just logging that the initialization RPC sequence is correct and audio/video frame counts/progress would be good enough to verify that things were working at the transport level.\n\nRyan is working on building a standalone receiver in Chromium based on libcast that could also be used to verify that the receiver side is working E2E.",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d44434_bd5f9e69",
+        "filename": "cast/standalone_sender/remoting_initializer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "What are the lifetime requirements for |messenger|?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035e1655_97da8d2f",
+        "filename": "cast/standalone_sender/remoting_initializer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Can you pass by value?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97620b5c_65914a96",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "kStreaming, kRemoting",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b392bb3_540bf7b3",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Can you just pass/move the std::vector instead of passing pointer/size?  Or use absl::span.",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e34dc56e_4b6448eb",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Which side sends DemuxerStreamInitializeCallback?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c0b05ba_164c65de",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "I\u0027m not sure which side is which here.  Can you rephrase to be more specific?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3032e4e1_ed3c5ce5",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "Should RemotingNegotiation own |messenger|?",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adca5765_07aa774c",
+        "filename": "cast/streaming/rpc_messenger.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-06-24T21:47:30Z",
+      "side": 1,
+      "message": "If |message| is an encoded protocol message, it\u0027s unlikely to be human readable here, or will just be a pointer address.",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
