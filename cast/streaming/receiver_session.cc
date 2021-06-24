@@ -240,6 +240,10 @@ ReceiverSession::ReceiverSession(Client* const client,
                         [this](SenderMessage message) {
                           OnCapabilitiesRequest(std::move(message));
                         });
+  messenger_.SetHandler(SenderMessage::Type::kRpc,
+                        [this](SenderMessage message) {
+                          this->OnRpcMessage(std::move(message));
+                        });
   environment_->SetSocketSubscriber(this);
 }
 
@@ -352,6 +356,21 @@ void ReceiverSession::OnCapabilitiesRequest(SenderMessage message) {
   if (!result.ok()) {
     client_->OnError(this, std::move(result));
   }
+}
+
+void ReceiverSession::OnRpcMessage(SenderMessage message) {
+  if (!message.valid) {
+    OSP_DLOG_WARN
+        << "Bad RPC message. This may or may not represent a serious problem.";
+    return;
+  }
+
+  const auto& body = absl::get<std::vector<uint8_t>>(message.body);
+  if (!rpc_messenger_) {
+    OSP_DLOG_INFO << "Received an RPC message without having a messenger.";
+    return;
+  }
+  rpc_messenger_->ProcessMessageFromRemote(body.data(), body.size());
 }
 
 void ReceiverSession::SelectStreams(const Offer& offer,

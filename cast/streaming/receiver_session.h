@@ -67,10 +67,16 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   // once we get a remoting request from a Sender.
   struct RemotingNegotiation {
     // The configured receivers set to be used for handling audio and
-    // video streams.
+    // video streams. Unlike in the general streaming case, when we are remoting
+    // we don't know the codec and other information about the stream until
+    // it is negotiated using |messenger|, e.g. through the
+    // DemuxerStreamInitializeCallback RPC method.
+    // The remoting DemuxerStreamAdapter takes its config and sends it as
+    // an RPC message to the StreamProvider on the other side of the pipeline.
     ConfiguredReceivers receivers;
 
     // The RPC messenger to be used for subscribing to remoting proto messages.
+    // Unlike the SenderSession API, the RPC messenger is negotiation specific.
     RpcMessenger* messenger;
   };
 
@@ -303,6 +309,7 @@ class ReceiverSession final : public Environment::SocketSubscriber {
   // Specific message type handler methods.
   void OnOffer(SenderMessage message);
   void OnCapabilitiesRequest(SenderMessage message);
+  void OnRpcMessage(SenderMessage message);
 
   // Selects streams from an offer based on its configuration, and sets
   // them in the session properties.
