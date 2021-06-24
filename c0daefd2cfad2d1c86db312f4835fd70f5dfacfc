@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be0a83e6_2773d85a",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-24T02:06:22Z",
+      "side": 1,
+      "message": "Considering we only have 4 codecs, and are highly unlikely to reach double digits at any time (maybe for audio?), it may be worth it to just do a naive n^2 algorithm:\n\nfor (auto codec : second) {\n   if (std::find(first.begin(), first.end(), [](T c) { return c \u003d\u003d codec }) \u003d\u003d first.end()) {\n      return true;\n   } \n}\nreturn false;\n\nor similar.",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06bb73fb_a5ac572a",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-24T02:06:22Z",
+      "side": 1,
+      "message": "Naming preferences are always tricky, but I\u0027m not a big fan of this name for this method--it\u0027s verbose and not particularly clear to my brain at least.\n\nI would prefer Intersects(), Contains(), IsMoreRestrictiveThan() or IsStricterThan()/IsSupersetOf().",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d4c72e5_c6d4807e",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-24T02:06:22Z",
+      "side": 1,
+      "message": "Same as above.",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f5f4b4f_8177cd7d",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-24T02:06:22Z",
+      "side": 1,
+      "message": "Same as above.",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73bce197_69342a98",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-24T02:06:22Z",
+      "side": 1,
+      "message": "Same as above.",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1fc494e_1332bf3d",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-24T02:06:22Z",
+      "side": 1,
+      "message": "Making it copyable seems fine to me, but maybe we should sort heap versus stack ownership and side-step the issue.",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aaa59c0_1aabf808",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-24T02:06:22Z",
+      "side": 1,
+      "message": "Same nit as above, just marking all the instances.",
+      "revId": "c0daefd2cfad2d1c86db312f4835fd70f5dfacfc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
