@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32eaef9_d821ae2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-06-24T17:13:47Z",
+      "side": 1,
+      "message": "If we like this approach, I need to add more tests before a full review.\n\nI have been looking into media codec parameters, and it seems like there are quite a variety of them. In order to not completely change the way the ReceiverSession API works, I think that the embedder needs to pass ALL supported codec permutations (or libcast needs to understand and parse codec parameter fields). \n\nDefinitely intrigued by both of your thoughts, chkuo@ and mfoltz@. Would love to close out this bug/KR this quarter with a satisfactory resolution. chkuo@, do you think nest devices can adequately provide all supported codec parameter strings--and how many is that likely to be on a given device? Enough for a std::unordered_set?",
+      "revId": "40f4651dd3474505ce6cff8f5712da2b874dddd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
