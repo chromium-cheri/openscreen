@@ -51,6 +51,23 @@
       "parentUuid": "ed2f6987_7588b2ee",
       "revId": "40f4651dd3474505ce6cff8f5712da2b874dddd0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01b59b2_caf2214f",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1319019
+      },
+      "writtenOn": "2021-06-25T18:22:39Z",
+      "side": 1,
+      "message": "Is there a way to query whether the codec parameter is supported or not instead of doing string matching? I think using string matching isn\u0027t the best way to check the codec support.\n\nFor example, the higher level profile could be also used to support the lower level profile. Unless, |preferred_codec_parameters| is guaranteed to provide all supported codec parameter strings.",
+      "revId": "40f4651dd3474505ce6cff8f5712da2b874dddd0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
