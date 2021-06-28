@@ -146,6 +146,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c625f89_6bd981ac",
+        "filename": "cast/cast_core/api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-28T22:59:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9d0c7ba8_b7ece54b",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "408768c1_038e9fb5",
@@ -183,6 +207,30 @@
       "side": 1,
       "message": "I don\u0027t think there will be a downstream conflict since these aren\u0027t included elsewhere like .gni files.  I\u0027m also reluctant to take the name \"chromecast\" for a more specific component.  Using this downstream locally didn\u0027t produce a conflict for me.  Did you see a conflict in your version?",
       "parentUuid": "408768c1_038e9fb5",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94b09fc4_68ba5829",
+        "filename": "cast/cast_core/api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-28T22:59:31Z",
+      "side": 1,
+      "message": "My concern is when downstream is forced to depend on it. E.g. a file that depends on the runtime code and non-runtime code could hit both\n\nBut if you don\u0027t think it\u0027s an issue I\u0027m happy to defer to you - it wouldn\u0027t be hard to address if it if ever happens",
+      "parentUuid": "bc66a586_87e296cf",
       "range": {
         "startLine": 49,
         "startChar": 10,
