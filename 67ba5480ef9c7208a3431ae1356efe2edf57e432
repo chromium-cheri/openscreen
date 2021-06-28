@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c4be770_1178f4b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-28T22:34:09Z",
+      "side": 1,
+      "message": "b/172295002",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 9
+      },
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f65ce300_3d8a3baf",
@@ -14,6 +37,69 @@
       "writtenOn": "2021-06-28T22:22:45Z",
       "side": 1,
       "message": "I think this is a good compromise that gives us: 1. technically catching proto errors before check-in on our local chromium bots and 2. not adding a full //third_party/grpc to openscreen just for this.  PTAL, thanks!",
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a0837b4_a113c15d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-28T22:34:09Z",
+      "side": 1,
+      "message": "Thank you for doing this! I\u0027ve wanted to do this for a while but couldn\u0027t think of a good way to do it without adding gRPC + protobuf to Openscreen\n\nWhen this rolls into Chromium, the autoroller may hit collisions with chromecast/media/cma/backend/proxy/BUILD.gn\nIf so, ping me and I can fix it",
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffd23992_b27f5bef",
+        "filename": "cast/cast_core/api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-28T22:34:09Z",
+      "side": 1,
+      "message": "The two targets look VERY similar. Is there a reason to have both? I\u0027ve tested and it compiles fine with all set to the below type.",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "408768c1_038e9fb5",
+        "filename": "cast/cast_core/api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-06-28T22:34:09Z",
+      "side": 1,
+      "message": "I think it might be helpful to rename these. E.g. `chromecast_grpc_library`. It will avoid collisions when this rolls downstream",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 32
+      },
       "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
