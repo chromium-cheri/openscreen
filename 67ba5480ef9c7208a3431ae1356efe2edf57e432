@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "db70876f_a6416527",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-06-28T22:57:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c4be770_1178f4b6",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 9
+      },
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f65ce300_3d8a3baf",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -98,6 +122,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d0c7ba8_b7ece54b",
+        "filename": "cast/cast_core/api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-06-28T22:57:15Z",
+      "side": 1,
+      "message": "It was originally one grpc rule and Mark split it.  TBH I don\u0027t know if there\u0027s a reason other than documenting which files do and don\u0027t defined RPCs.  I added another template level to avoid the duplication; hopefully it still makes sense.",
+      "parentUuid": "ffd23992_b27f5bef",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "408768c1_038e9fb5",
@@ -111,6 +159,30 @@
       "writtenOn": "2021-06-28T22:34:09Z",
       "side": 1,
       "message": "I think it might be helpful to rename these. E.g. `chromecast_grpc_library`. It will avoid collisions when this rolls downstream",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "67ba5480ef9c7208a3431ae1356efe2edf57e432",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc66a586_87e296cf",
+        "filename": "cast/cast_core/api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-06-28T22:57:15Z",
+      "side": 1,
+      "message": "I don\u0027t think there will be a downstream conflict since these aren\u0027t included elsewhere like .gni files.  I\u0027m also reluctant to take the name \"chromecast\" for a more specific component.  Using this downstream locally didn\u0027t produce a conflict for me.  Did you see a conflict in your version?",
+      "parentUuid": "408768c1_038e9fb5",
       "range": {
         "startLine": 49,
         "startChar": 10,
