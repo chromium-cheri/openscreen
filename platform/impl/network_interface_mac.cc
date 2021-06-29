@@ -101,6 +101,10 @@ std::vector<InterfaceInfo> ProcessInterfacesList(ifaddrs* interfaces) {
               (ifmr.ifm_status & IFM_ACTIVE))) {
           continue;  // Skip this interface since it's not valid or active.
         }
+        if (ifmr.ifr_ifru.ifru_flags & IN6_IFF_DEPRECATED) {
+          // Skip interfaces with deprecated addresses.
+          continue;
+        }
         if (ifmr.ifm_current & IFM_IEEE80211) {
           type = InterfaceInfo::Type::kWifi;
         } else if (ifmr.ifm_current & IFM_ETHER) {
