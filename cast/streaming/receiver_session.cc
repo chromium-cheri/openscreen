@@ -240,6 +240,10 @@ ReceiverSession::ReceiverSession(Client* const client,
                         [this](SenderMessage message) {
                           OnCapabilitiesRequest(std::move(message));
                         });
+  messenger_.SetHandler(SenderMessage::Type::kRpc,
+                        [this](SenderMessage message) {
+                          this->OnRpcMessage(std::move(message));
+                        });
   environment_->SetSocketSubscriber(this);
 }
 
@@ -354,9 +358,24 @@ void ReceiverSession::OnCapabilitiesRequest(SenderMessage message) {
   }
 }
 
+void ReceiverSession::OnRpcMessage(SenderMessage message) {
+  if (!message.valid) {
+    OSP_DLOG_WARN
+        << "Bad RPC message. This may or may not represent a serious problem.";
+    return;
+  }
+
+  const auto& body = absl::get<std::vector<uint8_t>>(message.body);
+  if (!rpc_messenger_) {
+    OSP_DLOG_INFO << "Received an RPC message without having a messenger.";
+    return;
+  }
+  rpc_messenger_->ProcessMessageFromRemote(body.data(), body.size());
+}
+
 void ReceiverSession::SelectStreams(const Offer& offer,
                                     SessionProperties* properties) {
-  if (offer.cast_mode == CastMode::kMirroring) {
+  if (offer.cast_mode == CastMode::kStreaming) {
     if (!offer.audio_streams.empty() && !preferences_.audio_codecs.empty()) {
       properties->selected_audio =
           SelectStream(preferences_.audio_codecs, offer.audio_streams);
@@ -391,7 +410,7 @@ void ReceiverSession::InitializeSession(const SessionProperties& properties) {
 
   // Only spawn receivers if we know we have a valid answer message.
   ConfiguredReceivers receivers = SpawnReceivers(properties);
-  if (properties.mode == CastMode::kMirroring) {
+  if (properties.mode == CastMode::kStreaming) {
     client_->OnNegotiated(this, std::move(receivers));
   } else {
     // TODO(jophba): cleanup sequence number usage.
@@ -465,6 +484,7 @@ void ReceiverSession::ResetReceivers(Client::ReceiversDestroyingReason reason) {
     client_->OnReceiversDestroying(this, reason);
     current_audio_receiver_.reset();
     current_video_receiver_.reset();
+    rpc_messenger_.reset();
   }
 }
 

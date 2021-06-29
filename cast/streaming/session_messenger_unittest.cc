@@ -23,7 +23,7 @@ constexpr char kReceiverId[] = "receiver-12345";
 // Generally the messages are inlined below, with the exception of the Offer,
 // simply because it is massive.
 Offer kExampleOffer{
-    CastMode::kMirroring,
+    CastMode::kStreaming,
     {AudioStream{Stream{0,
                         Stream::Type::kAudioSource,
                         2,

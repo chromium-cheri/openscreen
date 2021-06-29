@@ -94,7 +94,7 @@ Offer CreateMirroringOffer(const std::vector<AudioCaptureConfig>& audio_configs,
                            const std::vector<VideoCaptureConfig>& video_configs,
                            bool use_android_rtp_hack) {
   Offer offer;
-  offer.cast_mode = CastMode::kMirroring;
+  offer.cast_mode = CastMode::kStreaming;
 
   // NOTE here: IDs will always follow the pattern:
   // [0.. audio streams... N - 1][N.. video streams.. K]
@@ -210,6 +210,9 @@ SenderSession::SenderSession(Configuration config)
             config_.client->OnError(this, error);
           },
           config_.environment->task_runner()),
+      rpc_messenger_([this](std::vector<uint8_t> message) {
+        SendRpcMessage(std::move(message));
+      }),
       packet_router_(config_.environment) {
   OSP_DCHECK(config_.client);
   OSP_DCHECK(config_.environment);
@@ -265,7 +268,6 @@ void SenderSession::ResetState() {
   current_negotiation_.reset();
   current_audio_sender_.reset();
   current_video_sender_.reset();
-  rpc_messenger_.reset();
 }
 
 Error SenderSession::StartNegotiation(
@@ -292,14 +294,14 @@ void SenderSession::OnAnswer(ReceiverMessage message) {
   // There isn't an obvious way to tell from the Answer whether it is mirroring
   // or remoting specific--the only clues are in the original offer message.
   const Answer& answer = absl::get<Answer>(message.body);
-  if (current_negotiation_->offer.cast_mode == CastMode::kMirroring) {
+  if (current_negotiation_->offer.cast_mode == CastMode::kStreaming) {
     ConfiguredSenders senders = SpawnSenders(answer);
     // If we didn't select any senders, the negotiation was unsuccessful.
     if (senders.audio_sender == nullptr && senders.video_sender == nullptr) {
       return;
     }
 
-    state_ = State::kMirroring;
+    state_ = State::kStreaming;
     config_.client->OnNegotiated(
         this, std::move(senders),
         capture_recommendations::GetRecommendations(answer));
@@ -361,27 +363,12 @@ void SenderSession::OnCapabilitiesResponse(ReceiverMessage message) {
                                   "Failed to negotiate a remoting session."));
     return;
   }
-  rpc_messenger_ = std::make_unique<RpcMessenger>([this](std::vector<uint8_t> message) {
-    Error error = this->messenger_.SendOutboundMessage(SenderMessage{
-        SenderMessage::Type::kRpc, ++(this->current_sequence_number_), true,
-        std::move(message)});
-
-    if (!error.ok()) {
-      OSP_LOG_WARN << "Failed to send RPC message: " << error;
-    }
-  });
 
   config_.client->OnRemotingNegotiated(
-      this, RemotingNegotiation{std::move(senders), ToCapabilities(caps),
-                                rpc_messenger_.get()});
+      this, RemotingNegotiation{std::move(senders), ToCapabilities(caps)});
 }
 
 void SenderSession::OnRpcMessage(ReceiverMessage message) {
-  if (!rpc_messenger_) {
-    OSP_LOG_INFO << "Received an RPC message without having an RPCMessenger.";
-    return;
-  }
-
   if (!message.valid) {
     HandleErrorMessage(
         message,
@@ -390,7 +377,7 @@ void SenderSession::OnRpcMessage(ReceiverMessage message) {
   }
 
   const auto& body = absl::get<std::vector<uint8_t>>(message.body);
-  rpc_messenger_->ProcessMessageFromRemote(body.data(), body.size());
+  rpc_messenger_.ProcessMessageFromRemote(body.data(), body.size());
 }
 
 void SenderSession::HandleErrorMessage(ReceiverMessage message,
@@ -490,6 +477,16 @@ SenderSession::ConfiguredSenders SenderSession::SpawnSenders(
     }
   }
   return senders;
+}
+
+void SenderSession::SendRpcMessage(std::vector<uint8_t> message_body) {
+  Error error = this->messenger_.SendOutboundMessage(SenderMessage{
+      SenderMessage::Type::kRpc, ++(this->current_sequence_number_), true,
+      std::move(message_body)});
+
+  if (!error.ok()) {
+    OSP_LOG_WARN << "Failed to send RPC message: " << error;
+  }
 }
 
 }  // namespace cast

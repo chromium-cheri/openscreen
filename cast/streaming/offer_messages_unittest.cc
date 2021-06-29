@@ -100,7 +100,7 @@ void ExpectFailureOnParse(
 }
 
 void ExpectEqualsValidOffer(const Offer& offer) {
-  EXPECT_EQ(CastMode::kMirroring, offer.cast_mode);
+  EXPECT_EQ(CastMode::kStreaming, offer.cast_mode);
 
   // Verify list of video streams.
   EXPECT_EQ(2u, offer.video_streams.size());

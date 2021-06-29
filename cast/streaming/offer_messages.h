@@ -97,8 +97,6 @@ struct VideoStream {
   std::string error_recovery_mode = {};
 };
 
-enum class CastMode : uint8_t { kMirroring, kRemoting };
-
 struct Offer {
   // TODO(jophba): remove deprecated declaration in a separate patch.
   static ErrorOr<Offer> Parse(const Json::Value& root);
@@ -106,7 +104,7 @@ struct Offer {
   Json::Value ToJson() const;
   bool IsValid() const;
 
-  CastMode cast_mode = CastMode::kMirroring;
+  CastMode cast_mode = CastMode::kStreaming;
   std::vector<AudioStream> audio_streams = {};
   std::vector<VideoStream> video_streams = {};
 };

@@ -239,7 +239,7 @@ class SenderSessionTest : public ::testing::Test {
         }
         })";
     return StringPrintf(kAnswerTemplate, offer["seqNum"].asInt(),
-                        mode == CastMode::kMirroring ? "mirroring" : "remoting",
+                        mode == CastMode::kStreaming ? "mirroring" : "remoting",
                         audio_index, video_index, audio_ssrc + 1,
                         video_ssrc + 1);
   }
@@ -378,7 +378,7 @@ TEST_F(SenderSessionTest, SendsOfferMessage) {
 
 TEST_F(SenderSessionTest, HandlesValidAnswer) {
   NegotiateMirroringWithValidConfigs();
-  std::string answer = ConstructAnswerFromOffer(CastMode::kMirroring);
+  std::string answer = ConstructAnswerFromOffer(CastMode::kStreaming);
 
   EXPECT_CALL(client_, OnNegotiated(session_.get(), _, _));
   message_port_->ReceiveMessage(answer);
@@ -386,7 +386,7 @@ TEST_F(SenderSessionTest, HandlesValidAnswer) {
 
 TEST_F(SenderSessionTest, HandlesInvalidNamespace) {
   NegotiateMirroringWithValidConfigs();
-  std::string answer = ConstructAnswerFromOffer(CastMode::kMirroring);
+  std::string answer = ConstructAnswerFromOffer(CastMode::kStreaming);
   message_port_->ReceiveMessage("random-namespace", answer);
 }
 
@@ -545,8 +545,9 @@ TEST_F(SenderSessionTest, SuccessfulRemotingNegotiationYieldsValidObject) {
 
   // The messenger is tested elsewhere, but we can sanity check that we got a valid
   // one here.
-  EXPECT_TRUE(negotiation.messenger);
-  const RpcMessenger::Handle handle = negotiation.messenger->GetUniqueHandle();
+  EXPECT_TRUE(session_->rpc_messenger());
+  const RpcMessenger::Handle handle =
+      session_->rpc_messenger()->GetUniqueHandle();
   EXPECT_NE(RpcMessenger::kInvalidHandle, handle);
 }
 

@@ -34,7 +34,7 @@ constexpr char kVideoSourceType[] = "video_source";
 constexpr char kStreamType[] = "type";
 
 EnumNameTable<CastMode, 2> kCastModeNames{
-    {{"mirroring", CastMode::kMirroring}, {"remoting", CastMode::kRemoting}}};
+    {{"mirroring", CastMode::kStreaming}, {"remoting", CastMode::kRemoting}}};
 
 bool TryParseRtpPayloadType(const Json::Value& value, RtpPayloadType* out) {
   int t;
@@ -368,7 +368,7 @@ Error Offer::TryParse(const Json::Value& root, Offer* out) {
     }
   }
 
-  *out = Offer{cast_mode.value(CastMode::kMirroring), std::move(audio_streams),
+  *out = Offer{cast_mode.value(CastMode::kStreaming), std::move(audio_streams),
                std::move(video_streams)};
   return Error::None();
 }
