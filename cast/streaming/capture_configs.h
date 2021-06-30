@@ -35,6 +35,10 @@ struct AudioCaptureConfig {
 
   // Target playout delay in milliseconds.
   std::chrono::milliseconds target_playout_delay = kDefaultTargetPlayoutDelay;
+
+  // The codec parameter for this configuration. Honors the format laid out
+  // in RFC 6381: https://datatracker.ietf.org/doc/html/rfc6381.
+  std::string codec_parameter;
 };
 
 // A configuration set that can be used by the sender to capture video, as
@@ -62,6 +66,10 @@ struct VideoCaptureConfig {
 
   // Target playout delay in milliseconds.
   std::chrono::milliseconds target_playout_delay = kDefaultTargetPlayoutDelay;
+
+  // The codec parameter for this configuration. Honors the format laid out
+  // in RFC 6381: https://datatracker.ietf.org/doc/html/rfc6381.
+  std::string codec_parameter;
 };
 
 }  // namespace cast

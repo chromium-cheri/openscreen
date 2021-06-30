@@ -29,10 +29,14 @@ namespace {
 template <typename Stream, typename Codec>
 std::unique_ptr<Stream> SelectStream(
     const std::vector<Codec>& preferred_codecs,
+    const ReceiverSession::Preferences::SupportsCodecParameterCallback&
+        supports_cb,
     const std::vector<Stream>& offered_streams) {
   for (auto codec : preferred_codecs) {
     for (const Stream& offered_stream : offered_streams) {
-      if (offered_stream.codec == codec) {
+      if (offered_stream.codec == codec &&
+          (offered_stream.stream.codec_parameter.empty() || !supports_cb ||
+           supports_cb(offered_stream.stream.codec_parameter))) {
         OSP_DVLOG << "Selected " << CodecToString(codec)
                   << " as codec for streaming";
         return std::make_unique<Stream>(offered_stream);
@@ -205,6 +209,7 @@ Preferences& Preferences::operator=(const Preferences& other) {
   if (other.remoting) {
     remoting = std::make_unique<RemotingPreferences>(*other.remoting);
   }
+  supports_codec_parameter_cb = other.supports_codec_parameter_cb;
   return *this;
 }
 
@@ -358,12 +363,14 @@ void ReceiverSession::SelectStreams(const Offer& offer,
                                     SessionProperties* properties) {
   if (offer.cast_mode == CastMode::kMirroring) {
     if (!offer.audio_streams.empty() && !preferences_.audio_codecs.empty()) {
-      properties->selected_audio =
-          SelectStream(preferences_.audio_codecs, offer.audio_streams);
+      properties->selected_audio = SelectStream(
+          preferences_.audio_codecs, preferences_.supports_codec_parameter_cb,
+          offer.audio_streams);
     }
     if (!offer.video_streams.empty() && !preferences_.video_codecs.empty()) {
-      properties->selected_video =
-          SelectStream(preferences_.video_codecs, offer.video_streams);
+      properties->selected_video = SelectStream(
+          preferences_.video_codecs, preferences_.supports_codec_parameter_cb,
+          offer.video_streams);
     }
   } else {
     OSP_DCHECK(offer.cast_mode == CastMode::kRemoting);
@@ -440,7 +447,8 @@ ReceiverSession::ConfiguredReceivers ReceiverSession::SpawnReceivers(
                            properties.selected_audio->stream.channels,
                            properties.selected_audio->bit_rate,
                            properties.selected_audio->stream.rtp_timebase,
-                           properties.selected_audio->stream.target_delay};
+                           properties.selected_audio->stream.target_delay,
+                           properties.selected_audio->stream.codec_parameter};
   }
 
   VideoCaptureConfig video_config;
@@ -452,7 +460,8 @@ ReceiverSession::ConfiguredReceivers ReceiverSession::SpawnReceivers(
                            properties.selected_video->max_frame_rate,
                            properties.selected_video->max_bit_rate,
                            properties.selected_video->resolutions,
-                           properties.selected_video->stream.target_delay};
+                           properties.selected_video->stream.target_delay,
+                           properties.selected_video->stream.codec_parameter};
   }
 
   return ConfiguredReceivers{

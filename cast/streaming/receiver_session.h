@@ -262,6 +262,16 @@ class ReceiverSession final : public Environment::SocketSubscriber {
     // offers may provide a set of remoting preferences, or leave nullptr for
     // all remoting OFFERs to be rejected in favor of continuing streaming.
     std::unique_ptr<RemotingPreferences> remoting;
+
+    // |*_codec_parameters| fields are used as a secondary matching, e.g.
+    // if you don't add VideoCodec::kHevc, then supporting codec parameter
+    // "hev1.1.6.L153.B0" does not matter. The codec parameter support callback
+    // is optional, however if provided then any offered streams that have
+    // a non-empty codec parameter field must match. If a stream does not
+    // have a codec parameter, this callback will not be called.
+    using SupportsCodecParameterCallback =
+        std::function<bool(const std::string&)>;
+    SupportsCodecParameterCallback supports_codec_parameter_cb;
   };
 
   ReceiverSession(Client* const client,
