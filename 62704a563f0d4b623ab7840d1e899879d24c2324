@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "046ffc1d_e478e498",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T21:18:08Z",
+      "side": 1,
+      "message": "Super nit: Drop trailing period since it\u0027s not part of the URL",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "977371c9_f27e3838",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T21:18:08Z",
+      "side": 1,
+      "message": "A couple of things in spec-land.\n\n- The RFC linked is the most current, but also defines a \"profiles\" parameter, which I don\u0027t believe we have any use for.  I would mention that \"profiles\" is not supported.\n\n- The RFC only defines the parameter syntax for MPEG family and related codecs.  Additional references are needed for VPX/AV1 codec parameters.  \n\nMaybe all these details could go into a markdown describing how codec support works in the protocol.",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8bb70de_a1c1d492",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T21:18:08Z",
+      "side": 1,
+      "message": "Are there parameter strings for Opus?  I didn\u0027t see anything in mime_util_internal.cc, but maybe I missed something.",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48e7b499_fad24607",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T21:18:08Z",
+      "side": 1,
+      "message": "I wonder if we should also add the codec enum to the offer as well.\n\n1. The RtpPayloadType does not represent all codecs we wish to offer.\n2. There is a \"hack\" where we can\u0027t set it properly for Android TV.\n3. If we ever need to parse the codec_parameter string, it would be helpful to know what codec type it is to choose the right parser.\n\nWDYT?",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef03e162_8d442613",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T21:18:08Z",
+      "side": 1,
+      "message": "The order of offers matters then?",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "019864f2_c5a76824",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T21:18:08Z",
+      "side": 1,
+      "message": "Specifically: add to the VideoCaptureConfig",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae93c689_26c46bd2",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T21:18:08Z",
+      "side": 1,
+      "message": "std::function is still banned in Chromium so we want to avoid it in public APIs. :-(",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea680ec_e952ea92",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T21:18:08Z",
+      "side": 1,
+      "message": "Let\u0027s just add an API to ::Client, we can bind it as a function object internally if that\u0027s convenient.",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
