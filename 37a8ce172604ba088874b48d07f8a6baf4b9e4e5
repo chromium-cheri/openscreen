@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41a427d9_932bc863",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T17:24:21Z",
+      "side": 1,
+      "message": "Looks good overall with a couple of minor changes requested.",
+      "revId": "37a8ce172604ba088874b48d07f8a6baf4b9e4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3964e854_82c176f7",
+        "filename": "cast/common/public/receiver_info.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T17:24:21Z",
+      "side": 1,
+      "message": "So, if there are no uses of this outside of the library, I would prefer to remove this and just use openscreen::discovery::kMaxLabelLength from mdns_constants.h below.\n\nJordan, WDYT?",
+      "revId": "37a8ce172604ba088874b48d07f8a6baf4b9e4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7270dcc2_b9c52521",
+        "filename": "cast/common/public/receiver_info.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T17:24:21Z",
+      "side": 1,
+      "message": "I would delete \"virtual\" here as it doesn\u0027t have a meaning in this context.",
+      "revId": "37a8ce172604ba088874b48d07f8a6baf4b9e4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e79f1924_a8f35c05",
+        "filename": "cast/common/public/receiver_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T17:24:21Z",
+      "side": 1,
+      "message": "Since we are using |receiver_id| throughout all of the APIs that need to track individual Cast receivers, maybe it would be worth adding a receiver_id field that stores the UUID in the right format already (lowercase without hyphens).  In that change, we would deprecate the unique_id field.\n\nThat way the client could pass the receiver_id into all of the APIs that expect it and know it matches the ID that was found through DNS-SD.\n\nFine to do in a later change though.  Jordan, thoughts?",
+      "revId": "37a8ce172604ba088874b48d07f8a6baf4b9e4e5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
