@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a959349_e35e4b06",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-01T22:06:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "046ffc1d_e478e498",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "977371c9_f27e3838",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-07-01T21:18:08Z",
       "side": 1,
       "message": "A couple of things in spec-land.\n\n- The RFC linked is the most current, but also defines a \"profiles\" parameter, which I don\u0027t believe we have any use for.  I would mention that \"profiles\" is not supported.\n\n- The RFC only defines the parameter syntax for MPEG family and related codecs.  Additional references are needed for VPX/AV1 codec parameters.  \n\nMaybe all these details could go into a markdown describing how codec support works in the protocol.",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7d6760b_a90d60c1",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-01T22:06:59Z",
+      "side": 1,
+      "message": "The AV1 codec parameter string is based on the same RFC:\n\nhttps://aomediacodec.github.io/av1-isobmff/#codecsparam\n\nand I don\u0027t think VP8/VP9 have one?",
+      "parentUuid": "977371c9_f27e3838",
       "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c85cc24b_bfcbf710",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-01T22:06:59Z",
+      "side": 1,
+      "message": "I don\u0027t think VP8 or Opus have parameter strings.",
+      "parentUuid": "a8bb70de_a1c1d492",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48e7b499_fad24607",
         "filename": "cast/streaming/offer_messages.h",
         "patchSetId": 2
@@ -65,6 +119,24 @@
       "writtenOn": "2021-07-01T21:18:08Z",
       "side": 1,
       "message": "I wonder if we should also add the codec enum to the offer as well.\n\n1. The RtpPayloadType does not represent all codecs we wish to offer.\n2. There is a \"hack\" where we can\u0027t set it properly for Android TV.\n3. If we ever need to parse the codec_parameter string, it would be helpful to know what codec type it is to choose the right parser.\n\nWDYT?",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76070f66_f67a8704",
+        "filename": "cast/streaming/offer_messages.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-01T22:06:59Z",
+      "side": 1,
+      "message": "The codec enum is in the offer, however it is in the VideoStream and AudioStream classes that include this class in their composition. See line 83 and 94 in this revision.",
+      "parentUuid": "48e7b499_fad24607",
       "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -86,6 +158,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b1f7c30_8be64603",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-01T22:06:59Z",
+      "side": 1,
+      "message": "Not really currently. We go in order of codec priority first, and right now the sender doesn\u0027t send multiple stream offers with the same codec. If we decide to send multiple streams with the same codec in the offer, we will have to figure out how to pick our preference--which won\u0027t necessarily be straightforward.",
+      "parentUuid": "ef03e162_8d442613",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "019864f2_c5a76824",
@@ -99,6 +189,24 @@
       "writtenOn": "2021-07-01T21:18:08Z",
       "side": 1,
       "message": "Specifically: add to the VideoCaptureConfig",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "660504aa_5f486d15",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-01T22:06:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "019864f2_c5a76824",
       "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -120,6 +228,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16ed1a92_45aab9be",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-01T22:06:59Z",
+      "side": 1,
+      "message": "I think we can do this still--it\u0027s banned because of base::Callback, which we can\u0027t use here. I think it\u0027s fine as long as we only wrap methods at the API.\n\nI\u0027ll change it anyway.",
+      "parentUuid": "ae93c689_26c46bd2",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ea680ec_e952ea92",
@@ -133,6 +259,24 @@
       "writtenOn": "2021-07-01T21:18:08Z",
       "side": 1,
       "message": "Let\u0027s just add an API to ::Client, we can bind it as a function object internally if that\u0027s convenient.",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61b5b5fc_029eaa9c",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-01T22:06:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ea680ec_e952ea92",
       "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
