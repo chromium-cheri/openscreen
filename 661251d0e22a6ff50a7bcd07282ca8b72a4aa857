@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a04a5b2_9149c950",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T20:30:04Z",
+      "side": 1,
+      "message": "Looks good with a few doc fixes!\n",
+      "revId": "661251d0e22a6ff50a7bcd07282ca8b72a4aa857",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f590b4d5_49bc214d",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T20:30:04Z",
+      "side": 1,
+      "message": "It looks like remoting_sender_ is set as a side effect of starting negotation, so maybe just \"won\u0027t start until remoting is successfully negotiated\"",
+      "revId": "661251d0e22a6ff50a7bcd07282ca8b72a4aa857",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31b0246c_f71ad9df",
+        "filename": "cast/standalone_sender/remoting_sender.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T20:30:04Z",
+      "side": 1,
+      "message": "Unregister this callback in the dtor?",
+      "revId": "661251d0e22a6ff50a7bcd07282ca8b72a4aa857",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33c31a87_af8e80f7",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T20:30:04Z",
+      "side": 1,
+      "message": "secondary matching and only used when the corresponding high level codec is also present in *_codec.  For example, \"hev1.1.6.L153.B0\" in video_codec_parameters is only considered when VideoCodec::kHevc is also present in video_codecs.",
+      "revId": "661251d0e22a6ff50a7bcd07282ca8b72a4aa857",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

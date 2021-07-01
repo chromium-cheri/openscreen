@@ -370,6 +370,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b5fe9bb_58da1594",
+        "filename": "cast/standalone_receiver/streaming_playback_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T20:30:04Z",
+      "side": 1,
+      "message": "Ok, maybe add a comment that you are overriding the codecs in the original negotation with the actual configuration.",
+      "parentUuid": "2dab645e_8cc20ea2",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "afa5365b_fa60691b",
         "filename": "cast/standalone_receiver/streaming_playback_controller.h",
         "patchSetId": 7
@@ -737,6 +755,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "852a3795_b0764fe4",
+        "filename": "cast/streaming/constants.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T20:30:04Z",
+      "side": 1,
+      "message": "Let\u0027s revert this and keep the enum names in line with the spec.  Sorry for the churn!",
+      "parentUuid": "4fe76c5d_318a7088",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b392bb3_540bf7b3",
         "filename": "cast/streaming/receiver_session.cc",
         "patchSetId": 7
@@ -871,6 +907,24 @@
       "side": 1,
       "message": "The receiver session needs to have a handle to it so it can call into it as part of  ReceiverSession::OnRpcMessage--I think ownership is probably best as is?",
       "parentUuid": "3032e4e1_ed3c5ce5",
+      "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6829e38f_863865d2",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-01T20:30:04Z",
+      "side": 1,
+      "message": "Makes sense.  I would document that this is owned by the ReceiverSession.",
+      "parentUuid": "5b4eb9d9_7ecc33c1",
       "revId": "02eba385205a1d01594c5036609ab908bc1f2aa5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
