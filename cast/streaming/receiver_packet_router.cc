@@ -75,8 +75,7 @@ void ReceiverPacketRouter::OnReceivedPacket(const IPEndpoint& source,
     constexpr int kMaxPartiaHexDumpSize = 96;
     OSP_LOG_WARN << "UNKNOWN packet of " << packet.size()
                  << " bytes. Partial hex dump: "
-                 << HexEncode(absl::Span<const uint8_t>(packet).subspan(
-                        0, kMaxPartiaHexDumpSize));
+                 << HexEncode(&packet[0], kMaxPartiaHexDumpSize);
     return;
   }
   auto it = receivers_.find(seems_like.second);
