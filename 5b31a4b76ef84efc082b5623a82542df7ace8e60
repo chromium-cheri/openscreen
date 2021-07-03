@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f96b54c_55ca0d31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-03T02:55:02Z",
+      "side": 1,
+      "message": "Good patch! Some cleanup.",
+      "revId": "5b31a4b76ef84efc082b5623a82542df7ace8e60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc0f296e_9a1e6068",
+        "filename": "cast/standalone_receiver/cast_service.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-03T02:55:02Z",
+      "side": 1,
+      "message": "Pretty sure you can just do foo.data() for most of these cases, and I\u0027d prefer that over \u0026foo[0].",
+      "revId": "5b31a4b76ef84efc082b5623a82542df7ace8e60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6af7ddcd_bb656922",
+        "filename": "cast/streaming/receiver_packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-03T02:55:02Z",
+      "side": 1,
+      "message": "Same issue as the sender packet router below--look at that comment first 😊",
+      "revId": "5b31a4b76ef84efc082b5623a82542df7ace8e60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adc44e93_efacd10b",
+        "filename": "util/stringprintf.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-03T02:55:02Z",
+      "side": 1,
+      "message": "Nit: you can do `auto i` instead of `std::size_t i` since you don\u0027t _really_ care about the type.",
+      "revId": "5b31a4b76ef84efc082b5623a82542df7ace8e60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
