@@ -16,6 +16,24 @@
       "message": "This looks like the cause of the unit test issues--the address sanitizer is complaining about us accessing memory we aren\u0027t supposed to:\n\n[ RUN      ] SenderPacketRouterTest.IgnoresInboundPacketsContainingGarbage\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\u003d\u003d10991\u003d\u003dERROR: AddressSanitizer: heap-buffer-overflow on address 0x60400026a332 at pc 0x000000be2659 bp 0x7ffe8cf7f170 sp 0x7ffe8cf7f168\nREAD of size 1 at 0x60400026a332 thread T0\n    #0 0xbe2658 in openscreen::HexEncode[abi:cxx11](unsigned char const*, unsigned long) /b/s/w/ir/k/openscreen/out/Default/../../util/stringprintf.cc:39:50\n    #1 0x18086f6 in openscreen::cast::SenderPacketRouter::OnReceivedPacket(openscreen::IPEndpoint const\u0026, std::chrono::time_point\u003copenscreen::TrivialClockTraits, std::chrono::duration\u003clong, std::ratio\u003c1l, 1000000l\u003e \u003e \u003e, std::vector\u003cunsigned char, std::allocator\u003cunsigned char\u003e \u003e) /b/s/w/ir/k/openscreen/out/Default/../../cast/streaming/sender_packet_router.cc:107:21\n....\n\nI think you want this instead, because you are encountering the case where the packet is smaller than kMaxPartiaHexDumpSize (subspan() handles this automatically).\n\n  const std::size_t encode_size \u003d std::min(packet.size(), kMaxPartiaHexDumpSize);\n  HexEncode(packet.data(), encode_size);",
       "revId": "f2d9d267c1363c42d6eef6f9190033af98fb236b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcc6ec7f_a956eb98",
+        "filename": "cast/streaming/sender_packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1515352
+      },
+      "writtenOn": "2021-07-07T20:05:08Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "49e116b6_c5279e29",
+      "revId": "f2d9d267c1363c42d6eef6f9190033af98fb236b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
