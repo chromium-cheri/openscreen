@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e49625_5c160865",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-09T16:51:49Z",
+      "side": 1,
+      "message": "There doesn\u0027t appear to be any validation that the codec_parameter matches the codec.  For example, a sender could send a stream with codec \"vp8\" and codec parameter \"hev1....\", and it would be chosen.\n\nIMO the receiver session should reject these offers as invalid, as I\u0027m not sure what the receiver client would meaningfully do with such a session.",
+      "revId": "adfa7d3085d3541046fce5fb768c8ac368c1f5c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41bac06a_2e5e4adb",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-09T16:51:49Z",
+      "side": 1,
+      "message": "Super nit: This would read better with a paragraph break before \"the\"",
+      "revId": "adfa7d3085d3541046fce5fb768c8ac368c1f5c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72b1aa8c_17c1af4a",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-09T16:51:49Z",
+      "side": 1,
+      "message": "The spec document should also include this description of how the receiver handles the codec parameter.",
+      "revId": "adfa7d3085d3541046fce5fb768c8ac368c1f5c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

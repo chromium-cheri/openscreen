@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3787f3cc_a7edef55",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-09T16:51:49Z",
+      "side": 1,
+      "message": "VP8/VP9 are defined here:\n\nhttps://developer.mozilla.org/en-US/docs/Web/Media/Formats/codecs_parameter#webm\n\nand here:\n\nhttps://www.webmproject.org/vp9/mp4/#codecs-parameter-string",
+      "parentUuid": "b7d6760b_a90d60c1",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8bb70de_a1c1d492",
         "filename": "cast/streaming/capture_configs.h",
         "patchSetId": 2
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "I don\u0027t think VP8 or Opus have parameter strings.",
       "parentUuid": "a8bb70de_a1c1d492",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7776376f_087294fb",
+        "filename": "cast/streaming/capture_configs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-09T16:51:49Z",
+      "side": 1,
+      "message": "VP8 does (see above); opus appears to not have any parameters.",
+      "parentUuid": "c85cc24b_bfcbf710",
       "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -172,6 +208,24 @@
       "side": 1,
       "message": "Not really currently. We go in order of codec priority first, and right now the sender doesn\u0027t send multiple stream offers with the same codec. If we decide to send multiple streams with the same codec in the offer, we will have to figure out how to pick our preference--which won\u0027t necessarily be straightforward.",
       "parentUuid": "ef03e162_8d442613",
+      "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e7e1e8_3cb1be2f",
+        "filename": "cast/streaming/receiver_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-09T16:51:49Z",
+      "side": 1,
+      "message": "If a sender does send multiple offers with the same codec, what happens?  Is the offer rejected or is the first supported stream chosen?",
+      "parentUuid": "1b1f7c30_8be64603",
       "revId": "62704a563f0d4b623ab7840d1e899879d24c2324",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
