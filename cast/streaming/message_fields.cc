@@ -19,11 +19,12 @@ constexpr EnumNameTable<AudioCodec, 3> kAudioCodecNames{
      {"opus", AudioCodec::kOpus},
      {"REMOTE_AUDIO", AudioCodec::kNotSpecified}}};
 
-constexpr EnumNameTable<VideoCodec, 5> kVideoCodecNames{
+constexpr EnumNameTable<VideoCodec, 6> kVideoCodecNames{
     {{"h264", VideoCodec::kH264},
      {"vp8", VideoCodec::kVp8},
      {"hevc", VideoCodec::kHevc},
      {"vp9", VideoCodec::kVp9},
+     {"av1", VideoCodec::kAv1},
      {"REMOTE_VIDEO", VideoCodec::kNotSpecified}}};
 
 }  // namespace
