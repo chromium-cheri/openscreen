@@ -381,7 +381,7 @@ bool EnsureDependentTypeDefinitionsWritten(int fd,
     case CppType::Which::kVector: {
       return EnsureDependentTypeDefinitionsWritten(
           fd, *cpp_type.vector_type.element_type, defs);
-    } break;
+    }
     case CppType::Which::kEnum: {
       if (defs->find(cpp_type.name) != defs->end())
         return true;
@@ -406,7 +406,7 @@ bool EnsureDependentTypeDefinitionsWritten(int fd,
     case CppType::Which::kOptional: {
       return EnsureDependentTypeDefinitionsWritten(fd, *cpp_type.optional_type,
                                                    defs);
-    } break;
+    }
     case CppType::Which::kDiscriminatedUnion: {
       for (const auto* x : cpp_type.discriminated_union.members)
         if (!EnsureDependentTypeDefinitionsWritten(fd, *x, defs))
@@ -559,12 +559,10 @@ bool WriteEncoder(int fd,
         }
         return true;
       }
-      break;
     case CppType::Which::kUint64:
       dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, %s));\n",
               encoder_depth, ToUnderscoreId(name).c_str());
       return true;
-      break;
     case CppType::Which::kString: {
       std::string cid = ToUnderscoreId(name);
       dprintf(fd, "  if (!IsValidUtf8(%s)) {\n", cid.c_str());
@@ -575,7 +573,7 @@ bool WriteEncoder(int fd,
               "%s.c_str(), %s.size()));\n",
               encoder_depth, cid.c_str(), cid.c_str());
       return true;
-    } break;
+    }
     case CppType::Which::kBytes: {
       std::string cid = ToUnderscoreId(name);
       dprintf(fd,
@@ -584,7 +582,7 @@ bool WriteEncoder(int fd,
               "%s.size()));\n",
               encoder_depth, cid.c_str(), cid.c_str());
       return true;
-    } break;
+    }
     case CppType::Which::kVector: {
       std::string cid = ToUnderscoreId(name);
       dprintf(fd, "  {\n");
@@ -619,14 +617,14 @@ bool WriteEncoder(int fd,
               encoder_depth, encoder_depth + 1);
       dprintf(fd, "  }\n");
       return true;
-    } break;
+    }
     case CppType::Which::kEnum: {
       dprintf(fd,
               "  CBOR_RETURN_ON_ERROR(cbor_encode_uint(&encoder%d, "
               "static_cast<uint64_t>(%s)));\n",
               encoder_depth, ToUnderscoreId(name).c_str());
       return true;
-    } break;
+    }
     case CppType::Which::kDiscriminatedUnion: {
       for (const auto* union_member : cpp_type.discriminated_union.members) {
         switch (union_member->which) {
@@ -670,7 +668,7 @@ bool WriteEncoder(int fd,
               ToCamelCase(cpp_type.name).c_str());
       dprintf(fd, "    return -CborUnknownError;\n");
       return true;
-    } break;
+    }
     case CppType::Which::kTaggedType: {
       dprintf(fd,
               "  CBOR_RETURN_ON_ERROR(cbor_encode_tag(&encoder%d, %" PRIu64
@@ -681,7 +679,7 @@ bool WriteEncoder(int fd,
         return false;
       }
       return true;
-    } break;
+    }
     default:
       break;
   }
@@ -1042,7 +1040,7 @@ bool WriteDecoder(int fd,
       dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance_fixed(&it%d));\n",
               decoder_depth);
       return true;
-    } break;
+    }
     case CppType::Which::kString: {
       int temp_length = (*temporary_count)++;
       dprintf(fd, "  size_t length%d = 0;", temp_length);
@@ -1073,7 +1071,7 @@ bool WriteDecoder(int fd,
       dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance(&it%d));\n",
               decoder_depth);
       return true;
-    } break;
+    }
     case CppType::Which::kBytes: {
       int temp_length = (*temporary_count)++;
       dprintf(fd, "  size_t length%d = 0;", temp_length);
@@ -1110,7 +1108,7 @@ bool WriteDecoder(int fd,
       dprintf(fd, "  CBOR_RETURN_ON_ERROR(cbor_value_advance(&it%d));\n",
               decoder_depth);
       return true;
-    } break;
+    }
     case CppType::Which::kVector: {
       dprintf(fd, "  if (cbor_value_get_type(&it%d) != CborArrayType) {\n",
               decoder_depth);
@@ -1157,7 +1155,7 @@ bool WriteDecoder(int fd,
           decoder_depth, decoder_depth + 1);
       dprintf(fd, "  }\n");
       return true;
-    } break;
+    }
     case CppType::Which::kEnum: {
       dprintf(fd,
               "  CBOR_RETURN_ON_ERROR(cbor_value_get_uint64(&it%d, "
@@ -1167,7 +1165,7 @@ bool WriteDecoder(int fd,
               decoder_depth);
       // TODO(btolsch): Validate against enum members.
       return true;
-    } break;
+    }
     case CppType::Which::kStruct: {
       if (cpp_type.struct_type.key_type == CppType::Struct::KeyType::kMap) {
         return WriteMapDecoder(fd, name, member_accessor,
@@ -1235,7 +1233,7 @@ bool WriteDecoder(int fd,
       }
       dprintf(fd, " else { return -1; }\n");
       return true;
-    } break;
+    }
     case CppType::Which::kTaggedType: {
       int temp_tag = (*temporary_count)++;
       dprintf(fd, "  uint64_t tag%d = 0;\n", temp_tag);
@@ -1253,7 +1251,7 @@ bool WriteDecoder(int fd,
         return false;
       }
       return true;
-    } break;
+    }
     default:
       break;
   }
