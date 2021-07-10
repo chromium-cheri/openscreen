@@ -1,0 +1,111 @@
+// Copyright 2021 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "osp/impl/dns_sd_service_publisher.h"
+
+#include <utility>
+
+#include "discovery/common/config.h"
+#include "discovery/dnssd/public/dns_sd_instance.h"
+#include "discovery/dnssd/public/dns_sd_txt_record.h"
+#include "discovery/public/dns_sd_service_factory.h"
+#include "osp/public/service_info.h"
+#include "platform/base/macros.h"
+
+namespace openscreen {
+namespace osp {
+
+namespace {
+
+constexpr char kFriendlyNameTxtKey[] = "fn";
+constexpr char kDnsSdDomainId[] = "local";
+
+discovery::DnsSdInstance ServiceConfigToDnsSdInstance(
+    const ServicePublisher::Config& config) {
+  discovery::DnsSdTxtRecord txt;
+  const bool did_set_everything =
+      txt.SetValue(kFriendlyNameTxtKey, config.friendly_name).ok();
+  OSP_DCHECK(did_set_everything);
+
+  // NOTE: Not totally clear how we should be using config.hostname, which in
+  // principle is already part of config.service_instance_name.
+  return discovery::DnsSdInstance(
+      config.service_instance_name, kOpenScreenServiceName, kDnsSdDomainId,
+      std::move(txt), config.connection_server_port);
+}
+
+}  // namespace
+
+DnsSdServicePublisher::DnsSdServicePublisher(
+    ServicePublisher::Observer* observer,
+    openscreen::TaskRunner* task_runner)
+    : observer_(observer), task_runner_(task_runner) {
+  OSP_DCHECK(observer_);
+  OSP_DCHECK(task_runner_);
+}
+
+DnsSdServicePublisher::~DnsSdServicePublisher() = default;
+
+void DnsSdServicePublisher::StartPublisher(
+    const ServicePublisher::Config& config) {
+  StartPublisherInternal(config);
+  dns_sd_publisher_->Register(config);
+}
+
+void DnsSdServicePublisher::StartAndSuspendPublisher(
+    const ServicePublisher::Config& config) {
+  StartPublisherInternal(config);
+}
+
+void DnsSdServicePublisher::StopPublisher() {
+  dns_sd_publisher_.reset();
+}
+
+void DnsSdServicePublisher::SuspendPublisher() {
+  OSP_DCHECK(dns_sd_publisher_);
+  dns_sd_publisher_->DeregisterAll();
+}
+
+void DnsSdServicePublisher::ResumePublisher(
+    const ServicePublisher::Config& config) {
+  OSP_DCHECK(dns_sd_publisher_);
+  dns_sd_publisher_->Register(config);
+}
+
+void DnsSdServicePublisher::OnFatalError(Error error) {
+  observer_->OnError(error);
+}
+
+void DnsSdServicePublisher::OnRecoverableError(Error error) {
+  observer_->OnError(error);
+}
+
+void DnsSdServicePublisher::StartPublisherInternal(
+    const ServicePublisher::Config& config) {
+  OSP_DCHECK(!dns_sd_publisher_);
+  if (!dns_sd_service_) {
+    dns_sd_service_ = CreateDnsSdServiceInternal(config);
+  }
+  dns_sd_publisher_ = std::make_unique<OspServicePublisher>(
+      dns_sd_service_.get(), kOpenScreenServiceName,
+      ServiceConfigToDnsSdInstance);
+}
+
+SerialDeletePtr<openscreen::discovery::DnsSdService>
+DnsSdServicePublisher::CreateDnsSdServiceInternal(
+    const ServicePublisher::Config& config) {
+  // NOTE: With the current API, the client cannot customize the behavior of
+  // DNS-SD beyond the interface list.
+  openscreen::discovery::Config dns_sd_config;
+  dns_sd_config.enable_querying = false;
+  dns_sd_config.network_info = config.network_interfaces;
+
+  // NOTE: This will need to be rethought to implement the DNS-SD listener,
+  // because we don't want to instantiate separate DnsSdServices for publishing
+  // and listening in the same agent.
+  return CreateDnsSdService(task_runner_, this, dns_sd_config);
+}
+
+}  // namespace osp
+}  // namespace openscreen

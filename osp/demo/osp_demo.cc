@@ -16,7 +16,6 @@
 #include "absl/strings/string_view.h"
 #include "osp/msgs/osp_messages.h"
 #include "osp/public/mdns_service_listener_factory.h"
-#include "osp/public/mdns_service_publisher_factory.h"
 #include "osp/public/message_demuxer.h"
 #include "osp/public/network_service_manager.h"
 #include "osp/public/presentation/presentation_controller.h"
@@ -27,6 +26,7 @@
 #include "osp/public/protocol_connection_server_factory.h"
 #include "osp/public/service_listener.h"
 #include "osp/public/service_publisher.h"
+#include "osp/public/service_publisher_factory.h"
 #include "platform/api/network_interface.h"
 #include "platform/api/time.h"
 #include "platform/impl/logging.h"
@@ -152,7 +152,9 @@ class DemoPublisherObserver final : public ServicePublisher::Observer {
   void OnStopped() override { OSP_LOG_INFO << "publisher stopped!"; }
   void OnSuspended() override { OSP_LOG_INFO << "publisher suspended!"; }
 
-  void OnError(ServicePublisherError) override {}
+  void OnError(Error error) override {
+    OSP_LOG_ERROR << "publisher error: " << error;
+  }
   void OnMetrics(ServicePublisher::Metrics) override {}
 };
 
@@ -457,7 +459,7 @@ void HandleReceiverCommand(absl::string_view command,
                            DemoReceiverDelegate& delegate,
                            NetworkServiceManager* manager) {
   if (command == "avail") {
-    ServicePublisher* publisher = manager->GetMdnsServicePublisher();
+    ServicePublisher* publisher = manager->GetServicePublisher();
 
     if (publisher->state() == ServicePublisher::State::kSuspended) {
       publisher->Resume();
@@ -497,7 +499,7 @@ void RunReceiverPollLoop(pollfd& file_descriptor,
 void CleanupPublisherDemo(NetworkServiceManager* manager) {
   Receiver::Get()->SetReceiverDelegate(nullptr);
   Receiver::Get()->Deinit();
-  manager->GetMdnsServicePublisher()->Stop();
+  manager->GetServicePublisher()->Stop();
   manager->GetProtocolConnectionServer()->Stop();
 
   NetworkServiceManager::Dispose();
@@ -516,7 +518,7 @@ void PublisherDemo(absl::string_view friendly_name) {
   publisher_config.service_instance_name = "deadbeef";
   publisher_config.connection_server_port = server_port;
 
-  auto mdns_publisher = MdnsServicePublisherFactory::Create(
+  auto service_publisher = ServicePublisherFactory::Create(
       publisher_config, &publisher_observer,
       PlatformClientPosix::GetInstance()->GetTaskRunner());
 
@@ -538,13 +540,13 @@ void PublisherDemo(absl::string_view friendly_name) {
       PlatformClientPosix::GetInstance()->GetTaskRunner());
 
   auto* network_service =
-      NetworkServiceManager::Create(nullptr, std::move(mdns_publisher), nullptr,
-                                    std::move(connection_server));
+      NetworkServiceManager::Create(nullptr, std::move(service_publisher),
+                                    nullptr, std::move(connection_server));
 
   DemoReceiverDelegate receiver_delegate;
   Receiver::Get()->Init();
   Receiver::Get()->SetReceiverDelegate(&receiver_delegate);
-  network_service->GetMdnsServicePublisher()->Start();
+  network_service->GetServicePublisher()->Start();
   network_service->GetProtocolConnectionServer()->Start();
 
   pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
