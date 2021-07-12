@@ -33,6 +33,38 @@ constexpr char kAudioSourceType[] = "audio_source";
 constexpr char kVideoSourceType[] = "video_source";
 constexpr char kStreamType[] = "type";
 
+static const EnumNameTable<AudioCodec, 1> kAudioCodecParameterPrefixes{
+    {{"mp4a", AudioCodec::kAac}}};
+
+static const EnumNameTable<VideoCodec, 25> kVideoCodecParameterPrefixes{
+    {{"vp08", VideoCodec::kVp8},
+     {"vp09", VideoCodec::kVp9},
+     {"hev1", VideoCodec::kHevc},
+     {"avc1", VideoCodec::kH264}}};
+
+const char* GetPrefix(AudioCodec codec) {
+  return GetEnumName(kAudioCodecParameterPrefixes, codec).value("");
+}
+
+const char* GetPrefix(VideoCodec codec) {
+  return GetEnumName(kVideoCodecParameterPrefixes, codec).value("");
+}
+
+template <typename Codec>
+Error ValidateCodecParameter(Codec codec, const std::string& codec_parameter) {
+  if (!codec_parameter.empty() && codec != Codec::kNotSpecified) {
+    const std::string expected_prefix = GetPrefix(codec);
+    if (!expected_prefix.empty() &&
+        codec_parameter.rfind(expected_prefix) == std::string::npos) {
+      return Error(
+          Error::Code::kInvalidCodecParameter,
+          StringPrintf("Codec parameter '%s' is not valid for codec '%s'",
+                       codec_parameter.c_str(), CodecToString(codec)));
+    }
+  }
+  return Error::None();
+}
+
 EnumNameTable<CastMode, 2> kCastModeNames{
     {{"mirroring", CastMode::kMirroring}, {"remoting", CastMode::kRemoting}}};
 
@@ -175,14 +207,10 @@ Error Stream::TryParse(const Json::Value& value,
     }
   }
 
-  if (!json::TryParseBool(value["receiverRtcpEventLog"],
-                          &out->receiver_rtcp_event_log)) {
-    out->receiver_rtcp_event_log = false;
-  }
-  if (!json::TryParseString(value["receiverRtcpDscp"],
-                            &out->receiver_rtcp_dscp)) {
-    out->receiver_rtcp_dscp = {};
-  }
+  json::TryParseBool(value["receiverRtcpEventLog"],
+                     &out->receiver_rtcp_event_log);
+  json::TryParseString(value["receiverRtcpDscp"], &out->receiver_rtcp_dscp);
+  json::TryParseString(value["codecParameter"], &out->codec_parameter);
 
   return Error::None();
 }
@@ -207,6 +235,7 @@ Json::Value Stream::ToJson() const {
   root["receiverRtcpEventLog"] = receiver_rtcp_event_log;
   root["receiverRtcpDscp"] = receiver_rtcp_dscp;
   root["timeBase"] = "1/" + std::to_string(rtp_timebase);
+  root["codecParameter"] = codec_parameter;
   return root;
 }
 
@@ -235,6 +264,11 @@ Error AudioStream::TryParse(const Json::Value& value, AudioStream* out) {
                  "Codec is not known, can't use stream");
   }
   out->codec = codec.value();
+  Error codec_parameter_error =
+      ValidateCodecParameter(codec.value(), out->stream.codec_parameter);
+  if (!codec_parameter_error.ok()) {
+    return codec_parameter_error;
+  }
   return Error::None();
 }
 
@@ -268,6 +302,11 @@ Error VideoStream::TryParse(const Json::Value& value, VideoStream* out) {
                  "Codec is not known, can't use stream");
   }
   out->codec = codec.value();
+  Error codec_parameter_error =
+      ValidateCodecParameter(codec.value(), out->stream.codec_parameter);
+  if (!codec_parameter_error.ok()) {
+    return codec_parameter_error;
+  }
 
   out->max_frame_rate = SimpleFraction{kDefaultMaxFrameRate, 1};
   std::string raw_max_frame_rate;
