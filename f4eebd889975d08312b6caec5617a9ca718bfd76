@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66ea82a6_3151104a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-12T21:34:35Z",
+      "side": 1,
+      "message": "I think we\u0027re down to some code polishing and doc clarifications, and I want to check over the test coverage before LGTM.",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91947e26_35a7c6bc",
+        "filename": "cast/protocol/castv2/streaming_examples/offer.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-12T21:34:35Z",
+      "side": 1,
+      "message": "Did you want to add codecParameter to more of the example offers (or is the one below sufficient)?",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc775652_e0d5c29c",
+        "filename": "cast/protocol/castv2/streaming_schema.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-12T21:34:35Z",
+      "side": 1,
+      "message": "Is there a way to tag this as an optional property?  Or maybe there isn\u0027t a concept of a required property in this schema definition.",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd833882_b08b3c43",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-12T21:34:35Z",
+      "side": 1,
+      "message": "When would the prefix be empty?",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de281f26_e5708b51",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-12T21:34:35Z",
+      "side": 1,
+      "message": "It\u0027s clever to make this fully data driven, but it feels much more complex than a single function like this:\n\nswitch (codec) {\n  case kVp8:\n    return absl::StartsWith(codec_parameter, \"vp08.\");\n  ...",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62f78f81_2d7fc8f4",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-12T21:34:35Z",
+      "side": 1,
+      "message": "This should be the same as:\n\nreturn ValidateCodecParameter(...)",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "864cbe74_1861569a",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-12T21:34:35Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
