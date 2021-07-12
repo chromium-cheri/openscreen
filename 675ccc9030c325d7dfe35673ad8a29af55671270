@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a43744f0_2b5ccd93",
+        "filename": "platform/api/udp_socket.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-12T18:19:58Z",
+      "side": 1,
+      "message": "This is another minor thing, but in the .cc file it\u0027s preferred to have definitions in the same order as they are declared in the .h.  In this case the right order would be\n\nUdpSocket::Client::~Client()\nUdpSocket::~UdpSocket()\nUdpSocket::UdpSocket()\n\nWe aren\u0027t very strict about enforcing this in the open screen codebase, so it\u0027s probably not worth going through this patch to line things up correctly.",
+      "revId": "675ccc9030c325d7dfe35673ad8a29af55671270",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
