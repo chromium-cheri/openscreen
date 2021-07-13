@@ -7,6 +7,7 @@
 #include <cinttypes>
 #include <iostream>
 #include <limits>
+#include <memory>
 #include <set>
 #include <sstream>
 #include <string>
@@ -1589,9 +1590,8 @@ namespace {
 #define CBOR_RETURN_WHAT_ON_ERROR(stmt, what)                           \
   {                                                                     \
     CborError error = stmt;                                             \
-    /* Encoder-specific errors, so it's fine to check these even in the \
-     * parser.                                                          \
-     */                                                                 \
+    // Encoder-specific errors, so it's fine to check these even in the \
+    // parser.                                                          \
     OSP_DCHECK_NE(error, CborErrorTooFewItems);                             \
     OSP_DCHECK_NE(error, CborErrorTooManyItems);                            \
     OSP_DCHECK_NE(error, CborErrorDataTooLarge);                            \
