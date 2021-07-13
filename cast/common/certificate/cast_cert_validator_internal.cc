@@ -37,39 +37,43 @@ struct FreeNameConstraints {
 using NameConstraintsPtr =
     std::unique_ptr<NAME_CONSTRAINTS, FreeNameConstraints>;
 
-// Stores intermediate state while attempting to find a valid certificate chain
-// from a set of trusted certificates to a target certificate.  Together, a
-// sequence of these forms a certificate chain to be verified as well as a stack
-// that can be unwound for searching more potential paths.
-struct CertPathStep {
-  X509* cert;
-
-  // The next index that can be checked in |trust_store| if the choice |cert| on
-  // the path needs to be reverted.
-  uint32_t trust_store_index;
-
-  // The next index that can be checked in |intermediate_certs| if the choice
-  // |cert| on the path needs to be reverted.
-  uint32_t intermediate_cert_index;
-};
-
 // These values are bit positions from RFC 5280 4.2.1.3 and will be passed to
 // ASN1_BIT_STRING_get_bit.
 enum KeyUsageBits {
   kDigitalSignature = 0,
-  kKeyCertSign = 5,
 };
 
-bool CertInPath(X509_NAME* name,
-                const std::vector<CertPathStep>& steps,
-                uint32_t start,
-                uint32_t stop) {
-  for (uint32_t i = start; i < stop; ++i) {
-    if (X509_NAME_cmp(name, X509_get_subject_name(steps[i].cert)) == 0) {
-      return true;
+int BoringSSLVerifyCB(int current_result, X509_STORE_CTX* ctx) {
+  X509* cert = X509_STORE_CTX_get_current_cert(ctx);
+  if (current_result == 0) {
+    int err = X509_STORE_CTX_get_error(ctx);
+
+    if (err == X509_V_ERR_NAME_CONSTRAINTS_WITHOUT_SANS) {
+      // NOTE(btolsch): Ignore a name constraints violation if it's due to the
+      // subject-alt-name set being empty.
+      current_result = 1;
+    } else if (err == X509_V_ERR_CERT_HAS_EXPIRED ||
+               err == X509_V_ERR_CERT_NOT_YET_VALID) {
+      // NOTE(btolsch): Ignore valid time range on trusted certificates.
+      X509_NAME* name = X509_get_subject_name(cert);
+      bssl::UniquePtr<STACK_OF(X509)> matches{X509_STORE_get1_certs(ctx, name)};
+      if (matches) {
+        for (size_t i = 0; i < sk_X509_num(matches.get()); ++i) {
+          X509* test = sk_X509_value(matches.get(), i);
+          if (X509_cmp(test, cert) == 0) {
+            current_result = 1;
+            break;
+          }
+        }
+      }
     }
   }
-  return false;
+
+  bssl::UniquePtr<EVP_PKEY> public_key{X509_get_pubkey(cert)};
+  if (EVP_PKEY_bits(public_key.get()) >= kMinRsaModulusLengthBits) {
+    return current_result;
+  }
+  return 0;
 }
 
 // Parse the data in |time| at |index| as a two-digit ascii number. Note this
@@ -91,205 +95,9 @@ bssl::UniquePtr<BASIC_CONSTRAINTS> GetConstraints(X509* issuer) {
           X509_get_ext_d2i(issuer, NID_basic_constraints, nullptr, nullptr))};
 }
 
-Error::Code VerifyCertTime(X509* cert, const DateTime& time) {
-  DateTime not_before;
-  DateTime not_after;
-  if (!GetCertValidTimeRange(cert, &not_before, &not_after)) {
-    return Error::Code::kErrCertsVerifyGeneric;
-  }
-
-  if ((time < not_before) || (not_after < time)) {
-    return Error::Code::kErrCertsDateInvalid;
-  }
-  return Error::Code::kNone;
-}
-
-bool VerifyPublicKeyLength(EVP_PKEY* public_key) {
-  return EVP_PKEY_bits(public_key) >= kMinRsaModulusLengthBits;
-}
-
 bssl::UniquePtr<ASN1_BIT_STRING> GetKeyUsage(X509* cert) {
   return bssl::UniquePtr<ASN1_BIT_STRING>{reinterpret_cast<ASN1_BIT_STRING*>(
       X509_get_ext_d2i(cert, NID_key_usage, nullptr, nullptr))};
-}
-
-Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
-                                   uint32_t step_index,
-                                   const DateTime& time) {
-  // Default max path length is the number of intermediate certificates.
-  int max_pathlen = path.size() - 2;
-
-  std::vector<NameConstraintsPtr> path_name_constraints;
-  Error::Code error = Error::Code::kNone;
-  uint32_t i = step_index;
-  for (; i < path.size() - 1; ++i) {
-    X509* subject = path[i + 1].cert;
-    X509* issuer = path[i].cert;
-    bool is_root = (i == step_index);
-    bool issuer_is_self_issued = false;
-    if (!is_root) {
-      if ((error = VerifyCertTime(issuer, time)) != Error::Code::kNone) {
-        return error;
-      }
-      if (X509_NAME_cmp(X509_get_subject_name(issuer),
-                        X509_get_issuer_name(issuer)) != 0) {
-        if (max_pathlen == 0) {
-          return Error::Code::kErrCertsPathlen;
-        }
-        --max_pathlen;
-      } else {
-        issuer_is_self_issued = true;
-      }
-    } else {
-      issuer_is_self_issued = true;
-    }
-
-    bssl::UniquePtr<ASN1_BIT_STRING> key_usage = GetKeyUsage(issuer);
-    if (key_usage) {
-      const int bit =
-          ASN1_BIT_STRING_get_bit(key_usage.get(), KeyUsageBits::kKeyCertSign);
-      if (bit == 0) {
-        return Error::Code::kErrCertsVerifyGeneric;
-      }
-    }
-
-    // Certificates issued by a valid CA authority shall have the
-    // basicConstraints property present with the CA bit set. Self-signed
-    // certificates do not have this property present.
-    bssl::UniquePtr<BASIC_CONSTRAINTS> basic_constraints =
-        GetConstraints(issuer);
-    if (!basic_constraints || !basic_constraints->ca) {
-      return Error::Code::kErrCertsVerifyGeneric;
-    }
-
-    if (basic_constraints->pathlen) {
-      if (basic_constraints->pathlen->length != 1) {
-        return Error::Code::kErrCertsVerifyGeneric;
-      } else {
-        const int pathlen = *basic_constraints->pathlen->data;
-        if (pathlen < 0) {
-          return Error::Code::kErrCertsVerifyGeneric;
-        }
-        if (pathlen < max_pathlen) {
-          max_pathlen = pathlen;
-        }
-      }
-    }
-
-    const X509_ALGOR* issuer_sig_alg;
-    X509_get0_signature(nullptr, &issuer_sig_alg, issuer);
-    if (X509_ALGOR_cmp(issuer_sig_alg, X509_get0_tbs_sigalg(issuer)) != 0) {
-      return Error::Code::kErrCertsVerifyGeneric;
-    }
-
-    bssl::UniquePtr<EVP_PKEY> public_key{X509_get_pubkey(issuer)};
-    if (!VerifyPublicKeyLength(public_key.get())) {
-      return Error::Code::kErrCertsVerifyGeneric;
-    }
-
-    // NOTE: (!self-issued || target) -> verify name constraints.  Target case
-    // is after the loop.
-    if (!issuer_is_self_issued) {
-      for (const auto& name_constraints : path_name_constraints) {
-        if (NAME_CONSTRAINTS_check(subject, name_constraints.get()) !=
-            X509_V_OK) {
-          return Error::Code::kErrCertsVerifyGeneric;
-        }
-      }
-    }
-
-    int critical;
-    NameConstraintsPtr nc{reinterpret_cast<NAME_CONSTRAINTS*>(
-        X509_get_ext_d2i(issuer, NID_name_constraints, &critical, nullptr))};
-    if (!nc && critical != -1) {
-      // X509_get_ext_d2i's error handling is a little confusing. See
-      // https://boringssl.googlesource.com/boringssl/+/215f4a0287/include/openssl/x509.h#1384
-      // https://boringssl.googlesource.com/boringssl/+/215f4a0287/include/openssl/x509v3.h#651
-      return Error::Code::kErrCertsVerifyGeneric;
-    }
-    if (nc) {
-      path_name_constraints.push_back(std::move(nc));
-    }
-
-    // Check that any policy mappings present are _not_ the anyPolicy OID.  Even
-    // though we don't otherwise handle policies, this is required by RFC 5280
-    // 6.1.4(a).
-    //
-    // TODO(davidben): Switch to bssl::UniquePtr once
-    // https://boringssl-review.googlesource.com/c/boringssl/+/46104 has landed.
-    auto* policy_mappings = reinterpret_cast<POLICY_MAPPINGS*>(
-        X509_get_ext_d2i(issuer, NID_policy_mappings, nullptr, nullptr));
-    if (policy_mappings) {
-      const ASN1_OBJECT* any_policy = OBJ_nid2obj(NID_any_policy);
-      for (const POLICY_MAPPING* policy_mapping : policy_mappings) {
-        const bool either_matches =
-            ((OBJ_cmp(policy_mapping->issuerDomainPolicy, any_policy) == 0) ||
-             (OBJ_cmp(policy_mapping->subjectDomainPolicy, any_policy) == 0));
-        if (either_matches) {
-          error = Error::Code::kErrCertsVerifyGeneric;
-          break;
-        }
-      }
-      sk_POLICY_MAPPING_free(policy_mappings);
-      if (error != Error::Code::kNone) {
-        return error;
-      }
-    }
-
-    // Check that we don't have any unhandled extensions marked as critical.
-    int extension_count = X509_get_ext_count(issuer);
-    for (int i = 0; i < extension_count; ++i) {
-      X509_EXTENSION* extension = X509_get_ext(issuer, i);
-      if (X509_EXTENSION_get_critical(extension)) {
-        const int nid = OBJ_obj2nid(X509_EXTENSION_get_object(extension));
-        if (nid != NID_name_constraints && nid != NID_basic_constraints &&
-            nid != NID_key_usage) {
-          return Error::Code::kErrCertsVerifyGeneric;
-        }
-      }
-    }
-
-    int nid = X509_get_signature_nid(subject);
-    const EVP_MD* digest;
-    switch (nid) {
-      case NID_sha1WithRSAEncryption:
-        digest = EVP_sha1();
-        break;
-      case NID_sha256WithRSAEncryption:
-        digest = EVP_sha256();
-        break;
-      case NID_sha384WithRSAEncryption:
-        digest = EVP_sha384();
-        break;
-      case NID_sha512WithRSAEncryption:
-        digest = EVP_sha512();
-        break;
-      default:
-        return Error::Code::kErrCertsVerifyGeneric;
-    }
-    uint8_t* tbs = nullptr;
-    int tbs_len = i2d_X509_tbs(subject, &tbs);
-    if (tbs_len < 0) {
-      return Error::Code::kErrCertsVerifyGeneric;
-    }
-    bssl::UniquePtr<uint8_t> free_tbs{tbs};
-    const ASN1_BIT_STRING* signature;
-    X509_get0_signature(&signature, nullptr, subject);
-    if (!VerifySignedData(
-            digest, public_key.get(), {tbs, static_cast<uint32_t>(tbs_len)},
-            {ASN1_STRING_get0_data(signature),
-             static_cast<uint32_t>(ASN1_STRING_length(signature))})) {
-      return Error::Code::kErrCertsVerifyGeneric;
-    }
-  }
-  // NOTE: Other half of ((!self-issued || target) -> check name constraints).
-  for (const auto& name_constraints : path_name_constraints) {
-    if (NAME_CONSTRAINTS_check(path.back().cert, name_constraints.get()) !=
-        X509_V_OK) {
-      return Error::Code::kErrCertsVerifyGeneric;
-    }
-  }
-  return error;
 }
 
 X509* ParseX509Der(const std::string& der) {
@@ -406,38 +214,27 @@ Error FindCertificatePath(const std::vector<std::string>& der_certs,
   bssl::UniquePtr<X509>& target_cert = result_path->target_cert;
   std::vector<bssl::UniquePtr<X509>>& intermediate_certs =
       result_path->intermediate_certs;
+  bssl::UniquePtr<STACK_OF(X509)> bssl_sk{sk_X509_new_null()};
+  bssl::UniquePtr<X509_STORE_CTX> bssl_store_ctx{X509_STORE_CTX_new()};
   target_cert.reset(ParseX509Der(der_certs[0]));
   if (!target_cert) {
     return Error(Error::Code::kErrCertsParse,
                  "FindCertificatePath: Invalid target certificate");
   }
   for (size_t i = 1; i < der_certs.size(); ++i) {
-    intermediate_certs.emplace_back(ParseX509Der(der_certs[i]));
-    if (!intermediate_certs.back()) {
+    bssl::UniquePtr<X509> cert{ParseX509Der(der_certs[i])};
+    if (!cert) {
       return Error(
           Error::Code::kErrCertsParse,
           absl::StrCat(
               "FindCertificatePath: Failed to parse intermediate certificate ",
               i, " of ", der_certs.size()));
     }
+    X509_up_ref(cert.get());
+    sk_X509_push(bssl_sk.get(), cert.get());
+    intermediate_certs.push_back(std::move(cert));
   }
 
-  // Basic checks on the target certificate.
-  Error::Code valid_time = VerifyCertTime(target_cert.get(), time);
-  if (valid_time != Error::Code::kNone) {
-    return Error(valid_time,
-                 "FindCertificatePath: Failed to verify certificate time");
-  }
-  bssl::UniquePtr<EVP_PKEY> public_key{X509_get_pubkey(target_cert.get())};
-  if (!VerifyPublicKeyLength(public_key.get())) {
-    return Error(Error::Code::kErrCertsVerifyGeneric,
-                 "FindCertificatePath: Failed with invalid public key length");
-  }
-  const X509_ALGOR* sig_alg;
-  X509_get0_signature(nullptr, &sig_alg, target_cert.get());
-  if (X509_ALGOR_cmp(sig_alg, X509_get0_tbs_sigalg(target_cert.get())) != 0) {
-    return Error::Code::kErrCertsVerifyGeneric;
-  }
   bssl::UniquePtr<ASN1_BIT_STRING> key_usage = GetKeyUsage(target_cert.get());
   if (!key_usage) {
     return Error(Error::Code::kErrCertsRestrictions,
@@ -450,112 +247,57 @@ Error FindCertificatePath(const std::vector<std::string>& der_certs,
                  "FindCertificatePath: Failed to get digital signature");
   }
 
-  X509* path_head = target_cert.get();
-  std::vector<CertPathStep> path;
-
-  // This vector isn't used as resizable, so instead we allocate the largest
-  // possible single path up front.  This would be a single trusted cert, all
-  // the intermediate certs used once, and the target cert.
-  path.resize(1 + intermediate_certs.size() + 1);
-
-  // Additionally, the path is slightly simpler to deal with if the list is
-  // sorted from trust->target, so the path is actually built starting from the
-  // end.
-  uint32_t first_index = path.size() - 1;
-  path[first_index].cert = path_head;
-
-  // Index into |path| of the current frontier of path construction.
-  uint32_t path_index = first_index;
-
-  // Whether |path| has reached a certificate in |trust_store| and is ready for
-  // verification.
-  bool path_cert_in_trust_store = false;
-
-  // Attempt to build a valid certificate chain from |target_cert| to a
-  // certificate in |trust_store|.  This loop tries all possible paths in a
-  // depth-first-search fashion.  If no valid paths are found, the error
-  // returned is whatever the last error was from the last path tried.
-  uint32_t trust_store_index = 0;
-  uint32_t intermediate_cert_index = 0;
-  Error::Code last_error = Error::Code::kNone;
-  for (;;) {
-    X509_NAME* target_issuer_name = X509_get_issuer_name(path_head);
-    OSP_VLOG << "FindCertificatePath: Target certificate issuer name: "
-             << X509_NAME_oneline(target_issuer_name, 0, 0);
-
-    // The next issuer certificate to add to the current path.
-    X509* next_issuer = nullptr;
-
-    for (uint32_t i = trust_store_index; i < trust_store->certs.size(); ++i) {
-      X509* trust_store_cert = trust_store->certs[i].get();
-      X509_NAME* trust_store_cert_name =
-          X509_get_subject_name(trust_store_cert);
-      OSP_VLOG << "FindCertificatePath: Trust store certificate issuer name: "
-               << X509_NAME_oneline(trust_store_cert_name, 0, 0);
-      if (X509_NAME_cmp(trust_store_cert_name, target_issuer_name) == 0) {
-        CertPathStep& next_step = path[--path_index];
-        next_step.cert = trust_store_cert;
-        next_step.trust_store_index = i + 1;
-        next_step.intermediate_cert_index = 0;
-        next_issuer = trust_store_cert;
-        path_cert_in_trust_store = true;
-        break;
-      }
-    }
-    trust_store_index = 0;
-    if (!next_issuer) {
-      for (uint32_t i = intermediate_cert_index; i < intermediate_certs.size();
-           ++i) {
-        X509* intermediate_cert = intermediate_certs[i].get();
-        X509_NAME* intermediate_cert_name =
-            X509_get_subject_name(intermediate_cert);
-        if (X509_NAME_cmp(intermediate_cert_name, target_issuer_name) == 0 &&
-            !CertInPath(intermediate_cert_name, path, path_index,
-                        first_index)) {
-          CertPathStep& next_step = path[--path_index];
-          next_step.cert = intermediate_cert;
-          next_step.trust_store_index = trust_store->certs.size();
-          next_step.intermediate_cert_index = i + 1;
-          next_issuer = intermediate_cert;
-          break;
-        }
-      }
-    }
-    intermediate_cert_index = 0;
-    if (!next_issuer) {
-      if (path_index == first_index) {
-        // There are no more paths to try.  Ensure an error is returned.
-        if (last_error == Error::Code::kNone) {
-          return Error(Error::Code::kErrCertsVerifyUntrustedCert,
-                       "FindCertificatePath: Failed after trying all "
-                       "certificate paths, no matches");
-        }
-        return last_error;
-      } else {
-        CertPathStep& last_step = path[path_index++];
-        trust_store_index = last_step.trust_store_index;
-        intermediate_cert_index = last_step.intermediate_cert_index;
-        continue;
-      }
-    }
-
-    if (path_cert_in_trust_store) {
-      last_error = VerifyCertificateChain(path, path_index, time);
-      if (last_error != Error::Code::kNone) {
-        CertPathStep& last_step = path[path_index++];
-        trust_store_index = last_step.trust_store_index;
-        intermediate_cert_index = last_step.intermediate_cert_index;
-        path_cert_in_trust_store = false;
-      } else {
-        break;
-      }
-    }
-    path_head = next_issuer;
+  // TODO(btolsch): Convert TrustStore to hold X509_STORE* to avoid this.
+  bssl::UniquePtr<X509_STORE> bssl_trust_store{X509_STORE_new()};
+  for (auto& cert : trust_store->certs) {
+    X509_STORE_add_cert(bssl_trust_store.get(), cert.get());
   }
 
-  result_path->path.reserve(path.size() - path_index);
-  for (uint32_t i = path_index; i < path.size(); ++i) {
-    result_path->path.push_back(path[i].cert);
+  X509_STORE_set_verify_cb(bssl_trust_store.get(), &BoringSSLVerifyCB);
+  X509_STORE_CTX_init(bssl_store_ctx.get(), bssl_trust_store.get(),
+                      target_cert.get(), bssl_sk.get());
+  X509_VERIFY_PARAM* verify_param =
+      X509_STORE_CTX_get0_param(bssl_store_ctx.get());
+  X509_VERIFY_PARAM_set_flags(verify_param, 0);
+  // NOTE(btolsch): This is an unfortunate conversion since GENERALIZEDTIME is
+  // _not_ natively in seconds-since-UNIX-epoch.
+  X509_VERIFY_PARAM_set_time(verify_param, DateTimeToSeconds(time).count());
+
+  int ret = X509_verify_cert(bssl_store_ctx.get());
+
+  STACK_OF(X509)* chain = X509_STORE_CTX_get0_chain(bssl_store_ctx.get());
+  size_t chain_length = sk_X509_num(chain);
+  if (ret == 1) {
+    // NOTE(btolsch): Boringssl doesn't enforce a pathlen constraint from the
+    // root certificate, but Cast wants to.
+    bssl::UniquePtr<BASIC_CONSTRAINTS> basic_constraints =
+        GetConstraints(sk_X509_value(chain, chain_length - 1));
+    if (basic_constraints && basic_constraints->pathlen) {
+      if (basic_constraints->pathlen->length != 1) {
+        return Error::Code::kErrCertsVerifyGeneric;
+      } else {
+        int pathlen = *basic_constraints->pathlen->data;
+        if ((pathlen < 0) || ((static_cast<int>(chain_length) - 2) > pathlen)) {
+          return Error::Code::kErrCertsPathlen;
+        }
+      }
+    }
+  } else {
+    int err = X509_STORE_CTX_get_error(bssl_store_ctx.get());
+    if (err == X509_V_ERR_CERT_HAS_EXPIRED ||
+        err == X509_V_ERR_CERT_NOT_YET_VALID) {
+      return Error::Code::kErrCertsDateInvalid;
+    } else if (err == X509_V_ERR_PATH_LENGTH_EXCEEDED) {
+      return Error::Code::kErrCertsPathlen;
+    } else if (err == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY) {
+      return Error::Code::kErrCertsVerifyUntrustedCert;
+    }
+    return Error::Code::kErrCertsVerifyGeneric;
+  }
+
+  result_path->path.reserve(chain_length);
+  for (uint32_t i = 0; i < chain_length; ++i) {
+    result_path->path.push_back(sk_X509_value(chain, chain_length - i - 1));
   }
 
   OSP_VLOG
