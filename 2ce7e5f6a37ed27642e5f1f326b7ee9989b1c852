@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9d72d9b_fb407932",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-13T16:39:36Z",
+      "side": 1,
+      "message": "This is a pretty tricky change and should get reviewed by someone more familiar with the X509_* APIs.  At first glance I don\u0027t yet feel confident that it\u0027s implementing the same validation algorithm.\n\nGeneral API note: It would be nice for the validation APIs to return Error objects (not just codes) that include the underlying X509 library errors in the message, and perhaps the fingerprint or identifier of the certificate that failed validation. That could make debugging certificate-specific issues much easier.  Probably means writing a boringssl-specific Error subclass/wrapper though, and fine to do as a fixit/followup item.\n\n \n\n",
+      "revId": "2ce7e5f6a37ed27642e5f1f326b7ee9989b1c852",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "085ea499_fa0565db",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-13T16:39:36Z",
+      "side": 1,
+      "message": "It looks like |cert| will have been freed at this point.",
+      "revId": "2ce7e5f6a37ed27642e5f1f326b7ee9989b1c852",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc347a67_5a6717bb",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-13T16:39:36Z",
+      "side": 1,
+      "message": "Which certificate\u0027s constraints are being extracted here?",
+      "revId": "2ce7e5f6a37ed27642e5f1f326b7ee9989b1c852",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "560ad029_e78be3c0",
+        "filename": "cast/common/certificate/cast_cert_validator_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-13T16:39:36Z",
+      "side": 1,
+      "message": "I didn\u0027t think it\u0027s even possible for an X.509 certificate to have multiple path length constraints...\n\nIs there an error code for malformed certificates?",
+      "revId": "2ce7e5f6a37ed27642e5f1f326b7ee9989b1c852",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
