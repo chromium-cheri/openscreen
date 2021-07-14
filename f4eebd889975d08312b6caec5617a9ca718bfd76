@@ -35,6 +35,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "504514ae_15e5a724",
+        "filename": "cast/protocol/castv2/streaming_examples/offer.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-14T22:43:43Z",
+      "side": 1,
+      "message": "I think the one below is sufficient--it\u0027s an optional field so don\u0027t need it in every stream.",
+      "parentUuid": "91947e26_35a7c6bc",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc775652_e0d5c29c",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-07-12T21:34:35Z",
       "side": 1,
       "message": "Is there a way to tag this as an optional property?  Or maybe there isn\u0027t a concept of a required property in this schema definition.",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "301aae75_7b1c5117",
+        "filename": "cast/protocol/castv2/streaming_schema.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-14T22:43:43Z",
+      "side": 1,
+      "message": "Optional is actually the default. You have to add things to a \"required\" property in order for them to be required.\n\nSee line 47 in this patch set: index, type, codecName, rtpPayloadType, ssrc, aesKey, aesIvMask, and timeBase are all required.",
+      "parentUuid": "cc775652_e0d5c29c",
       "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -69,6 +105,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d6ae6df_4c2c9aa5",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-14T22:43:43Z",
+      "side": 1,
+      "message": "I don\u0027t think it can be. I\u0027ll change this.",
+      "parentUuid": "bd833882_b08b3c43",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de281f26_e5708b51",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-07-12T21:34:35Z",
       "side": 1,
       "message": "It\u0027s clever to make this fully data driven, but it feels much more complex than a single function like this:\n\nswitch (codec) {\n  case kVp8:\n    return absl::StartsWith(codec_parameter, \"vp08.\");\n  ...",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b1528ba_1db70652",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-14T22:43:43Z",
+      "side": 1,
+      "message": "It ends up being the same amount of lines in either way, but probably less complex.",
+      "parentUuid": "de281f26_e5708b51",
       "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -103,6 +175,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca5ecc4_facac615",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-14T22:43:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62f78f81_2d7fc8f4",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "864cbe74_1861569a",
@@ -116,6 +206,24 @@
       "writtenOn": "2021-07-12T21:34:35Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c68df6f_c2d3fc41",
+        "filename": "cast/streaming/offer_messages.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-14T22:43:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "864cbe74_1861569a",
       "revId": "f4eebd889975d08312b6caec5617a9ca718bfd76",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
