@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CAST_STANDALONE_SENDER_STREAMING_VP8_ENCODER_H_
-#define CAST_STANDALONE_SENDER_STREAMING_VP8_ENCODER_H_
+#ifndef CAST_STANDALONE_SENDER_STREAMING_VPX_ENCODER_H_
+#define CAST_STANDALONE_SENDER_STREAMING_VPX_ENCODER_H_
 
 #include <vpx/vpx_encoder.h>
 #include <vpx/vpx_image.h>
@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/base/thread_annotations.h"
+#include "cast/streaming/constants.h"
 #include "cast/streaming/frame_id.h"
 #include "cast/streaming/rtp_time.h"
 #include "platform/api/task_runner.h"
@@ -52,9 +53,9 @@ class Sender;
 // to further optimize the user experience. For example, the stats can be used
 // as a signal to reduce the data volume (i.e., resolution and/or frame rate)
 // coming from the video capture source.
-class StreamingVp8Encoder {
+class StreamingVpxEncoder {
  public:
-  // Configurable parameters passed to the StreamingVp8Encoder constructor.
+  // Configurable parameters passed to the StreamingVpxEncoder constructor.
   struct Parameters {
     // Number of threads to parallelize frame encoding. This should be set based
     // on the number of CPU cores available for encoding, but no more than 8.
@@ -80,6 +81,8 @@ class StreamingVp8Encoder {
     // and a value of 0.5 here would mean that the CPU-saver logic starts
     // sacrificing quality when frame encodes start taking longer than ~16.7ms.
     double max_time_utilization = 0.7;
+
+    VideoCodec codec = VideoCodec::kVp8;
   };
 
   // Represents an input VideoFrame, passed to EncodeAndSend().
@@ -161,11 +164,11 @@ class StreamingVp8Encoder {
     }
   };
 
-  StreamingVp8Encoder(const Parameters& params,
+  StreamingVpxEncoder(const Parameters& params,
                       TaskRunner* task_runner,
                       Sender* sender);
 
-  ~StreamingVp8Encoder();
+  ~StreamingVpxEncoder();
 
   // Get/Set the target bitrate. This may be changed at any time, as frequently
   // as desired, and it will take effect internally as soon as possible.
@@ -299,4 +302,4 @@ class StreamingVp8Encoder {
 }  // namespace cast
 }  // namespace openscreen
 
-#endif  // CAST_STANDALONE_SENDER_STREAMING_VP8_ENCODER_H_
+#endif  // CAST_STANDALONE_SENDER_STREAMING_VPX_ENCODER_H_
