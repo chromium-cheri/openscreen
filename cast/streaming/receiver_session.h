@@ -252,7 +252,8 @@ class ReceiverSession final : public Environment::SocketSubscriber {
     // preference, e.g. in this example if we get both VP8 and H264 we will
     // generally select the VP8 offer. If a codec is omitted from these fields
     // it will never be selected in the OFFER/ANSWER negotiation.
-    std::vector<VideoCodec> video_codecs{VideoCodec::kVp8, VideoCodec::kH264};
+    std::vector<VideoCodec> video_codecs{VideoCodec::kVp8, VideoCodec::kH264,
+                                         VideoCodec::kVp9, VideoCodec::kAv1};
     std::vector<AudioCodec> audio_codecs{AudioCodec::kOpus, AudioCodec::kAac};
 
     // Optional limitation fields that help the sender provide a delightful

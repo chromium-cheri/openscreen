@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cast/standalone_sender/streaming_vp8_encoder.h"
+#include "cast/standalone_sender/streaming_vpx_encoder.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -49,7 +49,7 @@ constexpr double kEquivalentEncodingSpeedStepPerQuantizerStep = 1 / 20.0;
 
 }  // namespace
 
-StreamingVp8Encoder::StreamingVp8Encoder(const Parameters& params,
+StreamingVpxEncoder::StreamingVpxEncoder(const Parameters& params,
                                          TaskRunner* task_runner,
                                          Sender* sender)
     : params_(params),
@@ -67,9 +67,15 @@ StreamingVp8Encoder::StreamingVp8Encoder(const Parameters& params,
   OSP_DCHECK(main_task_runner_);
   OSP_DCHECK(sender_);
 
-  const auto result =
-      vpx_codec_enc_config_default(vpx_codec_vp8_cx(), &config_, 0);
-  OSP_CHECK_EQ(result, VPX_CODEC_OK);
+  if (params_.codec == VideoCodec::kVp9) {
+    const auto result =
+        vpx_codec_enc_config_default(vpx_codec_vp9_cx(), &config_, 0);
+    OSP_CHECK_EQ(result, VPX_CODEC_OK);
+  } else {
+    const auto result =
+        vpx_codec_enc_config_default(vpx_codec_vp8_cx(), &config_, 0);
+    OSP_CHECK_EQ(result, VPX_CODEC_OK);
+  }
 
   // This is set to non-zero in ConfigureForNewFrameSize() later, to flag that
   // the encoder has been initialized.
@@ -104,7 +110,7 @@ StreamingVp8Encoder::StreamingVp8Encoder(const Parameters& params,
   config_.kf_mode = VPX_KF_DISABLED;
 }
 
-StreamingVp8Encoder::~StreamingVp8Encoder() {
+StreamingVpxEncoder::~StreamingVpxEncoder() {
   {
     std::unique_lock<std::mutex> lock(mutex_);
     target_bitrate_ = 0;
@@ -113,13 +119,13 @@ StreamingVp8Encoder::~StreamingVp8Encoder() {
   encode_thread_.join();
 }
 
-int StreamingVp8Encoder::GetTargetBitrate() const {
+int StreamingVpxEncoder::GetTargetBitrate() const {
   // Note: No need to lock the |mutex_| since this method should be called on
   // the same thread as SetTargetBitrate().
   return target_bitrate_;
 }
 
-void StreamingVp8Encoder::SetTargetBitrate(int new_bitrate) {
+void StreamingVpxEncoder::SetTargetBitrate(int new_bitrate) {
   // Ensure that, when bps is converted to kbps downstream, that the encoder
   // bitrate will not be zero.
   new_bitrate = std::max(new_bitrate, kBytesPerKilobyte);
@@ -132,7 +138,7 @@ void StreamingVp8Encoder::SetTargetBitrate(int new_bitrate) {
   }
 }
 
-void StreamingVp8Encoder::EncodeAndSend(
+void StreamingVpxEncoder::EncodeAndSend(
     const VideoFrame& frame,
     Clock::time_point reference_time,
     std::function<void(Stats)> stats_callback) {
@@ -194,7 +200,7 @@ void StreamingVp8Encoder::EncodeAndSend(
   }
 }
 
-void StreamingVp8Encoder::DestroyEncoder() {
+void StreamingVpxEncoder::DestroyEncoder() {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
 
   if (is_encoder_initialized()) {
@@ -205,7 +211,7 @@ void StreamingVp8Encoder::DestroyEncoder() {
   }
 }
 
-void StreamingVp8Encoder::ProcessWorkUnitsUntilTimeToQuit() {
+void StreamingVpxEncoder::ProcessWorkUnitsUntilTimeToQuit() {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
 
   for (;;) {
@@ -249,7 +255,7 @@ void StreamingVp8Encoder::ProcessWorkUnitsUntilTimeToQuit() {
   DestroyEncoder();
 }
 
-void StreamingVp8Encoder::PrepareEncoder(int width,
+void StreamingVpxEncoder::PrepareEncoder(int width,
                                          int height,
                                          int target_bitrate) {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
@@ -287,9 +293,15 @@ void StreamingVp8Encoder::PrepareEncoder(int width,
 
     encoder_ = {};
     const vpx_codec_flags_t flags = 0;
-    const auto init_result =
-        vpx_codec_enc_init(&encoder_, vpx_codec_vp8_cx(), &config_, flags);
-    OSP_CHECK_EQ(init_result, VPX_CODEC_OK);
+    if (params_.codec == VideoCodec::kVp9) {
+      const auto init_result =
+          vpx_codec_enc_init(&encoder_, vpx_codec_vp9_cx(), &config_, flags);
+      OSP_CHECK_EQ(init_result, VPX_CODEC_OK);
+    } else {
+      const auto init_result =
+          vpx_codec_enc_init(&encoder_, vpx_codec_vp8_cx(), &config_, flags);
+      OSP_CHECK_EQ(init_result, VPX_CODEC_OK);
+    }
 
     // Raise the threshold for considering macroblocks as static. The default is
     // zero, so this setting makes the encoder less sensitive to motion. This
@@ -320,7 +332,7 @@ void StreamingVp8Encoder::PrepareEncoder(int width,
   }
 }
 
-void StreamingVp8Encoder::EncodeFrame(bool force_key_frame,
+void StreamingVpxEncoder::EncodeFrame(bool force_key_frame,
                                       WorkUnitWithResults* work_unit) {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
 
@@ -354,7 +366,7 @@ void StreamingVp8Encoder::EncodeFrame(bool force_key_frame,
   work_unit->is_key_frame = !!(pkt->data.frame.flags & VPX_FRAME_IS_KEY);
 }
 
-void StreamingVp8Encoder::ComputeFrameEncodeStats(
+void StreamingVpxEncoder::ComputeFrameEncodeStats(
     Clock::duration encode_wall_time,
     int target_bitrate,
     WorkUnitWithResults* work_unit) {
@@ -388,7 +400,7 @@ void StreamingVp8Encoder::ComputeFrameEncodeStats(
   stats.perfect_quantizer = stats.quantizer * stats.space_utilization();
 }
 
-void StreamingVp8Encoder::UpdateSpeedSettingForNextFrame(const Stats& stats) {
+void StreamingVpxEncoder::UpdateSpeedSettingForNextFrame(const Stats& stats) {
   OSP_DCHECK_EQ(std::this_thread::get_id(), encode_thread_.get_id());
 
   // Combine the speed setting that was used to encode the last frame, and the
@@ -415,7 +427,7 @@ void StreamingVp8Encoder::UpdateSpeedSettingForNextFrame(const Stats& stats) {
   OSP_DCHECK(std::isfinite(ideal_speed_setting_));
 }
 
-void StreamingVp8Encoder::SendEncodedFrame(WorkUnitWithResults results) {
+void StreamingVpxEncoder::SendEncodedFrame(WorkUnitWithResults results) {
   OSP_DCHECK(main_task_runner_->IsRunningOnTaskRunner());
 
   EncodedFrame frame;
@@ -464,7 +476,7 @@ void CopyPlane(const uint8_t* src,
 }  // namespace
 
 // static
-StreamingVp8Encoder::VpxImageUniquePtr StreamingVp8Encoder::CloneAsVpxImage(
+StreamingVpxEncoder::VpxImageUniquePtr StreamingVpxEncoder::CloneAsVpxImage(
     const VideoFrame& frame) {
   OSP_DCHECK_GE(frame.width, 0);
   OSP_DCHECK_GE(frame.height, 0);
