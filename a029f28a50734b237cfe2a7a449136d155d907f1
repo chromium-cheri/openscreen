@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "794f93fb_ebc72729",
+        "filename": "cast/standalone_sender/connection_settings.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T23:47:33Z",
+      "side": 1,
+      "message": "Bikeshed: maybe better named \"SenderSettings\".  (Not requesting any change though)",
+      "revId": "a029f28a50734b237cfe2a7a449136d155d907f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e37a5c13_b1cd9e97",
+        "filename": "cast/standalone_sender/looping_file_cast_agent.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T23:47:33Z",
+      "side": 1,
+      "message": "Aside: some day I would like to ship auto-upgrade to lossless FLAC (~700 Kbps) for audio when the video bitrate is low enough to accomodate, which means enabling dynamic allocation of bitrates between audio and video.",
+      "revId": "a029f28a50734b237cfe2a7a449136d155d907f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab45397_7529c6e3",
+        "filename": "cast/standalone_sender/streaming_vpx_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T23:47:33Z",
+      "side": 1,
+      "message": "What is this returning a pointer to?  It appears that either of the functions below is allocating some structure, then it is leaked (never freed).",
+      "revId": "a029f28a50734b237cfe2a7a449136d155d907f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0e99620_44151815",
+        "filename": "cast/standalone_sender/streaming_vpx_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T23:47:33Z",
+      "side": 1,
+      "message": "Can the vpx_codec_iface_t* be stored in a member variable and re-used here?  Or is it guaranteed to be identical from each call to vpx_codec_vp?_cx()?",
+      "revId": "a029f28a50734b237cfe2a7a449136d155d907f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3373749e_e4b12b46",
+        "filename": "cast/streaming/receiver_message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T23:47:33Z",
+      "side": 1,
+      "message": "You\u0027ll want so search for switch statements in Chromium on this enum to see if there will be breakage when this rolls like there was before.\n\nhttps://source.chromium.org/chromium/chromium/src is invaluable for finding these issues and even has cross references",
+      "revId": "a029f28a50734b237cfe2a7a449136d155d907f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
