@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f0a8b35_e71c9968",
+        "filename": "osp/impl/dns_sd_service_publisher.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T18:19:06Z",
+      "side": 1,
+      "message": "This is where I could use some advice.  I dug around in the code for a while, and creating multiple DnsSdService objects will eventually create multiple MdnsService objects (each owned by a ServiceInstance, which manages one per network interface).   Each MdnsService creates and owns its own socket, and has its own cache/query/probe state.\n\nNow, an Open Screen agent can be both an advertiser for incoming connections, and to watch for other agents (it\u0027s in the spec).  We *could* have completely separate mDNS state for the publisher and watcher and assume that binding two sockets won\u0027t interfere with one another, but it seems inefficient, and possibly a source of corner-case issues. \n\nSo I would rather have both the publisher and watcher share the underlying mDNS socket and state, and the simplest way to do that seems to be to share the DnsSdService instance between the publisher and the watcher.\n\nIf you have thoughts would love to hear them.  I was going to tackle this problem at the time I migrate the ServiceListener path to use our DNS-SD.",
+      "parentUuid": "6fd0c986_f4224fbd",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 37
+      },
+      "revId": "f937acc1d46dadcff30d8861cb0c1b78823cae8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74c3fdb0_afadfcdc",
         "filename": "osp/impl/dns_sd_service_publisher.h",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-15T01:16:42Z",
       "side": 1,
       "message": "DnsSdPublisherClient or DnsSdServicePublisherClient?\n\nwe already have a discovery/dnssd/public/DnsSdPublisher and with this name I feel like the two would get confused\n\nNot a strong opinion though. Your call",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "f937acc1d46dadcff30d8861cb0c1b78823cae8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3944a9b_41ba15aa",
+        "filename": "osp/impl/dns_sd_service_publisher.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T18:19:06Z",
+      "side": 1,
+      "message": "Went with DnsSdPublisherClient since that\u0027s pretty accurate for this class.",
+      "parentUuid": "74c3fdb0_afadfcdc",
       "range": {
         "startLine": 22,
         "startChar": 6,
@@ -60,6 +108,30 @@
       "writtenOn": "2021-07-15T01:16:42Z",
       "side": 1,
       "message": "nit: Don\u0027t need the openscreen:: here and below",
+      "range": {
+        "startLine": 51,
+        "startChar": 18,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "f937acc1d46dadcff30d8861cb0c1b78823cae8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3468dc63_0ce7e8e6",
+        "filename": "osp/impl/dns_sd_service_publisher.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T18:19:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b8467e4_a1a97383",
       "range": {
         "startLine": 51,
         "startChar": 18,
