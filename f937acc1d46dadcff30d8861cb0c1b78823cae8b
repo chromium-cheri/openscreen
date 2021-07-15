@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62a09933_19cfc37c",
+        "filename": "osp/impl/dns_sd_service_publisher.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-07-15T18:36:11Z",
+      "side": 1,
+      "message": "\u003e So I would rather have both the publisher and watcher share the underlying mDNS socket and state, and the simplest way to do that seems to be to share the DnsSdService instance between the publisher and the watcher.\n\nThis sounds like the right approach to me - think I was just having trouble understanding the comment as written. Can you expand on the comment here a bit or file a bug with more info?\n\nThe underlying `DnsSdServiceWatcher` and `DnsSdServicePublisher` objects both take a `DnsSdService` pointer in the ctor rather than owning the instance themselves - so rather than having |dns_sd_service_| owned by this class using a shared instance sounds right to me. We would still need separate instances of DnsSdServicePublisher / Listener for services supporting both CastV2 + openscreen, but all 4 (openscreen Publisher + Listener, CastV2 Publisher + listener) can all share a single instance of DnsSdService.\n\n\u003e We *could* have completely separate mDNS state for the publisher and watcher and assume that binding two sockets won\u0027t interfere with one another, but it seems inefficient, and possibly a source of corner-case issues. \n\n+1. I _think_ this would work, but are really opening ourselves up to potential bugs. Especially platform-specific bugs.\n\nIt might be worth adding a static variable in the DNS-SD and/or mDNS layers so we can detect this and log a warning message for embedders",
+      "parentUuid": "3f0a8b35_e71c9968",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 37
+      },
+      "revId": "f937acc1d46dadcff30d8861cb0c1b78823cae8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74c3fdb0_afadfcdc",
         "filename": "osp/impl/dns_sd_service_publisher.h",
         "patchSetId": 11
