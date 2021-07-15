@@ -228,6 +228,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebce8fa1_380a3bc8",
+        "filename": "cast/standalone_sender/streaming_vpx_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-15T23:23:57Z",
+      "side": 1,
+      "message": "Makes sense--I figured 😊",
+      "parentUuid": "eb808bb4_287417ed",
+      "revId": "c875b0f63a76b08211e71807f7b41dc776b0ddec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60918db8_f45909d3",
@@ -329,6 +347,24 @@
       "side": 1,
       "message": "Removing them caused the standalone implementations to crash when attempting to encode with VP9.",
       "parentUuid": "668b485a_f48dc0f3",
+      "revId": "c875b0f63a76b08211e71807f7b41dc776b0ddec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2314633a_b0de2111",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-15T23:23:57Z",
+      "side": 1,
+      "message": "What is the crash? We might have to fix that.\n\nI think the change actually belongs in the standalone receiver:\n\nhttps://osscs.corp.google.com/chromium/chromium/src/+/main:third_party/openscreen/src/cast/standalone_receiver/mirroring_application.cc;drc\u003df6e2b5ea1dfca4fceb6e1d4004494a88006e1f9f;l\u003d59\n\nChange preferences.video_codecs to include VP9 and AV1.",
+      "parentUuid": "472b9b71_e8627c07",
       "revId": "c875b0f63a76b08211e71807f7b41dc776b0ddec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
