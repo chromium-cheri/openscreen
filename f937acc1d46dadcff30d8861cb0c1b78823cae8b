@@ -72,6 +72,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb4609cd_2d5670ac",
+        "filename": "osp/impl/dns_sd_service_publisher.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-15T19:28:06Z",
+      "side": 1,
+      "message": "\u003e  Can you expand on the comment here a bit or file a bug with more info?\n\nDone.\n\n\u003e It might be worth adding a static variable in the DNS-SD and/or mDNS layers so we can detect this and log a warning message for embedders\n\nMy thought is to add a utility to make it easy for clients of the module that want to share an instance (in a separate patch)",
+      "parentUuid": "62a09933_19cfc37c",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 37
+      },
+      "revId": "f937acc1d46dadcff30d8861cb0c1b78823cae8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74c3fdb0_afadfcdc",
