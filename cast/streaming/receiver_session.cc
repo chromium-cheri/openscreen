@@ -64,6 +64,8 @@ MediaCapability ToCapability(VideoCodec codec) {
       return MediaCapability::kH264;
     case VideoCodec::kHevc:
       return MediaCapability::kHevc;
+    case VideoCodec::kAv1:
+      return MediaCapability::kAv1;
     default:
       OSP_DLOG_FATAL << "Invalid video codec: " << static_cast<int>(codec);
       OSP_NOTREACHED();

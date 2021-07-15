@@ -773,7 +773,8 @@ TEST_F(ReceiverSessionTest, ReturnsCapabilitiesWithRemotingDefaults) {
   EXPECT_THAT(
       response.media_capabilities,
       testing::ElementsAre(MediaCapability::kOpus, MediaCapability::kAac,
-                           MediaCapability::kVp8, MediaCapability::kH264));
+                           MediaCapability::kVp8, MediaCapability::kH264,
+                           MediaCapability::kVp9, MediaCapability::kAv1));
 }
 
 TEST_F(ReceiverSessionTest, ReturnsCapabilitiesWithRemotingPreferences) {
