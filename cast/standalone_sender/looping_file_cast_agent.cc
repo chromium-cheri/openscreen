@@ -266,13 +266,14 @@ void LoopingFileCastAgent::CreateAndStartSession() {
       connection_settings_->max_bitrate - audio_config.bit_rate;
   // Use default display resolution of 1080P.
   video_config.resolutions.emplace_back(Resolution{1920, 1080});
+  video_config.codec = connection_settings_->codec;
 
   OSP_VLOG << "Starting session negotiation.";
   Error negotiation_error;
   if (connection_settings_->use_remoting) {
     remoting_sender_ = std::make_unique<RemotingSender>(
-        current_session_->rpc_messenger(), AudioCodec::kOpus, VideoCodec::kVp8,
-        [this]() { OnRemotingReceiverReady(); });
+        current_session_->rpc_messenger(), AudioCodec::kOpus,
+        connection_settings_->codec, [this]() { OnRemotingReceiverReady(); });
 
     negotiation_error =
         current_session_->NegotiateRemoting(audio_config, video_config);
