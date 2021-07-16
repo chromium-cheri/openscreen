@@ -52,6 +52,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8455249_1ca41f15",
+        "filename": "cast/standalone_sender/streaming_vpx_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-16T20:48:21Z",
+      "side": 1,
+      "message": "https://osscs.corp.google.com/search?q\u003dvpx_codec_vp9_cx\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc\n\nIt\u0027s defined as a CODEC_INTERFACE, which is defined here:\nhttps://osscs.corp.google.com/chromium/chromium/src/+/main:third_party/libvpx/source/libvpx/vpx/internal/vpx_codec_internal.h;drc\u003db2a56041b0db59692de09c8b887d892920cd2309;l\u003d385\n\nIt\u0027s a pointer to a predefined, static struct, vpx_codec_vp9_cx_algo.\n\nIt shouldn\u0027t be leaked and we don\u0027t own it.",
+      "parentUuid": "9ab45397_7529c6e3",
+      "revId": "a029f28a50734b237cfe2a7a449136d155d907f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0e99620_44151815",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-07-15T23:47:33Z",
       "side": 1,
       "message": "Can the vpx_codec_iface_t* be stored in a member variable and re-used here?  Or is it guaranteed to be identical from each call to vpx_codec_vp?_cx()?",
+      "revId": "a029f28a50734b237cfe2a7a449136d155d907f1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ef3df7f_547a5986",
+        "filename": "cast/standalone_sender/streaming_vpx_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-16T20:48:21Z",
+      "side": 1,
+      "message": "It\u0027s guaranteed to be identical from each call:\n\nhttps://osscs.corp.google.com/chromium/chromium/src/+/main:third_party/libvpx/source/libvpx/vpx/internal/vpx_codec_internal.h;drc\u003db2a56041b0db59692de09c8b887d892920cd2309;l\u003d385",
+      "parentUuid": "a0e99620_44151815",
       "revId": "a029f28a50734b237cfe2a7a449136d155d907f1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
