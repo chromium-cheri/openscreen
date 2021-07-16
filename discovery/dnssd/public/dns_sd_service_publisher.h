@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef DISCOVERY_PUBLIC_DNS_SD_SERVICE_PUBLISHER_H_
-#define DISCOVERY_PUBLIC_DNS_SD_SERVICE_PUBLISHER_H_
+#ifndef DISCOVERY_DNSSD_PUBLIC_DNS_SD_SERVICE_PUBLISHER_H_
+#define DISCOVERY_DNSSD_PUBLIC_DNS_SD_SERVICE_PUBLISHER_H_
 
 #include <string>
 #include <utility>
@@ -93,4 +93,4 @@ class DnsSdServicePublisher : public DnsSdPublisher::Client {
 }  // namespace discovery
 }  // namespace openscreen
 
-#endif  // DISCOVERY_PUBLIC_DNS_SD_SERVICE_PUBLISHER_H_
+#endif  // DISCOVERY_DNSSD_PUBLIC_DNS_SD_SERVICE_PUBLISHER_H_

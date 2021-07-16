@@ -11,8 +11,8 @@
 
 #include "cast/common/public/receiver_info.h"
 #include "discovery/common/reporting_client.h"
-#include "discovery/public/dns_sd_service_factory.h"
-#include "discovery/public/dns_sd_service_watcher.h"
+#include "discovery/dnssd/public/dns_sd_service_factory.h"
+#include "discovery/dnssd/public/dns_sd_service_watcher.h"
 #include "platform/api/network_interface.h"
 #include "platform/api/serial_delete_ptr.h"
 #include "platform/api/task_runner.h"

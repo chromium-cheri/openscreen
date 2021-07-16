@@ -88,8 +88,6 @@ source_set("public") {
   ]
 
   deps = [
-    "../../discovery:dnssd",
-    "../../discovery:mdns",
     "../../discovery:public",
     "../../platform",
     "../../third_party/abseil",
@@ -106,8 +104,6 @@ if (!build_with_chromium) {
 
     deps = [
       ":public",
-      "../../discovery:dnssd",
-      "../../discovery:mdns",
       "../../discovery:public",
       "../../platform:standalone_impl",
       "../../testing/util",
@@ -132,8 +128,7 @@ source_set("test_helpers") {
     ":certificate",
     ":channel",
     ":public",
-    "../../discovery:dnssd",
-    "../../discovery:mdns",
+    "../../discovery:public",
     "../../platform:test",
     "../../testing/util",
     "../../third_party/abseil",
