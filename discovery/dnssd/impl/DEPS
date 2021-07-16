@@ -2,5 +2,12 @@
 
 include_rules = [
   '+discovery/dnssd/public',
-  '+discovery/mdns',
+  '+discovery/mdns/public',
+
+  # DNS-SD relies on some implementation details of mDNS.
+  # Are these OK, or should they be moved out of the mDNS implementation?
+  '+discovery/mdns/mdns_domain_confirmed_provider.h',
+  '+discovery/mdns/mdns_record_changed_callback.h',
+  '+discovery/mdns/mdns_records.h',
+  '+discovery/mdns/testing/mdns_test_util.h',
 ]
