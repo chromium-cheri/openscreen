@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aab778b0_600185e4",
+        "filename": "cast/common/certificate/cast_cert_validator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2021-07-16T23:36:24Z",
+      "side": 0,
+      "message": "There were quite a lot of things wrong with this one canon_enclen is not always filled in, private (that you all access it prevents us from fixing a deep thread-safety issue in this library), and most importantly, isn\u0027t even the right length.\n\nX509_NAME_get_text_by_NID returns the length when you pass in NULL. Unfortunately, it\u0027s confusing and you need to allocate one more than advertised, due to a trailing NUL.\n\nFinally, the error-handling was wrong. X509_NAME_get_text_by_NID returns -1, not zero, when there is no common name. You all probably should add a test here, and a fuzzer.",
+      "range": {
+        "startLine": 165,
+        "startChar": 26,
+        "endLine": 165,
+        "endChar": 53
+      },
+      "revId": "4f20671877f4b0d515641cbb566c4c0fe4a2c947",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
