@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef DISCOVERY_PUBLIC_DNS_SD_SERVICE_WATCHER_H_
-#define DISCOVERY_PUBLIC_DNS_SD_SERVICE_WATCHER_H_
+#ifndef DISCOVERY_DNSSD_PUBLIC_DNS_SD_SERVICE_WATCHER_H_
+#define DISCOVERY_DNSSD_PUBLIC_DNS_SD_SERVICE_WATCHER_H_
 
 #include <memory>
 #include <sstream>
@@ -218,4 +218,4 @@ class DnsSdServiceWatcher : public DnsSdQuerier::Callback {
 }  // namespace discovery
 }  // namespace openscreen
 
-#endif  // DISCOVERY_PUBLIC_DNS_SD_SERVICE_WATCHER_H_
+#endif  // DISCOVERY_DNSSD_PUBLIC_DNS_SD_SERVICE_WATCHER_H_
