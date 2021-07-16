@@ -16,6 +16,24 @@
       "message": "It seems logical to consolidate the headers locations as part of this patch, but I suspect this will break something downstream in Android; I just can\u0027t quite find the code calling into this yet.\n\nDo you know where it is?",
       "revId": "fec5aad09ea89cdd7c10ed086ba26cdbfe03dbbf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5717bdcb_87f6a4a0",
+        "filename": "discovery/dnssd/public/dns_sd_service_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-16T18:22:35Z",
+      "side": 1,
+      "message": "These are included directly here:\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/adb/client/openscreen/\n\nI reverted the file moves to avoid breakage on the next AOSP roll.",
+      "parentUuid": "68fe6b19_c3d2e5b5",
+      "revId": "fec5aad09ea89cdd7c10ed086ba26cdbfe03dbbf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
