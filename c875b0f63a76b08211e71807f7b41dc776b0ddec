@@ -403,6 +403,24 @@
       "parentUuid": "769e53fb_1d3b5186",
       "revId": "c875b0f63a76b08211e71807f7b41dc776b0ddec",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8649902f_db47c816",
+        "filename": "cast/streaming/receiver_session.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1515343
+      },
+      "writtenOn": "2021-07-16T20:34:55Z",
+      "side": 1,
+      "message": "Ah makes sense. The crash was happening when running the sender with VP9, just immediately ended the stream with \"Segmentation\" error. Moving it from the default to preferences.video_codec worked out though.",
+      "parentUuid": "3adeb3fd_87a72dcd",
+      "revId": "c875b0f63a76b08211e71807f7b41dc776b0ddec",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
