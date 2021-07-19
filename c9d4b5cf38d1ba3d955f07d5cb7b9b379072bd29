@@ -16,6 +16,159 @@
       "message": "I have some additional infrastructure work to get this working as part of the checkin process, but this is the initial step!!\n\nPTAL.",
       "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13470f0e_b9f2578b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "Cool.  Were you going to try to run this in our builders?  We might want to think about reliability of the test steps to avoid flakiness from timeouts being hit.",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98505f4d_73129b46",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "What are the issues?\n\nNot that this is a major security concern, but I could see http: being turned off in the near future, which would break this test.",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70bfd86c_17a11e64",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "This seems fragile and the test will break if the test is moved or run from a different folder.",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fed13222_fb017be9",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "The output folder is per-developer, it should be passed as a flag.",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "105bd849_951fff9d",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "Nit: Google style guide is CamelCase for function names.",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90ab2e62_9ab2e14a",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "Can you add Windows support?\n\nLooks like the built-in interface query function doesn\u0027t support Mac unfortunately.\n\nhttps://docs.python.org/3/library/socket.html#socket.if_nameindex",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "415b8815_a1bbd1cc",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "How large is this file?  Could it just be synced with a gclient hook?",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92cccb53_3c9c8471",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "I wonder if this test could regenerate keys only when needed.  What is the certificate lifetime?",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d089111_df2ecb93",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-19T18:11:28Z",
+      "side": 1,
+      "message": "Can you check that sender_process and receiver_process exit successfully (exit code \u003d 0)?",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
