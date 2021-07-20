@@ -16,6 +16,69 @@
       "message": "This looks related to bringing up remoting support in Chromium.  I\u0027m going to load balance over to Ryan.",
       "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "530bfc65_773ffcab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-07-20T23:42:48Z",
+      "side": 1,
+      "message": "At a high-level, I think it would be clearer if \"Pause\" were separated out from the PlaybackRate - but also it would make the code a bit more complex. WDYT?",
+      "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7810b31_19abce8b",
+        "filename": "cast/standalone_sender/remoting_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-07-20T23:42:48Z",
+      "side": 1,
+      "message": "nit: DVLOG",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 12
+      },
+      "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cc735f2_4102bb0a",
+        "filename": "cast/standalone_sender/simulated_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-07-20T23:42:48Z",
+      "side": 1,
+      "message": "Is there a reason to store this as a boolean as opposed to just storing the playback rate? Does this get around some floating-point arithmetic headaches?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 41
+      },
+      "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
