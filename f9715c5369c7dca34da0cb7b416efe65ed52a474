@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86c86ba2_07d4f34c",
+        "filename": "discovery/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1215804
+      },
+      "writtenOn": "2021-07-21T11:50:27Z",
+      "side": 1,
+      "message": "This doesn\u0027t matter in openscreen as much as e.g. chromium, but ISTM these are still public_deps.  Here, only abseil will add a config (include path) and lots of other code depends on abseil directly, so this doesn\u0027t currently break anything.  Did you have a specific reason for moving these to deps?\n\nSame for the dnssd target below.",
+      "revId": "f9715c5369c7dca34da0cb7b416efe65ed52a474",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
