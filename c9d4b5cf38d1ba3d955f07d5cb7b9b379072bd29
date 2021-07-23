@@ -52,6 +52,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe6baaa_e8395466",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "Yeah, absolutely agree. I do want to run this in our builders.",
+      "parentUuid": "13470f0e_b9f2578b",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98505f4d_73129b46",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-07-19T18:11:28Z",
       "side": 1,
       "message": "What are the issues?\n\nNot that this is a major security concern, but I could see http: being turned off in the near future, which would break this test.",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e003263_725ff77e",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "urllib.error.URLError: \u003curlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:852)\u003e\n\nurllib doesn\u0027t work with HTTPS unless you download SSL certificates to the system store.",
+      "parentUuid": "98505f4d_73129b46",
       "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -86,6 +122,42 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99692c05_1e5c965e",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "It will break if the test is moved to a different folder, but the purpose is explicitly to allow the test to be ran from an arbitrary location (__file__ always is foo/bar/cast/standalone.py)",
+      "parentUuid": "70bfd86c_17a11e64",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b76d38b9_8ebaf97c",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70bfd86c_17a11e64",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fed13222_fb017be9",
@@ -99,6 +171,24 @@
       "writtenOn": "2021-07-19T18:11:28Z",
       "side": 1,
       "message": "The output folder is per-developer, it should be passed as a flag.",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80afde38_a09a02e0",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "Added some environment variables--the preferred strategy when using the unittests library.",
+      "parentUuid": "fed13222_fb017be9",
       "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -122,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "710ae7bb_e08dfb32",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "No longer true, actually. Google has moved to being more standard around python development:\n\nhttps://google.github.io/styleguide/pyguide.html",
+      "parentUuid": "105bd849_951fff9d",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90ab2e62_9ab2e14a",
         "filename": "cast/standalone_e2e.py",
         "patchSetId": 2
@@ -133,6 +241,24 @@
       "writtenOn": "2021-07-19T18:11:28Z",
       "side": 1,
       "message": "Can you add Windows support?\n\nLooks like the built-in interface query function doesn\u0027t support Mac unfortunately.\n\nhttps://docs.python.org/3/library/socket.html#socket.if_nameindex",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce92b8bf_46bc9a3a",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "Kind of? Aspirationally, sure. The standalone impls don\u0027t work on windows yet, so this script adding windows support would not be testable.",
+      "parentUuid": "90ab2e62_9ab2e14a",
       "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -156,6 +282,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c71b5471_986e999a",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "~1M. Yeah, it could be--wasn\u0027t sure if that would be better. This way it\u0027s only downloaded if you are running tests.",
+      "parentUuid": "415b8815_a1bbd1cc",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92cccb53_3c9c8471",
         "filename": "cast/standalone_e2e.py",
         "patchSetId": 2
@@ -167,6 +311,24 @@
       "writtenOn": "2021-07-19T18:11:28Z",
       "side": 1,
       "message": "I wonder if this test could regenerate keys only when needed.  What is the certificate lifetime?",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27eac586_ce5fdde7",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92cccb53_3c9c8471",
       "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -184,6 +346,24 @@
       "writtenOn": "2021-07-19T18:11:28Z",
       "side": 1,
       "message": "Can you check that sender_process and receiver_process exit successfully (exit code \u003d 0)?",
+      "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e93777fc_ecc14e7d",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:50:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d089111_df2ecb93",
       "revId": "c9d4b5cf38d1ba3d955f07d5cb7b9b379072bd29",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
