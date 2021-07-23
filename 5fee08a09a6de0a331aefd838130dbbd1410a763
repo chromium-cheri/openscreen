@@ -18,6 +18,142 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6529c964_d12f6fd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-23T22:09:32Z",
+      "side": 1,
+      "message": "I expected there to be some way for a test to find GN outputs more easily than hard coding paths or using environment variables.  I guess as long as they are documented so developers and recipe maintainers can set them once, that\u0027s OK.",
+      "revId": "5fee08a09a6de0a331aefd838130dbbd1410a763",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d5fe22f_56c18f07",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-23T22:09:32Z",
+      "side": 1,
+      "message": "Can you document these either in the test help output, or in an appropriate README.md?",
+      "revId": "5fee08a09a6de0a331aefd838130dbbd1410a763",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57b9967d_2f440716",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-23T22:09:32Z",
+      "side": 1,
+      "message": "Nit: Open Screen",
+      "revId": "5fee08a09a6de0a331aefd838130dbbd1410a763",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a7bee8_94c07729",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-23T22:09:32Z",
+      "side": 1,
+      "message": "I could see someone innocently changing these log messages, breaking this test, and not even suspecting it.  Maybe when the test fails, include in the failure message instructions for how to update the test expectations.",
+      "revId": "5fee08a09a6de0a331aefd838130dbbd1410a763",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd604120_c7935665",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-23T22:09:32Z",
+      "side": 1,
+      "message": "I poked around in the GN documentation.  There may be a way to declare the sender and receiver as data dependencies of this test, and write a GN action that would pass the binaries\u0027 locations as a flag to the script.  However without seeing an example of it actually working, I\u0027m not sure.\n\nIt\u0027s just super annoying to require each developer to set variables to configure the test.",
+      "revId": "5fee08a09a6de0a331aefd838130dbbd1410a763",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e87843d5_279336ea",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-23T22:09:32Z",
+      "side": 1,
+      "message": "s/cast implementations/Cast Streaming sender and receiver/",
+      "revId": "5fee08a09a6de0a331aefd838130dbbd1410a763",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d691a2a_b524f00f",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-23T22:09:32Z",
+      "side": 1,
+      "message": "Where is this looking for the certificates?  Should they always be in self.root_dir?",
+      "revId": "5fee08a09a6de0a331aefd838130dbbd1410a763",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eaaf996_b0770812",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-23T22:09:32Z",
+      "side": 1,
+      "message": "Either drop the ./ or use os.path.join (here and below)",
+      "revId": "5fee08a09a6de0a331aefd838130dbbd1410a763",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e052a5d6_60014d54",
