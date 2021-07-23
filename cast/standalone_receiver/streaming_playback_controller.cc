@@ -84,6 +84,7 @@ void StreamingPlaybackController::OnRemotingNegotiated(
 void StreamingPlaybackController::OnReceiversDestroying(
     const ReceiverSession* session,
     ReceiversDestroyingReason reason) {
+  OSP_LOG_INFO << "Receivers are currently destroying, resetting SDL players.";
   audio_player_.reset();
   video_player_.reset();
 }
@@ -96,6 +97,7 @@ void StreamingPlaybackController::OnError(const ReceiverSession* session,
 void StreamingPlaybackController::Initialize(
     ReceiverSession::ConfiguredReceivers receivers) {
 #if defined(CAST_STANDALONE_RECEIVER_HAVE_EXTERNAL_LIBS)
+  OSP_LOG_INFO << "Successfully negotiated a session, creating SDL players.";
   if (receivers.audio_receiver) {
     audio_player_ = std::make_unique<SDLAudioPlayer>(
         &Clock::now, task_runner_, receivers.audio_receiver,
