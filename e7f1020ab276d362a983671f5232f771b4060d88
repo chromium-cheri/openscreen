@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4349c745_9574e2bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-07-23T20:22:56Z",
+      "side": 1,
+      "message": "\u003e In Chrome remoting, pausing is setting the playback rate to zero to my current understanding\n\nI think it depends where you\u0027re looking\n- For a top-level renderer that\u0027s true: https://source.chromium.org/chromium/chromium/src/+/main:media/base/renderer.h;l\u003d70?q\u003drenderer\n- But for other parts of the renderer pipeline (e.g. the layers below a Renderer) its not: https://source.chromium.org/chromium/chromium/src/+/main:media/base/audio_renderer_sink.h;l\u003d59?q\u003daudiorenderersink\n\nThere really isn\u0027t a consistent approach there (Which is its own problem) - so I don\u0027t think we can make our decision based on what Chromium does\n\n\n\u003e It\u0027s not ideal but wasn\u0027t sure about obfuscating that part of the remoting API here\n\nThe only reason I think Pause() is cleaner is just for embedders to more easily understand what\u0027s happening so they can use this code as an example. \n\nIt\u0027s not a strong opinion so feel free to do whichever you feel is best :) Just wanted to make sure that aspect was considered",
+      "parentUuid": "c643ac15_01000745",
+      "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7810b31_19abce8b",
         "filename": "cast/standalone_sender/remoting_sender.cc",
         "patchSetId": 1
@@ -137,6 +155,30 @@
       "side": 1,
       "message": "Yeah, because we don\u0027t support playback rates of not 1--the remoting messages use arbitrary playback rates but the capturer doesn\u0027t support anything but 1 or 0. If we add playback rate support to the simulated capturer this will change to a double.",
       "parentUuid": "9cc735f2_4102bb0a",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 41
+      },
+      "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "082621f8_a7d0abc3",
+        "filename": "cast/standalone_sender/simulated_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-07-23T20:22:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "043e6bdf_f9e3ef42",
       "range": {
         "startLine": 109,
         "startChar": 0,
