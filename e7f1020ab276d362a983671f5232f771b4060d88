@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c643ac15_01000745",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:56:08Z",
+      "side": 1,
+      "message": "In Chrome remoting, pausing is setting the playback rate to zero to my current understanding. It\u0027s not ideal but wasn\u0027t sure about obfuscating that part of the remoting API here.",
+      "parentUuid": "530bfc65_773ffcab",
+      "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7810b31_19abce8b",
         "filename": "cast/standalone_sender/remoting_sender.cc",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2021-07-20T23:42:48Z",
       "side": 1,
       "message": "nit: DVLOG",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 12
+      },
+      "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a5de00b_505cbb78",
+        "filename": "cast/standalone_sender/remoting_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:56:08Z",
+      "side": 1,
+      "message": "I think we really aren\u0027t doing that much DVLOG, Mark was saying we should pretty much delete all the OSP_DVLOGs:\n\nhttps://chromium-review.googlesource.com/c/openscreen/+/3001340",
+      "parentUuid": "d7810b31_19abce8b",
       "range": {
         "startLine": 73,
         "startChar": 4,
@@ -71,6 +113,30 @@
       "writtenOn": "2021-07-20T23:42:48Z",
       "side": 1,
       "message": "Is there a reason to store this as a boolean as opposed to just storing the playback rate? Does this get around some floating-point arithmetic headaches?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 41
+      },
+      "revId": "e7f1020ab276d362a983671f5232f771b4060d88",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "043e6bdf_f9e3ef42",
+        "filename": "cast/standalone_sender/simulated_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-07-23T18:56:08Z",
+      "side": 1,
+      "message": "Yeah, because we don\u0027t support playback rates of not 1--the remoting messages use arbitrary playback rates but the capturer doesn\u0027t support anything but 1 or 0. If we add playback rate support to the simulated capturer this will change to a double.",
+      "parentUuid": "9cc735f2_4102bb0a",
       "range": {
         "startLine": 109,
         "startChar": 0,
