@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "482285b1_2418b47b",
+        "filename": "third_party/aomedia/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-07-27T22:40:15Z",
+      "side": 1,
+      "message": "These headers look like they will allow you to use a pre-built libaom library, e.g. a a shared library (so), by declaring all of the functions exported by the encoder.\n\nIf you want openscreen to build the libaom encoder from source, you\u0027ll need to import and customize the build rules from Chromium, which are somewhat complicated, because there is a fair amount of assembly code in the library (so there are different rules/sources for each CPU architecture).\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/libaom/BUILD.gn\n\nI wouldn\u0027t try to do anything around that in this patch, instead just getting the source imported is the next step here.",
+      "revId": "daf88af50563673034356c0c721c419cd8de6594",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
