@@ -171,7 +171,12 @@ source_set("unittests") {
 openscreen_fuzzer_test("mdns_fuzzer") {
   sources = [ "mdns/mdns_reader_fuzztest.cc" ]
 
-  deps = [ ":mdns" ]
+  deps = [
+    ":dnssd",
+    ":mdns",
+    ":public",
+    "../third_party/abseil",
+  ]
 
   seed_corpus = "mdns/fuzzer_seeds"
 
