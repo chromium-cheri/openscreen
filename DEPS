@@ -234,6 +234,10 @@ include_rules = [
   '+testing/util',
   '+third_party',
 
+  '+aom',
+  '+av1',
+  '+aom_dsp',
+
   # Inter-module dependencies must be through public APIs.
   '-discovery',
   '+discovery/common',
