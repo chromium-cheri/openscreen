@@ -1,14 +1,186 @@
-# Copyright (c) 2021 The Chromium Authors. All rights reserved.
+# # Copyright (c) 2021 The Chromium Authors. All rights reserved.
+# # Use of this source code is governed by a BSD-style license that can be
+# # found in the LICENSE file.
+
+# if (current_cpu == "x86") {
+#     cpu_arch_full = "ia32"
+#   } else if (current_cpu == "x64") {
+#       cpu_arch_full = "x64"
+#   } else if (current_cpu == "arm") {
+#       cpu_arch_full = "arm"
+#   } else {
+#     cpu_arch_full = current_cpu
+#   }
+
+#   if (is_posix || is_fuchsia) {
+#       # Should cover linux, fuchsia, mac, and the ios simulator.
+#       os_category = "linux"
+#     } else {  # This should only match windows.
+#       os_category = current_os
+#     }
+#     platform_include_dir = "config/$os_category/$cpu_arch_full"
+
+# config("aomedia_config") {
+#   include_dirs = [ "//third_party/aomedia/src", platform_include_dir, "//third_party/aomedia/config" ]
+#   cflags = [ "-Wno-implicit-fallthrough", "-Wno-extra-semi", "-Wno-psabi" ]
+# }
+
+# source_set("aomedia") {
+#   sources = [
+#     "src/aom/aom_encoder.h",
+#     "src/aom/aom_external_partition.h",
+#     "src/aom/aomcx.h",
+#     "src/aom/src/aom_encoder.c",
+#     "src/av1/av1_cx_iface.c",
+#     "src/aom/src/aom_integer.h",
+#     "src/aom/src/aom_integer.c",
+#     "src/aom_mem/aom_mem.c",
+#     "src/aom_mem/aom_mem.h",
+#     "src/aom/src/aom_codec.c",
+#     "src/aom/aom_codec.h",
+#     "src/aom/src/aom_image.c",
+#     "src/aom/aom_image.h",
+#     "src/av1/encoder/encoder.c",
+#     "src/av1/encoder/encoder.h",
+#     "src/aom_dsp/grain_table.c",
+#     "src/aom_dsp/grain_table.h",
+#     "src/av1/encoder/mcomp.c",
+#     "src/av1/encoder/mcomp.h",
+#     "src/aom_dsp/x86/variance_sse2.c",
+#     # "config/$os_category/$cpu_arch_full/config/aom_dsp_rtcd.h",
+#     "config/linux/x64/config/aom_dsp_rtcd.h",
+#     "src/aom_dsp/aom_dsp_rtcd.c",
+#     "src/aom_dsp/x86/intrapred_avx2.c",
+#     "src/aom_dsp/x86/intrapred_x86.h",
+#     "src/aom_dsp/x86/lpf_common_sse2.h",
+#   ]
+
+#   public_configs = [ ":aomedia_config" ]
+# }
+
+# Copyright 2014 The Chromium Authors. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+# import("//build/buildflag_header.gni")
+# import("//build/config/android/config.gni")
+import("//build/config/arm.gni")
+
+# import("//build/config/sanitizers/sanitizers.gni")
+# import("//testing/libfuzzer/fuzzer_test.gni")
+import("//third_party/aomedia/libaom_srcs.gni")
+
+# import("//third_party/aomedia/options.gni")
+# import("//third_party/nasm/nasm_assemble.gni")
+
+# buildflag_header("libaom_buildflags") {
+#   header = "libaom_buildflags.h"
+
+#   flags = [ "ENABLE_LIBAOM=$enable_libaom" ]
+# }
+
+if (current_cpu == "x86") {
+  cpu_arch_full = "ia32"
+} else if (current_cpu == "x64") {
+  cpu_arch_full = "x64"
+} else if (current_cpu == "arm") {
+  cpu_arch_full = "arm"
+} else {
+  cpu_arch_full = current_cpu
+}
+
+if (is_posix || is_fuchsia) {
+  # Should cover linux, fuchsia, mac, and the ios simulator.
+  os_category = "linux"
+} else {  # This should only match windows.
+  os_category = current_os
+}
+platform_include_dir = "config/$os_category/$cpu_arch_full"
+
 config("aomedia_config") {
-  include_dirs = [ "src" ]
+  include_dirs = [
+    "//third_party/aomedia/src",
+    platform_include_dir,
+    "//third_party/aomedia/config",
+  ]
+  cflags = [
+    "-Wno-implicit-fallthrough",
+    "-Wno-extra-semi",
+    "-Wno-psabi",
+    "-Wno-implicit-function-declaration",
+    "-march=native",
+  ]
 }
 
 source_set("aomedia") {
-  sources = [
-    "aom/aom_encoder.h",
-    "aom/aomcx.h",
-  ]
+  sources = aom_av1_common_intrin_avx2
+
+  # sources += aom_av1_common_intrin_neon
+  # sources += aom_av1_common_intrin_sse2
+  sources += aom_av1_common_intrin_sse4_1
+
+  # sources += aom_av1_common_intrin_ssse3
+  sources += aom_av1_common_intrin_vsx
+  sources += aom_av1_common_sources
+  sources += aom_av1_decoder_sources
+
+  # sources += aom_av1_encoder_asm_sse2
+  # sources += aom_av1_encoder_asm_ssse3_x86_64
+  sources += aom_av1_encoder_intrin_avx2
+  sources += aom_av1_encoder_intrin_msa
+
+  # sources += aom_av1_encoder_intrin_neon
+  # sources += aom_av1_encoder_intrin_sse2
+  # sources += aom_av1_encoder_intrin_sse3
+  sources += aom_av1_encoder_intrin_sse4_1
+
+  # sources += aom_av1_encoder_intrin_sse4_2
+  sources += aom_av1_encoder_sources
+
+  # sources += aom_dsp_common_asm_sse2
+  # sources += aom_dsp_common_asm_ssse3
+  sources += aom_dsp_common_intrin_avx2
+  sources += aom_dsp_common_intrin_dspr2
+  sources += aom_dsp_common_intrin_msa
+
+  # sources += aom_dsp_common_intrin_neon
+  # sources += aom_dsp_common_intrin_sse2
+  sources += aom_dsp_common_intrin_sse4_1
+
+  # sources += aom_dsp_common_intrin_ssse3
+  sources += aom_dsp_common_sources
+  sources += aom_dsp_decoder_sources
+
+  # sources += aom_dsp_encoder_asm_sse2
+  # sources += aom_dsp_encoder_asm_sse2_x86_64
+  # sources += aom_dsp_encoder_asm_ssse3_x86_64
+  sources += aom_dsp_encoder_intrin_avx
+  sources += aom_dsp_encoder_intrin_avx2
+  sources += aom_dsp_encoder_intrin_msa
+
+  # sources += aom_dsp_encoder_intrin_neon
+  # sources += aom_dsp_encoder_intrin_sse2
+  sources += aom_dsp_encoder_intrin_sse4_1
+
+  # sources += aom_dsp_encoder_intrin_ssse3
+  sources += aom_dsp_encoder_sources
+  sources += aom_encoder_stats_sources
+  sources += aom_mem_sources
+
+  # sources += aom_ports_asm_x86
+  sources += aom_rtcd_sources
+  sources += aom_scale_intrin_dspr2
+  sources += aom_scale_sources
+  sources += aom_sources
+  sources += aom_util_sources
+  sources += aom_webm_decoder_sources
+  sources += aom_webm_encoder_sources
+
+  # sources += aom_rtcd_sources_gen
+  # sources += aom_sources_gen
+  # sources += aom_version_sources_gen
+
+  sources += [ "config/linux/ia32/config/aom_config.c" ]
+
+  public_configs = [ ":aomedia_config" ]
 }
