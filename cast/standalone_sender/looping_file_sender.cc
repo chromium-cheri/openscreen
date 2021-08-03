@@ -6,6 +6,7 @@
 
 #include <utility>
 
+#include "util/osp_logging.h"
 #include "util/trace_logging.h"
 
 namespace openscreen {
@@ -23,9 +24,10 @@ LoopingFileSender::LoopingFileSender(Environment* environment,
       audio_encoder_(senders.audio_sender->config().channels,
                      StreamingOpusEncoder::kDefaultCastAudioFramesPerSecond,
                      senders.audio_sender),
-      video_encoder_(StreamingVpxEncoder::Parameters{.codec = settings.codec},
-                     env_->task_runner(),
-                     senders.video_sender),
+      video_encoder_(CreateVideoEncoder(
+          StreamingVideoEncoder::Parameters{.codec = settings.codec},
+          env_->task_runner(),
+          senders.video_sender)),
       next_task_(env_->now_function(), env_->task_runner()),
       console_update_task_(env_->now_function(), env_->task_runner()) {
   // Opus and Vp8 are the default values for the config, and if these are set
@@ -33,7 +35,8 @@ LoopingFileSender::LoopingFileSender(Environment* environment,
   // support, which is a developer error.
   OSP_CHECK(senders.audio_config.codec == AudioCodec::kOpus);
   OSP_CHECK(senders.video_config.codec == VideoCodec::kVp8 ||
-            senders.video_config.codec == VideoCodec::kVp9);
+            senders.video_config.codec == VideoCodec::kVp9 ||
+            senders.video_config.codec == VideoCodec::kAv1);
   OSP_LOG_INFO << "Max allowed media bitrate (audio + video) will be "
                << settings_.max_bitrate;
   bandwidth_being_utilized_ = settings_.max_bitrate / 2;
@@ -55,8 +58,8 @@ void LoopingFileSender::UpdateEncoderBitrates() {
   } else {
     audio_encoder_.UseStandardQuality();
   }
-  video_encoder_.SetTargetBitrate(bandwidth_being_utilized_ -
-                                  audio_encoder_.GetBitrate());
+  video_encoder_->SetTargetBitrate(bandwidth_being_utilized_ -
+                                   audio_encoder_.GetBitrate());
 }
 
 void LoopingFileSender::ControlForNetworkCongestion() {
@@ -123,7 +126,7 @@ void LoopingFileSender::OnVideoFrame(const AVFrame& av_frame,
                                      Clock::time_point capture_time) {
   TRACE_DEFAULT_SCOPED(TraceCategory::kStandaloneSender);
   latest_frame_time_ = std::max(capture_time, latest_frame_time_);
-  StreamingVpxEncoder::VideoFrame frame{};
+  StreamingVideoEncoder::VideoFrame frame{};
   frame.width = av_frame.width - av_frame.crop_left - av_frame.crop_right;
   frame.height = av_frame.height - av_frame.crop_top - av_frame.crop_bottom;
   frame.yuv_planes[0] = av_frame.data[0] + av_frame.crop_left +
@@ -137,24 +140,24 @@ void LoopingFileSender::OnVideoFrame(const AVFrame& av_frame,
   }
   // TODO(jophba): Add performance metrics visual overlay (based on Stats
   // callback).
-  video_encoder_.EncodeAndSend(frame, capture_time, {});
+  video_encoder_->EncodeAndSend(frame, capture_time, {});
 }
 
 void LoopingFileSender::UpdateStatusOnConsole() {
-  const Clock::duration elapsed = latest_frame_time_ - capture_start_time_;
-  const auto seconds_part = to_seconds(elapsed);
-  const auto millis_part = to_milliseconds(elapsed - seconds_part);
+  // const Clock::duration elapsed = latest_frame_time_ - capture_start_time_;
+  // const auto seconds_part = to_seconds(elapsed);
+  // const auto millis_part = to_milliseconds(elapsed - seconds_part);
   // The control codes here attempt to erase the current line the cursor is
   // on, and then print out the updated status text. If the terminal does not
   // support simple ANSI escape codes, the following will still work, but
   // there might sometimes be old status lines not getting erased (i.e., just
   // partially overwritten).
-  fprintf(stdout,
-          "\r\x1b[2K\rLoopingFileSender: At %01" PRId64
-          ".%03ds in file (est. network bandwidth: %d kbps). \n",
-          static_cast<int64_t>(seconds_part.count()),
-          static_cast<int>(millis_part.count()), bandwidth_estimate_ / 1024);
-  fflush(stdout);
+  // fprintf(stdout,
+  //         "\r\x1b[2K\rLoopingFileSender: At %01" PRId64
+  //         ".%03ds in file (est. network bandwidth: %d kbps). \n",
+  //         static_cast<int64_t>(seconds_part.count()),
+  //         static_cast<int>(millis_part.count()), bandwidth_estimate_ / 1024);
+  // fflush(stdout);
 
   console_update_task_.ScheduleFromNow([this] { UpdateStatusOnConsole(); },
                                        kConsoleUpdateInterval);
@@ -198,6 +201,27 @@ const char* LoopingFileSender::ToTrackName(SimulatedCapturer* capturer) const {
     which = "";
   }
   return which;
+}
+
+std::unique_ptr<StreamingVideoEncoder> LoopingFileSender::CreateVideoEncoder(
+    const StreamingVideoEncoder::Parameters& params,
+    TaskRunner* task_runner,
+    Sender* sender) {
+  switch (params.codec) {
+    case VideoCodec::kVp8:
+    case VideoCodec::kVp9:
+      return std::make_unique<StreamingVpxEncoder>(params, task_runner, sender);
+      break;
+    case VideoCodec::kAv1:
+      return std::make_unique<StreamingAv1Encoder>(params, task_runner, sender);
+      break;
+    default:
+      // params.codec is guaranteed to be one of {VideoCodec::kVp8,
+      // VideoCodec::kVp9, VideoCodec::kAv1} so the default section of the
+      // switch will never execute.
+      OSP_NOTREACHED();
+      break;
+  }
 }
 
 }  // namespace cast

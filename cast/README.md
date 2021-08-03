@@ -6,8 +6,10 @@ applications and streaming to Cast-compatible devices.
 ## Using the standalone implementations
 
 To run the standalone sender and receivers together, first you need to install
-the following dependencies: FFMPEG, LibVPX, LibOpus, LibSDL2, as well as their
-headers (frequently in a separate -dev package). From here, you just need a
+the following dependencies: FFMPEG, LibVPX, LibOpus, LibSDL2, LibAOM as well as
+their headers (frequently in a separate -dev package). Currently it is advised
+that Linux users compile LibAOM from source using the instructions at https://aomedia.googlesource.com/aom/
+because apt installs a older, slower version of LibAOM. From here, you just need a
 video to use with the cast_sender, as the cast_receiver can generate a
 self-signed certificate and private key for each session. You can also generate
 your own RSA private key and either create or have the receiver automatically
