@@ -43,19 +43,24 @@ message MediaCapabilities {
   bool video_supported = 2;
 }
 
+message ApplicationMetadata {
+  string app_id = 1;
+}
+
 message ApplicationCapabilities {
+  // Runtime can define either a list of supported apps or a list of unsupported
+  // ones.
   // List of supported Cast application IDs.
-  repeated string app_ids = 1;
+  repeated ApplicationMetadata supported_applications = 1;
+  // List of unsupported Cast application IDs.
+  repeated ApplicationMetadata unsupported_applications = 2;
 }
 
 message RuntimeCapabilities {
+  // Media capabilities of the runtime.
   MediaCapabilities media_capabilities = 1;
-
-  oneof specific_capabilities {
-    // capabilities for NATIVE runtime.
-    ApplicationCapabilities native_application_capabilities = 2;
-  }
-
+  // Application capabilities of the runtime.
+  ApplicationCapabilities application_capabilities = 2;
   // Flags if metrics recording is supported.
   bool metrics_recorder_supported = 4;
 }
