@@ -18,6 +18,23 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2d2a22_c727a5e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "It\u0027s really cool that you were able to bring over some of the quantization and speed adjustment algorithms to AV1, those will be important to include in the Chrome implementation if we want a chance at realtime encoding in the browser.\n\nRegarding structs, if you define a struct Foo and don\u0027t add initializers for all of the primitive fields, they will be undefined if you declare a Foo like:\n\nFoo f;\n\nSee https://stackoverflow.com/questions/16782103/initializing-default-values-in-a-struct/16782131 for example.\n\nSo I always set POD initializers (or define a full ctor) to avoid unpredictable behaviors from a simple programming mistake.  Especially important if struct members are pointers or array indexes, as use of uninitialized memory can potentially lead to exploits.\n\n",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c17e9c0_d0eb729d",
@@ -31,6 +48,23 @@
       "writtenOn": "2021-08-04T19:20:07Z",
       "side": 1,
       "message": "Nit: wrap at 80 chars. Also, most linux distros don\u0027t use apt, so a rephrase would probably be good. Maybe:\n\n\"Currently, it is advised that most Linux users compile LibAOM from source, using the instructions at \u003cwebsite\u003e. Older versions found in many package management systems have blocking performance issues, causing AV1 encoding to be completely unusable.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad37349a_f9381ff0",
+        "filename": "cast/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Can you keep the markdown wrapped at 80 columns?  It makes viewing diffs easier.",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -54,6 +88,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b435841a_91564bd0",
+        "filename": "cast/protocol/castv2/streaming_examples/offer.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Does adding libaom support require a change to the offer spec?  I would expect this to remain just \"av1.\"  If there\u0027s a concern about cross-compatibility of AV1 implementations, then let\u0027s discuss how to handle that separately.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a15b1e29_ccd4b0ef",
         "filename": "cast/standalone_sender/BUILD.gn",
         "patchSetId": 1
@@ -65,6 +116,23 @@
       "writtenOn": "2021-08-04T19:20:07Z",
       "side": 1,
       "message": "Can we gate libaom separately? Since we have to compile it from source, it would be nice to be able to just have the other libraries and toggle this one separately.\n\nAlso, this should be \"have_external_libs\" not \"have_ffmpeg \u0026\u0026 have_libopus \u0026\u0026 have_libvpx\" anyway.\n\nMaybe:\n\n  if (have_external_libs) {\n      sources +\u003d [\n        \"connection_settings.h\",\n        \"ffmpeg_glue.cc\",\n        \"ffmpeg_glue.h\",\n        \"looping_file_cast_agent.cc\",\n        \"looping_file_cast_agent.h\",\n        \"looping_file_sender.cc\",\n        \"looping_file_sender.h\",\n        \"receiver_chooser.cc\",\n        \"receiver_chooser.h\",\n        \"remoting_sender.cc\",\n        \"remoting_sender.h\",\n        \"simulated_capturer.cc\",\n        \"simulated_capturer.h\",\n\n        \"streaming_opus_encoder.cc\",\n        \"streaming_opus_encoder.h\",\n        \"streaming_video_encoder.cc\",\n        \"streaming_video_encoder.h\",\n        \"streaming_vpx_encoder.cc\",\n        \"streaming_vpx_encoder.h\",\n      ]\n      \n      # LibAOM support currently recommends building from source, so is included\n      # separately here.\n      if (have_libaom) {\n        \"streaming_av1_encoder.cc\",\n        \"streaming_av1_encoder.h\",\n      }   \n  }",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc1af7d_f984fcbe",
+        "filename": "cast/standalone_sender/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "This basically requires you to set all of these flags to true if you want to build the standalone sender.\n\nIf the intention is to allow different combinations, you could break the source list down and add the files gated by each flag.",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -88,6 +156,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "951571e4_20540088",
+        "filename": "cast/standalone_sender/looping_file_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Did you intend to leave this commented out?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1cd1edd_6b766955",
+        "filename": "cast/standalone_sender/looping_file_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "This break is unreachable.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6e1ad94_d3be4255",
         "filename": "cast/standalone_sender/looping_file_sender.cc",
         "patchSetId": 1
@@ -99,6 +201,23 @@
       "writtenOn": "2021-08-04T19:20:07Z",
       "side": 1,
       "message": "1. I don\u0027t think you need a break after OSP_NOTREACHED.\n\n2. Definitely a nit, but it is possible this would execute if you added a codec in the main but not here--I would usually say something like\n\n  // Since we only support VP8, VP9, and AV1, any other codec value here \n  // should be due only to developer error.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "733b3dd2_23bd8bce",
+        "filename": "cast/standalone_sender/looping_file_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Might be helpful to add a message like\n\n\u003c\u003c \"Unsupported codec \" \u003c\u003c params.codec;",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -133,6 +252,40 @@
       "writtenOn": "2021-08-04T19:20:07Z",
       "side": 1,
       "message": "Same here, why not just \"av1\"?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eae271f_18a35994",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Can you update this to TODO(issuetracker.google.com/issues/155336511)?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50172803_7c86e651",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Hm, \"lost in history.\"  I like it :-)",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -218,6 +371,142 @@
       "writtenOn": "2021-08-04T19:20:07Z",
       "side": 1,
       "message": "It seems like there is a lot of overlap between this encoder and the Vpx encoder. I do think it probably doesn\u0027t in StreamingVideoEncoder, but would love to see some of the duplication reduced if possible.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55256729_1a562a34",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "If any of these fields are POD (plain-old-data) and the struct is value-initialized, their contents will be undefined.  So please default-initialize any POD fields.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f560b171_8c64ded4",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Same comment applies here.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86607def_7f43327a",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "I don\u0027t see an argument for CPU encoding speed; update comment?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51dbdf4c_21d56a36",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "If work_unit is never nullptr, consider passing it by a mutable reference.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e29670ef_60a73980",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b18dc2d1_91d8d07a",
+        "filename": "cast/standalone_sender/streaming_video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Can you set this to kMaxQuantizer?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99663b5b_456fd096",
+        "filename": "cast/standalone_sender/streaming_video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "See other comments about default initializing POD struct members.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad90628a_ff5d04c8",
+        "filename": "cast/standalone_sender/streaming_vpx_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-08-04T21:07:26Z",
+      "side": 1,
+      "message": "Are these declarations duplicates from the base class?",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
