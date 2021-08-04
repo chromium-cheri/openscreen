@@ -16,6 +16,210 @@
       "message": "I made some structural changes to the code by creating a StreamingVideoEncoder class that both StreamingVpxEncoder and StreamingAv1Encoder inherit from in an attempt to reduce duplicate code. Does this approach work, or should I try something else?",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c17e9c0_d0eb729d",
+        "filename": "cast/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Nit: wrap at 80 chars. Also, most linux distros don\u0027t use apt, so a rephrase would probably be good. Maybe:\n\n\"Currently, it is advised that most Linux users compile LibAOM from source, using the instructions at \u003cwebsite\u003e. Older versions found in many package management systems have blocking performance issues, causing AV1 encoding to be completely unusable.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18417d9e_93c2a579",
+        "filename": "cast/protocol/castv2/streaming_examples/offer.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Does this need to be libaom-av1? Why not av1?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a15b1e29_ccd4b0ef",
+        "filename": "cast/standalone_sender/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Can we gate libaom separately? Since we have to compile it from source, it would be nice to be able to just have the other libraries and toggle this one separately.\n\nAlso, this should be \"have_external_libs\" not \"have_ffmpeg \u0026\u0026 have_libopus \u0026\u0026 have_libvpx\" anyway.\n\nMaybe:\n\n  if (have_external_libs) {\n      sources +\u003d [\n        \"connection_settings.h\",\n        \"ffmpeg_glue.cc\",\n        \"ffmpeg_glue.h\",\n        \"looping_file_cast_agent.cc\",\n        \"looping_file_cast_agent.h\",\n        \"looping_file_sender.cc\",\n        \"looping_file_sender.h\",\n        \"receiver_chooser.cc\",\n        \"receiver_chooser.h\",\n        \"remoting_sender.cc\",\n        \"remoting_sender.h\",\n        \"simulated_capturer.cc\",\n        \"simulated_capturer.h\",\n\n        \"streaming_opus_encoder.cc\",\n        \"streaming_opus_encoder.h\",\n        \"streaming_video_encoder.cc\",\n        \"streaming_video_encoder.h\",\n        \"streaming_vpx_encoder.cc\",\n        \"streaming_vpx_encoder.h\",\n      ]\n      \n      # LibAOM support currently recommends building from source, so is included\n      # separately here.\n      if (have_libaom) {\n        \"streaming_av1_encoder.cc\",\n        \"streaming_av1_encoder.h\",\n      }   \n  }",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "638a8014_7787b4f6",
+        "filename": "cast/standalone_sender/looping_file_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Don\u0027t check in any commented out code, please. I think we want to uncomment this to readd it?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e1ad94_d3be4255",
+        "filename": "cast/standalone_sender/looping_file_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "1. I don\u0027t think you need a break after OSP_NOTREACHED.\n\n2. Definitely a nit, but it is possible this would execute if you added a codec in the main but not here--I would usually say something like\n\n  // Since we only support VP8, VP9, and AV1, any other codec value here \n  // should be due only to developer error.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81014125_e7536e7d",
+        "filename": "cast/standalone_sender/looping_file_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "When we gate libAOM separately in the BUILD.gn, we will need preprocessor directives here (#if defined HAVE_LIBAOM)",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7de29af1_0eea8cf2",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Same here, why not just \"av1\"?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "433cd66c_5829cf00",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Could this be in streamingvideoencoder, with virtual methods for child classes to implement the codec specific stuff?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9f4a87_ab0fdb77",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Does this use anything from AV1, or could it be part of StreamingVideoEncoder as a protected method?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b89cdec_174c0054",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Delete commented out code please.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7844189a_a1711efc",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "Could this be shared with the vpx encoder? Maybe in a separate streaming_encoder_util header?",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38d15903_2fdf5808",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-04T19:20:07Z",
+      "side": 1,
+      "message": "It seems like there is a lot of overlap between this encoder and the Vpx encoder. I do think it probably doesn\u0027t in StreamingVideoEncoder, but would love to see some of the duplication reduced if possible.",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
