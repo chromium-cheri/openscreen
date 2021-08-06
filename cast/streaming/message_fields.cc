@@ -25,7 +25,7 @@ constexpr EnumNameTable<VideoCodec, 6> kVideoCodecNames{
      {"hevc", VideoCodec::kHevc},
      {"REMOTE_VIDEO", VideoCodec::kNotSpecified},
      {"vp9", VideoCodec::kVp9},
-     {"av1", VideoCodec::kAv1}}};
+     {"libaom-av1", VideoCodec::kAv1}}};
 
 }  // namespace
 
