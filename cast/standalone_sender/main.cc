@@ -182,7 +182,7 @@ int StandaloneSenderMain(int argc, char* argv[]) {
           codec = specified_codec.value();
         } else {
           OSP_LOG_ERROR << "Invalid --codec specified: " << optarg
-                        << " is not one of: vp8, vp9, av1.";
+                        << " is not one of: vp8, vp9, libaom-av1.";
           LogUsage(argv[0]);
           return 1;
         }
