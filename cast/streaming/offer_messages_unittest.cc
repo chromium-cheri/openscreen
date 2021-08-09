@@ -85,7 +85,7 @@ constexpr char kValidOffer[] = R"({
     {
       "index": 3,
       "type": "video_source",
-      "codecName": "av1",
+      "codecName": "libaom-av1",
       "rtpProfile": "cast",
       "rtpPayloadType": 104,
       "ssrc": 19088744,
