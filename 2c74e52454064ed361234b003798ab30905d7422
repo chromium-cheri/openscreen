@@ -177,6 +177,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "046a205a_d50201cf",
+        "filename": "cast/protocol/castv2/streaming_examples/offer.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:37:40Z",
+      "side": 1,
+      "message": "FFMPEG shouldn\u0027t dictate our public APIs, so the right fix here is to leave codecName as \"av1\" and instead just change the decoder.\n\nOur Decoder gets its codec name from SDLPlayerBase, which in this case gets it from SDLVideoPlayer. It uses the \"CodecToString\" method currently:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/cast/standalone_receiver/sdl_video_player.cc;drc\u003dc9b17d38858d4b6d95feb5e6d9560cc63ec7b1b5;l\u003d30\n\nI think the fix here is to not use CodecToString in sdl_video_player, and do something like this:\n\n  constexpr EnumNameTable\u003cVideoCodec, 6\u003e kFfmpegCodecDescriptors{\n    {{\"h264\", VideoCodec::kH264},\n     {\"vp8\", VideoCodec::kVp8},\n     {\"hevc\", VideoCodec::kHevc},\n     {\"vp9\", VideoCodec::kVp9},\n     {\"libaom-av1\", VideoCodec::kAv1}}};\n     \n\nThen just use:\n\n    GetEnumName(kFfmpegCodecDescriptors, codec).value();\n    \nIn the SDL video player constructor.",
+      "parentUuid": "5b4f3120_1def51ae",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40e29dab_0a1b7a82",
+        "filename": "cast/protocol/castv2/streaming_examples/offer.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:37:40Z",
+      "side": 1,
+      "message": "Ack. Responding under Mark\u0027s to reduce duplication.",
+      "parentUuid": "db54a4ec_71824ee5",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a15b1e29_ccd4b0ef",
         "filename": "cast/standalone_sender/BUILD.gn",
         "patchSetId": 1
@@ -490,6 +526,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "366436a9_7d545331",
+        "filename": "cast/standalone_sender/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:37:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8ae06b7a_2faac94e",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3eae271f_18a35994",
@@ -573,6 +627,24 @@
       "side": 1,
       "message": "At the moment StreamingVpxEncoder and StreamingAv1Encoder have slightly different WorkUnit implementations since `work_unit.image` is codec specific. So I think moving this to StreamingVideoEncoder would require moving WorkUnit too, and I\u0027m not quite sure how to handle the fact that WorkUnit\u0027s image field would need to change  depending on the codec.",
       "parentUuid": "433cd66c_5829cf00",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5f931ab_976e6620",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "becd97b2_798ffa53",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -717,6 +789,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5a4ca73_9193fd11",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1280dd59_b72242d4",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55256729_1a562a34",
@@ -748,6 +838,24 @@
       "side": 1,
       "message": "As far as I can tell, none of these fields are POD (they all have constructors)",
       "parentUuid": "55256729_1a562a34",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b864a50_38ab9bf6",
+        "filename": "cast/standalone_sender/streaming_av1_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d43adfc3_5ff96888",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -993,6 +1101,24 @@
       "side": 1,
       "message": "My understanding was that I needed to re declare them in the derived class because they are pure virtual functions, but I am not sure.",
       "parentUuid": "ad90628a_ff5d04c8",
+      "revId": "2c74e52454064ed361234b003798ab30905d7422",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56703e64_da937bc0",
+        "filename": "cast/standalone_sender/streaming_vpx_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:37:40Z",
+      "side": 1,
+      "message": "If the quantizer values are dependent on the implementation class, they probably shouldn\u0027t be in the base class.",
+      "parentUuid": "a5fa7fa8_6962980c",
       "revId": "2c74e52454064ed361234b003798ab30905d7422",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
