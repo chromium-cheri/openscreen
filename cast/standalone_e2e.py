@@ -48,9 +48,21 @@ RECEIVER_BINARY_NAME = 'cast_receiver'
 
 EXPECTED_RECEIVER_MESSAGES = [
     "CastService is running.", "Found codec: opus (known to FFMPEG as opus)",
-    "Found codec: vp8 (known to FFMPEG as vp8)",
     "Successfully negotiated a session, creating SDL players.",
     "Receivers are currently destroying, resetting SDL players."
+]
+
+class VideoCodec(IntFlag):
+  """There are different messages printed by the receiver depending on the codec
+  chosen. """
+  Vp8 = 0
+  Vp9 = 1
+  Av1 = 2
+
+VIDEO_CODEC_SPECIFIC_RECEIVER_MESSAGES = [
+  "Found codec: vp8 (known to FFMPEG as vp8)",
+  "Found codec: vp9 (known to FFMPEG as vp9)",
+  "Found codec: libaom-av1 (known to FFMPEG as av1)"
 ]
 
 EXPECTED_SENDER_MESSAGES = [
@@ -210,7 +222,7 @@ class StandaloneCastTest(unittest.TestCase):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
 
-    def launch_sender(self, flags):
+    def launch_sender(self, flags, codec=None):
         """Launches the sender process, running the test video file once."""
         logging.debug('Launching the sender application...')
         command = [
@@ -226,14 +238,37 @@ class StandaloneCastTest(unittest.TestCase):
         if TestFlags.UseRemoting in flags:
             command.append('-r')
 
+        if codec == None:
+          # In this case, no codec argument was passed. No command line
+          # arguments need to be added here because the standalone sender
+          # defaults to sending VP8.
+          pass
+        elif codec == VideoCodec.Vp8:
+            command.append('-c')
+            command.append('vp8')
+        elif codec == VideoCodec.Vp9:
+            command.append('-c')
+            command.append('vp9')
+        else:
+            self.assertTrue(codec == VideoCodec.Av1)
+            command.append('-c')
+            command.append('libaom-av1')
+
         #pylint: disable = consider-using-with
         return subprocess.Popen(command,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
 
-    def check_logs(self, logs):
+    def check_logs(self, logs, codec=None):
         """Checks that the outputted logs contain expected behavior."""
-        for message in EXPECTED_RECEIVER_MESSAGES:
+
+        # If a codec was not provided, we should make sure that the standalone
+        # sender sent VP8.
+        if codec == None:
+          codec = VideoCodec.Vp8
+
+        for message in (EXPECTED_RECEIVER_MESSAGES +
+                        [VIDEO_CODEC_SPECIFIC_RECEIVER_MESSAGES[codec]]):
             self.assertTrue(
                 message in logs[0],
                 'Missing log message: {}.\n{}'.format(message,
@@ -247,12 +282,12 @@ class StandaloneCastTest(unittest.TestCase):
             self.assertTrue(prefix not in log, "Logs contained an error")
         logging.debug('Finished validating log output')
 
-    def get_output(self, flags):
+    def get_output(self, flags, codec=None):
         """Launches the sender and receiver, and handles exit output."""
         receiver_process = self.launch_receiver()
         logging.debug('Letting the receiver start up...')
         time.sleep(3)
-        sender_process = self.launch_sender(flags)
+        sender_process = self.launch_sender(flags, codec)
 
         logging.debug('Launched sender PID %i and receiver PID %i...',
             sender_process.pid, receiver_process.pid)
@@ -283,6 +318,21 @@ class StandaloneCastTest(unittest.TestCase):
         """Tests that things work when the Android RTP hack is enabled."""
         output = self.get_output(TestFlags.UseAndroidHack)
         self.check_logs(output)
+
+    def test_vp8_flag(self):
+      """Tests that the VP8 flag works with standard settings."""
+      output = self.get_output([], VideoCodec.Vp8)
+      self.check_logs(output, VideoCodec.Vp8)
+
+    def test_vp9_flag(self):
+      """Tests that the VP9 flag works with standard settings."""
+      output = self.get_output([], VideoCodec.Vp9)
+      self.check_logs(output, VideoCodec.Vp9)
+
+    def test_av1_flag(self):
+      """Tests that the AV1 flag works with standard settings."""
+      output = self.get_output([], VideoCodec.Av1)
+      self.check_logs(output, VideoCodec.Av1)
 
 
 def parse_args():
