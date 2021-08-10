@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "351d77c0_f3579bd0",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:41:45Z",
+      "side": 1,
+      "message": "Nit: you can probably remove the duplicate -c here like so:\n\n     if codec \u003d\u003d None:\n          # In this case, no codec argument was passed. No command line\n          # arguments need to be added here because the standalone sender\n          # defaults to sending VP8.\n          pass\n     else:\n          command.append(\u0027-c\u0027)\n          if codec \u003d\u003d VideoCodec.Vp8:\n              command.append(\u0027vp8\u0027)\n          elif codec \u003d\u003d VideoCodec.Vp9:\n              command.append(\u0027vp9\u0027)\n          else:\n              self.assertTrue(codec \u003d\u003d VideoCodec.Av1)\n              command.append(\u0027libaom-av1\u0027)",
+      "revId": "6d19a3e7e83d3589ac77f0c813143a91bfba5ec8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa95b592_0a8c4f66",
+        "filename": "cast/standalone_e2e.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-08-10T17:41:45Z",
+      "side": 1,
+      "message": "Since this requires libaom, we should probably have a flag to enable this test. Maybe an environment variable?\n\nsimilar to BUILD_ENVVAR:\n\nLIBAOM_ENVVAR\u003d\"OPENSCREEN_HAVE_LIBAOM\"",
+      "revId": "6d19a3e7e83d3589ac77f0c813143a91bfba5ec8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
