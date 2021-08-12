@@ -77,7 +77,8 @@ void RpcMessenger::ProcessMessageFromRemote(const uint8_t* message,
   ProcessMessageFromRemote(std::move(rpc));
 }
 
-void RpcMessenger::ProcessMessageFromRemote(std::unique_ptr<RpcMessage> message) {
+void RpcMessenger::ProcessMessageFromRemote(
+    std::unique_ptr<RpcMessage> message) {
   const auto entry = receive_callbacks_.find(message->handle());
   if (entry == receive_callbacks_.end()) {
     OSP_VLOG << "Dropping message due to unregistered handle: "

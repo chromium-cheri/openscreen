@@ -62,6 +62,7 @@ class RpcMessenger {
   // deserialization by protobuf.
   void ProcessMessageFromRemote(const uint8_t* message,
                                 std::size_t message_len);
+
   // This overload distributes an already-deserialized message to the
   // registered component.
   void ProcessMessageFromRemote(std::unique_ptr<RpcMessage> message);
