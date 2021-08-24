@@ -4,12 +4,16 @@
 
 #include "cast/standalone_receiver/cast_service.h"
 
+#include <stdint.h>
+
+#include <array>
 #include <utility>
 
 #include "discovery/common/config.h"
 #include "platform/api/tls_connection_factory.h"
 #include "platform/base/interface_info.h"
 #include "platform/base/tls_listen_options.h"
+#include "util/crypto/random_bytes.h"
 #include "util/osp_logging.h"
 #include "util/stringprintf.h"
 
@@ -69,8 +73,16 @@ CastService::CastService(CastService::Configuration config)
   if (discovery_publisher_) {
     ReceiverInfo info;
     info.port = local_endpoint_.port;
-    info.unique_id = HexEncode(config.interface.hardware_address.data(),
-                               config.interface.hardware_address.size());
+    if (config.interface.HasHardwareAddress()) {
+      info.unique_id = HexEncode(config.interface.hardware_address.data(),
+                                 config.interface.hardware_address.size());
+    } else {
+      OSP_LOG_WARN << "Hardware address for interface " << config.interface.name
+                   << " is empty. Generating a random unique_id.";
+      std::array<uint8_t, 6> random_bytes;
+      GenerateRandomBytes(random_bytes.data(), 6);
+      info.unique_id = HexEncode(random_bytes.data(), 6);
+    }
     info.friendly_name = config.friendly_name;
     info.model_name = config.model_name;
     info.capabilities = kHasVideoOutput | kHasAudioOutput;
