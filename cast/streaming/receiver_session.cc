@@ -302,6 +302,8 @@ void ReceiverSession::OnOffer(SenderMessage message) {
   properties->sequence_number = message.sequence_number;
 
   const Offer& offer = absl::get<Offer>(message.body);
+  OSP_VLOG << "Received Offer:\n" << json::Stringify(offer.ToJson()).value();
+
   if (offer.cast_mode == CastMode::kRemoting) {
     if (!preferences_.remoting) {
       SendErrorAnswerReply(message.sequence_number,
