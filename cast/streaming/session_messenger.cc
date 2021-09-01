@@ -262,6 +262,8 @@ void ReceiverSessionMessenger::OnMessage(const std::string& source_id,
     return;
   }
 
+  OSP_VLOG << "Received Offer:\n" << message;
+
   auto it = callbacks_.find(sender_message.value().type);
   if (it == callbacks_.end()) {
     OSP_DLOG_INFO << "Received message without a callback, dropping";
