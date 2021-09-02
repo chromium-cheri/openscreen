@@ -126,7 +126,7 @@ def get_properties(
         use_goma = True,
         use_ats = True,
         is_presubmit = False):
-    """Returns a collection of GN properties for the build system."""
+    """Returns a set of properties consumed by the openscreen.py recipe."""
     properties = {
         "target_cpu": target_cpu,
         "$depot_tools/bot_update": {

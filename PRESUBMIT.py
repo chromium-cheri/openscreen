@@ -156,10 +156,16 @@ def _CheckChangeLintsClean(input_api, output_api):
 
 def _CheckLuciCfg(input_api, output_api):
     """Check the main.star lucicfg generated files."""
-    return input_api.RunTests(
-        input_api.canned_checks.CheckLucicfgGenOutput(
-            input_api, output_api,
-            os.path.join('infra', 'config', 'global', 'main.star')))
+    LUCI_CFG = 'main.star'
+    for filename in [
+            os.path.basename(f.LocalPath()) for f in input_api.AffectedFiles()
+    ]:
+        if filename == LUCI_CFG:
+            return input_api.RunTests(
+                input_api.canned_checks.CheckLucicfgGenOutput(
+                    input_api, output_api,
+                    os.path.join('infra', 'config', 'global', LUCI_CFG)))
+    return None
 
 
 def _CommonChecks(input_api, output_api):
@@ -209,9 +215,11 @@ def _CommonChecks(input_api, output_api):
     # Run tools/licenses on code change.
     # TODO(https://crbug.com/1215335): licenses check is confused by our
     # buildtools checkout that doesn't actually check out the libraries.
-    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'));
+    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'))
     results.extend(_CheckLicenses(input_api, output_api))
 
+    # Check LUCI main.star
+    results.extend(_CheckLuciCfg(input_api, output_api))
     return results
 
 
@@ -219,9 +227,8 @@ def CheckChangeOnUpload(input_api, output_api):
     input_api.DEFAULT_FILES_TO_SKIP = _EXCLUDED_PATHS
     # We always run the OnCommit checks, as well as some additional checks.
     results = CheckChangeOnCommit(input_api, output_api)
-    # TODO(crbug.com/1220846): Open Screen needs a `main` config_set.
-    #results.extend(
-    #    input_api.canned_checks.CheckChangedLUCIConfigs(input_api, output_api))
+    results.extend(
+        input_api.canned_checks.CheckChangedLUCIConfigs(input_api, output_api))
     return results
 
 
