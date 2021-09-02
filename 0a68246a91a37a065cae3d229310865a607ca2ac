@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bced86f_4116cbd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "Looks great overall!  I had a few comments/questions.  Nothing urgent though.",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0429f168_d0c6311d",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "Does anything call this?  We should only run this trigger if main.star is modified.",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a3dbd72_78c5e38f",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "Do we need to re-enable this trigger?",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0254c5c_853b4217",
+        "filename": "infra/config/global/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "Thank you for writing up a README.md!  I will link this from our other infra documentation.",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6463fb3_18ffa9dd",
+        "filename": "infra/config/global/main.star",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "This host doesn\u0027t seem to point to anything useful (it seems to be a Web form).  Is the Chromium CQ status useful for Open Screen (since we don\u0027t use the Chromium CQ?) Or is there a page on this host specifically for Open Screen?",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a501a5_80d4d8ca",
+        "filename": "infra/config/global/main.star",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "Did you mean acl.CQ_DRY_RUNNER instead of CQ_COMMITTER?",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0292b099_1396c8d8",
+        "filename": "infra/config/global/main.star",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "Nit: I don\u0027t think all of these are passed directly to GN?  Some of them seem to be consumed by recipe steps.",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db00415d_03b4cd3b",
+        "filename": "infra/config/global/main.star",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "Is it okay to omit properties that are specifically set to False?",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "136b2435_046ac9d2",
+        "filename": "infra/config/global/main.star",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-02T22:10:33Z",
+      "side": 1,
+      "message": "Our coverage bot has been not working for some time...\n\nhttps://b.corp.google.com/issues/193712823 \n\n:-(",
+      "revId": "0a68246a91a37a065cae3d229310865a607ca2ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
