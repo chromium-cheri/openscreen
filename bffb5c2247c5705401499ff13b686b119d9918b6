@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cbf3d4d_c00763e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-07T22:31:26Z",
+      "side": 1,
+      "message": "Thanks for the cleanup!\n\nI did some searching around on destructors in abstract classes.  It turns out you can declare them as pure virtual (\u003d 0), but with a default definition.  It prevents someone from accidentally instantiating the classes they belong to.  However I don\u0027t think it will really makes any difference in practice.",
+      "revId": "bffb5c2247c5705401499ff13b686b119d9918b6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
