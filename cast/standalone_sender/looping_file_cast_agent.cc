@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "cast/common/channel/message_util.h"
+#include "cast/common/public/cast_streaming_app_ids.h"
 #include "cast/standalone_sender/looping_file_sender.h"
 #include "cast/streaming/capture_recommendations.h"
 #include "cast/streaming/constants.h"
@@ -80,7 +81,7 @@ void LoopingFileCastAgent::OnConnected(SenderSocketFactory* factory,
                MakeSimpleUTF8Message(
                    kReceiverNamespace,
                    StringPrintf(kLaunchMessageTemplate, next_request_id_++,
-                                GetMirroringAppId())));
+                                GetStreamingAppId().c_str())));
 }
 
 void LoopingFileCastAgent::OnError(SenderSocketFactory* factory,
@@ -150,11 +151,10 @@ void LoopingFileCastAgent::OnMessage(VirtualConnectionRouter* router,
   }
 }
 
-const char* LoopingFileCastAgent::GetMirroringAppId() const {
-  if (connection_settings_ && !connection_settings_->should_include_video) {
-    return kMirroringAudioOnlyAppId;
-  }
-  return kMirroringAppId;
+std::string LoopingFileCastAgent::GetStreamingAppId() const {
+  return connection_settings_ && !connection_settings_->should_include_video
+             ? GetCastStreamingAudioOnlyAppId()
+             : GetCastStreamingAudioVideoAppId();
 }
 
 void LoopingFileCastAgent::HandleReceiverStatus(const Json::Value& status) {
