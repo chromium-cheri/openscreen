@@ -13,6 +13,7 @@
 #include "cast/streaming/capture_recommendations.h"
 #include "cast/streaming/constants.h"
 #include "cast/streaming/offer_messages.h"
+#include "cast/streaming/public/cast_streaming_app_ids.h"
 #include "json/value.h"
 #include "platform/api/tls_connection_factory.h"
 #include "util/json/json_helpers.h"
@@ -80,7 +81,7 @@ void LoopingFileCastAgent::OnConnected(SenderSocketFactory* factory,
                MakeSimpleUTF8Message(
                    kReceiverNamespace,
                    StringPrintf(kLaunchMessageTemplate, next_request_id_++,
-                                GetMirroringAppId())));
+                                GetStreamingAppId().c_str())));
 }
 
 void LoopingFileCastAgent::OnError(SenderSocketFactory* factory,
@@ -150,11 +151,10 @@ void LoopingFileCastAgent::OnMessage(VirtualConnectionRouter* router,
   }
 }
 
-const char* LoopingFileCastAgent::GetMirroringAppId() const {
-  if (connection_settings_ && !connection_settings_->should_include_video) {
-    return kMirroringAudioOnlyAppId;
-  }
-  return kMirroringAppId;
+std::string LoopingFileCastAgent::GetStreamingAppId() const {
+  return connection_settings_ && !connection_settings_->should_include_video
+             ? GetCastStreamingAudioOnlyAppId()
+             : GetCastStreamingAudioVideoAppId();
 }
 
 void LoopingFileCastAgent::HandleReceiverStatus(const Json::Value& status) {

@@ -17,6 +17,8 @@ source_set("streaming_configs") {
     "constants.h",
     "message_fields.cc",
     "message_fields.h",
+    "public/cast_streaming_app_ids.cc",
+    "public/cast_streaming_app_ids.h",
     "resolution.cc",
     "resolution.h",
   ]
@@ -191,6 +193,7 @@ source_set("unittests") {
     "offer_messages_unittest.cc",
     "packet_receive_stats_tracker_unittest.cc",
     "packet_util_unittest.cc",
+    "public/cast_streaming_app_ids_unittest.cc",
     "receiver_session_unittest.cc",
     "receiver_unittest.cc",
     "rpc_messenger_unittest.cc",
