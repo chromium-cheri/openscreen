@@ -56,9 +56,7 @@ class Publisher : public discovery::DnsSdServicePublisher<ReceiverInfo> {
   ~Publisher() override = default;
 
   bool IsInstanceIdClaimed(const std::string& requested_id) {
-    auto it =
-        std::find(instance_ids_.begin(), instance_ids_.end(), requested_id);
-    return it != instance_ids_.end();
+    return !Contains(instance_id_, requested_id);
   }
 
  private:
@@ -86,11 +84,10 @@ class ServiceReceiver : public discovery::DnsSdServiceWatcher<ReceiverInfo> {
   }
 
   bool IsServiceFound(const ReceiverInfo& check_service) {
-    return std::find_if(receiver_infos_.begin(), receiver_infos_.end(),
-                        [&check_service](const ReceiverInfo& info) {
-                          return info.friendly_name ==
-                                 check_service.friendly_name;
-                        }) != receiver_infos_.end();
+    return ContainsIf(
+        receiver_infos_, [&check_service](const ReceiverInfo& info) {
+          return info.friendly_name == check_service.friendly_name;
+        });
   }
 
   void EraseReceivedServices() { receiver_infos_.clear(); }
