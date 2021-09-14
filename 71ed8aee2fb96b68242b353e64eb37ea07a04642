@@ -18,6 +18,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "530bde36_2bd008cb",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-14T20:27:08Z",
+      "side": 1,
+      "message": "Some of these will be used from Chromium and other embedders, which will  mean three-deep namespace references, or using statements which discard the context.  I think this way is the right tradeoff.",
+      "parentUuid": "e5dd4e44_f8a23c30",
+      "revId": "71ed8aee2fb96b68242b353e64eb37ea07a04642",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7a463d3_cc1969a0",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-09-14T19:27:44Z",
       "side": 1,
       "message": "Any reason to not just also have this method in the header? It\u0027s barely more complex than the others.",
+      "revId": "71ed8aee2fb96b68242b353e64eb37ea07a04642",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62dd6f58_6bd2e6ac",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-14T20:27:08Z",
+      "side": 1,
+      "message": "It has a complex ctor (std::vector), so inlining will result in some code bloat.",
+      "parentUuid": "c7a463d3_cc1969a0",
       "revId": "71ed8aee2fb96b68242b353e64eb37ea07a04642",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
