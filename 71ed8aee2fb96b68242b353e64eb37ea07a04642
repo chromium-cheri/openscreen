@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5dd4e44_f8a23c30",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-09-14T19:27:44Z",
+      "side": 1,
+      "message": "Nit: I know we usually go pretty flat but this would be a great place for a namespace to contain all of these static helper methods. Consider:\n\n  namespace cast_streaming_app_ids {\n    constexpr const char* GetAudioVideoId();\n    constexpr const char* GetAudioOnlyId();\n    constexpr bool IsAudioVideoId();\n    constexpr cool IsAudioOnlyId();\n    constexpr bool IsId();\n    std::vector\u003cstd::string\u003e GetIds();\n  }",
+      "revId": "71ed8aee2fb96b68242b353e64eb37ea07a04642",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7a463d3_cc1969a0",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2021-09-14T19:27:44Z",
+      "side": 1,
+      "message": "Any reason to not just also have this method in the header? It\u0027s barely more complex than the others.",
+      "revId": "71ed8aee2fb96b68242b353e64eb37ea07a04642",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
