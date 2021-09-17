@@ -69,6 +69,24 @@
       "parentUuid": "55d9eb72_b641d9c3",
       "revId": "d7d6acebd94f6e39e4a251253b7fa101b7ef02d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d63decc_c426f6f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-09-17T17:41:46Z",
+      "side": 1,
+      "message": "\u003e I didn\u0027t have any particular problem picking up on the first time I saw it.\n\u003e We could put the STL utility functions into a namespace, so this would become stl_util::Contains()\n\nContains without the namespace does seem clear enough to me. Just wanted to call it out to be sure you\u0027d agree - openscreen + chromium feel \"normal\" enough to me at this point that I can\u0027t really judge what would be actually helpful vs making the code harder to read\n\n\u003e That would avoid any potential name collisions with other Contains() functions/methods\n\nIf this is a concern, would it be worth updating to just be openscreen::Contains in code instead? IMO this is overkill at the moment and can be done if we need it later on, but I\u0027m not against it",
+      "parentUuid": "04a58b52_e064ab4a",
+      "revId": "d7d6acebd94f6e39e4a251253b7fa101b7ef02d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
