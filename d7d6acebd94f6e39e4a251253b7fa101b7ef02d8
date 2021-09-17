@@ -33,6 +33,24 @@
       "message": "The code LGTM\n\nBut I question if adding a level of indirection would make the code more confusing for devs outside of our team? The name is clear enough I don\u0027t have a strong opinion either way though",
       "revId": "d7d6acebd94f6e39e4a251253b7fa101b7ef02d8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55d9eb72_b641d9c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-17T16:51:14Z",
+      "side": 1,
+      "message": "Fair concern.  This is patterned after base::Contains in Chromium, which I didn\u0027t have any particular problem picking up on the first time I saw it.\n\nWe could put the STL utility functions into a namespace, so this would become stl_util::Contains().  That would avoid any potential name collisions with other Contains() functions/methods, at the cost of some extra typing, and an annoying mechanical change to update the existing functions.",
+      "parentUuid": "927c1aa0_a2d68360",
+      "revId": "d7d6acebd94f6e39e4a251253b7fa101b7ef02d8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
