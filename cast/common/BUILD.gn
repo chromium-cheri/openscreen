@@ -23,6 +23,8 @@ config("certificate_config") {
       defines += [ "CAST_ALLOW_DEVELOPER_CERTIFICATE" ]
     }
   }
+
+  configs = [ "../../build:openscreen_warnings" ]
 }
 
 source_set("certificate") {

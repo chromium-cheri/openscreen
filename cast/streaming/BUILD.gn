@@ -21,7 +21,10 @@ source_set("streaming_configs") {
     "resolution.h",
   ]
 
-  public_configs = [ "../../build:openscreen_include_dirs" ]
+  public_configs = [
+    "../../build:openscreen_include_dirs",
+    "../../build:openscreen_warnings",
+  ]
 
   public_deps = [
     "../../third_party/abseil",

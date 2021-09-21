@@ -17,3 +17,7 @@ config("openscreen_include_dirs") {
     "$root_gen_dir/$openscreen_root",
   ]
 }
+
+config("openscreen_warnings") {
+  cflags = [ "-Wno-shadow" ]
+}
