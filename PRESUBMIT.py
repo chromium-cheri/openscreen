@@ -156,10 +156,12 @@ def _CheckChangeLintsClean(input_api, output_api):
 
 def _CheckLuciCfg(input_api, output_api):
     """Check the main.star lucicfg generated files."""
-    return input_api.RunTests(
-        input_api.canned_checks.CheckLucicfgGenOutput(
-            input_api, output_api,
-            os.path.join('infra', 'config', 'global', 'main.star')))
+    for path in [f.LocalPath() for f in input_api.AffectedFiles()]:
+        if os.path.basename(path) == 'main.star':
+            return input_api.RunTests(
+                input_api.canned_checks.CheckLucicfgGenOutput(
+                    input_api, output_api, path))
+    return None
 
 
 def _CommonChecks(input_api, output_api):
@@ -209,9 +211,11 @@ def _CommonChecks(input_api, output_api):
     # Run tools/licenses on code change.
     # TODO(https://crbug.com/1215335): licenses check is confused by our
     # buildtools checkout that doesn't actually check out the libraries.
-    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'));
+    licenses.PRUNE_PATHS.add(os.path.join('buildtools', 'third_party'))
     results.extend(_CheckLicenses(input_api, output_api))
 
+    # Check LUCI main.star
+    results.extend(_CheckLuciCfg(input_api, output_api))
     return results
 
 
