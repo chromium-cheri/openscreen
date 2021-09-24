@@ -110,10 +110,12 @@ void DeviceAuthNamespaceHandler::OnMessage(VirtualConnectionRouter* router,
   }
 
   std::unique_ptr<AuthResponse> auth_response(new AuthResponse());
-  auth_response->set_client_auth_certificate(device_creds.certs[0]);
+  const std::vector<uint8_t>& client_auth_cert = device_creds.certs[0];
+  auth_response->set_client_auth_certificate(client_auth_cert.data(),
+                                             client_auth_cert.size());
   for (auto it = device_creds.certs.begin() + 1; it != device_creds.certs.end();
        ++it) {
-    auth_response->add_intermediate_certificate(*it);
+    auth_response->add_intermediate_certificate(it->data(), it->size());
   }
   auth_response->set_signature_algorithm(::cast::channel::RSASSA_PKCS1v15);
   auth_response->set_hash_algorithm(hash_alg);

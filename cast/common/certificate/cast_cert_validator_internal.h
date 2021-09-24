@@ -12,6 +12,7 @@
 
 #include "absl/strings/string_view.h"
 #include "platform/base/error.h"
+
 namespace openscreen {
 namespace cast {
 
@@ -67,7 +68,7 @@ struct CertificatePathResult {
   std::vector<X509*> path;
 };
 
-Error FindCertificatePath(const std::vector<std::string>& der_certs,
+Error FindCertificatePath(const std::vector<std::vector<uint8_t>>& der_certs,
                           const DateTime& time,
                           CertificatePathResult* result_path,
                           TrustStore* trust_store);

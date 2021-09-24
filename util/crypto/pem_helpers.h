@@ -14,9 +14,17 @@
 
 namespace openscreen {
 
-std::vector<std::string> ReadCertificatesFromPemFile(
+// Reads one or more X509 certificates from the file at |filename|.  |filename|
+// can be an absolute or relative pathname.
+std::vector<std::vector<uint8_t>> ReadCertificatesFromPemFile(
     absl::string_view filename);
 
+// Reads exactly one X509 certificates from the file at |filename|.  |filename|
+// can be an absolute or relative pathname.
+std::vector<uint8_t> ReadCertificateFromPemFile(absl::string_view filename);
+
+// Reads an EVP_PKEY object from the file at |filename|.  |filename| can be an
+// absolute or relative pathname.
 bssl::UniquePtr<EVP_PKEY> ReadKeyFromPemFile(absl::string_view filename);
 
 }  // namespace openscreen

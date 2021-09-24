@@ -7,7 +7,9 @@
 #include <openssl/digest.h>
 #include <time.h>
 
+#include <algorithm>
 #include <memory>
+#include <vector>
 
 #include "absl/strings/string_view.h"
 #include "cast/common/certificate/cast_cert_validator_internal.h"
@@ -76,8 +78,11 @@ bool VerifyCRL(const Crl& crl,
                TrustStore* trust_store,
                DateTime* overall_not_after) {
   CertificatePathResult result_path = {};
+  std::vector<uint8_t> signer_cert(crl.signer_cert().size());
+  std::copy(crl.signer_cert().begin(), crl.signer_cert().end(),
+            signer_cert.begin());
   Error error =
-      FindCertificatePath({crl.signer_cert()}, time, &result_path, trust_store);
+      FindCertificatePath({signer_cert}, time, &result_path, trust_store);
   if (!error.ok()) {
     return false;
   }

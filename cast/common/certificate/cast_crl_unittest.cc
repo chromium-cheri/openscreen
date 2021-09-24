@@ -4,6 +4,9 @@
 
 #include "cast/common/certificate/cast_crl.h"
 
+#include <algorithm>
+#include <utility>
+
 #include "cast/common/certificate/cast_cert_validator.h"
 #include "cast/common/certificate/cast_cert_validator_internal.h"
 #include "cast/common/certificate/proto/test_suite.pb.h"
@@ -33,7 +36,7 @@ enum TestStepResult {
 // Verifies that the provided certificate chain is valid at the specified time
 // and chains up to a trust anchor.
 bool TestVerifyCertificate(TestStepResult expected_result,
-                           const std::vector<std::string>& der_certs,
+                           const std::vector<std::vector<uint8_t>>& der_certs,
                            const DateTime& time,
                            TrustStore* cast_trust_store) {
   std::unique_ptr<CertVerificationContext> context;
@@ -67,7 +70,7 @@ bool TestVerifyCRL(TestStepResult expected_result,
 // If |crl_required| is set, then a valid Cast CRL must be provided.
 // Otherwise, a missing CRL is be ignored.
 bool TestVerifyRevocation(Error::Code expected_result,
-                          const std::vector<std::string>& der_certs,
+                          const std::vector<std::vector<uint8_t>>& der_certs,
                           const std::string& crl_bundle,
                           const DateTime& crl_time,
                           const DateTime& cert_time,
@@ -110,9 +113,11 @@ bool RunTest(const DeviceCertTest& test_case) {
     EXPECT_FALSE(cast_trust_store->certs.empty());
   }
 
-  std::vector<std::string> der_cert_path;
+  std::vector<std::vector<uint8_t>> der_cert_path;
   for (const auto& cert : test_case.der_cert_path()) {
-    der_cert_path.push_back(cert);
+    std::vector<uint8_t> der_cert(cert.size());
+    std::copy(cert.begin(), cert.end(), der_cert.begin());
+    der_cert_path.push_back(std::move(der_cert));
   }
 
   DateTime cert_verification_time;

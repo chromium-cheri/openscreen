@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <utility>
 
 #include "absl/strings/str_cat.h"
 #include "cast/common/certificate/cast_cert_validator.h"
@@ -271,12 +272,14 @@ ErrorOr<CastDeviceCertPolicy> AuthenticateChallengeReplyImpl(
     const DateTime& verification_time) {
   DeviceAuthMessage auth_message;
   Error result = ParseAuthMessage(challenge_reply, &auth_message);
+  OSP_LOG_INFO << result;
   if (!result.ok()) {
     return result;
   }
 
   result = VerifyTLSCertificateValidity(peer_cert,
                                         DateTimeToSeconds(verification_time));
+  OSP_LOG_INFO << result;
   if (!result.ok()) {
     return result;
   }
@@ -285,6 +288,7 @@ ErrorOr<CastDeviceCertPolicy> AuthenticateChallengeReplyImpl(
   const std::string& nonce_response = response.sender_nonce();
 
   result = auth_context.VerifySenderNonce(nonce_response);
+  OSP_LOG_INFO << result;
   if (!result.ok()) {
     return result;
   }
@@ -366,11 +370,17 @@ ErrorOr<CastDeviceCertPolicy> VerifyCredentialsImpl(
   std::unique_ptr<CertVerificationContext> verification_context;
 
   // Build a single vector containing the certificate chain.
-  std::vector<std::string> cert_chain;
-  cert_chain.push_back(response.client_auth_certificate());
-  cert_chain.insert(cert_chain.end(),
-                    response.intermediate_certificate().begin(),
-                    response.intermediate_certificate().end());
+  std::vector<std::vector<uint8_t>> cert_chain;
+  std::vector<uint8_t> client_auth_cert(
+      response.client_auth_certificate().size());
+  std::copy(response.client_auth_certificate().begin(),
+            response.client_auth_certificate().end(), client_auth_cert.begin());
+  cert_chain.push_back(std::move(client_auth_cert));
+  for (const std::string& cert : response.intermediate_certificate()) {
+    std::vector<uint8_t> intermediate_cert(cert.size());
+    std::copy(cert.begin(), cert.end(), intermediate_cert.begin());
+    cert_chain.push_back(std::move(intermediate_cert));
+  }
 
   // Parse the CRL.
   std::unique_ptr<CastCRL> crl;
@@ -384,9 +394,15 @@ ErrorOr<CastDeviceCertPolicy> VerifyCredentialsImpl(
       VerifyDeviceCert(cert_chain, verification_time, &verification_context,
                        &device_policy, crl.get(), crl_policy, cast_trust_store);
 
+  OSP_LOG_INFO << verify_result;
+  if (!verify_result.ok()) {
+    return verify_result;
+  }
+
   // Handle and report errors.
   Error result = MapToOpenscreenError(verify_result,
                                       crl_policy == CRLPolicy::kCrlRequired);
+  OSP_LOG_INFO << result;
   if (!result.ok()) {
     return result;
   }
@@ -395,6 +411,7 @@ ErrorOr<CastDeviceCertPolicy> VerifyCredentialsImpl(
   DigestAlgorithm digest_algorithm;
   Error digest_result = VerifyAndMapDigestAlgorithm(
       response.hash_algorithm(), &digest_algorithm, enforce_sha256_checking);
+  OSP_LOG_INFO << digest_result;
   if (!digest_result.ok()) {
     return digest_result;
   }

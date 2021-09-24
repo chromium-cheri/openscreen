@@ -67,13 +67,13 @@ TbsCrl MakeTbsCrl(uint64_t not_before,
 // directly signed by a Cast CRL root CA (possibly distinct from Cast root CA).
 void PackCrlIntoFile(const std::string& filename,
                      const TbsCrl& tbs_crl,
-                     const std::string& crl_inter_der,
+                     const std::vector<uint8_t>& crl_inter_der,
                      EVP_PKEY* crl_inter_key) {
   CrlBundle crl_bundle;
   Crl* crl = crl_bundle.add_crls();
   std::string* tbs_crl_serial = crl->mutable_tbs_crl();
   tbs_crl.SerializeToString(tbs_crl_serial);
-  crl->set_signer_cert(crl_inter_der);
+  crl->set_signer_cert(crl_inter_der.data(), crl_inter_der.size());
   ErrorOr<std::string> signature =
       SignData(EVP_sha256(), crl_inter_key,
                absl::Span<const uint8_t>{
@@ -100,27 +100,28 @@ int CastMain() {
   OSP_DCHECK(inter_key);
   OSP_DCHECK(crl_inter_key);
 
-  std::vector<std::string> chain_der =
+  std::vector<std::vector<uint8_t>> chain_der =
       ReadCertificatesFromPemFile(data_path + "device_chain.pem");
-  std::vector<std::string> crl_inter_der =
-      ReadCertificatesFromPemFile(data_path + "crl_inter.pem");
+  std::vector<uint8_t> crl_inter_der =
+      ReadCertificateFromPemFile(data_path + "crl_inter.pem");
   OSP_DCHECK_EQ(chain_der.size(), 3u);
-  OSP_DCHECK_EQ(crl_inter_der.size(), 1u);
 
-  std::string& device_der = chain_der[0];
-  std::string& inter_der = chain_der[1];
-  std::string& root_der = chain_der[2];
+  std::vector<uint8_t>& device_der = chain_der[0];
+  std::vector<uint8_t>& inter_der = chain_der[1];
+  std::vector<uint8_t>& root_der = chain_der[2];
 
-  auto* data = reinterpret_cast<const uint8_t*>(device_der.data());
+  const auto* device_der_data = device_der.data();
   bssl::UniquePtr<X509> device_cert{
-      d2i_X509(nullptr, &data, device_der.size())};
-  data = reinterpret_cast<const uint8_t*>(inter_der.data());
-  bssl::UniquePtr<X509> inter_cert{d2i_X509(nullptr, &data, inter_der.size())};
-  data = reinterpret_cast<const uint8_t*>(root_der.data());
-  bssl::UniquePtr<X509> root_cert{d2i_X509(nullptr, &data, root_der.size())};
-  data = reinterpret_cast<const uint8_t*>(crl_inter_der[0].data());
+      d2i_X509(nullptr, &device_der_data, device_der.size())};
+  const auto* inter_der_data = inter_der.data();
+  bssl::UniquePtr<X509> inter_cert{
+      d2i_X509(nullptr, &inter_der_data, inter_der.size())};
+  const auto* root_der_data = root_der.data();
+  bssl::UniquePtr<X509> root_cert{
+      d2i_X509(nullptr, &root_der_data, root_der.size())};
+  const auto* crl_inter_der_data = crl_inter_der.data();
   bssl::UniquePtr<X509> crl_inter_cert{
-      d2i_X509(nullptr, &data, crl_inter_der[0].size())};
+      d2i_X509(nullptr, &crl_inter_der_data, crl_inter_der.size())};
   OSP_DCHECK(device_cert);
   OSP_DCHECK(inter_cert);
   OSP_DCHECK(root_cert);
@@ -139,7 +140,7 @@ int CastMain() {
   std::chrono::seconds not_after = DateTimeToSeconds(july2020);
   TbsCrl tbs_crl = MakeTbsCrl(not_before.count(), not_after.count(),
                               device_cert.get(), inter_cert.get());
-  PackCrlIntoFile(data_path + "good_crl.pb", tbs_crl, crl_inter_der[0],
+  PackCrlIntoFile(data_path + "good_crl.pb", tbs_crl, crl_inter_der,
                   crl_inter_key.get());
 
   // NOTE: CRL used outside its valid time range.
@@ -151,8 +152,8 @@ int CastMain() {
     std::chrono::seconds not_after = DateTimeToSeconds(august2019);
     TbsCrl tbs_crl = MakeTbsCrl(not_before.count(), not_after.count(),
                                 device_cert.get(), inter_cert.get());
-    PackCrlIntoFile(data_path + "invalid_time_crl.pb", tbs_crl,
-                    crl_inter_der[0], crl_inter_key.get());
+    PackCrlIntoFile(data_path + "invalid_time_crl.pb", tbs_crl, crl_inter_der,
+                    crl_inter_key.get());
   }
 
   // NOTE: Device's issuer revoked.
@@ -160,8 +161,8 @@ int CastMain() {
     TbsCrl tbs_crl = MakeTbsCrl(not_before.count(), not_after.count(),
                                 device_cert.get(), inter_cert.get());
     AddRevokedPublicKeyHash(&tbs_crl, inter_cert.get());
-    PackCrlIntoFile(data_path + "issuer_revoked_crl.pb", tbs_crl,
-                    crl_inter_der[0], crl_inter_key.get());
+    PackCrlIntoFile(data_path + "issuer_revoked_crl.pb", tbs_crl, crl_inter_der,
+                    crl_inter_key.get());
   }
 
   // NOTE: Device revoked.
@@ -169,8 +170,8 @@ int CastMain() {
     TbsCrl tbs_crl = MakeTbsCrl(not_before.count(), not_after.count(),
                                 device_cert.get(), inter_cert.get());
     AddRevokedPublicKeyHash(&tbs_crl, device_cert.get());
-    PackCrlIntoFile(data_path + "device_revoked_crl.pb", tbs_crl,
-                    crl_inter_der[0], crl_inter_key.get());
+    PackCrlIntoFile(data_path + "device_revoked_crl.pb", tbs_crl, crl_inter_der,
+                    crl_inter_key.get());
   }
 
   // NOTE: Issuer serial revoked.
@@ -185,7 +186,7 @@ int CastMain() {
     OSP_DCHECK_LE(serial, UINT64_MAX - 20);
     AddSerialNumberRange(&tbs_crl, root_cert.get(), serial - 10, serial + 20);
     PackCrlIntoFile(data_path + "issuer_serial_revoked_crl.pb", tbs_crl,
-                    crl_inter_der[0], crl_inter_key.get());
+                    crl_inter_der, crl_inter_key.get());
   }
 
   // NOTE: Device serial revoked.
@@ -200,7 +201,7 @@ int CastMain() {
     OSP_DCHECK_LE(serial, UINT64_MAX - 20);
     AddSerialNumberRange(&tbs_crl, inter_cert.get(), serial - 10, serial + 20);
     PackCrlIntoFile(data_path + "device_serial_revoked_crl.pb", tbs_crl,
-                    crl_inter_der[0], crl_inter_key.get());
+                    crl_inter_der, crl_inter_key.get());
   }
 
   // NOTE: Bad |signer_cert| used for Crl (not issued by Cast CRL root).
@@ -215,8 +216,8 @@ int CastMain() {
   {
     TbsCrl tbs_crl = MakeTbsCrl(not_before.count(), not_after.count(),
                                 device_cert.get(), inter_cert.get());
-    PackCrlIntoFile(data_path + "bad_signature_crl.pb", tbs_crl,
-                    crl_inter_der[0], inter_key.get());
+    PackCrlIntoFile(data_path + "bad_signature_crl.pb", tbs_crl, crl_inter_der,
+                    inter_key.get());
   }
 
   return 0;

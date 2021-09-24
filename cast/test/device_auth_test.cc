@@ -118,6 +118,9 @@ class DeviceAuthTest : public ::testing::Test {
                                  : CRLPolicy::kCrlOptional,
             &fake_trust_store, fake_crl_trust_store, December2019);
     EXPECT_EQ(error_or_policy.is_value(), should_succeed);
+    if (error_or_policy.is_error()) {
+      OSP_LOG_INFO << error_or_policy.error();
+    }
   }
 
   const std::string& data_path_{GetSpecificTestDataPath()};

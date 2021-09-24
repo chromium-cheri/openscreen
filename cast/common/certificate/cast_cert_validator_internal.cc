@@ -292,8 +292,8 @@ Error::Code VerifyCertificateChain(const std::vector<CertPathStep>& path,
   return error;
 }
 
-X509* ParseX509Der(const std::string& der) {
-  const uint8_t* data = reinterpret_cast<const uint8_t*>(der.data());
+X509* ParseX509Der(const std::vector<uint8_t>& der) {
+  const auto* data = der.data();
   return d2i_X509(nullptr, &data, der.size());
 }
 
@@ -372,10 +372,11 @@ bool GetCertValidTimeRange(X509* cert,
 TrustStore TrustStore::CreateInstanceFromPemFile(absl::string_view file_path) {
   TrustStore store;
 
-  std::vector<std::string> certs = ReadCertificatesFromPemFile(file_path);
+  std::vector<std::vector<uint8_t>> certs =
+      ReadCertificatesFromPemFile(file_path);
   for (const auto& der_cert : certs) {
-    const uint8_t* data = (const uint8_t*)der_cert.data();
-    store.certs.emplace_back(d2i_X509(nullptr, &data, der_cert.size()));
+    const auto* cert_data = der_cert.data();
+    store.certs.emplace_back(d2i_X509(nullptr, &cert_data, der_cert.size()));
   }
 
   return store;
@@ -395,7 +396,7 @@ bool VerifySignedData(const EVP_MD* digest,
                            data.data, data.length) == 1);
 }
 
-Error FindCertificatePath(const std::vector<std::string>& der_certs,
+Error FindCertificatePath(const std::vector<std::vector<uint8_t>>& der_certs,
                           const DateTime& time,
                           CertificatePathResult* result_path,
                           TrustStore* trust_store) {

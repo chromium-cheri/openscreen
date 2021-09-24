@@ -22,11 +22,12 @@ void InitStaticCredentialsFromFiles(StaticCredentialsProvider* creds,
                                     absl::string_view tls_filename) {
   auto private_key = ReadKeyFromPemFile(privkey_filename);
   ASSERT_TRUE(private_key);
-  std::vector<std::string> certs = ReadCertificatesFromPemFile(chain_filename);
+  std::vector<std::vector<uint8_t>> certs =
+      ReadCertificatesFromPemFile(chain_filename);
   ASSERT_GT(certs.size(), 1u);
 
   // Use the root of the chain as the trust store for the test.
-  auto* data = reinterpret_cast<const uint8_t*>(certs.back().data());
+  const uint8_t* data = certs.back().data();
   auto fake_root =
       bssl::UniquePtr<X509>(d2i_X509(nullptr, &data, certs.back().size()));
   ASSERT_TRUE(fake_root);
@@ -38,17 +39,14 @@ void InitStaticCredentialsFromFiles(StaticCredentialsProvider* creds,
   creds->device_creds = DeviceCredentials{
       std::move(certs), std::move(private_key), std::string()};
 
-  const std::vector<std::string> tls_cert =
-      ReadCertificatesFromPemFile(tls_filename);
-  ASSERT_EQ(tls_cert.size(), 1u);
-  data = reinterpret_cast<const uint8_t*>(tls_cert[0].data());
+  std::vector<uint8_t> tls_cert = ReadCertificateFromPemFile(tls_filename);
+  const auto* tls_cert_data = tls_cert.data();
   if (parsed_cert) {
-    *parsed_cert =
-        bssl::UniquePtr<X509>(d2i_X509(nullptr, &data, tls_cert[0].size()));
+    *parsed_cert = bssl::UniquePtr<X509>(
+        d2i_X509(nullptr, &tls_cert_data, tls_cert.size()));
     ASSERT_TRUE(*parsed_cert);
   }
-  const auto* begin = reinterpret_cast<const uint8_t*>(tls_cert[0].data());
-  creds->tls_cert_der.assign(begin, begin + tls_cert[0].size());
+  creds->tls_cert_der.assign(tls_cert_data, tls_cert_data + tls_cert.size());
 }
 
 }  // namespace cast

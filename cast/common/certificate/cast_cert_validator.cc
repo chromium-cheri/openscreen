@@ -129,7 +129,7 @@ CastDeviceCertPolicy GetAudioPolicy(const std::vector<X509*>& path) {
 
 }  // namespace
 
-Error VerifyDeviceCert(const std::vector<std::string>& der_certs,
+Error VerifyDeviceCert(const std::vector<std::vector<uint8_t>>& der_certs,
                        const DateTime& time,
                        std::unique_ptr<CertVerificationContext>* context,
                        CastDeviceCertPolicy* policy,

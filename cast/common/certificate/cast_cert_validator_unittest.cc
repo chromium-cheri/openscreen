@@ -52,7 +52,8 @@ void RunTest(Error::Code expected_result,
              const DateTime& time,
              TrustStoreDependency trust_store_dependency,
              const std::string& optional_signed_data_file_name) {
-  std::vector<std::string> certs = ReadCertificatesFromPemFile(certs_file_name);
+  std::vector<std::vector<uint8_t>> certs =
+      ReadCertificatesFromPemFile(certs_file_name);
   TrustStore* trust_store;
   std::unique_ptr<TrustStore> fake_trust_store;
 
@@ -65,8 +66,8 @@ void RunTest(Error::Code expected_result,
       ASSERT_FALSE(certs.empty());
 
       // Parse the root certificate of the chain.
-      const uint8_t* data = (const uint8_t*)certs.back().data();
-      X509* fake_root = d2i_X509(nullptr, &data, certs.back().size());
+      const auto* root_cert_data = certs.back().data();
+      X509* fake_root = d2i_X509(nullptr, &root_cert_data, certs.back().size());
       ASSERT_TRUE(fake_root);
       certs.pop_back();
 

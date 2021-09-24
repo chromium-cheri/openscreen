@@ -26,6 +26,10 @@ std::string ReadTestDataPath() {
   }
   OSP_DCHECK_EQ(slashes_found, 3);
 
+  OSP_LOG_INFO << "OPENSCREEN_TEST_DATA_DIR: " << OPENSCREEN_TEST_DATA_DIR;
+  OSP_LOG_INFO << "exe_path: " << exe_path;
+  OSP_LOG_INFO << "exe_path.substr(0,i+1): " << exe_path.substr(0, i + 1);
+
   return exe_path.substr(0, i + 1) + OPENSCREEN_TEST_DATA_DIR;
 }
 
