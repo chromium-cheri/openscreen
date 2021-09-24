@@ -20,7 +20,7 @@ struct DeviceCredentials {
   // The device's certificate chain in DER form, where |certs[0]| is the
   // device's certificate and |certs[certs.size()-1]| is the last intermediate
   // before a Cast root certificate.
-  std::vector<std::string> certs;
+  std::vector<std::vector<uint8_t>> certs;
 
   // The device's private key that corresponds to the certificate in |certs[0]|.
   bssl::UniquePtr<EVP_PKEY> private_key;

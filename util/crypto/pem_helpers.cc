@@ -8,27 +8,31 @@
 #include <openssl/pem.h>
 #include <openssl/rsa.h>
 #include <stdio.h>
-#include <string.h>
+
+#include <cstring>
+#include <utility>
 
 #include "absl/strings/match.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {
 
-std::vector<std::string> ReadCertificatesFromPemFile(
+std::vector<std::vector<uint8_t>> ReadCertificatesFromPemFile(
     absl::string_view filename) {
   FILE* fp = fopen(filename.data(), "r");
   if (!fp) {
     return {};
   }
-  std::vector<std::string> certs;
+  std::vector<std::vector<uint8_t>> certs;
   char* name;
   char* header;
   unsigned char* data;
   long length;  // NOLINT
   while (PEM_read(fp, &name, &header, &data, &length) == 1) {
     if (absl::StartsWith(name, "CERTIFICATE")) {
-      certs.emplace_back(reinterpret_cast<char*>(data), length);
+      std::vector<uint8_t> cert(static_cast<size_t>(length));
+      std::memcpy(cert.data(), data, static_cast<size_t>(length));
+      certs.push_back(std::move(cert));
     }
     OPENSSL_free(name);
     OPENSSL_free(header);
@@ -36,6 +40,14 @@ std::vector<std::string> ReadCertificatesFromPemFile(
   }
   fclose(fp);
   return certs;
+}
+
+std::vector<std::uint8_t> ReadCertificateFromPemFile(
+    absl::string_view filename) {
+  std::vector<std::vector<std::uint8_t>> certs =
+      ReadCertificatesFromPemFile(filename);
+  OSP_DCHECK_EQ(1u, certs.size());
+  return certs[0];
 }
 
 bssl::UniquePtr<EVP_PKEY> ReadKeyFromPemFile(absl::string_view filename) {

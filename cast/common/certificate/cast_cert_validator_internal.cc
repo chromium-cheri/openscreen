@@ -372,10 +372,11 @@ bool GetCertValidTimeRange(X509* cert,
 TrustStore TrustStore::CreateInstanceFromPemFile(absl::string_view file_path) {
   TrustStore store;
 
-  std::vector<std::string> certs = ReadCertificatesFromPemFile(file_path);
+  std::vector<std::vector<uint8_t>> certs =
+      ReadCertificatesFromPemFile(file_path);
   for (const auto& der_cert : certs) {
-    const uint8_t* data = (const uint8_t*)der_cert.data();
-    store.certs.emplace_back(d2i_X509(nullptr, &data, der_cert.size()));
+    const auto* cert_data = der_cert.data();
+    store.certs.emplace_back(d2i_X509(nullptr, &cert_data, der_cert.size()));
   }
 
   return store;

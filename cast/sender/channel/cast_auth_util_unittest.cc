@@ -125,7 +125,7 @@ class CastAuthUtilTest : public ::testing::Test {
   static AuthResponse CreateAuthResponse(
       std::vector<uint8_t>* signed_data,
       ::cast::channel::HashAlgorithm digest_algorithm) {
-    std::vector<std::string> chain = ReadCertificatesFromPemFile(
+    std::vector<std::vector<uint8_t>> chain = ReadCertificatesFromPemFile(
         GetSpecificTestDataPath() + "certificates/chromecast_gen1.pem");
     OSP_CHECK(!chain.empty());
 
@@ -134,9 +134,9 @@ class CastAuthUtilTest : public ::testing::Test {
 
     AuthResponse response;
 
-    response.set_client_auth_certificate(chain[0]);
+    response.set_client_auth_certificate(chain[0].data(), chain[0].size());
     for (size_t i = 1; i < chain.size(); ++i) {
-      response.add_intermediate_certificate(chain[i]);
+      response.add_intermediate_certificate(chain[i].data(), chain[i].size());
     }
 
     response.set_hash_algorithm(digest_algorithm);
@@ -165,6 +165,13 @@ class CastAuthUtilTest : public ::testing::Test {
   // Mangles a vector by inverting the first byte.
   static void MangleData(std::vector<uint8_t>* data) {
     (*data)[0] = ~(*data)[0];
+  }
+
+  X509* ReadTlsCertificate() {
+    std::vector<uint8_t> tls_cert_der = ReadCertificateFromPemFile(
+        data_path_ + "certificates/test_tls_cert.pem");
+    const auto* tls_cert_der_data = tls_cert_der.data();
+    return d2i_X509(nullptr, &tls_cert_der_data, tls_cert_der.size());
   }
 
   const std::string& data_path_{GetSpecificTestDataPath()};
@@ -293,11 +300,7 @@ TEST_F(CastAuthUtilTest, VerifySenderNonceMissing) {
 }
 
 TEST_F(CastAuthUtilTest, VerifyTLSCertificateSuccess) {
-  std::vector<std::string> tls_cert_der = ReadCertificatesFromPemFile(
-      data_path_ + "certificates/test_tls_cert.pem");
-  std::string& der_cert = tls_cert_der[0];
-  const uint8_t* data = (const uint8_t*)der_cert.data();
-  X509* tls_cert = d2i_X509(nullptr, &data, der_cert.size());
+  X509* tls_cert = ReadTlsCertificate();
   DateTime not_before;
   DateTime not_after;
   ASSERT_TRUE(GetCertValidTimeRange(tls_cert, &not_before, &not_after));
@@ -311,11 +314,7 @@ TEST_F(CastAuthUtilTest, VerifyTLSCertificateSuccess) {
 }
 
 TEST_F(CastAuthUtilTest, VerifyTLSCertificateTooEarly) {
-  std::vector<std::string> tls_cert_der = ReadCertificatesFromPemFile(
-      data_path_ + "certificates/test_tls_cert.pem");
-  std::string& der_cert = tls_cert_der[0];
-  const uint8_t* data = (const uint8_t*)der_cert.data();
-  X509* tls_cert = d2i_X509(nullptr, &data, der_cert.size());
+  X509* tls_cert = ReadTlsCertificate();
   DateTime not_before;
   DateTime not_after;
   ASSERT_TRUE(GetCertValidTimeRange(tls_cert, &not_before, &not_after));
@@ -332,11 +331,7 @@ TEST_F(CastAuthUtilTest, VerifyTLSCertificateTooEarly) {
 }
 
 TEST_F(CastAuthUtilTest, VerifyTLSCertificateTooLate) {
-  std::vector<std::string> tls_cert_der = ReadCertificatesFromPemFile(
-      data_path_ + "certificates/test_tls_cert.pem");
-  std::string& der_cert = tls_cert_der[0];
-  const uint8_t* data = (const uint8_t*)der_cert.data();
-  X509* tls_cert = d2i_X509(nullptr, &data, der_cert.size());
+  X509* tls_cert = ReadTlsCertificate();
   DateTime not_before;
   DateTime not_after;
   ASSERT_TRUE(GetCertValidTimeRange(tls_cert, &not_before, &not_after));

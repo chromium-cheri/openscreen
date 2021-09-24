@@ -59,22 +59,22 @@ ErrorOr<GeneratedCredentials> GenerateCredentials(
   DeviceCredentials device_creds;
   device_creds.private_key = std::move(device_key);
 
-  int cert_length = i2d_X509(device_cert.get(), nullptr);
-  std::string cert_serial(cert_length, 0);
-  uint8_t* out = reinterpret_cast<uint8_t*>(&cert_serial[0]);
-  i2d_X509(device_cert.get(), &out);
+  size_t cert_length = i2d_X509(device_cert.get(), nullptr);
+  std::vector<uint8_t> cert_serial(cert_length, 0);
+  auto* cert_serial_out = cert_serial.data();
+  i2d_X509(device_cert.get(), &cert_serial_out);
   device_creds.certs.emplace_back(std::move(cert_serial));
 
   cert_length = i2d_X509(intermediate_cert.get(), nullptr);
   cert_serial.resize(cert_length);
-  out = reinterpret_cast<uint8_t*>(&cert_serial[0]);
-  i2d_X509(intermediate_cert.get(), &out);
+  auto* intermediate_cert_out = cert_serial.data();
+  i2d_X509(intermediate_cert.get(), &intermediate_cert_out);
   device_creds.certs.emplace_back(std::move(cert_serial));
 
   cert_length = i2d_X509(root_cert, nullptr);
   std::vector<uint8_t> trust_anchor_der(cert_length);
-  out = &trust_anchor_der[0];
-  i2d_X509(root_cert, &out);
+  auto* trust_anchor_der_out = trust_anchor_der.data();
+  i2d_X509(root_cert, &trust_anchor_der_out);
 
   // TLS key pair + certificate generation.
   bssl::UniquePtr<EVP_PKEY> tls_key = GenerateRsaKeyPair();
@@ -107,8 +107,8 @@ ErrorOr<GeneratedCredentials> GenerateCredentials(
   cert_length = i2d_X509(tls_cert.get(), nullptr);
   OSP_CHECK_GT(cert_length, 0);
   std::vector<uint8_t> tls_cert_serial(cert_length);
-  out = &tls_cert_serial[0];
-  i2d_X509(tls_cert.get(), &out);
+  auto* tls_cert_serial_out = tls_cert_serial.data();
+  i2d_X509(tls_cert.get(), &tls_cert_serial_out);
 
   auto provider = std::make_unique<StaticCredentialsProvider>(
       std::move(device_creds), tls_cert_serial);

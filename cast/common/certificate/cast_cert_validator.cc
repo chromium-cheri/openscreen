@@ -129,6 +129,7 @@ CastDeviceCertPolicy GetAudioPolicy(const std::vector<X509*>& path) {
 
 }  // namespace
 
+// FIXME: Pass der_certs as std::vector<std::vector<uint8_t>>.
 Error VerifyDeviceCert(const std::vector<std::string>& der_certs,
                        const DateTime& time,
                        std::unique_ptr<CertVerificationContext>* context,
