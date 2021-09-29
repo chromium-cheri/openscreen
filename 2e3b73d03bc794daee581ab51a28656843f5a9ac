@@ -16,6 +16,23 @@
       "message": "PRESUBMIT works locally, not sure what the heck is going on here.",
       "revId": "2e3b73d03bc794daee581ab51a28656843f5a9ac",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98870bff_7fe68a36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-29T17:47:26Z",
+      "side": 1,
+      "message": "Did you try regenerating the configs?\n\n** Presubmit ERRORS **\nlucicfg validate \"infra/config/global/main.star\"\nlucicfg validate infra/config/global/main.star -log-level debug (0.08s) failed\n[P14552 14:15:37.733 generate.go:94 I] Generating configs...\n[P14552 14:15:37.786 meta.go:54 D] Meta config:\n[P14552 14:15:37.786 meta.go:55 D]   config_service_host \u003d \"luci-config.appspot.com\"\n[P14552 14:15:37.786 meta.go:56 D]   config_dir \u003d \"/b/s/w/ir/cache/builder/openscreen_presubmit/openscreen/infra/config/global/generated\"\n[P14552 14:15:37.786 meta.go:57 D]   tracked_files \u003d []\n[P14552 14:15:37.786 meta.go:58 D]   fail_on_warnings \u003d false\n[P14552 14:15:37.786 meta.go:59 D]   lint_checks \u003d [none]\nError: the following files need to be regenerated: luci-milo.cfg, luci-scheduler.cfg.\n  Run `lucicfg generate \"infra/config/global/main.star\"` to update them.",
+      "revId": "2e3b73d03bc794daee581ab51a28656843f5a9ac",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
