@@ -41,6 +41,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a1baf63_5f9f3aee",
+        "filename": "cast/standalone_sender/looping_file_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-30T17:43:16Z",
+      "side": 1,
+      "message": "Not required, see comment here.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/util/osp_logging.h;drc\u003d759af7f402131028b48a107ca33d4b1ee2fdaeb6;l\u003d136",
+      "parentUuid": "0d9f3af1_da379e11",
+      "range": {
+        "startLine": 203,
+        "startChar": 4,
+        "endLine": 203,
+        "endChar": 21
+      },
+      "revId": "5d4931abf6a10e845b01f3751a06332d9cb3d38a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd090da6_b64432fe",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-30T01:36:11Z",
       "side": 1,
       "message": "I think you changed the calculations here rather than just the syntax",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 74
+      },
+      "revId": "5d4931abf6a10e845b01f3751a06332d9cb3d38a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "279a64eb_3ae6d880",
+        "filename": "discovery/mdns/mdns_writer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-09-30T17:43:16Z",
+      "side": 1,
+      "message": "You\u0027re right, but I\u0027m wondering if the previous calculation was correct, since it generates different hashes for the same label by passing a different seed when hashing each label.  I\u0027ll look into this more before landing.",
+      "parentUuid": "fd090da6_b64432fe",
       "range": {
         "startLine": 26,
         "startChar": 4,
