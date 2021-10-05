@@ -144,6 +144,14 @@ cast_core_grpc_library("core_application_service_proto") {
   ]
 }
 
+cast_core_grpc_library("core_message_port_application_service_proto") {
+  sources = [ "v2/core_message_port_application_service.proto" ]
+  deps = [
+    ":api_bindings_proto",
+    ":message_channel_proto",
+  ]
+}
+
 cast_core_grpc_library("runtime_application_service_proto") {
   sources = [ "v2/runtime_application_service.proto" ]
   deps = [
