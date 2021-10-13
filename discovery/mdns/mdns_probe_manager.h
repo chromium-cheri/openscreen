@@ -63,12 +63,14 @@ class MdnsProbeManagerImpl : public MdnsProbe::Observer,
                        MdnsRandom* random_delay,
                        TaskRunner* task_runner,
                        ClockNowFunctionPtr now_function);
-  MdnsProbeManagerImpl(const MdnsProbeManager& other) = delete;  // NOLINT
-  MdnsProbeManagerImpl(MdnsProbeManager&& other) = delete;       // NOLINT
+  MdnsProbeManagerImpl(const MdnsProbeManagerImpl& other) = delete;  // NOLINT
+  MdnsProbeManagerImpl(MdnsProbeManagerImpl&& other) noexcept =
+      delete;  // NOLINT
   ~MdnsProbeManagerImpl() override;
 
   MdnsProbeManagerImpl& operator=(const MdnsProbeManagerImpl& other) = delete;
-  MdnsProbeManagerImpl& operator=(MdnsProbeManagerImpl&& other) = delete;
+  MdnsProbeManagerImpl& operator=(MdnsProbeManagerImpl&& other) noexcept =
+      delete;
 
   // Starts probing for a valid domain name based on the given one. This may
   // only be called once per MdnsProbe instance. |observer| must persist until
