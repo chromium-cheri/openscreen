@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96566d91_ede9d0f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-10-14T20:14:55Z",
+      "side": 1,
+      "message": "There are three things to fix here before landing\n\n1. Mac compiler errors, this is because I need to move a brace in BUILD.gn to exclude all of the flags that XCode clang doesn\u0027t know about yet.  The long term fix is to convert Mac builds to the same clang version as Linux (I filed an issue for this).\n\n2. arm32 errors, this is because absl compilation on arm triggers a codepath with a lossy int\u003d\u003efloat conversion.  Can work around through a BUILD change.\n\n3. gcc errors on bots, this is the most mysterious as I am not touching any code that should cause these.  It is complaining about missing noexcept declarations when tests insantiate StrictMocks.  I also can\u0027t repro this with local gcc builds so it will be tricky to debug.  Worst case I will land a pragma workaround.  If gcc continues to be bothersome for our library may have to dig deeper on how/whether we can continue to support gcc builds.\n\n",
+      "revId": "095f63b5a87710e8524156ad75c05f744e89c170",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}
