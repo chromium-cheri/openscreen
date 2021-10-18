@@ -5,6 +5,12 @@
 import("//build_overrides/build.gni")
 import("osp/build/config/services.gni")
 
+config("warnings") {
+  if (is_clang) {
+    cflags = [ "-Wno-shadow" ]
+  }
+}
+
 # All compilable non-test targets in the repository (both executables and
 # source_sets).
 group("gn_all") {
@@ -61,6 +67,8 @@ group("gn_all") {
       deps += [ "cast/cast_core/api" ]
     }
   }
+
+  configs += [ ":warnings" ]
 }
 
 source_set("openscreen_unittests_all") {
