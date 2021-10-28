@@ -26,7 +26,8 @@ MirroringApplication::MirroringApplication(TaskRunner* task_runner,
                                            ApplicationAgent* agent)
     : task_runner_(task_runner),
       interface_address_(interface_address),
-      app_ids_(GetCastStreamingAppIds()),
+      app_ids_(GetCastStreamingAppIds().begin(),
+               GetCastStreamingAppIds().end()),
       agent_(agent) {
   OSP_DCHECK(task_runner_);
   OSP_DCHECK(agent_);
