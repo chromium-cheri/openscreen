@@ -24,15 +24,38 @@ TEST(CastStreamingAppIdsTest, Test) {
   EXPECT_TRUE(IsCastStreamingAudioOnlyAppId("85CDB22F"));
   EXPECT_FALSE(IsCastStreamingAudioOnlyAppId("DEADBEEF"));
 
-  std::vector<std::string> app_ids(GetCastStreamingAppIds());
-  EXPECT_EQ(static_cast<size_t>(2), app_ids.size());
-  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(), "0F5096E8") !=
-              app_ids.end());
-  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(), "85CDB22F") !=
-              app_ids.end());
+  auto app_ids = GetCastStreamingAppIds();
+  EXPECT_EQ(static_cast<size_t>(6), app_ids.size());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(),
+                        kChromeMirroringAppId) != app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(),
+                        kChromeAudioMirroringAppId) != app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(),
+                        kAndroidMirroringAppId) != app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(),
+                        kAndroidAudioMirroringAppId) != app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(),
+                        kAndroidAppMirroringAppId) != app_ids.end());
+  EXPECT_TRUE(std::find(app_ids.begin(), app_ids.end(),
+                        kIosAppMirroringAppId) != app_ids.end());
 
-  EXPECT_STREQ("0F5096E8", GetCastStreamingAudioVideoAppId());
-  EXPECT_STREQ("85CDB22F", GetCastStreamingAudioOnlyAppId());
+  auto av_app_ids = GetCastStreamingAudioVideoAppIds();
+  EXPECT_EQ(static_cast<size_t>(4), av_app_ids.size());
+  EXPECT_TRUE(std::find(av_app_ids.begin(), av_app_ids.end(),
+                        kChromeMirroringAppId) != av_app_ids.end());
+  EXPECT_TRUE(std::find(av_app_ids.begin(), av_app_ids.end(),
+                        kAndroidMirroringAppId) != av_app_ids.end());
+  EXPECT_TRUE(std::find(av_app_ids.begin(), av_app_ids.end(),
+                        kAndroidAppMirroringAppId) != av_app_ids.end());
+  EXPECT_TRUE(std::find(av_app_ids.begin(), av_app_ids.end(),
+                        kIosAppMirroringAppId) != av_app_ids.end());
+
+  auto audio_app_ids = GetCastStreamingAudioOnlyAppIds();
+  EXPECT_EQ(static_cast<size_t>(2), audio_app_ids.size());
+  EXPECT_TRUE(std::find(audio_app_ids.begin(), audio_app_ids.end(),
+                        kChromeAudioMirroringAppId) != audio_app_ids.end());
+  EXPECT_TRUE(std::find(audio_app_ids.begin(), audio_app_ids.end(),
+                        kAndroidAudioMirroringAppId) != audio_app_ids.end());
 }
 
 }  // namespace cast

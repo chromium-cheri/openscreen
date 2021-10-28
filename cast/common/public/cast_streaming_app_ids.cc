@@ -4,6 +4,8 @@
 
 #include "cast/common/public/cast_streaming_app_ids.h"
 
+#include "util/std_util.h"
+
 namespace openscreen {
 namespace cast {
 
@@ -13,16 +15,11 @@ bool IsCastStreamingAppId(const std::string& app_id) {
 }
 
 bool IsCastStreamingAudioVideoAppId(const std::string& app_id) {
-  return app_id == GetCastStreamingAudioVideoAppId();
+  return Contains(GetCastStreamingAudioVideoAppIds(), app_id);
 }
 
 bool IsCastStreamingAudioOnlyAppId(const std::string& app_id) {
-  return app_id == GetCastStreamingAudioOnlyAppId();
-}
-
-std::vector<std::string> GetCastStreamingAppIds() {
-  return std::vector<std::string>(
-      {GetCastStreamingAudioVideoAppId(), GetCastStreamingAudioOnlyAppId()});
+  return Contains(GetCastStreamingAudioOnlyAppIds(), app_id);
 }
 
 }  // namespace cast

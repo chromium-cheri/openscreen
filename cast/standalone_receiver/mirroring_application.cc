@@ -17,6 +17,14 @@
 
 namespace openscreen {
 namespace cast {
+namespace {
+
+template <typename T>
+std::vector<std::string> ToVector(T array) {
+  return std::vector<std::string>(array.begin(), array.end());
+}
+
+}  // namespace
 
 const char kMirroringDisplayName[] = "Chrome Mirroring";
 const char kRemotingRpcNamespace[] = "urn:x-cast:com.google.cast.remoting";
@@ -26,7 +34,7 @@ MirroringApplication::MirroringApplication(TaskRunner* task_runner,
                                            ApplicationAgent* agent)
     : task_runner_(task_runner),
       interface_address_(interface_address),
-      app_ids_(GetCastStreamingAppIds()),
+      app_ids_(ToVector(GetCastStreamingAppIds())),
       agent_(agent) {
   OSP_DCHECK(task_runner_);
   OSP_DCHECK(agent_);

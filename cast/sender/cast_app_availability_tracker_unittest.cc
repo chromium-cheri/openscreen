@@ -57,33 +57,34 @@ TEST_F(CastAppAvailabilityTrackerTest, RegisterSource) {
 }
 
 TEST_F(CastAppAvailabilityTrackerTest, RegisterSourceReturnsMultipleAppIds) {
+  auto app_id_array = GetCastStreamingAppIds();
+  std::vector<std::string> app_ids(app_id_array.begin(), app_id_array.end());
   // Cast Streaming app ids.
-  CastMediaSource source1("urn:x-org.chromium.media:source:tab:1",
-                          GetCastStreamingAppIds());
+  CastMediaSource source1("urn:x-org.chromium.media:source:tab:1", app_ids);
 
-  std::vector<std::string> expected_app_ids = GetCastStreamingAppIds();
   EXPECT_THAT(tracker_.RegisterSource(source1),
-              UnorderedElementsAreArray(expected_app_ids));
-  EXPECT_THAT(tracker_.GetRegisteredApps(),
-              UnorderedElementsAreArray(expected_app_ids));
+              UnorderedElementsAreArray(app_ids));
+  EXPECT_THAT(tracker_.GetRegisteredApps(), UnorderedElementsAreArray(app_ids));
 }
 
 TEST_F(CastAppAvailabilityTrackerTest, MultipleAppIdsAlreadyTrackingOne) {
-  // Cast Streaming audio+video app ID.
-  CastMediaSource source1("cast:0F5096E8?clientId=123",
-                          {GetCastStreamingAudioVideoAppId()});
+  auto app_id_array = GetCastStreamingAudioOnlyAppIds();
+  auto single_app_id = kChromeAudioMirroringAppId;
+  std::vector<std::string> all_app_ids(app_id_array.begin(),
+                                       app_id_array.end());
 
-  std::vector<std::string> new_app_ids = {GetCastStreamingAudioVideoAppId()};
-  std::vector<std::string> registered_app_ids = {
-      GetCastStreamingAudioVideoAppId()};
+  // Cast Streaming audio+video app ID.
+  CastMediaSource source1("cast:0F5096E8?clientId=123", {single_app_id});
+
+  std::vector<std::string> new_app_ids = {single_app_id};
+  std::vector<std::string> registered_app_ids = {single_app_id};
   EXPECT_EQ(new_app_ids, tracker_.RegisterSource(source1));
   EXPECT_EQ(registered_app_ids, tracker_.GetRegisteredApps());
 
-  CastMediaSource source2("urn:x-org.chromium.media:source:tab:1",
-                          GetCastStreamingAppIds());
+  CastMediaSource source2("urn:x-org.chromium.media:source:tab:1", all_app_ids);
 
-  new_app_ids = {GetCastStreamingAudioOnlyAppId()};
-  registered_app_ids = GetCastStreamingAppIds();
+  new_app_ids = {kAndroidAudioMirroringAppId};
+  registered_app_ids = all_app_ids;
 
   EXPECT_EQ(new_app_ids, tracker_.RegisterSource(source2));
   EXPECT_THAT(tracker_.GetRegisteredApps(),
