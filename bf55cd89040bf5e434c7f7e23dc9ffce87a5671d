@@ -16,6 +16,91 @@
       "message": "Buildbot failures due to b/204458305 but the files build and tests pass locally",
       "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c80a1b2_8c28a2af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-10-28T21:46:44Z",
+      "side": 1,
+      "message": "Do you have a patch that shows what code is consuming these new app IDs?  Some of the IDs are not used by Chrome.  Embedders should be able to opt into what sets of IDs they recognize.",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8089ab3_3b820851",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-10-28T21:46:44Z",
+      "side": 1,
+      "message": "The app IDs themselves should be in an anonymous namespace.",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9943992_601a8ca9",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-10-28T21:46:44Z",
+      "side": 1,
+      "message": "This should remain a vector as the size may change over time, and to avoid extra copies/conversions by callers.  (Same comment applies below.)",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aaf2d64_73196c16",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-10-28T21:46:44Z",
+      "side": 1,
+      "message": "These APIs are used downstream by Chrome so you need to introduce new APIs and migrate.",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d83973_aa0b675f",
+        "filename": "cast/common/public/cast_streaming_app_ids_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2021-10-28T21:46:44Z",
+      "side": 1,
+      "message": "Prefer Contains() from stl_util.h",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }
