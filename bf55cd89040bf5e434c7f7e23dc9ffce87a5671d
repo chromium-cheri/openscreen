@@ -37,6 +37,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8d50d36_a3798fe4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-10-28T22:09:41Z",
+      "side": 1,
+      "message": "\u003e Do you have a patch that shows what code is consuming these new app IDs\n\nThis will be used to replace the functionality here: go/use-of-cast-app-ids\nand has called out in b/204372019\n\n\u003e Embedders should be able to opt into what sets of IDs they recognize\n\nPer below comment I will need to leave the app ids exposed. Is that sufficient to allow embedders to choose?",
+      "parentUuid": "9c80a1b2_8c28a2af",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6a729aa_b726e02d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-10-28T22:09:41Z",
+      "side": 1,
+      "message": "Wanted to clarify regarding exposing app ids as constants before updating any code",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8089ab3_3b820851",
         "filename": "cast/common/public/cast_streaming_app_ids.h",
         "patchSetId": 2
@@ -48,6 +83,24 @@
       "writtenOn": "2021-10-28T21:46:44Z",
       "side": 1,
       "message": "The app IDs themselves should be in an anonymous namespace.",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8650c102_1ab37536",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-10-28T22:09:41Z",
+      "side": 1,
+      "message": "kIosAppMirroringAppId will need to be used directly for b/204372019 - behavior for this app specifically will need to be changed. So IMO if one is exposed we should expose them all for consistency\n\nWDYT?",
+      "parentUuid": "f8089ab3_3b820851",
       "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -82,6 +135,24 @@
       "writtenOn": "2021-10-28T21:46:44Z",
       "side": 1,
       "message": "These APIs are used downstream by Chrome so you need to introduce new APIs and migrate.",
+      "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2927e21_47d71b7d",
+        "filename": "cast/common/public/cast_streaming_app_ids.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1330244
+      },
+      "writtenOn": "2021-10-28T22:09:41Z",
+      "side": 1,
+      "message": "If we are exposing the app ids per above comments, can I just update those places the function is used to directly reference these constants?\n\nI agree it will break the autoroller, but IMO the names of these functions should be renamed regardless if there is now more than one ID - so I would need to manually update the CL for the autoroller to function",
+      "parentUuid": "1aaf2d64_73196c16",
       "revId": "bf55cd89040bf5e434c7f7e23dc9ffce87a5671d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
