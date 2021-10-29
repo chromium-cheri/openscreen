@@ -170,7 +170,7 @@ hooks = [
     'name': 'clang_update_script',
     'pattern': '.',
     'condition': 'not build_with_chromium',
-    'action': [ 'python', 'tools/download-clang-update-script.py',
+    'action': [ 'tools/download-clang-update-script.py',
                 '--output', 'tools/clang/scripts/update.py' ],
     # NOTE: This file appears in .gitignore, as it is not a part of the
     # openscreen repo.
@@ -179,19 +179,19 @@ hooks = [
     'name': 'yajsv_update_script',
     'pattern': '.',
     'condition': 'not build_with_chromium',
-    'action': [ 'python', 'tools/download-yajsv.py' ],
+    'action': [ 'tools/download-yajsv.py' ],
   },
   {
     'name': 'update_clang',
     'pattern': '.',
     'condition': 'not build_with_chromium',
-    'action': [ 'python3', 'tools/clang/scripts/update.py' ],
+    'action': [ 'tools/clang/scripts/update.py' ],
   },
   {
     'name': 'clang_coverage_tools',
     'pattern': '.',
     'condition': 'not build_with_chromium and checkout_clang_coverage_tools',
-    'action': ['python3', 'tools/clang/scripts/update.py',
+    'action': ['tools/clang/scripts/update.py',
                '--package=coverage_tools'],
   },
   {
