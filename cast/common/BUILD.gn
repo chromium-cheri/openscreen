@@ -17,11 +17,8 @@ if (!build_with_chromium) {
 config("certificate_config") {
   defines = []
 
-  # TODO(jophba): remove once arg is in Chrome.
-  if (!build_with_chromium) {
-    if (cast_allow_developer_certificate) {
-      defines += [ "CAST_ALLOW_DEVELOPER_CERTIFICATE" ]
-    }
+  if (cast_allow_developer_certificate) {
+    defines += [ "CAST_ALLOW_DEVELOPER_CERTIFICATE" ]
   }
 }
 
